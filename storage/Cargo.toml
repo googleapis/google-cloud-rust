@@ -1,0 +1,17 @@
+[package]
+name = "google-cloud-storage"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = {version = "0.11", features = ["json", "multipart"] }
+serde = {version="1.0", features = ["derive"]}
+serde_json = "1.0"
+google-cloud-auth = { path = "../auth" }
+bytes = "1.1"
+tokio = { version = "1.12" }
+http = "0.2"
+
+[dev-dependencies]
+tokio = { version = "1.12", features = ["full", "macros"] }
+http = { version = "0.2"}
