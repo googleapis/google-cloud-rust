@@ -1,0 +1,24 @@
+[package]
+name = "google-cloud-auth"
+version = "0.1.0"
+authors = ["Google LLC"]
+description = "An auth library for Cloud Google APIs."
+license = "Apache-2.0"
+repository = "https://github.com/googleapis/google-cloud-rust/tree/main/auth"
+keywords = ["auth", "google", "google-cloud"]
+categories = ["authentication", "web-programming"]
+edition = "2021"
+
+[dependencies]
+base64 = "0.13"
+chrono = { version = "0.4", features = ["serde"] }
+reqwest = {version = "0.11", features = ["json"] }
+rustls = "0.20"
+rustls-pemfile = "0.2"
+serde = {version="1", features = ["derive"]}
+serde_json = "1"
+thiserror = "1"
+tokio = { version = "1.12", features = ["full", "macros"] }
+async-trait = "0.1"
+http = "0.2"
+backoff = {version="0.4", features = ["tokio"]}

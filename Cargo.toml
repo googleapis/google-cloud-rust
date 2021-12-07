@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "auth",
+    "discovery-generator",
+    "storage"
+]
