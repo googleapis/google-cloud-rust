@@ -1,5 +1,6 @@
 [workspace]
 
 members = [
-    "auth"
+    "auth",
+    "discovery-generator",
 ]
