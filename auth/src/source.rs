@@ -2,7 +2,7 @@
 
 use super::metadata;
 use crate::oauth2::{JwsClaims, JwsHeader};
-use crate::{Error, Result, Token};
+use crate::{AccessToken, Error, Result};
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
 use rustls::sign::Signer;
@@ -21,10 +21,10 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
 const DEFAULT_OAUTH_GRANT: &str = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const DEFAULT_USER_GRANT: &str = "refresh_token";
 
-/// An producer of a [Token].
+/// An producer of a [AccessToken].
 #[async_trait]
 pub trait Source {
-    async fn token(&self) -> Result<Token>;
+    async fn token(&self) -> Result<AccessToken>;
 }
 
 /// Options for building a [ServiceAccountKeySource].
@@ -93,7 +93,7 @@ impl ServiceAccountKeySource {
         }
     }
 
-    async fn _access_token(&self) -> Result<Token> {
+    async fn _access_token(&self) -> Result<AccessToken> {
         let signer = self.signer()?;
         let payload = self.payload(signer)?;
         let client = reqwest::Client::new();
@@ -117,7 +117,7 @@ impl ServiceAccountKeySource {
             .await
             .map_err(|_| Error::Other("unable to decode response".into()))?;
 
-        Ok(Token {
+        Ok(AccessToken {
             value: token_response.access_token,
             expires: Some(Utc::now() + Duration::seconds(token_response.expires_in)),
         })
@@ -164,7 +164,7 @@ impl ServiceAccountKeySource {
 
 #[async_trait]
 impl Source for ServiceAccountKeySource {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<AccessToken> {
         self._access_token().await
     }
 }
@@ -250,7 +250,7 @@ impl UserSource {
             scopes: Vec::new(),
         }
     }
-    async fn _access_token(&self) -> Result<Token> {
+    async fn _access_token(&self) -> Result<AccessToken> {
         let client = reqwest::Client::new();
         let res = client
             .post("https://oauth2.googleapis.com/token")
@@ -274,7 +274,7 @@ impl UserSource {
             .json()
             .await
             .map_err(|_| Error::Other("unable to decode response".into()))?;
-        Ok(Token {
+        Ok(AccessToken {
             value: token_response.access_token,
             expires: Some(Utc::now() + Duration::seconds(token_response.expires_in)),
         })
@@ -283,7 +283,7 @@ impl UserSource {
 
 #[async_trait]
 impl Source for UserSource {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<AccessToken> {
         self._access_token().await
     }
 }
@@ -324,11 +324,11 @@ impl ComputeSource {
         ComputeSourceBuilder { scopes: Vec::new() }
     }
 
-    async fn _access_token(&self) -> Result<Token> {
+    async fn _access_token(&self) -> Result<AccessToken> {
         let token = metadata::access_token(None, self.scopes.clone())
             .await
             .map_err(|e| Error::Other(e.to_string()))?;
-        Ok(Token {
+        Ok(AccessToken {
             value: token.access_token,
             expires: Some(Utc::now() + Duration::seconds(token.expires_in)),
         })
@@ -337,7 +337,7 @@ impl ComputeSource {
 
 #[async_trait]
 impl Source for ComputeSource {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<AccessToken> {
         self._access_token().await
     }
 }
@@ -347,24 +347,24 @@ pub(crate) struct NoOpSource {}
 
 #[async_trait]
 impl Source for NoOpSource {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<AccessToken> {
         Err(Error::Other(
             "use Credential.find_default to find a credential from the env".into(),
         ))
     }
 }
 
-/// This type is meant to wrap another [Source] and keep returning the same [Token]
+/// This type is meant to wrap another [Source] and keep returning the same [AccessToken]
 // as long as it is valid.
 pub(crate) struct RefresherSource {
-    pub(crate) current_token: Arc<Mutex<Token>>,
+    pub(crate) current_token: Arc<Mutex<AccessToken>>,
     pub(crate) source: Box<dyn Source + Send + Sync>,
 }
 
 impl Default for RefresherSource {
     fn default() -> Self {
         Self {
-            current_token: Arc::new(Mutex::new(Token {
+            current_token: Arc::new(Mutex::new(AccessToken {
                 value: String::new(),
                 expires: None,
             })),
@@ -375,7 +375,7 @@ impl Default for RefresherSource {
 
 #[async_trait]
 impl Source for RefresherSource {
-    async fn token(&self) -> Result<Token> {
+    async fn token(&self) -> Result<AccessToken> {
         let mut cur_token = self.current_token.lock().await;
         if cur_token.is_valid() {
             return Ok(cur_token.clone());
@@ -413,9 +413,9 @@ mod tests {
 
     #[async_trait]
     impl Source for FakeSource {
-        async fn token(&self) -> Result<Token> {
+        async fn token(&self) -> Result<AccessToken> {
             let count = self.counter.fetch_add(1, Ordering::SeqCst);
-            Ok(Token {
+            Ok(AccessToken {
                 value: format!("token-{}", count),
                 expires: Some(self.static_time),
             })
@@ -426,7 +426,7 @@ mod tests {
     #[test]
     async fn test_refresher_returns_same_value() {
         let it = RefresherSource {
-            current_token: Arc::new(Mutex::new(Token {
+            current_token: Arc::new(Mutex::new(AccessToken {
                 value: String::new(),
                 expires: None,
             })),
@@ -444,7 +444,7 @@ mod tests {
     #[test]
     async fn test_refresher_returns_new_value() {
         let it = RefresherSource {
-            current_token: Arc::new(Mutex::new(Token {
+            current_token: Arc::new(Mutex::new(AccessToken {
                 value: String::new(),
                 expires: None,
             })),

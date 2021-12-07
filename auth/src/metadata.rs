@@ -100,7 +100,7 @@ pub struct Token {
     pub expires_in: i64,
 }
 
-/// Fetches a [Token] from the metadata service with the provided scopes. If an
+/// Fetches a [AccessToken] from the metadata service with the provided scopes. If an
 /// account is not provided the value will be set to `default`.
 pub async fn access_token(account: Option<&str>, scopes: Vec<String>) -> Result<Token> {
     if scopes.is_empty() {

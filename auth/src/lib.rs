@@ -31,10 +31,10 @@ pub enum Error {
 
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// Token holds a token value that can be used in Authorization headers to
+/// AccessToken holds a token value that can be used in Authorization headers to
 /// authenticate with Google Cloud APIs. If the token
 #[derive(Clone)]
-pub struct Token {
+pub struct AccessToken {
     /// The actual token.
     pub value: String,
     // TODO(codyoss): Token leaks chrono lib, should we have our own type or is this okay...
@@ -43,7 +43,7 @@ pub struct Token {
     pub expires: Option<DateTime<Utc>>,
 }
 
-impl Token {
+impl AccessToken {
     pub(crate) fn is_valid(&self) -> bool {
         if let Some(expires) = self.expires {
             let now = Utc::now();
@@ -62,12 +62,12 @@ impl Token {
 // TODO(codyoss): is vec the right type
 // TODO(codyoss): scopes maybe should be optional
 pub struct CredentialConfig {
-    /// The scopes that the minted [Token] should have.
+    /// The scopes that the minted [AccessToken] should have.
     // TODO(codyoss): This should be optional.
     pub scopes: Vec<String>,
 }
 
-/// A [Token] producer that is automatically refreshed and can be shared across
+/// A [AccessToken] producer that is automatically refreshed and can be shared across
 /// threads.
 pub struct Credential {
     source: Box<dyn Source + Send + Sync + 'static>,
@@ -87,13 +87,13 @@ impl Default for Credential {
 }
 
 impl Credential {
-    /// Fetches a [Token] based on environment and/or configuration settings.
-    pub async fn token(&self) -> Result<Token> {
+    /// Fetches a [AccessToken] based on environment and/or configuration settings.
+    pub async fn access_token(&self) -> Result<AccessToken> {
         self.source.token().await
     }
 
     /// Creates a Credential that uses [Application Default Credentials](https://google.aip.dev/auth/4110)
-    /// to figure out how a to produce a [Token].
+    /// to figure out how a to produce a [AccessToken].
     // TODO(codyoss): maybe make this take a builder?
     pub async fn find_default(config: CredentialConfig) -> Result<Credential> {
         let base_source = Credential::base_source(config).await?;
@@ -207,8 +207,8 @@ mod tests {
         })
         .await
         .unwrap();
-        let tok1 = cred.token().await.unwrap();
-        let tok2 = cred.token().await.unwrap();
+        let tok1 = cred.access_token().await.unwrap();
+        let tok2 = cred.access_token().await.unwrap();
         assert_eq!(tok1.value, tok2.value)
     }
 }
