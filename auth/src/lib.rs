@@ -1,3 +1,17 @@
+// Copyright 2021 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 //! The `google-cloud-auth` crate provides a convenient way of fetch credentials
 //! from various environments. This process is of finding credentials from the
 //! environment is called [Application Default Credentials](https://google.aip.dev/auth/4110).
@@ -6,7 +20,7 @@ use chrono::Utc;
 use chrono::{DateTime, Duration};
 use serde::Deserialize;
 use source::*;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 mod metadata;
 mod oauth2;
@@ -44,7 +58,7 @@ pub struct AccessToken {
 }
 
 impl AccessToken {
-    pub(crate) fn is_valid(&self) -> bool {
+    pub(crate) fn needs_refresh(&self) -> bool {
         if let Some(expires) = self.expires {
             let now = Utc::now();
             // Avoid clock skew with 10 second diff of now.
@@ -58,9 +72,6 @@ impl AccessToken {
 
 /// Configuration for various authentication flows.
 // TODO(codyoss): make non-exhaustive
-// TODO(codyoss): make a builder for this?
-// TODO(codyoss): is vec the right type
-// TODO(codyoss): scopes maybe should be optional
 pub struct CredentialConfig {
     /// The scopes that the minted [AccessToken] should have.
     // TODO(codyoss): This should be optional.
@@ -112,16 +123,14 @@ impl Credential {
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         // 1: Known environment variable.
         if let Ok(file_name) = std::env::var(GOOGLE_APPLICATION_CREDENTIALS) {
-            let source = Credential::file_source(file_name, config)?;
+            let source = Credential::file_source(file_name.into(), config)?;
             return Ok(source);
         }
         // 2: Well-known file.
         if let Ok(path) = Credential::well_known_file() {
             if path.exists() {
-                if let Some(file_name) = path.to_str() {
-                    let source = Credential::file_source(file_name.into(), config)?;
-                    return Ok(source);
-                }
+                let source = Credential::file_source(path, config)?;
+                return Ok(source);
             }
         }
         // 3: Check if in an environment with on Google Cloud
@@ -137,7 +146,7 @@ impl Credential {
     /// Creates a source from a file type credential such as a Service Account
     /// Key file or a gcloud user credential.
     fn file_source(
-        file_path: String,
+        file_path: PathBuf,
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         let contents = std::fs::read(file_path)?;
