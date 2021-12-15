@@ -20,7 +20,7 @@ use chrono::Utc;
 use chrono::{DateTime, Duration};
 use serde::Deserialize;
 use source::*;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 mod metadata;
 mod oauth2;
@@ -134,7 +134,7 @@ impl Credential {
             }
         }
         // 3: Check if in an environment with on Google Cloud
-        if metadata::on_gce().await {
+        if metadata::is_running_on_gce().await {
             let source = ComputeSource::builder().scopes(config.scopes).build()?;
             let source = Box::new(source);
             return Ok(source);
@@ -178,17 +178,15 @@ impl Credential {
     fn well_known_file() -> Result<PathBuf> {
         let mut path = PathBuf::new();
         if cfg!(windows) {
-            if let Ok(appdata) = std::env::var(WINDOWS_APPDATA) {
-                path.push(appdata);
-            } else {
-                return Err(Error::Other("unable to find APPDATA".into()));
-            }
+            let appdata = std::env::var(WINDOWS_APPDATA)
+                .map_err(|_| Error::Other("unable to find APPDATA".into()))?;
+            path.push(appdata);
             path.push("gcloud");
-        } else if let Ok(home) = std::env::var(UNIX_HOME) {
+        } else {
+            let home = std::env::var(UNIX_HOME)
+                .map_err(|_| Error::Other("unable to lookup HOME".into()))?;
             path.push(home);
             path.push(".config");
-        } else {
-            return Err(Error::Other("unable to lookup HOME".into()));
         }
 
         path.push("gcloud");

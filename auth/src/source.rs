@@ -339,7 +339,7 @@ impl ComputeSource {
     }
 
     async fn _access_token(&self) -> Result<AccessToken> {
-        let token = metadata::access_token(None, self.scopes.clone())
+        let token = metadata::fetch_access_token(None, self.scopes.clone())
             .await
             .map_err(|e| Error::Other(e.to_string()))?;
         Ok(AccessToken {

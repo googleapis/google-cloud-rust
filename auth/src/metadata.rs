@@ -25,22 +25,12 @@ use super::{Error, Result};
 // TODO(codyoss): Instead of vecs things could be slices... don't need ownership
 // TODO(codyoss): funcs could take &str or impl Into<String>?
 
-/// A wrapper around a HTTP client used to talk to a Google Cloud metadata service.
-struct MetadataClient {
-    c: Client,
-    // TODO(codyoss): could include a cache here
-}
-
-impl MetadataClient {
-    /// Create a new Metadata client with the proper headers required to talk to
-    /// the Google Cloud metadata service.
-    fn new() -> Self {
-        let mut headers = HeaderMap::with_capacity(2);
-        headers.insert("Metadata-Flavor", "Google".parse().unwrap());
-        headers.insert("User-Agent", "gcloud-rust/0.1".parse().unwrap());
-        let client = Client::builder().default_headers(headers).build().unwrap();
-        Self { c: client }
-    }
+// TODO: Create a wrapper for reuse that cachces useful values.
+fn new_metadata_client() -> Client {
+    let mut headers = HeaderMap::with_capacity(2);
+    headers.insert("Metadata-Flavor", "Google".parse().unwrap());
+    headers.insert("User-Agent", "gcloud-rust/0.1".parse().unwrap());
+    Client::builder().default_headers(headers).build().unwrap()
 }
 
 /// Makes a request to the supplied metadata endpoint.
@@ -49,7 +39,6 @@ impl MetadataClient {
 /// let project_id = get("project/project-id")?;
 /// println!("{}", project_id);
 /// ```
-// TODO(codyoss): I wonder if this should be a pathbuf
 #[allow(dead_code)]
 pub async fn get(suffix: String) -> Result<String> {
     get_with_query::<()>(suffix, None).await
@@ -65,7 +54,7 @@ async fn get_with_query<T: Serialize + ?Sized>(
     let url = format!("http://{}/computeMetadata/v1/{}", host, suffix);
 
     // TODO(codyoss): retry
-    let req = MetadataClient::new().c.get(url);
+    let req = new_metadata_client().get(url);
     let req = if let Some(query) = query {
         req.query(query)
     } else {
@@ -84,15 +73,19 @@ async fn get_with_query<T: Serialize + ?Sized>(
 
 /// Checks the environment to determine if code is executing in a Google Cloud
 /// environment.
-pub async fn on_gce() -> bool {
+pub async fn is_running_on_gce() -> bool {
+    // If a user explicitly provides envvar to talk to the metadata service we
+    // trust them.
     if std::env::var("GCE_METADATA_HOST").is_ok() {
         return true;
     }
-    let client = MetadataClient::new();
-    let res1 = client.c.get("http://169.254.169.254").send();
+    let client = new_metadata_client();
+    let res1 = client.get("http://169.254.169.254").send();
     let res2 = tokio::net::TcpListener::bind(("metadata.google.internal", 0));
 
-    // TODO(codyoss): checks could validate something instead of just a ping
+    // Race pinging the metadata service by IP and DNS. Depending on the
+    // environment different requests return faster. In the future we should
+    // check for more envvars.
     let check = tokio::select! {
         _ = time::sleep(Duration::from_secs(5)) => false,
         _ = res1 => true,
@@ -116,11 +109,11 @@ pub struct Token {
 
 /// Fetches a [AccessToken] from the metadata service with the provided scopes. If an
 /// account is not provided the value will be set to `default`.
-pub async fn access_token(account: Option<&str>, scopes: Vec<String>) -> Result<Token> {
+pub async fn fetch_access_token(account: Option<&str>, scopes: Vec<String>) -> Result<Token> {
     if scopes.is_empty() {
         return Err(Error::Other("scopes must be provided".into()));
     }
-    if !on_gce().await {
+    if !is_running_on_gce().await {
         return Err(Error::Other(
             "can't get token from metadata service, not running on GCE".into(),
         ));
