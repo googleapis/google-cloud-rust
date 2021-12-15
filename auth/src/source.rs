@@ -23,7 +23,7 @@ use rustls::sign::Signer;
 use rustls::sign::SigningKey;
 use rustls_pemfile::Item;
 use serde::{Deserialize, Serialize};
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
@@ -41,35 +41,9 @@ pub trait Source {
     async fn token(&self) -> Result<AccessToken>;
 }
 
-/// Options for building a [ServiceAccountKeySource].
-pub struct ServiceAccountKeySourceBuilder<'a> {
-    file_path: Option<PathBuf>,
-    contents: Option<&'a [u8]>,
-
-    scopes: Vec<String>,
-}
-
-impl ServiceAccountKeySourceBuilder<'_> {
-    pub fn scopes(mut self, scopes: Vec<String>) -> Self {
-        self.scopes.extend(scopes);
-        self
-    }
-    pub fn build(self) -> Result<ServiceAccountKeySource> {
-        let sa: ServiceAccountKeyFile = if let Some(contents) = self.contents {
-            serde_json::from_slice(contents)?
-        } else if let Some(file_path) = self.file_path {
-            serde_json::from_slice(&std::fs::read(file_path)?)?
-        } else {
-            return Err(Error::Other("".into()));
-        };
-        if self.scopes.is_empty() {
-            return Err(Error::Other("".into()));
-        }
-        Ok(ServiceAccountKeySource {
-            file: sa,
-            scopes: self.scopes,
-        })
-    }
+/// Configuration for building a [ServiceAccountKeySource].
+pub struct ServiceAccountKeySourceConfig {
+    pub scopes: Vec<String>,
 }
 
 /// A [Source] derived from a Service Account Key.
@@ -78,7 +52,8 @@ pub struct ServiceAccountKeySource {
     scopes: Vec<String>,
 }
 
-/// A representation of a Service Account File.
+/// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
+/// for more details.
 #[derive(Deserialize)]
 struct ServiceAccountKeyFile {
     #[serde(rename = "type")]
@@ -92,24 +67,40 @@ struct ServiceAccountKeyFile {
 }
 
 impl ServiceAccountKeySource {
-    pub fn from_file(path: impl AsRef<Path>) -> ServiceAccountKeySourceBuilder<'static> {
-        ServiceAccountKeySourceBuilder {
-            file_path: Some(path.as_ref().to_owned()),
-            contents: None,
-            scopes: Vec::new(),
+    /// Create a [ServiceAccountKeySource] from a file path.
+    pub async fn from_file(
+        path: impl AsRef<Path>,
+        config: ServiceAccountKeySourceConfig,
+    ) -> Result<Self> {
+        if config.scopes.is_empty() {
+            return Err(Error::Other("scopes must be provided".into()));
         }
-    }
-    pub fn from_file_contents(contents: &[u8]) -> ServiceAccountKeySourceBuilder {
-        ServiceAccountKeySourceBuilder {
-            file_path: None,
-            contents: Some(contents),
-            scopes: Vec::new(),
-        }
+        let sa: ServiceAccountKeyFile = serde_json::from_slice(&std::fs::read(path)?)?;
+        Ok(ServiceAccountKeySource {
+            file: sa,
+            scopes: config.scopes,
+        })
     }
 
-    async fn _access_token(&self) -> Result<AccessToken> {
+    /// Create a [ServiceAccountKeySource] from bytes.
+    pub fn from_file_contents(
+        contents: &[u8],
+        config: ServiceAccountKeySourceConfig,
+    ) -> Result<Self> {
+        if config.scopes.is_empty() {
+            return Err(Error::Other("scopes must be provided".into()));
+        }
+        let sa: ServiceAccountKeyFile = serde_json::from_slice(contents)?;
+        Ok(ServiceAccountKeySource {
+            file: sa,
+            scopes: config.scopes,
+        })
+    }
+
+    /// Retrieves an [AccessToken] based on configured source.
+    async fn _fetch_access_token(&self) -> Result<AccessToken> {
         let signer = self.signer()?;
-        let payload = self.payload(signer)?;
+        let payload = self.create_payload(signer)?;
         let client = reqwest::Client::new();
         let res = client
             .post(self.file.token_uri.as_str())
@@ -137,13 +128,19 @@ impl ServiceAccountKeySource {
         })
     }
 
+    // Creates a signer using the private key stored in the service account file.
     fn signer(&self) -> Result<Box<dyn Signer>> {
         let pk = rustls_pemfile::read_one(&mut self.file.private_key.as_bytes())?
             .ok_or_else(|| Error::Other("".into()))?;
         let pk = match pk {
             Item::RSAKey(item) => item,
             Item::PKCS8Key(item) => item,
-            _ => return Err(Error::Other("expected key in a different format".into())),
+            other => {
+                return Err(Error::Other(format!(
+                    "expected key to be in form of RSA or PKCS8, found {:?}",
+                    other
+                )))
+            }
         };
         rustls::sign::RsaSigningKey::new(&rustls::PrivateKey(pk))
             .map_err(|_| Error::Other("unable to create signer".into()))?
@@ -151,7 +148,9 @@ impl ServiceAccountKeySource {
             .ok_or_else(|| Error::Other("invalid signing scheme".into()))
     }
 
-    fn payload(&self, signer: Box<dyn Signer>) -> Result<String> {
+    /// Uses the provide signer to sign JWS Claims then base64 encodes the data
+    /// to a string.
+    fn create_payload(&self, signer: Box<dyn Signer>) -> Result<String> {
         let scopes = self.scopes.join(" ");
         let mut claims = JwsClaims {
             iss: self.file.client_email.as_str(),
@@ -179,7 +178,7 @@ impl ServiceAccountKeySource {
 #[async_trait]
 impl Source for ServiceAccountKeySource {
     async fn token(&self) -> Result<AccessToken> {
-        self._access_token().await
+        self._fetch_access_token().await
     }
 }
 
@@ -201,34 +200,8 @@ struct TokenResponse {
 }
 
 /// Options for building a [UserSource].
-pub struct UserSourceBuilder<'a> {
-    file_path: Option<PathBuf>,
-    contents: Option<&'a [u8]>,
-
-    scopes: Vec<String>,
-}
-
-impl UserSourceBuilder<'_> {
-    pub fn scopes(mut self, scopes: Vec<String>) -> Self {
-        self.scopes.extend(scopes);
-        self
-    }
-    pub fn build(self) -> Result<UserSource> {
-        let user: UserCredentialFile = if let Some(contents) = self.contents {
-            serde_json::from_slice(contents)?
-        } else if let Some(file_path) = self.file_path {
-            serde_json::from_slice(&std::fs::read(file_path)?)?
-        } else {
-            return Err(Error::Other("".into()));
-        };
-        if self.scopes.is_empty() {
-            return Err(Error::Other("".into()));
-        }
-        Ok(UserSource {
-            file: user,
-            scopes: self.scopes,
-        })
-    }
+pub struct UserSourceConfig {
+    pub scopes: Vec<String>,
 }
 
 /// A [Source] derived from a gcloud user credential.
@@ -250,21 +223,32 @@ struct UserCredentialFile {
 }
 
 impl UserSource {
-    pub fn from_file(path: impl AsRef<Path>) -> UserSourceBuilder<'static> {
-        UserSourceBuilder {
-            file_path: Some(path.as_ref().to_owned()),
-            contents: None,
-            scopes: Vec::new(),
+    /// Create a [UserSource] from a file path.
+    pub fn from_file(path: impl AsRef<Path>, config: UserSourceConfig) -> Result<Self> {
+        if config.scopes.is_empty() {
+            return Err(Error::Other("scopes must be provided".into()));
         }
+        let user: UserCredentialFile = serde_json::from_slice(&std::fs::read(path)?)?;
+        Ok(Self {
+            file: user,
+            scopes: config.scopes,
+        })
     }
-    pub fn from_file_contents(contents: &[u8]) -> UserSourceBuilder {
-        UserSourceBuilder {
-            file_path: None,
-            contents: Some(contents),
-            scopes: Vec::new(),
+
+    /// Create a [UserSource] from bytes.
+    pub fn from_file_contents(contents: &[u8], config: UserSourceConfig) -> Result<Self> {
+        if config.scopes.is_empty() {
+            return Err(Error::Other("scopes must be provided".into()));
         }
+        let user: UserCredentialFile = serde_json::from_slice(contents)?;
+        Ok(Self {
+            file: user,
+            scopes: config.scopes,
+        })
     }
-    async fn _access_token(&self) -> Result<AccessToken> {
+
+    /// Retrieves an [AccessToken] based on configured source.
+    async fn _fetch_access_token(&self) -> Result<AccessToken> {
         let client = reqwest::Client::new();
         let res = client
             .post("https://oauth2.googleapis.com/token")
@@ -298,7 +282,7 @@ impl UserSource {
 #[async_trait]
 impl Source for UserSource {
     async fn token(&self) -> Result<AccessToken> {
-        self._access_token().await
+        self._fetch_access_token().await
     }
 }
 
@@ -311,21 +295,8 @@ struct UserTokenRequest<'a> {
     client_secret: &'a str,
 }
 
-pub struct ComputeSourceBuilder {
-    scopes: Vec<String>,
-}
-
-impl ComputeSourceBuilder {
-    pub fn scopes(mut self, scopes: Vec<String>) -> Self {
-        self.scopes.extend(scopes);
-        self
-    }
-
-    pub fn build(self) -> Result<ComputeSource> {
-        Ok(ComputeSource {
-            scopes: self.scopes,
-        })
-    }
+pub struct ComputeSourceConfig {
+    pub scopes: Vec<String>,
 }
 
 /// A [Source] derived from the Google Cloud metadata service.
@@ -334,11 +305,15 @@ pub struct ComputeSource {
 }
 
 impl ComputeSource {
-    pub fn builder() -> ComputeSourceBuilder {
-        ComputeSourceBuilder { scopes: Vec::new() }
+    /// Creates a [ComputeSource] from the provided config.
+    pub fn new(config: ComputeSourceConfig) -> Self {
+        Self {
+            scopes: config.scopes,
+        }
     }
 
-    async fn _access_token(&self) -> Result<AccessToken> {
+    ///Retrieves an [AccessToken] based on configured source.
+    async fn _fetch_access_token(&self) -> Result<AccessToken> {
         let token = metadata::fetch_access_token(None, self.scopes.clone())
             .await
             .map_err(|e| Error::Other(e.to_string()))?;
@@ -352,7 +327,7 @@ impl ComputeSource {
 #[async_trait]
 impl Source for ComputeSource {
     async fn token(&self) -> Result<AccessToken> {
-        self._access_token().await
+        self._fetch_access_token().await
     }
 }
 
@@ -391,7 +366,7 @@ impl Default for RefresherSource {
 impl Source for RefresherSource {
     async fn token(&self) -> Result<AccessToken> {
         let mut cur_token = self.current_token.lock().await;
-        if cur_token.needs_refresh() {
+        if cur_token.is_validish() {
             return Ok(cur_token.clone());
         }
         let new_token = self.source.token().await.unwrap();
@@ -445,13 +420,14 @@ mod tests {
                 expires: None,
             })),
             source: Box::new(FakeSource {
-                static_time: Utc::now() + chrono::Duration::seconds(10),
+                static_time: Utc::now() + chrono::Duration::seconds(20),
                 counter: AtomicI64::new(0),
             }),
         };
         let tok1 = it.token().await.unwrap();
         let tok2 = it.token().await.unwrap();
-        assert_eq!(tok1.value, tok2.value)
+        assert_eq!(tok1.value, "token-0");
+        assert_eq!(tok1.value, tok2.value);
     }
 
     #[tokio::main]
@@ -469,6 +445,7 @@ mod tests {
         };
         let tok1 = it.token().await.unwrap();
         let tok2 = it.token().await.unwrap();
-        assert_ne!(tok1.value, tok2.value)
+        assert_eq!(tok1.value, "token-0");
+        assert_ne!(tok1.value, tok2.value);
     }
 }

@@ -58,7 +58,9 @@ pub struct AccessToken {
 }
 
 impl AccessToken {
-    pub(crate) fn needs_refresh(&self) -> bool {
+    /// Returns true if the token should be considered valid, compensating for
+    /// clock skew with by ten seconds.
+    pub(crate) fn is_validish(&self) -> bool {
         if let Some(expires) = self.expires {
             let now = Utc::now();
             // Avoid clock skew with 10 second diff of now.
@@ -135,7 +137,9 @@ impl Credential {
         }
         // 3: Check if in an environment with on Google Cloud
         if metadata::is_running_on_gce().await {
-            let source = ComputeSource::builder().scopes(config.scopes).build()?;
+            let source = ComputeSource::new(ComputeSourceConfig {
+                scopes: config.scopes,
+            });
             let source = Box::new(source);
             return Ok(source);
         }
@@ -153,15 +157,21 @@ impl Credential {
         let file: Key = serde_json::from_slice(&contents)?;
         let source: Box<dyn Source + Send + Sync + 'static> = match file.cred_type {
             "authorized_user" => {
-                let source = UserSource::from_file_contents(&contents)
-                    .scopes(config.scopes)
-                    .build()?;
+                let source = UserSource::from_file_contents(
+                    &contents,
+                    UserSourceConfig {
+                        scopes: config.scopes,
+                    },
+                )?;
                 Box::new(source)
             }
             "service_account" => {
-                let source = ServiceAccountKeySource::from_file_contents(&contents)
-                    .scopes(config.scopes)
-                    .build()?;
+                let source = ServiceAccountKeySource::from_file_contents(
+                    &contents,
+                    ServiceAccountKeySourceConfig {
+                        scopes: config.scopes,
+                    },
+                )?;
                 Box::new(source)
             }
             _ => {
