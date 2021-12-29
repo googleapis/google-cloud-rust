@@ -21,3 +21,4 @@ thiserror = "1"
 tokio = { version = "1.12", features = ["full", "macros"] }
 async-trait = "0.1"
 http = "0.2"
+backoff = {version="0.4", features = ["tokio"]}

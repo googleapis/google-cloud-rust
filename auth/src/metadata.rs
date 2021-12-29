@@ -22,7 +22,7 @@ use super::{Error, Result};
 
 const DEFAULT_ACCOUNT: &str = "default";
 const GCE_METADATA_HOST_ENV: &str = "GCE_METADATA_HOST";
-const DEFAULT_GCE_METADATA_HOST: &str = "169.254.169.254"; 
+const DEFAULT_GCE_METADATA_HOST: &str = "169.254.169.254";
 const GCE_METADATA_HOST_DNS: &str = "metadata.google.internal";
 
 // TODO(codyoss): cache a client
@@ -49,23 +49,27 @@ async fn get_with_query<T: Serialize + ?Sized>(
     let host = env::var(GCE_METADATA_HOST_ENV)
         .unwrap_or_else(|_| -> String { String::from(DEFAULT_GCE_METADATA_HOST) });
     let suffix = suffix.trim_start_matches('/');
-    let url = format!("http://{}/computeMetadata/v1/{}", host, suffix);
 
-    // TODO(codyoss): retry
-    let req = new_metadata_client().get(url);
-    let req = if let Some(query) = query {
-        req.query(query)
-    } else {
-        req
-    };
-    let res = req.send().await?;
-    if !res.status().is_success() {
-        return Err(Error::Other(format!(
-            "bad request with status: {}",
-            res.status().as_str()
-        )));
-    }
-    let content = res.text().await?;
+    let client = new_metadata_client();
+    let content = backoff::future::retry(backoff::ExponentialBackoff::default(), || async {
+        let url = format!("http://{}/computeMetadata/v1/{}", host, suffix);
+        let req = client.get(url);
+        let req = if let Some(query) = query {
+            req.query(query)
+        } else {
+            req
+        };
+        let res = req.send().await.map_err(Error::Http)?;
+        if !res.status().is_success() {
+            return Err(backoff::Error::transient(Error::Other(format!(
+                "bad request with status: {}",
+                res.status().as_str()
+            ))));
+        }
+        let content = res.text().await.map_err(Error::Http)?;
+        Ok(content)
+    })
+    .await?;
     Ok(content)
 }
 
