@@ -20,10 +20,15 @@ use tokio::time::{self, Duration};
 
 use super::{Error, Result};
 
+const DEFAULT_ACCOUNT: &str = "default";
+const GCE_METADATA_HOST_ENV: &str = "GCE_METADATA_HOST";
+const DEFAULT_GCE_METADATA_HOST: &str = "169.254.169.254"; 
+const GCE_METADATA_HOST_DNS: &str = "metadata.google.internal";
+
 // TODO(codyoss): cache a client
 // TODO(codyoss): funcs could take &str or impl Into<String>?
 
-// TODO: Create a wrapper for reuse that cachces useful values.
+// TODO: Create a wrapper for reuse that caches useful values.
 fn new_metadata_client() -> Client {
     let mut headers = HeaderMap::with_capacity(2);
     headers.insert("Metadata-Flavor", "Google".parse().unwrap());
@@ -32,22 +37,17 @@ fn new_metadata_client() -> Client {
 }
 
 /// Makes a request to the supplied metadata endpoint.
-///
-/// ```rust
-/// let project_id = get("project/project-id")?;
-/// println!("{}", project_id);
-/// ```
 #[allow(dead_code)]
-pub async fn get(suffix: String) -> Result<String> {
-    get_with_query::<()>(suffix, None).await
+pub async fn get(suffix: impl Into<String>) -> Result<String> {
+    get_with_query::<()>(suffix.into(), None).await
 }
 
 async fn get_with_query<T: Serialize + ?Sized>(
     suffix: String,
     query: Option<&T>,
 ) -> Result<String> {
-    let host = env::var("GCE_METADATA_HOST")
-        .unwrap_or_else(|_| -> String { String::from("169.254.169.254") });
+    let host = env::var(GCE_METADATA_HOST_ENV)
+        .unwrap_or_else(|_| -> String { String::from(DEFAULT_GCE_METADATA_HOST) });
     let suffix = suffix.trim_start_matches('/');
     let url = format!("http://{}/computeMetadata/v1/{}", host, suffix);
 
@@ -72,18 +72,18 @@ async fn get_with_query<T: Serialize + ?Sized>(
 /// Checks the environment to determine if code is executing in a Google Cloud
 /// environment.
 pub async fn is_running_on_gce() -> bool {
-    // If a user explicitly provides envvar to talk to the metadata service we
+    // If a user explicitly provides env var to talk to the metadata service we
     // trust them.
-    if std::env::var("GCE_METADATA_HOST").is_ok() {
+    if std::env::var(GCE_METADATA_HOST_ENV).is_ok() {
         return true;
     }
     let client = new_metadata_client();
     let res1 = client.get("http://169.254.169.254").send();
-    let res2 = tokio::net::TcpListener::bind(("metadata.google.internal", 0));
+    let res2 = tokio::net::TcpListener::bind((GCE_METADATA_HOST_DNS, 0));
 
     // Race pinging the metadata service by IP and DNS. Depending on the
     // environment different requests return faster. In the future we should
-    // check for more envvars.
+    // check for more env vars.
     let check = tokio::select! {
         _ = time::sleep(Duration::from_secs(5)) => false,
         _ = res1 => true,
@@ -114,7 +114,7 @@ pub async fn fetch_access_token(account: Option<&str>, scopes: Vec<String>) -> R
             "can't get token from metadata service, not running on GCE".into(),
         ));
     }
-    let account = account.unwrap_or("default");
+    let account = account.unwrap_or(DEFAULT_ACCOUNT);
     let suffix = format!("instance/service-accounts/{}/token", account);
     let query = &[("scopes", scopes.join(","))];
     let json = get_with_query(suffix, Some(query)).await?;

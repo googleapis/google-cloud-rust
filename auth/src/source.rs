@@ -34,6 +34,7 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
 };
 const DEFAULT_OAUTH_GRANT: &str = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const DEFAULT_USER_GRANT: &str = "refresh_token";
+const GOOGLE_OAUTH2_TOKEN_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 /// An producer of a [AccessToken].
 #[async_trait]
@@ -251,7 +252,7 @@ impl UserSource {
     async fn _fetch_access_token(&self) -> Result<AccessToken> {
         let client = reqwest::Client::new();
         let res = client
-            .post("https://oauth2.googleapis.com/token")
+            .post(GOOGLE_OAUTH2_TOKEN_ENDPOINT)
             .header("Content-Type", "application/x-www-form-urlencoded")
             .form(&UserTokenRequest {
                 grant_type: DEFAULT_USER_GRANT,
@@ -386,12 +387,22 @@ mod tests {
 
     #[tokio::main]
     #[test]
-    async fn service_account_test() {
+    #[ignore]
+    async fn service_account_source_fetch_access_token() {
         todo!("write a good test");
     }
 
-    #[tokio::test]
-    async fn user_account_test() {
+    #[tokio::main]
+    #[test]
+    #[ignore]
+    async fn user_source_fetch_access_token() {
+        todo!("write a good test");
+    }
+
+    #[tokio::main]
+    #[test]
+    #[ignore]
+    async fn compute_source_fetch_access_token() {
         todo!("write a good test");
     }
 

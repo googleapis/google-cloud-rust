@@ -26,10 +26,12 @@ mod metadata;
 mod oauth2;
 mod source;
 
-const GOOGLE_APPLICATION_CREDENTIALS: &str = "GOOGLE_APPLICATION_CREDENTIALS";
-const WINDOWS_APPDATA: &str = "APPDATA";
-const UNIX_HOME: &str = "HOME";
+const GOOGLE_APPLICATION_CREDENTIALS_ENV: &str = "GOOGLE_APPLICATION_CREDENTIALS";
+const WINDOWS_APPDATA_ENV: &str = "APPDATA";
+const UNIX_HOME_ENV: &str = "HOME";
 const USER_CREDENTIAL_FILE: &str = "application_default_credentials.json";
+const GCLOUD_PATH_PART: &str = "gcloud";
+const CONFIG_PATH_PART: &str = ".config";
 
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
@@ -121,7 +123,7 @@ impl Credential {
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         // 1: Known environment variable.
-        if let Ok(file_name) = std::env::var(GOOGLE_APPLICATION_CREDENTIALS) {
+        if let Ok(file_name) = std::env::var(GOOGLE_APPLICATION_CREDENTIALS_ENV) {
             let source = Credential::file_source(file_name.into(), config).await?;
             return Ok(source);
         }
@@ -185,18 +187,18 @@ impl Credential {
     fn well_known_file() -> Result<PathBuf> {
         let mut path = PathBuf::new();
         if cfg!(windows) {
-            let appdata = std::env::var(WINDOWS_APPDATA)
+            let appdata = std::env::var(WINDOWS_APPDATA_ENV)
                 .map_err(|_| Error::Other("unable to find APPDATA".into()))?;
             path.push(appdata);
-            path.push("gcloud");
+            path.push(GCLOUD_PATH_PART);
         } else {
-            let home = std::env::var(UNIX_HOME)
+            let home = std::env::var(UNIX_HOME_ENV)
                 .map_err(|_| Error::Other("unable to lookup HOME".into()))?;
             path.push(home);
-            path.push(".config");
+            path.push(CONFIG_PATH_PART);
         }
 
-        path.push("gcloud");
+        path.push(GCLOUD_PATH_PART);
         path.push(USER_CREDENTIAL_FILE);
         Ok(path)
     }
