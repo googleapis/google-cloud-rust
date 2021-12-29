@@ -75,7 +75,7 @@ impl ServiceAccountKeySource {
         if config.scopes.is_empty() {
             return Err(Error::Other("scopes must be provided".into()));
         }
-        let sa: ServiceAccountKeyFile = serde_json::from_slice(&std::fs::read(path)?)?;
+        let sa: ServiceAccountKeyFile = serde_json::from_slice(&tokio::fs::read(path).await?)?;
         Ok(ServiceAccountKeySource {
             file: sa,
             scopes: config.scopes,
@@ -224,11 +224,11 @@ struct UserCredentialFile {
 
 impl UserSource {
     /// Create a [UserSource] from a file path.
-    pub fn from_file(path: impl AsRef<Path>, config: UserSourceConfig) -> Result<Self> {
+    pub async fn from_file(path: impl AsRef<Path>, config: UserSourceConfig) -> Result<Self> {
         if config.scopes.is_empty() {
             return Err(Error::Other("scopes must be provided".into()));
         }
-        let user: UserCredentialFile = serde_json::from_slice(&std::fs::read(path)?)?;
+        let user: UserCredentialFile = serde_json::from_slice(&tokio::fs::read(path).await?)?;
         Ok(Self {
             file: user,
             scopes: config.scopes,
@@ -332,7 +332,7 @@ impl Source for ComputeSource {
 }
 
 /// A noop source used for default credentials. It will never produce tokens.
-pub(crate) struct NoOpSource {}
+pub struct NoOpSource {}
 
 #[async_trait]
 impl Source for NoOpSource {
@@ -345,9 +345,9 @@ impl Source for NoOpSource {
 
 /// This type is meant to wrap another [Source] and keep returning the same [AccessToken]
 // as long as it is valid.
-pub(crate) struct RefresherSource {
-    pub(crate) current_token: Arc<Mutex<AccessToken>>,
-    pub(crate) source: Box<dyn Source + Send + Sync>,
+pub struct RefresherSource {
+    pub current_token: Arc<Mutex<AccessToken>>,
+    pub source: Box<dyn Source + Send + Sync>,
 }
 
 impl Default for RefresherSource {

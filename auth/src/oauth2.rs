@@ -18,21 +18,21 @@ use serde::Serialize;
 
 /// JSON Web Signature for a token.
 #[derive(Serialize)]
-pub(crate) struct JwsClaims<'a> {
-    pub(crate) iss: &'a str,
+pub struct JwsClaims<'a> {
+    pub iss: &'a str,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) scope: Option<&'a str>,
-    pub(crate) aud: &'a str,
-    pub(crate) exp: Option<i64>,
-    pub(crate) iat: Option<i64>,
+    pub scope: Option<&'a str>,
+    pub aud: &'a str,
+    pub exp: Option<i64>,
+    pub iat: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) typ: Option<&'a str>,
+    pub typ: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) sub: Option<&'a str>,
+    pub sub: Option<&'a str>,
 }
 
 impl JwsClaims<'_> {
-    pub(crate) fn encode(&mut self) -> Result<String> {
+    pub fn encode(&mut self) -> Result<String> {
         let now = Utc::now() - chrono::Duration::seconds(10);
         self.iat = self.iat.or_else(|| Some(now.timestamp()));
         self.exp = self
@@ -48,15 +48,15 @@ impl JwsClaims<'_> {
 
 /// The header that describes who, what, how a token was created.
 #[derive(Serialize)]
-pub(crate) struct JwsHeader<'a> {
-    pub(crate) alg: &'a str,
-    pub(crate) typ: &'a str,
+pub struct JwsHeader<'a> {
+    pub alg: &'a str,
+    pub typ: &'a str,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) kid: Option<&'a str>,
+    pub kid: Option<&'a str>,
 }
 
 impl JwsHeader<'_> {
-    pub(crate) fn encode(&self) -> Result<String> {
+    pub fn encode(&self) -> Result<String> {
         let json = serde_json::to_string(&self)?;
         Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
     }

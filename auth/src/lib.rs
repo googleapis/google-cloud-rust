@@ -32,6 +32,7 @@ const UNIX_HOME: &str = "HOME";
 const USER_CREDENTIAL_FILE: &str = "application_default_credentials.json";
 
 #[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum Error {
     #[error("unable to read file")]
     Io(#[from] std::io::Error),
@@ -48,6 +49,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// AccessToken holds a token value that can be used in Authorization headers to
 /// authenticate with Google Cloud APIs. If the token
 #[derive(Clone)]
+#[non_exhaustive]
 pub struct AccessToken {
     /// The actual token.
     pub value: String,
@@ -73,10 +75,9 @@ impl AccessToken {
 }
 
 /// Configuration for various authentication flows.
-// TODO(codyoss): make non-exhaustive
+#[non_exhaustive]
 pub struct CredentialConfig {
     /// The scopes that the minted [AccessToken] should have.
-    // TODO(codyoss): This should be optional.
     pub scopes: Vec<String>,
 }
 
@@ -107,7 +108,6 @@ impl Credential {
 
     /// Creates a Credential that uses [Application Default Credentials](https://google.aip.dev/auth/4110)
     /// to figure out how a to produce a [AccessToken].
-    // TODO(codyoss): maybe make this take a builder?
     pub async fn find_default(config: CredentialConfig) -> Result<Credential> {
         let base_source = Credential::base_source(config).await?;
         let refreshed_source = RefresherSource {
@@ -125,13 +125,13 @@ impl Credential {
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         // 1: Known environment variable.
         if let Ok(file_name) = std::env::var(GOOGLE_APPLICATION_CREDENTIALS) {
-            let source = Credential::file_source(file_name.into(), config)?;
+            let source = Credential::file_source(file_name.into(), config).await?;
             return Ok(source);
         }
         // 2: Well-known file.
         if let Ok(path) = Credential::well_known_file() {
             if path.exists() {
-                let source = Credential::file_source(path, config)?;
+                let source = Credential::file_source(path, config).await?;
                 return Ok(source);
             }
         }
@@ -149,11 +149,11 @@ impl Credential {
 
     /// Creates a source from a file type credential such as a Service Account
     /// Key file or a gcloud user credential.
-    fn file_source(
+    async fn file_source(
         file_path: PathBuf,
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
-        let contents = std::fs::read(file_path)?;
+        let contents = tokio::fs::read(file_path).await?;
         let file: Key = serde_json::from_slice(&contents)?;
         let source: Box<dyn Source + Send + Sync + 'static> = match file.cred_type {
             "authorized_user" => {

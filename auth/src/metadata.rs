@@ -21,8 +21,6 @@ use tokio::time::{self, Duration};
 use super::{Error, Result};
 
 // TODO(codyoss): cache a client
-// TODO(codyoss): move client impl elsewhere
-// TODO(codyoss): Instead of vecs things could be slices... don't need ownership
 // TODO(codyoss): funcs could take &str or impl Into<String>?
 
 // TODO: Create a wrapper for reuse that cachces useful values.
@@ -94,8 +92,6 @@ pub async fn is_running_on_gce() -> bool {
     if check {
         return true;
     }
-
-    // TODO(codyoss): Could try harder for GCE /w GCE instance info.
 
     false
 }
