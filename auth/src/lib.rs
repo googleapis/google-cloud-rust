@@ -53,10 +53,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub struct AccessToken {
     /// The actual token.
     pub value: String,
-    // TODO(codyoss): Token leaks chrono lib, should we have our own type or is this okay...
-    //                We could just use a unix int64 timestamp from zulu?
-    /// The time when a token expires, if known.
-    pub expires: Option<DateTime<Utc>>,
+    expires: Option<DateTime<Utc>>,
 }
 
 impl AccessToken {
