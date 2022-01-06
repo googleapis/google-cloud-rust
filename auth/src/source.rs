@@ -36,18 +36,39 @@ const DEFAULT_OAUTH_GRANT: &str = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const DEFAULT_USER_GRANT: &str = "refresh_token";
 const GOOGLE_OAUTH2_TOKEN_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-/// An producer of a [AccessToken].
+/// An producer of az [AccessToken].
 #[async_trait]
-pub trait Source {
+pub trait Source: SourceClone {
     async fn token(&self) -> Result<AccessToken>;
 }
 
+pub trait SourceClone {
+    fn clone_box(&self) -> Box<dyn Source + Send + Sync>;
+}
+
+impl<T> SourceClone for T
+where
+    T: Source + Send + Sync + Clone + 'static,
+{
+    fn clone_box(&self) -> Box<dyn Source + Send + Sync> {
+        Box::new(self.clone())
+    }
+}
+
+impl Clone for Box<dyn Source + Send + Sync + 'static> {
+    fn clone(&self) -> Self {
+        self.clone_box()
+    }
+}
+
 /// Configuration for building a [ServiceAccountKeySource].
+#[derive(Clone)]
 pub struct ServiceAccountKeySourceConfig {
     pub scopes: Vec<String>,
 }
 
 /// A [Source] derived from a Service Account Key.
+#[derive(Clone)]
 pub struct ServiceAccountKeySource {
     file: ServiceAccountKeyFile,
     scopes: Vec<String>,
@@ -55,7 +76,7 @@ pub struct ServiceAccountKeySource {
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 struct ServiceAccountKeyFile {
     #[serde(rename = "type")]
     cred_type: String,
@@ -206,14 +227,14 @@ pub struct UserSourceConfig {
 }
 
 /// A [Source] derived from a gcloud user credential.
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 pub struct UserSource {
     file: UserCredentialFile,
     scopes: Vec<String>,
 }
 
 /// A representation of a Service Account File.
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 struct UserCredentialFile {
     #[serde(rename = "type")]
     cred_type: String,
@@ -301,6 +322,7 @@ pub struct ComputeSourceConfig {
 }
 
 /// A [Source] derived from the Google Cloud metadata service.
+#[derive(Clone)]
 pub struct ComputeSource {
     scopes: Vec<String>,
 }
@@ -333,6 +355,7 @@ impl Source for ComputeSource {
 }
 
 /// A noop source used for default credentials. It will never produce tokens.
+#[derive(Clone)]
 pub struct NoOpSource {}
 
 #[async_trait]
@@ -346,6 +369,7 @@ impl Source for NoOpSource {
 
 /// This type is meant to wrap another [Source] and keep returning the same [AccessToken]
 // as long as it is valid.
+#[derive(Clone)]
 pub struct RefresherSource {
     pub current_token: Arc<Mutex<AccessToken>>,
     pub source: Box<dyn Source + Send + Sync>,
@@ -379,11 +403,8 @@ impl Source for RefresherSource {
 
 #[cfg(test)]
 mod tests {
-    use std::sync::atomic::{AtomicI64, Ordering};
-
-    use chrono::DateTime;
-
     use super::*;
+    use chrono::DateTime;
 
     #[tokio::main]
     #[test]
@@ -406,17 +427,20 @@ mod tests {
         todo!("write a good test");
     }
 
+    #[derive(Clone)]
     struct FakeSource {
         static_time: DateTime<Utc>,
-        counter: AtomicI64,
+        counter: Arc<Mutex<i64>>,
     }
 
     #[async_trait]
     impl Source for FakeSource {
         async fn token(&self) -> Result<AccessToken> {
-            let count = self.counter.fetch_add(1, Ordering::SeqCst);
+            let mut count = self.counter.lock().await;
+            let cur_count = *count;
+            *count += 1;
             Ok(AccessToken {
-                value: format!("token-{}", count),
+                value: format!("token-{}", cur_count),
                 expires: Some(self.static_time),
             })
         }
@@ -432,7 +456,7 @@ mod tests {
             })),
             source: Box::new(FakeSource {
                 static_time: Utc::now() + chrono::Duration::seconds(20),
-                counter: AtomicI64::new(0),
+                counter: Arc::new(Mutex::new(0)),
             }),
         };
         let tok1 = it.token().await.unwrap();
@@ -451,7 +475,7 @@ mod tests {
             })),
             source: Box::new(FakeSource {
                 static_time: Utc::now() - chrono::Duration::seconds(20),
-                counter: AtomicI64::new(0),
+                counter: Arc::new(Mutex::new(0)),
             }),
         };
         let tok1 = it.token().await.unwrap();

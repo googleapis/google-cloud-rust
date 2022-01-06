@@ -82,8 +82,9 @@ pub struct CredentialConfig {
 
 /// A [AccessToken] producer that is automatically refreshed and can be shared across
 /// threads.
+#[derive(Clone)]
 pub struct Credential {
-    source: Box<dyn Source + Send + Sync + 'static>,
+    source: Box<dyn Source + Send + Sync>,
 }
 
 // TODO(codyoss): This is currently needed to make generated code easier to generate. Not
