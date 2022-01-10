@@ -49,7 +49,7 @@ pub enum Error {
 pub type Result<T> = std::result::Result<T, Error>;
 
 /// AccessToken holds a token value that can be used in Authorization headers to
-/// authenticate with Google Cloud APIs. If the token
+/// authenticate with Google Cloud APIs.
 #[derive(Clone)]
 #[non_exhaustive]
 pub struct AccessToken {
