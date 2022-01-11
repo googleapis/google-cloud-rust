@@ -74,10 +74,46 @@ impl AccessToken {
 }
 
 /// Configuration for various authentication flows.
-#[non_exhaustive]
 pub struct CredentialConfig {
     /// The scopes that the minted [AccessToken] should have.
-    pub scopes: Vec<String>,
+    scopes: Vec<String>,
+}
+
+impl CredentialConfig {
+    pub fn builder() -> CredentialConfigBuilder {
+        CredentialConfigBuilder::new()
+    }
+}
+
+/// A builder for instantiating a [CredentialConfig].
+pub struct CredentialConfigBuilder {
+    scopes: Vec<String>,
+}
+
+impl CredentialConfigBuilder {
+    /// Instantiates a new builder.
+    pub fn new() -> Self {
+        Self { scopes: Vec::new() }
+    }
+
+    /// Sets scopes used for credential authorization.
+    pub fn scopes(mut self, value: Vec<String>) -> Self {
+        self.scopes = value;
+        self
+    }
+
+    /// Builds a [CredentialConfig].
+    pub fn build(self) -> Result<CredentialConfig> {
+        Ok(CredentialConfig {
+            scopes: self.scopes,
+        })
+    }
+}
+
+impl Default for CredentialConfigBuilder {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 /// A [AccessToken] producer that is automatically refreshed and can be shared across
