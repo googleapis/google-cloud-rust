@@ -20,6 +20,7 @@ use chrono::Utc;
 use chrono::{DateTime, Duration};
 use serde::Deserialize;
 use source::*;
+use std::error::Error as StdError;
 use std::path::PathBuf;
 
 mod metadata;
@@ -33,17 +34,62 @@ const USER_CREDENTIAL_FILE: &str = "application_default_credentials.json";
 const GCLOUD_PATH_PART: &str = "gcloud";
 const CONFIG_PATH_PART: &str = ".config";
 
-#[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum Error {
-    #[error("unable to read file")]
-    Io(#[from] std::io::Error),
-    #[error("unable to deserialize value")]
-    Serde(#[from] serde_json::Error),
-    #[error("unable to process request")]
-    Http(#[from] reqwest::Error),
-    #[error("{0}")]
-    Other(String),
+//#[derive(thiserror::Error, Debug)]
+//#[non_exhaustive]
+// pub enum Error {
+//     #[error("unable to read file")]
+//     Io(#[from] std::io::Error),
+//     #[error("unable to deserialize value")]
+//     Serde(#[from] serde_json::Error),
+//     #[error("unable to process request")]
+//     Http(#[from] reqwest::Error),
+//     #[error("{0}")]
+//     Other(String),
+// }
+
+#[derive(Debug)]
+pub struct Error {
+    inner_error: Option<Box<dyn StdError + Send + Sync>>,
+    message: Option<String>,
+}
+
+impl Error {
+    fn new(msg: impl Into<String>) -> Self {
+        Self {
+            inner_error: None,
+            message: Some(msg.into()),
+        }
+    }
+
+    fn wrap<E>(error: E) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self {
+            inner_error: Some(Box::new(error)),
+            message: None,
+        }
+    }
+
+    /// Returns a reference to the inner error wrapped if, if there is one.
+    pub fn get_ref(&self) -> Option<&(dyn StdError + Send + Sync + 'static)> {
+        match &self.inner_error {
+            Some(err) => Some(err.as_ref()),
+            None => None,
+        }
+    }
+}
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(inner_error) = &self.inner_error {
+            inner_error.fmt(f)
+        } else if let Some(msg) = &self.message {
+            write!(f, "{}", msg)
+        } else {
+            write!(f, "unknown error")
+        }
+    }
 }
 
 pub type Result<T> = std::result::Result<T, Error>;
@@ -180,7 +226,7 @@ impl Credential {
             return Ok(source);
         }
 
-        Err(Error::Other("unable to detect default credentials".into()))
+        Err(Error::new("unable to detect default credentials"))
     }
 
     /// Creates a source from a file type credential such as a Service Account
@@ -189,8 +235,8 @@ impl Credential {
         file_path: PathBuf,
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
-        let contents = tokio::fs::read(file_path).await?;
-        let file: Key = serde_json::from_slice(&contents)?;
+        let contents = tokio::fs::read(file_path).await.map_err(Error::wrap)?;
+        let file: Key = serde_json::from_slice(&contents).map_err(Error::wrap)?;
         let source: Box<dyn Source + Send + Sync + 'static> = match file.cred_type {
             "authorized_user" => {
                 let source = UserSource::from_file_contents(
@@ -211,7 +257,7 @@ impl Credential {
                 Box::new(source)
             }
             _ => {
-                return Err(Error::Other(format!(
+                return Err(Error::new(format!(
                     "unsupported credential type found: {}",
                     file.cred_type
                 )));
@@ -225,12 +271,12 @@ impl Credential {
         let mut path = PathBuf::new();
         if cfg!(windows) {
             let appdata = std::env::var(WINDOWS_APPDATA_ENV)
-                .map_err(|_| Error::Other("unable to find APPDATA".into()))?;
+                .map_err(|_| Error::new("unable to find APPDATA"))?;
             path.push(appdata);
             path.push(GCLOUD_PATH_PART);
         } else {
-            let home = std::env::var(UNIX_HOME_ENV)
-                .map_err(|_| Error::Other("unable to lookup HOME".into()))?;
+            let home =
+                std::env::var(UNIX_HOME_ENV).map_err(|_| Error::new("unable to lookup HOME"))?;
             path.push(home);
             path.push(CONFIG_PATH_PART);
         }

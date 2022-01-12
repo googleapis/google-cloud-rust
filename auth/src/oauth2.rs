@@ -39,9 +39,9 @@ impl JwsClaims<'_> {
             .iat
             .or_else(|| Some((now + chrono::Duration::hours(1)).timestamp()));
         if self.exp.unwrap() < self.iat.unwrap() {
-            return Err(Error::Other("exp must be later than iat".into()));
+            return Err(Error::new("exp must be later than iat"));
         }
-        let json = serde_json::to_string(&self)?;
+        let json = serde_json::to_string(&self).map_err(Error::wrap)?;
         Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
     }
 }
@@ -57,7 +57,7 @@ pub struct JwsHeader<'a> {
 
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
-        let json = serde_json::to_string(&self)?;
+        let json = serde_json::to_string(&self).map_err(Error::wrap)?;
         Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
     }
 }

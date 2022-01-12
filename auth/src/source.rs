@@ -95,9 +95,11 @@ impl ServiceAccountKeySource {
         config: ServiceAccountKeySourceConfig,
     ) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::Other("scopes must be provided".into()));
+            return Err(Error::new("scopes must be provided"));
         }
-        let sa: ServiceAccountKeyFile = serde_json::from_slice(&tokio::fs::read(path).await?)?;
+        let sa: ServiceAccountKeyFile =
+            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap)?)
+                .map_err(Error::wrap)?;
         Ok(ServiceAccountKeySource {
             file: sa,
             scopes: config.scopes,
@@ -110,9 +112,9 @@ impl ServiceAccountKeySource {
         config: ServiceAccountKeySourceConfig,
     ) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::Other("scopes must be provided".into()));
+            return Err(Error::new("scopes must be provided"));
         }
-        let sa: ServiceAccountKeyFile = serde_json::from_slice(contents)?;
+        let sa: ServiceAccountKeyFile = serde_json::from_slice(contents).map_err(Error::wrap)?;
         Ok(ServiceAccountKeySource {
             file: sa,
             scopes: config.scopes,
@@ -132,9 +134,9 @@ impl ServiceAccountKeySource {
             })
             .send()
             .await
-            .map_err(|_| Error::Other("unable to make request to oauth endpoint".into()))?;
+            .map_err(|_| Error::new("unable to make request to oauth endpoint"))?;
         if !res.status().is_success() {
-            return Err(Error::Other(format!(
+            return Err(Error::new(format!(
                 "bad request with status: {}",
                 res.status()
             )));
@@ -142,7 +144,7 @@ impl ServiceAccountKeySource {
         let token_response: TokenResponse = res
             .json()
             .await
-            .map_err(|_| Error::Other("unable to decode response".into()))?;
+            .map_err(|_| Error::new("unable to decode response"))?;
 
         Ok(AccessToken {
             value: token_response.access_token,
@@ -152,22 +154,23 @@ impl ServiceAccountKeySource {
 
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self) -> Result<Box<dyn Signer>> {
-        let pk = rustls_pemfile::read_one(&mut self.file.private_key.as_bytes())?
-            .ok_or_else(|| Error::Other("".into()))?;
+        let pk = rustls_pemfile::read_one(&mut self.file.private_key.as_bytes())
+            .map_err(Error::wrap)?
+            .ok_or_else(|| Error::new("unable to parse service account key"))?;
         let pk = match pk {
             Item::RSAKey(item) => item,
             Item::PKCS8Key(item) => item,
             other => {
-                return Err(Error::Other(format!(
+                return Err(Error::new(format!(
                     "expected key to be in form of RSA or PKCS8, found {:?}",
                     other
                 )))
             }
         };
         rustls::sign::RsaSigningKey::new(&rustls::PrivateKey(pk))
-            .map_err(|_| Error::Other("unable to create signer".into()))?
+            .map_err(|_| Error::new("unable to create signer"))?
             .choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| Error::Other("invalid signing scheme".into()))
+            .ok_or_else(|| Error::new("invalid signing scheme"))
     }
 
     /// Uses the provide signer to sign JWS Claims then base64 encodes the data
@@ -188,7 +191,7 @@ impl ServiceAccountKeySource {
         let ss = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(ss.as_bytes())
-            .map_err(|_| Error::Other("unable to sign bytes".into()))?;
+            .map_err(|_| Error::new("unable to sign bytes"))?;
         Ok(format!(
             "{}.{}",
             ss,
@@ -248,9 +251,11 @@ impl UserSource {
     /// Create a [UserSource] from a file path.
     pub async fn from_file(path: impl AsRef<Path>, config: UserSourceConfig) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::Other("scopes must be provided".into()));
+            return Err(Error::new("scopes must be provided"));
         }
-        let user: UserCredentialFile = serde_json::from_slice(&tokio::fs::read(path).await?)?;
+        let user: UserCredentialFile =
+            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap)?)
+                .map_err(Error::wrap)?;
         Ok(Self {
             file: user,
             scopes: config.scopes,
@@ -260,9 +265,9 @@ impl UserSource {
     /// Create a [UserSource] from bytes.
     pub fn from_file_contents(contents: &[u8], config: UserSourceConfig) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::Other("scopes must be provided".into()));
+            return Err(Error::new("scopes must be provided"));
         }
-        let user: UserCredentialFile = serde_json::from_slice(contents)?;
+        let user: UserCredentialFile = serde_json::from_slice(contents).map_err(Error::wrap)?;
         Ok(Self {
             file: user,
             scopes: config.scopes,
@@ -283,9 +288,9 @@ impl UserSource {
             })
             .send()
             .await
-            .map_err(|_| Error::Other("unable to make request to oauth endpoint".into()))?;
+            .map_err(|_| Error::new("unable to make request to oauth endpoint"))?;
         if !res.status().is_success() {
-            return Err(Error::Other(format!(
+            return Err(Error::new(format!(
                 "bad request with status: {}",
                 res.status()
             )));
@@ -293,7 +298,7 @@ impl UserSource {
         let token_response: TokenResponse = res
             .json()
             .await
-            .map_err(|_| Error::Other("unable to decode response".into()))?;
+            .map_err(|_| Error::new("unable to decode response"))?;
         Ok(AccessToken {
             value: token_response.access_token,
             expires: Some(Utc::now() + Duration::seconds(token_response.expires_in)),
@@ -339,7 +344,7 @@ impl ComputeSource {
     async fn _fetch_access_token(&self) -> Result<AccessToken> {
         let token = metadata::fetch_access_token(None, self.scopes.clone())
             .await
-            .map_err(|e| Error::Other(e.to_string()))?;
+            .map_err(|e| Error::new(e.to_string()))?;
         Ok(AccessToken {
             value: token.access_token,
             expires: Some(Utc::now() + Duration::seconds(token.expires_in)),
@@ -361,8 +366,8 @@ pub struct NoOpSource {}
 #[async_trait]
 impl Source for NoOpSource {
     async fn token(&self) -> Result<AccessToken> {
-        Err(Error::Other(
-            "use Credential.find_default to find a credential from the env".into(),
+        Err(Error::new(
+            "use Credential.find_default to find a credential from the env",
         ))
     }
 }

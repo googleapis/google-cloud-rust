@@ -59,14 +59,14 @@ async fn get_with_query<T: Serialize + ?Sized>(
         } else {
             req
         };
-        let res = req.send().await.map_err(Error::Http)?;
+        let res = req.send().await.map_err(Error::wrap)?;
         if !res.status().is_success() {
-            return Err(backoff::Error::transient(Error::Other(format!(
+            return Err(backoff::Error::transient(Error::new(format!(
                 "bad request with status: {}",
                 res.status().as_str()
             ))));
         }
-        let content = res.text().await.map_err(Error::Http)?;
+        let content = res.text().await.map_err(Error::wrap)?;
         Ok(content)
     })
     .await?;
@@ -111,22 +111,20 @@ pub struct Token {
 /// account is not provided the value will be set to `default`.
 pub async fn fetch_access_token(account: Option<&str>, scopes: Vec<String>) -> Result<Token> {
     if scopes.is_empty() {
-        return Err(Error::Other("scopes must be provided".into()));
+        return Err(Error::new("scopes must be provided"));
     }
     if !is_running_on_gce().await {
-        return Err(Error::Other(
-            "can't get token from metadata service, not running on GCE".into(),
+        return Err(Error::new(
+            "can't get token from metadata service, not running on GCE",
         ));
     }
     let account = account.unwrap_or(DEFAULT_ACCOUNT);
     let suffix = format!("instance/service-accounts/{}/token", account);
     let query = &[("scopes", scopes.join(","))];
     let json = get_with_query(suffix, Some(query)).await?;
-    let token_response: Token = serde_json::from_str(json.as_str())?;
+    let token_response: Token = serde_json::from_str(json.as_str()).map_err(Error::wrap)?;
     if token_response.expires_in == 0 || token_response.access_token.is_empty() {
-        return Err(Error::Other(
-            "incomplete token received from metadata".into(),
-        ));
+        return Err(Error::new("incomplete token received from metadata"));
     }
     Ok(token_response)
 }
