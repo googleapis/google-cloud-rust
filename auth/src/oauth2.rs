@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{Error, Result};
+use super::{Error, ErrorKind, Result};
 use chrono::Utc;
 use serde::Serialize;
 
@@ -39,9 +39,12 @@ impl JwsClaims<'_> {
             .iat
             .or_else(|| Some((now + chrono::Duration::hours(1)).timestamp()));
         if self.exp.unwrap() < self.iat.unwrap() {
-            return Err(Error::new("exp must be later than iat"));
+            return Err(Error::new(
+                "exp must be later than iat",
+                ErrorKind::Validation,
+            ));
         }
-        let json = serde_json::to_string(&self).map_err(Error::wrap)?;
+        let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
         Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
     }
 }
@@ -57,7 +60,7 @@ pub struct JwsHeader<'a> {
 
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
-        let json = serde_json::to_string(&self).map_err(Error::wrap)?;
+        let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
         Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
     }
 }

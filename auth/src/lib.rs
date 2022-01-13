@@ -38,32 +38,71 @@ const CONFIG_PATH_PART: &str = ".config";
 pub struct Error {
     inner_error: Option<Box<dyn StdError + Send + Sync>>,
     message: Option<String>,
+    kind: ErrorKind,
 }
 
 impl Error {
-    fn new(msg: impl Into<String>) -> Self {
-        Self {
-            inner_error: None,
-            message: Some(msg.into()),
-        }
-    }
-
-    fn wrap<E>(error: E) -> Self
-    where
-        E: StdError + Send + Sync + 'static,
-    {
-        Self {
-            inner_error: Some(Box::new(error)),
-            message: None,
-        }
-    }
-
     /// Returns a reference to the inner error wrapped if, if there is one.
     pub fn get_ref(&self) -> Option<&(dyn StdError + Send + Sync + 'static)> {
         match &self.inner_error {
             Some(err) => Some(err.as_ref()),
             None => None,
         }
+    }
+
+    pub fn kind(&self) -> ErrorKind {
+        self.kind
+    }
+
+    fn new(msg: impl Into<String>, kind: ErrorKind) -> Self {
+        Self {
+            inner_error: None,
+            message: Some(msg.into()),
+            kind,
+        }
+    }
+
+    fn new_with_error<E>(msg: impl Into<String>, error: E, kind: ErrorKind) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self {
+            inner_error: Some(Box::new(error)),
+            message: Some(msg.into()),
+            kind,
+        }
+    }
+
+    fn wrap<E>(error: E, kind: ErrorKind) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self {
+            inner_error: Some(Box::new(error)),
+            message: None,
+            kind,
+        }
+    }
+
+    fn wrap_io<E>(error: E) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self::wrap(error, ErrorKind::IO)
+    }
+
+    fn wrap_serialization<E>(error: E) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self::wrap(error, ErrorKind::Serialization)
+    }
+
+    fn wrap_http<E>(error: E) -> Self
+    where
+        E: StdError + Send + Sync + 'static,
+    {
+        Self::wrap(error, ErrorKind::Http)
     }
 }
 
@@ -80,6 +119,24 @@ impl std::fmt::Display for Error {
 }
 
 impl StdError for Error {}
+
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[non_exhaustive]
+pub enum ErrorKind {
+    /// An error related to accessing environment details such as environment
+    /// variables.
+    Environment,
+    /// An error related to make network requests or a failed request.
+    Http,
+    /// An error related to IO.
+    IO,
+    /// An error related to serde serialization/deserialization.
+    Serialization,
+    /// An error related to improper state.
+    Validation,
+    /// A custom error that does not currently fall into other categories.
+    Other,
+}
 
 pub type Result<T> = std::result::Result<T, Error>;
 
@@ -215,7 +272,10 @@ impl Credential {
             return Ok(source);
         }
 
-        Err(Error::new("unable to detect default credentials"))
+        Err(Error::new(
+            "unable to detect default credentials",
+            ErrorKind::Validation,
+        ))
     }
 
     /// Creates a source from a file type credential such as a Service Account
@@ -224,8 +284,8 @@ impl Credential {
         file_path: PathBuf,
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
-        let contents = tokio::fs::read(file_path).await.map_err(Error::wrap)?;
-        let file: Key = serde_json::from_slice(&contents).map_err(Error::wrap)?;
+        let contents = tokio::fs::read(file_path).await.map_err(Error::wrap_io)?;
+        let file: Key = serde_json::from_slice(&contents).map_err(Error::wrap_serialization)?;
         let source: Box<dyn Source + Send + Sync + 'static> = match file.cred_type {
             "authorized_user" => {
                 let source = UserSource::from_file_contents(
@@ -246,10 +306,10 @@ impl Credential {
                 Box::new(source)
             }
             _ => {
-                return Err(Error::new(format!(
-                    "unsupported credential type found: {}",
-                    file.cred_type
-                )));
+                return Err(Error::new(
+                    format!("unsupported credential type found: {}", file.cred_type),
+                    ErrorKind::Validation,
+                ));
             }
         };
         Ok(source)
@@ -259,13 +319,15 @@ impl Credential {
     fn well_known_file() -> Result<PathBuf> {
         let mut path = PathBuf::new();
         if cfg!(windows) {
-            let appdata = std::env::var(WINDOWS_APPDATA_ENV)
-                .map_err(|_| Error::new("unable to find APPDATA"))?;
+            let appdata = std::env::var(WINDOWS_APPDATA_ENV).map_err(|e| {
+                Error::new_with_error("unable to find APPDATA", e, ErrorKind::Environment)
+            })?;
             path.push(appdata);
             path.push(GCLOUD_PATH_PART);
         } else {
-            let home =
-                std::env::var(UNIX_HOME_ENV).map_err(|_| Error::new("unable to lookup HOME"))?;
+            let home = std::env::var(UNIX_HOME_ENV).map_err(|e| {
+                Error::new_with_error("unable to lookup HOME", e, ErrorKind::Environment)
+            })?;
             path.push(home);
             path.push(CONFIG_PATH_PART);
         }

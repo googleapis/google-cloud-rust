@@ -16,7 +16,7 @@
 
 use super::metadata;
 use crate::oauth2::{JwsClaims, JwsHeader};
-use crate::{AccessToken, Error, Result};
+use crate::{AccessToken, Error, ErrorKind, Result};
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
 use rustls::sign::Signer;
@@ -95,11 +95,11 @@ impl ServiceAccountKeySource {
         config: ServiceAccountKeySourceConfig,
     ) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::new("scopes must be provided"));
+            return Err(Error::new("scopes must be provided", ErrorKind::Validation));
         }
         let sa: ServiceAccountKeyFile =
-            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap)?)
-                .map_err(Error::wrap)?;
+            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap_io)?)
+                .map_err(Error::wrap_serialization)?;
         Ok(ServiceAccountKeySource {
             file: sa,
             scopes: config.scopes,
@@ -112,9 +112,10 @@ impl ServiceAccountKeySource {
         config: ServiceAccountKeySourceConfig,
     ) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::new("scopes must be provided"));
+            return Err(Error::new("scopes must be provided", ErrorKind::Validation));
         }
-        let sa: ServiceAccountKeyFile = serde_json::from_slice(contents).map_err(Error::wrap)?;
+        let sa: ServiceAccountKeyFile =
+            serde_json::from_slice(contents).map_err(Error::wrap_serialization)?;
         Ok(ServiceAccountKeySource {
             file: sa,
             scopes: config.scopes,
@@ -134,17 +135,20 @@ impl ServiceAccountKeySource {
             })
             .send()
             .await
-            .map_err(|_| Error::new("unable to make request to oauth endpoint"))?;
+            .map_err(|e| {
+                Error::new_with_error(
+                    "unable to make request to oauth endpoint",
+                    e,
+                    ErrorKind::Http,
+                )
+            })?;
         if !res.status().is_success() {
-            return Err(Error::new(format!(
-                "bad request with status: {}",
-                res.status()
-            )));
+            return Err(Error::new(
+                format!("bad request with status: {}", res.status()),
+                ErrorKind::Http,
+            ));
         }
-        let token_response: TokenResponse = res
-            .json()
-            .await
-            .map_err(|_| Error::new("unable to decode response"))?;
+        let token_response: TokenResponse = res.json().await.map_err(Error::wrap_serialization)?;
 
         Ok(AccessToken {
             value: token_response.access_token,
@@ -155,22 +159,27 @@ impl ServiceAccountKeySource {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self) -> Result<Box<dyn Signer>> {
         let pk = rustls_pemfile::read_one(&mut self.file.private_key.as_bytes())
-            .map_err(Error::wrap)?
-            .ok_or_else(|| Error::new("unable to parse service account key"))?;
+            .map_err(|e| Error::wrap(e, ErrorKind::Other))?
+            .ok_or_else(|| {
+                Error::new("unable to parse service account key", ErrorKind::Validation)
+            })?;
         let pk = match pk {
             Item::RSAKey(item) => item,
             Item::PKCS8Key(item) => item,
             other => {
-                return Err(Error::new(format!(
-                    "expected key to be in form of RSA or PKCS8, found {:?}",
-                    other
-                )))
+                return Err(Error::new(
+                    format!(
+                        "expected key to be in form of RSA or PKCS8, found {:?}",
+                        other
+                    ),
+                    ErrorKind::Validation,
+                ))
             }
         };
         rustls::sign::RsaSigningKey::new(&rustls::PrivateKey(pk))
-            .map_err(|_| Error::new("unable to create signer"))?
+            .map_err(|e| Error::new_with_error("unable to create signer", e, ErrorKind::Other))?
             .choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| Error::new("invalid signing scheme"))
+            .ok_or_else(|| Error::new("invalid signing scheme", ErrorKind::Validation))
     }
 
     /// Uses the provide signer to sign JWS Claims then base64 encodes the data
@@ -191,7 +200,7 @@ impl ServiceAccountKeySource {
         let ss = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(ss.as_bytes())
-            .map_err(|_| Error::new("unable to sign bytes"))?;
+            .map_err(|_| Error::new("unable to sign bytes", ErrorKind::Other))?;
         Ok(format!(
             "{}.{}",
             ss,
@@ -251,11 +260,11 @@ impl UserSource {
     /// Create a [UserSource] from a file path.
     pub async fn from_file(path: impl AsRef<Path>, config: UserSourceConfig) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::new("scopes must be provided"));
+            return Err(Error::new("scopes must be provided", ErrorKind::Validation));
         }
         let user: UserCredentialFile =
-            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap)?)
-                .map_err(Error::wrap)?;
+            serde_json::from_slice(&tokio::fs::read(path).await.map_err(Error::wrap_io)?)
+                .map_err(Error::wrap_serialization)?;
         Ok(Self {
             file: user,
             scopes: config.scopes,
@@ -265,9 +274,10 @@ impl UserSource {
     /// Create a [UserSource] from bytes.
     pub fn from_file_contents(contents: &[u8], config: UserSourceConfig) -> Result<Self> {
         if config.scopes.is_empty() {
-            return Err(Error::new("scopes must be provided"));
+            return Err(Error::new("scopes must be provided", ErrorKind::Validation));
         }
-        let user: UserCredentialFile = serde_json::from_slice(contents).map_err(Error::wrap)?;
+        let user: UserCredentialFile =
+            serde_json::from_slice(contents).map_err(Error::wrap_serialization)?;
         Ok(Self {
             file: user,
             scopes: config.scopes,
@@ -288,17 +298,20 @@ impl UserSource {
             })
             .send()
             .await
-            .map_err(|_| Error::new("unable to make request to oauth endpoint"))?;
+            .map_err(|e| {
+                Error::new_with_error(
+                    "unable to make request to oauth endpoint",
+                    e,
+                    ErrorKind::Http,
+                )
+            })?;
         if !res.status().is_success() {
-            return Err(Error::new(format!(
-                "bad request with status: {}",
-                res.status()
-            )));
+            return Err(Error::new(
+                format!("bad request with status: {}", res.status()),
+                ErrorKind::Http,
+            ));
         }
-        let token_response: TokenResponse = res
-            .json()
-            .await
-            .map_err(|_| Error::new("unable to decode response"))?;
+        let token_response: TokenResponse = res.json().await.map_err(Error::wrap_serialization)?;
         Ok(AccessToken {
             value: token_response.access_token,
             expires: Some(Utc::now() + Duration::seconds(token_response.expires_in)),
@@ -342,9 +355,7 @@ impl ComputeSource {
 
     ///Retrieves an [AccessToken] based on configured source.
     async fn _fetch_access_token(&self) -> Result<AccessToken> {
-        let token = metadata::fetch_access_token(None, self.scopes.clone())
-            .await
-            .map_err(|e| Error::new(e.to_string()))?;
+        let token = metadata::fetch_access_token(None, self.scopes.clone()).await?;
         Ok(AccessToken {
             value: token.access_token,
             expires: Some(Utc::now() + Duration::seconds(token.expires_in)),
@@ -368,6 +379,7 @@ impl Source for NoOpSource {
     async fn token(&self) -> Result<AccessToken> {
         Err(Error::new(
             "use Credential.find_default to find a credential from the env",
+            ErrorKind::Other,
         ))
     }
 }

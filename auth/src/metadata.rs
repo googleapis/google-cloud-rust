@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 use std::env;
 use tokio::time::{self, Duration};
 
-use super::{Error, Result};
+use super::{Error, ErrorKind, Result};
 
 const DEFAULT_ACCOUNT: &str = "default";
 const GCE_METADATA_HOST_ENV: &str = "GCE_METADATA_HOST";
@@ -59,14 +59,14 @@ async fn get_with_query<T: Serialize + ?Sized>(
         } else {
             req
         };
-        let res = req.send().await.map_err(Error::wrap)?;
+        let res = req.send().await.map_err(Error::wrap_http)?;
         if !res.status().is_success() {
-            return Err(backoff::Error::transient(Error::new(format!(
-                "bad request with status: {}",
-                res.status().as_str()
-            ))));
+            return Err(backoff::Error::transient(Error::new(
+                format!("bad request with status: {}", res.status().as_str()),
+                crate::ErrorKind::Http,
+            )));
         }
-        let content = res.text().await.map_err(Error::wrap)?;
+        let content = res.text().await.map_err(Error::wrap_http)?;
         Ok(content)
     })
     .await?;
@@ -111,20 +111,25 @@ pub struct Token {
 /// account is not provided the value will be set to `default`.
 pub async fn fetch_access_token(account: Option<&str>, scopes: Vec<String>) -> Result<Token> {
     if scopes.is_empty() {
-        return Err(Error::new("scopes must be provided"));
+        return Err(Error::new("scopes must be provided", ErrorKind::Validation));
     }
     if !is_running_on_gce().await {
         return Err(Error::new(
             "can't get token from metadata service, not running on GCE",
+            ErrorKind::Validation,
         ));
     }
     let account = account.unwrap_or(DEFAULT_ACCOUNT);
     let suffix = format!("instance/service-accounts/{}/token", account);
     let query = &[("scopes", scopes.join(","))];
     let json = get_with_query(suffix, Some(query)).await?;
-    let token_response: Token = serde_json::from_str(json.as_str()).map_err(Error::wrap)?;
+    let token_response: Token =
+        serde_json::from_str(json.as_str()).map_err(Error::wrap_serialization)?;
     if token_response.expires_in == 0 || token_response.access_token.is_empty() {
-        return Err(Error::new("incomplete token received from metadata"));
+        return Err(Error::new(
+            "incomplete token received from metadata",
+            ErrorKind::Validation,
+        ));
     }
     Ok(token_response)
 }
