@@ -34,19 +34,6 @@ const USER_CREDENTIAL_FILE: &str = "application_default_credentials.json";
 const GCLOUD_PATH_PART: &str = "gcloud";
 const CONFIG_PATH_PART: &str = ".config";
 
-//#[derive(thiserror::Error, Debug)]
-//#[non_exhaustive]
-// pub enum Error {
-//     #[error("unable to read file")]
-//     Io(#[from] std::io::Error),
-//     #[error("unable to deserialize value")]
-//     Serde(#[from] serde_json::Error),
-//     #[error("unable to process request")]
-//     Http(#[from] reqwest::Error),
-//     #[error("{0}")]
-//     Other(String),
-// }
-
 #[derive(Debug)]
 pub struct Error {
     inner_error: Option<Box<dyn StdError + Send + Sync>>,
