@@ -197,50 +197,106 @@ pub struct ProjectsServiceAccountService {
 impl BucketAccessControlsService {
     /// Permanently deletes the ACL entry for the specified entity on the
     /// specified bucket.
-    pub fn delete(&self) -> BucketAccessControlsDeleteCall {
-        BucketAccessControlsDeleteCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn delete(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> BucketAccessControlsDeleteCall {
+        let mut c = BucketAccessControlsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Returns the ACL entry for the specified entity on the specified
     /// bucket.
-    pub fn get(&self) -> BucketAccessControlsGetCall {
-        BucketAccessControlsGetCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn get(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> BucketAccessControlsGetCall {
+        let mut c = BucketAccessControlsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Creates a new ACL entry on the specified bucket.
-    pub fn insert(&self, request: model::BucketAccessControl) -> BucketAccessControlsInsertCall {
-        BucketAccessControlsInsertCall {
+    /// - bucket: Name of a bucket.
+    pub fn insert(
+        &self,
+        bucket: impl Into<String>,
+        request: model::BucketAccessControl,
+    ) -> BucketAccessControlsInsertCall {
+        let mut c = BucketAccessControlsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Retrieves ACL entries on the specified bucket.
-    pub fn list(&self) -> BucketAccessControlsListCall {
-        BucketAccessControlsListCall {
+    /// - bucket: Name of a bucket.
+    pub fn list(&self, bucket: impl Into<String>) -> BucketAccessControlsListCall {
+        let mut c = BucketAccessControlsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Patches an ACL entry on the specified bucket.
-    pub fn patch(&self, request: model::BucketAccessControl) -> BucketAccessControlsPatchCall {
-        BucketAccessControlsPatchCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn patch(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+        request: model::BucketAccessControl,
+    ) -> BucketAccessControlsPatchCall {
+        let mut c = BucketAccessControlsPatchCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
     /// Updates an ACL entry on the specified bucket.
-    pub fn update(&self, request: model::BucketAccessControl) -> BucketAccessControlsUpdateCall {
-        BucketAccessControlsUpdateCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn update(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+        request: model::BucketAccessControl,
+    ) -> BucketAccessControlsUpdateCall {
+        let mut c = BucketAccessControlsUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -252,18 +308,6 @@ pub struct BucketAccessControlsDeleteCall {
 }
 
 impl BucketAccessControlsDeleteCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -320,18 +364,6 @@ pub struct BucketAccessControlsGetCall {
 }
 
 impl BucketAccessControlsGetCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -389,11 +421,6 @@ pub struct BucketAccessControlsInsertCall {
 }
 
 impl BucketAccessControlsInsertCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -450,11 +477,6 @@ pub struct BucketAccessControlsListCall {
 }
 
 impl BucketAccessControlsListCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -512,18 +534,6 @@ pub struct BucketAccessControlsPatchCall {
 }
 
 impl BucketAccessControlsPatchCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -583,18 +593,6 @@ pub struct BucketAccessControlsUpdateCall {
 }
 
 impl BucketAccessControlsUpdateCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -646,81 +644,131 @@ impl BucketAccessControlsUpdateCall {
 
 impl BucketsService {
     /// Permanently deletes an empty bucket.
-    pub fn delete(&self) -> BucketsDeleteCall {
-        BucketsDeleteCall {
+    /// - bucket: Name of a bucket.
+    pub fn delete(&self, bucket: impl Into<String>) -> BucketsDeleteCall {
+        let mut c = BucketsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Returns metadata for the specified bucket.
-    pub fn get(&self) -> BucketsGetCall {
-        BucketsGetCall {
+    /// - bucket: Name of a bucket.
+    pub fn get(&self, bucket: impl Into<String>) -> BucketsGetCall {
+        let mut c = BucketsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Returns an IAM policy for the specified bucket.
-    pub fn get_iam_policy(&self) -> BucketsGetIamPolicyCall {
-        BucketsGetIamPolicyCall {
+    /// - bucket: Name of a bucket.
+    pub fn get_iam_policy(&self, bucket: impl Into<String>) -> BucketsGetIamPolicyCall {
+        let mut c = BucketsGetIamPolicyCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Creates a new bucket.
-    pub fn insert(&self, request: model::Bucket) -> BucketsInsertCall {
-        BucketsInsertCall {
+    /// - project: A valid API project identifier.
+    pub fn insert(&self, project: impl Into<String>, request: model::Bucket) -> BucketsInsertCall {
+        let mut c = BucketsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.url_params.insert("project".into(), vec![project.into()]);
+        c.request = request;
+        c
     }
     /// Retrieves a list of buckets for a given project.
-    pub fn list(&self) -> BucketsListCall {
-        BucketsListCall {
+    /// - project: A valid API project identifier.
+    pub fn list(&self, project: impl Into<String>) -> BucketsListCall {
+        let mut c = BucketsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.url_params.insert("project".into(), vec![project.into()]);
+        c
     }
     /// Locks retention policy on a bucket.
-    pub fn lock_retention_policy(&self) -> BucketsLockRetentionPolicyCall {
-        BucketsLockRetentionPolicyCall {
+    /// - bucket: Name of a bucket.
+    /// - if_metageneration_match: Makes the operation conditional on whether
+    ///   bucket's current metageneration matches the given value.
+    pub fn lock_retention_policy(
+        &self,
+        bucket: impl Into<String>,
+        if_metageneration_match: impl Into<String>,
+    ) -> BucketsLockRetentionPolicyCall {
+        let mut c = BucketsLockRetentionPolicyCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.url_params.insert(
+            "ifMetagenerationMatch".into(),
+            vec![if_metageneration_match.into()],
+        );
+        c
     }
     /// Patches a bucket. Changes to the bucket will be readable immediately
     /// after writing, but configuration changes may take time to propagate.
-    pub fn patch(&self, request: model::Bucket) -> BucketsPatchCall {
-        BucketsPatchCall {
+    /// - bucket: Name of a bucket.
+    pub fn patch(&self, bucket: impl Into<String>, request: model::Bucket) -> BucketsPatchCall {
+        let mut c = BucketsPatchCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Updates an IAM policy for the specified bucket.
-    pub fn set_iam_policy(&self, request: model::Policy) -> BucketsSetIamPolicyCall {
-        BucketsSetIamPolicyCall {
+    /// - bucket: Name of a bucket.
+    pub fn set_iam_policy(
+        &self,
+        bucket: impl Into<String>,
+        request: model::Policy,
+    ) -> BucketsSetIamPolicyCall {
+        let mut c = BucketsSetIamPolicyCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Tests a set of permissions on the given bucket to see which, if any,
     /// are held by the caller.
-    pub fn test_iam_permissions(&self) -> BucketsTestIamPermissionsCall {
-        BucketsTestIamPermissionsCall {
+    /// - bucket: Name of a bucket.
+    /// - permissions: Permissions to test.
+    pub fn test_iam_permissions(
+        &self,
+        bucket: impl Into<String>,
+        permissions: Vec<String>,
+    ) -> BucketsTestIamPermissionsCall {
+        let mut c = BucketsTestIamPermissionsCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.url_params.insert("permissions".into(), permissions);
+        c
     }
     /// Updates a bucket. Changes to the bucket will be readable immediately
     /// after writing, but configuration changes may take time to propagate.
-    pub fn update(&self, request: model::Bucket) -> BucketsUpdateCall {
-        BucketsUpdateCall {
+    /// - bucket: Name of a bucket.
+    pub fn update(&self, bucket: impl Into<String>, request: model::Bucket) -> BucketsUpdateCall {
+        let mut c = BucketsUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -731,11 +779,6 @@ pub struct BucketsDeleteCall {
 }
 
 impl BucketsDeleteCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If set, only deletes the bucket if its metageneration matches this
     /// value.
     pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
@@ -800,11 +843,6 @@ pub struct BucketsGetCall {
 }
 
 impl BucketsGetCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// Makes the return of the bucket metadata conditional on whether the
     /// bucket's current metageneration matches the given value.
     pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
@@ -876,11 +914,6 @@ pub struct BucketsGetIamPolicyCall {
 }
 
 impl BucketsGetIamPolicyCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The IAM policy format version to be returned. If the
     /// optionsRequestedPolicyVersion is for an older version that doesn't
     /// support part of the requested IAM policy, the request fails.
@@ -957,11 +990,6 @@ impl BucketsInsertCall {
     pub fn predefined_default_object_acl(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("predefined_default_object_acl".into(), vec![value.into()]);
-        self
-    }
-    /// A valid API project identifier.
-    pub fn project(mut self, value: impl Into<String>) -> Self {
-        self.url_params.insert("project".into(), vec![value.into()]);
         self
     }
     /// Set of properties to return. Defaults to noAcl, unless the bucket
@@ -1041,11 +1069,6 @@ impl BucketsListCall {
         self.url_params.insert("prefix".into(), vec![value.into()]);
         self
     }
-    /// A valid API project identifier.
-    pub fn project(mut self, value: impl Into<String>) -> Self {
-        self.url_params.insert("project".into(), vec![value.into()]);
-        self
-    }
     /// Set of properties to return. Defaults to noAcl.
     pub fn projection(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -1102,18 +1125,6 @@ pub struct BucketsLockRetentionPolicyCall {
 }
 
 impl BucketsLockRetentionPolicyCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// Makes the operation conditional on whether bucket's current
-    /// metageneration matches the given value.
-    pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
-        self.url_params
-            .insert("if_metageneration_match".into(), vec![value.into()]);
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1170,11 +1181,6 @@ pub struct BucketsPatchCall {
 }
 
 impl BucketsPatchCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// Makes the return of the bucket metadata conditional on whether the
     /// bucket's current metageneration matches the given value.
     pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
@@ -1261,11 +1267,6 @@ pub struct BucketsSetIamPolicyCall {
 }
 
 impl BucketsSetIamPolicyCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1322,17 +1323,6 @@ pub struct BucketsTestIamPermissionsCall {
 }
 
 impl BucketsTestIamPermissionsCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// Permissions to test.
-    pub fn permissions(mut self, value: impl Into<String>) -> Self {
-        self.url_params
-            .insert("permissions".into(), vec![value.into()]);
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1389,11 +1379,6 @@ pub struct BucketsUpdateCall {
 }
 
 impl BucketsUpdateCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// Makes the return of the bucket metadata conditional on whether the
     /// bucket's current metageneration matches the given value.
     pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
@@ -1474,11 +1459,12 @@ impl BucketsUpdateCall {
 impl ChannelsService {
     /// Stop watching resources through this channel
     pub fn stop(&self, request: model::Channel) -> ChannelsStopCall {
-        ChannelsStopCall {
+        let mut c = ChannelsStopCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -1512,59 +1498,106 @@ impl ChannelsStopCall {
 impl DefaultObjectAccessControlsService {
     /// Permanently deletes the default object ACL entry for the specified
     /// entity on the specified bucket.
-    pub fn delete(&self) -> DefaultObjectAccessControlsDeleteCall {
-        DefaultObjectAccessControlsDeleteCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn delete(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> DefaultObjectAccessControlsDeleteCall {
+        let mut c = DefaultObjectAccessControlsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Returns the default object ACL entry for the specified entity on the
     /// specified bucket.
-    pub fn get(&self) -> DefaultObjectAccessControlsGetCall {
-        DefaultObjectAccessControlsGetCall {
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn get(
+        &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> DefaultObjectAccessControlsGetCall {
+        let mut c = DefaultObjectAccessControlsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Creates a new default object ACL entry on the specified bucket.
+    /// - bucket: Name of a bucket.
     pub fn insert(
         &self,
+        bucket: impl Into<String>,
         request: model::ObjectAccessControl,
     ) -> DefaultObjectAccessControlsInsertCall {
-        DefaultObjectAccessControlsInsertCall {
+        let mut c = DefaultObjectAccessControlsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Retrieves default object ACL entries on the specified bucket.
-    pub fn list(&self) -> DefaultObjectAccessControlsListCall {
-        DefaultObjectAccessControlsListCall {
+    /// - bucket: Name of a bucket.
+    pub fn list(&self, bucket: impl Into<String>) -> DefaultObjectAccessControlsListCall {
+        let mut c = DefaultObjectAccessControlsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Patches a default object ACL entry on the specified bucket.
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
     pub fn patch(
         &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
         request: model::ObjectAccessControl,
     ) -> DefaultObjectAccessControlsPatchCall {
-        DefaultObjectAccessControlsPatchCall {
+        let mut c = DefaultObjectAccessControlsPatchCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
     /// Updates a default object ACL entry on the specified bucket.
+    /// - bucket: Name of a bucket.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
     pub fn update(
         &self,
+        bucket: impl Into<String>,
+        entity: impl Into<String>,
         request: model::ObjectAccessControl,
     ) -> DefaultObjectAccessControlsUpdateCall {
-        DefaultObjectAccessControlsUpdateCall {
+        let mut c = DefaultObjectAccessControlsUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -1576,18 +1609,6 @@ pub struct DefaultObjectAccessControlsDeleteCall {
 }
 
 impl DefaultObjectAccessControlsDeleteCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1644,18 +1665,6 @@ pub struct DefaultObjectAccessControlsGetCall {
 }
 
 impl DefaultObjectAccessControlsGetCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1713,11 +1722,6 @@ pub struct DefaultObjectAccessControlsInsertCall {
 }
 
 impl DefaultObjectAccessControlsInsertCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1774,11 +1778,6 @@ pub struct DefaultObjectAccessControlsListCall {
 }
 
 impl DefaultObjectAccessControlsListCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, only return default ACL listing if the bucket's current
     /// metageneration matches this value.
     pub fn if_metageneration_match(mut self, value: impl Into<String>) -> Self {
@@ -1850,18 +1849,6 @@ pub struct DefaultObjectAccessControlsPatchCall {
 }
 
 impl DefaultObjectAccessControlsPatchCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1921,18 +1908,6 @@ pub struct DefaultObjectAccessControlsUpdateCall {
 }
 
 impl DefaultObjectAccessControlsUpdateCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -1984,33 +1959,61 @@ impl DefaultObjectAccessControlsUpdateCall {
 
 impl NotificationsService {
     /// Permanently deletes a notification subscription.
-    pub fn delete(&self) -> NotificationsDeleteCall {
-        NotificationsDeleteCall {
+    /// - bucket: The parent bucket of the notification.
+    /// - notification: ID of the notification to delete.
+    pub fn delete(
+        &self,
+        bucket: impl Into<String>,
+        notification: impl Into<String>,
+    ) -> NotificationsDeleteCall {
+        let mut c = NotificationsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.notification = Some(notification.into());
+        c
     }
     /// View a notification configuration.
-    pub fn get(&self) -> NotificationsGetCall {
-        NotificationsGetCall {
+    /// - bucket: The parent bucket of the notification.
+    /// - notification: Notification ID
+    pub fn get(
+        &self,
+        bucket: impl Into<String>,
+        notification: impl Into<String>,
+    ) -> NotificationsGetCall {
+        let mut c = NotificationsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.notification = Some(notification.into());
+        c
     }
     /// Creates a notification subscription for a given bucket.
-    pub fn insert(&self, request: model::Notification) -> NotificationsInsertCall {
-        NotificationsInsertCall {
+    /// - bucket: The parent bucket of the notification.
+    pub fn insert(
+        &self,
+        bucket: impl Into<String>,
+        request: model::Notification,
+    ) -> NotificationsInsertCall {
+        let mut c = NotificationsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Retrieves a list of notification subscriptions for a given bucket.
-    pub fn list(&self) -> NotificationsListCall {
-        NotificationsListCall {
+    /// - bucket: Name of a Google Cloud Storage bucket.
+    pub fn list(&self, bucket: impl Into<String>) -> NotificationsListCall {
+        let mut c = NotificationsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -2022,16 +2025,6 @@ pub struct NotificationsDeleteCall {
 }
 
 impl NotificationsDeleteCall {
-    /// The parent bucket of the notification.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// ID of the notification to delete.
-    pub fn notification(mut self, value: impl Into<String>) -> Self {
-        self.notification = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -2088,16 +2081,6 @@ pub struct NotificationsGetCall {
 }
 
 impl NotificationsGetCall {
-    /// The parent bucket of the notification.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// Notification ID
-    pub fn notification(mut self, value: impl Into<String>) -> Self {
-        self.notification = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -2155,11 +2138,6 @@ pub struct NotificationsInsertCall {
 }
 
 impl NotificationsInsertCall {
-    /// The parent bucket of the notification.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -2216,11 +2194,6 @@ pub struct NotificationsListCall {
 }
 
 impl NotificationsListCall {
-    /// Name of a Google Cloud Storage bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
@@ -2271,50 +2244,133 @@ impl NotificationsListCall {
 impl ObjectAccessControlsService {
     /// Permanently deletes the ACL entry for the specified entity on the
     /// specified object.
-    pub fn delete(&self) -> ObjectAccessControlsDeleteCall {
-        ObjectAccessControlsDeleteCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn delete(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> ObjectAccessControlsDeleteCall {
+        let mut c = ObjectAccessControlsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Returns the ACL entry for the specified entity on the specified
     /// object.
-    pub fn get(&self) -> ObjectAccessControlsGetCall {
-        ObjectAccessControlsGetCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn get(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        entity: impl Into<String>,
+    ) -> ObjectAccessControlsGetCall {
+        let mut c = ObjectAccessControlsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.entity = Some(entity.into());
+        c
     }
     /// Creates a new ACL entry on the specified object.
-    pub fn insert(&self, request: model::ObjectAccessControl) -> ObjectAccessControlsInsertCall {
-        ObjectAccessControlsInsertCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn insert(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        request: model::ObjectAccessControl,
+    ) -> ObjectAccessControlsInsertCall {
+        let mut c = ObjectAccessControlsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.request = request;
+        c
     }
     /// Retrieves ACL entries on the specified object.
-    pub fn list(&self) -> ObjectAccessControlsListCall {
-        ObjectAccessControlsListCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn list(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+    ) -> ObjectAccessControlsListCall {
+        let mut c = ObjectAccessControlsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c
     }
     /// Patches an ACL entry on the specified object.
-    pub fn patch(&self, request: model::ObjectAccessControl) -> ObjectAccessControlsPatchCall {
-        ObjectAccessControlsPatchCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn patch(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        entity: impl Into<String>,
+        request: model::ObjectAccessControl,
+    ) -> ObjectAccessControlsPatchCall {
+        let mut c = ObjectAccessControlsPatchCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
     /// Updates an ACL entry on the specified object.
-    pub fn update(&self, request: model::ObjectAccessControl) -> ObjectAccessControlsUpdateCall {
-        ObjectAccessControlsUpdateCall {
+    /// - bucket: Name of a bucket.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    /// - entity: The entity holding the permission. Can be user-userId,
+    ///   user-emailAddress, group-groupId, group-emailAddress, allUsers, or
+    ///   allAuthenticatedUsers.
+    pub fn update(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        entity: impl Into<String>,
+        request: model::ObjectAccessControl,
+    ) -> ObjectAccessControlsUpdateCall {
+        let mut c = ObjectAccessControlsUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.entity = Some(entity.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -2327,29 +2383,11 @@ pub struct ObjectAccessControlsDeleteCall {
 }
 
 impl ObjectAccessControlsDeleteCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2410,29 +2448,11 @@ pub struct ObjectAccessControlsGetCall {
 }
 
 impl ObjectAccessControlsGetCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2494,22 +2514,11 @@ pub struct ObjectAccessControlsInsertCall {
 }
 
 impl ObjectAccessControlsInsertCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2570,22 +2579,11 @@ pub struct ObjectAccessControlsListCall {
 }
 
 impl ObjectAccessControlsListCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2647,29 +2645,11 @@ pub struct ObjectAccessControlsPatchCall {
 }
 
 impl ObjectAccessControlsPatchCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2733,29 +2713,11 @@ pub struct ObjectAccessControlsUpdateCall {
 }
 
 impl ObjectAccessControlsUpdateCall {
-    /// Name of a bucket.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
-    /// The entity holding the permission. Can be user-userId,
-    /// user-emailAddress, group-groupId, group-emailAddress, allUsers, or
-    /// allAuthenticatedUsers.
-    pub fn entity(mut self, value: impl Into<String>) -> Self {
-        self.entity = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -2811,108 +2773,255 @@ impl ObjectAccessControlsUpdateCall {
 impl ObjectsService {
     /// Concatenates a list of existing objects into a new object in the same
     /// bucket.
-    pub fn compose(&self, request: model::ComposeRequest) -> ObjectsComposeCall {
-        ObjectsComposeCall {
+    /// - destination_bucket: Name of the bucket containing the source
+    ///   objects. The destination object is stored in this bucket.
+    /// - destination_object: Name of the new object. For information about
+    ///   how to URL encode object names to be path safe, see Encoding URI
+    ///   Path Parts.
+    pub fn compose(
+        &self,
+        destination_bucket: impl Into<String>,
+        destination_object: impl Into<String>,
+        request: model::ComposeRequest,
+    ) -> ObjectsComposeCall {
+        let mut c = ObjectsComposeCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.destination_bucket = Some(destination_bucket.into());
+        c.destination_object = Some(destination_object.into());
+        c.request = request;
+        c
     }
     /// Copies a source object to a destination object. Optionally overrides
     /// metadata.
-    pub fn copy(&self, request: model::Object) -> ObjectsCopyCall {
-        ObjectsCopyCall {
+    /// - source_bucket: Name of the bucket in which to find the source
+    ///   object.
+    /// - source_object: Name of the source object. For information about how
+    ///   to URL encode object names to be path safe, see Encoding URI Path
+    ///   Parts.
+    /// - destination_bucket: Name of the bucket in which to store the new
+    ///   object. Overrides the provided object metadata's bucket value, if
+    ///   any.For information about how to URL encode object names to be path
+    ///   safe, see Encoding URI Path Parts.
+    /// - destination_object: Name of the new object. Required when the
+    ///   object metadata is not otherwise provided. Overrides the object
+    ///   metadata's name value, if any.
+    pub fn copy(
+        &self,
+        source_bucket: impl Into<String>,
+        source_object: impl Into<String>,
+        destination_bucket: impl Into<String>,
+        destination_object: impl Into<String>,
+        request: model::Object,
+    ) -> ObjectsCopyCall {
+        let mut c = ObjectsCopyCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.source_bucket = Some(source_bucket.into());
+        c.source_object = Some(source_object.into());
+        c.destination_bucket = Some(destination_bucket.into());
+        c.destination_object = Some(destination_object.into());
+        c.request = request;
+        c
     }
     /// Deletes an object and its metadata. Deletions are permanent if
     /// versioning is not enabled for the bucket, or if the generation
     /// parameter is used.
-    pub fn delete(&self) -> ObjectsDeleteCall {
-        ObjectsDeleteCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn delete(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+    ) -> ObjectsDeleteCall {
+        let mut c = ObjectsDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c
     }
     /// Retrieves an object or its metadata.
-    pub fn get(&self) -> ObjectsGetCall {
-        ObjectsGetCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn get(&self, bucket: impl Into<String>, object: impl Into<String>) -> ObjectsGetCall {
+        let mut c = ObjectsGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c
     }
     /// Returns an IAM policy for the specified object.
-    pub fn get_iam_policy(&self) -> ObjectsGetIamPolicyCall {
-        ObjectsGetIamPolicyCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn get_iam_policy(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+    ) -> ObjectsGetIamPolicyCall {
+        let mut c = ObjectsGetIamPolicyCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c
     }
     /// Stores a new object and metadata.
-    pub fn insert(&self, request: model::Object) -> ObjectsInsertCall {
-        ObjectsInsertCall {
+    /// - bucket: Name of the bucket in which to store the new object.
+    ///   Overrides the provided object metadata's bucket value, if any.
+    pub fn insert(&self, bucket: impl Into<String>, request: model::Object) -> ObjectsInsertCall {
+        let mut c = ObjectsInsertCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
     /// Retrieves a list of objects matching the criteria.
-    pub fn list(&self) -> ObjectsListCall {
-        ObjectsListCall {
+    /// - bucket: Name of the bucket in which to look for objects.
+    pub fn list(&self, bucket: impl Into<String>) -> ObjectsListCall {
+        let mut c = ObjectsListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c
     }
     /// Patches an object's metadata.
-    pub fn patch(&self, request: model::Object) -> ObjectsPatchCall {
-        ObjectsPatchCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn patch(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        request: model::Object,
+    ) -> ObjectsPatchCall {
+        let mut c = ObjectsPatchCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.request = request;
+        c
     }
     /// Rewrites a source object to a destination object. Optionally
     /// overrides metadata.
-    pub fn rewrite(&self, request: model::Object) -> ObjectsRewriteCall {
-        ObjectsRewriteCall {
+    /// - source_bucket: Name of the bucket in which to find the source
+    ///   object.
+    /// - source_object: Name of the source object. For information about how
+    ///   to URL encode object names to be path safe, see Encoding URI Path
+    ///   Parts.
+    /// - destination_bucket: Name of the bucket in which to store the new
+    ///   object. Overrides the provided object metadata's bucket value, if
+    ///   any.
+    /// - destination_object: Name of the new object. Required when the
+    ///   object metadata is not otherwise provided. Overrides the object
+    ///   metadata's name value, if any. For information about how to URL
+    ///   encode object names to be path safe, see Encoding URI Path Parts.
+    pub fn rewrite(
+        &self,
+        source_bucket: impl Into<String>,
+        source_object: impl Into<String>,
+        destination_bucket: impl Into<String>,
+        destination_object: impl Into<String>,
+        request: model::Object,
+    ) -> ObjectsRewriteCall {
+        let mut c = ObjectsRewriteCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.source_bucket = Some(source_bucket.into());
+        c.source_object = Some(source_object.into());
+        c.destination_bucket = Some(destination_bucket.into());
+        c.destination_object = Some(destination_object.into());
+        c.request = request;
+        c
     }
     /// Updates an IAM policy for the specified object.
-    pub fn set_iam_policy(&self, request: model::Policy) -> ObjectsSetIamPolicyCall {
-        ObjectsSetIamPolicyCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn set_iam_policy(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        request: model::Policy,
+    ) -> ObjectsSetIamPolicyCall {
+        let mut c = ObjectsSetIamPolicyCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.request = request;
+        c
     }
     /// Tests a set of permissions on the given object to see which, if any,
     /// are held by the caller.
-    pub fn test_iam_permissions(&self) -> ObjectsTestIamPermissionsCall {
-        ObjectsTestIamPermissionsCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    /// - permissions: Permissions to test.
+    pub fn test_iam_permissions(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        permissions: Vec<String>,
+    ) -> ObjectsTestIamPermissionsCall {
+        let mut c = ObjectsTestIamPermissionsCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.url_params.insert("permissions".into(), permissions);
+        c
     }
     /// Updates an object's metadata.
-    pub fn update(&self, request: model::Object) -> ObjectsUpdateCall {
-        ObjectsUpdateCall {
+    /// - bucket: Name of the bucket in which the object resides.
+    /// - object: Name of the object. For information about how to URL encode
+    ///   object names to be path safe, see Encoding URI Path Parts.
+    pub fn update(
+        &self,
+        bucket: impl Into<String>,
+        object: impl Into<String>,
+        request: model::Object,
+    ) -> ObjectsUpdateCall {
+        let mut c = ObjectsUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.object = Some(object.into());
+        c.request = request;
+        c
     }
     /// Watch for changes on all objects in a bucket.
-    pub fn watch_all(&self, request: model::Channel) -> ObjectsWatchAllCall {
-        ObjectsWatchAllCall {
+    /// - bucket: Name of the bucket in which to look for objects.
+    pub fn watch_all(
+        &self,
+        bucket: impl Into<String>,
+        request: model::Channel,
+    ) -> ObjectsWatchAllCall {
+        let mut c = ObjectsWatchAllCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.bucket = Some(bucket.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -2925,18 +3034,6 @@ pub struct ObjectsComposeCall {
 }
 
 impl ObjectsComposeCall {
-    /// Name of the bucket containing the source objects. The destination
-    /// object is stored in this bucket.
-    pub fn destination_bucket(mut self, value: impl Into<String>) -> Self {
-        self.destination_bucket = Some(value.into());
-        self
-    }
-    /// Name of the new object. For information about how to URL encode
-    /// object names to be path safe, see Encoding URI Path Parts.
-    pub fn destination_object(mut self, value: impl Into<String>) -> Self {
-        self.destination_object = Some(value.into());
-        self
-    }
     /// Apply a predefined set of access controls to the destination object.
     pub fn destination_predefined_acl(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -3028,14 +3125,6 @@ pub struct ObjectsCopyCall {
 }
 
 impl ObjectsCopyCall {
-    /// Name of the bucket in which to store the new object. Overrides the
-    /// provided object metadata's bucket value, if any.For information about
-    /// how to URL encode object names to be path safe, see Encoding URI Path
-    /// Parts.
-    pub fn destination_bucket(mut self, value: impl Into<String>) -> Self {
-        self.destination_bucket = Some(value.into());
-        self
-    }
     /// Resource name of the Cloud KMS key, of the form
     /// projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key,
     ///  that will be used to encrypt the object. Overrides the object
@@ -3043,13 +3132,6 @@ impl ObjectsCopyCall {
     pub fn destination_kms_key_name(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("destination_kms_key_name".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the new object. Required when the object metadata is not
-    /// otherwise provided. Overrides the object metadata's name value, if
-    /// any.
-    pub fn destination_object(mut self, value: impl Into<String>) -> Self {
-        self.destination_object = Some(value.into());
         self
     }
     /// Apply a predefined set of access controls to the destination object.
@@ -3133,22 +3215,11 @@ impl ObjectsCopyCall {
             .insert("provisional_user_project".into(), vec![value.into()]);
         self
     }
-    /// Name of the bucket in which to find the source object.
-    pub fn source_bucket(mut self, value: impl Into<String>) -> Self {
-        self.source_bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of the source object (as
     /// opposed to the latest version, the default).
     pub fn source_generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("source_generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the source object. For information about how to URL encode
-    /// object names to be path safe, see Encoding URI Path Parts.
-    pub fn source_object(mut self, value: impl Into<String>) -> Self {
-        self.source_object = Some(value.into());
         self
     }
     /// The project to be billed for this request. Required for Requester
@@ -3204,11 +3275,6 @@ pub struct ObjectsDeleteCall {
 }
 
 impl ObjectsDeleteCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, permanently deletes a specific revision of this object
     /// (as opposed to the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
@@ -3245,12 +3311,6 @@ impl ObjectsDeleteCall {
     pub fn if_metageneration_not_match(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("if_metageneration_not_match".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -3309,11 +3369,6 @@ pub struct ObjectsGetCall {
 }
 
 impl ObjectsGetCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
@@ -3350,12 +3405,6 @@ impl ObjectsGetCall {
     pub fn if_metageneration_not_match(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("if_metageneration_not_match".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// Set of properties to return. Defaults to noAcl.
@@ -3452,22 +3501,11 @@ pub struct ObjectsGetIamPolicyCall {
 }
 
 impl ObjectsGetIamPolicyCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -3527,12 +3565,6 @@ pub struct ObjectsInsertCall {
 }
 
 impl ObjectsInsertCall {
-    /// Name of the bucket in which to store the new object. Overrides the
-    /// provided object metadata's bucket value, if any.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If set, sets the contentEncoding property of the final object to this
     /// value. Setting this parameter is equivalent to setting the
     /// contentEncoding metadata property. This can be useful when uploading
@@ -3680,11 +3712,6 @@ pub struct ObjectsListCall {
 }
 
 impl ObjectsListCall {
-    /// Name of the bucket in which to look for objects.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// Returns results in a directory-like mode. items will contain only
     /// objects whose names, aside from the prefix, do not contain delimiter.
     /// Objects whose names, aside from the prefix, contain delimiter will
@@ -3806,11 +3833,6 @@ pub struct ObjectsPatchCall {
 }
 
 impl ObjectsPatchCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
@@ -3847,12 +3869,6 @@ impl ObjectsPatchCall {
     pub fn if_metageneration_not_match(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("if_metageneration_not_match".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// Apply a predefined set of access controls to this object.
@@ -3928,12 +3944,6 @@ pub struct ObjectsRewriteCall {
 }
 
 impl ObjectsRewriteCall {
-    /// Name of the bucket in which to store the new object. Overrides the
-    /// provided object metadata's bucket value, if any.
-    pub fn destination_bucket(mut self, value: impl Into<String>) -> Self {
-        self.destination_bucket = Some(value.into());
-        self
-    }
     /// Resource name of the Cloud KMS key, of the form
     /// projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key,
     ///  that will be used to encrypt the object. Overrides the object
@@ -3941,14 +3951,6 @@ impl ObjectsRewriteCall {
     pub fn destination_kms_key_name(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("destination_kms_key_name".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the new object. Required when the object metadata is not
-    /// otherwise provided. Overrides the object metadata's name value, if
-    /// any. For information about how to URL encode object names to be path
-    /// safe, see Encoding URI Path Parts.
-    pub fn destination_object(mut self, value: impl Into<String>) -> Self {
-        self.destination_object = Some(value.into());
         self
     }
     /// Apply a predefined set of access controls to the destination object.
@@ -4054,22 +4056,11 @@ impl ObjectsRewriteCall {
             .insert("rewrite_token".into(), vec![value.into()]);
         self
     }
-    /// Name of the bucket in which to find the source object.
-    pub fn source_bucket(mut self, value: impl Into<String>) -> Self {
-        self.source_bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of the source object (as
     /// opposed to the latest version, the default).
     pub fn source_generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("source_generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the source object. For information about how to URL encode
-    /// object names to be path safe, see Encoding URI Path Parts.
-    pub fn source_object(mut self, value: impl Into<String>) -> Self {
-        self.source_object = Some(value.into());
         self
     }
     /// The project to be billed for this request. Required for Requester
@@ -4126,22 +4117,11 @@ pub struct ObjectsSetIamPolicyCall {
 }
 
 impl ObjectsSetIamPolicyCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -4202,28 +4182,11 @@ pub struct ObjectsTestIamPermissionsCall {
 }
 
 impl ObjectsTestIamPermissionsCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("generation".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
-        self
-    }
-    /// Permissions to test.
-    pub fn permissions(mut self, value: impl Into<String>) -> Self {
-        self.url_params
-            .insert("permissions".into(), vec![value.into()]);
         self
     }
     /// The project to be billed for this request if the target bucket is
@@ -4284,11 +4247,6 @@ pub struct ObjectsUpdateCall {
 }
 
 impl ObjectsUpdateCall {
-    /// Name of the bucket in which the object resides.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// If present, selects a specific revision of this object (as opposed to
     /// the latest version, the default).
     pub fn generation(mut self, value: impl Into<String>) -> Self {
@@ -4325,12 +4283,6 @@ impl ObjectsUpdateCall {
     pub fn if_metageneration_not_match(mut self, value: impl Into<String>) -> Self {
         self.url_params
             .insert("if_metageneration_not_match".into(), vec![value.into()]);
-        self
-    }
-    /// Name of the object. For information about how to URL encode object
-    /// names to be path safe, see Encoding URI Path Parts.
-    pub fn object(mut self, value: impl Into<String>) -> Self {
-        self.object = Some(value.into());
         self
     }
     /// Apply a predefined set of access controls to this object.
@@ -4403,11 +4355,6 @@ pub struct ObjectsWatchAllCall {
 }
 
 impl ObjectsWatchAllCall {
-    /// Name of the bucket in which to look for objects.
-    pub fn bucket(mut self, value: impl Into<String>) -> Self {
-        self.bucket = Some(value.into());
-        self
-    }
     /// Returns results in a directory-like mode. items will contain only
     /// objects whose names, aside from the prefix, do not contain delimiter.
     /// Objects whose names, aside from the prefix, contain delimiter will
@@ -4526,41 +4473,86 @@ impl ObjectsWatchAllCall {
 
 impl ProjectsHmacKeysService {
     /// Creates a new HMAC key for the specified service account.
-    pub fn create(&self) -> ProjectsHmacKeysCreateCall {
-        ProjectsHmacKeysCreateCall {
+    /// - project_id: Project ID owning the service account.
+    /// - service_account_email: Email address of the service account.
+    pub fn create(
+        &self,
+        project_id: impl Into<String>,
+        service_account_email: impl Into<String>,
+    ) -> ProjectsHmacKeysCreateCall {
+        let mut c = ProjectsHmacKeysCreateCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c.url_params.insert(
+            "serviceAccountEmail".into(),
+            vec![service_account_email.into()],
+        );
+        c
     }
     /// Deletes an HMAC key.
-    pub fn delete(&self) -> ProjectsHmacKeysDeleteCall {
-        ProjectsHmacKeysDeleteCall {
+    /// - project_id: Project ID owning the requested key
+    /// - access_id: Name of the HMAC key to be deleted.
+    pub fn delete(
+        &self,
+        project_id: impl Into<String>,
+        access_id: impl Into<String>,
+    ) -> ProjectsHmacKeysDeleteCall {
+        let mut c = ProjectsHmacKeysDeleteCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c.access_id = Some(access_id.into());
+        c
     }
     /// Retrieves an HMAC key's metadata
-    pub fn get(&self) -> ProjectsHmacKeysGetCall {
-        ProjectsHmacKeysGetCall {
+    /// - project_id: Project ID owning the service account of the requested
+    ///   key.
+    /// - access_id: Name of the HMAC key.
+    pub fn get(
+        &self,
+        project_id: impl Into<String>,
+        access_id: impl Into<String>,
+    ) -> ProjectsHmacKeysGetCall {
+        let mut c = ProjectsHmacKeysGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c.access_id = Some(access_id.into());
+        c
     }
     /// Retrieves a list of HMAC keys matching the criteria.
-    pub fn list(&self) -> ProjectsHmacKeysListCall {
-        ProjectsHmacKeysListCall {
+    /// - project_id: Name of the project in which to look for HMAC keys.
+    pub fn list(&self, project_id: impl Into<String>) -> ProjectsHmacKeysListCall {
+        let mut c = ProjectsHmacKeysListCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c
     }
     /// Updates the state of an HMAC key. See the HMAC Key resource
     /// descriptor for valid states.
-    pub fn update(&self, request: model::HmacKeyMetadata) -> ProjectsHmacKeysUpdateCall {
-        ProjectsHmacKeysUpdateCall {
+    /// - project_id: Project ID owning the service account of the updated
+    ///   key.
+    /// - access_id: Name of the HMAC key being updated.
+    pub fn update(
+        &self,
+        project_id: impl Into<String>,
+        access_id: impl Into<String>,
+        request: model::HmacKeyMetadata,
+    ) -> ProjectsHmacKeysUpdateCall {
+        let mut c = ProjectsHmacKeysUpdateCall {
             client: self.client.clone(),
-            request,
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c.access_id = Some(access_id.into());
+        c.request = request;
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -4571,17 +4563,6 @@ pub struct ProjectsHmacKeysCreateCall {
 }
 
 impl ProjectsHmacKeysCreateCall {
-    /// Project ID owning the service account.
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
-    /// Email address of the service account.
-    pub fn service_account_email(mut self, value: impl Into<String>) -> Self {
-        self.url_params
-            .insert("service_account_email".into(), vec![value.into()]);
-        self
-    }
     /// The project to be billed for this request.
     pub fn user_project(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -4630,16 +4611,6 @@ pub struct ProjectsHmacKeysDeleteCall {
 }
 
 impl ProjectsHmacKeysDeleteCall {
-    /// Name of the HMAC key to be deleted.
-    pub fn access_id(mut self, value: impl Into<String>) -> Self {
-        self.access_id = Some(value.into());
-        self
-    }
-    /// Project ID owning the requested key
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
     /// The project to be billed for this request.
     pub fn user_project(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -4688,16 +4659,6 @@ pub struct ProjectsHmacKeysGetCall {
 }
 
 impl ProjectsHmacKeysGetCall {
-    /// Name of the HMAC key.
-    pub fn access_id(mut self, value: impl Into<String>) -> Self {
-        self.access_id = Some(value.into());
-        self
-    }
-    /// Project ID owning the service account of the requested key.
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
     /// The project to be billed for this request.
     pub fn user_project(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -4764,11 +4725,6 @@ impl ProjectsHmacKeysListCall {
             .insert("page_token".into(), vec![value.into()]);
         self
     }
-    /// Name of the project in which to look for HMAC keys.
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
     /// If present, only keys for the given service account are returned.
     pub fn service_account_email(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -4830,16 +4786,6 @@ pub struct ProjectsHmacKeysUpdateCall {
 }
 
 impl ProjectsHmacKeysUpdateCall {
-    /// Name of the HMAC key being updated.
-    pub fn access_id(mut self, value: impl Into<String>) -> Self {
-        self.access_id = Some(value.into());
-        self
-    }
-    /// Project ID owning the service account of the updated key.
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
     /// The project to be billed for this request.
     pub fn user_project(mut self, value: impl Into<String>) -> Self {
         self.url_params
@@ -4884,11 +4830,14 @@ impl ProjectsHmacKeysUpdateCall {
 impl ProjectsServiceAccountService {
     /// Get the email address of this project's Google Cloud Storage service
     /// account.
-    pub fn get(&self) -> ProjectsServiceAccountGetCall {
-        ProjectsServiceAccountGetCall {
+    /// - project_id: Project ID
+    pub fn get(&self, project_id: impl Into<String>) -> ProjectsServiceAccountGetCall {
+        let mut c = ProjectsServiceAccountGetCall {
             client: self.client.clone(),
             ..Default::default()
-        }
+        };
+        c.project_id = Some(project_id.into());
+        c
     }
 }
 #[derive(Debug, Default)]
@@ -4899,11 +4848,6 @@ pub struct ProjectsServiceAccountGetCall {
 }
 
 impl ProjectsServiceAccountGetCall {
-    /// Project ID
-    pub fn project_id(mut self, value: impl Into<String>) -> Self {
-        self.project_id = Some(value.into());
-        self
-    }
     /// The project to be billed for this request if the target bucket is
     /// requester-pays bucket.
     pub fn provisional_user_project(mut self, value: impl Into<String>) -> Self {
