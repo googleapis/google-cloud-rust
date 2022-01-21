@@ -73,7 +73,7 @@ pub struct Bucket {
     pub kind: Option<String>,
     /// User-provided labels, in key/value pairs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub labels: Option<String>,
+    pub labels: Option<std::collections::HashMap<String, String>>,
     /// The bucket's lifecycle configuration. See lifecycle management for
     /// more information.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -172,7 +172,7 @@ pub struct BucketBuilder {
     iam_configuration: Option<BucketIamConfiguration>,
     id: Option<String>,
     kind: Option<String>,
-    labels: Option<String>,
+    labels: Option<std::collections::HashMap<String, String>>,
     lifecycle: Option<BucketLifecycle>,
     location: Option<String>,
     location_type: Option<String>,
@@ -268,8 +268,8 @@ impl BucketBuilder {
         self
     }
     /// User-provided labels, in key/value pairs.
-    pub fn labels(mut self, value: impl Into<String>) -> Self {
-        self.labels = Some(value.into());
+    pub fn labels(mut self, value: std::collections::HashMap<String, String>) -> Self {
+        self.labels = Some(value);
         self
     }
     /// The bucket's lifecycle configuration. See lifecycle management for
@@ -1793,7 +1793,7 @@ pub struct Channel {
     /// Additional parameters controlling delivery channel behavior.
     /// Optional.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub params: Option<String>,
+    pub params: Option<std::collections::HashMap<String, String>>,
     /// A Boolean value to indicate whether payload is wanted. Optional.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payload: Option<bool>,
@@ -1829,7 +1829,7 @@ pub struct ChannelBuilder {
     expiration: Option<String>,
     id: Option<String>,
     kind: Option<String>,
-    params: Option<String>,
+    params: Option<std::collections::HashMap<String, String>>,
     payload: Option<bool>,
     resource_id: Option<String>,
     resource_uri: Option<String>,
@@ -1862,8 +1862,8 @@ impl ChannelBuilder {
     }
     /// Additional parameters controlling delivery channel behavior.
     /// Optional.
-    pub fn params(mut self, value: impl Into<String>) -> Self {
-        self.params = Some(value.into());
+    pub fn params(mut self, value: std::collections::HashMap<String, String>) -> Self {
+        self.params = Some(value);
         self
     }
     /// A Boolean value to indicate whether payload is wanted. Optional.
@@ -2423,7 +2423,7 @@ pub struct Notification {
     /// An optional list of additional attributes to attach to each Cloud
     /// PubSub message published for this notification subscription.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub custom_attributes: Option<String>,
+    pub custom_attributes: Option<std::collections::HashMap<String, String>>,
     /// HTTP 1.1 Entity tag for this subscription notification.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
@@ -2467,7 +2467,7 @@ impl Notification {
 #[derive(Clone, Debug, Default)]
 /// A builder used to more easily construct the [Notification] struct.
 pub struct NotificationBuilder {
-    custom_attributes: Option<String>,
+    custom_attributes: Option<std::collections::HashMap<String, String>>,
     etag: Option<String>,
     event_types: Option<Vec<String>>,
     id: Option<String>,
@@ -2481,8 +2481,8 @@ pub struct NotificationBuilder {
 impl NotificationBuilder {
     /// An optional list of additional attributes to attach to each Cloud
     /// PubSub message published for this notification subscription.
-    pub fn custom_attributes(mut self, value: impl Into<String>) -> Self {
-        self.custom_attributes = Some(value.into());
+    pub fn custom_attributes(mut self, value: std::collections::HashMap<String, String>) -> Self {
+        self.custom_attributes = Some(value);
         self
     }
     /// HTTP 1.1 Entity tag for this subscription notification.
@@ -2682,7 +2682,7 @@ pub struct Object {
     pub media_link: Option<String>,
     /// User-provided metadata, in key/value pairs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<String>,
+    pub metadata: Option<std::collections::HashMap<String, String>>,
     /// The version of the metadata for this object at this generation. Used
     /// for preconditions and for detecting changes in metadata. A
     /// metageneration number is only meaningful in the context of a
@@ -2768,7 +2768,7 @@ pub struct ObjectBuilder {
     kms_key_name: Option<String>,
     md5_hash: Option<String>,
     media_link: Option<String>,
-    metadata: Option<String>,
+    metadata: Option<std::collections::HashMap<String, String>>,
     metageneration: Option<String>,
     name: Option<String>,
     owner: Option<ObjectOwner>,
@@ -2901,8 +2901,8 @@ impl ObjectBuilder {
         self
     }
     /// User-provided metadata, in key/value pairs.
-    pub fn metadata(mut self, value: impl Into<String>) -> Self {
-        self.metadata = Some(value.into());
+    pub fn metadata(mut self, value: std::collections::HashMap<String, String>) -> Self {
+        self.metadata = Some(value);
         self
     }
     /// The version of the metadata for this object at this generation. Used
