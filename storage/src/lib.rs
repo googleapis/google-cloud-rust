@@ -3675,12 +3675,18 @@ impl ObjectsInsertCall {
         self
     }
 
-    pub async fn upload(mut self, media: impl Into<BytesReader>) -> Result<model::Object> {
+    pub async fn upload<'a, R>(mut self, reader: &'a mut R) -> Result<model::Object>
+    where
+        R: tokio::io::AsyncRead + Unpin,
+    {
         let client = self.client.inner;
         let tok = client.cred.access_token().await.map_err(Error::wrap)?;
         let body = serde_json::to_vec(&self.request).map_err(Error::wrap)?;
-        let mut media_part =
-            reqwest::multipart::Part::bytes(media.into().read_all().await?.as_ref().to_owned());
+        let mut buf: Vec<u8> = vec![];
+        tokio::io::copy(reader, &mut buf)
+            .await
+            .map_err(Error::wrap)?;
+        let mut media_part = reqwest::multipart::Part::bytes(buf);
         if let Some(media_content_type) = self.media_content_type {
             media_part = media_part
                 .mime_str(&media_content_type)

@@ -37,12 +37,13 @@ mod tests {
     #[test]
     async fn test_client_upload() {
         let client = Client::new().await.unwrap();
+        let mut bytes: &[u8] = "test 72".as_bytes();
         let resp = client
             .objects_service()
             .insert("codyoss-workspace", Default::default())
-            .name("rust-test-1.txt")
+            .name("rust-test-72.txt")
             .media_content_type("text/plain; charset=utf-8")
-            .upload("this is a test from rust")
+            .upload(&mut bytes)
             .await
             .unwrap();
         println!("{}", resp.updated.unwrap());
@@ -51,15 +52,17 @@ mod tests {
     #[tokio::main]
     #[test]
     async fn test_client_upload_file() {
+        let mut file =
+            tokio::fs::File::open("/Users/codyoss/oss/google-cloud-rust/storage/upload-me.txt")
+                .await
+                .unwrap();
         let client = Client::new().await.unwrap();
         let resp = client
             .objects_service()
             .insert("codyoss-workspace", Default::default())
-            .name("rust-file-test-1.txt")
+            .name("rust-file-test-73.txt")
             .media_content_type("text/plain; charset=utf-8")
-            .upload(BytesReader::from_path(
-                "/Users/codyoss/oss/google-cloud-rust/storage/upload-me.txt",
-            ))
+            .upload(&mut file)
             .await
             .unwrap();
         println!("{}", resp.updated.unwrap());
