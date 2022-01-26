@@ -24,13 +24,14 @@ mod tests {
             .unwrap();
         println!("{}", resp.updated.unwrap());
 
+        let mut buf: Vec<u8> = vec![];
         let resp = client
             .objects_service()
             .get("codyoss-workspace", "rust-test-1.txt")
-            .download()
+            .download(&mut buf)
             .await
             .unwrap();
-        println!("{}", String::from_utf8(resp).unwrap());
+        println!("{}", String::from_utf8(buf).unwrap());
     }
 
     #[tokio::main]

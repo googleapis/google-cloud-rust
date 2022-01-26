@@ -18,9 +18,8 @@ use google_cloud_auth::{Credential, CredentialConfig};
 use serde::Deserialize;
 use std::error::Error as StdError;
 use std::sync::Arc;
+use tokio::io::AsyncWriteExt;
 
-mod bytes;
-pub use crate::bytes::BytesReader;
 pub mod model;
 
 const BASE_PATH: &str = "https:/storage.googleapis.com/storage/v1/";
@@ -3478,10 +3477,13 @@ impl ObjectsGetCall {
         Ok(res)
     }
 
-    pub async fn download(self) -> Result<Vec<u8>> {
+    pub async fn download<'a, W>(self, writer: &'a mut W) -> Result<()>
+    where
+        W: tokio::io::AsyncWrite + Unpin,
+    {
         let client = self.client.inner;
         let tok = client.cred.access_token().await.map_err(Error::wrap)?;
-        let res = client
+        let mut res = client
             .http_client
             .get(format!(
                 "{}b/{}/o/{}",
@@ -3506,7 +3508,10 @@ impl ObjectsGetCall {
             let error: ApiErrorReply = res.json().await.map_err(Error::wrap)?;
             return Err(Error::wrap(error.into_inner()));
         }
-        Ok(res.bytes().await.map_err(Error::wrap)?.to_vec())
+        while let Some(chunk) = res.chunk().await.map_err(Error::wrap)? {
+            writer.write(&chunk).await.map_err(Error::wrap)?;
+        }
+        Ok(())
     }
 }
 
