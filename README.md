@@ -1,3 +1,7 @@
+***
+NOTE: this project is experimental and is supported on a best effort basis.
+***
+
 # Google Cloud API Client Libraries for Rust
 
 > Rust idiomatic client libraries for [Google Cloud Platform](https://cloud.google.com/) services.
@@ -7,7 +11,7 @@ applications that interact with individual Google Cloud services:
 
 | Source code | Release Level | Version |
 |------|----------|-----------------|
-| TODO() | [![Preview][preview-stability]][launch-stages] | [![crates.io](https://img.shields.io/crates/v/google-cloud-todo)](https://crates.io/google-cloud-todo/) |
+| TODO() | [![Experimental][experimental-stability]][launch-stages] | [![crates.io](https://img.shields.io/crates/v/google-cloud-todo)](https://crates.io/google-cloud-todo/) |
 
 ## Enabling APIs
 
@@ -65,6 +69,7 @@ Apache 2.0 - See [LICENSE][license] for more information.
 [ga-description]: #ga
 [preview-stability]: https://img.shields.io/badge/stability-preview-orange
 [preview-description]: #preview
+[experimental-stability]: https://img.shields.io/badge/stability-experimental-yellow
 [launch-stages]: https://cloud.google.com/products#section-22
 [semver]: http://semver.org
 [contributing]: CONTRIBUTING.md
