@@ -21,7 +21,7 @@ use chrono::{DateTime, Duration};
 use serde::Deserialize;
 use source::*;
 use std::error::Error as StdError;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 mod metadata;
 mod oauth2;
@@ -253,7 +253,7 @@ impl Credential {
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         // 1: Known environment variable.
         if let Ok(file_name) = std::env::var(GOOGLE_APPLICATION_CREDENTIALS_ENV) {
-            let source = Credential::file_source(file_name.into(), config).await?;
+            let source = Credential::file_source(file_name, config).await?;
             return Ok(source);
         }
         // 2: Well-known file.
@@ -281,7 +281,7 @@ impl Credential {
     /// Creates a source from a file type credential such as a Service Account
     /// Key file or a gcloud user credential.
     async fn file_source(
-        file_path: PathBuf,
+        file_path: impl AsRef<Path>,
         config: CredentialConfig,
     ) -> Result<Box<dyn Source + Send + Sync + 'static>> {
         let contents = tokio::fs::read(file_path).await.map_err(Error::wrap_io)?;
