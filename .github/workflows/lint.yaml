@@ -1,0 +1,15 @@
+name: Lint
+
+on: [push]
+
+jobs:
+  spell:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: |
+        rustup component list
+        cargo install typos-cli --version 1.26.8
+    - run:
+        typos
