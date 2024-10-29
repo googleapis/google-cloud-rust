@@ -1,0 +1,21 @@
+{{^IsMap}}
+
+{{#DocLines}}
+// {{.}}
+{{/DocLines}}
+type {{Name}} struct {
+    {{#Fields}}
+
+    {{#DocLines}}
+    // {{{.}}}
+    {{/DocLines}}
+    {{NameToCamel}} {{FieldType}} `json:"{{JSONName}},omitempty"`
+    {{/Fields}}
+}
+{{#NestedMessages}}
+{{> message}}
+{{/NestedMessages}}
+{{#Enums}}
+{{> enum}}
+{{/Enums}}
+{{/IsMap}}
