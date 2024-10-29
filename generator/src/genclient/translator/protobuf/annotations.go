@@ -56,7 +56,7 @@ func parseDefaultHost(m proto.Message) string {
 	return defaultHost
 }
 
-// TODO(codyoss): The following:
+// TODO(codyoss): The following annotations:
 // - proto.GetExtension(m, annotations.E_FieldBehavior)
 // - proto.GetExtension(m, annotations.E_FieldInfo)
 // - proto.GetExtension(m, extendedops.E_OperationService) -- and all other associated annotations
