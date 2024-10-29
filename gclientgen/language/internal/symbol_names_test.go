@@ -1,4 +1,4 @@
-package symbol_names
+package internal
 
 import (
 	"testing"

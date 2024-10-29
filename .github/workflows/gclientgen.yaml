@@ -20,7 +20,7 @@ jobs:
           gclientgen/go.sum
     - name: Display Go version
       run: go version
-    - run: go -C gclientgen get ./...
+    - run: go mod download
     - run: go -C gclientgen test ./...
 
   lint:
@@ -41,7 +41,7 @@ jobs:
     - name: Display Go version
       run: go version
     - run: go -C gclientgen mod tidy
-    - run: go -C gclientgen get ./...
+    - run: go mod download
     - run: go -C gclientgen fmt ./...
     - run: go -C gclientgen vet ./...
     - name: Run `staticcheck`

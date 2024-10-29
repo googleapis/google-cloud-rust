@@ -1,4 +1,4 @@
-module github.com/googleapis/gclientgen
+module github.com/googleapis/google-cloud-rust/gclientgen
 
 go 1.23.2
 
