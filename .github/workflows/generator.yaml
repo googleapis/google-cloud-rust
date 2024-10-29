@@ -21,7 +21,7 @@ jobs:
           generator/go.sum
     - name: Display Go version
       run: go version
-    - run: go mod download
+    - run: go mod tidy
     - run: go test ./...
 
   lint:
