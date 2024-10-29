@@ -1,4 +1,4 @@
-package internal
+package language
 
 import (
 	"testing"
