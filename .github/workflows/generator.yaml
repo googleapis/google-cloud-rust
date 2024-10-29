@@ -1,6 +1,9 @@
 name: Client Generator
 
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [opened, reopened]
 
 jobs:
   build:
@@ -45,10 +48,6 @@ jobs:
     - run: go mod tidy
     - run: go fmt ./...
     - run: go vet ./...
-    - run: |
-        # unparam does not seem to have releases. Using `latest` sounds risky.
-        go get mvdan.cc/unparam@57a3b4290ba3724102fdbbe72314f2b782d4bef5
-        go run mvdan.cc/unparam ./...
     - name: Run `staticcheck`
       uses: dominikh/staticcheck-action@v1.3.0
       with:
@@ -58,7 +57,7 @@ jobs:
     - name: Detect Changes
       run: git diff --exit-code
 
-  vuln:
+  other:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
@@ -76,6 +75,12 @@ jobs:
           generator/go.sum
     - name: Display Go version
       run: go version
-    - run: |
+    - name: Vulnerability Analysis
+      run: |
         go get golang.org/x/vuln/cmd/govulncheck@v1.1.3
         go run golang.org/x/vuln/cmd/govulncheck ./...
+    - name: Unused Parameters
+      run: |
+        # unparam does not seem to have releases. Using `latest` sounds risky.
+        go get mvdan.cc/unparam@57a3b4290ba3724102fdbbe72314f2b782d4bef5
+        go run mvdan.cc/unparam ./...
