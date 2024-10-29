@@ -48,7 +48,7 @@ jobs:
     - run: |
         # unparam does not seem to have releases. Using `latest` sounds risky.
         go get mvdan.cc/unparam@57a3b4290ba3724102fdbbe72314f2b782d4bef5
-        go run unparam ./...
+        go run mvdan.cc/unparam ./...
     - name: Run `staticcheck`
       uses: dominikh/staticcheck-action@v1.3.0
       with:
