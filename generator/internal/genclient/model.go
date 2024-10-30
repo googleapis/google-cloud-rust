@@ -228,6 +228,8 @@ type Field struct {
 	// JSONName is the name of the field as it appears in JSON. Useful for
 	// serializing to JSON.
 	JSONName string
+	// Optional indicates that the field is marked as optional in proto3.
+	Optional bool
 }
 
 // Pair is a key-value pair.
