@@ -160,3 +160,56 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 	}
 	return queryParams
 }
+
+func (*Codec) ToSnake(symbol string) string {
+	if strings.ToLower(symbol) == symbol {
+		return EscapeKeyword(symbol)
+	}
+	return EscapeKeyword(strcase.ToSnake(symbol))
+}
+
+func (*Codec) ToPascal(symbol string) string {
+	return EscapeKeyword(strcase.ToCamel(symbol))
+}
+
+func (*Codec) ToCamel(symbol string) string {
+	return strcase.ToLowerCamel(symbol)
+}
+
+// The list of Golang keywords and reserved words can be found at:
+//
+// https://go.dev/ref/spec#Keywords
+func EscapeKeyword(symbol string) string {
+	keywords := map[string]bool{
+		"break":       true,
+		"default":     true,
+		"func":        true,
+		"interface":   true,
+		"select":      true,
+		"case":        true,
+		"defer":       true,
+		"go":          true,
+		"map":         true,
+		"struct":      true,
+		"chan":        true,
+		"else":        true,
+		"goto":        true,
+		"package":     true,
+		"switch":      true,
+		"const":       true,
+		"fallthrough": true,
+		"if":          true,
+		"range":       true,
+		"type":        true,
+		"continue":    true,
+		"for":         true,
+		"import":      true,
+		"return":      true,
+		"var":         true,
+	}
+	_, ok := keywords[symbol]
+	if !ok {
+		return symbol
+	}
+	return symbol + "_"
+}

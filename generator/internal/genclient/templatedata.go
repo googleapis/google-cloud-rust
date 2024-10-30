@@ -82,22 +82,22 @@ func (s *service) Methods() []*method {
 
 // NameToSnake converts Name to snake_case.
 func (s *service) NameToSnake() string {
-	return strcase.ToSnake(s.s.Name)
+	return s.c.ToSnake(s.s.Name)
 }
 
-// NameToCamel converts a Name to CamelCase.
+// NameToPascanl converts a Name to PascalCase.
+func (s *service) NameToPascal() string {
+	return s.ServiceNameToPascal()
+}
+
+// NameToPascal converts a Name to PascalCase.
+func (s *service) ServiceNameToPascal() string {
+	return s.c.ToPascal(s.s.Name)
+}
+
+// NameToCamel coverts Name to camelCase
 func (s *service) NameToCamel() string {
-	return s.ServiceNameToCamel()
-}
-
-// NameToCamel converts a Name to CamelCase.
-func (s *service) ServiceNameToCamel() string {
-	return strcase.ToCamel(s.s.Name)
-}
-
-// NameToLowerCamel coverts Name to camelCase
-func (s *service) NameToLowerCamel() string {
-	return strcase.ToLowerCamel(s.s.Name)
+	return s.c.ToCamel(s.s.Name)
 }
 
 func (s *service) DocLines() []string {
@@ -120,7 +120,7 @@ func (m *method) NameToSnake() string {
 	return strcase.ToSnake(m.s.Name)
 }
 
-// NameToCamel converts a Name to CamelCase.
+// NameToCamel converts a Name to camelCase.
 func (m *method) NameToCamel() string {
 	return strcase.ToCamel(m.s.Name)
 }
@@ -285,12 +285,12 @@ type field struct {
 
 // NameToSnake converts a Name to snake_case.
 func (f *field) NameToSnake() string {
-	return strcase.ToSnake(f.s.Name)
+	return f.c.ToSnake(f.s.Name)
 }
 
 // NameToCamel converts a Name to camelCase.
 func (f *field) NameToCamel() string {
-	return strcase.ToCamel(f.s.Name)
+	return f.c.ToCamel(f.s.Name)
 }
 
 func (f *field) DocLines() []string {
