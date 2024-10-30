@@ -1,2 +1,2 @@
-Cargo.lock
-target
+# Rust places its build artifacts in this directory
+/target/
