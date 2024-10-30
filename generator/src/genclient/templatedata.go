@@ -208,7 +208,7 @@ func (m *message) Name() string {
 }
 
 func (m *message) DocLines() []string {
-	// TODO(codyoss): move this into codec to avoid strange whitespace things.
+	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/33
 	ss := strings.Split(m.s.Documentation, "\n")
 	for i := range ss {
 		ss[i] = strings.TrimSpace(ss[i])

@@ -16,7 +16,7 @@ pub struct {{Name}} {
     {{/Fields}}
 }
 {{#NestedMessages}}
-{{! TODO(codyoss) We should consider handling these better }}
+{{! TODO(codyoss) https://github.com/googleapis/google-cloud-rust/issues/40 }}
 {{> model}}
 {{/NestedMessages}}
 {{#Enums}}
