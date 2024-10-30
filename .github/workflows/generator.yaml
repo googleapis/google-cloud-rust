@@ -25,5 +25,7 @@ jobs:
           generator/go.sum
     - name: Display Go version
       run: go version
-    - run: go mod tidy
+    - run: go fmt ./...
     - run: go test ./...
+    - name: Detect Changes
+      run: git diff --exit-code

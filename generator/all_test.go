@@ -33,11 +33,7 @@ func TestVet(t *testing.T) {
 }
 
 func TestGoModTidy(t *testing.T) {
-	rungo(t, "mod", "tidy")
-}
-
-func TestGoFmt(t *testing.T) {
-	rungo(t, "fmt")
+	rungo(t, "mod", "tidy", "-diff")
 }
 
 func TestGovulncheck(t *testing.T) {
