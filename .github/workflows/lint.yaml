@@ -8,6 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo
+        key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
     - run: |
         rustup component list
         cargo install typos-cli --version 1.26.8
