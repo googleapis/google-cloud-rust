@@ -17,7 +17,7 @@ package protobuf
 import (
 	"log/slog"
 
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 )

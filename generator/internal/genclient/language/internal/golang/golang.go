@@ -12,12 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rust
+package golang
 
 import (
 	"log/slog"
+	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
 )
 
@@ -29,12 +30,14 @@ type Codec struct{}
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	timestamp := &genclient.Message{
-		ID:   ".google.protobuf.Timestamp",
-		Name: "String",
+		ID:      ".google.protobuf.Timestamp",
+		Name:    "Time",
+		Package: "time",
 	}
 	duration := &genclient.Message{
-		ID:   ".google.protobuf.Duration",
-		Name: "String",
+		ID:      ".google.protobuf.Duration",
+		Name:    "Duration",
+		Package: "time",
 	}
 	s.MessageByID[timestamp.ID] = timestamp
 	s.MessageByID[duration.ID] = duration
@@ -44,15 +47,15 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 	var out string
 	switch f.Typez {
 	case genclient.STRING_TYPE:
-		out = "String"
+		out = "string"
 	case genclient.INT64_TYPE:
-		out = "i64"
+		out = "int64"
 	case genclient.INT32_TYPE:
-		out = "i32"
+		out = "int32"
 	case genclient.BOOL_TYPE:
 		out = "bool"
 	case genclient.BYTES_TYPE:
-		out = "bytes::Bytes"
+		out = "[]byte"
 	case genclient.MESSAGE_TYPE:
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
@@ -62,10 +65,10 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 		if m.IsMap {
 			key := c.FieldType(m.Fields[0], state)
 			val := c.FieldType(m.Fields[1], state)
-			out = "Option<std::collections::HashMap<" + key + "," + val + ">>"
+			out = "map[" + key + "]" + val
 			break
 		}
-		out = "Option<" + c.MessageName(m, state) + ">"
+		out = "*" + c.MessageName(m, state)
 	case genclient.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
@@ -80,7 +83,7 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 }
 
 func (c *Codec) TemplateDir() string {
-	return "rust"
+	return "go"
 }
 
 func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
@@ -114,9 +117,9 @@ func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 
 func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
 	if e.Parent.Parent != nil {
-		return c.MessageName(e.Parent.Parent, state) + "_" + strcase.ToCamel(e.Name)
+		return c.MessageName(e.Parent.Parent, state) + "_" + strings.ToUpper(e.Name)
 	}
-	return strcase.ToCamel(e.Name)
+	return strings.ToUpper(e.Name)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
@@ -124,17 +127,19 @@ func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) str
 		// no accessor needed, use the whole request
 		return ""
 	}
-	return "." + strcase.ToSnake(m.HTTPInfo.Body)
+	return "." + strcase.ToCamel(m.HTTPInfo.Body)
 }
 
 func (c *Codec) HTTPPathFmt(m *genclient.HTTPInfo, state *genclient.APIState) string {
-	return genclient.HTTPPathVarRegex.ReplaceAllStringFunc(m.RawPath, func(s string) string { return "{}" })
+	return genclient.HTTPPathVarRegex.ReplaceAllStringFunc(m.RawPath, func(s string) string { return "%s" })
 }
+
 func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) []string {
 	var args []string
 	rawArgs := h.PathArgs()
 	for _, arg := range rawArgs {
-		args = append(args, "req."+strcase.ToSnake(arg))
+		// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
+		args = append(args, ", req."+strcase.ToCamel(arg))
 	}
 	return args
 }
@@ -150,7 +155,7 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 	var queryParams []*genclient.Pair
 	for _, field := range msg.Fields {
 		if field.JSONName != "" && !notQuery[field.JSONName] {
-			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + strcase.ToSnake(field.JSONName) + ".as_str()"})
+			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + strcase.ToCamel(field.JSONName)})
 		}
 	}
 	return queryParams
