@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package main_test
 
 import (
 	"errors"
 	"os/exec"
 	"testing"
-
-	"mvdan.cc/unparam/check"
 )
 
 func TestStaticCheck(t *testing.T) {
@@ -27,13 +25,7 @@ func TestStaticCheck(t *testing.T) {
 }
 
 func TestUnparam(t *testing.T) {
-	warns, err := check.UnusedParams(false, false, false, "./...")
-	if err != nil {
-		t.Fatalf("check.UnusedParams: %v", err)
-	}
-	for _, warn := range warns {
-		t.Error(warn)
-	}
+	rungo(t, "run", "mvdan.cc/unparam@v0.0.0-20240917084806-57a3b4290ba3", "./...")
 }
 
 func TestVet(t *testing.T) {
