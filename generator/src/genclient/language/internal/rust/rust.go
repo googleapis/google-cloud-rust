@@ -21,20 +21,13 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-// TODO(codyoss): the current case converter is not working as intended for
-// some fields: data_crc32c. Also most camel things in this file should be pascal
-// case.
-
 func NewCodec() *Codec {
 	return &Codec{}
 }
 
 type Codec struct{}
 
-// TODO(codyoss): register reserved words and sanitize identifiers.
-
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
-	// TODO(codyoss): do better, maybe make our own types?
 	timestamp := &genclient.Message{
 		ID:   ".google.protobuf.Timestamp",
 		Name: "String",
@@ -141,7 +134,6 @@ func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) [
 	var args []string
 	rawArgs := h.PathArgs()
 	for _, arg := range rawArgs {
-		// TODO(codyoss): handle nest path params
 		args = append(args, "req."+strcase.ToSnake(arg))
 	}
 	return args

@@ -21,8 +21,3 @@ or to playback an old input without the need for `protoc`:
 ```bash
 go run github.com/googleapis/google-cloud-rust/generator/cmd/protoc-gen-gclient -input-path=cmd/protoc-gen-gclient/testdata/rust/rust.bin
 ```
-
-## General TODOs
-
-- convert proto links into nice rustdoc
-- fix documentation indentation after first line

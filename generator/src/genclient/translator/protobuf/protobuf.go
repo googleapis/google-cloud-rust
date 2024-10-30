@@ -62,11 +62,10 @@ func NewTranslator(opts *Options) *Translator {
 // Translates proto representation into a [genclient.GenerateRequest].
 func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
 	api := &genclient.API{
-		//TODO(codyoss): Read this from somewhere, likely service yaml or proto opt
+		//TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/38
 		Name: "secretmanager",
 	}
 	files := t.request.GetSourceFileDescriptors()
-	// TODO(codyoss): maybe need to process well known types: https://github.com/googleapis/gapic-generator-go/blob/main/internal/gengapic/well_known_types.go
 	for _, f := range files {
 		var fileServices []*genclient.Service
 		fFQN := "." + f.GetPackage()
@@ -211,8 +210,7 @@ func (t *Translator) processMessage(m *descriptorpb.DescriptorProto, mFQN string
 		e := t.processEnum(e, mFQN, message)
 		message.Enums = append(message.Enums, e)
 	}
-	// TODO(codyoss): how to support one-ofs? For now ignore the issue
-	//                and flatten.
+	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/39
 	for _, mf := range m.Field {
 		field := &genclient.Field{}
 		field.Name = mf.GetName()

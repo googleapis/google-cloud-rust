@@ -117,7 +117,6 @@ func doRequest(client *http.Client, req *http.Request) ([]byte, error){
     if err != nil {
         return nil, err
     }
-    {{! TODO transform bytes into error type if error }}
     return b, nil
 }
 {{#Messages}}

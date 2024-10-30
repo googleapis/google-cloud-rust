@@ -138,7 +138,7 @@ func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) [
 	var args []string
 	rawArgs := h.PathArgs()
 	for _, arg := range rawArgs {
-		// TODO(codyoss): handle nest path params
+		// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
 		args = append(args, ", req."+strcase.ToCamel(arg))
 	}
 	return args
