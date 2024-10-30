@@ -1,3 +1,17 @@
+// Copyright 2024 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package protobuf
 
 import (
@@ -91,7 +105,8 @@ func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
 			}
 
 			// These magic numbers come from reading the proto docs. They come
-			// from field numbers of the different descriptor types.
+			// from field numbers of the different descriptor types. See struct
+			// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#FileDescriptorProto.
 			switch p[0] {
 			case 4:
 				// Because of message nesting we need to call recursively and
@@ -226,7 +241,8 @@ func (t *Translator) processEnum(e *descriptorpb.EnumDescriptorProto, baseFQN st
 
 func (t *Translator) addServiceDocumentation(p []int32, doc string, sFQN string) {
 	// These magic numbers come from reading the proto docs. They come
-	// from field numbers of the different descriptor types.
+	// from field numbers of the different descriptor types. See struct
+	// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto.
 	if len(p) == 0 {
 		// This is a comment for a service
 		t.state.ServiceByID[sFQN].Documentation = doc
@@ -240,7 +256,8 @@ func (t *Translator) addServiceDocumentation(p []int32, doc string, sFQN string)
 
 func (t *Translator) addMessageDocumentation(m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
 	// These magic numbers come from reading the proto docs. They come
-	// from field numbers of the different descriptor types.
+	// from field numbers of the different descriptor types. See struct
+	// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto.
 	if len(p) == 0 {
 		// This is a comment for a top level message
 		t.state.MessageByID[mFQN].Documentation = doc

@@ -1,3 +1,17 @@
+// Copyright 2024 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package protobuf
 
 import (
@@ -56,11 +70,4 @@ func parseDefaultHost(m proto.Message) string {
 	return defaultHost
 }
 
-// TODO(codyoss): The following annotations:
-// - proto.GetExtension(m, annotations.E_FieldBehavior)
-// - proto.GetExtension(m, annotations.E_FieldInfo)
-// - proto.GetExtension(m, extendedops.E_OperationService) -- and all other associated annotations
-// - proto.GetExtension(m, longrunning.E_OperationInfo)
-// - proto.GetExtension(m, annotations.E_OauthScopes)
-// - proto.GetExtension(m, annotations.E_Routing)
-// - proto.GetExtension(m, annotations.E_ApiVersion)
+// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/27
