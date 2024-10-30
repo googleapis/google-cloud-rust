@@ -1,0 +1,13 @@
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct {{Name}}(i32);
+
+impl {{Name}} {
+    {{#Values}}
+
+    {{#DocLines}}
+    // {{{.}}}
+    {{/DocLines}}
+    pub const {{Name}}: {{EnumType}} = {{EnumType}}({{Number}});
+    {{/Values}}
+}

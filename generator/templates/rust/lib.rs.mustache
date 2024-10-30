@@ -1,0 +1,83 @@
+use std::sync::Arc;
+
+pub mod model;
+
+#[derive(Clone, Debug)]
+pub struct Client {
+    inner: Arc<ClientRef>,
+}
+
+#[derive(Debug)]
+struct ClientRef {
+    http_client: reqwest::Client,
+    token: String,
+}
+
+impl Client {
+    pub fn new(tok: String) -> Self {
+        let client = reqwest::Client::builder().build().unwrap();
+        let inner = ClientRef {
+            http_client: client,
+            token: tok,
+        };
+        Self {
+            inner: Arc::new(inner),
+        }
+    }
+    {{#Services}}
+
+    {{#DocLines}}
+    /// {{{.}}}
+    {{/DocLines}}
+    pub fn {{NameToSnake}}(&self) -> {{NameToCamel}} {
+        {{NameToCamel}} {
+            client: self.clone(),
+            base_path: "https://{{DefaultHost}}/".to_string(),
+        }
+    }
+    {{/Services}}
+}
+
+{{#Services}}
+{{#DocLines}}
+/// {{{.}}}
+{{/DocLines}}
+#[derive(Debug)]
+pub struct {{NameToCamel}} {
+    client: Client,
+    base_path: String,
+}
+
+impl {{NameToCamel}} {
+    {{#Methods}}
+
+    {{#DocLines}}
+    /// {{{.}}}
+    {{/DocLines}}
+    pub async fn {{NameToSnake}}(&self, req: model::{{InputTypeName}}) -> Result<model::{{OutputTypeName}}, Box<dyn std::error::Error>> {
+        let client = self.client.inner.clone();
+        let res = client.http_client
+            .{{HTTPMethodToLower}}(format!(
+               "{}{{HTTPPathFmt}}",
+               self.base_path,
+               {{#HTTPPathArgs}}
+               {{.}},
+               {{/HTTPPathArgs}}
+            ))
+            .query(&[("alt", "json")])
+            {{#QueryParams}}
+            .query(&[("{{Key}}", {{Value}})])
+            {{/QueryParams}}
+            .bearer_auth(&client.token)
+            {{#HasBody}}
+            .json(&req{{BodyAccessor}})
+            {{/HasBody}}
+            .send().await?;
+        if !res.status().is_success() {
+            return Err("sorry the api you are looking for is not available, please try again".into());
+        }
+        res.json::<model::{{OutputTypeName}}>.await?
+    }
+    {{/Methods}}
+}
+{{/Services}}
