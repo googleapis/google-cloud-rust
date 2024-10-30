@@ -14,7 +14,7 @@
 
 ///
 /// Well-known point in time representation for Google APIs.
-/// 
+///
 /// A Timestamp represents a point in time independent of any time zone or local
 /// calendar, encoded as a count of seconds and fractions of seconds at
 /// nanosecond resolution. The count is relative to an epoch at UTC midnight on
