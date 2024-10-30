@@ -84,8 +84,7 @@ func (r *GenerateRequest) outDir() string {
 
 // Output of generation.
 type Output struct {
-	// TODO(codyoss): needs enough info to pass information back to protoc
-	// on what was generated.
+	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/32
 }
 
 // Generate takes some state and applies it to a template to create a client
