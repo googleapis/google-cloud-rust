@@ -18,8 +18,8 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient/language"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"

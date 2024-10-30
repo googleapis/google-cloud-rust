@@ -25,8 +25,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient/translator/protobuf"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/translator/protobuf"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/pluginpb"
 )
