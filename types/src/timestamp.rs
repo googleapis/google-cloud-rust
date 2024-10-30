@@ -91,14 +91,11 @@ impl<'de> serde::de::Visitor<'de> for TimestampVisitor {
     where
         E: serde::de::Error,
     {
-        let odt = time::OffsetDateTime::parse(&value, &Rfc3339).map_err(E::custom)?;
+        let odt = time::OffsetDateTime::parse(value, &Rfc3339).map_err(E::custom)?;
         let nanos_since_epoch = odt.unix_timestamp_nanos();
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
-        Ok(Self::Value {
-            seconds: seconds,
-            nanos: nanos,
-        })
+        Ok(Self::Value { seconds, nanos })
     }
 }
 
