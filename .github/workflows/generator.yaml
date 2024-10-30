@@ -1,6 +1,10 @@
 name: Client Generator
 
-on: [push]
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
 
 jobs:
   build:
@@ -47,8 +51,8 @@ jobs:
     - run: go vet ./...
     - run: |
         # unparam does not seem to have releases. Using `latest` sounds risky.
-        go get mvdan.cc/unparam@57a3b4290ba3724102fdbbe72314f2b782d4bef5
-        go run mvdan.cc/unparam ./...
+        go install mvdan.cc/unparam@57a3b4290ba3724102fdbbe72314f2b782d4bef5
+        unparam ./...
     - name: Run `staticcheck`
       uses: dominikh/staticcheck-action@v1.3.0
       with:
@@ -77,5 +81,5 @@ jobs:
     - name: Display Go version
       run: go version
     - run: |
-        go get golang.org/x/vuln/cmd/govulncheck@v1.1.3
-        go run golang.org/x/vuln/cmd/govulncheck ./...
+        go install golang.org/x/vuln/cmd/govulncheck@v1.1.3
+        govulncheck ./...
