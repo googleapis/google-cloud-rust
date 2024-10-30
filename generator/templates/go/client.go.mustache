@@ -1,0 +1,125 @@
+package {{NameToLower}}
+
+import (
+    "bytes"
+	"context"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"time"
+
+    "cloud.google.com/go/auth"
+)
+
+type Options struct {
+    Credentials *auth.Credentials
+    Endpoint    string
+}
+
+// Client used to talk to services.
+type Client struct {
+    hc *http.Client
+    opts *Options
+    {{#Services}}
+    {{NameToLowerCamel}} *{{NameToCamel}}
+    {{/Services}}
+}
+
+// NewClient returns a new Client.
+func NewClient(opts *Options) *Client {
+    return &Client{hc: http.DefaultClient, opts: opts}
+}
+
+func (c *Client) addAuthorizationHeader(ctx context.Context, h http.Header) error {
+    tok, err := c.token(ctx)
+    if err != nil {
+        return err
+    }
+    h.Set("Authorization", "Bearer "+tok)
+    return nil
+}
+
+func (c *Client) token(ctx context.Context) (string, error) {
+    tok, err := c.opts.Credentials.Token(ctx)
+    if err != nil {
+        return "", err
+    }
+    return tok.Value, nil
+}
+
+{{#Services}}
+{{#DocLines}}
+// {{{.}}}
+{{/DocLines}}
+type {{NameToCamel}} struct {
+    client *Client
+    baseURL   string
+}
+
+{{#DocLines}}
+// {{{.}}}
+{{/DocLines}}
+func (c *Client) {{NameToCamel}}() *{{NameToCamel}}{
+    return &{{NameToCamel}}{client: c, baseURL: "https://{{DefaultHost}}"}
+}
+
+{{#Methods}}
+{{#DocLines}}
+// {{{.}}}
+{{/DocLines}}
+func (s *{{ServiceNameToCamel}}) {{NameToCamel}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputTypeName}}, error) {
+    out := new({{OutputTypeName}})
+    {{#HasBody}}
+    reqBody, err := json.Marshal(req{{BodyAccessor}})
+    if err != nil {
+        return nil, err
+    }
+    {{/HasBody}}
+    baseURL, err := url.Parse(s.baseURL)
+    if err != nil {
+		return nil, err
+	}
+    baseURL.Path += fmt.Sprintf("{{HTTPPathFmt}}"{{#HTTPPathArgs}}{{.}}{{/HTTPPathArgs}})
+    params := url.Values{}
+    params.Add("$alt", "json")
+    {{#QueryParams}}
+    params.Add("{{Key}}", fmt.Sprintf("%v", {{Value}}))
+    {{/QueryParams}}
+    baseURL.RawQuery = params.Encode()
+    httpReq, err := http.NewRequestWithContext(ctx, "{{HTTPMethod}}", baseURL.String(), {{#HasBody}}bytes.NewReader(reqBody){{/HasBody}}{{^HasBody}}nil{{/HasBody}})
+    if err != nil {
+        return nil, err
+    }
+    if err := s.client.addAuthorizationHeader(ctx, httpReq.Header); err != nil {
+        return nil, err
+    }
+    respBody, err := doRequest(s.client.hc, httpReq)
+    if err != nil {
+        return nil, err
+    }
+    if err := json.Unmarshal(respBody, &out); err != nil {
+        return nil, err
+    }
+    return out, nil
+}
+{{/Methods}}
+{{/Services}}
+
+func doRequest(client *http.Client, req *http.Request) ([]byte, error){
+    resp, err := client.Do(req)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
+    b, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+    {{! TODO transform bytes into error type if error }}
+    return b, nil
+}
+{{#Messages}}
+{{> message}}
+{{/Messages}}

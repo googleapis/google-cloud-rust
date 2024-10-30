@@ -1,0 +1,25 @@
+{{^IsMap}}
+
+{{#DocLines}}
+/// {{{.}}}
+{{/DocLines}}
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct {{Name}} {
+    {{#Fields}}
+
+    {{#DocLines}}
+    /// {{{.}}}
+    {{/DocLines}}
+    pub {{NameToSnake}}: {{{FieldType}}},
+    {{/Fields}}
+}
+{{#NestedMessages}}
+{{! TODO(codyoss) We should consider handling these better }}
+{{> model}}
+{{/NestedMessages}}
+{{#Enums}}
+{{> enum}}
+{{/Enums}}
+{{/IsMap}}

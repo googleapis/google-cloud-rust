@@ -1,0 +1,11 @@
+
+type {{Name}} int32
+
+const (
+    {{#Values}}
+    {{#DocLines}}
+    // {{{.}}}
+    {{/DocLines}}
+    {{Name}} {{EnumType}} = {{Number}}
+    {{/Values}}
+)
