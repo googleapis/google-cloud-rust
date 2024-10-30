@@ -252,7 +252,8 @@ struct UserCredentialFile {
     cred_type: String,
     client_id: String,
     client_secret: String,
-    quota_project_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    quota_project_id: Option<String>,
     refresh_token: String,
 }
 
@@ -422,6 +423,33 @@ impl Source for RefresherSource {
 mod tests {
     use super::*;
     use chrono::DateTime;
+    use serde_json::json;
+
+    fn test_file_contents() -> Vec<String> {
+        let without_quota_project = json!({"type": "authorized_user", "client_id": "test-only-id.apps.googleusercontent.com", "client_secret": "test-only-client-secret", "refresh_token": "test-only-refresh-token"});
+        let with_quota_project = json!({"type": "authorized_user", "client_id": "test-only-id.apps.googleusercontent.com", "client_secret": "test-only-client-secret", "refresh_token": "test-only-refresh-token"});
+        let items: std::result::Result<Vec<String>, _> =
+            vec![without_quota_project, with_quota_project]
+                .into_iter()
+                .map(|v| serde_json::to_string(&v))
+                .collect();
+        items.unwrap()
+    }
+
+    #[test]
+    fn read_user_credentials_file() {
+        for input in test_file_contents() {
+            let config = UserSourceConfig {
+                scopes: vec!["test-only".to_string()],
+            };
+            let source = UserSource::from_file_contents(input.as_bytes(), config);
+            assert!(
+                source.is_ok(),
+                "got error {:?} when parsing {input}",
+                source.err()
+            );
+        }
+    }
 
     #[tokio::main]
     #[test]
