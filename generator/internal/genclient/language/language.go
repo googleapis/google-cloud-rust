@@ -18,9 +18,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient/language/internal/golang"
-	"github.com/googleapis/google-cloud-rust/generator/src/genclient/language/internal/rust"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/golang"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/rust"
 )
 
 // language is a supported programming language of the generator.
