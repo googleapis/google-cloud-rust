@@ -15,7 +15,6 @@
 package openapi
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -72,14 +71,16 @@ func TestMakeAPI(t *testing.T) {
 		Documentation: "The response message for Locations.ListLocations.",
 		Name:          "ListLocationsResponse",
 		Fields: []*genclient.Field{
-			{Documentation: "A list of locations that matches the specified filter in the request.",
-				Name:     "locations",
-				Typez:    genclient.MESSAGE_TYPE,
-				Repeated: true},
-			{Documentation: "The standard List next-page token.",
-				Name:     "nextPageToken",
-				Typez:    genclient.STRING_TYPE,
-				Optional: true},
+			{
+				Name:          "locations",
+				Documentation: "A list of locations that matches the specified filter in the request.",
+				Typez:         genclient.MESSAGE_TYPE,
+				Repeated:      true},
+			{
+				Name:          "nextPageToken",
+				Documentation: "The standard List next-page token.",
+				Typez:         genclient.STRING_TYPE,
+				Optional:      true},
 		},
 	})
 }
@@ -88,14 +89,12 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	if want.Name != got.Name {
 		t.Errorf("Mismatched message name, got=%q, want=%q", got.Name, want.Name)
 	}
-	if want.Documentation != got.Documentation {
-		t.Errorf("Mismatched documentation for message %q, got=%q, want=%q", got.Name, got.Documentation, want.Documentation)
+	if diff := cmp.Diff(want.Documentation, got.Documentation); len(diff) > 0 {
+		t.Errorf("mismatch (-want +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less))
-	if len(diff) > 0 {
-		fmt.Printf("%s", diff)
-		t.Errorf("Mismatched fields for message %q", got.Name)
+	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 }
 
