@@ -13,15 +13,9 @@
 # limitations under the License.
 
 [package]
-name = "types"
+name = "check-copyright"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-serde = "1.0.214"
-serde_with = "3.11.0"
-time = { version = "0.3.36", features = ["formatting", "parsing"] }
-
-[dev-dependencies]
-serde = { version = "1.0.214", features = ["serde_derive"] }
-serde_json = "1.0.132"
+regex = "1.11.1"
