@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package openapi reads OpenAPI v3 specifications and converts them into
+// the `genclient` model.
 package openapi
 
 import (
@@ -94,7 +96,7 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 	return api, nil
 }
 
-// Translates proto representation into a [genclient.GenerateRequest].
+// Translates OpenAPI specification into a [genclient.GenerateRequest].
 func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
 	api, err := t.makeAPI()
 	if err != nil {
@@ -115,7 +117,7 @@ func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
 }
 
 func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.Field, error) {
-	fields := make([]*genclient.Field, 0)
+	var fields []*genclient.Field
 	for name, f := range message.Properties.FromOldest() {
 		schema, err := f.BuildSchema()
 		if err != nil {
@@ -142,54 +144,55 @@ func makeField(messageName, name string, field *base.Schema) (*genclient.Field, 
 			break
 		}
 	}
-	if type_name == "string" {
+	switch type_name {
+	case "string":
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
 			Typez:         genclient.STRING_TYPE,
 			Optional:      optional,
 		}, nil
-	}
-	if type_name == "integer" {
-		typez, err := makeIntegerType(field.Format)
-		if err != nil {
-			return nil, err
+	case "integer":
+		{
+			typez, err := makeIntegerType(field.Format)
+			if err != nil {
+				return nil, err
+			}
+			return &genclient.Field{
+				Name:          name,
+				Documentation: field.Description,
+				Typez:         typez,
+				Optional:      optional,
+			}, nil
 		}
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         typez,
-			Optional:      optional,
-		}, nil
-	}
-	if type_name == "object" {
+	case "object":
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
 			Optional:      true,
 		}, nil
-	}
-	if type_name == "array" {
+
+	case "array":
 		return makeArrayField(messageName, name, field)
+	default:
+		return nil, fmt.Errorf("unknown type for field %q", name)
 	}
-	return nil, fmt.Errorf("unknown type for field %q", name)
 }
 
 func makeIntegerType(format string) (genclient.Typez, error) {
-	if format == "int32" {
+	switch format {
+	case "int32":
 		return genclient.INT32_TYPE, nil
-	}
-	if format == "int64" {
+	case "int64":
 		return genclient.INT64_TYPE, nil
-	}
-	if format == "uint32" {
+	case "uint32":
 		return genclient.UINT32_TYPE, nil
-	}
-	if format == "uint64" {
+	case "uint64":
 		return genclient.UINT64_TYPE, nil
+	default:
+		return 0, fmt.Errorf("unknown integer format %q", format)
 	}
-	return 0, fmt.Errorf("unknown integer format %q", format)
 }
 
 func makeArrayField(messageName, name string, field *base.Schema) (*genclient.Field, error) {

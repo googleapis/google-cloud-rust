@@ -17,6 +17,7 @@ package main
 import (
 	"flag"
 	"io"
+	"log"
 	"log/slog"
 	"os"
 
@@ -32,15 +33,17 @@ func main() {
 	flag.Parse()
 
 	if err := run(*inputPath, *language, *outDir, *templateDir); err != nil {
-		slog.Error(err.Error())
+		log.Fatal(err)
 		os.Exit(1)
 	}
 	slog.Info("Generation Completed Successfully")
 }
 
 func run(inputPath, language, outDir, templateDir string) error {
-	var contents []byte
-	var err error
+	var (
+		contents []byte
+		err      error
+	)
 	if inputPath == "" {
 		contents, err = io.ReadAll(os.Stdin)
 		if err != nil {
@@ -69,7 +72,9 @@ func generateFrom(contents []byte, language, outDir, templateDir string) error {
 		return err
 	}
 
-	genclient.Generate(req)
+	if _, err := genclient.Generate(req); err != nil {
+		return err
+	}
 
 	return nil
 }
