@@ -32,7 +32,17 @@ jobs:
         cargo install typos-cli --version 1.26.8
     - run:
         typos
-    - run: |
-        git ls-files -z -- '*.yaml' '*.' '*.rs' ':!:**/testdata/**.rs' ':!:**.md' ':!:**.mustache' | \
-          xargs -0 cargo run --release --bin check-copyright
 
+  misc-formatting:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo
+        key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+    - run: |
+        git ls-files -z -- '*.yaml' '*.toml' '*.go' '*.rs' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
+          xargs -0 cargo run --release --bin check-copyright
