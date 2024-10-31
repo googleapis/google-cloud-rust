@@ -413,8 +413,8 @@ impl Source for RefresherSource {
             return Ok(cur_token.clone());
         }
         let new_token = self.source.token().await.unwrap();
-        (*cur_token).value = new_token.value;
-        (*cur_token).expires = new_token.expires;
+        cur_token.value = new_token.value;
+        cur_token.expires = new_token.expires;
         return Ok(cur_token.clone());
     }
 }
