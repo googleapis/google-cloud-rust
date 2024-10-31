@@ -15,6 +15,7 @@
 package rust
 
 import (
+	"fmt"
 	"log/slog"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -40,20 +41,52 @@ func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
-func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+func ScalarFieldType(f *genclient.Field) string {
 	var out string
 	switch f.Typez {
-	case genclient.STRING_TYPE:
-		out = "String"
+	case genclient.DOUBLE_TYPE:
+		out = "f64"
+	case genclient.FLOAT_TYPE:
+		out = "f32"
 	case genclient.INT64_TYPE:
 		out = "i64"
+	case genclient.UINT64_TYPE:
+		out = "u64"
 	case genclient.INT32_TYPE:
 		out = "i32"
+	case genclient.FIXED64_TYPE:
+		out = "u64"
+	case genclient.FIXED32_TYPE:
+		out = "u32"
 	case genclient.BOOL_TYPE:
 		out = "bool"
+	case genclient.STRING_TYPE:
+		out = "String"
 	case genclient.BYTES_TYPE:
 		out = "bytes::Bytes"
-	case genclient.MESSAGE_TYPE:
+	case genclient.UINT32_TYPE:
+		out = "u32"
+	case genclient.SFIXED32_TYPE:
+		out = "i32"
+	case genclient.SFIXED64_TYPE:
+		out = "i64"
+	case genclient.SINT32_TYPE:
+		out = "i32"
+	case genclient.SINT64_TYPE:
+		out = "i64"
+
+	default:
+		slog.Error("Unexpected field type", "field", *f)
+		return ""
+	}
+	if f.Optional {
+		return fmt.Sprintf("Option<%s>", out)
+	}
+	return out
+}
+
+func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+	if f.Typez == genclient.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
@@ -62,21 +95,21 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 		if m.IsMap {
 			key := c.FieldType(m.Fields[0], state)
 			val := c.FieldType(m.Fields[1], state)
-			out = "Option<std::collections::HashMap<" + key + "," + val + ">>"
-			break
+			return "Option<std::collections::HashMap<" + key + "," + val + ">>"
 		}
-		out = "Option<" + c.MessageName(m, state) + ">"
-	case genclient.ENUM_TYPE:
+		return "Option<" + c.MessageName(m, state) + ">"
+	} else if f.Typez == genclient.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		out = c.EnumName(e, state)
-	default:
-		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
+		return c.EnumName(e, state)
+	} else if f.Typez == genclient.GROUP_TYPE {
+		slog.Error("TODO(#39) - better handling of `oneof` fields")
+		return ""
 	}
-	return out
+	return ScalarFieldType(f)
 }
 
 func (c *Codec) TemplateDir() string {
