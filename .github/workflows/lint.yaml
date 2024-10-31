@@ -44,5 +44,5 @@ jobs:
           ~/.cargo
         key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
     - run: |
-        git ls-files -z -- '*.yaml' '*.toml' '*.go' '*.rs' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
+        git ls-files -z -- '*.yaml$' '*.toml$' '*.go$' '*.rs$' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
           xargs -0 cargo run --release --bin check-copyright
