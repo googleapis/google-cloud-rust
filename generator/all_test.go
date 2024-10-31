@@ -25,7 +25,7 @@ import (
 	"testing"
 )
 
-var googleHeader = regexp.MustCompile(`^// Copyright 2024 Google LLC
+var googleHeader = regexp.MustCompile(`^// Copyright 20\d\d Google LLC
 //
 // Licensed under the Apache License, Version 2\.0 \(the "License"\);`)
 
