@@ -1,4 +1,4 @@
-// Copyright 2022 Google LLC
+// Copyright 2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,10 +15,43 @@
 package main_test
 
 import (
+	"bufio"
 	"errors"
+	"io/fs"
+	"os"
 	"os/exec"
+	"regexp"
+	"strings"
 	"testing"
 )
+
+var googleHeader = regexp.MustCompile(`^// Copyright 20\d\d Google LLC
+//
+// Licensed under the Apache License, Version 2\.0 \(the "License"\);`)
+
+func TestHeaders(t *testing.T) {
+	sfs := os.DirFS(".")
+	fs.WalkDir(sfs, ".", func(path string, d fs.DirEntry, _ error) error {
+		if d.IsDir() {
+			if d.Name() == "testdata" {
+				return fs.SkipDir
+			}
+			return nil
+		}
+		if !strings.HasSuffix(path, ".go") {
+			return nil
+		}
+		f, err := sfs.Open(path)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		if !googleHeader.MatchReader(bufio.NewReader(f)) {
+			t.Errorf("%q: incorrect header", path)
+		}
+		return nil
+	})
+}
 
 func TestStaticCheck(t *testing.T) {
 	rungo(t, "run", "honnef.co/go/tools/cmd/staticcheck@v0.5.1", "./...")
