@@ -16,7 +16,6 @@ package main
 
 import (
 	"flag"
-	"io"
 	"log"
 	"log/slog"
 	"os"
@@ -32,9 +31,11 @@ func main() {
 	templateDir := flag.String("template-dir", "templates/", "the path to the template directory")
 	flag.Parse()
 
+	if *inputPath == "" {
+		log.Fatalf("must provide input-path")
+	}
 	if err := run(*inputPath, *language, *outDir, *templateDir); err != nil {
 		log.Fatal(err)
-		os.Exit(1)
 	}
 	slog.Info("Generation Completed Successfully")
 }
@@ -44,16 +45,9 @@ func run(inputPath, language, outDir, templateDir string) error {
 		contents []byte
 		err      error
 	)
-	if inputPath == "" {
-		contents, err = io.ReadAll(os.Stdin)
-		if err != nil {
-			return err
-		}
-	} else {
-		contents, err = os.ReadFile(inputPath)
-		if err != nil {
-			return err
-		}
+	contents, err = os.ReadFile(inputPath)
+	if err != nil {
+		return err
 	}
 	return generateFrom(contents, language, outDir, templateDir)
 }
@@ -71,10 +65,8 @@ func generateFrom(contents []byte, language, outDir, templateDir string) error {
 	if err != nil {
 		return err
 	}
-
 	if _, err := genclient.Generate(req); err != nil {
 		return err
 	}
-
 	return nil
 }
