@@ -70,11 +70,13 @@ func TestAllOf(t *testing.T) {
 		Name:          "Automatic",
 		Documentation: "A replication policy that replicates the Secret payload without any restrictions.",
 		Fields: []*genclient.Field{
-			{Name: "customerManagedEncryption",
+			{
+				Name:          "customerManagedEncryption",
 				Documentation: "Optional. The customer-managed encryption configuration of the Secret.",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "CustomerManagedEncryption",
-				Optional:      true},
+				Optional:      true,
+			},
 		},
 	})
 }
