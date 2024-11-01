@@ -38,6 +38,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Setup Go 1.23
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.23
     - uses: actions/cache@v4
       with:
         path: |
@@ -51,10 +55,14 @@ jobs:
     - name: Verify Copyright Boilerplate
       run: |
         cargo build --release --bin check-copyright
-        git ls-files -z -- '*.yaml$' '*.toml$' '*.go$' '*.rs$' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
+        git ls-files -z -- '*.yaml$' '*.yml$' '*.toml$' '*.go$' '*.rs$' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
           xargs -0 -r -P "$(nproc)" -n 50 cargo run --release --bin check-copyright
     - name: Format Markdown Files
       run: |
         pip install -r ci/requirements.txt
         git ls-files -z -- '*.md$' ':!:**/testdata/**' | \
           xargs -0 -r -P "$(nproc)" -n 50 mdformat
+    - run: |
+        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
+        git ls-files -z -- '*.yaml$' '*.yml$' ':!:**/testdata/**' | \
+          xargs -0 $HOME/go/bin/yamlfmt
