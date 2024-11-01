@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestRun_Rust(t *testing.T) {
-	if err := run("testdata/rust/rust.bin", "testdata/rust/golden", "../../templates"); err != nil {
+	if err := run("testdata/secretmanager_openapi_v1.json", "rust", "testdata/rust/golden", "../../templates"); err != nil {
 		t.Fatal(err)
 	}
 }
