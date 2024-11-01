@@ -51,7 +51,7 @@ func TestAllOf(t *testing.T) {
         ]
       },
 `
-	contents := []byte(singleMessagePreample + messageWithAllOf + singleMessageTrailer)
+	contents := []byte(singleMessagePreamble + messageWithAllOf + singleMessageTrailer)
 	translator, err := NewTranslator(contents, &Options{
 		Language:    "not used",
 		OutDir:      "not used",
@@ -104,7 +104,7 @@ func TestBasicTypes(t *testing.T) {
             "fSUInt64", "fDuration", "fTimestamp", "fFieldMask", "fBytes" ]
       },
 `
-	contents := []byte(singleMessagePreample + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
 	translator, err := NewTranslator(contents, &Options{
 		Language:    "not used",
 		OutDir:      "not used",
@@ -157,7 +157,7 @@ func TestArrayTypes(t *testing.T) {
         }
       },
 `
-	contents := []byte(singleMessagePreample + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
 	translator, err := NewTranslator(contents, &Options{
 		Language:    "not used",
 		OutDir:      "not used",
@@ -276,7 +276,7 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	}
 }
 
-const singleMessagePreample = `
+const singleMessagePreamble = `
 {
   "openapi": "3.0.3",
   "info": {
