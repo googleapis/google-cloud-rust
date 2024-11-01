@@ -48,11 +48,13 @@ jobs:
         python-version: '3.13'
         cache: 'pip'
         cache-dependency-path: 'ci/requirements.txt'
-    - run: |
+    - name: Verify Copyright Boilerplate
+      run: |
         cargo build --release --bin check-copyright
         git ls-files -z -- '*.yaml$' '*.toml$' '*.go$' '*.rs$' ':!:**/testdata/**' ':!:**.md' ':!:**.mustache' | \
           xargs -0 -r -P "$(nproc)" -n 50 cargo run --release --bin check-copyright
-    - run: |
+    - name: Format Markdown Files
+      run: |
         pip install -r ci/requirements.txt
         git ls-files -z -- '*.md$' ':!:**/testdata/**' | \
           xargs -0 -r -P "$(nproc)" -n 50 mdformat
