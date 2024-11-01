@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Rust places its build artifacts in this directory
-/target/
+# A requirements file to install Python-based development tools. Using a file
+# makes these dependencies visible to robots like dependabot and renovatebot.
 
-# We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment. 
-/.venv/
+mdformat==0.7.18
+mdformat-gfm==0.3.7
+mdformat-frontmatter==2.0.8
+mdformat-footnote==0.1.1
+mdformat-gfm-alerts==1.0.1
