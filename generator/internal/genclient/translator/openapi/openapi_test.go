@@ -44,23 +44,28 @@ func TestMakeAPI(t *testing.T) {
 		Documentation: "A resource that represents a Google Cloud location.",
 		Name:          "Location",
 		Fields: []*genclient.Field{
-			{Name: "name",
+			{
+				Name:          "name",
 				Documentation: "Resource name for the location, which may vary between implementations.",
 				Typez:         genclient.STRING_TYPE,
 				Optional:      true},
-			{Name: "locationId",
+			{
+				Name:          "locationId",
 				Documentation: `The canonical id for this location.`,
 				Typez:         genclient.STRING_TYPE,
 				Optional:      true},
-			{Name: "displayName",
+			{
+				Name:          "displayName",
 				Documentation: `The friendly name for this location, typically a nearby city name.`,
 				Typez:         genclient.STRING_TYPE,
 				Optional:      true},
-			{Name: "labels",
+			{
+				Name:          "labels",
 				Documentation: "Cross-service attributes for the location.",
 				Typez:         genclient.MESSAGE_TYPE,
 				Optional:      true},
-			{Name: "metadata",
+			{
+				Name:          "metadata",
 				Documentation: `Service-specific metadata. For example the available capacity at the given location.`,
 				Typez:         genclient.MESSAGE_TYPE,
 				Optional:      true},
