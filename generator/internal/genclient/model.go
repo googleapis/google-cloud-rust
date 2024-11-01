@@ -230,6 +230,8 @@ type Field struct {
 	JSONName string
 	// Optional indicates that the field is marked as optional in proto3.
 	Optional bool
+	/// Repeated is true if the field is a repeated field.
+	Repeated bool
 }
 
 // Pair is a key-value pair.
