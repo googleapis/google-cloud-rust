@@ -32,7 +32,7 @@ func TestMain(m *testing.M) {
 
 func TestRun_Rust(t *testing.T) {
 	tDir := t.TempDir()
-	if err := run("testdata/rust/rust.bin", tDir, "../../templates"); err != nil {
+	if err := run(os.Stdin, os.Stdout, "testdata/rust/rust.bin", tDir, "../../templates"); err != nil {
 		t.Fatal(err)
 	}
 	diff(t, "testdata/rust/golden", tDir)
