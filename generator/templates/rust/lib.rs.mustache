@@ -29,8 +29,8 @@ impl Client {
     {{#DocLines}}
     /// {{{.}}}
     {{/DocLines}}
-    pub fn {{NameToSnake}}(&self) -> {{NameToCamel}} {
-        {{NameToCamel}} {
+    pub fn {{NameToSnake}}(&self) -> {{NameToPascal}} {
+        {{NameToPascal}} {
             client: self.clone(),
             base_path: "https://{{DefaultHost}}/".to_string(),
         }
@@ -43,12 +43,12 @@ impl Client {
 /// {{{.}}}
 {{/DocLines}}
 #[derive(Debug)]
-pub struct {{NameToCamel}} {
+pub struct {{NameToPascal}} {
     client: Client,
     base_path: String,
 }
 
-impl {{NameToCamel}} {
+impl {{NameToPascal}} {
     {{#Methods}}
 
     {{#DocLines}}

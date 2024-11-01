@@ -17,6 +17,7 @@ package rust
 import (
 	"fmt"
 	"log/slog"
+	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
@@ -125,7 +126,7 @@ func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
 		slog.Error("unable to lookup type", "id", id)
 		return ""
 	}
-	return strcase.ToCamel(m.Name)
+	return c.ToPascal(m.Name)
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
@@ -135,21 +136,21 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 	if m.Package != "" {
 		return m.Package + "." + strcase.ToCamel(m.Name)
 	}
-	return strcase.ToCamel(m.Name)
+	return c.ToPascal(m.Name)
 }
 
 func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 	if e.Parent != nil {
 		return c.MessageName(e.Parent, state) + "_" + strcase.ToCamel(e.Name)
 	}
-	return strcase.ToCamel(e.Name)
+	return c.ToPascal(e.Name)
 }
 
 func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
 	if e.Parent.Parent != nil {
 		return c.MessageName(e.Parent.Parent, state) + "_" + strcase.ToCamel(e.Name)
 	}
-	return strcase.ToCamel(e.Name)
+	return c.ToPascal(e.Name)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
@@ -157,17 +158,18 @@ func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) str
 		// no accessor needed, use the whole request
 		return ""
 	}
-	return "." + strcase.ToSnake(m.HTTPInfo.Body)
+	return "." + c.ToSnake(m.HTTPInfo.Body)
 }
 
 func (c *Codec) HTTPPathFmt(m *genclient.HTTPInfo, state *genclient.APIState) string {
 	return genclient.HTTPPathVarRegex.ReplaceAllStringFunc(m.RawPath, func(s string) string { return "{}" })
 }
+
 func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) []string {
 	var args []string
 	rawArgs := h.PathArgs()
 	for _, arg := range rawArgs {
-		args = append(args, "req."+strcase.ToSnake(arg))
+		args = append(args, "req."+c.ToSnake(arg))
 	}
 	return args
 }
@@ -183,8 +185,106 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 	var queryParams []*genclient.Pair
 	for _, field := range msg.Fields {
 		if field.JSONName != "" && !notQuery[field.JSONName] {
-			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + strcase.ToSnake(field.JSONName) + ".as_str()"})
+			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + c.ToSnake(field.JSONName) + ".as_str()"})
 		}
 	}
 	return queryParams
+}
+
+// Convert a name to `snake_case`. The Rust naming conventions use this style
+// for modules, fields, and functions.
+//
+// This type of conversion can easily introduce keywords. Consider
+//
+//	`ToSnake("True") -> "true"`
+func (*Codec) ToSnake(symbol string) string {
+	if strings.ToLower(symbol) == symbol {
+		return EscapeKeyword(symbol)
+	}
+	return EscapeKeyword(strcase.ToSnake(symbol))
+}
+
+// Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this
+// `ToCamel` while usually `camelCase` starts with a lowercase letter. The
+// Rust naming convensions use this style for structs, enums and traits.
+//
+// This type of conversion rarely introduces keywords. The one example is
+//
+//	`ToPascal("self") -> "Self"`
+func (*Codec) ToPascal(symbol string) string {
+	return EscapeKeyword(strcase.ToCamel(symbol))
+}
+
+func (*Codec) ToCamel(symbol string) string {
+	return EscapeKeyword(strcase.ToLowerCamel(symbol))
+}
+
+// The list of Rust keywords and reserved words can be found at:
+//
+//	https://doc.rust-lang.org/reference/keywords.html
+func EscapeKeyword(symbol string) string {
+	keywords := map[string]bool{
+		"as":       true,
+		"break":    true,
+		"const":    true,
+		"continue": true,
+		"crate":    true,
+		"else":     true,
+		"enum":     true,
+		"extern":   true,
+		"false":    true,
+		"fn":       true,
+		"for":      true,
+		"if":       true,
+		"impl":     true,
+		"in":       true,
+		"let":      true,
+		"loop":     true,
+		"match":    true,
+		"mod":      true,
+		"move":     true,
+		"mut":      true,
+		"pub":      true,
+		"ref":      true,
+		"return":   true,
+		"self":     true,
+		"Self":     true,
+		"static":   true,
+		"struct":   true,
+		"super":    true,
+		"trait":    true,
+		"true":     true,
+		"type":     true,
+		"unsafe":   true,
+		"use":      true,
+		"where":    true,
+		"while":    true,
+
+		// Keywords in Rust 2018+.
+		"async": true,
+		"await": true,
+		"dyn":   true,
+
+		// Reserved
+		"abstract": true,
+		"become":   true,
+		"box":      true,
+		"do":       true,
+		"final":    true,
+		"macro":    true,
+		"override": true,
+		"priv":     true,
+		"typeof":   true,
+		"unsized":  true,
+		"virtual":  true,
+		"yield":    true,
+
+		// Reserved in Rust 2018+
+		"try": true,
+	}
+	_, ok := keywords[symbol]
+	if !ok {
+		return symbol
+	}
+	return "r#" + symbol
 }

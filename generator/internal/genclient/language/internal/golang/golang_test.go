@@ -12,38 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rust
+package golang
 
 import (
 	"testing"
-
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
-
-type ScalarFieldTest struct {
-	Typez    genclient.Typez
-	Optional bool
-	Expected string
-}
-
-var scalarFieldTests = []ScalarFieldTest{
-	{genclient.INT32_TYPE, false, "i32"},
-	{genclient.INT64_TYPE, false, "i64"},
-	{genclient.UINT32_TYPE, true, "Option<u32>"},
-	{genclient.UINT64_TYPE, true, "Option<u64>"},
-	{genclient.BOOL_TYPE, true, "Option<bool>"},
-	{genclient.STRING_TYPE, true, "Option<String>"},
-	{genclient.BYTES_TYPE, true, "Option<bytes::Bytes>"},
-}
-
-func TestScalarFields(t *testing.T) {
-	for _, test := range scalarFieldTests {
-		field := genclient.Field{Typez: test.Typez, Optional: test.Optional}
-		if output := ScalarFieldType(&field); output != test.Expected {
-			t.Errorf("Output %q not equal to expected %q", output, test.Expected)
-		}
-	}
-}
 
 type CaseConvertTest struct {
 	Input    string
@@ -56,16 +29,12 @@ func TestToSnake(t *testing.T) {
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
 		{"data_crc32c", "data_crc32c"},
-		{"True", "r#true"},
-		{"Static", "r#static"},
-		{"Trait", "r#trait"},
-		{"Self", "r#self"},
-		{"self", "r#self"},
-		{"yield", "r#yield"},
+		{"Map", "map_"},
+		{"switch", "switch_"},
 	}
 	for _, test := range snakeConvertTests {
 		if output := c.ToSnake(test.Input); output != test.Expected {
-			t.Errorf("Output %q not equal to expected %q, input=%s", output, test.Expected, test.Input)
+			t.Errorf("Output %s not equal to expected %s, input=%s", output, test.Expected, test.Input)
 		}
 	}
 }
@@ -76,13 +45,11 @@ func TestToPascal(t *testing.T) {
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
 		{"True", "True"},
-		{"Self", "r#Self"},
-		{"self", "r#Self"},
-		{"yield", "Yield"},
+		{"return", "Return"},
 	}
 	for _, test := range pascalConvertTests {
 		if output := c.ToPascal(test.Input); output != test.Expected {
-			t.Errorf("Output %q not equal to expected %q", output, test.Expected)
+			t.Errorf("Output %s not equal to expected %s, input=%s", output, test.Expected, test.Input)
 		}
 	}
 }
