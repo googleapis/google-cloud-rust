@@ -22,13 +22,179 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
-func TestMakeAPI(t *testing.T) {
-	tDir := t.TempDir()
+func TestAllOf(t *testing.T) {
+	// A message with AllOf and its transitive closure of dependent messages.
+	const messageWithAllOf = `
+      "Automatic": {
+        "description": "A replication policy that replicates the Secret payload without any restrictions.",
+        "type": "object",
+        "properties": {
+          "customerManagedEncryption": {
+            "description": "Optional. The customer-managed encryption configuration of the Secret.",
+            "allOf": [{
+              "$ref": "#/components/schemas/CustomerManagedEncryption"
+            }]
+          }
+        }
+      },
+      "CustomerManagedEncryption": {
+        "description": "Configuration for encrypting secret payloads using customer-managed\nencryption keys (CMEK).",
+        "type": "object",
+        "properties": {
+          "kmsKeyName": {
+            "description": "Required. The resource name of the Cloud KMS CryptoKey used to encrypt secret payloads.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kmsKeyName"
+        ]
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithAllOf + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
 
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Automatic",
+		Documentation: "A replication policy that replicates the Secret payload without any restrictions.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "customerManagedEncryption",
+				Documentation: "Optional. The customer-managed encryption configuration of the Secret.",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       "CustomerManagedEncryption",
+				Optional:      true,
+			},
+		},
+	})
+}
+
+func TestBasicTypes(t *testing.T) {
+	// A message with basic types.
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fBool":      { "type": "boolean" },
+          "fInt64":     { "type": "integer", "format": "int64" },
+          "fInt32":     { "type": "integer", "format": "int32" },
+          "fString":    { "type": "string" },
+          "fSInt64":    { "type": "string", "format": "int64" },
+          "fSUInt64":   { "type": "string", "format": "uint64" },
+          "fDuration":  { "type": "string", "format": "google-duration" },
+          "fTimestamp": { "type": "string", "format": "date-time" },
+          "fFieldMask": { "type": "string", "format": "google-fieldmask" },
+          "fBytes":     { "type": "string", "format": "byte" }
+        },
+        "required": [
+            "fBool", "fInt64", "fInt32", "fString", "fSInt64", 
+            "fSUInt64", "fDuration", "fTimestamp", "fFieldMask", "fBytes" ]
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Name: "fBool", Typez: genclient.BOOL_TYPE},
+			{Name: "fInt64", Typez: genclient.INT64_TYPE},
+			{Name: "fInt32", Typez: genclient.INT32_TYPE},
+			{Name: "fString", Typez: genclient.STRING_TYPE},
+			{Name: "fSInt64", Typez: genclient.INT64_TYPE},
+			{Name: "fSUInt64", Typez: genclient.UINT64_TYPE},
+			{Name: "fDuration", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Duration", Optional: true},
+			{Name: "fTimestamp", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Timestamp", Optional: true},
+			{Name: "fFieldMask", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.FieldMask", Optional: true},
+			{Name: "fBytes", Typez: genclient.BYTES_TYPE},
+		},
+	})
+}
+
+func TestArrayTypes(t *testing.T) {
+	// A message with basic types.
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fBool":      { "type": "array", "items": { "type": "boolean" }},
+          "fInt64":     { "type": "array", "items": { "type": "integer", "format": "int64" }},
+          "fInt32":     { "type": "array", "items": { "type": "integer", "format": "int32" }},
+          "fString":    { "type": "array", "items": { "type": "string" }},
+          "fSInt64":    { "type": "array", "items": { "type": "string", "format": "int64" }},
+          "fSUInt64":   { "type": "array", "items": { "type": "string", "format": "uint64" }},
+          "fDuration":  { "type": "array", "items": { "type": "string", "format": "google-duration" }},
+          "fTimestamp": { "type": "array", "items": { "type": "string", "format": "date-time" }},
+          "fFieldMask": { "type": "array", "items": { "type": "string", "format": "google-fieldmask" }},
+          "fBytes":     { "type": "array", "items": { "type": "string", "format": "byte" }},
+        }
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Repeated: true, Name: "fBool", Typez: genclient.BOOL_TYPE},
+			{Repeated: true, Name: "fInt64", Typez: genclient.INT64_TYPE},
+			{Repeated: true, Name: "fInt32", Typez: genclient.INT32_TYPE},
+			{Repeated: true, Name: "fString", Typez: genclient.STRING_TYPE},
+			{Repeated: true, Name: "fSInt64", Typez: genclient.INT64_TYPE},
+			{Repeated: true, Name: "fSUInt64", Typez: genclient.UINT64_TYPE},
+			{Repeated: true, Name: "fDuration", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Duration"},
+			{Repeated: true, Name: "fTimestamp", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Timestamp"},
+			{Repeated: true, Name: "fFieldMask", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.FieldMask"},
+			{Repeated: true, Name: "fBytes", Typez: genclient.BYTES_TYPE},
+		},
+	})
+}
+
+func TestMakeAPI(t *testing.T) {
 	contents := []byte(testDocument)
 	translator, err := NewTranslator(contents, &Options{
 		Language:    "rust",
-		OutDir:      tDir,
+		OutDir:      "not used",
 		TemplateDir: "not used",
 	})
 	if err != nil {
@@ -109,6 +275,34 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 }
+
+const singleMessagePreamble = `
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Secret Manager API",
+    "description": "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://secretmanager.googleapis.com",
+      "description": "Global Endpoint"
+    }
+  ],
+  "components": {
+    "schemas": {
+`
+
+const singleMessageTrailer = `
+    },
+  },
+  "externalDocs": {
+    "description": "Find more info here.",
+    "url": "https://cloud.google.com/secret-manager/"
+  }
+}
+`
 
 // This is a subset of the secret manager OpenAPI v3 spec circa 2023-10.  It is
 // just intended to drive some of the initial development and testing.

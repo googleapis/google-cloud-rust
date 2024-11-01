@@ -18,6 +18,7 @@ package openapi
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
@@ -123,7 +124,14 @@ func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.F
 		if err != nil {
 			return nil, err
 		}
-		field, err := makeField(messageName, name, schema)
+		optional := true
+		for _, r := range message.Required {
+			if name == r {
+				optional = false
+				break
+			}
+		}
+		field, err := makeField(messageName, name, optional, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -132,39 +140,26 @@ func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.F
 	return fields, nil
 }
 
-func makeField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+func makeField(messageName, name string, optional bool, field *base.Schema) (*genclient.Field, error) {
+	if len(field.AllOf) != 0 {
+		return makeAllOfField(messageName, name, field)
+	}
 	if len(field.Type) == 0 {
 		return nil, fmt.Errorf("missing field type for field %s.%s", messageName, name)
 	}
 	type_name := field.Type[0]
-	optional := true
-	for _, r := range field.Required {
-		if name == r {
-			optional = false
-			break
-		}
-	}
 	switch type_name {
-	case "string":
+	case "boolean":
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
-			Typez:         genclient.STRING_TYPE,
+			Typez:         genclient.BOOL_TYPE,
 			Optional:      optional,
 		}, nil
+	case "string":
+		return makeStringType(messageName, name, field.Format, optional, field)
 	case "integer":
-		{
-			typez, err := makeIntegerType(field.Format)
-			if err != nil {
-				return nil, err
-			}
-			return &genclient.Field{
-				Name:          name,
-				Documentation: field.Description,
-				Typez:         typez,
-				Optional:      optional,
-			}, nil
-		}
+		return makeIntegerField(messageName, name, field.Format, optional, field)
 	case "object":
 		return &genclient.Field{
 			Name:          name,
@@ -172,7 +167,6 @@ func makeField(messageName, name string, field *base.Schema) (*genclient.Field, 
 			Typez:         genclient.MESSAGE_TYPE,
 			Optional:      true,
 		}, nil
-
 	case "array":
 		return makeArrayField(messageName, name, field)
 	default:
@@ -180,18 +174,111 @@ func makeField(messageName, name string, field *base.Schema) (*genclient.Field, 
 	}
 }
 
-func makeIntegerType(format string) (genclient.Typez, error) {
+func makeAllOfField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+	for _, proxy := range field.AllOf {
+		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       typezID,
+			Optional:      true,
+		}, nil
+	}
+	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
+}
+
+func makeStringType(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
+	switch format {
+	case "":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.STRING_TYPE,
+			Optional:      optional,
+		}, nil
+	case "int64":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.INT64_TYPE,
+			Optional:      optional,
+		}, nil
+	case "uint64":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.UINT64_TYPE,
+			Optional:      optional,
+		}, nil
+	case "byte":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.BYTES_TYPE,
+			Optional:      optional,
+		}, nil
+	case "google-duration":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       ".google.protobuf.Duration",
+			Optional:      true,
+		}, nil
+	case "date-time":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       ".google.protobuf.Timestamp",
+			Optional:      true,
+		}, nil
+	case "google-fieldmask":
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       ".google.protobuf.FieldMask",
+			Optional:      true,
+		}, nil
+	default:
+		return nil, fmt.Errorf("unknown string format (%q) for field %s.%s", field.Format, messageName, name)
+	}
+}
+
+func makeIntegerField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
 	switch format {
 	case "int32":
-		return genclient.INT32_TYPE, nil
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.INT32_TYPE,
+			Optional:      optional,
+		}, nil
 	case "int64":
-		return genclient.INT64_TYPE, nil
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.INT64_TYPE,
+			Optional:      optional,
+		}, nil
 	case "uint32":
-		return genclient.UINT32_TYPE, nil
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.UINT32_TYPE,
+			Optional:      optional,
+		}, nil
 	case "uint64":
-		return genclient.UINT64_TYPE, nil
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.UINT64_TYPE,
+			Optional:      optional,
+		}, nil
 	default:
-		return 0, fmt.Errorf("unknown integer format %q", format)
+		return nil, fmt.Errorf("unknown integer format (%q) for field %s.%s", format, messageName, name)
 	}
 }
 
@@ -203,16 +290,32 @@ func makeArrayField(messageName, name string, field *base.Schema) (*genclient.Fi
 	if err != nil {
 		return nil, fmt.Errorf("cannot build schema for %s.%s error=%q", messageName, name, err)
 	}
-	if schema.Type[0] == "string" {
+	switch schema.Type[0] {
+	case "string":
+		field, err := makeStringType(messageName, name, schema.Format, false, field)
+		if err != nil {
+			return nil, err
+		}
+		field.Repeated = true
+		field.Optional = false
+		return field, nil
+	case "integer":
+		field, err := makeIntegerField(messageName, name, schema.Format, false, field)
+		if err != nil {
+			return nil, err
+		}
+		field.Repeated = true
+		field.Optional = false
+		return field, nil
+	case "boolean":
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
-			Typez:         genclient.STRING_TYPE,
+			Typez:         genclient.BOOL_TYPE,
 			Optional:      false,
 			Repeated:      true,
 		}, nil
-	}
-	if schema.Type[0] == "object" {
+	case "object":
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
@@ -220,6 +323,7 @@ func makeArrayField(messageName, name string, field *base.Schema) (*genclient.Fi
 			Optional:      false,
 			Repeated:      true,
 		}, nil
+	default:
+		return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
 	}
-	return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
 }
