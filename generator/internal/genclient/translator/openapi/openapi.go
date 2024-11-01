@@ -150,11 +150,13 @@ func (t *Translator) makeField(messageName, name string, optional bool, field *b
 	}
 	switch field.Type[0] {
 	case "boolean":
-		return t.makeBooleanField(name, optional, field)
-	case "string":
-		return t.makeStringField(messageName, name, field.Format, optional, field)
+		return t.makeScalarField(messageName, name, field, optional, field)
 	case "integer":
-		return t.makeIntegerField(messageName, name, field.Format, optional, field)
+		return t.makeScalarField(messageName, name, field, optional, field)
+	case "number":
+		return t.makeScalarField(messageName, name, field, optional, field)
+	case "string":
+		return t.makeScalarField(messageName, name, field, optional, field)
 	case "object":
 		return t.makeObjectField(messageName, name, field)
 	case "array":
@@ -164,107 +166,18 @@ func (t *Translator) makeField(messageName, name string, optional bool, field *b
 	}
 }
 
-func (t *Translator) makeBooleanField(name string, optional bool, field *base.Schema) (*genclient.Field, error) {
+func (t *Translator) makeScalarField(messageName, name string, schema *base.Schema, optional bool, field *base.Schema) (*genclient.Field, error) {
+	typez, typezID, err := scalarType(messageName, name, schema)
+	if err != nil {
+		return nil, err
+	}
 	return &genclient.Field{
 		Name:          name,
 		Documentation: field.Description,
-		Typez:         genclient.BOOL_TYPE,
-		Optional:      optional,
+		Typez:         typez,
+		TypezID:       typezID,
+		Optional:      optional || (typez == genclient.MESSAGE_TYPE),
 	}, nil
-}
-
-func (t *Translator) makeStringField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
-	switch format {
-	case "":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.STRING_TYPE,
-			Optional:      optional,
-		}, nil
-	case "int64":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.INT64_TYPE,
-			Optional:      optional,
-		}, nil
-	case "uint64":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.UINT64_TYPE,
-			Optional:      optional,
-		}, nil
-	case "byte":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.BYTES_TYPE,
-			Optional:      optional,
-		}, nil
-	case "google-duration":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.MESSAGE_TYPE,
-			TypezID:       ".google.protobuf.Duration",
-			Optional:      true,
-		}, nil
-	case "date-time":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.MESSAGE_TYPE,
-			TypezID:       ".google.protobuf.Timestamp",
-			Optional:      true,
-		}, nil
-	case "google-fieldmask":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.MESSAGE_TYPE,
-			TypezID:       ".google.protobuf.FieldMask",
-			Optional:      true,
-		}, nil
-	default:
-		return nil, fmt.Errorf("unknown string format (%q) for field %s.%s", field.Format, messageName, name)
-	}
-}
-
-func (t *Translator) makeIntegerField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
-	switch format {
-	case "int32":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.INT32_TYPE,
-			Optional:      optional,
-		}, nil
-	case "int64":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.INT64_TYPE,
-			Optional:      optional,
-		}, nil
-	case "uint32":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.UINT32_TYPE,
-			Optional:      optional,
-		}, nil
-	case "uint64":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.UINT64_TYPE,
-			Optional:      optional,
-		}, nil
-	default:
-		return nil, fmt.Errorf("unknown integer format (%q) for field %s.%s", format, messageName, name)
-	}
 }
 
 func (t *Translator) makeObjectField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
@@ -286,16 +199,21 @@ func (t *Translator) makeArrayField(messageName, name string, field *base.Schema
 	}
 	schema, err := field.Items.A.BuildSchema()
 	if err != nil {
-		return nil, fmt.Errorf("cannot build schema for %s.%s error=%q", messageName, name, err)
+		return nil, fmt.Errorf("cannot build items schema for %s.%s error=%q", messageName, name, err)
+	}
+	if len(schema.Type) != 1 {
+		return nil, fmt.Errorf("the items for field  %s.%s should have a single type", messageName, name)
 	}
 	var result *genclient.Field
 	switch schema.Type[0] {
 	case "boolean":
-		result, err = t.makeBooleanField(name, false, field)
-	case "string":
-		result, err = t.makeStringField(messageName, name, schema.Format, false, field)
+		result, err = t.makeScalarField(messageName, name, schema, false, field)
 	case "integer":
-		result, err = t.makeIntegerField(messageName, name, schema.Format, false, field)
+		result, err = t.makeScalarField(messageName, name, schema, false, field)
+	case "number":
+		result, err = t.makeScalarField(messageName, name, schema, false, field)
+	case "string":
+		result, err = t.makeScalarField(messageName, name, schema, false, field)
 	case "object":
 		result, err = t.makeObjectField(messageName, name, field)
 	default:
@@ -321,4 +239,72 @@ func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.
 		}, nil
 	}
 	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
+}
+
+func scalarType(messageName, name string, schema *base.Schema) (genclient.Typez, string, error) {
+	for _, type_name := range schema.Type {
+		switch type_name {
+		case "boolean":
+			return genclient.BOOL_TYPE, "bool", nil
+		case "integer":
+			return scalarTypeForIntegerFormats(messageName, name, schema)
+		case "number":
+			return scalarTypeForNumberFormats(messageName, name, schema)
+		case "string":
+			return scalarTypeForStringFormats(messageName, name, schema)
+		}
+	}
+	return 0, "", fmt.Errorf("expected a scalar type for field %s.%s", messageName, name)
+}
+
+func scalarTypeForIntegerFormats(messageName, name string, schema *base.Schema) (genclient.Typez, string, error) {
+	switch schema.Format {
+	case "int32":
+		if schema.Minimum != nil && *schema.Minimum == 0 {
+			return genclient.UINT32_TYPE, "uint32", nil
+		}
+		return genclient.INT32_TYPE, "int32", nil
+	case "int64":
+		if schema.Minimum != nil && *schema.Minimum == 0 {
+			return genclient.UINT64_TYPE, "uint64", nil
+		}
+		return genclient.INT64_TYPE, "int64", nil
+	}
+	return 0, "", fmt.Errorf("unknown integer format (%s) for field %s.%s", schema.Format, messageName, name)
+}
+
+func scalarTypeForNumberFormats(messageName, name string, schema *base.Schema) (genclient.Typez, string, error) {
+	switch schema.Format {
+	case "float":
+		return genclient.FLOAT_TYPE, "float", nil
+	case "double":
+		return genclient.DOUBLE_TYPE, "double", nil
+	}
+	return 0, "", fmt.Errorf("unknown number format (%s) for field %s.%s", schema.Format, messageName, name)
+}
+
+func scalarTypeForStringFormats(messageName, name string, schema *base.Schema) (genclient.Typez, string, error) {
+	switch schema.Format {
+	case "":
+		return genclient.STRING_TYPE, "string", nil
+	case "byte":
+		return genclient.BYTES_TYPE, "bytes", nil
+	case "int32":
+		if schema.Minimum != nil && *schema.Minimum == 0 {
+			return genclient.UINT32_TYPE, "uint32", nil
+		}
+		return genclient.INT32_TYPE, "int32", nil
+	case "int64":
+		if schema.Minimum != nil && *schema.Minimum == 0 {
+			return genclient.UINT64_TYPE, "uint64", nil
+		}
+		return genclient.INT64_TYPE, "int64", nil
+	case "google-duration":
+		return genclient.MESSAGE_TYPE, ".google.protobuf.Duration", nil
+	case "date-time":
+		return genclient.MESSAGE_TYPE, ".google.protobuf.Timestamp", nil
+	case "google-fieldmask":
+		return genclient.MESSAGE_TYPE, ".google.protobuf.FieldMask", nil
+	}
+	return 0, "", fmt.Errorf("unknown string format (%s) for field %s.%s", schema.Format, messageName, name)
 }
