@@ -60,7 +60,7 @@ type LanguageCodec interface {
 	// An example return value might be
 	// `&Pair{Key: "secretId", Value: "req.SecretId()"}`
 	QueryParams(m *Method, state *APIState) []*Pair
-	// ToSnake converts a symbol name to `snake_case``, applying any mangling
+	// ToSnake converts a symbol name to `snake_case`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToSnake(string) string
 	// ToPascal converts a symbol name to `PascalCase`, applying any mangling
