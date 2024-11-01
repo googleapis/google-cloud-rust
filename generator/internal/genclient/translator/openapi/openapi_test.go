@@ -48,27 +48,32 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "name",
 				Documentation: "Resource name for the location, which may vary between implementations.",
 				Typez:         genclient.STRING_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 			{
 				Name:          "locationId",
 				Documentation: `The canonical id for this location.`,
 				Typez:         genclient.STRING_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 			{
 				Name:          "displayName",
 				Documentation: `The friendly name for this location, typically a nearby city name.`,
 				Typez:         genclient.STRING_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 			{
 				Name:          "labels",
 				Documentation: "Cross-service attributes for the location.",
 				Typez:         genclient.MESSAGE_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 			{
 				Name:          "metadata",
 				Documentation: `Service-specific metadata. For example the available capacity at the given location.`,
 				Typez:         genclient.MESSAGE_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 		},
 	})
 
@@ -80,12 +85,14 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "locations",
 				Documentation: "A list of locations that matches the specified filter in the request.",
 				Typez:         genclient.MESSAGE_TYPE,
-				Repeated:      true},
+				Repeated:      true,
+			},
 			{
 				Name:          "nextPageToken",
 				Documentation: "The standard List next-page token.",
 				Typez:         genclient.STRING_TYPE,
-				Optional:      true},
+				Optional:      true,
+			},
 		},
 	})
 }
