@@ -82,7 +82,7 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 		if err != nil {
 			return nil, err
 		}
-		fields, err := makeMessageFields(name, schema)
+		fields, err := t.makeMessageFields(name, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -117,7 +117,7 @@ func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
 	}, nil
 }
 
-func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.Field, error) {
+func (t *Translator) makeMessageFields(messageName string, message *base.Schema) ([]*genclient.Field, error) {
 	var fields []*genclient.Field
 	for name, f := range message.Properties.FromOldest() {
 		schema, err := f.BuildSchema()
@@ -131,7 +131,7 @@ func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.F
 				break
 			}
 		}
-		field, err := makeField(messageName, name, optional, schema)
+		field, err := t.makeField(messageName, name, optional, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -140,55 +140,40 @@ func makeMessageFields(messageName string, message *base.Schema) ([]*genclient.F
 	return fields, nil
 }
 
-func makeField(messageName, name string, optional bool, field *base.Schema) (*genclient.Field, error) {
+func (t *Translator) makeField(messageName, name string, optional bool, field *base.Schema) (*genclient.Field, error) {
 	if len(field.AllOf) != 0 {
-		return makeAllOfField(messageName, name, field)
+		// Simple object fields name an AllOf attribute, but no `Type` attribute.
+		return t.makeObjectField(messageName, name, field)
 	}
 	if len(field.Type) == 0 {
 		return nil, fmt.Errorf("missing field type for field %s.%s", messageName, name)
 	}
-	type_name := field.Type[0]
-	switch type_name {
+	switch field.Type[0] {
 	case "boolean":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.BOOL_TYPE,
-			Optional:      optional,
-		}, nil
+		return t.makeBooleanField(name, optional, field)
 	case "string":
-		return makeStringType(messageName, name, field.Format, optional, field)
+		return t.makeStringField(messageName, name, field.Format, optional, field)
 	case "integer":
-		return makeIntegerField(messageName, name, field.Format, optional, field)
+		return t.makeIntegerField(messageName, name, field.Format, optional, field)
 	case "object":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.MESSAGE_TYPE,
-			Optional:      true,
-		}, nil
+		return t.makeObjectField(messageName, name, field)
 	case "array":
-		return makeArrayField(messageName, name, field)
+		return t.makeArrayField(messageName, name, field)
 	default:
 		return nil, fmt.Errorf("unknown type for field %q", name)
 	}
 }
 
-func makeAllOfField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
-	for _, proxy := range field.AllOf {
-		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.MESSAGE_TYPE,
-			TypezID:       typezID,
-			Optional:      true,
-		}, nil
-	}
-	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
+func (t *Translator) makeBooleanField(name string, optional bool, field *base.Schema) (*genclient.Field, error) {
+	return &genclient.Field{
+		Name:          name,
+		Documentation: field.Description,
+		Typez:         genclient.BOOL_TYPE,
+		Optional:      optional,
+	}, nil
 }
 
-func makeStringType(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
+func (t *Translator) makeStringField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
 	switch format {
 	case "":
 		return &genclient.Field{
@@ -247,7 +232,7 @@ func makeStringType(messageName, name, format string, optional bool, field *base
 	}
 }
 
-func makeIntegerField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
+func (t *Translator) makeIntegerField(messageName, name, format string, optional bool, field *base.Schema) (*genclient.Field, error) {
 	switch format {
 	case "int32":
 		return &genclient.Field{
@@ -282,7 +267,20 @@ func makeIntegerField(messageName, name, format string, optional bool, field *ba
 	}
 }
 
-func makeArrayField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+func (t *Translator) makeObjectField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+	if len(field.AllOf) != 0 {
+		return t.makeObjectFieldAllOf(messageName, name, field)
+	}
+	// TODO(#62) - this is an Any or a map<string, T>, needs a TypezID
+	return &genclient.Field{
+		Name:          name,
+		Documentation: field.Description,
+		Typez:         genclient.MESSAGE_TYPE,
+		Optional:      true,
+	}, nil
+}
+
+func (t *Translator) makeArrayField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
 	if !field.Items.IsA() {
 		return nil, fmt.Errorf("cannot handle arrays without an `Items` field for %s.%s", messageName, name)
 	}
@@ -290,40 +288,37 @@ func makeArrayField(messageName, name string, field *base.Schema) (*genclient.Fi
 	if err != nil {
 		return nil, fmt.Errorf("cannot build schema for %s.%s error=%q", messageName, name, err)
 	}
+	var result *genclient.Field
 	switch schema.Type[0] {
-	case "string":
-		field, err := makeStringType(messageName, name, schema.Format, false, field)
-		if err != nil {
-			return nil, err
-		}
-		field.Repeated = true
-		field.Optional = false
-		return field, nil
-	case "integer":
-		field, err := makeIntegerField(messageName, name, schema.Format, false, field)
-		if err != nil {
-			return nil, err
-		}
-		field.Repeated = true
-		field.Optional = false
-		return field, nil
 	case "boolean":
-		return &genclient.Field{
-			Name:          name,
-			Documentation: field.Description,
-			Typez:         genclient.BOOL_TYPE,
-			Optional:      false,
-			Repeated:      true,
-		}, nil
+		result, err = t.makeBooleanField(name, false, field)
+	case "string":
+		result, err = t.makeStringField(messageName, name, schema.Format, false, field)
+	case "integer":
+		result, err = t.makeIntegerField(messageName, name, schema.Format, false, field)
 	case "object":
+		result, err = t.makeObjectField(messageName, name, field)
+	default:
+		return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
+	}
+	if err != nil {
+		return nil, err
+	}
+	result.Repeated = true
+	result.Optional = false
+	return result, nil
+}
+
+func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+	for _, proxy := range field.AllOf {
+		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
-			Optional:      false,
-			Repeated:      true,
+			TypezID:       typezID,
+			Optional:      true,
 		}, nil
-	default:
-		return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
 	}
+	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
 }
