@@ -122,10 +122,7 @@ func Generate(req *GenerateRequest) (*Output, error) {
 			return err
 		}
 		fn := filepath.Join(req.outDir(), filepath.Dir(strings.TrimPrefix(path, root)), strings.TrimSuffix(d.Name(), ".mustache"))
-		if err := os.WriteFile(fn, []byte(s), os.ModePerm); err != nil {
-			return err
-		}
-		return nil
+		return os.WriteFile(fn, []byte(s), os.ModePerm)
 	})
 	if err != nil {
 		slog.Error("error walking templates", "err", err.Error())
