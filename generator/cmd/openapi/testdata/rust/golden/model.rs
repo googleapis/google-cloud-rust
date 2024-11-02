@@ -78,7 +78,7 @@ pub struct Secret {
     /// Optional. Immutable. The replication policy of the secret data attached to the Secret.
     /// 
     /// The replication policy cannot be changed after the Secret has been created.
-    pub replication: ,
+    pub replication: Option<Replication>,
 
     /// Output only. The time at which the Secret was created.
     pub create_time: Option<String>,
@@ -112,7 +112,7 @@ pub struct Secret {
 
     /// Optional. Rotation policy attached to the Secret. May be excluded if there is no
     /// rotation policy.
-    pub rotation: ,
+    pub rotation: Option<Rotation>,
 
     /// Optional. Mapping from version alias to version name.
     /// 
@@ -155,7 +155,7 @@ pub struct Secret {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
 }
 
 /// A policy that defines the replication and encryption configuration of data.
@@ -165,10 +165,10 @@ pub struct Secret {
 pub struct Replication {
 
     /// The Secret will automatically be replicated without any restrictions.
-    pub automatic: ,
+    pub automatic: Option<Automatic>,
 
     /// The Secret will only be replicated into the locations specified.
-    pub user_managed: ,
+    pub user_managed: Option<UserManaged>,
 }
 
 /// A replication policy that replicates the Secret payload without any
@@ -184,7 +184,7 @@ pub struct Automatic {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
 }
 
 /// Configuration for encrypting secret payloads using customer-managed
@@ -238,7 +238,7 @@ pub struct Replica {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
 }
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
@@ -287,7 +287,7 @@ pub struct Rotation {
 pub struct AddSecretVersionRequest {
 
     /// Required. The secret payload of the SecretVersion.
-    pub payload: ,
+    pub payload: Option<SecretPayload>,
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -338,7 +338,7 @@ pub struct SecretVersion {
     pub state: Option<String>,
 
     /// The replication status of the SecretVersion.
-    pub replication_status: ,
+    pub replication_status: Option<ReplicationStatus>,
 
     /// Output only. Etag of the currently stored SecretVersion.
     pub etag: Option<String>,
@@ -358,7 +358,7 @@ pub struct SecretVersion {
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
     /// a Regionalised Secret.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
 }
 
 /// The replication status of a SecretVersion.
@@ -372,14 +372,14 @@ pub struct ReplicationStatus {
     /// 
     /// Only populated if the parent Secret has an automatic replication
     /// policy.
-    pub automatic: ,
+    pub automatic: Option<AutomaticStatus>,
 
     /// Describes the replication status of a SecretVersion with
     /// user-managed replication.
     /// 
     /// Only populated if the parent Secret has a user-managed replication
     /// policy.
-    pub user_managed: ,
+    pub user_managed: Option<UserManagedStatus>,
 }
 
 /// The replication status of a SecretVersion using automatic replication.
@@ -393,7 +393,7 @@ pub struct AutomaticStatus {
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
 }
 
 /// Describes the status of customer-managed encryption.
@@ -434,7 +434,7 @@ pub struct ReplicaStatus {
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    pub customer_managed_encryption: ,
+    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
 }
 
 /// A generic empty message that you can re-use to avoid defining duplicated
@@ -481,7 +481,7 @@ pub struct AccessSecretVersionResponse {
     pub name: Option<String>,
 
     /// Secret payload
-    pub payload: ,
+    pub payload: Option<SecretPayload>,
 }
 
 /// Request message for SecretManagerService.DisableSecretVersion.
@@ -530,7 +530,7 @@ pub struct SetIamPolicyRequest {
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Google Cloud services (such as Projects)
     /// might reject them.
-    pub policy: ,
+    pub policy: Option<Policy>,
 
     /// OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
     /// the fields in the mask will be modified. If no mask is provided, the
@@ -783,7 +783,7 @@ pub struct Binding {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    pub condition: ,
+    pub condition: Option<Expr>,
 }
 
 /// Represents a textual expression in the Common Expression Language (CEL)

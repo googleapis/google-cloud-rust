@@ -66,15 +66,21 @@ func TestAllOf(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	message := api.State.MessageByID["..Automatic"]
+	if message == nil {
+		t.Errorf("missing message in MessageByID index")
+		return
+	}
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Automatic",
+		ID:            "..Automatic",
 		Documentation: "A replication policy that replicates the Secret payload without any restrictions.",
 		Fields: []*genclient.Field{
 			{
 				Name:          "customerManagedEncryption",
 				Documentation: "Optional. The customer-managed encryption configuration of the Secret.",
 				Typez:         genclient.MESSAGE_TYPE,
-				TypezID:       "CustomerManagedEncryption",
+				TypezID:       "..CustomerManagedEncryption",
 				Optional:      true,
 			},
 		},
@@ -127,8 +133,14 @@ func TestBasicTypes(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	message := api.State.MessageByID["..Fake"]
+	if message == nil {
+		t.Errorf("missing message in MessageByID index")
+		return
+	}
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{Name: "fBool", Typez: genclient.BOOL_TYPE, TypezID: "bool"},
@@ -185,8 +197,14 @@ func TestArrayTypes(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	message := api.State.MessageByID["..Fake"]
+	if message == nil {
+		t.Errorf("missing message in MessageByID index")
+		return
+	}
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{Repeated: true, Name: "fBool", Typez: genclient.BOOL_TYPE, TypezID: "bool"},
@@ -220,9 +238,15 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	location := api.State.MessageByID["..Location"]
+	if location == nil {
+		t.Errorf("missing message (Location) in MessageByID index")
+		return
+	}
+	checkMessage(t, *location, genclient.Message{
 		Documentation: "A resource that represents a Google Cloud location.",
 		Name:          "Location",
+		ID:            "..Location",
 		Fields: []*genclient.Field{
 			{
 				Name:          "name",
@@ -260,9 +284,15 @@ func TestMakeAPI(t *testing.T) {
 		},
 	})
 
-	checkMessage(t, *api.Messages[1], genclient.Message{
+	listLocationsResponse := api.State.MessageByID["..ListLocationsResponse"]
+	if listLocationsResponse == nil {
+		t.Errorf("missing message (listLocationsResponse) in MessageByID index")
+		return
+	}
+	checkMessage(t, *listLocationsResponse, genclient.Message{
 		Documentation: "The response message for Locations.ListLocations.",
 		Name:          "ListLocationsResponse",
+		ID:            "..ListLocationsResponse",
 		Fields: []*genclient.Field{
 			{
 				Name:          "locations",
@@ -282,11 +312,9 @@ func TestMakeAPI(t *testing.T) {
 }
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
-	if want.Name != got.Name {
-		t.Errorf("Mismatched message name, got=%q, want=%q", got.Name, want.Name)
-	}
-	if diff := cmp.Diff(want.Documentation, got.Documentation); len(diff) > 0 {
-		t.Errorf("mismatch (-want +got):\n%s", diff)
+	t.Helper()
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields")); len(diff) > 0 {
+		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
