@@ -208,14 +208,14 @@ message Fake {
 
 func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.CodeGeneratorRequest {
 	accessor := protocompile.SourceAccessorFromMap(map[string]string{
-		"resources.proto": contents,
+		name: contents,
 	})
 	compiler := protocompile.Compiler{
 		Resolver:       &protocompile.SourceResolver{Accessor: accessor},
 		MaxParallelism: 1,
 		SourceInfoMode: protocompile.SourceInfoStandard,
 	}
-	files, err := compiler.Compile(context.Background(), "resources.proto")
+	files, err := compiler.Compile(context.Background(), name)
 	if err != nil {
 		t.Errorf("Error compiling proto %q", err)
 	}
@@ -224,7 +224,7 @@ func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.Code
 	}
 	descriptor := protodesc.ToFileDescriptorProto(files[0])
 	return &pluginpb.CodeGeneratorRequest{
-		FileToGenerate:        []string{"resources.proto"},
+		FileToGenerate:        []string{name},
 		ProtoFile:             []*descriptorpb.FileDescriptorProto{descriptor},
 		SourceFileDescriptors: []*descriptorpb.FileDescriptorProto{descriptor},
 		CompilerVersion:       newCompilerVersion(),
