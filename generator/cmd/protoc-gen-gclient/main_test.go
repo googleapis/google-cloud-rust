@@ -26,7 +26,12 @@ func TestMain(m *testing.M) {
 }
 
 func TestRun_Rust(t *testing.T) {
-	if err := run("testdata/rust/rust.bin", "testdata/rust/golden", "../../templates"); err != nil {
+	const (
+		inputPath   = "../../testdata/rust/gclient/rust.bin"
+		outDir      = "../../testdata/rust/gclient/golden"
+		templateDir = "../../templates"
+	)
+	if err := run(inputPath, outDir, templateDir); err != nil {
 		t.Fatal(err)
 	}
 }
