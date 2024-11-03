@@ -30,6 +30,7 @@ func NewCodec() *Codec {
 type Codec struct{}
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
+	// TODO(#77) - replace these placeholders with real types
 	timestamp := &genclient.Message{
 		ID:   ".google.protobuf.Timestamp",
 		Name: "String",
@@ -98,14 +99,17 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 			val := c.FieldType(m.Fields[1], state)
 			return "Option<std::collections::HashMap<" + key + "," + val + ">>"
 		}
-		return "Option<" + c.MessageName(m, state) + ">"
+		if strings.HasPrefix(m.ID, ".google.protobuf.") {
+			return "Option<String> /* TODO(#77) - handle " + f.TypezID + " */"
+		}
+		return "Option<" + c.FQMessageName(m, state) + ">"
 	} else if f.Typez == genclient.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		return c.EnumName(e, state)
+		return c.FQEnumName(e, state)
 	} else if f.Typez == genclient.GROUP_TYPE {
 		slog.Error("TODO(#39) - better handling of `oneof` fields")
 		return ""
@@ -130,20 +134,33 @@ func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
-	if m.Parent != nil {
-		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
-	}
 	if m.Package != "" {
-		return m.Package + "." + strcase.ToCamel(m.Name)
+		return m.Package + "." + c.ToPascal(m.Name)
 	}
 	return c.ToPascal(m.Name)
 }
 
-func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
-	if e.Parent != nil {
-		return c.MessageName(e.Parent, state) + "_" + strcase.ToCamel(e.Name)
+func (c *Codec) messageScopeName(m *genclient.Message) string {
+	if m == nil {
+		return "crate"
 	}
+	return c.messageScopeName(m.Parent) + "::" + c.ToSnake(m.Name)
+}
+
+func (c *Codec) enumScopeName(e *genclient.Enum) string {
+	return c.messageScopeName(e.Parent)
+}
+
+func (c *Codec) FQMessageName(m *genclient.Message, _ *genclient.APIState) string {
+	return c.messageScopeName(m.Parent) + "::" + c.ToPascal(m.Name)
+}
+
+func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 	return c.ToPascal(e.Name)
+}
+
+func (c *Codec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
+	return c.messageScopeName(e.Parent) + "::" + c.ToPascal(e.Name)
 }
 
 func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
@@ -151,6 +168,11 @@ func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState)
 		return c.MessageName(e.Parent.Parent, state) + "_" + strcase.ToCamel(e.Name)
 	}
 	return c.ToPascal(e.Name)
+}
+
+func (c *Codec) FQEnumValueName(v *genclient.EnumValue, _ *genclient.APIState) string {
+	// TODO(#76) - these will be `const` strings and therefore should be SNAKE_UPPERCASE.
+	return c.enumScopeName(v.Parent) + "::" + c.ToSnake(v.Name)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {

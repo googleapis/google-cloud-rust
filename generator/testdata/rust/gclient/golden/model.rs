@@ -23,11 +23,11 @@ pub struct Secret {
     ///  the [Secret][google.cloud.secretmanager.v1.Secret].
     /// 
     ///  The replication policy cannot be changed after the Secret has been created.
-    pub replication: Option<Replication>,
+    pub replication: Option<crate::Replication>,
 
     /// Output only. The time at which the
     ///  [Secret][google.cloud.secretmanager.v1.Secret] was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// The labels assigned to this Secret.
     /// 
@@ -44,16 +44,16 @@ pub struct Secret {
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     ///  when control plane operations are called on the secret or its versions.
-    pub topics: Option<Topic>,
+    pub topics: Option<crate::Topic>,
 
     /// Optional. Timestamp in UTC when the
     ///  [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
     ///  This is always provided on output, regardless of what was sent on input.
-    pub expire_time: Option<String>,
+    pub expire_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// Input only. The TTL for the
     ///  [Secret][google.cloud.secretmanager.v1.Secret].
-    pub ttl: Option<String>,
+    pub ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
 
     /// Optional. Etag of the currently stored
     ///  [Secret][google.cloud.secretmanager.v1.Secret].
@@ -62,7 +62,7 @@ pub struct Secret {
     /// Optional. Rotation policy attached to the
     ///  [Secret][google.cloud.secretmanager.v1.Secret]. May be excluded if there is
     ///  no rotation policy.
-    pub rotation: Option<Rotation>,
+    pub rotation: Option<crate::Rotation>,
 
     /// Optional. Mapping from version alias to version name.
     /// 
@@ -97,7 +97,7 @@ pub struct Secret {
     ///  For secret with TTL>0, version destruction doesn't happen immediately
     ///  on calling destroy instead the version goes to a disabled state and
     ///  destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<String>,
+    pub version_destroy_ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised
     ///  Secrets. If no configuration is provided, Google-managed default encryption
@@ -108,7 +108,7 @@ pub struct Secret {
     ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
     ///  afterwards. They do not apply retroactively to existing
     ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
+    pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
 }
 
 /// A secret version resource in the Secret Manager API.
@@ -128,22 +128,22 @@ pub struct SecretVersion {
 
     /// Output only. The time at which the
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// Output only. The time this
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
     ///  Only present if [state][google.cloud.secretmanager.v1.SecretVersion.state]
     ///  is
     ///  [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
-    pub destroy_time: Option<String>,
+    pub destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// Output only. The current state of the
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub state: SecretVersion_State,
+    pub state: crate::secret_version::State,
 
     /// The replication status of the
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub replication_status: Option<ReplicationStatus>,
+    pub replication_status: Option<crate::ReplicationStatus>,
 
     /// Output only. Etag of the currently stored
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -163,39 +163,43 @@ pub struct SecretVersion {
     ///  destroyed, the version is moved to disabled state and it is scheduled for
     ///  destruction. The version is destroyed only after the
     ///  `scheduled_destroy_time`.
-    pub scheduled_destroy_time: Option<String>,
+    pub scheduled_destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// Output only. The customer-managed encryption status of the
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
     ///  populated if customer-managed encryption is used and
     ///  [Secret][google.cloud.secretmanager.v1.Secret] is a Regionalised Secret.
-    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
+    pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct SecretVersion_State(i32);
+/// Defines additional types related to SecretVersion
+pub mod secret_version {
 
-impl SecretVersion_State {
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+    pub struct State(i32);
 
-    // Not specified. This value is unused and invalid.
-    pub const SecretVersion_StateUnspecified: SecretVersion_State = SecretVersion_State(0);
+    impl State {
 
-    // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
-    // accessed.
-    pub const SecretVersion_Enabled: SecretVersion_State = SecretVersion_State(1);
+        // Not specified. This value is unused and invalid.
+        pub const SecretVersion_StateUnspecified: State = State(0);
 
-    // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
-    // be accessed, but the secret data is still available and can be placed
-    // back into the
-    // [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
-    // state.
-    pub const SecretVersion_Disabled: SecretVersion_State = SecretVersion_State(2);
+        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
+        // accessed.
+        pub const SecretVersion_Enabled: State = State(1);
 
-    // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
-    // destroyed and the secret data is no longer stored. A version may not
-    // leave this state once entered.
-    pub const SecretVersion_Destroyed: SecretVersion_State = SecretVersion_State(3);
-}
+        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
+        // be accessed, but the secret data is still available and can be placed
+        // back into the
+        // [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
+        // state.
+        pub const SecretVersion_Disabled: State = State(2);
+
+        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
+        // destroyed and the secret data is no longer stored. A version may not
+        // leave this state once entered.
+        pub const SecretVersion_Destroyed: State = State(3);
+    }}
+
 /// A policy that defines the replication and encryption configuration of data.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -204,69 +208,77 @@ pub struct Replication {
 
     /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
     ///  replicated without any restrictions.
-    pub automatic: Option<Replication_Automatic>,
+    pub automatic: Option<crate::replication::Automatic>,
 
     /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
     ///  replicated into the locations specified.
-    pub user_managed: Option<Replication_UserManaged>,
+    pub user_managed: Option<crate::replication::UserManaged>,
 }
 
-/// A replication policy that replicates the
-/// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
-/// restrictions.
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct Replication_Automatic {
+/// Defines additional types related to Replication
+pub mod replication {
 
-    /// Optional. The customer-managed encryption configuration of the
-    ///  [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
-    ///  provided, Google-managed default encryption is used.
-    /// 
-    ///  Updates to the [Secret][google.cloud.secretmanager.v1.Secret] encryption
-    ///  configuration only apply to
-    ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
-    ///  afterwards. They do not apply retroactively to existing
-    ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
-}
+    /// A replication policy that replicates the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
+    /// restrictions.
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Automatic {
 
-/// A replication policy that replicates the
-/// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
-/// specified in [Secret.replication.user_managed.replicas][]
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct Replication_UserManaged {
+        /// Optional. The customer-managed encryption configuration of the
+        ///  [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
+        ///  provided, Google-managed default encryption is used.
+        /// 
+        ///  Updates to the [Secret][google.cloud.secretmanager.v1.Secret] encryption
+        ///  configuration only apply to
+        ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
+        ///  afterwards. They do not apply retroactively to existing
+        ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
+        pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+    }
 
-    /// Required. The list of Replicas for this
-    ///  [Secret][google.cloud.secretmanager.v1.Secret].
-    /// 
-    ///  Cannot be empty.
-    pub replicas: Option<Replication_UserManaged_Replica>,
-}
+    /// A replication policy that replicates the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
+    /// specified in [Secret.replication.user_managed.replicas][]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct UserManaged {
 
-/// Represents a Replica for this
-/// [Secret][google.cloud.secretmanager.v1.Secret].
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct Replication_UserManaged_Replica {
+        /// Required. The list of Replicas for this
+        ///  [Secret][google.cloud.secretmanager.v1.Secret].
+        /// 
+        ///  Cannot be empty.
+        pub replicas: Option<crate::replication::user_managed::Replica>,
+    }
 
-    /// The canonical IDs of the location to replicate data.
-    ///  For example: `"us-east1"`.
-    pub location: String,
+    /// Defines additional types related to UserManaged
+    pub mod user_managed {
 
-    /// Optional. The customer-managed encryption configuration of the
-    ///  [User-Managed Replica][Replication.UserManaged.Replica]. If no
-    ///  configuration is provided, Google-managed default encryption is used.
-    /// 
-    ///  Updates to the [Secret][google.cloud.secretmanager.v1.Secret]
-    ///  encryption configuration only apply to
-    ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
-    ///  afterwards. They do not apply retroactively to existing
-    ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    pub customer_managed_encryption: Option<CustomerManagedEncryption>,
+        /// Represents a Replica for this
+        /// [Secret][google.cloud.secretmanager.v1.Secret].
+        #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct Replica {
+
+            /// The canonical IDs of the location to replicate data.
+            ///  For example: `"us-east1"`.
+            pub location: String,
+
+            /// Optional. The customer-managed encryption configuration of the
+            ///  [User-Managed Replica][Replication.UserManaged.Replica]. If no
+            ///  configuration is provided, Google-managed default encryption is used.
+            /// 
+            ///  Updates to the [Secret][google.cloud.secretmanager.v1.Secret]
+            ///  encryption configuration only apply to
+            ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
+            ///  afterwards. They do not apply retroactively to existing
+            ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
+            pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+        }
+    }
 }
 
 /// Configuration for encrypting secret payloads using customer-managed
@@ -306,7 +318,7 @@ pub struct ReplicationStatus {
     ///  Only populated if the parent
     ///  [Secret][google.cloud.secretmanager.v1.Secret] has an automatic
     ///  replication policy.
-    pub automatic: Option<ReplicationStatus_AutomaticStatus>,
+    pub automatic: Option<crate::replication_status::AutomaticStatus>,
 
     /// Describes the replication status of a
     ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
@@ -315,57 +327,65 @@ pub struct ReplicationStatus {
     ///  Only populated if the parent
     ///  [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
     ///  replication policy.
-    pub user_managed: Option<ReplicationStatus_UserManagedStatus>,
+    pub user_managed: Option<crate::replication_status::UserManagedStatus>,
 }
 
-/// The replication status of a
-/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
-/// automatic replication.
-/// 
-/// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
-/// has an automatic replication policy.
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct ReplicationStatus_AutomaticStatus {
+/// Defines additional types related to ReplicationStatus
+pub mod replication_status {
 
-    /// Output only. The customer-managed encryption status of the
-    ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
-    ///  populated if customer-managed encryption is used.
-    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
-}
+    /// The replication status of a
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
+    /// automatic replication.
+    /// 
+    /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
+    /// has an automatic replication policy.
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AutomaticStatus {
 
-/// The replication status of a
-/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
-/// user-managed replication.
-/// 
-/// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
-/// has a user-managed replication policy.
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct ReplicationStatus_UserManagedStatus {
+        /// Output only. The customer-managed encryption status of the
+        ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
+        ///  populated if customer-managed encryption is used.
+        pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
+    }
 
-    /// Output only. The list of replica statuses for the
-    ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub replicas: Option<ReplicationStatus_UserManagedStatus_ReplicaStatus>,
-}
+    /// The replication status of a
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
+    /// user-managed replication.
+    /// 
+    /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
+    /// has a user-managed replication policy.
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct UserManagedStatus {
 
-/// Describes the status of a user-managed replica for the
-/// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-pub struct ReplicationStatus_UserManagedStatus_ReplicaStatus {
+        /// Output only. The list of replica statuses for the
+        ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+        pub replicas: Option<crate::replication_status::user_managed_status::ReplicaStatus>,
+    }
 
-    /// Output only. The canonical ID of the replica location.
-    ///  For example: `"us-east1"`.
-    pub location: String,
+    /// Defines additional types related to UserManagedStatus
+    pub mod user_managed_status {
 
-    /// Output only. The customer-managed encryption status of the
-    ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
-    ///  populated if customer-managed encryption is used.
-    pub customer_managed_encryption: Option<CustomerManagedEncryptionStatus>,
+        /// Describes the status of a user-managed replica for the
+        /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+        #[derive(Clone, Debug, Default, Deserialize, Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct ReplicaStatus {
+
+            /// Output only. The canonical ID of the replica location.
+            ///  For example: `"us-east1"`.
+            pub location: String,
+
+            /// Output only. The customer-managed encryption status of the
+            ///  [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
+            ///  populated if customer-managed encryption is used.
+            pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
+        }
+    }
 }
 
 /// Describes the status of customer-managed encryption.
@@ -414,7 +434,7 @@ pub struct Rotation {
     ///  MUST  be set if
     ///  [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
     ///  is set.
-    pub next_rotation_time: Option<String>,
+    pub next_rotation_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     ///  and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -427,7 +447,7 @@ pub struct Rotation {
     ///  [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
     ///  will be advanced by this period when the service automatically sends
     ///  rotation notifications.
-    pub rotation_period: Option<String>,
+    pub rotation_period: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -481,7 +501,7 @@ pub struct CreateSecretRequest {
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
     ///  field values.
-    pub secret: Option<Secret>,
+    pub secret: Option<crate::Secret>,
 }
 
 /// Request message for
