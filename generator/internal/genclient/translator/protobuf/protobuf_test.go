@@ -299,10 +299,38 @@ message Fake {
 		Name:          "Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Optional: true, Documentation: "An optional field tag = 1", Name: "f_double", JSONName: "fDouble", ID: ".test.Fake.f_double", Typez: genclient.DOUBLE_TYPE},
-			{Optional: true, Documentation: "An optional field tag = 3", Name: "f_int64", JSONName: "fInt64", ID: ".test.Fake.f_int64", Typez: genclient.INT64_TYPE},
-			{Optional: true, Documentation: "An optional field tag = 9", Name: "f_string", JSONName: "fString", ID: ".test.Fake.f_string", Typez: genclient.STRING_TYPE},
-			{Optional: true, Documentation: "An optional field tag = 12", Name: "f_bytes", JSONName: "fBytes", ID: ".test.Fake.f_bytes", Typez: genclient.BYTES_TYPE},
+			{
+				Optional:      true,
+				Documentation: "An optional field tag = 1",
+				Name:          "f_double",
+				JSONName:      "fDouble",
+				ID:            ".test.Fake.f_double",
+				Typez:         genclient.DOUBLE_TYPE,
+			},
+			{
+				Optional:      true,
+				Documentation: "An optional field tag = 3",
+				Name:          "f_int64",
+				JSONName:      "fInt64",
+				ID:            ".test.Fake.f_int64",
+				Typez:         genclient.INT64_TYPE,
+			},
+			{
+				Optional:      true,
+				Documentation: "An optional field tag = 9",
+				Name:          "f_string",
+				JSONName:      "fString",
+				ID:            ".test.Fake.f_string",
+				Typez:         genclient.STRING_TYPE,
+			},
+			{
+				Optional:      true,
+				Documentation: "An optional field tag = 12",
+				Name:          "f_bytes",
+				JSONName:      "fBytes",
+				ID:            ".test.Fake.f_bytes",
+				Typez:         genclient.BYTES_TYPE,
+			},
 		},
 	})
 }
