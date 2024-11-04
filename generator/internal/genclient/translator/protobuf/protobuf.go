@@ -26,6 +26,24 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
+const (
+	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#FileDescriptorProto
+	fileDescriptorMessageType = 4
+	fileDescriptorService     = 6
+
+	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
+	serviceDescriptorProtoMethod = 2
+
+	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto
+	messageDescriptorField      = 2
+	messageDescriptorNestedType = 3
+	messageDescriptorEnum       = 4
+	messageDescriptorOneOf      = 8
+
+	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#EnumDescriptorProto
+	enumDescriptorValue = 2
+)
+
 type Options struct {
 	Language string
 	// Only used for local testing
@@ -99,16 +117,13 @@ func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
 				continue
 			}
 
-			// These magic numbers come from reading the proto docs. They come
-			// from field numbers of the different descriptor types. See struct
-			// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#FileDescriptorProto.
 			switch p[0] {
-			case 4:
+			case fileDescriptorMessageType:
 				// Because of message nesting we need to call recursively and
 				// strip out parts of the path.
 				m := f.MessageType[p[1]]
 				addMessageDocumentation(state, m, p[2:], strings.TrimSpace(loc.GetLeadingComments()), fFQN+"."+m.GetName())
-			case 6:
+			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
 				addServiceDocumentation(state, p[2:],
 					strings.TrimSpace(loc.GetLeadingComments()), sFQN)
@@ -224,13 +239,10 @@ func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto,
 }
 
 func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, sFQN string) {
-	// These magic numbers come from reading the proto docs. They come
-	// from field numbers of the different descriptor types. See struct
-	// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto.
 	if len(p) == 0 {
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = doc
-	} else if len(p) == 2 && p[0] == 2 {
+	} else if len(p) == 2 && p[0] == serviceDescriptorProtoMethod {
 		// This is a comment for a method
 		state.ServiceByID[sFQN].Methods[p[1]].Documentation = doc
 	} else {
@@ -245,19 +257,16 @@ func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.Descript
 	if len(p) == 0 {
 		// This is a comment for a top level message
 		state.MessageByID[mFQN].Documentation = doc
-	} else if p[0] == 3 {
-		// This indicates a nested message, recurse.
+	} else if p[0] == messageDescriptorNestedType {
 		nmsg := m.GetNestedType()[p[1]]
 		nmFQN := mFQN + "." + nmsg.GetName()
 		addMessageDocumentation(state, nmsg, p[2:], doc, nmFQN)
-	} else if len(p) == 2 && p[0] == 2 {
-		// This is a comment for a field of a message
+	} else if len(p) == 2 && p[0] == messageDescriptorField {
 		state.MessageByID[mFQN].Fields[p[1]].Documentation = doc
-	} else if p[0] == 4 {
-		// This is a comment for a enum of a message
+	} else if p[0] == messageDescriptorEnum {
 		eFQN := mFQN + "." + m.GetEnumType()[p[1]].GetName()
 		addEnumDocumentation(state, p[2:], doc, eFQN)
-	} else if len(p) == 2 && p[0] == 8 {
+	} else if len(p) == 2 && p[0] == messageDescriptorOneOf {
 		// This is a comment for a field of a message one-of, skipping
 	} else {
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
@@ -269,8 +278,7 @@ func addEnumDocumentation(state *genclient.APIState, p []int32, doc string, eFQN
 	if len(p) == 0 {
 		// This is a comment for an enum
 		state.EnumByID[eFQN].Documentation = doc
-	} else if len(p) == 2 {
-		// This is a comment for an enum value
+	} else if len(p) == 2 && p[0] == enumDescriptorValue {
 		state.EnumByID[eFQN].Values[p[1]].Documentation = doc
 	} else {
 		slog.Warn("enum dropped documentation", "loc", p, "docs", doc)
