@@ -27,18 +27,6 @@ import (
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
 
-type Translator struct {
-	model    *libopenapi.DocumentModel[v3.Document]
-	language string
-
-	// State by FQN
-	state *genclient.APIState
-
-	// Only used for local testing
-	outDir      string
-	templateDir string
-}
-
 type Options struct {
 	Language string
 	// Only used for local testing
@@ -46,7 +34,29 @@ type Options struct {
 	TemplateDir string
 }
 
-func NewTranslator(contents []byte, opts *Options) (*Translator, error) {
+func Translate(contents []byte, opts *Options) (*genclient.GenerateRequest, error) {
+	model, err := createDocModel(contents)
+	if err != nil {
+		return nil, err
+	}
+	// Translates OpenAPI specification into a [genclient.GenerateRequest].
+	api, err := makeAPI(model)
+	if err != nil {
+		return nil, err
+	}
+	codec, err := language.NewCodec(opts.Language)
+	if err != nil {
+		return nil, err
+	}
+	return &genclient.GenerateRequest{
+		API:         api,
+		Codec:       codec,
+		OutDir:      opts.OutDir,
+		TemplateDir: opts.TemplateDir,
+	}, nil
+}
+
+func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], error) {
 	document, err := libopenapi.NewDocument(contents)
 	if err != nil {
 		return nil, err
@@ -58,28 +68,21 @@ func NewTranslator(contents []byte, opts *Options) (*Translator, error) {
 		}
 		return nil, fmt.Errorf("cannot convert document to OpenAPI V3 model: %e", errors[0])
 	}
+	return docModel, nil
+}
 
-	return &Translator{
-		model:       docModel,
-		outDir:      opts.OutDir,
-		language:    opts.Language,
-		templateDir: opts.TemplateDir,
-		state: &genclient.APIState{
+func makeAPI(model *libopenapi.DocumentModel[v3.Document]) (*genclient.API, error) {
+	api := &genclient.API{
+		Name:     model.Model.Info.Title,
+		Messages: make([]*genclient.Message, 0),
+		State: &genclient.APIState{
 			ServiceByID: make(map[string]*genclient.Service),
 			MessageByID: make(map[string]*genclient.Message),
 			EnumByID:    make(map[string]*genclient.Enum),
 		},
-	}, nil
-}
-
-func (t *Translator) makeAPI() (*genclient.API, error) {
-	api := &genclient.API{
-		Name:     t.model.Model.Info.Title,
-		Messages: make([]*genclient.Message, 0),
 	}
-	api.State = t.state
 
-	for name, msg := range t.model.Model.Components.Schemas.FromOldest() {
+	for name, msg := range model.Model.Components.Schemas.FromOldest() {
 		// The typical format is ".${packageName}.${messageName}", but we do not
 		// have a package name at the moment.
 		id := ".." + name
@@ -87,7 +90,7 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 		if err != nil {
 			return nil, err
 		}
-		fields, err := t.makeMessageFields(name, schema)
+		fields, err := makeMessageFields(api.State, name, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -99,32 +102,12 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 		}
 
 		api.Messages = append(api.Messages, message)
-		t.state.MessageByID[id] = message
+		api.State.MessageByID[id] = message
 	}
 	return api, nil
 }
 
-// Translates OpenAPI specification into a [genclient.GenerateRequest].
-func (t *Translator) Translate() (*genclient.GenerateRequest, error) {
-	api, err := t.makeAPI()
-	if err != nil {
-		return nil, err
-	}
-
-	codec, err := language.NewCodec(t.language)
-	if err != nil {
-		return nil, err
-	}
-	api.State = t.state
-	return &genclient.GenerateRequest{
-		API:         api,
-		Codec:       codec,
-		OutDir:      t.outDir,
-		TemplateDir: t.templateDir,
-	}, nil
-}
-
-func (t *Translator) makeMessageFields(messageName string, message *base.Schema) ([]*genclient.Field, error) {
+func makeMessageFields(state *genclient.APIState, messageName string, message *base.Schema) ([]*genclient.Field, error) {
 	var fields []*genclient.Field
 	for name, f := range message.Properties.FromOldest() {
 		schema, err := f.BuildSchema()
@@ -138,7 +121,7 @@ func (t *Translator) makeMessageFields(messageName string, message *base.Schema)
 				break
 			}
 		}
-		field, err := t.makeField(messageName, name, optional, schema)
+		field, err := makeField(state, messageName, name, optional, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -147,33 +130,27 @@ func (t *Translator) makeMessageFields(messageName string, message *base.Schema)
 	return fields, nil
 }
 
-func (t *Translator) makeField(messageName, name string, optional bool, field *base.Schema) (*genclient.Field, error) {
+func makeField(state *genclient.APIState, messageName, name string, optional bool, field *base.Schema) (*genclient.Field, error) {
 	if len(field.AllOf) != 0 {
 		// Simple object fields name an AllOf attribute, but no `Type` attribute.
-		return t.makeObjectField(messageName, name, field)
+		return makeObjectField(state, messageName, name, field)
 	}
 	if len(field.Type) == 0 {
 		return nil, fmt.Errorf("missing field type for field %s.%s", messageName, name)
 	}
 	switch field.Type[0] {
-	case "boolean":
-		return t.makeScalarField(messageName, name, field, optional, field)
-	case "integer":
-		return t.makeScalarField(messageName, name, field, optional, field)
-	case "number":
-		return t.makeScalarField(messageName, name, field, optional, field)
-	case "string":
-		return t.makeScalarField(messageName, name, field, optional, field)
+	case "boolean", "integer", "number", "string":
+		return makeScalarField(messageName, name, field, optional, field)
 	case "object":
-		return t.makeObjectField(messageName, name, field)
+		return makeObjectField(state, messageName, name, field)
 	case "array":
-		return t.makeArrayField(messageName, name, field)
+		return makeArrayField(state, messageName, name, field)
 	default:
 		return nil, fmt.Errorf("unknown type for field %q", name)
 	}
 }
 
-func (t *Translator) makeScalarField(messageName, name string, schema *base.Schema, optional bool, field *base.Schema) (*genclient.Field, error) {
+func makeScalarField(messageName, name string, schema *base.Schema, optional bool, field *base.Schema) (*genclient.Field, error) {
 	typez, typezID, err := scalarType(messageName, name, schema)
 	if err != nil {
 		return nil, err
@@ -187,9 +164,9 @@ func (t *Translator) makeScalarField(messageName, name string, schema *base.Sche
 	}, nil
 }
 
-func (t *Translator) makeObjectField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+func makeObjectField(state *genclient.APIState, messageName, name string, field *base.Schema) (*genclient.Field, error) {
 	if len(field.AllOf) != 0 {
-		return t.makeObjectFieldAllOf(messageName, name, field)
+		return makeObjectFieldAllOf(messageName, name, field)
 	}
 	if field.AdditionalProperties != nil && field.AdditionalProperties.IsA() {
 		// This indicates we have a map<K, T> field. In OpenAPI, these are
@@ -209,7 +186,7 @@ func (t *Translator) makeObjectField(messageName, name string, field *base.Schem
 				Optional:      true,
 			}, nil
 		}
-		message, err := t.makeMapMessage(messageName, name, schema)
+		message, err := makeMapMessage(state, messageName, name, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -235,7 +212,7 @@ func (t *Translator) makeObjectField(messageName, name string, field *base.Schem
 	return nil, fmt.Errorf("unknown object field type for field %s.%s", messageName, name)
 }
 
-func (t *Translator) makeArrayField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+func makeArrayField(state *genclient.APIState, messageName, name string, field *base.Schema) (*genclient.Field, error) {
 	if !field.Items.IsA() {
 		return nil, fmt.Errorf("cannot handle arrays without an `Items` field for %s.%s", messageName, name)
 	}
@@ -249,14 +226,8 @@ func (t *Translator) makeArrayField(messageName, name string, field *base.Schema
 	}
 	var result *genclient.Field
 	switch schema.Type[0] {
-	case "boolean":
-		result, err = t.makeScalarField(messageName, name, schema, false, field)
-	case "integer":
-		result, err = t.makeScalarField(messageName, name, schema, false, field)
-	case "number":
-		result, err = t.makeScalarField(messageName, name, schema, false, field)
-	case "string":
-		result, err = t.makeScalarField(messageName, name, schema, false, field)
+	case "boolean", "integer", "number", "string":
+		result, err = makeScalarField(messageName, name, schema, false, field)
 	case "object":
 		typezID := strings.TrimPrefix(reference, "#/components/schemas/")
 		if len(typezID) > 0 {
@@ -268,7 +239,7 @@ func (t *Translator) makeArrayField(messageName, name string, field *base.Schema
 			}
 			result = new
 		} else {
-			result, err = t.makeObjectField(messageName, name, schema)
+			result, err = makeObjectField(state, messageName, name, schema)
 		}
 	default:
 		return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
@@ -281,7 +252,7 @@ func (t *Translator) makeArrayField(messageName, name string, field *base.Schema
 	return result, nil
 }
 
-func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.Schema) (*genclient.Field, error) {
+func makeObjectFieldAllOf(messageName, name string, field *base.Schema) (*genclient.Field, error) {
 	for _, proxy := range field.AllOf {
 		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
 		return &genclient.Field{
@@ -295,7 +266,7 @@ func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.
 	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
 }
 
-func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schema) (*genclient.Message, error) {
+func makeMapMessage(state *genclient.APIState, messageName, name string, schema *base.Schema) (*genclient.Message, error) {
 	value_typez, value_id, err := scalarType(messageName, name, schema)
 	if err != nil {
 		return nil, err
@@ -308,7 +279,7 @@ func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schem
 	}
 
 	id := fmt.Sprintf("$map<string, %s>", value.TypezID)
-	message := t.state.MessageByID[id]
+	message := state.MessageByID[id]
 	if message == nil {
 		// The map was not found, insert the type.
 		key := &genclient.Field{
@@ -327,7 +298,7 @@ func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schem
 			Parent:           nil,
 			Package:          "$",
 		}
-		t.state.MessageByID[id] = placeholder
+		state.MessageByID[id] = placeholder
 		message = placeholder
 	}
 	return message, nil
