@@ -249,6 +249,10 @@ func (e *enum) Name() string {
 	return e.c.EnumName(e.s, e.state)
 }
 
+func (e *enum) NameSnakeCase() string {
+	return e.c.ToSnake(e.c.EnumName(e.s, e.state))
+}
+
 func (e *enum) DocLines() []string {
 	ss := strings.Split(e.s.Documentation, "\n")
 	for i := range ss {

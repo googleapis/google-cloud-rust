@@ -174,31 +174,35 @@ pub struct SecretVersion {
 
 /// Defines additional types related to SecretVersion
 pub mod secret_version {
-
+    /// The state of a
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion], indicating if
+    /// it can be accessed.
     #[derive(Clone, Debug, Default, Deserialize, Serialize)]
-    pub struct State(i32);
+    pub struct State(String);
 
-    impl State {
+    /// Useful constants to work with [State](State)
+    pub mod state {
 
         /// Not specified. This value is unused and invalid.
-        pub const SecretVersion_StateUnspecified: State = State(0);
+        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
         /// accessed.
-        pub const SecretVersion_Enabled: State = State(1);
+        pub const ENABLED: &str = "ENABLED";
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
         /// be accessed, but the secret data is still available and can be placed
         /// back into the
         /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
         /// state.
-        pub const SecretVersion_Disabled: State = State(2);
+        pub const DISABLED: &str = "DISABLED";
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
         /// destroyed and the secret data is no longer stored. A version may not
         /// leave this state once entered.
-        pub const SecretVersion_Destroyed: State = State(3);
-    }}
+        pub const DESTROYED: &str = "DESTROYED";
+    }
+}
 
 /// A policy that defines the replication and encryption configuration of data.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
