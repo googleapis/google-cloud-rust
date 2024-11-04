@@ -260,12 +260,13 @@ func TestSimpleObject(t *testing.T) {
 
 	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{
 				Name:          "fObject",
 				Typez:         genclient.MESSAGE_TYPE,
-				TypezID:       "Foo",
+				TypezID:       "..Foo",
 				Documentation: "An object field.",
 				Optional:      true,
 			},
@@ -309,6 +310,7 @@ func TestAny(t *testing.T) {
 
 	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Any", Optional: true},
@@ -346,6 +348,7 @@ func TestMapString(t *testing.T) {
 
 	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, string>"},
@@ -384,6 +387,7 @@ func TestMapInteger(t *testing.T) {
 
 	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
+		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{Name: "fMapI32", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int32>", Optional: false},
