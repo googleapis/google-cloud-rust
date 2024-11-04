@@ -27,11 +27,11 @@ impl Client {
 
     /// Secret Manager Service
     /// 
-    ///  Manages secrets and operations using those secrets. Implements a REST
-    ///  model with the following objects:
+    /// Manages secrets and operations using those secrets. Implements a REST
+    /// model with the following objects:
     /// 
-    ///  * [Secret][google.cloud.secretmanager.v1.Secret]
-    ///  * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
+    /// * [Secret][google.cloud.secretmanager.v1.Secret]
+    /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
     pub fn secret_manager_service(&self) -> SecretManagerService {
         SecretManagerService {
             client: self.clone(),
@@ -42,11 +42,11 @@ impl Client {
 
 /// Secret Manager Service
 /// 
-///  Manages secrets and operations using those secrets. Implements a REST
-///  model with the following objects:
+/// Manages secrets and operations using those secrets. Implements a REST
+/// model with the following objects:
 /// 
-///  * [Secret][google.cloud.secretmanager.v1.Secret]
-///  * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
+/// * [Secret][google.cloud.secretmanager.v1.Secret]
+/// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
 #[derive(Debug)]
 pub struct SecretManagerService {
     client: Client,
@@ -56,7 +56,7 @@ pub struct SecretManagerService {
 impl SecretManagerService {
 
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
-    ///  [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     pub async fn create_secret(&self, req: model::CreateSecretRequest) -> Result<model::Secret, Box<dyn std::error::Error>> {
         let client = self.client.inner.clone();
         let res = client.http_client

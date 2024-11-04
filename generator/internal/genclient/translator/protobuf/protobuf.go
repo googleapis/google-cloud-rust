@@ -122,11 +122,10 @@ func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
 				// Because of message nesting we need to call recursively and
 				// strip out parts of the path.
 				m := f.MessageType[p[1]]
-				addMessageDocumentation(state, m, p[2:], strings.TrimSpace(loc.GetLeadingComments()), fFQN+"."+m.GetName())
+				addMessageDocumentation(state, m, p[2:], loc.GetLeadingComments(), fFQN+"."+m.GetName())
 			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
-				addServiceDocumentation(state, p[2:],
-					strings.TrimSpace(loc.GetLeadingComments()), sFQN)
+				addServiceDocumentation(state, p[2:], loc.GetLeadingComments(), sFQN)
 			default:
 				slog.Warn("file dropped documentation", "loc", p, "docs", loc.GetLeadingComments())
 			}
@@ -239,6 +238,7 @@ func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto,
 }
 
 func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, sFQN string) {
+	doc = trimLeadingSpacesInDocumentation(doc)
 	if len(p) == 0 {
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = doc
@@ -251,9 +251,7 @@ func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, s
 }
 
 func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
-	// These magic numbers come from reading the proto docs. They come
-	// from field numbers of the different descriptor types. See struct
-	// tags on https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto.
+	doc = trimLeadingSpacesInDocumentation(doc)
 	if len(p) == 0 {
 		// This is a comment for a top level message
 		state.MessageByID[mFQN].Documentation = doc
@@ -275,6 +273,7 @@ func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.Descript
 
 // addEnumDocumentation adds documentation to an enum.
 func addEnumDocumentation(state *genclient.APIState, p []int32, doc string, eFQN string) {
+	doc = trimLeadingSpacesInDocumentation(doc)
 	if len(p) == 0 {
 		// This is a comment for an enum
 		state.EnumByID[eFQN].Documentation = doc
@@ -283,4 +282,11 @@ func addEnumDocumentation(state *genclient.APIState, p []int32, doc string, eFQN
 	} else {
 		slog.Warn("enum dropped documentation", "loc", p, "docs", doc)
 	}
+}
+
+// Protobuf introduces an extra space after each newline and on the first line.
+func trimLeadingSpacesInDocumentation(doc string) string {
+	doc = strings.TrimPrefix(doc, " ")
+	doc = strings.ReplaceAll(doc, "\n ", "\n")
+	return strings.TrimSuffix(doc, "\n")
 }

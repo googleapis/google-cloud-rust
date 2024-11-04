@@ -332,6 +332,117 @@ message Fake {
 	})
 }
 
+func TestComments(t *testing.T) {
+	contents := `
+syntax = "proto3";
+package test;
+
+// A test message.
+//
+// With even more of a description.
+// Maybe in more than one line.
+// And some markdown:
+// - An item
+//   - A nested item
+// - Another item
+message Request {
+  // A field.
+  //
+  // With a longer description.
+  string parent = 1;
+}
+
+// A response message.
+message Response {
+  // Yes, this also has a field.
+  string name = 1;
+
+  // Some enum.
+  //
+  // Line 1.
+  // Line 2.
+  enum Status {
+    // The first enum value description.
+	//
+	// Value Line 1.
+	// Value Line 2.
+	NOT_READY = 0;
+	// The second enum value description.
+	READY = 1;
+  }
+}
+
+// A service.
+//
+// With a longer service description.
+service Service {
+  // Some RPC.
+  //
+  // It does not do much.
+  rpc Create(Request) returns (Response);
+}
+`
+	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
+
+	message, ok := api.State.MessageByID[".test.Request"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Request")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Request",
+		ID:            ".test.Request",
+		Documentation: "A test message.\n\nWith even more of a description.\nMaybe in more than one line.\nAnd some markdown:\n- An item\n  - A nested item\n- Another item",
+		Fields: []*genclient.Field{
+			{
+				Name:          "parent",
+				Documentation: "A field.\n\nWith a longer description.",
+				JSONName:      "parent",
+				ID:            ".test.Request.parent",
+				Typez:         genclient.STRING_TYPE,
+			},
+		},
+	})
+
+	e, ok := api.State.EnumByID[".test.Response.Status"]
+	if !ok {
+		t.Fatalf("Cannot find enum %s in API State", ".test.Response.Status")
+	}
+	checkEnum(t, *e, genclient.Enum{
+		Name:          "Status",
+		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
+		Values: []*genclient.EnumValue{
+			{
+				Name:          "NOT_READY",
+				Documentation: "The first enum value description.\n\nValue Line 1.\nValue Line 2.",
+				Number:        0,
+			},
+			{
+				Name:          "READY",
+				Documentation: "The second enum value description.",
+				Number:        1,
+			},
+		},
+	})
+
+	service, ok := api.State.ServiceByID[".test.Service"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.Service")
+	}
+	checkService(t, *service, genclient.Service{
+		Name:          "Service",
+		ID:            ".test.Service",
+		Documentation: "A service.\n\nWith a longer service description.",
+		Methods: []*genclient.Method{
+			{
+				Name:          "Create",
+				Documentation: "Some RPC.\n\nIt does not do much.",
+				InputTypeID:   ".test.Request",
+				OutputTypeID:  ".test.Response",
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, name, contents string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	accessor := protocompile.SourceAccessorFromMap(map[string]string{
@@ -369,6 +480,28 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func checkEnum(t *testing.T, got genclient.Enum, want genclient.Enum) {
+	t.Helper()
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Enum{}, "Values", "Parent")); len(diff) > 0 {
+		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
+	}
+	less := func(a, b *genclient.EnumValue) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.EnumValue{}, "Parent")); len(diff) > 0 {
+		t.Errorf("method mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
+	t.Helper()
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
+		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
+	}
+	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
 
