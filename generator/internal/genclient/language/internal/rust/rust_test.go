@@ -86,3 +86,70 @@ func TestToPascal(t *testing.T) {
 		}
 	}
 }
+
+func TestMessageNames(t *testing.T) {
+	message := &genclient.Message{
+		Name: "Replication",
+		ID:   "..Replication",
+		Fields: []*genclient.Field{
+			{
+				Name:     "automatic",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "..Automatic",
+				Optional: true,
+				Repeated: false,
+			},
+		},
+	}
+	nested := &genclient.Message{
+		Name: "Automatic",
+		ID:   "..Replication.Automatic",
+	}
+
+	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+
+	c := &Codec{}
+	if got := c.MessageName(message, api.State); got != "Replication" {
+		t.Errorf("mismatched message name, got=%s, want=Replication", got)
+	}
+	if got := c.FQMessageName(message, api.State); got != "crate::Replication" {
+		t.Errorf("mismatched message name, got=%s, want=crate::Replication", got)
+	}
+
+	if got := c.MessageName(nested, api.State); got != "Automatic" {
+		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
+	}
+	if got := c.FQMessageName(nested, api.State); got != "crate::replication::Automatic" {
+		t.Errorf("mismatched message name, got=%s, want=crate::replication::Automatic", got)
+	}
+}
+
+func TestEnumNames(t *testing.T) {
+	message := &genclient.Message{
+		Name: "SecretVersion",
+		ID:   "..SecretVersion",
+		Fields: []*genclient.Field{
+			{
+				Name:     "automatic",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "..Automatic",
+				Optional: true,
+				Repeated: false,
+			},
+		},
+	}
+	nested := &genclient.Enum{
+		Name: "State",
+		ID:   "..SecretVersion.State",
+	}
+
+	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
+
+	c := &Codec{}
+	if got := c.EnumName(nested, api.State); got != "State" {
+		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
+	}
+	if got := c.FQEnumName(nested, api.State); got != "crate::secret_version::State" {
+		t.Errorf("mismatched message name, got=%s, want=crate::secret_version::State", got)
+	}
+}

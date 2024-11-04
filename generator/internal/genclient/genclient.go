@@ -39,12 +39,24 @@ type LanguageCodec interface {
 	// FieldType returns a string representation of a message field type.
 	FieldType(f *Field, state *APIState) string
 	MethodInOutTypeName(id string, state *APIState) string
-	// MessageName returns a string representation of a message name.
+	// The (unqualified) message name, as used when defining the type to
+	// represent it.
 	MessageName(m *Message, state *APIState) string
-	// EnumName returns a string representation of an enum name.
+	// The fully-qualified message name, as used when referring to the name from
+	// another place in the package.
+	FQMessageName(m *Message, state *APIState) string
+	// The (unqualified) enum name, as used when defining the type to
+	// represent it.
 	EnumName(e *Enum, state *APIState) string
-	// EnumValueName returns a string representation of an enum value name.
+	// The fully-qualified enum name, as used when referring to the name from
+	// another place in the package.
+	FQEnumName(e *Enum, state *APIState) string
+	// The (unqualified) enum value name, as used when defining the constant,
+	// variable, or enum value that holds it.
 	EnumValueName(e *EnumValue, state *APIState) string
+	// The fully qualified enum value name, as used when using the constant,
+	// variable, or enum value that hodls it.
+	FQEnumValueName(e *EnumValue, state *APIState) string
 	// BodyAccessor returns a string representation of the accessor used to
 	// get the body out of a request. For instance this might return `.Body()`.
 	BodyAccessor(m *Method, state *APIState) string
@@ -131,4 +143,52 @@ func Generate(req *GenerateRequest) (*Output, error) {
 
 	var output *Output
 	return output, nil
+}
+
+// Creates a populated API state from lists of messages, enums, and services.
+func NewTestAPI(messages []*Message, enums []*Enum, services []*Service) *API {
+	state := &APIState{
+		MessageByID: make(map[string]*Message),
+		EnumByID:    make(map[string]*Enum),
+		ServiceByID: make(map[string]*Service),
+	}
+	for _, m := range messages {
+		state.MessageByID[m.ID] = m
+	}
+	for _, e := range enums {
+		state.EnumByID[e.ID] = e
+	}
+	for _, s := range services {
+		state.ServiceByID[s.ID] = s
+	}
+	for _, m := range messages {
+		parentID := parentName(m.ID)
+		parent := state.MessageByID[parentID]
+		if parent != nil {
+			m.Parent = parent
+			parent.Messages = append(parent.Messages, m)
+		}
+	}
+	for _, e := range enums {
+		parent := state.MessageByID[parentName(e.ID)]
+		if parent != nil {
+			e.Parent = parent
+			parent.Enums = append(parent.Enums, e)
+		}
+	}
+
+	return &API{
+		Name:     "Test",
+		Messages: messages,
+		Enums:    enums,
+		Services: services,
+		State:    state,
+	}
+}
+
+func parentName(id string) string {
+	if lastIndex := strings.LastIndex(id, "."); lastIndex != -1 {
+		return id[:lastIndex]
+	}
+	return "."
 }

@@ -108,6 +108,10 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 	return strcase.ToCamel(m.Name)
 }
 
+func (c *Codec) FQMessageName(m *genclient.Message, state *genclient.APIState) string {
+	return c.MessageName(m, state)
+}
+
 func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 	if e.Parent != nil {
 		return c.MessageName(e.Parent, state) + "_" + strcase.ToCamel(e.Name)
@@ -115,11 +119,19 @@ func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 	return strcase.ToCamel(e.Name)
 }
 
+func (c *Codec) FQEnumName(e *genclient.Enum, state *genclient.APIState) string {
+	return c.EnumName(e, state)
+}
+
 func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
 	if e.Parent.Parent != nil {
 		return c.MessageName(e.Parent.Parent, state) + "_" + strings.ToUpper(e.Name)
 	}
 	return strings.ToUpper(e.Name)
+}
+
+func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
+	return c.EnumValueName(v, state)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {

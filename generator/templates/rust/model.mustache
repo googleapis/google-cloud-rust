@@ -15,11 +15,18 @@ pub struct {{Name}} {
     pub {{NameToSnake}}: {{{FieldType}}},
     {{/Fields}}
 }
-{{#NestedMessages}}
-{{! TODO(codyoss) https://github.com/googleapis/google-cloud-rust/issues/40 }}
-{{> model}}
-{{/NestedMessages}}
-{{#Enums}}
-{{> enum}}
-{{/Enums}}
+{{#HasNestedTypes}}
+
+/// Defines additional types related to {{Name}}
+pub mod {{NameSnakeCase}} {
+{{/HasNestedTypes}}
+    {{#NestedMessages}}
+    {{> model}}
+    {{/NestedMessages}}
+    {{#Enums}}
+    {{> enum}}
+    {{/Enums}}
+{{#HasNestedTypes}}
+}
+{{/HasNestedTypes}}
 {{/IsMap}}

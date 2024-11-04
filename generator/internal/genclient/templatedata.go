@@ -202,9 +202,28 @@ func (m *message) Enums() []*enum {
 	})
 }
 
-// NameToCamel converts a Name to CamelCase.
 func (m *message) Name() string {
 	return m.c.MessageName(m.s, m.state)
+}
+
+func (m *message) QualifiedName() string {
+	return m.c.FQMessageName(m.s, m.state)
+}
+
+func (m *message) NameSnakeCase() string {
+	return m.c.ToSnake(m.s.Name)
+}
+
+func (m *message) HasNestedTypes() bool {
+	if len(m.s.Enums) > 0 {
+		return true
+	}
+	for _, child := range m.s.Messages {
+		if !child.IsMap {
+			return true
+		}
+	}
+	return false
 }
 
 func (m *message) DocLines() []string {
