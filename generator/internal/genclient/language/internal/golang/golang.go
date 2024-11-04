@@ -17,6 +17,7 @@ package golang
 import (
 	"log/slog"
 	"strings"
+	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
@@ -186,6 +187,14 @@ func (*Codec) ToPascal(symbol string) string {
 
 func (*Codec) ToCamel(symbol string) string {
 	return strcase.ToLowerCamel(symbol)
+}
+
+func (*Codec) FormatDocComments(documentation string) []string {
+	ss := strings.Split(documentation, "\n")
+	for i := range ss {
+		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
+	}
+	return ss
 }
 
 // The list of Golang keywords and reserved words can be found at:
