@@ -170,7 +170,7 @@ func (c *Codec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) str
 }
 
 func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
-	return c.enumScopeName(v.Parent) + "::" + c.ToSnake(v.Parent.Name) + "::" + c.EnumValueName(v, state)
+	return fmt.Sprintf("%s::%s::%s", c.enumScopeName(v.Parent), c.ToSnake(v.Parent.Name), c.EnumValueName(v, state))
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
