@@ -53,15 +53,11 @@ func run(inputPath, language, outDir, templateDir string) error {
 }
 
 func generateFrom(contents []byte, language, outDir, templateDir string) error {
-	translator, err := openapi.NewTranslator(contents, &openapi.Options{
+	req, err := openapi.Translate(contents, &openapi.Options{
 		Language:    language,
 		OutDir:      outDir,
 		TemplateDir: templateDir,
 	})
-	if err != nil {
-		return err
-	}
-	req, err := translator.Translate()
 	if err != nil {
 		return err
 	}

@@ -52,18 +52,13 @@ func TestAllOf(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithAllOf + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
 	message := api.State.MessageByID["..Automatic"]
@@ -119,18 +114,14 @@ func TestBasicTypes(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
 
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
 	message := api.State.MessageByID["..Fake"]
@@ -183,18 +174,13 @@ func TestArrayTypes(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
 	message := api.State.MessageByID["..Fake"]
@@ -244,16 +230,11 @@ func TestSimpleObject(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
@@ -294,16 +275,11 @@ func TestAny(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
@@ -332,18 +308,13 @@ func TestMapString(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatal(err)
 	}
 
 	checkMessage(t, *api.Messages[0], genclient.Message{
@@ -371,16 +342,11 @@ func TestMapInteger(t *testing.T) {
       },
 `
 	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
@@ -398,18 +364,13 @@ func TestMapInteger(t *testing.T) {
 
 func TestMakeAPI(t *testing.T) {
 	contents := []byte(testDocument)
-	translator, err := NewTranslator(contents, &Options{
-		Language:    "rust",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	model, err := createDocModel(contents)
 	if err != nil {
-		t.Errorf("Error in NewTranslator() %q", err)
+		t.Fatal(err)
 	}
-
-	api, err := translator.makeAPI()
+	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
 	location := api.State.MessageByID["..Location"]
