@@ -84,12 +84,11 @@ func run(inputPath, outDir, templateDir string) error {
 		}
 	}
 
-	req, err := protobuf.NewTranslator(&protobuf.Options{
-		Request:     genReq,
+	req, err := protobuf.Translate(genReq, &protobuf.Options{
 		OutDir:      outDir,
 		Language:    opts.Language,
 		TemplateDir: templateDir,
-	}).Translate()
+	})
 	if err != nil {
 		return err
 	}
