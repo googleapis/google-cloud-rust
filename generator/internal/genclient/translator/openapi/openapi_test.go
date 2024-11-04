@@ -222,6 +222,180 @@ func TestArrayTypes(t *testing.T) {
 	})
 }
 
+func TestSimpleObject(t *testing.T) {
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fObject"     : { "type": "object", "description": "An object field.", "allOf": [{ "$ref": "#/components/schemas/Foo" }] },
+          "fObjectArray": { "type": "array",  "description": "An object array field.", "items": [{ "$ref": "#/components/schemas/Bar" }] }
+        }
+      },
+      "Foo": {
+        "description": "Must have a Foo.",
+        "type": "object",
+        "properties": {}
+      },
+      "Bar": {
+        "description": "Must have a Bar.",
+        "type": "object",
+        "properties": {}
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		ID:            "..Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "fObject",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       "..Foo",
+				Documentation: "An object field.",
+				Optional:      true,
+			},
+			{
+				Name:          "fObjectArray",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       "Bar",
+				Documentation: "An object array field.",
+				Optional:      false,
+				Repeated:      true,
+			},
+		},
+	})
+}
+
+func TestAny(t *testing.T) {
+	// A message with basic types.
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fMap":       { "type": "object", "additionalProperties": { "description": "Test Only." }}
+        }
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		ID:            "..Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Any", Optional: true},
+		},
+	})
+}
+
+func TestMapString(t *testing.T) {
+	// A message with basic types.
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fMap":     { "type": "object", "additionalProperties": { "type": "string" }},
+          "fMapS32":  { "type": "object", "additionalProperties": { "type": "string", "format": "int32" }},
+          "fMapS64":  { "type": "object", "additionalProperties": { "type": "string", "format": "int64" }}
+        }
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		ID:            "..Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, string>"},
+			{Name: "fMapS32", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int32>"},
+			{Name: "fMapS64", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int64>"},
+		},
+	})
+}
+
+func TestMapInteger(t *testing.T) {
+	// A message with basic types.
+	const messageWithBasicTypes = `
+      "Fake": {
+        "description": "A test message.",
+        "type": "object",
+        "properties": {
+          "fMapI32": { "type": "object", "additionalProperties": { "type": "integer", "format": "int32" }},
+          "fMapI64": { "type": "object", "additionalProperties": { "type": "integer", "format": "int64" }}
+        }
+      },
+`
+	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	translator, err := NewTranslator(contents, &Options{
+		Language:    "not used",
+		OutDir:      "not used",
+		TemplateDir: "not used",
+	})
+	if err != nil {
+		t.Errorf("Error in NewTranslator() %q", err)
+	}
+
+	api, err := translator.makeAPI()
+	if err != nil {
+		t.Errorf("Error in makeAPI() %q", err)
+	}
+
+	checkMessage(t, *api.Messages[0], genclient.Message{
+		Name:          "Fake",
+		ID:            "..Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Name: "fMapI32", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int32>", Optional: false},
+			{Name: "fMapI64", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int64>", Optional: false},
+		},
+	})
+}
+
 func TestMakeAPI(t *testing.T) {
 	contents := []byte(testDocument)
 	translator, err := NewTranslator(contents, &Options{
@@ -273,12 +447,14 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "labels",
 				Documentation: "Cross-service attributes for the location.",
 				Typez:         genclient.MESSAGE_TYPE,
-				Optional:      true,
+				TypezID:       "$map<string, string>",
+				Optional:      false,
 			},
 			{
 				Name:          "metadata",
 				Documentation: `Service-specific metadata. For example the available capacity at the given location.`,
 				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       ".google.protobuf.Any",
 				Optional:      true,
 			},
 		},
@@ -298,6 +474,7 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "locations",
 				Documentation: "A list of locations that matches the specified filter in the request.",
 				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       "Location",
 				Repeated:      true,
 			},
 			{

@@ -191,19 +191,55 @@ func (t *Translator) makeObjectField(messageName, name string, field *base.Schem
 	if len(field.AllOf) != 0 {
 		return t.makeObjectFieldAllOf(messageName, name, field)
 	}
-	// TODO(#62) - this is an Any or a map<string, T>, needs a TypezID
-	return &genclient.Field{
-		Name:          name,
-		Documentation: field.Description,
-		Typez:         genclient.MESSAGE_TYPE,
-		Optional:      true,
-	}, nil
+	if field.AdditionalProperties != nil && field.AdditionalProperties.IsA() {
+		// This indicates we have a map<K, T> field. In OpenAPI, these are
+		// simply JSON objects, maybe with a restrictive value type.
+		schema, err := field.AdditionalProperties.A.BuildSchema()
+		if err != nil {
+			return nil, fmt.Errorf("cannot build schema for field %s.%s: %w", messageName, name, err)
+		}
+
+		if len(schema.Type) == 0 {
+			// Untyped message fields are .google.protobuf.Any
+			return &genclient.Field{
+				Name:          name,
+				Documentation: field.Description,
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       ".google.protobuf.Any",
+				Optional:      true,
+			}, nil
+		}
+		message, err := t.makeMapMessage(messageName, name, schema)
+		if err != nil {
+			return nil, err
+		}
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       message.ID,
+			Optional:      false,
+		}, nil
+	}
+	if field.Items != nil && field.Items.IsA() {
+		proxy := field.Items.A
+		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
+		return &genclient.Field{
+			Name:          name,
+			Documentation: field.Description,
+			Typez:         genclient.MESSAGE_TYPE,
+			TypezID:       typezID,
+			Optional:      true,
+		}, nil
+	}
+	return nil, fmt.Errorf("unknown object field type for field %s.%s", messageName, name)
 }
 
 func (t *Translator) makeArrayField(messageName, name string, field *base.Schema) (*genclient.Field, error) {
 	if !field.Items.IsA() {
 		return nil, fmt.Errorf("cannot handle arrays without an `Items` field for %s.%s", messageName, name)
 	}
+	reference := field.Items.A.GetReference()
 	schema, err := field.Items.A.BuildSchema()
 	if err != nil {
 		return nil, fmt.Errorf("cannot build items schema for %s.%s error=%q", messageName, name, err)
@@ -222,7 +258,18 @@ func (t *Translator) makeArrayField(messageName, name string, field *base.Schema
 	case "string":
 		result, err = t.makeScalarField(messageName, name, schema, false, field)
 	case "object":
-		result, err = t.makeObjectField(messageName, name, field)
+		typezID := strings.TrimPrefix(reference, "#/components/schemas/")
+		if len(typezID) > 0 {
+			new := &genclient.Field{
+				Name:          name,
+				Documentation: field.Description,
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       typezID,
+			}
+			result = new
+		} else {
+			result, err = t.makeObjectField(messageName, name, schema)
+		}
 	default:
 		return nil, fmt.Errorf("unknown array field type for %s.%s %q", messageName, name, schema.Type[0])
 	}
@@ -246,6 +293,44 @@ func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.
 		}, nil
 	}
 	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
+}
+
+func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schema) (*genclient.Message, error) {
+	value_typez, value_id, err := scalarType(messageName, name, schema)
+	if err != nil {
+		return nil, err
+	}
+	value := &genclient.Field{
+		Name:    "$value",
+		ID:      value_id,
+		Typez:   value_typez,
+		TypezID: value_id,
+	}
+
+	id := fmt.Sprintf("$map<string, %s>", value.TypezID)
+	message := t.state.MessageByID[id]
+	if message == nil {
+		// The map was not found, insert the type.
+		key := &genclient.Field{
+			Name:    "$key",
+			ID:      id + "$key",
+			Typez:   genclient.STRING_TYPE,
+			TypezID: "string",
+		}
+		placeholder := &genclient.Message{
+			Name:             id,
+			Documentation:    id,
+			ID:               id,
+			IsLocalToPackage: false,
+			IsMap:            true,
+			Fields:           []*genclient.Field{key, value},
+			Parent:           nil,
+			Package:          "$",
+		}
+		t.state.MessageByID[id] = placeholder
+		message = placeholder
+	}
+	return message, nil
 }
 
 func scalarType(messageName, name string, schema *base.Schema) (genclient.Typez, string, error) {
