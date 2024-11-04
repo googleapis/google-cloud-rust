@@ -35,13 +35,7 @@ type Options struct {
 
 // Translate translates proto representation into a [genclienGenerateRequest].
 func Translate(req *pluginpb.CodeGeneratorRequest, opts *Options) (*genclient.GenerateRequest, error) {
-	state := &genclient.APIState{
-		ServiceByID: make(map[string]*genclient.Service),
-		MessageByID: make(map[string]*genclient.Message),
-		EnumByID:    make(map[string]*genclient.Enum),
-	}
-
-	api := makeAPI(state, req)
+	api := makeAPI(req)
 
 	codec, err := language.NewCodec(opts.Language)
 	if err != nil {
@@ -55,7 +49,12 @@ func Translate(req *pluginpb.CodeGeneratorRequest, opts *Options) (*genclient.Ge
 	}, nil
 }
 
-func makeAPI(state *genclient.APIState, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
+	state := &genclient.APIState{
+		ServiceByID: make(map[string]*genclient.Service),
+		MessageByID: make(map[string]*genclient.Message),
+		EnumByID:    make(map[string]*genclient.Enum),
+	}
 	api := &genclient.API{
 		//TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/38
 		Name:  "secretmanager",

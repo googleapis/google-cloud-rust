@@ -80,40 +80,124 @@ message Fake {
     sint64   f_sint64     = 18;
 }
 `
-	translator := NewTranslator(&Options{
-		Request:     newCodeGeneratorRequest("resources.proto", contents, t),
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	api := makeAPI(
+		newCodeGeneratorRequest("resources.proto", contents, t))
 
-	api := translator.makeAPI()
-
-	if message := api.State.MessageByID[".test.Fake"]; message != nil {
-		checkMessage(t, *message, genclient.Message{
-			Name:          "Fake",
-			Documentation: "A test message.",
-			Fields: []*genclient.Field{
-				{Documentation: "A singular field tag = 1", Name: "f_double", JSONName: "fDouble", ID: ".test.Fake.f_double", Typez: genclient.DOUBLE_TYPE},
-				{Documentation: "A singular field tag = 2", Name: "f_float", JSONName: "fFloat", ID: ".test.Fake.f_float", Typez: genclient.FLOAT_TYPE},
-				{Documentation: "A singular field tag = 3", Name: "f_int64", JSONName: "fInt64", ID: ".test.Fake.f_int64", Typez: genclient.INT64_TYPE},
-				{Documentation: "A singular field tag = 4", Name: "f_uint64", JSONName: "fUint64", ID: ".test.Fake.f_uint64", Typez: genclient.UINT64_TYPE},
-				{Documentation: "A singular field tag = 5", Name: "f_int32", JSONName: "fInt32", ID: ".test.Fake.f_int32", Typez: genclient.INT32_TYPE},
-				{Documentation: "A singular field tag = 6", Name: "f_fixed64", JSONName: "fFixed64", ID: ".test.Fake.f_fixed64", Typez: genclient.FIXED64_TYPE},
-				{Documentation: "A singular field tag = 7", Name: "f_fixed32", JSONName: "fFixed32", ID: ".test.Fake.f_fixed32", Typez: genclient.FIXED32_TYPE},
-				{Documentation: "A singular field tag = 8", Name: "f_bool", JSONName: "fBool", ID: ".test.Fake.f_bool", Typez: genclient.BOOL_TYPE},
-				{Documentation: "A singular field tag = 9", Name: "f_string", JSONName: "fString", ID: ".test.Fake.f_string", Typez: genclient.STRING_TYPE},
-				{Documentation: "A singular field tag = 12", Name: "f_bytes", JSONName: "fBytes", ID: ".test.Fake.f_bytes", Typez: genclient.BYTES_TYPE},
-				{Documentation: "A singular field tag = 13", Name: "f_uint32", JSONName: "fUint32", ID: ".test.Fake.f_uint32", Typez: genclient.UINT32_TYPE},
-				{Documentation: "A singular field tag = 15", Name: "f_sfixed32", JSONName: "fSfixed32", ID: ".test.Fake.f_sfixed32", Typez: genclient.SFIXED32_TYPE},
-				{Documentation: "A singular field tag = 16", Name: "f_sfixed64", JSONName: "fSfixed64", ID: ".test.Fake.f_sfixed64", Typez: genclient.SFIXED64_TYPE},
-				{Documentation: "A singular field tag = 17", Name: "f_sint32", JSONName: "fSint32", ID: ".test.Fake.f_sint32", Typez: genclient.SINT32_TYPE},
-				{Documentation: "A singular field tag = 18", Name: "f_sint64", JSONName: "fSint64", ID: ".test.Fake.f_sint64", Typez: genclient.SINT64_TYPE},
-			},
-		})
-	} else {
-		t.Errorf("Cannot find message %s in API State", "Fake")
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{
+				Documentation: "A singular field tag = 1",
+				Name:          "f_double",
+				JSONName:      "fDouble",
+				ID:            ".test.Fake.f_double",
+				Typez:         genclient.DOUBLE_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 2",
+				Name:          "f_float",
+				JSONName:      "fFloat",
+				ID:            ".test.Fake.f_float",
+				Typez:         genclient.FLOAT_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 3",
+				Name:          "f_int64",
+				JSONName:      "fInt64",
+				ID:            ".test.Fake.f_int64",
+				Typez:         genclient.INT64_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 4",
+				Name:          "f_uint64",
+				JSONName:      "fUint64",
+				ID:            ".test.Fake.f_uint64",
+				Typez:         genclient.UINT64_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 5",
+				Name:          "f_int32",
+				JSONName:      "fInt32",
+				ID:            ".test.Fake.f_int32",
+				Typez:         genclient.INT32_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 6",
+				Name:          "f_fixed64",
+				JSONName:      "fFixed64",
+				ID:            ".test.Fake.f_fixed64",
+				Typez:         genclient.FIXED64_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 7",
+				Name:          "f_fixed32",
+				JSONName:      "fFixed32",
+				ID:            ".test.Fake.f_fixed32",
+				Typez:         genclient.FIXED32_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 8",
+				Name:          "f_bool",
+				JSONName:      "fBool",
+				ID:            ".test.Fake.f_bool",
+				Typez:         genclient.BOOL_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 9",
+				Name:          "f_string",
+				JSONName:      "fString",
+				ID:            ".test.Fake.f_string",
+				Typez:         genclient.STRING_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 12",
+				Name:          "f_bytes",
+				JSONName:      "fBytes",
+				ID:            ".test.Fake.f_bytes",
+				Typez:         genclient.BYTES_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 13",
+				Name:          "f_uint32",
+				JSONName:      "fUint32",
+				ID:            ".test.Fake.f_uint32",
+				Typez:         genclient.UINT32_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 15",
+				Name:          "f_sfixed32",
+				JSONName:      "fSfixed32",
+				ID:            ".test.Fake.f_sfixed32",
+				Typez:         genclient.SFIXED32_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 16",
+				Name:          "f_sfixed64",
+				JSONName:      "fSfixed64",
+				ID:            ".test.Fake.f_sfixed64",
+				Typez:         genclient.SFIXED64_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 17",
+				Name:          "f_sint32",
+				JSONName:      "fSint32",
+				ID:            ".test.Fake.f_sint32",
+				Typez:         genclient.SINT32_TYPE,
+			},
+			{
+				Documentation: "A singular field tag = 18",
+				Name:          "f_sint64",
+				JSONName:      "fSint64",
+				ID:            ".test.Fake.f_sint64",
+				Typez:         genclient.SINT64_TYPE,
+			},
+		},
+	})
 }
 
 func TestScalarArray(t *testing.T) {
@@ -136,29 +220,52 @@ message Fake {
     repeated bytes    f_bytes      = 12;
 }
 `
-	translator := NewTranslator(&Options{
-		Request:     newCodeGeneratorRequest("resources.proto", contents, t),
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
 
-	api := translator.makeAPI()
+	api := makeAPI(
+		newCodeGeneratorRequest("resources.proto", contents, t))
 
-	if message := api.State.MessageByID[".test.Fake"]; message != nil {
-		checkMessage(t, *message, genclient.Message{
-			Name:          "Fake",
-			Documentation: "A test message.",
-			Fields: []*genclient.Field{
-				{Repeated: true, Documentation: "A repeated field tag = 1", Name: "f_double", JSONName: "fDouble", ID: ".test.Fake.f_double", Typez: genclient.DOUBLE_TYPE},
-				{Repeated: true, Documentation: "A repeated field tag = 3", Name: "f_int64", JSONName: "fInt64", ID: ".test.Fake.f_int64", Typez: genclient.INT64_TYPE},
-				{Repeated: true, Documentation: "A repeated field tag = 9", Name: "f_string", JSONName: "fString", ID: ".test.Fake.f_string", Typez: genclient.STRING_TYPE},
-				{Repeated: true, Documentation: "A repeated field tag = 12", Name: "f_bytes", JSONName: "fBytes", ID: ".test.Fake.f_bytes", Typez: genclient.BYTES_TYPE},
-			},
-		})
-	} else {
-		t.Errorf("Cannot find message %s in API State", "Fake")
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{
+				Repeated:      true,
+				Documentation: "A repeated field tag = 1",
+				Name:          "f_double",
+				JSONName:      "fDouble",
+				ID:            ".test.Fake.f_double",
+				Typez:         genclient.DOUBLE_TYPE,
+			},
+			{
+				Repeated:      true,
+				Documentation: "A repeated field tag = 3",
+				Name:          "f_int64",
+				JSONName:      "fInt64",
+				ID:            ".test.Fake.f_int64",
+				Typez:         genclient.INT64_TYPE,
+			},
+			{
+				Repeated:      true,
+				Documentation: "A repeated field tag = 9",
+				Name:          "f_string",
+				JSONName:      "fString",
+				ID:            ".test.Fake.f_string",
+				Typez:         genclient.STRING_TYPE,
+			},
+			{
+				Repeated:      true,
+				Documentation: "A repeated field tag = 12",
+				Name:          "f_bytes",
+				JSONName:      "fBytes",
+				ID:            ".test.Fake.f_bytes",
+				Typez:         genclient.BYTES_TYPE,
+			},
+		},
+	})
 }
 
 func TestScalarOptional(t *testing.T) {
@@ -181,29 +288,23 @@ message Fake {
     optional bytes    f_bytes      = 12;
 }
 `
-	translator := NewTranslator(&Options{
-		Request:     newCodeGeneratorRequest("resources.proto", contents, t),
-		Language:    "not used",
-		OutDir:      "not used",
-		TemplateDir: "not used",
-	})
+	api := makeAPI(
+		newCodeGeneratorRequest("resources.proto", contents, t))
 
-	api := translator.makeAPI()
-
-	if message := api.State.MessageByID[".test.Fake"]; message != nil {
-		checkMessage(t, *message, genclient.Message{
-			Name:          "Fake",
-			Documentation: "A test message.",
-			Fields: []*genclient.Field{
-				{Optional: true, Documentation: "An optional field tag = 1", Name: "f_double", JSONName: "fDouble", ID: ".test.Fake.f_double", Typez: genclient.DOUBLE_TYPE},
-				{Optional: true, Documentation: "An optional field tag = 3", Name: "f_int64", JSONName: "fInt64", ID: ".test.Fake.f_int64", Typez: genclient.INT64_TYPE},
-				{Optional: true, Documentation: "An optional field tag = 9", Name: "f_string", JSONName: "fString", ID: ".test.Fake.f_string", Typez: genclient.STRING_TYPE},
-				{Optional: true, Documentation: "An optional field tag = 12", Name: "f_bytes", JSONName: "fBytes", ID: ".test.Fake.f_bytes", Typez: genclient.BYTES_TYPE},
-			},
-		})
-	} else {
-		t.Errorf("Cannot find message %s in API State", "Fake")
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API", "Fake")
 	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{Optional: true, Documentation: "An optional field tag = 1", Name: "f_double", JSONName: "fDouble", ID: ".test.Fake.f_double", Typez: genclient.DOUBLE_TYPE},
+			{Optional: true, Documentation: "An optional field tag = 3", Name: "f_int64", JSONName: "fInt64", ID: ".test.Fake.f_int64", Typez: genclient.INT64_TYPE},
+			{Optional: true, Documentation: "An optional field tag = 9", Name: "f_string", JSONName: "fString", ID: ".test.Fake.f_string", Typez: genclient.STRING_TYPE},
+			{Optional: true, Documentation: "An optional field tag = 12", Name: "f_bytes", JSONName: "fBytes", ID: ".test.Fake.f_bytes", Typez: genclient.BYTES_TYPE},
+		},
+	})
 }
 
 func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.CodeGeneratorRequest {
@@ -232,6 +333,7 @@ func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.Code
 }
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
+	t.Helper()
 	if want.Name != got.Name {
 		t.Errorf("Mismatched message name, got=%q, want=%q", got.Name, want.Name)
 	}
@@ -245,11 +347,14 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 }
 
 func newCompilerVersion() *pluginpb.Version {
-	v0 := func() *int32 { i := int32(0); return &i }
+	var (
+		i int32
+		s = "test"
+	)
 	return &pluginpb.Version{
-		Major:  v0(),
-		Minor:  v0(),
-		Patch:  v0(),
-		Suffix: func() *string { s := "test"; return &s }(),
+		Major:  &i,
+		Minor:  &i,
+		Patch:  &i,
+		Suffix: &s,
 	}
 }
