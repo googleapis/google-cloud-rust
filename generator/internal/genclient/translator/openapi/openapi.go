@@ -196,7 +196,7 @@ func (t *Translator) makeObjectField(messageName, name string, field *base.Schem
 		// simply JSON objects, maybe with a restrictive value type.
 		schema, err := field.AdditionalProperties.A.BuildSchema()
 		if err != nil {
-			return nil, fmt.Errorf("cannot build schema for field %s.%s, error=%q", messageName, name, err)
+			return nil, fmt.Errorf("cannot build schema for field %s.%s: %w", messageName, name, err)
 		}
 
 		if len(schema.Type) == 0 {
@@ -317,7 +317,7 @@ func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schem
 			Typez:   genclient.STRING_TYPE,
 			TypezID: "string",
 		}
-		new := &genclient.Message{
+		placeholder := &genclient.Message{
 			Name:             id,
 			Documentation:    id,
 			ID:               id,
@@ -327,8 +327,8 @@ func (t *Translator) makeMapMessage(messageName, name string, schema *base.Schem
 			Parent:           nil,
 			Package:          "$",
 		}
-		t.state.MessageByID[id] = new
-		message = new
+		t.state.MessageByID[id] = placeholder
+		message = placeholder
 	}
 	return message, nil
 }
