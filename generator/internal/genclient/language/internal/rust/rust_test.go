@@ -110,17 +110,17 @@ func TestMessageNames(t *testing.T) {
 
 	c := &Codec{}
 	if got := c.MessageName(message, api.State); got != "Replication" {
-		t.Errorf("mismatched message name, want=Replication, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
 	if got := c.FQMessageName(message, api.State); got != "crate::Replication" {
-		t.Errorf("mismatched message name, want=crate::Replication, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=crate::Replication", got)
 	}
 
 	if got := c.MessageName(nested, api.State); got != "Automatic" {
-		t.Errorf("mismatched message name, want=Automatic, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
 	if got := c.FQMessageName(nested, api.State); got != "crate::replication::Automatic" {
-		t.Errorf("mismatched message name, want=crate::replication::Automatic, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=crate::replication::Automatic", got)
 	}
 }
 
@@ -147,9 +147,9 @@ func TestEnumNames(t *testing.T) {
 
 	c := &Codec{}
 	if got := c.EnumName(nested, api.State); got != "State" {
-		t.Errorf("mismatched message name, want=Automatic, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
 	if got := c.FQEnumName(nested, api.State); got != "crate::secret_version::State" {
-		t.Errorf("mismatched message name, want=crate::secret_version::State, got=%s", got)
+		t.Errorf("mismatched message name, got=%s, want=crate::secret_version::State", got)
 	}
 }
