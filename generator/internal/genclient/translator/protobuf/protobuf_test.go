@@ -80,8 +80,7 @@ message Fake {
     sint64   f_sint64     = 18;
 }
 `
-	api := makeAPI(
-		newCodeGeneratorRequest("resources.proto", contents, t))
+	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -221,8 +220,7 @@ message Fake {
 }
 `
 
-	api := makeAPI(
-		newCodeGeneratorRequest("resources.proto", contents, t))
+	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -288,8 +286,7 @@ message Fake {
     optional bytes    f_bytes      = 12;
 }
 `
-	api := makeAPI(
-		newCodeGeneratorRequest("resources.proto", contents, t))
+	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -335,7 +332,8 @@ message Fake {
 	})
 }
 
-func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.CodeGeneratorRequest {
+func newCodeGeneratorRequest(t *testing.T, name, contents string) *pluginpb.CodeGeneratorRequest {
+	t.Helper()
 	accessor := protocompile.SourceAccessorFromMap(map[string]string{
 		name: contents,
 	})
