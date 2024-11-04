@@ -26,7 +26,13 @@ func TestMain(m *testing.M) {
 }
 
 func TestRun_Rust(t *testing.T) {
-	if err := run("testdata/secretmanager_openapi_v1.json", "rust", "testdata/rust/golden", "../../templates"); err != nil {
+	const (
+		inputPath   = "../../testdata/openapi/secretmanager_openapi_v1.json"
+		language    = "rust"
+		outDir      = "../../testdata/rust/openapi/golden"
+		templateDir = "../../templates"
+	)
+	if err := run(inputPath, language, outDir, templateDir); err != nil {
 		t.Fatal(err)
 	}
 }

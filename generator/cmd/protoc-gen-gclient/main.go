@@ -94,7 +94,11 @@ func run(inputPath, outDir, templateDir string) error {
 		return err
 	}
 
-	resp := protobuf.NewCodeGeneratorResponse(genclient.Generate(req))
+	output, err := genclient.Generate(req)
+	if err != nil {
+		return err
+	}
+	resp := protobuf.NewCodeGeneratorResponse(output, err)
 	outBytes, err := proto.Marshal(resp)
 	if err != nil {
 		return err

@@ -25,10 +25,10 @@ import (
 )
 
 var (
-	input    = flag.String("input", "testdata/google/cloud/secretmanager/v1/", "path to protos to generate from")
-	output   = flag.String("out", "output", "the path to the output directory")
-	language = flag.String("language", "", "the generated language")
-	testdata = flag.String("testdata", "testdata/", "path to testdata directory")
+	output     = flag.String("out", "output", "the path to the output directory")
+	language   = flag.String("language", "", "the generated language")
+	protoFiles = flag.String("files", "testdata/googleapis/google/cloud/secretmanager/v1/", "path to protos to generate from")
+	protoPath  = flag.String("proto_path", "testdata/googleapis", "directory in which to search for imports")
 )
 
 func main() {
@@ -36,7 +36,7 @@ func main() {
 	if *language == "" {
 		log.Fatalf("language must be provided")
 	}
-	if err := run(*language, *testdata, *input, *output); err != nil {
+	if err := run(*language, *protoPath, *protoFiles, *output); err != nil {
 		log.Fatal(err)
 	}
 }

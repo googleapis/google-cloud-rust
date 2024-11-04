@@ -13,13 +13,13 @@ go run ./devtools/cmd/generate -language=rust
 Alternatively, you can run the protoc command directly:
 
 ```bash
-go install github.com/googleapis/google-cloud-rust/generator/cmd/protoc-gen-gclient
-protoc -I cmd/protoc-gen-gclient/testdata/smprotos \
-    -I /path/to/googleapis \
+go install ./cmd/protoc-gen-gclient
+
+protoc -I testdata/googleapis \
     --gclient_out=. \
     --gclient_opt=capture-input=true,language=rust \
-    cmd/protoc-gen-gclient/testdata/smprotos/resources.proto \
-    cmd/protoc-gen-gclient/testdata/smprotos/service.proto
+    testdata/googleapis/google/cloud/secretmanager/v1/resources.proto \
+    testdata/googleapis/google/cloud/secretmanager/v1/service.proto
 ```
 
 or to playback an old input without the need for `protoc`:
