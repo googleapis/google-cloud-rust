@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 pub struct ListLocationsResponse {
 
     /// A list of locations that matches the specified filter in the request.
-    pub locations: ,
+    pub locations: Vec<>,
 
     /// The standard List next-page token.
     pub next_page_token: Option<String>,
@@ -36,11 +36,11 @@ pub struct Location {
     /// Cross-service attributes for the location. For example
     /// 
     ///     {"cloud.googleapis.com/region": "us-east1"}
-    pub labels: Option<std::collections::HashMap<String,String>>,
+    pub labels: std::collections::HashMap<String,String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
-    pub metadata: ,
+    pub metadata: Option<serde_json::Value>,
 }
 
 /// Response message for SecretManagerService.ListSecrets.
@@ -51,7 +51,7 @@ pub struct ListSecretsResponse {
 
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
-    pub secrets: ,
+    pub secrets: Vec<>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretsRequest.page_token to retrieve the next page.
@@ -81,7 +81,7 @@ pub struct Secret {
     pub replication: Option<crate::Replication>,
 
     /// Output only. The time at which the Secret was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<gax_placeholder::Timestamp>,
 
     /// The labels assigned to this Secret.
     /// 
@@ -94,18 +94,18 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     /// 
     /// No more than 64 labels can be assigned to a given resource.
-    pub labels: Option<std::collections::HashMap<String,String>>,
+    pub labels: std::collections::HashMap<String,String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
-    pub topics: ,
+    pub topics: Vec<>,
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
-    pub expire_time: Option<String>,
+    pub expire_time: Option<gax_placeholder::Timestamp>,
 
     /// Input only. The TTL for the Secret.
-    pub ttl: Option<String>,
+    pub ttl: Option<gax_placeholder::Duration>,
 
     /// Optional. Etag of the currently stored Secret.
     pub etag: Option<String>,
@@ -125,7 +125,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    pub version_aliases: Option<std::collections::HashMap<String,i64>>,
+    pub version_aliases: std::collections::HashMap<String,i64>,
 
     /// Optional. Custom metadata about the secret.
     /// 
@@ -139,7 +139,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     /// 
     /// The total size of annotation keys and values must be less than 16KiB.
-    pub annotations: Option<std::collections::HashMap<String,String>>,
+    pub annotations: std::collections::HashMap<String,String>,
 
     /// Optional. Secret Version TTL after destruction request
     /// 
@@ -147,7 +147,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<String>,
+    pub version_destroy_ttl: Option<gax_placeholder::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised Secrets.
     /// If no configuration is provided, Google-managed default encryption is used.
@@ -218,7 +218,7 @@ pub struct UserManaged {
     /// Required. The list of Replicas for this Secret.
     /// 
     /// Cannot be empty.
-    pub replicas: ,
+    pub replicas: Vec<>,
 }
 
 /// Represents a Replica for this Secret.
@@ -269,7 +269,7 @@ pub struct Rotation {
     /// years).
     /// 
     /// next_rotation_time MUST  be set if rotation_period is set.
-    pub next_rotation_time: Option<String>,
+    pub next_rotation_time: Option<gax_placeholder::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -277,7 +277,7 @@ pub struct Rotation {
     /// If rotation_period is set, next_rotation_time must be set.
     /// next_rotation_time will be advanced by this period when the service
     /// automatically sends rotation notifications.
-    pub rotation_period: Option<String>,
+    pub rotation_period: Option<gax_placeholder::Duration>,
 }
 
 /// Request message for SecretManagerService.AddSecretVersion.
@@ -327,12 +327,12 @@ pub struct SecretVersion {
     pub name: Option<String>,
 
     /// Output only. The time at which the SecretVersion was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The time this SecretVersion was destroyed.
     /// Only present if state is
     /// DESTROYED.
-    pub destroy_time: Option<String>,
+    pub destroy_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The current state of the SecretVersion.
     pub state: Option<String>,
@@ -353,7 +353,7 @@ pub struct SecretVersion {
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
-    pub scheduled_destroy_time: Option<String>,
+    pub scheduled_destroy_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
@@ -419,7 +419,7 @@ pub struct CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
 
     /// Output only. The list of replica statuses for the SecretVersion.
-    pub replicas: ,
+    pub replicas: Vec<>,
 }
 
 /// Describes the status of a user-managed replica for the SecretVersion.
@@ -458,7 +458,7 @@ pub struct ListSecretVersionsResponse {
 
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
-    pub versions: ,
+    pub versions: Vec<>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretVersionsRequest.page_token to retrieve the next page.
@@ -537,7 +537,7 @@ pub struct SetIamPolicyRequest {
     /// following default mask is used:
     /// 
     /// `paths: "bindings, etag"`
-    pub update_mask: ,
+    pub update_mask: Option<gax_placeholder::FieldMask>,
 }
 
 /// An Identity and Access Management (IAM) policy, which specifies access
@@ -652,10 +652,10 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
-    pub bindings: ,
+    pub bindings: Vec<>,
 
     /// Specifies cloud audit logging configuration for this policy.
-    pub audit_configs: ,
+    pub audit_configs: Vec<>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -769,7 +769,7 @@ pub struct Binding {
     /// * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`:
     ///   Deleted single identity in a workforce identity pool. For example,
     ///   `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
-    pub members: String,
+    pub members: Vec<String>,
 
     /// The condition that is associated with this binding.
     /// 
@@ -902,7 +902,7 @@ pub struct AuditConfig {
     pub service: Option<String>,
 
     /// The configuration for logging of each type of permission.
-    pub audit_log_configs: ,
+    pub audit_log_configs: Vec<>,
 }
 
 /// Provides the configuration for logging a type of permissions.
@@ -935,7 +935,7 @@ pub struct AuditLogConfig {
     /// Specifies the identities that do not cause logging for this type of
     /// permission.
     /// Follows the same format of Binding.members.
-    pub exempted_members: String,
+    pub exempted_members: Vec<String>,
 }
 
 /// Request message for `TestIamPermissions` method.
@@ -948,7 +948,7 @@ pub struct TestIamPermissionsRequest {
     /// wildcards (such as `*` or `storage.*`) are not allowed. For more
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
-    pub permissions: String,
+    pub permissions: Vec<String>,
 }
 
 /// Response message for `TestIamPermissions` method.
@@ -959,5 +959,5 @@ pub struct TestIamPermissionsResponse {
 
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
-    pub permissions: String,
+    pub permissions: Vec<String>,
 }

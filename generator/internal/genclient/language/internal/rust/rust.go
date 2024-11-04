@@ -32,16 +32,27 @@ type Codec struct{}
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	// TODO(#77) - replace these placeholders with real types
-	timestamp := &genclient.Message{
-		ID:   ".google.protobuf.Timestamp",
-		Name: "String",
+	wellKnown := []*genclient.Message{
+		{
+			ID:   ".google.protobuf.Any",
+			Name: "serde_json::Value",
+		},
+		{
+			ID:   ".google.protobuf.FieldMask",
+			Name: "gax_placeholder::FieldMask",
+		},
+		{
+			ID:   ".google.protobuf.Duration",
+			Name: "gax_placeholder::Duration",
+		},
+		{
+			ID:   ".google.protobuf.Timestamp",
+			Name: "gax_placeholder::Timestamp",
+		},
 	}
-	duration := &genclient.Message{
-		ID:   ".google.protobuf.Duration",
-		Name: "String",
+	for _, message := range wellKnown {
+		s.MessageByID[message.ID] = message
 	}
-	s.MessageByID[timestamp.ID] = timestamp
-	s.MessageByID[duration.ID] = duration
 }
 
 func ScalarFieldType(f *genclient.Field) string {
@@ -82,21 +93,24 @@ func ScalarFieldType(f *genclient.Field) string {
 		slog.Error("Unexpected field type", "field", *f)
 		return ""
 	}
-	if f.Optional {
-		return fmt.Sprintf("Option<%s>", out)
-	}
 	return out
 }
 
 func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
-	value := c.fieldType(f, state)
 	if f.IsOneOf {
-		return c.wrapOneOfField(f, value)
+		return c.wrapOneOfField(f, c.baseFieldType(f, state))
 	}
-	return value
+	if f.Repeated {
+		return fmt.Sprintf("Vec<%s>", c.baseFieldType(f, state))
+	}
+	if f.Optional {
+		return fmt.Sprintf("Option<%s>", c.baseFieldType(f, state))
+	}
+	return c.baseFieldType(f, state)
 }
 
-func (c *Codec) fieldType(f *genclient.Field, state *genclient.APIState) string {
+// Returns the field type, ignoring any repeated or optional attributes.
+func (c *Codec) baseFieldType(f *genclient.Field, state *genclient.APIState) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
@@ -106,13 +120,13 @@ func (c *Codec) fieldType(f *genclient.Field, state *genclient.APIState) string 
 		if m.IsMap {
 			key := c.FieldType(m.Fields[0], state)
 			val := c.FieldType(m.Fields[1], state)
-			return "Option<std::collections::HashMap<" + key + "," + val + ">>"
+			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
 		if strings.HasPrefix(m.ID, ".google.protobuf.") {
 			// TODO(#77): Better handling of well-known types
-			return "Option<String>"
+			return m.Name
 		}
-		return "Option<" + c.FQMessageName(m, state) + ">"
+		return c.FQMessageName(m, state)
 	} else if f.Typez == genclient.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
@@ -130,13 +144,9 @@ func (c *Codec) fieldType(f *genclient.Field, state *genclient.APIState) string 
 
 func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
-		// Remove `Option<...>` wrapper for fields of one-of
-		//               ^7
-		value = value[7 : len(value)-1]
 		return fmt.Sprintf("(%s)", value)
 	}
 	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
-
 }
 
 func (c *Codec) TemplateDir() string {
