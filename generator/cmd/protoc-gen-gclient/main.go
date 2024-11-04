@@ -18,6 +18,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"log/slog"
 	"os"
 	"slices"
@@ -37,18 +38,19 @@ func main() {
 	templateDir := flag.String("template-dir", "templates/", "the path to the template directory")
 	flag.Parse()
 
-	if err := run(*inputPath, *outDir, *templateDir); err != nil {
-		slog.Error(err.Error())
-		os.Exit(1)
+	if err := run(os.Stdin, os.Stdout, *inputPath, *outDir, *templateDir); err != nil {
+		log.Fatal(err)
 	}
 	slog.Info("Generation Completed Successfully")
 }
 
-func run(inputPath, outDir, templateDir string) error {
-	var reqBytes []byte
-	var err error
+func run(r io.Reader, w io.Writer, inputPath, outDir, templateDir string) error {
+	var (
+		reqBytes []byte
+		err      error
+	)
 	if inputPath == "" {
-		reqBytes, err = io.ReadAll(os.Stdin)
+		reqBytes, err = io.ReadAll(r)
 		if err != nil {
 			return err
 		}
@@ -63,23 +65,16 @@ func run(inputPath, outDir, templateDir string) error {
 	if err := proto.Unmarshal(reqBytes, genReq); err != nil {
 		return err
 	}
-
 	opts, err := parseOpts(genReq.GetParameter())
 	if err != nil {
 		return err
 	}
 
+	// If capture-input is set, content pass to protoc will be written to a
+	// sample-input-{timestamp}.bin file, so that protoc does not need to be
+	// used on future iterations.
 	if opts.CaptureInput {
-		// Remove capture-input param from the captured input
-		ss := slices.DeleteFunc(strings.Split(genReq.GetParameter(), ","), func(s string) bool {
-			return strings.Contains(s, "capture-input")
-		})
-		genReq.Parameter = proto.String(strings.Join(ss, ","))
-		reqBytes, err = proto.Marshal(genReq)
-		if err != nil {
-			return err
-		}
-		if err := os.WriteFile(fmt.Sprintf("sample-input-%s.bin", time.Now().Format(time.RFC3339)), reqBytes, 0644); err != nil {
+		if err := captureInput(genReq); err != nil {
 			return err
 		}
 	}
@@ -102,11 +97,8 @@ func run(inputPath, outDir, templateDir string) error {
 	if err != nil {
 		return err
 	}
-	if _, err := os.Stdout.Write(outBytes); err != nil {
-		return err
-	}
-
-	return nil
+	_, err = w.Write(outBytes)
+	return err
 }
 
 type protobufOptions struct {
@@ -141,4 +133,17 @@ func parseOpts(optStr string) (*protobufOptions, error) {
 		}
 	}
 	return opts, nil
+}
+
+func captureInput(genReq *pluginpb.CodeGeneratorRequest) error {
+	// Remove capture-input param from the captured input
+	ss := slices.DeleteFunc(strings.Split(genReq.GetParameter(), ","), func(s string) bool {
+		return strings.Contains(s, "capture-input")
+	})
+	genReq.Parameter = proto.String(strings.Join(ss, ","))
+	reqBytes, err := proto.Marshal(genReq)
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(fmt.Sprintf("sample-input-%s.bin", time.Now().Format(time.RFC3339)), reqBytes, 0644)
 }

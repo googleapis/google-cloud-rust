@@ -31,7 +31,7 @@ func TestRun_Rust(t *testing.T) {
 		outDir      = "../../testdata/rust/gclient/golden"
 		templateDir = "../../templates"
 	)
-	if err := run(inputPath, outDir, templateDir); err != nil {
+	if err := run(os.Stdin, os.Stdout, inputPath, outDir, templateDir); err != nil {
 		t.Fatal(err)
 	}
 }
