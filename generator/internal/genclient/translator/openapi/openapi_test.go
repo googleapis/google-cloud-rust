@@ -236,7 +236,7 @@ func TestSimpleObject(t *testing.T) {
 	}
 	api, err := makeAPI(model)
 	if err != nil {
-		t.Errorf("Error in makeAPI() %q", err)
+		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
 	checkMessage(t, *api.Messages[0], genclient.Message{

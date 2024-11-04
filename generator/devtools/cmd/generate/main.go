@@ -25,10 +25,11 @@ import (
 )
 
 var (
-	output     = flag.String("out", "output", "the path to the output directory")
-	language   = flag.String("language", "", "the generated language")
-	protoFiles = flag.String("files", "testdata/googleapis/google/cloud/secretmanager/v1/", "path to protos to generate from")
-	protoPath  = flag.String("proto_path", "testdata/googleapis", "directory in which to search for imports")
+	language      = flag.String("language", "", "the generated language")
+	output        = flag.String("out", "output", "the path to the output directory")
+	protoFiles    = flag.String("files", "testdata/googleapis/google/cloud/secretmanager/v1/", "path to protos to generate from")
+	protoPath     = flag.String("proto_path", "testdata/googleapis", "directory in which to search for imports")
+	serviceConfig = flag.String("service-config", "testdata/google/cloud/secretmanager/v1/secretmanager_v1.yaml", "path to service config")
 )
 
 func main() {
@@ -59,7 +60,7 @@ func run(language, testdata, input, output string) error {
 	args := []string{
 		"-I", testdata,
 		fmt.Sprintf("--gclient_out=%s", output),
-		fmt.Sprintf("--gclient_opt=language=%s", language),
+		fmt.Sprintf("--gclient_opt=language=%s,service-config=%s", language, *serviceConfig),
 	}
 	args = append(args, files...)
 
