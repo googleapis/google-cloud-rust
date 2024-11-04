@@ -318,7 +318,7 @@ func newCodeGeneratorRequest(name, contents string, t *testing.T) *pluginpb.Code
 	}
 	files, err := compiler.Compile(context.Background(), name)
 	if err != nil {
-		t.Errorf("Error compiling proto %q", err)
+		t.Fatalf("error compiling proto %q", err)
 	}
 	if len(files) != 1 {
 		t.Errorf("Expected exactly one output descriptor, got=%d", len(files))
