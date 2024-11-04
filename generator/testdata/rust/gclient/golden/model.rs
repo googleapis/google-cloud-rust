@@ -180,23 +180,23 @@ pub mod secret_version {
 
     impl State {
 
-        // Not specified. This value is unused and invalid.
+        /// Not specified. This value is unused and invalid.
         pub const SecretVersion_StateUnspecified: State = State(0);
 
-        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
-        // accessed.
+        /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
+        /// accessed.
         pub const SecretVersion_Enabled: State = State(1);
 
-        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
-        // be accessed, but the secret data is still available and can be placed
-        // back into the
-        // [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
-        // state.
+        /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
+        /// be accessed, but the secret data is still available and can be placed
+        /// back into the
+        /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]
+        /// state.
         pub const SecretVersion_Disabled: State = State(2);
 
-        // The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
-        // destroyed and the secret data is no longer stored. A version may not
-        // leave this state once entered.
+        /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
+        /// destroyed and the secret data is no longer stored. A version may not
+        /// leave this state once entered.
         pub const SecretVersion_Destroyed: State = State(3);
     }}
 
