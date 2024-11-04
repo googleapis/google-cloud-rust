@@ -35,16 +35,32 @@ type Options struct {
 
 // Translate translates proto representation into a [genclienGenerateRequest].
 func Translate(req *pluginpb.CodeGeneratorRequest, opts *Options) (*genclient.GenerateRequest, error) {
+	api := makeAPI(req)
+
+	codec, err := language.NewCodec(opts.Language)
+	if err != nil {
+		return nil, err
+	}
+	return &genclient.GenerateRequest{
+		API:         api,
+		Codec:       codec,
+		OutDir:      opts.OutDir,
+		TemplateDir: opts.TemplateDir,
+	}, nil
+}
+
+func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	state := &genclient.APIState{
 		ServiceByID: make(map[string]*genclient.Service),
 		MessageByID: make(map[string]*genclient.Message),
 		EnumByID:    make(map[string]*genclient.Enum),
 	}
-
 	api := &genclient.API{
 		//TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/38
-		Name: "secretmanager",
+		Name:  "secretmanager",
+		State: state,
 	}
+
 	files := req.GetSourceFileDescriptors()
 	for _, f := range files {
 		var fileServices []*genclient.Service
@@ -103,17 +119,7 @@ func Translate(req *pluginpb.CodeGeneratorRequest, opts *Options) (*genclient.Ge
 		api.Services = append(api.Services, fileServices...)
 	}
 
-	codec, err := language.NewCodec(opts.Language)
-	if err != nil {
-		return nil, err
-	}
-	api.State = state
-	return &genclient.GenerateRequest{
-		API:         api,
-		Codec:       codec,
-		OutDir:      opts.OutDir,
-		TemplateDir: opts.TemplateDir,
-	}, nil
+	return api
 }
 
 func NewCodeGeneratorResponse(_ *genclient.Output, err error) *pluginpb.CodeGeneratorResponse {
@@ -187,10 +193,13 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	}
 	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/39
 	for _, mf := range m.Field {
-		field := &genclient.Field{}
-		field.Name = mf.GetName()
-		field.ID = mFQN + "." + mf.GetName()
-		field.JSONName = mf.GetJsonName()
+		field := &genclient.Field{
+			Name:     mf.GetName(),
+			ID:       mFQN + "." + mf.GetName(),
+			JSONName: mf.GetJsonName(),
+			Optional: mf.Proto3Optional != nil && *mf.Proto3Optional,
+			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+		}
 		normalizeTypes(mf, field)
 		message.Fields = append(message.Fields, field)
 	}
