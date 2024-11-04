@@ -163,16 +163,14 @@ func (c *Codec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
 	return c.messageScopeName(e.Parent) + "::" + c.ToPascal(e.Name)
 }
 
-func (c *Codec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
-	if e.Parent.Parent != nil {
-		return c.MessageName(e.Parent.Parent, state) + "_" + strcase.ToCamel(e.Name)
-	}
-	return c.ToPascal(e.Name)
+func (c *Codec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) string {
+	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, we do not
+	// need to change anything for Rust
+	return EscapeKeyword(e.Name)
 }
 
-func (c *Codec) FQEnumValueName(v *genclient.EnumValue, _ *genclient.APIState) string {
-	// TODO(#76) - these will be `const` strings and therefore should be SNAKE_UPPERCASE.
-	return c.enumScopeName(v.Parent) + "::" + c.ToSnake(v.Name)
+func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
+	return fmt.Sprintf("%s::%s::%s", c.enumScopeName(v.Parent), c.ToSnake(v.Parent.Name), c.EnumValueName(v, state))
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {

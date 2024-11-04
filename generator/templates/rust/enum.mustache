@@ -1,13 +1,16 @@
-
+{{#DocLines}}
+/// {{{.}}}
+{{/DocLines}}
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
-pub struct {{Name}}(i32);
+pub struct {{Name}}(String);
 
-impl {{Name}} {
+/// Useful constants to work with [{{Name}}]({{Name}})
+pub mod {{NameSnakeCase}} {
     {{#Values}}
 
     {{#DocLines}}
     /// {{{.}}}
     {{/DocLines}}
-    pub const {{Name}}: {{EnumType}} = {{EnumType}}({{Number}});
+    pub const {{Name}}: &str = "{{Name}}";
     {{/Values}}
 }
