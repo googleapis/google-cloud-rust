@@ -77,7 +77,12 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 		Name:     t.model.Model.Info.Title,
 		Messages: make([]*genclient.Message, 0),
 	}
+	api.State = t.state
+
 	for name, msg := range t.model.Model.Components.Schemas.FromOldest() {
+		// The typical format is ".${packageName}.${messageName}", but we do not
+		// have a package name at the moment.
+		id := ".." + name
 		schema, err := msg.BuildSchema()
 		if err != nil {
 			return nil, err
@@ -86,13 +91,15 @@ func (t *Translator) makeAPI() (*genclient.API, error) {
 		if err != nil {
 			return nil, err
 		}
-		message := genclient.Message{
+		message := &genclient.Message{
 			Name:          name,
+			ID:            id,
 			Documentation: msg.Schema().Description,
 			Fields:        fields,
 		}
 
-		api.Messages = append(api.Messages, &message)
+		api.Messages = append(api.Messages, message)
+		t.state.MessageByID[id] = message
 	}
 	return api, nil
 }
@@ -234,7 +241,7 @@ func (t *Translator) makeObjectFieldAllOf(messageName, name string, field *base.
 			Name:          name,
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
-			TypezID:       typezID,
+			TypezID:       ".." + typezID,
 			Optional:      true,
 		}, nil
 	}
