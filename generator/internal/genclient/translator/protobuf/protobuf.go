@@ -143,50 +143,43 @@ func NewCodeGeneratorResponse(_ *genclient.Output, err error) *pluginpb.CodeGene
 	return resp
 }
 
+var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]genclient.Typez{
+	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   genclient.DOUBLE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    genclient.FLOAT_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT64:    genclient.INT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT64:   genclient.UINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT32:    genclient.INT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED64:  genclient.FIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED32:  genclient.FIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     genclient.BOOL_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_STRING:   genclient.STRING_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    genclient.BYTES_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT32:   genclient.UINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED32: genclient.SFIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED64: genclient.SFIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT32:   genclient.SINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT64:   genclient.SINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_GROUP:    genclient.GROUP_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  genclient.MESSAGE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     genclient.ENUM_TYPE,
+}
+
 func normalizeTypes(in *descriptorpb.FieldDescriptorProto, field *genclient.Field) {
-	switch in.GetType() {
-	case descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:
-		field.Typez = genclient.DOUBLE_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_FLOAT:
-		field.Typez = genclient.FLOAT_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_INT64:
-		field.Typez = genclient.INT64_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_UINT64:
-		field.Typez = genclient.UINT64_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_INT32:
-		field.Typez = genclient.INT32_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_FIXED64:
-		field.Typez = genclient.FIXED64_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_FIXED32:
-		field.Typez = genclient.FIXED32_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_BOOL:
-		field.Typez = genclient.BOOL_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_STRING:
-		field.Typez = genclient.STRING_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_BYTES:
-		field.Typez = genclient.BYTES_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_UINT32:
-		field.Typez = genclient.UINT32_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_SFIXED32:
-		field.Typez = genclient.SFIXED32_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_SFIXED64:
-		field.Typez = genclient.SFIXED64_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_SINT32:
-		field.Typez = genclient.SINT32_TYPE
-	case descriptorpb.FieldDescriptorProto_TYPE_SINT64:
-		field.Typez = genclient.SINT64_TYPE
+	typ := in.GetType()
+	field.Typez = genclient.UNDEFINED_TYPE
+	if tz, ok := descriptorpbToTypez[typ]; ok {
+		field.Typez = tz
+	}
+
+	switch typ {
 	case descriptorpb.FieldDescriptorProto_TYPE_GROUP:
-		field.Typez = genclient.GROUP_TYPE
 		field.TypezID = in.GetTypeName()
 	case descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:
-		field.Typez = genclient.MESSAGE_TYPE
 		field.TypezID = in.GetTypeName()
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
-		field.Typez = genclient.ENUM_TYPE
 		field.TypezID = in.GetTypeName()
 	default:
 		slog.Warn("found undefined field", "field", in.GetName())
-		field.Typez = genclient.UNDEFINED_TYPE
 	}
 }
 
