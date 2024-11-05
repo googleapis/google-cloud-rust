@@ -29,8 +29,13 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
+const testAPIName = "testAPI"
+
 func TestScalar(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "scalar.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar.proto"))
+	if api.Name != testAPIName {
+		t.Errorf("want = %q; got = %q", testAPIName, api.Name)
+	}
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -150,7 +155,7 @@ func TestScalar(t *testing.T) {
 }
 
 func TestScalarArray(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "scalar_array.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar_array.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -197,7 +202,7 @@ func TestScalarArray(t *testing.T) {
 }
 
 func TestScalarOptional(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "scalar_optional.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar_optional.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -244,7 +249,7 @@ func TestScalarOptional(t *testing.T) {
 }
 
 func TestComments(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "comments.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "comments.proto"))
 
 	message, ok := api.State.MessageByID[".test.Request"]
 	if !ok {
@@ -306,7 +311,7 @@ func TestComments(t *testing.T) {
 }
 
 func TestOneOfs(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "oneofs.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -376,7 +381,7 @@ func TestOneOfs(t *testing.T) {
 }
 
 func TestObjectFields(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "object_fields.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "object_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -409,7 +414,7 @@ func TestObjectFields(t *testing.T) {
 }
 
 func TestMapFields(t *testing.T) {
-	api := makeAPI(newCodeGeneratorRequest(t, "map_fields.proto"))
+	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "map_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
