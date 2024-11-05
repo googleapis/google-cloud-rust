@@ -182,8 +182,7 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 		// Repeated fields are not optional, they can be empty, but always have
 		// presence.
 		field.Optional = !field.Repeated
-		message, ok := state.MessageByID[field.TypezID]
-		if ok {
+		if message, ok := state.MessageByID[field.TypezID]; ok {
 			// Map fields appear as repeated in Protobuf. This is confusing,
 			// as they typically are represented by a single `map<k, v>`-like
 			// datatype. Protobuf leaks the wire-representation of maps, i.e.,
