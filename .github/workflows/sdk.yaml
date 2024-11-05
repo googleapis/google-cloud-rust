@@ -56,5 +56,5 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - run: cargo fmt
-      - run: cargo clippy
+      - run: cargo clippy --fix
       - run: git diff --exit-code
