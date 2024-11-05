@@ -182,6 +182,33 @@ func (m *message) Fields() []*field {
 	})
 }
 
+// BasicFields returns all fields associated with a message that are not apart
+// of a explicit one-ofs.
+func (m *message) BasicFields() []*field {
+	filtered := filterSlice(m.s.Fields, func(s *Field) bool {
+		return !s.IsOneOf
+	})
+	return mapSlice(filtered, func(s *Field) *field {
+		return &field{
+			s:     s,
+			c:     m.c,
+			state: m.state,
+		}
+	})
+}
+
+// ExplicitOneOfs returns a slice of all explicit one-ofs. Notably this leaves
+// out proto3 optional fields which are all considered one-ofs in proto.
+func (m *message) ExplicitOneOfs() []*oneOf {
+	return mapSlice(m.s.OneOfs, func(s *OneOf) *oneOf {
+		return &oneOf{
+			s:     s,
+			c:     m.c,
+			state: m.state,
+		}
+	})
+}
+
 func (m *message) NestedMessages() []*message {
 	return mapSlice(m.s.Messages, func(s *Message) *message {
 		return &message{
@@ -214,8 +241,10 @@ func (m *message) NameSnakeCase() string {
 	return m.c.ToSnake(m.s.Name)
 }
 
+// HasNestedTypes returns true if the message has nested types, enums, or
+// explicit one-ofs.
 func (m *message) HasNestedTypes() bool {
-	if len(m.s.Enums) > 0 {
+	if len(m.s.Enums) > 0 || len(m.s.OneOfs) > 0 {
 		return true
 	}
 	for _, child := range m.s.Messages {
@@ -303,6 +332,10 @@ func (f *field) NameToCamel() string {
 	return f.c.ToCamel(f.s.Name)
 }
 
+func (f *field) NameToPascal() string {
+	return f.c.ToPascal(f.s.Name)
+}
+
 func (f *field) DocLines() []string {
 	return f.c.FormatDocComments(f.s.Documentation)
 }
@@ -315,6 +348,47 @@ func (f *field) JSONName() string {
 	return f.s.JSONName
 }
 
+type oneOf struct {
+	s     *OneOf
+	c     LanguageCodec
+	state *APIState
+}
+
+func (o *oneOf) NameToPascal() string {
+	return o.c.ToPascal(o.s.Name)
+}
+
+func (o *oneOf) NameToSnake() string {
+	return o.c.ToSnake(o.s.Name)
+}
+
+func (o *oneOf) FieldType() string {
+	return o.c.OneOfType(o.s, o.state)
+}
+
+func (o *oneOf) DocLines() []string {
+	return o.c.FormatDocComments(o.s.Documentation)
+}
+
+func (o *oneOf) Fields() []*field {
+	return mapSlice(o.s.Fields, func(s *Field) *field {
+		return &field{
+			s:     s,
+			c:     o.c,
+			state: o.state,
+		}
+	})
+}
+
+func filterSlice[T any](slice []T, predicate func(T) bool) []T {
+	result := make([]T, 0)
+	for _, v := range slice {
+		if predicate(v) {
+			result = append(result, v)
+		}
+	}
+	return result
+}
 func mapSlice[T, R any](s []T, f func(T) R) []R {
 	r := make([]R, len(s))
 	for i, v := range s {

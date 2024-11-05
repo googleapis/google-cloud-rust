@@ -178,6 +178,8 @@ type Message struct {
 	// Messages associated with the Message. In protobuf these are referred to as
 	// nested messages.
 	Messages []*Message
+	// OneOfs associated with the Message.
+	OneOfs []*OneOf
 	// Parent returns the ancestor of this message, if any.
 	Parent  *Message
 	Package string
@@ -230,8 +232,11 @@ type Field struct {
 	JSONName string
 	// Optional indicates that the field is marked as optional in proto3.
 	Optional bool
-	/// Repeated is true if the field is a repeated field.
+	// Repeated is true if the field is a repeated field.
 	Repeated bool
+	// IsOneOf is true if the field is related to a one-of and not
+	// a proto3 optional field.
+	IsOneOf bool
 }
 
 // Pair is a key-value pair.
@@ -240,4 +245,19 @@ type Pair struct {
 	Key string
 	// Value of the pair.
 	Value string
+}
+
+// A group of fields that are mutually exclusive. Notably, proto3 optional
+// fields are all their own one-of.
+type OneOf struct {
+	// Name of the attribute.
+	Name string
+	// ID is a unique identifier.
+	ID string
+	// Documentation for the field.
+	Documentation string
+	// Fields associated with the one-of.
+	Fields []*Field
+	// Parent returns the ancestor of this node, if any.
+	Parent *Message
 }

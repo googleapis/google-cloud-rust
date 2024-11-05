@@ -305,6 +305,76 @@ func TestComments(t *testing.T) {
 	})
 }
 
+func TestOneOfs(t *testing.T) {
+	api := makeAPI(newCodeGeneratorRequest(t, "oneofs.proto"))
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Request")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Fake",
+		ID:            ".test.Fake",
+		Documentation: "A test message.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "field_one",
+				Documentation: "A string choice",
+				JSONName:      "fieldOne",
+				ID:            ".test.Fake.field_one",
+				Typez:         genclient.STRING_TYPE,
+				IsOneOf:       true,
+			},
+			{
+				Documentation: "An int choice",
+				Name:          "field_two",
+				ID:            ".test.Fake.field_two",
+				Typez:         genclient.INT64_TYPE,
+				JSONName:      "fieldTwo",
+				IsOneOf:       true,
+			},
+			{
+				Documentation: "Optional is oneof in proto",
+				Name:          "field_three",
+				ID:            ".test.Fake.field_three",
+				Typez:         genclient.STRING_TYPE,
+				JSONName:      "fieldThree",
+				Optional:      true,
+			},
+			{
+				Documentation: "A normal field",
+				Name:          "field_four",
+				ID:            ".test.Fake.field_four",
+				Typez:         genclient.INT32_TYPE,
+				JSONName:      "fieldFour",
+			},
+		},
+		OneOfs: []*genclient.OneOf{
+			{
+				Name: "choice",
+				ID:   ".test.Fake.choice",
+				Fields: []*genclient.Field{
+					{
+						Documentation: "A string choice",
+						Name:          "field_one",
+						ID:            ".test.Fake.field_one",
+						Typez:         9,
+						JSONName:      "fieldOne",
+						IsOneOf:       true,
+					},
+					{
+						Documentation: "An int choice",
+						Name:          "field_two",
+						ID:            ".test.Fake.field_two",
+						Typez:         3,
+						JSONName:      "fieldTwo",
+						IsOneOf:       true,
+					},
+				},
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	contents, err := os.ReadFile(filepath.Join("testdata", filename))
@@ -346,6 +416,10 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
+	}
+	// Ignore parent because types are cyclic
+	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.OneOf{}, "Parent")); len(diff) > 0 {
+		t.Errorf("oneofs mismatch (-want, +got):\n%s", diff)
 	}
 }
 

@@ -135,6 +135,10 @@ func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIStat
 	return c.EnumValueName(v, state)
 }
 
+func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
+	panic("not needed for Go")
+}
+
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
 	if m.HTTPInfo.Body == "*" {
 		// no accessor needed, use the whole request

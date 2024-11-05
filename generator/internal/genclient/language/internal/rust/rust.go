@@ -89,6 +89,14 @@ func ScalarFieldType(f *genclient.Field) string {
 }
 
 func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+	value := c.fieldType(f, state)
+	if f.IsOneOf {
+		return c.wrapOneOfField(f, value)
+	}
+	return value
+}
+
+func (c *Codec) fieldType(f *genclient.Field, state *genclient.APIState) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
@@ -101,7 +109,8 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 			return "Option<std::collections::HashMap<" + key + "," + val + ">>"
 		}
 		if strings.HasPrefix(m.ID, ".google.protobuf.") {
-			return "Option<String> /* TODO(#77) - handle " + f.TypezID + " */"
+			// TODO(#77): Better handling of well-known types
+			return "Option<String>"
 		}
 		return "Option<" + c.FQMessageName(m, state) + ">"
 	} else if f.Typez == genclient.ENUM_TYPE {
@@ -116,6 +125,18 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 		return ""
 	}
 	return ScalarFieldType(f)
+
+}
+
+func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
+	if f.Typez == genclient.MESSAGE_TYPE {
+		// Remove `Option<...>` wrapper for fields of one-of
+		//               ^7
+		value = value[7 : len(value)-1]
+		return fmt.Sprintf("(%s)", value)
+	}
+	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
+
 }
 
 func (c *Codec) TemplateDir() string {
@@ -172,6 +193,10 @@ func (c *Codec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) str
 
 func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
 	return fmt.Sprintf("%s::%s::%s", c.enumScopeName(v.Parent), c.ToSnake(v.Parent.Name), c.EnumValueName(v, state))
+}
+
+func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
+	return c.messageScopeName(o.Parent) + "::" + c.ToPascal(o.Name)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {

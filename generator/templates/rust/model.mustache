@@ -7,13 +7,20 @@
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct {{Name}} {
-    {{#Fields}}
+    {{#BasicFields}}
 
     {{#DocLines}}
     /// {{{.}}}
     {{/DocLines}}
     pub {{NameToSnake}}: {{{FieldType}}},
-    {{/Fields}}
+    {{/BasicFields}}
+    {{#ExplicitOneOfs}}
+
+    {{#DocLines}}
+    /// {{{.}}}
+    {{/DocLines}}
+    pub {{NameToSnake}}: Option<{{{FieldType}}}>,
+    {{/ExplicitOneOfs}}
 }
 {{#HasNestedTypes}}
 
@@ -26,6 +33,9 @@ pub mod {{NameSnakeCase}} {
     {{#Enums}}
     {{> enum}}
     {{/Enums}}
+    {{#ExplicitOneOfs}}
+    {{> oneof}}
+    {{/ExplicitOneOfs}}
 {{#HasNestedTypes}}
 }
 {{/HasNestedTypes}}

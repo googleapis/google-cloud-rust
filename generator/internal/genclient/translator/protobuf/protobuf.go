@@ -207,18 +207,45 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 		e := processEnum(state, e, mFQN, message)
 		message.Enums = append(message.Enums, e)
 	}
-	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/39
+	for _, oneof := range m.OneofDecl {
+		oneOfs := &genclient.OneOf{
+			Name:   oneof.GetName(),
+			ID:     mFQN + "." + oneof.GetName(),
+			Parent: message,
+		}
+		message.OneOfs = append(message.OneOfs, oneOfs)
+	}
 	for _, mf := range m.Field {
+		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
 		field := &genclient.Field{
 			Name:     mf.GetName(),
 			ID:       mFQN + "." + mf.GetName(),
 			JSONName: mf.GetJsonName(),
-			Optional: mf.Proto3Optional != nil && *mf.Proto3Optional,
+			Optional: isProtoOptional,
 			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+			IsOneOf:  mf.OneofIndex != nil && !isProtoOptional,
 		}
 		normalizeTypes(mf, field)
 		message.Fields = append(message.Fields, field)
+		if field.IsOneOf {
+			message.OneOfs[*mf.OneofIndex].Fields = append(message.OneOfs[*mf.OneofIndex].Fields, field)
+		}
 	}
+
+	// Remove proto3 optionals from one-of
+	var oneOfIdx int
+	for _, oneof := range message.OneOfs {
+		if len(oneof.Fields) > 0 {
+			message.OneOfs[oneOfIdx] = oneof
+			oneOfIdx++
+		}
+	}
+	if oneOfIdx == 0 {
+		message.OneOfs = nil
+	} else {
+		message.OneOfs = message.OneOfs[:oneOfIdx]
+	}
+
 	return message
 }
 
@@ -267,7 +294,7 @@ func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.Descript
 		eFQN := mFQN + "." + m.GetEnumType()[p[1]].GetName()
 		addEnumDocumentation(state, p[2:], doc, eFQN)
 	} else if len(p) == 2 && p[0] == messageDescriptorOneOf {
-		// This is a comment for a field of a message one-of, skipping
+		state.MessageByID[mFQN].OneOfs[p[1]].Documentation = doc
 	} else {
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
 	}
