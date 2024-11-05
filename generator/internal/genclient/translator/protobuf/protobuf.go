@@ -21,6 +21,7 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
+	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
@@ -47,8 +48,9 @@ const (
 type Options struct {
 	Language string
 	// Only used for local testing
-	OutDir      string
-	TemplateDir string
+	OutDir        string
+	TemplateDir   string
+	ServiceConfig *serviceconfig.Service
 }
 
 // Translate translates proto representation into a [genclienGenerateRequest].
@@ -100,11 +102,12 @@ func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
 			}
 			state.ServiceByID[service.ID] = service
 			for _, m := range s.Method {
-				method := &genclient.Method{}
-				method.HTTPInfo = parseHTTPInfo(m.GetOptions())
-				method.Name = m.GetName()
-				method.InputTypeID = m.GetInputType()
-				method.OutputTypeID = m.GetOutputType()
+				method := &genclient.Method{
+					HTTPInfo:     parseHTTPInfo(m.GetOptions()),
+					Name:         m.GetName(),
+					InputTypeID:  m.GetInputType(),
+					OutputTypeID: m.GetOutputType(),
+				}
 				service.Methods = append(service.Methods, method)
 			}
 			fileServices = append(fileServices, service)
@@ -132,7 +135,6 @@ func makeAPI(req *pluginpb.CodeGeneratorRequest) *genclient.API {
 		}
 		api.Services = append(api.Services, fileServices...)
 	}
-
 	return api
 }
 

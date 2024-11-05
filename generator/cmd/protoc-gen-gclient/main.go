@@ -73,17 +73,26 @@ func run(r io.Reader, w io.Writer, inputPath, outDir, templateDir string) error 
 	// If capture-input is set, content pass to protoc will be written to a
 	// sample-input-{timestamp}.bin file, so that protoc does not need to be
 	// used on future iterations.
-	if opts.CaptureInput {
+	if opts.captureInput {
 		if err := captureInput(genReq); err != nil {
 			return err
 		}
 	}
 
-	req, err := protobuf.Translate(genReq, &protobuf.Options{
+	popts := &protobuf.Options{
 		OutDir:      outDir,
-		Language:    opts.Language,
+		Language:    opts.language,
 		TemplateDir: templateDir,
-	})
+	}
+	if opts.serviceConfig != "" {
+		cfg, err := genclient.ReadServiceConfig(opts.serviceConfig)
+		if err != nil {
+			return err
+		}
+		popts.ServiceConfig = cfg
+	}
+
+	req, err := protobuf.Translate(genReq, popts)
 	if err != nil {
 		return err
 	}
@@ -102,8 +111,9 @@ func run(r io.Reader, w io.Writer, inputPath, outDir, templateDir string) error 
 }
 
 type protobufOptions struct {
-	CaptureInput bool
-	Language     string
+	captureInput  bool
+	language      string
+	serviceConfig string
 }
 
 func parseOpts(optStr string) (*protobufOptions, error) {
@@ -119,15 +129,17 @@ func parseOpts(optStr string) (*protobufOptions, error) {
 			continue
 		}
 		switch sp[0] {
+		case "service-config":
+			opts.serviceConfig = strings.TrimSpace(sp[1])
 		case "capture-input":
 			b, err := strconv.ParseBool(sp[1])
 			if err != nil {
 				slog.Error("invalid bool in option string, skipping", "option", s)
 				return nil, err
 			}
-			opts.CaptureInput = b
+			opts.captureInput = b
 		case "language":
-			opts.Language = strings.ToLower(strings.TrimSpace(sp[1]))
+			opts.language = strings.ToLower(strings.TrimSpace(sp[1]))
 		default:
 			slog.Warn("unknown option", "option", s)
 		}
