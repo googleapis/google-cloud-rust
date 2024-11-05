@@ -216,13 +216,14 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 		message.OneOfs = append(message.OneOfs, oneOfs)
 	}
 	for _, mf := range m.Field {
+		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
 		field := &genclient.Field{
 			Name:            mf.GetName(),
 			ID:              mFQN + "." + mf.GetName(),
 			JSONName:        mf.GetJsonName(),
-			Optional:        mf.Proto3Optional != nil && *mf.Proto3Optional,
+			Optional:        isProtoOptional,
 			Repeated:        mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-			IsExplicitOneOf: mf.OneofIndex != nil && (mf.Proto3Optional == nil || !*mf.Proto3Optional),
+			IsExplicitOneOf: mf.OneofIndex != nil && !isProtoOptional,
 		}
 		normalizeTypes(mf, field)
 		message.Fields = append(message.Fields, field)

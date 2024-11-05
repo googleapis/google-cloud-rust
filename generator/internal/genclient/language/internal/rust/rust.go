@@ -130,7 +130,8 @@ func (c *Codec) fieldType(f *genclient.Field, state *genclient.APIState) string 
 
 func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
-		// Remove optional wrapper for fields of one-of
+		// Remove `Option<...>` wrapper for fields of one-of
+		//               ^7
 		value = value[7 : len(value)-1]
 		return fmt.Sprintf("(%s)", value)
 	}
