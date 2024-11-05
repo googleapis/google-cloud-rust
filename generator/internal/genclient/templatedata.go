@@ -183,10 +183,10 @@ func (m *message) Fields() []*field {
 }
 
 // BasicFields returns all fields associated with a message that are not apart
-// of a explicit oneofs.
+// of a explicit one-ofs.
 func (m *message) BasicFields() []*field {
 	filtered := filterSlice(m.s.Fields, func(s *Field) bool {
-		return !s.IsExplicitOneOf
+		return !s.IsOneOf
 	})
 	return mapSlice(filtered, func(s *Field) *field {
 		return &field{
@@ -199,12 +199,9 @@ func (m *message) BasicFields() []*field {
 
 // ExplicitOneOfs returns a slice of all explicit one-ofs. Notably this leaves
 // out proto3 optional fields which are all considered one-ofs in proto.
-func (m *message) ExplicitOneOfs() []*oneof {
-	filtered := filterSlice(m.s.OneOfs, func(s *OneOf) bool {
-		return s.IsExplicit
-	})
-	return mapSlice(filtered, func(s *OneOf) *oneof {
-		return &oneof{
+func (m *message) ExplicitOneOfs() []*oneOf {
+	return mapSlice(m.s.OneOfs, func(s *OneOf) *oneOf {
+		return &oneOf{
 			s:     s,
 			c:     m.c,
 			state: m.state,
@@ -247,16 +244,11 @@ func (m *message) NameSnakeCase() string {
 // HasNestedTypes returns true if the message has nested types, enums, or
 // explicit one-ofs.
 func (m *message) HasNestedTypes() bool {
-	if len(m.s.Enums) > 0 {
+	if len(m.s.Enums) > 0 || len(m.s.OneOfs) > 0 {
 		return true
 	}
 	for _, child := range m.s.Messages {
 		if !child.IsMap {
-			return true
-		}
-	}
-	for _, oneof := range m.s.OneOfs {
-		if oneof.IsExplicit {
 			return true
 		}
 	}
@@ -356,29 +348,29 @@ func (f *field) JSONName() string {
 	return f.s.JSONName
 }
 
-type oneof struct {
+type oneOf struct {
 	s     *OneOf
 	c     LanguageCodec
 	state *APIState
 }
 
-func (o *oneof) NameToPascal() string {
+func (o *oneOf) NameToPascal() string {
 	return o.c.ToPascal(o.s.Name)
 }
 
-func (o *oneof) NameToSnake() string {
+func (o *oneOf) NameToSnake() string {
 	return o.c.ToSnake(o.s.Name)
 }
 
-func (o *oneof) FieldType() string {
+func (o *oneOf) FieldType() string {
 	return o.c.OneOfType(o.s, o.state)
 }
 
-func (o *oneof) DocLines() []string {
+func (o *oneOf) DocLines() []string {
 	return o.c.FormatDocComments(o.s.Documentation)
 }
 
-func (o *oneof) Fields() []*field {
+func (o *oneOf) Fields() []*field {
 	return mapSlice(o.s.Fields, func(s *Field) *field {
 		return &field{
 			s:     s,

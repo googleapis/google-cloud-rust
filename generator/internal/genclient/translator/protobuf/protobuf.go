@@ -218,20 +218,34 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	for _, mf := range m.Field {
 		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
 		field := &genclient.Field{
-			Name:            mf.GetName(),
-			ID:              mFQN + "." + mf.GetName(),
-			JSONName:        mf.GetJsonName(),
-			Optional:        isProtoOptional,
-			Repeated:        mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
-			IsExplicitOneOf: mf.OneofIndex != nil && !isProtoOptional,
+			Name:     mf.GetName(),
+			ID:       mFQN + "." + mf.GetName(),
+			JSONName: mf.GetJsonName(),
+			Optional: isProtoOptional,
+			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
+			IsOneOf:  mf.OneofIndex != nil && !isProtoOptional,
 		}
 		normalizeTypes(mf, field)
 		message.Fields = append(message.Fields, field)
-		if mf.OneofIndex != nil {
+		if field.IsOneOf {
 			message.OneOfs[*mf.OneofIndex].Fields = append(message.OneOfs[*mf.OneofIndex].Fields, field)
-			message.OneOfs[*mf.OneofIndex].IsExplicit = field.IsExplicitOneOf
 		}
 	}
+
+	// Remove proto3 optionals from one-of
+	var oneOfIdx int
+	for _, oneof := range message.OneOfs {
+		if len(oneof.Fields) > 0 {
+			message.OneOfs[oneOfIdx] = oneof
+			oneOfIdx++
+		}
+	}
+	if oneOfIdx == 0 {
+		message.OneOfs = nil
+	} else {
+		message.OneOfs = message.OneOfs[:oneOfIdx]
+	}
+
 	return message
 }
 

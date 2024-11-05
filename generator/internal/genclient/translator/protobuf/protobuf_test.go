@@ -240,64 +240,6 @@ func TestScalarOptional(t *testing.T) {
 				Typez:         genclient.BYTES_TYPE,
 			},
 		},
-		OneOfs: []*genclient.OneOf{
-			{
-				Name: "_f_double",
-				ID:   ".test.Fake._f_double",
-				Fields: []*genclient.Field{
-					{
-						Documentation: "An optional field tag = 1",
-						Name:          "f_double",
-						ID:            ".test.Fake.f_double",
-						Typez:         1,
-						JSONName:      "fDouble",
-						Optional:      true,
-					},
-				},
-			},
-			{
-				Name: "_f_int64",
-				ID:   ".test.Fake._f_int64",
-				Fields: []*genclient.Field{
-					{
-						Documentation: "An optional field tag = 3",
-						Name:          "f_int64",
-						ID:            ".test.Fake.f_int64",
-						Typez:         3,
-						JSONName:      "fInt64",
-						Optional:      true,
-					},
-				},
-			},
-			{
-				Name: "_f_string",
-				ID:   ".test.Fake._f_string",
-				Fields: []*genclient.Field{
-					{
-						Documentation: "An optional field tag = 9",
-						Name:          "f_string",
-						ID:            ".test.Fake.f_string",
-						Typez:         9,
-						JSONName:      "fString",
-						Optional:      true,
-					},
-				},
-			},
-			{
-				Name: "_f_bytes",
-				ID:   ".test.Fake._f_bytes",
-				Fields: []*genclient.Field{
-					{
-						Documentation: "An optional field tag = 12",
-						Name:          "f_bytes",
-						ID:            ".test.Fake.f_bytes",
-						Typez:         12,
-						JSONName:      "fBytes",
-						Optional:      true,
-					},
-				},
-			},
-		},
 	})
 }
 
@@ -375,20 +317,20 @@ func TestOneOfs(t *testing.T) {
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{
-				Name:            "field_one",
-				Documentation:   "A string choice",
-				JSONName:        "fieldOne",
-				ID:              ".test.Fake.field_one",
-				Typez:           genclient.STRING_TYPE,
-				IsExplicitOneOf: true,
+				Name:          "field_one",
+				Documentation: "A string choice",
+				JSONName:      "fieldOne",
+				ID:            ".test.Fake.field_one",
+				Typez:         genclient.STRING_TYPE,
+				IsOneOf:       true,
 			},
 			{
-				Documentation:   "An int choice",
-				Name:            "field_two",
-				ID:              ".test.Fake.field_two",
-				Typez:           genclient.INT64_TYPE,
-				JSONName:        "fieldTwo",
-				IsExplicitOneOf: true,
+				Documentation: "An int choice",
+				Name:          "field_two",
+				ID:            ".test.Fake.field_two",
+				Typez:         genclient.INT64_TYPE,
+				JSONName:      "fieldTwo",
+				IsOneOf:       true,
 			},
 			{
 				Documentation: "Optional is oneof in proto",
@@ -412,41 +354,20 @@ func TestOneOfs(t *testing.T) {
 				ID:   ".test.Fake.choice",
 				Fields: []*genclient.Field{
 					{
-						Documentation:   "A string choice",
-						Name:            "field_one",
-						ID:              ".test.Fake.field_one",
-						Typez:           9,
-						JSONName:        "fieldOne",
-						IsExplicitOneOf: true,
-					},
-					{
-						Documentation:   "An int choice",
-						Name:            "field_two",
-						ID:              ".test.Fake.field_two",
-						Typez:           3,
-						JSONName:        "fieldTwo",
-						IsExplicitOneOf: true,
-					},
-				},
-				IsExplicit: true,
-				Parent: &genclient.Message{
-					Documentation: "A test message.",
-					Name:          "Fake",
-					ID:            ".test.Fake",
-					Fields:        []*genclient.Field{},
-				},
-			},
-			{
-				Name: "_field_three",
-				ID:   ".test.Fake._field_three",
-				Fields: []*genclient.Field{
-					{
-						Documentation: "Optional is oneof in proto",
-						Name:          "field_three",
-						ID:            ".test.Fake.field_three",
+						Documentation: "A string choice",
+						Name:          "field_one",
+						ID:            ".test.Fake.field_one",
 						Typez:         9,
-						JSONName:      "fieldThree",
-						Optional:      true,
+						JSONName:      "fieldOne",
+						IsOneOf:       true,
+					},
+					{
+						Documentation: "An int choice",
+						Name:          "field_two",
+						ID:            ".test.Fake.field_two",
+						Typez:         3,
+						JSONName:      "fieldTwo",
+						IsOneOf:       true,
 					},
 				},
 			},

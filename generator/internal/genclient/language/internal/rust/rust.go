@@ -90,7 +90,7 @@ func ScalarFieldType(f *genclient.Field) string {
 
 func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
 	value := c.fieldType(f, state)
-	if f.IsExplicitOneOf {
+	if f.IsOneOf {
 		return c.wrapOneOfField(f, value)
 	}
 	return value

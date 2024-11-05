@@ -234,9 +234,9 @@ type Field struct {
 	Optional bool
 	// Repeated is true if the field is a repeated field.
 	Repeated bool
-	// IsExplicitOneOf is true if the field is related to a one-of and not
+	// IsOneOf is true if the field is related to a one-of and not
 	// a proto3 optional field.
-	IsExplicitOneOf bool
+	IsOneOf bool
 }
 
 // Pair is a key-value pair.
@@ -256,11 +256,8 @@ type OneOf struct {
 	ID string
 	// Documentation for the field.
 	Documentation string
-	// Fields associated with the oneof.
+	// Fields associated with the one-of.
 	Fields []*Field
-	// IsExplicit is true if the field is related to a one-of and not
-	// a proto3 optional field.
-	IsExplicit bool
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
 }
