@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod any;
+pub use crate::any::*;
 mod duration;
 pub use crate::duration::*;
+mod field_mask;
+pub use crate::field_mask::*;
 mod timestamp;
 pub use crate::timestamp::*;
