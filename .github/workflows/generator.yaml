@@ -26,20 +26,19 @@ jobs:
       run:
         working-directory: generator
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Go ${{ matrix.go-version }}
-      uses: actions/setup-go@v5
-      with:
-        go-version: ${{ matrix.go-version }}
-        cache-dependency-path: |
-          generator/go.sum
-    - name: Display Go version
-      run: go version
-    - run: go fmt ./...
-    - run: go test ./...
-    - name: Detect Changes
-      run: git diff --exit-code
-
+      - uses: actions/checkout@v4
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache-dependency-path: |
+            generator/go.sum
+      - name: Display Go version
+        run: go version
+      - run: go fmt ./...
+      - run: go test ./...
+      - name: Detect Changes
+        run: git diff --exit-code
   format-protos:
     runs-on: ubuntu-24.04
     steps:
