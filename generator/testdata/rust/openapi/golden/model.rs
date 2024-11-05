@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 pub struct ListLocationsResponse {
 
     /// A list of locations that matches the specified filter in the request.
-    pub locations: Vec<>,
+    pub locations: Vec<crate::Location>,
 
     /// The standard List next-page token.
     pub next_page_token: Option<String>,
@@ -51,7 +51,7 @@ pub struct ListSecretsResponse {
 
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
-    pub secrets: Vec<>,
+    pub secrets: Vec<crate::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretsRequest.page_token to retrieve the next page.
@@ -98,7 +98,7 @@ pub struct Secret {
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
-    pub topics: Vec<>,
+    pub topics: Vec<crate::Topic>,
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
@@ -218,7 +218,7 @@ pub struct UserManaged {
     /// Required. The list of Replicas for this Secret.
     /// 
     /// Cannot be empty.
-    pub replicas: Vec<>,
+    pub replicas: Vec<crate::Replica>,
 }
 
 /// Represents a Replica for this Secret.
@@ -419,7 +419,7 @@ pub struct CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
 
     /// Output only. The list of replica statuses for the SecretVersion.
-    pub replicas: Vec<>,
+    pub replicas: Vec<crate::ReplicaStatus>,
 }
 
 /// Describes the status of a user-managed replica for the SecretVersion.
@@ -458,7 +458,7 @@ pub struct ListSecretVersionsResponse {
 
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
-    pub versions: Vec<>,
+    pub versions: Vec<crate::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretVersionsRequest.page_token to retrieve the next page.
@@ -652,10 +652,10 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
-    pub bindings: Vec<>,
+    pub bindings: Vec<crate::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
-    pub audit_configs: Vec<>,
+    pub audit_configs: Vec<crate::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -902,7 +902,7 @@ pub struct AuditConfig {
     pub service: Option<String>,
 
     /// The configuration for logging of each type of permission.
-    pub audit_log_configs: Vec<>,
+    pub audit_log_configs: Vec<crate::AuditLogConfig>,
 }
 
 /// Provides the configuration for logging a type of permissions.

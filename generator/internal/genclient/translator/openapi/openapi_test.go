@@ -254,7 +254,7 @@ func TestSimpleObject(t *testing.T) {
 			{
 				Name:          "fObjectArray",
 				Typez:         genclient.MESSAGE_TYPE,
-				TypezID:       "Bar",
+				TypezID:       "..Bar",
 				Documentation: "An object array field.",
 				Optional:      false,
 				Repeated:      true,
@@ -423,7 +423,7 @@ func TestMakeAPI(t *testing.T) {
 
 	listLocationsResponse := api.State.MessageByID["..ListLocationsResponse"]
 	if listLocationsResponse == nil {
-		t.Errorf("missing message (listLocationsResponse) in MessageByID index")
+		t.Errorf("missing message (ListLocationsResponse) in MessageByID index")
 		return
 	}
 	checkMessage(t, *listLocationsResponse, genclient.Message{
@@ -435,7 +435,7 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "locations",
 				Documentation: "A list of locations that matches the specified filter in the request.",
 				Typez:         genclient.MESSAGE_TYPE,
-				TypezID:       "Location",
+				TypezID:       "..Location",
 				Repeated:      true,
 			},
 			{

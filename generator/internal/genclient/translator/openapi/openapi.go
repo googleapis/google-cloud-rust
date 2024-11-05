@@ -200,7 +200,7 @@ func makeObjectField(state *genclient.APIState, messageName, name string, field 
 	}
 	if field.Items != nil && field.Items.IsA() {
 		proxy := field.Items.A
-		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
+		typezID := ".." + strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
 		return &genclient.Field{
 			Name:          name,
 			Documentation: field.Description,
@@ -229,7 +229,7 @@ func makeArrayField(state *genclient.APIState, messageName, name string, field *
 	case "boolean", "integer", "number", "string":
 		result, err = makeScalarField(messageName, name, schema, false, field)
 	case "object":
-		typezID := strings.TrimPrefix(reference, "#/components/schemas/")
+		typezID := ".." + strings.TrimPrefix(reference, "#/components/schemas/")
 		if len(typezID) > 0 {
 			new := &genclient.Field{
 				Name:          name,
