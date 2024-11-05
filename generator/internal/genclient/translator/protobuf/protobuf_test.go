@@ -408,6 +408,58 @@ func TestObjectFields(t *testing.T) {
 	})
 }
 
+func TestMapFields(t *testing.T) {
+	api := makeAPI(newCodeGeneratorRequest(t, "map_fields.proto"))
+
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name: "Fake",
+		ID:   ".test.Fake",
+		Fields: []*genclient.Field{
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "singular_map",
+				JSONName: "singularMap",
+				ID:       ".test.Fake.singular_map",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".test.Fake.SingularMapEntry",
+			},
+		},
+	})
+
+	message, ok = api.State.MessageByID[".test.Fake.SingularMapEntry"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name:  "SingularMapEntry",
+		ID:    ".test.Fake.SingularMapEntry",
+		IsMap: true,
+		Fields: []*genclient.Field{
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "key",
+				JSONName: "key",
+				ID:       ".test.Fake.SingularMapEntry.key",
+				Typez:    genclient.STRING_TYPE,
+			},
+			{
+				Repeated: false,
+				Optional: false,
+				Name:     "value",
+				JSONName: "value",
+				ID:       ".test.Fake.SingularMapEntry.value",
+				Typez:    genclient.INT32_TYPE,
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	contents, err := os.ReadFile(filepath.Join("testdata", filename))

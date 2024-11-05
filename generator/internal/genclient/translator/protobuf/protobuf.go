@@ -167,7 +167,7 @@ var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]genclient.T
 	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     genclient.ENUM_TYPE,
 }
 
-func normalizeTypes(in *descriptorpb.FieldDescriptorProto, field *genclient.Field) {
+func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorProto, field *genclient.Field) {
 	typ := in.GetType()
 	field.Typez = genclient.UNDEFINED_TYPE
 	if tz, ok := descriptorpbToTypez[typ]; ok {
@@ -182,11 +182,19 @@ func normalizeTypes(in *descriptorpb.FieldDescriptorProto, field *genclient.Fiel
 		// Repeated fields are not optional, they can be empty, but always have
 		// presence.
 		field.Optional = !field.Repeated
+		if message, ok := state.MessageByID[field.TypezID]; ok {
+			// Map fields appear as repeated in Protobuf. This is confusing,
+			// as they typically are represented by a single `map<k, v>`-like
+			// datatype. Protobuf leaks the wire-representation of maps, i.e.,
+			// repeated pairs.
+			field.Repeated = !message.IsMap
+		}
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()
 	default:
 		slog.Warn("found undefined field", "field", in.GetName())
 	}
+
 }
 
 func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, mFQN string, parent *genclient.Message) *genclient.Message {
@@ -228,7 +236,7 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:  mf.OneofIndex != nil && !isProtoOptional,
 		}
-		normalizeTypes(mf, field)
+		normalizeTypes(state, mf, field)
 		message.Fields = append(message.Fields, field)
 		if field.IsOneOf {
 			message.OneOfs[*mf.OneofIndex].Fields = append(message.OneOfs[*mf.OneofIndex].Fields, field)
