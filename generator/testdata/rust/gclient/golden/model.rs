@@ -27,7 +27,7 @@ pub struct Secret {
 
     /// Output only. The time at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<gax_placeholder::Timestamp>,
 
     /// The labels assigned to this Secret.
     /// 
@@ -40,11 +40,11 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     /// 
     /// No more than 64 labels can be assigned to a given resource.
-    pub labels: Option<std::collections::HashMap<String,String>>,
+    pub labels: std::collections::HashMap<String,String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
-    pub topics: Option<crate::Topic>,
+    pub topics: Vec<crate::Topic>,
 
     /// Optional. Etag of the currently stored
     /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -66,7 +66,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    pub version_aliases: Option<std::collections::HashMap<String,i64>>,
+    pub version_aliases: std::collections::HashMap<String,i64>,
 
     /// Optional. Custom metadata about the secret.
     /// 
@@ -80,7 +80,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     /// 
     /// The total size of annotation keys and values must be less than 16KiB.
-    pub annotations: Option<std::collections::HashMap<String,String>>,
+    pub annotations: std::collections::HashMap<String,String>,
 
     /// Optional. Secret Version TTL after destruction request
     /// 
@@ -88,7 +88,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<String>,
+    pub version_destroy_ttl: Option<gax_placeholder::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised
     /// Secrets. If no configuration is provided, Google-managed default encryption
@@ -136,10 +136,10 @@ pub mod secret {
         /// Optional. Timestamp in UTC when the
         /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
         /// This is always provided on output, regardless of what was sent on input.
-        ExpireTime(String),
+        ExpireTime(gax_placeholder::Timestamp),
         /// Input only. The TTL for the
         /// [Secret][google.cloud.secretmanager.v1.Secret].
-        Ttl(String),
+        Ttl(gax_placeholder::Duration),
     }}
 
 /// A secret version resource in the Secret Manager API.
@@ -159,14 +159,14 @@ pub struct SecretVersion {
 
     /// Output only. The time at which the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
-    pub create_time: Option<String>,
+    pub create_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The time this
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
     /// Only present if [state][google.cloud.secretmanager.v1.SecretVersion.state]
     /// is
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
-    pub destroy_time: Option<String>,
+    pub destroy_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The current state of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -194,7 +194,7 @@ pub struct SecretVersion {
     /// destroyed, the version is moved to disabled state and it is scheduled for
     /// destruction. The version is destroyed only after the
     /// `scheduled_destroy_time`.
-    pub scheduled_destroy_time: Option<String>,
+    pub scheduled_destroy_time: Option<gax_placeholder::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
@@ -280,7 +280,7 @@ pub mod replication {
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         /// 
         /// Cannot be empty.
-        pub replicas: Option<crate::replication::user_managed::Replica>,
+        pub replicas: Vec<crate::replication::user_managed::Replica>,
     }
 
     /// Defines additional types related to UserManaged
@@ -391,7 +391,7 @@ pub mod replication_status {
 
         /// Output only. The list of replica statuses for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-        pub replicas: Option<crate::replication_status::user_managed_status::ReplicaStatus>,
+        pub replicas: Vec<crate::replication_status::user_managed_status::ReplicaStatus>,
     }
 
     /// Defines additional types related to UserManagedStatus
@@ -485,7 +485,7 @@ pub struct Rotation {
     /// MUST  be set if
     /// [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
     /// is set.
-    pub next_rotation_time: Option<String>,
+    pub next_rotation_time: Option<gax_placeholder::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -498,7 +498,7 @@ pub struct Rotation {
     /// [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
     /// will be advanced by this period when the service automatically sends
     /// rotation notifications.
-    pub rotation_period: Option<String>,
+    pub rotation_period: Option<gax_placeholder::Duration>,
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -552,7 +552,7 @@ pub struct CreateSecretRequest {
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
     /// field values.
-    pub secret: Option<crate::Secret>,
+    pub secret: Vec<crate::Secret>,
 }
 
 /// Request message for

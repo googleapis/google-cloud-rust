@@ -21,27 +21,84 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
-type ScalarFieldTest struct {
-	Typez    genclient.Typez
-	Optional bool
-	Expected string
-}
+func TestFieldType(t *testing.T) {
+	target := &genclient.Message{
+		Name: "Target",
+		ID:   "..Target",
+	}
+	message := &genclient.Message{
+		Name: "Fake",
+		ID:   "..Fake",
+		Fields: []*genclient.Field{
+			{
+				Name:     "f_int32",
+				Typez:    genclient.INT32_TYPE,
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_int32_optional",
+				Typez:    genclient.INT32_TYPE,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_int32_repeated",
+				Typez:    genclient.INT32_TYPE,
+				Optional: false,
+				Repeated: true,
+			},
+			{
+				Name:     "f_msg",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "..Target",
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_msg_repeated",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "..Target",
+				Optional: false,
+				Repeated: true,
+			},
+			{
+				Name:     "f_timestamp",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_timestamp_repeated",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+				Optional: false,
+				Repeated: true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
 
-var scalarFieldTests = []ScalarFieldTest{
-	{genclient.INT32_TYPE, false, "i32"},
-	{genclient.INT64_TYPE, false, "i64"},
-	{genclient.UINT32_TYPE, true, "Option<u32>"},
-	{genclient.UINT64_TYPE, true, "Option<u64>"},
-	{genclient.BOOL_TYPE, true, "Option<bool>"},
-	{genclient.STRING_TYPE, true, "Option<String>"},
-	{genclient.BYTES_TYPE, true, "Option<bytes::Bytes>"},
-}
-
-func TestScalarFields(t *testing.T) {
-	for _, test := range scalarFieldTests {
-		field := genclient.Field{Typez: test.Typez, Optional: test.Optional}
-		if output := ScalarFieldType(&field); output != test.Expected {
-			t.Errorf("Output %q not equal to expected %q", output, test.Expected)
+	expectedTypes := map[string]string{
+		"f_int32":              "i32",
+		"f_int32_optional":     "Option<i32>",
+		"f_int32_repeated":     "Vec<i32>",
+		"f_msg":                "Option<crate::Target>",
+		"f_msg_repeated":       "Vec<crate::Target>",
+		"f_timestamp":          "Option<gax_placeholder::Timestamp>",
+		"f_timestamp_repeated": "Vec<gax_placeholder::Timestamp>",
+	}
+	c := &Codec{}
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedTypes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := c.FieldType(field, api.State)
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
 	}
 }
