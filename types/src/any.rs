@@ -129,7 +129,7 @@ impl Any {
             .map_err(Self::map_de_str)?;
         let r#type = object["@type"]
             .as_str()
-            .ok_or_else(|| "missing @type field or fild".to_string())
+            .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Self::map_de_str)?;
         if r#type.starts_with("type.googleapis.com/google.protobuf.") {
             let value = &object["value"];
