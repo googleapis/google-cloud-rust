@@ -27,7 +27,7 @@ pub struct Secret {
 
     /// Output only. The time at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] was created.
-    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub create_time: Option<String>,
 
     /// The labels assigned to this Secret.
     /// 
@@ -45,15 +45,6 @@ pub struct Secret {
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
     pub topics: Option<crate::Topic>,
-
-    /// Optional. Timestamp in UTC when the
-    /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
-    /// This is always provided on output, regardless of what was sent on input.
-    pub expire_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
-
-    /// Input only. The TTL for the
-    /// [Secret][google.cloud.secretmanager.v1.Secret].
-    pub ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
 
     /// Optional. Etag of the currently stored
     /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -97,7 +88,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
+    pub version_destroy_ttl: Option<String>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised
     /// Secrets. If no configuration is provided, Google-managed default encryption
@@ -109,7 +100,47 @@ pub struct Secret {
     /// afterwards. They do not apply retroactively to existing
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+
+    /// Expiration policy attached to the
+    /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] and all
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] will be
+    /// automatically deleted at expiration. Expired secrets are irreversibly
+    /// deleted.
+    /// 
+    /// Expiration is *not* the recommended way to set time-based permissions. [IAM
+    /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
+    /// is recommended for granting time-based permissions because the operation
+    /// can be reversed.
+    pub expiration: Option<crate::secret::Expiration>,
 }
+
+/// Defines additional types related to Secret
+pub mod secret {
+
+    /// Expiration policy attached to the
+    /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] and all
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] will be
+    /// automatically deleted at expiration. Expired secrets are irreversibly
+    /// deleted.
+    /// 
+    /// Expiration is *not* the recommended way to set time-based permissions. [IAM
+    /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
+    /// is recommended for granting time-based permissions because the operation
+    /// can be reversed.
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase", untagged)]
+    #[non_exhaustive]
+    pub enum Expiration {
+        /// Optional. Timestamp in UTC when the
+        /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to expire.
+        /// This is always provided on output, regardless of what was sent on input.
+        ExpireTime(String),
+        /// Input only. The TTL for the
+        /// [Secret][google.cloud.secretmanager.v1.Secret].
+        Ttl(String),
+    }}
 
 /// A secret version resource in the Secret Manager API.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -128,14 +159,14 @@ pub struct SecretVersion {
 
     /// Output only. The time at which the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
-    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub create_time: Option<String>,
 
     /// Output only. The time this
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
     /// Only present if [state][google.cloud.secretmanager.v1.SecretVersion.state]
     /// is
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED].
-    pub destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub destroy_time: Option<String>,
 
     /// Output only. The current state of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -163,7 +194,7 @@ pub struct SecretVersion {
     /// destroyed, the version is moved to disabled state and it is scheduled for
     /// destruction. The version is destroyed only after the
     /// `scheduled_destroy_time`.
-    pub scheduled_destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub scheduled_destroy_time: Option<String>,
 
     /// Output only. The customer-managed encryption status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
@@ -210,13 +241,8 @@ pub mod secret_version {
 #[non_exhaustive]
 pub struct Replication {
 
-    /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
-    /// replicated without any restrictions.
-    pub automatic: Option<crate::replication::Automatic>,
-
-    /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
-    /// replicated into the locations specified.
-    pub user_managed: Option<crate::replication::UserManaged>,
+    /// The replication policy for this secret.
+    pub replication: Option<crate::replication::Replication>,
 }
 
 /// Defines additional types related to Replication
@@ -283,7 +309,19 @@ pub mod replication {
             pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
         }
     }
-}
+
+    /// The replication policy for this secret.
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase", untagged)]
+    #[non_exhaustive]
+    pub enum Replication {
+        /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
+        /// replicated without any restrictions.
+        Automatic(crate::replication::Automatic),
+        /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
+        /// replicated into the locations specified.
+        UserManaged(crate::replication::UserManaged),
+    }}
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
@@ -315,23 +353,9 @@ pub struct CustomerManagedEncryption {
 #[non_exhaustive]
 pub struct ReplicationStatus {
 
-    /// Describes the replication status of a
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
-    /// automatic replication.
-    /// 
-    /// Only populated if the parent
-    /// [Secret][google.cloud.secretmanager.v1.Secret] has an automatic
-    /// replication policy.
-    pub automatic: Option<crate::replication_status::AutomaticStatus>,
-
-    /// Describes the replication status of a
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
-    /// user-managed replication.
-    /// 
-    /// Only populated if the parent
-    /// [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
-    /// replication policy.
-    pub user_managed: Option<crate::replication_status::UserManagedStatus>,
+    /// The replication status of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    pub replication_status: Option<crate::replication_status::ReplicationStatus>,
 }
 
 /// Defines additional types related to ReplicationStatus
@@ -390,7 +414,30 @@ pub mod replication_status {
             pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
         }
     }
-}
+
+    /// The replication status of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase", untagged)]
+    #[non_exhaustive]
+    pub enum ReplicationStatus {
+        /// Describes the replication status of a
+        /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
+        /// automatic replication.
+        /// 
+        /// Only populated if the parent
+        /// [Secret][google.cloud.secretmanager.v1.Secret] has an automatic
+        /// replication policy.
+        Automatic(crate::replication_status::AutomaticStatus),
+        /// Describes the replication status of a
+        /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
+        /// user-managed replication.
+        /// 
+        /// Only populated if the parent
+        /// [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
+        /// replication policy.
+        UserManaged(crate::replication_status::UserManagedStatus),
+    }}
 
 /// Describes the status of customer-managed encryption.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -438,7 +485,7 @@ pub struct Rotation {
     /// MUST  be set if
     /// [rotation_period][google.cloud.secretmanager.v1.Rotation.rotation_period]
     /// is set.
-    pub next_rotation_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub next_rotation_time: Option<String>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -451,7 +498,7 @@ pub struct Rotation {
     /// [next_rotation_time][google.cloud.secretmanager.v1.Rotation.next_rotation_time]
     /// will be advanced by this period when the service automatically sends
     /// rotation notifications.
-    pub rotation_period: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
+    pub rotation_period: Option<String>,
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the

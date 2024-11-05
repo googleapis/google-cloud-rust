@@ -16,5 +16,7 @@
 /target/
 
 # We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment. 
+# these tools in a local Python virtual environment.
 /.venv/
+
+.vscode

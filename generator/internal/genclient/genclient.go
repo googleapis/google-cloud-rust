@@ -57,6 +57,8 @@ type LanguageCodec interface {
 	// The fully qualified enum value name, as used when using the constant,
 	// variable, or enum value that hodls it.
 	FQEnumValueName(e *EnumValue, state *APIState) string
+	// OneOfType returns a string representation of a one-of field type.
+	OneOfType(o *OneOf, state *APIState) string
 	// BodyAccessor returns a string representation of the accessor used to
 	// get the body out of a request. For instance this might return `.Body()`.
 	BodyAccessor(m *Method, state *APIState) string

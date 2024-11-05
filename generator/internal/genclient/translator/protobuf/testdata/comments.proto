@@ -1,0 +1,47 @@
+syntax = "proto3";
+package test;
+
+// A test message.
+//
+// With even more of a description.
+// Maybe in more than one line.
+// And some markdown:
+// - An item
+//   - A nested item
+// - Another item
+message Request {
+  // A field.
+  //
+  // With a longer description.
+  string parent = 1;
+}
+
+// A response message.
+message Response {
+  // Yes, this also has a field.
+  string name = 1;
+
+  // Some enum.
+  //
+  // Line 1.
+  // Line 2.
+  enum Status {
+    // The first enum value description.
+	//
+	// Value Line 1.
+	// Value Line 2.
+	NOT_READY = 0;
+	// The second enum value description.
+	READY = 1;
+  }
+}
+
+// A service.
+//
+// With a longer service description.
+service Service {
+  // Some RPC.
+  //
+  // It does not do much.
+  rpc Create(Request) returns (Response);
+}

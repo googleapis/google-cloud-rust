@@ -81,7 +81,7 @@ pub struct Secret {
     pub replication: Option<crate::Replication>,
 
     /// Output only. The time at which the Secret was created.
-    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub create_time: Option<String>,
 
     /// The labels assigned to this Secret.
     /// 
@@ -102,10 +102,10 @@ pub struct Secret {
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
-    pub expire_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub expire_time: Option<String>,
 
     /// Input only. The TTL for the Secret.
-    pub ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
+    pub ttl: Option<String>,
 
     /// Optional. Etag of the currently stored Secret.
     pub etag: Option<String>,
@@ -147,7 +147,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
+    pub version_destroy_ttl: Option<String>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised Secrets.
     /// If no configuration is provided, Google-managed default encryption is used.
@@ -269,7 +269,7 @@ pub struct Rotation {
     /// years).
     /// 
     /// next_rotation_time MUST  be set if rotation_period is set.
-    pub next_rotation_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub next_rotation_time: Option<String>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -277,7 +277,7 @@ pub struct Rotation {
     /// If rotation_period is set, next_rotation_time must be set.
     /// next_rotation_time will be advanced by this period when the service
     /// automatically sends rotation notifications.
-    pub rotation_period: Option<String> /* TODO(#77) - handle .google.protobuf.Duration */,
+    pub rotation_period: Option<String>,
 }
 
 /// Request message for SecretManagerService.AddSecretVersion.
@@ -327,12 +327,12 @@ pub struct SecretVersion {
     pub name: Option<String>,
 
     /// Output only. The time at which the SecretVersion was created.
-    pub create_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub create_time: Option<String>,
 
     /// Output only. The time this SecretVersion was destroyed.
     /// Only present if state is
     /// DESTROYED.
-    pub destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub destroy_time: Option<String>,
 
     /// Output only. The current state of the SecretVersion.
     pub state: Option<String>,
@@ -353,7 +353,7 @@ pub struct SecretVersion {
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
-    pub scheduled_destroy_time: Option<String> /* TODO(#77) - handle .google.protobuf.Timestamp */,
+    pub scheduled_destroy_time: Option<String>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is

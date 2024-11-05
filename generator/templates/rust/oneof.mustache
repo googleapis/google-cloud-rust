@@ -1,0 +1,15 @@
+
+{{#DocLines}}
+/// {{{.}}}
+{{/DocLines}}
+#[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase", untagged)]
+#[non_exhaustive]
+pub enum {{NameToPascal}} {
+    {{#Fields}}
+    {{#DocLines}}
+    /// {{{.}}}
+    {{/DocLines}}
+    {{NameToPascal}}{{{FieldType}}},
+    {{/Fields}}
+}
