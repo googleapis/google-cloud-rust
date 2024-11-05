@@ -90,7 +90,7 @@ impl Checker {
     }
 
     fn load_boilerplate(filename: &str) -> Result<Vec<String>, Box<dyn Error>> {
-        let prefix = Self::comment_prefix(&filename);
+        let prefix = Self::comment_prefix(filename);
         use std::io::BufRead;
         let file = std::fs::File::open(filename)?;
         let lines = std::io::BufReader::new(file)
@@ -118,6 +118,6 @@ impl Checker {
                 return prefix.to_string();
             }
         }
-        return String::new();
+        String::new()
     }
 }

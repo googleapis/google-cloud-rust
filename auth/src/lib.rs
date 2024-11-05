@@ -352,12 +352,12 @@ mod tests {
     #[tokio::main]
     #[test]
     async fn test_refresher() {
-        if vec!["GITHUB_WORKFLOW", "GITHUB_ACTION", "GITHUB_WORKSPACE"]
+        if ["GITHUB_WORKFLOW", "GITHUB_ACTION", "GITHUB_WORKSPACE"]
             .iter()
             .all(|name| std::env::var(name).is_ok())
         {
             // TODO(#21) - disabled on GitHub Actions builds
-            return ();
+            return ;
         }
         let cred = Credential::find_default(crate::CredentialConfig {
             scopes: vec!["https://www.googleapis.com/auth/cloud-platform".into()],

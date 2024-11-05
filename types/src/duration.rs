@@ -239,8 +239,8 @@ mod test {
     #[test_case(-12, -123_456_789, "-12.123456789s"; "negative seconds and full nanos")]
     fn serialize(seconds: i64, nanos: i32, want: &str) {
         let got = serde_json::to_value(Duration {
-            seconds: seconds,
-            nanos: nanos,
+            seconds,
+            nanos,
         })
         .unwrap()
         .as_str()
