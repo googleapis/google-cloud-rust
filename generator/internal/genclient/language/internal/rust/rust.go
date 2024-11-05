@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"log/slog"
 	"strings"
+	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
@@ -237,6 +238,21 @@ func (*Codec) ToPascal(symbol string) string {
 
 func (*Codec) ToCamel(symbol string) string {
 	return EscapeKeyword(strcase.ToLowerCamel(symbol))
+}
+
+func (*Codec) FormatDocComments(documentation string) []string {
+	inBlockQuote := false
+	ss := strings.Split(documentation, "\n")
+	for i := range ss {
+		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
+		if strings.HasSuffix(ss[i], "```") {
+			if !inBlockQuote {
+				ss[i] = ss[i] + "norust"
+			}
+			inBlockQuote = !inBlockQuote
+		}
+	}
+	return ss
 }
 
 // The list of Rust keywords and reserved words can be found at:

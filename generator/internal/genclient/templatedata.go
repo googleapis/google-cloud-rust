@@ -101,7 +101,7 @@ func (s *service) NameToCamel() string {
 }
 
 func (s *service) DocLines() []string {
-	return strings.Split(s.s.Documentation, "\n")
+	return s.c.FormatDocComments(s.s.Documentation)
 }
 
 func (s *service) DefaultHost() string {
@@ -126,7 +126,7 @@ func (m *method) NameToCamel() string {
 }
 
 func (m *method) DocLines() []string {
-	return strings.Split(m.s.Documentation, "\n")
+	return m.c.FormatDocComments(m.s.Documentation)
 }
 
 func (m *method) InputTypeName() string {
@@ -227,12 +227,7 @@ func (m *message) HasNestedTypes() bool {
 }
 
 func (m *message) DocLines() []string {
-	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/33
-	ss := strings.Split(m.s.Documentation, "\n")
-	for i := range ss {
-		ss[i] = strings.TrimSpace(ss[i])
-	}
-	return ss
+	return m.c.FormatDocComments(m.s.Documentation)
 }
 
 func (m *message) IsMap() bool {
@@ -254,11 +249,7 @@ func (e *enum) NameSnakeCase() string {
 }
 
 func (e *enum) DocLines() []string {
-	ss := strings.Split(e.s.Documentation, "\n")
-	for i := range ss {
-		ss[i] = strings.TrimSpace(ss[i])
-	}
-	return ss
+	return e.c.FormatDocComments(e.s.Documentation)
 }
 
 func (e *enum) Values() []*enumValue {
@@ -280,11 +271,7 @@ type enumValue struct {
 }
 
 func (e *enumValue) DocLines() []string {
-	ss := strings.Split(e.s.Documentation, "\n")
-	for i := range ss {
-		ss[i] = strings.TrimSpace(ss[i])
-	}
-	return ss
+	return e.c.FormatDocComments(e.s.Documentation)
 }
 
 func (e *enumValue) Name() string {
@@ -317,7 +304,7 @@ func (f *field) NameToCamel() string {
 }
 
 func (f *field) DocLines() []string {
-	return strings.Split(f.s.Documentation, "\n")
+	return f.c.FormatDocComments(f.s.Documentation)
 }
 
 func (f *field) FieldType() string {

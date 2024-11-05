@@ -17,6 +17,7 @@ package golang
 import (
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
@@ -120,5 +121,50 @@ func TestEnumNames(t *testing.T) {
 	}
 	if got := c.FQEnumName(nested, api.State); got != "SecretVersion_State" {
 		t.Errorf("mismatched message name, want=SecretVersion_State, got=%s", got)
+	}
+}
+
+func TestFormatDocComments(t *testing.T) {
+	input := `Some comments describing the thing.
+
+The next line has some extra trailing whitespace:
+    
+We want to respect whitespace at the beginning, because it important in Markdown:
+- A thing
+  - A nested thing
+- The next thing
+
+Now for some fun with block quotes
+
+` + "```" + `
+Maybe they wanted to show some JSON:
+{
+  "foo": "bar"
+}
+` + "```"
+
+	want := []string{
+		"Some comments describing the thing.",
+		"",
+		"The next line has some extra trailing whitespace:",
+		"",
+		"We want to respect whitespace at the beginning, because it important in Markdown:",
+		"- A thing",
+		"  - A nested thing",
+		"- The next thing",
+		"",
+		"Now for some fun with block quotes",
+		"",
+		"```",
+		"Maybe they wanted to show some JSON:",
+		"{",
+		`  "foo": "bar"`,
+		"}",
+		"```",
+	}
+	c := &Codec{}
+	got := c.FormatDocComments(input)
+	if diff := cmp.Diff(want, got); len(diff) > 0 {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }

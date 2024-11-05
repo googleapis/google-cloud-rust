@@ -82,6 +82,15 @@ type LanguageCodec interface {
 	// "lowercase CamelCase"), applying any mangling required by the language,
 	// e.g., to avoid clashes with reserved words.
 	ToCamel(string) string
+	// Reformat ${Lang}Doc comments according to the language-specific rules.
+	// For example,
+	//   - The protos in googleapis include cross-references in the format
+	//     `[Foo][proto.package.name.Foo]`, this should become links to the
+	//     language entities, in the language documentation.
+	//   - Rust requires a `norust` annotation in all blockquotes, that is,
+	//     any ```-sections. Without this annotation Rustdoc assumes the
+	//     blockquote is an Rust code snippet and attempts to compile it.
+	FormatDocComments(string) []string
 }
 
 // GenerateRequest used to generate clients.

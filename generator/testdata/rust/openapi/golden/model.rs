@@ -441,9 +441,9 @@ pub struct ReplicaStatus {
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
 /// 
-/// service Foo {
-/// rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-/// }
+///     service Foo {
+///       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+///     }
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -559,54 +559,54 @@ pub struct SetIamPolicyRequest {
 /// 
 /// **JSON example:**
 /// 
-/// ```
-/// {
-/// "bindings": [
-/// {
-/// "role": "roles/resourcemanager.organizationAdmin",
-/// "members": [
-/// "user:mike@example.com",
-/// "group:admins@example.com",
-/// "domain:google.com",
-/// "serviceAccount:my-project-id@appspot.gserviceaccount.com"
-/// ]
-/// },
-/// {
-/// "role": "roles/resourcemanager.organizationViewer",
-/// "members": [
-/// "user:eve@example.com"
-/// ],
-/// "condition": {
-/// "title": "expirable access",
-/// "description": "Does not grant access after Sep 2020",
-/// "expression": "request.time < timestamp('2020-10-01T00:00:00.000Z')",
-/// }
-/// }
-/// ],
-/// "etag": "BwWWja0YfJA=",
-/// "version": 3
-/// }
+/// ```norust
+///     {
+///       "bindings": [
+///         {
+///           "role": "roles/resourcemanager.organizationAdmin",
+///           "members": [
+///             "user:mike@example.com",
+///             "group:admins@example.com",
+///             "domain:google.com",
+///             "serviceAccount:my-project-id@appspot.gserviceaccount.com"
+///           ]
+///         },
+///         {
+///           "role": "roles/resourcemanager.organizationViewer",
+///           "members": [
+///             "user:eve@example.com"
+///           ],
+///           "condition": {
+///             "title": "expirable access",
+///             "description": "Does not grant access after Sep 2020",
+///             "expression": "request.time < timestamp('2020-10-01T00:00:00.000Z')",
+///           }
+///         }
+///       ],
+///       "etag": "BwWWja0YfJA=",
+///       "version": 3
+///     }
 /// ```
 /// 
 /// **YAML example:**
 /// 
-/// ```
-/// bindings:
-/// - members:
-/// - user:mike@example.com
-/// - group:admins@example.com
-/// - domain:google.com
-/// - serviceAccount:my-project-id@appspot.gserviceaccount.com
-/// role: roles/resourcemanager.organizationAdmin
-/// - members:
-/// - user:eve@example.com
-/// role: roles/resourcemanager.organizationViewer
-/// condition:
-/// title: expirable access
-/// description: Does not grant access after Sep 2020
-/// expression: request.time < timestamp('2020-10-01T00:00:00.000Z')
-/// etag: BwWWja0YfJA=
-/// version: 3
+/// ```norust
+///     bindings:
+///     - members:
+///       - user:mike@example.com
+///       - group:admins@example.com
+///       - domain:google.com
+///       - serviceAccount:my-project-id@appspot.gserviceaccount.com
+///       role: roles/resourcemanager.organizationAdmin
+///     - members:
+///       - user:eve@example.com
+///       role: roles/resourcemanager.organizationViewer
+///       condition:
+///         title: expirable access
+///         description: Does not grant access after Sep 2020
+///         expression: request.time < timestamp('2020-10-01T00:00:00.000Z')
+///     etag: BwWWja0YfJA=
+///     version: 3
 /// ```
 /// 
 /// For a description of IAM and its features, see the
@@ -792,27 +792,27 @@ pub struct Binding {
 /// 
 /// Example (Comparison):
 /// 
-/// title: "Summary size limit"
-/// description: "Determines if a summary is less than 100 chars"
-/// expression: "document.summary.size() < 100"
+///     title: "Summary size limit"
+///     description: "Determines if a summary is less than 100 chars"
+///     expression: "document.summary.size() < 100"
 /// 
 /// Example (Equality):
 /// 
-/// title: "Requestor is owner"
-/// description: "Determines if requestor is the document owner"
-/// expression: "document.owner == request.auth.claims.email"
+///     title: "Requestor is owner"
+///     description: "Determines if requestor is the document owner"
+///     expression: "document.owner == request.auth.claims.email"
 /// 
 /// Example (Logic):
 /// 
-/// title: "Public documents"
-/// description: "Determine whether the document should be publicly visible"
-/// expression: "document.type != 'private' && document.type != 'internal'"
+///     title: "Public documents"
+///     description: "Determine whether the document should be publicly visible"
+///     expression: "document.type != 'private' && document.type != 'internal'"
 /// 
 /// Example (Data Manipulation):
 /// 
-/// title: "Notification string"
-/// description: "Create a notification string with a timestamp."
-/// expression: "'New message received at ' + string(document.create_time)"
+///     title: "Notification string"
+///     description: "Create a notification string with a timestamp."
+///     expression: "'New message received at ' + string(document.create_time)"
 /// 
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
@@ -852,41 +852,41 @@ pub struct Expr {
 /// 
 /// Example Policy with multiple AuditConfigs:
 /// 
-/// {
-/// "audit_configs": [
-/// {
-/// "service": "allServices",
-/// "audit_log_configs": [
-/// {
-/// "log_type": "DATA_READ",
-/// "exempted_members": [
-/// "user:jose@example.com"
-/// ]
-/// },
-/// {
-/// "log_type": "DATA_WRITE"
-/// },
-/// {
-/// "log_type": "ADMIN_READ"
-/// }
-/// ]
-/// },
-/// {
-/// "service": "sampleservice.googleapis.com",
-/// "audit_log_configs": [
-/// {
-/// "log_type": "DATA_READ"
-/// },
-/// {
-/// "log_type": "DATA_WRITE",
-/// "exempted_members": [
-/// "user:aliya@example.com"
-/// ]
-/// }
-/// ]
-/// }
-/// ]
-/// }
+///     {
+///       "audit_configs": [
+///         {
+///           "service": "allServices",
+///           "audit_log_configs": [
+///             {
+///               "log_type": "DATA_READ",
+///               "exempted_members": [
+///                 "user:jose@example.com"
+///               ]
+///             },
+///             {
+///               "log_type": "DATA_WRITE"
+///             },
+///             {
+///               "log_type": "ADMIN_READ"
+///             }
+///           ]
+///         },
+///         {
+///           "service": "sampleservice.googleapis.com",
+///           "audit_log_configs": [
+///             {
+///               "log_type": "DATA_READ"
+///             },
+///             {
+///               "log_type": "DATA_WRITE",
+///               "exempted_members": [
+///                 "user:aliya@example.com"
+///               ]
+///             }
+///           ]
+///         }
+///       ]
+///     }
 /// 
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
@@ -908,19 +908,19 @@ pub struct AuditConfig {
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 /// 
-/// {
-/// "audit_log_configs": [
-/// {
-/// "log_type": "DATA_READ",
-/// "exempted_members": [
-/// "user:jose@example.com"
-/// ]
-/// },
-/// {
-/// "log_type": "DATA_WRITE"
-/// }
-/// ]
-/// }
+///     {
+///       "audit_log_configs": [
+///         {
+///           "log_type": "DATA_READ",
+///           "exempted_members": [
+///             "user:jose@example.com"
+///           ]
+///         },
+///         {
+///           "log_type": "DATA_WRITE"
+///         }
+///       ]
+///     }
 /// 
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
