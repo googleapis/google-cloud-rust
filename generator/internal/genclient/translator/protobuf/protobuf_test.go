@@ -16,6 +16,8 @@ package protobuf
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/bufbuild/protocompile"
@@ -28,59 +30,7 @@ import (
 )
 
 func TestScalar(t *testing.T) {
-	contents := `
-syntax = "proto3";
-package test;
-
-// A test message.
-message Fake {
-	// A singular field tag = 1
-    double   f_double     = 1;
-	
-	// A singular field tag = 2
-    float    f_float      = 2;
-	
-	// A singular field tag = 3
-    int64    f_int64      = 3;
-	
-	// A singular field tag = 4
-    uint64   f_uint64     = 4;
-	
-	// A singular field tag = 5
-    int32    f_int32      = 5;
-	
-	// A singular field tag = 6
-    fixed64  f_fixed64    = 6;
-	
-	// A singular field tag = 7
-    fixed32  f_fixed32    = 7;
-	
-	// A singular field tag = 8
-    bool     f_bool       = 8;
-	
-	// A singular field tag = 9
-    string   f_string     = 9;
-	
-	// A singular field tag = 12
-    bytes    f_bytes      = 12;
-	
-	// A singular field tag = 13
-    uint32   f_uint32     = 13;
-	
-	// A singular field tag = 15
-    sfixed32 f_sfixed32   = 15;
-	
-	// A singular field tag = 16
-    sfixed64 f_sfixed64   = 16;
-	
-	// A singular field tag = 17
-    sint32   f_sint32     = 17;
-	
-	// A singular field tag = 18
-    sint64   f_sint64     = 18;
-}
-`
-	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
+	api := makeAPI(newCodeGeneratorRequest(t, "scalar.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -200,27 +150,7 @@ message Fake {
 }
 
 func TestScalarArray(t *testing.T) {
-	contents := `
-syntax = "proto3";
-package test;
-
-// A test message.
-message Fake {
-    // A repeated field tag = 1
-    repeated double   f_double     = 1;
-		
-	// A repeated field tag = 3
-    repeated int64    f_int64      = 3;
-	
-	// A repeated field tag = 9
-    repeated string   f_string     = 9;
-	
-	// A repeated field tag = 12
-    repeated bytes    f_bytes      = 12;
-}
-`
-
-	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
+	api := makeAPI(newCodeGeneratorRequest(t, "scalar_array.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -267,26 +197,7 @@ message Fake {
 }
 
 func TestScalarOptional(t *testing.T) {
-	contents := `
-syntax = "proto3";
-package test;
-
-// A test message.
-message Fake {
-    // An optional field tag = 1
-    optional double   f_double     = 1;
-		
-	// An optional field tag = 3
-    optional int64    f_int64      = 3;
-	
-	// An optional field tag = 9
-    optional string   f_string     = 9;
-	
-	// An optional field tag = 12
-    optional bytes    f_bytes      = 12;
-}
-`
-	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
+	api := makeAPI(newCodeGeneratorRequest(t, "scalar_optional.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -333,56 +244,7 @@ message Fake {
 }
 
 func TestComments(t *testing.T) {
-	contents := `
-syntax = "proto3";
-package test;
-
-// A test message.
-//
-// With even more of a description.
-// Maybe in more than one line.
-// And some markdown:
-// - An item
-//   - A nested item
-// - Another item
-message Request {
-  // A field.
-  //
-  // With a longer description.
-  string parent = 1;
-}
-
-// A response message.
-message Response {
-  // Yes, this also has a field.
-  string name = 1;
-
-  // Some enum.
-  //
-  // Line 1.
-  // Line 2.
-  enum Status {
-    // The first enum value description.
-	//
-	// Value Line 1.
-	// Value Line 2.
-	NOT_READY = 0;
-	// The second enum value description.
-	READY = 1;
-  }
-}
-
-// A service.
-//
-// With a longer service description.
-service Service {
-  // Some RPC.
-  //
-  // It does not do much.
-  rpc Create(Request) returns (Response);
-}
-`
-	api := makeAPI(newCodeGeneratorRequest(t, "resources.proto", contents))
+	api := makeAPI(newCodeGeneratorRequest(t, "comments.proto"))
 
 	message, ok := api.State.MessageByID[".test.Request"]
 	if !ok {
@@ -443,17 +305,21 @@ service Service {
 	})
 }
 
-func newCodeGeneratorRequest(t *testing.T, name, contents string) *pluginpb.CodeGeneratorRequest {
+func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
+	contents, err := os.ReadFile(filepath.Join("testdata", filename))
+	if err != nil {
+		t.Fatal(err)
+	}
 	accessor := protocompile.SourceAccessorFromMap(map[string]string{
-		name: contents,
+		filename: string(contents),
 	})
 	compiler := protocompile.Compiler{
 		Resolver:       &protocompile.SourceResolver{Accessor: accessor},
 		MaxParallelism: 1,
 		SourceInfoMode: protocompile.SourceInfoStandard,
 	}
-	files, err := compiler.Compile(context.Background(), name)
+	files, err := compiler.Compile(context.Background(), filename)
 	if err != nil {
 		t.Fatalf("error compiling proto %q", err)
 	}
@@ -462,7 +328,7 @@ func newCodeGeneratorRequest(t *testing.T, name, contents string) *pluginpb.Code
 	}
 	descriptor := protodesc.ToFileDescriptorProto(files[0])
 	return &pluginpb.CodeGeneratorRequest{
-		FileToGenerate:        []string{name},
+		FileToGenerate:        []string{filename},
 		ProtoFile:             []*descriptorpb.FileDescriptorProto{descriptor},
 		SourceFileDescriptors: []*descriptorpb.FileDescriptorProto{descriptor},
 		CompilerVersion:       newCompilerVersion(),
