@@ -13,36 +13,33 @@
 # limitations under the License.
 
 name: Rust SDK
-
 on: [push, pull_request]
-
 jobs:
   build:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: [ '1.81', '1.70' ]
+        rust-version: ['1.81', '1.70']
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cargo
-        key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-    - name: Setup Rust ${{ matrix.rust-version }}
-      run: rustup toolchain install ${{ matrix.rust-version }}
-    - name: Display Cargo version
-      run: cargo version
-    - name: Display rustc version
-      run: rustc --version
-    - run: cargo test
-
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ matrix.rust-version }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: cargo test
   lint:
-      runs-on: ubuntu-24.04
-      strategy:
-        matrix:
-          rust-version: [ '1.81' ]
-      steps:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['1.81']
+    steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
