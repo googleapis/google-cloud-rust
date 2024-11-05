@@ -20,9 +20,9 @@ edition = "2021"
 [dependencies]
 serde = "1.0.214"
 serde_with = "3.11.0"
+serde_json = "1.0.132"
 time = { version = "0.3.36", features = ["formatting", "parsing"] }
 
 [dev-dependencies]
 serde = { version = "1.0.214", features = ["serde_derive"] }
-serde_json = "1.0.132"
 test-case = "3.3.1"
