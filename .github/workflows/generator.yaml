@@ -13,19 +13,15 @@
 # limitations under the License.
 
 name: Client Generator
-
 on: [push, pull_request]
-
 permissions:
   contents: read
-
-
 jobs:
   generator-build:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        go-version: [ '1.23' ]
+        go-version: ['1.23']
     defaults:
       run:
         working-directory: generator
