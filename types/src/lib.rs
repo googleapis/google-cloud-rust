@@ -14,5 +14,7 @@
 
 mod duration;
 pub use crate::duration::*;
+mod field_mask;
+pub use crate::field_mask::*;
 mod timestamp;
 pub use crate::timestamp::*;
