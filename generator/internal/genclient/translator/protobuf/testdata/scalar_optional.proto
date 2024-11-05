@@ -17,15 +17,15 @@ package test;
 
 // A test message.
 message Fake {
-    // An optional field tag = 1
-    optional double f_double = 1;
-		
-	// An optional field tag = 3
-    optional int64 f_int64 = 3;
-	
-	// An optional field tag = 9
-    optional string f_string = 9;
-	
-	// An optional field tag = 12
-    optional bytes f_bytes = 12;
+  // An optional field tag = 1
+  optional double f_double = 1;
+
+  // An optional field tag = 3
+  optional int64 f_int64 = 3;
+
+  // An optional field tag = 9
+  optional string f_string = 9;
+
+  // An optional field tag = 12
+  optional bytes f_bytes = 12;
 }
