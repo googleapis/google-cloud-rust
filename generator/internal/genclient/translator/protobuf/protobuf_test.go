@@ -375,6 +375,39 @@ func TestOneOfs(t *testing.T) {
 	})
 }
 
+func TestObjectFields(t *testing.T) {
+	api := makeAPI(newCodeGeneratorRequest(t, "object_fields.proto"))
+
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name: "Fake",
+		ID:   ".test.Fake",
+		Fields: []*genclient.Field{
+			{
+				Repeated: false,
+				Optional: true,
+				Name:     "singular_object",
+				JSONName: "singularObject",
+				ID:       ".test.Fake.singular_object",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".test.Other",
+			},
+			{
+				Repeated: true,
+				Optional: false,
+				Name:     "repeated_object",
+				JSONName: "repeatedObject",
+				ID:       ".test.Fake.repeated_object",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".test.Other",
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	contents, err := os.ReadFile(filepath.Join("testdata", filename))
