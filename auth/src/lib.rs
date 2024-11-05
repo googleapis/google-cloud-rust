@@ -357,7 +357,7 @@ mod tests {
             .all(|name| std::env::var(name).is_ok())
         {
             // TODO(#21) - disabled on GitHub Actions builds
-            return ;
+            return;
         }
         let cred = Credential::find_default(crate::CredentialConfig {
             scopes: vec!["https://www.googleapis.com/auth/cloud-platform".into()],
