@@ -179,6 +179,9 @@ func normalizeTypes(in *descriptorpb.FieldDescriptorProto, field *genclient.Fiel
 		field.TypezID = in.GetTypeName()
 	case descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:
 		field.TypezID = in.GetTypeName()
+		// Repeated fields are not optional, they can be empty, but always have
+		// presence.
+		field.Optional = !field.Repeated
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()
 	default:
