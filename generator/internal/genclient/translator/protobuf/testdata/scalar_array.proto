@@ -17,15 +17,15 @@ package test;
 
 // A test message.
 message Fake {
-    // A repeated field tag = 1
-    repeated double f_double = 1;
-		
-	// A repeated field tag = 3
-    repeated int64 f_int64 = 3;
-	
-	// A repeated field tag = 9
-    repeated string f_string = 9;
-	
-	// A repeated field tag = 12
-    repeated bytes f_bytes = 12;
+  // A repeated field tag = 1
+  repeated double f_double = 1;
+
+  // A repeated field tag = 3
+  repeated int64 f_int64 = 3;
+
+  // A repeated field tag = 9
+  repeated string f_string = 9;
+
+  // A repeated field tag = 12
+  repeated bytes f_bytes = 12;
 }

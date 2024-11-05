@@ -43,3 +43,15 @@ jobs:
     - run: go test ./...
     - name: Detect Changes
       run: git diff --exit-code
+
+  format-protos:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix Proto files Formatting
+        run: |
+          apt update && apt install -y clang-format
+          git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
+            xargs -0 -r -P "$(nproc)" -n 50 clang-format
+      - name: Detect Changes
+        run: git diff --exit-code

@@ -41,12 +41,12 @@ message Response {
   // Line 2.
   enum Status {
     // The first enum value description.
-	//
-	// Value Line 1.
-	// Value Line 2.
-	NOT_READY = 0;
-	// The second enum value description.
-	READY = 1;
+    //
+    // Value Line 1.
+    // Value Line 2.
+    NOT_READY = 0;
+    // The second enum value description.
+    READY = 1;
   }
 }
 
