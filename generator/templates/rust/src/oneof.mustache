@@ -17,7 +17,7 @@ limitations under the License.
 {{#DocLines}}
 /// {{{.}}}
 {{/DocLines}}
-#[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase", untagged)]
 #[non_exhaustive]
 pub enum {{NameToPascal}} {
