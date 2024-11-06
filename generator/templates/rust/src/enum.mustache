@@ -17,7 +17,7 @@ limitations under the License.
 {{#DocLines}}
 /// {{{.}}}
 {{/DocLines}}
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct {{Name}}(String);
 
 /// Useful constants to work with [{{Name}}]({{Name}})

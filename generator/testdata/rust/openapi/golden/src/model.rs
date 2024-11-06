@@ -2,7 +2,7 @@
 
 
 /// The response message for Locations.ListLocations.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
@@ -15,7 +15,7 @@ pub struct ListLocationsResponse {
 }
 
 /// A resource that represents a Google Cloud location.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Location {
@@ -42,7 +42,7 @@ pub struct Location {
 }
 
 /// Response message for SecretManagerService.ListSecrets.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
@@ -65,7 +65,7 @@ pub struct ListSecretsResponse {
 /// 
 /// A Secret is made up of zero or more SecretVersions that
 /// represent the secret data.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
@@ -157,7 +157,7 @@ pub struct Secret {
 }
 
 /// A policy that defines the replication and encryption configuration of data.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
@@ -171,7 +171,7 @@ pub struct Replication {
 
 /// A replication policy that replicates the Secret payload without any
 /// restrictions.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Automatic {
@@ -187,7 +187,7 @@ pub struct Automatic {
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
@@ -208,7 +208,7 @@ pub struct CustomerManagedEncryption {
 
 /// A replication policy that replicates the Secret payload into the
 /// locations specified in Secret.replication.user_managed.replicas
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UserManaged {
@@ -220,7 +220,7 @@ pub struct UserManaged {
 }
 
 /// Represents a Replica for this Secret.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replica {
@@ -241,7 +241,7 @@ pub struct Replica {
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
@@ -257,7 +257,7 @@ pub struct Topic {
 /// The rotation time and period for a Secret. At next_rotation_time, Secret
 /// Manager will send a Pub/Sub notification to the topics configured on the
 /// Secret. Secret.topics must be set to configure rotation.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
@@ -279,7 +279,7 @@ pub struct Rotation {
 }
 
 /// Request message for SecretManagerService.AddSecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
@@ -290,7 +290,7 @@ pub struct AddSecretVersionRequest {
 
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a SecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
@@ -312,7 +312,7 @@ pub struct SecretPayload {
 }
 
 /// A secret version resource in the Secret Manager API.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
@@ -360,7 +360,7 @@ pub struct SecretVersion {
 }
 
 /// The replication status of a SecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
@@ -384,7 +384,7 @@ pub struct ReplicationStatus {
 /// 
 /// Only populated if the parent Secret has an automatic replication
 /// policy.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AutomaticStatus {
@@ -395,7 +395,7 @@ pub struct AutomaticStatus {
 }
 
 /// Describes the status of customer-managed encryption.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
@@ -411,7 +411,7 @@ pub struct CustomerManagedEncryptionStatus {
 /// 
 /// Only populated if the parent Secret has a user-managed replication
 /// policy.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UserManagedStatus {
@@ -421,7 +421,7 @@ pub struct UserManagedStatus {
 }
 
 /// Describes the status of a user-managed replica for the SecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicaStatus {
@@ -442,14 +442,14 @@ pub struct ReplicaStatus {
 ///     service Foo {
 ///       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
 ///     }
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Empty {
 }
 
 /// Response message for SecretManagerService.ListSecretVersions.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
@@ -468,7 +468,7 @@ pub struct ListSecretVersionsResponse {
 }
 
 /// Response message for SecretManagerService.AccessSecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
@@ -483,7 +483,7 @@ pub struct AccessSecretVersionResponse {
 }
 
 /// Request message for SecretManagerService.DisableSecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
@@ -495,7 +495,7 @@ pub struct DisableSecretVersionRequest {
 }
 
 /// Request message for SecretManagerService.EnableSecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
@@ -507,7 +507,7 @@ pub struct EnableSecretVersionRequest {
 }
 
 /// Request message for SecretManagerService.DestroySecretVersion.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
@@ -519,7 +519,7 @@ pub struct DestroySecretVersionRequest {
 }
 
 /// Request message for `SetIamPolicy` method.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
@@ -609,7 +609,7 @@ pub struct SetIamPolicyRequest {
 /// 
 /// For a description of IAM and its features, see the
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Policy {
@@ -671,7 +671,7 @@ pub struct Policy {
 }
 
 /// Associates `members`, or principals, with a `role`.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Binding {
@@ -815,7 +815,7 @@ pub struct Binding {
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
@@ -889,7 +889,7 @@ pub struct Expr {
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
 /// `aliya@example.com` from DATA_WRITE logging.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfig {
@@ -922,7 +922,7 @@ pub struct AuditConfig {
 /// 
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditLogConfig {
@@ -937,7 +937,7 @@ pub struct AuditLogConfig {
 }
 
 /// Request message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
@@ -950,7 +950,7 @@ pub struct TestIamPermissionsRequest {
 }
 
 /// Response message for `TestIamPermissions` method.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
