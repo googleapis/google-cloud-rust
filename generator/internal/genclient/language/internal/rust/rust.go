@@ -286,6 +286,13 @@ func (*Codec) FormatDocComments(documentation string) []string {
 			}
 			inBlockQuote = !inBlockQuote
 		}
+		// Add the comments here. Otherwise it is harder to ensure empty
+		// comments do not have a trailing whitespace.
+		if len(ss[i]) > 0 {
+			ss[i] = fmt.Sprintf("/// %s", ss[i])
+		} else {
+			ss[i] = "///"
+		}
 	}
 	return ss
 }

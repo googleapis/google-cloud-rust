@@ -42,7 +42,7 @@ impl Client {
     {{#Services}}
 
     {{#DocLines}}
-    /// {{{.}}}
+    {{{.}}}
     {{/DocLines}}
     pub fn {{NameToSnake}}(&self) -> {{NameToPascal}} {
         {{NameToPascal}} {
@@ -55,7 +55,7 @@ impl Client {
 
 {{#Services}}
 {{#DocLines}}
-/// {{{.}}}
+{{{.}}}
 {{/DocLines}}
 #[derive(Debug)]
 pub struct {{NameToPascal}} {
@@ -67,7 +67,7 @@ impl {{NameToPascal}} {
     {{#Methods}}
 
     {{#DocLines}}
-    /// {{{.}}}
+    {{{.}}}
     {{/DocLines}}
     pub async fn {{NameToSnake}}(&self, req: model::{{InputTypeName}}) -> Result<model::{{OutputTypeName}}, Box<dyn std::error::Error>> {
         let client = self.client.inner.clone();

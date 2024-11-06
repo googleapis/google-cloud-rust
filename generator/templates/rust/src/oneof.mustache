@@ -15,7 +15,7 @@ limitations under the License.
 }}
 
 {{#DocLines}}
-/// {{{.}}}
+{{{.}}}
 {{/DocLines}}
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase", untagged)]
@@ -23,7 +23,7 @@ limitations under the License.
 pub enum {{NameToPascal}} {
     {{#Fields}}
     {{#DocLines}}
-    /// {{{.}}}
+    {{{.}}}
     {{/DocLines}}
     {{NameToPascal}}{{{FieldType}}},
     {{/Fields}}

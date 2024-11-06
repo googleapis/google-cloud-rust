@@ -26,10 +26,10 @@ impl Client {
     }
 
     /// Secret Manager Service
-    /// 
+    ///
     /// Manages secrets and operations using those secrets. Implements a REST
     /// model with the following objects:
-    /// 
+    ///
     /// * [Secret][google.cloud.secretmanager.v1.Secret]
     /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
     pub fn secret_manager_service(&self) -> SecretManagerService {
@@ -41,10 +41,10 @@ impl Client {
 }
 
 /// Secret Manager Service
-/// 
+///
 /// Manages secrets and operations using those secrets. Implements a REST
 /// model with the following objects:
-/// 
+///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
 #[derive(Debug)]
