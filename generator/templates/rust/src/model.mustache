@@ -16,7 +16,7 @@ limitations under the License.
 {{^IsMap}}
 
 {{#DocLines}}
-/// {{{.}}}
+{{{.}}}
 {{/DocLines}}
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -25,14 +25,14 @@ pub struct {{Name}} {
     {{#BasicFields}}
 
     {{#DocLines}}
-    /// {{{.}}}
+    {{{.}}}
     {{/DocLines}}
     pub {{NameToSnake}}: {{{FieldType}}},
     {{/BasicFields}}
     {{#ExplicitOneOfs}}
 
     {{#DocLines}}
-    /// {{{.}}}
+    {{{.}}}
     {{/DocLines}}
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
