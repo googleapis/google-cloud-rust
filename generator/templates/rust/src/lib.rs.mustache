@@ -91,7 +91,8 @@ impl {{NameToPascal}} {
         if !res.status().is_success() {
             return Err("sorry the api you are looking for is not available, please try again".into());
         }
-        res.json::<model::{{OutputTypeName}}>.await?
+        let response = res.json::<model::{{OutputTypeName}}>().await?;
+        Ok(response)
     }
     {{/Methods}}
 }
