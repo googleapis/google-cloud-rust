@@ -39,6 +39,17 @@ type templateData struct {
 	c LanguageCodec
 }
 
+func (t *templateData) Name() string {
+	return t.s.Name
+}
+
+func (t *templateData) Title() string {
+	return t.s.Title
+}
+func (t *templateData) Description() string {
+	return t.s.Description
+}
+
 func (t *templateData) Services() []*service {
 	return mapSlice(t.s.Services, func(s *Service) *service {
 		return &service{

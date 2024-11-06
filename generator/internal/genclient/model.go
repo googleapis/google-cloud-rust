@@ -50,8 +50,12 @@ const (
 
 // API represents and API surface.
 type API struct {
-	// Name of the API.
+	// Name of the API (e.g. secretmanager).
 	Name string
+	// The API Title (e.g. "Secret Manager API" or "Cloud Spanner API").
+	Title string
+	// The API Description
+	Description string
 	// Services are a collection of services that make up the API.
 	Services []*Service
 	// Messages are a collection of messages used to process request and

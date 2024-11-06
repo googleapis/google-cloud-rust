@@ -56,7 +56,7 @@ func TestAllOf(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -119,7 +119,7 @@ func TestBasicTypes(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -178,7 +178,7 @@ func TestArrayTypes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -234,7 +234,7 @@ func TestSimpleObject(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -279,7 +279,7 @@ func TestAny(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
@@ -312,7 +312,7 @@ func TestMapString(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -346,7 +346,7 @@ func TestMapInteger(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
@@ -368,7 +368,7 @@ func TestMakeAPI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(model)
+	api, err := makeAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}

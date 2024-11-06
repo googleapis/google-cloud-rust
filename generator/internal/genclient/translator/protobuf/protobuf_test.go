@@ -24,18 +24,36 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-const testAPIName = "testAPI"
+func TestInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Stores sensitive data such as API keys, passwords, and certificates.\nProvides convenience while improving security.",
+			Overview: "Secret Manager Overview",
+		},
+	}
+
+	api := makeAPI(serviceConfig, newCodeGeneratorRequest(t, "scalar.proto"))
+	if api.Name != "secretmanager" {
+		t.Errorf("want = %q; got = %q", "secretmanager", api.Name)
+	}
+	if api.Title != serviceConfig.Title {
+		t.Errorf("want = %q; got = %q", serviceConfig.Title, api.Name)
+	}
+	if diff := cmp.Diff(api.Description, serviceConfig.Documentation.Summary); len(diff) > 0 {
+		t.Errorf("description mismatch (-want, +got):\n%s", diff)
+	}
+}
 
 func TestScalar(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar.proto"))
-	if api.Name != testAPIName {
-		t.Errorf("want = %q; got = %q", testAPIName, api.Name)
-	}
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -155,7 +173,7 @@ func TestScalar(t *testing.T) {
 }
 
 func TestScalarArray(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar_array.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar_array.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -202,7 +220,7 @@ func TestScalarArray(t *testing.T) {
 }
 
 func TestScalarOptional(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "scalar_optional.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar_optional.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -249,7 +267,7 @@ func TestScalarOptional(t *testing.T) {
 }
 
 func TestComments(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "comments.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "comments.proto"))
 
 	message, ok := api.State.MessageByID[".test.Request"]
 	if !ok {
@@ -311,7 +329,7 @@ func TestComments(t *testing.T) {
 }
 
 func TestOneOfs(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "oneofs.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -381,7 +399,7 @@ func TestOneOfs(t *testing.T) {
 }
 
 func TestObjectFields(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "object_fields.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "object_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -414,7 +432,7 @@ func TestObjectFields(t *testing.T) {
 }
 
 func TestMapFields(t *testing.T) {
-	api := makeAPI(testAPIName, newCodeGeneratorRequest(t, "map_fields.proto"))
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "map_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
