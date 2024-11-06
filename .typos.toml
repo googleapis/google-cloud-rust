@@ -14,7 +14,7 @@
 
 [files]
 extend-exclude = [
-    # The test data have typos, or at least uncommon spelling. We do not care
-    # about them as they are not customer visible.
-    "generator/**/testdata/**",
+  # The test data have typos, or at least uncommon spelling. We do not care
+  # about them as they are not customer visible.
+  "generator/**/testdata/**",
 ]
