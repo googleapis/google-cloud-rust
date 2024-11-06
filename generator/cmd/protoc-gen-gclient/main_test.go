@@ -15,8 +15,10 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"os"
+	"os/exec"
 	"testing"
 )
 
@@ -33,5 +35,13 @@ func TestRun_Rust(t *testing.T) {
 	)
 	if err := run(os.Stdin, os.Stdout, inputPath, outDir, templateDir); err != nil {
 		t.Fatal(err)
+	}
+
+	cmd := exec.Command("cargo", "fmt", "--manifest-path", outDir+"/Cargo.toml")
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+		}
+		t.Fatalf("%v: %v\n%s", cmd, err, output)
 	}
 }

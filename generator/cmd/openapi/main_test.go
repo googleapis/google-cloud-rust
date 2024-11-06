@@ -15,8 +15,10 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"os"
+	"os/exec"
 	"testing"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/translator/openapi"
@@ -30,14 +32,23 @@ func TestMain(m *testing.M) {
 func TestRun_Rust(t *testing.T) {
 	const (
 		inputPath = "../../testdata/openapi/secretmanager_openapi_v1.json"
+		outDir    = "../../testdata/rust/openapi/golden"
 	)
 	options := &openapi.Options{
 		Language:      "rust",
-		OutDir:        "../../testdata/rust/openapi/golden",
+		OutDir:        outDir,
 		TemplateDir:   "../../templates",
 		ServiceConfig: "../../testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
 	}
 	if err := run(inputPath, options); err != nil {
 		t.Fatal(err)
+	}
+
+	cmd := exec.Command("cargo", "fmt", "--manifest-path", outDir+"/Cargo.toml")
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+		}
+		t.Fatalf("%v: %v\n%s", cmd, err, output)
 	}
 }

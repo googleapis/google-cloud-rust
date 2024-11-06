@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::sync::Arc;
 
 pub mod model;
@@ -25,4 +27,3 @@ impl Client {
         }
     }
 }
-

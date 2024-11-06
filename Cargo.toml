@@ -15,4 +15,10 @@
 [workspace]
 resolver = "2"
 
-members = ["auth", "tools/check-copyright", "types"]
+members = [
+  "auth",
+  "tools/check-copyright",
+  "types",
+  "generator/testdata/rust/openapi/golden",
+  "generator/testdata/rust/gclient/golden",
+]

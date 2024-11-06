@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use std::sync::Arc;
 
 pub mod model;
@@ -54,44 +56,49 @@ pub struct SecretManagerService {
 }
 
 impl SecretManagerService {
-
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    pub async fn create_secret(&self, req: model::CreateSecretRequest) -> Result<model::Secret, Box<dyn std::error::Error>> {
+    pub async fn create_secret(
+        &self,
+        req: model::CreateSecretRequest,
+    ) -> Result<model::Secret, Box<dyn std::error::Error>> {
         let client = self.client.inner.clone();
-        let res = client.http_client
-            .post(format!(
-               "{}/v1/{}/secrets",
-               self.base_path,
-               req.parent,
-            ))
+        let res = client
+            .http_client
+            .post(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
             .query(&[("alt", "json")])
             .query(&[("secretId", req.secret_id.as_str())])
             .bearer_auth(&client.token)
             .json(&req.secret)
-            .send().await?;
+            .send()
+            .await?;
         if !res.status().is_success() {
-            return Err("sorry the api you are looking for is not available, please try again".into());
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
         }
         let response = res.json::<model::Secret>().await?;
         Ok(response)
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
-    pub async fn get_secret(&self, req: model::GetSecretRequest) -> Result<model::Secret, Box<dyn std::error::Error>> {
+    pub async fn get_secret(
+        &self,
+        req: model::GetSecretRequest,
+    ) -> Result<model::Secret, Box<dyn std::error::Error>> {
         let client = self.client.inner.clone();
-        let res = client.http_client
-            .get(format!(
-               "{}/v1/{}",
-               self.base_path,
-               req.name,
-            ))
+        let res = client
+            .http_client
+            .get(format!("{}/v1/{}", self.base_path, req.name,))
             .query(&[("alt", "json")])
             .query(&[("name", req.name.as_str())])
             .bearer_auth(&client.token)
-            .send().await?;
+            .send()
+            .await?;
         if !res.status().is_success() {
-            return Err("sorry the api you are looking for is not available, please try again".into());
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
         }
         let response = res.json::<model::Secret>().await?;
         Ok(response)
