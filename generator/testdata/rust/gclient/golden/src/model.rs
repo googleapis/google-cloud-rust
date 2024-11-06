@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use serde::{Deserialize, Serialize};
+
 
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is a logical secret whose
 /// value and versions can be accessed.
@@ -7,7 +9,7 @@
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is made up of zero or more
 /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] that represent
 /// the secret data.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
@@ -127,7 +129,7 @@ pub mod secret {
     /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
     /// is recommended for granting time-based permissions because the operation
     /// can be reversed.
-    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Debug, PartialEq, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum Expiration {
@@ -142,7 +144,7 @@ pub mod secret {
 }
 
 /// A secret version resource in the Secret Manager API.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
@@ -207,7 +209,7 @@ pub mod secret_version {
     /// The state of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion], indicating if
     /// it can be accessed.
-    #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
     pub struct State(String);
 
     /// Useful constants to work with [State](State)
@@ -235,7 +237,7 @@ pub mod secret_version {
 }
 
 /// A policy that defines the replication and encryption configuration of data.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
@@ -250,7 +252,7 @@ pub mod replication {
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
     /// restrictions.
-    #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Automatic {
@@ -270,7 +272,7 @@ pub mod replication {
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
     /// specified in [Secret.replication.user_managed.replicas][]
-    #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManaged {
@@ -287,7 +289,7 @@ pub mod replication {
 
         /// Represents a Replica for this
         /// [Secret][google.cloud.secretmanager.v1.Secret].
-        #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, Default, Deserialize, Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Replica {
@@ -310,7 +312,7 @@ pub mod replication {
     }
 
     /// The replication policy for this secret.
-    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Debug, PartialEq, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum Replication {
@@ -325,7 +327,7 @@ pub mod replication {
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
@@ -348,7 +350,7 @@ pub struct CustomerManagedEncryption {
 
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
@@ -367,7 +369,7 @@ pub mod replication_status {
     /// 
     /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
     /// has an automatic replication policy.
-    #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AutomaticStatus {
@@ -384,7 +386,7 @@ pub mod replication_status {
     /// 
     /// Only populated if the parent [Secret][google.cloud.secretmanager.v1.Secret]
     /// has a user-managed replication policy.
-    #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+    #[derive(Clone, Debug, Default, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManagedStatus {
@@ -399,7 +401,7 @@ pub mod replication_status {
 
         /// Describes the status of a user-managed replica for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-        #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+        #[derive(Clone, Debug, Default, Deserialize, Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct ReplicaStatus {
@@ -417,7 +419,7 @@ pub mod replication_status {
 
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[derive(Debug, PartialEq, Deserialize, Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum ReplicationStatus {
@@ -441,7 +443,7 @@ pub mod replication_status {
 }
 
 /// Describes the status of customer-managed encryption.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
@@ -454,7 +456,7 @@ pub struct CustomerManagedEncryptionStatus {
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
@@ -472,7 +474,7 @@ pub struct Topic {
 /// Manager will send a Pub/Sub notification to the topics configured on the
 /// Secret. [Secret.topics][google.cloud.secretmanager.v1.Secret.topics] must be
 /// set to configure rotation.
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
@@ -505,7 +507,7 @@ pub struct Rotation {
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
@@ -534,7 +536,7 @@ pub struct SecretPayload {
 
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
@@ -558,7 +560,7 @@ pub struct CreateSecretRequest {
 
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretRequest {
