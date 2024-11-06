@@ -131,6 +131,8 @@ func Generate(req *GenerateRequest) (*Output, error) {
 			return err
 		}
 		if d.IsDir() {
+			dn := filepath.Join(req.outDir(), strings.TrimPrefix(path, root))
+			os.MkdirAll(dn, 0777) // Ignore errors
 			return nil
 		}
 		if filepath.Ext(path) != ".mustache" {
