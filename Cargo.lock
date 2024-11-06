@@ -134,6 +134,9 @@ name = "bytes"
 version = "1.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ac0150caa2ae65ca5bd83f25c7de183dea78d4d366469f148435e2acfbad0da"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "cc"
@@ -1415,6 +1418,7 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 name = "types"
 version = "0.1.0"
 dependencies = [
+ "bytes",
  "serde",
  "serde_json",
  "serde_with",
