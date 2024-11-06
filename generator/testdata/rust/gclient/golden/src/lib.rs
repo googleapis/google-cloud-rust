@@ -73,7 +73,8 @@ impl SecretManagerService {
         if !res.status().is_success() {
             return Err("sorry the api you are looking for is not available, please try again".into());
         }
-        res.json::<model::Secret>.await?
+        let response = res.json::<model::Secret>().await?;
+        Ok(response)
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
@@ -92,6 +93,7 @@ impl SecretManagerService {
         if !res.status().is_success() {
             return Err("sorry the api you are looking for is not available, please try again".into());
         }
-        res.json::<model::Secret>.await?
+        let response = res.json::<model::Secret>().await?;
+        Ok(response)
     }
 }
