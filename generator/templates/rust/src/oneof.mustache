@@ -2,7 +2,7 @@
 {{#DocLines}}
 /// {{{.}}}
 {{/DocLines}}
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase", untagged)]
 #[non_exhaustive]
 pub enum {{NameToPascal}} {

@@ -129,7 +129,7 @@ pub mod secret {
     /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
     /// is recommended for granting time-based permissions because the operation
     /// can be reversed.
-    #[derive(Debug, PartialEq, Deserialize, Serialize)]
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum Expiration {
@@ -140,8 +140,7 @@ pub mod secret {
         /// Input only. The TTL for the
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         Ttl(gax_placeholder::Duration),
-    }
-}
+    }}
 
 /// A secret version resource in the Secret Manager API.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -312,7 +311,7 @@ pub mod replication {
     }
 
     /// The replication policy for this secret.
-    #[derive(Debug, PartialEq, Deserialize, Serialize)]
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum Replication {
@@ -322,8 +321,7 @@ pub mod replication {
         /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
         /// replicated into the locations specified.
         UserManaged(crate::replication::UserManaged),
-    }
-}
+    }}
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
@@ -419,7 +417,7 @@ pub mod replication_status {
 
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    #[derive(Debug, PartialEq, Deserialize, Serialize)]
+    #[derive(Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase", untagged)]
     #[non_exhaustive]
     pub enum ReplicationStatus {
@@ -439,8 +437,7 @@ pub mod replication_status {
         /// [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
         /// replication policy.
         UserManaged(crate::replication_status::UserManagedStatus),
-    }
-}
+    }}
 
 /// Describes the status of customer-managed encryption.
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
