@@ -84,8 +84,8 @@ func TestFieldType(t *testing.T) {
 		"f_int32":              "i32",
 		"f_int32_optional":     "Option<i32>",
 		"f_int32_repeated":     "Vec<i32>",
-		"f_msg":                "Option<crate::Target>",
-		"f_msg_repeated":       "Vec<crate::Target>",
+		"f_msg":                "Option<crate::model::Target>",
+		"f_msg_repeated":       "Vec<crate::model::Target>",
 		"f_timestamp":          "Option<gax_placeholder::Timestamp>",
 		"f_timestamp_repeated": "Vec<gax_placeholder::Timestamp>",
 	}
@@ -215,15 +215,15 @@ func TestMessageNames(t *testing.T) {
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
-	if got := c.FQMessageName(message, api.State); got != "crate::Replication" {
-		t.Errorf("mismatched message name, got=%s, want=crate::Replication", got)
+	if got := c.FQMessageName(message, api.State); got != "crate::model::Replication" {
+		t.Errorf("mismatched message name, got=%s, want=crate::model::Replication", got)
 	}
 
 	if got := c.MessageName(nested, api.State); got != "Automatic" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
-	if got := c.FQMessageName(nested, api.State); got != "crate::replication::Automatic" {
-		t.Errorf("mismatched message name, got=%s, want=crate::replication::Automatic", got)
+	if got := c.FQMessageName(nested, api.State); got != "crate::model::replication::Automatic" {
+		t.Errorf("mismatched message name, got=%s, want=crate::model::replication::Automatic", got)
 	}
 }
 
@@ -252,7 +252,7 @@ func TestEnumNames(t *testing.T) {
 	if got := c.EnumName(nested, api.State); got != "State" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
-	if got := c.FQEnumName(nested, api.State); got != "crate::secret_version::State" {
-		t.Errorf("mismatched message name, got=%s, want=crate::secret_version::State", got)
+	if got := c.FQEnumName(nested, api.State); got != "crate::model::secret_version::State" {
+		t.Errorf("mismatched message name, got=%s, want=crate::model::secret_version::State", got)
 	}
 }

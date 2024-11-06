@@ -174,7 +174,7 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 
 func (c *Codec) messageScopeName(m *genclient.Message) string {
 	if m == nil {
-		return "crate"
+		return "crate::model"
 	}
 	return c.messageScopeName(m.Parent) + "::" + c.ToSnake(m.Name)
 }
