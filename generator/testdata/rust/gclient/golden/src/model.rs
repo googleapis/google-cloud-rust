@@ -21,7 +21,7 @@ pub struct Secret {
     /// the [Secret][google.cloud.secretmanager.v1.Secret].
     /// 
     /// The replication policy cannot be changed after the Secret has been created.
-    pub replication: Option<crate::Replication>,
+    pub replication: Option<crate::model::Replication>,
 
     /// Output only. The time at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] was created.
@@ -42,7 +42,7 @@ pub struct Secret {
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
-    pub topics: Vec<crate::Topic>,
+    pub topics: Vec<crate::model::Topic>,
 
     /// Optional. Etag of the currently stored
     /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -51,7 +51,7 @@ pub struct Secret {
     /// Optional. Rotation policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. May be excluded if there is
     /// no rotation policy.
-    pub rotation: Option<crate::Rotation>,
+    pub rotation: Option<crate::model::Rotation>,
 
     /// Optional. Mapping from version alias to version name.
     /// 
@@ -97,7 +97,7 @@ pub struct Secret {
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
     /// afterwards. They do not apply retroactively to existing
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -110,7 +110,7 @@ pub struct Secret {
     /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
     /// is recommended for granting time-based permissions because the operation
     /// can be reversed.
-    pub expiration: Option<crate::secret::Expiration>,
+    pub expiration: Option<crate::model::secret::Expiration>,
 }
 
 /// Defines additional types related to Secret
@@ -169,11 +169,11 @@ pub struct SecretVersion {
 
     /// Output only. The current state of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub state: crate::secret_version::State,
+    pub state: crate::model::secret_version::State,
 
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub replication_status: Option<crate::ReplicationStatus>,
+    pub replication_status: Option<crate::model::ReplicationStatus>,
 
     /// Output only. Etag of the currently stored
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -199,7 +199,7 @@ pub struct SecretVersion {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
     /// populated if customer-managed encryption is used and
     /// [Secret][google.cloud.secretmanager.v1.Secret] is a Regionalised Secret.
-    pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
+    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
 /// Defines additional types related to SecretVersion
@@ -242,7 +242,7 @@ pub mod secret_version {
 pub struct Replication {
 
     /// The replication policy for this secret.
-    pub replication: Option<crate::replication::Replication>,
+    pub replication: Option<crate::model::replication::Replication>,
 }
 
 /// Defines additional types related to Replication
@@ -265,7 +265,7 @@ pub mod replication {
         /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
         /// afterwards. They do not apply retroactively to existing
         /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-        pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+        pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
     }
 
     /// A replication policy that replicates the
@@ -280,7 +280,7 @@ pub mod replication {
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         /// 
         /// Cannot be empty.
-        pub replicas: Vec<crate::replication::user_managed::Replica>,
+        pub replicas: Vec<crate::model::replication::user_managed::Replica>,
     }
 
     /// Defines additional types related to UserManaged
@@ -306,7 +306,7 @@ pub mod replication {
             /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] added
             /// afterwards. They do not apply retroactively to existing
             /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-            pub customer_managed_encryption: Option<crate::CustomerManagedEncryption>,
+            pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
         }
     }
 
@@ -317,10 +317,10 @@ pub mod replication {
     pub enum Replication {
         /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
         /// replicated without any restrictions.
-        Automatic(crate::replication::Automatic),
+        Automatic(crate::model::replication::Automatic),
         /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
         /// replicated into the locations specified.
-        UserManaged(crate::replication::UserManaged),
+        UserManaged(crate::model::replication::UserManaged),
     }
 }
 
@@ -356,7 +356,7 @@ pub struct ReplicationStatus {
 
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    pub replication_status: Option<crate::replication_status::ReplicationStatus>,
+    pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
 }
 
 /// Defines additional types related to ReplicationStatus
@@ -376,7 +376,7 @@ pub mod replication_status {
         /// Output only. The customer-managed encryption status of the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
         /// populated if customer-managed encryption is used.
-        pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
+        pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
     }
 
     /// The replication status of a
@@ -392,7 +392,7 @@ pub mod replication_status {
 
         /// Output only. The list of replica statuses for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-        pub replicas: Vec<crate::replication_status::user_managed_status::ReplicaStatus>,
+        pub replicas: Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
     }
 
     /// Defines additional types related to UserManagedStatus
@@ -412,7 +412,7 @@ pub mod replication_status {
             /// Output only. The customer-managed encryption status of the
             /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
             /// populated if customer-managed encryption is used.
-            pub customer_managed_encryption: Option<crate::CustomerManagedEncryptionStatus>,
+            pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
         }
     }
 
@@ -429,7 +429,7 @@ pub mod replication_status {
         /// Only populated if the parent
         /// [Secret][google.cloud.secretmanager.v1.Secret] has an automatic
         /// replication policy.
-        Automatic(crate::replication_status::AutomaticStatus),
+        Automatic(crate::model::replication_status::AutomaticStatus),
         /// Describes the replication status of a
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
         /// user-managed replication.
@@ -437,7 +437,7 @@ pub mod replication_status {
         /// Only populated if the parent
         /// [Secret][google.cloud.secretmanager.v1.Secret] has a user-managed
         /// replication policy.
-        UserManaged(crate::replication_status::UserManagedStatus),
+        UserManaged(crate::model::replication_status::UserManagedStatus),
     }
 }
 
@@ -554,7 +554,7 @@ pub struct CreateSecretRequest {
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
     /// field values.
-    pub secret: Vec<crate::Secret>,
+    pub secret: Vec<crate::model::Secret>,
 }
 
 /// Request message for
