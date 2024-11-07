@@ -103,8 +103,14 @@ func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 			}
 			state.ServiceByID[service.ID] = service
 			for _, m := range s.Method {
+				pathInfo, err := parsePathInfo(m, state)
+				if err != nil {
+					slog.Error("unsupported http method", "method", m)
+					continue
+				}
 				method := &genclient.Method{
 					HTTPInfo:     parseHTTPInfo(m.GetOptions()),
+					PathInfo:     pathInfo,
 					Name:         m.GetName(),
 					InputTypeID:  m.GetInputType(),
 					OutputTypeID: m.GetOutputType(),

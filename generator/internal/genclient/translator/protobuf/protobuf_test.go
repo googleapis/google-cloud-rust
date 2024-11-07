@@ -317,12 +317,27 @@ func TestComments(t *testing.T) {
 		Name:          "Service",
 		ID:            ".test.Service",
 		Documentation: "A service.\n\nWith a longer service description.",
+		DefaultHost:   "test.googleapis.com",
 		Methods: []*genclient.Method{
 			{
 				Name:          "Create",
 				Documentation: "Some RPC.\n\nIt does not do much.",
 				InputTypeID:   ".test.Request",
 				OutputTypeID:  ".test.Response",
+				HTTPInfo: &genclient.HTTPInfo{
+					Method:  "POST",
+					RawPath: "/v1/{parent=projects/*}/foos", Body: "*",
+				},
+				PathInfo: &genclient.PathInfo{
+					Verb: "POST",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("parent"),
+						genclient.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
 			},
 		},
 	})
@@ -504,6 +519,15 @@ func TestService(t *testing.T) {
 				HTTPInfo: &genclient.HTTPInfo{
 					Method:  "GET",
 					RawPath: "/v1/{name=projects/*/foos/*}"},
+				PathInfo: &genclient.PathInfo{
+					Verb: "GET",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "",
+				},
 			},
 			{
 				Name:          "CreateFoo",
@@ -514,6 +538,16 @@ func TestService(t *testing.T) {
 					Method:  "POST",
 					RawPath: "/v1/{parent=projects/*}/foos",
 					Body:    "foo"},
+				PathInfo: &genclient.PathInfo{
+					Verb: "POST",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("parent"),
+						genclient.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"foo_id": true},
+					BodyFieldPath:   "foo",
+				},
 			},
 		},
 	})
