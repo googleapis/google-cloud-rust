@@ -34,7 +34,6 @@ jobs:
           cd /usr/local
           sudo unzip -x /tmp/protoc.zip
           protoc --version
-          protoc --help
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:

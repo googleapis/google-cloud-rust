@@ -503,7 +503,7 @@ func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGenera
 	cmd.Stderr = &stderr
 	err = cmd.Run()
 	if err != nil {
-		t.Errorf("protoc error: %s", stderr.String())
+		t.Logf("protoc error: %s", stderr.String())
 		t.Fatal(err)
 	}
 
