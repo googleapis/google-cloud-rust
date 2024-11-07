@@ -31,8 +31,9 @@ jobs:
           set -e
           curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
           cd /usr/local
-          unzip -x /tmp/protoc.zip
+          sudo unzip -x /tmp/protoc.zip
           protoc --version
+          protoc --help
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
