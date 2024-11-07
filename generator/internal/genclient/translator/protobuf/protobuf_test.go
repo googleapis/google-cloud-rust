@@ -483,6 +483,42 @@ func TestMapFields(t *testing.T) {
 	})
 }
 
+func TestService(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "test_service.proto"))
+
+	service, ok := api.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	checkService(t, *service, genclient.Service{
+		Name:          "TestService",
+		ID:            ".test.TestService",
+		Documentation: "A service to unit test the protobuf translator.",
+		DefaultHost:   "test.googleapis.com",
+		Methods: []*genclient.Method{
+			{
+				Name:          "GetFoo",
+				Documentation: "Gets a Foo resource.",
+				InputTypeID:   ".test.GetFooRequest",
+				OutputTypeID:  ".test.Foo",
+				HTTPInfo: &genclient.HTTPInfo{
+					Method:  "GET",
+					RawPath: "/v1/{name=projects/*/foos/*}"},
+			},
+			{
+				Name:          "CreateFoo",
+				Documentation: "Creates a new Foo resource.",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".test.Foo",
+				HTTPInfo: &genclient.HTTPInfo{
+					Method:  "POST",
+					RawPath: "/v1/{parent=projects/*}/foos",
+					Body:    "foo"},
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	tempFile, err := os.CreateTemp("", "protoc-out-")
