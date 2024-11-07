@@ -15,6 +15,7 @@
 package protobuf
 
 import (
+	"bytes"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -490,6 +491,7 @@ func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGenera
 	}
 	defer os.Remove(tempFile.Name())
 
+	var stderr bytes.Buffer
 	cmd := exec.Command("protoc",
 		"--proto_path", "testdata",
 		"--proto_path", "../../../../testdata/googleapis",
@@ -498,8 +500,10 @@ func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGenera
 		"--retain_options",
 		"--descriptor_set_out", tempFile.Name(),
 		filepath.Join("testdata", filename))
+	cmd.Stderr = &stderr
 	err = cmd.Run()
 	if err != nil {
+		t.Errorf("protoc error: %s", stderr.String())
 		t.Fatal(err)
 	}
 
