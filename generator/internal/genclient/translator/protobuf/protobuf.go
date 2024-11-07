@@ -59,27 +59,27 @@ func Translate(req *pluginpb.CodeGeneratorRequest, opts *Options) (*genclient.Ge
 	if err != nil {
 		return nil, err
 	}
-	var name string
-	if opts.ServiceConfig != nil {
-		name = opts.ServiceConfig.Name
-	}
 	return &genclient.GenerateRequest{
-		API:         makeAPI(name, req),
+		API:         makeAPI(opts.ServiceConfig, req),
 		Codec:       codec,
 		OutDir:      opts.OutDir,
 		TemplateDir: opts.TemplateDir,
 	}, nil
 }
 
-func makeAPI(apiName string, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	state := &genclient.APIState{
 		ServiceByID: make(map[string]*genclient.Service),
 		MessageByID: make(map[string]*genclient.Message),
 		EnumByID:    make(map[string]*genclient.Enum),
 	}
 	api := &genclient.API{
-		Name:  apiName,
 		State: state,
+	}
+	if serviceConfig != nil {
+		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+		api.Title = serviceConfig.Title
+		api.Description = serviceConfig.Documentation.Summary
 	}
 
 	files := req.GetSourceFileDescriptors()

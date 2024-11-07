@@ -24,23 +24,33 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/translator/openapi"
 )
 
+var (
+	language      = flag.String("language", "", "the generated language")
+	output        = flag.String("out", "output", "the path to the output directory")
+	templateDir   = flag.String("template-dir", "templates/", "the path to the template directory")
+	serviceConfig = flag.String("service-config", "testdata/google/cloud/secretmanager/v1/secretmanager_v1.yaml", "path to service config")
+	inputPath     = flag.String("input-path", "", "the path to a file with an OpenAPI v3 JSON object")
+)
+
 func main() {
-	inputPath := flag.String("input-path", "", "the path to a file with an OpenAPI v3 JSON object")
-	outDir := flag.String("out-dir", "", "the path to the output directory")
-	language := flag.String("language", "", "the generated language")
-	templateDir := flag.String("template-dir", "templates/", "the path to the template directory")
 	flag.Parse()
 
 	if *inputPath == "" {
 		log.Fatalf("must provide input-path")
 	}
-	if err := run(*inputPath, *language, *outDir, *templateDir); err != nil {
+	opts := &openapi.Options{
+		Language:      *language,
+		OutDir:        *output,
+		TemplateDir:   *templateDir,
+		ServiceConfig: *serviceConfig,
+	}
+	if err := run(*inputPath, opts); err != nil {
 		log.Fatal(err)
 	}
 	slog.Info("Generation Completed Successfully")
 }
 
-func run(inputPath, language, outDir, templateDir string) error {
+func run(inputPath string, opts *openapi.Options) error {
 	var (
 		contents []byte
 		err      error
@@ -49,15 +59,11 @@ func run(inputPath, language, outDir, templateDir string) error {
 	if err != nil {
 		return err
 	}
-	return generateFrom(contents, language, outDir, templateDir)
+	return generateFrom(contents, opts)
 }
 
-func generateFrom(contents []byte, language, outDir, templateDir string) error {
-	req, err := openapi.Translate(contents, &openapi.Options{
-		Language:    language,
-		OutDir:      outDir,
-		TemplateDir: templateDir,
-	})
+func generateFrom(contents []byte, options *openapi.Options) error {
+	req, err := openapi.Translate(contents, options)
 	if err != nil {
 		return err
 	}

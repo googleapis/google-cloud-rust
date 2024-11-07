@@ -18,6 +18,8 @@ import (
 	"flag"
 	"os"
 	"testing"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/translator/openapi"
 )
 
 func TestMain(m *testing.M) {
@@ -27,12 +29,15 @@ func TestMain(m *testing.M) {
 
 func TestRun_Rust(t *testing.T) {
 	const (
-		inputPath   = "../../testdata/openapi/secretmanager_openapi_v1.json"
-		language    = "rust"
-		outDir      = "../../testdata/rust/openapi/golden"
-		templateDir = "../../templates"
+		inputPath = "../../testdata/openapi/secretmanager_openapi_v1.json"
 	)
-	if err := run(inputPath, language, outDir, templateDir); err != nil {
+	options := &openapi.Options{
+		Language:      "rust",
+		OutDir:        "../../testdata/rust/openapi/golden",
+		TemplateDir:   "../../templates",
+		ServiceConfig: "../../testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+	}
+	if err := run(inputPath, options); err != nil {
 		t.Fatal(err)
 	}
 }

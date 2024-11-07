@@ -25,13 +25,15 @@ import (
 	"github.com/pb33f/libopenapi"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
 type Options struct {
-	Language string
+	Language      string
+	OutDir        string
+	TemplateDir   string
+	ServiceConfig string
 	// Only used for local testing
-	OutDir      string
-	TemplateDir string
 }
 
 func Translate(contents []byte, opts *Options) (*genclient.GenerateRequest, error) {
@@ -39,8 +41,16 @@ func Translate(contents []byte, opts *Options) (*genclient.GenerateRequest, erro
 	if err != nil {
 		return nil, err
 	}
+	var serviceConfig *serviceconfig.Service
+	if opts.ServiceConfig != "" {
+		cfg, err := genclient.ReadServiceConfig(opts.ServiceConfig)
+		if err != nil {
+			return nil, err
+		}
+		serviceConfig = cfg
+	}
 	// Translates OpenAPI specification into a [genclient.GenerateRequest].
-	api, err := makeAPI(model)
+	api, err := makeAPI(serviceConfig, model)
 	if err != nil {
 		return nil, err
 	}
@@ -71,15 +81,23 @@ func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], er
 	return docModel, nil
 }
 
-func makeAPI(model *libopenapi.DocumentModel[v3.Document]) (*genclient.API, error) {
+func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*genclient.API, error) {
 	api := &genclient.API{
-		Name:     model.Model.Info.Title,
-		Messages: make([]*genclient.Message, 0),
+		Name:        "",
+		Title:       model.Model.Info.Title,
+		Description: model.Model.Info.Description,
+		Messages:    make([]*genclient.Message, 0),
 		State: &genclient.APIState{
 			ServiceByID: make(map[string]*genclient.Service),
 			MessageByID: make(map[string]*genclient.Message),
 			EnumByID:    make(map[string]*genclient.Enum),
 		},
+	}
+
+	if serviceConfig != nil {
+		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+		api.Title = serviceConfig.Title
+		api.Description = serviceConfig.Documentation.Summary
 	}
 
 	for name, msg := range model.Model.Components.Schemas.FromOldest() {
