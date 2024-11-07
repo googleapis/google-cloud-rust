@@ -15,6 +15,7 @@
 package golang
 
 import (
+	"fmt"
 	"log/slog"
 	"strings"
 	"unicode"
@@ -140,29 +141,40 @@ func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
-	if m.HTTPInfo.Body == "*" {
+	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
 	}
-	return "." + strcase.ToCamel(m.HTTPInfo.Body)
+	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
 }
 
-func (c *Codec) HTTPPathFmt(m *genclient.HTTPInfo, state *genclient.APIState) string {
-	return genclient.HTTPPathVarRegex.ReplaceAllStringFunc(m.RawPath, func(s string) string { return "%s" })
+func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
+	fmt := ""
+	for _, segment := range m.PathTemplate {
+		if segment.Literal != nil {
+			fmt = fmt + "/" + *segment.Literal
+		} else if segment.FieldPath != nil {
+			fmt = fmt + "/%s"
+		} else if segment.Verb != nil {
+			fmt = fmt + ":" + *segment.Verb
+		}
+	}
+	return fmt
 }
 
-func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) []string {
+func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
 	var args []string
-	rawArgs := h.PathArgs()
-	for _, arg := range rawArgs {
-		// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
-		args = append(args, ", req."+strcase.ToCamel(arg))
+	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
+	for _, segment := range h.PathTemplate {
+		if segment.FieldPath != nil {
+			// TODO(#34) - handle nested path params
+			args = append(args, fmt.Sprintf(", req.%s", strcase.ToCamel(*segment.FieldPath)))
+		}
 	}
 	return args
 }
 
 func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Pair {
-	notQuery := m.NotQueryParams()
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup type", "id", m.InputTypeID)
@@ -171,9 +183,12 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 
 	var queryParams []*genclient.Pair
 	for _, field := range msg.Fields {
-		if field.JSONName != "" && !notQuery[field.JSONName] {
-			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + strcase.ToCamel(field.JSONName)})
+		if !m.PathInfo.QueryParameters[field.JSONName] {
+			continue
 		}
+		queryParams = append(queryParams, &genclient.Pair{
+			Key:   field.JSONName,
+			Value: "req." + c.ToSnake(field.Name) + ".as_str()"})
 	}
 	return queryParams
 }

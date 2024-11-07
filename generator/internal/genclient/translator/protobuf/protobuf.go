@@ -109,7 +109,6 @@ func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 					continue
 				}
 				method := &genclient.Method{
-					HTTPInfo:     parseHTTPInfo(m.GetOptions()),
 					PathInfo:     pathInfo,
 					Name:         m.GetName(),
 					InputTypeID:  m.GetInputType(),

@@ -324,10 +324,6 @@ func TestComments(t *testing.T) {
 				Documentation: "Some RPC.\n\nIt does not do much.",
 				InputTypeID:   ".test.Request",
 				OutputTypeID:  ".test.Response",
-				HTTPInfo: &genclient.HTTPInfo{
-					Method:  "POST",
-					RawPath: "/v1/{parent=projects/*}/foos", Body: "*",
-				},
 				PathInfo: &genclient.PathInfo{
 					Verb: "POST",
 					PathTemplate: []genclient.PathSegment{
@@ -516,9 +512,6 @@ func TestService(t *testing.T) {
 				Documentation: "Gets a Foo resource.",
 				InputTypeID:   ".test.GetFooRequest",
 				OutputTypeID:  ".test.Foo",
-				HTTPInfo: &genclient.HTTPInfo{
-					Method:  "GET",
-					RawPath: "/v1/{name=projects/*/foos/*}"},
 				PathInfo: &genclient.PathInfo{
 					Verb: "GET",
 					PathTemplate: []genclient.PathSegment{
@@ -534,10 +527,6 @@ func TestService(t *testing.T) {
 				Documentation: "Creates a new Foo resource.",
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
-				HTTPInfo: &genclient.HTTPInfo{
-					Method:  "POST",
-					RawPath: "/v1/{parent=projects/*}/foos",
-					Body:    "foo"},
 				PathInfo: &genclient.PathInfo{
 					Verb: "POST",
 					PathTemplate: []genclient.PathSegment{
