@@ -27,7 +27,9 @@ jobs:
         working-directory: generator
     steps:
       - uses: actions/checkout@v4
-      - run: apt-get update && apt-get install -y protobuf-compiler
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
