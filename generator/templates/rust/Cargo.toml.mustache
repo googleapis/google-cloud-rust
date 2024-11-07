@@ -14,7 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 [package]
-name = "placeholder"
+{{! TODO(#93) - we should be able to override this name for local development }}
+name = "{{Name}}{{^Name}}placeholder{{/Name}}"
 version = "0.1.0"
 edition = "2021"
 
@@ -25,3 +26,5 @@ serde_json = "1.0.132"
 time = { version = "0.3.36", features = ["formatting", "parsing"] }
 reqwest = { version = "0.12.9", features = ["json"] }
 bytes = { version = "1.8.0", features = ["serde"] }
+{{! TODO(#93) - this path should be configurable for local development }}
+gax_placeholder = { path = "../../../../../types", package="types" }

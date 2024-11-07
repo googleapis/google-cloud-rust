@@ -1,12 +1,10 @@
 #![allow(dead_code)]
 
-
 /// The response message for Locations.ListLocations.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
-
     /// A list of locations that matches the specified filter in the request.
     pub locations: Vec<crate::model::Location>,
 
@@ -19,7 +17,6 @@ pub struct ListLocationsResponse {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Location {
-
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
     pub name: Option<String>,
@@ -34,7 +31,7 @@ pub struct Location {
     /// Cross-service attributes for the location. For example
     ///
     ///     {"cloud.googleapis.com/region": "us-east1"}
-    pub labels: std::collections::HashMap<String,String>,
+    pub labels: std::collections::HashMap<String, String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
@@ -46,7 +43,6 @@ pub struct Location {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
-
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
     pub secrets: Vec<crate::model::Secret>,
@@ -69,7 +65,6 @@ pub struct ListSecretsResponse {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
-
     /// Output only. The resource name of the Secret in the format `projects/_*_/secrets/*`.
     pub name: Option<String>,
 
@@ -92,7 +87,7 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     ///
     /// No more than 64 labels can be assigned to a given resource.
-    pub labels: std::collections::HashMap<String,String>,
+    pub labels: std::collections::HashMap<String, String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
@@ -123,7 +118,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    pub version_aliases: std::collections::HashMap<String,i64>,
+    pub version_aliases: std::collections::HashMap<String, i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -137,7 +132,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
-    pub annotations: std::collections::HashMap<String,String>,
+    pub annotations: std::collections::HashMap<String, String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -161,7 +156,6 @@ pub struct Secret {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
-
     /// The Secret will automatically be replicated without any restrictions.
     pub automatic: Option<crate::model::Automatic>,
 
@@ -175,7 +169,6 @@ pub struct Replication {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Automatic {
-
     /// Optional. The customer-managed encryption configuration of the Secret. If no
     /// configuration is provided, Google-managed default encryption is used.
     ///
@@ -191,7 +184,6 @@ pub struct Automatic {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
-
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt secret
     /// payloads.
     ///
@@ -212,7 +204,6 @@ pub struct CustomerManagedEncryption {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UserManaged {
-
     /// Required. The list of Replicas for this Secret.
     ///
     /// Cannot be empty.
@@ -224,7 +215,6 @@ pub struct UserManaged {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replica {
-
     /// The canonical IDs of the location to replicate data.
     /// For example: `"us-east1"`.
     pub location: Option<String>,
@@ -245,7 +235,6 @@ pub struct Replica {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
-
     /// Required. The resource name of the Pub/Sub topic that will be published to, in the
     /// following format: `projects/_*_/topics/*`. For publication to succeed, the
     /// Secret Manager service agent must have the `pubsub.topic.publish`
@@ -261,7 +250,6 @@ pub struct Topic {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
-
     /// Optional. Timestamp in UTC at which the Secret is scheduled to rotate. Cannot be
     /// set to less than 300s (5 min) in the future and at most 3153600000s (100
     /// years).
@@ -283,7 +271,6 @@ pub struct Rotation {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
-
     /// Required. The secret payload of the SecretVersion.
     pub payload: Option<crate::model::SecretPayload>,
 }
@@ -294,7 +281,6 @@ pub struct AddSecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
-
     /// The secret data. Must be no larger than 64KiB.
     pub data: Option<bytes::Bytes>,
 
@@ -316,7 +302,6 @@ pub struct SecretPayload {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
-
     /// Output only. The resource name of the SecretVersion in the
     /// format `projects/_*_/secrets/_*_/versions/*`.
     ///
@@ -364,7 +349,6 @@ pub struct SecretVersion {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
-
     /// Describes the replication status of a SecretVersion with
     /// automatic replication.
     ///
@@ -388,7 +372,6 @@ pub struct ReplicationStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AutomaticStatus {
-
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
@@ -399,7 +382,6 @@ pub struct AutomaticStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
-
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to encrypt the
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
@@ -415,7 +397,6 @@ pub struct CustomerManagedEncryptionStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UserManagedStatus {
-
     /// Output only. The list of replica statuses for the SecretVersion.
     pub replicas: Vec<crate::model::ReplicaStatus>,
 }
@@ -425,7 +406,6 @@ pub struct UserManagedStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicaStatus {
-
     /// Output only. The canonical ID of the replica location.
     /// For example: `"us-east1"`.
     pub location: Option<String>,
@@ -445,15 +425,13 @@ pub struct ReplicaStatus {
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
-pub struct Empty {
-}
+pub struct Empty {}
 
 /// Response message for SecretManagerService.ListSecretVersions.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
-
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
     pub versions: Vec<crate::model::SecretVersion>,
@@ -472,7 +450,6 @@ pub struct ListSecretVersionsResponse {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
-
     /// The resource name of the SecretVersion in the format
     /// `projects/_*_/secrets/_*_/versions/*` or
     /// `projects/_*_/locations/_*_/secrets/_*_/versions/*`.
@@ -487,7 +464,6 @@ pub struct AccessSecretVersionResponse {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -499,7 +475,6 @@ pub struct DisableSecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -511,7 +486,6 @@ pub struct EnableSecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
-
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
@@ -523,7 +497,6 @@ pub struct DestroySecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
-
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Google Cloud services (such as Projects)
@@ -613,7 +586,6 @@ pub struct SetIamPolicyRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Policy {
-
     /// Specifies the format of the policy.
     ///
     /// Valid values are `0`, `1`, and `3`. Requests that specify an invalid value
@@ -675,7 +647,6 @@ pub struct Policy {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Binding {
-
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     ///
@@ -819,7 +790,6 @@ pub struct Binding {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
-
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     pub expression: Option<String>,
@@ -893,7 +863,6 @@ pub struct Expr {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfig {
-
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
@@ -926,7 +895,6 @@ pub struct AuditConfig {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditLogConfig {
-
     /// The log type that this config enables.
     pub log_type: Option<String>,
 
@@ -941,7 +909,6 @@ pub struct AuditLogConfig {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
-
     /// The set of permissions to check for the `resource`. Permissions with
     /// wildcards (such as `*` or `storage.*`) are not allowed. For more
     /// information see
@@ -954,7 +921,6 @@ pub struct TestIamPermissionsRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
-
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: Vec<String>,

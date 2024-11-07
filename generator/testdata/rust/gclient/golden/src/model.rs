@@ -1,6 +1,5 @@
 #![allow(dead_code)]
 
-
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is a logical secret whose
 /// value and versions can be accessed.
 ///
@@ -11,7 +10,6 @@
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
-
     /// Output only. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret] in the format
     /// `projects/*/secrets/*`.
@@ -38,7 +36,7 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     ///
     /// No more than 64 labels can be assigned to a given resource.
-    pub labels: std::collections::HashMap<String,String>,
+    pub labels: std::collections::HashMap<String, String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
@@ -64,7 +62,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    pub version_aliases: std::collections::HashMap<String,i64>,
+    pub version_aliases: std::collections::HashMap<String, i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -78,7 +76,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
-    pub annotations: std::collections::HashMap<String,String>,
+    pub annotations: std::collections::HashMap<String, String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -146,7 +144,6 @@ pub mod secret {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
-
     /// Output only. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
     /// `projects/*/secrets/*/versions/*`.
@@ -240,7 +237,6 @@ pub mod secret_version {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
-
     /// The replication policy for this secret.
     pub replication: Option<crate::model::replication::Replication>,
 }
@@ -255,7 +251,6 @@ pub mod replication {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Automatic {
-
         /// Optional. The customer-managed encryption configuration of the
         /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
         /// provided, Google-managed default encryption is used.
@@ -275,7 +270,6 @@ pub mod replication {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManaged {
-
         /// Required. The list of Replicas for this
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         ///
@@ -292,7 +286,6 @@ pub mod replication {
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Replica {
-
             /// The canonical IDs of the location to replicate data.
             /// For example: `"us-east1"`.
             pub location: String,
@@ -330,7 +323,6 @@ pub mod replication {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
-
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
     /// secret payloads.
     ///
@@ -353,7 +345,6 @@ pub struct CustomerManagedEncryption {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
-
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
@@ -372,7 +363,6 @@ pub mod replication_status {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AutomaticStatus {
-
         /// Output only. The customer-managed encryption status of the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
         /// populated if customer-managed encryption is used.
@@ -389,7 +379,6 @@ pub mod replication_status {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManagedStatus {
-
         /// Output only. The list of replica statuses for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         pub replicas: Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
@@ -404,7 +393,6 @@ pub mod replication_status {
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct ReplicaStatus {
-
             /// Output only. The canonical ID of the replica location.
             /// For example: `"us-east1"`.
             pub location: String,
@@ -446,7 +434,6 @@ pub mod replication_status {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
-
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
     /// encrypt the secret payload, in the following format:
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
@@ -459,7 +446,6 @@ pub struct CustomerManagedEncryptionStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
-
     /// Required. The resource name of the Pub/Sub topic that will be published to,
     /// in the following format: `projects/*/topics/*`. For publication to succeed,
     /// the Secret Manager service agent must have the `pubsub.topic.publish`
@@ -477,7 +463,6 @@ pub struct Topic {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
-
     /// Optional. Timestamp in UTC at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
     /// Cannot be set to less than 300s (5 min) in the future and at most
@@ -510,7 +495,6 @@ pub struct Rotation {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
-
     /// The secret data. Must be no larger than 64KiB.
     pub data: bytes::Bytes,
 
@@ -539,7 +523,6 @@ pub struct SecretPayload {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
-
     /// Required. The resource name of the project to associate with the
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
     /// or `projects/*/locations/*`.
@@ -563,7 +546,6 @@ pub struct CreateSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretRequest {
-
     /// Required. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
     /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
