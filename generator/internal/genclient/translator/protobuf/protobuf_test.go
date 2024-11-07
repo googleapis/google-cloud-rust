@@ -15,17 +15,17 @@
 package protobuf
 
 import (
-	"context"
+	"bytes"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"testing"
 
-	"github.com/bufbuild/protocompile"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
-	"google.golang.org/protobuf/reflect/protodesc"
+	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
@@ -485,32 +485,49 @@ func TestMapFields(t *testing.T) {
 
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
-	contents, err := os.ReadFile(filepath.Join("testdata", filename))
+	tempFile, err := os.CreateTemp("", "protoc-out-")
 	if err != nil {
 		t.Fatal(err)
 	}
-	accessor := protocompile.SourceAccessorFromMap(map[string]string{
-		filename: string(contents),
-	})
-	compiler := protocompile.Compiler{
-		Resolver:       &protocompile.SourceResolver{Accessor: accessor},
-		MaxParallelism: 1,
-		SourceInfoMode: protocompile.SourceInfoStandard,
-	}
-	files, err := compiler.Compile(context.Background(), filename)
+	defer os.Remove(tempFile.Name())
+
+	var stderr bytes.Buffer
+	cmd := exec.Command("protoc",
+		"--proto_path", "testdata",
+		"--proto_path", "../../../../testdata/googleapis",
+		"--include_imports",
+		"--include_source_info",
+		"--retain_options",
+		"--descriptor_set_out", tempFile.Name(),
+		filepath.Join("testdata", filename))
+	cmd.Stderr = &stderr
+	err = cmd.Run()
 	if err != nil {
-		t.Fatalf("error compiling proto %q", err)
+		t.Logf("protoc error: %s", stderr.String())
+		t.Fatal(err)
 	}
-	if len(files) != 1 {
-		t.Errorf("Expected exactly one output descriptor, got=%d", len(files))
+
+	contents, err := os.ReadFile(tempFile.Name())
+	if err != nil {
+		t.Fatal(err)
 	}
-	descriptor := protodesc.ToFileDescriptorProto(files[0])
-	return &pluginpb.CodeGeneratorRequest{
+	descriptors := &descriptorpb.FileDescriptorSet{}
+	if err := proto.Unmarshal(contents, descriptors); err != nil {
+		t.Fatal(err)
+	}
+	var target *descriptorpb.FileDescriptorProto
+	for _, pb := range descriptors.File {
+		if *pb.Name == filename {
+			target = pb
+		}
+	}
+	request := &pluginpb.CodeGeneratorRequest{
 		FileToGenerate:        []string{filename},
-		ProtoFile:             []*descriptorpb.FileDescriptorProto{descriptor},
-		SourceFileDescriptors: []*descriptorpb.FileDescriptorProto{descriptor},
+		ProtoFile:             []*descriptorpb.FileDescriptorProto{target},
+		SourceFileDescriptors: descriptors.File,
 		CompilerVersion:       newCompilerVersion(),
 	}
+	return request
 }
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {

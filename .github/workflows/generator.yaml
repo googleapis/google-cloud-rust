@@ -27,6 +27,13 @@ jobs:
         working-directory: generator
     steps:
       - uses: actions/checkout@v4
+      - name: Install protoc
+        run: |
+          set -e
+          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
+          cd /usr/local
+          sudo unzip -x /tmp/protoc.zip
+          protoc --version
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
@@ -45,7 +52,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Fix Proto files Formatting
         run: |
-          apt update && apt install -y clang-format
           git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
             xargs -0 -r -P "$(nproc)" -n 50 clang-format
       - name: Detect Changes
