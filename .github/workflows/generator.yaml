@@ -27,7 +27,12 @@ jobs:
         working-directory: generator
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt update && sudo apt install -y protobuf-compiler
+      - run: |
+          set -e
+          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v29.0-rc2/protoc-29.0-rc-2-linux-x86_64.zip
+          cd /usr/local
+          unzip -x /tmp/protoc.zip
+          protoc --version
       - name: Setup Go ${{ matrix.go-version }}
         uses: actions/setup-go@v5
         with:
