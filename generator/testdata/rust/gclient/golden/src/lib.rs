@@ -62,12 +62,18 @@ impl SecretManagerService {
         &self,
         req: model::CreateSecretRequest,
     ) -> Result<model::Secret, Box<dyn std::error::Error>> {
+        let query_parameters = [gax::query_parameter::format("secretId", &req.secret_id)?];
         let client = self.client.inner.clone();
         let res = client
             .http_client
             .post(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
             .query(&[("alt", "json")])
-            .query(&[("secretId", req.secret_id.as_str())])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
             .bearer_auth(&client.token)
             .json(&req.secret)
             .send()
@@ -86,11 +92,18 @@ impl SecretManagerService {
         &self,
         req: model::GetSecretRequest,
     ) -> Result<model::Secret, Box<dyn std::error::Error>> {
+        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
             .query(&[("alt", "json")])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
             .bearer_auth(&client.token)
             .send()
             .await?;

@@ -922,6 +922,7 @@ name = "placeholder"
 version = "0.1.0"
 dependencies = [
  "bytes",
+ "gax",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
@@ -1268,6 +1269,7 @@ name = "secretmanager"
 version = "0.1.0"
 dependencies = [
  "bytes",
+ "gax",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
