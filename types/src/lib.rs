@@ -16,6 +16,8 @@ mod any;
 pub use crate::any::*;
 mod duration;
 pub use crate::duration::*;
+mod empty;
+pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
 mod timestamp;
