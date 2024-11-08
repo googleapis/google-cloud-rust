@@ -255,7 +255,7 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 		}
 		queryParams = append(queryParams, &genclient.Pair{
 			Key:   field.JSONName,
-			Value: "req." + c.ToSnake(field.Name) + ".as_str()"})
+			Value: c.ToSnake(field.Name)})
 	}
 	return queryParams
 }

@@ -73,6 +73,14 @@ impl {{NameToPascal}} {
     {{{.}}}
     {{/DocLines}}
     pub async fn {{NameToSnake}}(&self, req: model::{{InputTypeName}}) -> Result<model::{{OutputTypeName}}, Box<dyn std::error::Error>> {
+        let query_parameters = [
+                    {{^QueryParams}}
+                    None::<(&str, String)>; 0
+                    {{/QueryParams}}
+                    {{#QueryParams}}
+                    gax::query_parameter::format("{{Key}}", &req.{{Value}})?,
+                    {{/QueryParams}}
+        ];
         let client = self.client.inner.clone();
         let res = client.http_client
             .{{HTTPMethodToLower}}(format!(
@@ -83,9 +91,12 @@ impl {{NameToPascal}} {
                {{/HTTPPathArgs}}
             ))
             .query(&[("alt", "json")])
-            {{#QueryParams}}
-            .query(&[("{{Key}}", {{Value}})])
-            {{/QueryParams}}
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>()
+            )
             .bearer_auth(&client.token)
             {{#HasBody}}
             .json(&req{{BodyAccessor}})
