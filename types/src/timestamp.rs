@@ -113,41 +113,39 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
 mod test {
     use super::*;
     use serde_json::json;
+    use test_case::test_case;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     // Verify the epoch converts as expected.
     #[test]
-    fn unix_epoch() {
+    fn unix_epoch() -> Result {
         let proto = Timestamp {
             seconds: 0,
             nanos: 0,
         };
-        let json = serde_json::to_value(&proto).unwrap();
+        let json = serde_json::to_value(&proto)?;
         let expected = json!(r#"1970-01-01T00:00:00Z"#);
         assert_eq!(json, expected);
-        let roundtrip = serde_json::from_value::<Timestamp>(json).unwrap();
+        let roundtrip = serde_json::from_value::<Timestamp>(json)?;
         assert_eq!(proto, roundtrip);
+        Ok(())
     }
 
     // Verify timestamps can roundtrip from string -> struct -> string without loss.
-    #[test]
-    fn roundtrip() {
-        let inputs = vec![
-            "0001-01-01T00:00:00Z",
-            "9999-12-31T23:59:59.999999999Z",
-            "2024-10-19T12:34:56.789Z",
-            "2024-10-19T12:34:56.789123456Z",
-        ];
-
-        for input in inputs {
-            let json = serde_json::Value::String(input.to_string());
-            let timestamp = serde_json::from_value::<Timestamp>(json).unwrap();
-            let roundtrip = serde_json::to_string(&timestamp).unwrap();
-            assert_eq!(
-                format!("\"{input}\""),
-                roundtrip,
-                "mismatched value for input={input}"
-            );
-        }
+    #[test_case("0001-01-01T00:00:00Z")]
+    #[test_case("9999-12-31T23:59:59.999999999Z")]
+    #[test_case("2024-10-19T12:34:56.789Z")]
+    #[test_case("2024-10-19T12:34:56.789123456Z")]
+    fn roundtrip(input: &str) -> Result {
+        let json = serde_json::Value::String(input.to_string());
+        let timestamp = serde_json::from_value::<Timestamp>(json)?;
+        let roundtrip = serde_json::to_string(&timestamp)?;
+        assert_eq!(
+            format!("\"{input}\""),
+            roundtrip,
+            "mismatched value for input={input}"
+        );
+        Ok(())
     }
 
     #[serde_with::skip_serializing_none]
@@ -159,11 +157,11 @@ mod test {
     }
 
     #[test]
-    fn serialize_in_struct() {
+    fn serialize_in_struct() -> Result {
         let input = Helper {
             ..Default::default()
         };
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({}));
 
         let input = Helper {
@@ -174,17 +172,18 @@ mod test {
             ..Default::default()
         };
 
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({ "createTime": "1970-01-01T00:00:12.345678Z" }));
+        Ok(())
     }
 
     #[test]
-    fn deserialize_in_struct() {
+    fn deserialize_in_struct() -> Result {
         let input = json!({});
         let want = Helper {
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
 
         let input = json!({ "createTime": "1970-01-01T00:00:12.345678Z" });
@@ -195,7 +194,8 @@ mod test {
             }),
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
+        Ok(())
     }
 }

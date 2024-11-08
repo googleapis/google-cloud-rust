@@ -181,19 +181,21 @@ mod test {
     use super::*;
     use serde_json::json;
     use test_case::test_case;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     // Verify 0 converts as expected.
     #[test]
-    fn zero() {
+    fn zero() -> Result {
         let proto = Duration {
             seconds: 0,
             nanos: 0,
         };
-        let json = serde_json::to_value(&proto).unwrap();
+        let json = serde_json::to_value(&proto)?;
         let expected = json!(r#"0s"#);
         assert_eq!(json, expected);
-        let roundtrip = serde_json::from_value::<Duration>(json).unwrap();
+        let roundtrip = serde_json::from_value::<Duration>(json)?;
         assert_eq!(proto, roundtrip);
+        Ok(())
     }
 
     // Verify 0 converts as expected.
@@ -237,30 +239,30 @@ mod test {
     #[test_case(-12, -123_000, "-12.000123000s"; "negative seconds and micros")]
     #[test_case(-12, -123_000_000, "-12.123000000s"; "negative seconds and millis")]
     #[test_case(-12, -123_456_789, "-12.123456789s"; "negative seconds and full nanos")]
-    fn serialize(seconds: i64, nanos: i32, want: &str) {
-        let got = serde_json::to_value(Duration { seconds, nanos })
-            .unwrap()
+    fn serialize(seconds: i64, nanos: i32, want: &str) -> Result {
+        let got = serde_json::to_value(Duration { seconds, nanos })?
             .as_str()
-            .map(str::to_string)
-            .unwrap();
+            .map(str::to_string).ok_or("cannot convert value to string")?;
         assert_eq!(want, got);
+        Ok(())
     }
 
     // Verify durations can roundtrip from string -> struct -> string without loss.
     #[test]
-    fn roundtrip() {
+    fn roundtrip() -> Result {
         let inputs = vec!["-315576000000.999999999s", "315576000000.999999999s"];
 
         for input in inputs {
             let json = serde_json::Value::String(input.to_string());
-            let timestamp = serde_json::from_value::<Duration>(json).unwrap();
-            let roundtrip = serde_json::to_string(&timestamp).unwrap();
+            let timestamp = serde_json::from_value::<Duration>(json)?;
+            let roundtrip = serde_json::to_string(&timestamp)?;
             assert_eq!(
                 format!("\"{input}\""),
                 roundtrip,
                 "mismatched value for input={input}"
             );
         }
+        Ok(())
     }
 
     #[serde_with::skip_serializing_none]
@@ -272,11 +274,11 @@ mod test {
     }
 
     #[test]
-    fn serialize_in_struct() {
+    fn serialize_in_struct() -> Result {
         let input = Helper {
             ..Default::default()
         };
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({}));
 
         let input = Helper {
@@ -287,17 +289,18 @@ mod test {
             ..Default::default()
         };
 
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({ "timeToLive": "12.345678900s" }));
+        Ok(())
     }
 
     #[test]
-    fn deserialize_in_struct() {
+    fn deserialize_in_struct() -> Result {
         let input = json!({});
         let want = Helper {
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
 
         let input = json!({ "timeToLive": "12.345678900s" });
@@ -308,7 +311,8 @@ mod test {
             }),
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
+        Ok(())
     }
 }
