@@ -16,6 +16,6 @@ use types::Empty;
 
 #[test]
 fn access() {
-    let e = Empty{};
+    let e = Empty {};
     assert_eq!(Empty::default(), e);
 }
