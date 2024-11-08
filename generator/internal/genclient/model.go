@@ -106,59 +106,11 @@ type Method struct {
 	InputTypeID string
 	// OutputType is the output of the Method
 	OutputTypeID string
-	// HTTPInfo information about the method
-	HTTPInfo *HTTPInfo
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 }
 
-// NotQueryParams returns a set of items that are not query params, notably the
-// body and path params.
-func (m *Method) NotQueryParams() map[string]bool {
-	body := m.HTTPInfo.Body
-	if m.HTTPInfo.Body == "" || m.HTTPInfo.Body == "*" {
-		return nil
-	}
-	notQuery := map[string]bool{
-		body: true,
-	}
-	for _, arg := range m.HTTPInfo.PathArgs() {
-		notQuery[arg] = true
-	}
-	return notQuery
-}
-
-// HTTPInfo information about the method.
-type HTTPInfo struct {
-	// HTTP method.
-	//
-	// This is one of:
-	// - GET
-	// - POST
-	// - PUT
-	// - DELETE
-	// - PATCH
-	Method string
-	// RawPath is the path fragment of a URL.
-	//
-	// This is a string that may contain positional arguments. For example:
-	// `/v1/{name=projects/*/secrets/*}`
-	//
-	// The positional arguments may be extracted using the HTTPPathVarRegex.
-	RawPath string
-	// Body is the name of the field that should be used as the body of the
-	// request.
-	//
-	// This is a string that may be "*" which indicates that the entire request
-	// should be used as the body.
-	//
-	// If this is empty then the body is not used.
-	Body string
-}
-
-// Normalized request path information. I (coryan@) think we can normalize
-// both OpenAPI `PathItem` elements and Protobuf HTTPInfo annotations into this
-// structure.
+// Normalized request path information.
 type PathInfo struct {
 	// HTTP Verb.
 	//
@@ -221,16 +173,6 @@ func NewFieldPathPathSegment(s string) PathSegment {
 
 func NewVerbPathSegment(s string) PathSegment {
 	return PathSegment{Verb: &s}
-}
-
-// PathArgs returns the names of the positional arguments in the order they
-// can be found in the RawPath.
-func (h *HTTPInfo) PathArgs() []string {
-	var args []string
-	for _, match := range HTTPPathVarRegex.FindAllStringSubmatch(h.RawPath, -1) {
-		args = append(args, match[1])
-	}
-	return args
 }
 
 // Message defines a message used in request/response handling.

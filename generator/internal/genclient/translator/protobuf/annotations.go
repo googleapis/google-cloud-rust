@@ -25,45 +25,6 @@ import (
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func parseHTTPInfo(m proto.Message) *genclient.HTTPInfo {
-	eHTTP := proto.GetExtension(m, annotations.E_Http)
-	httpRule := eHTTP.(*annotations.HttpRule)
-	var info *genclient.HTTPInfo
-	switch httpRule.GetPattern().(type) {
-	case *annotations.HttpRule_Get:
-		info = &genclient.HTTPInfo{
-			Method:  "GET",
-			RawPath: httpRule.GetGet(),
-		}
-	case *annotations.HttpRule_Post:
-		info = &genclient.HTTPInfo{
-			Method:  "POST",
-			RawPath: httpRule.GetPost(),
-		}
-	case *annotations.HttpRule_Put:
-		info = &genclient.HTTPInfo{
-			Method:  "PUT",
-			RawPath: httpRule.GetPut(),
-		}
-	case *annotations.HttpRule_Delete:
-		info = &genclient.HTTPInfo{
-			Method:  "DELETE",
-			RawPath: httpRule.GetDelete(),
-		}
-	case *annotations.HttpRule_Patch:
-		info = &genclient.HTTPInfo{
-			Method:  "PATCH",
-			RawPath: httpRule.GetPatch(),
-		}
-	default:
-		slog.Warn("unsupported http method", "method", httpRule.GetPattern())
-	}
-	if info != nil {
-		info.Body = httpRule.GetBody()
-	}
-	return info
-}
-
 func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *genclient.APIState) (*genclient.PathInfo, error) {
 	eHTTP := proto.GetExtension(m.GetOptions(), annotations.E_Http)
 	httpRule := eHTTP.(*annotations.HttpRule)

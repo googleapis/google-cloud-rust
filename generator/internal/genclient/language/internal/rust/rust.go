@@ -210,39 +210,52 @@ func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
-	if m.HTTPInfo.Body == "*" {
+	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
 	}
-	return "." + c.ToSnake(m.HTTPInfo.Body)
+	return "." + c.ToSnake(m.PathInfo.BodyFieldPath)
 }
 
-func (c *Codec) HTTPPathFmt(m *genclient.HTTPInfo, state *genclient.APIState) string {
-	return genclient.HTTPPathVarRegex.ReplaceAllStringFunc(m.RawPath, func(s string) string { return "{}" })
+func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
+	fmt := ""
+	for _, segment := range m.PathTemplate {
+		if segment.Literal != nil {
+			fmt = fmt + "/" + *segment.Literal
+		} else if segment.FieldPath != nil {
+			fmt = fmt + "/{}"
+		} else if segment.Verb != nil {
+			fmt = fmt + ":" + *segment.Verb
+		}
+	}
+	return fmt
 }
 
-func (c *Codec) HTTPPathArgs(h *genclient.HTTPInfo, state *genclient.APIState) []string {
+func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
 	var args []string
-	rawArgs := h.PathArgs()
-	for _, arg := range rawArgs {
-		args = append(args, "req."+c.ToSnake(arg))
+	for _, arg := range h.PathTemplate {
+		if arg.FieldPath != nil {
+			args = append(args, "req."+c.ToSnake(*arg.FieldPath))
+		}
 	}
 	return args
 }
 
 func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Pair {
-	notQuery := m.NotQueryParams()
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
-		slog.Error("unable to lookup type", "id", m.InputTypeID)
+		slog.Error("unable to lookup request type", "id", m.InputTypeID)
 		return nil
 	}
 
 	var queryParams []*genclient.Pair
 	for _, field := range msg.Fields {
-		if field.JSONName != "" && !notQuery[field.JSONName] {
-			queryParams = append(queryParams, &genclient.Pair{Key: field.JSONName, Value: "req." + c.ToSnake(field.JSONName) + ".as_str()"})
+		if !m.PathInfo.QueryParameters[field.Name] {
+			continue
 		}
+		queryParams = append(queryParams, &genclient.Pair{
+			Key:   field.JSONName,
+			Value: "req." + c.ToSnake(field.Name) + ".as_str()"})
 	}
 	return queryParams
 }

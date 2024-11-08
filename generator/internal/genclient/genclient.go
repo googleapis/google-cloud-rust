@@ -65,11 +65,11 @@ type LanguageCodec interface {
 	// HTTPPathFmt returns a format string used for adding path arguments to a
 	// URL. The replacements should align in both order and value from what is
 	// returned from HTTPPathArgs.
-	HTTPPathFmt(m *HTTPInfo, state *APIState) string
+	HTTPPathFmt(m *PathInfo, state *APIState) string
 	// HTTPPathArgs returns a string representation of the path arguments. This
 	// should be used in conjunction with HTTPPathFmt. An example return value
 	// might be `, req.PathParam()`
-	HTTPPathArgs(h *HTTPInfo, state *APIState) []string
+	HTTPPathArgs(h *PathInfo, state *APIState) []string
 	// QueryParams returns key-value pairs of name to accessor for query params.
 	// An example return value might be
 	// `&Pair{Key: "secretId", Value: "req.SecretId()"}`

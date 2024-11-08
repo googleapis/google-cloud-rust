@@ -149,19 +149,19 @@ func (m *method) OutputTypeName() string {
 }
 
 func (m *method) HTTPMethod() string {
-	return m.s.HTTPInfo.Method
+	return m.s.PathInfo.Verb
 }
 
 func (m *method) HTTPMethodToLower() string {
-	return strings.ToLower(m.s.HTTPInfo.Method)
+	return strings.ToLower(m.s.PathInfo.Verb)
 }
 
 func (m *method) HTTPPathFmt() string {
-	return m.c.HTTPPathFmt(m.s.HTTPInfo, m.state)
+	return m.c.HTTPPathFmt(m.s.PathInfo, m.state)
 }
 
 func (m *method) HTTPPathArgs() []string {
-	return m.c.HTTPPathArgs(m.s.HTTPInfo, m.state)
+	return m.c.HTTPPathArgs(m.s.PathInfo, m.state)
 }
 
 func (m *method) QueryParams() []*Pair {
@@ -169,7 +169,7 @@ func (m *method) QueryParams() []*Pair {
 }
 
 func (m *method) HasBody() bool {
-	return m.s.HTTPInfo.Body != ""
+	return m.s.PathInfo.BodyFieldPath != ""
 }
 
 func (m *method) BodyAccessor() string {

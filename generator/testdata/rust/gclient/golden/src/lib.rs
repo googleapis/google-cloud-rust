@@ -91,7 +91,6 @@ impl SecretManagerService {
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
             .query(&[("alt", "json")])
-            .query(&[("name", req.name.as_str())])
             .bearer_auth(&client.token)
             .send()
             .await?;
