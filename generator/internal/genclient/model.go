@@ -108,6 +108,8 @@ type Method struct {
 	OutputTypeID string
 	// HTTPInfo information about the method
 	HTTPInfo *HTTPInfo
+	// PathInfo information about the HTTP request
+	PathInfo *PathInfo
 }
 
 // NotQueryParams returns a set of items that are not query params, notably the
@@ -152,6 +154,73 @@ type HTTPInfo struct {
 	//
 	// If this is empty then the body is not used.
 	Body string
+}
+
+// Normalized request path information. I (coryan@) think we can normalize
+// both OpenAPI `PathItem` elements and Protobuf HTTPInfo annotations into this
+// structure.
+type PathInfo struct {
+	// HTTP Verb.
+	//
+	// This is one of:
+	// - GET
+	// - POST
+	// - PUT
+	// - DELETE
+	// - PATCH
+	Verb string
+	// The path broken by components.
+	PathTemplate []PathSegment
+	// Query parameter fields.
+	QueryParameters map[string]bool
+	// Body is the name of the field that should be used as the body of the
+	// request.
+	//
+	// This is a string that may be "*" which indicates that the entire request
+	// should be used as the body.
+	//
+	// If this is empty then the body is not used.
+	BodyFieldPath string
+}
+
+// A path segment is either a string literal (such as "projects") or a field
+// path (such as "options.version").
+//
+// For OpenAPI these are formed by breaking the path string. Something like
+//
+//	`/v1/projects/{project}/secrets/{secret}:getIamPolicy`
+//
+// should produce:
+// ```
+//
+//	[]PathSegment{
+//	  {Literal:   &"v1"},
+//	  {Literal:   &"projects"},
+//	  {FieldPath: &"project"},
+//	  {Literal:   &"secrets"},
+//	  {FieldPath: &"secret"},
+//	  {Verb:      &"getIamPolicy"},
+//	}
+//
+// ```
+//
+// The Codec interpret these elements as needed.
+type PathSegment struct {
+	Literal   *string
+	FieldPath *string
+	Verb      *string
+}
+
+func NewLiteralPathSegment(s string) PathSegment {
+	return PathSegment{Literal: &s}
+}
+
+func NewFieldPathPathSegment(s string) PathSegment {
+	return PathSegment{FieldPath: &s}
+}
+
+func NewVerbPathSegment(s string) PathSegment {
+	return PathSegment{Verb: &s}
 }
 
 // PathArgs returns the names of the positional arguments in the order they

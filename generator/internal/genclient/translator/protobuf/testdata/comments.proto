@@ -15,6 +15,11 @@
 syntax = "proto3";
 package test;
 
+import "google/api/annotations.proto";
+import "google/api/client.proto";
+import "google/api/field_behavior.proto";
+import "google/api/resource.proto";
+
 // A test message.
 //
 // With even more of a description.
@@ -54,8 +59,17 @@ message Response {
 //
 // With a longer service description.
 service Service {
+  option (google.api.default_host) = "test.googleapis.com";
+  option (google.api.oauth_scopes) =
+      "https://www.googleapis.com/auth/cloud-platform";
+
   // Some RPC.
   //
   // It does not do much.
-  rpc Create(Request) returns (Response);
+  rpc Create(Request) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/{parent=projects/*}/foos"
+      body: "*"
+    };
+  }
 }
