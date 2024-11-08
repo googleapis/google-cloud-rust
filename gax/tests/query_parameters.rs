@@ -34,12 +34,10 @@ pub struct FakeRequest {
 #[test]
 fn make_reqwest_no_query() -> Result {
     let client = reqwest::Client::builder().build()?;
-    let empty : [Option<(&str, String)>;0] = [];
-    let builder = client.get("https://test.googleapis.com/v1/unused").query(
-        &empty.into_iter()
-            .flatten()
-            .collect::<Vec<(&str, String)>>(),
-    );
+    let empty: [Option<(&str, String)>; 0] = [];
+    let builder = client
+        .get("https://test.googleapis.com/v1/unused")
+        .query(&empty.into_iter().flatten().collect::<Vec<(&str, String)>>());
 
     let r = builder.build()?;
     assert_eq!(None, r.url().query());
