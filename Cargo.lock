@@ -343,6 +343,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "gax"
+version = "0.1.0"
+dependencies = [
+ "reqwest 0.12.9",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "types",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"

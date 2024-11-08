@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[workspace]
-resolver = "2"
+[package]
+name = "gax"
+version = "0.1.0"
+edition = "2021"
 
-members = [
-  "auth",
-  "tools/check-copyright",
-  "types",
-  "gax",
-  "generator/testdata/rust/openapi/golden",
-  "generator/testdata/rust/gclient/golden",
-]
+[dependencies]
+serde_json = "1.0.132"
+types = { version = "0.1.0", path = "../types" }
+
+[dev-dependencies]
+reqwest = "0.12.9"
+serde = { version = "1.0.214", features = ["serde_derive"] }
+serde_with = "3.11.0"
