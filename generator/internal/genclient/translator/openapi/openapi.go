@@ -280,7 +280,7 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation) (*genclient
 		if strings.HasSuffix(reference, "Request") {
 			// Our OpenAPI specs do this weird thing: sometimes the `*Request`
 			// message appears in the list of known messages. But sometimes only
-			// the payload appears. I have not found any attribute to tell appart
+			// the payload appears. I have not found any attribute to tell apart
 			// between the two. Only the name suffix.
 			message = msg
 		} else {
