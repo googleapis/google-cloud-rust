@@ -24,7 +24,7 @@ pub use crate::timestamp::*;
 #[cfg(test)]
 mod test {
     use serde_json::json;
-    use std::error::Error;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[serde_with::serde_as]
     #[serde_with::skip_serializing_none]
@@ -37,7 +37,7 @@ mod test {
     }
 
     #[test]
-    fn test_serialize_large_i64() -> Result<(), Box<dyn Error>> {
+    fn test_serialize_large_i64() -> Result {
         // 1 << 60 is too large to be represented as a JSON number, those are
         // always IEEE 754 double precision floating point numbers, which only
         // has about 52 bits of mantissa.
@@ -53,7 +53,7 @@ mod test {
     }
 
     #[test]
-    fn test_deserialize_large_i64() -> Result<(), Box<dyn Error>> {
+    fn test_deserialize_large_i64() -> Result {
         // 1 << 60 is too large to be represented as a JSON number, those are
         // always IEEE 754 double precision floating point numbers, which only
         // has about 52 bits of mantissa.
@@ -77,7 +77,7 @@ mod test {
     }
 
     #[test]
-    fn test_serialize_bytes() -> Result<(), Box<dyn Error>> {
+    fn test_serialize_bytes() -> Result {
         // 1 << 60 is too large to be represented as a JSON number, those are
         // always IEEE 754 double precision floating point numbers, which only
         // has about 52 bits of mantissa.
@@ -94,7 +94,7 @@ mod test {
     }
 
     #[test]
-    fn test_deserialize_bytes() -> Result<(), Box<dyn Error>> {
+    fn test_deserialize_bytes() -> Result {
         // 1 << 60 is too large to be represented as a JSON number, those are
         // always IEEE 754 double precision floating point numbers, which only
         // has about 52 bits of mantissa.

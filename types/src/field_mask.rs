@@ -286,13 +286,14 @@ impl<'de> serde::de::Visitor<'de> for PathVisitor {
 mod test {
     use super::*;
     use serde_json::json;
-    use std::error::Error;
     use test_case::test_case;
+
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test_case(vec![], ""; "Serialize empty")]
     #[test_case(vec!["field1"], "field1"; "Serialize single")]
     #[test_case(vec!["field1", "field2", "field3"], "field1,field2,field3"; "Serialize multiple")]
-    fn test_serialize(paths: Vec<&str>, want: &str) -> Result<(), Box<dyn Error>> {
+    fn test_serialize(paths: Vec<&str>, want: &str) -> Result {
         let value = serde_json::to_value(FieldMask {
             paths: paths.into_iter().map(str::to_string).collect(),
         })?;
@@ -308,7 +309,7 @@ mod test {
     #[test_case("", vec![]; "Deserialize empty")]
     #[test_case("field1", vec!["field1"]; "Deserialize single")]
     #[test_case("field1,field2,field3", vec!["field1,field2,field3"]; "Deserialize multiple")]
-    fn test_deserialize(paths: &str, want: Vec<&str>) -> Result<(), Box<dyn Error>> {
+    fn test_deserialize(paths: &str, want: Vec<&str>) -> Result {
         let value = json!({ "paths": paths });
         let got = serde_json::from_value::<FieldMask>(value)?;
         assert_eq!(got.paths.clone().sort(), want.clone().sort());
@@ -324,11 +325,11 @@ mod test {
     }
 
     #[test]
-    fn serialize_in_struct() {
+    fn serialize_in_struct() -> Result {
         let input = Helper {
             ..Default::default()
         };
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({}));
 
         let input = Helper {
@@ -341,17 +342,18 @@ mod test {
             ..Default::default()
         };
 
-        let json = serde_json::to_value(input).unwrap();
+        let json = serde_json::to_value(input)?;
         assert_eq!(json, json!({ "mask": {"paths": "f1,f2,f3"} }));
+        Ok(())
     }
 
     #[test]
-    fn deserialize_in_struct() {
+    fn deserialize_in_struct() -> Result {
         let input = json!({});
         let want = Helper {
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
 
         let input = json!({ "mask": {"paths": "field1,field2,field3" }});
@@ -364,7 +366,8 @@ mod test {
             }),
             ..Default::default()
         };
-        let got = serde_json::from_value::<Helper>(input).unwrap();
+        let got = serde_json::from_value::<Helper>(input)?;
         assert_eq!(want, got);
+        Ok(())
     }
 }

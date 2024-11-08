@@ -169,6 +169,7 @@ mod test {
     use super::*;
     use crate::duration::*;
     use serde_json::json;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -178,8 +179,6 @@ mod test {
         pub parent: String,
         pub id: String,
     }
-
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
     fn serialize_duration() -> Result {
