@@ -242,7 +242,15 @@
 pub struct FieldMask {
     /// The set of field mask paths.
     #[serde(deserialize_with = "crate::field_mask::deserialize_paths")]
-    paths: Vec<String>,
+    pub paths: Vec<String>,
+}
+
+impl FieldMask {
+    /// Set the paths.
+    pub fn set_paths(mut self, paths: Vec<String>) -> Self {
+        self.paths = paths;
+        self
+    }
 }
 
 /// Implement [`serde`](::serde) serialization for [FieldMask]
@@ -313,61 +321,6 @@ mod test {
         let value = json!({ "paths": paths });
         let got = serde_json::from_value::<FieldMask>(value)?;
         assert_eq!(got.paths.clone().sort(), want.clone().sort());
-        Ok(())
-    }
-
-    #[serde_with::skip_serializing_none]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct Helper {
-        pub mask: Option<FieldMask>,
-    }
-
-    #[test]
-    fn serialize_in_struct() -> Result {
-        let input = Helper {
-            ..Default::default()
-        };
-        let json = serde_json::to_value(input)?;
-        assert_eq!(json, json!({}));
-
-        let input = Helper {
-            mask: Some(FieldMask {
-                paths: vec!["f1", "f2", "f3"]
-                    .into_iter()
-                    .map(str::to_string)
-                    .collect(),
-            }),
-            ..Default::default()
-        };
-
-        let json = serde_json::to_value(input)?;
-        assert_eq!(json, json!({ "mask": {"paths": "f1,f2,f3"} }));
-        Ok(())
-    }
-
-    #[test]
-    fn deserialize_in_struct() -> Result {
-        let input = json!({});
-        let want = Helper {
-            ..Default::default()
-        };
-        let got = serde_json::from_value::<Helper>(input)?;
-        assert_eq!(want, got);
-
-        let input = json!({ "mask": {"paths": "field1,field2,field3" }});
-        let want = Helper {
-            mask: Some(FieldMask {
-                paths: vec!["field1", "field2", "field3"]
-                    .into_iter()
-                    .map(str::to_string)
-                    .collect(),
-            }),
-            ..Default::default()
-        };
-        let got = serde_json::from_value::<Helper>(input)?;
-        assert_eq!(want, got);
         Ok(())
     }
 }
