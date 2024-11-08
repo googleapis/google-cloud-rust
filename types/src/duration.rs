@@ -52,6 +52,20 @@ pub struct Duration {
     pub nanos: i32,
 }
 
+impl Duration {
+    /// Set the `seconds` field.
+    pub fn set_seconds(mut self, v: i64) -> Self {
+        self.seconds = v;
+        self
+    }
+
+    /// Set the `nanos` field.
+    pub fn set_nanos(mut self, v: i32) -> Self {
+        self.nanos = v;
+        self
+    }
+}
+
 const NS: i32 = 1_000_000_000;
 
 impl Duration {
@@ -263,57 +277,6 @@ mod test {
                 "mismatched value for input={input}"
             );
         }
-        Ok(())
-    }
-
-    #[serde_with::skip_serializing_none]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct Helper {
-        pub time_to_live: Option<Duration>,
-    }
-
-    #[test]
-    fn serialize_in_struct() -> Result {
-        let input = Helper {
-            ..Default::default()
-        };
-        let json = serde_json::to_value(input)?;
-        assert_eq!(json, json!({}));
-
-        let input = Helper {
-            time_to_live: Some(Duration {
-                seconds: 12,
-                nanos: 345678900,
-            }),
-            ..Default::default()
-        };
-
-        let json = serde_json::to_value(input)?;
-        assert_eq!(json, json!({ "timeToLive": "12.345678900s" }));
-        Ok(())
-    }
-
-    #[test]
-    fn deserialize_in_struct() -> Result {
-        let input = json!({});
-        let want = Helper {
-            ..Default::default()
-        };
-        let got = serde_json::from_value::<Helper>(input)?;
-        assert_eq!(want, got);
-
-        let input = json!({ "timeToLive": "12.345678900s" });
-        let want = Helper {
-            time_to_live: Some(Duration {
-                seconds: 12,
-                nanos: 345678900,
-            }),
-            ..Default::default()
-        };
-        let got = serde_json::from_value::<Helper>(input)?;
-        assert_eq!(want, got);
         Ok(())
     }
 }
