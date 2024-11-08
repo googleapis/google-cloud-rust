@@ -242,7 +242,8 @@ mod test {
     fn serialize(seconds: i64, nanos: i32, want: &str) -> Result {
         let got = serde_json::to_value(Duration { seconds, nanos })?
             .as_str()
-            .map(str::to_string).ok_or("cannot convert value to string")?;
+            .map(str::to_string)
+            .ok_or("cannot convert value to string")?;
         assert_eq!(want, got);
         Ok(())
     }
