@@ -34,10 +34,10 @@ pub struct FakeRequest {
 #[test]
 fn make_reqwest_no_query() -> Result {
     let client = reqwest::Client::builder().build()?;
+    let empty : [Option<(&str, String)>;0] = [];
     let builder = client.get("https://test.googleapis.com/v1/unused").query(
-        &[].into_iter()
-            .filter_map(|p| p)
-            .map(|u| u)
+        &empty.into_iter()
+            .flatten()
             .collect::<Vec<(&str, String)>>(),
     );
 
@@ -66,8 +66,7 @@ fn basic_query() -> Result {
             gax::query_parameter::format("required", &request.required)?,
         ]
         .into_iter()
-        .filter_map(|p| p)
-        .map(|u| u)
+        .flatten()
         .collect::<Vec<(&str, String)>>(),
     );
 
@@ -101,8 +100,7 @@ fn with_fieldmask() -> Result {
             gax::query_parameter::format("required", &request.required)?,
         ]
         .into_iter()
-        .filter_map(|p| p)
-        .map(|u| u)
+        .flatten()
         .collect::<Vec<(&str, String)>>(),
     );
 
@@ -132,8 +130,7 @@ fn with_duration() -> Result {
             gax::query_parameter::format("required", &request.required)?,
         ]
         .into_iter()
-        .filter_map(|p| p)
-        .map(|u| u)
+        .flatten()
         .collect::<Vec<(&str, String)>>(),
     );
 
@@ -167,8 +164,7 @@ fn with_timestamp() -> Result {
             gax::query_parameter::format("required", &request.required)?,
         ]
         .into_iter()
-        .filter_map(|p| p)
-        .map(|u| u)
+        .flatten()
         .collect::<Vec<(&str, String)>>(),
     );
 

@@ -22,7 +22,7 @@ pub fn format<T>(
 where
     T: QueryParameter,
 {
-    QueryParameter::format(parameter.into())
+    QueryParameter::format(parameter)
         .map(|result| result.map(|s| (name, s)))
         .transpose()
 }
@@ -33,7 +33,7 @@ pub trait QueryParameter {
 
 impl<T: QueryParameter> QueryParameter for Option<T> {
     fn format(&self) -> Option<Result> {
-        self.as_ref().map(|v| QueryParameter::format(v)).flatten()
+        self.as_ref().and_then(|v| QueryParameter::format(v))
     }
 }
 
@@ -127,12 +127,12 @@ mod tests {
     #[test]
     fn with_value() -> Result {
         let want = Some("42".to_string());
-        assert_eq!(want, QueryParameter::format(&Some(42 as i32)).transpose()?);
-        assert_eq!(want, QueryParameter::format(&Some(42 as i64)).transpose()?);
-        assert_eq!(want, QueryParameter::format(&Some(42 as u32)).transpose()?);
-        assert_eq!(want, QueryParameter::format(&Some(42 as u64)).transpose()?);
-        assert_eq!(want, QueryParameter::format(&Some(42 as f32)).transpose()?);
-        assert_eq!(want, QueryParameter::format(&Some(42 as f64)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_i32)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_i64)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_u32)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_u64)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_f32)).transpose()?);
+        assert_eq!(want, QueryParameter::format(&Some(42_f64)).transpose()?);
         Ok(())
     }
 
