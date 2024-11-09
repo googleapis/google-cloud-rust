@@ -19,6 +19,7 @@ edition = "2021"
 
 [dependencies]
 serde_json = "1.0.132"
+thiserror = "2.0.1"
 types = { version = "0.1.0", path = "../types" }
 
 [dev-dependencies]
