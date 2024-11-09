@@ -30,27 +30,55 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-impl RequestParameter for i32 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for i64 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for u32 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for u64 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for f32 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for f64 { fn format(&self) -> Result { Ok(format!("{self}")) } }
-impl RequestParameter for String { fn format(&self) -> Result { Ok(self.clone()) } }
+impl RequestParameter for i32 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for i64 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for u32 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for u64 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for f32 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for f64 {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+impl RequestParameter for String {
+    fn format(&self) -> Result {
+        Ok(self.clone())
+    }
+}
 
-impl RequestParameter for types::Duration {  
+impl RequestParameter for types::Duration {
     fn format(&self) -> Result {
         Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
     }
 }
 
-impl RequestParameter for types::FieldMask {  
+impl RequestParameter for types::FieldMask {
     fn format(&self) -> Result {
         Ok(self.paths.join(","))
     }
 }
 
-impl RequestParameter for types::Timestamp {  
+impl RequestParameter for types::Timestamp {
     fn format(&self) -> Result {
         Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
     }

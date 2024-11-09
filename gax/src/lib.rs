@@ -13,7 +13,7 @@
 // limitations under the License.
 
 //! Google APIs helpers.
-//! 
+//!
 //! This crate contains a number of types and functions used in the
 //! implementation of the Google Cloud SDK for Rust. Unless otherwise noted,
 //! these are **not** intended for general use. This crate will remain unstable

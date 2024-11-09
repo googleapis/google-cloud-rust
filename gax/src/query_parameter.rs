@@ -15,7 +15,7 @@
 type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 
 /// Formats a query parameter.
-/// 
+///
 /// Google APIs use [gRPC Transcoding](https://google.aip.dev/127). Some request
 /// fields are sent as query parameters and may need special formatting:
 /// - [Option] fields that do not contain a value are not included in the HTTP
@@ -24,13 +24,10 @@ type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 ///   [Duration](types::Duration), [FieldMask](types::FieldMask), and
 ///   [Timestamp](types::Timestamp).
 /// - Simple scalars are formatted as usual.
-/// 
+///
 /// This function is called from the generated code. It is not intended for
 /// general use. The goal  
-pub fn format<T>(
-    name: &'static str,
-    parameter: &T,
-) -> Result<Option<(&'static str, String)>>
+pub fn format<T>(name: &'static str, parameter: &T) -> Result<Option<(&'static str, String)>>
 where
     T: QueryParameter,
 {
@@ -41,7 +38,7 @@ where
 
 /// [QueryParameter] is a trait representing types that can be used as a query
 /// parameter.
-/// 
+///
 pub trait QueryParameter {
     fn format(&self) -> Option<Result<String>>;
 }
