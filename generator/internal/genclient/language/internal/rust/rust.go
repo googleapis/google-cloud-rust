@@ -231,11 +231,26 @@ func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) st
 	return fmt
 }
 
+func (c *Codec) unwrapFieldPath(components []string, requestAccess string) (string, string) {
+	if len(components) == 1 {
+		return requestAccess + "." + c.ToSnake(components[0]), components[0]
+	}
+	unwrap, name := c.unwrapFieldPath(components[0:len(components)-1], "&req")
+	last := components[len(components)-1]
+	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\")?.%s", unwrap, name, last), ""
+}
+
+func (c *Codec) derefFieldPath(fieldPath string) string {
+	components := strings.Split(fieldPath, ".")
+	unwrap, _ := c.unwrapFieldPath(components, "req")
+	return unwrap
+}
+
 func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, "req."+c.ToSnake(*arg.FieldPath))
+			args = append(args, c.derefFieldPath(*arg.FieldPath))
 		}
 	}
 	return args
