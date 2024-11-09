@@ -69,6 +69,10 @@ func queryParameters(m *descriptorpb.MethodDescriptorProto, pathTemplate []gencl
 		return nil, fmt.Errorf("unable to lookup type %s", m.GetInputType())
 	}
 	params := map[string]bool{}
+	if body == "*" {
+		// All parameters are body parameters.
+		return params, nil
+	}
 	// Start with all the fields marked as query parameters.
 	for _, field := range msg.Fields {
 		params[field.Name] = true
@@ -78,7 +82,7 @@ func queryParameters(m *descriptorpb.MethodDescriptorProto, pathTemplate []gencl
 			delete(params, *s.FieldPath)
 		}
 	}
-	if body != "" && body != "*" {
+	if body != "" {
 		delete(params, body)
 	}
 	return params, nil

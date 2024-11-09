@@ -542,6 +542,55 @@ func TestService(t *testing.T) {
 	})
 }
 
+func TestQueryParameters(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "query_parameters.proto"))
+
+	service, ok := api.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	checkService(t, *service, genclient.Service{
+		Name:          "TestService",
+		ID:            ".test.TestService",
+		Documentation: "A service to unit test the protobuf translator.",
+		DefaultHost:   "test.googleapis.com",
+		Methods: []*genclient.Method{
+			{
+				Name:          "CreateFoo",
+				Documentation: "Creates a new `Foo` resource. `Foo`s are containers for `Bar`s.\n\nShows how a `body: \"${field}\"` option works.",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".test.Foo",
+				PathInfo: &genclient.PathInfo{
+					Verb: "POST",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("parent"),
+						genclient.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"foo_id": true},
+					BodyFieldPath:   "bar",
+				},
+			},
+			{
+				Name:          "AddBar",
+				Documentation: "Add a Bar resource.\n\nShows how a `body: \"*\"` option works.",
+				InputTypeID:   ".test.AddBarRequest",
+				OutputTypeID:  ".test.Bar",
+				PathInfo: &genclient.PathInfo{
+					Verb: "POST",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("parent"),
+						genclient.NewVerbPathSegment("addFoo"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	tempFile, err := os.CreateTemp("", "protoc-out-")
