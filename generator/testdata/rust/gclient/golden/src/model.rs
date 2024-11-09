@@ -537,7 +537,7 @@ pub struct CreateSecretRequest {
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
     /// field values.
-    pub secret: Vec<crate::model::Secret>,
+    pub secret: Option<crate::model::Secret>,
 }
 
 /// Request message for

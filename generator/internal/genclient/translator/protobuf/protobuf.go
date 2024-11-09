@@ -193,7 +193,9 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 			// as they typically are represented by a single `map<k, v>`-like
 			// datatype. Protobuf leaks the wire-representation of maps, i.e.,
 			// repeated pairs.
-			field.Repeated = !message.IsMap
+			if message.IsMap {
+				field.Repeated = false
+			}
 		}
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()

@@ -442,6 +442,69 @@ func TestObjectFields(t *testing.T) {
 	})
 }
 
+func TestWellKnownTypeFields(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "wkt_fields.proto"))
+
+	message, ok := api.State.MessageByID[".test.Fake"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name: "Fake",
+		ID:   ".test.Fake",
+		Fields: []*genclient.Field{
+			{
+				Name:     "field_mask",
+				JSONName: "fieldMask",
+				ID:       ".test.Fake.field_mask",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.FieldMask",
+				Optional: true,
+			},
+			{
+				Name:     "timestamp",
+				JSONName: "timestamp",
+				ID:       ".test.Fake.timestamp",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+				Optional: true,
+			},
+			{
+				Name:     "any",
+				JSONName: "any",
+				ID:       ".test.Fake.any",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Optional: true,
+			},
+			{
+				Name:     "repeated_field_mask",
+				JSONName: "repeatedFieldMask",
+				ID:       ".test.Fake.repeated_field_mask",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.FieldMask",
+				Repeated: true,
+			},
+			{
+				Name:     "repeated_timestamp",
+				JSONName: "repeatedTimestamp",
+				ID:       ".test.Fake.repeated_timestamp",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+				Repeated: true,
+			},
+			{
+				Name:     "repeated_any",
+				JSONName: "repeatedAny",
+				ID:       ".test.Fake.repeated_any",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Repeated: true,
+			},
+		},
+	})
+}
+
 func TestMapFields(t *testing.T) {
 	api := makeAPI(nil, newCodeGeneratorRequest(t, "map_fields.proto"))
 
