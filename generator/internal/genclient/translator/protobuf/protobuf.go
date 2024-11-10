@@ -83,23 +83,47 @@ func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		api.Description = serviceConfig.Documentation.Summary
 	}
 
-	files := req.GetSourceFileDescriptors()
-	for _, f := range files {
+	// First we need to add all the message and enums types to the
+	// `state.MessageByID` and `state.EnumByID` symbol tables. We may not need
+	// to generate these elements, but we need them to be available to generate
+	// any RPC that uses them.
+	for _, f := range req.GetProtoFile() {
+		fFQN := "." + f.GetPackage()
+		for _, m := range f.MessageType {
+			mFQN := fFQN + "." + m.GetName()
+			_ = processMessage(state, m, mFQN, nil)
+		}
+
+		for _, e := range f.EnumType {
+			eFQN := fFQN + "." + e.GetName()
+			_ = processEnum(state, e, eFQN, nil)
+		}
+	}
+
+	// Then we need to add the messages, enums and services to the list of
+	// elements to be generated.
+	for _, f := range req.GetSourceFileDescriptors() {
 		var fileServices []*genclient.Service
 		fFQN := "." + f.GetPackage()
 
 		// Messages
 		for _, m := range f.MessageType {
 			mFQN := fFQN + "." + m.GetName()
-			msg := processMessage(state, m, mFQN, nil)
-			api.Messages = append(api.Messages, msg)
+			if msg, ok := state.MessageByID[mFQN]; ok {
+				api.Messages = append(api.Messages, msg)
+			} else {
+				slog.Warn("missing message in symbol table", "message", mFQN)
+			}
 		}
 
 		// Enums
 		for _, e := range f.EnumType {
 			eFQN := fFQN + "." + e.GetName()
-			e := processEnum(state, e, eFQN, nil)
-			api.Enums = append(api.Enums, e)
+			if e, ok := state.EnumByID[eFQN]; ok {
+				api.Enums = append(api.Enums, e)
+			} else {
+				slog.Warn("missing enum in symbol table", "message", eFQN)
+			}
 		}
 
 		// Services
