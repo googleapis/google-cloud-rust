@@ -119,6 +119,19 @@ type ParserOptions struct {
 	Options map[string]string
 }
 
+type CodecOptions struct {
+	// The location where the specification can be found.
+	Language string
+	// The output location.
+	ProjectRoot string
+	// The output location within ProjectRoot.
+	OutDir string
+	// The directory containing all mustache templates.
+	TemplateDir string
+	// Additional options.
+	Options map[string]string
+}
+
 // GenerateRequest used to generate clients.
 type GenerateRequest struct {
 	// The in memory representation of a parsed input.
