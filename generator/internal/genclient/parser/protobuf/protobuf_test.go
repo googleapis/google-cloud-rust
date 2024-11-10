@@ -15,18 +15,12 @@
 package protobuf
 
 import (
-	"bytes"
-	"os"
-	"os/exec"
-	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
-	"google.golang.org/protobuf/proto"
-	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
@@ -40,7 +34,7 @@ func TestInfo(t *testing.T) {
 		},
 	}
 
-	api := makeAPI(serviceConfig, newCodeGeneratorRequest(t, "scalar.proto"))
+	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	if api.Name != "secretmanager" {
 		t.Errorf("want = %q; got = %q", "secretmanager", api.Name)
 	}
@@ -53,7 +47,7 @@ func TestInfo(t *testing.T) {
 }
 
 func TestScalar(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -173,7 +167,7 @@ func TestScalar(t *testing.T) {
 }
 
 func TestScalarArray(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar_array.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_array.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -220,7 +214,7 @@ func TestScalarArray(t *testing.T) {
 }
 
 func TestScalarOptional(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "scalar_optional.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_optional.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -267,7 +261,7 @@ func TestScalarOptional(t *testing.T) {
 }
 
 func TestSkipExternalMessages(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "with_import.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 
 	// Both `ImportedMessage` and `LocalMessage` should be in the index:
 	_, ok := api.State.MessageByID[".away.ImportedMessage"]
@@ -312,7 +306,7 @@ func TestSkipExternalMessages(t *testing.T) {
 }
 
 func TestSkipExternaEnums(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "with_import.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 
 	// Both `ImportedEnum` and `LocalEnum` should be in the index:
 	_, ok := api.State.EnumByID[".away.ImportedEnum"]
@@ -350,7 +344,7 @@ func TestSkipExternaEnums(t *testing.T) {
 }
 
 func TestComments(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "comments.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "comments.proto"))
 
 	message, ok := api.State.MessageByID[".test.Request"]
 	if !ok {
@@ -423,7 +417,7 @@ func TestComments(t *testing.T) {
 }
 
 func TestOneOfs(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "oneofs.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -493,7 +487,7 @@ func TestOneOfs(t *testing.T) {
 }
 
 func TestObjectFields(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "object_fields.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "object_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -526,7 +520,7 @@ func TestObjectFields(t *testing.T) {
 }
 
 func TestWellKnownTypeFields(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "wkt_fields.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "wkt_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -589,7 +583,7 @@ func TestWellKnownTypeFields(t *testing.T) {
 }
 
 func TestMapFields(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "map_fields.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -641,7 +635,7 @@ func TestMapFields(t *testing.T) {
 }
 
 func TestService(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "test_service.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "test_service.proto"))
 
 	service, ok := api.State.ServiceByID[".test.TestService"]
 	if !ok {
@@ -689,7 +683,7 @@ func TestService(t *testing.T) {
 }
 
 func TestQueryParameters(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "query_parameters.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "query_parameters.proto"))
 
 	service, ok := api.State.ServiceByID[".test.TestService"]
 	if !ok {
@@ -738,7 +732,7 @@ func TestQueryParameters(t *testing.T) {
 }
 
 func TestEnum(t *testing.T) {
-	api := makeAPI(nil, newCodeGeneratorRequest(t, "enum.proto"))
+	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "enum.proto"))
 	e, ok := api.State.EnumByID[".test.Code"]
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
@@ -761,49 +755,18 @@ func TestEnum(t *testing.T) {
 	})
 }
 
-func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
+func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
-	tempFile, err := os.CreateTemp("", "protoc-out-")
+	popts := genclient.ParserOptions{
+		Source: filename,
+		Options: map[string]string{
+			"googleapis-root": "../../../../testdata/googleapis",
+			"input-root":      "testdata",
+		},
+	}
+	request, err := NewCodeGeneratorRequest(popts)
 	if err != nil {
 		t.Fatal(err)
-	}
-	defer os.Remove(tempFile.Name())
-
-	var stderr bytes.Buffer
-	cmd := exec.Command("protoc",
-		"--proto_path", "testdata",
-		"--proto_path", "../../../../testdata/googleapis",
-		"--include_imports",
-		"--include_source_info",
-		"--retain_options",
-		"--descriptor_set_out", tempFile.Name(),
-		filepath.Join("testdata", filename))
-	cmd.Stderr = &stderr
-	err = cmd.Run()
-	if err != nil {
-		t.Logf("protoc error: %s", stderr.String())
-		t.Fatal(err)
-	}
-
-	contents, err := os.ReadFile(tempFile.Name())
-	if err != nil {
-		t.Fatal(err)
-	}
-	descriptors := &descriptorpb.FileDescriptorSet{}
-	if err := proto.Unmarshal(contents, descriptors); err != nil {
-		t.Fatal(err)
-	}
-	var target *descriptorpb.FileDescriptorProto
-	for _, pb := range descriptors.File {
-		if *pb.Name == filename {
-			target = pb
-		}
-	}
-	request := &pluginpb.CodeGeneratorRequest{
-		FileToGenerate:        []string{filename},
-		SourceFileDescriptors: []*descriptorpb.FileDescriptorProto{target},
-		ProtoFile:             descriptors.File,
-		CompilerVersion:       newCompilerVersion(),
 	}
 	return request
 }
@@ -845,18 +808,5 @@ func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
 	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); len(diff) > 0 {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
-	}
-}
-
-func newCompilerVersion() *pluginpb.Version {
-	var (
-		i int32
-		s = "test"
-	)
-	return &pluginpb.Version{
-		Major:  &i,
-		Minor:  &i,
-		Patch:  &i,
-		Suffix: &s,
 	}
 }
