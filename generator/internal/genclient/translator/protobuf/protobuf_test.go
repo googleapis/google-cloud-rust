@@ -272,7 +272,7 @@ func TestSkipExternalMessages(t *testing.T) {
 	// Both `ImportedMessage` and `LocalMessage` should be in the index:
 	_, ok := api.State.MessageByID[".away.ImportedMessage"]
 	if !ok {
-		t.Fatalf("Cannot find message %s in API State", ".away.ImportedMesage")
+		t.Fatalf("Cannot find message %s in API State", ".away.ImportedMessage")
 	}
 	message, ok := api.State.MessageByID[".test.LocalMessage"]
 	if !ok {
