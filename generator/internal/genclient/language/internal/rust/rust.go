@@ -231,11 +231,54 @@ func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) st
 	return fmt
 }
 
+// Returns a Rust expression to access (and if needed validatre) each path parameter.
+//
+// In most cases the parameter is a simple string in the form `name`. In those
+// cases the field *must* be a thing that can be formatted to a string, and
+// a simple "req.name" expression will work file.
+//
+// In some cases the parameter is a sequence of `.` separated fields, in the
+// form: `field0.field1 ... .fieldN`. In that case each field from `field0` to
+// `fieldN-1` must be optional (they are all messages), and each must be
+// validated.
+//
+// We use the `gax::path_parameter::PathParameter::required()` helper to perform
+// this validation. This function recursively creates an expression, the
+// recursion starts with
+//
+// ```rust
+// use gax::path_parameter::PathParameter as PP;
+// PP::required(&req.field0)?.field1
+// ```
+//
+// And then builds up:
+//
+// ```rust
+// use gax::path_parameter::PathParameter as PP;
+// PP::required(PP::required(&req.field0)?.field1)?.field2
+// ```
+//
+// and so on.
+func (c *Codec) unwrapFieldPath(components []string, requestAccess string) (string, string) {
+	if len(components) == 1 {
+		return requestAccess + "." + c.ToSnake(components[0]), components[0]
+	}
+	unwrap, name := c.unwrapFieldPath(components[0:len(components)-1], "&req")
+	last := components[len(components)-1]
+	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\")?.%s", unwrap, name, last), ""
+}
+
+func (c *Codec) derefFieldPath(fieldPath string) string {
+	components := strings.Split(fieldPath, ".")
+	unwrap, _ := c.unwrapFieldPath(components, "req")
+	return unwrap
+}
+
 func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, "req."+c.ToSnake(*arg.FieldPath))
+			args = append(args, c.derefFieldPath(*arg.FieldPath))
 		}
 	}
 	return args

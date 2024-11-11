@@ -87,7 +87,7 @@ impl {{NameToPascal}} {
                "{}{{HTTPPathFmt}}",
                self.base_path,
                {{#HTTPPathArgs}}
-               {{.}},
+               {{{.}}},
                {{/HTTPPathArgs}}
             ))
             .query(&[("alt", "json")])
