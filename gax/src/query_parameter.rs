@@ -12,13 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub type Error = serde_json::Error;
-type Result = serde_json::Result<String>;
+type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 
-pub fn format<T>(
-    name: &'static str,
-    parameter: &T,
-) -> serde_json::Result<Option<(&'static str, String)>>
+/// Formats a query parameter.
+///
+/// Google APIs use [gRPC Transcoding](https://google.aip.dev/127). Some request
+/// fields are sent as query parameters and may need special formatting:
+/// - [Option] fields that do not contain a value are not included in the HTTP
+///   query.
+/// - Fields of well-known types are formatted as strings. These include
+///   [Duration](types::Duration), [FieldMask](types::FieldMask), and
+///   [Timestamp](types::Timestamp).
+/// - Simple scalars are formatted as usual.
+///
+/// This function is called from the generated code. It is not intended for
+/// general use. The goal  
+pub fn format<T>(name: &'static str, parameter: &T) -> Result<Option<(&'static str, String)>>
 where
     T: QueryParameter,
 {
@@ -27,84 +36,22 @@ where
         .transpose()
 }
 
+/// [QueryParameter] is a trait representing types that can be used as a query
+/// parameter.
+///
 pub trait QueryParameter {
-    fn format(&self) -> Option<Result>;
+    fn format(&self) -> Option<Result<String>>;
 }
 
 impl<T: QueryParameter> QueryParameter for Option<T> {
-    fn format(&self) -> Option<Result> {
+    fn format(&self) -> Option<Result<String>> {
         self.as_ref().and_then(|v| QueryParameter::format(v))
     }
 }
 
-impl<T: RequiredQueryParameter> QueryParameter for T {
-    fn format(&self) -> Option<Result> {
-        Some(RequiredQueryParameter::format(self))
-    }
-}
-
-/// Format query parameters as strings.
-trait RequiredQueryParameter {
-    fn format(&self) -> Result;
-}
-
-impl RequiredQueryParameter for String {
-    fn format(&self) -> Result {
-        Ok(self.clone())
-    }
-}
-
-impl RequiredQueryParameter for i32 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for u32 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for i64 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for u64 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for f32 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for f64 {
-    fn format(&self) -> Result {
-        Ok(format!("{self}"))
-    }
-}
-
-impl RequiredQueryParameter for types::Duration {
-    fn format(&self) -> Result {
-        Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
-    }
-}
-
-impl RequiredQueryParameter for types::FieldMask {
-    fn format(&self) -> Result {
-        Ok(self.paths.join(","))
-    }
-}
-
-impl RequiredQueryParameter for types::Timestamp {
-    fn format(&self) -> Result {
-        Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
+impl<T: crate::request_parameter::RequestParameter> QueryParameter for T {
+    fn format(&self) -> Option<Result<String>> {
+        Some(self.format())
     }
 }
 

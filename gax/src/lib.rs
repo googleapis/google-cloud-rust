@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Google APIs helpers.
+//!
+//! This crate contains a number of types and functions used in the
+//! implementation of the Google Cloud SDK for Rust. Unless otherwise noted,
+//! these are **not** intended for general use. This crate will remain unstable
+//! for the foreseeable future, even if used in stable SDKs. We (the Google
+//! Cloud SDK for Rust team) control both and will change both if needed.
+
 /// Defines traits and helpers to serialize query parameters.
 ///
 /// Query parameters in the Google APIs can be types other than strings and
@@ -29,3 +37,6 @@
 /// public because we will generate many crates (roughly one per service), and
 /// most of these crates will use these helpers.
 pub mod query_parameter;
+
+/// Implementation details for [query_parameter](::crate::query_parameter).
+mod request_parameter;
