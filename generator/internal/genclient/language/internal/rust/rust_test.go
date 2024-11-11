@@ -15,11 +15,62 @@
 package rust
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
+
+func TestWellKnownTypesExist(t *testing.T) {
+	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	c := &Codec{}
+	c.LoadWellKnownTypes(api.State)
+	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
+		if _, ok := api.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
+			t.Errorf("cannot find well-known message %s in API", name)
+		}
+	}
+}
+
+func TestWellKnownTypesAsMethod(t *testing.T) {
+	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	c := &Codec{}
+	c.LoadWellKnownTypes(api.State)
+
+	want := "gax_placeholder::Empty"
+	got := c.MethodInOutTypeName(".google.protobuf.Empty", api.State)
+	if want != got {
+		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
+	}
+}
+
+func TestMethodInOut(t *testing.T) {
+	message := &genclient.Message{
+		Name: "Target",
+		ID:   "..Target",
+	}
+	nested := &genclient.Message{
+		Name:   "Nested",
+		ID:     "..Target.Nested",
+		Parent: message,
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	c := &Codec{}
+	c.LoadWellKnownTypes(api.State)
+
+	want := "crate::model::Target"
+	got := c.MethodInOutTypeName("..Target", api.State)
+	if want != got {
+		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
+	}
+
+	want = "crate::model::target::Nested"
+	got = c.MethodInOutTypeName("..Target.Nested", api.State)
+	if want != got {
+		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
+	}
+}
 
 func TestFieldType(t *testing.T) {
 	target := &genclient.Message{
@@ -205,8 +256,9 @@ func TestMessageNames(t *testing.T) {
 		},
 	}
 	nested := &genclient.Message{
-		Name: "Automatic",
-		ID:   "..Replication.Automatic",
+		Name:   "Automatic",
+		ID:     "..Replication.Automatic",
+		Parent: message,
 	}
 
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
@@ -242,8 +294,9 @@ func TestEnumNames(t *testing.T) {
 		},
 	}
 	nested := &genclient.Enum{
-		Name: "State",
-		ID:   "..SecretVersion.State",
+		Name:   "State",
+		ID:     "..SecretVersion.State",
+		Parent: message,
 	}
 
 	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})

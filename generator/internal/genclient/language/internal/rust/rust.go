@@ -34,20 +34,29 @@ func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	// TODO(#77) - replace these placeholders with real types
 	wellKnown := []*genclient.Message{
 		{
-			ID:   ".google.protobuf.Any",
-			Name: "serde_json::Value",
+			ID:      ".google.protobuf.Any",
+			Name:    "Any",
+			Package: "gax_placeholder",
 		},
 		{
-			ID:   ".google.protobuf.FieldMask",
-			Name: "gax_placeholder::FieldMask",
+			ID:      ".google.protobuf.Empty",
+			Name:    "Empty",
+			Package: "gax_placeholder",
 		},
 		{
-			ID:   ".google.protobuf.Duration",
-			Name: "gax_placeholder::Duration",
+			ID:      ".google.protobuf.FieldMask",
+			Name:    "FieldMask",
+			Package: "gax_placeholder",
 		},
 		{
-			ID:   ".google.protobuf.Timestamp",
-			Name: "gax_placeholder::Timestamp",
+			ID:      ".google.protobuf.Duration",
+			Name:    "Duration",
+			Package: "gax_placeholder",
+		},
+		{
+			ID:      ".google.protobuf.Timestamp",
+			Name:    "Timestamp",
+			Package: "gax_placeholder",
 		},
 	}
 	for _, message := range wellKnown {
@@ -122,10 +131,6 @@ func (c *Codec) baseFieldType(f *genclient.Field, state *genclient.APIState) str
 			val := c.FieldType(m.Fields[1], state)
 			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
-		if strings.HasPrefix(m.ID, ".google.protobuf.") {
-			// TODO(#77): Better handling of well-known types
-			return m.Name
-		}
 		return c.FQMessageName(m, state)
 	} else if f.Typez == genclient.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
@@ -153,38 +158,49 @@ func (c *Codec) TemplateDir() string {
 	return "rust"
 }
 
-func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
+func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string {
 	if id == "" {
 		return ""
 	}
-	m, ok := s.MessageByID[id]
+	m, ok := state.MessageByID[id]
 	if !ok {
 		slog.Error("unable to lookup type", "id", id)
 		return ""
 	}
-	return c.ToPascal(m.Name)
+	return c.FQMessageName(m, state)
+}
+
+func (c *Codec) rustPackage(packageName string) string {
+	if packageName == "" {
+		return "crate::model"
+	}
+	// TODO(#158) - this should be mapped via some configuration.
+	return packageName
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
 	if m.Package != "" {
-		return m.Package + "." + c.ToPascal(m.Name)
+		return c.rustPackage(m.Package) + "::" + c.ToPascal(m.Name)
 	}
 	return c.ToPascal(m.Name)
 }
 
-func (c *Codec) messageScopeName(m *genclient.Message) string {
+func (c *Codec) messageScopeName(m *genclient.Message, childPackageName string) string {
 	if m == nil {
-		return "crate::model"
+		return c.rustPackage(childPackageName)
 	}
-	return c.messageScopeName(m.Parent) + "::" + c.ToSnake(m.Name)
+	if m.Parent == nil {
+		return c.rustPackage(m.Package) + "::" + c.ToSnake(m.Name)
+	}
+	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToSnake(m.Name)
 }
 
 func (c *Codec) enumScopeName(e *genclient.Enum) string {
-	return c.messageScopeName(e.Parent)
+	return c.messageScopeName(e.Parent, "")
 }
 
 func (c *Codec) FQMessageName(m *genclient.Message, _ *genclient.APIState) string {
-	return c.messageScopeName(m.Parent) + "::" + c.ToPascal(m.Name)
+	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToPascal(m.Name)
 }
 
 func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
@@ -192,7 +208,7 @@ func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 }
 
 func (c *Codec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
-	return c.messageScopeName(e.Parent) + "::" + c.ToPascal(e.Name)
+	return c.messageScopeName(e.Parent, "") + "::" + c.ToPascal(e.Name)
 }
 
 func (c *Codec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) string {
@@ -206,7 +222,7 @@ func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIStat
 }
 
 func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
-	return c.messageScopeName(o.Parent) + "::" + c.ToPascal(o.Name)
+	return c.messageScopeName(o.Parent, "") + "::" + c.ToPascal(o.Name)
 }
 
 func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {

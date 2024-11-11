@@ -72,7 +72,7 @@ impl {{NameToPascal}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    pub async fn {{NameToSnake}}(&self, req: model::{{InputTypeName}}) -> Result<model::{{OutputTypeName}}, Box<dyn std::error::Error>> {
+    pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}, Box<dyn std::error::Error>> {
         let query_parameters = [
                     {{^QueryParams}}
                     None::<(&str, String)>; 0
@@ -105,7 +105,7 @@ impl {{NameToPascal}} {
         if !res.status().is_success() {
             return Err("sorry the api you are looking for is not available, please try again".into());
         }
-        let response = res.json::<model::{{OutputTypeName}}>().await?;
+        let response = res.json::<{{OutputTypeName}}>().await?;
         Ok(response)
     }
     {{/Methods}}
