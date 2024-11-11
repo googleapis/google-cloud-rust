@@ -266,6 +266,89 @@ func TestScalarOptional(t *testing.T) {
 	})
 }
 
+func TestSkipExternalMessages(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "with_import.proto"))
+
+	// Both `ImportedMessage` and `LocalMessage` should be in the index:
+	_, ok := api.State.MessageByID[".away.ImportedMessage"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".away.ImportedMessage")
+	}
+	message, ok := api.State.MessageByID[".test.LocalMessage"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.LocalMessage")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "LocalMessage",
+		ID:            ".test.LocalMessage",
+		Documentation: "This is a local message, it should be generated.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "payload",
+				JSONName:      "payload",
+				ID:            ".test.LocalMessage.payload",
+				Documentation: "This field uses an imported message.",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       ".away.ImportedMessage",
+				Optional:      true,
+			},
+			{
+				Name:          "value",
+				JSONName:      "value",
+				ID:            ".test.LocalMessage.value",
+				Documentation: "This field uses an imported enum.",
+				Typez:         genclient.ENUM_TYPE,
+				TypezID:       ".away.ImportedEnum",
+				Optional:      false,
+			},
+		},
+	})
+	// Only `LocalMessage` should be found in the messages list:
+	for _, msg := range api.Messages {
+		if msg.ID == ".test.ImportedMessage" {
+			t.Errorf("imported messages should not be in message list %v", msg)
+		}
+	}
+}
+
+func TestSkipExternaEnums(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "with_import.proto"))
+
+	// Both `ImportedEnum` and `LocalEnum` should be in the index:
+	_, ok := api.State.EnumByID[".away.ImportedEnum"]
+	if !ok {
+		t.Fatalf("Cannot find enum %s in API State", ".away.ImportedEnum")
+	}
+	enum, ok := api.State.EnumByID[".test.LocalEnum"]
+	if !ok {
+		t.Fatalf("Cannot find enum %s in API State", ".test.LocalEnum")
+	}
+	checkEnum(t, *enum, genclient.Enum{
+		Name:          "LocalEnum",
+		Documentation: "This is a local enum, it should be generated.",
+		Values: []*genclient.EnumValue{
+			{
+				Name:   "RED",
+				Number: 0,
+			},
+			{
+				Name:   "WHITE",
+				Number: 1,
+			},
+			{
+				Name:   "BLUE",
+				Number: 2,
+			},
+		},
+	})
+	// Only `LocalMessage` should be found in the messages list:
+	for _, msg := range api.Messages {
+		if msg.ID == ".test.ImportedMessage" {
+			t.Errorf("imported messages should not be in message list %v", msg)
+		}
+	}
+}
+
 func TestComments(t *testing.T) {
 	api := makeAPI(nil, newCodeGeneratorRequest(t, "comments.proto"))
 
@@ -718,8 +801,8 @@ func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGenera
 	}
 	request := &pluginpb.CodeGeneratorRequest{
 		FileToGenerate:        []string{filename},
-		ProtoFile:             []*descriptorpb.FileDescriptorProto{target},
-		SourceFileDescriptors: descriptors.File,
+		SourceFileDescriptors: []*descriptorpb.FileDescriptorProto{target},
+		ProtoFile:             descriptors.File,
 		CompilerVersion:       newCompilerVersion(),
 	}
 	return request
