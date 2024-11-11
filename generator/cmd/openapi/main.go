@@ -18,7 +18,6 @@ import (
 	"flag"
 	"log"
 	"log/slog"
-	"os"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/translator/openapi"
@@ -51,19 +50,7 @@ func main() {
 }
 
 func run(inputPath string, opts *openapi.Options) error {
-	var (
-		contents []byte
-		err      error
-	)
-	contents, err = os.ReadFile(inputPath)
-	if err != nil {
-		return err
-	}
-	return generateFrom(contents, opts)
-}
-
-func generateFrom(contents []byte, options *openapi.Options) error {
-	req, err := openapi.Translate(contents, options)
+	req, err := openapi.Translate(inputPath, opts)
 	if err != nil {
 		return err
 	}
