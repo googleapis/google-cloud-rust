@@ -73,6 +73,7 @@ func TestAllOf(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:          "customerManagedEncryption",
+				JSONName:      "customerManagedEncryption",
 				Documentation: "Optional. The customer-managed encryption configuration of the Secret.",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "..CustomerManagedEncryption",
@@ -134,20 +135,93 @@ func TestBasicTypes(t *testing.T) {
 		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Name: "fBool", Typez: genclient.BOOL_TYPE, TypezID: "bool"},
-			{Name: "fInt64", Typez: genclient.INT64_TYPE, TypezID: "int64"},
-			{Name: "fInt32", Typez: genclient.INT32_TYPE, TypezID: "int32"},
-			{Name: "fUInt32", Typez: genclient.UINT32_TYPE, TypezID: "uint32"},
-			{Name: "fFloat", Typez: genclient.FLOAT_TYPE, TypezID: "float"},
-			{Name: "fDouble", Typez: genclient.DOUBLE_TYPE, TypezID: "double"},
-			{Name: "fString", Typez: genclient.STRING_TYPE, TypezID: "string"},
-			{Name: "fOptional", Typez: genclient.STRING_TYPE, TypezID: "string", Optional: true},
-			{Name: "fSInt64", Typez: genclient.INT64_TYPE, TypezID: "int64"},
-			{Name: "fSUInt64", Typez: genclient.UINT64_TYPE, TypezID: "uint64"},
-			{Name: "fDuration", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Duration", Optional: true},
-			{Name: "fTimestamp", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Timestamp", Optional: true},
-			{Name: "fFieldMask", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.FieldMask", Optional: true},
-			{Name: "fBytes", Typez: genclient.BYTES_TYPE, TypezID: "bytes"},
+			{
+				Name:     "fBool",
+				JSONName: "fBool",
+				Typez:    genclient.BOOL_TYPE,
+				TypezID:  "bool",
+			},
+			{
+				Name:     "fInt64",
+				JSONName: "fInt64",
+				Typez:    genclient.INT64_TYPE,
+				TypezID:  "int64",
+			},
+			{
+				Name:     "fInt32",
+				JSONName: "fInt32",
+				Typez:    genclient.INT32_TYPE,
+				TypezID:  "int32",
+			},
+			{
+				Name:     "fUInt32",
+				JSONName: "fUInt32",
+				Typez:    genclient.UINT32_TYPE,
+				TypezID:  "uint32",
+			},
+			{
+				Name:     "fFloat",
+				JSONName: "fFloat",
+				Typez:    genclient.FLOAT_TYPE,
+				TypezID:  "float",
+			},
+			{
+				Name:     "fDouble",
+				JSONName: "fDouble",
+				Typez:    genclient.DOUBLE_TYPE,
+				TypezID:  "double",
+			},
+			{
+				Name:     "fString",
+				JSONName: "fString",
+				Typez:    genclient.STRING_TYPE,
+				TypezID:  "string",
+			},
+			{
+				Name:     "fOptional",
+				JSONName: "fOptional",
+				Typez:    genclient.STRING_TYPE,
+				TypezID:  "string",
+				Optional: true},
+			{
+				Name:     "fSInt64",
+				JSONName: "fSInt64",
+				Typez:    genclient.INT64_TYPE,
+				TypezID:  "int64",
+			},
+			{
+				Name:     "fSUInt64",
+				JSONName: "fSUInt64",
+				Typez:    genclient.UINT64_TYPE,
+				TypezID:  "uint64",
+			},
+			{
+				Name:     "fDuration",
+				JSONName: "fDuration",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Duration",
+				Optional: true,
+			},
+			{
+				Name:     "fTimestamp",
+				JSONName: "fTimestamp",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+				Optional: true,
+			},
+			{
+				Name:     "fFieldMask",
+				JSONName: "fFieldMask",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.FieldMask",
+				Optional: true,
+			},
+			{
+				Name:     "fBytes",
+				JSONName: "fBytes",
+				Typez:    genclient.BYTES_TYPE,
+				TypezID:  "bytes",
+			},
 		},
 	})
 }
@@ -193,17 +267,76 @@ func TestArrayTypes(t *testing.T) {
 		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Repeated: true, Name: "fBool", Typez: genclient.BOOL_TYPE, TypezID: "bool"},
-			{Repeated: true, Name: "fInt64", Typez: genclient.INT64_TYPE, TypezID: "int64"},
-			{Repeated: true, Name: "fInt32", Typez: genclient.INT32_TYPE, TypezID: "int32"},
-			{Repeated: true, Name: "fUInt32", Typez: genclient.UINT32_TYPE, TypezID: "uint32"},
-			{Repeated: true, Name: "fString", Typez: genclient.STRING_TYPE, TypezID: "string"},
-			{Repeated: true, Name: "fSInt64", Typez: genclient.INT64_TYPE, TypezID: "int64"},
-			{Repeated: true, Name: "fSUInt64", Typez: genclient.UINT64_TYPE, TypezID: "uint64"},
-			{Repeated: true, Name: "fDuration", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Duration"},
-			{Repeated: true, Name: "fTimestamp", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Timestamp"},
-			{Repeated: true, Name: "fFieldMask", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.FieldMask"},
-			{Repeated: true, Name: "fBytes", Typez: genclient.BYTES_TYPE, TypezID: "bytes"},
+			{
+				Repeated: true,
+				Name:     "fBool",
+				JSONName: "fBool",
+				Typez:    genclient.BOOL_TYPE,
+				TypezID:  "bool"},
+			{
+				Repeated: true,
+				Name:     "fInt64",
+				JSONName: "fInt64",
+				Typez:    genclient.INT64_TYPE,
+				TypezID:  "int64"},
+			{
+				Repeated: true,
+				Name:     "fInt32",
+				JSONName: "fInt32",
+				Typez:    genclient.INT32_TYPE,
+				TypezID:  "int32"},
+			{
+				Repeated: true,
+				Name:     "fUInt32",
+				JSONName: "fUInt32",
+				Typez:    genclient.UINT32_TYPE,
+				TypezID:  "uint32"},
+			{
+				Repeated: true,
+				Name:     "fString",
+				JSONName: "fString",
+				Typez:    genclient.STRING_TYPE,
+				TypezID:  "string"},
+			{
+				Repeated: true,
+				Name:     "fSInt64",
+				JSONName: "fSInt64",
+				Typez:    genclient.INT64_TYPE,
+				TypezID:  "int64"},
+			{
+				Repeated: true,
+				Name:     "fSUInt64",
+				JSONName: "fSUInt64",
+				Typez:    genclient.UINT64_TYPE,
+				TypezID:  "uint64"},
+			{
+				Repeated: true,
+				Name:     "fDuration",
+				JSONName: "fDuration",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Duration",
+			},
+			{
+				Repeated: true,
+				Name:     "fTimestamp",
+				JSONName: "fTimestamp",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Timestamp",
+			},
+			{
+				Repeated: true,
+				Name:     "fFieldMask",
+				JSONName: "fFieldMask",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.FieldMask",
+			},
+			{
+				Repeated: true,
+				Name:     "fBytes",
+				JSONName: "fBytes",
+				Typez:    genclient.BYTES_TYPE,
+				TypezID:  "bytes",
+			},
 		},
 	})
 }
@@ -246,6 +379,7 @@ func TestSimpleObject(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:          "fObject",
+				JSONName:      "fObject",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "..Foo",
 				Documentation: "An object field.",
@@ -253,6 +387,7 @@ func TestSimpleObject(t *testing.T) {
 			},
 			{
 				Name:          "fObjectArray",
+				JSONName:      "fObjectArray",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "..Bar",
 				Documentation: "An object array field.",
@@ -289,7 +424,7 @@ func TestAny(t *testing.T) {
 		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Any", Optional: true},
+			{Name: "fMap", JSONName: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: ".google.protobuf.Any", Optional: true},
 		},
 	})
 }
@@ -322,9 +457,24 @@ func TestMapString(t *testing.T) {
 		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Name: "fMap", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, string>"},
-			{Name: "fMapS32", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int32>"},
-			{Name: "fMapS64", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int64>"},
+			{
+				Name:     "fMap",
+				JSONName: "fMap",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "$map<string, string>",
+			},
+			{
+				Name:     "fMapS32",
+				JSONName: "fMapS32",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "$map<string, int32>",
+			},
+			{
+				Name:     "fMapS64",
+				JSONName: "fMapS64",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "$map<string, int64>",
+			},
 		},
 	})
 }
@@ -356,8 +506,18 @@ func TestMapInteger(t *testing.T) {
 		ID:            "..Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
-			{Name: "fMapI32", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int32>", Optional: false},
-			{Name: "fMapI64", Typez: genclient.MESSAGE_TYPE, TypezID: "$map<string, int64>", Optional: false},
+			{
+				Name:     "fMapI32",
+				JSONName: "fMapI32",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "$map<string, int32>",
+				Optional: false},
+			{
+				Name:     "fMapI64",
+				JSONName: "fMapI64",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  "$map<string, int64>",
+				Optional: false},
 		},
 	})
 }
@@ -385,6 +545,7 @@ func TestMakeAPI(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:          "name",
+				JSONName:      "name",
 				Documentation: "Resource name for the location, which may vary between implementations.",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
@@ -392,6 +553,7 @@ func TestMakeAPI(t *testing.T) {
 			},
 			{
 				Name:          "locationId",
+				JSONName:      "locationId",
 				Documentation: `The canonical id for this location.`,
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
@@ -399,6 +561,7 @@ func TestMakeAPI(t *testing.T) {
 			},
 			{
 				Name:          "displayName",
+				JSONName:      "displayName",
 				Documentation: `The friendly name for this location, typically a nearby city name.`,
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
@@ -406,6 +569,7 @@ func TestMakeAPI(t *testing.T) {
 			},
 			{
 				Name:          "labels",
+				JSONName:      "labels",
 				Documentation: "Cross-service attributes for the location.",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "$map<string, string>",
@@ -413,6 +577,7 @@ func TestMakeAPI(t *testing.T) {
 			},
 			{
 				Name:          "metadata",
+				JSONName:      "metadata",
 				Documentation: `Service-specific metadata. For example the available capacity at the given location.`,
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       ".google.protobuf.Any",
@@ -433,6 +598,7 @@ func TestMakeAPI(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:          "locations",
+				JSONName:      "locations",
 				Documentation: "A list of locations that matches the specified filter in the request.",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "..Location",
@@ -440,6 +606,7 @@ func TestMakeAPI(t *testing.T) {
 			},
 			{
 				Name:          "nextPageToken",
+				JSONName:      "nextPageToken",
 				Documentation: "The standard List next-page token.",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
@@ -447,6 +614,118 @@ func TestMakeAPI(t *testing.T) {
 			},
 		},
 	})
+
+	// This is a synthetic message, the OpenAPI spec does not contain requests
+	// messages for messages without a body.
+	listLocationsRequest, ok := api.State.MessageByID["..ListLocationsRequest"]
+	if !ok {
+		t.Errorf("missing message (ListLocationsRequest) in MessageByID index")
+		return
+	}
+	checkMessage(t, *listLocationsRequest, genclient.Message{
+		Name:          "ListLocationsRequest",
+		ID:            "..ListLocationsRequest",
+		Documentation: "The request message for ListLocations.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "project",
+				JSONName:      "project",
+				Documentation: "",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+			},
+			{
+				Name:          "filter",
+				JSONName:      "filter",
+				Documentation: "A filter to narrow down results to a preferred subset.",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+				Optional:      true,
+			},
+			{
+				Name:          "pageSize",
+				JSONName:      "pageSize",
+				Documentation: "The maximum number of results to return.",
+				Typez:         genclient.INT32_TYPE,
+				TypezID:       "int32",
+				Optional:      true,
+			},
+			{
+				Name:          "pageToken",
+				JSONName:      "pageToken",
+				Documentation: "A page token received from the `next_page_token` field in the response.\nSend that page token to receive the subsequent page.",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+				Optional:      true,
+			},
+		},
+	})
+
+	service, ok := api.State.ServiceByID["..Service"]
+	if !ok {
+		t.Errorf("missing service (Service) in ServiceByID index")
+		return
+	}
+	checkService(t, *service, genclient.Service{
+		Name:          "Service",
+		ID:            "..Service",
+		Documentation: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
+		DefaultHost:   "https://secretmanager.googleapis.com",
+		Methods: []*genclient.Method{
+			{
+				Name:          "ListLocations",
+				ID:            "ListLocations",
+				Documentation: "Lists information about the supported locations for this service.",
+				InputTypeID:   "..ListLocationsRequest",
+				OutputTypeID:  "..ListLocationsResponse",
+				PathInfo: &genclient.PathInfo{
+					Verb: "GET",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewLiteralPathSegment("projects"),
+						genclient.NewFieldPathPathSegment("project"),
+						genclient.NewLiteralPathSegment("locations"),
+					},
+					QueryParameters: map[string]bool{
+						"filter":    true,
+						"pageSize":  true,
+						"pageToken": true,
+					},
+				},
+			},
+			{
+				Name:          "CreateSecret",
+				ID:            "CreateSecret",
+				Documentation: "Creates a new Secret containing no SecretVersions.",
+				InputTypeID:   "..Secret",
+				OutputTypeID:  "..Secret",
+				PathInfo: &genclient.PathInfo{
+					Verb:          "POST",
+					BodyFieldPath: "*",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewLiteralPathSegment("projects"),
+						genclient.NewFieldPathPathSegment("project"),
+						genclient.NewLiteralPathSegment("secrets"),
+					},
+					QueryParameters: map[string]bool{
+						"secretId": true,
+					},
+				},
+			},
+		},
+	})
+}
+
+func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
+	t.Helper()
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
+		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
+	}
+	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("field mismatch (-want, +got):\n%s", diff)
+	}
 }
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
@@ -542,7 +821,7 @@ const testDocument = `
           },
           {
             "name": "filter",
-            "description": "A filter to narrow down results to a preferred subset.\nThe filtering language accepts strings like \"displayName=tokyo\", and\nis documented in more detail in [AIP-160](https://google.aip.dev/160).",
+            "description": "A filter to narrow down results to a preferred subset.",
             "in": "query",
             "schema": {
               "type": "string"
@@ -550,7 +829,7 @@ const testDocument = `
           },
           {
             "name": "pageSize",
-            "description": "The maximum number of results to return.\nIf not set, the service selects a default.",
+            "description": "The maximum number of results to return.",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -573,6 +852,75 @@ const testDocument = `
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListLocationsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/secrets": {
+      "parameters": [
+        { "$ref": "#/components/parameters/alt"},
+        { "$ref": "#/components/parameters/callback"},
+        { "$ref": "#/components/parameters/prettyPrint"},
+        { "$ref": "#/components/parameters/_.xgafv"}
+      ],
+      "post": {
+        "tags": ["secretmanager"],
+        "operationId": "CreateSecret",
+        "description": "Creates a new Secret containing no SecretVersions.",
+        "security": [
+          {
+            "google_oauth_implicit": [
+              "https://www.googleapis.com/auth/cloud-platform"
+            ]
+          },
+          {
+            "google_oauth_code": [
+              "https://www.googleapis.com/auth/cloud-platform"
+            ]
+          },
+          {
+            "bearer_auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secretId",
+            "description": "Required. This must be unique within the project.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Required. A Secret with initial field values.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Secret"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Secret"
                 }
               }
             }
@@ -716,6 +1064,65 @@ const testDocument = `
           "nextPageToken": {
             "description": "The standard List next-page token.",
             "type": "string"
+          }
+        }
+      },
+      "Secret": {
+        "description": "A Secret is a logical secret whose value and versions can\nbe accessed.\n\nA Secret is made up of zero or more SecretVersions that\nrepresent the secret data.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "Output only. The resource name of the Secret in the format` + " `projects/_*_/secrets/*` " + `.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Output only. The time at which the Secret was created.",
+            "readOnly": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "labels": {
+            "description": "The labels assigned to this Secret.\n\nLabel keys must be between 1 and 63 characters long",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "expireTime": {
+            "description": "Optional. Timestamp in UTC when the Secret is scheduled to expire. This is\nalways provided on output, regardless of what was sent on input.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "ttl": {
+            "description": "Input only. The TTL for the Secret.",
+            "writeOnly": true,
+            "type": "string",
+            "format": "google-duration"
+          },
+          "etag": {
+            "description": "Optional. Etag of the currently stored Secret.",
+            "type": "string"
+          },
+          "versionAliases": {
+            "description": "Optional. Mapping from version alias to version name.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "format": "int64"
+            }
+          },
+          "annotations": {
+            "description": "Optional. Custom metadata about the secret.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "versionDestroyTtl": {
+            "description": "Optional. Secret Version TTL after destruction request\n\nThis is a part of the Delayed secret version destroy feature.\nFor secret with TTL>0, version destruction doesn't happen immediately\non calling destroy instead the version goes to a disabled state and\ndestruction happens after the TTL expires.",
+            "type": "string",
+            "format": "google-duration"
           }
         }
       }

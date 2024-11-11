@@ -149,6 +149,25 @@ pub struct Secret {
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+
+    ///
+    pub project: String,
+
+    /// Required. This must be unique within the project.
+    ///
+    /// A secret ID is a string with a maximum length of 255 characters and can
+    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
+    /// underscore (`_`) characters.
+    pub secret_id: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    /// Required. Specifies the fields to be updated.
+    pub update_mask: gax_placeholder::FieldMask,
 }
 
 /// A policy that defines the replication and encryption configuration of data.
@@ -273,6 +292,15 @@ pub struct Rotation {
 pub struct AddSecretVersionRequest {
     /// Required. The secret payload of the SecretVersion.
     pub payload: Option<crate::model::SecretPayload>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub location: String,
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -468,6 +496,18 @@ pub struct DisableSecretVersionRequest {
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
     pub etag: Option<String>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+
+    ///
+    pub location: String,
 }
 
 /// Request message for SecretManagerService.EnableSecretVersion.
@@ -479,6 +519,18 @@ pub struct EnableSecretVersionRequest {
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
     pub etag: Option<String>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+
+    ///
+    pub location: String,
 }
 
 /// Request message for SecretManagerService.DestroySecretVersion.
@@ -490,6 +542,18 @@ pub struct DestroySecretVersionRequest {
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
     pub etag: Option<String>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+
+    ///
+    pub location: String,
 }
 
 /// Request message for `SetIamPolicy` method.
@@ -509,6 +573,15 @@ pub struct SetIamPolicyRequest {
     ///
     /// `paths: "bindings, etag"`
     pub update_mask: Option<gax_placeholder::FieldMask>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub location: String,
 }
 
 /// An Identity and Access Management (IAM) policy, which specifies access
@@ -914,6 +987,15 @@ pub struct TestIamPermissionsRequest {
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
     pub permissions: Vec<String>,
+
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub location: String,
 }
 
 /// Response message for `TestIamPermissions` method.
@@ -924,4 +1006,347 @@ pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: Vec<String>,
+}
+
+/// The request message for ListLocations.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListLocationsRequest {
+    ///
+    pub project: String,
+
+    /// A filter to narrow down results to a preferred subset.
+    /// The filtering language accepts strings like `"displayName=tokyo"`, and
+    /// is documented in more detail in [AIP-160](https://google.aip.dev/160).
+    pub filter: Option<String>,
+
+    /// The maximum number of results to return.
+    /// If not set, the service selects a default.
+    pub page_size: Option<i32>,
+
+    /// A page token received from the `next_page_token` field in the response.
+    /// Send that page token to receive the subsequent page.
+    pub page_token: Option<String>,
+}
+
+/// The request message for GetLocation.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetLocationRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+}
+
+/// The request message for ListSecrets.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretsRequest {
+    ///
+    pub project: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: Option<i32>,
+
+    /// Optional. Pagination token, returned earlier via
+    /// ListSecretsResponse.next_page_token.
+    pub page_token: Option<String>,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secrets matching the filter. If filter is empty, all secrets are
+    /// listed.
+    pub filter: Option<String>,
+}
+
+/// The request message for ListSecretsByProjectAndLocation.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretsByProjectAndLocationRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: Option<i32>,
+
+    /// Optional. Pagination token, returned earlier via
+    /// ListSecretsResponse.next_page_token.
+    pub page_token: Option<String>,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secrets matching the filter. If filter is empty, all secrets are
+    /// listed.
+    pub filter: Option<String>,
+}
+
+/// The request message for GetSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+}
+
+/// The request message for DeleteSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. Etag of the Secret. The request succeeds if it matches
+    /// the etag of the currently stored secret object. If the etag is omitted,
+    /// the request succeeds.
+    pub etag: Option<String>,
+}
+
+/// The request message for GetSecretByProjectAndLocationAndSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetSecretByProjectAndLocationAndSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+}
+
+/// The request message for DeleteSecretByProjectAndLocationAndSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. Etag of the Secret. The request succeeds if it matches
+    /// the etag of the currently stored secret object. If the etag is omitted,
+    /// the request succeeds.
+    pub etag: Option<String>,
+}
+
+/// The request message for ListSecretVersions.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretVersionsRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: Option<i32>,
+
+    /// Optional. Pagination token, returned earlier via
+    /// ListSecretVersionsResponse.next_page_token][].
+    pub page_token: Option<String>,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secret versions matching the filter. If filter is empty, all secret
+    /// versions are listed.
+    pub filter: Option<String>,
+}
+
+/// The request message for ListSecretVersionsByProjectAndLocationAndSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: Option<i32>,
+
+    /// Optional. Pagination token, returned earlier via
+    /// ListSecretVersionsResponse.next_page_token][].
+    pub page_token: Option<String>,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secret versions matching the filter. If filter is empty, all secret
+    /// versions are listed.
+    pub filter: Option<String>,
+}
+
+/// The request message for GetSecretVersion.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetSecretVersionRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+}
+
+/// The request message for GetSecretVersionByProjectAndLocationAndSecretAndVersion.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+}
+
+/// The request message for AccessSecretVersion.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AccessSecretVersionRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+}
+
+/// The request message for AccessSecretVersionByProjectAndLocationAndSecretAndVersion.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    ///
+    pub version: String,
+}
+
+/// The request message for GetIamPolicy.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetIamPolicyRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. The maximum policy version that will be used to format the
+    /// policy.
+    ///
+    /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+    /// rejected.
+    ///
+    /// Requests for policies with any conditional role bindings must specify
+    /// version 3. Policies with no conditional role bindings may specify any valid
+    /// value or leave the field unset.
+    ///
+    /// The policy in the response might use the policy version that you specified,
+    /// or it might use a lower policy version. For example, if you specify version
+    /// 3, but the policy has no conditional role bindings, the response uses
+    /// version 1.
+    ///
+    /// To learn which resources support conditions in their IAM policies, see the
+    /// [IAM
+    /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    pub options_requested_policy_version: Option<i32>,
+}
+
+/// The request message for GetIamPolicyByProjectAndLocationAndSecret.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
+    ///
+    pub project: String,
+
+    ///
+    pub location: String,
+
+    ///
+    pub secret: String,
+
+    /// Optional. The maximum policy version that will be used to format the
+    /// policy.
+    ///
+    /// Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+    /// rejected.
+    ///
+    /// Requests for policies with any conditional role bindings must specify
+    /// version 3. Policies with no conditional role bindings may specify any valid
+    /// value or leave the field unset.
+    ///
+    /// The policy in the response might use the policy version that you specified,
+    /// or it might use a lower policy version. For example, if you specify version
+    /// 3, but the policy has no conditional role bindings, the response uses
+    /// version 1.
+    ///
+    /// To learn which resources support conditions in their IAM policies, see the
+    /// [IAM
+    /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    pub options_requested_policy_version: Option<i32>,
 }

@@ -25,6 +25,7 @@ import (
 	"github.com/pb33f/libopenapi"
 	base "github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
+	"github.com/pb33f/libopenapi/orderedmap"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
@@ -122,7 +123,263 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 		api.Messages = append(api.Messages, message)
 		api.State.MessageByID[id] = message
 	}
+
+	err := makeServices(api, serviceConfig, model)
+	if err != nil {
+		return nil, err
+	}
 	return api, nil
+}
+
+func makeServices(api *genclient.API, serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) error {
+	// It is hard to imagine an OpenAPI specification without at least some
+	// RPCs, but we can simplify the tests if we support specifications without
+	// paths or without any useful methods in the paths.
+	if model.Model.Paths == nil {
+		return nil
+	}
+	methods, err := makeMethods(api, model)
+	if err != nil {
+		return err
+	}
+	if len(methods) == 0 {
+		return nil
+	}
+	// OpenAPI does not define a service name. The service config may provide
+	// one. In tests, the service config is typically `nil`.
+	serviceName := "Service"
+	if serviceConfig != nil {
+		for _, api := range serviceConfig.Apis {
+			serviceName = api.Name
+			break
+		}
+	}
+	service := &genclient.Service{
+		Name:          serviceName,
+		ID:            ".." + serviceName,
+		Documentation: api.Description,
+		DefaultHost:   defaultHost(model),
+		Methods:       methods,
+	}
+	api.Services = append(api.Services, service)
+	api.State.ServiceByID[service.ID] = service
+	return nil
+}
+
+func defaultHost(model *libopenapi.DocumentModel[v3.Document]) string {
+	defaultHost := ""
+	for _, server := range model.Model.Servers {
+		if defaultHost == "" {
+			defaultHost = server.URL
+		} else if len(defaultHost) > len(server.URL) {
+			defaultHost = server.URL
+		}
+	}
+	return defaultHost
+}
+
+func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document]) ([]*genclient.Method, error) {
+	methods := []*genclient.Method{}
+	if model.Model.Paths == nil {
+		return methods, nil
+	}
+	for pattern, item := range model.Model.Paths.PathItems.FromOldest() {
+		pathTemplate := makePathTemplate(pattern)
+
+		type NamedOperation struct {
+			Verb      string
+			Operation *v3.Operation
+		}
+		operations := []NamedOperation{
+			{Verb: "GET", Operation: item.Get},
+			{Verb: "PUT", Operation: item.Put},
+			{Verb: "POST", Operation: item.Post},
+			{Verb: "DELETE", Operation: item.Delete},
+			{Verb: "OPTIONS", Operation: item.Options},
+			{Verb: "HEAD", Operation: item.Head},
+			{Verb: "PATCH", Operation: item.Patch},
+			{Verb: "TRACE", Operation: item.Trace},
+		}
+		for _, op := range operations {
+			if op.Operation == nil {
+				continue
+			}
+			requestMessage, err := makeRequestMessage(api, op.Operation)
+			if err != nil {
+				return nil, err
+			}
+			responseMessage, err := makeResponseMessage(api, op.Operation)
+			if err != nil {
+				return nil, err
+			}
+			bodyFieldPath := ""
+			if op.Operation.RequestBody != nil {
+				bodyFieldPath = "*"
+			}
+			pathInfo := &genclient.PathInfo{
+				Verb:            op.Verb,
+				PathTemplate:    pathTemplate,
+				QueryParameters: makeQueryParameters(op.Operation),
+				BodyFieldPath:   bodyFieldPath,
+			}
+			m := &genclient.Method{
+				Name:          op.Operation.OperationId,
+				ID:            op.Operation.OperationId,
+				Documentation: op.Operation.Description,
+				InputTypeID:   requestMessage.ID,
+				OutputTypeID:  responseMessage.ID,
+				PathInfo:      pathInfo,
+			}
+			methods = append(methods, m)
+		}
+	}
+	return methods, nil
+}
+
+func makePathTemplate(template string) []genclient.PathSegment {
+	segments := []genclient.PathSegment{}
+	for idx, component := range strings.Split(template, ":") {
+		if idx != 0 {
+			segments = append(segments, genclient.PathSegment{Verb: &component})
+			continue
+		}
+		for _, element := range strings.Split(component, "/") {
+			if element == "" {
+				continue
+			}
+			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
+				element = element[1 : len(element)-1]
+				segments = append(segments, genclient.PathSegment{FieldPath: &element})
+				continue
+			}
+			segments = append(segments, genclient.PathSegment{Literal: &element})
+		}
+	}
+	return segments
+}
+
+func makeRequestMessage(api *genclient.API, operation *v3.Operation) (*genclient.Message, error) {
+	messageName := fmt.Sprintf("%sRequest", operation.OperationId)
+	id := fmt.Sprintf("..%s", messageName)
+	message := &genclient.Message{
+		Name:          messageName,
+		ID:            id,
+		Documentation: fmt.Sprintf("The request message for %s.", operation.OperationId),
+	}
+
+	if operation.RequestBody != nil {
+		reference, err := findReferenceInContentMap(operation.RequestBody.Content)
+		if err != nil {
+			return nil, err
+		}
+		bid := fmt.Sprintf("..%s", strings.TrimPrefix(reference, "#/components/schemas/"))
+		msg, ok := api.State.MessageByID[bid]
+		if !ok {
+			return nil, fmt.Errorf("cannot find referenced type (%s) in API messages", reference)
+		}
+		if strings.HasSuffix(reference, "Request") {
+			// Our OpenAPI specs do this weird thing: sometimes the `*Request`
+			// message appears in the list of known messages. But sometimes only
+			// the payload appears. I have not found any attribute to tell apart
+			// between the two. Only the name suffix.
+			message = msg
+		} else {
+			inserted := false
+			for _, name := range []string{"requestBody", "openapiRequestBody"} {
+				field := &genclient.Field{
+					Name:          name,
+					Documentation: "The request body.",
+					Typez:         genclient.MESSAGE_TYPE,
+					TypezID:       bid,
+					Optional:      true,
+				}
+				inserted = addFieldIfNew(message, field)
+				if inserted {
+					break
+				}
+			}
+			if !inserted {
+				return nil, fmt.Errorf("cannot insert the request body to message %s", message.Name)
+			}
+		}
+		message = msg
+	} else {
+		// The message is new
+		api.Messages = append(api.Messages, message)
+		api.State.MessageByID[message.ID] = message
+	}
+
+	for _, p := range operation.Parameters {
+		schema, err := p.Schema.BuildSchema()
+		if err != nil {
+			return nil, fmt.Errorf("error building schema for parameter %s: %w", p.Name, err)
+		}
+		typez, typezID, err := scalarType(messageName, p.Name, schema)
+		if err != nil {
+			return nil, err
+		}
+		field := &genclient.Field{
+			Name:          p.Name,
+			JSONName:      p.Name, // OpenAPI fields are already camelCase
+			Documentation: p.Description,
+			Optional:      p.Required == nil || !*p.Required,
+			Typez:         typez,
+			TypezID:       typezID,
+		}
+		addFieldIfNew(message, field)
+	}
+	return message, nil
+}
+
+func addFieldIfNew(message *genclient.Message, field *genclient.Field) bool {
+	for _, f := range message.Fields {
+		if f.Name == field.Name {
+			// If the exact same field exists, treat that as a success.
+			return *f == *field
+		}
+	}
+	message.Fields = append(message.Fields, field)
+	return true
+}
+
+func makeResponseMessage(api *genclient.API, operation *v3.Operation) (*genclient.Message, error) {
+	if operation.Responses == nil {
+		return nil, fmt.Errorf("missing Responses in specification for operation %s", operation.OperationId)
+	}
+	if operation.Responses.Default == nil {
+		// Google's OpenAPI v3 specifications only include the "default" response. In the future we may want to support
+		return nil, fmt.Errorf("expected Default response for operation %s", operation.OperationId)
+	}
+	reference, err := findReferenceInContentMap(operation.Responses.Default.Content)
+	if err != nil {
+		return nil, err
+	}
+	id := ".." + strings.TrimPrefix(reference, "#/components/schemas/")
+	if message, ok := api.State.MessageByID[id]; ok {
+		return message, nil
+	}
+	return nil, fmt.Errorf("cannot find response message ref=%s", reference)
+}
+
+func findReferenceInContentMap(content *orderedmap.Map[string, *v3.MediaType]) (string, error) {
+	for pair := content.Oldest(); pair != nil; pair = pair.Next() {
+		if pair.Key != "application/json" {
+			continue
+		}
+		return pair.Value.Schema.GetReference(), nil
+	}
+	return "", fmt.Errorf("cannot find an application/json content type")
+}
+
+func makeQueryParameters(operation *v3.Operation) map[string]bool {
+	queryParameters := map[string]bool{}
+	for _, p := range operation.Parameters {
+		if p.In != "query" {
+			continue
+		}
+		queryParameters[p.Name] = true
+	}
+	return queryParameters
 }
 
 func makeMessageFields(state *genclient.APIState, messageName string, message *base.Schema) ([]*genclient.Field, error) {
@@ -175,6 +432,7 @@ func makeScalarField(messageName, name string, schema *base.Schema, optional boo
 	}
 	return &genclient.Field{
 		Name:          name,
+		JSONName:      name, // OpenAPI field names are always camelCase
 		Documentation: field.Description,
 		Typez:         typez,
 		TypezID:       typezID,
@@ -198,6 +456,7 @@ func makeObjectField(state *genclient.APIState, messageName, name string, field 
 			// Untyped message fields are .google.protobuf.Any
 			return &genclient.Field{
 				Name:          name,
+				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       ".google.protobuf.Any",
@@ -210,6 +469,7 @@ func makeObjectField(state *genclient.APIState, messageName, name string, field 
 		}
 		return &genclient.Field{
 			Name:          name,
+			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
 			TypezID:       message.ID,
@@ -221,6 +481,7 @@ func makeObjectField(state *genclient.APIState, messageName, name string, field 
 		typezID := ".." + strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
 		return &genclient.Field{
 			Name:          name,
+			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
 			TypezID:       typezID,
@@ -251,6 +512,7 @@ func makeArrayField(state *genclient.APIState, messageName, name string, field *
 		if len(typezID) > 0 {
 			new := &genclient.Field{
 				Name:          name,
+				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       typezID,
@@ -275,6 +537,7 @@ func makeObjectFieldAllOf(messageName, name string, field *base.Schema) (*gencli
 		typezID := strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/")
 		return &genclient.Field{
 			Name:          name,
+			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
 			Typez:         genclient.MESSAGE_TYPE,
 			TypezID:       ".." + typezID,
