@@ -131,7 +131,7 @@ func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]by
 	cmd.Stderr = &stderr
 	cmd.Stdout = &stdout
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("error calling protoc: %w\ndetails:\n%s", err, stderr.String())
+		return nil, fmt.Errorf("error calling protoc\ndetails:\n%s\n: %w", stderr.String(), err)
 	}
 
 	return os.ReadFile(tempFile)

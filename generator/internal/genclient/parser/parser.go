@@ -32,10 +32,10 @@ func knownParsers() map[string]newParser {
 	}
 }
 
-func NewTranslator(parserID string) (genclient.Parser, error) {
+func NewParser(parserID string) (genclient.Parser, error) {
 	create, ok := knownParsers()[parserID]
 	if !ok {
-		return nil, fmt.Errorf("unknown parser (%s)", parserID)
+		return nil, fmt.Errorf("unknown parser %q", parserID)
 	}
 	return create(), nil
 }

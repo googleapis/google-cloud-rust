@@ -17,6 +17,7 @@
 package openapi
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -74,12 +75,9 @@ func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], er
 	if err != nil {
 		return nil, err
 	}
-	docModel, errors := document.BuildV3Model()
-	if len(errors) > 0 {
-		for i := range errors {
-			fmt.Printf("error: %e\n", errors[i])
-		}
-		return nil, fmt.Errorf("cannot convert document to OpenAPI V3 model: %e", errors[0])
+	docModel, errs := document.BuildV3Model()
+	if len(errs) > 0 {
+		return nil, fmt.Errorf("cannot convert document to OpenAPI V3 model: %w", errors.Join(errs...))
 	}
 	return docModel, nil
 }
