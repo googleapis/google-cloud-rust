@@ -20,6 +20,7 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 #[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub struct FakeRequest {
     // Typically the struct would have a required path parameter.
     pub parent: String,
@@ -42,6 +43,7 @@ impl FakeRequest {
 #[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub struct FakePayload {
     // This may be one of the fields used in the request.
     pub id: String,
