@@ -654,6 +654,30 @@ func TestQueryParameters(t *testing.T) {
 	})
 }
 
+func TestEnum(t *testing.T) {
+	api := makeAPI(nil, newCodeGeneratorRequest(t, "enum.proto"))
+	e, ok := api.State.EnumByID[".test.Code"]
+	if !ok {
+		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
+	}
+	checkEnum(t, *e, genclient.Enum{
+		Name:          "Code",
+		Documentation: "An enum.",
+		Values: []*genclient.EnumValue{
+			{
+				Name:          "OK",
+				Documentation: "Not an error; returned on success.",
+				Number:        0,
+			},
+			{
+				Name:          "UNKNOWN",
+				Documentation: "Unknown error.",
+				Number:        1,
+			},
+		},
+	})
+}
+
 func newCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	tempFile, err := os.CreateTemp("", "protoc-out-")

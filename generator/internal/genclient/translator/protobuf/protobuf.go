@@ -30,6 +30,7 @@ import (
 const (
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#FileDescriptorProto
 	fileDescriptorMessageType = 4
+	fileDescriptorEnumType    = 5
 	fileDescriptorService     = 6
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
@@ -94,6 +95,13 @@ func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 			api.Messages = append(api.Messages, msg)
 		}
 
+		// Enums
+		for _, e := range f.EnumType {
+			eFQN := fFQN + "." + e.GetName()
+			e := processEnum(state, e, eFQN, nil)
+			api.Enums = append(api.Enums, e)
+		}
+
 		// Services
 		for _, s := range f.Service {
 			service := &genclient.Service{
@@ -132,6 +140,9 @@ func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 				// strip out parts of the path.
 				m := f.MessageType[p[1]]
 				addMessageDocumentation(state, m, p[2:], loc.GetLeadingComments(), fFQN+"."+m.GetName())
+			case fileDescriptorEnumType:
+				e := f.EnumType[p[1]]
+				addEnumDocumentation(state, p[2:], loc.GetLeadingComments(), fFQN+"."+e.GetName())
 			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
 				addServiceDocumentation(state, p[2:], loc.GetLeadingComments(), sFQN)
@@ -223,7 +234,8 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 		}
 	}
 	for _, e := range m.GetEnumType() {
-		e := processEnum(state, e, mFQN, message)
+		eFQN := mFQN + "." + e.GetName()
+		e := processEnum(state, e, eFQN, message)
 		message.Enums = append(message.Enums, e)
 	}
 	for _, oneof := range m.OneofDecl {
@@ -268,12 +280,12 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	return message
 }
 
-func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto, baseFQN string, parent *genclient.Message) *genclient.Enum {
+func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto, eFQN string, parent *genclient.Message) *genclient.Enum {
 	enum := &genclient.Enum{
 		Name:   e.GetName(),
 		Parent: parent,
 	}
-	state.EnumByID[baseFQN+"."+e.GetName()] = enum
+	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
 		enumValue := &genclient.EnumValue{
 			Name:   ev.GetName(),
