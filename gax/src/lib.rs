@@ -38,5 +38,21 @@
 /// most of these crates will use these helpers.
 pub mod query_parameter;
 
+/// Defines traits and helpers to serialize path parameters.
+///
+/// Path parameters in the Google APIs are always required, but they may need
+/// to be source from fields that are inside a message field, which are always
+/// `Option<T>`.
+///
+/// This module defines some traits and helpers to simplify the code generator.
+/// They automatically convert `Option<T>` to `Result<T, Error>`, so the
+/// generator always writes:
+///
+/// gax::path_parameter::required(req.field)?.sub
+///
+/// If accessing deeply nested fields that can results in multiple calls to
+/// `required`.
+pub mod path_parameter;
+
 /// Implementation details for [query_parameter](::crate::query_parameter).
 mod request_parameter;
