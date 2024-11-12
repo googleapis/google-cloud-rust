@@ -35,7 +35,7 @@ pub struct Location {
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
-    pub metadata: Option<serde_json::Value>,
+    pub metadata: Option<gax_placeholder::Any>,
 }
 
 /// Response message for SecretManagerService.ListSecrets.

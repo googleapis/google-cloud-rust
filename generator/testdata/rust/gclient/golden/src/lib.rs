@@ -93,8 +93,8 @@ impl SecretManagerService {
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     pub async fn create_secret(
         &self,
-        req: model::CreateSecretRequest,
-    ) -> Result<model::Secret, Box<dyn std::error::Error>> {
+        req: crate::model::CreateSecretRequest,
+    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
         let query_parameters = [gax::query_parameter::format("secretId", &req.secret_id)?];
         let client = self.client.inner.clone();
         let res = client
@@ -116,7 +116,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::Secret>().await?;
+        let response = res.json::<crate::model::Secret>().await?;
         Ok(response)
     }
 
@@ -155,8 +155,8 @@ impl SecretManagerService {
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
     pub async fn get_secret(
         &self,
-        req: model::GetSecretRequest,
-    ) -> Result<model::Secret, Box<dyn std::error::Error>> {
+        req: crate::model::GetSecretRequest,
+    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -177,7 +177,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::Secret>().await?;
+        let response = res.json::<crate::model::Secret>().await?;
         Ok(response)
     }
 
