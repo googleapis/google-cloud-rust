@@ -16,57 +16,26 @@ package language
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/rust"
 )
 
-// language is a supported programming language of the generator.
-type language int
+type createCodec func(*genclient.CodecOptions) genclient.LanguageCodec
 
-const (
-	undefinedLanguage language = iota
-	rustLanguage
-	goLanguage
-)
-
-func strToLanguage(key string) language {
-	strToLangMap := map[string]language{
-		"rust": rustLanguage,
-		"go":   goLanguage,
+func knownCodecs() map[string]createCodec {
+	return map[string]createCodec{
+		"rust": func(*genclient.CodecOptions) genclient.LanguageCodec { return rust.NewCodec() },
+		"go":   func(*genclient.CodecOptions) genclient.LanguageCodec { return golang.NewCodec() },
 	}
-
-	key = strings.ToLower(strings.TrimSpace(key))
-	v, ok := strToLangMap[key]
-	if !ok {
-		return undefinedLanguage
-	}
-	return v
 }
 
 // NewCodec returns a new language codec based on the given language.
-func NewCodec(language string) (*Codec, error) {
-	var codec *Codec
-	switch strToLanguage(language) {
-	case rustLanguage:
-		codec = &Codec{
-			LanguageCodec: rust.NewCodec(),
-		}
-	case goLanguage:
-		codec = &Codec{
-			LanguageCodec: golang.NewCodec(),
-		}
-	default:
-		// undefinedLanguage
-		return nil, fmt.Errorf("unknown language: %s", language)
+func NewCodec(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) {
+	create, ok := knownCodecs()[copts.Language]
+	if !ok {
+		return nil, fmt.Errorf("unknown language: %s", copts.Language)
 	}
-	return codec, nil
-}
-
-// Codec is an adapter used to transform values into language idiomatic
-// representations.
-type Codec struct {
-	genclient.LanguageCodec
+	return create(copts), nil
 }

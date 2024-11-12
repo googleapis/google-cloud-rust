@@ -96,7 +96,7 @@ func Generate(specFormat string, popts *genclient.ParserOptions, copts *genclien
 		return err
 	}
 
-	codec, err := language.NewCodec(copts.Language)
+	codec, err := language.NewCodec(copts)
 	if err != nil {
 		return err
 	}
