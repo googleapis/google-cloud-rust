@@ -59,8 +59,8 @@ impl SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     pub async fn list_secrets(
         &self,
-        req: model::ListSecretsRequest,
-    ) -> Result<model::ListSecretsResponse, Box<dyn std::error::Error>> {
+        req: crate::model::ListSecretsRequest,
+    ) -> Result<crate::model::ListSecretsResponse, Box<dyn std::error::Error>> {
         let query_parameters = [
             gax::query_parameter::format("pageSize", &req.page_size)?,
             gax::query_parameter::format("pageToken", &req.page_token)?,
@@ -85,7 +85,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::ListSecretsResponse>().await?;
+        let response = res.json::<crate::model::ListSecretsResponse>().await?;
         Ok(response)
     }
 
@@ -125,8 +125,8 @@ impl SecretManagerService {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     pub async fn add_secret_version(
         &self,
-        req: model::AddSecretVersionRequest,
-    ) -> Result<model::SecretVersion, Box<dyn std::error::Error>> {
+        req: crate::model::AddSecretVersionRequest,
+    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -148,7 +148,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::SecretVersion>().await?;
+        let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
 
@@ -185,8 +185,8 @@ impl SecretManagerService {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     pub async fn update_secret(
         &self,
-        req: model::UpdateSecretRequest,
-    ) -> Result<model::Secret, Box<dyn std::error::Error>> {
+        req: crate::model::UpdateSecretRequest,
+    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
         let query_parameters = [gax::query_parameter::format(
             "updateMask",
             &req.update_mask,
@@ -215,7 +215,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::Secret>().await?;
+        let response = res.json::<crate::model::Secret>().await?;
         Ok(response)
     }
 
@@ -223,8 +223,8 @@ impl SecretManagerService {
     /// call does not return secret data.
     pub async fn list_secret_versions(
         &self,
-        req: model::ListSecretVersionsRequest,
-    ) -> Result<model::ListSecretVersionsResponse, Box<dyn std::error::Error>> {
+        req: crate::model::ListSecretVersionsRequest,
+    ) -> Result<crate::model::ListSecretVersionsResponse, Box<dyn std::error::Error>> {
         let query_parameters = [
             gax::query_parameter::format("pageSize", &req.page_size)?,
             gax::query_parameter::format("pageToken", &req.page_token)?,
@@ -249,7 +249,9 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::ListSecretVersionsResponse>().await?;
+        let response = res
+            .json::<crate::model::ListSecretVersionsResponse>()
+            .await?;
         Ok(response)
     }
 
@@ -260,8 +262,8 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     pub async fn get_secret_version(
         &self,
-        req: model::GetSecretVersionRequest,
-    ) -> Result<model::SecretVersion, Box<dyn std::error::Error>> {
+        req: crate::model::GetSecretVersionRequest,
+    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -282,7 +284,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::SecretVersion>().await?;
+        let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
 
@@ -293,8 +295,8 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     pub async fn access_secret_version(
         &self,
-        req: model::AccessSecretVersionRequest,
-    ) -> Result<model::AccessSecretVersionResponse, Box<dyn std::error::Error>> {
+        req: crate::model::AccessSecretVersionRequest,
+    ) -> Result<crate::model::AccessSecretVersionResponse, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -315,7 +317,9 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::AccessSecretVersionResponse>().await?;
+        let response = res
+            .json::<crate::model::AccessSecretVersionResponse>()
+            .await?;
         Ok(response)
     }
 
@@ -326,8 +330,8 @@ impl SecretManagerService {
     /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
     pub async fn disable_secret_version(
         &self,
-        req: model::DisableSecretVersionRequest,
-    ) -> Result<model::SecretVersion, Box<dyn std::error::Error>> {
+        req: crate::model::DisableSecretVersionRequest,
+    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -349,7 +353,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::SecretVersion>().await?;
+        let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
 
@@ -360,8 +364,8 @@ impl SecretManagerService {
     /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
     pub async fn enable_secret_version(
         &self,
-        req: model::EnableSecretVersionRequest,
-    ) -> Result<model::SecretVersion, Box<dyn std::error::Error>> {
+        req: crate::model::EnableSecretVersionRequest,
+    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -383,7 +387,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::SecretVersion>().await?;
+        let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
 
@@ -395,8 +399,8 @@ impl SecretManagerService {
     /// and irrevocably destroys the secret data.
     pub async fn destroy_secret_version(
         &self,
-        req: model::DestroySecretVersionRequest,
-    ) -> Result<model::SecretVersion, Box<dyn std::error::Error>> {
+        req: crate::model::DestroySecretVersionRequest,
+    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -418,7 +422,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<model::SecretVersion>().await?;
+        let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
 }
