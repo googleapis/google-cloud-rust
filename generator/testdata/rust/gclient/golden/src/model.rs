@@ -518,6 +518,56 @@ pub struct SecretPayload {
 }
 
 /// Request message for
+/// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretsRequest {
+    /// Required. The resource name of the project associated with the
+    /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
+    /// or `projects/*/locations/*`
+    pub parent: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: i32,
+
+    /// Optional. Pagination token, returned earlier via
+    /// [ListSecretsResponse.next_page_token][google.cloud.secretmanager.v1.ListSecretsResponse.next_page_token].
+    pub page_token: String,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secrets matching the filter. If filter is empty, all secrets are
+    /// listed.
+    pub filter: String,
+}
+
+/// Response message for
+/// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretsResponse {
+    /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
+    /// reverse by create_time (newest first).
+    pub secrets: Vec<crate::model::Secret>,
+
+    /// A token to retrieve the next page of results. Pass this value in
+    /// [ListSecretsRequest.page_token][google.cloud.secretmanager.v1.ListSecretsRequest.page_token]
+    /// to retrieve the next page.
+    pub next_page_token: String,
+
+    /// The total number of [Secrets][google.cloud.secretmanager.v1.Secret] but 0
+    /// when the
+    /// [ListSecretsRequest.filter][google.cloud.secretmanager.v1.ListSecretsRequest.filter]
+    /// field is set.
+    pub total_size: i32,
+}
+
+/// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -541,6 +591,23 @@ pub struct CreateSecretRequest {
 }
 
 /// Request message for
+/// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AddSecretVersionRequest {
+    /// Required. The resource name of the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
+    pub parent: String,
+
+    /// Required. The secret payload of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    pub payload: Option<crate::model::SecretPayload>,
+}
+
+/// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -550,4 +617,196 @@ pub struct GetSecretRequest {
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
     /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
     pub name: String,
+}
+
+/// Request message for
+/// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretVersionsRequest {
+    /// Required. The resource name of the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] to list, in
+    /// the format `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
+    pub parent: String,
+
+    /// Optional. The maximum number of results to be returned in a single page. If
+    /// set to 0, the server decides the number of results to return. If the
+    /// number is greater than 25000, it is capped at 25000.
+    pub page_size: i32,
+
+    /// Optional. Pagination token, returned earlier via
+    /// ListSecretVersionsResponse.next_page_token][].
+    pub page_token: String,
+
+    /// Optional. Filter string, adhering to the rules in
+    /// [List-operation
+    /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
+    /// only secret versions matching the filter. If filter is empty, all secret
+    /// versions are listed.
+    pub filter: String,
+}
+
+/// Response message for
+/// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListSecretVersionsResponse {
+    /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
+    /// sorted in reverse by create_time (newest first).
+    pub versions: Vec<crate::model::SecretVersion>,
+
+    /// A token to retrieve the next page of results. Pass this value in
+    /// [ListSecretVersionsRequest.page_token][google.cloud.secretmanager.v1.ListSecretVersionsRequest.page_token]
+    /// to retrieve the next page.
+    pub next_page_token: String,
+
+    /// The total number of
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] but 0 when
+    /// the
+    /// [ListSecretsRequest.filter][google.cloud.secretmanager.v1.ListSecretsRequest.filter]
+    /// field is set.
+    pub total_size: i32,
+}
+
+/// Request message for
+/// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetSecretVersionRequest {
+    /// Required. The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    ///
+    /// `projects/*/secrets/*/versions/latest` or
+    /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
+    /// recently created
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    pub name: String,
+}
+
+/// Request message for
+/// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateSecretRequest {
+    /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
+    /// values.
+    pub secret: Option<crate::model::Secret>,
+
+    /// Required. Specifies the fields to be updated.
+    pub update_mask: Option<gax_placeholder::FieldMask>,
+}
+
+/// Request message for
+/// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AccessSecretVersionRequest {
+    /// Required. The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    ///
+    /// `projects/*/secrets/*/versions/latest` or
+    /// `projects/*/locations/*/secrets/*/versions/latest` is an alias to the most
+    /// recently created
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    pub name: String,
+}
+
+/// Response message for
+/// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AccessSecretVersionResponse {
+    /// The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    pub name: String,
+
+    /// Secret payload
+    pub payload: Option<crate::model::SecretPayload>,
+}
+
+/// Request message for
+/// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteSecretRequest {
+    /// Required. The resource name of the
+    /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
+    /// `projects/*/secrets/*`.
+    pub name: String,
+
+    /// Optional. Etag of the [Secret][google.cloud.secretmanager.v1.Secret]. The
+    /// request succeeds if it matches the etag of the currently stored secret
+    /// object. If the etag is omitted, the request succeeds.
+    pub etag: String,
+}
+
+/// Request message for
+/// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DisableSecretVersionRequest {
+    /// Required. The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
+    /// the format `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    pub name: String,
+
+    /// Optional. Etag of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
+    /// succeeds if it matches the etag of the currently stored secret version
+    /// object. If the etag is omitted, the request succeeds.
+    pub etag: String,
+}
+
+/// Request message for
+/// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct EnableSecretVersionRequest {
+    /// Required. The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
+    /// the format `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    pub name: String,
+
+    /// Optional. Etag of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
+    /// succeeds if it matches the etag of the currently stored secret version
+    /// object. If the etag is omitted, the request succeeds.
+    pub etag: String,
+}
+
+/// Request message for
+/// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DestroySecretVersionRequest {
+    /// Required. The resource name of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
+    /// the format `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*`.
+    pub name: String,
+
+    /// Optional. Etag of the
+    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
+    /// succeeds if it matches the etag of the currently stored secret version
+    /// object. If the etag is omitted, the request succeeds.
+    pub etag: String,
 }
