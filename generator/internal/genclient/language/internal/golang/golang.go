@@ -216,6 +216,10 @@ func (*Codec) FormatDocComments(documentation string) []string {
 	return ss
 }
 
+func (*Codec) RequiredPackages() []string {
+	return []string{}
+}
+
 // The list of Golang keywords and reserved words can be found at:
 //
 // https://go.dev/ref/spec#Keywords

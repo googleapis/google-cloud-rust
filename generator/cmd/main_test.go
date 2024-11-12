@@ -47,6 +47,10 @@ func TestRustFromOpenAPI(t *testing.T) {
 		ProjectRoot: projectRoot,
 		OutDir:      "testdata/rust/openapi/golden",
 		TemplateDir: "../templates",
+		Options: map[string]string{
+			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
+			"package:gax":             "package=gax,path=../../../../../gax",
+		},
 	}
 	err := Generate("openapi", popts, copts)
 	if err != nil {
@@ -81,6 +85,10 @@ func TestRustFromProtobuf(t *testing.T) {
 		ProjectRoot: projectRoot,
 		OutDir:      "testdata/rust/gclient/golden",
 		TemplateDir: "../templates",
+		Options: map[string]string{
+			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
+			"package:gax":             "package=gax,path=../../../../../gax",
+		},
 	}
 	err := Generate("protobuf", popts, copts)
 	if err != nil {

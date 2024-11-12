@@ -46,8 +46,13 @@ func (t *templateData) Name() string {
 func (t *templateData) Title() string {
 	return t.s.Title
 }
+
 func (t *templateData) Description() string {
 	return t.s.Description
+}
+
+func (t *templateData) RequiredPackages() []string {
+	return t.c.RequiredPackages()
 }
 
 func (t *templateData) Services() []*service {

@@ -17,6 +17,7 @@ package rust
 import (
 	"fmt"
 	"log/slog"
+	"sort"
 	"strings"
 	"unicode"
 
@@ -24,11 +25,68 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewCodec() *Codec {
-	return &Codec{}
+func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
+	codec := &Codec{
+		extraPackages:  []*RustPackage{},
+		packageMapping: map[string]*RustPackage{},
+	}
+	for key, definition := range copts.Options {
+		if !strings.HasPrefix(key, "package:") {
+			continue
+		}
+		var specificationPackages []string
+		pkg := &RustPackage{
+			Name: strings.TrimPrefix(key, "package:"),
+		}
+		for _, element := range strings.Split(definition, ",") {
+			s := strings.SplitN(element, "=", 2)
+			if len(s) != 2 {
+				return nil, fmt.Errorf("the definition for package %s should be a comma-separated list of key=value pairs, got=%q", key, definition)
+			}
+			switch s[0] {
+			case "package":
+				pkg.Package = s[1]
+			case "path":
+				pkg.Path = s[1]
+			case "version":
+				pkg.Version = s[1]
+			case "source":
+				specificationPackages = append(specificationPackages, s[1])
+			default:
+				return nil, fmt.Errorf("unknown field (%s) in definition of rust package %s, got=%s", s[0], key, definition)
+			}
+		}
+		if pkg.Package == "" {
+			return nil, fmt.Errorf("missing rust package name for package %s, got=%s", key, definition)
+		}
+		codec.extraPackages = append(codec.extraPackages, pkg)
+		for _, source := range specificationPackages {
+			codec.packageMapping[source] = pkg
+		}
+	}
+	return codec, nil
 }
 
-type Codec struct{}
+type Codec struct {
+	// Additional Rust packages imported by this module. The Mustache template
+	// hardcodes a number of packages, but some are configured via the
+	// command-line.
+	extraPackages []*RustPackage
+	// A mapping between the specification package names (typically Protobuf),
+	// and the Rust package name that contains these types.
+	packageMapping map[string]*RustPackage
+}
+
+type RustPackage struct {
+	// The name we import this package under.
+	Name string
+	// What the Rust package calls itself.
+	Package string
+	// The path to file the package locally, unused if empty.
+	Path string
+	// The version of the package, unused if empty.
+	Version string
+}
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	// TODO(#77) - replace these placeholders with real types
@@ -36,27 +94,27 @@ func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 		{
 			ID:      ".google.protobuf.Any",
 			Name:    "Any",
-			Package: "gax_placeholder",
+			Package: "google.protobuf",
 		},
 		{
 			ID:      ".google.protobuf.Empty",
 			Name:    "Empty",
-			Package: "gax_placeholder",
+			Package: "google.protobuf",
 		},
 		{
 			ID:      ".google.protobuf.FieldMask",
 			Name:    "FieldMask",
-			Package: "gax_placeholder",
+			Package: "google.protobuf",
 		},
 		{
 			ID:      ".google.protobuf.Duration",
 			Name:    "Duration",
-			Package: "gax_placeholder",
+			Package: "google.protobuf",
 		},
 		{
 			ID:      ".google.protobuf.Timestamp",
 			Name:    "Timestamp",
-			Package: "gax_placeholder",
+			Package: "google.protobuf",
 		},
 	}
 	for _, message := range wellKnown {
@@ -174,8 +232,12 @@ func (c *Codec) rustPackage(packageName string) string {
 	if packageName == "" {
 		return "crate::model"
 	}
-	// TODO(#158) - this should be mapped via some configuration.
-	return packageName
+	mapped, ok := c.packageMapping[packageName]
+	if !ok {
+		slog.Error("unknown source package name", "name", packageName)
+		return packageName
+	}
+	return mapped.Name
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
@@ -367,6 +429,25 @@ func (*Codec) FormatDocComments(documentation string) []string {
 		}
 	}
 	return ss
+}
+
+func (c *Codec) RequiredPackages() []string {
+	lines := []string{}
+	for _, pkg := range c.extraPackages {
+		components := []string{}
+		if pkg.Version != "" {
+			components = append(components, fmt.Sprintf("version = %q", pkg.Version))
+		}
+		if pkg.Path != "" {
+			components = append(components, fmt.Sprintf("path = %q", pkg.Path))
+		}
+		if pkg.Package != "" {
+			components = append(components, fmt.Sprintf("package = %q", pkg.Package))
+		}
+		lines = append(lines, fmt.Sprintf("%s = { %s }", pkg.Name, strings.Join(components, ", ")))
+	}
+	sort.Strings(lines)
+	return lines
 }
 
 // The list of Rust keywords and reserved words can be found at:

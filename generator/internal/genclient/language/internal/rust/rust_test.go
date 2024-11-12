@@ -19,8 +19,93 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
+
+func testCodec() *Codec {
+	wkt := &RustPackage{
+		Name:    "gax_wkt",
+		Package: "types",
+		Path:    "../../types",
+	}
+
+	return &Codec{
+		extraPackages: []*RustPackage{wkt},
+		packageMapping: map[string]*RustPackage{
+			"google.protobuf": wkt,
+		},
+	}
+}
+
+func TestParseOptions(t *testing.T) {
+	copts := &genclient.CodecOptions{
+		Language: "rust",
+		Options: map[string]string{
+			"package:gax_placeholder": "package=types,path=../../types,source=google.protobuf,source=test-only",
+			"package:gax":             "package=gax,path=../../gax",
+		},
+	}
+	codec, err := NewCodec(copts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &Codec{
+		extraPackages: []*RustPackage{
+			{
+				Name:    "gax_placeholder",
+				Package: "types",
+				Path:    "../../types",
+			},
+			{
+				Name:    "gax",
+				Package: "gax",
+				Path:    "../../gax",
+			},
+		},
+	}
+	checkPackages(t, codec, want)
+	for _, source := range []string{"google.protobuf", "test-only"} {
+		pkg, ok := codec.packageMapping[source]
+		if !ok {
+			t.Errorf("missing package mapping for source=%s", source)
+		}
+		if pkg.Name != "gax_placeholder" {
+			t.Errorf("mismatched package for %s, want=%s, got=%s", source, "gax_placeholder", pkg.Name)
+		}
+	}
+}
+
+func TestRequiredPackages(t *testing.T) {
+	copts := &genclient.CodecOptions{
+		Language: "rust",
+		Options: map[string]string{
+			"package:gax_placeholder": "package=types,path=../../types,source=google.protobuf,source=test-only",
+			"package:gax":             "package=gax,path=../../gax,version=1.2.3",
+		},
+	}
+	codec, err := NewCodec(copts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := codec.RequiredPackages()
+	want := []string{
+		"gax_placeholder = { path = \"../../types\", package = \"types\" }",
+		"gax = { version = \"1.2.3\", path = \"../../gax\", package = \"gax\" }",
+	}
+	less := func(a, b string) bool { return a < b }
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
+	}
+}
+
+func checkPackages(t *testing.T, got *Codec, want *Codec) {
+	t.Helper()
+	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want.extraPackages, got.extraPackages, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("package mismatch (-want, +got):\n%s", diff)
+	}
+}
 
 func TestWellKnownTypesExist(t *testing.T) {
 	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
@@ -35,10 +120,10 @@ func TestWellKnownTypesExist(t *testing.T) {
 
 func TestWellKnownTypesAsMethod(t *testing.T) {
 	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
-	c := &Codec{}
+	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
 
-	want := "gax_placeholder::Empty"
+	want := "gax_wkt::Empty"
 	got := c.MethodInOutTypeName(".google.protobuf.Empty", api.State)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
@@ -137,10 +222,10 @@ func TestFieldType(t *testing.T) {
 		"f_int32_repeated":     "Vec<i32>",
 		"f_msg":                "Option<crate::model::Target>",
 		"f_msg_repeated":       "Vec<crate::model::Target>",
-		"f_timestamp":          "Option<gax_placeholder::Timestamp>",
-		"f_timestamp_repeated": "Vec<gax_placeholder::Timestamp>",
+		"f_timestamp":          "Option<gax_wkt::Timestamp>",
+		"f_timestamp_repeated": "Vec<gax_wkt::Timestamp>",
 	}
-	c := &Codec{}
+	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedTypes[field.Name]

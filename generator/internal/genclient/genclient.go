@@ -38,6 +38,8 @@ type LanguageCodec interface {
 	LoadWellKnownTypes(s *APIState)
 	// FieldType returns a string representation of a message field type.
 	FieldType(f *Field, state *APIState) string
+	// The name of a message type ID when used as an input or output argument
+	// in the client methods.
 	MethodInOutTypeName(id string, state *APIState) string
 	// The (unqualified) message name, as used when defining the type to
 	// represent it.
@@ -93,6 +95,9 @@ type LanguageCodec interface {
 	//     any ```-sections. Without this annotation Rustdoc assumes the
 	//     blockquote is an Rust code snippet and attempts to compile it.
 	FormatDocComments(string) []string
+	// Returns a extra set of lines to insert in the module file.
+	// The format of these lines is specific to each language.
+	RequiredPackages() []string
 }
 
 // Parser converts an textual specification to a `genclient.API` object.
