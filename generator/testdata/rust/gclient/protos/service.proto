@@ -110,6 +110,17 @@ service SecretManagerService {
     option (google.api.method_signature) = "secret,update_mask";
   }
 
+  // Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
+  rpc DeleteSecret(DeleteSecretRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=projects/*/secrets/*}"
+      additional_bindings {
+        delete: "/v1/{name=projects/*/locations/*/secrets/*}"
+      }
+    };
+    option (google.api.method_signature) = "name";
+  }
+
   // Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
   // call does not return secret data.
   rpc ListSecretVersions(ListSecretVersionsRequest)
