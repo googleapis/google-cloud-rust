@@ -70,38 +70,55 @@ func TestRustFromOpenAPI(t *testing.T) {
 func TestRustFromProtobuf(t *testing.T) {
 	const (
 		projectRoot = ".."
-		outDir      = "testdata/rust/gclient/golden/secretmanager"
+		outDir      = "testdata/rust/gclient/golden"
 	)
 
-	popts := &genclient.ParserOptions{
-		Source: "../testdata/rust/gclient/protos",
-		Options: map[string]string{
-			"googleapis-root": "../testdata/googleapis",
-			"input-root":      "../testdata",
+	type Config struct {
+		Source string
+		Name   string
+	}
+
+	configs := []Config{
+		{
+			Source: "../testdata/rust/gclient/protos",
+			Name:   "secretmanager",
+		},
+		{
+			Source: "../testdata/googleapis/google/type",
+			Name:   "type",
 		},
 	}
 
-	copts := &genclient.CodecOptions{
-		Language:    "rust",
-		ProjectRoot: projectRoot,
-		OutDir:      outDir,
-		TemplateDir: "../templates",
-		Options: map[string]string{
-			"package-name-override":   "secretmanager-golden-gclient",
-			"package:gax_placeholder": "package=types,path=../../../../../../types,source=google.protobuf",
-			"package:gax":             "package=gax,path=../../../../../../gax",
-		},
-	}
-	err := Generate("protobuf", popts, copts)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
-	if output, err := cmd.CombinedOutput(); err != nil {
-		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+	for _, config := range configs {
+		popts := &genclient.ParserOptions{
+			Source: config.Source,
+			Options: map[string]string{
+				"googleapis-root": "../testdata/googleapis",
+				"input-root":      "../testdata",
+			},
 		}
-		t.Fatalf("%v: %v\n%s", cmd, err, output)
+		copts := &genclient.CodecOptions{
+			Language:    "rust",
+			ProjectRoot: projectRoot,
+			OutDir:      path.Join(outDir, config.Name),
+			TemplateDir: "../templates",
+			Options: map[string]string{
+				"package-name-override":   config.Name + "-golden-gclient",
+				"package:gax_placeholder": "package=types,path=../../../../../../types,source=google.protobuf",
+				"package:gax":             "package=gax,path=../../../../../../gax",
+			},
+		}
+		err := Generate("protobuf", popts, copts)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, config.Name, "Cargo.toml"))
+		if output, err := cmd.CombinedOutput(); err != nil {
+			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+			}
+			t.Fatalf("%v: %v\n%s", cmd, err, output)
+		}
 	}
 }
