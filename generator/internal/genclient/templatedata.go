@@ -51,6 +51,10 @@ func (t *templateData) Description() string {
 	return t.s.Description
 }
 
+func (t *templateData) PackageName() string {
+	return t.c.PackageName(t.s)
+}
+
 func (t *templateData) RequiredPackages() []string {
 	return t.c.RequiredPackages()
 }

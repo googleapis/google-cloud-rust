@@ -220,6 +220,10 @@ func (*Codec) RequiredPackages() []string {
 	return []string{}
 }
 
+func (*Codec) PackageName(api *genclient.API) string {
+	return api.Name
+}
+
 // The list of Golang keywords and reserved words can be found at:
 //
 // https://go.dev/ref/spec#Keywords
