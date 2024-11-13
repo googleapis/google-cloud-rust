@@ -70,7 +70,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 func TestRustFromProtobuf(t *testing.T) {
 	const (
 		projectRoot = ".."
-		outDir      = "testdata/rust/gclient/golden"
+		outDir      = "testdata/rust/gclient/golden/secretmanager"
 	)
 
 	popts := &genclient.ParserOptions{
@@ -84,12 +84,12 @@ func TestRustFromProtobuf(t *testing.T) {
 	copts := &genclient.CodecOptions{
 		Language:    "rust",
 		ProjectRoot: projectRoot,
-		OutDir:      "testdata/rust/gclient/golden",
+		OutDir:      outDir,
 		TemplateDir: "../templates",
 		Options: map[string]string{
 			"package-name-override":   "secretmanager-golden-gclient",
-			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
-			"package:gax":             "package=gax,path=../../../../../gax",
+			"package:gax_placeholder": "package=types,path=../../../../../../types,source=google.protobuf",
+			"package:gax":             "package=gax,path=../../../../../../gax",
 		},
 	}
 	err := Generate("protobuf", popts, copts)
