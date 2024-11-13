@@ -56,3 +56,6 @@ pub mod path_parameter;
 
 /// Implementation details for [query_parameter](::crate::query_parameter).
 mod request_parameter;
+
+/// The core error types used by generated clients.
+pub mod error;
