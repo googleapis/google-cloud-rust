@@ -22,12 +22,12 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/rust"
 )
 
-type createCodec func(*genclient.CodecOptions) genclient.LanguageCodec
+type createCodec func(*genclient.CodecOptions) (genclient.LanguageCodec, error)
 
 func knownCodecs() map[string]createCodec {
 	return map[string]createCodec{
-		"rust": func(*genclient.CodecOptions) genclient.LanguageCodec { return rust.NewCodec() },
-		"go":   func(*genclient.CodecOptions) genclient.LanguageCodec { return golang.NewCodec() },
+		"rust": func(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) { return rust.NewCodec(copts) },
+		"go":   func(*genclient.CodecOptions) (genclient.LanguageCodec, error) { return golang.NewCodec(), nil },
 	}
 }
 
@@ -37,5 +37,5 @@ func NewCodec(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) {
 	if !ok {
 		return nil, fmt.Errorf("unknown language: %s", copts.Language)
 	}
-	return create(copts), nil
+	return create(copts)
 }
