@@ -919,20 +919,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "953ec861398dccce10c670dfeaf3ec4911ca479e9c02154b3a215178c5f566f2"
 
 [[package]]
-name = "placeholder"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gax",
- "reqwest 0.12.9",
- "serde",
- "serde_json",
- "serde_with",
- "time",
- "types",
-]
-
-[[package]]
 name = "powerfmt"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1266,7 +1252,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "secretmanager"
+name = "secretmanager-golden-gclient"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "gax",
+ "reqwest 0.12.9",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "time",
+ "types",
+]
+
+[[package]]
+name = "secretmanager-golden-openapi"
 version = "0.1.0"
 dependencies = [
  "bytes",

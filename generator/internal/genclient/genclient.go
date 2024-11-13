@@ -98,6 +98,8 @@ type LanguageCodec interface {
 	// Returns a extra set of lines to insert in the module file.
 	// The format of these lines is specific to each language.
 	RequiredPackages() []string
+	// The package name. Empty for languags without a package manager.
+	PackageName(api *API) string
 }
 
 // Parser converts an textual specification to a `genclient.API` object.

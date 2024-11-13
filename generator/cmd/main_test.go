@@ -48,6 +48,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		OutDir:      "testdata/rust/openapi/golden",
 		TemplateDir: "../templates",
 		Options: map[string]string{
+			"package-name-override":   "secretmanager-golden-openapi",
 			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
 			"package:gax":             "package=gax,path=../../../../../gax",
 		},
@@ -86,6 +87,7 @@ func TestRustFromProtobuf(t *testing.T) {
 		OutDir:      "testdata/rust/gclient/golden",
 		TemplateDir: "../templates",
 		Options: map[string]string{
+			"package-name-override":   "secretmanager-golden-gclient",
 			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
 			"package:gax":             "package=gax,path=../../../../../gax",
 		},

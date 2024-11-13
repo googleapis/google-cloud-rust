@@ -31,8 +31,8 @@ func testCodec() *Codec {
 	}
 
 	return &Codec{
-		extraPackages: []*RustPackage{wkt},
-		packageMapping: map[string]*RustPackage{
+		ExtraPackages: []*RustPackage{wkt},
+		PackageMapping: map[string]*RustPackage{
 			"google.protobuf": wkt,
 		},
 	}
@@ -42,6 +42,7 @@ func TestParseOptions(t *testing.T) {
 	copts := &genclient.CodecOptions{
 		Language: "rust",
 		Options: map[string]string{
+			"package-name-override":   "test-only",
 			"package:gax_placeholder": "package=types,path=../../types,source=google.protobuf,source=test-only",
 			"package:gax":             "package=gax,path=../../gax",
 		},
@@ -50,30 +51,33 @@ func TestParseOptions(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	gp := &RustPackage{
+		Name:    "gax_placeholder",
+		Package: "types",
+		Path:    "../../types",
+	}
 	want := &Codec{
-		extraPackages: []*RustPackage{
-			{
-				Name:    "gax_placeholder",
-				Package: "types",
-				Path:    "../../types",
-			},
+		PackageNameOverride: "test-only",
+		ExtraPackages: []*RustPackage{
+			gp,
 			{
 				Name:    "gax",
 				Package: "gax",
 				Path:    "../../gax",
 			},
 		},
+		PackageMapping: map[string]*RustPackage{
+			"google.protobuf": gp,
+			"test-only":       gp,
+		},
+	}
+	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(Codec{}, "ExtraPackages", "PackageMapping")); len(diff) > 0 {
+		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
+	}
+	if want.PackageNameOverride != codec.PackageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.PackageNameOverride, codec.PackageNameOverride)
 	}
 	checkPackages(t, codec, want)
-	for _, source := range []string{"google.protobuf", "test-only"} {
-		pkg, ok := codec.packageMapping[source]
-		if !ok {
-			t.Errorf("missing package mapping for source=%s", source)
-		}
-		if pkg.Name != "gax_placeholder" {
-			t.Errorf("mismatched package for %s, want=%s, got=%s", source, "gax_placeholder", pkg.Name)
-		}
-	}
 }
 
 func TestRequiredPackages(t *testing.T) {
@@ -99,10 +103,39 @@ func TestRequiredPackages(t *testing.T) {
 	}
 }
 
+func TestPackageName(t *testing.T) {
+	packageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
+		Language: "rust",
+		Options: map[string]string{
+			"package-name-override": "test-only-overridden",
+		},
+	})
+	packageNameImpl(t, "test-only-default", &genclient.CodecOptions{
+		Language: "rust",
+	})
+
+}
+
+func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions) {
+	t.Helper()
+	api := &genclient.API{
+		Name: "test-only-default",
+	}
+	codec, err := NewCodec(copts)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := codec.PackageName(api)
+	if want != got {
+		t.Errorf("mismatch in package name, want=%s, got=%s", want, got)
+	}
+
+}
+
 func checkPackages(t *testing.T, got *Codec, want *Codec) {
 	t.Helper()
 	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.extraPackages, got.extraPackages, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); len(diff) > 0 {
 		t.Errorf("package mismatch (-want, +got):\n%s", diff)
 	}
 }

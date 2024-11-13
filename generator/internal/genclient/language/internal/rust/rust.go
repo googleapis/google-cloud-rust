@@ -27,10 +27,14 @@ import (
 
 func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	codec := &Codec{
-		extraPackages:  []*RustPackage{},
-		packageMapping: map[string]*RustPackage{},
+		ExtraPackages:  []*RustPackage{},
+		PackageMapping: map[string]*RustPackage{},
 	}
 	for key, definition := range copts.Options {
+		if key == "package-name-override" {
+			codec.PackageNameOverride = definition
+			continue
+		}
 		if !strings.HasPrefix(key, "package:") {
 			continue
 		}
@@ -59,22 +63,24 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		if pkg.Package == "" {
 			return nil, fmt.Errorf("missing rust package name for package %s, got=%s", key, definition)
 		}
-		codec.extraPackages = append(codec.extraPackages, pkg)
+		codec.ExtraPackages = append(codec.ExtraPackages, pkg)
 		for _, source := range specificationPackages {
-			codec.packageMapping[source] = pkg
+			codec.PackageMapping[source] = pkg
 		}
 	}
 	return codec, nil
 }
 
 type Codec struct {
+	// Package name override. If not empty, overrides the default package name.
+	PackageNameOverride string
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
-	extraPackages []*RustPackage
+	ExtraPackages []*RustPackage
 	// A mapping between the specification package names (typically Protobuf),
 	// and the Rust package name that contains these types.
-	packageMapping map[string]*RustPackage
+	PackageMapping map[string]*RustPackage
 }
 
 type RustPackage struct {
@@ -232,7 +238,7 @@ func (c *Codec) rustPackage(packageName string) string {
 	if packageName == "" {
 		return "crate::model"
 	}
-	mapped, ok := c.packageMapping[packageName]
+	mapped, ok := c.PackageMapping[packageName]
 	if !ok {
 		slog.Error("unknown source package name", "name", packageName)
 		return packageName
@@ -433,7 +439,7 @@ func (*Codec) FormatDocComments(documentation string) []string {
 
 func (c *Codec) RequiredPackages() []string {
 	lines := []string{}
-	for _, pkg := range c.extraPackages {
+	for _, pkg := range c.ExtraPackages {
 		components := []string{}
 		if pkg.Version != "" {
 			components = append(components, fmt.Sprintf("version = %q", pkg.Version))
@@ -448,6 +454,13 @@ func (c *Codec) RequiredPackages() []string {
 	}
 	sort.Strings(lines)
 	return lines
+}
+
+func (c *Codec) PackageName(api *genclient.API) string {
+	if len(c.PackageNameOverride) > 0 {
+		return c.PackageNameOverride
+	}
+	return api.Name
 }
 
 // The list of Rust keywords and reserved words can be found at:
