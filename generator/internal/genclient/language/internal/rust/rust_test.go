@@ -104,10 +104,10 @@ func TestRequiredPackages(t *testing.T) {
 }
 
 func TestPackageName(t *testing.T) {
-	packageNameImpl(t, "test-only-overriden", &genclient.CodecOptions{
+	packageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
 		Language: "rust",
 		Options: map[string]string{
-			"package-name-override": "test-only-overriden",
+			"package-name-override": "test-only-overridden",
 		},
 	})
 	packageNameImpl(t, "test-only-default", &genclient.CodecOptions{
