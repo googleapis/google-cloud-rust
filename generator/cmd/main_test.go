@@ -17,9 +17,11 @@ package main
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
+	"strings"
 	"testing"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -74,22 +76,38 @@ func TestRustFromProtobuf(t *testing.T) {
 	)
 
 	type Config struct {
-		Source string
-		Name   string
+		Source       string
+		Name         string
+		ExtraOptions map[string]string
 	}
 
 	configs := []Config{
 		{
-			Source: "../testdata/rust/gclient/protos",
-			Name:   "secretmanager",
-		},
-		{
 			Source: "../testdata/googleapis/google/type",
 			Name:   "type",
+		},
+		{
+			Source: "../testdata/googleapis/google/iam/v1",
+			Name:   "iam/v1",
+			ExtraOptions: map[string]string{
+				"package:gtype": "package=type-golden-gclient,path=../../type,source=google.type",
+			},
+		},
+		{
+			Source: "../testdata/rust/gclient/protos",
+			Name:   "secretmanager",
+			ExtraOptions: map[string]string{
+				"package:iam": "package=iam-v1-golden-gclient,path=../iam/v1,source=google.iam.v1",
+			},
 		},
 	}
 
 	for _, config := range configs {
+		depth := strings.Count(outDir, "/") + strings.Count(config.Name, "/") + 2
+		toProjectRoot := ".."
+		for range depth {
+			toProjectRoot = path.Join(toProjectRoot, "..")
+		}
 		popts := &genclient.ParserOptions{
 			Source: config.Source,
 			Options: map[string]string{
@@ -97,16 +115,20 @@ func TestRustFromProtobuf(t *testing.T) {
 				"input-root":      "../testdata",
 			},
 		}
+		options := map[string]string{
+			"package-name-override":   strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
+			"package:gax_placeholder": fmt.Sprintf("package=types,path=%s/types,source=google.protobuf", toProjectRoot),
+			"package:gax":             fmt.Sprintf("package=gax,path=%s/gax", toProjectRoot),
+		}
+		for k, v := range config.ExtraOptions {
+			options[k] = v
+		}
 		copts := &genclient.CodecOptions{
 			Language:    "rust",
 			ProjectRoot: projectRoot,
 			OutDir:      path.Join(outDir, config.Name),
 			TemplateDir: "../templates",
-			Options: map[string]string{
-				"package-name-override":   config.Name + "-golden-gclient",
-				"package:gax_placeholder": "package=types,path=../../../../../../types,source=google.protobuf",
-				"package:gax":             "package=gax,path=../../../../../../gax",
-			},
+			Options:     options,
 		}
 		err := Generate("protobuf", popts, copts)
 		if err != nil {

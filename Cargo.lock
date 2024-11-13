@@ -629,6 +629,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "iam-v1-golden-gclient"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "gax",
+ "reqwest 0.12.9",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "time",
+ "type-golden-gclient",
+ "types",
+]
+
+[[package]]
 name = "iana-time-zone"
 version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1257,6 +1272,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "iam-v1-golden-gclient",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
