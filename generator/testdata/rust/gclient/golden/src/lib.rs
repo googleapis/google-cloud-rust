@@ -219,6 +219,35 @@ impl SecretManagerService {
         Ok(response)
     }
 
+    /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
+    pub async fn delete_secret(
+        &self,
+        req: crate::model::DeleteSecretRequest,
+    ) -> Result<gax_placeholder::Empty, Box<dyn std::error::Error>> {
+        let query_parameters = [gax::query_parameter::format("etag", &req.etag)?];
+        let client = self.client.inner.clone();
+        let res = client
+            .http_client
+            .delete(format!("{}/v1/{}", self.base_path, req.name,))
+            .query(&[("alt", "json")])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
+            .bearer_auth(&client.token)
+            .send()
+            .await?;
+        if !res.status().is_success() {
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
+        }
+        let response = res.json::<gax_placeholder::Empty>().await?;
+        Ok(response)
+    }
+
     /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
     /// call does not return secret data.
     pub async fn list_secret_versions(
