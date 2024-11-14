@@ -100,6 +100,9 @@ func Generate(specFormat string, popts *genclient.ParserOptions, copts *genclien
 	if err != nil {
 		return err
 	}
+	if err = codec.Validate(api); err != nil {
+		return err
+	}
 	request := &genclient.GenerateRequest{
 		API:         api,
 		Codec:       codec,

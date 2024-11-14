@@ -92,6 +92,8 @@ type Service struct {
 	Methods []*Method
 	// DefaultHost fragment of a URL.
 	DefaultHost string
+	// The Protobuf package this service belongs to.
+	Package string
 }
 
 // Method defines a RPC belonging to a Service.
@@ -196,7 +198,8 @@ type Message struct {
 	// OneOfs associated with the Message.
 	OneOfs []*OneOf
 	// Parent returns the ancestor of this message, if any.
-	Parent  *Message
+	Parent *Message
+	// The Protobuf package this message belongs to.
 	Package string
 	IsMap   bool
 }
@@ -213,6 +216,8 @@ type Enum struct {
 	Values []*EnumValue
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
+	// The Protobuf package this enum belongs to.
+	Package string
 }
 
 // EnumValue defines a value in an Enum.

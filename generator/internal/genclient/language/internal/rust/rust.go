@@ -81,6 +81,9 @@ type Codec struct {
 	// A mapping between the specification package names (typically Protobuf),
 	// and the Rust package name that contains these types.
 	PackageMapping map[string]*RustPackage
+	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
+	// generate code for one source package at a time.
+	SourceSpecificationPackageName string
 }
 
 type RustPackage struct {
@@ -235,7 +238,7 @@ func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string
 }
 
 func (c *Codec) rustPackage(packageName string) string {
-	if packageName == "" {
+	if packageName == c.SourceSpecificationPackageName {
 		return "crate::model"
 	}
 	mapped, ok := c.PackageMapping[packageName]
@@ -243,13 +246,14 @@ func (c *Codec) rustPackage(packageName string) string {
 		slog.Error("unknown source package name", "name", packageName)
 		return packageName
 	}
-	return mapped.Name
+	// TODO(#158) - maybe google.protobuf should not be this special?
+	if packageName == "google.protobuf" {
+		return mapped.Name
+	}
+	return mapped.Name + "::model"
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
-	if m.Package != "" {
-		return c.rustPackage(m.Package) + "::" + c.ToPascal(m.Name)
-	}
 	return c.ToPascal(m.Name)
 }
 
@@ -461,6 +465,39 @@ func (c *Codec) PackageName(api *genclient.API) string {
 		return c.PackageNameOverride
 	}
 	return api.Name
+}
+
+func (c *Codec) validatePackageName(newPackage, elementName string) error {
+	if c.SourceSpecificationPackageName == "" {
+		c.SourceSpecificationPackageName = newPackage
+		return nil
+	}
+	if c.SourceSpecificationPackageName == newPackage {
+		return nil
+	}
+	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+		c.SourceSpecificationPackageName, newPackage, elementName)
+}
+
+func (c *Codec) Validate(api *genclient.API) error {
+	// The Rust codec can only generate clients and models for a single protobuf
+	// package at a time.
+	for _, s := range api.Services {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	for _, s := range api.Messages {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	for _, s := range api.Enums {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // The list of Rust keywords and reserved words can be found at:

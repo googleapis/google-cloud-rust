@@ -28,7 +28,11 @@ func NewCodec() *Codec {
 	return &Codec{}
 }
 
-type Codec struct{}
+type Codec struct {
+	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
+	// generate code for one source package at a time.
+	SourceSpecificationPackageName string
+}
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	timestamp := &genclient.Message{
@@ -222,6 +226,39 @@ func (*Codec) RequiredPackages() []string {
 
 func (*Codec) PackageName(api *genclient.API) string {
 	return api.Name
+}
+
+func (c *Codec) validatePackageName(newPackage, elementName string) error {
+	if c.SourceSpecificationPackageName == "" {
+		c.SourceSpecificationPackageName = newPackage
+		return nil
+	}
+	if c.SourceSpecificationPackageName == newPackage {
+		return nil
+	}
+	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+		c.SourceSpecificationPackageName, newPackage, elementName)
+}
+
+func (c *Codec) Validate(api *genclient.API) error {
+	// The Rust codec can only generate clients and models for a single protobuf
+	// package at a time.
+	for _, s := range api.Services {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	for _, s := range api.Messages {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	for _, s := range api.Enums {
+		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // The list of Golang keywords and reserved words can be found at:

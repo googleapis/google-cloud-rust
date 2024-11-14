@@ -168,3 +168,46 @@ Maybe they wanted to show some JSON:
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }
+
+func TestValidate(t *testing.T) {
+	api := genclient.NewTestAPI(
+		[]*genclient.Message{{Name: "m1", Package: "p1"}},
+		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
+		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	c := &Codec{}
+	if err := c.Validate(api); err != nil {
+		t.Errorf("unexpected error in API validation %q", err)
+	}
+	if c.SourceSpecificationPackageName != "p1" {
+		t.Errorf("mismatched source package name, want=p1, got=%s", c.SourceSpecificationPackageName)
+	}
+}
+
+func TestValidateMessageMismatch(t *testing.T) {
+	api := genclient.NewTestAPI(
+		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
+		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
+		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	c := &Codec{}
+	if err := c.Validate(api); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	}
+
+	api = genclient.NewTestAPI(
+		[]*genclient.Message{{Name: "m1", Package: "p1"}},
+		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
+		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	c = &Codec{}
+	if err := c.Validate(api); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	}
+
+	api = genclient.NewTestAPI(
+		[]*genclient.Message{{Name: "m1", Package: "p1"}},
+		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
+		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
+	c = &Codec{}
+	if err := c.Validate(api); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	}
+}
