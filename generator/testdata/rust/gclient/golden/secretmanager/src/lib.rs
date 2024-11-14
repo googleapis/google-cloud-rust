@@ -458,8 +458,10 @@ impl SecretManagerService {
     /// Sets the access control policy on the specified secret. Replaces any
     /// existing policy.
     ///
-    /// Permissions on [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced according
-    /// to the policy set on the associated [Secret][google.cloud.secretmanager.v1.Secret].
+    /// Permissions on
+    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
+    /// according to the policy set on the associated
+    /// [Secret][google.cloud.secretmanager.v1.Secret].
     pub async fn set_iam_policy(
         &self,
         req: iam::model::SetIamPolicyRequest,

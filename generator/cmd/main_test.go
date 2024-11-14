@@ -94,7 +94,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			},
 		},
 		{
-			Source: "../testdata/rust/gclient/protos",
+			Source: "../testdata/googleapis/google/cloud/secretmanager/v1",
 			Name:   "secretmanager",
 			ExtraOptions: map[string]string{
 				"package:iam": "package=iam-v1-golden-gclient,path=../iam/v1,source=google.iam.v1",
