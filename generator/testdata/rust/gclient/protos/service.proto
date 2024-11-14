@@ -218,6 +218,42 @@ service SecretManagerService {
     };
     option (google.api.method_signature) = "name";
   }
+
+  // Sets the access control policy on the specified secret. Replaces any
+  // existing policy.
+  //
+  // Permissions on [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced according
+  // to the policy set on the associated [Secret][google.cloud.secretmanager.v1.Secret].
+  rpc SetIamPolicy(google.iam.v1.SetIamPolicyRequest) returns (google.iam.v1.Policy) {
+    option (google.api.http) = {
+      post: "/v1/{resource=projects/*/secrets/*}:setIamPolicy"
+      body: "*"
+    };
+  }
+
+  // Gets the access control policy for a secret.
+  // Returns empty policy if the secret exists and does not have a policy set.
+  rpc GetIamPolicy(google.iam.v1.GetIamPolicyRequest) returns (google.iam.v1.Policy) {
+    option (google.api.http) = {
+      get: "/v1/{resource=projects/*/secrets/*}:getIamPolicy"
+      // TODO(#158) - this is not in the protos from GitHub
+      body: "*"
+    };
+  }
+
+  // Returns permissions that a caller has for the specified secret.
+  // If the secret does not exist, this call returns an empty set of
+  // permissions, not a NOT_FOUND error.
+  //
+  // Note: This operation is designed to be used for building permission-aware
+  // UIs and command-line tools, not for authorization checking. This operation
+  // may "fail open" without warning.
+  rpc TestIamPermissions(google.iam.v1.TestIamPermissionsRequest) returns (google.iam.v1.TestIamPermissionsResponse) {
+    option (google.api.http) = {
+      post: "/v1/{resource=projects/*/secrets/*}:testIamPermissions"
+      body: "*"
+    };
+  }
 }
 
 // Request message for
