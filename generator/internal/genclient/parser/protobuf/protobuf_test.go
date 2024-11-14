@@ -55,6 +55,8 @@ func TestScalar(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		Package:       "test",
+		ID:            ".test.Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{
@@ -175,6 +177,8 @@ func TestScalarArray(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		Package:       "test",
+		ID:            ".test.Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{
@@ -222,6 +226,8 @@ func TestScalarOptional(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		Package:       "test",
+		ID:            ".test.Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
 			{
@@ -274,6 +280,7 @@ func TestSkipExternalMessages(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "LocalMessage",
+		Package:       "test",
 		ID:            ".test.LocalMessage",
 		Documentation: "This is a local message, it should be generated.",
 		Fields: []*genclient.Field{
@@ -319,6 +326,7 @@ func TestSkipExternaEnums(t *testing.T) {
 	}
 	checkEnum(t, *enum, genclient.Enum{
 		Name:          "LocalEnum",
+		Package:       "test",
 		Documentation: "This is a local enum, it should be generated.",
 		Values: []*genclient.EnumValue{
 			{
@@ -352,6 +360,7 @@ func TestComments(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "Request",
+		Package:       "test",
 		ID:            ".test.Request",
 		Documentation: "A test message.\n\nWith even more of a description.\nMaybe in more than one line.\nAnd some markdown:\n- An item\n  - A nested item\n- Another item",
 		Fields: []*genclient.Field{
@@ -371,6 +380,7 @@ func TestComments(t *testing.T) {
 	}
 	checkEnum(t, *e, genclient.Enum{
 		Name:          "Status",
+		Package:       "test",
 		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
 		Values: []*genclient.EnumValue{
 			{
@@ -393,6 +403,7 @@ func TestComments(t *testing.T) {
 	checkService(t, *service, genclient.Service{
 		Name:          "Service",
 		ID:            ".test.Service",
+		Package:       "test",
 		Documentation: "A service.\n\nWith a longer service description.",
 		DefaultHost:   "test.googleapis.com",
 		Methods: []*genclient.Method{
@@ -424,6 +435,7 @@ func TestOneOfs(t *testing.T) {
 	}
 	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
+		Package:       "test",
 		ID:            ".test.Fake",
 		Documentation: "A test message.",
 		Fields: []*genclient.Field{
@@ -494,8 +506,9 @@ func TestObjectFields(t *testing.T) {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
 	checkMessage(t, *message, genclient.Message{
-		Name: "Fake",
-		ID:   ".test.Fake",
+		Name:    "Fake",
+		Package: "test",
+		ID:      ".test.Fake",
 		Fields: []*genclient.Field{
 			{
 				Repeated: false,
@@ -527,8 +540,9 @@ func TestWellKnownTypeFields(t *testing.T) {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
 	checkMessage(t, *message, genclient.Message{
-		Name: "Fake",
-		ID:   ".test.Fake",
+		Name:    "Fake",
+		Package: "test",
+		ID:      ".test.Fake",
 		Fields: []*genclient.Field{
 			{
 				Name:     "field_mask",
@@ -590,8 +604,9 @@ func TestMapFields(t *testing.T) {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
 	checkMessage(t, *message, genclient.Message{
-		Name: "Fake",
-		ID:   ".test.Fake",
+		Name:    "Fake",
+		Package: "test",
+		ID:      ".test.Fake",
 		Fields: []*genclient.Field{
 			{
 				Repeated: false,
@@ -610,9 +625,10 @@ func TestMapFields(t *testing.T) {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
 	checkMessage(t, *message, genclient.Message{
-		Name:  "SingularMapEntry",
-		ID:    ".test.Fake.SingularMapEntry",
-		IsMap: true,
+		Name:    "SingularMapEntry",
+		Package: "test",
+		ID:      ".test.Fake.SingularMapEntry",
+		IsMap:   true,
 		Fields: []*genclient.Field{
 			{
 				Repeated: false,
@@ -643,6 +659,7 @@ func TestService(t *testing.T) {
 	}
 	checkService(t, *service, genclient.Service{
 		Name:          "TestService",
+		Package:       "test",
 		ID:            ".test.TestService",
 		Documentation: "A service to unit test the protobuf translator.",
 		DefaultHost:   "test.googleapis.com",
@@ -691,6 +708,7 @@ func TestQueryParameters(t *testing.T) {
 	}
 	checkService(t, *service, genclient.Service{
 		Name:          "TestService",
+		Package:       "test",
 		ID:            ".test.TestService",
 		Documentation: "A service to unit test the protobuf translator.",
 		DefaultHost:   "test.googleapis.com",
@@ -739,6 +757,7 @@ func TestEnum(t *testing.T) {
 	}
 	checkEnum(t, *e, genclient.Enum{
 		Name:          "Code",
+		Package:       "test",
 		Documentation: "An enum.",
 		Values: []*genclient.EnumValue{
 			{
@@ -773,11 +792,9 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	t.Helper()
-	if want.Name != got.Name {
-		t.Errorf("Mismatched message name, got=%q, want=%q", got.Name, want.Name)
-	}
-	if diff := cmp.Diff(want.Documentation, got.Documentation); len(diff) > 0 {
-		t.Errorf("mismatch (-want +got):\n%s", diff)
+	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields", "OneOfs", "Parent", "Messages")); len(diff) > 0 {
+		t.Errorf("message attributes mismatch (-want +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {

@@ -215,12 +215,12 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		fFQN := "." + f.GetPackage()
 		for _, m := range f.MessageType {
 			mFQN := fFQN + "." + m.GetName()
-			_ = processMessage(state, m, mFQN, nil)
+			_ = processMessage(state, m, mFQN, f.GetPackage(), nil)
 		}
 
 		for _, e := range f.EnumType {
 			eFQN := fFQN + "." + e.GetName()
-			_ = processEnum(state, e, eFQN, nil)
+			_ = processEnum(state, e, eFQN, f.GetPackage(), nil)
 		}
 	}
 
@@ -255,6 +255,7 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 			service := &genclient.Service{
 				Name:        s.GetName(),
 				ID:          fmt.Sprintf("%s.%s", fFQN, s.GetName()),
+				Package:     f.GetPackage(),
 				DefaultHost: parseDefaultHost(s.GetOptions()),
 			}
 			state.ServiceByID[service.ID] = service
@@ -356,11 +357,12 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 
 }
 
-func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, mFQN string, parent *genclient.Message) *genclient.Message {
+func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *genclient.Message) *genclient.Message {
 	message := &genclient.Message{
-		Name:   m.GetName(),
-		ID:     mFQN,
-		Parent: parent,
+		Name:    m.GetName(),
+		ID:      mFQN,
+		Parent:  parent,
+		Package: packagez,
 	}
 	state.MessageByID[mFQN] = message
 	if opts := m.GetOptions(); opts != nil && opts.GetMapEntry() {
@@ -369,13 +371,13 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	if len(m.GetNestedType()) > 0 {
 		for _, nm := range m.GetNestedType() {
 			nmFQN := mFQN + "." + nm.GetName()
-			nmsg := processMessage(state, nm, nmFQN, message)
+			nmsg := processMessage(state, nm, nmFQN, packagez, message)
 			message.Messages = append(message.Messages, nmsg)
 		}
 	}
 	for _, e := range m.GetEnumType() {
 		eFQN := mFQN + "." + e.GetName()
-		e := processEnum(state, e, eFQN, message)
+		e := processEnum(state, e, eFQN, packagez, message)
 		message.Enums = append(message.Enums, e)
 	}
 	for _, oneof := range m.OneofDecl {
@@ -420,10 +422,11 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	return message
 }
 
-func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto, eFQN string, parent *genclient.Message) *genclient.Enum {
+func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *genclient.Message) *genclient.Enum {
 	enum := &genclient.Enum{
-		Name:   e.GetName(),
-		Parent: parent,
+		Name:    e.GetName(),
+		Parent:  parent,
+		Package: packagez,
 	}
 	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
