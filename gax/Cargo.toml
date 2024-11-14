@@ -21,9 +21,9 @@ version = "0.1.0"
 serde = "1.0.214"
 serde_json = "1.0.132"
 thiserror = "2.0.1"
-types = {version = "0.1.0", path = "../types"}
+types = { version = "0.1.0", path = "../types" }
 
 [dev-dependencies]
 reqwest = "0.12.9"
-serde = {version = "1.0.214", features = ["serde_derive"]}
+serde = { version = "1.0.214", features = ["serde_derive"] }
 serde_with = "3.11.0"
