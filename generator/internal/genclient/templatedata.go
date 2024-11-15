@@ -59,6 +59,10 @@ func (t *templateData) RequiredPackages() []string {
 	return t.c.RequiredPackages()
 }
 
+func (t *templateData) HasServices() bool {
+	return len(t.s.Services) > 0
+}
+
 func (t *templateData) Services() []*service {
 	return mapSlice(t.s.Services, func(s *Service) *service {
 		return &service{

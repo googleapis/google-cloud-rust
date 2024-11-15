@@ -1,8 +1,6 @@
-#![allow(dead_code)]
+pub mod model;
 
 use std::sync::Arc;
-
-pub mod model;
 
 #[derive(Clone, Debug)]
 pub struct Client {
