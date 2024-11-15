@@ -1,0 +1,78 @@
+// Copyright 2024 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package main
+
+import (
+	"flag"
+	"fmt"
+	"strings"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+)
+
+func Generate(args []string) error {
+	fs := flag.NewFlagSet("generate", flag.ExitOnError)
+	var (
+		format        = fs.String("specification-format", "", "the specification format. Protobuf or OpenAPI v3.")
+		source        = fs.String("specification-source", "", "the path to the input data")
+		serviceConfig = fs.String("service-config", "", "path to service config")
+		parserOpts    = map[string]string{}
+		language      = fs.String("language", "", "the generated language")
+		projectRoot   = fs.String("project-root", "", "the root of the output project")
+		output        = fs.String("output", "generated", "the path within project-root to put generated files")
+		templateDir   = fs.String("template-dir", "templates/", "the path to the template directory")
+		codecOpts     = map[string]string{}
+	)
+
+	fs.Func("parser-option", "parser options", func(opt string) error {
+		components := strings.SplitN(opt, "=", 2)
+		if len(components) != 2 {
+			return fmt.Errorf("invalid parser option, must be in key=value format (%s)", opt)
+		}
+		parserOpts[components[0]] = components[1]
+		return nil
+	})
+	fs.Func("codec-option", "codec options", func(opt string) error {
+		components := strings.SplitN(opt, "=", 2)
+		if len(components) != 2 {
+			return fmt.Errorf("invalid codec option, must be in key=value format (%s)", opt)
+		}
+		codecOpts[components[0]] = components[1]
+		return nil
+	})
+	fs.Parse(args)
+
+	if *format == "" {
+		return fmt.Errorf("must provide specification-format")
+	}
+	if *source == "" {
+		return fmt.Errorf("must provide source")
+	}
+
+	popts := genclient.ParserOptions{
+		Source:        *source,
+		ServiceConfig: *serviceConfig,
+		Options:       parserOpts,
+	}
+
+	copts := genclient.CodecOptions{
+		Language:    *language,
+		ProjectRoot: *projectRoot,
+		OutDir:      *output,
+		TemplateDir: *templateDir,
+		Options:     codecOpts,
+	}
+	return Refresh(*format, &popts, &copts)
+}
