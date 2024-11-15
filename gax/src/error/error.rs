@@ -85,7 +85,7 @@ impl std::error::Error for Error {
     }
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Default)]
 pub enum ErrorKind {
     /// A serialization or deserialization error.
     Serde,
@@ -96,12 +96,8 @@ pub enum ErrorKind {
     /// An error related to making a RPC.
     Rpc,
     /// A uncategorized error.
+    #[default]
     Other,
-}
-impl Default for ErrorKind {
-    fn default() -> Self {
-        ErrorKind::Other
-    }
 }
 impl std::fmt::Display for ErrorKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
