@@ -29,7 +29,7 @@ serde = { version = "1.0.214", features = ["serde_derive"] }
 serde_with = "3.11.0"
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-gax = { path = ".", features = [ "sdk_client" ] }
+gax = { path = ".", features = ["sdk_client"] }
 
 [features]
 sdk_client = []
