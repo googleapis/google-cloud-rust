@@ -56,7 +56,8 @@ pub mod query_parameter;
 #[cfg(feature = "sdk_client")]
 pub mod path_parameter;
 
-/// Implementation details for [query_parameter](::crate::query_parameter).
+/// Implementation details for [query_parameter](::crate::query_parameter) and
+/// [path_parameter](::crate::path_parameter).
 mod request_parameter;
 
 /// The core error types used by generated clients.
