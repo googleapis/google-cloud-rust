@@ -13,12 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-{{! TODO(#120) - re-enable dead_code warnings once OpenAPI generates some functions }}
-#![allow(dead_code)]
-
-use std::sync::Arc;
-
 pub mod model;
+
+{{#HasServices}}
+use std::sync::Arc;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -55,6 +53,7 @@ impl Client {
     }
     {{/Services}}
 }
+{{/HasServices}}
 
 {{#Services}}
 {{#DocLines}}
