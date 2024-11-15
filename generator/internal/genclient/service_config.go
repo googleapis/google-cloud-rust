@@ -21,7 +21,6 @@ import (
 	"github.com/ghodss/yaml"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/encoding/protojson"
-	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error) {
