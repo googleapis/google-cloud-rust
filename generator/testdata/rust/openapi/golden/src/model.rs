@@ -12,6 +12,20 @@ pub struct ListLocationsResponse {
     pub next_page_token: Option<String>,
 }
 
+impl ListLocationsResponse {
+    /// Sets the value of `locations`.
+    pub fn set_locations<T: Into<Vec<crate::model::Location>>>(mut self, v: T) -> Self {
+        self.locations = v.into();
+        self
+    }
+
+    /// Sets the value of `next_page_token`.
+    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
 /// A resource that represents a Google Cloud location.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -38,6 +52,38 @@ pub struct Location {
     pub metadata: Option<gax_placeholder::Any>,
 }
 
+impl Location {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `location_id`.
+    pub fn set_location_id<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.location_id = v.into();
+        self
+    }
+
+    /// Sets the value of `display_name`.
+    pub fn set_display_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of `labels`.
+    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+        self.labels = v.into();
+        self
+    }
+
+    /// Sets the value of `metadata`.
+    pub fn set_metadata<T: Into<Option<gax_placeholder::Any>>>(mut self, v: T) -> Self {
+        self.metadata = v.into();
+        self
+    }
+}
+
 /// Response message for SecretManagerService.ListSecrets.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -54,6 +100,26 @@ pub struct ListSecretsResponse {
     /// The total number of Secrets but 0 when the
     /// ListSecretsRequest.filter field is set.
     pub total_size: Option<i32>,
+}
+
+impl ListSecretsResponse {
+    /// Sets the value of `secrets`.
+    pub fn set_secrets<T: Into<Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.secrets = v.into();
+        self
+    }
+
+    /// Sets the value of `next_page_token`.
+    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `total_size`.
+    pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
 }
 
 /// A Secret is a logical secret whose value and versions can
@@ -170,6 +236,130 @@ pub struct Secret {
     pub update_mask: gax_placeholder::FieldMask,
 }
 
+impl Secret {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `replication`.
+    pub fn set_replication<T: Into<Option<crate::model::Replication>>>(mut self, v: T) -> Self {
+        self.replication = v.into();
+        self
+    }
+
+    /// Sets the value of `create_time`.
+    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of `labels`.
+    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+        self.labels = v.into();
+        self
+    }
+
+    /// Sets the value of `topics`.
+    pub fn set_topics<T: Into<Vec<crate::model::Topic>>>(mut self, v: T) -> Self {
+        self.topics = v.into();
+        self
+    }
+
+    /// Sets the value of `expire_time`.
+    pub fn set_expire_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of `ttl`.
+    pub fn set_ttl<T: Into<Option<gax_placeholder::Duration>>>(mut self, v: T) -> Self {
+        self.ttl = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `rotation`.
+    pub fn set_rotation<T: Into<Option<crate::model::Rotation>>>(mut self, v: T) -> Self {
+        self.rotation = v.into();
+        self
+    }
+
+    /// Sets the value of `version_aliases`.
+    pub fn set_version_aliases<T: Into<std::collections::HashMap<String, i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_aliases = v.into();
+        self
+    }
+
+    /// Sets the value of `annotations`.
+    pub fn set_annotations<T: Into<std::collections::HashMap<String, String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.annotations = v.into();
+        self
+    }
+
+    /// Sets the value of `version_destroy_ttl`.
+    pub fn set_version_destroy_ttl<T: Into<Option<gax_placeholder::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_destroy_ttl = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret_id`.
+    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret_id = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<gax_placeholder::FieldMask>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
 /// A policy that defines the replication and encryption configuration of data.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -180,6 +370,20 @@ pub struct Replication {
 
     /// The Secret will only be replicated into the locations specified.
     pub user_managed: Option<crate::model::UserManaged>,
+}
+
+impl Replication {
+    /// Sets the value of `automatic`.
+    pub fn set_automatic<T: Into<Option<crate::model::Automatic>>>(mut self, v: T) -> Self {
+        self.automatic = v.into();
+        self
+    }
+
+    /// Sets the value of `user_managed`.
+    pub fn set_user_managed<T: Into<Option<crate::model::UserManaged>>>(mut self, v: T) -> Self {
+        self.user_managed = v.into();
+        self
+    }
 }
 
 /// A replication policy that replicates the Secret payload without any
@@ -195,6 +399,19 @@ pub struct Automatic {
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+}
+
+impl Automatic {
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
 }
 
 /// Configuration for encrypting secret payloads using customer-managed
@@ -217,6 +434,14 @@ pub struct CustomerManagedEncryption {
     pub kms_key_name: String,
 }
 
+impl CustomerManagedEncryption {
+    /// Sets the value of `kms_key_name`.
+    pub fn set_kms_key_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.kms_key_name = v.into();
+        self
+    }
+}
+
 /// A replication policy that replicates the Secret payload into the
 /// locations specified in Secret.replication.user_managed.replicas
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -227,6 +452,14 @@ pub struct UserManaged {
     ///
     /// Cannot be empty.
     pub replicas: Vec<crate::model::Replica>,
+}
+
+impl UserManaged {
+    /// Sets the value of `replicas`.
+    pub fn set_replicas<T: Into<Vec<crate::model::Replica>>>(mut self, v: T) -> Self {
+        self.replicas = v.into();
+        self
+    }
 }
 
 /// Represents a Replica for this Secret.
@@ -248,6 +481,25 @@ pub struct Replica {
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 }
 
+impl Replica {
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -260,6 +512,14 @@ pub struct Topic {
     /// permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
     pub name: String,
+}
+
+impl Topic {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
 }
 
 /// The rotation time and period for a Secret. At next_rotation_time, Secret
@@ -285,6 +545,23 @@ pub struct Rotation {
     pub rotation_period: Option<gax_placeholder::Duration>,
 }
 
+impl Rotation {
+    /// Sets the value of `next_rotation_time`.
+    pub fn set_next_rotation_time<T: Into<Option<gax_placeholder::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.next_rotation_time = v.into();
+        self
+    }
+
+    /// Sets the value of `rotation_period`.
+    pub fn set_rotation_period<T: Into<Option<gax_placeholder::Duration>>>(mut self, v: T) -> Self {
+        self.rotation_period = v.into();
+        self
+    }
+}
+
 /// Request message for SecretManagerService.AddSecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -301,6 +578,32 @@ pub struct AddSecretVersionRequest {
 
     ///
     pub location: String,
+}
+
+impl AddSecretVersionRequest {
+    /// Sets the value of `payload`.
+    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+        self.payload = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 /// A secret payload resource in the Secret Manager API. This contains the
@@ -323,6 +626,20 @@ pub struct SecretPayload {
     /// safely downconverted to uint32 in languages that support this type.
     /// https://cloud.google.com/apis/design/design_patterns#integer_types
     pub data_crc_32_c: Option<i64>,
+}
+
+impl SecretPayload {
+    /// Sets the value of `data`.
+    pub fn set_data<T: Into<Option<bytes::Bytes>>>(mut self, v: T) -> Self {
+        self.data = v.into();
+        self
+    }
+
+    /// Sets the value of `data_crc_32_c`.
+    pub fn set_data_crc_32_c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
+        self.data_crc_32_c = v.into();
+        self
+    }
 }
 
 /// A secret version resource in the Secret Manager API.
@@ -372,6 +689,73 @@ pub struct SecretVersion {
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
+impl SecretVersion {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `create_time`.
+    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of `destroy_time`.
+    pub fn set_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.destroy_time = v.into();
+        self
+    }
+
+    /// Sets the value of `state`.
+    pub fn set_state<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of `replication_status`.
+    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_status = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `client_specified_payload_checksum`.
+    pub fn set_client_specified_payload_checksum<T: Into<Option<bool>>>(mut self, v: T) -> Self {
+        self.client_specified_payload_checksum = v.into();
+        self
+    }
+
+    /// Sets the value of `scheduled_destroy_time`.
+    pub fn set_scheduled_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scheduled_destroy_time = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+}
+
 /// The replication status of a SecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -392,6 +776,23 @@ pub struct ReplicationStatus {
     pub user_managed: Option<crate::model::UserManagedStatus>,
 }
 
+impl ReplicationStatus {
+    /// Sets the value of `automatic`.
+    pub fn set_automatic<T: Into<Option<crate::model::AutomaticStatus>>>(mut self, v: T) -> Self {
+        self.automatic = v.into();
+        self
+    }
+
+    /// Sets the value of `user_managed`.
+    pub fn set_user_managed<T: Into<Option<crate::model::UserManagedStatus>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_managed = v.into();
+        self
+    }
+}
+
 /// The replication status of a SecretVersion using automatic replication.
 ///
 /// Only populated if the parent Secret has an automatic replication
@@ -405,6 +806,19 @@ pub struct AutomaticStatus {
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
+impl AutomaticStatus {
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+}
+
 /// Describes the status of customer-managed encryption.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -414,6 +828,14 @@ pub struct CustomerManagedEncryptionStatus {
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
     pub kms_key_version_name: String,
+}
+
+impl CustomerManagedEncryptionStatus {
+    /// Sets the value of `kms_key_version_name`.
+    pub fn set_kms_key_version_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.kms_key_version_name = v.into();
+        self
+    }
 }
 
 /// The replication status of a SecretVersion using user-managed
@@ -427,6 +849,14 @@ pub struct CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
     /// Output only. The list of replica statuses for the SecretVersion.
     pub replicas: Vec<crate::model::ReplicaStatus>,
+}
+
+impl UserManagedStatus {
+    /// Sets the value of `replicas`.
+    pub fn set_replicas<T: Into<Vec<crate::model::ReplicaStatus>>>(mut self, v: T) -> Self {
+        self.replicas = v.into();
+        self
+    }
 }
 
 /// Describes the status of a user-managed replica for the SecretVersion.
@@ -443,6 +873,25 @@ pub struct ReplicaStatus {
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
+impl ReplicaStatus {
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+}
+
 /// A generic empty message that you can re-use to avoid defining duplicated
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
@@ -454,6 +903,8 @@ pub struct ReplicaStatus {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Empty {}
+
+impl Empty {}
 
 /// Response message for SecretManagerService.ListSecretVersions.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -473,6 +924,26 @@ pub struct ListSecretVersionsResponse {
     pub total_size: Option<i32>,
 }
 
+impl ListSecretVersionsResponse {
+    /// Sets the value of `versions`.
+    pub fn set_versions<T: Into<Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
+        self.versions = v.into();
+        self
+    }
+
+    /// Sets the value of `next_page_token`.
+    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `total_size`.
+    pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
 /// Response message for SecretManagerService.AccessSecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -485,6 +956,20 @@ pub struct AccessSecretVersionResponse {
 
     /// Secret payload
     pub payload: Option<crate::model::SecretPayload>,
+}
+
+impl AccessSecretVersionResponse {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `payload`.
+    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+        self.payload = v.into();
+        self
+    }
 }
 
 /// Request message for SecretManagerService.DisableSecretVersion.
@@ -510,6 +995,38 @@ pub struct DisableSecretVersionRequest {
     pub location: String,
 }
 
+impl DisableSecretVersionRequest {
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
 /// Request message for SecretManagerService.EnableSecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -533,6 +1050,38 @@ pub struct EnableSecretVersionRequest {
     pub location: String,
 }
 
+impl EnableSecretVersionRequest {
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
 /// Request message for SecretManagerService.DestroySecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -554,6 +1103,38 @@ pub struct DestroySecretVersionRequest {
 
     ///
     pub location: String,
+}
+
+impl DestroySecretVersionRequest {
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 /// Request message for `SetIamPolicy` method.
@@ -582,6 +1163,38 @@ pub struct SetIamPolicyRequest {
 
     ///
     pub location: String,
+}
+
+impl SetIamPolicyRequest {
+    /// Sets the value of `policy`.
+    pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
+        self.policy = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<Option<gax_placeholder::FieldMask>>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 /// An Identity and Access Management (IAM) policy, which specifies access
@@ -715,6 +1328,32 @@ pub struct Policy {
     pub etag: Option<bytes::Bytes>,
 }
 
+impl Policy {
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of `bindings`.
+    pub fn set_bindings<T: Into<Vec<crate::model::Binding>>>(mut self, v: T) -> Self {
+        self.bindings = v.into();
+        self
+    }
+
+    /// Sets the value of `audit_configs`.
+    pub fn set_audit_configs<T: Into<Vec<crate::model::AuditConfig>>>(mut self, v: T) -> Self {
+        self.audit_configs = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<bytes::Bytes>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -828,6 +1467,26 @@ pub struct Binding {
     pub condition: Option<crate::model::Expr>,
 }
 
+impl Binding {
+    /// Sets the value of `role`.
+    pub fn set_role<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.role = v.into();
+        self
+    }
+
+    /// Sets the value of `members`.
+    pub fn set_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.members = v.into();
+        self
+    }
+
+    /// Sets the value of `condition`.
+    pub fn set_condition<T: Into<Option<crate::model::Expr>>>(mut self, v: T) -> Self {
+        self.condition = v.into();
+        self
+    }
+}
+
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
 /// are documented at https://github.com/google/cel-spec.
@@ -879,6 +1538,32 @@ pub struct Expr {
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
     pub location: Option<String>,
+}
+
+impl Expr {
+    /// Sets the value of `expression`.
+    pub fn set_expression<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.expression = v.into();
+        self
+    }
+
+    /// Sets the value of `title`.
+    pub fn set_title<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
+    /// Sets the value of `description`.
+    pub fn set_description<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 /// Specifies the audit configuration for a service.
@@ -945,6 +1630,23 @@ pub struct AuditConfig {
     pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
 }
 
+impl AuditConfig {
+    /// Sets the value of `service`.
+    pub fn set_service<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.service = v.into();
+        self
+    }
+
+    /// Sets the value of `audit_log_configs`.
+    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_log_configs = v.into();
+        self
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -977,6 +1679,20 @@ pub struct AuditLogConfig {
     pub exempted_members: Vec<String>,
 }
 
+impl AuditLogConfig {
+    /// Sets the value of `log_type`.
+    pub fn set_log_type<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.log_type = v.into();
+        self
+    }
+
+    /// Sets the value of `exempted_members`.
+    pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.exempted_members = v.into();
+        self
+    }
+}
+
 /// Request message for `TestIamPermissions` method.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -998,6 +1714,32 @@ pub struct TestIamPermissionsRequest {
     pub location: String,
 }
 
+impl TestIamPermissionsRequest {
+    /// Sets the value of `permissions`.
+    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.permissions = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
 /// Response message for `TestIamPermissions` method.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1006,6 +1748,14 @@ pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: Vec<String>,
+}
+
+impl TestIamPermissionsResponse {
+    /// Sets the value of `permissions`.
+    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.permissions = v.into();
+        self
+    }
 }
 
 /// The request message for ListLocations.
@@ -1030,6 +1780,32 @@ pub struct ListLocationsRequest {
     pub page_token: Option<String>,
 }
 
+impl ListLocationsRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
 /// The request message for GetLocation.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1040,6 +1816,20 @@ pub struct GetLocationRequest {
 
     ///
     pub location: String,
+}
+
+impl GetLocationRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
 }
 
 /// The request message for ListSecrets.
@@ -1065,6 +1855,32 @@ pub struct ListSecretsRequest {
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
     pub filter: Option<String>,
+}
+
+impl ListSecretsRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
 }
 
 /// The request message for ListSecretsByProjectAndLocation.
@@ -1095,6 +1911,38 @@ pub struct ListSecretsByProjectAndLocationRequest {
     pub filter: Option<String>,
 }
 
+impl ListSecretsByProjectAndLocationRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
 /// The request message for GetSecret.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1105,6 +1953,20 @@ pub struct GetSecretRequest {
 
     ///
     pub secret: String,
+}
+
+impl GetSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
 }
 
 /// The request message for DeleteSecret.
@@ -1124,6 +1986,26 @@ pub struct DeleteSecretRequest {
     pub etag: Option<String>,
 }
 
+impl DeleteSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
 /// The request message for GetSecretByProjectAndLocationAndSecret.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1137,6 +2019,26 @@ pub struct GetSecretByProjectAndLocationAndSecretRequest {
 
     ///
     pub secret: String,
+}
+
+impl GetSecretByProjectAndLocationAndSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
 }
 
 /// The request message for DeleteSecretByProjectAndLocationAndSecret.
@@ -1157,6 +2059,32 @@ pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
     /// the etag of the currently stored secret object. If the etag is omitted,
     /// the request succeeds.
     pub etag: Option<String>,
+}
+
+impl DeleteSecretByProjectAndLocationAndSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 /// The request message for ListSecretVersions.
@@ -1185,6 +2113,38 @@ pub struct ListSecretVersionsRequest {
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
     pub filter: Option<String>,
+}
+
+impl ListSecretVersionsRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
 }
 
 /// The request message for ListSecretVersionsByProjectAndLocationAndSecret.
@@ -1218,6 +2178,44 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     pub filter: Option<String>,
 }
 
+impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
 /// The request message for GetSecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1231,6 +2229,26 @@ pub struct GetSecretVersionRequest {
 
     ///
     pub version: String,
+}
+
+impl GetSecretVersionRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
 }
 
 /// The request message for GetSecretVersionByProjectAndLocationAndSecretAndVersion.
@@ -1251,6 +2269,32 @@ pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     pub version: String,
 }
 
+impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+}
+
 /// The request message for AccessSecretVersion.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -1264,6 +2308,26 @@ pub struct AccessSecretVersionRequest {
 
     ///
     pub version: String,
+}
+
+impl AccessSecretVersionRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
 }
 
 /// The request message for AccessSecretVersionByProjectAndLocationAndSecretAndVersion.
@@ -1282,6 +2346,32 @@ pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 
     ///
     pub version: String,
+}
+
+impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
 }
 
 /// The request message for GetIamPolicy.
@@ -1314,6 +2404,26 @@ pub struct GetIamPolicyRequest {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     pub options_requested_policy_version: Option<i32>,
+}
+
+impl GetIamPolicyRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `options_requested_policy_version`.
+    pub fn set_options_requested_policy_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.options_requested_policy_version = v.into();
+        self
+    }
 }
 
 /// The request message for GetIamPolicyByProjectAndLocationAndSecret.
@@ -1349,4 +2459,30 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     pub options_requested_policy_version: Option<i32>,
+}
+
+impl GetIamPolicyByProjectAndLocationAndSecretRequest {
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `options_requested_policy_version`.
+    pub fn set_options_requested_policy_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+        self.options_requested_policy_version = v.into();
+        self
+    }
 }

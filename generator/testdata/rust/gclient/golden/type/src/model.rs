@@ -52,3 +52,29 @@ pub struct Expr {
     /// reporting, e.g. a file name and a position in the file.
     pub location: String,
 }
+
+impl Expr {
+    /// Sets the value of `expression`.
+    pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
+        self.expression = v.into();
+        self
+    }
+
+    /// Sets the value of `title`.
+    pub fn set_title<T: Into<String>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
+    /// Sets the value of `description`.
+    pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
