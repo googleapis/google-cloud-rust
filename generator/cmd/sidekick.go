@@ -109,9 +109,5 @@ func Generate(specFormat string, popts *genclient.ParserOptions, copts *genclien
 		OutDir:      path.Join(copts.ProjectRoot, copts.OutDir),
 		TemplateDir: copts.TemplateDir,
 	}
-	_, err = genclient.Generate(request)
-	if err != nil {
-		return err
-	}
-	return nil
+	return genclient.Generate(request)
 }
