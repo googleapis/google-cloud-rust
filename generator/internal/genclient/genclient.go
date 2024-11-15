@@ -162,14 +162,9 @@ func (r *GenerateRequest) outDir() string {
 	return r.OutDir
 }
 
-// Output of generation.
-type Output struct {
-	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/32
-}
-
 // Generate takes some state and applies it to a template to create a client
 // library.
-func Generate(req *GenerateRequest) (*Output, error) {
+func Generate(req *GenerateRequest) error {
 	data := newTemplateData(req.API, req.Codec)
 	root := filepath.Join(req.TemplateDir, req.Codec.TemplateDir())
 	slog.Info(root)
@@ -198,11 +193,10 @@ func Generate(req *GenerateRequest) (*Output, error) {
 	})
 	if err != nil {
 		slog.Error("error walking templates", "err", err.Error())
-		return nil, err
+		return err
 	}
 
-	var output *Output
-	return output, nil
+	return nil
 }
 
 // Creates a populated API state from lists of messages, enums, and services.
