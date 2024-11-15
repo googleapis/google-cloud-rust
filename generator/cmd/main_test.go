@@ -52,7 +52,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override":   "secretmanager-golden-openapi",
 			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
-			"package:gax":             "package=gax,path=../../../../../gax",
+			"package:gax":             "package=gax,path=../../../../../gax,feature=sdk_client",
 		},
 	}
 	err := Generate("openapi", popts, copts)
@@ -118,7 +118,7 @@ func TestRustFromProtobuf(t *testing.T) {
 		options := map[string]string{
 			"package-name-override":   strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
 			"package:gax_placeholder": fmt.Sprintf("package=types,path=%s/types,source=google.protobuf", toProjectRoot),
-			"package:gax":             fmt.Sprintf("package=gax,path=%s/gax", toProjectRoot),
+			"package:gax":             fmt.Sprintf("package=gax,path=%s/gax,feature=sdk_client", toProjectRoot),
 		}
 		for k, v := range config.ExtraOptions {
 			options[k] = v

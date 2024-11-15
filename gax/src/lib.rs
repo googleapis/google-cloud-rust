@@ -36,6 +36,7 @@
 /// The types are not intended for application developers to use. They are
 /// public because we will generate many crates (roughly one per service), and
 /// most of these crates will use these helpers.
+#[cfg(feature = "sdk_client")]
 pub mod query_parameter;
 
 /// Defines traits and helpers to serialize path parameters.
@@ -52,6 +53,7 @@ pub mod query_parameter;
 ///
 /// If accessing deeply nested fields that can results in multiple calls to
 /// `required`.
+#[cfg(feature = "sdk_client")]
 pub mod path_parameter;
 
 /// Implementation details for [query_parameter](::crate::query_parameter).
