@@ -78,4 +78,5 @@ var ServiceConfig = &serviceconfig.Service{
 			},
 		},
 	},
+	Publishing: &annotations.Publishing{},
 }
