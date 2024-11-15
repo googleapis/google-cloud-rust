@@ -373,7 +373,7 @@ pub mod secret_version {
             self
         }
 
-        /// gets the enum value.
+        /// Gets the enum value.
         pub fn value(&self) -> &str {
             &self.0
         }

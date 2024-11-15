@@ -546,7 +546,7 @@ pub mod audit_log_config {
             self
         }
 
-        /// gets the enum value.
+        /// Gets the enum value.
         pub fn value(&self) -> &str {
             &self.0
         }
@@ -662,7 +662,7 @@ pub mod binding_delta {
             self
         }
 
-        /// gets the enum value.
+        /// Gets the enum value.
         pub fn value(&self) -> &str {
             &self.0
         }
@@ -749,7 +749,7 @@ pub mod audit_config_delta {
             self
         }
 
-        /// gets the enum value.
+        /// Gets the enum value.
         pub fn value(&self) -> &str {
             &self.0
         }
