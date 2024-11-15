@@ -1,3 +1,4 @@
+
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
 /// are documented at https://github.com/google/cel-spec.
@@ -33,6 +34,7 @@
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
+
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     pub expression: String,
@@ -52,6 +54,7 @@ pub struct Expr {
 }
 
 impl Expr {
+
     /// Sets the value of `expression`.
     pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
         self.expression = v.into();

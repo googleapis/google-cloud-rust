@@ -15,6 +15,7 @@
 package language
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -29,7 +30,7 @@ func TestCreateRustSuccess(t *testing.T) {
 		t.Fatal(err)
 	}
 	got := codec.TemplateDir()
-	if got != "rust" {
+	if !strings.HasPrefix(got, "rust/") {
 		t.Errorf("mismatched template dir, want=%s, got=%s", "rust", got)
 	}
 }

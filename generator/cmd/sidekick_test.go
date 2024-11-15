@@ -122,18 +122,48 @@ func TestRustFromProtobuf(t *testing.T) {
 			"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
 		}
 		args = append(args, config.ExtraOptions...)
-
-		err := Generate(args)
-		if err != nil {
+		if err := Generate(args); err != nil {
 			t.Fatal(err)
 		}
 
-		cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(outDir, config.Name, "Cargo.toml"))
+		manifest := path.Join(outDir, config.Name, "Cargo.toml")
+		if _, err := os.Stat(manifest); os.IsNotExist(err) {
+			// The module test does not produce a Cargo.toml file
+			continue
+		}
+		cmd := exec.Command("cargo", "fmt", "--manifest-path", manifest)
 		if output, err := cmd.CombinedOutput(); err != nil {
 			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
 			}
 			t.Fatalf("%v: %v\n%s", cmd, err, output)
 		}
+	}
+}
+
+func TestRustModuleFromProtobuf(t *testing.T) {
+	const (
+		projectRoot = "../.."
+	)
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Chdir(cwd)
+	if err := os.Chdir(projectRoot); err != nil {
+		t.Fatal(err)
+	}
+	args := []string{
+		"-specification-format", "protobuf",
+		"-specification-source", "generator/testdata/googleapis/google/type",
+		"-parser-option", "googleapis-root=generator/testdata/googleapis",
+		"-language", "rust",
+		"-output", "generator/testdata/rust/gclient/golden/module",
+		"-template-dir", "generator/templates",
+		"-codec-option", "generate-module=true",
+	}
+
+	if err := Generate(args); err != nil {
+		t.Fatal(err)
 	}
 }

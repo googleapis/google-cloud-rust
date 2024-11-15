@@ -19,6 +19,7 @@ import (
 	"log/slog"
 	"path"
 	"sort"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -33,8 +34,16 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		PackageMapping:  map[string]*RustPackage{},
 	}
 	for key, definition := range copts.Options {
-		if key == "package-name-override" {
+		switch key {
+		case "package-name-override":
 			codec.PackageNameOverride = definition
+			continue
+		case "generate-module":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, err
+			}
+			codec.GenerateModule = value
 			continue
 		}
 		if !strings.HasPrefix(key, "package:") {
@@ -80,6 +89,8 @@ type Codec struct {
 	OutputDirectory string
 	// Package name override. If not empty, overrides the default package name.
 	PackageNameOverride string
+	// Generate a module of a larger crate, as opposed to a full crate.
+	GenerateModule bool
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -230,7 +241,10 @@ func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
 }
 
 func (c *Codec) TemplateDir() string {
-	return "rust"
+	if c.GenerateModule {
+		return "rust/mod"
+	}
+	return "rust/crate"
 }
 
 func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string {
