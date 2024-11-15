@@ -55,7 +55,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"package:gax":             "package=gax,path=../../../../../gax,feature=sdk_client",
 		},
 	}
-	err := Generate("openapi", popts, copts)
+	err := Refresh("openapi", popts, copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -130,7 +130,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			TemplateDir: "../templates",
 			Options:     options,
 		}
-		err := Generate("protobuf", popts, copts)
+		err := Refresh("protobuf", popts, copts)
 		if err != nil {
 			t.Fatal(err)
 		}
