@@ -26,6 +26,9 @@ var ServiceConfig = &serviceconfig.Service{
 	Title: "Secret Manager API",
 	Apis: []*apipb.Api{
 		{
+			Name: "google.cloud.location.Locations",
+		},
+		{
 			Name: "google.cloud.secretmanager.v1.SecretManagerService",
 		},
 	},
@@ -43,29 +46,19 @@ var ServiceConfig = &serviceconfig.Service{
 		},
 		Overview: "Secret Manager Overview",
 	},
-	Backend: &serviceconfig.Backend{
-		Rules: []*serviceconfig.BackendRule{
-			{
-				Selector: "google.cloud.location.Locations.GetLocation",
-				Deadline: 60,
-			},
-			{
-				Selector: "google.cloud.location.Locations.ListLocations",
-				Deadline: 60,
-			},
-			{
-				Selector: "google.cloud.secretmanager.v1.SecretManagerService.*",
-				Deadline: 60,
-			},
-		},
-	},
 	Http: &annotations.Http{
 		Rules: []*annotations.HttpRule{
 			{
 				Selector: "google.cloud.location.Locations.GetLocation",
+				Pattern: &annotations.HttpRule_Get{
+					Get: "/v1/{name=projects/*/locations/*}",
+				},
 			},
 			{
 				Selector: "google.cloud.location.Locations.ListLocations",
+				Pattern: &annotations.HttpRule_Get{
+					Get: "/v1/{name=projects/*}/locations",
+				},
 			},
 		},
 	},

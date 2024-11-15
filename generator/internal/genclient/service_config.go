@@ -18,8 +18,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/ghodss/yaml"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
-	"gopkg.in/yaml.v3"
+	"google.golang.org/protobuf/encoding/protojson"
+	_ "google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error) {
@@ -28,9 +30,14 @@ func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 		return nil, fmt.Errorf("error reading service config: %v", err)
 	}
 
-	var cfg serviceconfig.Service
-	if err := yaml.Unmarshal(y, &cfg); err != nil {
-		return nil, fmt.Errorf("error unmarshalling service config: %v", err)
+	j, err := yaml.YAMLToJSON(y)
+	if err != nil {
+		return nil, fmt.Errorf("error converting YAML to JSON: %v", err)
+	}
+
+	cfg := &serviceconfig.Service{}
+	if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(j, cfg); err != nil {
+		return nil, fmt.Errorf("error unmarshaling service config: %v", err)
 	}
 
 	// An API Service Config will always have a `name` so if it is not populated,
@@ -38,5 +45,5 @@ func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 	if cfg.GetName() == "" {
 		return nil, fmt.Errorf("invalid API service config file %q", serviceConfigPath)
 	}
-	return &cfg, nil
+	return cfg, nil
 }

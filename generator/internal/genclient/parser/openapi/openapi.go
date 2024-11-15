@@ -151,7 +151,10 @@ func makeServices(api *genclient.API, serviceConfig *serviceconfig.Service, mode
 	if serviceConfig != nil {
 		for _, api := range serviceConfig.Apis {
 			serviceName = api.Name
-			break
+			// Keep searching after well-known mixin services.
+			if !strings.HasPrefix(api.Name, "google.cloud.location.Location") && !strings.HasPrefix(api.Name, "google.iam.v1.IAMPolicy") {
+				break
+			}
 		}
 	}
 	service := &genclient.Service{

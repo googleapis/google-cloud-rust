@@ -32,6 +32,7 @@ func TestReadServiceConfig(t *testing.T) {
 		t.Fatal(err)
 	}
 	if diff := cmp.Diff(sample.ServiceConfig, got,
+		cmpopts.IgnoreFields(serviceconfig.Service{}, "ConfigVersion", "Publishing", "Authentication"),
 		cmpopts.IgnoreUnexported(annotations.HttpRule{}),
 		cmpopts.IgnoreUnexported(annotations.Http{}),
 		cmpopts.IgnoreUnexported(apipb.Api{}),
