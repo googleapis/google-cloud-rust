@@ -12,4 +12,4 @@ reqwest = { version = "0.12.9", features = ["json"] }
 bytes = { version = "1.8.0", features = ["serde"] }
 gax = { path = "../../../../../../gax", package = "gax", features = ["sdk_client"] }
 gax_placeholder = { path = "../../../../../../types", package = "types" }
-iam = { path = "../iam/v1", package = "iam-v1-golden-gclient" }
+iam = { path = "../../../../../../generator/testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }

@@ -28,6 +28,14 @@ func main() {
 }
 
 func root() error {
+	var projectRoot = flag.String("project-root", "", "the root of the output project")
+	flag.Parse()
+
+	if *projectRoot != "" {
+		if err := os.Chdir(*projectRoot); err != nil {
+			return err
+		}
+	}
 	args := flag.Args()
 	if len(args) < 2 {
 		return fmt.Errorf("you must pass a subcommand")

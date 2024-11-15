@@ -17,14 +17,11 @@ package main
 import (
 	"errors"
 	"flag"
-	"fmt"
 	"os"
 	"os/exec"
 	"path"
 	"strings"
 	"testing"
-
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
 func TestMain(m *testing.M) {
@@ -34,33 +31,34 @@ func TestMain(m *testing.M) {
 
 func TestRustFromOpenAPI(t *testing.T) {
 	const (
-		projectRoot = ".."
-		outDir      = "testdata/rust/openapi/golden"
+		projectRoot = "../.."
+		outDir      = "generator/testdata/rust/openapi/golden"
 	)
 
-	popts := &genclient.ParserOptions{
-		Source:        "../testdata/openapi/secretmanager_openapi_v1.json",
-		ServiceConfig: "../testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
-		Options:       map[string]string{},
-	}
-
-	copts := &genclient.CodecOptions{
-		Language:    "rust",
-		ProjectRoot: projectRoot,
-		OutDir:      "testdata/rust/openapi/golden",
-		TemplateDir: "../templates",
-		Options: map[string]string{
-			"package-name-override":   "secretmanager-golden-openapi",
-			"package:gax_placeholder": "package=types,path=../../../../../types,source=google.protobuf",
-			"package:gax":             "package=gax,path=../../../../../gax,feature=sdk_client",
-		},
-	}
-	err := Refresh("openapi", popts, copts)
+	cwd, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer os.Chdir(cwd)
+	if err := os.Chdir(projectRoot); err != nil {
+		t.Fatal(err)
+	}
+	args := []string{
+		"-specification-format", "openapi",
+		"-specification-source", "generator/testdata/openapi/secretmanager_openapi_v1.json",
+		"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+		"-language", "rust",
+		"-output", outDir,
+		"-template-dir", "generator/templates",
+		"-codec-option", "package-name-override=secretmanager-golden-openapi",
+		"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
+		"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
+	}
+	if err := Generate(args); err != nil {
+		t.Fatal(err)
+	}
 
-	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
+	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(outDir, "Cargo.toml"))
 	if output, err := cmd.CombinedOutput(); err != nil {
 		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
@@ -71,71 +69,66 @@ func TestRustFromOpenAPI(t *testing.T) {
 
 func TestRustFromProtobuf(t *testing.T) {
 	const (
-		projectRoot = ".."
-		outDir      = "testdata/rust/gclient/golden"
+		projectRoot = "../.."
+		outDir      = "generator/testdata/rust/gclient/golden"
 	)
 
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Chdir(cwd)
+	if err := os.Chdir(projectRoot); err != nil {
+		t.Fatal(err)
+	}
 	type Config struct {
 		Source       string
 		Name         string
-		ExtraOptions map[string]string
+		ExtraOptions []string
 	}
 
 	configs := []Config{
 		{
-			Source: "../testdata/googleapis/google/type",
+			Source: "generator/testdata/googleapis/google/type",
 			Name:   "type",
 		},
 		{
-			Source: "../testdata/googleapis/google/iam/v1",
+			Source: "generator/testdata/googleapis/google/iam/v1",
 			Name:   "iam/v1",
-			ExtraOptions: map[string]string{
-				"package:gtype": "package=type-golden-gclient,path=../../type,source=google.type",
+			ExtraOptions: []string{
+				"-codec-option", "package:gtype=package=type-golden-gclient,path=generator/testdata/rust/gclient/golden/type,source=google.type",
 			},
 		},
 		{
-			Source: "../testdata/googleapis/google/cloud/secretmanager/v1",
+			Source: "generator/testdata/googleapis/google/cloud/secretmanager/v1",
 			Name:   "secretmanager",
-			ExtraOptions: map[string]string{
-				"package:iam": "package=iam-v1-golden-gclient,path=../iam/v1,source=google.iam.v1",
+			ExtraOptions: []string{
+				"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+				"-codec-option", "package:iam=package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1",
 			},
 		},
 	}
 
 	for _, config := range configs {
-		depth := strings.Count(outDir, "/") + strings.Count(config.Name, "/") + 2
-		toProjectRoot := ".."
-		for range depth {
-			toProjectRoot = path.Join(toProjectRoot, "..")
+		args := []string{
+			"-specification-format", "protobuf",
+			"-specification-source", config.Source,
+			"-parser-option", "googleapis-root=generator/testdata/googleapis",
+			"-language", "rust",
+			"-output", path.Join(outDir, config.Name),
+			"-template-dir", "generator/templates",
+			"-codec-option", "package-name-override=" + strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
+			"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
+			"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
 		}
-		popts := &genclient.ParserOptions{
-			Source: config.Source,
-			Options: map[string]string{
-				"googleapis-root": "../testdata/googleapis",
-				"input-root":      "../testdata",
-			},
-		}
-		options := map[string]string{
-			"package-name-override":   strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
-			"package:gax_placeholder": fmt.Sprintf("package=types,path=%s/types,source=google.protobuf", toProjectRoot),
-			"package:gax":             fmt.Sprintf("package=gax,path=%s/gax,feature=sdk_client", toProjectRoot),
-		}
-		for k, v := range config.ExtraOptions {
-			options[k] = v
-		}
-		copts := &genclient.CodecOptions{
-			Language:    "rust",
-			ProjectRoot: projectRoot,
-			OutDir:      path.Join(outDir, config.Name),
-			TemplateDir: "../templates",
-			Options:     options,
-		}
-		err := Refresh("protobuf", popts, copts)
+		args = append(args, config.ExtraOptions...)
+
+		err := Generate(args)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, config.Name, "Cargo.toml"))
+		cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(outDir, config.Name, "Cargo.toml"))
 		if output, err := cmd.CombinedOutput(); err != nil {
 			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
