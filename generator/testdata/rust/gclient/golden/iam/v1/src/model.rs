@@ -23,6 +23,26 @@ pub struct SetIamPolicyRequest {
     pub update_mask: Option<gax_placeholder::FieldMask>,
 }
 
+impl SetIamPolicyRequest {
+    /// Sets the value of `resource`.
+    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of `policy`.
+    pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
+        self.policy = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<Option<gax_placeholder::FieldMask>>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
+        self
+    }
+}
+
 /// Request message for `GetIamPolicy` method.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -35,6 +55,20 @@ pub struct GetIamPolicyRequest {
     /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
     /// `GetIamPolicy`.
     pub options: Option<crate::model::GetPolicyOptions>,
+}
+
+impl GetIamPolicyRequest {
+    /// Sets the value of `resource`.
+    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of `options`.
+    pub fn set_options<T: Into<Option<crate::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
+        self.options = v.into();
+        self
+    }
 }
 
 /// Request message for `TestIamPermissions` method.
@@ -53,6 +87,20 @@ pub struct TestIamPermissionsRequest {
     pub permissions: Vec<String>,
 }
 
+impl TestIamPermissionsRequest {
+    /// Sets the value of `resource`.
+    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of `permissions`.
+    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.permissions = v.into();
+        self
+    }
+}
+
 /// Response message for `TestIamPermissions` method.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -61,6 +109,14 @@ pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: Vec<String>,
+}
+
+impl TestIamPermissionsResponse {
+    /// Sets the value of `permissions`.
+    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.permissions = v.into();
+        self
+    }
 }
 
 /// Encapsulates settings provided to GetIamPolicy.
@@ -87,6 +143,14 @@ pub struct GetPolicyOptions {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     pub requested_policy_version: i32,
+}
+
+impl GetPolicyOptions {
+    /// Sets the value of `requested_policy_version`.
+    pub fn set_requested_policy_version<T: Into<i32>>(mut self, v: T) -> Self {
+        self.requested_policy_version = v.into();
+        self
+    }
 }
 
 /// An Identity and Access Management (IAM) policy, which specifies access
@@ -223,6 +287,32 @@ pub struct Policy {
     pub etag: bytes::Bytes,
 }
 
+impl Policy {
+    /// Sets the value of `version`.
+    pub fn set_version<T: Into<i32>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+
+    /// Sets the value of `bindings`.
+    pub fn set_bindings<T: Into<Vec<crate::model::Binding>>>(mut self, v: T) -> Self {
+        self.bindings = v.into();
+        self
+    }
+
+    /// Sets the value of `audit_configs`.
+    pub fn set_audit_configs<T: Into<Vec<crate::model::AuditConfig>>>(mut self, v: T) -> Self {
+        self.audit_configs = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -293,6 +383,26 @@ pub struct Binding {
     pub condition: Option<gtype::model::Expr>,
 }
 
+impl Binding {
+    /// Sets the value of `role`.
+    pub fn set_role<T: Into<String>>(mut self, v: T) -> Self {
+        self.role = v.into();
+        self
+    }
+
+    /// Sets the value of `members`.
+    pub fn set_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.members = v.into();
+        self
+    }
+
+    /// Sets the value of `condition`.
+    pub fn set_condition<T: Into<Option<gtype::model::Expr>>>(mut self, v: T) -> Self {
+        self.condition = v.into();
+        self
+    }
+}
+
 /// Specifies the audit configuration for a service.
 /// The configuration determines which permission types are logged, and what
 /// identities, if any, are exempted from logging.
@@ -357,6 +467,23 @@ pub struct AuditConfig {
     pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
 }
 
+impl AuditConfig {
+    /// Sets the value of `service`.
+    pub fn set_service<T: Into<String>>(mut self, v: T) -> Self {
+        self.service = v.into();
+        self
+    }
+
+    /// Sets the value of `audit_log_configs`.
+    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_log_configs = v.into();
+        self
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -390,6 +517,20 @@ pub struct AuditLogConfig {
     pub exempted_members: Vec<String>,
 }
 
+impl AuditLogConfig {
+    /// Sets the value of `log_type`.
+    pub fn set_log_type<T: Into<crate::model::audit_log_config::LogType>>(mut self, v: T) -> Self {
+        self.log_type = v.into();
+        self
+    }
+
+    /// Sets the value of `exempted_members`.
+    pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        self.exempted_members = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to AuditLogConfig
 pub mod audit_log_config {
 
@@ -397,6 +538,19 @@ pub mod audit_log_config {
     /// Admin writes are always logged, and are not configurable.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct LogType(String);
+
+    impl LogType {
+        /// Sets the enum value.
+        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+            self.0 = v.into();
+            self
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
 
     /// Useful constants to work with [LogType](LogType)
     pub mod log_type {
@@ -427,6 +581,23 @@ pub struct PolicyDelta {
     pub audit_config_deltas: Vec<crate::model::AuditConfigDelta>,
 }
 
+impl PolicyDelta {
+    /// Sets the value of `binding_deltas`.
+    pub fn set_binding_deltas<T: Into<Vec<crate::model::BindingDelta>>>(mut self, v: T) -> Self {
+        self.binding_deltas = v.into();
+        self
+    }
+
+    /// Sets the value of `audit_config_deltas`.
+    pub fn set_audit_config_deltas<T: Into<Vec<crate::model::AuditConfigDelta>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.audit_config_deltas = v.into();
+        self
+    }
+}
+
 /// One delta entry for Binding. Each individual change (only one member in each
 /// entry) to a binding will be a separate entry.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -451,12 +622,51 @@ pub struct BindingDelta {
     pub condition: Option<gtype::model::Expr>,
 }
 
+impl BindingDelta {
+    /// Sets the value of `action`.
+    pub fn set_action<T: Into<crate::model::binding_delta::Action>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of `role`.
+    pub fn set_role<T: Into<String>>(mut self, v: T) -> Self {
+        self.role = v.into();
+        self
+    }
+
+    /// Sets the value of `member`.
+    pub fn set_member<T: Into<String>>(mut self, v: T) -> Self {
+        self.member = v.into();
+        self
+    }
+
+    /// Sets the value of `condition`.
+    pub fn set_condition<T: Into<Option<gtype::model::Expr>>>(mut self, v: T) -> Self {
+        self.condition = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to BindingDelta
 pub mod binding_delta {
 
     /// The type of action performed on a Binding in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(String);
+
+    impl Action {
+        /// Sets the enum value.
+        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+            self.0 = v.into();
+            self
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
@@ -499,12 +709,51 @@ pub struct AuditConfigDelta {
     pub log_type: String,
 }
 
+impl AuditConfigDelta {
+    /// Sets the value of `action`.
+    pub fn set_action<T: Into<crate::model::audit_config_delta::Action>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of `service`.
+    pub fn set_service<T: Into<String>>(mut self, v: T) -> Self {
+        self.service = v.into();
+        self
+    }
+
+    /// Sets the value of `exempted_member`.
+    pub fn set_exempted_member<T: Into<String>>(mut self, v: T) -> Self {
+        self.exempted_member = v.into();
+        self
+    }
+
+    /// Sets the value of `log_type`.
+    pub fn set_log_type<T: Into<String>>(mut self, v: T) -> Self {
+        self.log_type = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to AuditConfigDelta
 pub mod audit_config_delta {
 
     /// The type of action performed on an audit configuration in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Action(String);
+
+    impl Action {
+        /// Sets the enum value.
+        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+            self.0 = v.into();
+            self
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
 
     /// Useful constants to work with [Action](Action)
     pub mod action {

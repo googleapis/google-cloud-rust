@@ -20,6 +20,19 @@ limitations under the License.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct {{Name}}(String);
 
+impl {{Name}} {
+    /// Sets the enum value.
+    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        self.0 = v.into();
+        self
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
 /// Useful constants to work with [{{Name}}]({{Name}})
 pub mod {{NameSnakeCase}} {
     {{#Values}}

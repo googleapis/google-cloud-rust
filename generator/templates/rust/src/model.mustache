@@ -37,6 +37,25 @@ pub struct {{Name}} {
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }
+
+impl {{Name}} {
+    {{#BasicFields}}
+
+    /// Sets the value of `{{NameToSnake}}`.
+    pub fn set_{{NameToSnake}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
+        self.{{NameToSnake}} = v.into();
+        self
+    }
+    {{/BasicFields}}
+    {{#ExplicitOneOfs}}
+
+    /// Sets the value of `{{NameToSnake}}`.
+    pub fn set_{{NameToSnake}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
+        self.{{NameToSnake}} = v.into();
+        self
+    }
+    {{/ExplicitOneOfs}}
+}
 {{#HasNestedTypes}}
 
 /// Defines additional types related to {{Name}}

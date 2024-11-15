@@ -111,6 +111,97 @@ pub struct Secret {
     pub expiration: Option<crate::model::secret::Expiration>,
 }
 
+impl Secret {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `replication`.
+    pub fn set_replication<T: Into<Option<crate::model::Replication>>>(mut self, v: T) -> Self {
+        self.replication = v.into();
+        self
+    }
+
+    /// Sets the value of `create_time`.
+    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of `labels`.
+    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+        self.labels = v.into();
+        self
+    }
+
+    /// Sets the value of `topics`.
+    pub fn set_topics<T: Into<Vec<crate::model::Topic>>>(mut self, v: T) -> Self {
+        self.topics = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `rotation`.
+    pub fn set_rotation<T: Into<Option<crate::model::Rotation>>>(mut self, v: T) -> Self {
+        self.rotation = v.into();
+        self
+    }
+
+    /// Sets the value of `version_aliases`.
+    pub fn set_version_aliases<T: Into<std::collections::HashMap<String, i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_aliases = v.into();
+        self
+    }
+
+    /// Sets the value of `annotations`.
+    pub fn set_annotations<T: Into<std::collections::HashMap<String, String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.annotations = v.into();
+        self
+    }
+
+    /// Sets the value of `version_destroy_ttl`.
+    pub fn set_version_destroy_ttl<T: Into<Option<gax_placeholder::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.version_destroy_ttl = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryption>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+
+    /// Sets the value of `expiration`.
+    pub fn set_expiration<T: Into<Option<crate::model::secret::Expiration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expiration = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to Secret
 pub mod secret {
 
@@ -199,6 +290,73 @@ pub struct SecretVersion {
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
+impl SecretVersion {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `create_time`.
+    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.create_time = v.into();
+        self
+    }
+
+    /// Sets the value of `destroy_time`.
+    pub fn set_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+        self.destroy_time = v.into();
+        self
+    }
+
+    /// Sets the value of `state`.
+    pub fn set_state<T: Into<crate::model::secret_version::State>>(mut self, v: T) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of `replication_status`.
+    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_status = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of `client_specified_payload_checksum`.
+    pub fn set_client_specified_payload_checksum<T: Into<bool>>(mut self, v: T) -> Self {
+        self.client_specified_payload_checksum = v.into();
+        self
+    }
+
+    /// Sets the value of `scheduled_destroy_time`.
+    pub fn set_scheduled_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scheduled_destroy_time = v.into();
+        self
+    }
+
+    /// Sets the value of `customer_managed_encryption`.
+    pub fn set_customer_managed_encryption<
+        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.customer_managed_encryption = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to SecretVersion
 pub mod secret_version {
 
@@ -207,6 +365,19 @@ pub mod secret_version {
     /// it can be accessed.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(String);
+
+    impl State {
+        /// Sets the enum value.
+        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+            self.0 = v.into();
+            self
+        }
+
+        /// Gets the enum value.
+        pub fn value(&self) -> &str {
+            &self.0
+        }
+    }
 
     /// Useful constants to work with [State](State)
     pub mod state {
@@ -241,6 +412,17 @@ pub struct Replication {
     pub replication: Option<crate::model::replication::Replication>,
 }
 
+impl Replication {
+    /// Sets the value of `replication`.
+    pub fn set_replication<T: Into<Option<crate::model::replication::Replication>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication = v.into();
+        self
+    }
+}
+
 /// Defines additional types related to Replication
 pub mod replication {
 
@@ -263,6 +445,19 @@ pub mod replication {
         pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
     }
 
+    impl Automatic {
+        /// Sets the value of `customer_managed_encryption`.
+        pub fn set_customer_managed_encryption<
+            T: Into<Option<crate::model::CustomerManagedEncryption>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.customer_managed_encryption = v.into();
+            self
+        }
+    }
+
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
     /// specified in [Secret.replication.user_managed.replicas][]
@@ -275,6 +470,17 @@ pub mod replication {
         ///
         /// Cannot be empty.
         pub replicas: Vec<crate::model::replication::user_managed::Replica>,
+    }
+
+    impl UserManaged {
+        /// Sets the value of `replicas`.
+        pub fn set_replicas<T: Into<Vec<crate::model::replication::user_managed::Replica>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.replicas = v.into();
+            self
+        }
     }
 
     /// Defines additional types related to UserManaged
@@ -300,6 +506,25 @@ pub mod replication {
             /// afterwards. They do not apply retroactively to existing
             /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
             pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+        }
+
+        impl Replica {
+            /// Sets the value of `location`.
+            pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+                self.location = v.into();
+                self
+            }
+
+            /// Sets the value of `customer_managed_encryption`.
+            pub fn set_customer_managed_encryption<
+                T: Into<Option<crate::model::CustomerManagedEncryption>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.customer_managed_encryption = v.into();
+                self
+            }
         }
     }
 
@@ -339,6 +564,14 @@ pub struct CustomerManagedEncryption {
     pub kms_key_name: String,
 }
 
+impl CustomerManagedEncryption {
+    /// Sets the value of `kms_key_name`.
+    pub fn set_kms_key_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.kms_key_name = v.into();
+        self
+    }
+}
+
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -348,6 +581,19 @@ pub struct ReplicationStatus {
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
+}
+
+impl ReplicationStatus {
+    /// Sets the value of `replication_status`.
+    pub fn set_replication_status<
+        T: Into<Option<crate::model::replication_status::ReplicationStatus>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.replication_status = v.into();
+        self
+    }
 }
 
 /// Defines additional types related to ReplicationStatus
@@ -369,6 +615,19 @@ pub mod replication_status {
         pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
     }
 
+    impl AutomaticStatus {
+        /// Sets the value of `customer_managed_encryption`.
+        pub fn set_customer_managed_encryption<
+            T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.customer_managed_encryption = v.into();
+            self
+        }
+    }
+
     /// The replication status of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
     /// user-managed replication.
@@ -382,6 +641,19 @@ pub mod replication_status {
         /// Output only. The list of replica statuses for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         pub replicas: Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
+    }
+
+    impl UserManagedStatus {
+        /// Sets the value of `replicas`.
+        pub fn set_replicas<
+            T: Into<Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.replicas = v.into();
+            self
+        }
     }
 
     /// Defines additional types related to UserManagedStatus
@@ -401,6 +673,25 @@ pub mod replication_status {
             /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
             /// populated if customer-managed encryption is used.
             pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+        }
+
+        impl ReplicaStatus {
+            /// Sets the value of `location`.
+            pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+                self.location = v.into();
+                self
+            }
+
+            /// Sets the value of `customer_managed_encryption`.
+            pub fn set_customer_managed_encryption<
+                T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.customer_managed_encryption = v.into();
+                self
+            }
         }
     }
 
@@ -440,6 +731,14 @@ pub struct CustomerManagedEncryptionStatus {
     pub kms_key_version_name: String,
 }
 
+impl CustomerManagedEncryptionStatus {
+    /// Sets the value of `kms_key_version_name`.
+    pub fn set_kms_key_version_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.kms_key_version_name = v.into();
+        self
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -452,6 +751,14 @@ pub struct Topic {
     /// permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
     pub name: String,
+}
+
+impl Topic {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
 }
 
 /// The rotation time and period for a
@@ -488,6 +795,23 @@ pub struct Rotation {
     pub rotation_period: Option<gax_placeholder::Duration>,
 }
 
+impl Rotation {
+    /// Sets the value of `next_rotation_time`.
+    pub fn set_next_rotation_time<T: Into<Option<gax_placeholder::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.next_rotation_time = v.into();
+        self
+    }
+
+    /// Sets the value of `rotation_period`.
+    pub fn set_rotation_period<T: Into<Option<gax_placeholder::Duration>>>(mut self, v: T) -> Self {
+        self.rotation_period = v.into();
+        self
+    }
+}
+
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -515,6 +839,20 @@ pub struct SecretPayload {
     /// safely downconverted to uint32 in languages that support this type.
     /// https://cloud.google.com/apis/design/design_patterns#integer_types
     pub data_crc32c: Option<i64>,
+}
+
+impl SecretPayload {
+    /// Sets the value of `data`.
+    pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.data = v.into();
+        self
+    }
+
+    /// Sets the value of `data_crc32c`.
+    pub fn set_data_crc32c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
+        self.data_crc32c = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -545,6 +883,32 @@ pub struct ListSecretsRequest {
     pub filter: String,
 }
 
+impl ListSecretsRequest {
+    /// Sets the value of `parent`.
+    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -565,6 +929,26 @@ pub struct ListSecretsResponse {
     /// [ListSecretsRequest.filter][google.cloud.secretmanager.v1.ListSecretsRequest.filter]
     /// field is set.
     pub total_size: i32,
+}
+
+impl ListSecretsResponse {
+    /// Sets the value of `secrets`.
+    pub fn set_secrets<T: Into<Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.secrets = v.into();
+        self
+    }
+
+    /// Sets the value of `next_page_token`.
+    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `total_size`.
+    pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -590,6 +974,26 @@ pub struct CreateSecretRequest {
     pub secret: Option<crate::model::Secret>,
 }
 
+impl CreateSecretRequest {
+    /// Sets the value of `parent`.
+    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of `secret_id`.
+    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret_id = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -607,6 +1011,20 @@ pub struct AddSecretVersionRequest {
     pub payload: Option<crate::model::SecretPayload>,
 }
 
+impl AddSecretVersionRequest {
+    /// Sets the value of `parent`.
+    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of `payload`.
+    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+        self.payload = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -617,6 +1035,14 @@ pub struct GetSecretRequest {
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
     /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
     pub name: String,
+}
+
+impl GetSecretRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -648,6 +1074,32 @@ pub struct ListSecretVersionsRequest {
     pub filter: String,
 }
 
+impl ListSecretVersionsRequest {
+    /// Sets the value of `parent`.
+    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of `page_size`.
+    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of `page_token`.
+    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `filter`.
+    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -671,6 +1123,26 @@ pub struct ListSecretVersionsResponse {
     pub total_size: i32,
 }
 
+impl ListSecretVersionsResponse {
+    /// Sets the value of `versions`.
+    pub fn set_versions<T: Into<Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
+        self.versions = v.into();
+        self
+    }
+
+    /// Sets the value of `next_page_token`.
+    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of `total_size`.
+    pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -689,6 +1161,14 @@ pub struct GetSecretVersionRequest {
     pub name: String,
 }
 
+impl GetSecretVersionRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -701,6 +1181,20 @@ pub struct UpdateSecretRequest {
 
     /// Required. Specifies the fields to be updated.
     pub update_mask: Option<gax_placeholder::FieldMask>,
+}
+
+impl UpdateSecretRequest {
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<Option<gax_placeholder::FieldMask>>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -721,6 +1215,14 @@ pub struct AccessSecretVersionRequest {
     pub name: String,
 }
 
+impl AccessSecretVersionRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -735,6 +1237,20 @@ pub struct AccessSecretVersionResponse {
 
     /// Secret payload
     pub payload: Option<crate::model::SecretPayload>,
+}
+
+impl AccessSecretVersionResponse {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `payload`.
+    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+        self.payload = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -752,6 +1268,20 @@ pub struct DeleteSecretRequest {
     /// request succeeds if it matches the etag of the currently stored secret
     /// object. If the etag is omitted, the request succeeds.
     pub etag: String,
+}
+
+impl DeleteSecretRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 /// Request message for
@@ -773,6 +1303,20 @@ pub struct DisableSecretVersionRequest {
     pub etag: String,
 }
 
+impl DisableSecretVersionRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -792,6 +1336,20 @@ pub struct EnableSecretVersionRequest {
     pub etag: String,
 }
 
+impl EnableSecretVersionRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -809,4 +1367,18 @@ pub struct DestroySecretVersionRequest {
     /// succeeds if it matches the etag of the currently stored secret version
     /// object. If the etag is omitted, the request succeeds.
     pub etag: String,
+}
+
+impl DestroySecretVersionRequest {
+    /// Sets the value of `name`.
+    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of `etag`.
+    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
