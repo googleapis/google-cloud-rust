@@ -56,6 +56,8 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 				pkg.Version = s[1]
 			case "source":
 				specificationPackages = append(specificationPackages, s[1])
+			case "feature":
+				pkg.Features = append(pkg.Features, strings.Split(s[1], ",")...)
 			default:
 				return nil, fmt.Errorf("unknown field (%s) in definition of rust package %s, got=%s", s[0], key, definition)
 			}
@@ -95,6 +97,8 @@ type RustPackage struct {
 	Path string
 	// The version of the package, unused if empty.
 	Version string
+	// Optional features enabled for the package.
+	Features []string
 }
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
@@ -454,6 +458,10 @@ func (c *Codec) RequiredPackages() []string {
 		if pkg.Package != "" {
 			components = append(components, fmt.Sprintf("package = %q", pkg.Package))
 		}
+		if len(pkg.Features) > 0 {
+			feats := strings.Join(mapSlice(pkg.Features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
+			components = append(components, fmt.Sprintf("features = [%s]", feats))
+		}
 		lines = append(lines, fmt.Sprintf("%s = { %s }", pkg.Name, strings.Join(components, ", ")))
 	}
 	sort.Strings(lines)
@@ -568,4 +576,12 @@ func EscapeKeyword(symbol string) string {
 		return symbol
 	}
 	return "r#" + symbol
+}
+
+func mapSlice[T, R any](s []T, f func(T) R) []R {
+	r := make([]R, len(s))
+	for i, v := range s {
+		r[i] = f(v)
+	}
+	return r
 }
