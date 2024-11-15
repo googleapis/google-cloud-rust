@@ -37,7 +37,7 @@ func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 
 	cfg := &serviceconfig.Service{}
 	if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(j, cfg); err != nil {
-		return nil, fmt.Errorf("error unmarshaling service config: %v", err)
+		return nil, fmt.Errorf("error unmarshalling service config: %v", err)
 	}
 
 	// An API Service Config will always have a `name` so if it is not populated,
