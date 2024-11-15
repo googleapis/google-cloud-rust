@@ -1,0 +1,11 @@
+[General]
+SourceFormat = 'openapi'
+Source = 'generator/testdata/openapi/secretmanager_openapi_v1.json'
+ServiceConfig = 'generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+Language = 'rust'
+Templates = 'generator/templates'
+
+[Codec]
+package-name-override = 'secretmanager-golden-openapi'
+'package:gax' = 'package=gax,path=gax,feature=sdk_client'
+'package:gax_placeholder' = 'package=types,path=types,source=google.protobuf'
