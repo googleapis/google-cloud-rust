@@ -17,6 +17,7 @@ package rust
 import (
 	"fmt"
 	"log/slog"
+	"path"
 	"sort"
 	"strings"
 	"unicode"
@@ -27,8 +28,9 @@ import (
 
 func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	codec := &Codec{
-		ExtraPackages:  []*RustPackage{},
-		PackageMapping: map[string]*RustPackage{},
+		OutputDirectory: copts.OutDir,
+		ExtraPackages:   []*RustPackage{},
+		PackageMapping:  map[string]*RustPackage{},
 	}
 	for key, definition := range copts.Options {
 		if key == "package-name-override" {
@@ -74,6 +76,8 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 }
 
 type Codec struct {
+	// The output directory relative to the project root.
+	OutputDirectory string
 	// Package name override. If not empty, overrides the default package name.
 	PackageNameOverride string
 	// Additional Rust packages imported by this module. The Mustache template
@@ -445,6 +449,17 @@ func (*Codec) FormatDocComments(documentation string) []string {
 	return ss
 }
 
+func (c *Codec) projectRoot() string {
+	if c.OutputDirectory == "" {
+		return ""
+	}
+	rel := ".."
+	for range strings.Count(c.OutputDirectory, "/") {
+		rel = path.Join(rel, "..")
+	}
+	return rel
+}
+
 func (c *Codec) RequiredPackages() []string {
 	lines := []string{}
 	for _, pkg := range c.ExtraPackages {
@@ -453,7 +468,7 @@ func (c *Codec) RequiredPackages() []string {
 			components = append(components, fmt.Sprintf("version = %q", pkg.Version))
 		}
 		if pkg.Path != "" {
-			components = append(components, fmt.Sprintf("path = %q", pkg.Path))
+			components = append(components, fmt.Sprintf("path = %q", path.Join(c.projectRoot(), pkg.Path)))
 		}
 		if pkg.Package != "" {
 			components = append(components, fmt.Sprintf("package = %q", pkg.Package))

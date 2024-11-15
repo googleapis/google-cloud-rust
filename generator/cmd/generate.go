@@ -30,7 +30,6 @@ func Generate(args []string) error {
 		serviceConfig = fs.String("service-config", "", "path to service config")
 		parserOpts    = map[string]string{}
 		language      = fs.String("language", "", "the generated language")
-		projectRoot   = fs.String("project-root", "", "the root of the output project")
 		output        = fs.String("output", "generated", "the path within project-root to put generated files")
 		templateDir   = fs.String("template-dir", "templates/", "the path to the template directory")
 		codecOpts     = map[string]string{}
@@ -69,7 +68,6 @@ func Generate(args []string) error {
 
 	copts := genclient.CodecOptions{
 		Language:    *language,
-		ProjectRoot: *projectRoot,
 		OutDir:      *output,
 		TemplateDir: *templateDir,
 		Options:     codecOpts,

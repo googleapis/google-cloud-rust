@@ -132,8 +132,6 @@ type ParserOptions struct {
 type CodecOptions struct {
 	// The location where the specification can be found.
 	Language string
-	// The output location.
-	ProjectRoot string
 	// The output location within ProjectRoot.
 	OutDir string
 	// The directory containing all mustache templates.

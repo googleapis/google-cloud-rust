@@ -15,8 +15,6 @@
 package main
 
 import (
-	"path"
-
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser"
@@ -43,7 +41,7 @@ func Refresh(specFormat string, popts *genclient.ParserOptions, copts *genclient
 	request := &genclient.GenerateRequest{
 		API:         api,
 		Codec:       codec,
-		OutDir:      path.Join(copts.ProjectRoot, copts.OutDir),
+		OutDir:      copts.OutDir,
 		TemplateDir: copts.TemplateDir,
 	}
 	return genclient.Generate(request)
