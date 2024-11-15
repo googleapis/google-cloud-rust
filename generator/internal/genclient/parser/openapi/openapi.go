@@ -131,6 +131,12 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 	return api, nil
 }
 
+func wellKnownMixin(apiName string) bool {
+	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
+		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
+		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
+}
+
 func makeServices(api *genclient.API, serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) error {
 	// It is hard to imagine an OpenAPI specification without at least some
 	// RPCs, but we can simplify the tests if we support specifications without
@@ -151,7 +157,10 @@ func makeServices(api *genclient.API, serviceConfig *serviceconfig.Service, mode
 	if serviceConfig != nil {
 		for _, api := range serviceConfig.Apis {
 			serviceName = api.Name
-			break
+			// Keep searching after well-known mixin services.
+			if !wellKnownMixin(api.Name) {
+				break
+			}
 		}
 	}
 	service := &genclient.Service{
