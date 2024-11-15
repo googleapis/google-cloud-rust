@@ -157,7 +157,7 @@ mod tests {
             }
         }
     }
-    
+
     #[test]
     fn downcast() -> Result<(), Box<dyn std::error::Error>> {
         let leaf_err = LeafError::default();
