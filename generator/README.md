@@ -48,8 +48,6 @@ go run ./cmd -project-root=.. generate \
   -codec-option package:gax=package=gax,path=gax,feature=sdk_client
 ```
 
-[Secret Manager]: https://cloud.google.com/secret-manager/
-
 ## Installing `protoc`: the Protobuf Compiler
 
 The unit tests use `protoc` to parse text `.proto` files. You will need this
@@ -73,3 +71,4 @@ we suggest two approaches:
 
 [grpc tutorial]: https://grpc.io/docs/protoc-installation/
 [protobuf-latest]: https://github.com/protocolbuffers/protobuf/releases/latest
+[secret manager]: https://cloud.google.com/secret-manager/
