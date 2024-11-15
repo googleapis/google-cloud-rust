@@ -454,4 +454,114 @@ impl SecretManagerService {
         let response = res.json::<crate::model::SecretVersion>().await?;
         Ok(response)
     }
+
+    /// Sets the access control policy on the specified secret. Replaces any
+    /// existing policy.
+    ///
+    /// Permissions on [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced according
+    /// to the policy set on the associated [Secret][google.cloud.secretmanager.v1.Secret].
+    pub async fn set_iam_policy(
+        &self,
+        req: iam::model::SetIamPolicyRequest,
+    ) -> Result<iam::model::Policy, Box<dyn std::error::Error>> {
+        let query_parameters = [None::<(&str, String)>; 0];
+        let client = self.client.inner.clone();
+        let res = client
+            .http_client
+            .post(format!(
+                "{}/v1/{}:setIamPolicy",
+                self.base_path, req.resource,
+            ))
+            .query(&[("alt", "json")])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
+            .bearer_auth(&client.token)
+            .json(&req)
+            .send()
+            .await?;
+        if !res.status().is_success() {
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
+        }
+        let response = res.json::<iam::model::Policy>().await?;
+        Ok(response)
+    }
+
+    /// Gets the access control policy for a secret.
+    /// Returns empty policy if the secret exists and does not have a policy set.
+    pub async fn get_iam_policy(
+        &self,
+        req: iam::model::GetIamPolicyRequest,
+    ) -> Result<iam::model::Policy, Box<dyn std::error::Error>> {
+        let query_parameters = [None::<(&str, String)>; 0];
+        let client = self.client.inner.clone();
+        let res = client
+            .http_client
+            .get(format!(
+                "{}/v1/{}:getIamPolicy",
+                self.base_path, req.resource,
+            ))
+            .query(&[("alt", "json")])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
+            .bearer_auth(&client.token)
+            .json(&req)
+            .send()
+            .await?;
+        if !res.status().is_success() {
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
+        }
+        let response = res.json::<iam::model::Policy>().await?;
+        Ok(response)
+    }
+
+    /// Returns permissions that a caller has for the specified secret.
+    /// If the secret does not exist, this call returns an empty set of
+    /// permissions, not a NOT_FOUND error.
+    ///
+    /// Note: This operation is designed to be used for building permission-aware
+    /// UIs and command-line tools, not for authorization checking. This operation
+    /// may "fail open" without warning.
+    pub async fn test_iam_permissions(
+        &self,
+        req: iam::model::TestIamPermissionsRequest,
+    ) -> Result<iam::model::TestIamPermissionsResponse, Box<dyn std::error::Error>> {
+        let query_parameters = [None::<(&str, String)>; 0];
+        let client = self.client.inner.clone();
+        let res = client
+            .http_client
+            .post(format!(
+                "{}/v1/{}:testIamPermissions",
+                self.base_path, req.resource,
+            ))
+            .query(&[("alt", "json")])
+            .query(
+                &query_parameters
+                    .into_iter()
+                    .flatten()
+                    .collect::<Vec<(&str, String)>>(),
+            )
+            .bearer_auth(&client.token)
+            .json(&req)
+            .send()
+            .await?;
+        if !res.status().is_success() {
+            return Err(
+                "sorry the api you are looking for is not available, please try again".into(),
+            );
+        }
+        let response = res.json::<iam::model::TestIamPermissionsResponse>().await?;
+        Ok(response)
+    }
 }
