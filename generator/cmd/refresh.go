@@ -15,12 +15,47 @@
 package main
 
 import (
+	"fmt"
+	"os"
+	"path"
+
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser"
+	toml "github.com/pelletier/go-toml/v2"
 )
 
-func Refresh(specFormat string, popts *genclient.ParserOptions, copts *genclient.CodecOptions) error {
+// Reruns the generator in one directory, using the configuration parameters
+// saved in its `.sidekick.toml` file.
+func Refresh(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("expected the target directory")
+	}
+	outDir := args[0]
+	contents, err := os.ReadFile(path.Join(outDir, ".sidekick.toml"))
+	if err != nil {
+		return err
+	}
+	var config Config
+	err = toml.Unmarshal(contents, &config)
+	if err != nil {
+		return err
+	}
+
+	specFormat := config.General.SpecificationFormat
+	popts := &genclient.ParserOptions{
+		Source:        config.General.SpecificationSource,
+		ServiceConfig: config.General.ServiceConfig,
+		Options:       config.Source,
+	}
+
+	copts := &genclient.CodecOptions{
+		Language:    config.General.Language,
+		OutDir:      outDir,
+		TemplateDir: config.General.TemplateDir,
+		Options:     config.Codec,
+	}
+
 	parser, err := parser.NewParser(specFormat)
 	if err != nil {
 		return err

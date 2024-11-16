@@ -17,11 +17,15 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"path"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	toml "github.com/pelletier/go-toml/v2"
 )
 
+// Generate takes some state and applies it to a template to create a client
+// library.
 func Generate(args []string) error {
 	fs := flag.NewFlagSet("generate", flag.ExitOnError)
 	var (
@@ -59,18 +63,42 @@ func Generate(args []string) error {
 	if *source == "" {
 		return fmt.Errorf("must provide source")
 	}
-
-	popts := genclient.ParserOptions{
-		Source:        *source,
-		ServiceConfig: *serviceConfig,
-		Options:       parserOpts,
+	config := Config{
+		General: GeneralConfig{
+			SpecificationFormat: *format,
+			SpecificationSource: *source,
+			ServiceConfig:       *serviceConfig,
+			Language:            *language,
+			TemplateDir:         *templateDir,
+		},
+	}
+	if len(parserOpts) != 0 {
+		config.Source = parserOpts
+	}
+	if len(codecOpts) != 0 {
+		config.Codec = codecOpts
+	}
+	if err := writeSidekickToml(*output, config); err != nil {
+		return err
 	}
 
-	copts := genclient.CodecOptions{
-		Language:    *language,
-		OutDir:      *output,
-		TemplateDir: *templateDir,
-		Options:     codecOpts,
+	// Load the .sidekick.toml file and refresh the code.
+	return Refresh([]string{*output})
+}
+
+func writeSidekickToml(outDir string, config Config) error {
+	if err := os.MkdirAll(outDir, 0777); err != nil {
+		return err
 	}
-	return Refresh(*format, &popts, &copts)
+	f, err := os.Create(path.Join(outDir, ".sidekick.toml"))
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	t := toml.NewEncoder(f)
+	if err := t.Encode(config); err != nil {
+		return err
+	}
+	return f.Close()
 }

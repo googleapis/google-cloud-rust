@@ -1,0 +1,16 @@
+[general]
+specification-format = 'protobuf'
+specification-source = 'generator/testdata/googleapis/google/cloud/secretmanager/v1'
+service-config = 'generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+language = 'rust'
+template-dir = 'generator/templates'
+
+[source]
+googleapis-root = 'generator/testdata/googleapis'
+
+[codec]
+copyright-year = '2024'
+package-name-override = 'secretmanager-golden-gclient'
+'package:gax' = 'package=gax,path=gax,feature=sdk_client'
+'package:gax_placeholder' = 'package=types,path=types,source=google.protobuf'
+'package:iam' = 'package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1'

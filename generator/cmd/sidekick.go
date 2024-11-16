@@ -45,6 +45,10 @@ func root() error {
 		if err := Generate(args[1:]); err != nil {
 			return err
 		}
+	case "refresh":
+		if err := Refresh(args[1:]); err != nil {
+			return err
+		}
 	default:
 		return fmt.Errorf("unknown subcommand %s", os.Args[1])
 	}

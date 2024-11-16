@@ -1,0 +1,15 @@
+[general]
+specification-format = 'protobuf'
+specification-source = 'generator/testdata/googleapis/google/type'
+service-config = ''
+language = 'rust'
+template-dir = 'generator/templates'
+
+[source]
+googleapis-root = 'generator/testdata/googleapis'
+
+[codec]
+copyright-year = '2024'
+package-name-override = 'type-golden-gclient'
+'package:gax' = 'package=gax,path=gax,feature=sdk_client'
+'package:gax_placeholder' = 'package=types,path=types,source=google.protobuf'

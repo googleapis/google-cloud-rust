@@ -1,0 +1,16 @@
+[general]
+specification-format = 'protobuf'
+specification-source = 'generator/testdata/googleapis/google/iam/v1'
+service-config = ''
+language = 'rust'
+template-dir = 'generator/templates'
+
+[source]
+googleapis-root = 'generator/testdata/googleapis'
+
+[codec]
+copyright-year = '2024'
+package-name-override = 'iam-v1-golden-gclient'
+'package:gax' = 'package=gax,path=gax,feature=sdk_client'
+'package:gax_placeholder' = 'package=types,path=types,source=google.protobuf'
+'package:gtype' = 'package=type-golden-gclient,path=generator/testdata/rust/gclient/golden/type,source=google.type'
