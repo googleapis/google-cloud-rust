@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 /// The response message for Locations.ListLocations.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]

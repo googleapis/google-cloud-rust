@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 /// Request message for `SetIamPolicy` method.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
