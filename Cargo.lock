@@ -356,6 +356,54 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-api"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-auth"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-base"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-common"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-gax"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-iam-v1"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-location"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-longrunning"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-secretmanager-v1"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-type"
+version = "0.0.0"
+
+[[package]]
+name = "gcp-sdk-wkt"
+version = "0.0.0"
+
+[[package]]
 name = "getrandom"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
