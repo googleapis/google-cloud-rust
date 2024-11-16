@@ -21,6 +21,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"time"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -28,7 +29,9 @@ import (
 )
 
 func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
+	year, _, _ := time.Now().Date()
 	codec := &Codec{
+		GenerationYear:  fmt.Sprintf("%04d", year),
 		OutputDirectory: copts.OutDir,
 		ExtraPackages:   []*RustPackage{},
 		PackageMapping:  map[string]*RustPackage{},
@@ -44,6 +47,9 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 				return nil, err
 			}
 			codec.GenerateModule = value
+			continue
+		case "copyright-year":
+			codec.GenerationYear = definition
 			continue
 		}
 		if !strings.HasPrefix(key, "package:") {
@@ -89,6 +95,8 @@ type Codec struct {
 	OutputDirectory string
 	// Package name override. If not empty, overrides the default package name.
 	PackageNameOverride string
+	// The year when the files were first generated.
+	GenerationYear string
 	// Generate a module of a larger crate, as opposed to a full crate.
 	GenerateModule bool
 	// Additional Rust packages imported by this module. The Mustache template
@@ -495,6 +503,10 @@ func (c *Codec) RequiredPackages() []string {
 	}
 	sort.Strings(lines)
 	return lines
+}
+
+func (c *Codec) CopyrightYear() string {
+	return c.GenerationYear
 }
 
 func (c *Codec) PackageName(api *genclient.API) string {

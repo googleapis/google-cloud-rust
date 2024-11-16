@@ -103,6 +103,8 @@ type LanguageCodec interface {
 	PackageName(api *API) string
 	// Validate an API, some codecs impose restrictions on the input API.
 	Validate(api *API) error
+	// The year when this package was first generated.
+	CopyrightYear() string
 }
 
 // Parser converts an textual specification to a `genclient.API` object.

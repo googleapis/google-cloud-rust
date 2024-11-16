@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"log/slog"
 	"strings"
+	"time"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -25,13 +26,18 @@ import (
 )
 
 func NewCodec() *Codec {
-	return &Codec{}
+	year, _, _ := time.Now().Date()
+	return &Codec{
+		GenerationYear: fmt.Sprintf("%04d", year),
+	}
 }
 
 type Codec struct {
 	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
 	// generate code for one source package at a time.
 	SourceSpecificationPackageName string
+	// The year when the files were first generated.
+	GenerationYear string
 }
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
@@ -222,6 +228,10 @@ func (*Codec) FormatDocComments(documentation string) []string {
 
 func (*Codec) RequiredPackages() []string {
 	return []string{}
+}
+
+func (c *Codec) CopyrightYear() string {
+	return c.GenerationYear
 }
 
 func (*Codec) PackageName(api *genclient.API) string {
