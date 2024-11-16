@@ -50,6 +50,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		"-language", "rust",
 		"-output", outDir,
 		"-template-dir", "generator/templates",
+		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
 		"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
@@ -117,6 +118,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			"-language", "rust",
 			"-output", path.Join(outDir, config.Name),
 			"-template-dir", "generator/templates",
+			"-codec-option", "copyright-year=2024",
 			"-codec-option", "package-name-override=" + strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
 			"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
 			"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
@@ -160,6 +162,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		"-language", "rust",
 		"-output", "generator/testdata/rust/gclient/golden/module",
 		"-template-dir", "generator/templates",
+		"-codec-option", "copyright-year=2024",
 		"-codec-option", "generate-module=true",
 	}
 

@@ -43,6 +43,7 @@ func TestParseOptions(t *testing.T) {
 		Language: "rust",
 		Options: map[string]string{
 			"package-name-override":   "test-only",
+			"copyright-year":          "2035",
 			"package:gax_placeholder": "package=types,path=../../types,source=google.protobuf,source=test-only",
 			"package:gax":             "package=gax,path=../../gax,feature=sdk_client",
 		},
@@ -58,6 +59,7 @@ func TestParseOptions(t *testing.T) {
 	}
 	want := &Codec{
 		PackageNameOverride: "test-only",
+		GenerationYear:      "2035",
 		ExtraPackages: []*RustPackage{
 			gp,
 			{
