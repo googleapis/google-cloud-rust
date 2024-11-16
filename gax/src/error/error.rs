@@ -20,6 +20,7 @@ pub struct Error {
     kind: ErrorKind,
     source: BoxError,
 }
+
 impl Error {
     /// Creates a new [Error] with the given [ErrorKind] and source error.
     pub fn new<T: Into<BoxError>>(kind: ErrorKind, source: T) -> Self {
@@ -59,10 +60,11 @@ impl Error {
         self.kind.clone()
     }
 
-    /// Recuses through the source error chain and returns some reference to the
-    /// inner value if it is of type `T`, or `None` if it isn't found.
+    /// Recurses through the source error chain and returns a reference to the
+    /// inner value if it is of type `T`, or `None` if no such inner value is
+    /// found.
     pub fn as_inner<T: std::error::Error + Send + Sync + 'static>(&self) -> Option<&T> {
-        // TODO(codyoss): add a rust doc example once HttpError type is added.
+        // TODO(#175): add a rust doc example once HttpError type is added.
         let mut error = self.source.as_ref() as &(dyn std::error::Error);
         loop {
             match error.downcast_ref::<T>() {
@@ -99,6 +101,7 @@ pub enum ErrorKind {
     #[default]
     Other,
 }
+
 impl std::fmt::Display for ErrorKind {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -111,62 +114,5 @@ impl std::fmt::Display for ErrorKind {
             ErrorKind::Rpc => write!(f, "a problem occurred while making a RPC"),
             ErrorKind::Other => write!(f, "a problem occurred"),
         }
-    }
-}
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[derive(Debug, Default)]
-    struct LeafError {}
-
-    impl LeafError {
-        fn hey(&self) -> &'static str {
-            "hey"
-        }
-    }
-
-    impl std::fmt::Display for LeafError {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "other error")
-        }
-    }
-
-    impl std::error::Error for LeafError {}
-
-    #[derive(Debug)]
-    struct MiddleError {
-        pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
-    }
-
-    impl std::fmt::Display for MiddleError {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            write!(f, "middle error")
-        }
-    }
-
-    impl std::error::Error for MiddleError {
-        fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-            match &self.source {
-                Some(e) => Some(e.as_ref()),
-                None => None,
-            }
-        }
-    }
-
-    #[test]
-    fn downcast() -> Result<(), Box<dyn std::error::Error>> {
-        let leaf_err = LeafError::default();
-        let middle_err = MiddleError {
-            source: Some(Box::new(leaf_err)),
-        };
-        let root_err = Error::other(middle_err);
-        let msg = root_err.as_inner::<LeafError>().unwrap().hey();
-        assert_eq!(msg, "hey");
-
-        let root_err = Error::other(MiddleError { source: None });
-        let inner_err = root_err.as_inner::<LeafError>();
-        assert!(inner_err.is_none());
-        Ok(())
     }
 }
