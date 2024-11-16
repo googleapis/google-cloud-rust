@@ -40,10 +40,10 @@ members = [
 ]
 
 [workspace.package]
-edition = "2021"
-authors = ["Google LLC"]
+edition     = "2021"
+authors     = ["Google LLC"]
 description = "Google Cloud SDK for Rust"
-license = "Apache-2.0"
-repository = "https://github.com/googleapis/google-cloud-rust/tree/main"
-keywords = ["google-cloud", "google-cloud-rust", "gcp", "sdk"]
-categories = ["network-programming"]
+license     = "Apache-2.0"
+repository  = "https://github.com/googleapis/google-cloud-rust/tree/main"
+keywords    = ["google-cloud", "google-cloud-rust", "gcp", "sdk"]
+categories  = ["network-programming"]

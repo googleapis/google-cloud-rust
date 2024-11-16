@@ -101,8 +101,8 @@ func TestRequiredPackages(t *testing.T) {
 	}
 	got := codec.RequiredPackages()
 	want := []string{
-		"gtype = { path = \"../../../src/generated/type\", package = \"types\" }",
-		"gax = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gax\" }",
+		"gtype      = { path = \"../../../src/generated/type\", package = \"types\" }",
+		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gax\" }",
 	}
 	less := func(a, b string) bool { return a < b }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
@@ -126,7 +126,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	}
 	got := codec.RequiredPackages()
 	want := []string{
-		"gtype = { path = \"src/generated/type\", package = \"types\" }",
+		"gtype      = { path = \"src/generated/type\", package = \"types\" }",
 	}
 	less := func(a, b string) bool { return a < b }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
