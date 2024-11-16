@@ -65,11 +65,11 @@ func Generate(args []string) error {
 	}
 	config := Config{
 		General: GeneralConfig{
-			SourceFormat:  *format,
-			Source:        *source,
-			ServiceConfig: *serviceConfig,
-			Language:      *language,
-			Templates:     *templateDir,
+			SpecificationFormat: *format,
+			SpecificationSource: *source,
+			ServiceConfig:       *serviceConfig,
+			Language:            *language,
+			TemplateDir:         *templateDir,
 		},
 	}
 	if len(parserOpts) != 0 {

@@ -42,9 +42,9 @@ func Refresh(args []string) error {
 		return err
 	}
 
-	specFormat := config.General.SourceFormat
+	specFormat := config.General.SpecificationFormat
 	popts := &genclient.ParserOptions{
-		Source:        config.General.Source,
+		Source:        config.General.SpecificationSource,
 		ServiceConfig: config.General.ServiceConfig,
 		Options:       config.Source,
 	}
@@ -52,7 +52,7 @@ func Refresh(args []string) error {
 	copts := &genclient.CodecOptions{
 		Language:    config.General.Language,
 		OutDir:      outDir,
-		TemplateDir: config.General.Templates,
+		TemplateDir: config.General.TemplateDir,
 		Options:     config.Codec,
 	}
 

@@ -15,16 +15,16 @@
 package main
 
 type Config struct {
-	General GeneralConfig
+	General GeneralConfig `toml:"general"`
 
-	Source map[string]string
-	Codec  map[string]string
+	Source map[string]string `toml:"source"`
+	Codec  map[string]string `toml:"codec"`
 }
 
 type GeneralConfig struct {
-	SourceFormat  string
-	Source        string
-	ServiceConfig string
-	Language      string
-	Templates     string
+	SpecificationFormat string `toml:"specification-format"`
+	SpecificationSource string `toml:"specification-source"`
+	ServiceConfig       string `toml:"service-config"`
+	Language            string `toml:"language"`
+	TemplateDir         string `toml:"template-dir"`
 }
