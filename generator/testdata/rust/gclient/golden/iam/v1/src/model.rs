@@ -33,7 +33,7 @@ pub struct SetIamPolicyRequest {
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
-    pub update_mask: Option<gax_placeholder::FieldMask>,
+    pub update_mask: Option<wkt::FieldMask>,
 }
 
 impl SetIamPolicyRequest {
@@ -50,7 +50,7 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<gax_placeholder::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }

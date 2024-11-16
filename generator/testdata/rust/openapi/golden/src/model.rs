@@ -63,7 +63,7 @@ pub struct Location {
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
-    pub metadata: Option<gax_placeholder::Any>,
+    pub metadata: Option<wkt::Any>,
 }
 
 impl Location {
@@ -92,7 +92,7 @@ impl Location {
     }
 
     /// Sets the value of `metadata`.
-    pub fn set_metadata<T: Into<Option<gax_placeholder::Any>>>(mut self, v: T) -> Self {
+    pub fn set_metadata<T: Into<Option<wkt::Any>>>(mut self, v: T) -> Self {
         self.metadata = v.into();
         self
     }
@@ -156,7 +156,7 @@ pub struct Secret {
     pub replication: Option<crate::model::Replication>,
 
     /// Output only. The time at which the Secret was created.
-    pub create_time: Option<gax_placeholder::Timestamp>,
+    pub create_time: Option<wkt::Timestamp>,
 
     /// The labels assigned to this Secret.
     ///
@@ -177,10 +177,10 @@ pub struct Secret {
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
-    pub expire_time: Option<gax_placeholder::Timestamp>,
+    pub expire_time: Option<wkt::Timestamp>,
 
     /// Input only. The TTL for the Secret.
-    pub ttl: Option<gax_placeholder::Duration>,
+    pub ttl: Option<wkt::Duration>,
 
     /// Optional. Etag of the currently stored Secret.
     pub etag: Option<String>,
@@ -222,7 +222,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    pub version_destroy_ttl: Option<gax_placeholder::Duration>,
+    pub version_destroy_ttl: Option<wkt::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised Secrets.
     /// If no configuration is provided, Google-managed default encryption is used.
@@ -249,7 +249,7 @@ pub struct Secret {
     pub secret: String,
 
     /// Required. Specifies the fields to be updated.
-    pub update_mask: gax_placeholder::FieldMask,
+    pub update_mask: wkt::FieldMask,
 }
 
 impl Secret {
@@ -266,7 +266,7 @@ impl Secret {
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.create_time = v.into();
         self
     }
@@ -284,13 +284,13 @@ impl Secret {
     }
 
     /// Sets the value of `expire_time`.
-    pub fn set_expire_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_expire_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.expire_time = v.into();
         self
     }
 
     /// Sets the value of `ttl`.
-    pub fn set_ttl<T: Into<Option<gax_placeholder::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_ttl<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.ttl = v.into();
         self
     }
@@ -326,10 +326,7 @@ impl Secret {
     }
 
     /// Sets the value of `version_destroy_ttl`.
-    pub fn set_version_destroy_ttl<T: Into<Option<gax_placeholder::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version_destroy_ttl<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.version_destroy_ttl = v.into();
         self
     }
@@ -370,7 +367,7 @@ impl Secret {
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<gax_placeholder::FieldMask>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -557,7 +554,7 @@ pub struct Rotation {
     /// years).
     ///
     /// next_rotation_time MUST  be set if rotation_period is set.
-    pub next_rotation_time: Option<gax_placeholder::Timestamp>,
+    pub next_rotation_time: Option<wkt::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -565,21 +562,18 @@ pub struct Rotation {
     /// If rotation_period is set, next_rotation_time must be set.
     /// next_rotation_time will be advanced by this period when the service
     /// automatically sends rotation notifications.
-    pub rotation_period: Option<gax_placeholder::Duration>,
+    pub rotation_period: Option<wkt::Duration>,
 }
 
 impl Rotation {
     /// Sets the value of `next_rotation_time`.
-    pub fn set_next_rotation_time<T: Into<Option<gax_placeholder::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_next_rotation_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.next_rotation_time = v.into();
         self
     }
 
     /// Sets the value of `rotation_period`.
-    pub fn set_rotation_period<T: Into<Option<gax_placeholder::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_rotation_period<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.rotation_period = v.into();
         self
     }
@@ -683,12 +677,12 @@ pub struct SecretVersion {
     pub name: Option<String>,
 
     /// Output only. The time at which the SecretVersion was created.
-    pub create_time: Option<gax_placeholder::Timestamp>,
+    pub create_time: Option<wkt::Timestamp>,
 
     /// Output only. The time this SecretVersion was destroyed.
     /// Only present if state is
     /// DESTROYED.
-    pub destroy_time: Option<gax_placeholder::Timestamp>,
+    pub destroy_time: Option<wkt::Timestamp>,
 
     /// Output only. The current state of the SecretVersion.
     pub state: Option<String>,
@@ -709,7 +703,7 @@ pub struct SecretVersion {
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
-    pub scheduled_destroy_time: Option<gax_placeholder::Timestamp>,
+    pub scheduled_destroy_time: Option<wkt::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
@@ -725,13 +719,13 @@ impl SecretVersion {
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `destroy_time`.
-    pub fn set_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.destroy_time = v.into();
         self
     }
@@ -764,10 +758,7 @@ impl SecretVersion {
     }
 
     /// Sets the value of `scheduled_destroy_time`.
-    pub fn set_scheduled_destroy_time<T: Into<Option<gax_placeholder::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_scheduled_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.scheduled_destroy_time = v.into();
         self
     }
@@ -1193,7 +1184,7 @@ pub struct SetIamPolicyRequest {
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
-    pub update_mask: Option<gax_placeholder::FieldMask>,
+    pub update_mask: Option<wkt::FieldMask>,
 
     ///
     pub project: String,
@@ -1213,7 +1204,7 @@ impl SetIamPolicyRequest {
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<gax_placeholder::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }

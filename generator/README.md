@@ -23,7 +23,7 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -projec
   -output generator/testdata/rust/gclient/golden/secretmanager \
   -template-dir generator/templates \
   -codec-option package-name-override=secretmanager-golden-gclient \
-  -codec-option package:gax_placeholder=package=types,path=types,source=google.protobuf \
+  -codec-option package:wkt=package=types,path=types,source=google.protobuf \
   -codec-option package:gax=package=gax,path=gax,feature=sdk_client \
   -codec-option package:iam=package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1
 ```
@@ -44,7 +44,7 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -projec
   -output generator/testdata/rust/openapi/golden \
   -template-dir generator/templates \
   -codec-option package-name-override=secretmanager-golden-openapi \
-  -codec-option package:gax_placeholder=package=types,path=types,source=google.protobuf \
+  -codec-option package:wkt=package=types,path=types,source=google.protobuf \
   -codec-option package:gax=package=gax,path=gax,feature=sdk_client
 ```
 
