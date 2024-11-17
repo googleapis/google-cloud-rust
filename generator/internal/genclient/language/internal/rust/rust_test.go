@@ -16,6 +16,7 @@ package rust
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -260,6 +261,102 @@ func TestMethodInOut(t *testing.T) {
 	got = c.MethodInOutTypeName("..Target.Nested", api.State)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
+	}
+}
+
+func TestFieldAttributes(t *testing.T) {
+	target := &genclient.Message{
+		Name: "Target",
+		ID:   "..Target",
+	}
+	message := &genclient.Message{
+		Name: "Fake",
+		ID:   "..Fake",
+		Fields: []*genclient.Field{
+			{
+				Name:     "f_int64",
+				Typez:    genclient.INT64_TYPE,
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_int64_optional",
+				Typez:    genclient.INT64_TYPE,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_int64_repeated",
+				Typez:    genclient.INT64_TYPE,
+				Optional: false,
+				Repeated: true,
+			},
+
+			{
+				Name:     "f_bytes",
+				Typez:    genclient.BYTES_TYPE,
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_bytes_optional",
+				Typez:    genclient.BYTES_TYPE,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_bytes_repeated",
+				Typez:    genclient.BYTES_TYPE,
+				Optional: false,
+				Repeated: true,
+			},
+
+			{
+				Name:     "f_string",
+				Typez:    genclient.STRING_TYPE,
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_string_optional",
+				Typez:    genclient.STRING_TYPE,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_string_repeated",
+				Typez:    genclient.STRING_TYPE,
+				Optional: false,
+				Repeated: true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
+
+	expectedAttributes := map[string]string{
+		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
+		"f_int64_optional": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated": `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
+
+		"f_bytes":          `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes_optional": `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated": `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
+
+		"f_string":          ``,
+		"f_string_optional": ``,
+		"f_string_repeated": ``,
+	}
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedAttributes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
 	}
 }
 

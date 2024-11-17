@@ -199,6 +199,52 @@ func ScalarFieldType(f *genclient.Field) string {
 	return out
 }
 
+func (c *Codec) FieldAttributes(f *genclient.Field, s *genclient.APIState) []string {
+	switch f.Typez {
+	case genclient.DOUBLE_TYPE,
+		genclient.FLOAT_TYPE,
+		genclient.INT32_TYPE,
+		genclient.FIXED32_TYPE,
+		genclient.BOOL_TYPE,
+		genclient.STRING_TYPE,
+		genclient.UINT32_TYPE,
+		genclient.SFIXED32_TYPE,
+		genclient.SINT32_TYPE,
+		genclient.ENUM_TYPE,
+		genclient.GROUP_TYPE:
+		return []string{}
+
+	case genclient.INT64_TYPE,
+		genclient.UINT64_TYPE,
+		genclient.FIXED64_TYPE,
+		genclient.SFIXED64_TYPE,
+		genclient.SINT64_TYPE:
+		if f.Optional {
+			return []string{`#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`}
+		}
+		if f.Repeated {
+			return []string{`#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`}
+		}
+		return []string{`#[serde_as(as = "serde_with::DisplayFromStr")]`}
+
+	case genclient.BYTES_TYPE:
+		if f.Optional {
+			return []string{`#[serde_as(as = "Option<serde_with::base64::Base64>")]`}
+		}
+		if f.Repeated {
+			return []string{`#[serde_as(as = "Vec<serde_with::base64::Base64>")]`}
+		}
+		return []string{`#[serde_as(as = "serde_with::base64::Base64")]`}
+
+	case genclient.MESSAGE_TYPE:
+		return []string{}
+
+	default:
+		slog.Error("unexpected field type", "field", *f)
+		return []string{}
+	}
+}
+
 func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
 	if f.IsOneOf {
 		return c.wrapOneOfField(f, c.baseFieldType(f, state))

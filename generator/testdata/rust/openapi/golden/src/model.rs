@@ -13,6 +13,7 @@
 // limitations under the License.
 
 /// The response message for Locations.ListLocations.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -39,6 +40,7 @@ impl ListLocationsResponse {
 }
 
 /// A resource that represents a Google Cloud location.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -97,6 +99,7 @@ impl Location {
 }
 
 /// Response message for SecretManagerService.ListSecrets.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -139,6 +142,7 @@ impl ListSecretsResponse {
 ///
 /// A Secret is made up of zero or more SecretVersions that
 /// represent the secret data.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -373,6 +377,7 @@ impl Secret {
 }
 
 /// A policy that defines the replication and encryption configuration of data.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -400,6 +405,7 @@ impl Replication {
 
 /// A replication policy that replicates the Secret payload without any
 /// restrictions.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -428,6 +434,7 @@ impl Automatic {
 
 /// Configuration for encrypting secret payloads using customer-managed
 /// encryption keys (CMEK).
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -456,6 +463,7 @@ impl CustomerManagedEncryption {
 
 /// A replication policy that replicates the Secret payload into the
 /// locations specified in Secret.replication.user_managed.replicas
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -475,6 +483,7 @@ impl UserManaged {
 }
 
 /// Represents a Replica for this Secret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -514,6 +523,7 @@ impl Replica {
 
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -537,6 +547,7 @@ impl Topic {
 /// The rotation time and period for a Secret. At next_rotation_time, Secret
 /// Manager will send a Pub/Sub notification to the topics configured on the
 /// Secret. Secret.topics must be set to configure rotation.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -575,6 +586,7 @@ impl Rotation {
 }
 
 /// Request message for SecretManagerService.AddSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -620,11 +632,13 @@ impl AddSecretVersionRequest {
 
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a SecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
+    #[serde_as(as = "Option<serde_with::base64::Base64>")]
     pub data: Option<bytes::Bytes>,
 
     /// Optional. If specified, SecretManagerService will verify the integrity of the
@@ -637,6 +651,7 @@ pub struct SecretPayload {
     /// The CRC32C value is encoded as a Int64 for compatibility, and can be
     /// safely downconverted to uint32 in languages that support this type.
     /// https://cloud.google.com/apis/design/design_patterns#integer_types
+    #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub data_crc_32_c: Option<i64>,
 }
 
@@ -655,6 +670,7 @@ impl SecretPayload {
 }
 
 /// A secret version resource in the Secret Manager API.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -769,6 +785,7 @@ impl SecretVersion {
 }
 
 /// The replication status of a SecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -809,6 +826,7 @@ impl ReplicationStatus {
 ///
 /// Only populated if the parent Secret has an automatic replication
 /// policy.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -832,6 +850,7 @@ impl AutomaticStatus {
 }
 
 /// Describes the status of customer-managed encryption.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -855,6 +874,7 @@ impl CustomerManagedEncryptionStatus {
 ///
 /// Only populated if the parent Secret has a user-managed replication
 /// policy.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -872,6 +892,7 @@ impl UserManagedStatus {
 }
 
 /// Describes the status of a user-managed replica for the SecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -911,6 +932,7 @@ impl ReplicaStatus {
 ///     service Foo {
 ///       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
 ///     }
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -919,6 +941,7 @@ pub struct Empty {}
 impl Empty {}
 
 /// Response message for SecretManagerService.ListSecretVersions.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -957,6 +980,7 @@ impl ListSecretVersionsResponse {
 }
 
 /// Response message for SecretManagerService.AccessSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -985,6 +1009,7 @@ impl AccessSecretVersionResponse {
 }
 
 /// Request message for SecretManagerService.DisableSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1040,6 +1065,7 @@ impl DisableSecretVersionRequest {
 }
 
 /// Request message for SecretManagerService.EnableSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1095,6 +1121,7 @@ impl EnableSecretVersionRequest {
 }
 
 /// Request message for SecretManagerService.DestroySecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1150,6 +1177,7 @@ impl DestroySecretVersionRequest {
 }
 
 /// Request message for `SetIamPolicy` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1280,6 +1308,7 @@ impl SetIamPolicyRequest {
 ///
 /// For a description of IAM and its features, see the
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1337,6 +1366,7 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
+    #[serde_as(as = "Option<serde_with::base64::Base64>")]
     pub etag: Option<bytes::Bytes>,
 }
 
@@ -1367,6 +1397,7 @@ impl Policy {
 }
 
 /// Associates `members`, or principals, with a `role`.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1530,6 +1561,7 @@ impl Binding {
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1629,6 +1661,7 @@ impl Expr {
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
 /// `aliya@example.com` from DATA_WRITE logging.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1678,6 +1711,7 @@ impl AuditConfig {
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1706,6 +1740,7 @@ impl AuditLogConfig {
 }
 
 /// Request message for `TestIamPermissions` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1753,6 +1788,7 @@ impl TestIamPermissionsRequest {
 }
 
 /// Response message for `TestIamPermissions` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1771,6 +1807,7 @@ impl TestIamPermissionsResponse {
 }
 
 /// The request message for ListLocations.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1819,6 +1856,7 @@ impl ListLocationsRequest {
 }
 
 /// The request message for GetLocation.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1845,6 +1883,7 @@ impl GetLocationRequest {
 }
 
 /// The request message for ListSecrets.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1896,6 +1935,7 @@ impl ListSecretsRequest {
 }
 
 /// The request message for ListSecretsByProjectAndLocation.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1956,6 +1996,7 @@ impl ListSecretsByProjectAndLocationRequest {
 }
 
 /// The request message for GetSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -1982,6 +2023,7 @@ impl GetSecretRequest {
 }
 
 /// The request message for DeleteSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2019,6 +2061,7 @@ impl DeleteSecretRequest {
 }
 
 /// The request message for GetSecretByProjectAndLocationAndSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2054,6 +2097,7 @@ impl GetSecretByProjectAndLocationAndSecretRequest {
 }
 
 /// The request message for DeleteSecretByProjectAndLocationAndSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2100,6 +2144,7 @@ impl DeleteSecretByProjectAndLocationAndSecretRequest {
 }
 
 /// The request message for ListSecretVersions.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2160,6 +2205,7 @@ impl ListSecretVersionsRequest {
 }
 
 /// The request message for ListSecretVersionsByProjectAndLocationAndSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2229,6 +2275,7 @@ impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
 }
 
 /// The request message for GetSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2264,6 +2311,7 @@ impl GetSecretVersionRequest {
 }
 
 /// The request message for GetSecretVersionByProjectAndLocationAndSecretAndVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2308,6 +2356,7 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 }
 
 /// The request message for AccessSecretVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2343,6 +2392,7 @@ impl AccessSecretVersionRequest {
 }
 
 /// The request message for AccessSecretVersionByProjectAndLocationAndSecretAndVersion.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2387,6 +2437,7 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 }
 
 /// The request message for GetIamPolicy.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -2439,6 +2490,7 @@ impl GetIamPolicyRequest {
 }
 
 /// The request message for GetIamPolicyByProjectAndLocationAndSecret.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]

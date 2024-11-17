@@ -43,6 +43,7 @@
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
 /// documentation for additional information.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
