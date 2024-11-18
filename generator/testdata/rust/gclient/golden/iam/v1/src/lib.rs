@@ -15,7 +15,11 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
+use gax::error::{Error, HttpError};
 use std::sync::Arc;
+
+/// A `Result` alias where the `Err` case is an [Error].
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -112,7 +116,7 @@ impl Iampolicy {
     pub async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
-    ) -> Result<crate::model::Policy, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::Policy> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -131,13 +135,18 @@ impl Iampolicy {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::Policy>().await?;
+        let response = res
+            .json::<crate::model::Policy>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -147,7 +156,7 @@ impl Iampolicy {
     pub async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
-    ) -> Result<crate::model::Policy, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::Policy> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -166,13 +175,18 @@ impl Iampolicy {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::Policy>().await?;
+        let response = res
+            .json::<crate::model::Policy>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -186,7 +200,7 @@ impl Iampolicy {
     pub async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
-    ) -> Result<crate::model::TestIamPermissionsResponse, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::TestIamPermissionsResponse> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -205,15 +219,18 @@ impl Iampolicy {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
         let response = res
             .json::<crate::model::TestIamPermissionsResponse>()
-            .await?;
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 }

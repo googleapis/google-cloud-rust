@@ -460,7 +460,7 @@ func (c *Codec) unwrapFieldPath(components []string, requestAccess string) (stri
 	}
 	unwrap, name := c.unwrapFieldPath(components[0:len(components)-1], "&req")
 	last := components[len(components)-1]
-	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\")?.%s", unwrap, name, last), ""
+	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\").map_err(Error::other)?.%s", unwrap, name, last), ""
 }
 
 func (c *Codec) derefFieldPath(fieldPath string) string {

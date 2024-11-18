@@ -15,7 +15,11 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
+use gax::error::{Error, HttpError};
 use std::sync::Arc;
+
+/// A `Result` alias where the `Err` case is an [Error].
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -73,11 +77,11 @@ impl SecretManagerService {
     pub async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
-    ) -> Result<crate::model::ListSecretsResponse, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::ListSecretsResponse> {
         let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size)?,
-            gax::query_parameter::format("pageToken", &req.page_token)?,
-            gax::query_parameter::format("filter", &req.filter)?,
+            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
+            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
+            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
         ];
         let client = self.client.inner.clone();
         let res = client
@@ -92,13 +96,18 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::ListSecretsResponse>().await?;
+        let response = res
+            .json::<crate::model::ListSecretsResponse>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -107,8 +116,9 @@ impl SecretManagerService {
     pub async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
-    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
-        let query_parameters = [gax::query_parameter::format("secretId", &req.secret_id)?];
+    ) -> Result<crate::model::Secret> {
+        let query_parameters =
+            [gax::query_parameter::format("secretId", &req.secret_id).map_err(Error::other)?];
         let client = self.client.inner.clone();
         let res = client
             .http_client
@@ -123,13 +133,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req.secret)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::Secret>().await?;
+        let response = res
+            .json::<crate::model::Secret>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -139,7 +154,7 @@ impl SecretManagerService {
     pub async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
-    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::SecretVersion> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -155,13 +170,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::SecretVersion>().await?;
+        let response = res
+            .json::<crate::model::SecretVersion>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -169,7 +189,7 @@ impl SecretManagerService {
     pub async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
-    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::Secret> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -184,13 +204,18 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::Secret>().await?;
+        let response = res
+            .json::<crate::model::Secret>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -199,18 +224,19 @@ impl SecretManagerService {
     pub async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
-    ) -> Result<crate::model::Secret, Box<dyn std::error::Error>> {
-        let query_parameters = [gax::query_parameter::format(
-            "updateMask",
-            &req.update_mask,
-        )?];
+    ) -> Result<crate::model::Secret> {
+        let query_parameters = [
+            gax::query_parameter::format("updateMask", &req.update_mask).map_err(Error::other)?
+        ];
         let client = self.client.inner.clone();
         let res = client
             .http_client
             .patch(format!(
                 "{}/v1/{}",
                 self.base_path,
-                gax::path_parameter::PathParameter::required(&req.secret, "secret")?.name,
+                gax::path_parameter::PathParameter::required(&req.secret, "secret")
+                    .map_err(Error::other)?
+                    .name,
             ))
             .query(&[("alt", "json")])
             .query(
@@ -222,13 +248,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req.secret)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::Secret>().await?;
+        let response = res
+            .json::<crate::model::Secret>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -236,8 +267,9 @@ impl SecretManagerService {
     pub async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
-    ) -> Result<wkt::Empty, Box<dyn std::error::Error>> {
-        let query_parameters = [gax::query_parameter::format("etag", &req.etag)?];
+    ) -> Result<wkt::Empty> {
+        let query_parameters =
+            [gax::query_parameter::format("etag", &req.etag).map_err(Error::other)?];
         let client = self.client.inner.clone();
         let res = client
             .http_client
@@ -251,13 +283,15 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<wkt::Empty>().await?;
+        let response = res.json::<wkt::Empty>().await.map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -266,11 +300,11 @@ impl SecretManagerService {
     pub async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
-    ) -> Result<crate::model::ListSecretVersionsResponse, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::ListSecretVersionsResponse> {
         let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size)?,
-            gax::query_parameter::format("pageToken", &req.page_token)?,
-            gax::query_parameter::format("filter", &req.filter)?,
+            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
+            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
+            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
         ];
         let client = self.client.inner.clone();
         let res = client
@@ -285,15 +319,18 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
         let response = res
             .json::<crate::model::ListSecretVersionsResponse>()
-            .await?;
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -305,7 +342,7 @@ impl SecretManagerService {
     pub async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
-    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::SecretVersion> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -320,13 +357,18 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::SecretVersion>().await?;
+        let response = res
+            .json::<crate::model::SecretVersion>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -338,7 +380,7 @@ impl SecretManagerService {
     pub async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
-    ) -> Result<crate::model::AccessSecretVersionResponse, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::AccessSecretVersionResponse> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -353,15 +395,18 @@ impl SecretManagerService {
             )
             .bearer_auth(&client.token)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
         let response = res
             .json::<crate::model::AccessSecretVersionResponse>()
-            .await?;
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -373,7 +418,7 @@ impl SecretManagerService {
     pub async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
-    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::SecretVersion> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -389,13 +434,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::SecretVersion>().await?;
+        let response = res
+            .json::<crate::model::SecretVersion>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -407,7 +457,7 @@ impl SecretManagerService {
     pub async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
-    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::SecretVersion> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -423,13 +473,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::SecretVersion>().await?;
+        let response = res
+            .json::<crate::model::SecretVersion>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -442,7 +497,7 @@ impl SecretManagerService {
     pub async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
-    ) -> Result<crate::model::SecretVersion, Box<dyn std::error::Error>> {
+    ) -> Result<crate::model::SecretVersion> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -458,13 +513,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<crate::model::SecretVersion>().await?;
+        let response = res
+            .json::<crate::model::SecretVersion>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -478,7 +538,7 @@ impl SecretManagerService {
     pub async fn set_iam_policy(
         &self,
         req: iam::model::SetIamPolicyRequest,
-    ) -> Result<iam::model::Policy, Box<dyn std::error::Error>> {
+    ) -> Result<iam::model::Policy> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -497,13 +557,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<iam::model::Policy>().await?;
+        let response = res
+            .json::<iam::model::Policy>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -512,7 +577,7 @@ impl SecretManagerService {
     pub async fn get_iam_policy(
         &self,
         req: iam::model::GetIamPolicyRequest,
-    ) -> Result<iam::model::Policy, Box<dyn std::error::Error>> {
+    ) -> Result<iam::model::Policy> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -531,13 +596,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<iam::model::Policy>().await?;
+        let response = res
+            .json::<iam::model::Policy>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 
@@ -551,7 +621,7 @@ impl SecretManagerService {
     pub async fn test_iam_permissions(
         &self,
         req: iam::model::TestIamPermissionsRequest,
-    ) -> Result<iam::model::TestIamPermissionsResponse, Box<dyn std::error::Error>> {
+    ) -> Result<iam::model::TestIamPermissionsResponse> {
         let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
         let res = client
@@ -570,13 +640,18 @@ impl SecretManagerService {
             .bearer_auth(&client.token)
             .json(&req)
             .send()
-            .await?;
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err(
-                "sorry the api you are looking for is not available, please try again".into(),
-            );
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<iam::model::TestIamPermissionsResponse>().await?;
+        let response = res
+            .json::<iam::model::TestIamPermissionsResponse>()
+            .await
+            .map_err(Error::serde)?;
         Ok(response)
     }
 }
