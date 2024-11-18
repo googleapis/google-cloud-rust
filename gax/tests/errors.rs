@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gax::error::rpc::Status;
 use gax::error::Error;
+use gax::error::HttpError;
+use std::collections::HashMap;
 
 #[derive(Debug, Default)]
 struct LeafError {}
@@ -64,5 +67,65 @@ fn downcast() -> Result<(), Box<dyn std::error::Error>> {
     let root_err = Error::other(MiddleError { source: None });
     let inner_err = root_err.as_inner::<LeafError>();
     assert!(inner_err.is_none());
+    Ok(())
+}
+
+#[tokio::test]
+async fn client_http_error() -> Result<(), Box<dyn std::error::Error>> {
+    let http_resp = http::Response::builder()
+        .header("Content-Type", "application/json")
+        .status(400)
+        .body(r#"{"error": "bad request"}"#)?;
+
+    // Into reqwest response, like our clients use.
+    let resp: reqwest::Response = http_resp.into();
+
+    assert!(resp.status().is_client_error());
+
+    let status = resp.status().as_u16();
+    let headers = gax::error::convert_headers(resp.headers());
+    let body = resp.bytes().await?;
+
+    let http_err = HttpError::new(status, headers, Some(body));
+    assert!(http_err.status_code() == 400);
+    assert!(http_err.headers()["content-type"] == "application/json");
+    assert!(http_err.payload().unwrap() == r#"{"error": "bad request"}"#.as_bytes());
+    Ok(())
+}
+
+#[test]
+fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
+    let json = serde_json::json!({
+        "code": 9,
+        "message": "msg",
+        "details": [
+            {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+        ]
+    });
+    let http_err = HttpError::new(
+        400,
+        HashMap::from_iter([("content-type".to_string(), "application/json".to_string())]),
+        Some(json.to_string().into()),
+    );
+
+    let status: Status = http_err.try_into()?;
+    assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+    assert_eq!(status.message, "msg");
+    assert_eq!(status.details.len(), 1);
+
+    let html = r#"<!DOCTYPE html>
+<html lang=en>
+<meta charset=utf-8>
+<title>Error 500!!!</title>"#
+        .as_bytes();
+    let http_err = HttpError::new(
+        500,
+        HashMap::from_iter([("content-type".to_string(), "text/html".to_string())]),
+        Some(html.into()),
+    );
+
+    let status: Result<Status, Error> = http_err.try_into();
+    assert!(status.is_err());
+
     Ok(())
 }
