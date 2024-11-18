@@ -70,25 +70,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations",
                 self.base_path, req.project,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -111,21 +107,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}",
                 self.base_path, req.project, req.location,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -148,25 +138,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets",
                 self.base_path, req.project,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -186,22 +172,17 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
 
     /// Creates a new Secret containing no SecretVersions.
     pub async fn create_secret(&self, req: crate::model::Secret) -> Result<crate::model::Secret> {
-        let query_parameters =
-            [gax::query_parameter::format("secretId", &req.secret_id).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets",
                 self.base_path, req.project,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -225,25 +206,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets",
                 self.base_path, req.project, req.location,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -266,22 +243,17 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::Secret,
     ) -> Result<crate::model::Secret> {
-        let query_parameters =
-            [gax::query_parameter::format("secretId", &req.secret_id).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets",
                 self.base_path, req.project, req.location,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -306,21 +278,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:addVersion",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -345,21 +311,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:addVersion",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -383,21 +343,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -420,22 +374,17 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let query_parameters =
-            [gax::query_parameter::format("etag", &req.etag).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .delete(format!(
                 "{}/v1/projects/{}/secrets/{}",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -455,23 +404,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
 
     /// Updates metadata of an existing Secret.
     pub async fn update_secret(&self, req: crate::model::Secret) -> Result<crate::model::Secret> {
-        let query_parameters = [
-            gax::query_parameter::format("updateMask", &req.update_mask).map_err(Error::other)?
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .patch(format!(
                 "{}/v1/projects/{}/secrets/{}",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "updateMask",
+            &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -495,21 +442,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -532,22 +473,17 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let query_parameters =
-            [gax::query_parameter::format("etag", &req.etag).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .delete(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -570,23 +506,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::Secret,
     ) -> Result<crate::model::Secret> {
-        let query_parameters = [
-            gax::query_parameter::format("updateMask", &req.update_mask).map_err(Error::other)?
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .patch(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "updateMask",
+            &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -611,25 +545,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -653,25 +583,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -697,21 +623,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}",
                 self.base_path, req.project, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -737,21 +657,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
                 self.base_path, req.project, req.location, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -777,21 +691,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:access",
                 self.base_path, req.project, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -817,21 +725,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
                 self.base_path, req.project, req.location, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -857,21 +759,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:disable",
                 self.base_path, req.project, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -898,21 +794,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
                 self.base_path, req.project, req.location, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -939,21 +829,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:enable",
                 self.base_path, req.project, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -980,21 +864,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
                 self.base_path, req.project, req.location, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1022,21 +900,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:destroy",
                 self.base_path, req.project, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1064,21 +936,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
                 self.base_path, req.project, req.location, req.secret, req.version,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1106,21 +972,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:setIamPolicy",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1148,21 +1008,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1187,25 +1041,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [gax::query_parameter::format(
-            "options.requestedPolicyVersion",
-            &req.options_requested_policy_version,
-        )
-        .map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}:getIamPolicy",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "options.requestedPolicyVersion",
+            &req.options_requested_policy_version,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -1229,25 +1079,21 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [gax::query_parameter::format(
-            "options.requestedPolicyVersion",
-            &req.options_requested_policy_version,
-        )
-        .map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "options.requestedPolicyVersion",
+            &req.options_requested_policy_version,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -1276,21 +1122,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:testIamPermissions",
                 self.base_path, req.project, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -1320,21 +1160,15 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
                 self.base_path, req.project, req.location, req.secret,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()

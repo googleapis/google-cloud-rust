@@ -105,7 +105,7 @@ func (s *{{ServiceNameToCamel}}) {{NameToCamel}}(ctx context.Context, req *{{Inp
     params := url.Values{}
     params.Add("$alt", "json")
     {{#QueryParams}}
-    params.Add("{{Key}}", fmt.Sprintf("%v", {{Value}}))
+    params.Add("{{JSONName}}", fmt.Sprintf("%v", {{AsQueryParameter}}))
     {{/QueryParams}}
     baseURL.RawQuery = params.Encode()
     httpReq, err := http.NewRequestWithContext(ctx, "{{HTTPMethod}}", baseURL.String(), {{#HasBody}}bytes.NewReader(reqBody){{/HasBody}}{{^HasBody}}nil{{/HasBody}})

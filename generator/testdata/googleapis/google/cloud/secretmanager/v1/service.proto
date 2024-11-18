@@ -243,8 +243,6 @@ service SecretManagerService {
       returns (google.iam.v1.Policy) {
     option (google.api.http) = {
       get: "/v1/{resource=projects/*/secrets/*}:getIamPolicy"
-      // TODO(#181) - decide what to do about this `body: "*"` directive.
-      body: "*"
       additional_bindings {
         get: "/v1/{resource=projects/*/locations/*/secrets/*}:getIamPolicy"
       }
