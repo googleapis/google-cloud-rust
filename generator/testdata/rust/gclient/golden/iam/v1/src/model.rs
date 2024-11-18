@@ -13,6 +13,7 @@
 // limitations under the License.
 
 /// Request message for `SetIamPolicy` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -56,6 +57,7 @@ impl SetIamPolicyRequest {
 }
 
 /// Request message for `GetIamPolicy` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -84,6 +86,7 @@ impl GetIamPolicyRequest {
 }
 
 /// Request message for `TestIamPermissions` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -114,6 +117,7 @@ impl TestIamPermissionsRequest {
 }
 
 /// Response message for `TestIamPermissions` method.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -132,6 +136,7 @@ impl TestIamPermissionsResponse {
 }
 
 /// Encapsulates settings provided to GetIamPolicy.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -238,6 +243,7 @@ impl GetPolicyOptions {
 ///
 /// For a description of IAM and its features, see the
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -296,6 +302,7 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
+    #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: bytes::Bytes,
 }
 
@@ -326,6 +333,7 @@ impl Policy {
 }
 
 /// Associates `members`, or principals, with a `role`.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -466,6 +474,7 @@ impl Binding {
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
 /// `aliya@example.com` from DATA_WRITE logging.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -515,6 +524,7 @@ impl AuditConfig {
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -582,6 +592,7 @@ pub mod audit_log_config {
 }
 
 /// The difference delta between two policies.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -612,6 +623,7 @@ impl PolicyDelta {
 
 /// One delta entry for Binding. Each individual change (only one member in each
 /// entry) to a binding will be a separate entry.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -696,6 +708,7 @@ pub mod binding_delta {
 
 /// One delta entry for AuditConfig. Each individual change (only one
 /// exempted_member in each entry) to a AuditConfig will be a separate entry.
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]

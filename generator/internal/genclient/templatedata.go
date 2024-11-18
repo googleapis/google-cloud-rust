@@ -385,6 +385,10 @@ func (f *field) DocLines() []string {
 	return f.c.FormatDocComments(f.s.Documentation)
 }
 
+func (f *field) FieldAttributes() []string {
+	return f.c.FieldAttributes(f.s, f.state)
+}
+
 func (f *field) FieldType() string {
 	return f.c.FieldType(f.s, f.state)
 }

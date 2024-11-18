@@ -55,6 +55,10 @@ func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
+func (*Codec) FieldAttributes(*genclient.Field, *genclient.APIState) []string {
+	return []string{}
+}
+
 func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
 	var out string
 	switch f.Typez {

@@ -36,6 +36,9 @@ type LanguageCodec interface {
 	// for any wellknown types. For example defining how timestamppb should be
 	// represented in a given language or wrappers around operations.
 	LoadWellKnownTypes(s *APIState)
+	// FieldAttributes returns a (possibly empty) list of "attributes" included
+	// immediately before the field definition.
+	FieldAttributes(f *Field, state *APIState) []string
 	// FieldType returns a string representation of a message field type.
 	FieldType(f *Field, state *APIState) string
 	// The name of a message type ID when used as an input or output argument

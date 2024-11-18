@@ -18,6 +18,7 @@ limitations under the License.
 {{#DocLines}}
 {{{.}}}
 {{/DocLines}}
+#[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
@@ -27,6 +28,9 @@ pub struct {{Name}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
+    {{#FieldAttributes}}
+    {{{.}}}
+    {{/FieldAttributes}}
     pub {{NameToSnake}}: {{{FieldType}}},
     {{/BasicFields}}
     {{#ExplicitOneOfs}}
@@ -34,6 +38,9 @@ pub struct {{Name}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
+    {{#FieldAttributes}}
+    {{{.}}}
+    {{/FieldAttributes}}
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }
