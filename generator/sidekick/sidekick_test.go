@@ -52,7 +52,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		"-template-dir", "generator/templates",
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
-		"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
+		"-codec-option", "package:wkt=package=types,path=types,source=google.protobuf",
 		"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
 	}
 	if err := Generate(args); err != nil {
@@ -120,7 +120,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			"-template-dir", "generator/templates",
 			"-codec-option", "copyright-year=2024",
 			"-codec-option", "package-name-override=" + strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
-			"-codec-option", "package:gax_placeholder=package=types,path=types,source=google.protobuf",
+			"-codec-option", "package:wkt=package=types,path=types,source=google.protobuf",
 			"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
 		}
 		args = append(args, config.ExtraOptions...)

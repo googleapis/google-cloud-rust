@@ -236,7 +236,7 @@ impl SecretManagerService {
     pub async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
-    ) -> Result<gax_placeholder::Empty, Box<dyn std::error::Error>> {
+    ) -> Result<wkt::Empty, Box<dyn std::error::Error>> {
         let query_parameters = [gax::query_parameter::format("etag", &req.etag)?];
         let client = self.client.inner.clone();
         let res = client
@@ -257,7 +257,7 @@ impl SecretManagerService {
                 "sorry the api you are looking for is not available, please try again".into(),
             );
         }
-        let response = res.json::<gax_placeholder::Empty>().await?;
+        let response = res.json::<wkt::Empty>().await?;
         Ok(response)
     }
 

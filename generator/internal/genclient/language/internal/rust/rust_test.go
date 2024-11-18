@@ -43,10 +43,10 @@ func TestParseOptions(t *testing.T) {
 	copts := &genclient.CodecOptions{
 		Language: "rust",
 		Options: map[string]string{
-			"package-name-override":   "test-only",
-			"copyright-year":          "2035",
-			"package:gax_placeholder": "package=types,path=../../types,source=google.protobuf,source=test-only",
-			"package:gax":             "package=gax,path=../../gax,feature=sdk_client",
+			"package-name-override": "test-only",
+			"copyright-year":        "2035",
+			"package:wkt":           "package=types,path=../../types,source=google.protobuf,source=test-only",
+			"package:gax":           "package=gax,path=../../gax,feature=sdk_client",
 		},
 	}
 	codec, err := NewCodec(copts)
@@ -54,7 +54,7 @@ func TestParseOptions(t *testing.T) {
 		t.Fatal(err)
 	}
 	gp := &RustPackage{
-		Name:    "gax_placeholder",
+		Name:    "wkt",
 		Package: "types",
 		Path:    "../../types",
 	}
