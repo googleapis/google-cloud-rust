@@ -562,7 +562,7 @@ func makeMapMessage(state *genclient.APIState, messageName, name string, schema 
 		return nil, err
 	}
 	value := &genclient.Field{
-		Name:    "$value",
+		Name:    "value",
 		ID:      value_id,
 		Typez:   value_typez,
 		TypezID: value_id,
@@ -573,8 +573,8 @@ func makeMapMessage(state *genclient.APIState, messageName, name string, schema 
 	if message == nil {
 		// The map was not found, insert the type.
 		key := &genclient.Field{
-			Name:    "$key",
-			ID:      id + "$key",
+			Name:    "key",
+			ID:      id + ".key",
 			Typez:   genclient.STRING_TYPE,
 			TypezID: "string",
 		}
