@@ -21,7 +21,7 @@ pub(crate) trait RequestParameter {
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("cannot format as request parameter {0:?}")]
-    Format(Box<dyn std::error::Error>),
+    Format(Box<dyn std::error::Error + Send + Sync>),
 }
 
 impl From<serde_json::Error> for Error {

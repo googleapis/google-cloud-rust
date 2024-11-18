@@ -23,6 +23,10 @@ pub mod model;
 
 {{#HasServices}}
 use std::sync::Arc;
+use gax::error::{Error, HttpError};
+
+/// A `Result` alias where the `Err` case is an [Error].
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Clone, Debug)]
 pub struct Client {
@@ -77,13 +81,13 @@ impl {{NameToPascal}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}, Box<dyn std::error::Error>> {
+    pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
         let query_parameters = [
                     {{^QueryParams}}
                     None::<(&str, String)>; 0
                     {{/QueryParams}}
                     {{#QueryParams}}
-                    gax::query_parameter::format("{{Key}}", &req.{{Value}})?,
+                    gax::query_parameter::format("{{Key}}", &req.{{Value}}).map_err(Error::other)?,
                     {{/QueryParams}}
         ];
         let client = self.client.inner.clone();
@@ -106,11 +110,16 @@ impl {{NameToPascal}} {
             {{#HasBody}}
             .json(&req{{BodyAccessor}})
             {{/HasBody}}
-            .send().await?;
+            .send()
+            .await
+            .map_err(Error::io)?;
         if !res.status().is_success() {
-            return Err("sorry the api you are looking for is not available, please try again".into());
+            let status = res.status().as_u16();
+            let headers = gax::error::convert_headers(res.headers());
+            let body = res.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res.json::<{{OutputTypeName}}>().await?;
+        let response = res.json::<{{OutputTypeName}}>().await.map_err(Error::serde)?;
         Ok(response)
     }
     {{/Methods}}

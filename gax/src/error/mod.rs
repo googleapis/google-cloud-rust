@@ -15,5 +15,5 @@
 mod error;
 mod http_error;
 pub mod rpc;
-pub use error::Error;
+pub use error::*;
 pub use http_error::*;
