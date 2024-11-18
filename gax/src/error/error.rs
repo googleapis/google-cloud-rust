@@ -98,7 +98,7 @@ impl std::error::Error for Error {
     }
 }
 
-impl From<super::http_error::HttpError> for Error {
+impl From<crate::error::HttpError> for Error {
     fn from(e: super::http_error::HttpError) -> Self {
         Error::rpc(e)
     }

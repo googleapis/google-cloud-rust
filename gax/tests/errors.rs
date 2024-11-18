@@ -113,5 +113,19 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
     assert_eq!(status.message, "msg");
     assert_eq!(status.details.len(), 1);
 
+    let html = r#"<!DOCTYPE html>
+<html lang=en>
+<meta charset=utf-8>
+<title>Error 500!!!</title>"#
+        .as_bytes();
+    let http_err = HttpError::new(
+        500,
+        HashMap::from_iter([("content-type".to_string(), "text/html".to_string())]),
+        Some(html.into()),
+    );
+
+    let status: Result<Status, Error> = http_err.try_into();
+    assert!(status.is_err());
+
     Ok(())
 }
