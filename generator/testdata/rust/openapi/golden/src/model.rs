@@ -59,6 +59,7 @@ pub struct Location {
     /// Cross-service attributes for the location. For example
     ///
     ///     {"cloud.googleapis.com/region": "us-east1"}
+    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<String, String>,
 
     /// Service-specific metadata. For example the available capacity at the given
@@ -169,6 +170,7 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     ///
     /// No more than 64 labels can be assigned to a given resource.
+    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<String, String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
@@ -200,6 +202,8 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
+    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
     pub version_aliases: std::collections::HashMap<String, i64>,
 
     /// Optional. Custom metadata about the secret.
@@ -214,6 +218,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
+    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<String, String>,
 
     /// Optional. Secret Version TTL after destruction request

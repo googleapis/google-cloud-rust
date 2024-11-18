@@ -265,10 +265,6 @@ func TestMethodInOut(t *testing.T) {
 }
 
 func TestFieldAttributes(t *testing.T) {
-	target := &genclient.Message{
-		Name: "Target",
-		ID:   "..Target",
-	}
 	message := &genclient.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -331,7 +327,7 @@ func TestFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -345,6 +341,127 @@ func TestFieldAttributes(t *testing.T) {
 		"f_string":          ``,
 		"f_string_optional": ``,
 		"f_string_repeated": ``,
+	}
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedAttributes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
+func TestMapFieldAttributes(t *testing.T) {
+	target := &genclient.Message{
+		Name: "Target",
+		ID:   "..Target",
+	}
+	map1 := &genclient.Message{
+		Name:  "$map<string, string>",
+		ID:    "$map<string, string>",
+		IsMap: true,
+		Fields: []*genclient.Field{
+			{
+				Name:  "key",
+				Typez: genclient.STRING_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: genclient.STRING_TYPE,
+			},
+		},
+	}
+	map2 := &genclient.Message{
+		Name:  "$map<string, int64>",
+		ID:    "$map<string, int64>",
+		IsMap: true,
+		Fields: []*genclient.Field{
+			{
+				Name:  "key",
+				Typez: genclient.STRING_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: genclient.INT64_TYPE,
+			},
+		},
+	}
+	map3 := &genclient.Message{
+		Name:  "$map<int64, string>",
+		ID:    "$map<int64, string>",
+		IsMap: true,
+		Fields: []*genclient.Field{
+			{
+				Name:  "key",
+				Typez: genclient.INT64_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: genclient.STRING_TYPE,
+			},
+		},
+	}
+	map4 := &genclient.Message{
+		Name:  "$map<string, bytes>",
+		ID:    "$map<string, bytes>",
+		IsMap: true,
+		Fields: []*genclient.Field{
+			{
+				Name:  "key",
+				Typez: genclient.STRING_TYPE,
+			},
+			{
+				Name:  "value",
+				Typez: genclient.BYTES_TYPE,
+			},
+		},
+	}
+	message := &genclient.Message{
+		Name: "Fake",
+		ID:   "..Fake",
+		Fields: []*genclient.Field{
+			{
+				Name:     "target",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  target.ID,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:    "map",
+				Typez:   genclient.MESSAGE_TYPE,
+				TypezID: map1.ID,
+			},
+			{
+				Name:    "map_i64",
+				Typez:   genclient.MESSAGE_TYPE,
+				TypezID: map2.ID,
+			},
+			{
+				Name:    "map_i64_key",
+				Typez:   genclient.MESSAGE_TYPE,
+				TypezID: map3.ID,
+			},
+			{
+				Name:    "map_bytes",
+				Typez:   genclient.MESSAGE_TYPE,
+				TypezID: map4.ID,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{target, map1, map2, map3, map4, message}, []*genclient.Enum{}, []*genclient.Service{})
+
+	expectedAttributes := map[string]string{
+		"target":      ``,
+		"map":         `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+		"map_i64":     `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
+		"map_i64_key": `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
+		"map_bytes":   `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 	}
 	c := testCodec()
 	c.LoadWellKnownTypes(api.State)

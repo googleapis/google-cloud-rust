@@ -199,7 +199,22 @@ func ScalarFieldType(f *genclient.Field) string {
 	return out
 }
 
-func (c *Codec) FieldAttributes(f *genclient.Field, s *genclient.APIState) []string {
+func (c *Codec) fieldFormatter(f *genclient.Field) string {
+	switch f.Typez {
+	case genclient.INT64_TYPE,
+		genclient.UINT64_TYPE,
+		genclient.FIXED64_TYPE,
+		genclient.SFIXED64_TYPE,
+		genclient.SINT64_TYPE:
+		return "serde_with::DisplayFromStr"
+	case genclient.BYTES_TYPE:
+		return "serde_with::base64::Base64"
+	default:
+		return "_"
+	}
+}
+
+func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
 	switch f.Typez {
 	case genclient.DOUBLE_TYPE,
 		genclient.FLOAT_TYPE,
@@ -218,25 +233,41 @@ func (c *Codec) FieldAttributes(f *genclient.Field, s *genclient.APIState) []str
 		genclient.UINT64_TYPE,
 		genclient.FIXED64_TYPE,
 		genclient.SFIXED64_TYPE,
-		genclient.SINT64_TYPE:
+		genclient.SINT64_TYPE,
+		genclient.BYTES_TYPE:
+		formatter := c.fieldFormatter(f)
 		if f.Optional {
-			return []string{`#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`}
+			return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
 		}
 		if f.Repeated {
-			return []string{`#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`}
+			return []string{fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter)}
 		}
-		return []string{`#[serde_as(as = "serde_with::DisplayFromStr")]`}
-
-	case genclient.BYTES_TYPE:
-		if f.Optional {
-			return []string{`#[serde_as(as = "Option<serde_with::base64::Base64>")]`}
-		}
-		if f.Repeated {
-			return []string{`#[serde_as(as = "Vec<serde_with::base64::Base64>")]`}
-		}
-		return []string{`#[serde_as(as = "serde_with::base64::Base64")]`}
+		return []string{fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter)}
 
 	case genclient.MESSAGE_TYPE:
+		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
+			attr := []string{`#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]`}
+			var key, value *genclient.Field
+			for _, f := range message.Fields {
+				switch f.Name {
+				case "key":
+					key = f
+				case "value":
+					value = f
+				default:
+				}
+			}
+			if key == nil || value == nil {
+				slog.Error("missing key or value in map field")
+				return attr
+			}
+			keyFormat := c.fieldFormatter(key)
+			valFormat := c.fieldFormatter(value)
+			if keyFormat == "_" && valFormat == "_" {
+				return attr
+			}
+			return append(attr, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
+		}
 		return []string{}
 
 	default:
