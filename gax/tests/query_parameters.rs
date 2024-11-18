@@ -220,11 +220,7 @@ fn with_nested() -> Result<()> {
 
     let r = builder.build()?;
     let got = r.url().query().unwrap();
-    let mut got = got
-        .split('&')
-        .into_iter()
-        .map(str::to_string)
-        .collect::<Vec<_>>();
+    let mut got = got.split('&').map(str::to_string).collect::<Vec<_>>();
     got.sort();
     let got = got;
     let mut want = vec![
