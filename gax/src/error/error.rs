@@ -63,8 +63,19 @@ impl Error {
     /// Recurses through the source error chain and returns a reference to the
     /// inner value if it is of type `T`, or `None` if no such inner value is
     /// found.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use gax::error::Error;
+    /// # use gax::error::HttpError;
+    /// # use std::collections::HashMap;
+    /// let error: Error = HttpError::new(404, HashMap::new(), None).into();
+    /// if let Some(e) = error.as_inner::<HttpError>() {
+    ///     assert_eq!(e.status_code(), 404);
+    /// }
+    /// ```
     pub fn as_inner<T: std::error::Error + Send + Sync + 'static>(&self) -> Option<&T> {
-        // TODO(#175): add a rust doc example once HttpError type is added.
         let mut error = self.source.as_ref() as &(dyn std::error::Error);
         loop {
             match error.downcast_ref::<T>() {
@@ -84,6 +95,12 @@ impl std::fmt::Display for Error {
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         Some(self.source.as_ref())
+    }
+}
+
+impl From<super::http_error::HttpError> for Error {
+    fn from(e: super::http_error::HttpError) -> Self {
+        Error::rpc(e)
     }
 }
 

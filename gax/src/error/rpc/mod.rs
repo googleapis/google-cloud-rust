@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::error::{Error, HttpError};
 use serde::{Deserialize, Serialize};
 
 mod generated;
@@ -247,6 +248,14 @@ impl<'de> Deserialize<'de> for Code {
             16 => Ok(Code::Unauthenticated),
             _ => Ok(Code::default()),
         }
+    }
+}
+
+impl TryFrom<HttpError> for Status {
+    type Error = Error;
+
+    fn try_from(value: HttpError) -> Result<Self, Self::Error> {
+        serde_json::from_slice(value.payload().unwrap()).map_err(Error::serde)
     }
 }
 

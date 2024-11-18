@@ -13,5 +13,7 @@
 // limitations under the License.
 
 mod error;
+mod http_error;
 pub mod rpc;
 pub use error::Error;
+pub use http_error::*;
