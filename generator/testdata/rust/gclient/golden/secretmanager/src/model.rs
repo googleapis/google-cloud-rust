@@ -20,7 +20,7 @@
 /// the secret data.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
     /// Output only. The resource name of the
@@ -49,7 +49,7 @@ pub struct Secret {
     /// regular expression: `[\p{Ll}\p{Lo}\p{N}_-]{0,63}`
     ///
     /// No more than 64 labels can be assigned to a given resource.
-    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<String, String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
@@ -76,7 +76,7 @@ pub struct Secret {
     /// Version-Alias pairs will be viewable via GetSecret and modifiable via
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
-    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
     pub version_aliases: std::collections::HashMap<String, i64>,
 
@@ -92,7 +92,7 @@ pub struct Secret {
     /// alphanumerics in between these symbols.
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
-    #[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub annotations: std::collections::HashMap<String, String>,
 
     /// Optional. Secret Version TTL after destruction request
@@ -247,7 +247,7 @@ pub mod secret {
 /// A secret version resource in the Secret Manager API.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
     /// Output only. The resource name of the
@@ -418,7 +418,7 @@ pub mod secret_version {
 /// A policy that defines the replication and encryption configuration of data.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
@@ -444,7 +444,7 @@ pub mod replication {
     /// restrictions.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Automatic {
         /// Optional. The customer-managed encryption configuration of the
@@ -477,7 +477,7 @@ pub mod replication {
     /// specified in [Secret.replication.user_managed.replicas][]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManaged {
         /// Required. The list of Replicas for this
@@ -505,7 +505,7 @@ pub mod replication {
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Replica {
             /// The canonical IDs of the location to replicate data.
@@ -562,7 +562,7 @@ pub mod replication {
 /// encryption keys (CMEK).
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
@@ -593,7 +593,7 @@ impl CustomerManagedEncryption {
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
     /// The replication status of the
@@ -625,7 +625,7 @@ pub mod replication_status {
     /// has an automatic replication policy.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AutomaticStatus {
         /// Output only. The customer-managed encryption status of the
@@ -655,7 +655,7 @@ pub mod replication_status {
     /// has a user-managed replication policy.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManagedStatus {
         /// Output only. The list of replica statuses for the
@@ -683,7 +683,7 @@ pub mod replication_status {
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct ReplicaStatus {
             /// Output only. The canonical ID of the replica location.
@@ -744,7 +744,7 @@ pub mod replication_status {
 /// Describes the status of customer-managed encryption.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
@@ -765,7 +765,7 @@ impl CustomerManagedEncryptionStatus {
 /// events occur on this secret.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
     /// Required. The resource name of the Pub/Sub topic that will be published to,
@@ -791,7 +791,7 @@ impl Topic {
 /// set to configure rotation.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
     /// Optional. Timestamp in UTC at which the
@@ -838,7 +838,7 @@ impl Rotation {
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
@@ -883,7 +883,7 @@ impl SecretPayload {
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsRequest {
     /// Required. The resource name of the project associated with the
@@ -938,7 +938,7 @@ impl ListSecretsRequest {
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
     /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
@@ -981,7 +981,7 @@ impl ListSecretsResponse {
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
     /// Required. The resource name of the project to associate with the
@@ -1025,7 +1025,7 @@ impl CreateSecretRequest {
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
     /// Required. The resource name of the
@@ -1057,7 +1057,7 @@ impl AddSecretVersionRequest {
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretRequest {
     /// Required. The resource name of the
@@ -1078,7 +1078,7 @@ impl GetSecretRequest {
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsRequest {
     /// Required. The resource name of the
@@ -1134,7 +1134,7 @@ impl ListSecretVersionsRequest {
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
     /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
@@ -1178,7 +1178,7 @@ impl ListSecretVersionsResponse {
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretVersionRequest {
     /// Required. The resource name of the
@@ -1205,7 +1205,7 @@ impl GetSecretVersionRequest {
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UpdateSecretRequest {
     /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
@@ -1234,7 +1234,7 @@ impl UpdateSecretRequest {
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionRequest {
     /// Required. The resource name of the
@@ -1261,7 +1261,7 @@ impl AccessSecretVersionRequest {
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
     /// The resource name of the
@@ -1292,7 +1292,7 @@ impl AccessSecretVersionResponse {
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeleteSecretRequest {
     /// Required. The resource name of the
@@ -1324,7 +1324,7 @@ impl DeleteSecretRequest {
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
     /// Required. The resource name of the
@@ -1358,7 +1358,7 @@ impl DisableSecretVersionRequest {
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
     /// Required. The resource name of the
@@ -1392,7 +1392,7 @@ impl EnableSecretVersionRequest {
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
     /// Required. The resource name of the

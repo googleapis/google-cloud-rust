@@ -15,7 +15,7 @@
 /// Request message for `SetIamPolicy` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being specified.
@@ -59,7 +59,7 @@ impl SetIamPolicyRequest {
 /// Request message for `GetIamPolicy` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being requested.
@@ -88,7 +88,7 @@ impl GetIamPolicyRequest {
 /// Request message for `TestIamPermissions` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
     /// REQUIRED: The resource for which the policy detail is being requested.
@@ -119,7 +119,7 @@ impl TestIamPermissionsRequest {
 /// Response message for `TestIamPermissions` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
@@ -138,7 +138,7 @@ impl TestIamPermissionsResponse {
 /// Encapsulates settings provided to GetIamPolicy.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetPolicyOptions {
     /// Optional. The maximum policy version that will be used to format the
@@ -245,7 +245,7 @@ impl GetPolicyOptions {
 /// [IAM documentation](https://cloud.google.com/iam/docs/).
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Policy {
     /// Specifies the format of the policy.
@@ -335,7 +335,7 @@ impl Policy {
 /// Associates `members`, or principals, with a `role`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Binding {
     /// Role that is assigned to the list of `members`, or principals.
@@ -476,7 +476,7 @@ impl Binding {
 /// `aliya@example.com` from DATA_WRITE logging.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
@@ -526,7 +526,7 @@ impl AuditConfig {
 /// jose@example.com from DATA_READ logging.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditLogConfig {
     /// The log type that this config enables.
@@ -594,7 +594,7 @@ pub mod audit_log_config {
 /// The difference delta between two policies.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PolicyDelta {
     /// The delta for Bindings between two policies.
@@ -625,7 +625,7 @@ impl PolicyDelta {
 /// entry) to a binding will be a separate entry.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BindingDelta {
     /// The action that was performed on a Binding.
@@ -710,7 +710,7 @@ pub mod binding_delta {
 /// exempted_member in each entry) to a AuditConfig will be a separate entry.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfigDelta {
     /// The action that was performed on an audit configuration in a policy.
