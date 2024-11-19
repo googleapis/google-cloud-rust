@@ -177,7 +177,6 @@ func (r *GenerateRequest) outDir() string {
 func Generate(req *GenerateRequest) error {
 	data := newTemplateData(req.API, req.Codec)
 	root := filepath.Join(req.TemplateDir, req.Codec.TemplateDir())
-	slog.Info(root)
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
