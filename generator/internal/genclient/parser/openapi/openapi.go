@@ -213,7 +213,7 @@ func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document
 			if op.Operation == nil {
 				continue
 			}
-			requestMessage, err := makeRequestMessage(api, op.Operation)
+			requestMessage, err := makeRequestMessage(api, op.Operation, pattern)
 			if err != nil {
 				return nil, err
 			}
@@ -267,7 +267,7 @@ func makePathTemplate(template string) []genclient.PathSegment {
 	return segments
 }
 
-func makeRequestMessage(api *genclient.API, operation *v3.Operation) (*genclient.Message, error) {
+func makeRequestMessage(api *genclient.API, operation *v3.Operation, template string) (*genclient.Message, error) {
 	messageName := fmt.Sprintf("%sRequest", operation.OperationId)
 	id := fmt.Sprintf("..%s", messageName)
 	message := &genclient.Message{
@@ -327,10 +327,19 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation) (*genclient
 		if err != nil {
 			return nil, err
 		}
+		documentation := p.Description
+		if len(documentation) == 0 {
+			// In Google's OpenAPI v3 specifications the parameters often lack
+			// any documentation. Create a synthetic document in this case.
+			documentation = fmt.Sprintf(
+				"The `{%s}` component of the target path.\n"+
+					"\n"+
+					"The full target path will be in the form `%s`.", p.Name, template)
+		}
 		field := &genclient.Field{
 			Name:          p.Name,
 			JSONName:      p.Name, // OpenAPI fields are already camelCase
-			Documentation: p.Description,
+			Documentation: documentation,
 			Optional:      p.Required == nil || !*p.Required,
 			Typez:         typez,
 			TypezID:       typezID,

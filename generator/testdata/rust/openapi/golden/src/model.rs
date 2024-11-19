@@ -237,7 +237,9 @@ pub struct Secret {
     /// retroactively to existing SecretVersions.
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
     pub project: String,
 
     /// Required. This must be unique within the project.
@@ -247,10 +249,14 @@ pub struct Secret {
     /// underscore (`_`) characters.
     pub secret_id: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     pub secret: String,
 
     /// Required. Specifies the fields to be updated.
@@ -593,13 +599,19 @@ pub struct AddSecretVersionRequest {
     /// Required. The secret payload of the SecretVersion.
     pub payload: Option<crate::model::SecretPayload>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
     pub secret: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
     pub location: String,
 }
 
@@ -1015,16 +1027,24 @@ pub struct DisableSecretVersionRequest {
     /// omitted, the request succeeds.
     pub etag: Option<String>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     pub version: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
     pub location: String,
 }
 
@@ -1071,16 +1091,24 @@ pub struct EnableSecretVersionRequest {
     /// omitted, the request succeeds.
     pub etag: Option<String>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     pub version: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
     pub location: String,
 }
 
@@ -1127,16 +1155,24 @@ pub struct DestroySecretVersionRequest {
     /// omitted, the request succeeds.
     pub etag: Option<String>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     pub version: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
     pub location: String,
 }
 
@@ -1191,13 +1227,19 @@ pub struct SetIamPolicyRequest {
     /// `paths: "bindings, etag"`
     pub update_mask: Option<wkt::FieldMask>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
     pub secret: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
     pub location: String,
 }
 
@@ -1747,13 +1789,19 @@ pub struct TestIamPermissionsRequest {
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
     pub permissions: Vec<String>,
 
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
     pub secret: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
     pub location: String,
 }
 
@@ -1808,7 +1856,9 @@ impl TestIamPermissionsResponse {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListLocationsRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations`.
     pub project: String,
 
     /// A filter to narrow down results to a preferred subset.
@@ -1857,10 +1907,14 @@ impl ListLocationsRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetLocationRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
     pub location: String,
 }
 
@@ -1884,7 +1938,9 @@ impl GetLocationRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
     pub project: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
@@ -1936,10 +1992,14 @@ impl ListSecretsRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsByProjectAndLocationRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     pub location: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
@@ -1997,10 +2057,14 @@ impl ListSecretsByProjectAndLocationRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     pub secret: String,
 }
 
@@ -2024,10 +2088,14 @@ impl GetSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeleteSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     pub secret: String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
@@ -2062,13 +2130,19 @@ impl DeleteSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretByProjectAndLocationAndSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub secret: String,
 }
 
@@ -2098,13 +2172,19 @@ impl GetSecretByProjectAndLocationAndSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     pub secret: String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
@@ -2145,10 +2225,14 @@ impl DeleteSecretByProjectAndLocationAndSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
     pub secret: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
@@ -2206,13 +2290,19 @@ impl ListSecretVersionsRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     pub secret: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
@@ -2276,13 +2366,19 @@ impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretVersionRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     pub version: String,
 }
 
@@ -2312,16 +2408,24 @@ impl GetSecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     pub version: String,
 }
 
@@ -2357,13 +2461,19 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     pub version: String,
 }
 
@@ -2393,16 +2503,24 @@ impl AccessSecretVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     pub secret: String,
 
+    /// The `{version}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     pub version: String,
 }
 
@@ -2438,10 +2556,14 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
     pub project: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
     pub secret: String,
 
     /// Optional. The maximum policy version that will be used to format the
@@ -2491,13 +2613,19 @@ impl GetIamPolicyRequest {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
+    /// The `{project}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     pub project: String,
 
+    /// The `{location}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     pub location: String,
 
+    /// The `{secret}` component of the target path.
     ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     pub secret: String,
 
     /// Optional. The maximum policy version that will be used to format the

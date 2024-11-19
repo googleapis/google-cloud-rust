@@ -630,7 +630,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "project",
 				JSONName:      "project",
-				Documentation: "",
+				Documentation: "The `{project}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/locations`.",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
 			},
