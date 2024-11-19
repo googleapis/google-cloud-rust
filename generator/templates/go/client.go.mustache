@@ -18,7 +18,7 @@ limitations under the License.
 //{{{.}}}
 {{/BoilerPlate}}
 
-package {{NameToLower}}
+package {{GoPackage}}
 
 import (
     "bytes"
@@ -33,6 +33,7 @@ import (
     "cloud.google.com/go/auth"
 )
 
+{{#HasServices}}
 type Options struct {
     Credentials *auth.Credentials
     Endpoint    string
@@ -139,6 +140,7 @@ func doRequest(client *http.Client, req *http.Request) ([]byte, error){
     }
     return b, nil
 }
+{{/HasServices}}
 {{#Messages}}
 {{> message}}
 {{/Messages}}

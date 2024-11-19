@@ -1,0 +1,14 @@
+[general]
+specification-format = 'protobuf'
+specification-source = 'generator/testdata/googleapis/google/type'
+service-config = ''
+language = 'go'
+template-dir = 'generator/templates'
+
+[source]
+googleapis-root = 'generator/testdata/googleapis'
+
+[codec]
+copyright-year = '2024'
+go-package-name = 'typez'
+package-name-override = 'github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez'

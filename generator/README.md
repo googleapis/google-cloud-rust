@@ -48,7 +48,9 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -projec
   -codec-option package:gax=package=gax,path=gax,feature=sdk_client
 ```
 
-## Installing `protoc`: the Protobuf Compiler
+## Prerequisites
+
+### Installing `protoc`: the Protobuf Compiler
 
 The unit tests use `protoc` to parse text `.proto` files. You will need this
 installed in your `$PATH` to run the tests.
@@ -68,6 +70,12 @@ we suggest two approaches:
   cd /usr/local
   sudo unzip -x /tmp/protoc.zip
   ```
+
+### Install goimports
+
+```shell
+go install golang.org/x/tools/cmd/goimports@latest
+```
 
 [grpc tutorial]: https://grpc.io/docs/protoc-installation/
 [protobuf-latest]: https://github.com/protocolbuffers/protobuf/releases/latest

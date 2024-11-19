@@ -108,6 +108,9 @@ type LanguageCodec interface {
 	Validate(api *API) error
 	// The year when this package was first generated.
 	CopyrightYear() string
+	// Any more data that can be pulled in to render the template. This is
+	// language specific.
+	AdditionalContext() any
 }
 
 // Parser converts an textual specification to a `genclient.API` object.
@@ -187,7 +190,12 @@ func Generate(req *GenerateRequest) error {
 			// skipping partials
 			return nil
 		}
-		s, err := mustache.RenderFile(path, data)
+		var context []any
+		context = append(context, data)
+		if req.Codec.AdditionalContext() != nil {
+			context = append(context, req.Codec.AdditionalContext())
+		}
+		s, err := mustache.RenderFile(path, context...)
 		if err != nil {
 			return err
 		}
