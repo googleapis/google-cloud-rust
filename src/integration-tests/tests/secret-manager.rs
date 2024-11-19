@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rand::{distributions::Alphanumeric, Rng};
 use integration_tests::Result;
+use rand::{distributions::Alphanumeric, Rng};
 
 const SECRET_ID_LENGTH: usize = 64;
 
