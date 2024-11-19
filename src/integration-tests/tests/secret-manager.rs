@@ -74,9 +74,9 @@ async fn cleanup_stale_secrets(
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    use std::time::{SystemTime, UNIX_EPOCH};
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
-    let stale_deadline = stale_deadline - std::time::Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = stale_deadline.as_secs() as i64;
 
     let mut stale_secrets = Vec::new();
