@@ -171,7 +171,10 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub async fn create_secret(&self, req: crate::model::Secret) -> Result<crate::model::Secret> {
+    pub async fn create_secret(
+        &self,
+        req: crate::model::CreateSecretRequest,
+    ) -> Result<crate::model::Secret> {
         let client = self.client.inner.clone();
         let builder = client
             .http_client
@@ -184,7 +187,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
+            .json(&req.request_body)
             .send()
             .await
             .map_err(Error::io)?;
@@ -241,7 +244,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
     /// Creates a new Secret containing no SecretVersions.
     pub async fn create_secret_by_project_and_location(
         &self,
-        req: crate::model::Secret,
+        req: crate::model::CreateSecretByProjectAndLocationRequest,
     ) -> Result<crate::model::Secret> {
         let client = self.client.inner.clone();
         let builder = client
@@ -255,7 +258,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
+            .json(&req.request_body)
             .send()
             .await
             .map_err(Error::io)?;
@@ -288,7 +291,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -321,7 +323,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -403,7 +404,10 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
     }
 
     /// Updates metadata of an existing Secret.
-    pub async fn update_secret(&self, req: crate::model::Secret) -> Result<crate::model::Secret> {
+    pub async fn update_secret(
+        &self,
+        req: crate::model::UpdateSecretRequest,
+    ) -> Result<crate::model::Secret> {
         let client = self.client.inner.clone();
         let builder = client
             .http_client
@@ -420,7 +424,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         .map_err(Error::other)?;
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
+            .json(&req.request_body)
             .send()
             .await
             .map_err(Error::io)?;
@@ -504,7 +508,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
     /// Updates metadata of an existing Secret.
     pub async fn update_secret_by_project_and_location_and_secret(
         &self,
-        req: crate::model::Secret,
+        req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
         let client = self.client.inner.clone();
         let builder = client
@@ -522,7 +526,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
         .map_err(Error::other)?;
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
+            .json(&req.request_body)
             .send()
             .await
             .map_err(Error::io)?;
@@ -769,7 +773,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -804,7 +807,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -839,7 +841,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -874,7 +875,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -910,7 +910,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -946,7 +945,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -982,7 +980,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1018,7 +1015,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1132,7 +1128,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1170,7 +1165,6 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;

@@ -697,7 +697,7 @@ func TestMakeAPI(t *testing.T) {
 				Name:          "CreateSecret",
 				ID:            "CreateSecret",
 				Documentation: "Creates a new Secret containing no SecretVersions.",
-				InputTypeID:   "..Secret",
+				InputTypeID:   "..CreateSecretRequest",
 				OutputTypeID:  "..Secret",
 				PathInfo: &genclient.PathInfo{
 					Verb:          "POST",
