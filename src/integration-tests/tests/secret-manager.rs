@@ -17,7 +17,7 @@ use rand::{distributions::Alphanumeric, Rng};
 
 const SECRET_ID_LENGTH: usize = 64;
 
-pub async fn secretmanager() -> Result<()> {
+pub async fn secretmanager_protobuf() -> Result<()> {
     let project_id = integration_tests::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -25,7 +25,7 @@ pub async fn secretmanager() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = test_client().await?;
+    let client = sm::Client::new(integration_tests::test_token().await?).secret_manager_service();
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
@@ -63,6 +63,66 @@ pub async fn secretmanager() -> Result<()> {
 
     let response = client
         .delete_secret(sm::model::DeleteSecretRequest::default().set_name(get_response.name))
+        .await?;
+    println!("DELETE = {response:?}");
+
+    Ok(())
+}
+
+pub async fn secretmanager_openapi() -> Result<()> {
+    let project_id = integration_tests::project_id()?;
+    let secret_id: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(SECRET_ID_LENGTH)
+        .map(char::from)
+        .collect();
+
+    let client = smo::Client::new(integration_tests::test_token().await?)
+        .google_cloud_secretmanager_v_1_secret_manager_service();
+
+    let create_response = client
+        .create_secret(
+            smo::model::CreateSecretRequest::default()
+                .set_project(&project_id)
+                .set_secret_id(&secret_id)
+                .set_request_body(
+                    smo::model::Secret::default()
+                        .set_replication(
+                            smo::model::Replication::default()
+                                .set_automatic(smo::model::Automatic::default()),
+                        )
+                        .set_labels(
+                            [("integration-test", "true")]
+                                .map(|(k, v)| (k.to_string(), v.to_string())),
+                        ),
+                ),
+        )
+        .await?;
+    println!("CREATE = {create_response:?}");
+
+    let project_name = create_response
+        .name
+        .as_ref()
+        .map(|s| s.strip_suffix(format!("/secrets/{secret_id}").as_str()))
+        .flatten();
+    assert!(project_name.is_some());
+
+    let get_response = client
+        .get_secret(
+            smo::model::GetSecretRequest::default()
+                .set_project(&project_id)
+                .set_secret(&secret_id),
+        )
+        .await?;
+    println!("GET = {get_response:?}");
+    assert_eq!(get_response, create_response);
+
+    let response = client
+        .delete_secret(
+            smo::model::DeleteSecretRequest::default()
+                .set_project(&project_id)
+                .set_secret(&secret_id),
+        )
         .await?;
     println!("DELETE = {response:?}");
 
@@ -119,13 +179,16 @@ async fn cleanup_stale_secrets(
     Ok(())
 }
 
-async fn test_client() -> Result<sm::SecretManagerService> {
-    Ok(sm::Client::new(integration_tests::test_token().await?).secret_manager_service())
+#[cfg(all(test, feature = "run-integration-tests"))]
+#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+async fn run_secretmanager_protobuf() -> Result<()> {
+    secretmanager_protobuf().await?;
+    Ok(())
 }
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-async fn run_secretmanager() -> Result<()> {
-    secretmanager().await?;
+async fn run_secretmanager_openapi() -> Result<()> {
+    secretmanager_openapi().await?;
     Ok(())
 }

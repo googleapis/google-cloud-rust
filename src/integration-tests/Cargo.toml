@@ -28,5 +28,6 @@ auth    = { path = "../../auth", package = "google-cloud-auth" }
 gax     = { path = "../../gax", package = "gax" }
 wkt     = { path = "../../types", package = "types" }
 sm      = { path = "../../generator/testdata/rust/gclient/golden/secretmanager", package = "secretmanager-golden-gclient" }
+smo     = { path = "../../generator/testdata/rust/openapi/golden", package = "secretmanager-golden-openapi" }
 rand    = "0.8.5"
 futures = "0.3.31"

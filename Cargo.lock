@@ -824,6 +824,7 @@ dependencies = [
  "google-cloud-auth",
  "rand",
  "secretmanager-golden-gclient",
+ "secretmanager-golden-openapi",
  "tokio",
  "types",
 ]
