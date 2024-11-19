@@ -23,7 +23,7 @@ publish = ["prevent-accidental-publication"]
 run-integration-tests = ["dep:tokio"]
 
 [dependencies]
-tokio = { version = "1.12", features = ["full", "macros"], optional=true }
+tokio = { version = "1.12", features = ["full", "macros"], optional = true }
 auth = { path = "../../auth", package = "google-cloud-auth" }
 gax = { path = "../../gax", package = "gax" }
 wkt = { path = "../../types", package = "types" }
