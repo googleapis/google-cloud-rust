@@ -41,6 +41,7 @@ pub struct {{Name}} {
     {{#FieldAttributes}}
     {{{.}}}
     {{/FieldAttributes}}
+    #[serde(flatten)]
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }

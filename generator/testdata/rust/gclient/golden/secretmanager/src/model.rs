@@ -125,6 +125,7 @@ pub struct Secret {
     /// Conditions](https://cloud.google.com/secret-manager/docs/access-control#conditions)
     /// is recommended for granting time-based permissions because the operation
     /// can be reversed.
+    #[serde(flatten)]
     pub expiration: Option<crate::model::secret::Expiration>,
 }
 
@@ -231,7 +232,7 @@ pub mod secret {
     /// is recommended for granting time-based permissions because the operation
     /// can be reversed.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase", untagged)]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Expiration {
         /// Optional. Timestamp in UTC when the
@@ -422,6 +423,7 @@ pub mod secret_version {
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
+    #[serde(flatten)]
     pub replication: Option<crate::model::replication::Replication>,
 }
 
@@ -546,7 +548,7 @@ pub mod replication {
 
     /// The replication policy for this secret.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase", untagged)]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Replication {
         /// The [Secret][google.cloud.secretmanager.v1.Secret] will automatically be
@@ -598,6 +600,7 @@ impl CustomerManagedEncryption {
 pub struct ReplicationStatus {
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    #[serde(flatten)]
     pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
 }
 
@@ -719,7 +722,7 @@ pub mod replication_status {
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase", untagged)]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum ReplicationStatus {
         /// Describes the replication status of a
