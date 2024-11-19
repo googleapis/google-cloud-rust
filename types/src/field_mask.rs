@@ -286,7 +286,11 @@ impl<'de> serde::de::Visitor<'de> for PathVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(value.split(',').map(str::to_string).collect())
+        if value.is_empty() {
+            Ok(Vec::new())
+        } else {
+            Ok(value.split(',').map(str::to_string).collect())
+        }
     }
 }
 
@@ -316,11 +320,13 @@ mod test {
 
     #[test_case("", vec![]; "Deserialize empty")]
     #[test_case("field1", vec!["field1"]; "Deserialize single")]
-    #[test_case("field1,field2,field3", vec!["field1,field2,field3"]; "Deserialize multiple")]
-    fn test_deserialize(paths: &str, want: Vec<&str>) -> Result {
+    #[test_case("field1,field2,field3", vec!["field1" ,"field2", "field3"]; "Deserialize multiple")]
+    fn test_deserialize(paths: &str, mut want: Vec<&str>) -> Result {
         let value = json!({ "paths": paths });
-        let got = serde_json::from_value::<FieldMask>(value)?;
-        assert_eq!(got.paths.clone().sort(), want.clone().sort());
+        let mut got = serde_json::from_value::<FieldMask>(value)?;
+        want.sort();
+        got.paths.sort();
+        assert_eq!(got.paths, want);
         Ok(())
     }
 }
