@@ -13,24 +13,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-{{^IsMap}}
+module {{PackageName}}
 
-{{#DocLines}}
-// {{{.}}}
-{{/DocLines}}
-type {{Name}} struct {
-    {{#Fields}}
-
-    {{#DocLines}}
-    // {{{.}}}
-    {{/DocLines}}
-    {{NameToPascal}} {{FieldType}} `json:"{{JSONName}},omitempty"`
-    {{/Fields}}
-}
-{{#NestedMessages}}
-{{> message}}
-{{/NestedMessages}}
-{{#Enums}}
-{{> enum}}
-{{/Enums}}
-{{/IsMap}}
+go 1.23.2

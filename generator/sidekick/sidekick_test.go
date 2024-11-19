@@ -170,3 +170,65 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestGoFromProtobuf(t *testing.T) {
+	const (
+		projectRoot = "../.."
+		outDir      = "generator/testdata/go/gclient/golden"
+	)
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Chdir(cwd)
+	if err := os.Chdir(projectRoot); err != nil {
+		t.Fatal(err)
+	}
+
+	type Config struct {
+		Source       string
+		Name         string
+		ExtraOptions []string
+	}
+	configs := []Config{
+		{
+			Source: "generator/testdata/googleapis/google/type",
+			Name:   "typez",
+		},
+	}
+
+	for _, config := range configs {
+		args := []string{
+			"-specification-format", "protobuf",
+			"-specification-source", config.Source,
+			"-parser-option", "googleapis-root=generator/testdata/googleapis",
+			"-language", "go",
+			"-output", path.Join(outDir, config.Name),
+			"-template-dir", "generator/templates",
+			"-codec-option", "copyright-year=2024",
+			"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
+			"-codec-option", "go-package-name=typez",
+		}
+		if err := Generate(args); err != nil {
+			t.Fatal(err)
+		}
+
+		cmd := exec.Command("goimports", "-w", ".")
+		cmd.Dir = path.Join(outDir, config.Name)
+		if output, err := cmd.CombinedOutput(); err != nil {
+			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+			}
+			t.Fatalf("%v: %v\n%s", cmd, err, output)
+		}
+		cmd = exec.Command("go", "mod", "tidy")
+		cmd.Dir = path.Join(outDir, config.Name)
+		if output, err := cmd.CombinedOutput(); err != nil {
+			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+			}
+			t.Fatalf("%v: %v\n%s", cmd, err, output)
+		}
+	}
+}

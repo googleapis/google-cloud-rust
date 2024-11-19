@@ -170,6 +170,10 @@ func (m *method) NameToCamel() string {
 	return strcase.ToCamel(m.s.Name)
 }
 
+func (m *method) NameToPascal() string {
+	return m.c.ToPascal(m.s.Name)
+}
+
 func (m *method) DocLines() []string {
 	return m.c.FormatDocComments(m.s.Documentation)
 }

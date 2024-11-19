@@ -25,11 +25,22 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewCodec() *Codec {
+func NewCodec(copts *genclient.CodecOptions) *Codec {
 	year, _, _ := time.Now().Date()
-	return &Codec{
+	codec := &Codec{
 		GenerationYear: fmt.Sprintf("%04d", year),
 	}
+	for key, definition := range copts.Options {
+		switch key {
+		case "package-name-override":
+			codec.PackageNameOverride = definition
+			continue
+		case "go-package-name":
+			codec.GoPackageName = definition
+			continue
+		}
+	}
+	return codec
 }
 
 type Codec struct {
@@ -38,6 +49,10 @@ type Codec struct {
 	SourceSpecificationPackageName string
 	// The year when the files were first generated.
 	GenerationYear string
+	// Package name override. If not empty, overrides the default package name.
+	PackageNameOverride string
+	// The package name to generate code into
+	GoPackageName string
 }
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
@@ -122,10 +137,7 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
 	}
-	if m.Package != "" {
-		return m.Package + "." + strcase.ToCamel(m.Name)
-	}
-	return strcase.ToCamel(m.Name)
+	return c.ToPascal(m.Name)
 }
 
 func (c *Codec) FQMessageName(m *genclient.Message, state *genclient.APIState) string {
@@ -240,7 +252,10 @@ func (c *Codec) CopyrightYear() string {
 	return c.GenerationYear
 }
 
-func (*Codec) PackageName(api *genclient.API) string {
+func (c *Codec) PackageName(api *genclient.API) string {
+	if len(c.PackageNameOverride) > 0 {
+		return c.PackageNameOverride
+	}
 	return api.Name
 }
 
@@ -275,6 +290,16 @@ func (c *Codec) Validate(api *genclient.API) error {
 		}
 	}
 	return nil
+}
+
+type GoContext struct {
+	GoPackage string
+}
+
+func (c *Codec) AdditionalContext() any {
+	return GoContext{
+		GoPackage: c.GoPackageName,
+	}
 }
 
 // The list of Golang keywords and reserved words can be found at:
