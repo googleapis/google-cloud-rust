@@ -163,10 +163,6 @@ impl AccessToken {
             false
         }
     }
-
-    pub fn expires(&self) -> Option<DateTime<Utc>> {
-        self.expires
-    }
 }
 
 /// Configuration for various authentication flows.
