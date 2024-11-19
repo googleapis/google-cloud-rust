@@ -20,24 +20,13 @@ edition.workspace = true
 publish = ["prevent-accidental-publication"]
 
 [features]
-run-integration-tests = []
+run-integration-tests = ["dep:tokio"]
 
 [dependencies]
-serde = { version = "1.0.214", features = ["serde_derive"] }
-serde_with = "3.11.0"
-serde_json = "1.0.132"
-time = { version = "0.3.36", features = ["formatting", "parsing"] }
-reqwest = { version = "0.12.9", features = ["json"] }
-tokio = { version = "1.12", features = ["full", "macros"] }
-bytes = { version = "1.8.0", features = ["serde"] }
+tokio = { version = "1.12", features = ["full", "macros"], optional=true }
 auth = { path = "../../auth", package = "google-cloud-auth" }
 gax = { path = "../../gax", package = "gax" }
 wkt = { path = "../../types", package = "types" }
 sm = { path = "../../generator/testdata/rust/gclient/golden/secretmanager", package = "secretmanager-golden-gclient" }
-async-trait = "0.1.83"
-tower-reqwest = "0.4.0"
-http = "1.1.0"
-tower = { version = "0.5.1", features = ["reconnect", "retry", "timeout", "tokio", "tracing"] }
-chrono = { version = "0.4", features = ["serde"] }
 rand = "0.8.5"
 futures = "0.3.31"
