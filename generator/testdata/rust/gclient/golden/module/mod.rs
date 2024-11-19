@@ -45,7 +45,7 @@
 /// documentation for additional information.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
 

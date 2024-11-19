@@ -246,7 +246,7 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 
 	case genclient.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
-			attr := []string{`#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]`}
+			attr := []string{`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`}
 			var key, value *genclient.Field
 			for _, f := range message.Fields {
 				switch f.Name {

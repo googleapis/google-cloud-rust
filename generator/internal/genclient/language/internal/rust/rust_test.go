@@ -458,10 +458,10 @@ func TestMapFieldAttributes(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"target":      ``,
-		"map":         `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-		"map_i64":     `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
-		"map_i64_key": `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
-		"map_bytes":   `#[serde(default, skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
+		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
+		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
+		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 	}
 	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
