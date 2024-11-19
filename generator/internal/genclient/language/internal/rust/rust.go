@@ -586,7 +586,7 @@ func (c *Codec) RequiredPackages() []string {
 			feats := strings.Join(mapSlice(pkg.Features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
 			components = append(components, fmt.Sprintf("features = [%s]", feats))
 		}
-		lines = append(lines, fmt.Sprintf("%s = { %s }", pkg.Name, strings.Join(components, ", ")))
+		lines = append(lines, fmt.Sprintf("%-10s = { %s }", pkg.Name, strings.Join(components, ", ")))
 	}
 	sort.Strings(lines)
 	return lines

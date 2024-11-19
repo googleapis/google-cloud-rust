@@ -13,20 +13,20 @@
 # limitations under the License.
 
 [package]
-name = "integration-tests"
-description = "Integration tests for google-cloud-rust."
-version = "0.0.0"
+name              = "integration-tests"
+description       = "Integration tests for google-cloud-rust."
+version           = "0.0.0"
 edition.workspace = true
-publish = ["prevent-accidental-publication"]
+publish           = ["prevent-accidental-publication"]
 
 [features]
 run-integration-tests = ["dep:tokio"]
 
 [dependencies]
-tokio = { version = "1.12", features = ["full", "macros"], optional = true }
-auth = { path = "../../auth", package = "google-cloud-auth" }
-gax = { path = "../../gax", package = "gax" }
-wkt = { path = "../../types", package = "types" }
-sm = { path = "../../generator/testdata/rust/gclient/golden/secretmanager", package = "secretmanager-golden-gclient" }
-rand = "0.8.5"
+tokio   = { version = "1.12", features = ["full", "macros"], optional = true }
+auth    = { path = "../../auth", package = "google-cloud-auth" }
+gax     = { path = "../../gax", package = "gax" }
+wkt     = { path = "../../types", package = "types" }
+sm      = { path = "../../generator/testdata/rust/gclient/golden/secretmanager", package = "secretmanager-golden-gclient" }
+rand    = "0.8.5"
 futures = "0.3.31"

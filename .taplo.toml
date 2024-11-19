@@ -12,10 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[package]
-name    = "check-copyright"
-version = "0.1.0"
-edition = "2021"
+[formatting]
+align_entries = true
+column_width  = 120
 
-[dependencies]
-regex = "1.11.1"
+# The CI builds exclude these explicitly. Having them here makes it easier to
+# format everything we care about. 
+#
+# ```
+# taplot format .
+# ```
+#
+exclude = ['generator/testdata/**']

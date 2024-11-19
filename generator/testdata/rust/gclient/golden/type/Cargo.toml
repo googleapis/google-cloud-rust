@@ -13,16 +13,21 @@
 # limitations under the License.
 
 [package]
-name = "type-golden-gclient"
-version = "0.1.0"
-edition = "2021"
+name                 = "type-golden-gclient"
+version              = "0.1.0"
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
+keywords.workspace   = true
+categories.workspace = true
 
 [dependencies]
-serde = { version = "1.0.214", features = ["serde_derive"] }
+serde      = { version = "1.0.214", features = ["serde_derive"] }
 serde_with = { version = "3.11.0", features = ["base64"] }
 serde_json = "1.0.132"
-time = { version = "0.3.36", features = ["formatting", "parsing"] }
-reqwest = { version = "0.12.9", features = ["json"] }
-bytes = { version = "1.8.0", features = ["serde"] }
-gax = { path = "../../../../../../gax", package = "gax", features = ["sdk_client"] }
-wkt = { path = "../../../../../../types", package = "types" }
+time       = { version = "0.3.36", features = ["formatting", "parsing"] }
+reqwest    = { version = "0.12.9", features = ["json"] }
+bytes      = { version = "1.8.0", features = ["serde"] }
+gax        = { path = "../../../../../../gax", package = "gax", features = ["sdk_client"] }
+wkt        = { path = "../../../../../../types", package = "types" }
