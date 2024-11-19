@@ -133,9 +133,6 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
 	}
-	// if m.Package != "" {
-	// 	return m.Package + "." + strcase.ToCamel(m.Name)
-	// }
 	return c.ToPascal(m.Name)
 }
 

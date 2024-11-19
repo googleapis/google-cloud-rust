@@ -108,8 +108,10 @@ type LanguageCodec interface {
 	Validate(api *API) error
 	// The year when this package was first generated.
 	CopyrightYear() string
-	// Any more data that can be pulled in to render the template. This is
-	// language specific.
+	// Pass language-specific information from the Codec to the template engine.
+	// Prefer using specific methods when the information is applicable to most
+	// (or many) languages. Use this method when the information is application
+	// to only one language.
 	AdditionalContext() any
 }
 
