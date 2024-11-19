@@ -670,7 +670,7 @@ func TestMakeAPI(t *testing.T) {
 		Name:          "Service",
 		ID:            "..Service",
 		Documentation: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
-		DefaultHost:   "https://secretmanager.googleapis.com",
+		DefaultHost:   "secretmanager.googleapis.com",
 		Methods: []*genclient.Method{
 			{
 				Name:          "ListLocations",
