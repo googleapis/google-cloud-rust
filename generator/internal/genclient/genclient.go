@@ -41,6 +41,8 @@ type LanguageCodec interface {
 	FieldAttributes(f *Field, state *APIState) []string
 	// FieldType returns a string representation of a message field type.
 	FieldType(f *Field, state *APIState) string
+	// The field when used to build the query.
+	AsQueryParameter(f *Field, state *APIState) string
 	// The name of a message type ID when used as an input or output argument
 	// in the client methods.
 	MethodInOutTypeName(id string, state *APIState) string
@@ -78,7 +80,7 @@ type LanguageCodec interface {
 	// QueryParams returns key-value pairs of name to accessor for query params.
 	// An example return value might be
 	// `&Pair{Key: "secretId", Value: "req.SecretId()"}`
-	QueryParams(m *Method, state *APIState) []*Pair
+	QueryParams(m *Method, state *APIState) []*Field
 	// ToSnake converts a symbol name to `snake_case`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToSnake(string) string

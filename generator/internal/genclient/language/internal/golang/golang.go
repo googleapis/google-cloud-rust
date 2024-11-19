@@ -98,6 +98,10 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 	return out
 }
 
+func (c *Codec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
+	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
+}
+
 func (c *Codec) TemplateDir() string {
 	return "go"
 }
@@ -188,21 +192,19 @@ func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) [
 	return args
 }
 
-func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Pair {
+func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup type", "id", m.InputTypeID)
 		return nil
 	}
 
-	var queryParams []*genclient.Pair
+	var queryParams []*genclient.Field
 	for _, field := range msg.Fields {
 		if !m.PathInfo.QueryParameters[field.JSONName] {
 			continue
 		}
-		queryParams = append(queryParams, &genclient.Pair{
-			Key:   field.JSONName,
-			Value: "req." + c.ToSnake(field.Name) + ".as_str()"})
+		queryParams = append(queryParams, field)
 	}
 	return queryParams
 }

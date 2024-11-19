@@ -117,21 +117,15 @@ impl Iampolicy {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/{}:setIamPolicy",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -157,21 +151,15 @@ impl Iampolicy {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/{}:getIamPolicy",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -201,21 +189,15 @@ impl Iampolicy {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/{}:testIamPermissions",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()

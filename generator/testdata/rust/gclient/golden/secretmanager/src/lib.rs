@@ -78,22 +78,18 @@ impl SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -117,19 +113,14 @@ impl SecretManagerService {
         &self,
         req: crate::model::CreateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let query_parameters =
-            [gax::query_parameter::format("secretId", &req.secret_id).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req.secret)
             .send()
@@ -155,18 +146,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!("{}/v1/{}:addVersion", self.base_path, req.parent,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -190,18 +175,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -225,11 +204,8 @@ impl SecretManagerService {
         &self,
         req: crate::model::UpdateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let query_parameters = [
-            gax::query_parameter::format("updateMask", &req.update_mask).map_err(Error::other)?
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .patch(format!(
                 "{}/v1/{}",
@@ -238,13 +214,14 @@ impl SecretManagerService {
                     .map_err(Error::other)?
                     .name,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "updateMask",
+            &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req.secret)
             .send()
@@ -268,19 +245,14 @@ impl SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
     ) -> Result<wkt::Empty> {
-        let query_parameters =
-            [gax::query_parameter::format("etag", &req.etag).map_err(Error::other)?];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .delete(format!("{}/v1/{}", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -301,22 +273,18 @@ impl SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let query_parameters = [
-            gax::query_parameter::format("pageSize", &req.page_size).map_err(Error::other)?,
-            gax::query_parameter::format("pageToken", &req.page_token).map_err(Error::other)?,
-            gax::query_parameter::format("filter", &req.filter).map_err(Error::other)?,
-        ];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!("{}/v1/{}/versions", self.base_path, req.parent,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -343,18 +311,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -381,18 +343,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!("{}/v1/{}:access", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .send()
             .await
@@ -419,18 +375,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!("{}/v1/{}:disable", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -458,18 +408,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!("{}/v1/{}:enable", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -498,18 +442,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!("{}/v1/{}:destroy", self.base_path, req.name,))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -539,21 +477,15 @@ impl SecretManagerService {
         &self,
         req: iam::model::SetIamPolicyRequest,
     ) -> Result<iam::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/{}:setIamPolicy",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()
@@ -578,23 +510,22 @@ impl SecretManagerService {
         &self,
         req: iam::model::GetIamPolicyRequest,
     ) -> Result<iam::model::Policy> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .get(format!(
                 "{}/v1/{}:getIamPolicy",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let builder = gax::query_parameter::add(
+            builder,
+            "options",
+            &serde_json::to_value(&req.options).map_err(Error::serde)?,
+        )
+        .map_err(Error::other)?;
+        let res = builder
             .bearer_auth(&client.token)
-            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -622,21 +553,15 @@ impl SecretManagerService {
         &self,
         req: iam::model::TestIamPermissionsRequest,
     ) -> Result<iam::model::TestIamPermissionsResponse> {
-        let query_parameters = [None::<(&str, String)>; 0];
         let client = self.client.inner.clone();
-        let res = client
+        let builder = client
             .http_client
             .post(format!(
                 "{}/v1/{}:testIamPermissions",
                 self.base_path, req.resource,
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>(),
-            )
+            .query(&[("alt", "json")]);
+        let res = builder
             .bearer_auth(&client.token)
             .json(&req)
             .send()

@@ -325,6 +325,18 @@ func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
 	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
 }
 
+func (c *Codec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
+	if f.Typez == genclient.MESSAGE_TYPE {
+		// Query parameters in nested messages are first converted to a
+		// `serde_json::Value`` and then recursively merged into the request
+		// query. The conversion to `serde_json::Value` is expensive, but very
+		// few requests use nested objects as query parameters. Furthermore,
+		// the conversion is skipped if the object field is `None`.`
+		return fmt.Sprintf("&serde_json::to_value(&req.%s).map_err(Error::serde)?", c.ToSnake(f.Name))
+	}
+	return fmt.Sprintf("&req.%s", c.ToSnake(f.Name))
+}
+
 func (c *Codec) TemplateDir() string {
 	if c.GenerateModule {
 		return "rust/mod"
@@ -479,21 +491,19 @@ func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) [
 	return args
 }
 
-func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Pair {
+func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup request type", "id", m.InputTypeID)
 		return nil
 	}
 
-	var queryParams []*genclient.Pair
+	var queryParams []*genclient.Field
 	for _, field := range msg.Fields {
 		if !m.PathInfo.QueryParameters[field.Name] {
 			continue
 		}
-		queryParams = append(queryParams, &genclient.Pair{
-			Key:   field.JSONName,
-			Value: c.ToSnake(field.Name)})
+		queryParams = append(queryParams, field)
 	}
 	return queryParams
 }

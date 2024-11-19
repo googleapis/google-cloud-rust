@@ -82,16 +82,8 @@ impl {{NameToPascal}} {
     {{{.}}}
     {{/DocLines}}
     pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        let query_parameters = [
-                    {{^QueryParams}}
-                    None::<(&str, String)>; 0
-                    {{/QueryParams}}
-                    {{#QueryParams}}
-                    gax::query_parameter::format("{{Key}}", &req.{{Value}}).map_err(Error::other)?,
-                    {{/QueryParams}}
-        ];
         let client = self.client.inner.clone();
-        let res = client.http_client
+        let builder = client.http_client
             .{{HTTPMethodToLower}}(format!(
                "{}{{HTTPPathFmt}}",
                self.base_path,
@@ -99,13 +91,11 @@ impl {{NameToPascal}} {
                {{{.}}},
                {{/HTTPPathArgs}}
             ))
-            .query(&[("alt", "json")])
-            .query(
-                &query_parameters
-                    .into_iter()
-                    .flatten()
-                    .collect::<Vec<(&str, String)>>()
-            )
+            .query(&[("alt", "json")]);
+        {{#QueryParams}}
+        let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
+        {{/QueryParams}}
+        let res = builder
             .bearer_auth(&client.token)
             {{#HasBody}}
             .json(&req{{BodyAccessor}})

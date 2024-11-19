@@ -198,8 +198,14 @@ func (m *method) HTTPPathArgs() []string {
 	return m.c.HTTPPathArgs(m.s.PathInfo, m.state)
 }
 
-func (m *method) QueryParams() []*Pair {
-	return m.c.QueryParams(m.s, m.state)
+func (m *method) QueryParams() []*field {
+	return mapSlice(m.c.QueryParams(m.s, m.state), func(s *Field) *field {
+		return &field{
+			s:     s,
+			c:     m.c,
+			state: m.state,
+		}
+	})
 }
 
 func (m *method) HasBody() bool {
@@ -395,6 +401,10 @@ func (f *field) FieldType() string {
 
 func (f *field) JSONName() string {
 	return f.s.JSONName
+}
+
+func (f *field) AsQueryParameter() string {
+	return f.c.AsQueryParameter(f.s, f.state)
 }
 
 type oneOf struct {

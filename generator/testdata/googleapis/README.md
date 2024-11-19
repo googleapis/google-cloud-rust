@@ -22,9 +22,3 @@ cp $HOME/googleapis/google/cloud/secretmanager/v1/resources.proto        ./googl
 cp $HOME/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml  ./google/cloud/secretmanager/v1
 cp $HOME/googleapis/google/cloud/secretmanager/v1/service.proto          ./google/cloud/secretmanager/v1
 ```
-
-And then apply the one patch:
-
-```shell
-patch -p4 <patch-0001.patch
-```

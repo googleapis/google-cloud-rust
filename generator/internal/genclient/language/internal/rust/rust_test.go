@@ -559,6 +559,112 @@ func TestFieldType(t *testing.T) {
 	}
 }
 
+func TestQueryParams(t *testing.T) {
+	options := &genclient.Message{
+		Name:   "Options",
+		ID:     "..Options",
+		Fields: []*genclient.Field{},
+	}
+	optionsField := &genclient.Field{
+		Name:     "options_field",
+		JSONName: "optionsField",
+		Typez:    genclient.MESSAGE_TYPE,
+		TypezID:  options.ID,
+	}
+	anotherField := &genclient.Field{
+		Name:     "another_field",
+		JSONName: "anotherField",
+		Typez:    genclient.STRING_TYPE,
+		TypezID:  options.ID,
+	}
+	request := &genclient.Message{
+		Name: "TestRequest",
+		ID:   "..TestRequest",
+		Fields: []*genclient.Field{
+			optionsField, anotherField,
+			{
+				Name: "unused",
+			},
+		},
+	}
+	method := &genclient.Method{
+		Name:         "Test",
+		ID:           "..TestService.Test",
+		InputTypeID:  request.ID,
+		OutputTypeID: ".google.protobuf.Empty",
+		PathInfo: &genclient.PathInfo{
+			Verb: "GET",
+			QueryParameters: map[string]bool{
+				"options_field": true,
+				"another_field": true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI(
+		[]*genclient.Message{options, request},
+		[]*genclient.Enum{},
+		[]*genclient.Service{
+			{
+				Name:    "TestService",
+				ID:      "..TestService",
+				Methods: []*genclient.Method{method},
+			},
+		})
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+
+	got := c.QueryParams(method, api.State)
+	want := []*genclient.Field{optionsField, anotherField}
+	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
+		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+	}
+}
+
+func TestAsQueryParameter(t *testing.T) {
+	options := &genclient.Message{
+		Name:   "Options",
+		ID:     "..Options",
+		Fields: []*genclient.Field{},
+	}
+	optionsField := &genclient.Field{
+		Name:     "options_field",
+		JSONName: "optionsField",
+		Typez:    genclient.MESSAGE_TYPE,
+		TypezID:  options.ID,
+	}
+	anotherField := &genclient.Field{
+		Name:     "another_field",
+		JSONName: "anotherField",
+		Typez:    genclient.STRING_TYPE,
+		TypezID:  options.ID,
+	}
+	request := &genclient.Message{
+		Name:   "TestRequest",
+		ID:     "..TestRequest",
+		Fields: []*genclient.Field{optionsField, anotherField},
+	}
+	api := genclient.NewTestAPI(
+		[]*genclient.Message{options, request},
+		[]*genclient.Enum{},
+		[]*genclient.Service{})
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+
+	want := "&serde_json::to_value(&req.options_field).map_err(Error::serde)?"
+	got := c.AsQueryParameter(optionsField, api.State)
+	if want != got {
+		t.Errorf("mismatched as query parameter for options_field, want=%s, got=%s", want, got)
+	}
+
+	want = "&req.another_field"
+	got = c.AsQueryParameter(anotherField, api.State)
+	if want != got {
+		t.Errorf("mismatched as query parameter for another_field, want=%s, got=%s", want, got)
+	}
+
+}
+
 type CaseConvertTest struct {
 	Input    string
 	Expected string
