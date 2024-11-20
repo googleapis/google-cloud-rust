@@ -54,16 +54,6 @@ impl ConfigBuilder {
         self
     }
 
-    pub(crate) fn set_client(mut self, client: reqwest::Client) -> Self {
-        self.client = Some(client);
-        self
-    }
-
-    pub(crate) fn set_credential(mut self, cred: Credential) -> Self {
-        self.cred = Some(cred);
-        self
-    }
-
     pub(crate) fn default_client() -> reqwest::Client {
         reqwest::Client::builder().build().unwrap()
     }

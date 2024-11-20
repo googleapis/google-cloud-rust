@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod error;
+mod core_error;
 mod http_error;
 pub mod rpc;
-pub use error::*;
+pub use core_error::*;
 pub use http_error::*;
