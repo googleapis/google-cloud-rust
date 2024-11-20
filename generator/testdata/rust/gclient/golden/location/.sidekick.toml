@@ -1,0 +1,16 @@
+[general]
+specification-format = 'protobuf'
+specification-source = 'generator/testdata/googleapis/google/cloud/location'
+service-config = 'generator/testdata/googleapis/google/cloud/location/cloud.yaml'
+language = 'rust'
+template-dir = 'generator/templates'
+
+[source]
+googleapis-root = 'generator/testdata/googleapis'
+
+[codec]
+copyright-year = '2024'
+package-name-override = 'location-golden-gclient'
+'package:gax' = 'package=gax,path=gax,feature=sdk_client'
+'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'
+'package:wkt' = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'
