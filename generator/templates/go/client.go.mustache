@@ -31,6 +31,9 @@ import (
 	"time"
 
     "cloud.google.com/go/auth"
+    {{#Imports}}
+    {{{.}}}
+    {{/Imports}}
 )
 
 {{#HasServices}}
@@ -44,7 +47,7 @@ type Client struct {
     hc *http.Client
     opts *Options
     {{#Services}}
-    {{NameToLowerCamel}} *{{NameToCamel}}
+    {{NameToCamel}} *{{ServiceName}}
     {{/Services}}
 }
 
@@ -74,7 +77,7 @@ func (c *Client) token(ctx context.Context) (string, error) {
 {{#DocLines}}
 // {{{.}}}
 {{/DocLines}}
-type {{NameToCamel}} struct {
+type {{ServiceName}} struct {
     client *Client
     baseURL   string
 }
@@ -82,15 +85,15 @@ type {{NameToCamel}} struct {
 {{#DocLines}}
 // {{{.}}}
 {{/DocLines}}
-func (c *Client) {{NameToCamel}}() *{{NameToCamel}}{
-    return &{{NameToCamel}}{client: c, baseURL: "https://{{DefaultHost}}"}
+func (c *Client) {{ServiceName}}() *{{ServiceName}}{
+    return &{{ServiceName}}{client: c, baseURL: "https://{{DefaultHost}}"}
 }
 
 {{#Methods}}
 {{#DocLines}}
 // {{{.}}}
 {{/DocLines}}
-func (s *{{ServiceNameToCamel}}) {{NameToCamel}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputTypeName}}, error) {
+func (s *{{ServiceName}}) {{NameToCamel}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputTypeName}}, error) {
     out := new({{OutputTypeName}})
     {{#HasBody}}
     reqBody, err := json.Marshal(req{{BodyAccessor}})

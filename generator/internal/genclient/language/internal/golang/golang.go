@@ -25,22 +25,34 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewCodec(copts *genclient.CodecOptions) *Codec {
+func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &Codec{
 		GenerationYear: fmt.Sprintf("%04d", year),
+		ImportMap:      map[string]*Import{},
 	}
 	for key, definition := range copts.Options {
-		switch key {
-		case "package-name-override":
+		switch {
+		case key == "package-name-override":
 			codec.PackageNameOverride = definition
-			continue
-		case "go-package-name":
+		case key == "go-package-name":
 			codec.GoPackageName = definition
-			continue
+		case strings.HasPrefix(key, "import-mapping"):
+			keys := strings.Split(key, ":")
+			if len(keys) != 2 {
+				return nil, fmt.Errorf("key should be in the format import-mapping:proto.path, got=%q", key)
+			}
+			defs := strings.Split(definition, ";")
+			if len(defs) != 2 {
+				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
+			}
+			codec.ImportMap[keys[1]] = &Import{
+				Path: defs[0],
+				Name: defs[1],
+			}
 		}
 	}
-	return codec
+	return codec, nil
 }
 
 type Codec struct {
@@ -53,6 +65,13 @@ type Codec struct {
 	PackageNameOverride string
 	// The package name to generate code into
 	GoPackageName string
+	// A map containing package id to import path information
+	ImportMap map[string]*Import
+}
+
+type Import struct {
+	Path string
+	Name string
 }
 
 func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
@@ -136,6 +155,9 @@ func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
+	}
+	if imp, ok := c.ImportMap[m.Package]; ok {
+		return imp.Name + "." + c.ToPascal(m.Name)
 	}
 	return c.ToPascal(m.Name)
 }
@@ -300,6 +322,14 @@ func (c *Codec) AdditionalContext() any {
 	return GoContext{
 		GoPackage: c.GoPackageName,
 	}
+}
+
+func (c *Codec) Imports() []string {
+	var imports []string
+	for _, imp := range c.ImportMap {
+		imports = append(imports, fmt.Sprintf("%q", imp.Path))
+	}
+	return imports
 }
 
 // The list of Golang keywords and reserved words can be found at:

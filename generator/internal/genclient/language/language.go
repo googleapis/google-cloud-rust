@@ -28,7 +28,7 @@ func knownCodecs() map[string]createCodec {
 	return map[string]createCodec{
 		"rust": func(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) { return rust.NewCodec(copts) },
 		"go": func(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) {
-			return golang.NewCodec(copts), nil
+			return golang.NewCodec(copts)
 		},
 	}
 }

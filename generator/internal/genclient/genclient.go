@@ -62,7 +62,7 @@ type LanguageCodec interface {
 	// variable, or enum value that holds it.
 	EnumValueName(e *EnumValue, state *APIState) string
 	// The fully qualified enum value name, as used when using the constant,
-	// variable, or enum value that hodls it.
+	// variable, or enum value that holds it.
 	FQEnumValueName(e *EnumValue, state *APIState) string
 	// OneOfType returns a string representation of a one-of field type.
 	OneOfType(o *OneOf, state *APIState) string
@@ -115,6 +115,8 @@ type LanguageCodec interface {
 	// (or many) languages. Use this method when the information is application
 	// to only one language.
 	AdditionalContext() any
+	// Imports to add.
+	Imports() []string
 }
 
 // Parser converts an textual specification to a `genclient.API` object.

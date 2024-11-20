@@ -640,6 +640,10 @@ func (c *Codec) AdditionalContext() any {
 	return nil
 }
 
+func (c *Codec) Imports() []string {
+	return nil
+}
+
 // The list of Rust keywords and reserved words can be found at:
 //
 //	https://doc.rust-lang.org/reference/keywords.html

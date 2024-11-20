@@ -84,6 +84,10 @@ func (t *templateData) BoilerPlate() []string {
 	}
 }
 
+func (t templateData) Imports() []string {
+	return t.c.Imports()
+}
+
 func (t *templateData) Services() []*service {
 	return mapSlice(t.s.Services, func(s *Service) *service {
 		return &service{
@@ -143,6 +147,10 @@ func (s *service) ServiceNameToPascal() string {
 // NameToCamel coverts Name to camelCase
 func (s *service) NameToCamel() string {
 	return s.c.ToCamel(s.s.Name)
+}
+
+func (s *service) ServiceName() string {
+	return s.s.Name
 }
 
 func (s *service) DocLines() []string {
