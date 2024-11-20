@@ -149,7 +149,7 @@ func (s *service) NameToCamel() string {
 	return s.c.ToCamel(s.s.Name)
 }
 
-func (s *service) Name() string {
+func (s *service) ServiceName() string {
 	return s.s.Name
 }
 
