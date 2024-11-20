@@ -51,7 +51,7 @@ impl Client {
     ) -> GoogleCloudSecretmanagerV1SecretManagerService {
         GoogleCloudSecretmanagerV1SecretManagerService {
             client: self.clone(),
-            base_path: "https://https://secretmanager.googleapis.com/".to_string(),
+            base_path: "https://secretmanager.googleapis.com/".to_string(),
         }
     }
 }
