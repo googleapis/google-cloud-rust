@@ -18,32 +18,41 @@
 pub mod model;
 
 use gax::error::{Error, HttpError};
+use google_cloud_auth::{Credential, CredentialConfig};
 use std::sync::Arc;
 
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 pub struct Client {
     inner: Arc<ClientRef>,
 }
 
-#[derive(Debug)]
 struct ClientRef {
     http_client: reqwest::Client,
-    token: String,
+    cred: Credential,
 }
 
 impl Client {
-    pub fn new(tok: String) -> Self {
+    pub async fn new() -> Result<Self> {
         let client = reqwest::Client::builder().build().unwrap();
+        let cc = CredentialConfig::builder()
+            .scopes(vec![
+                "https://www.googleapis.com/auth/cloud-platform".to_string()
+            ])
+            .build()
+            .map_err(Error::authentication)?;
+        let cred = Credential::find_default(cc)
+            .await
+            .map_err(Error::authentication)?;
         let inner = ClientRef {
             http_client: client,
-            token: tok,
+            cred,
         };
-        Self {
+        Ok(Self {
             inner: Arc::new(inner),
-        }
+        })
     }
 
     /// API Overview
@@ -104,7 +113,6 @@ impl Client {
 /// This is intentionally not a CRUD style API because access control policies
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
-#[derive(Debug)]
 pub struct Iampolicy {
     client: Client,
     base_path: String,
@@ -128,7 +136,14 @@ impl Iampolicy {
             ))
             .query(&[("alt", "json")]);
         let res = builder
-            .bearer_auth(&client.token)
+            .bearer_auth(
+                &client
+                    .cred
+                    .access_token()
+                    .await
+                    .map_err(Error::authentication)?
+                    .value,
+            )
             .json(&req)
             .send()
             .await
@@ -162,7 +177,14 @@ impl Iampolicy {
             ))
             .query(&[("alt", "json")]);
         let res = builder
-            .bearer_auth(&client.token)
+            .bearer_auth(
+                &client
+                    .cred
+                    .access_token()
+                    .await
+                    .map_err(Error::authentication)?
+                    .value,
+            )
             .json(&req)
             .send()
             .await
@@ -200,7 +222,14 @@ impl Iampolicy {
             ))
             .query(&[("alt", "json")]);
         let res = builder
-            .bearer_auth(&client.token)
+            .bearer_auth(
+                &client
+                    .cred
+                    .access_token()
+                    .await
+                    .map_err(Error::authentication)?
+                    .value,
+            )
             .json(&req)
             .send()
             .await
