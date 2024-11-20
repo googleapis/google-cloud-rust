@@ -291,6 +291,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -323,6 +324,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -773,6 +775,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -807,6 +810,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -841,6 +845,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -875,6 +880,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -910,6 +916,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -945,6 +952,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -980,6 +988,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1015,6 +1024,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1128,6 +1138,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
@@ -1165,6 +1176,7 @@ impl GoogleCloudSecretmanagerV1SecretManagerService {
             .query(&[("alt", "json")]);
         let res = builder
             .bearer_auth(&client.token)
+            .json(&req)
             .send()
             .await
             .map_err(Error::io)?;
