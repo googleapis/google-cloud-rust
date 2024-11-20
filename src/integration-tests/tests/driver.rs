@@ -23,3 +23,9 @@ async fn run_secretmanager_protobuf() -> integration_tests::Result<()> {
 async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
     integration_tests::secret_manager::openapi::run().await
 }
+
+#[cfg(all(test, feature = "run-integration-tests"))]
+#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
+    integration_tests::secret_manager::openapi_locational::run().await
+}

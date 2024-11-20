@@ -23,42 +23,36 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = smo::Client::new()
-        .await?
-        .google_cloud_secretmanager_v_1_secret_manager_service();
+    let location_id = "us-central1".to_string();
 
-    println!("\nTesting create_secret()");
+    let client = smo::Client::new_with_config(smo::ConfigBuilder::new().set_endpoint(format!(
+        "https://secretmanager.{location_id}.rep.googleapis.com"
+    )))
+    .await?
+    .google_cloud_secretmanager_v_1_secret_manager_service();
+
+    cleanup_stale_secrets(&client, &project_id, &location_id).await?;
+
+    println!("\nTesting create_secret_by_project_and_location({project_id}, {location_id})");
     let create = client
-        .create_secret(
-            smo::model::CreateSecretRequest::default()
+        .create_secret_by_project_and_location(
+            smo::model::CreateSecretByProjectAndLocationRequest::default()
                 .set_project(&project_id)
+                .set_location(&location_id)
                 .set_secret_id(&secret_id)
-                .set_request_body(
-                    smo::model::Secret::default()
-                        .set_replication(
-                            smo::model::Replication::default()
-                                .set_automatic(smo::model::Automatic::default()),
-                        )
-                        .set_labels(
-                            [("integration-test", "true")]
-                                .map(|(k, v)| (k.to_string(), v.to_string())),
-                        ),
-                ),
+                .set_request_body(smo::model::Secret::default().set_labels(
+                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
+                )),
         )
         .await?;
     println!("CREATE = {create:?}");
 
-    let project_name = create
-        .name
-        .as_ref()
-        .and_then(|s| s.strip_suffix(format!("/secrets/{secret_id}").as_str()));
-    assert!(project_name.is_some());
-
-    println!("\nTesting get_secret()");
+    println!("\nTesting get_secret_by_project_and_location_and_secret()");
     let get = client
-        .get_secret(
-            smo::model::GetSecretRequest::default()
+        .get_secret_by_project_and_location_and_secret(
+            smo::model::GetSecretByProjectAndLocationAndSecretRequest::default()
                 .set_project(&project_id)
+                .set_location(&location_id)
                 .set_secret(&secret_id),
         )
         .await?;
@@ -66,15 +60,14 @@ pub async fn run() -> Result<()> {
     assert_eq!(get, create);
     assert!(get.name.is_some());
 
-    let secret_name = get.name.as_ref().unwrap().clone();
-
-    println!("\nTesting update_secret()");
+    println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
-        .update_secret(
-            smo::model::UpdateSecretRequest::default()
+        .update_secret_by_project_and_location_and_secret(
+            smo::model::UpdateSecretByProjectAndLocationAndSecretRequest::default()
                 .set_project(&project_id)
+                .set_location(&location_id)
                 .set_secret(&secret_id)
                 .set_update_mask(
                     wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
@@ -85,60 +78,28 @@ pub async fn run() -> Result<()> {
     println!("UPDATE = {update:?}");
 
     println!("\nTesting list_secrets()");
-    let list = get_all_secret_names(&client, &project_id).await?;
+    assert!(get.name.is_some(), "secret name not set in GET {get:?}");
+    let secret_name = get.name.as_ref().unwrap().clone();
+    let list = get_all_secret_names(&client, &project_id, &location_id).await?;
     assert!(
         list.iter().any(|name| name == &secret_name),
         "missing secret {} in {list:?}",
         &secret_name
     );
 
-    run_secret_versions(&client, &project_id, &secret_id).await?;
-    run_iam(&client, &project_id, &secret_id).await?;
-    run_locations(&client, &project_id).await?;
+    run_secret_versions(&client, &project_id, &location_id, &secret_id).await?;
+    run_iam(&client, &project_id, &location_id, &secret_id).await?;
 
-    println!("\nTesting delete_secret()");
+    println!("\nTesting delete_secret_by_project_and_location_and_secret()");
     let response = client
-        .delete_secret(
-            smo::model::DeleteSecretRequest::default()
+        .delete_secret_by_project_and_location_and_secret(
+            smo::model::DeleteSecretByProjectAndLocationAndSecretRequest::default()
                 .set_project(&project_id)
+                .set_location(&location_id)
                 .set_secret(&secret_id),
         )
         .await?;
     println!("DELETE = {response:?}");
-    Ok(())
-}
-
-async fn run_locations(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
-    project_id: &str,
-) -> Result<()> {
-    println!("\nTesting list_locations()");
-    let locations = client
-        .list_locations(smo::model::ListLocationsRequest::default().set_project(project_id))
-        .await?;
-    println!("LOCATIONS = {locations:?}");
-
-    assert!(
-        !locations.locations.is_empty(),
-        "got empty locations field for {locations:?}"
-    );
-    let first = locations.locations[0].clone();
-    assert!(
-        first.location_id.is_some(),
-        "expected some location field to be set in {first:?}"
-    );
-
-    println!("\nTesting get_location()");
-    let get = client
-        .get_location(
-            smo::model::GetLocationRequest::default()
-                .set_project(project_id)
-                .set_location(first.location_id.clone().unwrap()),
-        )
-        .await?;
-    println!("GET = {get:?}");
-
-    assert_eq!(get, first);
 
     Ok(())
 }
@@ -146,25 +107,28 @@ async fn run_locations(
 async fn run_iam(
     client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
     project_id: &str,
+    location_id: &str,
     secret_id: &str,
 ) -> Result<()> {
     let service_account = crate::service_account_for_iam_tests()?;
 
-    println!("\nTesting get_iam_policy()");
+    println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
     let policy = client
-        .get_iam_policy(
-            smo::model::GetIamPolicyRequest::default()
+        .get_iam_policy_by_project_and_location_and_secret(
+            smo::model::GetIamPolicyByProjectAndLocationAndSecretRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id),
         )
         .await?;
     println!("POLICY = {policy:?}");
 
-    println!("\nTesting test_iam_permissions()");
+    println!("\nTesting test_iam_permissions_by_project_and_location_and_secret()");
     let response = client
-        .test_iam_permissions(
+        .test_iam_permissions_by_project_and_location_and_secret(
             smo::model::TestIamPermissionsRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_permissions(
                     ["secretmanager.versions.access"]
@@ -176,7 +140,7 @@ async fn run_iam(
     println!("RESPONSE = {response:?}");
 
     // This really could use an OCC loop.
-    println!("\nTesting set_iam_policy()");
+    println!("\nTesting set_iam_policy_by_project_and_location_and_secret()");
     let mut new_policy = policy.clone();
     const ROLE: &str = "roles/secretmanager.secretVersionAdder";
     let mut found = false;
@@ -197,9 +161,10 @@ async fn run_iam(
         );
     }
     let response = client
-        .set_iam_policy(
+        .set_iam_policy_by_project_and_location_and_secret(
             smo::model::SetIamPolicyRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_update_mask(
                     wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
@@ -215,15 +180,17 @@ async fn run_iam(
 async fn run_secret_versions(
     client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
     project_id: &str,
+    location_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    println!("\nTesting create_secret_version()");
+    println!("\nTesting add_secret_version_by_project_and_location_and_secret()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create = client
-        .add_secret_version(
+        .add_secret_version_by_project_and_location_and_secret(
             smo::model::AddSecretVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_payload(
                     smo::model::SecretPayload::default()
@@ -248,11 +215,12 @@ async fn run_secret_versions(
     let version_id = &name[version_id.unwrap()..];
     let version_id = &version_id[pattern.len()..];
 
-    println!("\nTesting get_secret_version()");
+    println!("\nTesting get_secret_version_by_project_and_location_and_secret_and_version()");
     let get = client
-        .get_secret_version(
-            smo::model::GetSecretVersionRequest::default()
+        .get_secret_version_by_project_and_location_and_secret_and_version(
+            smo::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_version(version_id),
         )
@@ -261,7 +229,8 @@ async fn run_secret_versions(
     assert_eq!(get, create);
 
     println!("\nTesting list_secret_versions()");
-    let secret_versions_list = get_all_secret_version_names(client, project_id, secret_id).await?;
+    let secret_versions_list =
+        get_all_secret_version_names(client, project_id, location_id, secret_id).await?;
     assert!(
         secret_versions_list
             .iter()
@@ -270,11 +239,12 @@ async fn run_secret_versions(
         &get.name
     );
 
-    println!("\nTesting access_secret_version()");
+    println!("\nTesting access_secret_version_by_project_and_location_and_secret_and_version()");
     let access_secret_version = client
-        .access_secret_version(
-            smo::model::AccessSecretVersionRequest::default()
+        .access_secret_version_by_project_and_location_and_secret_and_version(
+            smo::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_version(version_id),
         )
@@ -285,33 +255,36 @@ async fn run_secret_versions(
         Some(bytes::Bytes::from(data))
     );
 
-    println!("\nTesting disable_secret_version()");
+    println!("\nTesting disable_secret_version_by_project_and_location_and_secret_and_version()");
     let disable = client
-        .disable_secret_version(
+        .disable_secret_version_by_project_and_location_and_secret_and_version(
             smo::model::DisableSecretVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_version(version_id),
         )
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
-    println!("\nTesting enable_secret_version()");
+    println!("\nTesting enable_secret_version_by_project_and_location_and_secret_and_version()");
     let enable = client
-        .enable_secret_version(
+        .enable_secret_version_by_project_and_location_and_secret_and_version(
             smo::model::EnableSecretVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_version(version_id),
         )
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
-    println!("\nTesting destroy_secret_version()");
+    println!("\nTesting destroy_secret_version_by_project_and_location_and_secret_and_version()");
     let delete = client
-        .destroy_secret_version(
+        .destroy_secret_version_by_project_and_location_and_secret_and_version(
             smo::model::DestroySecretVersionRequest::default()
                 .set_project(project_id)
+                .set_location(location_id)
                 .set_secret(secret_id)
                 .set_version(version_id),
         )
@@ -324,15 +297,17 @@ async fn run_secret_versions(
 async fn get_all_secret_version_names(
     client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
     project_id: &str,
+    location_id: &str,
     secret_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secret_versions(
-                smo::model::ListSecretVersionsRequest::default()
+            .list_secret_versions_by_project_and_location_and_secret(
+                smo::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::default()
                     .set_project(project_id)
+                    .set_location(location_id)
                     .set_secret(secret_id)
                     .set_page_token(page_token),
             )
@@ -353,14 +328,16 @@ async fn get_all_secret_version_names(
 async fn get_all_secret_names(
     client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
     project_id: &str,
+    location_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secrets(
-                smo::model::ListSecretsRequest::default()
+            .list_secrets_by_project_and_location(
+                smo::model::ListSecretsByProjectAndLocationRequest::default()
                     .set_project(project_id)
+                    .set_location(location_id)
                     .set_page_token(page_token),
             )
             .await?;
@@ -375,4 +352,69 @@ async fn get_all_secret_names(
         }
     }
     Ok(names)
+}
+
+async fn cleanup_stale_secrets(
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    project_id: &str,
+    location_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = stale_deadline.as_secs() as i64;
+
+    let mut stale_secrets = Vec::new();
+    let mut page_token = None::<String>;
+    loop {
+        let response = client
+            .list_secrets_by_project_and_location(
+                smo::model::ListSecretsByProjectAndLocationRequest::default()
+                    .set_project(project_id)
+                    .set_location(location_id)
+                    .set_page_token(page_token)
+                    .clone(),
+            )
+            .await?;
+        for secret in response.secrets {
+            if let Some("true") = secret.labels.get("integration-test").map(String::as_str) {
+                if let Some(true) = secret.create_time.map(|v| v.seconds < stale_deadline) {
+                    secret
+                        .name
+                        .into_iter()
+                        .for_each(|name| stale_secrets.push(name));
+                }
+            }
+        }
+        if response
+            .next_page_token
+            .as_ref()
+            .map(String::is_empty)
+            .unwrap_or(true)
+        {
+            break;
+        }
+        page_token = response.next_page_token;
+    }
+
+    let pending = stale_secrets
+        .iter()
+        .map(|v| {
+            client.delete_secret_by_project_and_location_and_secret(
+                smo::model::DeleteSecretByProjectAndLocationAndSecretRequest::default()
+                    .set_project(project_id)
+                    .set_location(location_id)
+                    .set_secret(v),
+            )
+        })
+        .collect::<Vec<_>>();
+
+    // Print the errors, but otherwise ignore them.
+    futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .zip(stale_secrets)
+        .for_each(|(r, name)| println!("{name:?} = {r:?}"));
+
+    Ok(())
 }
