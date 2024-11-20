@@ -44,8 +44,10 @@ impl JwsClaims<'_> {
                 ErrorKind::Validation,
             ));
         }
+
+        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
         let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
-        Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
+        Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
 
@@ -60,7 +62,8 @@ pub struct JwsHeader<'a> {
 
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
+        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
         let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
-        Ok(base64::encode_config(json, base64::URL_SAFE_NO_PAD))
+        Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
