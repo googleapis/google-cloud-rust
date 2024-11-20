@@ -265,6 +265,8 @@ func makePathTemplate(template string) []genclient.PathSegment {
 	return segments
 }
 
+// Creates (if needed) the request message for `operation`. Returns the message
+// and the body field path (if any) for the request.
 func makeRequestMessage(api *genclient.API, operation *v3.Operation, template string) (*genclient.Message, string, error) {
 	messageName := fmt.Sprintf("%sRequest", operation.OperationId)
 	id := fmt.Sprintf("..%s", messageName)
@@ -294,10 +296,12 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 			// adding more fields to it.
 			message = msg
 		} else {
-			// Let's try a couple of different names for the request body.
+			// The OpenAPI discovery docs do not preserve the original field
+			// name for the request body. We need to create a synthetic name,
+			// which may clash with other fields in the message. Let's try a
+			// couple of different names.
 			inserted := false
 			for _, name := range []string{"requestBody", "openapiRequestBody"} {
-				bodyFieldPath = name
 				field := &genclient.Field{
 					Name:          name,
 					Documentation: "The request body.",
@@ -307,6 +311,8 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 				}
 				inserted = addFieldIfNew(message, field)
 				if inserted {
+					// The the request body field path accordingly.
+					bodyFieldPath = name
 					break
 				}
 			}

@@ -701,7 +701,7 @@ func TestMakeAPI(t *testing.T) {
 				OutputTypeID:  "..Secret",
 				PathInfo: &genclient.PathInfo{
 					Verb:          "POST",
-					BodyFieldPath: "*",
+					BodyFieldPath: "requestBody",
 					PathTemplate: []genclient.PathSegment{
 						genclient.NewLiteralPathSegment("v1"),
 						genclient.NewLiteralPathSegment("projects"),
