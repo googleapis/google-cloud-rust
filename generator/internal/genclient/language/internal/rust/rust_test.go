@@ -536,6 +536,55 @@ func TestFieldLossyName(t *testing.T) {
 	}
 }
 
+func TestSyntheticField(t *testing.T) {
+	message := &genclient.Message{
+		Name: "Unused",
+		ID:   "..Unused",
+		Fields: []*genclient.Field{
+			{
+				Name:     "updateMask",
+				JSONName: "updateMask",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.FieldMask",
+				Optional: true,
+			},
+			{
+				Name:      "project",
+				JSONName:  "project",
+				Typez:     genclient.STRING_TYPE,
+				TypezID:   "string",
+				Synthetic: true,
+			},
+			{
+				Name:      "data_crc32c",
+				JSONName:  "dataCrc32c",
+				Typez:     genclient.STRING_TYPE,
+				TypezID:   "string",
+				Synthetic: true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+
+	expectedAttributes := map[string]string{
+		"updateMask":  ``,
+		"project":     `#[serde(skip)]`,
+		"data_crc32c": `#[serde(skip)]`,
+	}
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedAttributes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
 func TestFieldType(t *testing.T) {
 	target := &genclient.Message{
 		Name: "Target",

@@ -257,6 +257,10 @@ type Field struct {
 	// IsOneOf is true if the field is related to a one-of and not
 	// a proto3 optional field.
 	IsOneOf bool
+	// The OpenAPI specifications have incomplete `*Request` messages. We inject
+	// some helper fields. These need to be marked so they can be excluded
+	// from serialized messages and in other places.
+	Synthetic bool
 }
 
 // Pair is a key-value pair.
