@@ -668,6 +668,36 @@ func TestMakeAPI(t *testing.T) {
 		},
 	})
 
+	// This message has a weirdly named field that gets tricky to serialize.
+	secretPayload, ok := api.State.MessageByID["..SecretPayload"]
+	if !ok {
+		t.Errorf("missing message (SecretPayload) in MessageByID index")
+		return
+	}
+	checkMessage(t, *secretPayload, genclient.Message{
+		Name:          "SecretPayload",
+		ID:            "..SecretPayload",
+		Documentation: "A secret payload resource in the Secret Manager API. This contains the\nsensitive secret payload that is associated with a SecretVersion.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "data",
+				JSONName:      "data",
+				Documentation: "The secret data. Must be no larger than 64KiB.",
+				Typez:         genclient.BYTES_TYPE,
+				TypezID:       "bytes",
+				Optional:      true,
+			},
+			{
+				Name:          "dataCrc32c",
+				JSONName:      "dataCrc32c",
+				Documentation: "Optional. If specified, SecretManagerService will verify the integrity of the\nreceived data on SecretManagerService.AddSecretVersion calls using\nthe crc32c checksum and store it to include in future\nSecretManagerService.AccessSecretVersion responses. If a checksum is\nnot provided in the SecretManagerService.AddSecretVersion request, the\nSecretManagerService will generate and store one for you.\n\nThe CRC32C value is encoded as a Int64 for compatibility, and can be\nsafely downconverted to uint32 in languages that support this type.\nhttps://cloud.google.com/apis/design/design_patterns#integer_types",
+				Typez:         genclient.INT64_TYPE,
+				TypezID:       "int64",
+				Optional:      true,
+			},
+		},
+	})
+
 	service, ok := api.State.ServiceByID["..Service"]
 	if !ok {
 		t.Errorf("missing service (Service) in ServiceByID index")

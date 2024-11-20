@@ -214,7 +214,15 @@ func (c *Codec) fieldFormatter(f *genclient.Field) string {
 	}
 }
 
+func (c *Codec) fieldNamedAttributes(f *genclient.Field) []string {
+	if c.ToCamel(c.ToSnake(f.Name)) != f.JSONName {
+		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
+	}
+	return []string{}
+}
+
 func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
+	attributes := c.fieldNamedAttributes(f)
 	switch f.Typez {
 	case genclient.DOUBLE_TYPE,
 		genclient.FLOAT_TYPE,
@@ -227,7 +235,7 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 		genclient.SINT32_TYPE,
 		genclient.ENUM_TYPE,
 		genclient.GROUP_TYPE:
-		return []string{}
+		return attributes
 
 	case genclient.INT64_TYPE,
 		genclient.UINT64_TYPE,
@@ -237,16 +245,16 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 		genclient.BYTES_TYPE:
 		formatter := c.fieldFormatter(f)
 		if f.Optional {
-			return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 		}
 		if f.Repeated {
-			return []string{fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter)}
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter))
 		}
-		return []string{fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter)}
+		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
 	case genclient.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
-			attr := []string{`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`}
+			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
 			var key, value *genclient.Field
 			for _, f := range message.Fields {
 				switch f.Name {
@@ -259,20 +267,20 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 			}
 			if key == nil || value == nil {
 				slog.Error("missing key or value in map field")
-				return attr
+				return attributes
 			}
 			keyFormat := c.fieldFormatter(key)
 			valFormat := c.fieldFormatter(value)
 			if keyFormat == "_" && valFormat == "_" {
-				return attr
+				return attributes
 			}
-			return append(attr, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
 		}
-		return []string{}
+		return attributes
 
 	default:
 		slog.Error("unexpected field type", "field", *f)
-		return []string{}
+		return attributes
 	}
 }
 

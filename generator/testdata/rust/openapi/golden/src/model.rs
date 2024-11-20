@@ -609,6 +609,7 @@ pub struct SecretPayload {
     /// The CRC32C value is encoded as a Int64 for compatibility, and can be
     /// safely downconverted to uint32 in languages that support this type.
     /// https://cloud.google.com/apis/design/design_patterns#integer_types
+    #[serde(rename = "dataCrc32c")]
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub data_crc_32_c: Option<i64>,
 }
@@ -2735,6 +2736,7 @@ pub struct GetIamPolicyRequest {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    #[serde(rename = "options.requestedPolicyVersion")]
     pub options_requested_policy_version: Option<i32>,
 }
 
@@ -2797,6 +2799,7 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    #[serde(rename = "options.requestedPolicyVersion")]
     pub options_requested_policy_version: Option<i32>,
 }
 
