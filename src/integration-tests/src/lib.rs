@@ -21,6 +21,12 @@ pub fn project_id() -> Result<String> {
     Ok(project_id)
 }
 
+/// Returns an existing, but disabled service account to test IAM RPCs.
+pub fn service_account_for_iam_tests() -> Result<String> {
+    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
+    Ok(value)
+}
+
 pub async fn test_token() -> Result<String> {
     let credentials = auth::Credential::find_default(
         auth::CredentialConfig::builder()
