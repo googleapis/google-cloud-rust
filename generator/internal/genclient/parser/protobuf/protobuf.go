@@ -351,6 +351,26 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 		}
 	case descriptorpb.FieldDescriptorProto_TYPE_ENUM:
 		field.TypezID = in.GetTypeName()
+
+	case
+		descriptorpb.FieldDescriptorProto_TYPE_DOUBLE,
+		descriptorpb.FieldDescriptorProto_TYPE_FLOAT,
+		descriptorpb.FieldDescriptorProto_TYPE_INT64,
+		descriptorpb.FieldDescriptorProto_TYPE_UINT64,
+		descriptorpb.FieldDescriptorProto_TYPE_INT32,
+		descriptorpb.FieldDescriptorProto_TYPE_FIXED64,
+		descriptorpb.FieldDescriptorProto_TYPE_FIXED32,
+		descriptorpb.FieldDescriptorProto_TYPE_BOOL,
+		descriptorpb.FieldDescriptorProto_TYPE_STRING,
+		descriptorpb.FieldDescriptorProto_TYPE_BYTES,
+		descriptorpb.FieldDescriptorProto_TYPE_UINT32,
+		descriptorpb.FieldDescriptorProto_TYPE_SFIXED32,
+		descriptorpb.FieldDescriptorProto_TYPE_SFIXED64,
+		descriptorpb.FieldDescriptorProto_TYPE_SINT32,
+		descriptorpb.FieldDescriptorProto_TYPE_SINT64:
+		// These do not need normalization
+		return
+
 	default:
 		slog.Warn("found undefined field", "field", in.GetName())
 	}
