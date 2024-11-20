@@ -20,6 +20,7 @@ import (
 	"os"
 	"os/exec"
 	"path"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -242,8 +243,8 @@ func TestGoFromProtobuf(t *testing.T) {
 			t.Fatalf("%v: %v\n%s", cmd, err, output)
 		}
 
-		for k, v := range config.ModReplace {
-			cmd = exec.Command("go", "mod", "edit", "-replace", k+"=../../"+v)
+		for _, key := range orderedKeys(config.ModReplace) {
+			cmd = exec.Command("go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
 			cmd.Dir = path.Join(outDir, config.Name)
 			if output, err := cmd.CombinedOutput(); err != nil {
 				if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
@@ -262,4 +263,13 @@ func TestGoFromProtobuf(t *testing.T) {
 			t.Fatalf("%v: %v\n%s", cmd, err, output)
 		}
 	}
+}
+
+func orderedKeys(m map[string]string) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
