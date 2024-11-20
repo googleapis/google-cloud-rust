@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use integration_tests::Result;
+use crate::Result;
 use rand::{distributions::Alphanumeric, Rng};
 
 pub async fn run() -> Result<()> {
-    let project_id = integration_tests::project_id()?;
+    let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
-        .take(integration_tests::SECRET_ID_LENGTH)
+        .take(crate::SECRET_ID_LENGTH)
         .map(char::from)
         .collect();
 
@@ -100,7 +100,7 @@ pub async fn run() -> Result<()> {
 }
 
 async fn run_iam(client: &sm::SecretManagerService, secret_name: &str) -> Result<()> {
-    let service_account = integration_tests::service_account_for_iam_tests()?;
+    let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client

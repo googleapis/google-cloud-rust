@@ -12,20 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Use separate modules to keep the file sizes under control and avoid name
-// clashes. We prefer to have a single driver program because cargo runs all
-// the tests within one program in parallel.
-pub mod secret_manager_openapi;
-pub mod secret_manager_protobuf;
-
 #[cfg(all(test, feature = "run-integration-tests"))]
 #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
 async fn run_secretmanager_protobuf() -> integration_tests::Result<()> {
-    secret_manager_protobuf::run().await
+    integration_tests::secret_manager::protobuf::run().await
 }
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
 async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-    secret_manager_openapi::run().await
+    integration_tests::secret_manager::openapi::run().await
 }
