@@ -34,4 +34,4 @@ bytes      = { version = "1.8.0", features = ["serde"] }
 gax        = { path = "../../../../../../../gax", package = "gax", features = ["sdk_client"] }
 google-cloud-auth = { path = "../../../../../../../auth", package = "google-cloud-auth" }
 gtype      = { path = "../../../../../../../generator/testdata/rust/gclient/golden/type", package = "type-golden-gclient" }
-wkt        = { path = "../../../../../../../types", package = "types" }
+wkt        = { path = "../../../../../../../src/wkt", package = "gcp-sdk-wkt" }

@@ -35,7 +35,7 @@ jobs:
         run: rustc --version
         # TODO(#92) - disable the doc tests because the generated code contains non-rusty blockquotes
       - run: cargo test --lib --bins --tests
-      - run: cargo test --package types --package google-cloud-auth --package check-copyright
+      - run: cargo test --package gcp-sdk-wkt --package google-cloud-auth --package check-copyright
   lint:
     runs-on: ubuntu-24.04
     strategy:

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use types::Any;
-use types::Duration;
+use gcp_sdk_wkt::Any;
+use gcp_sdk_wkt::Duration;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

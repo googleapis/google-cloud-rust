@@ -26,7 +26,7 @@ run-integration-tests = ["dep:tokio"]
 tokio   = { version = "1.12", features = ["full", "macros"], optional = true }
 auth    = { path = "../../auth", package = "google-cloud-auth" }
 gax     = { path = "../../gax", package = "gax" }
-wkt     = { path = "../../types", package = "types" }
+wkt     = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
 iam_v1  = { path = "../../generator/testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }
 sm      = { path = "../../generator/testdata/rust/gclient/golden/secretmanager", package = "secretmanager-golden-gclient" }
 smo     = { path = "../../generator/testdata/rust/openapi/golden", package = "secretmanager-golden-openapi" }
