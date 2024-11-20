@@ -190,11 +190,30 @@ func TestGoFromProtobuf(t *testing.T) {
 		Source       string
 		Name         string
 		ExtraOptions []string
+		ModReplace   map[string]string
 	}
 	configs := []Config{
 		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "typez",
+			ExtraOptions: []string{
+				"-codec-option", "go-package-name=typez",
+				"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
+			},
+		},
+		{
+			Source: "generator/testdata/googleapis/google/iam/v1",
+			Name:   "iam/v1",
+			ExtraOptions: []string{
+				"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/iam/v1",
+				"-codec-option", "import-mapping:google.type=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez;typez",
+				"-codec-option", "import-mapping:google.protobuf=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt;wkt",
+				"-codec-option", "go-package-name=iam",
+			},
+			ModReplace: map[string]string{
+				"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez": "typez",
+				"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt":   "wkt",
+			},
 		},
 	}
 
@@ -208,8 +227,8 @@ func TestGoFromProtobuf(t *testing.T) {
 			"-template-dir", "generator/templates",
 			"-codec-option", "copyright-year=2024",
 			"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
-			"-codec-option", "go-package-name=typez",
 		}
+		args = append(args, config.ExtraOptions...)
 		if err := Generate(args); err != nil {
 			t.Fatal(err)
 		}
@@ -222,6 +241,18 @@ func TestGoFromProtobuf(t *testing.T) {
 			}
 			t.Fatalf("%v: %v\n%s", cmd, err, output)
 		}
+
+		for k, v := range config.ModReplace {
+			cmd = exec.Command("go", "mod", "edit", "-replace", k+"=../../"+v)
+			cmd.Dir = path.Join(outDir, config.Name)
+			if output, err := cmd.CombinedOutput(); err != nil {
+				if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+					t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
+				}
+				t.Fatalf("%v: %v\n%s", cmd, err, output)
+			}
+		}
+
 		cmd = exec.Command("go", "mod", "tidy")
 		cmd.Dir = path.Join(outDir, config.Name)
 		if output, err := cmd.CombinedOutput(); err != nil {
