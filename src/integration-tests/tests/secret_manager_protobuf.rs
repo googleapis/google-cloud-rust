@@ -167,7 +167,7 @@ async fn secretmanager_protobuf_secret_versions(
 ) -> Result<()> {
     println!("\nTesting create_secret_version()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
-    let checksum = crc32c::crc32c(&data);
+    let checksum = crc32c::crc32c(data);
     let create_secret_version = client
         .add_secret_version(
             sm::model::AddSecretVersionRequest::default()
