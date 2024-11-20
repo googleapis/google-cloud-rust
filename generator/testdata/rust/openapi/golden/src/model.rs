@@ -549,16 +549,19 @@ pub struct AddSecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -978,21 +981,25 @@ pub struct DisableSecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
+    #[serde(skip)]
     pub version: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1042,21 +1049,25 @@ pub struct EnableSecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
+    #[serde(skip)]
     pub version: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1106,21 +1117,25 @@ pub struct DestroySecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
+    #[serde(skip)]
     pub version: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1178,16 +1193,19 @@ pub struct SetIamPolicyRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1740,16 +1758,19 @@ pub struct TestIamPermissionsRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1807,19 +1828,23 @@ pub struct ListLocationsRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations`.
+    #[serde(skip)]
     pub project: String,
 
     /// A filter to narrow down results to a preferred subset.
     /// The filtering language accepts strings like `"displayName=tokyo"`, and
     /// is documented in more detail in [AIP-160](https://google.aip.dev/160).
+    #[serde(skip)]
     pub filter: Option<String>,
 
     /// The maximum number of results to return.
     /// If not set, the service selects a default.
+    #[serde(skip)]
     pub page_size: Option<i32>,
 
     /// A page token received from the `next_page_token` field in the response.
     /// Send that page token to receive the subsequent page.
+    #[serde(skip)]
     pub page_token: Option<String>,
 }
 
@@ -1858,11 +1883,13 @@ pub struct GetLocationRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
+    #[serde(skip)]
     pub location: String,
 }
 
@@ -1889,15 +1916,18 @@ pub struct ListSecretsRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets`.
+    #[serde(skip)]
     pub project: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip)]
     pub page_size: Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretsResponse.next_page_token.
+    #[serde(skip)]
     pub page_token: Option<String>,
 
     /// Optional. Filter string, adhering to the rules in
@@ -1905,6 +1935,7 @@ pub struct ListSecretsRequest {
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
+    #[serde(skip)]
     pub filter: Option<String>,
 }
 
@@ -1946,6 +1977,7 @@ pub struct CreateSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets`.
+    #[serde(skip)]
     pub project: String,
 
     /// Required. This must be unique within the project.
@@ -1953,6 +1985,7 @@ pub struct CreateSecretRequest {
     /// A secret ID is a string with a maximum length of 255 characters and can
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
+    #[serde(skip)]
     pub secret_id: String,
 }
 
@@ -1985,20 +2018,24 @@ pub struct ListSecretsByProjectAndLocationRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    #[serde(skip)]
     pub location: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip)]
     pub page_size: Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretsResponse.next_page_token.
+    #[serde(skip)]
     pub page_token: Option<String>,
 
     /// Optional. Filter string, adhering to the rules in
@@ -2006,6 +2043,7 @@ pub struct ListSecretsByProjectAndLocationRequest {
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
+    #[serde(skip)]
     pub filter: Option<String>,
 }
 
@@ -2053,11 +2091,13 @@ pub struct CreateSecretByProjectAndLocationRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    #[serde(skip)]
     pub location: String,
 
     /// Required. This must be unique within the project.
@@ -2065,6 +2105,7 @@ pub struct CreateSecretByProjectAndLocationRequest {
     /// A secret ID is a string with a maximum length of 255 characters and can
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
+    #[serde(skip)]
     pub secret_id: String,
 }
 
@@ -2103,11 +2144,13 @@ pub struct GetSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 }
 
@@ -2134,16 +2177,19 @@ pub struct DeleteSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
     /// the etag of the currently stored secret object. If the etag is omitted,
     /// the request succeeds.
+    #[serde(skip)]
     pub etag: Option<String>,
 }
 
@@ -2179,14 +2225,17 @@ pub struct UpdateSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Required. Specifies the fields to be updated.
+    #[serde(skip)]
     pub update_mask: wkt::FieldMask,
 }
 
@@ -2225,16 +2274,19 @@ pub struct GetSecretByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 }
 
@@ -2267,21 +2319,25 @@ pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
     /// the etag of the currently stored secret object. If the etag is omitted,
     /// the request succeeds.
+    #[serde(skip)]
     pub etag: Option<String>,
 }
 
@@ -2323,19 +2379,23 @@ pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Required. Specifies the fields to be updated.
+    #[serde(skip)]
     pub update_mask: wkt::FieldMask,
 }
 
@@ -2380,20 +2440,24 @@ pub struct ListSecretVersionsRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip)]
     pub page_size: Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
+    #[serde(skip)]
     pub page_token: Option<String>,
 
     /// Optional. Filter string, adhering to the rules in
@@ -2401,6 +2465,7 @@ pub struct ListSecretVersionsRequest {
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
+    #[serde(skip)]
     pub filter: Option<String>,
 }
 
@@ -2445,25 +2510,30 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
+    #[serde(skip)]
     pub page_size: Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
+    #[serde(skip)]
     pub page_token: Option<String>,
 
     /// Optional. Filter string, adhering to the rules in
@@ -2471,6 +2541,7 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
+    #[serde(skip)]
     pub filter: Option<String>,
 }
 
@@ -2521,16 +2592,19 @@ pub struct GetSecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub version: String,
 }
 
@@ -2563,21 +2637,25 @@ pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
+    #[serde(skip)]
     pub version: String,
 }
 
@@ -2616,16 +2694,19 @@ pub struct AccessSecretVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub version: String,
 }
 
@@ -2658,21 +2739,25 @@ pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub secret: String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
+    #[serde(skip)]
     pub version: String,
 }
 
@@ -2711,11 +2796,13 @@ pub struct GetIamPolicyRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. The maximum policy version that will be used to format the
@@ -2736,7 +2823,7 @@ pub struct GetIamPolicyRequest {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    #[serde(rename = "options.requestedPolicyVersion")]
+    #[serde(skip)]
     pub options_requested_policy_version: Option<i32>,
 }
 
@@ -2769,16 +2856,19 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+    #[serde(skip)]
     pub project: String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+    #[serde(skip)]
     pub location: String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
+    #[serde(skip)]
     pub secret: String,
 
     /// Optional. The maximum policy version that will be used to format the
@@ -2799,7 +2889,7 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    #[serde(rename = "options.requestedPolicyVersion")]
+    #[serde(skip)]
     pub options_requested_policy_version: Option<i32>,
 }
 

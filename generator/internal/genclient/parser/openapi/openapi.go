@@ -356,6 +356,7 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 			Optional:      p.Required == nil || !*p.Required,
 			Typez:         typez,
 			TypezID:       typezID,
+			Synthetic:     true,
 		}
 		addFieldIfNew(message, field)
 	}

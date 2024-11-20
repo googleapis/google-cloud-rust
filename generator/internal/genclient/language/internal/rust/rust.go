@@ -214,7 +214,10 @@ func (c *Codec) fieldFormatter(f *genclient.Field) string {
 	}
 }
 
-func (c *Codec) fieldNamedAttributes(f *genclient.Field) []string {
+func (c *Codec) fieldBaseAttributes(f *genclient.Field) []string {
+	if f.Synthetic {
+		return []string{`#[serde(skip)]`}
+	}
 	if c.ToCamel(c.ToSnake(f.Name)) != f.JSONName {
 		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
 	}
@@ -222,7 +225,7 @@ func (c *Codec) fieldNamedAttributes(f *genclient.Field) []string {
 }
 
 func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
-	attributes := c.fieldNamedAttributes(f)
+	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
 	case genclient.DOUBLE_TYPE,
 		genclient.FLOAT_TYPE,

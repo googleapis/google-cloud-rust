@@ -637,6 +637,7 @@ func TestMakeAPI(t *testing.T) {
 				Documentation: "The `{project}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/locations`.",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
+				Synthetic:     true,
 			},
 			{
 				Name:     "filter",
@@ -645,9 +646,10 @@ func TestMakeAPI(t *testing.T) {
 					"\nThe filtering language accepts strings like `\"displayName=tokyo" +
 					"\"`, and\nis documented in more detail in [AIP-160](https://google" +
 					".aip.dev/160).",
-				Typez:    genclient.STRING_TYPE,
-				TypezID:  "string",
-				Optional: true,
+				Typez:     genclient.STRING_TYPE,
+				TypezID:   "string",
+				Optional:  true,
+				Synthetic: true,
 			},
 			{
 				Name:          "pageSize",
@@ -656,6 +658,7 @@ func TestMakeAPI(t *testing.T) {
 				Typez:         genclient.INT32_TYPE,
 				TypezID:       "int32",
 				Optional:      true,
+				Synthetic:     true,
 			},
 			{
 				Name:          "pageToken",
@@ -664,6 +667,7 @@ func TestMakeAPI(t *testing.T) {
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
 				Optional:      true,
+				Synthetic:     true,
 			},
 		},
 	})
@@ -775,6 +779,76 @@ func TestMakeAPI(t *testing.T) {
 				genclient.NewVerbPathSegment("addVersion"),
 			},
 			QueryParameters: map[string]bool{},
+		},
+	})
+}
+
+func TestSyntheticMessageWithExistingRequest(t *testing.T) {
+	contents, err := os.ReadFile("../../../../testdata/openapi/secretmanager_openapi_v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	api, err := makeAPI(nil, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+
+	// This message has a weirdly named field that gets tricky to serialize.
+	id := "..SetIamPolicyRequest"
+	setIamPolicyRequest, ok := api.State.MessageByID["..SetIamPolicyRequest"]
+	if !ok {
+		t.Errorf("missing message (%s) in MessageByID index", id)
+		return
+	}
+	checkMessage(t, *setIamPolicyRequest, genclient.Message{
+		Name:          "SetIamPolicyRequest",
+		ID:            "..SetIamPolicyRequest",
+		Documentation: "Request message for `SetIamPolicy` method.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "policy",
+				JSONName:      "policy",
+				Documentation: "REQUIRED: The complete policy to be applied to the `resource`. The size of\nthe policy is limited to a few 10s of KB. An empty policy is a\nvalid policy but certain Google Cloud services (such as Projects)\nmight reject them.",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       "..Policy",
+				Optional:      true,
+			},
+			{
+				Name:          "updateMask",
+				JSONName:      "updateMask",
+				Documentation: "OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only\nthe fields in the mask will be modified. If no mask is provided, the\nfollowing default mask is used:\n\n`paths: \"bindings, etag\"`",
+				Typez:         genclient.MESSAGE_TYPE,
+				TypezID:       ".google.protobuf.FieldMask",
+				Optional:      true,
+			},
+			{
+				Name:          "project",
+				JSONName:      "project",
+				Documentation: "The `{project}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+			},
+			{
+				Name:          "secret",
+				JSONName:      "secret",
+				Documentation: "The `{secret}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+			},
+			{
+				Name:          "location",
+				JSONName:      "location",
+				Documentation: "The `{location}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.",
+				Typez:         genclient.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+			},
 		},
 	})
 }
