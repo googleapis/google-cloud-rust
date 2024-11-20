@@ -18,3 +18,9 @@ extend-exclude = [
   # about them as they are not customer visible.
   "generator/**/testdata/**",
 ]
+
+[type.mustache]
+extend-glob = ["*.mustache"]
+
+[type.mustache.extend-words]
+ser = "ser"

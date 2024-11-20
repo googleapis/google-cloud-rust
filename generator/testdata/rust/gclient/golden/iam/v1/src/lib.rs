@@ -126,6 +126,10 @@ impl Client {
     }
 }
 
+#[derive(serde::Serialize)]
+#[allow(dead_code)]
+struct NoBody {}
+
 /// API Overview
 ///
 /// Manages Identity and Access Management (IAM) policies.
@@ -173,30 +177,7 @@ impl Iampolicy {
                 self.base_path, req.resource,
             ))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::Policy>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Gets the access control policy for a resource.
@@ -214,30 +195,7 @@ impl Iampolicy {
                 self.base_path, req.resource,
             ))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::Policy>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -259,29 +217,34 @@ impl Iampolicy {
                 self.base_path, req.resource,
             ))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
+        self.execute(builder, Some(req)).await
+    }
+
+    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        body: Option<I>,
+    ) -> Result<O> {
+        let client_ref = self.client.inner.clone();
+        builder = builder.bearer_auth(
+            &client_ref
+                .cred
+                .access_token()
+                .await
+                .map_err(Error::authentication)?
+                .value,
+        );
+        if let Some(body) = body {
+            builder = builder.json(&body);
+        }
+        let resp = builder.send().await.map_err(Error::io)?;
+        if !resp.status().is_success() {
+            let status = resp.status().as_u16();
+            let headers = gax::error::convert_headers(resp.headers());
+            let body = resp.bytes().await.map_err(Error::io)?;
             return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res
-            .json::<crate::model::TestIamPermissionsResponse>()
-            .await
-            .map_err(Error::serde)?;
+        let response = resp.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
     }
 }

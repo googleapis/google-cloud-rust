@@ -108,6 +108,10 @@ impl Client {
     }
 }
 
+#[derive(serde::Serialize)]
+#[allow(dead_code)]
+struct NoBody {}
+
 /// Secret Manager Service
 ///
 /// Manages secrets and operations using those secrets. Implements a REST
@@ -137,29 +141,7 @@ impl SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::ListSecretsResponse>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
@@ -175,30 +157,7 @@ impl SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req.secret)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::Secret>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req.secret)).await
     }
 
     /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
@@ -213,30 +172,7 @@ impl SecretManagerService {
             .http_client
             .post(format!("{}/v1/{}:addVersion", self.base_path, req.parent,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::SecretVersion>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
@@ -249,29 +185,7 @@ impl SecretManagerService {
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::Secret>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Updates metadata of an existing
@@ -297,30 +211,7 @@ impl SecretManagerService {
             &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
         )
         .map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req.secret)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::Secret>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req.secret)).await
     }
 
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
@@ -335,26 +226,7 @@ impl SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res.json::<wkt::Empty>().await.map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
@@ -374,29 +246,7 @@ impl SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::ListSecretVersionsResponse>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Gets metadata for a
@@ -413,29 +263,7 @@ impl SecretManagerService {
             .http_client
             .get(format!("{}/v1/{}", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::SecretVersion>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -452,29 +280,7 @@ impl SecretManagerService {
             .http_client
             .get(format!("{}/v1/{}:access", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::AccessSecretVersionResponse>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -491,30 +297,7 @@ impl SecretManagerService {
             .http_client
             .post(format!("{}/v1/{}:disable", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::SecretVersion>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -531,30 +314,7 @@ impl SecretManagerService {
             .http_client
             .post(format!("{}/v1/{}:enable", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::SecretVersion>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -572,30 +332,7 @@ impl SecretManagerService {
             .http_client
             .post(format!("{}/v1/{}:destroy", self.base_path, req.name,))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<crate::model::SecretVersion>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -617,30 +354,7 @@ impl SecretManagerService {
                 self.base_path, req.resource,
             ))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<iam::model::Policy>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, Some(req)).await
     }
 
     /// Gets the access control policy for a secret.
@@ -663,29 +377,7 @@ impl SecretManagerService {
             &serde_json::to_value(&req.options).map_err(Error::serde)?,
         )
         .map_err(Error::other)?;
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = res
-            .json::<iam::model::Policy>()
-            .await
-            .map_err(Error::serde)?;
-        Ok(response)
+        self.execute(builder, None::<NoBody>).await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -707,29 +399,34 @@ impl SecretManagerService {
                 self.base_path, req.resource,
             ))
             .query(&[("alt", "json")]);
-        let res = builder
-            .bearer_auth(
-                &client
-                    .cred
-                    .access_token()
-                    .await
-                    .map_err(Error::authentication)?
-                    .value,
-            )
-            .json(&req)
-            .send()
-            .await
-            .map_err(Error::io)?;
-        if !res.status().is_success() {
-            let status = res.status().as_u16();
-            let headers = gax::error::convert_headers(res.headers());
-            let body = res.bytes().await.map_err(Error::io)?;
+        self.execute(builder, Some(req)).await
+    }
+
+    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        body: Option<I>,
+    ) -> Result<O> {
+        let client_ref = self.client.inner.clone();
+        builder = builder.bearer_auth(
+            &client_ref
+                .cred
+                .access_token()
+                .await
+                .map_err(Error::authentication)?
+                .value,
+        );
+        if let Some(body) = body {
+            builder = builder.json(&body);
+        }
+        let resp = builder.send().await.map_err(Error::io)?;
+        if !resp.status().is_success() {
+            let status = resp.status().as_u16();
+            let headers = gax::error::convert_headers(resp.headers());
+            let body = resp.bytes().await.map_err(Error::io)?;
             return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = res
-            .json::<iam::model::TestIamPermissionsResponse>()
-            .await
-            .map_err(Error::serde)?;
+        let response = resp.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
     }
 }
