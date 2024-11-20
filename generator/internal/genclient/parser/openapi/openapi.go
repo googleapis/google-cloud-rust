@@ -305,6 +305,7 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 			for _, name := range []string{"requestBody", "openapiRequestBody"} {
 				field := &genclient.Field{
 					Name:          name,
+					JSONName:      name,
 					Documentation: "The request body.",
 					Typez:         genclient.MESSAGE_TYPE,
 					TypezID:       bid,

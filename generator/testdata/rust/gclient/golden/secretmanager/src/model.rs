@@ -866,6 +866,7 @@ pub struct SecretPayload {
     /// The CRC32C value is encoded as a Int64 for compatibility, and can be
     /// safely downconverted to uint32 in languages that support this type.
     /// https://cloud.google.com/apis/design/design_patterns#integer_types
+    #[serde(rename = "dataCrc32c")]
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub data_crc32c: Option<i64>,
 }

@@ -271,18 +271,21 @@ func TestFieldAttributes(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:     "f_int64",
+				JSONName: "fInt64",
 				Typez:    genclient.INT64_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int64_optional",
+				JSONName: "fInt64Optional",
 				Typez:    genclient.INT64_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int64_repeated",
+				JSONName: "fInt64Repeated",
 				Typez:    genclient.INT64_TYPE,
 				Optional: false,
 				Repeated: true,
@@ -290,18 +293,21 @@ func TestFieldAttributes(t *testing.T) {
 
 			{
 				Name:     "f_bytes",
+				JSONName: "fBytes",
 				Typez:    genclient.BYTES_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_bytes_optional",
+				JSONName: "fBytesOptional",
 				Typez:    genclient.BYTES_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_bytes_repeated",
+				JSONName: "fBytesRepeated",
 				Typez:    genclient.BYTES_TYPE,
 				Optional: false,
 				Repeated: true,
@@ -309,18 +315,21 @@ func TestFieldAttributes(t *testing.T) {
 
 			{
 				Name:     "f_string",
+				JSONName: "fString",
 				Typez:    genclient.STRING_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_string_optional",
+				JSONName: "fStringOptional",
 				Typez:    genclient.STRING_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_string_repeated",
+				JSONName: "fStringRepeated",
 				Typez:    genclient.STRING_TYPE,
 				Optional: false,
 				Repeated: true,
@@ -382,12 +391,14 @@ func TestMapFieldAttributes(t *testing.T) {
 		IsMap: true,
 		Fields: []*genclient.Field{
 			{
-				Name:  "key",
-				Typez: genclient.STRING_TYPE,
+				Name:     "key",
+				JSONName: "key",
+				Typez:    genclient.STRING_TYPE,
 			},
 			{
-				Name:  "value",
-				Typez: genclient.INT64_TYPE,
+				Name:     "value",
+				JSONName: "value",
+				Typez:    genclient.INT64_TYPE,
 			},
 		},
 	}
@@ -427,30 +438,35 @@ func TestMapFieldAttributes(t *testing.T) {
 		Fields: []*genclient.Field{
 			{
 				Name:     "target",
+				JSONName: "target",
 				Typez:    genclient.MESSAGE_TYPE,
 				TypezID:  target.ID,
 				Optional: true,
 				Repeated: false,
 			},
 			{
-				Name:    "map",
-				Typez:   genclient.MESSAGE_TYPE,
-				TypezID: map1.ID,
+				Name:     "map",
+				JSONName: "map",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  map1.ID,
 			},
 			{
-				Name:    "map_i64",
-				Typez:   genclient.MESSAGE_TYPE,
-				TypezID: map2.ID,
+				Name:     "map_i64",
+				JSONName: "mapI64",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  map2.ID,
 			},
 			{
-				Name:    "map_i64_key",
-				Typez:   genclient.MESSAGE_TYPE,
-				TypezID: map3.ID,
+				Name:     "map_i64_key",
+				JSONName: "mapI64Key",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  map3.ID,
 			},
 			{
-				Name:    "map_bytes",
-				Typez:   genclient.MESSAGE_TYPE,
-				TypezID: map4.ID,
+				Name:     "map_bytes",
+				JSONName: "mapBytes",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  map4.ID,
 			},
 		},
 	}
@@ -462,6 +478,49 @@ func TestMapFieldAttributes(t *testing.T) {
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
+	}
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedAttributes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
+func TestFieldLossyName(t *testing.T) {
+	message := &genclient.Message{
+		Name:          "SecretPayload",
+		ID:            "..SecretPayload",
+		Documentation: "A secret payload resource in the Secret Manager API.",
+		Fields: []*genclient.Field{
+			{
+				Name:          "data",
+				JSONName:      "data",
+				Documentation: "The secret data. Must be no larger than 64KiB.",
+				Typez:         genclient.BYTES_TYPE,
+				TypezID:       "bytes",
+			},
+			{
+				Name:          "dataCrc32c",
+				JSONName:      "dataCrc32c",
+				Documentation: "Optional. If specified, SecretManagerService will verify the integrity of the received data.",
+				Typez:         genclient.INT64_TYPE,
+				TypezID:       "int64",
+				Optional:      true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+
+	expectedAttributes := map[string]string{
+		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
 	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
