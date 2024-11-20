@@ -32,23 +32,67 @@ pub struct Client {
 struct ClientRef {
     http_client: reqwest::Client,
     cred: Credential,
+    endpoint: Option<String>,
 }
 
-impl Client {
-    pub async fn new() -> Result<Self> {
-        let client = reqwest::Client::builder().build().unwrap();
+#[derive(Default)]
+pub struct ConfigBuilder {
+    pub(crate) endpoint: Option<String>,
+    pub(crate) client: Option<reqwest::Client>,
+    pub(crate) cred: Option<Credential>,
+}
+
+impl ConfigBuilder {
+    /// Returns a default [ConfigBuilder].
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets an endpoint that overrides the default endpoint for a service.
+    pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
+        self.endpoint = Some(v.into());
+        self
+    }
+
+    pub(crate) fn set_client(mut self, client: reqwest::Client) -> Self {
+        self.client = Some(client);
+        self
+    }
+
+    pub(crate) fn set_credential(mut self, cred: Credential) -> Self {
+        self.cred = Some(cred);
+        self
+    }
+
+    pub(crate) fn default_client() -> reqwest::Client {
+        reqwest::Client::builder().build().unwrap()
+    }
+
+    pub(crate) async fn default_credential() -> Result<Credential> {
         let cc = CredentialConfig::builder()
             .scopes(vec![
                 "https://www.googleapis.com/auth/cloud-platform".to_string()
             ])
             .build()
             .map_err(Error::authentication)?;
-        let cred = Credential::find_default(cc)
+        Credential::find_default(cc)
             .await
-            .map_err(Error::authentication)?;
+            .map_err(Error::authentication)
+    }
+}
+
+impl Client {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
         let inner = ClientRef {
-            http_client: client,
-            cred,
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf.endpoint,
         };
         Ok(Self {
             inner: Arc::new(inner),
@@ -65,7 +109,11 @@ impl Client {
     pub fn secret_manager_service(&self) -> SecretManagerService {
         SecretManagerService {
             client: self.clone(),
-            base_path: "https://secretmanager.googleapis.com/".to_string(),
+            base_path: self
+                .inner
+                .endpoint
+                .clone()
+                .unwrap_or("https://secretmanager.googleapis.com/".to_string()),
         }
     }
 }
