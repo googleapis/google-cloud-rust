@@ -78,10 +78,6 @@ type APIState struct {
 	MessageByID map[string]*Message
 	// EnumByID returns a message that is associated with the API.
 	EnumByID map[string]*Enum
-	// Package is the namespace of the input being generated. In proto this is
-	// the proto package. In OpenAPI this is intentionally. This can be used
-	// to determine if a type is locally defined.
-	Package string
 }
 
 // Service represents a service in an API.

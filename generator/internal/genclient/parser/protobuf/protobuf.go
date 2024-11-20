@@ -197,9 +197,6 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		ServiceByID: make(map[string]*genclient.Service),
 		MessageByID: make(map[string]*genclient.Message),
 		EnumByID:    make(map[string]*genclient.Enum),
-		// Guaranteed to be set. We only generate a single proto package at a
-		// time. 
-		Package:     req.GetSourceFileDescriptors()[0].GetPackage(),
 	}
 	api := &genclient.API{
 		State: state,

@@ -156,7 +156,7 @@ func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) str
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
 	}
-	if imp, ok := c.ImportMap[m.Package]; m.Package != state.Package && ok {
+	if imp, ok := c.ImportMap[m.Package]; ok {
 		return imp.Name + "." + c.ToPascal(m.Name)
 	}
 	return c.ToPascal(m.Name)
