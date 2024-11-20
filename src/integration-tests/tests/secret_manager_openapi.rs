@@ -181,7 +181,7 @@ async fn run_iam(
     const ROLE: &str = "roles/secretmanager.secretVersionAdder";
     let mut found = false;
     for binding in &mut new_policy.bindings {
-        if let Some(ROLE) = binding.role.as_ref().map(String::as_str) {
+        if let Some(ROLE) = binding.role.as_deref() {
             continue;
         }
         found = true;
