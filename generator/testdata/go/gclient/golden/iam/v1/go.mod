@@ -2,9 +2,9 @@ module github.com/google-cloud-rust/generator/testdata/go/gclient/golden/iam/v1
 
 go 1.23.2
 
-replace github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt => ../../wkt
-
 replace github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez => ../../typez
+
+replace github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt => ../../wkt
 
 require (
 	cloud.google.com/go/auth v0.10.2
