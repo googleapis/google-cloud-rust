@@ -87,8 +87,8 @@ pub async fn run() -> Result<()> {
         &get.name
     );
 
-    secretmanager_protobuf_secret_versions(&client, &create.name).await?;
-    secretmanager_protobuf_iam(&client, &create.name).await?;
+    run_secret_versions(&client, &create.name).await?;
+    run_iam(&client, &create.name).await?;
 
     println!("\nTesting delete_secret()");
     let delete = client
@@ -99,10 +99,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn secretmanager_protobuf_iam(
-    client: &sm::SecretManagerService,
-    secret_name: &str,
-) -> Result<()> {
+async fn run_iam(client: &sm::SecretManagerService, secret_name: &str) -> Result<()> {
     let service_account = integration_tests::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
@@ -161,10 +158,7 @@ async fn secretmanager_protobuf_iam(
     Ok(())
 }
 
-async fn secretmanager_protobuf_secret_versions(
-    client: &sm::SecretManagerService,
-    secret_name: &str,
-) -> Result<()> {
+async fn run_secret_versions(client: &sm::SecretManagerService, secret_name: &str) -> Result<()> {
     println!("\nTesting create_secret_version()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
