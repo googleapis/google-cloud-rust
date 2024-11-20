@@ -29,7 +29,8 @@ pub async fn secretmanager_protobuf() -> Result<()> {
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
-    let create_response = client
+    println!("\nTesting create_secret()");
+    let create = client
         .create_secret(
             sm::model::CreateSecretRequest::default()
                 .set_parent(format!("projects/{project_id}"))
@@ -48,23 +49,54 @@ pub async fn secretmanager_protobuf() -> Result<()> {
                 ),
         )
         .await?;
-    println!("CREATE = {create_response:?}");
+    println!("CREATE = {create:?}");
 
-    let project_name = create_response
+    let project_name = create
         .name
         .strip_suffix(format!("/secrets/{secret_id}").as_str());
     assert!(project_name.is_some());
 
-    let get_response = client
-        .get_secret(sm::model::GetSecretRequest::default().set_name(&create_response.name))
+    println!("\nTesting get_secret()");
+    let get = client
+        .get_secret(sm::model::GetSecretRequest::default().set_name(&create.name))
         .await?;
-    println!("GET = {get_response:?}");
-    assert_eq!(get_response, create_response);
+    println!("GET = {get:?}");
+    assert_eq!(get, create);
 
-    let response = client
-        .delete_secret(sm::model::DeleteSecretRequest::default().set_name(get_response.name))
+    println!("\nTesting update_secret()");
+    let mut new_labels = get.labels.clone();
+    new_labels.insert("updated".to_string(), "true".to_string());
+    let update = client
+        .update_secret(
+            sm::model::UpdateSecretRequest::default()
+                .set_update_mask(
+                    wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
+                )
+                .set_secret(
+                    sm::model::Secret::default()
+                        .set_name(&get.name)
+                        .set_labels(new_labels),
+                ),
+        )
         .await?;
-    println!("DELETE = {response:?}");
+    println!("UPDATE = {update:?}");
+
+    println!("\nTesting list_secrets()");
+    let list = get_all_secret_names(&client, &project_id).await?;
+    assert!(
+        list.iter().any(|name| name == &get.name),
+        "missing secret {} in {list:?}",
+        &get.name
+    );
+
+    secretmanager_protobuf_secret_versions(&client, &create.name).await?;
+    secretmanager_protobuf_iam(&client, &create.name).await?;
+
+    println!("\nTesting delete_secret()");
+    let delete = client
+        .delete_secret(sm::model::DeleteSecretRequest::default().set_name(get.name))
+        .await?;
+    println!("DELETE = {delete:?}");
 
     Ok(())
 }
@@ -124,8 +156,196 @@ pub async fn secretmanager_openapi() -> Result<()> {
         )
         .await?;
     println!("DELETE = {response:?}");
+    Ok(())
+}
+
+async fn secretmanager_protobuf_iam(
+    client: &sm::SecretManagerService,
+    secret_name: &str,
+) -> Result<()> {
+    let service_account = integration_tests::service_account_for_iam_tests()?;
+
+    println!("\nTesting get_iam_policy()");
+    let policy = client
+        .get_iam_policy(iam_v1::model::GetIamPolicyRequest::default().set_resource(secret_name))
+        .await?;
+    println!("POLICY = {policy:?}");
+
+    println!("\nTesting test_iam_permissions()");
+    let response = client
+        .test_iam_permissions(
+            iam_v1::model::TestIamPermissionsRequest::default()
+                .set_resource(secret_name)
+                .set_permissions(
+                    ["secretmanager.versions.access"]
+                        .map(str::to_string)
+                        .to_vec(),
+                ),
+        )
+        .await?;
+    println!("RESPONSE = {response:?}");
+
+    // This really could use an OCC loop.
+    println!("\nTesting set_iam_policy()");
+    let mut new_policy = policy.clone();
+    const ROLE: &str = "roles/secretmanager.secretVersionAdder";
+    let mut found = false;
+    for binding in &mut new_policy.bindings {
+        if binding.role != ROLE {
+            continue;
+        }
+        found = true;
+        binding
+            .members
+            .push(format!("serviceAccount:{service_account}"));
+    }
+    if !found {
+        new_policy.bindings.push(
+            iam_v1::model::Binding::default()
+                .set_role(ROLE)
+                .set_members([format!("serviceAccount:{service_account}")].to_vec()),
+        );
+    }
+    let response = client
+        .set_iam_policy(
+            iam_v1::model::SetIamPolicyRequest::default()
+                .set_resource(secret_name)
+                .set_update_mask(
+                    wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
+                )
+                .set_policy(new_policy),
+        )
+        .await?;
+    println!("RESPONSE = {response:?}");
 
     Ok(())
+}
+
+async fn secretmanager_protobuf_secret_versions(
+    client: &sm::SecretManagerService,
+    secret_name: &str,
+) -> Result<()> {
+    println!("\nTesting create_secret_version()");
+    let data = "The quick brown fox jumps over the lazy dog".as_bytes();
+    let create_secret_version = client
+        .add_secret_version(
+            sm::model::AddSecretVersionRequest::default()
+                .set_parent(secret_name)
+                .set_payload(
+                    sm::model::SecretPayload::default().set_data(bytes::Bytes::from(data)),
+                ),
+        )
+        .await?;
+    println!("CREATE_SECRET_VERSION = {create_secret_version:?}");
+
+    println!("\nTesting get_secret_version()");
+    let get_secret_version = client
+        .get_secret_version(
+            sm::model::GetSecretVersionRequest::default().set_name(&create_secret_version.name),
+        )
+        .await?;
+    println!("GET_SECRET_VERSION = {create_secret_version:?}");
+    assert_eq!(get_secret_version, create_secret_version);
+
+    println!("\nTesting list_secret_versions()");
+    let secret_versions_list = get_all_secret_version_names(client, secret_name).await?;
+    assert!(
+        secret_versions_list
+            .iter()
+            .any(|name| name == &get_secret_version.name),
+        "missing secret version {} in {secret_versions_list:?}",
+        &get_secret_version.name
+    );
+
+    println!("\nTesting access_secret_version()");
+    let access_secret_version = client
+        .access_secret_version(
+            sm::model::AccessSecretVersionRequest::default().set_name(&create_secret_version.name),
+        )
+        .await?;
+    println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
+    assert_eq!(
+        access_secret_version.payload.map(|p| p.data),
+        Some(bytes::Bytes::from(data))
+    );
+
+    println!("\nTesting disable_secret_version()");
+    let disable = client
+        .disable_secret_version(
+            sm::model::DisableSecretVersionRequest::default().set_name(&create_secret_version.name),
+        )
+        .await?;
+    println!("DISABLE_SECRET_VERSION = {disable:?}");
+
+    println!("\nTesting disable_secret_version()");
+    let enable = client
+        .enable_secret_version(
+            sm::model::EnableSecretVersionRequest::default().set_name(&create_secret_version.name),
+        )
+        .await?;
+    println!("ENABLE_SECRET_VERSION = {enable:?}");
+
+    println!("\nTesting destroy_secret_version()");
+    let delete = client
+        .destroy_secret_version(
+            sm::model::DestroySecretVersionRequest::default().set_name(&get_secret_version.name),
+        )
+        .await?;
+    println!("RESPONSE = {delete:?}");
+
+    Ok(())
+}
+
+async fn get_all_secret_version_names(
+    client: &sm::SecretManagerService,
+    secret_name: &str,
+) -> Result<Vec<String>> {
+    let mut names = Vec::new();
+    let mut page_token = String::new();
+    loop {
+        let response = client
+            .list_secret_versions(
+                sm::model::ListSecretVersionsRequest::default()
+                    .set_parent(secret_name)
+                    .set_page_token(&page_token),
+            )
+            .await?;
+        response
+            .versions
+            .into_iter()
+            .for_each(|s| names.push(s.name));
+        if response.next_page_token.is_empty() {
+            break;
+        }
+        page_token = response.next_page_token;
+    }
+    Ok(names)
+}
+
+async fn get_all_secret_names(
+    client: &sm::SecretManagerService,
+    project_id: &str,
+) -> Result<Vec<String>> {
+    let mut names = Vec::new();
+    let mut page_token = String::new();
+    loop {
+        let response = client
+            .list_secrets(
+                sm::model::ListSecretsRequest::default()
+                    .set_parent(format!("projects/{project_id}"))
+                    .set_page_token(&page_token),
+            )
+            .await?;
+        response
+            .secrets
+            .into_iter()
+            .for_each(|s| names.push(s.name));
+        if response.next_page_token.is_empty() {
+            break;
+        }
+        page_token = response.next_page_token;
+    }
+    Ok(names)
 }
 
 async fn cleanup_stale_secrets(

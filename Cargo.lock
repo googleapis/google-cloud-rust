@@ -819,9 +819,11 @@ dependencies = [
 name = "integration-tests"
 version = "0.0.0"
 dependencies = [
+ "bytes",
  "futures",
  "gax",
  "google-cloud-auth",
+ "iam-v1-golden-gclient",
  "rand",
  "secretmanager-golden-gclient",
  "secretmanager-golden-openapi",
