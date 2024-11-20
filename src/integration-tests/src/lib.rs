@@ -15,6 +15,8 @@
 pub use std::error::Error;
 pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
+pub const SECRET_ID_LENGTH: usize = 64;
+
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
