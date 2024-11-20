@@ -103,8 +103,7 @@ pub async fn secretmanager_openapi() -> Result<()> {
     let project_name = create_response
         .name
         .as_ref()
-        .map(|s| s.strip_suffix(format!("/secrets/{secret_id}").as_str()))
-        .flatten();
+        .and_then(|s| s.strip_suffix(format!("/secrets/{secret_id}").as_str()));
     assert!(project_name.is_some());
 
     let get_response = client
