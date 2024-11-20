@@ -236,31 +236,6 @@ pub struct Secret {
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
-
-    /// The `{project}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
-    pub project: String,
-
-    /// Required. This must be unique within the project.
-    ///
-    /// A secret ID is a string with a maximum length of 255 characters and can
-    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
-    /// underscore (`_`) characters.
-    pub secret_id: String,
-
-    /// The `{location}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
-    pub location: String,
-
-    /// The `{secret}` component of the target path.
-    ///
-    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
-    pub secret: String,
-
-    /// Required. Specifies the fields to be updated.
-    pub update_mask: wkt::FieldMask,
 }
 
 impl Secret {
@@ -350,36 +325,6 @@ impl Secret {
         v: T,
     ) -> Self {
         self.customer_managed_encryption = v.into();
-        self
-    }
-
-    /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
-        self.project = v.into();
-        self
-    }
-
-    /// Sets the value of `secret_id`.
-    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
-        self.secret_id = v.into();
-        self
-    }
-
-    /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
-        self.location = v.into();
-        self
-    }
-
-    /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
-        self.secret = v.into();
-        self
-    }
-
-    /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
-        self.update_mask = v.into();
         self
     }
 }
@@ -1986,6 +1931,48 @@ impl ListSecretsRequest {
     }
 }
 
+/// The request message for CreateSecret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateSecretRequest {
+    /// The request body.
+    pub request_body: Option<crate::model::Secret>,
+
+    /// The `{project}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets`.
+    pub project: String,
+
+    /// Required. This must be unique within the project.
+    ///
+    /// A secret ID is a string with a maximum length of 255 characters and can
+    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
+    /// underscore (`_`) characters.
+    pub secret_id: String,
+}
+
+impl CreateSecretRequest {
+    /// Sets the value of `request_body`.
+    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.request_body = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret_id`.
+    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret_id = v.into();
+        self
+    }
+}
+
 /// The request message for ListSecretsByProjectAndLocation.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2047,6 +2034,59 @@ impl ListSecretsByProjectAndLocationRequest {
     /// Sets the value of `filter`.
     pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
+        self
+    }
+}
+
+/// The request message for CreateSecretByProjectAndLocation.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateSecretByProjectAndLocationRequest {
+    /// The request body.
+    pub request_body: Option<crate::model::Secret>,
+
+    /// The `{project}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    pub project: String,
+
+    /// The `{location}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
+    pub location: String,
+
+    /// Required. This must be unique within the project.
+    ///
+    /// A secret ID is a string with a maximum length of 255 characters and can
+    /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
+    /// underscore (`_`) characters.
+    pub secret_id: String,
+}
+
+impl CreateSecretByProjectAndLocationRequest {
+    /// Sets the value of `request_body`.
+    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.request_body = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret_id`.
+    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret_id = v.into();
         self
     }
 }
@@ -2120,6 +2160,55 @@ impl DeleteSecretRequest {
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+}
+
+/// The request message for UpdateSecret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateSecretRequest {
+    /// The request body.
+    pub request_body: Option<crate::model::Secret>,
+
+    /// The `{project}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    pub project: String,
+
+    /// The `{secret}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
+    pub secret: String,
+
+    /// Required. Specifies the fields to be updated.
+    pub update_mask: wkt::FieldMask,
+}
+
+impl UpdateSecretRequest {
+    /// Sets the value of `request_body`.
+    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.request_body = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
         self
     }
 }
@@ -2215,6 +2304,66 @@ impl DeleteSecretByProjectAndLocationAndSecretRequest {
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+}
+
+/// The request message for UpdateSecretByProjectAndLocationAndSecret.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
+    /// The request body.
+    pub request_body: Option<crate::model::Secret>,
+
+    /// The `{project}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    pub project: String,
+
+    /// The `{location}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    pub location: String,
+
+    /// The `{secret}` component of the target path.
+    ///
+    /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
+    pub secret: String,
+
+    /// Required. Specifies the fields to be updated.
+    pub update_mask: wkt::FieldMask,
+}
+
+impl UpdateSecretByProjectAndLocationAndSecretRequest {
+    /// Sets the value of `request_body`.
+    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        self.request_body = v.into();
+        self
+    }
+
+    /// Sets the value of `project`.
+    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of `location`.
+    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of `secret`.
+    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+        self.secret = v.into();
+        self
+    }
+
+    /// Sets the value of `update_mask`.
+    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+        self.update_mask = v.into();
         self
     }
 }

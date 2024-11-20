@@ -215,17 +215,13 @@ func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document
 			if op.Operation == nil {
 				continue
 			}
-			requestMessage, err := makeRequestMessage(api, op.Operation, pattern)
+			requestMessage, bodyFieldPath, err := makeRequestMessage(api, op.Operation, pattern)
 			if err != nil {
 				return nil, err
 			}
 			responseMessage, err := makeResponseMessage(api, op.Operation)
 			if err != nil {
 				return nil, err
-			}
-			bodyFieldPath := ""
-			if op.Operation.RequestBody != nil {
-				bodyFieldPath = "*"
 			}
 			pathInfo := &genclient.PathInfo{
 				Verb:            op.Verb,
@@ -269,7 +265,9 @@ func makePathTemplate(template string) []genclient.PathSegment {
 	return segments
 }
 
-func makeRequestMessage(api *genclient.API, operation *v3.Operation, template string) (*genclient.Message, error) {
+// Creates (if needed) the request message for `operation`. Returns the message
+// and the body field path (if any) for the request.
+func makeRequestMessage(api *genclient.API, operation *v3.Operation, template string) (*genclient.Message, string, error) {
 	messageName := fmt.Sprintf("%sRequest", operation.OperationId)
 	id := fmt.Sprintf("..%s", messageName)
 	message := &genclient.Message{
@@ -278,23 +276,30 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 		Documentation: fmt.Sprintf("The request message for %s.", operation.OperationId),
 	}
 
+	bodyFieldPath := ""
 	if operation.RequestBody != nil {
 		reference, err := findReferenceInContentMap(operation.RequestBody.Content)
 		if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		bid := fmt.Sprintf("..%s", strings.TrimPrefix(reference, "#/components/schemas/"))
 		msg, ok := api.State.MessageByID[bid]
 		if !ok {
-			return nil, fmt.Errorf("cannot find referenced type (%s) in API messages", reference)
+			return nil, "", fmt.Errorf("cannot find referenced type (%s) in API messages", reference)
 		}
+		// Our OpenAPI specs do this weird thing: sometimes the `*Request`
+		// message appears in the list of known messages. But sometimes only
+		// the payload appears. I have not found any attribute to tell apart
+		// between the two. Only the name suffix.
 		if strings.HasSuffix(reference, "Request") {
-			// Our OpenAPI specs do this weird thing: sometimes the `*Request`
-			// message appears in the list of known messages. But sometimes only
-			// the payload appears. I have not found any attribute to tell apart
-			// between the two. Only the name suffix.
+			// If the message ends in `Request` then we can assume it is fine
+			// adding more fields to it.
 			message = msg
 		} else {
+			// The OpenAPI discovery docs do not preserve the original field
+			// name for the request body. We need to create a synthetic name,
+			// which may clash with other fields in the message. Let's try a
+			// couple of different names.
 			inserted := false
 			for _, name := range []string{"requestBody", "openapiRequestBody"} {
 				field := &genclient.Field{
@@ -306,14 +311,18 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 				}
 				inserted = addFieldIfNew(message, field)
 				if inserted {
+					// The the request body field path accordingly.
+					bodyFieldPath = name
 					break
 				}
 			}
 			if !inserted {
-				return nil, fmt.Errorf("cannot insert the request body to message %s", message.Name)
+				return nil, "", fmt.Errorf("cannot insert the request body to message %s", message.Name)
 			}
+			// We need to create the message.
+			api.Messages = append(api.Messages, message)
+			api.State.MessageByID[message.ID] = message
 		}
-		message = msg
 	} else {
 		// The message is new
 		api.Messages = append(api.Messages, message)
@@ -323,11 +332,11 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 	for _, p := range operation.Parameters {
 		schema, err := p.Schema.BuildSchema()
 		if err != nil {
-			return nil, fmt.Errorf("error building schema for parameter %s: %w", p.Name, err)
+			return nil, "", fmt.Errorf("error building schema for parameter %s: %w", p.Name, err)
 		}
 		typez, typezID, err := scalarType(messageName, p.Name, schema)
 		if err != nil {
-			return nil, err
+			return nil, "", err
 		}
 		documentation := p.Description
 		if len(documentation) == 0 {
@@ -348,7 +357,7 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 		}
 		addFieldIfNew(message, field)
 	}
-	return message, nil
+	return message, bodyFieldPath, nil
 }
 
 func addFieldIfNew(message *genclient.Message, field *genclient.Field) bool {
