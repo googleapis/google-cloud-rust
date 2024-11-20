@@ -175,7 +175,8 @@ async fn secretmanager_protobuf_secret_versions(
                 .set_payload(
                     sm::model::SecretPayload::default()
                         .set_data(bytes::Bytes::from(data))
-                        .set_data_crc32c(checksum as i64)),
+                        .set_data_crc32c(checksum as i64),
+                ),
         )
         .await?;
     println!("CREATE_SECRET_VERSION = {create_secret_version:?}");
