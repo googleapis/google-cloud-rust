@@ -745,6 +745,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
@@ -1409,6 +1410,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "google-cloud-auth",
  "iam-v1-golden-gclient",
  "reqwest 0.12.9",
  "serde",
@@ -1424,6 +1426,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
@@ -1899,6 +1902,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
  "serde_json",

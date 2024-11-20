@@ -23,7 +23,8 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = smo::Client::new(integration_tests::test_token().await?)
+    let client = smo::Client::new()
+        .await?
         .google_cloud_secretmanager_v_1_secret_manager_service();
 
     let create_response = client

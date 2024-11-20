@@ -178,6 +178,7 @@ impl CredentialConfig {
 }
 
 /// A builder for instantiating a [CredentialConfig].
+#[derive(Debug)]
 pub struct CredentialConfigBuilder {
     scopes: Vec<String>,
 }

@@ -23,7 +23,7 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = sm::Client::new(integration_tests::test_token().await?).secret_manager_service();
+    let client = sm::Client::new().await?.secret_manager_service();
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
