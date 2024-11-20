@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gcp_sdk_wkt::Duration;
 use serde_json::json;
-use types::FieldMask;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 #[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
-#[non_exhaustive]
 pub struct Helper {
-    pub mask: Option<FieldMask>,
+    pub time_to_live: Option<Duration>,
 }
 
 #[test]
 fn access() {
-    let fm = FieldMask::default();
-    assert_eq!(fm.paths, Vec::<String>::new());
+    let d = Duration::default();
+    assert_eq!(d.nanos, 0);
+    assert_eq!(d.seconds, 0);
 }
 
 #[test]
@@ -39,12 +39,12 @@ fn serialize_in_struct() -> Result {
     assert_eq!(json, json!({}));
 
     let input = Helper {
-        mask: Some(FieldMask::default().set_paths(["f1", "f2", "f3"].map(str::to_string).to_vec())),
+        time_to_live: Some(Duration::new(12, 345678900)),
         ..Default::default()
     };
 
     let json = serde_json::to_value(input)?;
-    assert_eq!(json, json!({ "mask": {"paths": "f1,f2,f3"} }));
+    assert_eq!(json, json!({ "timeToLive": "12.345678900s" }));
     Ok(())
 }
 
@@ -57,12 +57,9 @@ fn deserialize_in_struct() -> Result {
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
 
-    let input = json!({ "mask": {"paths": "field1,field2,field3" }});
+    let input = json!({ "timeToLive": "12.345678900s" });
     let want = Helper {
-        mask: Some(
-            FieldMask::default()
-                .set_paths(["field1", "field2", "field3"].map(str::to_string).to_vec()),
-        ),
+        time_to_live: Some(Duration::new(12, 345678900)),
         ..Default::default()
     };
     let got = serde_json::from_value::<Helper>(input)?;

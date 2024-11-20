@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gcp_sdk_wkt::FieldMask;
 use serde_json::json;
-use types::Timestamp;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 #[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
+#[non_exhaustive]
 pub struct Helper {
-    pub create_time: Option<Timestamp>,
+    pub mask: Option<FieldMask>,
 }
 
 #[test]
 fn access() {
-    let ts = Timestamp::default();
-    assert_eq!(ts.nanos, 0);
-    assert_eq!(ts.seconds, 0);
+    let fm = FieldMask::default();
+    assert_eq!(fm.paths, Vec::<String>::new());
 }
 
 #[test]
@@ -39,15 +39,12 @@ fn serialize_in_struct() -> Result {
     assert_eq!(json, json!({}));
 
     let input = Helper {
-        create_time: Some(Timestamp::default().set_seconds(12).set_nanos(345_678_900)),
+        mask: Some(FieldMask::default().set_paths(["f1", "f2", "f3"].map(str::to_string).to_vec())),
         ..Default::default()
     };
 
     let json = serde_json::to_value(input)?;
-    assert_eq!(
-        json,
-        json!({ "createTime": "1970-01-01T00:00:12.3456789Z" })
-    );
+    assert_eq!(json, json!({ "mask": {"paths": "f1,f2,f3"} }));
     Ok(())
 }
 
@@ -60,9 +57,12 @@ fn deserialize_in_struct() -> Result {
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
 
-    let input = json!({ "createTime": "1970-01-01T00:00:12.3456789Z" });
+    let input = json!({ "mask": {"paths": "field1,field2,field3" }});
     let want = Helper {
-        create_time: Some(Timestamp::default().set_seconds(12).set_nanos(345678900)),
+        mask: Some(
+            FieldMask::default()
+                .set_paths(["field1", "field2", "field3"].map(str::to_string).to_vec()),
+        ),
         ..Default::default()
     };
     let got = serde_json::from_value::<Helper>(input)?;

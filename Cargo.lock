@@ -407,6 +407,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "gcp-sdk-wkt",
  "http 1.1.0",
  "reqwest 0.12.9",
  "serde",
@@ -414,7 +415,6 @@ dependencies = [
  "serde_with",
  "thiserror 2.0.1",
  "tokio",
- "types",
 ]
 
 [[package]]
@@ -463,7 +463,15 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-wkt"
-version = "0.0.0"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "test-case",
+ "time",
+]
 
 [[package]]
 name = "getrandom"
@@ -745,6 +753,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
@@ -752,7 +761,6 @@ dependencies = [
  "serde_with",
  "time",
  "type-golden-gclient",
- "types",
 ]
 
 [[package]]
@@ -833,13 +841,13 @@ dependencies = [
  "crc32c",
  "futures",
  "gax",
+ "gcp-sdk-wkt",
  "google-cloud-auth",
  "iam-v1-golden-gclient",
  "rand",
  "secretmanager-golden-gclient",
  "secretmanager-golden-openapi",
  "tokio",
- "types",
 ]
 
 [[package]]
@@ -1410,6 +1418,7 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "gcp-sdk-wkt",
  "google-cloud-auth",
  "iam-v1-golden-gclient",
  "reqwest 0.12.9",
@@ -1417,7 +1426,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "time",
- "types",
 ]
 
 [[package]]
@@ -1426,13 +1434,13 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
  "serde_with",
  "time",
- "types",
 ]
 
 [[package]]
@@ -1902,24 +1910,12 @@ version = "0.1.0"
 dependencies = [
  "bytes",
  "gax",
+ "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
  "serde",
  "serde_json",
  "serde_with",
- "time",
- "types",
-]
-
-[[package]]
-name = "types"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "serde",
- "serde_json",
- "serde_with",
- "test-case",
  "time",
 ]
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use types::Empty;
+use gcp_sdk_wkt::Empty;
 
 #[test]
 fn access() {

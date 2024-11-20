@@ -14,11 +14,23 @@
 
 [package]
 name                 = "gcp-sdk-wkt"
-version              = "0.0.0"
-description          = "Google Cloud SDK for Rust"
+version              = "0.1.0"
+description          = "Google Cloud SDK for Rust - Well Known Types"
 edition.workspace    = true
 authors.workspace    = true
 license.workspace    = true
 repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
+
+[dependencies]
+serde      = { version = "1.0.214", features = ["serde_derive"] }
+serde_with = { version = "3.11.0" }
+serde_json = "1.0.132"
+time       = { version = "0.3.36", features = ["formatting", "parsing"] }
+bytes      = { version = "1.8.0", features = ["serde"] }
+
+[dev-dependencies]
+test-case  = "3.3.1"
+bytes      = { version = "1.8.0", features = ["serde"] }
+serde_with = { version = "3.11.0", features = ["base64"] }
