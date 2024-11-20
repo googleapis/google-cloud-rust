@@ -15,6 +15,7 @@
 package openapi
 
 import (
+	"os"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -523,7 +524,10 @@ func TestMapInteger(t *testing.T) {
 }
 
 func TestMakeAPI(t *testing.T) {
-	contents := []byte(testDocument)
+	contents, err := os.ReadFile("../../../../testdata/openapi/secretmanager_openapi_v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
@@ -546,7 +550,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "name",
 				JSONName:      "name",
-				Documentation: "Resource name for the location, which may vary between implementations.",
+				Documentation: "Resource name for the location, which may vary between implementations." + "\nFor example: `\"projects/example-project/locations/us-east1\"`",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
 				Optional:      true,
@@ -554,7 +558,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "locationId",
 				JSONName:      "locationId",
-				Documentation: `The canonical id for this location.`,
+				Documentation: "The canonical id for this location. For example: `\"us-east1\"`.",
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
 				Optional:      true,
@@ -562,7 +566,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "displayName",
 				JSONName:      "displayName",
-				Documentation: `The friendly name for this location, typically a nearby city name.`,
+				Documentation: `The friendly name for this location, typically a nearby city name.` + "\n" + `For example, "Tokyo".`,
 				Typez:         genclient.STRING_TYPE,
 				TypezID:       "string",
 				Optional:      true,
@@ -570,7 +574,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "labels",
 				JSONName:      "labels",
-				Documentation: "Cross-service attributes for the location.",
+				Documentation: "Cross-service attributes for the location. For example\n\n    {\"cloud.googleapis.com/region\": \"us-east1\"}",
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       "$map<string, string>",
 				Optional:      false,
@@ -578,7 +582,7 @@ func TestMakeAPI(t *testing.T) {
 			{
 				Name:          "metadata",
 				JSONName:      "metadata",
-				Documentation: `Service-specific metadata. For example the available capacity at the given location.`,
+				Documentation: `Service-specific metadata. For example the available capacity at the given` + "\n" + `location.`,
 				Typez:         genclient.MESSAGE_TYPE,
 				TypezID:       ".google.protobuf.Any",
 				Optional:      true,
@@ -635,17 +639,20 @@ func TestMakeAPI(t *testing.T) {
 				TypezID:       "string",
 			},
 			{
-				Name:          "filter",
-				JSONName:      "filter",
-				Documentation: "A filter to narrow down results to a preferred subset.",
-				Typez:         genclient.STRING_TYPE,
-				TypezID:       "string",
-				Optional:      true,
+				Name:     "filter",
+				JSONName: "filter",
+				Documentation: "A filter to narrow down results to a preferred subset." +
+					"\nThe filtering language accepts strings like `\"displayName=tokyo" +
+					"\"`, and\nis documented in more detail in [AIP-160](https://google" +
+					".aip.dev/160).",
+				Typez:    genclient.STRING_TYPE,
+				TypezID:  "string",
+				Optional: true,
 			},
 			{
 				Name:          "pageSize",
 				JSONName:      "pageSize",
-				Documentation: "The maximum number of results to return.",
+				Documentation: "The maximum number of results to return.\nIf not set, the service selects a default.",
 				Typez:         genclient.INT32_TYPE,
 				TypezID:       "int32",
 				Optional:      true,
@@ -666,65 +673,99 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("missing service (Service) in ServiceByID index")
 		return
 	}
-	checkService(t, *service, genclient.Service{
+
+	wantService := &genclient.Service{
 		Name:          "Service",
 		ID:            "..Service",
 		Documentation: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
 		DefaultHost:   "secretmanager.googleapis.com",
-		Methods: []*genclient.Method{
-			{
-				Name:          "ListLocations",
-				ID:            "ListLocations",
-				Documentation: "Lists information about the supported locations for this service.",
-				InputTypeID:   "..ListLocationsRequest",
-				OutputTypeID:  "..ListLocationsResponse",
-				PathInfo: &genclient.PathInfo{
-					Verb: "GET",
-					PathTemplate: []genclient.PathSegment{
-						genclient.NewLiteralPathSegment("v1"),
-						genclient.NewLiteralPathSegment("projects"),
-						genclient.NewFieldPathPathSegment("project"),
-						genclient.NewLiteralPathSegment("locations"),
-					},
-					QueryParameters: map[string]bool{
-						"filter":    true,
-						"pageSize":  true,
-						"pageToken": true,
-					},
-				},
+	}
+	if diff := cmp.Diff(wantService, service, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
+		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
+	}
+
+	checkMethod(t, service, "ListLocations", &genclient.Method{
+		Name:          "ListLocations",
+		ID:            "ListLocations",
+		Documentation: "Lists information about the supported locations for this service.",
+		InputTypeID:   "..ListLocationsRequest",
+		OutputTypeID:  "..ListLocationsResponse",
+		PathInfo: &genclient.PathInfo{
+			Verb: "GET",
+			PathTemplate: []genclient.PathSegment{
+				genclient.NewLiteralPathSegment("v1"),
+				genclient.NewLiteralPathSegment("projects"),
+				genclient.NewFieldPathPathSegment("project"),
+				genclient.NewLiteralPathSegment("locations"),
 			},
-			{
-				Name:          "CreateSecret",
-				ID:            "CreateSecret",
-				Documentation: "Creates a new Secret containing no SecretVersions.",
-				InputTypeID:   "..CreateSecretRequest",
-				OutputTypeID:  "..Secret",
-				PathInfo: &genclient.PathInfo{
-					Verb:          "POST",
-					BodyFieldPath: "requestBody",
-					PathTemplate: []genclient.PathSegment{
-						genclient.NewLiteralPathSegment("v1"),
-						genclient.NewLiteralPathSegment("projects"),
-						genclient.NewFieldPathPathSegment("project"),
-						genclient.NewLiteralPathSegment("secrets"),
-					},
-					QueryParameters: map[string]bool{
-						"secretId": true,
-					},
-				},
+			QueryParameters: map[string]bool{
+				"filter":    true,
+				"pageSize":  true,
+				"pageToken": true,
 			},
+		},
+	})
+
+	checkMethod(t, service, "CreateSecret", &genclient.Method{
+		Name:          "CreateSecret",
+		ID:            "CreateSecret",
+		Documentation: "Creates a new Secret containing no SecretVersions.",
+		InputTypeID:   "..CreateSecretRequest",
+		OutputTypeID:  "..Secret",
+		PathInfo: &genclient.PathInfo{
+			Verb:          "POST",
+			BodyFieldPath: "requestBody",
+			PathTemplate: []genclient.PathSegment{
+				genclient.NewLiteralPathSegment("v1"),
+				genclient.NewLiteralPathSegment("projects"),
+				genclient.NewFieldPathPathSegment("project"),
+				genclient.NewLiteralPathSegment("secrets"),
+			},
+			QueryParameters: map[string]bool{
+				"secretId": true,
+			},
+		},
+	})
+
+	checkMethod(t, service, "AddSecretVersion", &genclient.Method{
+		Name:          "AddSecretVersion",
+		ID:            "AddSecretVersion",
+		Documentation: "Creates a new SecretVersion containing secret data and attaches\nit to an existing Secret.",
+		InputTypeID:   "..AddSecretVersionRequest",
+		OutputTypeID:  "..SecretVersion",
+		PathInfo: &genclient.PathInfo{
+			Verb:          "POST",
+			BodyFieldPath: "*",
+			PathTemplate: []genclient.PathSegment{
+				genclient.NewLiteralPathSegment("v1"),
+				genclient.NewLiteralPathSegment("projects"),
+				genclient.NewFieldPathPathSegment("project"),
+				genclient.NewLiteralPathSegment("secrets"),
+				genclient.NewFieldPathPathSegment("secret"),
+				genclient.NewVerbPathSegment("addVersion"),
+			},
+			QueryParameters: map[string]bool{},
 		},
 	})
 }
 
-func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
+func checkMethod(t *testing.T, service *genclient.Service, name string, want *genclient.Method) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
-		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
+	findMethod := func(name string) (*genclient.Method, bool) {
+		for _, method := range service.Methods {
+			if method.Name == name {
+				return method, true
+			}
+		}
+		return nil, false
 	}
-	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); len(diff) > 0 {
-		t.Errorf("field mismatch (-want, +got):\n%s", diff)
+
+	got, ok := findMethod(name)
+	if !ok {
+		t.Errorf("missing method %s", name)
+	}
+	if diff := cmp.Diff(want, got); len(diff) > 0 {
+		t.Errorf("mismatched data for method %s (-want, +got):\n%s", name, diff)
 	}
 }
 
@@ -760,375 +801,6 @@ const singleMessagePreamble = `
 const singleMessageTrailer = `
     },
   },
-  "externalDocs": {
-    "description": "Find more info here.",
-    "url": "https://cloud.google.com/secret-manager/"
-  }
-}
-`
-
-// This is a subset of the secret manager OpenAPI v3 spec circa 2023-10.  It is
-// just intended to drive some of the initial development and testing.
-const testDocument = `
-{
-  "openapi": "3.0.3",
-  "info": {
-    "title": "Secret Manager API",
-    "description": "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
-    "version": "v1"
-  },
-  "servers": [
-    {
-      "url": "https://secretmanager.googleapis.com",
-      "description": "Global Endpoint"
-    }
-  ],
-  "paths": {
-    "/v1/projects/{project}/locations": {
-      "parameters": [
-        { "$ref": "#/components/parameters/alt"},
-        { "$ref": "#/components/parameters/callback"},
-        { "$ref": "#/components/parameters/prettyPrint"},
-        { "$ref": "#/components/parameters/_.xgafv"}
-      ],
-      "get": {
-        "tags": ["secretmanager"],
-        "operationId": "ListLocations",
-        "description": "Lists information about the supported locations for this service.",
-        "security": [
-          {
-            "google_oauth_implicit": [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ]
-          },
-          {
-            "google_oauth_code": [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ]
-          },
-          {
-            "bearer_auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "project",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "filter",
-            "description": "A filter to narrow down results to a preferred subset.",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "pageSize",
-            "description": "The maximum number of results to return.",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageToken",
-            "description": "A page token received from the ` + "`next_page_token`" + ` field in the response.\nSend that page token to receive the subsequent page.",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListLocationsResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/projects/{project}/secrets": {
-      "parameters": [
-        { "$ref": "#/components/parameters/alt"},
-        { "$ref": "#/components/parameters/callback"},
-        { "$ref": "#/components/parameters/prettyPrint"},
-        { "$ref": "#/components/parameters/_.xgafv"}
-      ],
-      "post": {
-        "tags": ["secretmanager"],
-        "operationId": "CreateSecret",
-        "description": "Creates a new Secret containing no SecretVersions.",
-        "security": [
-          {
-            "google_oauth_implicit": [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ]
-          },
-          {
-            "google_oauth_code": [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ]
-          },
-          {
-            "bearer_auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "project",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "secretId",
-            "description": "Required. This must be unique within the project.",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "description": "Required. A Secret with initial field values.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Secret"
-              }
-            }
-          }
-        },
-        "responses": {
-          "default": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Secret"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "parameters": {
-      "alt": {
-        "name": "$alt",
-        "description": "Data format for response.",
-        "schema": {
-          "default": "json",
-          "enum": [
-            "json",
-            "media",
-            "proto"
-          ],
-          "x-google-enum-descriptions": [
-            "Responses with Content-Type of application/json",
-            "Media download with context-dependent Content-Type",
-            "Responses with Content-Type of application/x-protobuf"
-          ],
-          "type": "string"
-        },
-        "in": "query"
-      },
-      "callback": {
-        "name": "$callback",
-        "description": "JSONP",
-        "schema": {
-          "type": "string"
-        },
-        "in": "query"
-      },
-      "prettyPrint": {
-        "name": "$prettyPrint",
-        "description": "Returns response with indentations and line breaks.",
-        "schema": {
-          "default": "true",
-          "type": "boolean"
-        },
-        "in": "query"
-      },
-      "_.xgafv": {
-        "name": "$.xgafv",
-        "description": "V1 error format.",
-        "schema": {
-          "enum": [
-            "1",
-            "2"
-          ],
-          "x-google-enum-descriptions": [
-            "v1 error format",
-            "v2 error format"
-          ],
-          "type": "string"
-        },
-        "in": "query"
-      }
-    },
-    "securitySchemes": {
-      "google_oauth_implicit": {
-        "type": "oauth2",
-        "description": "Google Oauth 2.0 implicit authentication flow.",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
-            "scopes": {
-              "https://www.googleapis.com/auth/cloud-platform": "See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account."
-            }
-          }
-        }
-      },
-      "google_oauth_code": {
-        "type": "oauth2",
-        "description": "Google Oauth 2.0 authorizationCode authentication flow.",
-        "flows": {
-          "authorizationCode": {
-            "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
-            "tokenUrl": "https://oauth2.googleapis.com/token",
-            "refreshUrl": "https://oauth2.googleapis.com/token",
-            "scopes": {
-              "https://www.googleapis.com/auth/cloud-platform": "See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account."
-            }
-          }
-        }
-      },
-      "bearer_auth": {
-        "type": "http",
-        "description": "Http bearer authentication.",
-        "scheme": "bearer"
-      }
-    },
-    "schemas": {
-      "Location": {
-        "description": "A resource that represents a Google Cloud location.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Resource name for the location, which may vary between implementations.",
-            "type": "string"
-          },
-          "locationId": {
-            "description": "The canonical id for this location.",
-            "type": "string"
-          },
-          "displayName": {
-            "description": "The friendly name for this location, typically a nearby city name.",
-            "type": "string"
-          },
-          "labels": {
-            "description": "Cross-service attributes for the location.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "metadata": {
-            "description": "Service-specific metadata. For example the available capacity at the given location.",
-            "type": "object",
-            "additionalProperties": {
-              "description": "Properties of the object. Contains field @type with type URL."
-            }
-          }
-        }
-      },
-      "ListLocationsResponse": {
-        "description": "The response message for Locations.ListLocations.",
-        "type": "object",
-        "properties": {
-          "locations": {
-            "description": "A list of locations that matches the specified filter in the request.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Location"
-            }
-          },
-          "nextPageToken": {
-            "description": "The standard List next-page token.",
-            "type": "string"
-          }
-        }
-      },
-      "Secret": {
-        "description": "A Secret is a logical secret whose value and versions can\nbe accessed.\n\nA Secret is made up of zero or more SecretVersions that\nrepresent the secret data.",
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "Output only. The resource name of the Secret in the format` + " `projects/_*_/secrets/*` " + `.",
-            "readOnly": true,
-            "type": "string"
-          },
-          "createTime": {
-            "description": "Output only. The time at which the Secret was created.",
-            "readOnly": true,
-            "type": "string",
-            "format": "date-time"
-          },
-          "labels": {
-            "description": "The labels assigned to this Secret.\n\nLabel keys must be between 1 and 63 characters long",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "expireTime": {
-            "description": "Optional. Timestamp in UTC when the Secret is scheduled to expire. This is\nalways provided on output, regardless of what was sent on input.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "ttl": {
-            "description": "Input only. The TTL for the Secret.",
-            "writeOnly": true,
-            "type": "string",
-            "format": "google-duration"
-          },
-          "etag": {
-            "description": "Optional. Etag of the currently stored Secret.",
-            "type": "string"
-          },
-          "versionAliases": {
-            "description": "Optional. Mapping from version alias to version name.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "format": "int64"
-            }
-          },
-          "annotations": {
-            "description": "Optional. Custom metadata about the secret.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            }
-          },
-          "versionDestroyTtl": {
-            "description": "Optional. Secret Version TTL after destruction request\n\nThis is a part of the Delayed secret version destroy feature.\nFor secret with TTL>0, version destruction doesn't happen immediately\non calling destroy instead the version goes to a disabled state and\ndestruction happens after the TTL expires.",
-            "type": "string",
-            "format": "google-duration"
-          }
-        }
-      }
-    }
-  }
-,
   "externalDocs": {
     "description": "Find more info here.",
     "url": "https://cloud.google.com/secret-manager/"

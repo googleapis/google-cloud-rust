@@ -295,6 +295,7 @@ func makeRequestMessage(api *genclient.API, operation *v3.Operation, template st
 			// If the message ends in `Request` then we can assume it is fine
 			// adding more fields to it.
 			message = msg
+			bodyFieldPath = "*"
 		} else {
 			// The OpenAPI discovery docs do not preserve the original field
 			// name for the request body. We need to create a synthetic name,
