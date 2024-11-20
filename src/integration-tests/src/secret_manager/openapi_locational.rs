@@ -242,11 +242,12 @@ async fn run_secret_versions(
     println!("\nTesting access_secret_version_by_project_and_location_and_secret_and_version()");
     let access_secret_version = client
         .access_secret_version_by_project_and_location_and_secret_and_version(
-            smo::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::default()
-                .set_project(project_id)
-                .set_location(location_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
+            smo::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::default(
+            )
+            .set_project(project_id)
+            .set_location(location_id)
+            .set_secret(secret_id)
+            .set_version(version_id),
         )
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
