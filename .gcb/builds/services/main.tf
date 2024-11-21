@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -12,15 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Rust places its build artifacts in this directory
-/target/
+variable "project" {}
 
-# We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment.
-/.venv/
+resource "google_project_service" "cloudbuild" {
+  project = var.project
+  service = "cloudbuild.googleapis.com"
 
-.vscode
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
 
-# Ignore terraform files.
-.terraform/
-terraform.tfstate
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "secretmanager" {
+  project = var.project
+  service = "secretmanager.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}

@@ -1,0 +1,38 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+options:
+  dynamic_substitutions: true
+  substitutionOption: 'ALLOW_LOOSE'
+  logging: CLOUD_LOGGING_ONLY
+  env:
+  - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+  - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
+
+serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
+
+steps:
+- name: 'bash'
+  script: |
+    #!/usr/bin/env bash
+    printenv
+
+- name: 'rust:1.82-bookworm'
+  args: ['cargo', 'build' ]
+
+- name: 'rust:1.82-bookworm'
+  args: ['cargo', 'test', '--tests', '--bins', '--lib' ]
+
+- name: 'rust:1.82-bookworm'
+  args: ['cargo', 'test',  '--package', 'integration-tests', '--features', 'run-integration-tests' ]
