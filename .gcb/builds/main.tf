@@ -46,11 +46,11 @@ module "grants" {
   project = var.project
 }
 
-# Enable Cloud Build and create triggers.
-# module "triggers" {
-#   depends_on = [module.services, module.build]
-#   source     = "./triggers"
-#   project    = var.project
-#   region     = var.region
-#   repository = module.build.repository
-# }
+# Create the GCB triggers.
+module "triggers" {
+  depends_on = [module.services, module.resources, module.grants]
+  source          = "./triggers"
+  project         = var.project
+  region          = var.region
+  service_account = module.grants.runner
+}
