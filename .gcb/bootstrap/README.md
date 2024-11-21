@@ -33,7 +33,6 @@ terraform init
 Restore the current state. This may result in no action if you happen to have
 an up-to-date state in your local files.
 
-
 ```shell
 terraform plan -out /tmp/bootstrap.tplan
 ```
@@ -62,5 +61,5 @@ terraform apply /tmp/update.tplan
 This directory follows the [Store Terraform state in a Cloud Storage bucket]
 guide.
 
+[store terraform state in a cloud storage bucket]: https://cloud.google.com/docs/terraform/resource-management/store-state
 [tf-state]: https://www.terraform.io/docs/state/
-[Store Terraform state in a Cloud Storage bucket]: https://cloud.google.com/docs/terraform/resource-management/store-state
