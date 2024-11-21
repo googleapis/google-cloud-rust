@@ -15,7 +15,7 @@
 use bytes::Bytes;
 
 /// An error describing a non-2xx HTTP response.
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct HttpError {
     status_code: u16,
     payload: Option<Bytes>,
@@ -59,9 +59,12 @@ impl std::fmt::Display for HttpError {
         write!(
             f,
             "HTTP Error: code={}, headers={:?}",
-            self.status_code, self.payload,
+            self.status_code, self.headers
         )?;
         if let Some(payload) = self.payload() {
+            if let Ok(status) = TryInto::<crate::error::rpc::Status>::try_into(payload.clone()) {
+                return write!(f, ", payload:\n{:?}", status);
+            }
             write!(f, ", payload:\n{:?}", payload)?;
         };
         Ok(())

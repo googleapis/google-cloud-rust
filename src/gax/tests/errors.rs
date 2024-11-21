@@ -102,6 +102,7 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
             {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
         ]
     });
+    let json = serde_json::json!({"error": json});
     let http_err = HttpError::new(
         400,
         HashMap::from_iter([("content-type".to_string(), "application/json".to_string())]),
@@ -109,10 +110,7 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
     );
 
     let status: Status = http_err.try_into()?;
-    assert_eq!(
-        status.code,
-        gcp_sdk_gax::error::rpc::Code::FailedPrecondition
-    );
+    assert_eq!(status.code, 9);
     assert_eq!(status.message, "msg");
     assert_eq!(status.details.len(), 1);
 

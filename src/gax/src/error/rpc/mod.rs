@@ -26,12 +26,14 @@ pub use generated::*;
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
 #[derive(Clone, Debug, Default, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Status {
-    /// The status code, which should be a value described
-    /// in [Code].
-    pub code: Code,
+    /// The status code.
+    ///
+    /// When using a HTTP transport this is the HTTP status code. When using
+    /// gRPC, this is one of the values enumerated in [Code].
+    pub code: i32,
 
     /// A developer-facing error message, which should be in English. Any
     /// user-facing error message should be localized and sent in the
@@ -251,11 +253,28 @@ impl<'de> Deserialize<'de> for Code {
     }
 }
 
+/// A helper class to deserialized wrapped Status messages.
+#[derive(Clone, Debug, Deserialize, Serialize)]
+struct ErrorWrapper {
+    error: Status,
+}
+
 impl TryFrom<HttpError> for Status {
     type Error = Error;
 
     fn try_from(value: HttpError) -> Result<Self, Self::Error> {
-        serde_json::from_slice(value.payload().unwrap()).map_err(Error::serde)
+        let wrapper: ErrorWrapper =
+            serde_json::from_slice(value.payload().unwrap()).map_err(Error::serde)?;
+        Ok(wrapper.error)
+    }
+}
+
+impl TryFrom<bytes::Bytes> for Status {
+    type Error = Error;
+
+    fn try_from(value: bytes::Bytes) -> Result<Self, Self::Error> {
+        let wrapper: ErrorWrapper = serde_json::from_slice(&value).map_err(Error::serde)?;
+        Ok(wrapper.error)
     }
 }
 
@@ -292,8 +311,9 @@ mod test {
     #[test]
     fn serialization_all_variants() {
         let status = Status {
-            code: Code::Unimplemented,
+            code: 12,
             message: "test".to_string(),
+
             details: vec![
                 StatusDetails::BadRequest(BadRequest {
                     field_violations: vec![bad_request::FieldViolation {
@@ -388,7 +408,7 @@ mod test {
         });
         let got: Status = serde_json::from_value(json).unwrap();
         let want = Status {
-            code: Code::Unknown,
+            code: 20,
             message: "test".to_string(),
             details: vec![
                 StatusDetails::BadRequest(BadRequest {
@@ -443,6 +463,37 @@ mod test {
                     retry_delay: Some(wkt::Duration::from_seconds(1)),
                 }),
             ],
+        };
+        assert_eq!(got, want);
+    }
+
+    // This is a sample string received from production. It is useful to
+    // validate the serialization helpers.
+    const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
+
+    #[test]
+    fn deserialize_status() {
+        let got = serde_json::from_slice::<ErrorWrapper>(SAMPLE_PAYLOAD).unwrap();
+        let want = ErrorWrapper {
+            error: Status {
+                code: 400,
+                message:
+                    "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
+                        .into(),
+                details: [].into(),
+            },
+        };
+        assert_eq!(got.error, want.error);
+    }
+
+    #[test]
+    fn try_from_bytes() {
+        let got = TryInto::<Status>::try_into(bytes::Bytes::from_static(SAMPLE_PAYLOAD)).unwrap();
+        let want = Status {
+            code: 400,
+            message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
+                .into(),
+            details: [].into(),
         };
         assert_eq!(got, want);
     }
