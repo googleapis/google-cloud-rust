@@ -29,15 +29,10 @@ use std::sync::Arc;
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Clone)]
-pub struct Client {
-    inner: Arc<ClientRef>,
-}
-
-struct ClientRef {
+struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
-    endpoint: Option<String>,
+    endpoint: String,
 }
 
 #[derive(Default)]
@@ -76,63 +71,49 @@ impl ConfigBuilder {
     }
 }
 
-impl Client {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = ClientRef {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint,
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-    {{#Services}}
-
-    {{#DocLines}}
-    {{{.}}}
-    {{/DocLines}}
-    pub fn {{NameToSnake}}(&self) -> {{NameToPascal}} {
-        {{NameToPascal}} {
-            client: self.clone(),
-            base_path: self.inner.endpoint.clone().unwrap_or("https://{{DefaultHost}}/".to_string()),
-        }
-    }
-    {{/Services}}
-}
-
 #[derive(serde::Serialize)]
 #[allow(dead_code)]
 struct NoBody {}
 {{/HasServices}}
 
 {{#Services}}
+
 {{#DocLines}}
 {{{.}}}
 {{/DocLines}}
-pub struct {{NameToPascal}} {
-    client: Client,
-    base_path: String,
+#[derive(Clone)]
+pub struct {{NameToPascal}}Client {
+    inner: Arc<InnerClient>,
 }
 
-impl {{NameToPascal}} {
+impl {{NameToPascal}}Client {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
+        let inner = InnerClient {
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf.endpoint.unwrap_or("https://{{DefaultHost}}/".to_string()),
+        };
+        Ok(Self {
+            inner: Arc::new(inner),
+        })
+    }
     {{#Methods}}
 
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
     pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        let client = self.client.inner.clone();
-        let builder = client.http_client
+        let inner_client = self.inner.clone();
+        let builder = inner_client.http_client
             .{{HTTPMethodToLower}}(format!(
                "{}{{HTTPPathFmt}}",
-               self.base_path,
+               inner_client.endpoint,
                {{#HTTPPathArgs}}
                {{{.}}},
                {{/HTTPPathArgs}}
@@ -150,9 +131,9 @@ impl {{NameToPascal}} {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let client_ref = self.client.inner.clone();
+        let inner_client = self.inner.clone();
         builder = builder.bearer_auth(
-            &client_ref
+            &inner_client
                 .cred
                 .access_token()
                 .await

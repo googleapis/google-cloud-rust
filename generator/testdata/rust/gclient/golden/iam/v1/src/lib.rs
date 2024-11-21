@@ -24,15 +24,10 @@ use std::sync::Arc;
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Clone)]
-pub struct Client {
-    inner: Arc<ClientRef>,
-}
-
-struct ClientRef {
+struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
-    endpoint: Option<String>,
+    endpoint: String,
 }
 
 #[derive(Default)]
@@ -71,61 +66,6 @@ impl ConfigBuilder {
     }
 }
 
-impl Client {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = ClientRef {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint,
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-
-    /// API Overview
-    ///
-    /// Manages Identity and Access Management (IAM) policies.
-    ///
-    /// Any implementation of an API that offers access control features
-    /// implements the google.iam.v1.IAMPolicy interface.
-    ///
-    /// ## Data model
-    ///
-    /// Access control is applied when a principal (user or service account), takes
-    /// some action on a resource exposed by a service. Resources, identified by
-    /// URI-like names, are the unit of access control specification. Service
-    /// implementations can choose the granularity of access control and the
-    /// supported permissions for their resources.
-    /// For example one database service may allow access control to be
-    /// specified only at the Table level, whereas another might allow access control
-    /// to also be specified at the Column level.
-    ///
-    /// ## Policy Structure
-    ///
-    /// See google.iam.v1.Policy
-    ///
-    /// This is intentionally not a CRUD style API because access control policies
-    /// are created and deleted implicitly with the resources to which they are
-    /// attached.
-    pub fn iam_policy(&self) -> Iampolicy {
-        Iampolicy {
-            client: self.clone(),
-            base_path: self
-                .inner
-                .endpoint
-                .clone()
-                .unwrap_or("https://iam-meta-api.googleapis.com/".to_string()),
-        }
-    }
-}
-
 #[derive(serde::Serialize)]
 #[allow(dead_code)]
 struct NoBody {}
@@ -155,12 +95,31 @@ struct NoBody {}
 /// This is intentionally not a CRUD style API because access control policies
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
-pub struct Iampolicy {
-    client: Client,
-    base_path: String,
+#[derive(Clone)]
+pub struct IampolicyClient {
+    inner: Arc<InnerClient>,
 }
 
-impl Iampolicy {
+impl IampolicyClient {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
+        let inner = InnerClient {
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf
+                .endpoint
+                .unwrap_or("https://iam-meta-api.googleapis.com/".to_string()),
+        };
+        Ok(Self {
+            inner: Arc::new(inner),
+        })
+    }
+
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
     ///
@@ -169,12 +128,12 @@ impl Iampolicy {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .post(format!(
                 "{}/v1/{}:setIamPolicy",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
@@ -187,12 +146,12 @@ impl Iampolicy {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .post(format!(
                 "{}/v1/{}:getIamPolicy",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
@@ -209,12 +168,12 @@ impl Iampolicy {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .post(format!(
                 "{}/v1/{}:testIamPermissions",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
@@ -225,9 +184,9 @@ impl Iampolicy {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let client_ref = self.client.inner.clone();
+        let inner_client = self.inner.clone();
         builder = builder.bearer_auth(
-            &client_ref
+            &inner_client
                 .cred
                 .access_token()
                 .await
