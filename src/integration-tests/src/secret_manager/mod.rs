@@ -13,4 +13,5 @@
 // limitations under the License.
 
 pub mod openapi;
+pub mod openapi_locational;
 pub mod protobuf;
