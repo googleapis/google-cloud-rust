@@ -1288,6 +1288,7 @@ dependencies = [
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "iam-v1-golden-gclient",
+ "location-golden-gclient",
  "reqwest",
  "serde",
  "serde_json",

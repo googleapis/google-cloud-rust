@@ -118,6 +118,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			ExtraOptions: []string{
 				"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
 				"-codec-option", "package:iam=package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1",
+				"-codec-option", "package:location=package=location-golden-gclient,path=generator/testdata/rust/gclient/golden/location,source=google.cloud.location",
 			},
 		},
 	}

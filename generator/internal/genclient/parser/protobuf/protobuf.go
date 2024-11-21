@@ -193,6 +193,8 @@ const (
 )
 
 func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+	var mixinFileDesc []*descriptorpb.FileDescriptorProto
+	var enabledMixinMethods mixinMethods = make(map[string]bool)
 	state := &genclient.APIState{
 		ServiceByID: make(map[string]*genclient.Service),
 		MethodByID:  make(map[string]*genclient.Method),
@@ -206,13 +208,14 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 		api.Title = serviceConfig.Title
 		api.Description = serviceConfig.Documentation.Summary
+		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 	}
 
 	// First we need to add all the message and enums types to the
 	// `state.MessageByID` and `state.EnumByID` symbol tables. We may not need
 	// to generate these elements, but we need them to be available to generate
 	// any RPC that uses them.
-	for _, f := range req.GetProtoFile() {
+	for _, f := range append(req.GetProtoFile(), mixinFileDesc...) {
 		fFQN := "." + f.GetPackage()
 		for _, m := range f.MessageType {
 			mFQN := fFQN + "." + m.GetName()
@@ -289,6 +292,28 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		}
 		api.Services = append(api.Services, fileServices...)
 	}
+
+	// Handle mixins
+	for _, f := range mixinFileDesc {
+		var fileServices []*genclient.Service
+		fFQN := "." + f.GetPackage()
+		for _, s := range f.Service {
+			sFQN := fFQN + "." + s.GetName()
+			service := processService(state, s, sFQN, f.GetPackage())
+			for _, m := range s.Method {
+				mFQN := sFQN + "." + m.GetName()
+				if !enabledMixinMethods[mFQN] {
+					continue
+				}
+				if method := processMethod(state, m, mFQN); method != nil {
+					service.Methods = append(service.Methods, method)
+				}
+			}
+			fileServices = append(fileServices, service)
+		}
+		api.Services = append(api.Services, fileServices...)
+	}
+	updateMixinState(serviceConfig, api)
 	return api
 }
 

@@ -35,4 +35,5 @@ bytes      = { version = "1.8.0", features = ["serde"] }
 gax        = { path = "../../../../../../src/gax", package = "gcp-sdk-gax", features = ["sdk_client"] }
 google-cloud-auth = { path = "../../../../../../auth", package = "google-cloud-auth" }
 iam        = { path = "../../../../../../generator/testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }
+location   = { path = "../../../../../../generator/testdata/rust/gclient/golden/location", package = "location-golden-gclient" }
 wkt        = { path = "../../../../../../src/wkt", package = "gcp-sdk-wkt" }

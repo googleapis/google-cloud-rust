@@ -28,6 +28,10 @@ import (
 func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *genclient.APIState) (*genclient.PathInfo, error) {
 	eHTTP := proto.GetExtension(m.GetOptions(), annotations.E_Http)
 	httpRule := eHTTP.(*annotations.HttpRule)
+	return processRule(httpRule, state, m.GetInputType())
+}
+
+func processRule(httpRule *annotations.HttpRule, state *genclient.APIState, mID string) (*genclient.PathInfo, error) {
 	var verb string
 	var rawPath string
 	switch httpRule.GetPattern().(type) {
@@ -50,7 +54,7 @@ func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *genclient.APISt
 		return nil, fmt.Errorf("unsupported http method: %q", httpRule.GetPattern())
 	}
 	pathTemplate := parseRawPath(rawPath)
-	queryParameters, err := queryParameters(m, pathTemplate, httpRule.GetBody(), state)
+	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
 		return nil, err
 	}
@@ -63,10 +67,10 @@ func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *genclient.APISt
 	}, nil
 }
 
-func queryParameters(m *descriptorpb.MethodDescriptorProto, pathTemplate []genclient.PathSegment, body string, state *genclient.APIState) (map[string]bool, error) {
-	msg, ok := state.MessageByID[m.GetInputType()]
+func queryParameters(msgID string, pathTemplate []genclient.PathSegment, body string, state *genclient.APIState) (map[string]bool, error) {
+	msg, ok := state.MessageByID[msgID]
 	if !ok {
-		return nil, fmt.Errorf("unable to lookup type %s", m.GetInputType())
+		return nil, fmt.Errorf("unable to lookup type %s", msgID)
 	}
 	params := map[string]bool{}
 	if body == "*" {
