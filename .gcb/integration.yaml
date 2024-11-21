@@ -21,10 +21,6 @@ options:
     - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'bash'
-    script: |
-      #!/usr/bin/env bash
-      printenv
   - name: 'rust:1.82-bookworm'
     args: ['cargo', 'build']
   - name: 'rust:1.82-bookworm'
