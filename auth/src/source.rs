@@ -201,11 +201,9 @@ impl ServiceAccountKeySource {
         let sig = signer
             .sign(ss.as_bytes())
             .map_err(|_| Error::new("unable to sign bytes", ErrorKind::Other))?;
-        Ok(format!(
-            "{}.{}",
-            ss,
-            base64::encode_config(sig, base64::URL_SAFE_NO_PAD)
-        ))
+
+        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        Ok(format!("{}.{}", ss, &BASE64_URL_SAFE_NO_PAD.encode(sig)))
     }
 }
 

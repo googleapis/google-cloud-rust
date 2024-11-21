@@ -24,7 +24,7 @@ categories  = ["authentication", "web-programming"]
 edition     = "2021"
 
 [dependencies]
-base64         = "0.13"
+base64         = "0.22"
 chrono         = { version = "0.4", features = ["serde"] }
 reqwest        = { version = "0.11", features = ["json"] }
 rustls         = "0.20"
