@@ -17,22 +17,17 @@ options:
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
   env:
-  - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
-  - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
-
+    - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+    - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
-
 steps:
-- name: 'bash'
-  script: |
-    #!/usr/bin/env bash
-    printenv
-
-- name: 'rust:1.82-bookworm'
-  args: ['cargo', 'build' ]
-
-- name: 'rust:1.82-bookworm'
-  args: ['cargo', 'test', '--tests', '--bins', '--lib' ]
-
-- name: 'rust:1.82-bookworm'
-  args: ['cargo', 'test',  '--package', 'integration-tests', '--features', 'run-integration-tests' ]
+  - name: 'bash'
+    script: |
+      #!/usr/bin/env bash
+      printenv
+  - name: 'rust:1.82-bookworm'
+    args: ['cargo', 'build']
+  - name: 'rust:1.82-bookworm'
+    args: ['cargo', 'test', '--tests', '--bins', '--lib']
+  - name: 'rust:1.82-bookworm'
+    args: ['cargo', 'test', '--package', 'integration-tests', '--features', 'run-integration-tests']
