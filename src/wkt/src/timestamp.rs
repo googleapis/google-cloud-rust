@@ -43,7 +43,7 @@
 /// For example, "2017-01-15T01:30:15.01Z" encodes 15.01 seconds past
 /// 01:30 UTC on January 15, 2017.
 ///
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq, PartialOrd)]
 #[non_exhaustive]
 pub struct Timestamp {
     /// Represents seconds of UTC time since Unix epoch
