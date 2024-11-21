@@ -24,15 +24,10 @@ use std::sync::Arc;
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Clone)]
-pub struct Client {
-    inner: Arc<ClientRef>,
-}
-
-struct ClientRef {
+struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
-    endpoint: Option<String>,
+    endpoint: String,
 }
 
 #[derive(Default)]
@@ -71,43 +66,6 @@ impl ConfigBuilder {
     }
 }
 
-impl Client {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = ClientRef {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint,
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-
-    /// Secret Manager Service
-    ///
-    /// Manages secrets and operations using those secrets. Implements a REST
-    /// model with the following objects:
-    ///
-    /// * [Secret][google.cloud.secretmanager.v1.Secret]
-    /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-    pub fn secret_manager_service(&self) -> SecretManagerService {
-        SecretManagerService {
-            client: self.clone(),
-            base_path: self
-                .inner
-                .endpoint
-                .clone()
-                .unwrap_or("https://secretmanager.googleapis.com/".to_string()),
-        }
-    }
-}
-
 #[derive(serde::Serialize)]
 #[allow(dead_code)]
 struct NoBody {}
@@ -119,21 +77,43 @@ struct NoBody {}
 ///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-pub struct SecretManagerService {
-    client: Client,
-    base_path: String,
+#[derive(Clone)]
+pub struct SecretManagerServiceClient {
+    inner: Arc<InnerClient>,
 }
 
-impl SecretManagerService {
+impl SecretManagerServiceClient {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
+        let inner = InnerClient {
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf
+                .endpoint
+                .unwrap_or("https://secretmanager.googleapis.com/".to_string()),
+        };
+        Ok(Self {
+            inner: Arc::new(inner),
+        })
+    }
+
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     pub async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
+            .get(format!(
+                "{}/v1/{}/secrets",
+                inner_client.endpoint, req.parent,
+            ))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
@@ -150,10 +130,13 @@ impl SecretManagerService {
         &self,
         req: crate::model::CreateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .post(format!("{}/v1/{}/secrets", self.base_path, req.parent,))
+            .post(format!(
+                "{}/v1/{}/secrets",
+                inner_client.endpoint, req.parent,
+            ))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
@@ -167,10 +150,13 @@ impl SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .post(format!("{}/v1/{}:addVersion", self.base_path, req.parent,))
+            .post(format!(
+                "{}/v1/{}:addVersion",
+                inner_client.endpoint, req.parent,
+            ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
     }
@@ -180,10 +166,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}", self.base_path, req.name,))
+            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, None::<NoBody>).await
     }
@@ -194,12 +180,12 @@ impl SecretManagerService {
         &self,
         req: crate::model::UpdateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .patch(format!(
                 "{}/v1/{}",
-                self.base_path,
+                inner_client.endpoint,
                 gax::path_parameter::PathParameter::required(&req.secret, "secret")
                     .map_err(Error::other)?
                     .name,
@@ -219,10 +205,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
     ) -> Result<wkt::Empty> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .delete(format!("{}/v1/{}", self.base_path, req.name,))
+            .delete(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
@@ -235,10 +221,13 @@ impl SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}/versions", self.base_path, req.parent,))
+            .get(format!(
+                "{}/v1/{}/versions",
+                inner_client.endpoint, req.parent,
+            ))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
@@ -258,10 +247,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}", self.base_path, req.name,))
+            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, None::<NoBody>).await
     }
@@ -275,10 +264,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}:access", self.base_path, req.name,))
+            .get(format!("{}/v1/{}:access", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, None::<NoBody>).await
     }
@@ -292,10 +281,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .post(format!("{}/v1/{}:disable", self.base_path, req.name,))
+            .post(format!("{}/v1/{}:disable", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
     }
@@ -309,10 +298,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .post(format!("{}/v1/{}:enable", self.base_path, req.name,))
+            .post(format!("{}/v1/{}:enable", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
     }
@@ -327,10 +316,10 @@ impl SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .post(format!("{}/v1/{}:destroy", self.base_path, req.name,))
+            .post(format!("{}/v1/{}:destroy", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
     }
@@ -346,12 +335,12 @@ impl SecretManagerService {
         &self,
         req: iam::model::SetIamPolicyRequest,
     ) -> Result<iam::model::Policy> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .post(format!(
                 "{}/v1/{}:setIamPolicy",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
@@ -363,12 +352,12 @@ impl SecretManagerService {
         &self,
         req: iam::model::GetIamPolicyRequest,
     ) -> Result<iam::model::Policy> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .get(format!(
                 "{}/v1/{}:getIamPolicy",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         let builder = gax::query_parameter::add(
@@ -391,12 +380,12 @@ impl SecretManagerService {
         &self,
         req: iam::model::TestIamPermissionsRequest,
     ) -> Result<iam::model::TestIamPermissionsResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
             .post(format!(
                 "{}/v1/{}:testIamPermissions",
-                self.base_path, req.resource,
+                inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         self.execute(builder, Some(req)).await
@@ -407,9 +396,9 @@ impl SecretManagerService {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let client_ref = self.client.inner.clone();
+        let inner_client = self.inner.clone();
         builder = builder.bearer_auth(
-            &client_ref
+            &inner_client
                 .cred
                 .access_token()
                 .await

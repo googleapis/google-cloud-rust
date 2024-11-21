@@ -24,15 +24,10 @@ use std::sync::Arc;
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Clone)]
-pub struct Client {
-    inner: Arc<ClientRef>,
-}
-
-struct ClientRef {
+struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
-    endpoint: Option<String>,
+    endpoint: String,
 }
 
 #[derive(Default)]
@@ -71,39 +66,6 @@ impl ConfigBuilder {
     }
 }
 
-impl Client {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = ClientRef {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint,
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-
-    /// An abstract interface that provides location-related information for
-    /// a service. Service-specific metadata is provided through the
-    /// [Location.metadata][google.cloud.location.Location.metadata] field.
-    pub fn locations(&self) -> Locations {
-        Locations {
-            client: self.clone(),
-            base_path: self
-                .inner
-                .endpoint
-                .clone()
-                .unwrap_or("https://cloud.googleapis.com/".to_string()),
-        }
-    }
-}
-
 #[derive(serde::Serialize)]
 #[allow(dead_code)]
 struct NoBody {}
@@ -111,21 +73,40 @@ struct NoBody {}
 /// An abstract interface that provides location-related information for
 /// a service. Service-specific metadata is provided through the
 /// [Location.metadata][google.cloud.location.Location.metadata] field.
-pub struct Locations {
-    client: Client,
-    base_path: String,
+#[derive(Clone)]
+pub struct LocationsClient {
+    inner: Arc<InnerClient>,
 }
 
-impl Locations {
+impl LocationsClient {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
+        let inner = InnerClient {
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf
+                .endpoint
+                .unwrap_or("https://cloud.googleapis.com/".to_string()),
+        };
+        Ok(Self {
+            inner: Arc::new(inner),
+        })
+    }
+
     /// Lists information about the supported locations for this service.
     pub async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}", self.base_path, req.name,))
+            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
@@ -141,10 +122,10 @@ impl Locations {
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        let client = self.client.inner.clone();
-        let builder = client
+        let inner_client = self.inner.clone();
+        let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}", self.base_path, req.name,))
+            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
         self.execute(builder, None::<NoBody>).await
     }
@@ -154,9 +135,9 @@ impl Locations {
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let client_ref = self.client.inner.clone();
+        let inner_client = self.inner.clone();
         builder = builder.bearer_auth(
-            &client_ref
+            &inner_client
                 .cred
                 .access_token()
                 .await

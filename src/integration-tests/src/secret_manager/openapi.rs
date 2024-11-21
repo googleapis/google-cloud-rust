@@ -23,9 +23,7 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = smo::Client::new()
-        .await?
-        .google_cloud_secretmanager_v_1_secret_manager_service();
+    let client = smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient::new().await?;
 
     println!("\nTesting create_secret()");
     let create = client
@@ -109,7 +107,7 @@ pub async fn run() -> Result<()> {
 }
 
 async fn run_locations(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
     project_id: &str,
 ) -> Result<()> {
     println!("\nTesting list_locations()");
@@ -144,7 +142,7 @@ async fn run_locations(
 }
 
 async fn run_iam(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
@@ -213,7 +211,7 @@ async fn run_iam(
 }
 
 async fn run_secret_versions(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
@@ -322,7 +320,7 @@ async fn run_secret_versions(
 }
 
 async fn get_all_secret_version_names(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
     project_id: &str,
     secret_id: &str,
 ) -> Result<Vec<String>> {
@@ -351,7 +349,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerService,
+    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();

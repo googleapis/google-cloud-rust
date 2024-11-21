@@ -23,7 +23,7 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = sm::Client::new().await?.secret_manager_service();
+    let client = sm::SecretManagerServiceClient::new().await?;
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
@@ -99,7 +99,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn run_iam(client: &sm::SecretManagerService, secret_name: &str) -> Result<()> {
+async fn run_iam(client: &sm::SecretManagerServiceClient, secret_name: &str) -> Result<()> {
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
@@ -158,7 +158,10 @@ async fn run_iam(client: &sm::SecretManagerService, secret_name: &str) -> Result
     Ok(())
 }
 
-async fn run_secret_versions(client: &sm::SecretManagerService, secret_name: &str) -> Result<()> {
+async fn run_secret_versions(
+    client: &sm::SecretManagerServiceClient,
+    secret_name: &str,
+) -> Result<()> {
     println!("\nTesting create_secret_version()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
@@ -234,7 +237,7 @@ async fn run_secret_versions(client: &sm::SecretManagerService, secret_name: &st
 }
 
 async fn get_all_secret_version_names(
-    client: &sm::SecretManagerService,
+    client: &sm::SecretManagerServiceClient,
     secret_name: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
@@ -260,7 +263,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &sm::SecretManagerService,
+    client: &sm::SecretManagerServiceClient,
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
@@ -286,7 +289,7 @@ async fn get_all_secret_names(
 }
 
 async fn cleanup_stale_secrets(
-    client: &sm::SecretManagerService,
+    client: &sm::SecretManagerServiceClient,
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
