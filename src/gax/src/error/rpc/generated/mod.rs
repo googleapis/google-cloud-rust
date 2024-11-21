@@ -84,7 +84,7 @@ pub struct ErrorInfo {
 #[non_exhaustive]
 pub struct RetryInfo {
     /// Clients should wait at least this long between retrying the same request.
-    pub retry_delay: Option<types::Duration>,
+    pub retry_delay: Option<wkt::Duration>,
 }
 
 /// Describes additional debugging info.

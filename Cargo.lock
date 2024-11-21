@@ -402,22 +402,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gax"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gax",
- "gcp-sdk-wkt",
- "http 1.1.0",
- "reqwest 0.12.9",
- "serde",
- "serde_json",
- "serde_with",
- "thiserror 2.0.1",
- "tokio",
-]
-
-[[package]]
 name = "gcp-sdk"
 version = "0.0.0"
 
@@ -440,6 +424,18 @@ version = "0.0.0"
 [[package]]
 name = "gcp-sdk-gax"
 version = "0.0.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-wkt",
+ "http 1.1.0",
+ "reqwest 0.12.9",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "thiserror 2.0.3",
+ "tokio",
+]
 
 [[package]]
 name = "gcp-sdk-iam-v1"
@@ -752,7 +748,7 @@ name = "iam-v1-golden-gclient"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
@@ -840,7 +836,7 @@ dependencies = [
  "bytes",
  "crc32c",
  "futures",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "iam-v1-golden-gclient",
@@ -1432,7 +1428,7 @@ name = "secretmanager-golden-gclient"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "iam-v1-golden-gclient",
@@ -1448,7 +1444,7 @@ name = "secretmanager-golden-openapi"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
@@ -1509,9 +1505,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.132"
+version = "1.0.133"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d726bfaff4b320266d395898905d0eba0345aae23b54aee3a737e260fd46db03"
+checksum = "c7fceb2473b9166b2294ef05efcb65a3db80803f0b03ef86a5fc88a2b85ee377"
 dependencies = [
  "itoa",
  "memchr",
@@ -1750,11 +1746,11 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
-version = "2.0.1"
+version = "2.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07c1e40dd48a282ae8edc36c732cbc219144b87fb6a4c7316d611c6b1f06ec0c"
+checksum = "c006c85c7651b3cf2ada4584faa36773bd07bac24acfb39f3c431b36d7e667aa"
 dependencies = [
- "thiserror-impl 2.0.1",
+ "thiserror-impl 2.0.3",
 ]
 
 [[package]]
@@ -1770,9 +1766,9 @@ dependencies = [
 
 [[package]]
 name = "thiserror-impl"
-version = "2.0.1"
+version = "2.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "874aa7e446f1da8d9c3a5c95b1c5eb41d800045252121dc7f8e0ba370cee55f5"
+checksum = "f077553d607adc1caf65430528a576c757a71ed73944b66ebb58ef2bbd243568"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1924,7 +1920,7 @@ name = "type-golden-gclient"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",

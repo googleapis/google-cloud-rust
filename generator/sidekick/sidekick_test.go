@@ -54,7 +54,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-		"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
+		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 	}
 	if err := Generate(args); err != nil {
@@ -130,7 +130,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			"-codec-option", "copyright-year=2024",
 			"-codec-option", "package-name-override=" + strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
 			"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			"-codec-option", "package:gax=package=gax,path=gax,feature=sdk_client",
+			"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
 			"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 		}
 		args = append(args, config.ExtraOptions...)

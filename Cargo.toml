@@ -18,7 +18,6 @@ resolver = "2"
 members = [
   "auth",
   "tools/check-copyright",
-  "gax",
   "generator/testdata/rust/openapi/golden",
   "generator/testdata/rust/gclient/golden/iam/v1",
   "generator/testdata/rust/gclient/golden/location",
