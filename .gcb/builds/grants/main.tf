@@ -19,42 +19,18 @@ variable "project" {
 data "google_project" "project" {
 }
 
-locals {
-  gce_service_account = "${data.google_project.project.number}-compute@developer.gserviceaccount.com"
-  gcb_service_account = "${data.google_project.project.number}@cloudbuild.gserviceaccount.com"
-}
-
-# We need a service account to run the builds.
-# We use a dedicated account, as opposed to reusing the GCE or GCB account,
-# because we want full control over its permissions.
-resource "google_service_account" "integration-test-runner" {
-  account_id   = "integration-test-runner"
-  display_name = "Build and Run Integration Tests"
-}
-
-# The service account will need to write logs. That is needed so we can see the
-# build output.
-resource "google_project_iam_member" "sa-can-write-logs" {
-  project = var.project
-  role    = "roles/logging.logWriter"
-  member  = "serviceAccount:${google_service_account.integration-test-runner.email}"
+# This service account is created externally. It is used for all the builds.
+data "google_service_account" "integration-test-runner" {
+  account_id = "integration-test-runner"
 }
 
 # The service account will need to read tarballs uploaded by `gcloud submit`.
 resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
   bucket = "${var.project}_cloudbuild"
   role   = "roles/storage.objectViewer"
-  member = "serviceAccount:${google_service_account.integration-test-runner.email}"
-}
-
-# We will run integration tests related to secret manager. These require full
-# control over the secrets.
-resource "google_project_iam_member" "run-secret-manager-integration-tests" {
-  project = var.project
-  role    = "roles/secretmanager.admin"
-  member  = "serviceAccount:${google_service_account.integration-test-runner.email}"
+  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
 output "runner" {
-  value = google_service_account.integration-test-runner.id
+  value = data.google_service_account.integration-test-runner.id
 }

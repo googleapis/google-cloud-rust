@@ -48,7 +48,7 @@ module "grants" {
 
 # Create the GCB triggers.
 module "triggers" {
-  depends_on = [module.services, module.resources, module.grants]
+  depends_on      = [module.services, module.resources, module.grants]
   source          = "./triggers"
   project         = var.project
   region          = var.region
