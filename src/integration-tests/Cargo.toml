@@ -37,4 +37,4 @@ crc32c     = "0.6.8"
 serde_json = "1.0.133"
 
 [dev-dependencies]
-tokio      = { version = "1.12", features = ["full", "macros"] }
+tokio = { version = "1.12", features = ["full", "macros"] }
