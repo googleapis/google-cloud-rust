@@ -66,19 +66,19 @@ impl RequestParameter for String {
     }
 }
 
-impl RequestParameter for types::Duration {
+impl RequestParameter for wkt::Duration {
     fn format(&self) -> Result {
         Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
     }
 }
 
-impl RequestParameter for types::FieldMask {
+impl RequestParameter for wkt::FieldMask {
     fn format(&self) -> Result {
         Ok(self.paths.join(","))
     }
 }
 
-impl RequestParameter for types::Timestamp {
+impl RequestParameter for wkt::Timestamp {
     fn format(&self) -> Result {
         Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
     }
@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn duration() -> Result {
-        let d = types::Duration::new(12, 345_678_900);
+        let d = wkt::Duration::new(12, 345_678_900);
         let f = RequestParameter::format(&d)?;
         assert_eq!("12.345678900s", f);
         Ok(())
@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn field_mask() -> Result {
-        let fm = types::FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
+        let fm = wkt::FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
         let f = RequestParameter::format(&fm)?;
         assert_eq!("a,b", f);
         Ok(())
@@ -119,7 +119,7 @@ mod tests {
 
     #[test]
     fn timestamp() -> Result {
-        let ts = types::Timestamp::default();
+        let ts = wkt::Timestamp::default();
         let f = RequestParameter::format(&ts)?;
         assert_eq!("1970-01-01T00:00:00Z", f);
         Ok(())

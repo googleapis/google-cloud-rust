@@ -149,7 +149,7 @@ mod tests {
 
     #[test]
     fn duration() -> Result {
-        let d = types::Duration::new(12, 345_678_900);
+        let d = wkt::Duration::new(12, 345_678_900);
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
@@ -161,7 +161,7 @@ mod tests {
 
     #[test]
     fn field_mask() -> Result {
-        let fm = types::FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
+        let fm = wkt::FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
@@ -174,7 +174,7 @@ mod tests {
 
     #[test]
     fn timestamp() -> Result {
-        let ts = types::Timestamp::default();
+        let ts = wkt::Timestamp::default();
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");

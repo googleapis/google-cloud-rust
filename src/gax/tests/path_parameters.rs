@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::path_parameter::PathParameter;
+use gcp_sdk_gax::path_parameter::PathParameter;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

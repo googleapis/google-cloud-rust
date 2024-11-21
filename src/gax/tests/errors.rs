@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::rpc::Status;
-use gax::error::Error;
-use gax::error::HttpError;
+use gcp_sdk_gax::error::rpc::Status;
+use gcp_sdk_gax::error::Error;
+use gcp_sdk_gax::error::HttpError;
 use std::collections::HashMap;
 
 #[derive(Debug, Default)]
@@ -83,7 +83,7 @@ async fn client_http_error() -> Result<(), Box<dyn std::error::Error>> {
     assert!(resp.status().is_client_error());
 
     let status = resp.status().as_u16();
-    let headers = gax::error::convert_headers(resp.headers());
+    let headers = gcp_sdk_gax::error::convert_headers(resp.headers());
     let body = resp.bytes().await?;
 
     let http_err = HttpError::new(status, headers, Some(body));
@@ -109,7 +109,10 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
     );
 
     let status: Status = http_err.try_into()?;
-    assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+    assert_eq!(
+        status.code,
+        gcp_sdk_gax::error::rpc::Code::FailedPrecondition
+    );
     assert_eq!(status.message, "msg");
     assert_eq!(status.details.len(), 1);
 

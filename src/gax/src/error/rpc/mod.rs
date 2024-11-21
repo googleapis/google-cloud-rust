@@ -274,12 +274,12 @@ pub enum StatusDetails {
     RequestInfo(RequestInfo),
     ResourceInfo(ResourceInfo),
     RetryInfo(RetryInfo),
-    Other(types::Any),
+    Other(wkt::Any),
 }
 
 impl Default for StatusDetails {
     fn default() -> Self {
-        Self::Other(types::Any::default())
+        Self::Other(wkt::Any::default())
     }
 }
 
@@ -344,7 +344,7 @@ mod test {
                     description: "desc".to_string(),
                 }),
                 StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(types::Duration::from_seconds(1)),
+                    retry_delay: Some(wkt::Duration::from_seconds(1)),
                 }),
             ],
         };
@@ -440,7 +440,7 @@ mod test {
                     description: "desc".to_string(),
                 }),
                 StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(types::Duration::from_seconds(1)),
+                    retry_delay: Some(wkt::Duration::from_seconds(1)),
                 }),
             ],
         };

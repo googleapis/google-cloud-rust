@@ -45,8 +45,8 @@ func TestParseOptions(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override": "test-only",
 			"copyright-year":        "2035",
-			"package:wkt":           "package=types,path=../../types,source=google.protobuf,source=test-only",
-			"package:gax":           "package=gax,path=../../gax,feature=sdk_client",
+			"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
+			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 		},
 	}
 	codec, err := NewCodec(copts)
@@ -56,7 +56,7 @@ func TestParseOptions(t *testing.T) {
 	gp := &RustPackage{
 		Name:    "wkt",
 		Package: "types",
-		Path:    "../../types",
+		Path:    "src/wkt",
 	}
 	want := &Codec{
 		PackageNameOverride: "test-only",
@@ -66,7 +66,7 @@ func TestParseOptions(t *testing.T) {
 			{
 				Name:    "gax",
 				Package: "gax",
-				Path:    "../../gax",
+				Path:    "src/gax",
 				Features: []string{
 					"sdk_client",
 				},

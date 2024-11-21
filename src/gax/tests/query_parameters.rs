@@ -24,14 +24,14 @@ pub struct FakeRequest {
     // Most query parameter fields are optional.
     pub count: Option<i32>,
     pub filter_expression: Option<String>,
-    pub get_mask: Option<types::FieldMask>,
-    pub ttl: Option<types::Duration>,
-    pub expiration: Option<types::Timestamp>,
+    pub get_mask: Option<wkt::FieldMask>,
+    pub ttl: Option<wkt::Duration>,
+    pub expiration: Option<wkt::Timestamp>,
     // Some query parameter fields are required.
     pub required: String,
 
     pub repeated_int32: Vec<i32>,
-    pub repeated_duration: Vec<types::Duration>,
+    pub repeated_duration: Vec<wkt::Duration>,
 
     pub nested: Option<NestedOptions>,
 }
@@ -54,18 +54,22 @@ pub struct DoubleNestedOptions {
 fn with_query_parameters(request: &FakeRequest) -> Result<reqwest::RequestBuilder> {
     let client = reqwest::Client::builder().build()?;
     let builder = client.get("https://test.googleapis.com/v1/unused");
-    let builder = gax::query_parameter::add(builder, "count", &request.count)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "count", &request.count)?;
     let builder =
-        gax::query_parameter::add(builder, "filterExpression", &request.filter_expression)?;
-    let builder = gax::query_parameter::add(builder, "getMask", &request.get_mask)?;
-    let builder = gax::query_parameter::add(builder, "ttl", &request.ttl)?;
-    let builder = gax::query_parameter::add(builder, "expiration", &request.expiration)?;
-    let builder = gax::query_parameter::add(builder, "required", &request.required)?;
-    let builder = gax::query_parameter::add(builder, "repeatedInt32", &request.repeated_int32)?;
+        gcp_sdk_gax::query_parameter::add(builder, "filterExpression", &request.filter_expression)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "getMask", &request.get_mask)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "ttl", &request.ttl)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "expiration", &request.expiration)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "required", &request.required)?;
     let builder =
-        gax::query_parameter::add(builder, "repeatedDuration", &request.repeated_duration)?;
+        gcp_sdk_gax::query_parameter::add(builder, "repeatedInt32", &request.repeated_int32)?;
     let builder =
-        gax::query_parameter::add(builder, "nested", &serde_json::to_value(&request.nested)?)?;
+        gcp_sdk_gax::query_parameter::add(builder, "repeatedDuration", &request.repeated_duration)?;
+    let builder = gcp_sdk_gax::query_parameter::add(
+        builder,
+        "nested",
+        &serde_json::to_value(&request.nested)?,
+    )?;
     Ok(builder)
 }
 
@@ -108,7 +112,7 @@ fn with_fieldmask() -> Result<()> {
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
         get_mask: Some(
-            types::FieldMask::default().set_paths(["f0", "f1"].map(str::to_string).to_vec()),
+            wkt::FieldMask::default().set_paths(["f0", "f1"].map(str::to_string).to_vec()),
         ),
         ..Default::default()
     };
@@ -126,7 +130,7 @@ fn with_duration() -> Result<()> {
     // Create a basic request.
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
-        ttl: Some(types::Duration::new(12, 345_678_900)),
+        ttl: Some(wkt::Duration::new(12, 345_678_900)),
         ..Default::default()
     };
     let builder = with_query_parameters(&request)?;
@@ -144,7 +148,7 @@ fn with_timestamp() -> Result<()> {
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
         expiration: Some(
-            types::Timestamp::default()
+            wkt::Timestamp::default()
                 .set_seconds(12)
                 .set_nanos(345_678_900),
         ),
@@ -185,7 +189,7 @@ fn with_repeated_int32() -> Result<()> {
 fn with_repeated_duration() -> Result<()> {
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
-        repeated_duration: [2, 3, 5].map(types::Duration::from_seconds).to_vec(),
+        repeated_duration: [2, 3, 5].map(wkt::Duration::from_seconds).to_vec(),
         ..Default::default()
     };
     let builder = with_query_parameters(&request)?;
