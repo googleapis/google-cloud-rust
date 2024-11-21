@@ -884,6 +884,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
 
 [[package]]
+name = "location-golden-gclient"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "gax",
+ "gcp-sdk-wkt",
+ "google-cloud-auth",
+ "reqwest 0.12.9",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "time",
+]
+
+[[package]]
 name = "lock_api"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"

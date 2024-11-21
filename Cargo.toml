@@ -21,6 +21,7 @@ members = [
   "gax",
   "generator/testdata/rust/openapi/golden",
   "generator/testdata/rust/gclient/golden/iam/v1",
+  "generator/testdata/rust/gclient/golden/location",
   "generator/testdata/rust/gclient/golden/type",
   "generator/testdata/rust/gclient/golden/secretmanager",
   "src/root",
