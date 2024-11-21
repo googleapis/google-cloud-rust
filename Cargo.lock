@@ -884,7 +884,7 @@ name = "location-golden-gclient"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "gax",
+ "gcp-sdk-gax",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "reqwest 0.12.9",
