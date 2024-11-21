@@ -69,7 +69,7 @@ resource "google_cloudbuildv2_repository" "main" {
 resource "google_cloudbuild_trigger" "pull-request" {
   for_each = tomap(local.builds)
   location = var.region
-  name     = "${each.key}-pr"
+  name     = "gcb-pr-${each.key}"
   filename = ".gcb/${each.key}.yaml"
   tags     = ["pull-request", "name:${each.key}"]
 
@@ -89,7 +89,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
 resource "google_cloudbuild_trigger" "post-merge" {
   for_each = tomap(local.builds)
   location = var.region
-  name     = "${each.key}-pm"
+  name     = "gcb-pm-${each.key}"
   filename = ".gcb/${each.key}.yaml"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
