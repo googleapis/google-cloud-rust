@@ -54,3 +54,7 @@ resource "google_project_iam_member" "run-secret-manager-integration-tests" {
   role    = "roles/secretmanager.admin"
   member  = "serviceAccount:${google_service_account.integration-test-runner.email}"
 }
+
+output "runner" {
+  value = google_service_account.integration-test-runner.id
+}
