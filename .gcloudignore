@@ -12,15 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Rust places its build artifacts in this directory
-/target/
+# A .ignore file for Google Cloud Build
 
-# We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment.
-/.venv/
-
-.vscode
-
-# Ignore terraform files.
-.terraform/
-terraform.tfstate
+# Ignore anything ignored by `git`:
+#!include:.gitignore
