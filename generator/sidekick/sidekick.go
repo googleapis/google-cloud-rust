@@ -57,6 +57,10 @@ func root() error {
 		if err := Refresh(config, args[1:]); err != nil {
 			return err
 		}
+	case "refresh-all", "refreshall":
+		if err := RefreshAll(config, args[1:]); err != nil {
+			return err
+		}
 	default:
 		return fmt.Errorf("unknown subcommand %s", os.Args[1])
 	}
