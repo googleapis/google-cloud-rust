@@ -493,6 +493,63 @@ func TestMapFieldAttributes(t *testing.T) {
 	}
 }
 
+func TestWktFieldAttributes(t *testing.T) {
+	message := &genclient.Message{
+		Name: "Fake",
+		ID:   "..Fake",
+		Fields: []*genclient.Field{
+			{
+				Name:     "f_int64",
+				JSONName: "fInt64",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Int64Value",
+				Optional: true,
+			},
+			{
+				Name:     "f_uint64",
+				JSONName: "fUint64",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.UInt64Value",
+				Optional: true,
+			},
+			{
+				Name:     "f_bytes",
+				JSONName: "fBytes",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.BytesValue",
+				Optional: true,
+			},
+			{
+				Name:     "f_string",
+				JSONName: "fString",
+				Typez:    genclient.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.StringValue",
+				Optional: true,
+			},
+		},
+	}
+	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+
+	expectedAttributes := map[string]string{
+		"f_int64":  `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_bytes":  `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_string": ``,
+	}
+	c := testCodec()
+	c.LoadWellKnownTypes(api.State)
+	for _, field := range message.Fields {
+		want, ok := expectedAttributes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
 func TestFieldLossyName(t *testing.T) {
 	message := &genclient.Message{
 		Name:          "SecretPayload",
