@@ -199,8 +199,8 @@ func ScalarFieldType(f *genclient.Field) string {
 	return out
 }
 
-func (c *Codec) fieldFormatter(f *genclient.Field) string {
-	switch f.Typez {
+func (c *Codec) fieldFormatter(typez genclient.Typez) string {
+	switch typez {
 	case genclient.INT64_TYPE,
 		genclient.UINT64_TYPE,
 		genclient.FIXED64_TYPE,
@@ -222,6 +222,21 @@ func (c *Codec) fieldBaseAttributes(f *genclient.Field) []string {
 		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
 	}
 	return []string{}
+}
+
+func (c *Codec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []string) []string {
+	var formatter string
+	switch f.TypezID {
+	case ".google.protobuf.BytesValue":
+		formatter = c.fieldFormatter(genclient.BYTES_TYPE)
+	case ".google.protobuf.UInt64Value":
+		formatter = c.fieldFormatter(genclient.UINT64_TYPE)
+	case ".google.protobuf.Int64Value":
+		formatter = c.fieldFormatter(genclient.INT64_TYPE)
+	default:
+		return defaultAttributes
+	}
+	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
 }
 
 func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
@@ -246,7 +261,7 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 		genclient.SFIXED64_TYPE,
 		genclient.SINT64_TYPE,
 		genclient.BYTES_TYPE:
-		formatter := c.fieldFormatter(f)
+		formatter := c.fieldFormatter(f.Typez)
 		if f.Optional {
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 		}
@@ -272,14 +287,14 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 				slog.Error("missing key or value in map field")
 				return attributes
 			}
-			keyFormat := c.fieldFormatter(key)
-			valFormat := c.fieldFormatter(value)
+			keyFormat := c.fieldFormatter(key.Typez)
+			valFormat := c.fieldFormatter(value.Typez)
 			if keyFormat == "_" && valFormat == "_" {
 				return attributes
 			}
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
 		}
-		return attributes
+		return c.wrapperFieldAttributes(f, attributes)
 
 	default:
 		slog.Error("unexpected field type", "field", *f)
