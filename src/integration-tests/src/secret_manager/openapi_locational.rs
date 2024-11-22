@@ -367,7 +367,7 @@ async fn cleanup_stale_secrets(
         .duration_since(UNIX_EPOCH)
         .map_err(Error::other)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = stale_deadline.as_secs() as i64;
+    let stale_deadline = wkt::Timestamp::default().set_seconds(stale_deadline.as_secs() as i64);
 
     let mut stale_secrets = Vec::new();
     let mut page_token = None::<String>;
@@ -383,7 +383,7 @@ async fn cleanup_stale_secrets(
             .await?;
         for secret in response.secrets {
             if let Some("true") = secret.labels.get("integration-test").map(String::as_str) {
-                if let Some(true) = secret.create_time.map(|v| v.seconds < stale_deadline) {
+                if let Some(true) = secret.create_time.map(|v| v < stale_deadline) {
                     secret
                         .name
                         .into_iter()

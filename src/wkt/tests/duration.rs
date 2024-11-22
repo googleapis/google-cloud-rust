@@ -66,3 +66,14 @@ fn deserialize_in_struct() -> Result {
     assert_eq!(want, got);
     Ok(())
 }
+
+#[test]
+fn compare() {
+    let ts0 = Duration::default();
+    let ts1 = Duration::default().set_seconds(1).set_nanos(100);
+    let ts2 = Duration::default().set_seconds(1).set_nanos(200);
+    let ts3 = Duration::default().set_seconds(2);
+    assert_eq!(ts0.partial_cmp(&ts0), Some(std::cmp::Ordering::Equal));
+    assert_eq!(ts0.partial_cmp(&ts1), Some(std::cmp::Ordering::Less));
+    assert_eq!(ts2.partial_cmp(&ts3), Some(std::cmp::Ordering::Less));
+}
