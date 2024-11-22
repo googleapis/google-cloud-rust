@@ -28,7 +28,7 @@ import (
 
 // Generate takes some state and applies it to a template to create a client
 // library.
-func Generate(args []string) error {
+func Generate(rootConfig *Config, args []string) error {
 	fs := flag.NewFlagSet("generate", flag.ExitOnError)
 	var (
 		format        = fs.String("specification-format", "", "the specification format. Protobuf or OpenAPI v3.")
@@ -92,7 +92,7 @@ func Generate(args []string) error {
 	}
 
 	// Load the .sidekick.toml file and refresh the code.
-	return Refresh([]string{*output})
+	return Refresh(rootConfig, []string{*output})
 }
 
 func writeSidekickToml(outDir string, config Config) error {

@@ -13,11 +13,11 @@
 #  limitations under the License.
 
 [general]
+language = 'rust'
+template-dir = 'generator/templates'
 specification-format = 'openapi'
 specification-source = 'generator/testdata/openapi/secretmanager_openapi_v1.json'
 service-config = 'generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
-language = 'rust'
-template-dir = 'generator/templates'
 
 [codec]
 copyright-year = '2024'

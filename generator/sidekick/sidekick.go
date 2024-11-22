@@ -36,17 +36,25 @@ func root() error {
 			return err
 		}
 	}
+
+	// Load the top-level configuration file. If there are any errors loading
+	// the file just run with the defaults.
+	config, err := LoadRootConfig(".sidekick.toml")
+	if err != nil {
+		return err
+	}
+
 	args := flag.Args()
-	if len(args) < 2 {
-		return fmt.Errorf("you must pass a subcommand")
+	if len(args) < 1 {
+		return fmt.Errorf("you must provide a subcommand")
 	}
 	switch args[0] {
 	case "generate":
-		if err := Generate(args[1:]); err != nil {
+		if err := Generate(config, args[1:]); err != nil {
 			return err
 		}
 	case "refresh":
-		if err := Refresh(args[1:]); err != nil {
+		if err := Refresh(config, args[1:]); err != nil {
 			return err
 		}
 	default:

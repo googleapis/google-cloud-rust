@@ -16,28 +16,21 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"path"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser"
-	toml "github.com/pelletier/go-toml/v2"
 )
 
 // Reruns the generator in one directory, using the configuration parameters
 // saved in its `.sidekick.toml` file.
-func Refresh(args []string) error {
+func Refresh(rootConfig *Config, args []string) error {
 	if len(args) != 1 {
 		return fmt.Errorf("expected the target directory")
 	}
 	outDir := args[0]
-	contents, err := os.ReadFile(path.Join(outDir, ".sidekick.toml"))
-	if err != nil {
-		return err
-	}
-	var config Config
-	err = toml.Unmarshal(contents, &config)
+	config, err := MergeConfig(rootConfig, path.Join(outDir, ".sidekick.toml"))
 	if err != nil {
 		return err
 	}
