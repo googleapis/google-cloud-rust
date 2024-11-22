@@ -224,6 +224,21 @@ func (c *Codec) fieldBaseAttributes(f *genclient.Field) []string {
 	return []string{}
 }
 
+func (c *Codec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []string) []string {
+	var formatter string
+	switch f.TypezID {
+	case ".google.protobuf.BytesValue":
+		formatter = c.fieldFormatter(genclient.BYTES_TYPE)
+	case ".google.protobuf.UInt64Value":
+		formatter = c.fieldFormatter(genclient.UINT64_TYPE)
+	case ".google.protobuf.Int64Value":
+		formatter = c.fieldFormatter(genclient.INT64_TYPE)
+	default:
+		return defaultAttributes
+	}
+	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
+}
+
 func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
 	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
@@ -279,19 +294,7 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 			}
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
 		}
-		if f.TypezID == ".google.protobuf.BytesValue" {
-			formatter := c.fieldFormatter(genclient.BYTES_TYPE)
-			return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
-		}
-		if f.TypezID == ".google.protobuf.UInt64Value" {
-			formatter := c.fieldFormatter(genclient.UINT64_TYPE)
-			return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
-		}
-		if f.TypezID == ".google.protobuf.Int64Value" {
-			formatter := c.fieldFormatter(genclient.INT64_TYPE)
-			return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
-		}
-		return attributes
+		return c.wrapperFieldAttributes(f, attributes)
 
 	default:
 		slog.Error("unexpected field type", "field", *f)
