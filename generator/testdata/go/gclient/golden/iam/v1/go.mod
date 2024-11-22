@@ -7,7 +7,7 @@ replace github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez 
 replace github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt => ../../wkt
 
 require (
-	cloud.google.com/go/auth v0.10.2
+	cloud.google.com/go/auth v0.11.0
 	github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez v0.0.0-00010101000000-000000000000
 	github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt v0.0.0-00010101000000-000000000000
 )
