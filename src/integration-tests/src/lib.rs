@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub use std::error::Error;
-pub type Result<T> = std::result::Result<T, Box<dyn Error>>;
+use gax::error::Error;
+pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod secret_manager;
 
 pub const SECRET_ID_LENGTH: usize = 64;
 
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").map_err(Error::other)?;
     Ok(project_id)
 }
 
 /// Returns an existing, but disabled service account to test IAM RPCs.
 pub fn service_account_for_iam_tests() -> Result<String> {
-    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
+    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT").map_err(Error::other)?;
     Ok(value)
 }

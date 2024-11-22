@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
 
 pub async fn run() -> Result<()> {
@@ -294,7 +295,9 @@ async fn cleanup_stale_secrets(
     secret_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(Error::other)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = stale_deadline.as_secs() as i64;
 
@@ -308,7 +311,9 @@ async fn cleanup_stale_secrets(
                 .name
                 .ends_with(format!("/secrets/{secret_id}").as_str())
             {
-                return Err("randomly generated secret id already exists {secret_id}".into());
+                return Err(Error::other(
+                    "randomly generated secret id already exists {secret_id}",
+                ));
             }
 
             if let Some("true") = secret.labels.get("integration-test").map(String::as_str) {

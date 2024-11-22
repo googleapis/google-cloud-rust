@@ -13,19 +13,31 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "run-integration-tests"))]
-#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-async fn run_secretmanager_protobuf() -> integration_tests::Result<()> {
-    integration_tests::secret_manager::protobuf::run().await
-}
+mod driver {
+    use gax::error::*;
+    fn report(e: Error) -> Error {
+        println!("\nERROR {e}\n");
+        Error::other("test failed")
+    }
 
-#[cfg(all(test, feature = "run-integration-tests"))]
-#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-    integration_tests::secret_manager::openapi::run().await
-}
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_secretmanager_protobuf() -> integration_tests::Result<()> {
+        integration_tests::secret_manager::protobuf::run()
+            .await
+            .map_err(report)
+    }
 
-#[cfg(all(test, feature = "run-integration-tests"))]
-#[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
-    integration_tests::secret_manager::openapi_locational::run().await
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run()
+            .await
+            .map_err(report)
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi_locational::run()
+            .await
+            .map_err(report)
+    }
 }

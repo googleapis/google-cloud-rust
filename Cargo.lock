@@ -747,6 +747,7 @@ dependencies = [
  "rand",
  "secretmanager-golden-gclient",
  "secretmanager-golden-openapi",
+ "serde_json",
  "tokio",
 ]
 
