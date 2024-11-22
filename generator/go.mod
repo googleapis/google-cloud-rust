@@ -9,6 +9,7 @@ require (
 	github.com/iancoleman/strcase v0.3.0
 	github.com/pb33f/libopenapi v0.18.6
 	github.com/pelletier/go-toml/v2 v2.2.3
+	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
 	google.golang.org/genproto/googleapis/api v0.0.0-20241113202542-65e8d215514f
 	google.golang.org/protobuf v1.35.1
 )
