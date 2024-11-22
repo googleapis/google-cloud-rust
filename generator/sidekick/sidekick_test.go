@@ -94,6 +94,9 @@ func TestRustFromProtobuf(t *testing.T) {
 		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "type",
+			ExtraOptions: []string{
+				"-service-config", "generator/testdata/googleapis/google/type/type.yaml",
+			},
 		},
 		{
 			Source: "generator/testdata/googleapis/google/cloud/location",

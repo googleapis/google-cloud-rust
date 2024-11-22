@@ -1,3 +1,3 @@
-#  - Rust Client Library
+# Google Cloud SDK for Rust - 
 
 
