@@ -123,7 +123,7 @@ func TestTargetExists(t *testing.T) {
 		},
 	}
 
-	downloads, err := downloadsCacheDir(rootConfig)
+	downloads, err := getCacheDir(rootConfig)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -280,7 +280,7 @@ func TestExtractedNameOverride(t *testing.T) {
 }
 
 func TestDownloadsCacheDir(t *testing.T) {
-	dir, err := downloadsCacheDir(&Config{Source: map[string]string{"cachedir": "test-only"}})
+	dir, err := getCacheDir(&Config{Source: map[string]string{"cachedir": "test-only"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -290,7 +290,7 @@ func TestDownloadsCacheDir(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	dir, err = downloadsCacheDir(&Config{Source: map[string]string{}})
+	dir, err = getCacheDir(&Config{Source: map[string]string{}})
 	if err != nil {
 		t.Fatal(err)
 	}

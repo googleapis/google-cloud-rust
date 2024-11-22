@@ -23,6 +23,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/walle/targz"
 )
@@ -45,7 +46,7 @@ func makeGoogleapisRoot(rootConfig *Config) (string, error) {
 	if !ok {
 		return "", fmt.Errorf("using an https:// URL for googleapis-root requires setting googleapis-sha256")
 	}
-	cacheDir, err := downloadsCacheDir(rootConfig)
+	cacheDir, err := getCacheDir(rootConfig)
 	if err != nil {
 		return "", err
 	}
@@ -81,7 +82,12 @@ func downloadGoogleapisRoot(target, source, sha256 string) error {
 		return nil
 	}
 	var err error
-	for range 3 {
+	backoff := 10 * time.Second
+	for i := range 3 {
+		if i != 0 {
+			time.Sleep(backoff)
+			backoff = 2 * backoff
+		}
 		if err = downloadAttempt(target, source, sha256); err == nil {
 			return nil
 		}
@@ -150,7 +156,7 @@ func isDirectory(name string) bool {
 	return true
 }
 
-func downloadsCacheDir(rootConfig *Config) (string, error) {
+func getCacheDir(rootConfig *Config) (string, error) {
 	cacheDir, ok := rootConfig.Source["cachedir"]
 	if !ok {
 		var err error
