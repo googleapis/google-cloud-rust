@@ -36,6 +36,7 @@ members = [
   "src/generated/cloud/iam/v1",
   "src/generated/api",
   "src/integration-tests",
+  "src/auth2"
 ]
 
 [workspace.package]
