@@ -566,20 +566,15 @@ func (*Codec) FormatDocComments(documentation string) []string {
 	inBlockQuote := false
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
-		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
 		if strings.HasSuffix(ss[i], "```") {
 			if !inBlockQuote {
 				ss[i] = ss[i] + "norust"
 			}
 			inBlockQuote = !inBlockQuote
 		}
-		// Add the comments here. Otherwise it is harder to ensure empty
-		// comments do not have a trailing whitespace.
-		if len(ss[i]) > 0 {
-			ss[i] = fmt.Sprintf("/// %s", ss[i])
-		} else {
-			ss[i] = "///"
-		}
+		ss[i] = fmt.Sprintf("/// %s", ss[i])
+		// nit: remove the trailing whitespace, this is unsightly.
+		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
 	}
 	return ss
 }

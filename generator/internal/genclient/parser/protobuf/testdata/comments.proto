@@ -53,6 +53,20 @@ message Response {
     // The second enum value description.
     READY = 1;
   }
+
+  // A nested message.
+  //
+  // - Item 1
+  //   Item 1 continued
+  message Nested {
+    // Field in a nested message.
+    //
+    // * Bullet 1
+    //   Bullet 1 continued
+    // * Bullet 2
+    //   Bullet 2 continued
+    string path = 1;
+  }
 }
 
 // A service.

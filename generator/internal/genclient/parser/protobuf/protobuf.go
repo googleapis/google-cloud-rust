@@ -461,34 +461,34 @@ func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto,
 }
 
 func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, sFQN string) {
-	doc = trimLeadingSpacesInDocumentation(doc)
 	if len(p) == 0 {
 		// This is a comment for a service
-		state.ServiceByID[sFQN].Documentation = doc
+		state.ServiceByID[sFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else if len(p) == 2 && p[0] == serviceDescriptorProtoMethod {
 		// This is a comment for a method
-		state.ServiceByID[sFQN].Methods[p[1]].Documentation = doc
+		state.ServiceByID[sFQN].Methods[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else {
 		slog.Warn("service dropped documentation", "loc", p, "docs", doc)
 	}
 }
 
 func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
-	doc = trimLeadingSpacesInDocumentation(doc)
+	// Beware of refactoring the calls to `trimLeadingSpacesInDocumentation`.
+	// We should modify `doc` only once, upon assignment to `.Documentation`
 	if len(p) == 0 {
 		// This is a comment for a top level message
-		state.MessageByID[mFQN].Documentation = doc
+		state.MessageByID[mFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else if p[0] == messageDescriptorNestedType {
 		nmsg := m.GetNestedType()[p[1]]
 		nmFQN := mFQN + "." + nmsg.GetName()
 		addMessageDocumentation(state, nmsg, p[2:], doc, nmFQN)
 	} else if len(p) == 2 && p[0] == messageDescriptorField {
-		state.MessageByID[mFQN].Fields[p[1]].Documentation = doc
+		state.MessageByID[mFQN].Fields[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else if p[0] == messageDescriptorEnum {
 		eFQN := mFQN + "." + m.GetEnumType()[p[1]].GetName()
 		addEnumDocumentation(state, p[2:], doc, eFQN)
 	} else if len(p) == 2 && p[0] == messageDescriptorOneOf {
-		state.MessageByID[mFQN].OneOfs[p[1]].Documentation = doc
+		state.MessageByID[mFQN].OneOfs[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else {
 		slog.Warn("message dropped documentation", "loc", p, "docs", doc)
 	}
@@ -496,20 +496,23 @@ func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.Descript
 
 // addEnumDocumentation adds documentation to an enum.
 func addEnumDocumentation(state *genclient.APIState, p []int32, doc string, eFQN string) {
-	doc = trimLeadingSpacesInDocumentation(doc)
 	if len(p) == 0 {
 		// This is a comment for an enum
-		state.EnumByID[eFQN].Documentation = doc
+		state.EnumByID[eFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else if len(p) == 2 && p[0] == enumDescriptorValue {
-		state.EnumByID[eFQN].Values[p[1]].Documentation = doc
+		state.EnumByID[eFQN].Values[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
 	} else {
 		slog.Warn("enum dropped documentation", "loc", p, "docs", doc)
 	}
 }
 
-// Protobuf introduces an extra space after each newline and on the first line.
+// Protobuf removes the `//` leading characters, but leaves the leading
+// whitespace. It is easier to reason about the comments in the rest of the
+// generator if they are better normalized.
 func trimLeadingSpacesInDocumentation(doc string) string {
-	doc = strings.TrimPrefix(doc, " ")
-	doc = strings.ReplaceAll(doc, "\n ", "\n")
-	return strings.TrimSuffix(doc, "\n")
+	lines := strings.Split(doc, "\n")
+	for i, line := range lines {
+		lines[i] = strings.TrimPrefix(line, " ")
+	}
+	return strings.TrimSuffix(strings.Join(lines, "\n"), "\n")
 }
