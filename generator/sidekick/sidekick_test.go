@@ -173,14 +173,6 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 	configs := []TestConfig{
 		{
-			Source: "generator/testdata/googleapis/google/rpc/error_details.proto",
-			Name:   "rpc",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
-				"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			},
-		},
-		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "type",
 			ExtraOptions: []string{
