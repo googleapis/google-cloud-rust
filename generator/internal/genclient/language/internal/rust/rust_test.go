@@ -913,7 +913,7 @@ Maybe they wanted to show some JSON:
 
 	c := &Codec{}
 	got := c.FormatDocComments(input)
-	if diff := cmp.Diff(want, got); len(diff) > 0 {
+	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }
