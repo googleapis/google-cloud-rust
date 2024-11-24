@@ -431,10 +431,6 @@ name = "gcp-sdk-api"
 version = "0.0.0"
 
 [[package]]
-name = "gcp-sdk-auth"
-version = "0.0.0"
-
-[[package]]
 name = "gcp-sdk-base"
 version = "0.0.0"
 
@@ -534,9 +530,6 @@ dependencies = [
  "anyhow",
  "async-trait",
  "dirs",
- "libc",
- "once_cell",
- "rand",
  "reqwest",
  "serde",
  "serde_json",

@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use anyhow::anyhow;
 use serde::{Deserialize, Serialize};
 use super::Credential;
@@ -11,6 +13,10 @@ const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 pub(crate) struct UserCredential {
     quota_project_id: Option<String>,
     universe_domain: String,
+
+    // TODO: make the caching configurable so that in future
+    // we can have logic in FFI shim to implement a different
+    // caching mechanism involving std::thread
     token_cache: TokenCache<UserAccessTokenProvider>,
 }
 
@@ -61,6 +67,14 @@ impl UserCredential {
 impl Credential for UserCredential {
     async fn get_token(&mut self) -> anyhow::Result<Token, anyhow::Error> {
         self.token_cache.token_non_blocking().await
+    }
+    
+    async fn get_headers(&mut self) -> Result<HashMap<String, String>, anyhow::Error> {
+        let token = self.get_token().await?;
+        let mut headers = HashMap::<String, String>::new();
+        headers.insert("Authorization".to_string(), format!("{} {}", token.token_type, token.token));
+        headers.insert("X-Goog-User-Project".to_string(), self.get_quota_project_id()?);
+        Ok(headers)
     }
 
     fn get_quota_project_id(&self) -> anyhow::Result<String, anyhow::Error> {
@@ -164,6 +178,6 @@ mod tests {
         let token = cred.get_token().await.unwrap();
         println!("{:#?}", token);
         println!();
-        println!("Authorization header:{}", cred.get_authorization_header().await.unwrap())
+        println!("{:#?}", cred.get_headers().await.unwrap())
     }
 }

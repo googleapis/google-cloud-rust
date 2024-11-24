@@ -1,4 +1,5 @@
 use dirs::home_dir;
+use std::collections::HashMap;
 use std::env::var;
 use std::path::{Path, PathBuf};
 use tokio::fs::read_to_string;
@@ -14,16 +15,19 @@ use crate::options::AccessTokenCredentialOptions;
 #[async_trait]
 pub trait Credential: Send + Sync {
     async fn get_token(&mut self) -> Result<crate::token::Token, anyhow::Error>;
-    async fn get_authorization_header(&mut self) -> Result<String, anyhow::Error> {
+    async fn get_headers(&mut self) -> Result<HashMap<String, String>, anyhow::Error> {
         let token = self.get_token().await?;
-        Ok(format!("{} {}", token.token_type, token.token))
+        let mut headers = HashMap::<String, String>::new();
+        headers.insert("Authorization".to_string(), format!("{} {}", token.token_type, token.token));
+        Ok(headers)
     }
     fn get_quota_project_id(&self) -> Result<String, anyhow::Error>;
     fn get_universe_domain(&self) -> Result<String, anyhow::Error>;
 }
 
-pub async fn create_access_token_credential(options: Option<AccessTokenCredentialOptions>) -> Result<Box<dyn Credential>, anyhow::Error> {
-    // TODO: If options contail the cred json or file, use that instead of ADC
+pub async fn create_access_token_credential(_: Option<AccessTokenCredentialOptions>) -> Result<Box<dyn Credential>, anyhow::Error> {
+    // TODO: If options contain the cred json or file, use that instead of ADC.
+    // TODO: Rewrite this ADC code below. It is just a placeholder logic.
     
     let credential_env = var("GOOGLE_APPLICATION_CREDENTIALS");
     let adc_path = {
@@ -34,7 +38,7 @@ pub async fn create_access_token_credential(options: Option<AccessTokenCredentia
         }
     };
     if let Ok(path) = adc_path {
-        let credential = from_adc(&path).await?;
+        let credential = from_file(&path).await?;
         return Ok(credential);
     }
     
@@ -43,7 +47,7 @@ pub async fn create_access_token_credential(options: Option<AccessTokenCredentia
     )))
 }
 
-async fn from_adc(path: &AdcFilePath) -> Result<Box<dyn Credential>, anyhow::Error> {
+async fn from_file(path: &AdcFilePath) -> Result<Box<dyn Credential>, anyhow::Error> {
     let data = read_to_string(path).await?;
     if let Ok(user_credential) = UserCredential::from_json(&data) {
         return Ok(Box::new(user_credential))
@@ -56,9 +60,9 @@ async fn from_adc(path: &AdcFilePath) -> Result<Box<dyn Credential>, anyhow::Err
 }
 
 #[derive(Debug)]
-pub(crate) struct AdcFilePath(Box<PathBuf>);
+struct AdcFilePath(Box<PathBuf>);
 impl AdcFilePath {
-    pub(crate) fn default() -> Result<Self, anyhow::Error> {
+    fn default() -> Result<Self, anyhow::Error> {
         if let Some(home) = home_dir() {
             let p = home
                 .join(".config")
