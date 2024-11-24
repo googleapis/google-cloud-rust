@@ -195,7 +195,7 @@ func TestDownloadGoogleapisRootNeedsDownload(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if diff := cmp.Diff(tarball.Contents, got); len(diff) != 0 {
+	if diff := cmp.Diff(tarball.Contents, got); diff != "" {
 		t.Errorf("mismatched downloaded contents, (-want, +got):\n%s", diff)
 	}
 }

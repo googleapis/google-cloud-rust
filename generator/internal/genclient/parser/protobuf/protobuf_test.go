@@ -41,7 +41,7 @@ func TestInfo(t *testing.T) {
 	if api.Title != serviceConfig.Title {
 		t.Errorf("want = %q; got = %q", serviceConfig.Title, api.Name)
 	}
-	if diff := cmp.Diff(api.Description, serviceConfig.Documentation.Summary); len(diff) > 0 {
+	if diff := cmp.Diff(api.Description, serviceConfig.Documentation.Summary); diff != "" {
 		t.Errorf("description mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -836,37 +836,37 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	t.Helper()
 	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields", "OneOfs", "Parent", "Messages")); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
 		t.Errorf("message attributes mismatch (-want +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 	// Ignore parent because types are cyclic
-	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.OneOf{}, "Parent")); len(diff) > 0 {
+	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.OneOf{}, "Parent")); diff != "" {
 		t.Errorf("oneofs mismatch (-want, +got):\n%s", diff)
 	}
 }
 
 func checkEnum(t *testing.T, got genclient.Enum, want genclient.Enum) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Enum{}, "Values", "Parent")); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Enum{}, "Values", "Parent")); diff != "" {
 		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.EnumValue) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.EnumValue{}, "Parent")); len(diff) > 0 {
+	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.EnumValue{}, "Parent")); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
 
 func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); diff != "" {
 		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }

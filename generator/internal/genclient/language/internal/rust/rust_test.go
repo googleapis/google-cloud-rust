@@ -77,7 +77,7 @@ func TestParseOptions(t *testing.T) {
 			"test-only":       gp,
 		},
 	}
-	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(Codec{}, "ExtraPackages", "PackageMapping")); len(diff) > 0 {
+	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(Codec{}, "ExtraPackages", "PackageMapping")); diff != "" {
 		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
 	}
 	if want.PackageNameOverride != codec.PackageNameOverride {
@@ -105,7 +105,7 @@ func TestRequiredPackages(t *testing.T) {
 		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gax\" }",
 	}
 	less := func(a, b string) bool { return a < b }
-	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
 	}
 }
@@ -129,7 +129,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 		"gtype      = { path = \"src/generated/type\", package = \"types\" }",
 	}
 	less := func(a, b string) bool { return a < b }
-	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched required packages (-want, +got):\n%s", diff)
 	}
 }
@@ -166,7 +166,7 @@ func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions) {
 func checkPackages(t *testing.T, got *Codec, want *Codec) {
 	t.Helper()
 	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("package mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -781,7 +781,7 @@ func TestQueryParams(t *testing.T) {
 	got := c.QueryParams(method, api.State)
 	want := []*genclient.Field{optionsField, anotherField}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}
 }
@@ -938,7 +938,7 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 
 	c := &Codec{}
 	got := c.FormatDocComments(input)
-	if diff := cmp.Diff(want, got); len(diff) > 0 {
+	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }
