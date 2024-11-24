@@ -910,6 +910,32 @@ Maybe they wanted to show some JSON:
 		"/// }",
 		"/// ```",
 	}
+
+	c := &Codec{}
+	got := c.FormatDocComments(input)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsBullets(t *testing.T) {
+	input := `In this example, in proto field could take one of the following values:
+
+* full_name for a violation in the full_name value
+* email_addresses[1].email for a violation in the email field of the
+  first email_addresses message
+* email_addresses[3].type[2] for a violation in the second type
+  value in the third email_addresses message.)`
+	want := []string{
+		"/// In this example, in proto field could take one of the following values:",
+		"///",
+		"/// * full_name for a violation in the full_name value",
+		"/// * email_addresses[1].email for a violation in the email field of the",
+		"///   first email_addresses message",
+		"/// * email_addresses[3].type[2] for a violation in the second type",
+		"///   value in the third email_addresses message.)",
+	}
+
 	c := &Codec{}
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); len(diff) > 0 {

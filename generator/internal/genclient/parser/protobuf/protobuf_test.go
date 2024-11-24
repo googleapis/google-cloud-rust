@@ -374,6 +374,26 @@ func TestComments(t *testing.T) {
 		},
 	})
 
+	message, ok = api.State.MessageByID[".test.Response.Nested"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Response.nested")
+	}
+	checkMessage(t, *message, genclient.Message{
+		Name:          "Nested",
+		Package:       "test",
+		ID:            ".test.Response.Nested",
+		Documentation: "A nested message.\n\n- Item 1\n  Item 1 continued",
+		Fields: []*genclient.Field{
+			{
+				Name:          "path",
+				Documentation: "Field in a nested message.\n\n* Bullet 1\n  Bullet 1 continued\n* Bullet 2\n  Bullet 2 continued",
+				JSONName:      "path",
+				ID:            ".test.Response.Nested.path",
+				Typez:         genclient.STRING_TYPE,
+			},
+		},
+	})
+
 	e, ok := api.State.EnumByID[".test.Response.Status"]
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Response.Status")
@@ -772,6 +792,29 @@ func TestEnum(t *testing.T) {
 			},
 		},
 	})
+}
+
+func TestTrimLeadingSpacesInDocumentation(t *testing.T) {
+	input := ` In this example, in proto field could take one of the following values:
+
+ * full_name for a violation in the full_name value
+ * email_addresses[1].email for a violation in the email field of the
+   first email_addresses message
+ * email_addresses[3].type[2] for a violation in the second type
+   value in the third email_addresses message.)`
+
+	want := `In this example, in proto field could take one of the following values:
+
+* full_name for a violation in the full_name value
+* email_addresses[1].email for a violation in the email field of the
+  first email_addresses message
+* email_addresses[3].type[2] for a violation in the second type
+  value in the third email_addresses message.)`
+
+	got := trimLeadingSpacesInDocumentation(input)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
 }
 
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {

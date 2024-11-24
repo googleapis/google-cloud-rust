@@ -165,19 +165,37 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	if err := os.Chdir(projectRoot); err != nil {
 		t.Fatal(err)
 	}
-	args := []string{
-		"-specification-format", "protobuf",
-		"-specification-source", "generator/testdata/googleapis/google/type",
-		"-parser-option", "googleapis-root=generator/testdata/googleapis",
-		"-language", "rust",
-		"-output", "generator/testdata/rust/gclient/golden/module",
-		"-template-dir", "generator/templates",
-		"-codec-option", "copyright-year=2024",
-		"-codec-option", "generate-module=true",
+
+	type TestConfig struct {
+		Source       string
+		Name         string
+		ExtraOptions []string
+	}
+	configs := []TestConfig{
+		{
+			Source: "generator/testdata/googleapis/google/type",
+			Name:   "type",
+			ExtraOptions: []string{
+				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
+			},
+		},
 	}
 
-	if err := Generate(args); err != nil {
-		t.Fatal(err)
+	for _, config := range configs {
+		args := []string{
+			"-specification-format", "protobuf",
+			"-specification-source", config.Source,
+			"-parser-option", "googleapis-root=generator/testdata/googleapis",
+			"-language", "rust",
+			"-output", path.Join("generator/testdata/rust/gclient/golden/module", config.Name),
+			"-template-dir", "generator/templates",
+			"-codec-option", "copyright-year=2024",
+			"-codec-option", "generate-module=true",
+		}
+
+		if err := Generate(args); err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 
