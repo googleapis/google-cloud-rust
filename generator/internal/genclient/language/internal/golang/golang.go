@@ -152,6 +152,10 @@ func (c *Codec) MethodInOutTypeName(id string, s *genclient.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
+func (*Codec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
+	return []string{}
+}
+
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)

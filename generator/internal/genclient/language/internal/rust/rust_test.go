@@ -46,6 +46,7 @@ func TestParseOptions(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override": "test-only",
 			"copyright-year":        "2035",
+			"module-path":           "alternative::generated",
 			"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
 			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 		},
@@ -60,9 +61,10 @@ func TestParseOptions(t *testing.T) {
 		Path:    "src/wkt",
 	}
 	want := &Codec{
-		PackageNameOverride: "test-only",
-		GenerationYear:      "2035",
-		ModulePath:          "model",
+		PackageNameOverride:      "test-only",
+		GenerationYear:           "2035",
+		ModulePath:               "alternative::generated",
+		DeserializeWithdDefaults: true,
 		ExtraPackages: []*RustPackage{
 			gp,
 			{
@@ -938,7 +940,7 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
-	c := &Codec{}
+	c := testCodec()
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)

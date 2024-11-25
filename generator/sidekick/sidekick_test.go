@@ -181,6 +181,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			ExtraOptions: []string{
 				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
 				"-codec-option", "module-path=error::rpc::generated",
+				"-codec-option", "deserialize-with-defaults=false",
 				"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
 			},
 		},
