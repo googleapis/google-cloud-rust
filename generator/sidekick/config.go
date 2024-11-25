@@ -37,21 +37,18 @@ type GeneralConfig struct {
 }
 
 func LoadRootConfig(filename string) (*Config, error) {
-	var config Config
+	config := &Config{
+		Codec:  map[string]string{},
+		Source: map[string]string{},
+	}
 	if contents, err := os.ReadFile(filename); err == nil {
 		err = toml.Unmarshal(contents, &config)
 		if err != nil {
 			return nil, fmt.Errorf("error reading top-level configuration: %w", err)
 		}
 	}
-	if config.Codec == nil {
-		config.Codec = map[string]string{}
-	}
-	if config.Source == nil {
-		config.Source = map[string]string{}
-	}
 	// Ignore errors reading the top-level file.
-	return &config, nil
+	return config, nil
 }
 
 func MergeConfig(rootConfig *Config, filename string) (*Config, error) {

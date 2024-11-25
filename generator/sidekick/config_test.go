@@ -22,6 +22,81 @@ import (
 	toml "github.com/pelletier/go-toml/v2"
 )
 
+func TestLoadRootConfigOnlyGeneral(t *testing.T) {
+	tempFile, err := os.CreateTemp(t.TempDir(), "root-config-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(tempFile.Name())
+
+	root := Config{
+		General: GeneralConfig{
+			Language:            "root-language",
+			TemplateDir:         "root-template-dir",
+			SpecificationFormat: "root-specification-format",
+		},
+	}
+
+	to := toml.NewEncoder(tempFile)
+	if err := to.Encode(&root); err != nil {
+		t.Fatal(err)
+	}
+	if err := tempFile.Close(); err != nil {
+		t.Fatal(err)
+	}
+	got, err := LoadRootConfig(tempFile.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &Config{
+		General: root.General,
+		Source:  map[string]string{},
+		Codec:   map[string]string{},
+	}
+	if diff := cmp.Diff(want, got); len(diff) != 0 {
+		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
+	}
+}
+
+func TestLoadRootConfig(t *testing.T) {
+	tempFile, err := os.CreateTemp(t.TempDir(), "root-config-")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer os.Remove(tempFile.Name())
+
+	root := Config{
+		General: GeneralConfig{
+			Language:            "root-language",
+			TemplateDir:         "root-template-dir",
+			SpecificationFormat: "root-specification-format",
+		},
+		Source: map[string]string{
+			"s1": "v1",
+			"s2": "v2",
+		},
+		Codec: map[string]string{
+			"o1": "v3",
+			"o2": "v4",
+		},
+	}
+
+	to := toml.NewEncoder(tempFile)
+	if err := to.Encode(&root); err != nil {
+		t.Fatal(err)
+	}
+	if err := tempFile.Close(); err != nil {
+		t.Fatal(err)
+	}
+	got, err := LoadRootConfig(tempFile.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := cmp.Diff(&root, got); len(diff) != 0 {
+		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
+	}
+}
+
 func TestMergeLocalForGeneral(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
