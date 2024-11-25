@@ -13,11 +13,11 @@
 #  limitations under the License.
 
 [general]
+language = 'go'
+template-dir = 'generator/templates'
 specification-format = 'protobuf'
 specification-source = 'generator/testdata/googleapis/google/type'
 service-config = ''
-language = 'go'
-template-dir = 'generator/templates'
 
 [source]
 googleapis-root = 'generator/testdata/googleapis'

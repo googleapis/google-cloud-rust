@@ -57,7 +57,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 	}
-	if err := Generate(args); err != nil {
+	if err := Generate(&Config{}, args); err != nil {
 		t.Fatal(err)
 	}
 
@@ -84,13 +84,13 @@ func TestRustFromProtobuf(t *testing.T) {
 	if err := os.Chdir(projectRoot); err != nil {
 		t.Fatal(err)
 	}
-	type Config struct {
+	type TestConfig struct {
 		Source       string
 		Name         string
 		ExtraOptions []string
 	}
 
-	configs := []Config{
+	configs := []TestConfig{
 		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "type",
@@ -137,7 +137,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 		}
 		args = append(args, config.ExtraOptions...)
-		if err := Generate(args); err != nil {
+		if err := Generate(&Config{}, args); err != nil {
 			t.Fatal(err)
 		}
 
@@ -205,7 +205,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		}
 		args = append(args, config.ExtraOptions...)
 
-		if err := Generate(args); err != nil {
+		if err := Generate(&Config{}, args); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -226,13 +226,13 @@ func TestGoFromProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	type Config struct {
+	type TestConfig struct {
 		Source       string
 		Name         string
 		ExtraOptions []string
 		ModReplace   map[string]string
 	}
-	configs := []Config{
+	configs := []TestConfig{
 		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "typez",
@@ -269,7 +269,7 @@ func TestGoFromProtobuf(t *testing.T) {
 			"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
 		}
 		args = append(args, config.ExtraOptions...)
-		if err := Generate(args); err != nil {
+		if err := Generate(&Config{}, args); err != nil {
 			t.Fatal(err)
 		}
 

@@ -14,6 +14,13 @@
 
 package main
 
+import (
+	"fmt"
+	"os"
+
+	toml "github.com/pelletier/go-toml/v2"
+)
+
 type Config struct {
 	General GeneralConfig `toml:"general"`
 
@@ -21,10 +28,77 @@ type Config struct {
 	Codec  map[string]string `toml:"codec"`
 }
 
+// Configuration parameters that affect Parsers and Codecs, including the
+// selection of parser and codec.
 type GeneralConfig struct {
+	Language            string `toml:"language"`
+	TemplateDir         string `toml:"template-dir"`
 	SpecificationFormat string `toml:"specification-format"`
 	SpecificationSource string `toml:"specification-source"`
 	ServiceConfig       string `toml:"service-config"`
-	Language            string `toml:"language"`
-	TemplateDir         string `toml:"template-dir"`
+}
+
+func LoadRootConfig(filename string) (*Config, error) {
+	config := &Config{
+		Codec:  map[string]string{},
+		Source: map[string]string{},
+	}
+	if contents, err := os.ReadFile(filename); err == nil {
+		err = toml.Unmarshal(contents, &config)
+		if err != nil {
+			return nil, fmt.Errorf("error reading top-level configuration: %w", err)
+		}
+	}
+	// Ignore errors reading the top-level file.
+	return config, nil
+}
+
+func MergeConfig(rootConfig *Config, filename string) (*Config, error) {
+	contents, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	var local Config
+	err = toml.Unmarshal(contents, &local)
+	if err != nil {
+		return nil, fmt.Errorf("error reading configuration %s: %w", filename, err)
+	}
+
+	merged := Config{
+		General: GeneralConfig{
+			Language:            rootConfig.General.Language,
+			TemplateDir:         rootConfig.General.TemplateDir,
+			SpecificationFormat: rootConfig.General.SpecificationFormat,
+		},
+		Source: map[string]string{},
+		Codec:  map[string]string{},
+	}
+	for k, v := range rootConfig.Codec {
+		merged.Codec[k] = v
+	}
+	for k, v := range rootConfig.Source {
+		merged.Source[k] = v
+	}
+
+	// Ignore `SpecificationSource` and `ServiceConfig` at the top-level
+	// configuration. It makes no sense to set those globally.
+	merged.General.SpecificationSource = local.General.SpecificationSource
+	merged.General.ServiceConfig = local.General.ServiceConfig
+	if local.General.SpecificationFormat != "" {
+		merged.General.SpecificationFormat = local.General.SpecificationFormat
+	}
+	if local.General.Language != "" {
+		merged.General.Language = local.General.Language
+	}
+	if local.General.TemplateDir != "" {
+		merged.General.TemplateDir = local.General.TemplateDir
+	}
+	for k, v := range local.Codec {
+		merged.Codec[k] = v
+	}
+	for k, v := range local.Source {
+		merged.Source[k] = v
+	}
+	// Ignore errors reading the top-level file.
+	return &merged, nil
 }
