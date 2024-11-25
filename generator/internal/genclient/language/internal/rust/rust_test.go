@@ -32,6 +32,7 @@ func testCodec() *Codec {
 	}
 
 	return &Codec{
+		ModuleName:    "crate::model",
 		ExtraPackages: []*RustPackage{wkt},
 		PackageMapping: map[string]*RustPackage{
 			"google.protobuf": wkt,
@@ -45,6 +46,7 @@ func TestParseOptions(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override": "test-only",
 			"copyright-year":        "2035",
+			"module-name":           "crate::model",
 			"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
 			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 		},
@@ -61,6 +63,7 @@ func TestParseOptions(t *testing.T) {
 	want := &Codec{
 		PackageNameOverride: "test-only",
 		GenerationYear:      "2035",
+		ModuleName:          "crate::model",
 		ExtraPackages: []*RustPackage{
 			gp,
 			{
@@ -248,7 +251,7 @@ func TestMethodInOut(t *testing.T) {
 		Parent: message,
 	}
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
-	c := &Codec{}
+	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	want := "crate::model::Target"
@@ -936,7 +939,7 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
-	c := &Codec{}
+	c := testCodec()
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
@@ -965,7 +968,7 @@ func TestMessageNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := testCodec()
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
@@ -1003,7 +1006,7 @@ func TestEnumNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := testCodec()
 	if got := c.EnumName(nested, api.State); got != "State" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}

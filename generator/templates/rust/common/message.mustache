@@ -50,7 +50,7 @@ impl {{Name}} {
     {{#BasicFields}}
 
     /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnake}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
+    pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
         self.{{NameToSnake}} = v.into();
         self
     }
@@ -58,7 +58,7 @@ impl {{Name}} {
     {{#ExplicitOneOfs}}
 
     /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnake}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
+    pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
         self.{{NameToSnake}} = v.into();
         self
     }

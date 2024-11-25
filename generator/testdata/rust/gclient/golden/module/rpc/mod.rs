@@ -43,6 +43,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ErrorInfo {
+
     /// The reason of the error. This is a constant value that identifies the
     /// proximate cause of the error. Error reasons are unique within a particular
     /// domain of errors. This should be at most 63 characters and match a
@@ -67,10 +68,11 @@ pub struct ErrorInfo {
     /// {"instanceLimitPerRequest": "100"}, if the client exceeds the number of
     /// instances that can be created in a single (batch) request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub metadata: std::collections::HashMap<String, String>,
+    pub metadata: std::collections::HashMap<String,String>,
 }
 
 impl ErrorInfo {
+
     /// Sets the value of `reason`.
     pub fn set_reason<T: Into<String>>(mut self, v: T) -> Self {
         self.reason = v.into();
@@ -84,10 +86,7 @@ impl ErrorInfo {
     }
 
     /// Sets the value of `metadata`.
-    pub fn set_metadata<T: Into<std::collections::HashMap<String, String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_metadata<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
         self.metadata = v.into();
         self
     }
@@ -111,11 +110,13 @@ impl ErrorInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RetryInfo {
+
     /// Clients should wait at least this long between retrying the same request.
     pub retry_delay: Option<wkt::Duration>,
 }
 
 impl RetryInfo {
+
     /// Sets the value of `retry_delay`.
     pub fn set_retry_delay<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.retry_delay = v.into();
@@ -129,6 +130,7 @@ impl RetryInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DebugInfo {
+
     /// The stack trace entries indicating where the error occurred.
     pub stack_entries: Vec<String>,
 
@@ -137,6 +139,7 @@ pub struct DebugInfo {
 }
 
 impl DebugInfo {
+
     /// Sets the value of `stack_entries`.
     pub fn set_stack_entries<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.stack_entries = v.into();
@@ -166,16 +169,15 @@ impl DebugInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct QuotaFailure {
+
     /// Describes all quota violations.
     pub violations: Vec<crate::error::rpc::generated::quota_failure::Violation>,
 }
 
 impl QuotaFailure {
+
     /// Sets the value of `violations`.
-    pub fn set_violations<T: Into<Vec<crate::error::rpc::generated::quota_failure::Violation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_violations<T: Into<Vec<crate::error::rpc::generated::quota_failure::Violation>>>(mut self, v: T) -> Self {
         self.violations = v.into();
         self
     }
@@ -191,6 +193,7 @@ pub mod quota_failure {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Violation {
+
         /// The subject on which the quota check failed.
         /// For example, "clientip:<ip address of client>" or "project:<Google
         /// developer project id>".
@@ -207,6 +210,7 @@ pub mod quota_failure {
     }
 
     impl Violation {
+
         /// Sets the value of `subject`.
         pub fn set_subject<T: Into<String>>(mut self, v: T) -> Self {
             self.subject = v.into();
@@ -231,18 +235,15 @@ pub mod quota_failure {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PreconditionFailure {
+
     /// Describes all precondition violations.
     pub violations: Vec<crate::error::rpc::generated::precondition_failure::Violation>,
 }
 
 impl PreconditionFailure {
+
     /// Sets the value of `violations`.
-    pub fn set_violations<
-        T: Into<Vec<crate::error::rpc::generated::precondition_failure::Violation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_violations<T: Into<Vec<crate::error::rpc::generated::precondition_failure::Violation>>>(mut self, v: T) -> Self {
         self.violations = v.into();
         self
     }
@@ -257,6 +258,7 @@ pub mod precondition_failure {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Violation {
+
         /// The type of PreconditionFailure. We recommend using a service-specific
         /// enum type to define the supported precondition violation subjects. For
         /// example, "TOS" for "Terms of Service violation".
@@ -276,6 +278,7 @@ pub mod precondition_failure {
     }
 
     impl Violation {
+
         /// Sets the value of `r#type`.
         pub fn set_type<T: Into<String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
@@ -303,18 +306,15 @@ pub mod precondition_failure {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BadRequest {
+
     /// Describes all violations in a client request.
     pub field_violations: Vec<crate::error::rpc::generated::bad_request::FieldViolation>,
 }
 
 impl BadRequest {
+
     /// Sets the value of `field_violations`.
-    pub fn set_field_violations<
-        T: Into<Vec<crate::error::rpc::generated::bad_request::FieldViolation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_field_violations<T: Into<Vec<crate::error::rpc::generated::bad_request::FieldViolation>>>(mut self, v: T) -> Self {
         self.field_violations = v.into();
         self
     }
@@ -329,6 +329,7 @@ pub mod bad_request {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FieldViolation {
+
         /// A path that leads to a field in the request body. The value will be a
         /// sequence of dot-separated identifiers that identify a protocol buffer
         /// field.
@@ -373,6 +374,7 @@ pub mod bad_request {
     }
 
     impl FieldViolation {
+
         /// Sets the value of `field`.
         pub fn set_field<T: Into<String>>(mut self, v: T) -> Self {
             self.field = v.into();
@@ -394,6 +396,7 @@ pub mod bad_request {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RequestInfo {
+
     /// An opaque string that should only be interpreted by the service generating
     /// it. For example, it can be used to identify requests in the service's logs.
     pub request_id: String,
@@ -404,6 +407,7 @@ pub struct RequestInfo {
 }
 
 impl RequestInfo {
+
     /// Sets the value of `request_id`.
     pub fn set_request_id<T: Into<String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
@@ -423,6 +427,7 @@ impl RequestInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ResourceInfo {
+
     /// A name for the type of resource being accessed, e.g. "sql table",
     /// "cloud storage bucket", "file", "Google calendar"; or the type URL
     /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
@@ -446,6 +451,7 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+
     /// Sets the value of `resource_type`.
     pub fn set_resource_type<T: Into<String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
@@ -481,16 +487,15 @@ impl ResourceInfo {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Help {
+
     /// URL(s) pointing to additional information on handling the current error.
     pub links: Vec<crate::error::rpc::generated::help::Link>,
 }
 
 impl Help {
+
     /// Sets the value of `links`.
-    pub fn set_links<T: Into<Vec<crate::error::rpc::generated::help::Link>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_links<T: Into<Vec<crate::error::rpc::generated::help::Link>>>(mut self, v: T) -> Self {
         self.links = v.into();
         self
     }
@@ -505,6 +510,7 @@ pub mod help {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Link {
+
         /// Describes what the link offers.
         pub description: String,
 
@@ -513,6 +519,7 @@ pub mod help {
     }
 
     impl Link {
+
         /// Sets the value of `description`.
         pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
             self.description = v.into();
@@ -534,6 +541,7 @@ pub mod help {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LocalizedMessage {
+
     /// The locale used following the specification defined at
     /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
     /// Examples are: "en-US", "fr-CH", "es-MX"
@@ -544,6 +552,7 @@ pub struct LocalizedMessage {
 }
 
 impl LocalizedMessage {
+
     /// Sets the value of `locale`.
     pub fn set_locale<T: Into<String>>(mut self, v: T) -> Self {
         self.locale = v.into();

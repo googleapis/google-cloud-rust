@@ -32,6 +32,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &Codec{
 		GenerationYear:  fmt.Sprintf("%04d", year),
+		ModuleName:      "crate::model",
 		OutputDirectory: copts.OutDir,
 		ExtraPackages:   []*RustPackage{},
 		PackageMapping:  map[string]*RustPackage{},
@@ -47,6 +48,9 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 				return nil, err
 			}
 			codec.GenerateModule = value
+			continue
+		case "module-name":
+			codec.ModuleName = definition
 			continue
 		case "copyright-year":
 			codec.GenerationYear = definition
@@ -99,6 +103,9 @@ type Codec struct {
 	GenerationYear string
 	// Generate a module of a larger crate, as opposed to a full crate.
 	GenerateModule bool
+	// The name of the model module. This is typically `crate::model`, but when
+	// generating a module it may be `crate::foo::bar::baz::generated`
+	ModuleName string
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -384,7 +391,7 @@ func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string
 
 func (c *Codec) rustPackage(packageName string) string {
 	if packageName == c.SourceSpecificationPackageName {
-		return "crate::model"
+		return c.ModuleName
 	}
 	mapped, ok := c.PackageMapping[packageName]
 	if !ok {
@@ -540,11 +547,15 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 // This type of conversion can easily introduce keywords. Consider
 //
 //	`ToSnake("True") -> "true"`
-func (*Codec) ToSnake(symbol string) string {
+func (c *Codec) ToSnake(symbol string) string {
+	return EscapeKeyword(c.ToSnakeNoMangling(symbol))
+}
+
+func (*Codec) ToSnakeNoMangling(symbol string) string {
 	if strings.ToLower(symbol) == symbol {
-		return EscapeKeyword(symbol)
+		return symbol
 	}
-	return EscapeKeyword(strcase.ToSnake(symbol))
+	return strcase.ToSnake(symbol)
 }
 
 // Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this

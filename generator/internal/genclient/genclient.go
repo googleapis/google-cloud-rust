@@ -84,6 +84,12 @@ type LanguageCodec interface {
 	// ToSnake converts a symbol name to `snake_case`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToSnake(string) string
+	// ToSnakeNoMangling converts a symbol name to `snake_case`, without any
+	// mangling to avoid reserved words. This is useful when the template is
+	// already going to mangle the name, e.g., by adding a prefix or suffix.
+	// Since the templates are language specific, their authors can determine
+	// when to use `ToSnake` or `ToSnakeNoMangling`.
+	ToSnakeNoMangling(string) string
 	// ToPascal converts a symbol name to `PascalCase`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToPascal(string) string
