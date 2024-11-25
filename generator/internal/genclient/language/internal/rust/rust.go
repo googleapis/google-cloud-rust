@@ -33,6 +33,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	codec := &Codec{
 		GenerationYear:  fmt.Sprintf("%04d", year),
 		OutputDirectory: copts.OutDir,
+		ModulePath:      "model",
 		ExtraPackages:   []*RustPackage{},
 		PackageMapping:  map[string]*RustPackage{},
 	}
@@ -47,6 +48,9 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 				return nil, err
 			}
 			codec.GenerateModule = value
+			continue
+		case "module-path":
+			codec.ModulePath = definition
 			continue
 		case "copyright-year":
 			codec.GenerationYear = definition
@@ -99,6 +103,12 @@ type Codec struct {
 	GenerationYear string
 	// Generate a module of a larger crate, as opposed to a full crate.
 	GenerateModule bool
+	// The full path of the generated module within the crate. This defaults to
+	// `model`. When generating only a module within a larger crate (see
+	// `GenerateModule`), this overrides the path for elements within the crate.
+	// Note that using `self` does not work, as the generated code may contain
+	// nested modules for nested messages.
+	ModulePath string
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -384,7 +394,7 @@ func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string
 
 func (c *Codec) rustPackage(packageName string) string {
 	if packageName == c.SourceSpecificationPackageName {
-		return "crate::model"
+		return "crate::" + c.ModulePath
 	}
 	mapped, ok := c.PackageMapping[packageName]
 	if !ok {

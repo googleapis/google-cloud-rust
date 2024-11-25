@@ -171,13 +171,13 @@ impl DebugInfo {
 pub struct QuotaFailure {
 
     /// Describes all quota violations.
-    pub violations: Vec<crate::model::quota_failure::Violation>,
+    pub violations: Vec<crate::error::rpc::generated::quota_failure::Violation>,
 }
 
 impl QuotaFailure {
 
     /// Sets the value of `violations`.
-    pub fn set_violations<T: Into<Vec<crate::model::quota_failure::Violation>>>(mut self, v: T) -> Self {
+    pub fn set_violations<T: Into<Vec<crate::error::rpc::generated::quota_failure::Violation>>>(mut self, v: T) -> Self {
         self.violations = v.into();
         self
     }
@@ -237,13 +237,13 @@ pub mod quota_failure {
 pub struct PreconditionFailure {
 
     /// Describes all precondition violations.
-    pub violations: Vec<crate::model::precondition_failure::Violation>,
+    pub violations: Vec<crate::error::rpc::generated::precondition_failure::Violation>,
 }
 
 impl PreconditionFailure {
 
     /// Sets the value of `violations`.
-    pub fn set_violations<T: Into<Vec<crate::model::precondition_failure::Violation>>>(mut self, v: T) -> Self {
+    pub fn set_violations<T: Into<Vec<crate::error::rpc::generated::precondition_failure::Violation>>>(mut self, v: T) -> Self {
         self.violations = v.into();
         self
     }
@@ -308,13 +308,13 @@ pub mod precondition_failure {
 pub struct BadRequest {
 
     /// Describes all violations in a client request.
-    pub field_violations: Vec<crate::model::bad_request::FieldViolation>,
+    pub field_violations: Vec<crate::error::rpc::generated::bad_request::FieldViolation>,
 }
 
 impl BadRequest {
 
     /// Sets the value of `field_violations`.
-    pub fn set_field_violations<T: Into<Vec<crate::model::bad_request::FieldViolation>>>(mut self, v: T) -> Self {
+    pub fn set_field_violations<T: Into<Vec<crate::error::rpc::generated::bad_request::FieldViolation>>>(mut self, v: T) -> Self {
         self.field_violations = v.into();
         self
     }
@@ -489,13 +489,13 @@ impl ResourceInfo {
 pub struct Help {
 
     /// URL(s) pointing to additional information on handling the current error.
-    pub links: Vec<crate::model::help::Link>,
+    pub links: Vec<crate::error::rpc::generated::help::Link>,
 }
 
 impl Help {
 
     /// Sets the value of `links`.
-    pub fn set_links<T: Into<Vec<crate::model::help::Link>>>(mut self, v: T) -> Self {
+    pub fn set_links<T: Into<Vec<crate::error::rpc::generated::help::Link>>>(mut self, v: T) -> Self {
         self.links = v.into();
         self
     }
