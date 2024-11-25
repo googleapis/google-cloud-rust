@@ -61,9 +61,10 @@ func TestParseOptions(t *testing.T) {
 		Path:    "src/wkt",
 	}
 	want := &Codec{
-		PackageNameOverride: "test-only",
-		GenerationYear:      "2035",
-		ModuleName:          "crate::model",
+		PackageNameOverride:      "test-only",
+		GenerationYear:           "2035",
+		ModuleName:               "crate::model",
+		DeserializeWithdDefaults: true,
 		ExtraPackages: []*RustPackage{
 			gp,
 			{

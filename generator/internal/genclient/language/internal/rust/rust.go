@@ -31,11 +31,12 @@ import (
 func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &Codec{
-		GenerationYear:  fmt.Sprintf("%04d", year),
-		ModuleName:      "crate::model",
-		OutputDirectory: copts.OutDir,
-		ExtraPackages:   []*RustPackage{},
-		PackageMapping:  map[string]*RustPackage{},
+		GenerationYear:           fmt.Sprintf("%04d", year),
+		ModuleName:               "crate::model",
+		DeserializeWithdDefaults: true,
+		OutputDirectory:          copts.OutDir,
+		ExtraPackages:            []*RustPackage{},
+		PackageMapping:           map[string]*RustPackage{},
 	}
 	for key, definition := range copts.Options {
 		switch key {
@@ -51,6 +52,13 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 			continue
 		case "module-name":
 			codec.ModuleName = definition
+			continue
+		case "deserialize-with-defaults":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, err
+			}
+			codec.DeserializeWithdDefaults = value
 			continue
 		case "copyright-year":
 			codec.GenerationYear = definition
@@ -106,6 +114,9 @@ type Codec struct {
 	// The name of the model module. This is typically `crate::model`, but when
 	// generating a module it may be `crate::foo::bar::baz::generated`
 	ModuleName string
+	// If true, the deserialization functions will accept default values in
+	// messages. In almost all cases this should be `true`, but
+	DeserializeWithdDefaults bool
 	// Additional Rust packages imported by this module. The Mustache template
 	// hardcodes a number of packages, but some are configured via the
 	// command-line.
@@ -403,6 +414,19 @@ func (c *Codec) rustPackage(packageName string) string {
 		return mapped.Name
 	}
 	return mapped.Name + "::model"
+}
+
+func (c *Codec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
+	serde := `#[serde(default, rename_all = "camelCase")]`
+	if !c.DeserializeWithdDefaults {
+		serde = `#[serde(rename_all = "camelCase")]`
+	}
+	return []string{
+		`#[serde_with::serde_as]`,
+		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
+		serde,
+		`#[non_exhaustive]`,
+	}
 }
 
 func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
