@@ -176,10 +176,18 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 	configs := []TestConfig{
 		{
+			Source: "generator/testdata/googleapis/google/rpc/error_details.proto",
+			Name:   "rpc",
+			ExtraOptions: []string{
+				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
+				"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+			},
+		},
+		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "type",
 			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
+				"-service-config", "generator/testdata/googleapis/google/type/type.yaml",
 			},
 		},
 	}
@@ -195,6 +203,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			"-codec-option", "copyright-year=2024",
 			"-codec-option", "generate-module=true",
 		}
+		args = append(args, config.ExtraOptions...)
 
 		if err := Generate(args); err != nil {
 			t.Fatal(err)
