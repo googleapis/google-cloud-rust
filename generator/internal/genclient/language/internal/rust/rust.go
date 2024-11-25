@@ -540,11 +540,15 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 // This type of conversion can easily introduce keywords. Consider
 //
 //	`ToSnake("True") -> "true"`
-func (*Codec) ToSnake(symbol string) string {
+func (c *Codec) ToSnake(symbol string) string {
+	return EscapeKeyword(c.ToSnakeNoMangling(symbol))
+}
+
+func (*Codec) ToSnakeNoMangling(symbol string) string {
 	if strings.ToLower(symbol) == symbol {
-		return EscapeKeyword(symbol)
+		return symbol
 	}
-	return EscapeKeyword(strcase.ToSnake(symbol))
+	return strcase.ToSnake(symbol)
 }
 
 // Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this

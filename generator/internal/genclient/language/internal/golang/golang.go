@@ -243,7 +243,11 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 	return queryParams
 }
 
-func (*Codec) ToSnake(symbol string) string {
+func (c *Codec) ToSnake(symbol string) string {
+	return EscapeKeyword(c.ToSnakeNoMangling(symbol))
+}
+
+func (*Codec) ToSnakeNoMangling(symbol string) string {
 	if strings.ToLower(symbol) == symbol {
 		return EscapeKeyword(symbol)
 	}
