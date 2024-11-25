@@ -16,13 +16,13 @@ package genclient
 
 import "fmt"
 
-func BoilerPlate(year string) []string {
+func LicenseHeader(year string) []string {
 	full := []string{fmt.Sprintf("Copyright %s Google LLC", year)}
-	full = append(full, BoilerPlateTrailer()...)
+	full = append(full, LicenseHeaderBulk()...)
 	return full
 }
 
-func BoilerPlateTrailer() []string {
+func LicenseHeaderBulk() []string {
 	return []string{
 		"",
 		" Licensed under the Apache License, Version 2.0 (the \"License\");",

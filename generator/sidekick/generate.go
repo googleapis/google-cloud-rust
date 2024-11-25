@@ -106,7 +106,7 @@ func writeSidekickToml(outDir string, config Config) error {
 	defer f.Close()
 
 	year := config.Codec["copyright-year"]
-	for _, line := range genclient.BoilerPlate(year) {
+	for _, line := range genclient.LicenseHeader(year) {
 		if line == "" {
 			fmt.Fprintln(f, "#")
 		} else {

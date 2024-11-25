@@ -68,7 +68,7 @@ func (t *templateData) CopyrightYear() string {
 }
 
 func (*templateData) BoilerPlate() []string {
-	return append(BoilerPlateTrailer(),
+	return append(LicenseHeaderBulk(),
 		// Mark the code generated from templates as such, and warn reader to
 		// not edit the file.
 		"",
