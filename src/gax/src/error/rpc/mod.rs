@@ -375,7 +375,7 @@ mod test {
             "details": [
                 {"fieldViolations": [{"field": "field", "description": "desc"}]},
                 {"stackEntries": ["stack"], "detail": "detail"},
-                {"reason": "reason", "domain": "domain", "metadata": {}},
+                {"reason": "reason", "domain": "domain"},
                 {"links": [{"description": "desc", "url": "url"}]},
                 {"locale": "locale", "message": "message"},
                 {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
