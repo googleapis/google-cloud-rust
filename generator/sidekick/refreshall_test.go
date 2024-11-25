@@ -20,16 +20,12 @@ import (
 )
 
 func TestRefreshAll(t *testing.T) {
-	const (
-		projectRoot = "../.."
-	)
-
 	cwd, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
 	}
 	defer os.Chdir(cwd)
-	if err := os.Chdir(projectRoot); err != nil {
+	if err := os.Chdir("../.."); err != nil {
 		t.Fatal(err)
 	}
 	rootConfig, err := LoadRootConfig(".sidekick.toml")

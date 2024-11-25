@@ -27,9 +27,9 @@ import (
 // Reruns the generator in one directory, using the configuration parameters
 // saved in its `.sidekick.toml` file.
 func Refresh(rootConfig *Config, args []string) error {
-	fs := flag.NewFlagSet("refreshall", flag.ExitOnError)
+	fs := flag.NewFlagSet("refresh", flag.ExitOnError)
 	var (
-		dryrun = fs.Bool("dry-run", false, "do a dry-run: find and report directories, but do not execute any changes.")
+		dryrun = fs.Bool("dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.")
 	)
 	fs.Parse(args)
 	args = fs.Args()
