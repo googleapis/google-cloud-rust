@@ -714,7 +714,7 @@ func TestMakeAPI(t *testing.T) {
 		Documentation: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
 		DefaultHost:   "secretmanager.googleapis.com",
 	}
-	if diff := cmp.Diff(wantService, service, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); len(diff) > 0 {
+	if diff := cmp.Diff(wantService, service, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 
@@ -868,18 +868,18 @@ func checkMethod(t *testing.T, service *genclient.Service, name string, want *ge
 	if !ok {
 		t.Errorf("missing method %s", name)
 	}
-	if diff := cmp.Diff(want, got); len(diff) > 0 {
+	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched data for method %s (-want, +got):\n%s", name, diff)
 	}
 }
 
 func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields")); len(diff) > 0 {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields")); diff != "" {
 		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
 	}
 	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); len(diff) > 0 {
+	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 }
