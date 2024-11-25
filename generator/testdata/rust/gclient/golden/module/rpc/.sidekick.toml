@@ -13,11 +13,11 @@
 #  limitations under the License.
 
 [general]
+language = 'rust'
+template-dir = 'generator/templates'
 specification-format = 'protobuf'
 specification-source = 'generator/testdata/googleapis/google/rpc/error_details.proto'
 service-config = 'generator/testdata/googleapis/google/rpc/rpc_publish.yaml'
-language = 'rust'
-template-dir = 'generator/templates'
 
 [source]
 googleapis-root = 'generator/testdata/googleapis'
