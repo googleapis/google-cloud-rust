@@ -20,7 +20,9 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	toml "github.com/pelletier/go-toml/v2"
 )
 
@@ -78,6 +80,13 @@ func Generate(args []string) error {
 	if len(codecOpts) != 0 {
 		config.Codec = codecOpts
 	}
+	if _, ok := config.Codec["copyright-year"]; !ok {
+		generation_year, _, _ := time.Now().Date()
+		if config.Codec == nil {
+			config.Codec = map[string]string{}
+		}
+		config.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
+	}
 	if err := writeSidekickToml(*output, config); err != nil {
 		return err
 	}
@@ -95,6 +104,16 @@ func writeSidekickToml(outDir string, config Config) error {
 		return err
 	}
 	defer f.Close()
+
+	year := config.Codec["copyright-year"]
+	for _, line := range genclient.LicenseHeader(year) {
+		if line == "" {
+			fmt.Fprintln(f, "#")
+		} else {
+			fmt.Fprintf(f, "# %s\n", line)
+		}
+	}
+	fmt.Fprintln(f, "")
 
 	t := toml.NewEncoder(f)
 	if err := t.Encode(config); err != nil {
