@@ -73,11 +73,11 @@ struct NoBody {}
 /// Stores sensitive data such as API keys, passwords, and certificates.
 /// Provides convenience while improving security.
 #[derive(Clone)]
-pub struct GoogleCloudSecretmanagerV1SecretManagerServiceClient {
+pub struct SecretManagerServiceClient {
     inner: Arc<InnerClient>,
 }
 
-impl GoogleCloudSecretmanagerV1SecretManagerServiceClient {
+impl SecretManagerServiceClient {
     pub async fn new() -> Result<Self> {
         Self::new_with_config(ConfigBuilder::new()).await
     }

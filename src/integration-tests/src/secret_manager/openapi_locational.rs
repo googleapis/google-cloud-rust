@@ -26,12 +26,11 @@ pub async fn run() -> Result<()> {
 
     let location_id = "us-central1".to_string();
 
-    let client = smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient::new_with_config(
-        smo::ConfigBuilder::new().set_endpoint(format!(
-            "https://secretmanager.{location_id}.rep.googleapis.com"
-        )),
-    )
-    .await?;
+    let client =
+        smo::SecretManagerServiceClient::new_with_config(smo::ConfigBuilder::new().set_endpoint(
+            format!("https://secretmanager.{location_id}.rep.googleapis.com"),
+        ))
+        .await?;
 
     cleanup_stale_secrets(&client, &project_id, &location_id).await?;
 
@@ -107,7 +106,7 @@ pub async fn run() -> Result<()> {
 }
 
 async fn run_iam(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
+    client: &smo::SecretManagerServiceClient,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -180,7 +179,7 @@ async fn run_iam(
 }
 
 async fn run_secret_versions(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
+    client: &smo::SecretManagerServiceClient,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -298,7 +297,7 @@ async fn run_secret_versions(
 }
 
 async fn get_all_secret_version_names(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
+    client: &smo::SecretManagerServiceClient,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -329,7 +328,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
+    client: &smo::SecretManagerServiceClient,
     project_id: &str,
     location_id: &str,
 ) -> Result<Vec<String>> {
@@ -358,7 +357,7 @@ async fn get_all_secret_names(
 }
 
 async fn cleanup_stale_secrets(
-    client: &smo::GoogleCloudSecretmanagerV1SecretManagerServiceClient,
+    client: &smo::SecretManagerServiceClient,
     project_id: &str,
     location_id: &str,
 ) -> Result<()> {
