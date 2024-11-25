@@ -28,6 +28,8 @@ type Config struct {
 	Codec  map[string]string `toml:"codec"`
 }
 
+// Configuration parameters that affect Parsers and Codecs, including the
+// selection of parser and codec.
 type GeneralConfig struct {
 	Language            string `toml:"language"`
 	TemplateDir         string `toml:"template-dir"`
