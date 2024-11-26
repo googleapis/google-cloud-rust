@@ -662,11 +662,13 @@ func (c *Codec) PackageName(api *genclient.API) string {
 }
 
 func (c *Codec) validatePackageName(newPackage, elementName string) error {
-	if c.SourceSpecificationPackageName == "" {
-		c.SourceSpecificationPackageName = newPackage
+	if c.SourceSpecificationPackageName == newPackage {
 		return nil
 	}
-	if c.SourceSpecificationPackageName == newPackage {
+	// Special exceptions for mixin services
+	if newPackage == "google.cloud.location" ||
+		newPackage == "google.iam.v1" ||
+		newPackage == "google.longrunning" {
 		return nil
 	}
 	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
@@ -674,8 +676,14 @@ func (c *Codec) validatePackageName(newPackage, elementName string) error {
 }
 
 func (c *Codec) Validate(api *genclient.API) error {
-	// The Rust codec can only generate clients and models for a single protobuf
-	// package at a time.
+	// Set the source package. We should always take the first service registered
+	// as the source package. Services with mixins will register those after the
+	// source package.
+	if len(api.Services) > 0 {
+		c.SourceSpecificationPackageName = api.Services[0].Package
+	} else if len(api.Messages) > 0 {
+		c.SourceSpecificationPackageName = api.Messages[0].Package
+	}
 	for _, s := range api.Services {
 		if err := c.validatePackageName(s.Package, s.ID); err != nil {
 			return err

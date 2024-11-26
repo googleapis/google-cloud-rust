@@ -419,3 +419,91 @@ impl SecretManagerServiceClient {
         Ok(response)
     }
 }
+
+/// Manages location-related information with an API service.
+#[derive(Clone)]
+pub struct LocationsClient {
+    inner: Arc<InnerClient>,
+}
+
+impl LocationsClient {
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(ConfigBuilder::new()).await
+    }
+
+    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
+        let inner = InnerClient {
+            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
+            cred: conf
+                .cred
+                .unwrap_or(ConfigBuilder::default_credential().await?),
+            endpoint: conf.endpoint.unwrap_or(DEFAULT_HOST.to_string()),
+        };
+        Ok(Self {
+            inner: Arc::new(inner),
+        })
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+    ) -> Result<location::model::ListLocationsResponse> {
+        let inner_client = self.inner.clone();
+        let builder = inner_client
+            .http_client
+            .get(format!(
+                "{}/v1/{}/locations",
+                inner_client.endpoint, req.name,
+            ))
+            .query(&[("alt", "json")]);
+        let builder =
+            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder =
+            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
+            .map_err(Error::other)?;
+        self.execute(builder, None::<NoBody>).await
+    }
+
+    /// Gets information about a location.
+    pub async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+    ) -> Result<location::model::Location> {
+        let inner_client = self.inner.clone();
+        let builder = inner_client
+            .http_client
+            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
+            .query(&[("alt", "json")]);
+        self.execute(builder, None::<NoBody>).await
+    }
+
+    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        body: Option<I>,
+    ) -> Result<O> {
+        let inner_client = self.inner.clone();
+        builder = builder.bearer_auth(
+            &inner_client
+                .cred
+                .access_token()
+                .await
+                .map_err(Error::authentication)?
+                .value,
+        );
+        if let Some(body) = body {
+            builder = builder.json(&body);
+        }
+        let resp = builder.send().await.map_err(Error::io)?;
+        if !resp.status().is_success() {
+            let status = resp.status().as_u16();
+            let headers = gax::error::convert_headers(resp.headers());
+            let body = resp.bytes().await.map_err(Error::io)?;
+            return Err(HttpError::new(status, headers, Some(body)).into());
+        }
+        let response = resp.json::<O>().await.map_err(Error::serde)?;
+        Ok(response)
+    }
+}

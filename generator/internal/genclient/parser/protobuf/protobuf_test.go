@@ -20,7 +20,9 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
+	"google.golang.org/protobuf/types/known/apipb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
@@ -820,6 +822,191 @@ func TestTrimLeadingSpacesInDocumentation(t *testing.T) {
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
+}
+
+func TestLocationMixin(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.cloud.location.Locations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.cloud.location.Locations.GetLocation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v1/{name=projects/*/locations/*}",
+					},
+				},
+			},
+		},
+	}
+	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	service, ok := api.State.ServiceByID[".google.cloud.location.Locations"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
+	}
+	checkService(t, *service, genclient.Service{
+		Documentation: "Manages location-related information with an API service.",
+		DefaultHost:   "cloud.googleapis.com",
+		Name:          "Locations",
+		ID:            ".google.cloud.location.Locations",
+		Package:       "google.cloud.location",
+		Methods: []*genclient.Method{
+			{
+				Documentation: "GetLocation is an RPC method of Locations.",
+				Name:          "GetLocation",
+				ID:            ".google.cloud.location.Locations.GetLocation",
+				InputTypeID:   ".google.cloud.location.GetLocationRequest",
+				OutputTypeID:  ".google.cloud.location.Location",
+				PathInfo: &genclient.PathInfo{
+					Verb: "GET",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+				},
+			},
+		},
+	})
+}
+
+func TestIAMMixin(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.iam.v1.IAMPolicy",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.iam.v1.IAMPolicy.GetIamPolicy",
+					Pattern: &annotations.HttpRule_Post{
+						Post: "/v1/{resource=services/*}:getIamPolicy",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	service, ok := api.State.ServiceByID[".google.iam.v1.IAMPolicy"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
+	}
+	checkService(t, *service, genclient.Service{
+		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
+		DefaultHost:   "iam-meta-api.googleapis.com",
+		Name:          "IAMPolicy",
+		ID:            ".google.iam.v1.IAMPolicy",
+		Package:       "google.iam.v1",
+		Methods: []*genclient.Method{
+			{
+				Documentation: "GetIamPolicy is an RPC method of IAMPolicy.",
+				Name:          "GetIamPolicy",
+				ID:            ".google.iam.v1.IAMPolicy.GetIamPolicy",
+				InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
+				OutputTypeID:  ".google.iam.v1.Policy",
+				PathInfo: &genclient.PathInfo{
+					Verb: "POST",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewFieldPathPathSegment("resource"),
+						genclient.NewVerbPathSegment("getIamPolicy"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+			},
+		},
+	})
+}
+
+func TestOperationMixin(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	service, ok := api.State.ServiceByID[".google.longrunning.Operations"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
+	}
+	checkService(t, *service, genclient.Service{
+		Documentation: "Manages long-running operations with an API service.",
+		DefaultHost:   "longrunning.googleapis.com",
+		Name:          "Operations",
+		ID:            ".google.longrunning.Operations",
+		Package:       "google.longrunning",
+		Methods: []*genclient.Method{
+			{
+				Documentation: "Custom docs.",
+				Name:          "GetOperation",
+				ID:            ".google.longrunning.Operations.GetOperation",
+				InputTypeID:   ".google.longrunning.GetOperationRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &genclient.PathInfo{
+					Verb: "GET",
+					PathTemplate: []genclient.PathSegment{
+						genclient.NewLiteralPathSegment("v2"),
+						genclient.NewFieldPathPathSegment("name"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+			},
+		},
+	})
 }
 
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
