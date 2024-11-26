@@ -90,6 +90,7 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 		Messages:    make([]*genclient.Message, 0),
 		State: &genclient.APIState{
 			ServiceByID: make(map[string]*genclient.Service),
+			MethodByID:  make(map[string]*genclient.Method),
 			MessageByID: make(map[string]*genclient.Message),
 			EnumByID:    make(map[string]*genclient.Enum),
 		},
@@ -165,7 +166,8 @@ func makeServices(api *genclient.API, model *libopenapi.DocumentModel[v3.Documen
 	if model.Model.Paths == nil {
 		return nil
 	}
-	methods, err := makeMethods(api, model, packageName)
+	sID := fmt.Sprintf(".%s.%s", packageName, serviceName)
+	methods, err := makeMethods(api, model, packageName, sID)
 	if err != nil {
 		return err
 	}
@@ -199,7 +201,7 @@ func defaultHost(model *libopenapi.DocumentModel[v3.Document]) string {
 	return strings.TrimPrefix(defaultHost, "https://")
 }
 
-func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document], packageName string) ([]*genclient.Method, error) {
+func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceID string) ([]*genclient.Method, error) {
 	methods := []*genclient.Method{}
 	if model.Model.Paths == nil {
 		return methods, nil
@@ -239,14 +241,16 @@ func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document
 				QueryParameters: makeQueryParameters(op.Operation),
 				BodyFieldPath:   bodyFieldPath,
 			}
+			mID := fmt.Sprintf("%s.%s", serviceID, op.Operation.OperationId)
 			m := &genclient.Method{
 				Name:          op.Operation.OperationId,
-				ID:            op.Operation.OperationId,
+				ID:            mID,
 				Documentation: op.Operation.Description,
 				InputTypeID:   requestMessage.ID,
 				OutputTypeID:  responseMessage.ID,
 				PathInfo:      pathInfo,
 			}
+			api.State.MethodByID[m.ID] = m
 			methods = append(methods, m)
 		}
 	}

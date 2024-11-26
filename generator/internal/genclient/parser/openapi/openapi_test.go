@@ -720,7 +720,7 @@ func TestMakeAPI(t *testing.T) {
 
 	checkMethod(t, service, "ListLocations", &genclient.Method{
 		Name:          "ListLocations",
-		ID:            "ListLocations",
+		ID:            "..Service.ListLocations",
 		Documentation: "Lists information about the supported locations for this service.",
 		InputTypeID:   "..ListLocationsRequest",
 		OutputTypeID:  "..ListLocationsResponse",
@@ -742,7 +742,7 @@ func TestMakeAPI(t *testing.T) {
 
 	checkMethod(t, service, "CreateSecret", &genclient.Method{
 		Name:          "CreateSecret",
-		ID:            "CreateSecret",
+		ID:            "..Service.CreateSecret",
 		Documentation: "Creates a new Secret containing no SecretVersions.",
 		InputTypeID:   "..CreateSecretRequest",
 		OutputTypeID:  "..Secret",
@@ -763,7 +763,7 @@ func TestMakeAPI(t *testing.T) {
 
 	checkMethod(t, service, "AddSecretVersion", &genclient.Method{
 		Name:          "AddSecretVersion",
-		ID:            "AddSecretVersion",
+		ID:            "..Service.AddSecretVersion",
 		Documentation: "Creates a new SecretVersion containing secret data and attaches\nit to an existing Secret.",
 		InputTypeID:   "..AddSecretVersionRequest",
 		OutputTypeID:  "..SecretVersion",
