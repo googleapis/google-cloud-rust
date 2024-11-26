@@ -15,6 +15,7 @@
 package main
 
 import (
+	"bytes"
 	"os"
 	"testing"
 
@@ -232,6 +233,33 @@ func TestMergeCodecAndSource(t *testing.T) {
 			"source-c": "local-c-value",
 		},
 	}
+
+	if diff := cmp.Diff(want, got); len(diff) != 0 {
+		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
+	}
+}
+
+func TestSaveOmitEmpty(t *testing.T) {
+	input := Config{
+		General: GeneralConfig{
+			SpecificationSource: "test-only-source",
+			ServiceConfig:       "test-only-config",
+		},
+		Codec:  map[string]string{},
+		Source: map[string]string{},
+	}
+	output := bytes.Buffer{}
+
+	to := toml.NewEncoder(&output)
+	if err := to.Encode(input); err != nil {
+		t.Fatal(err)
+	}
+
+	got := output.String()
+	want := `[general]
+specification-source = 'test-only-source'
+service-config = 'test-only-config'
+`
 
 	if diff := cmp.Diff(want, got); len(diff) != 0 {
 		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
