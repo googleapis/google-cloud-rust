@@ -46,7 +46,7 @@ func root() error {
 
 	args := flag.Args()
 	if len(args) < 1 {
-		return fmt.Errorf("you must provide a subcommand")
+		return fmt.Errorf("you must provide a subcommand, either `generate`, `refresh`, or `refreshall`")
 	}
 	switch args[0] {
 	case "generate":
@@ -55,6 +55,10 @@ func root() error {
 		}
 	case "refresh":
 		if err := Refresh(config, args[1:]); err != nil {
+			return err
+		}
+	case "refresh-all", "refreshall":
+		if err := RefreshAll(config, args[1:]); err != nil {
 			return err
 		}
 	default:

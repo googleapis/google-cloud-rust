@@ -13,8 +13,9 @@
 # limitations under the License.
 
 [general]
-language = "rust"
+language     = 'rust'
+template-dir = 'generator/templates'
 
-[[packages]]
-name = "gax"
-path = "../../.."
+[source]
+googleapis-root   = 'https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz'
+googleapis-sha256 = 'eb853d49313f20a096607fea87dfc10bd6a1b917ad17ad5db8a205b457a940e1'

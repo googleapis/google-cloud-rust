@@ -59,12 +59,6 @@ func Generate(rootConfig *Config, args []string) error {
 	})
 	fs.Parse(args)
 
-	if *format == "" {
-		return fmt.Errorf("must provide specification-format")
-	}
-	if *source == "" {
-		return fmt.Errorf("must provide source")
-	}
 	config := Config{
 		General: GeneralConfig{
 			SpecificationFormat: *format,
