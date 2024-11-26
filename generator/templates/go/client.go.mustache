@@ -37,6 +37,8 @@ import (
 )
 
 {{#HasServices}}
+const defaultHost = "https://{{DefaultHost}}"
+
 type Options struct {
     Credentials *auth.Credentials
     Endpoint    string
@@ -86,7 +88,7 @@ type {{ServiceName}} struct {
 // {{{.}}}
 {{/DocLines}}
 func (c *Client) {{ServiceName}}() *{{ServiceName}}{
-    return &{{ServiceName}}{client: c, baseURL: "https://{{DefaultHost}}"}
+    return &{{ServiceName}}{client: c, baseURL: defaultHost}
 }
 
 {{#Methods}}

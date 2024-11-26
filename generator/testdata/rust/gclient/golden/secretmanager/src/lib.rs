@@ -21,6 +21,8 @@ use gax::error::{Error, HttpError};
 use google_cloud_auth::{Credential, CredentialConfig};
 use std::sync::Arc;
 
+const DEFAULT_HOST: &str = "https://secretmanager.googleapis.com/";
+
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
@@ -93,9 +95,7 @@ impl SecretManagerServiceClient {
             cred: conf
                 .cred
                 .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf
-                .endpoint
-                .unwrap_or("https://secretmanager.googleapis.com/".to_string()),
+            endpoint: conf.endpoint.unwrap_or(DEFAULT_HOST.to_string()),
         };
         Ok(Self {
             inner: Arc::new(inner),

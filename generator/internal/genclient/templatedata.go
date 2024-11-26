@@ -79,6 +79,13 @@ func (t templateData) Imports() []string {
 	return t.c.Imports()
 }
 
+func (t templateData) DefaultHost() string {
+	if len(t.s.Services) > 0 {
+		return t.s.Services[0].DefaultHost
+	}
+	return ""
+}
+
 func (t *templateData) Services() []*service {
 	return mapSlice(t.s.Services, func(s *Service) *service {
 		return &service{
