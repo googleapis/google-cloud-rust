@@ -25,6 +25,7 @@ pub async fn run() -> Result<()> {
         .collect();
 
     let client = sm::SecretManagerServiceClient::new().await?;
+    let location_client = sm::LocationsClient::new().await?;
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
@@ -90,12 +91,46 @@ pub async fn run() -> Result<()> {
 
     run_secret_versions(&client, &create.name).await?;
     run_iam(&client, &create.name).await?;
+    run_locations(&location_client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
     let delete = client
         .delete_secret(sm::model::DeleteSecretRequest::default().set_name(get.name))
         .await?;
     println!("DELETE = {delete:?}");
+
+    Ok(())
+}
+
+async fn run_locations(client: &sm::LocationsClient, project_id: &str) -> Result<()> {
+    println!("\nTesting list_locations()");
+    let locations = client
+        .list_locations(
+            loc::model::ListLocationsRequest::default().set_name(format!("projects/{project_id}")),
+        )
+        .await?;
+    println!("LOCATIONS = {locations:?}");
+
+    assert!(
+        !locations.locations.is_empty(),
+        "got empty locations field for {locations:?}"
+    );
+    let first = locations.locations[0].clone();
+    assert!(
+        !first.location_id.is_empty(),
+        "expected some location field to be set"
+    );
+
+    println!("\nTesting get_location()");
+    let get = client
+        .get_location(loc::model::GetLocationRequest::default().set_name(format!(
+            "projects/{project_id}/locations/{}",
+            first.location_id
+        )))
+        .await?;
+    println!("GET = {get:?}");
+
+    assert_eq!(get, first);
 
     Ok(())
 }

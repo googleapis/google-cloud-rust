@@ -308,7 +308,7 @@ func (c *Codec) validatePackageName(newPackage, elementName string) error {
 
 func (c *Codec) Validate(api *genclient.API) error {
 	// Set the source package. We should always take the first service registered
-	// as the source package. Services with mixes well register those after the
+	// as the source package. Services with mixes will register those after the
 	// source package.
 	if len(api.Services) > 0 {
 		c.SourceSpecificationPackageName = api.Services[0].Package

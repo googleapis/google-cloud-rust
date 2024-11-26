@@ -452,7 +452,10 @@ impl LocationsClient {
         let inner_client = self.inner.clone();
         let builder = inner_client
             .http_client
-            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
+            .get(format!(
+                "{}/v1/{}/locations",
+                inner_client.endpoint, req.name,
+            ))
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;

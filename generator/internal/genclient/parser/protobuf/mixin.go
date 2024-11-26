@@ -81,7 +81,11 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 func updateMixinState(serviceConfig *serviceconfig.Service, api *genclient.API) {
 	// Overwrite the google.api.http annotations with bindings from the Service config.
 	for _, rule := range serviceConfig.GetHttp().GetRules() {
-		m, match := api.State.MethodByID[rule.GetSelector()]
+		selector := rule.GetSelector()
+		if !strings.HasPrefix(selector, ".") {
+			selector = "." + selector
+		}
+		m, match := api.State.MethodByID[selector]
 		if !match {
 			continue
 		}
@@ -95,7 +99,11 @@ func updateMixinState(serviceConfig *serviceconfig.Service, api *genclient.API) 
 
 	// Include any documentation from the Service config.
 	for _, rule := range serviceConfig.GetDocumentation().GetRules() {
-		m, ok := api.State.MethodByID["."+rule.GetSelector()]
+		selector := rule.GetSelector()
+		if !strings.HasPrefix(selector, ".") {
+			selector = "." + selector
+		}
+		m, ok := api.State.MethodByID[selector]
 		if !ok {
 			continue
 		}

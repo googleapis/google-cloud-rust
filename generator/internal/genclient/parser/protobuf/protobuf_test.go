@@ -998,10 +998,11 @@ func TestOperationMixin(t *testing.T) {
 				PathInfo: &genclient.PathInfo{
 					Verb: "GET",
 					PathTemplate: []genclient.PathSegment{
-						genclient.NewLiteralPathSegment("v1"),
+						genclient.NewLiteralPathSegment("v2"),
 						genclient.NewFieldPathPathSegment("name"),
 					},
 					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
 				},
 			},
 		},
