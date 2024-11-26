@@ -30,6 +30,8 @@ import (
 	"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt"
 )
 
+const defaultHost = "https://iam-meta-api.googleapis.com"
+
 type Options struct {
 	Credentials *auth.Credentials
 	Endpoint    string
@@ -120,7 +122,7 @@ type IAMPolicy struct {
 // are created and deleted implicitly with the resources to which they are
 // attached.
 func (c *Client) IAMPolicy() *IAMPolicy {
-	return &IAMPolicy{client: c, baseURL: "https://iam-meta-api.googleapis.com"}
+	return &IAMPolicy{client: c, baseURL: defaultHost}
 }
 
 // Sets the access control policy on the specified resource. Replaces any

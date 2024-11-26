@@ -79,6 +79,16 @@ func (t templateData) Imports() []string {
 	return t.c.Imports()
 }
 
+func (t templateData) DefaultHost() string {
+	// APIs, as we generate them today, can only have host. It is true an API
+	// can contain many services, but these will all be using the same host.
+	// Logic elsewhere asserts this is true.
+	if len(t.s.Services) > 0 {
+		return t.s.Services[0].DefaultHost
+	}
+	return ""
+}
+
 func (t *templateData) Services() []*service {
 	return mapSlice(t.s.Services, func(s *Service) *service {
 		return &service{
