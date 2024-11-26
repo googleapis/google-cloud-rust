@@ -195,6 +195,7 @@ const (
 func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	state := &genclient.APIState{
 		ServiceByID: make(map[string]*genclient.Service),
+		MethodByID:  make(map[string]*genclient.Method),
 		MessageByID: make(map[string]*genclient.Message),
 		EnumByID:    make(map[string]*genclient.Enum),
 	}
@@ -252,26 +253,13 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 
 		// Services
 		for _, s := range f.Service {
-			service := &genclient.Service{
-				Name:        s.GetName(),
-				ID:          fmt.Sprintf("%s.%s", fFQN, s.GetName()),
-				Package:     f.GetPackage(),
-				DefaultHost: parseDefaultHost(s.GetOptions()),
-			}
-			state.ServiceByID[service.ID] = service
+			sFQN := fFQN + "." + s.GetName()
+			service := processService(state, s, sFQN, f.GetPackage())
 			for _, m := range s.Method {
-				pathInfo, err := parsePathInfo(m, state)
-				if err != nil {
-					slog.Error("unsupported http method", "method", m)
-					continue
+				mFQN := sFQN + "." + m.GetName()
+				if method := processMethod(state, m, mFQN); method != nil {
+					service.Methods = append(service.Methods, method)
 				}
-				method := &genclient.Method{
-					PathInfo:     pathInfo,
-					Name:         m.GetName(),
-					InputTypeID:  m.GetInputType(),
-					OutputTypeID: m.GetOutputType(),
-				}
-				service.Methods = append(service.Methods, method)
 			}
 			fileServices = append(fileServices, service)
 		}
@@ -375,6 +363,34 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 		slog.Warn("found undefined field", "field", in.GetName())
 	}
 
+}
+
+func processService(state *genclient.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *genclient.Service {
+	service := &genclient.Service{
+		Name:        s.GetName(),
+		ID:          sFQN,
+		Package:     packagez,
+		DefaultHost: parseDefaultHost(s.GetOptions()),
+	}
+	state.ServiceByID[service.ID] = service
+	return service
+}
+
+func processMethod(state *genclient.APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *genclient.Method {
+	pathInfo, err := parsePathInfo(m, state)
+	if err != nil {
+		slog.Error("unsupported http method", "method", m)
+		return nil
+	}
+	method := &genclient.Method{
+		ID:           mFQN,
+		PathInfo:     pathInfo,
+		Name:         m.GetName(),
+		InputTypeID:  m.GetInputType(),
+		OutputTypeID: m.GetOutputType(),
+	}
+	state.MethodByID[mFQN] = method
+	return method
 }
 
 func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *genclient.Message) *genclient.Message {

@@ -74,6 +74,8 @@ type API struct {
 type APIState struct {
 	// ServiceByID returns a service that is associated with the API.
 	ServiceByID map[string]*Service
+	// MethodByID returns a method that is associated with the API.
+	MethodByID map[string]*Method
 	// MessageByID returns a message that is associated with the API.
 	MessageByID map[string]*Message
 	// EnumByID returns a message that is associated with the API.

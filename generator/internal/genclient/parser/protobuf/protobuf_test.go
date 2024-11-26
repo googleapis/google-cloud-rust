@@ -429,6 +429,7 @@ func TestComments(t *testing.T) {
 		Methods: []*genclient.Method{
 			{
 				Name:          "Create",
+				ID:            ".test.Service.Create",
 				Documentation: "Some RPC.\n\nIt does not do much.",
 				InputTypeID:   ".test.Request",
 				OutputTypeID:  ".test.Response",
@@ -686,6 +687,7 @@ func TestService(t *testing.T) {
 		Methods: []*genclient.Method{
 			{
 				Name:          "GetFoo",
+				ID:            ".test.TestService.GetFoo",
 				Documentation: "Gets a Foo resource.",
 				InputTypeID:   ".test.GetFooRequest",
 				OutputTypeID:  ".test.Foo",
@@ -701,6 +703,7 @@ func TestService(t *testing.T) {
 			},
 			{
 				Name:          "CreateFoo",
+				ID:            ".test.TestService.CreateFoo",
 				Documentation: "Creates a new Foo resource.",
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
@@ -735,6 +738,7 @@ func TestQueryParameters(t *testing.T) {
 		Methods: []*genclient.Method{
 			{
 				Name:          "CreateFoo",
+				ID:            ".test.TestService.CreateFoo",
 				Documentation: "Creates a new `Foo` resource. `Foo`s are containers for `Bar`s.\n\nShows how a `body: \"${field}\"` option works.",
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
@@ -751,6 +755,7 @@ func TestQueryParameters(t *testing.T) {
 			},
 			{
 				Name:          "AddBar",
+				ID:            ".test.TestService.AddBar",
 				Documentation: "Add a Bar resource.\n\nShows how a `body: \"*\"` option works.",
 				InputTypeID:   ".test.AddBarRequest",
 				OutputTypeID:  ".test.Bar",
