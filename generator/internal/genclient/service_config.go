@@ -17,6 +17,7 @@ package genclient
 import (
 	"fmt"
 	"os"
+	"path"
 
 	"github.com/ghodss/yaml"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
@@ -26,23 +27,46 @@ import (
 func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error) {
 	y, err := os.ReadFile(serviceConfigPath)
 	if err != nil {
-		return nil, fmt.Errorf("error reading service config: %v", err)
+		return nil, fmt.Errorf("error reading service config [%s]: %w", serviceConfigPath, err)
 	}
 
 	j, err := yaml.YAMLToJSON(y)
 	if err != nil {
-		return nil, fmt.Errorf("error converting YAML to JSON: %v", err)
+		return nil, fmt.Errorf("error converting YAML to JSON [%s]: %w", serviceConfigPath, err)
 	}
 
 	cfg := &serviceconfig.Service{}
 	if err := (protojson.UnmarshalOptions{DiscardUnknown: true}).Unmarshal(j, cfg); err != nil {
-		return nil, fmt.Errorf("error unmarshalling service config: %v", err)
+		return nil, fmt.Errorf("error unmarshalling service config [%s]: %w", serviceConfigPath, err)
 	}
 
 	// An API Service Config will always have a `name` so if it is not populated,
 	// it's an invalid config.
 	if cfg.GetName() == "" {
-		return nil, fmt.Errorf("invalid API service config file %q", serviceConfigPath)
+		return nil, fmt.Errorf("missing name in service config file [%s]", serviceConfigPath)
 	}
 	return cfg, nil
+}
+
+// Finds the service config path for the current parser configuration.
+//
+// The service config files are specified as relative to the `googleapis-root`
+// path (or `test-root` when set). This finds the right path given a
+// configuration
+func FindServiceConfigPath(config ParserOptions) string {
+	for _, opt := range []string{"test-root", "googleapis-root"} {
+		dir, ok := config.Options[opt]
+		if !ok {
+			// Ignore options that are not set
+			continue
+		}
+		location := path.Join(dir, config.ServiceConfig)
+		stat, err := os.Stat(location)
+		if err == nil && stat.Mode().IsRegular() {
+			return location
+		}
+	}
+	// Fallback to the current directory, it may fail but that is detected
+	// elsewhere.
+	return config.ServiceConfig
 }

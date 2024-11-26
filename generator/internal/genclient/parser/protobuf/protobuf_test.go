@@ -1015,7 +1015,7 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 		Source: filename,
 		Options: map[string]string{
 			"googleapis-root": "../../../../testdata/googleapis",
-			"input-root":      "testdata",
+			"test-root":       "testdata",
 		},
 	}
 	request, err := NewCodeGeneratorRequest(popts)

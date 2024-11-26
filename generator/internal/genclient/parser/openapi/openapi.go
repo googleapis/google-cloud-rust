@@ -60,7 +60,7 @@ func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	}
 	var serviceConfig *serviceconfig.Service
 	if opts.ServiceConfig != "" {
-		cfg, err := genclient.ReadServiceConfig(opts.ServiceConfig)
+		cfg, err := genclient.ReadServiceConfig(genclient.FindServiceConfigPath(opts))
 		if err != nil {
 			return nil, err
 		}
