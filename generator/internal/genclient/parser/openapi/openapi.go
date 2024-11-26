@@ -90,6 +90,7 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 		Messages:    make([]*genclient.Message, 0),
 		State: &genclient.APIState{
 			ServiceByID: make(map[string]*genclient.Service),
+			MethodByID:  make(map[string]*genclient.Method),
 			MessageByID: make(map[string]*genclient.Message),
 			EnumByID:    make(map[string]*genclient.Enum),
 		},
@@ -247,6 +248,7 @@ func makeMethods(api *genclient.API, model *libopenapi.DocumentModel[v3.Document
 				OutputTypeID:  responseMessage.ID,
 				PathInfo:      pathInfo,
 			}
+			api.State.MethodByID[m.ID] = m
 			methods = append(methods, m)
 		}
 	}
