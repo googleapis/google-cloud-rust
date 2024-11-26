@@ -381,6 +381,10 @@ func (f *field) NameToSnake() string {
 	return f.c.ToSnake(f.s.Name)
 }
 
+func (f *field) NameToSnakeNoMangling() string {
+	return f.c.ToSnakeNoMangling(f.s.Name)
+}
+
 // NameToCamel converts a Name to camelCase.
 func (f *field) NameToCamel() string {
 	return f.c.ToCamel(f.s.Name)
@@ -422,6 +426,10 @@ func (o *oneOf) NameToPascal() string {
 
 func (o *oneOf) NameToSnake() string {
 	return o.c.ToSnake(o.s.Name)
+}
+
+func (o *oneOf) NameToSnakeNoMangling() string {
+	return o.c.ToSnakeNoMangling(o.s.Name)
 }
 
 func (o *oneOf) FieldType() string {

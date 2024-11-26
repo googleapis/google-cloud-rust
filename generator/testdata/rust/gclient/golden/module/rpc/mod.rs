@@ -280,7 +280,7 @@ pub mod precondition_failure {
     impl Violation {
 
         /// Sets the value of `r#type`.
-        pub fn set_r#type<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_type<T: Into<String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
