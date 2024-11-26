@@ -48,8 +48,8 @@ func ParseArgsExplicit(args []string) (*CommandLine, error) {
 		source        = fs.String("specification-source", "", "the path to the input data")
 		serviceConfig = fs.String("service-config", "", "path to service config")
 		sourceOpts    = map[string]string{}
-		output        = fs.String("output", "generated", "the path within project-root to put generated files")
-		templateDir   = fs.String("template-dir", "templates/", "the path to the template directory")
+		output        = fs.String("output", "", "the path within project-root to put generated files")
+		templateDir   = fs.String("template-dir", "", "the path to the template directory")
 		language      = fs.String("language", "", "the generated language")
 		codecOpts     = map[string]string{}
 		dryrun        = fs.Bool("dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.")
