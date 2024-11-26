@@ -16,7 +16,6 @@ package main
 
 import (
 	"errors"
-	"flag"
 	"fmt"
 	"io/fs"
 	"maps"
@@ -26,13 +25,7 @@ import (
 	"sync"
 )
 
-func RefreshAll(rootConfig *Config, args []string) error {
-	fs := flag.NewFlagSet("refreshall", flag.ExitOnError)
-	var (
-		dryrun = fs.Bool("dry-run", false, "do a dry-run: find and report directories, but do not perform any changes.")
-	)
-	fs.Parse(args)
-
+func RefreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 	root, err := makeGoogleapisRoot(rootConfig)
 	if err != nil {
 		return err
@@ -57,13 +50,8 @@ func RefreshAll(rootConfig *Config, args []string) error {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			var err error
-			if *dryrun {
-				fmt.Printf("refreshing directory %s\n", dir)
-				err = Refresh(&override, []string{"-dry-run", dir})
-			} else {
-				err = Refresh(&override, []string{dir})
-			}
+			fmt.Printf("refreshing directory %s\n", dir)
+			err := Refresh(&override, cmdLine, dir)
 			results <- result{dir: dir, err: err}
 		}()
 	}

@@ -15,54 +15,68 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"maps"
 	"os"
 )
 
 func main() {
-	if err := root(); err != nil {
+	cmdLine, err := ParseArgs()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
+	}
+	if err := root(cmdLine); err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)
 	}
 }
 
-func root() error {
-	var projectRoot = flag.String("project-root", "", "the root of the output project")
-	flag.Parse()
-
-	if *projectRoot != "" {
-		if err := os.Chdir(*projectRoot); err != nil {
+func root(cmdLine *CommandLine) error {
+	if cmdLine.ProjectRoot != "" {
+		cwd, err := os.Getwd()
+		if err != nil {
+			return err
+		}
+		defer os.Chdir(cwd)
+		if err := os.Chdir(cmdLine.ProjectRoot); err != nil {
 			return err
 		}
 	}
-
 	// Load the top-level configuration file. If there are any errors loading
 	// the file just run with the defaults.
-	config, err := LoadRootConfig(".sidekick.toml")
+	rootConfig, err := LoadRootConfig(".sidekick.toml")
+	if err != nil {
+		return err
+	}
+	argsConfig := &Config{
+		General: GeneralConfig{
+			Language:    cmdLine.Language,
+			TemplateDir: cmdLine.TemplateDir,
+		},
+		Source: maps.Clone(cmdLine.Source),
+		Codec:  maps.Clone(cmdLine.Codec),
+	}
+	config, err := MergeConfigs(rootConfig, argsConfig)
 	if err != nil {
 		return err
 	}
 
-	args := flag.Args()
-	if len(args) < 1 {
-		return fmt.Errorf("you must provide a subcommand, either `generate`, `refresh`, or `refreshall`")
-	}
-	switch args[0] {
+	switch cmdLine.Command {
 	case "generate":
-		if err := Generate(config, args[1:]); err != nil {
+		if err := Generate(config, cmdLine); err != nil {
 			return err
 		}
 	case "refresh":
-		if err := Refresh(config, args[1:]); err != nil {
+		if err := Refresh(config, cmdLine, cmdLine.Output); err != nil {
 			return err
 		}
 	case "refresh-all", "refreshall":
-		if err := RefreshAll(config, args[1:]); err != nil {
+		if err := RefreshAll(config, cmdLine); err != nil {
 			return err
 		}
 	default:
-		return fmt.Errorf("unknown subcommand %s", os.Args[1])
+		return fmt.Errorf("unknown subcommand %s", cmdLine.Command)
 	}
 	return nil
 }

@@ -36,32 +36,28 @@ func TestRustFromOpenAPI(t *testing.T) {
 		outDir      = "generator/testdata/rust/openapi/golden"
 	)
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
+	cmdLine := &CommandLine{
+		Command:             "generate",
+		ProjectRoot:         projectRoot,
+		SpecificationFormat: "openapi",
+		SpecificationSource: "generator/testdata/openapi/secretmanager_openapi_v1.json",
+		ServiceConfig:       "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+		Language:            "rust",
+		Output:              outDir,
+		TemplateDir:         "generator/templates",
+		Codec: map[string]string{
+			"copyright-year":            "2024",
+			"package-name-override":     "secretmanager-golden-openapi",
+			"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+			"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
+			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
+		},
 	}
-	defer os.Chdir(cwd)
-	if err := os.Chdir(projectRoot); err != nil {
-		t.Fatal(err)
-	}
-	args := []string{
-		"-specification-format", "openapi",
-		"-specification-source", "generator/testdata/openapi/secretmanager_openapi_v1.json",
-		"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
-		"-language", "rust",
-		"-output", outDir,
-		"-template-dir", "generator/templates",
-		"-codec-option", "copyright-year=2024",
-		"-codec-option", "package-name-override=secretmanager-golden-openapi",
-		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
-		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
-	}
-	if err := Generate(&Config{}, args); err != nil {
+	if err := root(cmdLine); err != nil {
 		t.Fatal(err)
 	}
 
-	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(outDir, "Cargo.toml"))
+	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
 	if output, err := cmd.CombinedOutput(); err != nil {
 		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
@@ -76,73 +72,71 @@ func TestRustFromProtobuf(t *testing.T) {
 		outDir      = "generator/testdata/rust/gclient/golden"
 	)
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.Chdir(cwd)
-	if err := os.Chdir(projectRoot); err != nil {
-		t.Fatal(err)
-	}
 	type TestConfig struct {
-		Source       string
-		Name         string
-		ExtraOptions []string
+		Source        string
+		ServiceConfig string
+		Name          string
+		ExtraOptions  map[string]string
 	}
 
 	configs := []TestConfig{
 		{
-			Source: "generator/testdata/googleapis/google/type",
-			Name:   "type",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/type/type.yaml",
-			},
+			Source:        "generator/testdata/googleapis/google/type",
+			ServiceConfig: "generator/testdata/googleapis/google/type/type.yaml",
+			Name:          "type",
 		},
 		{
-			Source: "generator/testdata/googleapis/google/cloud/location",
-			Name:   "location",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/cloud/location/cloud.yaml",
-			},
+			Source:        "generator/testdata/googleapis/google/cloud/location",
+			ServiceConfig: "generator/testdata/googleapis/google/cloud/location/cloud.yaml",
+			Name:          "location",
 		},
 		{
 			Source: "generator/testdata/googleapis/google/iam/v1",
 			Name:   "iam/v1",
-			ExtraOptions: []string{
-				"-codec-option", "package:gtype=package=type-golden-gclient,path=generator/testdata/rust/gclient/golden/type,source=google.type",
+			ExtraOptions: map[string]string{
+				"package:gtype": "package=type-golden-gclient,path=generator/testdata/rust/gclient/golden/type,source=google.type",
 			},
 		},
 		{
-			Source: "generator/testdata/googleapis/google/cloud/secretmanager/v1",
-			Name:   "secretmanager",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
-				"-codec-option", "package:iam=package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1",
-				"-codec-option", "package:location=package=location-golden-gclient,path=generator/testdata/rust/gclient/golden/location,source=google.cloud.location",
+			Source:        "generator/testdata/googleapis/google/cloud/secretmanager/v1",
+			ServiceConfig: "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+			Name:          "secretmanager",
+			ExtraOptions: map[string]string{
+				"package:iam":      "package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1",
+				"package:location": "package=location-golden-gclient,path=generator/testdata/rust/gclient/golden/location,source=google.cloud.location",
 			},
 		},
 	}
 
 	for _, config := range configs {
-		args := []string{
-			"-specification-format", "protobuf",
-			"-specification-source", config.Source,
-			"-parser-option", "googleapis-root=generator/testdata/googleapis",
-			"-language", "rust",
-			"-output", path.Join(outDir, config.Name),
-			"-template-dir", "generator/templates",
-			"-codec-option", "copyright-year=2024",
-			"-codec-option", "package-name-override=" + strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
-			"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
-			"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
+		cmdLine := &CommandLine{
+			Command:             "generate",
+			ProjectRoot:         projectRoot,
+			SpecificationFormat: "protobuf",
+			SpecificationSource: config.Source,
+			Source: map[string]string{
+				"googleapis-root": "generator/testdata/googleapis",
+			},
+			ServiceConfig: config.ServiceConfig,
+			Language:      "rust",
+			Output:        path.Join(outDir, config.Name),
+			TemplateDir:   "generator/templates",
+			Codec: map[string]string{
+				"copyright-year":            "2024",
+				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
+				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+				"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
+				"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
+			},
 		}
-		args = append(args, config.ExtraOptions...)
-		if err := Generate(&Config{}, args); err != nil {
+		for k, v := range config.ExtraOptions {
+			cmdLine.Codec[k] = v
+		}
+		if err := root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
-		manifest := path.Join(outDir, config.Name, "Cargo.toml")
+		manifest := path.Join(projectRoot, outDir, config.Name, "Cargo.toml")
 		if _, err := os.Stat(manifest); os.IsNotExist(err) {
 			// The module test does not produce a Cargo.toml file
 			continue
@@ -161,54 +155,53 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	const (
 		projectRoot = "../.."
 	)
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.Chdir(cwd)
-	if err := os.Chdir(projectRoot); err != nil {
-		t.Fatal(err)
-	}
 
 	type TestConfig struct {
-		Source       string
-		Name         string
-		ExtraOptions []string
+		Source        string
+		ServiceConfig string
+		Name          string
+		ExtraOptions  map[string]string
 	}
 	configs := []TestConfig{
 		{
-			Source: "generator/testdata/googleapis/google/rpc/error_details.proto",
-			Name:   "rpc",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
-				"-codec-option", "module-path=error::rpc::generated",
-				"-codec-option", "deserialize-with-defaults=false",
-				"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+			Source:        "generator/testdata/googleapis/google/rpc/error_details.proto",
+			ServiceConfig: "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
+			Name:          "rpc",
+			ExtraOptions: map[string]string{
+				"module-path":               "error::rpc::generated",
+				"deserialize-with-defaults": "false",
+				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
 			},
 		},
 		{
-			Source: "generator/testdata/googleapis/google/type",
-			Name:   "type",
-			ExtraOptions: []string{
-				"-service-config", "generator/testdata/googleapis/google/type/type.yaml",
-			},
+			Source:        "generator/testdata/googleapis/google/type",
+			ServiceConfig: "generator/testdata/googleapis/google/type/type.yaml",
+			Name:          "type",
 		},
 	}
 
 	for _, config := range configs {
-		args := []string{
-			"-specification-format", "protobuf",
-			"-specification-source", config.Source,
-			"-parser-option", "googleapis-root=generator/testdata/googleapis",
-			"-language", "rust",
-			"-output", path.Join("generator/testdata/rust/gclient/golden/module", config.Name),
-			"-template-dir", "generator/templates",
-			"-codec-option", "copyright-year=2024",
-			"-codec-option", "generate-module=true",
+		cmdLine := &CommandLine{
+			Command:             "generate",
+			ProjectRoot:         projectRoot,
+			SpecificationFormat: "protobuf",
+			SpecificationSource: config.Source,
+			Source: map[string]string{
+				"googleapis-root": "generator/testdata/googleapis",
+			},
+			ServiceConfig: config.ServiceConfig,
+			Language:      "rust",
+			Output:        path.Join("generator/testdata/rust/gclient/golden/module", config.Name),
+			TemplateDir:   "generator/templates",
+			Codec: map[string]string{
+				"copyright-year":  "2024",
+				"generate-module": "true",
+			},
 		}
-		args = append(args, config.ExtraOptions...)
-
-		if err := Generate(&Config{}, args); err != nil {
+		for k, v := range config.ExtraOptions {
+			cmdLine.Codec[k] = v
+		}
+		if err := root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -220,38 +213,27 @@ func TestGoFromProtobuf(t *testing.T) {
 		outDir      = "generator/testdata/go/gclient/golden"
 	)
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.Chdir(cwd)
-	if err := os.Chdir(projectRoot); err != nil {
-		t.Fatal(err)
-	}
-
 	type TestConfig struct {
 		Source       string
 		Name         string
-		ExtraOptions []string
+		ExtraOptions map[string]string
 		ModReplace   map[string]string
 	}
 	configs := []TestConfig{
 		{
 			Source: "generator/testdata/googleapis/google/type",
 			Name:   "typez",
-			ExtraOptions: []string{
-				"-codec-option", "go-package-name=typez",
-				"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
+			ExtraOptions: map[string]string{
+				"go-package-name": "typez",
 			},
 		},
 		{
 			Source: "generator/testdata/googleapis/google/iam/v1",
 			Name:   "iam/v1",
-			ExtraOptions: []string{
-				"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/iam/v1",
-				"-codec-option", "import-mapping:google.type=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez;typez",
-				"-codec-option", "import-mapping:google.protobuf=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt;wkt",
-				"-codec-option", "go-package-name=iam",
+			ExtraOptions: map[string]string{
+				"import-mapping:google.type":     "github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez;typez",
+				"import-mapping:google.protobuf": "github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt;wkt",
+				"go-package-name":                "iam",
 			},
 			ModReplace: map[string]string{
 				"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez": "typez",
@@ -261,23 +243,32 @@ func TestGoFromProtobuf(t *testing.T) {
 	}
 
 	for _, config := range configs {
-		args := []string{
-			"-specification-format", "protobuf",
-			"-specification-source", config.Source,
-			"-parser-option", "googleapis-root=generator/testdata/googleapis",
-			"-language", "go",
-			"-output", path.Join(outDir, config.Name),
-			"-template-dir", "generator/templates",
-			"-codec-option", "copyright-year=2024",
-			"-codec-option", "package-name-override=github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez",
+		cmdLine := &CommandLine{
+			Command:             "generate",
+			ProjectRoot:         projectRoot,
+			SpecificationFormat: "protobuf",
+			SpecificationSource: config.Source,
+			Source: map[string]string{
+				"googleapis-root": "generator/testdata/googleapis",
+			},
+			ServiceConfig: "",
+			Language:      "go",
+			Output:        path.Join(outDir, config.Name),
+			TemplateDir:   "generator/templates",
+			Codec: map[string]string{
+				"copyright-year":        "2024",
+				"package-name-override": "github.com/google-cloud-rust/generator/testdata/go/gclient/golden/" + config.Name,
+			},
 		}
-		args = append(args, config.ExtraOptions...)
-		if err := Generate(&Config{}, args); err != nil {
+		for k, v := range config.ExtraOptions {
+			cmdLine.Codec[k] = v
+		}
+		if err := root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
 		cmd := exec.Command("goimports", "-w", ".")
-		cmd.Dir = path.Join(outDir, config.Name)
+		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
 		if output, err := cmd.CombinedOutput(); err != nil {
 			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
@@ -287,7 +278,7 @@ func TestGoFromProtobuf(t *testing.T) {
 
 		for _, key := range orderedKeys(config.ModReplace) {
 			cmd = exec.Command("go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
-			cmd.Dir = path.Join(outDir, config.Name)
+			cmd.Dir = path.Join(projectRoot, outDir, config.Name)
 			if output, err := cmd.CombinedOutput(); err != nil {
 				if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 					t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
@@ -297,7 +288,7 @@ func TestGoFromProtobuf(t *testing.T) {
 		}
 
 		cmd = exec.Command("go", "mod", "tidy")
-		cmd.Dir = path.Join(outDir, config.Name)
+		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
 		if output, err := cmd.CombinedOutput(); err != nil {
 			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
