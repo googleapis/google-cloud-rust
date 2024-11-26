@@ -283,6 +283,10 @@ func (m *message) Enums() []*enum {
 	})
 }
 
+func (m *message) MessageAttributes() []string {
+	return m.c.MessageAttributes(m.s, m.state)
+}
+
 func (m *message) Name() string {
 	return m.c.MessageName(m.s, m.state)
 }

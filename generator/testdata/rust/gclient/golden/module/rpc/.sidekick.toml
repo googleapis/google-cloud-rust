@@ -24,6 +24,7 @@ googleapis-root = 'generator/testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
+deserialize-with-defaults = 'false'
 generate-module = 'true'
 module-path = 'error::rpc::generated'
 'package:wkt' = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'

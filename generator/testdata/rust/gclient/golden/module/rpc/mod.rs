@@ -40,7 +40,7 @@
 ///     }
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ErrorInfo {
 
@@ -107,7 +107,7 @@ impl ErrorInfo {
 /// reached.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RetryInfo {
 
@@ -127,7 +127,7 @@ impl RetryInfo {
 /// Describes additional debugging info.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DebugInfo {
 
@@ -166,7 +166,7 @@ impl DebugInfo {
 /// quota failure.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct QuotaFailure {
 
@@ -190,7 +190,7 @@ pub mod quota_failure {
     /// daily quota or a custom quota that was exceeded.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Violation {
 
@@ -232,7 +232,7 @@ pub mod quota_failure {
 /// PreconditionFailure message.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PreconditionFailure {
 
@@ -255,7 +255,7 @@ pub mod precondition_failure {
     /// A message type used to describe a single precondition failure.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Violation {
 
@@ -303,7 +303,7 @@ pub mod precondition_failure {
 /// syntactic aspects of the request.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BadRequest {
 
@@ -326,7 +326,7 @@ pub mod bad_request {
     /// A message type used to describe a single bad request field.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct FieldViolation {
 
@@ -393,7 +393,7 @@ pub mod bad_request {
 /// or providing other forms of feedback.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct RequestInfo {
 
@@ -424,7 +424,7 @@ impl RequestInfo {
 /// Describes the resource that is being accessed.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ResourceInfo {
 
@@ -484,7 +484,7 @@ impl ResourceInfo {
 /// directly to the right place in the developer console to flip the bit.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Help {
 
@@ -507,7 +507,7 @@ pub mod help {
     /// Describes a URL link.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Link {
 
@@ -538,7 +538,7 @@ pub mod help {
 /// which can be attached to an RPC error.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LocalizedMessage {
 

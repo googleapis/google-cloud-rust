@@ -46,6 +46,9 @@ type LanguageCodec interface {
 	// The name of a message type ID when used as an input or output argument
 	// in the client methods.
 	MethodInOutTypeName(id string, state *APIState) string
+	// Returns a (possibly empty) list of "attributes" included immediately
+	// before the message definition.
+	MessageAttributes(m *Message, state *APIState) []string
 	// The (unqualified) message name, as used when defining the type to
 	// represent it.
 	MessageName(m *Message, state *APIState) string
