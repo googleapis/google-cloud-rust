@@ -19,6 +19,7 @@ import (
 	"flag"
 	"fmt"
 	"io/fs"
+	"maps"
 	"os"
 	"path/filepath"
 	"strings"
@@ -42,11 +43,9 @@ func RefreshAll(rootConfig *Config, args []string) error {
 	}
 
 	override := *rootConfig
-	if override.Source == nil {
-		override.Source = map[string]string{"googleapis-root": root}
-	} else {
-		override.Source["googleapis-root"] = root
-	}
+	override.Codec = maps.Clone(rootConfig.Codec)
+	override.Source = maps.Clone(rootConfig.Source)
+	override.Source["googleapis-root"] = root
 
 	type result struct {
 		dir string
