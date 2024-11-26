@@ -32,6 +32,7 @@ func testCodec() *Codec {
 	}
 
 	return &Codec{
+		ModulePath:    "model",
 		ExtraPackages: []*RustPackage{wkt},
 		PackageMapping: map[string]*RustPackage{
 			"google.protobuf": wkt,
@@ -61,6 +62,7 @@ func TestParseOptions(t *testing.T) {
 	want := &Codec{
 		PackageNameOverride: "test-only",
 		GenerationYear:      "2035",
+		ModulePath:          "model",
 		ExtraPackages: []*RustPackage{
 			gp,
 			{
@@ -248,7 +250,7 @@ func TestMethodInOut(t *testing.T) {
 		Parent: message,
 	}
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
-	c := &Codec{}
+	c := testCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	want := "crate::model::Target"
@@ -965,7 +967,7 @@ func TestMessageNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := testCodec()
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
@@ -1003,7 +1005,7 @@ func TestEnumNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := testCodec()
 	if got := c.EnumName(nested, api.State); got != "State" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
