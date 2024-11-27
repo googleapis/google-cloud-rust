@@ -34,7 +34,7 @@ func Root(cmdLine *CommandLine) error {
 	}
 	// Load the top-level configuration file. If there are any errors loading
 	// the file just run with the defaults.
-	rootConfig, err := LoadRootConfig(".sidekick.toml")
+	rootConfig, err := loadRootConfig(".sidekick.toml")
 	if err != nil {
 		return err
 	}
@@ -46,22 +46,22 @@ func Root(cmdLine *CommandLine) error {
 		Source: maps.Clone(cmdLine.Source),
 		Codec:  maps.Clone(cmdLine.Codec),
 	}
-	config, err := MergeConfigs(rootConfig, argsConfig)
+	config, err := mergeConfigs(rootConfig, argsConfig)
 	if err != nil {
 		return err
 	}
 
 	switch cmdLine.Command {
 	case "generate":
-		if err := Generate(config, cmdLine); err != nil {
+		if err := generate(config, cmdLine); err != nil {
 			return err
 		}
 	case "refresh":
-		if err := Refresh(config, cmdLine, cmdLine.Output); err != nil {
+		if err := refresh(config, cmdLine, cmdLine.Output); err != nil {
 			return err
 		}
 	case "refresh-all", "refreshall":
-		if err := RefreshAll(config, cmdLine); err != nil {
+		if err := refreshAll(config, cmdLine); err != nil {
 			return err
 		}
 	default:

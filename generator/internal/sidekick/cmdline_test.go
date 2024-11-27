@@ -37,7 +37,7 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 		"generate",
 	}
-	got, err := ParseArgsExplicit(args)
+	got, err := parseArgsExplicit(args)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -72,7 +72,7 @@ func TestDefaults(t *testing.T) {
 		"-project-root", root,
 		"generate",
 	}
-	got, err := ParseArgsExplicit(args)
+	got, err := parseArgsExplicit(args)
 	if err != nil {
 		t.Fatal(err)
 	}

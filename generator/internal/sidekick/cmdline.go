@@ -37,10 +37,10 @@ type CommandLine struct {
 }
 
 func ParseArgs() (*CommandLine, error) {
-	return ParseArgsExplicit(os.Args[1:])
+	return parseArgsExplicit(os.Args[1:])
 }
 
-func ParseArgsExplicit(args []string) (*CommandLine, error) {
+func parseArgsExplicit(args []string) (*CommandLine, error) {
 	fs := flag.NewFlagSet("sidekick", flag.ContinueOnError)
 	var (
 		projectRoot   = fs.String("project-root", "", "the root of the output project")
