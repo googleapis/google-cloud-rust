@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language/internal/rust"
 )
 
@@ -27,7 +28,7 @@ func knownCodecs() map[string]createCodec {
 	return map[string]createCodec{
 		"rust": func(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) { return rust.NewCodec(copts) },
 		"go": func(copts *genclient.CodecOptions) (genclient.LanguageCodec, error) {
-			return newGoCodec(copts)
+			return golang.NewCodec(copts)
 		},
 	}
 }
