@@ -27,6 +27,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/common"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -224,10 +225,18 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		State: state,
 	}
 	if serviceConfig != nil {
-		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 		api.Title = serviceConfig.Title
 		api.Description = serviceConfig.Documentation.Summary
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
+		packageName := ""
+		for _, api := range serviceConfig.Apis {
+			packageName, _ = common.SplitApiName(api.Name)
+			// Keep searching after well-known mixin services.
+			if !common.WellKnownMixin(api.Name) {
+				break
+			}
+		}
+		api.PackageName = packageName
 	}
 
 	// First we need to add all the message and enums types to the
@@ -333,6 +342,9 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		api.Services = append(api.Services, fileServices...)
 	}
 	updateMixinState(serviceConfig, api)
+	if api.Name == "" && serviceConfig != nil {
+		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+	}
 	return api
 }
 
