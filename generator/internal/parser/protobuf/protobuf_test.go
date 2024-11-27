@@ -36,7 +36,7 @@ func TestInfo(t *testing.T) {
 		},
 	}
 
-	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	api := makeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	if api.Name != "secretmanager" {
 		t.Errorf("want = %q; got = %q", "secretmanager", api.Name)
 	}
@@ -49,7 +49,7 @@ func TestInfo(t *testing.T) {
 }
 
 func TestScalar(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "scalar.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -171,7 +171,7 @@ func TestScalar(t *testing.T) {
 }
 
 func TestScalarArray(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_array.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_array.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -220,7 +220,7 @@ func TestScalarArray(t *testing.T) {
 }
 
 func TestScalarOptional(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_optional.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "scalar_optional.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -269,7 +269,7 @@ func TestScalarOptional(t *testing.T) {
 }
 
 func TestSkipExternalMessages(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 
 	// Both `ImportedMessage` and `LocalMessage` should be in the index:
 	_, ok := api.State.MessageByID[".away.ImportedMessage"]
@@ -315,7 +315,7 @@ func TestSkipExternalMessages(t *testing.T) {
 }
 
 func TestSkipExternaEnums(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 
 	// Both `ImportedEnum` and `LocalEnum` should be in the index:
 	_, ok := api.State.EnumByID[".away.ImportedEnum"]
@@ -354,7 +354,7 @@ func TestSkipExternaEnums(t *testing.T) {
 }
 
 func TestComments(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "comments.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "comments.proto"))
 
 	message, ok := api.State.MessageByID[".test.Request"]
 	if !ok {
@@ -451,7 +451,7 @@ func TestComments(t *testing.T) {
 }
 
 func TestOneOfs(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -522,7 +522,7 @@ func TestOneOfs(t *testing.T) {
 }
 
 func TestObjectFields(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "object_fields.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "object_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -556,7 +556,7 @@ func TestObjectFields(t *testing.T) {
 }
 
 func TestWellKnownTypeFields(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "wkt_fields.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "wkt_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -620,7 +620,7 @@ func TestWellKnownTypeFields(t *testing.T) {
 }
 
 func TestMapFields(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
 
 	message, ok := api.State.MessageByID[".test.Fake"]
 	if !ok {
@@ -674,7 +674,7 @@ func TestMapFields(t *testing.T) {
 }
 
 func TestService(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "test_service.proto"))
 
 	service, ok := api.State.ServiceByID[".test.TestService"]
 	if !ok {
@@ -725,7 +725,7 @@ func TestService(t *testing.T) {
 }
 
 func TestQueryParameters(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "query_parameters.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "query_parameters.proto"))
 
 	service, ok := api.State.ServiceByID[".test.TestService"]
 	if !ok {
@@ -777,7 +777,7 @@ func TestQueryParameters(t *testing.T) {
 }
 
 func TestEnum(t *testing.T) {
-	api := MakeAPI(nil, newTestCodeGeneratorRequest(t, "enum.proto"))
+	api := makeAPI(nil, newTestCodeGeneratorRequest(t, "enum.proto"))
 	e, ok := api.State.EnumByID[".test.Code"]
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
@@ -851,7 +851,7 @@ func TestLocationMixin(t *testing.T) {
 			},
 		},
 	}
-	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	api := makeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	service, ok := api.State.ServiceByID[".google.cloud.location.Locations"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
@@ -910,7 +910,7 @@ func TestIAMMixin(t *testing.T) {
 			},
 		},
 	}
-	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	api := makeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	service, ok := api.State.ServiceByID[".google.iam.v1.IAMPolicy"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
@@ -977,7 +977,7 @@ func TestOperationMixin(t *testing.T) {
 			},
 		},
 	}
-	api := MakeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	api := makeAPI(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	service, ok := api.State.ServiceByID[".google.longrunning.Operations"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")

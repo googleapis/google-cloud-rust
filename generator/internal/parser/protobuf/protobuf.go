@@ -65,7 +65,7 @@ func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 		}
 		serviceConfig = cfg
 	}
-	return MakeAPI(serviceConfig, request), nil
+	return makeAPI(serviceConfig, request), nil
 }
 
 func NewCodeGeneratorRequest(opts genclient.ParserOptions) (*pluginpb.CodeGeneratorRequest, error) {
@@ -220,7 +220,7 @@ const (
 	enumDescriptorValue = 2
 )
 
-func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	var mixinFileDesc []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
 	state := &genclient.APIState{
