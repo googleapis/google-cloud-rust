@@ -22,6 +22,7 @@ import (
 	"log/slog"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -46,7 +47,7 @@ func (t *Parser) Help() string {
 func (t *Parser) OptionDescriptions() map[string]string {
 	return map[string]string{
 		"googleapis-root": "The root directory for the googleapis common specifications. Ignored if empty.",
-		"input-root":      "The root directory for the proto specifications. Ignored if empty.",
+		"test-root":       "The root directory for the proto specifications. Ignored if empty.",
 	}
 }
 
@@ -57,7 +58,7 @@ func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	}
 	var serviceConfig *serviceconfig.Service
 	if opts.ServiceConfig != "" {
-		cfg, err := genclient.ReadServiceConfig(opts.ServiceConfig)
+		cfg, err := genclient.ReadServiceConfig(genclient.FindServiceConfigPath(opts))
 		if err != nil {
 			return nil, err
 		}
@@ -117,7 +118,7 @@ func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]by
 		"--retain_options",
 		"--descriptor_set_out", tempFile,
 	}
-	for _, name := range []string{"googleapis-root", "input-root"} {
+	for _, name := range []string{"test-root", "googleapis-root"} {
 		if path, ok := opts.Options[name]; ok {
 			args = append(args, "--proto_path")
 			args = append(args, path)
@@ -138,14 +139,32 @@ func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]by
 }
 
 func determineInputFiles(config genclient.ParserOptions) ([]string, error) {
-	// If the source ends in `.proto` assume it is a single file:
+	// `config.Source` is relative to the `googleapis-root` (or `test-root`) if
+	// that is set. When it is a single file, this is easy, just return the
+	// filename and `protoc` will find it.
+
 	if strings.HasSuffix(config.Source, ".proto") {
+		// If the source ends in `.proto` assume it is a single file and let
+		// protoc find it.
 		return []string{config.Source}, nil
 	}
 
-	//
+	source := config.Source
+	for _, opt := range []string{"test-root", "googleapis-root"} {
+		location, ok := config.Options[opt]
+		if !ok {
+			// Ignore options that are not set
+			continue
+		}
+		stat, err := os.Stat(path.Join(location, config.Source))
+		if err == nil && stat.IsDir() {
+			// Found a matching directory, use it.
+			source = path.Join(location, config.Source)
+			break
+		}
+	}
 	var files []string
-	err := filepath.Walk(config.Source, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}

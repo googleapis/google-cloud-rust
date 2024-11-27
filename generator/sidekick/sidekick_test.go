@@ -164,8 +164,8 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 	configs := []TestConfig{
 		{
-			Source:        "generator/testdata/googleapis/google/rpc/error_details.proto",
-			ServiceConfig: "generator/testdata/googleapis/google/rpc/rpc_publish.yaml",
+			Source:        "google/rpc/error_details.proto",
+			ServiceConfig: "google/rpc/rpc_publish.yaml",
 			Name:          "rpc",
 			ExtraOptions: map[string]string{
 				"module-path":               "error::rpc::generated",
@@ -174,8 +174,8 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			},
 		},
 		{
-			Source:        "generator/testdata/googleapis/google/type",
-			ServiceConfig: "generator/testdata/googleapis/google/type/type.yaml",
+			Source:        "google/type",
+			ServiceConfig: "google/type/type.yaml",
 			Name:          "type",
 		},
 	}
