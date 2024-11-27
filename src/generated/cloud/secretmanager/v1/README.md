@@ -1,4 +1,4 @@
-# Google Cloud SDK for Rust
+# Google Cloud SDK for Rust - Secret Manager API
 
-The SDK for Rust is under active development. We are creating placeholder crates
-so we can reference them in our code and tooling.
+Stores sensitive data such as API keys, passwords, and certificates.
+Provides convenience while improving security.
