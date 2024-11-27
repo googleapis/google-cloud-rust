@@ -164,10 +164,18 @@ func determineInputFiles(config genclient.ParserOptions) ([]string, error) {
 			break
 		}
 	}
+	const maxDepth = 1
 	var files []string
 	err := filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
+		}
+		depth := strings.Count(filepath.ToSlash(strings.TrimPrefix(path, source)), "/")
+		if info.IsDir() && depth >= maxDepth {
+			return filepath.SkipDir
+		}
+		if depth > maxDepth {
+			return nil
 		}
 		if filepath.Ext(path) == ".proto" {
 			files = append(files, path)
