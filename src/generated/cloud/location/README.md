@@ -1,4 +1,5 @@
-# Google Cloud SDK for Rust
+# Google Cloud SDK for Rust - Cloud Metadata API
 
-The SDK for Rust is under active development. We are creating placeholder crates
-so we can reference them in our code and tooling.
+This API provides static metadata about Google Cloud Platform. Currently,
+it only provides basic information about Google Cloud locations, such as
+zones, regions, and countries.
