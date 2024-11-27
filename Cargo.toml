@@ -33,7 +33,7 @@ members = [
   "src/generated/cloud/location",
   "src/generated/cloud/secretmanager/v1",
   "src/generated/cloud/common",
-  "src/generated/cloud/iam/v1",
+  "src/generated/iam/v1",
   "src/generated/api",
   "src/integration-tests",
 ]
