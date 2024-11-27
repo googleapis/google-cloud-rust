@@ -115,6 +115,34 @@ impl Duration {
     }
 }
 
+impl std::convert::TryFrom<std::time::Duration> for Duration {
+    type Error = &'static str;
+
+    fn try_from(value: std::time::Duration) -> std::result::Result<Self, Self::Error> {
+        if value.as_secs() > (i64::MAX as u64) {
+            return Err("seconds are out of range");
+        }
+        if value.subsec_nanos() > (i32::MAX as u32) {
+            return Err("sub-second nanos are out of range");
+        }
+        Ok(Self { seconds: value.as_secs() as i64, nanos: value.subsec_nanos() as i32 })
+    }
+}
+
+impl std::convert::TryFrom<Duration> for std::time::Duration {
+    type Error = &'static str;
+
+    fn try_from(value: Duration) -> std::result::Result<Self, Self::Error> {
+        if value.seconds < 0 {
+            return Err("seconds are out of range");
+        }
+        if value.nanos < 0 {
+            return Err("sub-second nanos are out of range");
+        }
+        Ok(Self::new(value.seconds as u64, value.nanos as u32))
+    }
+}
+
 /// Implement [`serde`](::serde) serialization for Duration.
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
