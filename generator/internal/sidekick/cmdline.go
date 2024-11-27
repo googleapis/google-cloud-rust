@@ -36,7 +36,7 @@ type CommandLine struct {
 	DryRun              bool
 }
 
-func ParseArgs() (*CommandLine, error) {
+func parseArgs() (*CommandLine, error) {
 	return parseArgsExplicit(os.Args[1:])
 }
 

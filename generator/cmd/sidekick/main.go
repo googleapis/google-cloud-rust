@@ -22,12 +22,7 @@ import (
 )
 
 func main() {
-	cmdLine, err := sidekick.ParseArgs()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
-	}
-	if err := sidekick.Root(cmdLine); err != nil {
+	if err := sidekick.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)
 	}

@@ -22,7 +22,7 @@ func TestRefreshAll(t *testing.T) {
 		ProjectRoot: ".",
 		DryRun:      true,
 	}
-	if err := Root(cmdLine); err != nil {
+	if err := runSidekick(cmdLine); err != nil {
 		t.Fatal(err)
 	}
 }

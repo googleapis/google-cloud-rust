@@ -21,7 +21,15 @@ import (
 	"os"
 )
 
-func Root(cmdLine *CommandLine) error {
+func Run() error {
+	cmdLine, err := parseArgs()
+	if err != nil {
+		return err
+	}
+	return runSidekick(cmdLine)
+}
+
+func runSidekick(cmdLine *CommandLine) error {
 	if cmdLine.ProjectRoot != "" {
 		cwd, err := os.Getwd()
 		if err != nil {
