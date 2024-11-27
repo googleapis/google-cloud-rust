@@ -139,6 +139,57 @@ impl Duration {
     }
 }
 
+impl std::convert::TryFrom<std::time::Duration> for Duration {
+    type Error = DurationError;
+
+    fn try_from(value: std::time::Duration) -> std::result::Result<Self, Self::Error> {
+        if value.as_secs() > (i64::MAX as u64) {
+            return Err(Error::OutOfRange());
+        }
+        if value.subsec_nanos() > (i32::MAX as u32) {
+            return Err(Error::OutOfRange());
+        }
+        Self::new(value.as_secs() as i64, value.subsec_nanos() as i32)
+    }
+}
+
+impl std::convert::TryFrom<Duration> for std::time::Duration {
+    type Error = DurationError;
+
+    fn try_from(value: Duration) -> std::result::Result<Self, Self::Error> {
+        if value.seconds < 0 {
+            return Err(Error::OutOfRange());
+        }
+        if value.nanos < 0 {
+            return Err(Error::OutOfRange());
+        }
+        Ok(Self::new(value.seconds as u64, value.nanos as u32))
+    }
+}
+
+/// Convert from [time::Duration] to [Duration].
+///
+/// This conversion may fail if the [time::Duration] value is out of range.
+#[cfg(feature = "time")]
+impl std::convert::TryFrom<time::Duration> for Duration {
+    type Error = DurationError;
+
+    fn try_from(value: time::Duration) -> std::result::Result<Self, Self::Error> {
+        Self::new(value.whole_seconds(), value.subsec_nanoseconds())
+    }
+}
+
+/// Convert from [Duration] to [time::Duration].
+///
+/// This conversion is always safe because the range for [Duration] is
+/// guaranteed to fit into the destination type.
+#[cfg(feature = "time")]
+impl std::convert::From<Duration> for time::Duration {
+    fn from(value: Duration) -> Self {
+        Self::new(value.seconds(), value.nanos())
+    }
+}
+
 /// Implement [`serde`](::serde) serialization for [Duration].
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -332,6 +383,33 @@ mod test {
         let value = serde_json::to_value(input)?;
         let got = serde_json::from_value::<Duration>(value);
         assert!(got.is_err());
+        Ok(())
+    }
+
+    #[test_case(time::Duration::default(), Duration::default() ; "default")]
+    #[test_case(time::Duration::new(0, 0), Duration::new(0, 0).unwrap() ; "zero")]
+    #[test_case(time::Duration::new(10_000 * SECONDS_IN_YEAR , 0), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
+    #[test_case(time::Duration::new(-10_000 * SECONDS_IN_YEAR , 0), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    fn from_time_in_range(value: time::Duration, want: Duration) -> Result {
+        let got = Duration::try_from(value)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(time::Duration::new(10_001 * SECONDS_IN_YEAR, 0) ; "above the range")]
+    #[test_case(time::Duration::new(-10_001 * SECONDS_IN_YEAR, 0) ; "below the range")]
+    fn from_time_out_of_range(value: time::Duration) {
+        let got = Duration::try_from(value);
+        assert_eq!(got, Err(DurationError::OutOfRange()));
+    }
+
+    #[test_case(Duration::default(), time::Duration::default() ; "default")]
+    #[test_case(Duration::new(0, 0).unwrap(), time::Duration::new(0, 0) ; "zero")]
+    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(10_000 * SECONDS_IN_YEAR, 0) ; "exactly 10,000 years")]
+    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), time::Duration::new(-10_000 * SECONDS_IN_YEAR, 0) ; "exactly negative 10,000 years")]
+    fn to_time_in_range(value: Duration, want: time::Duration) -> Result {
+        let got = time::Duration::from(value);
+        assert_eq!(got, want);
         Ok(())
     }
 }

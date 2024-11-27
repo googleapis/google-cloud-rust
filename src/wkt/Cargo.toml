@@ -23,6 +23,9 @@ repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
 
+[features]
+time = []
+
 [dependencies]
 serde      = { version = "1.0.214", features = ["serde_derive"] }
 serde_with = { version = "3.11.0" }
@@ -35,3 +38,4 @@ bytes      = { version = "1.8.0", features = ["serde"] }
 test-case  = "3.3.1"
 bytes      = { version = "1.8.0", features = ["serde"] }
 serde_with = { version = "3.11.0", features = ["base64"] }
+wkt        = { path = ".", package = "gcp-sdk-wkt", features = ["time"] }
