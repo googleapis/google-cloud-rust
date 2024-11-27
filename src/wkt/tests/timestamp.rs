@@ -79,3 +79,23 @@ fn compare() -> Result {
     assert_eq!(ts2.partial_cmp(&ts3), Some(std::cmp::Ordering::Less));
     Ok(())
 }
+
+#[test]
+fn convert_from_time() -> Result {
+    let ts =
+        time::OffsetDateTime::from_unix_timestamp(123)? + time::Duration::nanoseconds(456789012);
+    let got = Timestamp::try_from(ts)?;
+    let want = Timestamp::new(123, 456789012)?;
+    assert_eq!(got, want);
+    Ok(())
+}
+
+#[test]
+fn convert_to_time() -> Result {
+    let ts = Timestamp::new(123, 456789012)?;
+    let got = time::OffsetDateTime::try_from(ts)?;
+    let want =
+        time::OffsetDateTime::from_unix_timestamp(123)? + time::Duration::nanoseconds(456789012);
+    assert_eq!(got, want);
+    Ok(())
+}
