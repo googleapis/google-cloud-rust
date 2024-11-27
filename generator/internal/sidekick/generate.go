@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import (
 	"fmt"
@@ -25,9 +25,9 @@ import (
 	toml "github.com/pelletier/go-toml/v2"
 )
 
-// Generate takes some state and applies it to a template to create a client
+// generate takes some state and applies it to a template to create a client
 // library.
-func Generate(rootConfig *Config, cmdLine *CommandLine) error {
+func generate(rootConfig *Config, cmdLine *CommandLine) error {
 	generation_year, _, _ := time.Now().Date()
 	local := Config{
 		General: GeneralConfig{
@@ -56,7 +56,7 @@ func Generate(rootConfig *Config, cmdLine *CommandLine) error {
 	override.Source["googleapis-root"] = root
 
 	// Load the .sidekick.toml file and refresh the code.
-	return Refresh(&override, cmdLine, cmdLine.Output)
+	return refresh(&override, cmdLine, cmdLine.Output)
 }
 
 func writeSidekickToml(outDir string, config *Config) error {

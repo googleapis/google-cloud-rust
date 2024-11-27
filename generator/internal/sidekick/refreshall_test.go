@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import "testing"
 
 func TestRefreshAll(t *testing.T) {
 	cmdLine := &CommandLine{
 		Command:     "refreshall",
-		ProjectRoot: "../..",
+		ProjectRoot: ".",
 		DryRun:      true,
 	}
-	if err := root(cmdLine); err != nil {
+	if err := runSidekick(cmdLine); err != nil {
 		t.Fatal(err)
 	}
 }

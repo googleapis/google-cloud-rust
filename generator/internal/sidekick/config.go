@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import (
 	"fmt"
@@ -38,7 +38,7 @@ type GeneralConfig struct {
 	ServiceConfig       string `toml:"service-config,omitempty"`
 }
 
-func LoadRootConfig(filename string) (*Config, error) {
+func loadRootConfig(filename string) (*Config, error) {
 	config := &Config{
 		Codec:  map[string]string{},
 		Source: map[string]string{},
@@ -53,7 +53,7 @@ func LoadRootConfig(filename string) (*Config, error) {
 	return config, nil
 }
 
-func MergeConfigAndFile(rootConfig *Config, filename string) (*Config, error) {
+func mergeConfigAndFile(rootConfig *Config, filename string) (*Config, error) {
 	contents, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
@@ -63,10 +63,10 @@ func MergeConfigAndFile(rootConfig *Config, filename string) (*Config, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error reading configuration %s: %w", filename, err)
 	}
-	return MergeConfigs(rootConfig, &local)
+	return mergeConfigs(rootConfig, &local)
 }
 
-func MergeConfigs(rootConfig, local *Config) (*Config, error) {
+func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 	merged := Config{
 		General: GeneralConfig{
 			Language:            rootConfig.General.Language,

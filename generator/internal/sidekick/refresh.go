@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import (
 	"fmt"
@@ -23,10 +23,10 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
-// Reruns the generator in one directory, using the configuration parameters
-// saved in its `.sidekick.toml` file.
-func Refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
-	config, err := MergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
+// refresh reruns the generator in one directory, using the configuration
+// parameters saved in its `.sidekick.toml` file.
+func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
+	config, err := mergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
 		return err
 	}
