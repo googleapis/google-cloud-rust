@@ -56,14 +56,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 	if err := sidekick.Root(cmdLine); err != nil {
 		t.Fatal(err)
 	}
-
-	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
-	if output, err := cmd.CombinedOutput(); err != nil {
-		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-		}
-		t.Fatalf("%v: %v\n%s", cmd, err, output)
-	}
+	runCommand(t, ".", "cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
 }
 
 func TestRustFromProtobuf(t *testing.T) {
@@ -138,13 +131,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			// The module test does not produce a Cargo.toml file
 			continue
 		}
-		cmd := exec.Command("cargo", "fmt", "--manifest-path", manifest)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
-		}
+		runCommand(t, ".", "cargo", "fmt", "--manifest-path", manifest)
 	}
 }
 
@@ -256,34 +243,26 @@ func TestGoFromProtobuf(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		cmd := exec.Command("goimports", "-w", ".")
-		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
-		}
+		dir := path.Join(projectRoot, outDir, config.Name)
+		runCommand(t, dir, "goimports", "-w", ".")
 
 		for _, key := range orderedKeys(config.ModReplace) {
-			cmd = exec.Command("go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
-			cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-			if output, err := cmd.CombinedOutput(); err != nil {
-				if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-					t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-				}
-				t.Fatalf("%v: %v\n%s", cmd, err, output)
-			}
+			dir := path.Join(projectRoot, outDir, config.Name)
+			runCommand(t, dir, "go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
 		}
+		runCommand(t, path.Join(projectRoot, outDir, config.Name), "go", "mod", "tidy")
+	}
+}
 
-		cmd = exec.Command("go", "mod", "tidy")
-		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
+func runCommand(t *testing.T, dir, c string, arg ...string) {
+	t.Helper()
+	cmd := exec.Command(c, arg...)
+	cmd.Dir = dir
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
 		}
+		t.Fatalf("%v: %v\n%s", cmd, err, output)
 	}
 }
 
