@@ -524,7 +524,7 @@ func TestMapInteger(t *testing.T) {
 }
 
 func TestMakeAPI(t *testing.T) {
-	contents, err := os.ReadFile("../../../../testdata/openapi/secretmanager_openapi_v1.json")
+	contents, err := os.ReadFile("../../../testdata/openapi/secretmanager_openapi_v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -784,7 +784,7 @@ func TestMakeAPI(t *testing.T) {
 }
 
 func TestSyntheticMessageWithExistingRequest(t *testing.T) {
-	contents, err := os.ReadFile("../../../../testdata/openapi/secretmanager_openapi_v1.json")
+	contents, err := os.ReadFile("../../../testdata/openapi/secretmanager_openapi_v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
