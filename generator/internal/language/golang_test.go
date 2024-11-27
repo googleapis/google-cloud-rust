@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package golang
+package language
 
 import (
 	"testing"
@@ -27,7 +27,7 @@ type CaseConvertTest struct {
 }
 
 func TestToSnake(t *testing.T) {
-	c := &Codec{}
+	c := &goCodec{}
 	var snakeConvertTests = []CaseConvertTest{
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
@@ -43,7 +43,7 @@ func TestToSnake(t *testing.T) {
 }
 
 func TestToPascal(t *testing.T) {
-	c := &Codec{}
+	c := &goCodec{}
 	var pascalConvertTests = []CaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -78,7 +78,7 @@ func TestMessageNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := &goCodec{}
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, want=Replication, got=%s", got)
 	}
@@ -115,7 +115,7 @@ func TestEnumNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
-	c := &Codec{}
+	c := &goCodec{}
 	if got := c.EnumName(nested, api.State); got != "SecretVersion_State" {
 		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
 	}
@@ -128,7 +128,7 @@ func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
 The next line has some extra trailing whitespace:
-    
+
 We want to respect whitespace at the beginning, because it important in Markdown:
 - A thing
   - A nested thing
@@ -162,7 +162,7 @@ Maybe they wanted to show some JSON:
 		"}",
 		"```",
 	}
-	c := &Codec{}
+	c := &goCodec{}
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
@@ -174,7 +174,7 @@ func TestValidate(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &goCodec{}
 	if err := c.Validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
 	}
@@ -188,7 +188,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &goCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -197,7 +197,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c = &Codec{}
+	c = &goCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -206,7 +206,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &Codec{}
+	c = &goCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
