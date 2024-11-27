@@ -91,8 +91,6 @@ jobs:
           cd /usr/local
           sudo unzip -x /tmp/protoc.zip
           protoc --version
-      - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
       - name: Regenerate all the code
         working-directory: generator
         run: go run ./sidekick -project-root .. refreshall
