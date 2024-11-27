@@ -65,3 +65,24 @@ func TestParseArgs(t *testing.T) {
 		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
 	}
 }
+
+func TestDefaults(t *testing.T) {
+	root := t.TempDir()
+	args := []string{
+		"-project-root", root,
+		"generate",
+	}
+	got, err := ParseArgsExplicit(args)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &CommandLine{
+		Command:     "generate",
+		ProjectRoot: root,
+		Source:      map[string]string{},
+		Codec:       map[string]string{},
+	}
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
+	}
+}
