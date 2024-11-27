@@ -12,6 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-    println!("Coming Soon: Google Cloud SDK for Rust")
+package language
+
+import "strings"
+
+func SplitApiName(name string) (string, string) {
+	li := strings.LastIndex(name, ".")
+	if li == -1 {
+		return "", name
+	}
+	return name[:li], name[li+1:]
+}
+
+func WellKnownMixin(apiName string) bool {
+	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
+		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
+		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
 }

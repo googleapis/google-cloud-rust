@@ -12,13 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[package]
-name                 = "gcp-sdk-iam-v1"
-version              = "0.0.0"
-description          = "Google Cloud SDK for Rust"
-edition.workspace    = true
-authors.workspace    = true
-license.workspace    = true
-repository.workspace = true
-keywords.workspace   = true
-categories.workspace = true
+[general]
+specification-source = 'google/cloud/location'
+service-config = 'google/cloud/location/cloud.yaml'
+
+[codec]
+copyright-year = '2024'

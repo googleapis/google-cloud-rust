@@ -12,20 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package common
+package main
 
-import "strings"
+import (
+	"fmt"
+	"os"
 
-func SplitApiName(name string) (string, string) {
-	li := strings.LastIndex(name, ".")
-	if li == -1 {
-		return "", name
+	"github.com/googleapis/google-cloud-rust/generator/internal/sidekick"
+)
+
+func main() {
+	if err := sidekick.Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
 	}
-	return name[:li], name[li+1:]
-}
-
-func WellKnownMixin(apiName string) bool {
-	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
-		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
-		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
 }

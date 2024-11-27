@@ -93,7 +93,7 @@ jobs:
           protoc --version
       - name: Regenerate all the code
         working-directory: generator
-        run: go run ./sidekick -project-root .. refreshall
+        run: go run ./cmd/sidekick -project-root .. refreshall
       - run: cargo fmt
         # If there is any difference between the generated code and the
         # committed code that is an error. All the inputs should be pinned,

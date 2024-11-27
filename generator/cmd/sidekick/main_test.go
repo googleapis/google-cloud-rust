@@ -14,15 +14,13 @@
 
 package main
 
-import "testing"
+import (
+	"flag"
+	"os"
+	"testing"
+)
 
-func TestRefreshAll(t *testing.T) {
-	cmdLine := &CommandLine{
-		Command:     "refreshall",
-		ProjectRoot: "../..",
-		DryRun:      true,
-	}
-	if err := root(cmdLine); err != nil {
-		t.Fatal(err)
-	}
+func TestMain(m *testing.M) {
+	flag.Parse()
+	os.Exit(m.Run())
 }

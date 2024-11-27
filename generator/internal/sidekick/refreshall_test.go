@@ -12,6 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-    println!("Coming Soon: Google Cloud SDK for Rust")
+package sidekick
+
+import "testing"
+
+func TestRefreshAll(t *testing.T) {
+	cmdLine := &CommandLine{
+		Command:     "refreshall",
+		ProjectRoot: ".",
+		DryRun:      true,
+	}
+	if err := runSidekick(cmdLine); err != nil {
+		t.Fatal(err)
+	}
 }

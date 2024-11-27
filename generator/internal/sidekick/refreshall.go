@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import (
 	"errors"
@@ -25,7 +25,7 @@ import (
 	"sync"
 )
 
-func RefreshAll(rootConfig *Config, cmdLine *CommandLine) error {
+func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 	root, err := makeGoogleapisRoot(rootConfig)
 	if err != nil {
 		return err
@@ -51,7 +51,7 @@ func RefreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 		go func() {
 			defer wg.Done()
 			fmt.Printf("refreshing directory %s\n", dir)
-			err := Refresh(&override, cmdLine, dir)
+			err := refresh(&override, cmdLine, dir)
 			results <- result{dir: dir, err: err}
 		}()
 	}

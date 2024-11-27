@@ -27,7 +27,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language/common"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -65,7 +65,7 @@ func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 		}
 		serviceConfig = cfg
 	}
-	return MakeAPI(serviceConfig, request), nil
+	return makeAPI(serviceConfig, request), nil
 }
 
 func NewCodeGeneratorRequest(opts genclient.ParserOptions) (*pluginpb.CodeGeneratorRequest, error) {
@@ -220,7 +220,7 @@ const (
 	enumDescriptorValue = 2
 )
 
-func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	var mixinFileDesc []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
 	state := &genclient.APIState{
@@ -238,9 +238,9 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
-			packageName, _ = common.SplitApiName(api.Name)
+			packageName, _ = language.SplitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !common.WellKnownMixin(api.Name) {
+			if !language.WellKnownMixin(api.Name) {
 				break
 			}
 		}

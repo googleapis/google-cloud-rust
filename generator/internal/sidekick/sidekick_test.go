@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package sidekick
 
 import (
 	"errors"
-	"flag"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -25,17 +25,15 @@ import (
 	"testing"
 )
 
-func TestMain(m *testing.M) {
-	flag.Parse()
-	os.Exit(m.Run())
-}
+const (
+	// projectRoot is the root of the google-cloud-rust. The golden files for
+	// these tests depend on code in ../../auth and ../../src/gax.
+	projectRoot = "../../.."
+	testdataDir = "generator/testdata"
+)
 
 func TestRustFromOpenAPI(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/rust/openapi/golden"
-	)
-
+	var outDir = fmt.Sprintf("%s/rust/openapi/golden", testdataDir)
 	cmdLine := &CommandLine{
 		Command:             "generate",
 		ProjectRoot:         projectRoot,
@@ -53,24 +51,14 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
 		},
 	}
-	if err := root(cmdLine); err != nil {
+	if err := runSidekick(cmdLine); err != nil {
 		t.Fatal(err)
 	}
-
-	cmd := exec.Command("cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
-	if output, err := cmd.CombinedOutput(); err != nil {
-		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-		}
-		t.Fatalf("%v: %v\n%s", cmd, err, output)
-	}
+	runCommand(t, ".", "cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
 }
 
 func TestRustFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/rust/gclient/golden"
-	)
+	var outDir = fmt.Sprintf("%s/rust/gclient/golden", testdataDir)
 
 	type TestConfig struct {
 		Source        string
@@ -132,7 +120,7 @@ func TestRustFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := runSidekick(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
@@ -141,21 +129,11 @@ func TestRustFromProtobuf(t *testing.T) {
 			// The module test does not produce a Cargo.toml file
 			continue
 		}
-		cmd := exec.Command("cargo", "fmt", "--manifest-path", manifest)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
-		}
+		runCommand(t, ".", "cargo", "fmt", "--manifest-path", manifest)
 	}
 }
 
 func TestRustModuleFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-	)
-
 	type TestConfig struct {
 		Source        string
 		ServiceConfig string
@@ -201,18 +179,14 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := runSidekick(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 	}
 }
 
 func TestGoFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/go/gclient/golden"
-	)
-
+	var outDir = fmt.Sprintf("%s/go/gclient/golden", testdataDir)
 	type TestConfig struct {
 		Source       string
 		Name         string
@@ -263,38 +237,31 @@ func TestGoFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := runSidekick(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
-		cmd := exec.Command("goimports", "-w", ".")
-		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
-		}
+		dir := path.Join(projectRoot, outDir, config.Name)
+		runCommand(t, dir, "goimports", "-w", ".")
 
 		for _, key := range orderedKeys(config.ModReplace) {
-			cmd = exec.Command("go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
-			cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-			if output, err := cmd.CombinedOutput(); err != nil {
-				if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-					t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-				}
-				t.Fatalf("%v: %v\n%s", cmd, err, output)
-			}
+			dir := path.Join(projectRoot, outDir, config.Name)
+			runCommand(t, dir, "go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
 		}
+		runCommand(t, path.Join(projectRoot, outDir, config.Name), "go", "mod", "tidy")
+	}
+}
 
-		cmd = exec.Command("go", "mod", "tidy")
-		cmd.Dir = path.Join(projectRoot, outDir, config.Name)
-		if output, err := cmd.CombinedOutput(); err != nil {
-			if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
-				t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
-			}
-			t.Fatalf("%v: %v\n%s", cmd, err, output)
+func runCommand(t *testing.T, dir, c string, arg ...string) {
+	t.Helper()
+	cmd := exec.Command(c, arg...)
+	cmd.Dir = dir
+	t.Logf("cd %s && %s", cmd.Dir, cmd.String())
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
 		}
+		t.Fatalf("%v: %v\n%s", cmd, err, output)
 	}
 }
 

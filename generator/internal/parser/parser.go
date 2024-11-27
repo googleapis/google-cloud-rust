@@ -16,7 +16,6 @@ package parser
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser/openapi"
@@ -32,26 +31,10 @@ func knownParsers() map[string]newParser {
 	}
 }
 
-func NewParser(parserID string) (genclient.Parser, error) {
+func New(parserID string) (genclient.Parser, error) {
 	create, ok := knownParsers()[parserID]
 	if !ok {
 		return nil, fmt.Errorf("unknown parser %q", parserID)
 	}
 	return create(), nil
-}
-
-func Help() string {
-	var help []string
-	for name, fact := range knownParsers() {
-		parser := fact()
-		help = append(help, fmt.Sprintf("%s: %s", name, parser.Help()))
-		options := parser.OptionDescriptions()
-		if len(options) > 0 {
-			help = append(help, "  Options")
-		}
-		for opt, description := range parser.OptionDescriptions() {
-			help = append(help, fmt.Sprintf("    %s: %s", opt, description))
-		}
-	}
-	return strings.Join(help, "\n")
 }
