@@ -14,25 +14,15 @@
 
 package main
 
-import (
-	"os"
-	"testing"
-)
+import "testing"
 
 func TestRefreshAll(t *testing.T) {
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
+	cmdLine := &CommandLine{
+		Command:     "refreshall",
+		ProjectRoot: "../..",
+		DryRun:      true,
 	}
-	defer os.Chdir(cwd)
-	if err := os.Chdir("../.."); err != nil {
-		t.Fatal(err)
-	}
-	rootConfig, err := LoadRootConfig(".sidekick.toml")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := RefreshAll(rootConfig, []string{"-dry-run"}); err != nil {
+	if err := root(cmdLine); err != nil {
 		t.Fatal(err)
 	}
 }

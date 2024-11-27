@@ -278,5 +278,5 @@ func mergeTestConfigs(t *testing.T, root, local *Config) (*Config, error) {
 		return nil, err
 	}
 	tempFile.Close()
-	return MergeConfig(root, tempFile.Name())
+	return MergeConfigAndFile(root, tempFile.Name())
 }

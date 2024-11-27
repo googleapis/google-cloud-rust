@@ -15,7 +15,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"path"
 
@@ -26,18 +25,8 @@ import (
 
 // Reruns the generator in one directory, using the configuration parameters
 // saved in its `.sidekick.toml` file.
-func Refresh(rootConfig *Config, args []string) error {
-	fs := flag.NewFlagSet("refresh", flag.ExitOnError)
-	var (
-		dryrun = fs.Bool("dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.")
-	)
-	fs.Parse(args)
-	args = fs.Args()
-	if len(args) != 1 {
-		return fmt.Errorf("expected the target directory")
-	}
-	outDir := args[0]
-	config, err := MergeConfig(rootConfig, path.Join(outDir, ".sidekick.toml"))
+func Refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
+	config, err := MergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
 		return err
 	}
@@ -57,7 +46,7 @@ func Refresh(rootConfig *Config, args []string) error {
 
 	copts := &genclient.CodecOptions{
 		Language:    config.General.Language,
-		OutDir:      outDir,
+		OutDir:      output,
 		TemplateDir: config.General.TemplateDir,
 		Options:     config.Codec,
 	}
@@ -85,7 +74,7 @@ func Refresh(rootConfig *Config, args []string) error {
 		OutDir:      copts.OutDir,
 		TemplateDir: copts.TemplateDir,
 	}
-	if *dryrun {
+	if cmdLine.DryRun {
 		return nil
 	}
 	return genclient.Generate(request)

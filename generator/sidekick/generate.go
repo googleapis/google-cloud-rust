@@ -15,11 +15,10 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"maps"
 	"os"
 	"path"
-	"strings"
 	"time"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
@@ -28,68 +27,30 @@ import (
 
 // Generate takes some state and applies it to a template to create a client
 // library.
-func Generate(rootConfig *Config, args []string) error {
-	fs := flag.NewFlagSet("generate", flag.ExitOnError)
-	var (
-		format        = fs.String("specification-format", "", "the specification format. Protobuf or OpenAPI v3.")
-		source        = fs.String("specification-source", "", "the path to the input data")
-		serviceConfig = fs.String("service-config", "", "path to service config")
-		parserOpts    = map[string]string{}
-		language      = fs.String("language", "", "the generated language")
-		output        = fs.String("output", "generated", "the path within project-root to put generated files")
-		templateDir   = fs.String("template-dir", "templates/", "the path to the template directory")
-		codecOpts     = map[string]string{}
-	)
-
-	fs.Func("parser-option", "parser options", func(opt string) error {
-		components := strings.SplitN(opt, "=", 2)
-		if len(components) != 2 {
-			return fmt.Errorf("invalid parser option, must be in key=value format (%s)", opt)
-		}
-		parserOpts[components[0]] = components[1]
-		return nil
-	})
-	fs.Func("codec-option", "codec options", func(opt string) error {
-		components := strings.SplitN(opt, "=", 2)
-		if len(components) != 2 {
-			return fmt.Errorf("invalid codec option, must be in key=value format (%s)", opt)
-		}
-		codecOpts[components[0]] = components[1]
-		return nil
-	})
-	fs.Parse(args)
-
-	config := Config{
+func Generate(rootConfig *Config, cmdLine *CommandLine) error {
+	generation_year, _, _ := time.Now().Date()
+	local := Config{
 		General: GeneralConfig{
-			SpecificationFormat: *format,
-			SpecificationSource: *source,
-			ServiceConfig:       *serviceConfig,
-			Language:            *language,
-			TemplateDir:         *templateDir,
+			Language:            cmdLine.Language,
+			TemplateDir:         cmdLine.TemplateDir,
+			SpecificationFormat: cmdLine.SpecificationFormat,
+			SpecificationSource: cmdLine.SpecificationSource,
+			ServiceConfig:       cmdLine.ServiceConfig,
 		},
+		Source: maps.Clone(cmdLine.Source),
+		Codec:  maps.Clone(cmdLine.Codec),
 	}
-	if len(parserOpts) != 0 {
-		config.Source = parserOpts
-	}
-	if len(codecOpts) != 0 {
-		config.Codec = codecOpts
-	}
-	if _, ok := config.Codec["copyright-year"]; !ok {
-		generation_year, _, _ := time.Now().Date()
-		if config.Codec == nil {
-			config.Codec = map[string]string{}
-		}
-		config.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
-	}
-	if err := writeSidekickToml(*output, config); err != nil {
+	local.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
+
+	if err := writeSidekickToml(cmdLine.Output, &local); err != nil {
 		return err
 	}
 
 	// Load the .sidekick.toml file and refresh the code.
-	return Refresh(rootConfig, []string{*output})
+	return Refresh(rootConfig, cmdLine, cmdLine.Output)
 }
 
-func writeSidekickToml(outDir string, config Config) error {
+func writeSidekickToml(outDir string, config *Config) error {
 	if err := os.MkdirAll(outDir, 0777); err != nil {
 		return err
 	}
