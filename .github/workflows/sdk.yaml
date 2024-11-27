@@ -57,3 +57,47 @@ jobs:
       - run: cargo clippy -- --deny warnings
       - run: cargo fmt
       - run: git diff --exit-code
+  regenerate:
+    # Verifies the generated code has not been tampered with. Or maybe that the
+    # code requires no tampering.
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['1.81']
+        go-version: ['1.23']
+    steps:
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/sidekick
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - uses: actions/checkout@v4
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ matrix.rust-version }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+          cache-dependency-path: |
+            generator/go.sum
+      - name: Install protoc
+        run: |
+          set -e
+          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
+          cd /usr/local
+          sudo unzip -x /tmp/protoc.zip
+          protoc --version
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+      - name: Regenerate all the code
+        working-directory: generator
+        run: go run ./sidekick -project-root .. refreshall
+      - run: cargo fmt
+        # If there is any difference between the generated code and the
+        # committed code that is an error. All the inputs should be pinned,
+        # including the generator version and the googleapis SHA.
+      - run: git diff --exit-code
