@@ -17,7 +17,7 @@ package genclient
 import "fmt"
 
 func LicenseHeader(year string) []string {
-	full := []string{fmt.Sprintf("Copyright %s Google LLC", year)}
+	full := []string{fmt.Sprintf(" Copyright %s Google LLC", year)}
 	full = append(full, LicenseHeaderBulk()...)
 	return full
 }

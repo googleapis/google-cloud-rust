@@ -74,7 +74,7 @@ func writeSidekickToml(outDir string, config *Config) error {
 		if line == "" {
 			fmt.Fprintln(f, "#")
 		} else {
-			fmt.Fprintf(f, "# %s\n", line)
+			fmt.Fprintf(f, "#%s\n", line)
 		}
 	}
 	fmt.Fprintln(f, "")
