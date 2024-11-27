@@ -145,18 +145,26 @@ func TestPackageName(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override": "test-only-overridden",
 		},
+	}, &genclient.API{
+		Name:        "test-only-name",
+		PackageName: "google.cloud.service.v3",
 	})
-	packageNameImpl(t, "test-only-default", &genclient.CodecOptions{
+	packageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{
 		Language: "rust",
+	}, &genclient.API{
+		Name:        "test-only-name",
+		PackageName: "google.cloud.service.v3",
 	})
-
+	packageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{
+		Language: "rust",
+	}, &genclient.API{
+		Name:        "type",
+		PackageName: "",
+	})
 }
 
-func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions) {
+func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *genclient.API) {
 	t.Helper()
-	api := &genclient.API{
-		Name: "test-only-default",
-	}
 	codec, err := NewCodec(copts)
 	if err != nil {
 		t.Fatal(err)

@@ -23,6 +23,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/common"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -108,9 +109,9 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 	packageName := ""
 	if serviceConfig != nil {
 		for _, api := range serviceConfig.Apis {
-			packageName, serviceName = splitApiName(api.Name)
+			packageName, serviceName = common.SplitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !wellKnownMixin(api.Name) {
+			if !common.WellKnownMixin(api.Name) {
 				break
 			}
 		}
@@ -143,20 +144,6 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 		return nil, err
 	}
 	return api, nil
-}
-
-func wellKnownMixin(apiName string) bool {
-	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
-		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
-		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
-}
-
-func splitApiName(name string) (string, string) {
-	li := strings.LastIndex(name, ".")
-	if li == -1 {
-		return "", name
-	}
-	return name[:li], name[li+1:]
 }
 
 func makeServices(api *genclient.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {

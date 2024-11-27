@@ -671,7 +671,13 @@ func (c *Codec) PackageName(api *genclient.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
 	}
-	return api.Name
+	name := strings.TrimPrefix(api.PackageName, "google.cloud.")
+	name = strings.TrimPrefix(name, "google.")
+	name = strings.ReplaceAll(name, ".", "-")
+	if name == "" {
+		name = api.Name
+	}
+	return "gcp-sdk-" + name
 }
 
 func (c *Codec) validatePackageName(newPackage, elementName string) error {
