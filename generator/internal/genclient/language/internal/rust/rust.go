@@ -46,7 +46,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		case "generate-module":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, fmt.Errorf("cannot convert `generate-module` value (%s) to boolean: %w", definition, err)
+				return nil, fmt.Errorf("cannot convert `generate-module` value %q to boolean: %w", definition, err)
 			}
 			codec.GenerateModule = value
 			continue
@@ -55,7 +55,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		case "deserialize-with-defaults":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value (%s) to boolean: %w", definition, err)
+				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
 			}
 			codec.DeserializeWithdDefaults = value
 			continue
@@ -73,7 +73,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		for _, element := range strings.Split(definition, ",") {
 			s := strings.SplitN(element, "=", 2)
 			if len(s) != 2 {
-				return nil, fmt.Errorf("the definition for package %s should be a comma-separated list of key=value pairs, got=%q", key, definition)
+				return nil, fmt.Errorf("the definition for package %q should be a comma-separated list of key=value pairs, got=%q", key, definition)
 			}
 			switch s[0] {
 			case "package":
@@ -89,11 +89,11 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 			case "ignore":
 				value, err := strconv.ParseBool(s[1])
 				if err != nil {
-					return nil, fmt.Errorf("cannot convert `ignore` value in %s to boolean: %w", definition, err)
+					return nil, fmt.Errorf("cannot convert `ignore` value %q (part of %q) to boolean: %w", definition, s[1], err)
 				}
 				pkg.Ignore = value
 			default:
-				return nil, fmt.Errorf("unknown field (%s) in definition of rust package %s, got=%s", s[0], key, definition)
+				return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 			}
 		}
 		if !pkg.Ignore && pkg.Package == "" {
