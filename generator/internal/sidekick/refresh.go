@@ -51,7 +51,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		Options:     config.Codec,
 	}
 
-	parser, err := parser.NewParser(specFormat)
+	parser, err := parser.New(specFormat)
 	if err != nil {
 		return err
 	}
