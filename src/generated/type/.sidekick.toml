@@ -12,19 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[files]
-extend-exclude = [
-  # The test data have typos, or at least uncommon spelling. We do not care
-  # about them as they are not customer visible.
-  "generator/**/testdata/**",
-]
+[general]
+specification-source = 'google/type'
+service-config = 'google/type/type.yaml'
 
-[type.mustache]
-extend-glob = ["*.mustache"]
-
-[type.mustache.extend-words]
-ser = "ser"
-
-[type.rust.extend-words]
-# The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
-requestor = "requestor"
+[codec]
+copyright-year = '2024'
