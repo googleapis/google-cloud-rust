@@ -19,8 +19,8 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser/openapi"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser/protobuf"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser/openapi"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser/protobuf"
 )
 
 type newParser func() genclient.Parser

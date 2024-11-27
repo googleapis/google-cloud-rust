@@ -19,8 +19,8 @@ import (
 	"path"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/parser"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
 // Reruns the generator in one directory, using the configuration parameters
