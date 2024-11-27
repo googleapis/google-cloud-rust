@@ -462,7 +462,20 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-secretmanager-v1"
-version = "0.0.0"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-iam-v1",
+ "gcp-sdk-location",
+ "gcp-sdk-wkt",
+ "google-cloud-auth",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "time",
+]
 
 [[package]]
 name = "gcp-sdk-type"
