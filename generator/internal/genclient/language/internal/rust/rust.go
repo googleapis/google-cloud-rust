@@ -46,7 +46,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		case "generate-module":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("cannot convert `generate-module` value %q to boolean: %w", definition, err)
 			}
 			codec.GenerateModule = value
 			continue
@@ -55,7 +55,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		case "deserialize-with-defaults":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
 			}
 			codec.DeserializeWithdDefaults = value
 			continue
@@ -73,7 +73,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 		for _, element := range strings.Split(definition, ",") {
 			s := strings.SplitN(element, "=", 2)
 			if len(s) != 2 {
-				return nil, fmt.Errorf("the definition for package %s should be a comma-separated list of key=value pairs, got=%q", key, definition)
+				return nil, fmt.Errorf("the definition for package %q should be a comma-separated list of key=value pairs, got=%q", key, definition)
 			}
 			switch s[0] {
 			case "package":
@@ -86,11 +86,17 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 				specificationPackages = append(specificationPackages, s[1])
 			case "feature":
 				pkg.Features = append(pkg.Features, strings.Split(s[1], ",")...)
+			case "ignore":
+				value, err := strconv.ParseBool(s[1])
+				if err != nil {
+					return nil, fmt.Errorf("cannot convert `ignore` value %q (part of %q) to boolean: %w", definition, s[1], err)
+				}
+				pkg.Ignore = value
 			default:
-				return nil, fmt.Errorf("unknown field (%s) in definition of rust package %s, got=%s", s[0], key, definition)
+				return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 			}
 		}
-		if pkg.Package == "" {
+		if !pkg.Ignore && pkg.Package == "" {
 			return nil, fmt.Errorf("missing rust package name for package %s, got=%s", key, definition)
 		}
 		codec.ExtraPackages = append(codec.ExtraPackages, pkg)
@@ -134,6 +140,10 @@ type Codec struct {
 type RustPackage struct {
 	// The name we import this package under.
 	Name string
+	// If true, ignore the package. We anticipate that the top-level
+	// `.sidekick.toml` file will have a number of pre-configured dependencies,
+	// but these will be ignored by a handful of packages.
+	Ignore bool
 	// What the Rust package calls itself.
 	Package string
 	// The path to file the package locally, unused if empty.
@@ -630,6 +640,9 @@ func (c *Codec) projectRoot() string {
 func (c *Codec) RequiredPackages() []string {
 	lines := []string{}
 	for _, pkg := range c.ExtraPackages {
+		if pkg.Ignore {
+			continue
+		}
 		components := []string{}
 		if pkg.Version != "" {
 			components = append(components, fmt.Sprintf("version = %q", pkg.Version))

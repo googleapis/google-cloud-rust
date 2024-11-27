@@ -97,6 +97,7 @@ func TestRequiredPackages(t *testing.T) {
 		Options: map[string]string{
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 			"package:gax":   "package=gax,path=src/gax,version=1.2.3",
+			"package:auth":  "ignore=true",
 		},
 	}
 	codec, err := NewCodec(copts)
