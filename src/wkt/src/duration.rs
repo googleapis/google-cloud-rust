@@ -125,7 +125,10 @@ impl std::convert::TryFrom<std::time::Duration> for Duration {
         if value.subsec_nanos() > (i32::MAX as u32) {
             return Err("sub-second nanos are out of range");
         }
-        Ok(Self { seconds: value.as_secs() as i64, nanos: value.subsec_nanos() as i32 })
+        Ok(Self {
+            seconds: value.as_secs() as i64,
+            nanos: value.subsec_nanos() as i32,
+        })
     }
 }
 
