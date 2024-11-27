@@ -23,8 +23,8 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
-// Reruns the generator in one directory, using the configuration parameters
-// saved in its `.sidekick.toml` file.
+// refresh reruns the generator in one directory, using the configuration
+// parameters saved in its `.sidekick.toml` file.
 func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	config, err := mergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {

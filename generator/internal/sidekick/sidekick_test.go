@@ -26,8 +26,8 @@ import (
 )
 
 const (
-	// projectRoot is the root of the google-cloud-rust. The golden files for these
-	// tests generate code in .,./../auth and ../../src/gax
+	// projectRoot is the root of the google-cloud-rust. The golden files for
+	// these tests generate code in .,./../auth and ../../src/gax
 	projectRoot = "../../.."
 	testdataDir = "generator/testdata"
 )
