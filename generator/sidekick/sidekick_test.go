@@ -32,12 +32,10 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestRustFromOpenAPI(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/rust/openapi/golden"
-	)
+const projectRoot = "../.."
 
+func TestRustFromOpenAPI(t *testing.T) {
+	const outDir = "generator/testdata/rust/openapi/golden"
 	cmdLine := &sidekick.CommandLine{
 		Command:             "generate",
 		ProjectRoot:         projectRoot,
@@ -69,10 +67,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 }
 
 func TestRustFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/rust/gclient/golden"
-	)
+	const outDir = "generator/testdata/rust/gclient/golden"
 
 	type TestConfig struct {
 		Source        string
@@ -154,10 +149,6 @@ func TestRustFromProtobuf(t *testing.T) {
 }
 
 func TestRustModuleFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-	)
-
 	type TestConfig struct {
 		Source        string
 		ServiceConfig string
@@ -210,11 +201,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 }
 
 func TestGoFromProtobuf(t *testing.T) {
-	const (
-		projectRoot = "../.."
-		outDir      = "generator/testdata/go/gclient/golden"
-	)
-
+	const outDir = "generator/testdata/go/gclient/golden"
 	type TestConfig struct {
 		Source       string
 		Name         string
