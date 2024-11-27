@@ -13,15 +13,11 @@
 # limitations under the License.
 
 [general]
-language             = 'rust'
-template-dir         = 'generator/templates'
-specification-format = 'protobuf'
-
-[source]
-googleapis-root   = 'https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz'
-googleapis-sha256 = 'eb853d49313f20a096607fea87dfc10bd6a1b917ad17ad5db8a205b457a940e1'
+specification-source = 'google/rpc/error_details.proto'
+service-config       = 'google/rpc/rpc_publish.yaml'
 
 [codec]
-'package:gax'               = 'package=gcp-sdk-gax,path=src/gax'
-'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'
-'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'
+copyright-year            = '2024'
+deserialize-with-defaults = 'false'
+generate-module           = 'true'
+module-path               = 'error::rpc::generated'
