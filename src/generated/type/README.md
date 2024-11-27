@@ -1,4 +1,3 @@
-# Google Cloud SDK for Rust
+# Google Cloud SDK for Rust - Common Types
 
-The SDK for Rust is under active development. We are creating placeholder crates
-so we can reference them in our code and tooling.
+Defines common types for Google APIs.
