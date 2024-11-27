@@ -17,6 +17,7 @@ package main
 import (
 	"errors"
 	"flag"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -32,10 +33,15 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-const projectRoot = "../.."
+const (
+	// projectRoot is the root of the google-cloud-rust. The golden files for these
+	// tests generate code in .,./../auth and ../../src/gax
+	projectRoot = "../.."
+	testdataDir = "generator/testdata"
+)
 
 func TestRustFromOpenAPI(t *testing.T) {
-	const outDir = "generator/testdata/rust/openapi/golden"
+	var outDir = fmt.Sprintf("%s/rust/openapi/golden", testdataDir)
 	cmdLine := &sidekick.CommandLine{
 		Command:             "generate",
 		ProjectRoot:         projectRoot,
@@ -60,7 +66,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 }
 
 func TestRustFromProtobuf(t *testing.T) {
-	const outDir = "generator/testdata/rust/gclient/golden"
+	var outDir = fmt.Sprintf("%s/rust/gclient/golden", testdataDir)
 
 	type TestConfig struct {
 		Source        string
@@ -188,7 +194,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 }
 
 func TestGoFromProtobuf(t *testing.T) {
-	const outDir = "generator/testdata/go/gclient/golden"
+	var outDir = fmt.Sprintf("%s/go/gclient/golden", testdataDir)
 	type TestConfig struct {
 		Source       string
 		Name         string
@@ -258,6 +264,7 @@ func runCommand(t *testing.T, dir, c string, arg ...string) {
 	t.Helper()
 	cmd := exec.Command(c, arg...)
 	cmd.Dir = dir
+	t.Logf("cd %s && %s", cmd.Dir, cmd.String())
 	if output, err := cmd.CombinedOutput(); err != nil {
 		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 			t.Fatalf("%v: %v\n%s", cmd, err, ee.Stderr)
