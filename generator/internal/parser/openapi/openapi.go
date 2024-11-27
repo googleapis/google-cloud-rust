@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language/common"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -109,9 +109,9 @@ func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentMod
 	packageName := ""
 	if serviceConfig != nil {
 		for _, api := range serviceConfig.Apis {
-			packageName, serviceName = common.SplitApiName(api.Name)
+			packageName, serviceName = language.SplitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !common.WellKnownMixin(api.Name) {
+			if !language.WellKnownMixin(api.Name) {
 				break
 			}
 		}

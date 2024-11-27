@@ -27,7 +27,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language/common"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -238,9 +238,9 @@ func MakeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRe
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
-			packageName, _ = common.SplitApiName(api.Name)
+			packageName, _ = language.SplitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !common.WellKnownMixin(api.Name) {
+			if !language.WellKnownMixin(api.Name) {
 				break
 			}
 		}
