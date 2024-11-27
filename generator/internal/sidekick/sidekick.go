@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+// Package sidekick provides functionality for automating code generation.
+package sidekick
 
 import (
 	"fmt"
@@ -20,19 +21,7 @@ import (
 	"os"
 )
 
-func main() {
-	cmdLine, err := ParseArgs()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
-	}
-	if err := root(cmdLine); err != nil {
-		fmt.Fprintf(os.Stderr, "%v\n", err)
-		os.Exit(1)
-	}
-}
-
-func root(cmdLine *CommandLine) error {
+func Root(cmdLine *CommandLine) error {
 	if cmdLine.ProjectRoot != "" {
 		cwd, err := os.Getwd()
 		if err != nil {

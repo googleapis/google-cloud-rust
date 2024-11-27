@@ -14,15 +14,21 @@
 
 package main
 
-import "testing"
+import (
+	"fmt"
+	"os"
 
-func TestRefreshAll(t *testing.T) {
-	cmdLine := &CommandLine{
-		Command:     "refreshall",
-		ProjectRoot: "../..",
-		DryRun:      true,
+	"github.com/googleapis/google-cloud-rust/generator/internal/sidekick"
+)
+
+func main() {
+	cmdLine, err := sidekick.ParseArgs()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
 	}
-	if err := root(cmdLine); err != nil {
-		t.Fatal(err)
+	if err := sidekick.Root(cmdLine); err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
 	}
 }

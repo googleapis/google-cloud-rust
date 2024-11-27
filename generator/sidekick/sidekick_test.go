@@ -23,6 +23,8 @@ import (
 	"sort"
 	"strings"
 	"testing"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/sidekick"
 )
 
 func TestMain(m *testing.M) {
@@ -36,7 +38,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		outDir      = "generator/testdata/rust/openapi/golden"
 	)
 
-	cmdLine := &CommandLine{
+	cmdLine := &sidekick.CommandLine{
 		Command:             "generate",
 		ProjectRoot:         projectRoot,
 		SpecificationFormat: "openapi",
@@ -53,7 +55,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
 		},
 	}
-	if err := root(cmdLine); err != nil {
+	if err := sidekick.Root(cmdLine); err != nil {
 		t.Fatal(err)
 	}
 
@@ -109,7 +111,7 @@ func TestRustFromProtobuf(t *testing.T) {
 	}
 
 	for _, config := range configs {
-		cmdLine := &CommandLine{
+		cmdLine := &sidekick.CommandLine{
 			Command:             "generate",
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
@@ -132,7 +134,7 @@ func TestRustFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := sidekick.Root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
@@ -181,7 +183,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 
 	for _, config := range configs {
-		cmdLine := &CommandLine{
+		cmdLine := &sidekick.CommandLine{
 			Command:             "generate",
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
@@ -201,7 +203,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := sidekick.Root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -243,7 +245,7 @@ func TestGoFromProtobuf(t *testing.T) {
 	}
 
 	for _, config := range configs {
-		cmdLine := &CommandLine{
+		cmdLine := &sidekick.CommandLine{
 			Command:             "generate",
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
@@ -263,7 +265,7 @@ func TestGoFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := root(cmdLine); err != nil {
+		if err := sidekick.Root(cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
