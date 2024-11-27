@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rust
+package language
 
 import (
 	"fmt"
@@ -24,14 +24,14 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
-func testCodec() *Codec {
+func testCodec() *rustCodec {
 	wkt := &RustPackage{
 		Name:    "gax_wkt",
 		Package: "types",
 		Path:    "../../types",
 	}
 
-	return &Codec{
+	return &rustCodec{
 		ModulePath:    "model",
 		ExtraPackages: []*RustPackage{wkt},
 		PackageMapping: map[string]*RustPackage{
@@ -51,7 +51,7 @@ func TestParseOptions(t *testing.T) {
 			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := newRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func TestParseOptions(t *testing.T) {
 		Package: "types",
 		Path:    "src/wkt",
 	}
-	want := &Codec{
+	want := &rustCodec{
 		PackageNameOverride:      "test-only",
 		GenerationYear:           "2035",
 		ModulePath:               "alternative::generated",
@@ -81,7 +81,7 @@ func TestParseOptions(t *testing.T) {
 			"test-only":       gp,
 		},
 	}
-	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(Codec{}, "ExtraPackages", "PackageMapping")); diff != "" {
+	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(rustCodec{}, "ExtraPackages", "PackageMapping")); diff != "" {
 		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
 	}
 	if want.PackageNameOverride != codec.PackageNameOverride {
@@ -100,7 +100,7 @@ func TestRequiredPackages(t *testing.T) {
 			"package:auth":  "ignore=true",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := newRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -125,7 +125,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := newRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -165,7 +165,7 @@ func TestPackageName(t *testing.T) {
 
 func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *genclient.API) {
 	t.Helper()
-	codec, err := NewCodec(copts)
+	codec, err := newRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -176,7 +176,7 @@ func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, a
 
 }
 
-func checkPackages(t *testing.T, got *Codec, want *Codec) {
+func checkPackages(t *testing.T, got *rustCodec, want *rustCodec) {
 	t.Helper()
 	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); diff != "" {
@@ -189,7 +189,7 @@ func TestValidate(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &rustCodec{}
 	if err := c.Validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
 	}
@@ -203,7 +203,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &rustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -212,7 +212,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c = &Codec{}
+	c = &rustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -221,7 +221,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &Codec{}
+	c = &rustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -229,7 +229,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 
 func TestWellKnownTypesExist(t *testing.T) {
 	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
-	c := &Codec{}
+	c := &rustCodec{}
 	c.LoadWellKnownTypes(api.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := api.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
@@ -849,7 +849,7 @@ type CaseConvertTest struct {
 }
 
 func TestToSnake(t *testing.T) {
-	c := &Codec{}
+	c := &rustCodec{}
 	var snakeConvertTests = []CaseConvertTest{
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
@@ -869,7 +869,7 @@ func TestToSnake(t *testing.T) {
 }
 
 func TestToPascal(t *testing.T) {
-	c := &Codec{}
+	c := &rustCodec{}
 	var pascalConvertTests = []CaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -889,7 +889,7 @@ func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
 The next line has some extra trailing whitespace:
-    
+
 We want to respect whitespace at the beginning, because it important in Markdown:
 - A thing
   - A nested thing
@@ -924,7 +924,7 @@ Maybe they wanted to show some JSON:
 		"/// ```",
 	}
 
-	c := &Codec{}
+	c := &rustCodec{}
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
