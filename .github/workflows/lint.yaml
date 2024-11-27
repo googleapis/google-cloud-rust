@@ -64,7 +64,7 @@ jobs:
       - name: Format TOML files
         run: |
           cargo install taplo-cli --version 0.9.3
-          git ls-files -z -- '*.toml' ':!:**/testdata/**' | \
+          git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:src/generated/**' | \
             xargs -0 taplo fmt
       - name: Check for changes
         run: git diff --exit-code
