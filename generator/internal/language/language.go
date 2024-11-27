@@ -18,8 +18,8 @@ import (
 	"fmt"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/golang"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/internal/rust"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language/internal/golang"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language/internal/rust"
 )
 
 type createCodec func(*genclient.CodecOptions) (genclient.LanguageCodec, error)

@@ -27,7 +27,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/common"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language/common"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"

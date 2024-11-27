@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient/language/common"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language/common"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
