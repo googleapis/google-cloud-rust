@@ -41,13 +41,6 @@ func NewParser() *Parser {
 	return &Parser{}
 }
 
-func (t *Parser) OptionDescriptions() map[string]string {
-	return map[string]string{
-		"googleapis-root": "The root directory for the googleapis common specifications. Ignored if empty.",
-		"test-root":       "The root directory for the proto specifications. Ignored if empty.",
-	}
-}
-
 func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	request, err := newCodeGeneratorRequest(opts)
 	if err != nil {
