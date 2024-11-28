@@ -31,14 +31,7 @@ import (
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
-type Parser struct {
-}
-
-func NewParser() *Parser {
-	return &Parser{}
-}
-
-func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
+func Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	contents, err := os.ReadFile(opts.Source)
 	if err != nil {
 		return nil, err
