@@ -41,10 +41,6 @@ func NewParser() *Parser {
 	return &Parser{}
 }
 
-func (t *Parser) Help() string {
-	return "Parse multiple protobuf files into an API specification."
-}
-
 func (t *Parser) OptionDescriptions() map[string]string {
 	return map[string]string{
 		"googleapis-root": "The root directory for the googleapis common specifications. Ignored if empty.",

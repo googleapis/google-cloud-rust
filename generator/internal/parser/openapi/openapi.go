@@ -38,10 +38,6 @@ func NewParser() *Parser {
 	return &Parser{}
 }
 
-func (t *Parser) Help() string {
-	return "Parse a single OpenAPI v3 JSON file into an API specification."
-}
-
 func (t *Parser) OptionDescriptions() map[string]string {
 	return map[string]string{
 		// At the moment, this parser has no options, but we may consider

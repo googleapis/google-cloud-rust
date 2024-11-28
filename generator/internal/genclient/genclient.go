@@ -135,8 +135,6 @@ type LanguageCodec interface {
 // an `genclient.API` object. Basically an AST of the API. Other layers convert
 // this into generated code.
 type Parser interface {
-	// A help message describing the parser.
-	Help() string
 	// Returns a map of known options and their description.
 	OptionDescriptions() map[string]string
 	// Parses the API specification and returns the API as a syntax tree.
