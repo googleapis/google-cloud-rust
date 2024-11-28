@@ -34,14 +34,7 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-type Parser struct {
-}
-
-func NewParser() *Parser {
-	return &Parser{}
-}
-
-func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
+func ParseProtobuf(opts genclient.ParserOptions) (*genclient.API, error) {
 	request, err := NewCodeGeneratorRequest(opts)
 	if err != nil {
 		return nil, err

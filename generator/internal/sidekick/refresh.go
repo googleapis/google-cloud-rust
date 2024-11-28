@@ -20,7 +20,8 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
-	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser/openapi"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser/protobuf"
 )
 
 // refresh reruns the generator in one directory, using the configuration
@@ -51,14 +52,14 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		Options:     config.Codec,
 	}
 
-	parser, err := parser.New(specFormat)
-	if err != nil {
-		return err
-	}
-
-	api, err := parser.Parse(*popts)
-	if err != nil {
-		return err
+	var api *genclient.API
+	switch specFormat {
+	case "openapi":
+		api, err = openapi.ParseOpenAPI(*popts)
+	case "protobuf":
+		api, err = protobuf.ParseProtobuf(*popts)
+	default:
+		return fmt.Errorf("unknown parser %q", specFormat)
 	}
 
 	codec, err := language.NewCodec(copts)
