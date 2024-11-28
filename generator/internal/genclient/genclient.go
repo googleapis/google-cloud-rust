@@ -128,17 +128,6 @@ type LanguageCodec interface {
 	Imports() []string
 }
 
-// Parser converts an textual specification to a `genclient.API` object.
-//
-// The generator supports both Protobuf and OpenAPI v3 specifications. The
-// parser layer converts a textual specification of the model into the
-// an `genclient.API` object. Basically an AST of the API. Other layers convert
-// this into generated code.
-type Parser interface {
-	// Parses the API specification and returns the API as a syntax tree.
-	Parse(config ParserOptions) (*API, error)
-}
-
 type ParserOptions struct {
 	// The location where the specification can be found.
 	Source string
