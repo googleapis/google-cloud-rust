@@ -38,14 +38,6 @@ func NewParser() *Parser {
 	return &Parser{}
 }
 
-func (t *Parser) OptionDescriptions() map[string]string {
-	return map[string]string{
-		// At the moment, this parser has no options, but we may consider
-		//   - package-name: inject a name for all APIs
-		//   - lro-mapping: treat the "Foo" message as "google.longrunning.Operation"
-	}
-}
-
 func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	contents, err := os.ReadFile(opts.Source)
 	if err != nil {
