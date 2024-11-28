@@ -1018,7 +1018,7 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 			"test-root":       "testdata",
 		},
 	}
-	request, err := NewCodeGeneratorRequest(popts)
+	request, err := newCodeGeneratorRequest(popts)
 	if err != nil {
 		t.Fatal(err)
 	}

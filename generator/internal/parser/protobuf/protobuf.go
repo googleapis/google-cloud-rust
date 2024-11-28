@@ -53,7 +53,7 @@ func (t *Parser) OptionDescriptions() map[string]string {
 }
 
 func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
-	request, err := NewCodeGeneratorRequest(opts)
+	request, err := newCodeGeneratorRequest(opts)
 	if err != nil {
 		return nil, err
 	}
@@ -68,13 +68,18 @@ func (t *Parser) Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 	return makeAPI(serviceConfig, request), nil
 }
 
-func NewCodeGeneratorRequest(opts genclient.ParserOptions) (*pluginpb.CodeGeneratorRequest, error) {
+func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
 	// Create a temporary files to store `protoc`'s output
 	tempFile, err := os.CreateTemp("", "protoc-out-")
 	if err != nil {
 		return nil, err
 	}
-	defer os.Remove(tempFile.Name())
+	defer func() {
+		rerr := os.Remove(tempFile.Name())
+		if err == nil {
+			err = rerr
+		}
+	}()
 
 	files, err := determineInputFiles(opts)
 	if err != nil {
