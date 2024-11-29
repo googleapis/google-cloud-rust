@@ -76,7 +76,7 @@ func TestGo_MessageNames(t *testing.T) {
 		ID:   "..Replication.Automatic",
 	}
 
-	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
 	c := &GoCodec{}
 	if got := c.MessageName(message, api.State); got != "Replication" {
@@ -113,7 +113,7 @@ func TestGo_EnumNames(t *testing.T) {
 		ID:   "..SecretVersion.State",
 	}
 
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
 	c := &GoCodec{}
 	if got := c.EnumName(nested, api.State); got != "SecretVersion_State" {
@@ -170,7 +170,7 @@ Maybe they wanted to show some JSON:
 }
 
 func TestGo_Validate(t *testing.T) {
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -184,7 +184,7 @@ func TestGo_Validate(t *testing.T) {
 }
 
 func TestGo_ValidateMessageMismatch(t *testing.T) {
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -193,7 +193,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = genclient.NewTestAPI(
+	api = newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -202,7 +202,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = genclient.NewTestAPI(
+	api = newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})

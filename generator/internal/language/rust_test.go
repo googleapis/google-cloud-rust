@@ -177,7 +177,7 @@ func checkRustPackages(t *testing.T, got *RustCodec, want *RustCodec) {
 }
 
 func TestRust_Validate(t *testing.T) {
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -191,7 +191,7 @@ func TestRust_Validate(t *testing.T) {
 }
 
 func TestRust_ValidateMessageMismatch(t *testing.T) {
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -200,7 +200,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = genclient.NewTestAPI(
+	api = newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
@@ -209,7 +209,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = genclient.NewTestAPI(
+	api = newTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
@@ -220,7 +220,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 }
 
 func TestWellKnownTypesExist(t *testing.T) {
-	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
 	c := &RustCodec{}
 	c.LoadWellKnownTypes(api.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
@@ -231,7 +231,7 @@ func TestWellKnownTypesExist(t *testing.T) {
 }
 
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
-	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
@@ -252,7 +252,7 @@ func TestRust_MethodInOut(t *testing.T) {
 		ID:     "..Target.Nested",
 		Parent: message,
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
@@ -341,7 +341,7 @@ func TestRust_FieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -475,7 +475,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{target, map1, map2, map3, map4, message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{target, map1, map2, map3, map4, message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      ``,
@@ -533,7 +533,7 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":  `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
@@ -578,7 +578,7 @@ func TestRust_FieldLossyName(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
@@ -626,7 +626,7 @@ func TestRust_SyntheticField(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedAttributes := map[string]string{
 		"updateMask":  ``,
@@ -704,7 +704,7 @@ func TestRust_FieldType(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
 
 	expectedTypes := map[string]string{
 		"f_int32":              "i32",
@@ -770,7 +770,7 @@ func TestRust_QueryParams(t *testing.T) {
 			},
 		},
 	}
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{options, request},
 		[]*genclient.Enum{},
 		[]*genclient.Service{
@@ -814,7 +814,7 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		ID:     "..TestRequest",
 		Fields: []*genclient.Field{optionsField, anotherField},
 	}
-	api := genclient.NewTestAPI(
+	api := newTestAPI(
 		[]*genclient.Message{options, request},
 		[]*genclient.Enum{},
 		[]*genclient.Service{})
@@ -968,7 +968,7 @@ func TestRust_MessageNames(t *testing.T) {
 		Parent: message,
 	}
 
-	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
 	c := createRustCodec()
 	if got := c.MessageName(message, api.State); got != "Replication" {
@@ -1006,7 +1006,7 @@ func TestRust_EnumNames(t *testing.T) {
 		Parent: message,
 	}
 
-	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
+	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
 	c := createRustCodec()
 	if got := c.EnumName(nested, api.State); got != "State" {
