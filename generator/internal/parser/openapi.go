@@ -89,9 +89,9 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	packageName := ""
 	if serviceConfig != nil {
 		for _, api := range serviceConfig.Apis {
-			packageName, serviceName = genclient.SplitApiName(api.Name)
+			packageName, serviceName = splitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !genclient.WellKnownMixin(api.Name) {
+			if !wellKnownMixin(api.Name) {
 				break
 			}
 		}

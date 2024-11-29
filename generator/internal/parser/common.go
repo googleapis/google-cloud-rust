@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package genclient
+package parser
 
 import "strings"
 
-func SplitApiName(name string) (string, string) {
+func splitApiName(name string) (string, string) {
 	li := strings.LastIndex(name, ".")
 	if li == -1 {
 		return "", name
@@ -24,7 +24,7 @@ func SplitApiName(name string) (string, string) {
 	return name[:li], name[li+1:]
 }
 
-func WellKnownMixin(apiName string) bool {
+func wellKnownMixin(apiName string) bool {
 	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
 		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
 		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
