@@ -23,7 +23,6 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -31,7 +30,7 @@ import (
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
-func ParseOpenAPI(opts genclient.ParserOptions) (*api.API, error) {
+func ParseOpenAPI(opts ParserOptions) (*api.API, error) {
 	contents, err := os.ReadFile(opts.Source)
 	if err != nil {
 		return nil, err
@@ -42,7 +41,7 @@ func ParseOpenAPI(opts genclient.ParserOptions) (*api.API, error) {
 	}
 	var serviceConfig *serviceconfig.Service
 	if opts.ServiceConfig != "" {
-		cfg, err := genclient.ReadServiceConfig(genclient.FindServiceConfigPath(opts))
+		cfg, err := readServiceConfig(findServiceConfigPath(opts))
 		if err != nil {
 			return nil, err
 		}

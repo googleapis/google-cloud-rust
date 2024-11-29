@@ -25,7 +25,6 @@ import (
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -34,14 +33,14 @@ import (
 
 // ParserProtobuf reads Protobuf specifications and converts them into
 // the `api.API` model.
-func ParseProtobuf(opts genclient.ParserOptions) (*api.API, error) {
+func ParseProtobuf(opts ParserOptions) (*api.API, error) {
 	request, err := newCodeGeneratorRequest(opts)
 	if err != nil {
 		return nil, err
 	}
 	var serviceConfig *serviceconfig.Service
 	if opts.ServiceConfig != "" {
-		cfg, err := genclient.ReadServiceConfig(genclient.FindServiceConfigPath(opts))
+		cfg, err := readServiceConfig(findServiceConfigPath(opts))
 		if err != nil {
 			return nil, err
 		}
@@ -50,7 +49,7 @@ func ParseProtobuf(opts genclient.ParserOptions) (*api.API, error) {
 	return makeAPIForProtobuf(serviceConfig, request), nil
 }
 
-func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
+func newCodeGeneratorRequest(opts ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
 	// Create a temporary files to store `protoc`'s output
 	tempFile, err := os.CreateTemp("", "protoc-out-")
 	if err != nil {
@@ -99,7 +98,7 @@ func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGene
 	return request, nil
 }
 
-func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]byte, error) {
+func protoc(tempFile string, files []string, opts ParserOptions) ([]byte, error) {
 	args := []string{
 		"--include_imports",
 		"--include_source_info",
@@ -126,7 +125,7 @@ func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]by
 	return os.ReadFile(tempFile)
 }
 
-func determineInputFiles(config genclient.ParserOptions) ([]string, error) {
+func determineInputFiles(config ParserOptions) ([]string, error) {
 	// `config.Source` is relative to the `googleapis-root` (or `test-root`) if
 	// that is set. When it is a single file, this is easy, just return the
 	// filename and `protoc` will find it.

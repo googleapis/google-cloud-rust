@@ -22,7 +22,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
 func createRustCodec() *RustCodec {
@@ -42,7 +41,7 @@ func createRustCodec() *RustCodec {
 }
 
 func TestRust_ParseOptions(t *testing.T) {
-	copts := &genclient.CodecOptions{
+	copts := &CodecOptions{
 		Options: map[string]string{
 			"package-name-override": "test-only",
 			"copyright-year":        "2035",
@@ -91,7 +90,7 @@ func TestRust_ParseOptions(t *testing.T) {
 }
 
 func TestRust_RequiredPackages(t *testing.T) {
-	copts := &genclient.CodecOptions{
+	copts := &CodecOptions{
 		OutDir: "src/generated/newlib",
 		Options: map[string]string{
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
@@ -117,7 +116,7 @@ func TestRust_RequiredPackages(t *testing.T) {
 func TestRust_RequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
-	copts := &genclient.CodecOptions{
+	copts := &CodecOptions{
 		OutDir: "",
 		Options: map[string]string{
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
@@ -138,7 +137,7 @@ func TestRust_RequiredPackagesLocal(t *testing.T) {
 }
 
 func TestRust_PackageName(t *testing.T) {
-	rustPackageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
+	rustPackageNameImpl(t, "test-only-overridden", &CodecOptions{
 		Options: map[string]string{
 			"package-name-override": "test-only-overridden",
 		},
@@ -146,17 +145,17 @@ func TestRust_PackageName(t *testing.T) {
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &api.API{
+	rustPackageNameImpl(t, "gcp-sdk-service-v3", &CodecOptions{}, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &api.API{
+	rustPackageNameImpl(t, "gcp-sdk-type", &CodecOptions{}, &api.API{
 		Name:        "type",
 		PackageName: "",
 	})
 }
 
-func rustPackageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *api.API) {
+func rustPackageNameImpl(t *testing.T, want string, copts *CodecOptions, api *api.API) {
 	t.Helper()
 	codec, err := NewRustCodec(copts)
 	if err != nil {

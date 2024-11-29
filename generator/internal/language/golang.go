@@ -22,11 +22,10 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
 )
 
-func NewGoCodec(copts *genclient.CodecOptions) (*GoCodec, error) {
+func NewGoCodec(copts *CodecOptions) (*GoCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &GoCodec{
 		GenerationYear: fmt.Sprintf("%04d", year),

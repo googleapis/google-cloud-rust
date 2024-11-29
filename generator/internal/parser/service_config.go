@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package genclient
+package parser
 
 import (
 	"fmt"
@@ -24,7 +24,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
-func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error) {
+func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error) {
 	y, err := os.ReadFile(serviceConfigPath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading service config [%s]: %w", serviceConfigPath, err)
@@ -53,7 +53,7 @@ func ReadServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 // The service config files are specified as relative to the `googleapis-root`
 // path (or `test-root` when set). This finds the right path given a
 // configuration
-func FindServiceConfigPath(config ParserOptions) string {
+func findServiceConfigPath(config ParserOptions) string {
 	for _, opt := range []string{"test-root", "googleapis-root"} {
 		dir, ok := config.Options[opt]
 		if !ok {
