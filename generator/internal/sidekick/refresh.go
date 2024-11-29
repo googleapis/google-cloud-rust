@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
@@ -38,18 +38,18 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	}
 
 	specFormat := config.General.SpecificationFormat
-	popts := &genclient.ParserOptions{
+	popts := &parser.ParserOptions{
 		Source:        config.General.SpecificationSource,
 		ServiceConfig: config.General.ServiceConfig,
 		Options:       config.Source,
 	}
 
-	var api *genclient.API
+	var a *api.API
 	switch specFormat {
 	case "openapi":
-		api, err = parser.ParseOpenAPI(*popts)
+		a, err = parser.ParseOpenAPI(*popts)
 	case "protobuf":
-		api, err = parser.ParseProtobuf(*popts)
+		a, err = parser.ParseProtobuf(*popts)
 	default:
 		return fmt.Errorf("unknown parser %q", specFormat)
 	}
@@ -58,8 +58,8 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	}
 
 	var (
-		codec genclient.LanguageCodec
-		copts = &genclient.CodecOptions{
+		codec api.LanguageCodec
+		copts = &language.CodecOptions{
 			OutDir:  output,
 			Options: config.Codec,
 		}
@@ -75,12 +75,12 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if err != nil {
 		return err
 	}
-	if err := codec.Validate(api); err != nil {
+	if err := codec.Validate(a); err != nil {
 		return err
 	}
 
-	request := &genclient.GenerateRequest{
-		API:         api,
+	request := &generateClientRequest{
+		API:         a,
 		Codec:       codec,
 		OutDir:      output,
 		TemplateDir: config.General.TemplateDir,
@@ -88,5 +88,5 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if cmdLine.DryRun {
 		return nil
 	}
-	return genclient.Generate(request)
+	return generateClient(request)
 }

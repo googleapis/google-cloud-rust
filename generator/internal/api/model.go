@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package genclient
+// Package api provides an internal representation of a Google API.
+package api
 
 import (
 	"regexp"

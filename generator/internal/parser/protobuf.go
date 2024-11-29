@@ -24,7 +24,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -32,15 +32,15 @@ import (
 )
 
 // ParserProtobuf reads Protobuf specifications and converts them into
-// the `genclient.API` model.
-func ParseProtobuf(opts genclient.ParserOptions) (*genclient.API, error) {
+// the `api.API` model.
+func ParseProtobuf(opts ParserOptions) (*api.API, error) {
 	request, err := newCodeGeneratorRequest(opts)
 	if err != nil {
 		return nil, err
 	}
 	var serviceConfig *serviceconfig.Service
 	if opts.ServiceConfig != "" {
-		cfg, err := genclient.ReadServiceConfig(genclient.FindServiceConfigPath(opts))
+		cfg, err := readServiceConfig(findServiceConfigPath(opts))
 		if err != nil {
 			return nil, err
 		}
@@ -49,7 +49,7 @@ func ParseProtobuf(opts genclient.ParserOptions) (*genclient.API, error) {
 	return makeAPIForProtobuf(serviceConfig, request), nil
 }
 
-func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
+func newCodeGeneratorRequest(opts ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
 	// Create a temporary files to store `protoc`'s output
 	tempFile, err := os.CreateTemp("", "protoc-out-")
 	if err != nil {
@@ -98,7 +98,7 @@ func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGene
 	return request, nil
 }
 
-func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]byte, error) {
+func protoc(tempFile string, files []string, opts ParserOptions) ([]byte, error) {
 	args := []string{
 		"--include_imports",
 		"--include_source_info",
@@ -125,7 +125,7 @@ func protoc(tempFile string, files []string, opts genclient.ParserOptions) ([]by
 	return os.ReadFile(tempFile)
 }
 
-func determineInputFiles(config genclient.ParserOptions) ([]string, error) {
+func determineInputFiles(config ParserOptions) ([]string, error) {
 	// `config.Source` is relative to the `googleapis-root` (or `test-root`) if
 	// that is set. When it is a single file, this is easy, just return the
 	// filename and `protoc` will find it.
@@ -206,31 +206,33 @@ const (
 	enumDescriptorValue = 2
 )
 
-func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
-	var mixinFileDesc []*descriptorpb.FileDescriptorProto
-	var enabledMixinMethods mixinMethods = make(map[string]bool)
-	state := &genclient.APIState{
-		ServiceByID: make(map[string]*genclient.Service),
-		MethodByID:  make(map[string]*genclient.Method),
-		MessageByID: make(map[string]*genclient.Message),
-		EnumByID:    make(map[string]*genclient.Enum),
+func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *api.API {
+	var (
+		mixinFileDesc       []*descriptorpb.FileDescriptorProto
+		enabledMixinMethods mixinMethods = make(map[string]bool)
+	)
+	state := &api.APIState{
+		ServiceByID: make(map[string]*api.Service),
+		MethodByID:  make(map[string]*api.Method),
+		MessageByID: make(map[string]*api.Message),
+		EnumByID:    make(map[string]*api.Enum),
 	}
-	api := &genclient.API{
+	a := &api.API{
 		State: state,
 	}
 	if serviceConfig != nil {
-		api.Title = serviceConfig.Title
-		api.Description = serviceConfig.Documentation.Summary
+		a.Title = serviceConfig.Title
+		a.Description = serviceConfig.Documentation.Summary
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
-			packageName, _ = genclient.SplitApiName(api.Name)
+			packageName, _ = splitApiName(api.Name)
 			// Keep searching after well-known mixin services.
-			if !genclient.WellKnownMixin(api.Name) {
+			if !wellKnownMixin(api.Name) {
 				break
 			}
 		}
-		api.PackageName = packageName
+		a.PackageName = packageName
 	}
 
 	// First we need to add all the message and enums types to the
@@ -253,14 +255,14 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	// Then we need to add the messages, enums and services to the list of
 	// elements to be generated.
 	for _, f := range req.GetSourceFileDescriptors() {
-		var fileServices []*genclient.Service
+		var fileServices []*api.Service
 		fFQN := "." + f.GetPackage()
 
 		// Messages
 		for _, m := range f.MessageType {
 			mFQN := fFQN + "." + m.GetName()
 			if msg, ok := state.MessageByID[mFQN]; ok {
-				api.Messages = append(api.Messages, msg)
+				a.Messages = append(a.Messages, msg)
 			} else {
 				slog.Warn("missing message in symbol table", "message", mFQN)
 			}
@@ -270,7 +272,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		for _, e := range f.EnumType {
 			eFQN := fFQN + "." + e.GetName()
 			if e, ok := state.EnumByID[eFQN]; ok {
-				api.Enums = append(api.Enums, e)
+				a.Enums = append(a.Enums, e)
 			} else {
 				slog.Warn("missing enum in symbol table", "message", eFQN)
 			}
@@ -312,12 +314,12 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 				slog.Warn("file dropped documentation", "loc", p, "docs", loc.GetLeadingComments())
 			}
 		}
-		api.Services = append(api.Services, fileServices...)
+		a.Services = append(a.Services, fileServices...)
 	}
 
 	// Handle mixins
 	for _, f := range mixinFileDesc {
-		var fileServices []*genclient.Service
+		var fileServices []*api.Service
 		fFQN := "." + f.GetPackage()
 		for _, s := range f.Service {
 			sFQN := fFQN + "." + s.GetName()
@@ -333,39 +335,39 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			}
 			fileServices = append(fileServices, service)
 		}
-		api.Services = append(api.Services, fileServices...)
+		a.Services = append(a.Services, fileServices...)
 	}
-	updateMixinState(serviceConfig, api)
-	if api.Name == "" && serviceConfig != nil {
-		api.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+	updateMixinState(serviceConfig, a)
+	if a.Name == "" && serviceConfig != nil {
+		a.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
-	return api
+	return a
 }
 
-var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]genclient.Typez{
-	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   genclient.DOUBLE_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    genclient.FLOAT_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_INT64:    genclient.INT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_UINT64:   genclient.UINT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_INT32:    genclient.INT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FIXED64:  genclient.FIXED64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FIXED32:  genclient.FIXED32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     genclient.BOOL_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_STRING:   genclient.STRING_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    genclient.BYTES_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_UINT32:   genclient.UINT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SFIXED32: genclient.SFIXED32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SFIXED64: genclient.SFIXED64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SINT32:   genclient.SINT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SINT64:   genclient.SINT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_GROUP:    genclient.GROUP_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  genclient.MESSAGE_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     genclient.ENUM_TYPE,
+var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
+	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   api.DOUBLE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    api.FLOAT_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT64:    api.INT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT64:   api.UINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT32:    api.INT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED64:  api.FIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED32:  api.FIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     api.BOOL_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_STRING:   api.STRING_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    api.BYTES_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT32:   api.UINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED32: api.SFIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED64: api.SFIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT32:   api.SINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT64:   api.SINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_GROUP:    api.GROUP_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  api.MESSAGE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     api.ENUM_TYPE,
 }
 
-func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorProto, field *genclient.Field) {
+func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, field *api.Field) {
 	typ := in.GetType()
-	field.Typez = genclient.UNDEFINED_TYPE
+	field.Typez = api.UNDEFINED_TYPE
 	if tz, ok := descriptorpbToTypez[typ]; ok {
 		field.Typez = tz
 	}
@@ -415,8 +417,8 @@ func normalizeTypes(state *genclient.APIState, in *descriptorpb.FieldDescriptorP
 
 }
 
-func processService(state *genclient.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *genclient.Service {
-	service := &genclient.Service{
+func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *api.Service {
+	service := &api.Service{
 		Name:        s.GetName(),
 		ID:          sFQN,
 		Package:     packagez,
@@ -426,13 +428,13 @@ func processService(state *genclient.APIState, s *descriptorpb.ServiceDescriptor
 	return service
 }
 
-func processMethod(state *genclient.APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *genclient.Method {
+func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *api.Method {
 	pathInfo, err := parsePathInfo(m, state)
 	if err != nil {
 		slog.Error("unsupported http method", "method", m)
 		return nil
 	}
-	method := &genclient.Method{
+	method := &api.Method{
 		ID:           mFQN,
 		PathInfo:     pathInfo,
 		Name:         m.GetName(),
@@ -443,8 +445,8 @@ func processMethod(state *genclient.APIState, m *descriptorpb.MethodDescriptorPr
 	return method
 }
 
-func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *genclient.Message) *genclient.Message {
-	message := &genclient.Message{
+func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *api.Message) *api.Message {
+	message := &api.Message{
 		Name:    m.GetName(),
 		ID:      mFQN,
 		Parent:  parent,
@@ -467,7 +469,7 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 		message.Enums = append(message.Enums, e)
 	}
 	for _, oneof := range m.OneofDecl {
-		oneOfs := &genclient.OneOf{
+		oneOfs := &api.OneOf{
 			Name:   oneof.GetName(),
 			ID:     mFQN + "." + oneof.GetName(),
 			Parent: message,
@@ -476,7 +478,7 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	}
 	for _, mf := range m.Field {
 		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
-		field := &genclient.Field{
+		field := &api.Field{
 			Name:     mf.GetName(),
 			ID:       mFQN + "." + mf.GetName(),
 			JSONName: mf.GetJsonName(),
@@ -508,15 +510,15 @@ func processMessage(state *genclient.APIState, m *descriptorpb.DescriptorProto, 
 	return message
 }
 
-func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *genclient.Message) *genclient.Enum {
-	enum := &genclient.Enum{
+func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *api.Message) *api.Enum {
+	enum := &api.Enum{
 		Name:    e.GetName(),
 		Parent:  parent,
 		Package: packagez,
 	}
 	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
-		enumValue := &genclient.EnumValue{
+		enumValue := &api.EnumValue{
 			Name:   ev.GetName(),
 			Number: ev.GetNumber(),
 			Parent: enum,
@@ -526,7 +528,7 @@ func processEnum(state *genclient.APIState, e *descriptorpb.EnumDescriptorProto,
 	return enum
 }
 
-func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, sFQN string) {
+func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN string) {
 	if len(p) == 0 {
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
@@ -538,7 +540,7 @@ func addServiceDocumentation(state *genclient.APIState, p []int32, doc string, s
 	}
 }
 
-func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
+func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
 	// Beware of refactoring the calls to `trimLeadingSpacesInDocumentation`.
 	// We should modify `doc` only once, upon assignment to `.Documentation`
 	if len(p) == 0 {
@@ -561,7 +563,7 @@ func addMessageDocumentation(state *genclient.APIState, m *descriptorpb.Descript
 }
 
 // addEnumDocumentation adds documentation to an enum.
-func addEnumDocumentation(state *genclient.APIState, p []int32, doc string, eFQN string) {
+func addEnumDocumentation(state *api.APIState, p []int32, doc string, eFQN string) {
 	if len(p) == 0 {
 		// This is a comment for an enum
 		state.EnumByID[eFQN].Documentation = trimLeadingSpacesInDocumentation(doc)

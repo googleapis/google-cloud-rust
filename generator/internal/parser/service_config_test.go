@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package genclient
+package parser
 
 import (
 	"testing"
@@ -27,7 +27,7 @@ import (
 
 func TestReadServiceConfig(t *testing.T) {
 	const serviceConfigPath = "../../testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml"
-	got, err := ReadServiceConfig(serviceConfigPath)
+	got, err := readServiceConfig(serviceConfigPath)
 	if err != nil {
 		t.Fatal(err)
 	}
