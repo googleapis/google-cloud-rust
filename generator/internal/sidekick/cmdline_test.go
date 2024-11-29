@@ -15,6 +15,7 @@
 package sidekick
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -24,11 +25,11 @@ func TestParseArgs(t *testing.T) {
 	args := []string{
 		"-project-root", "../..",
 		"-specification-format", "openapi",
-		"-specification-source", "generator/testdata/openapi/secretmanager_openapi_v1.json",
-		"-service-config", "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
-		"-source-option", "googleapis-root=generator/testdata/googleapis",
+		"-specification-source", specificationSource,
+		"-service-config", secretManagerServiceConfig,
+		"-source-option", fmt.Sprintf("googleapis-root=%s", googleapisRoot),
 		"-language", "rust",
-		"-output", "generator/testdata/test-only",
+		"-output", outputDir,
 		"-template-dir", "generator/templates",
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
@@ -45,14 +46,14 @@ func TestParseArgs(t *testing.T) {
 		Command:             "generate",
 		ProjectRoot:         "../..",
 		SpecificationFormat: "openapi",
-		SpecificationSource: "generator/testdata/openapi/secretmanager_openapi_v1.json",
-		ServiceConfig:       "generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml",
+		SpecificationSource: specificationSource,
+		ServiceConfig:       secretManagerServiceConfig,
 		Source: map[string]string{
-			"googleapis-root": "generator/testdata/googleapis",
+			"googleapis-root": googleapisRoot,
 		},
 		Language:    "rust",
-		Output:      "generator/testdata/test-only",
-		TemplateDir: "generator/templates",
+		Output:      outputDir,
+		TemplateDir: templateDir,
 		Codec: map[string]string{
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",
