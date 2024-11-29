@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package openapi reads OpenAPI v3 specifications and converts them into
+// Package parser reads specifications and converts them into
 // the `genclient.API` model.
-package openapi
+package parser
 
 import (
 	"errors"
@@ -30,7 +30,7 @@ import (
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
-func Parse(opts genclient.ParserOptions) (*genclient.API, error) {
+func ParseOpenAPI(opts genclient.ParserOptions) (*genclient.API, error) {
 	contents, err := os.ReadFile(opts.Source)
 	if err != nil {
 		return nil, err
@@ -48,7 +48,7 @@ func Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 		serviceConfig = cfg
 	}
 	// Translates OpenAPI specification into a [genclient.GenerateRequest].
-	return makeAPI(serviceConfig, model)
+	return makeAPIForOpenAPI(serviceConfig, model)
 }
 
 func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], error) {
@@ -63,7 +63,7 @@ func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], er
 	return docModel, nil
 }
 
-func makeAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*genclient.API, error) {
+func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*genclient.API, error) {
 	api := &genclient.API{
 		Name:        "",
 		Title:       model.Model.Info.Title,

@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package protobuf reads Protobuf specifications and converts them into
-// the `genclient.API` model.
-package protobuf
+package parser
 
 import (
 	"bytes"
@@ -33,7 +31,9 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-func Parse(opts genclient.ParserOptions) (*genclient.API, error) {
+// ParserProtobuf reads Protobuf specifications and converts them into
+// the `genclient.API` model.
+func ParseProtobuf(opts genclient.ParserOptions) (*genclient.API, error) {
 	request, err := newCodeGeneratorRequest(opts)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func Parse(opts genclient.ParserOptions) (*genclient.API, error) {
 		}
 		serviceConfig = cfg
 	}
-	return makeAPI(serviceConfig, request), nil
+	return makeAPIForProtobuf(serviceConfig, request), nil
 }
 
 func newCodeGeneratorRequest(opts genclient.ParserOptions) (_ *pluginpb.CodeGeneratorRequest, err error) {
@@ -206,7 +206,7 @@ const (
 	enumDescriptorValue = 2
 )
 
-func makeAPI(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
+func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *genclient.API {
 	var mixinFileDesc []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
 	state := &genclient.APIState{

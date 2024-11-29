@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package openapi
+package parser
 
 import (
 	"os"
@@ -23,7 +23,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
-func TestAllOf(t *testing.T) {
+func TestOpenAPI_AllOf(t *testing.T) {
 	// A message with AllOf and its transitive closure of dependent messages.
 	const messageWithAllOf = `
       "Automatic": {
@@ -52,12 +52,12 @@ func TestAllOf(t *testing.T) {
         ]
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithAllOf + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithAllOf + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -67,7 +67,7 @@ func TestAllOf(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkOpenAPIMessage(t, *message, genclient.Message{
 		Name:          "Automatic",
 		ID:            "..Automatic",
 		Documentation: "A replication policy that replicates the Secret payload without any restrictions.",
@@ -84,7 +84,7 @@ func TestAllOf(t *testing.T) {
 	})
 }
 
-func TestBasicTypes(t *testing.T) {
+func TestOpenAPI_BasicTypes(t *testing.T) {
 	// A message with basic types.
 	const messageWithBasicTypes = `
       "Fake": {
@@ -115,13 +115,13 @@ func TestBasicTypes(t *testing.T) {
         ]
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -131,7 +131,7 @@ func TestBasicTypes(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkOpenAPIMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -227,7 +227,7 @@ func TestBasicTypes(t *testing.T) {
 	})
 }
 
-func TestArrayTypes(t *testing.T) {
+func TestOpenAPI_ArrayTypes(t *testing.T) {
 	// A message with basic types.
 	const messageWithBasicTypes = `
       "Fake": {
@@ -248,12 +248,12 @@ func TestArrayTypes(t *testing.T) {
         }
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -263,7 +263,7 @@ func TestArrayTypes(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkOpenAPIMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -342,7 +342,7 @@ func TestArrayTypes(t *testing.T) {
 	})
 }
 
-func TestSimpleObject(t *testing.T) {
+func TestOpenAPI_SimpleObject(t *testing.T) {
 	const messageWithBasicTypes = `
       "Fake": {
         "description": "A test message.",
@@ -363,17 +363,17 @@ func TestSimpleObject(t *testing.T) {
         "properties": {}
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -399,7 +399,7 @@ func TestSimpleObject(t *testing.T) {
 	})
 }
 
-func TestAny(t *testing.T) {
+func TestOpenAPI_Any(t *testing.T) {
 	// A message with basic types.
 	const messageWithBasicTypes = `
       "Fake": {
@@ -410,17 +410,17 @@ func TestAny(t *testing.T) {
         }
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -430,7 +430,7 @@ func TestAny(t *testing.T) {
 	})
 }
 
-func TestMapString(t *testing.T) {
+func TestOpenAPI_MapString(t *testing.T) {
 	// A message with basic types.
 	const messageWithBasicTypes = `
       "Fake": {
@@ -443,17 +443,17 @@ func TestMapString(t *testing.T) {
         }
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -480,7 +480,7 @@ func TestMapString(t *testing.T) {
 	})
 }
 
-func TestMapInteger(t *testing.T) {
+func TestOpenAPI_MapInteger(t *testing.T) {
 	// A message with basic types.
 	const messageWithBasicTypes = `
       "Fake": {
@@ -492,17 +492,17 @@ func TestMapInteger(t *testing.T) {
         }
       },
 `
-	contents := []byte(singleMessagePreamble + messageWithBasicTypes + singleMessageTrailer)
+	contents := []byte(openAPISingleMessagePreamble + messageWithBasicTypes + openAPISingleMessageTrailer)
 	model, err := createDocModel(contents)
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], genclient.Message{
+	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -523,8 +523,8 @@ func TestMapInteger(t *testing.T) {
 	})
 }
 
-func TestMakeAPI(t *testing.T) {
-	contents, err := os.ReadFile("../../../testdata/openapi/secretmanager_openapi_v1.json")
+func TestOpenAPI_MakeAPI(t *testing.T) {
+	contents, err := os.ReadFile("../../testdata/openapi/secretmanager_openapi_v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -532,7 +532,7 @@ func TestMakeAPI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -542,7 +542,7 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("missing message (Location) in MessageByID index")
 		return
 	}
-	checkMessage(t, *location, genclient.Message{
+	checkOpenAPIMessage(t, *location, genclient.Message{
 		Documentation: "A resource that represents a Google Cloud location.",
 		Name:          "Location",
 		ID:            "..Location",
@@ -595,7 +595,7 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("missing message (ListLocationsResponse) in MessageByID index")
 		return
 	}
-	checkMessage(t, *listLocationsResponse, genclient.Message{
+	checkOpenAPIMessage(t, *listLocationsResponse, genclient.Message{
 		Documentation: "The response message for Locations.ListLocations.",
 		Name:          "ListLocationsResponse",
 		ID:            "..ListLocationsResponse",
@@ -626,7 +626,7 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("missing message (ListLocationsRequest) in MessageByID index")
 		return
 	}
-	checkMessage(t, *listLocationsRequest, genclient.Message{
+	checkOpenAPIMessage(t, *listLocationsRequest, genclient.Message{
 		Name:          "ListLocationsRequest",
 		ID:            "..ListLocationsRequest",
 		Documentation: "The request message for ListLocations.",
@@ -678,7 +678,7 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("missing message (SecretPayload) in MessageByID index")
 		return
 	}
-	checkMessage(t, *secretPayload, genclient.Message{
+	checkOpenAPIMessage(t, *secretPayload, genclient.Message{
 		Name:          "SecretPayload",
 		ID:            "..SecretPayload",
 		Documentation: "A secret payload resource in the Secret Manager API. This contains the\nsensitive secret payload that is associated with a SecretVersion.",
@@ -718,7 +718,7 @@ func TestMakeAPI(t *testing.T) {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 
-	checkMethod(t, service, "ListLocations", &genclient.Method{
+	checkOpenAPIMethod(t, service, "ListLocations", &genclient.Method{
 		Name:          "ListLocations",
 		ID:            "..Service.ListLocations",
 		Documentation: "Lists information about the supported locations for this service.",
@@ -740,7 +740,7 @@ func TestMakeAPI(t *testing.T) {
 		},
 	})
 
-	checkMethod(t, service, "CreateSecret", &genclient.Method{
+	checkOpenAPIMethod(t, service, "CreateSecret", &genclient.Method{
 		Name:          "CreateSecret",
 		ID:            "..Service.CreateSecret",
 		Documentation: "Creates a new Secret containing no SecretVersions.",
@@ -761,7 +761,7 @@ func TestMakeAPI(t *testing.T) {
 		},
 	})
 
-	checkMethod(t, service, "AddSecretVersion", &genclient.Method{
+	checkOpenAPIMethod(t, service, "AddSecretVersion", &genclient.Method{
 		Name:          "AddSecretVersion",
 		ID:            "..Service.AddSecretVersion",
 		Documentation: "Creates a new SecretVersion containing secret data and attaches\nit to an existing Secret.",
@@ -783,8 +783,8 @@ func TestMakeAPI(t *testing.T) {
 	})
 }
 
-func TestSyntheticMessageWithExistingRequest(t *testing.T) {
-	contents, err := os.ReadFile("../../../testdata/openapi/secretmanager_openapi_v1.json")
+func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
+	contents, err := os.ReadFile("../../testdata/openapi/secretmanager_openapi_v1.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -792,7 +792,7 @@ func TestSyntheticMessageWithExistingRequest(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	api, err := makeAPI(nil, model)
+	api, err := makeAPIForOpenAPI(nil, model)
 	if err != nil {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
@@ -804,7 +804,7 @@ func TestSyntheticMessageWithExistingRequest(t *testing.T) {
 		t.Errorf("missing message (%s) in MessageByID index", id)
 		return
 	}
-	checkMessage(t, *setIamPolicyRequest, genclient.Message{
+	checkOpenAPIMessage(t, *setIamPolicyRequest, genclient.Message{
 		Name:          "SetIamPolicyRequest",
 		ID:            "..SetIamPolicyRequest",
 		Documentation: "Request message for `SetIamPolicy` method.",
@@ -853,7 +853,7 @@ func TestSyntheticMessageWithExistingRequest(t *testing.T) {
 	})
 }
 
-func checkMethod(t *testing.T, service *genclient.Service, name string, want *genclient.Method) {
+func checkOpenAPIMethod(t *testing.T, service *genclient.Service, name string, want *genclient.Method) {
 	t.Helper()
 	findMethod := func(name string) (*genclient.Method, bool) {
 		for _, method := range service.Methods {
@@ -873,7 +873,7 @@ func checkMethod(t *testing.T, service *genclient.Service, name string, want *ge
 	}
 }
 
-func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
+func checkOpenAPIMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	t.Helper()
 	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields")); diff != "" {
 		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
@@ -884,7 +884,7 @@ func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
 	}
 }
 
-const singleMessagePreamble = `
+const openAPISingleMessagePreamble = `
 {
   "openapi": "3.0.3",
   "info": {
@@ -902,7 +902,7 @@ const singleMessagePreamble = `
     "schemas": {
 `
 
-const singleMessageTrailer = `
+const openAPISingleMessageTrailer = `
     },
   },
   "externalDocs": {
