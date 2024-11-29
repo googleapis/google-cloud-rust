@@ -880,7 +880,7 @@ func TestToPascal(t *testing.T) {
 func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
-The next line has some extra trailing whitespace:
+The next line has some extra trailing whitespace:` + "   " + `
 
 We want to respect whitespace at the beginning, because it important in Markdown:
 - A thing
