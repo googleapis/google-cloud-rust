@@ -42,7 +42,6 @@ func testCodec() *Codec {
 
 func TestParseOptions(t *testing.T) {
 	copts := &genclient.CodecOptions{
-		Language: "rust",
 		Options: map[string]string{
 			"package-name-override": "test-only",
 			"copyright-year":        "2035",
@@ -92,8 +91,7 @@ func TestParseOptions(t *testing.T) {
 
 func TestRequiredPackages(t *testing.T) {
 	copts := &genclient.CodecOptions{
-		Language: "rust",
-		OutDir:   "src/generated/newlib",
+		OutDir: "src/generated/newlib",
 		Options: map[string]string{
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 			"package:gax":   "package=gax,path=src/gax,version=1.2.3",
@@ -119,8 +117,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
 	copts := &genclient.CodecOptions{
-		Language: "rust",
-		OutDir:   "",
+		OutDir: "",
 		Options: map[string]string{
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 		},
@@ -141,7 +138,6 @@ func TestRequiredPackagesLocal(t *testing.T) {
 
 func TestPackageName(t *testing.T) {
 	packageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
-		Language: "rust",
 		Options: map[string]string{
 			"package-name-override": "test-only-overridden",
 		},
@@ -149,15 +145,11 @@ func TestPackageName(t *testing.T) {
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	packageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{
-		Language: "rust",
-	}, &genclient.API{
+	packageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &genclient.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	packageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{
-		Language: "rust",
-	}, &genclient.API{
+	packageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &genclient.API{
 		Name:        "type",
 		PackageName: "",
 	})
@@ -888,8 +880,8 @@ func TestToPascal(t *testing.T) {
 func TestFormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
-The next line has some extra trailing whitespace:
-    
+The next line has some extra trailing whitespace:` + "   " + `
+
 We want to respect whitespace at the beginning, because it important in Markdown:
 - A thing
   - A nested thing

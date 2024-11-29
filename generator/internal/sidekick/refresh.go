@@ -46,13 +46,6 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		Options:       config.Source,
 	}
 
-	copts := &genclient.CodecOptions{
-		Language:    config.General.Language,
-		OutDir:      output,
-		TemplateDir: config.General.TemplateDir,
-		Options:     config.Codec,
-	}
-
 	var api *genclient.API
 	switch specFormat {
 	case "openapi":
@@ -66,27 +59,33 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return err
 	}
 
-	var codec genclient.LanguageCodec
-	switch copts.Language {
+	var (
+		codec genclient.LanguageCodec
+		copts = &genclient.CodecOptions{
+			OutDir:  output,
+			Options: config.Codec,
+		}
+	)
+	switch config.General.Language {
 	case "rust":
 		codec, err = rust.NewCodec(copts)
 	case "go":
 		codec, err = golang.NewCodec(copts)
 	default:
-		return fmt.Errorf("unknown language: %s", copts.Language)
+		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}
 	if err != nil {
 		return err
 	}
-
 	if err := codec.Validate(api); err != nil {
 		return err
 	}
+
 	request := &genclient.GenerateRequest{
 		API:         api,
 		Codec:       codec,
-		OutDir:      copts.OutDir,
-		TemplateDir: copts.TemplateDir,
+		OutDir:      output,
+		TemplateDir: config.General.TemplateDir,
 	}
 	if cmdLine.DryRun {
 		return nil
