@@ -364,7 +364,7 @@ mod test {
                     description: "desc".to_string(),
                 }),
                 StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(wkt::Duration::from_seconds(1)),
+                    retry_delay: Some(wkt::Duration::clamp(1, 0)),
                 }),
             ],
         };
@@ -460,7 +460,7 @@ mod test {
                     description: "desc".to_string(),
                 }),
                 StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(wkt::Duration::from_seconds(1)),
+                    retry_delay: Some(wkt::Duration::clamp(1, 0)),
                 }),
             ],
         };

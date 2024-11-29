@@ -103,7 +103,7 @@ mod tests {
 
     #[test]
     fn duration() -> Result {
-        let d = wkt::Duration::new(12, 345_678_900);
+        let d = wkt::Duration::new(12, 345_678_900)?;
         let f = RequestParameter::format(&d)?;
         assert_eq!("12.345678900s", f);
         Ok(())

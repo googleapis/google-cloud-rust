@@ -130,7 +130,7 @@ fn with_duration() -> Result<()> {
     // Create a basic request.
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
-        ttl: Some(wkt::Duration::new(12, 345_678_900)),
+        ttl: Some(wkt::Duration::clamp(12, 345_678_900)),
         ..Default::default()
     };
     let builder = with_query_parameters(&request)?;
@@ -189,7 +189,7 @@ fn with_repeated_int32() -> Result<()> {
 fn with_repeated_duration() -> Result<()> {
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
-        repeated_duration: [2, 3, 5].map(wkt::Duration::from_seconds).to_vec(),
+        repeated_duration: [2, 3, 5].map(|s| wkt::Duration::clamp(s, 0)).to_vec(),
         ..Default::default()
     };
     let builder = with_query_parameters(&request)?;

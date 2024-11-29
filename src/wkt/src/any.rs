@@ -54,32 +54,17 @@
 #[non_exhaustive]
 pub struct Any(serde_json::Value);
 
-#[derive(Debug)]
-pub enum Error {
-    SerializationError(Box<dyn std::error::Error>),
-    DeserializationError(Box<dyn std::error::Error>),
-    TypeMismatchError(),
+#[derive(thiserror::Error, Debug)]
+pub enum AnyError {
+    #[error("cannot serialize object into an Any, source={0:?}")]
+    SerializationError(#[source] Box<dyn std::error::Error>),
+    #[error("cannot deserialize from an Any, source={0:?}")]
+    DeserializationError(#[source] Box<dyn std::error::Error>),
+    #[error("expected type mismatch in Any deserialization type={0}")]
+    TypeMismatchError(String),
 }
 
-impl std::fmt::Display for Error {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
-        match self {
-            Error::SerializationError(e) => write!(f, "serialization error {:?}", e),
-            Error::DeserializationError(e) => write!(f, "deserialization error {:?}", e),
-            Self::TypeMismatchError() => write!(f, "type mismatch"),
-        }
-    }
-}
-
-impl std::error::Error for Error {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match self {
-            Error::SerializationError(e) => Some(e.as_ref()),
-            Error::DeserializationError(e) => Some(e.as_ref()),
-            Self::TypeMismatchError() => None,
-        }
-    }
-}
+type Error = AnyError;
 
 impl Any {
     // TODO(#98) - each message should have a type value
@@ -182,7 +167,7 @@ mod test {
 
     #[test]
     fn serialize_duration() -> Result {
-        let d = Duration::from_seconds(60);
+        let d = Duration::clamp(60, 0);
         let any = Any::from(&d)?;
         let got = serde_json::to_value(any)?;
         let want = json!({"@type": "type.googleapis.com/google.protobuf.", "value": "60s"});
@@ -195,7 +180,7 @@ mod test {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.", "value": "60s"});
         let any = Any(input);
         let d = any.try_into_message::<Duration>()?;
-        assert_eq!(d, Duration::from_seconds(60));
+        assert_eq!(d, Duration::clamp(60, 0));
         Ok(())
     }
 

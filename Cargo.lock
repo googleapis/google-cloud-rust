@@ -501,6 +501,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "test-case",
+ "thiserror",
  "time",
 ]
 
