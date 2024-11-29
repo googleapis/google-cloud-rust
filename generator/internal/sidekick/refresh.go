@@ -19,8 +19,7 @@ import (
 	"path"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language/golang"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language/rust"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser/openapi"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser/protobuf"
 )
@@ -68,9 +67,9 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	)
 	switch config.General.Language {
 	case "rust":
-		codec, err = rust.NewCodec(copts)
+		codec, err = language.NewRustCodec(copts)
 	case "go":
-		codec, err = golang.NewCodec(copts)
+		codec, err = language.NewGoCodec(copts)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}

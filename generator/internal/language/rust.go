@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rust
+package language
 
 import (
 	"fmt"
@@ -28,9 +28,9 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
+func NewRustCodec(copts *genclient.CodecOptions) (*RustCodec, error) {
 	year, _, _ := time.Now().Date()
-	codec := &Codec{
+	codec := &RustCodec{
 		GenerationYear:           fmt.Sprintf("%04d", year),
 		OutputDirectory:          copts.OutDir,
 		ModulePath:               "model",
@@ -107,7 +107,7 @@ func NewCodec(copts *genclient.CodecOptions) (*Codec, error) {
 	return codec, nil
 }
 
-type Codec struct {
+type RustCodec struct {
 	// The output directory relative to the project root.
 	OutputDirectory string
 	// Package name override. If not empty, overrides the default package name.
@@ -154,7 +154,7 @@ type RustPackage struct {
 	Features []string
 }
 
-func (c *Codec) LoadWellKnownTypes(s *genclient.APIState) {
+func (c *RustCodec) LoadWellKnownTypes(s *genclient.APIState) {
 	// TODO(#77) - replace these placeholders with real types
 	wellKnown := []*genclient.Message{
 		{
@@ -229,7 +229,7 @@ func ScalarFieldType(f *genclient.Field) string {
 	return out
 }
 
-func (c *Codec) fieldFormatter(typez genclient.Typez) string {
+func (c *RustCodec) fieldFormatter(typez genclient.Typez) string {
 	switch typez {
 	case genclient.INT64_TYPE,
 		genclient.UINT64_TYPE,
@@ -244,7 +244,7 @@ func (c *Codec) fieldFormatter(typez genclient.Typez) string {
 	}
 }
 
-func (c *Codec) fieldBaseAttributes(f *genclient.Field) []string {
+func (c *RustCodec) fieldBaseAttributes(f *genclient.Field) []string {
 	if f.Synthetic {
 		return []string{`#[serde(skip)]`}
 	}
@@ -254,7 +254,7 @@ func (c *Codec) fieldBaseAttributes(f *genclient.Field) []string {
 	return []string{}
 }
 
-func (c *Codec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []string) []string {
+func (c *RustCodec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []string) []string {
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -269,7 +269,7 @@ func (c *Codec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []s
 	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
 }
 
-func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
+func (c *RustCodec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
 	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
 	case genclient.DOUBLE_TYPE,
@@ -332,7 +332,7 @@ func (c *Codec) FieldAttributes(f *genclient.Field, state *genclient.APIState) [
 	}
 }
 
-func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+func (c *RustCodec) FieldType(f *genclient.Field, state *genclient.APIState) string {
 	if f.IsOneOf {
 		return c.wrapOneOfField(f, c.baseFieldType(f, state))
 	}
@@ -346,7 +346,7 @@ func (c *Codec) FieldType(f *genclient.Field, state *genclient.APIState) string 
 }
 
 // Returns the field type, ignoring any repeated or optional attributes.
-func (c *Codec) baseFieldType(f *genclient.Field, state *genclient.APIState) string {
+func (c *RustCodec) baseFieldType(f *genclient.Field, state *genclient.APIState) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
@@ -374,14 +374,14 @@ func (c *Codec) baseFieldType(f *genclient.Field, state *genclient.APIState) str
 
 }
 
-func (c *Codec) wrapOneOfField(f *genclient.Field, value string) string {
+func (c *RustCodec) wrapOneOfField(f *genclient.Field, value string) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
 		return fmt.Sprintf("(%s)", value)
 	}
 	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
 }
 
-func (c *Codec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
+func (c *RustCodec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
 	if f.Typez == genclient.MESSAGE_TYPE {
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
@@ -393,14 +393,14 @@ func (c *Codec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) 
 	return fmt.Sprintf("&req.%s", c.ToSnake(f.Name))
 }
 
-func (c *Codec) TemplateDir() string {
+func (c *RustCodec) TemplateDir() string {
 	if c.GenerateModule {
 		return "rust/mod"
 	}
 	return "rust/crate"
 }
 
-func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string {
+func (c *RustCodec) MethodInOutTypeName(id string, state *genclient.APIState) string {
 	if id == "" {
 		return ""
 	}
@@ -412,7 +412,7 @@ func (c *Codec) MethodInOutTypeName(id string, state *genclient.APIState) string
 	return c.FQMessageName(m, state)
 }
 
-func (c *Codec) rustPackage(packageName string) string {
+func (c *RustCodec) rustPackage(packageName string) string {
 	if packageName == c.SourceSpecificationPackageName {
 		return "crate::" + c.ModulePath
 	}
@@ -428,7 +428,7 @@ func (c *Codec) rustPackage(packageName string) string {
 	return mapped.Name + "::model"
 }
 
-func (c *Codec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
+func (c *RustCodec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
 	serde := `#[serde(default, rename_all = "camelCase")]`
 	if !c.DeserializeWithdDefaults {
 		serde = `#[serde(rename_all = "camelCase")]`
@@ -441,11 +441,11 @@ func (c *Codec) MessageAttributes(*genclient.Message, *genclient.APIState) []str
 	}
 }
 
-func (c *Codec) MessageName(m *genclient.Message, state *genclient.APIState) string {
+func (c *RustCodec) MessageName(m *genclient.Message, state *genclient.APIState) string {
 	return c.ToPascal(m.Name)
 }
 
-func (c *Codec) messageScopeName(m *genclient.Message, childPackageName string) string {
+func (c *RustCodec) messageScopeName(m *genclient.Message, childPackageName string) string {
 	if m == nil {
 		return c.rustPackage(childPackageName)
 	}
@@ -455,37 +455,37 @@ func (c *Codec) messageScopeName(m *genclient.Message, childPackageName string) 
 	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToSnake(m.Name)
 }
 
-func (c *Codec) enumScopeName(e *genclient.Enum) string {
+func (c *RustCodec) enumScopeName(e *genclient.Enum) string {
 	return c.messageScopeName(e.Parent, "")
 }
 
-func (c *Codec) FQMessageName(m *genclient.Message, _ *genclient.APIState) string {
+func (c *RustCodec) FQMessageName(m *genclient.Message, _ *genclient.APIState) string {
 	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToPascal(m.Name)
 }
 
-func (c *Codec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
+func (c *RustCodec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
 	return c.ToPascal(e.Name)
 }
 
-func (c *Codec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
+func (c *RustCodec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
 	return c.messageScopeName(e.Parent, "") + "::" + c.ToPascal(e.Name)
 }
 
-func (c *Codec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) string {
+func (c *RustCodec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) string {
 	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, we do not
 	// need to change anything for Rust
-	return EscapeKeyword(e.Name)
+	return rustEscapeKeyword(e.Name)
 }
 
-func (c *Codec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
+func (c *RustCodec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
 	return fmt.Sprintf("%s::%s::%s", c.enumScopeName(v.Parent), c.ToSnake(v.Parent.Name), c.EnumValueName(v, state))
 }
 
-func (c *Codec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
+func (c *RustCodec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
 	return c.messageScopeName(o.Parent, "") + "::" + c.ToPascal(o.Name)
 }
 
-func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
+func (c *RustCodec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
@@ -493,7 +493,7 @@ func (c *Codec) BodyAccessor(m *genclient.Method, state *genclient.APIState) str
 	return "." + c.ToSnake(m.PathInfo.BodyFieldPath)
 }
 
-func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
+func (c *RustCodec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
@@ -535,7 +535,7 @@ func (c *Codec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) st
 // ```
 //
 // and so on.
-func (c *Codec) unwrapFieldPath(components []string, requestAccess string) (string, string) {
+func (c *RustCodec) unwrapFieldPath(components []string, requestAccess string) (string, string) {
 	if len(components) == 1 {
 		return requestAccess + "." + c.ToSnake(components[0]), components[0]
 	}
@@ -544,13 +544,13 @@ func (c *Codec) unwrapFieldPath(components []string, requestAccess string) (stri
 	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\").map_err(Error::other)?.%s", unwrap, name, last), ""
 }
 
-func (c *Codec) derefFieldPath(fieldPath string) string {
+func (c *RustCodec) derefFieldPath(fieldPath string) string {
 	components := strings.Split(fieldPath, ".")
 	unwrap, _ := c.unwrapFieldPath(components, "req")
 	return unwrap
 }
 
-func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
+func (c *RustCodec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
@@ -560,7 +560,7 @@ func (c *Codec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) [
 	return args
 }
 
-func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
+func (c *RustCodec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup request type", "id", m.InputTypeID)
@@ -583,11 +583,11 @@ func (c *Codec) QueryParams(m *genclient.Method, state *genclient.APIState) []*g
 // This type of conversion can easily introduce keywords. Consider
 //
 //	`ToSnake("True") -> "true"`
-func (c *Codec) ToSnake(symbol string) string {
-	return EscapeKeyword(c.ToSnakeNoMangling(symbol))
+func (c *RustCodec) ToSnake(symbol string) string {
+	return rustEscapeKeyword(c.ToSnakeNoMangling(symbol))
 }
 
-func (*Codec) ToSnakeNoMangling(symbol string) string {
+func (*RustCodec) ToSnakeNoMangling(symbol string) string {
 	if strings.ToLower(symbol) == symbol {
 		return symbol
 	}
@@ -601,15 +601,15 @@ func (*Codec) ToSnakeNoMangling(symbol string) string {
 // This type of conversion rarely introduces keywords. The one example is
 //
 //	`ToPascal("self") -> "Self"`
-func (*Codec) ToPascal(symbol string) string {
-	return EscapeKeyword(strcase.ToCamel(symbol))
+func (*RustCodec) ToPascal(symbol string) string {
+	return rustEscapeKeyword(strcase.ToCamel(symbol))
 }
 
-func (*Codec) ToCamel(symbol string) string {
-	return EscapeKeyword(strcase.ToLowerCamel(symbol))
+func (*RustCodec) ToCamel(symbol string) string {
+	return rustEscapeKeyword(strcase.ToLowerCamel(symbol))
 }
 
-func (*Codec) FormatDocComments(documentation string) []string {
+func (*RustCodec) FormatDocComments(documentation string) []string {
 	inBlockQuote := false
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
@@ -626,7 +626,7 @@ func (*Codec) FormatDocComments(documentation string) []string {
 	return ss
 }
 
-func (c *Codec) projectRoot() string {
+func (c *RustCodec) projectRoot() string {
 	if c.OutputDirectory == "" {
 		return ""
 	}
@@ -637,7 +637,7 @@ func (c *Codec) projectRoot() string {
 	return rel
 }
 
-func (c *Codec) RequiredPackages() []string {
+func (c *RustCodec) RequiredPackages() []string {
 	lines := []string{}
 	for _, pkg := range c.ExtraPackages {
 		if pkg.Ignore {
@@ -663,11 +663,11 @@ func (c *Codec) RequiredPackages() []string {
 	return lines
 }
 
-func (c *Codec) CopyrightYear() string {
+func (c *RustCodec) CopyrightYear() string {
 	return c.GenerationYear
 }
 
-func (c *Codec) PackageName(api *genclient.API) string {
+func (c *RustCodec) PackageName(api *genclient.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
 	}
@@ -680,7 +680,7 @@ func (c *Codec) PackageName(api *genclient.API) string {
 	return "gcp-sdk-" + name
 }
 
-func (c *Codec) validatePackageName(newPackage, elementName string) error {
+func (c *RustCodec) validatePackageName(newPackage, elementName string) error {
 	if c.SourceSpecificationPackageName == newPackage {
 		return nil
 	}
@@ -694,7 +694,7 @@ func (c *Codec) validatePackageName(newPackage, elementName string) error {
 		c.SourceSpecificationPackageName, newPackage, elementName)
 }
 
-func (c *Codec) Validate(api *genclient.API) error {
+func (c *RustCodec) Validate(api *genclient.API) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixins will register those after the
 	// source package.
@@ -721,18 +721,18 @@ func (c *Codec) Validate(api *genclient.API) error {
 	return nil
 }
 
-func (c *Codec) AdditionalContext() any {
+func (c *RustCodec) AdditionalContext() any {
 	return nil
 }
 
-func (c *Codec) Imports() []string {
+func (c *RustCodec) Imports() []string {
 	return nil
 }
 
 // The list of Rust keywords and reserved words can be found at:
 //
 //	https://doc.rust-lang.org/reference/keywords.html
-func EscapeKeyword(symbol string) string {
+func rustEscapeKeyword(symbol string) string {
 	keywords := map[string]bool{
 		"as":       true,
 		"break":    true,

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rust
+package language
 
 import (
 	"fmt"
@@ -24,14 +24,14 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
-func testCodec() *Codec {
+func createRustCodec() *RustCodec {
 	wkt := &RustPackage{
 		Name:    "gax_wkt",
 		Package: "types",
 		Path:    "../../types",
 	}
 
-	return &Codec{
+	return &RustCodec{
 		ModulePath:    "model",
 		ExtraPackages: []*RustPackage{wkt},
 		PackageMapping: map[string]*RustPackage{
@@ -40,7 +40,7 @@ func testCodec() *Codec {
 	}
 }
 
-func TestParseOptions(t *testing.T) {
+func TestRust_ParseOptions(t *testing.T) {
 	copts := &genclient.CodecOptions{
 		Options: map[string]string{
 			"package-name-override": "test-only",
@@ -50,7 +50,7 @@ func TestParseOptions(t *testing.T) {
 			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := NewRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -59,7 +59,7 @@ func TestParseOptions(t *testing.T) {
 		Package: "types",
 		Path:    "src/wkt",
 	}
-	want := &Codec{
+	want := &RustCodec{
 		PackageNameOverride:      "test-only",
 		GenerationYear:           "2035",
 		ModulePath:               "alternative::generated",
@@ -80,16 +80,16 @@ func TestParseOptions(t *testing.T) {
 			"test-only":       gp,
 		},
 	}
-	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(Codec{}, "ExtraPackages", "PackageMapping")); diff != "" {
+	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(RustCodec{}, "ExtraPackages", "PackageMapping")); diff != "" {
 		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
 	}
 	if want.PackageNameOverride != codec.PackageNameOverride {
 		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.PackageNameOverride, codec.PackageNameOverride)
 	}
-	checkPackages(t, codec, want)
+	checkRustPackages(t, codec, want)
 }
 
-func TestRequiredPackages(t *testing.T) {
+func TestRust_RequiredPackages(t *testing.T) {
 	copts := &genclient.CodecOptions{
 		OutDir: "src/generated/newlib",
 		Options: map[string]string{
@@ -98,7 +98,7 @@ func TestRequiredPackages(t *testing.T) {
 			"package:auth":  "ignore=true",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := NewRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -113,7 +113,7 @@ func TestRequiredPackages(t *testing.T) {
 	}
 }
 
-func TestRequiredPackagesLocal(t *testing.T) {
+func TestRust_RequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
 	copts := &genclient.CodecOptions{
@@ -122,7 +122,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 		},
 	}
-	codec, err := NewCodec(copts)
+	codec, err := NewRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,8 +136,8 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	}
 }
 
-func TestPackageName(t *testing.T) {
-	packageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
+func TestRust_PackageName(t *testing.T) {
+	rustPackageNameImpl(t, "test-only-overridden", &genclient.CodecOptions{
 		Options: map[string]string{
 			"package-name-override": "test-only-overridden",
 		},
@@ -145,19 +145,19 @@ func TestPackageName(t *testing.T) {
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	packageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &genclient.API{
+	rustPackageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &genclient.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	packageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &genclient.API{
+	rustPackageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &genclient.API{
 		Name:        "type",
 		PackageName: "",
 	})
 }
 
-func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *genclient.API) {
+func rustPackageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *genclient.API) {
 	t.Helper()
-	codec, err := NewCodec(copts)
+	codec, err := NewRustCodec(copts)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -168,7 +168,7 @@ func packageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, a
 
 }
 
-func checkPackages(t *testing.T, got *Codec, want *Codec) {
+func checkRustPackages(t *testing.T, got *RustCodec, want *RustCodec) {
 	t.Helper()
 	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); diff != "" {
@@ -176,12 +176,12 @@ func checkPackages(t *testing.T, got *Codec, want *Codec) {
 	}
 }
 
-func TestValidate(t *testing.T) {
+func TestRust_Validate(t *testing.T) {
 	api := genclient.NewTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &RustCodec{}
 	if err := c.Validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
 	}
@@ -190,12 +190,12 @@ func TestValidate(t *testing.T) {
 	}
 }
 
-func TestValidateMessageMismatch(t *testing.T) {
+func TestRust_ValidateMessageMismatch(t *testing.T) {
 	api := genclient.NewTestAPI(
 		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c := &Codec{}
+	c := &RustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -204,7 +204,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}})
-	c = &Codec{}
+	c = &RustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -213,7 +213,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 		[]*genclient.Message{{Name: "m1", Package: "p1"}},
 		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
 		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &Codec{}
+	c = &RustCodec{}
 	if err := c.Validate(api); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
@@ -221,7 +221,7 @@ func TestValidateMessageMismatch(t *testing.T) {
 
 func TestWellKnownTypesExist(t *testing.T) {
 	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
-	c := &Codec{}
+	c := &RustCodec{}
 	c.LoadWellKnownTypes(api.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := api.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
@@ -230,9 +230,9 @@ func TestWellKnownTypesExist(t *testing.T) {
 	}
 }
 
-func TestWellKnownTypesAsMethod(t *testing.T) {
+func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	api := genclient.NewTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	want := "gax_wkt::Empty"
@@ -242,7 +242,7 @@ func TestWellKnownTypesAsMethod(t *testing.T) {
 	}
 }
 
-func TestMethodInOut(t *testing.T) {
+func TestRust_MethodInOut(t *testing.T) {
 	message := &genclient.Message{
 		Name: "Target",
 		ID:   "..Target",
@@ -253,7 +253,7 @@ func TestMethodInOut(t *testing.T) {
 		Parent: message,
 	}
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	want := "crate::model::Target"
@@ -269,7 +269,7 @@ func TestMethodInOut(t *testing.T) {
 	}
 }
 
-func TestFieldAttributes(t *testing.T) {
+func TestRust_FieldAttributes(t *testing.T) {
 	message := &genclient.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -356,7 +356,7 @@ func TestFieldAttributes(t *testing.T) {
 		"f_string_optional": ``,
 		"f_string_repeated": ``,
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
@@ -370,7 +370,7 @@ func TestFieldAttributes(t *testing.T) {
 	}
 }
 
-func TestMapFieldAttributes(t *testing.T) {
+func TestRust_MapFieldAttributes(t *testing.T) {
 	target := &genclient.Message{
 		Name: "Target",
 		ID:   "..Target",
@@ -484,7 +484,7 @@ func TestMapFieldAttributes(t *testing.T) {
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
@@ -498,7 +498,7 @@ func TestMapFieldAttributes(t *testing.T) {
 	}
 }
 
-func TestWktFieldAttributes(t *testing.T) {
+func TestRust_WktFieldAttributes(t *testing.T) {
 	message := &genclient.Message{
 		Name: "Fake",
 		ID:   "..Fake",
@@ -541,7 +541,7 @@ func TestWktFieldAttributes(t *testing.T) {
 		"f_bytes":  `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
 		"f_string": ``,
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
@@ -555,7 +555,7 @@ func TestWktFieldAttributes(t *testing.T) {
 	}
 }
 
-func TestFieldLossyName(t *testing.T) {
+func TestRust_FieldLossyName(t *testing.T) {
 	message := &genclient.Message{
 		Name:          "SecretPayload",
 		ID:            "..SecretPayload",
@@ -584,7 +584,7 @@ func TestFieldLossyName(t *testing.T) {
 		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
@@ -598,7 +598,7 @@ func TestFieldLossyName(t *testing.T) {
 	}
 }
 
-func TestSyntheticField(t *testing.T) {
+func TestRust_SyntheticField(t *testing.T) {
 	message := &genclient.Message{
 		Name: "Unused",
 		ID:   "..Unused",
@@ -633,7 +633,7 @@ func TestSyntheticField(t *testing.T) {
 		"project":     `#[serde(skip)]`,
 		"data_crc32c": `#[serde(skip)]`,
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
@@ -647,7 +647,7 @@ func TestSyntheticField(t *testing.T) {
 	}
 }
 
-func TestFieldType(t *testing.T) {
+func TestRust_FieldType(t *testing.T) {
 	target := &genclient.Message{
 		Name: "Target",
 		ID:   "..Target",
@@ -715,7 +715,7 @@ func TestFieldType(t *testing.T) {
 		"f_timestamp":          "Option<gax_wkt::Timestamp>",
 		"f_timestamp_repeated": "Vec<gax_wkt::Timestamp>",
 	}
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedTypes[field.Name]
@@ -729,7 +729,7 @@ func TestFieldType(t *testing.T) {
 	}
 }
 
-func TestQueryParams(t *testing.T) {
+func TestRust_QueryParams(t *testing.T) {
 	options := &genclient.Message{
 		Name:   "Options",
 		ID:     "..Options",
@@ -780,7 +780,7 @@ func TestQueryParams(t *testing.T) {
 				Methods: []*genclient.Method{method},
 			},
 		})
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	got := c.QueryParams(method, api.State)
@@ -791,7 +791,7 @@ func TestQueryParams(t *testing.T) {
 	}
 }
 
-func TestAsQueryParameter(t *testing.T) {
+func TestRust_AsQueryParameter(t *testing.T) {
 	options := &genclient.Message{
 		Name:   "Options",
 		ID:     "..Options",
@@ -818,7 +818,7 @@ func TestAsQueryParameter(t *testing.T) {
 		[]*genclient.Message{options, request},
 		[]*genclient.Enum{},
 		[]*genclient.Service{})
-	c := testCodec()
+	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
 	want := "&serde_json::to_value(&req.options_field).map_err(Error::serde)?"
@@ -835,14 +835,14 @@ func TestAsQueryParameter(t *testing.T) {
 
 }
 
-type CaseConvertTest struct {
+type rustCaseConvertTest struct {
 	Input    string
 	Expected string
 }
 
-func TestToSnake(t *testing.T) {
-	c := &Codec{}
-	var snakeConvertTests = []CaseConvertTest{
+func TestRust_ToSnake(t *testing.T) {
+	c := &RustCodec{}
+	var snakeConvertTests = []rustCaseConvertTest{
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
 		{"data_crc32c", "data_crc32c"},
@@ -860,9 +860,9 @@ func TestToSnake(t *testing.T) {
 	}
 }
 
-func TestToPascal(t *testing.T) {
-	c := &Codec{}
-	var pascalConvertTests = []CaseConvertTest{
+func TestRust_ToPascal(t *testing.T) {
+	c := &RustCodec{}
+	var pascalConvertTests = []rustCaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
 		{"True", "True"},
@@ -877,7 +877,7 @@ func TestToPascal(t *testing.T) {
 	}
 }
 
-func TestFormatDocComments(t *testing.T) {
+func TestRust_FormatDocComments(t *testing.T) {
 	input := `Some comments describing the thing.
 
 The next line has some extra trailing whitespace:` + "   " + `
@@ -916,14 +916,14 @@ Maybe they wanted to show some JSON:
 		"/// ```",
 	}
 
-	c := &Codec{}
+	c := &RustCodec{}
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }
 
-func TestFormatDocCommentsBullets(t *testing.T) {
+func TestRust_FormatDocCommentsBullets(t *testing.T) {
 	input := `In this example, in proto field could take one of the following values:
 
 * full_name for a violation in the full_name value
@@ -941,14 +941,14 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
-	c := testCodec()
+	c := createRustCodec()
 	got := c.FormatDocComments(input)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
 }
 
-func TestMessageNames(t *testing.T) {
+func TestRust_MessageNames(t *testing.T) {
 	message := &genclient.Message{
 		Name: "Replication",
 		ID:   "..Replication",
@@ -970,7 +970,7 @@ func TestMessageNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
 
-	c := testCodec()
+	c := createRustCodec()
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
@@ -986,7 +986,7 @@ func TestMessageNames(t *testing.T) {
 	}
 }
 
-func TestEnumNames(t *testing.T) {
+func TestRust_EnumNames(t *testing.T) {
 	message := &genclient.Message{
 		Name: "SecretVersion",
 		ID:   "..SecretVersion",
@@ -1008,7 +1008,7 @@ func TestEnumNames(t *testing.T) {
 
 	api := genclient.NewTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
 
-	c := testCodec()
+	c := createRustCodec()
 	if got := c.EnumName(nested, api.State); got != "State" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
