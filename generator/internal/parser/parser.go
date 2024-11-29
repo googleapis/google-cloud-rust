@@ -16,15 +16,6 @@ package parser
 
 import "strings"
 
-type ParserOptions struct {
-	// The location where the specification can be found.
-	Source string
-	// The location of the service configuration file.
-	ServiceConfig string
-	// Additional options.
-	Options map[string]string
-}
-
 func splitApiName(name string) (string, string) {
 	li := strings.LastIndex(name, ".")
 	if li == -1 {
