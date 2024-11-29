@@ -24,6 +24,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
 )
@@ -154,9 +155,9 @@ type RustPackage struct {
 	Features []string
 }
 
-func (c *RustCodec) LoadWellKnownTypes(s *genclient.APIState) {
+func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
 	// TODO(#77) - replace these placeholders with real types
-	wellKnown := []*genclient.Message{
+	wellKnown := []*api.Message{
 		{
 			ID:      ".google.protobuf.Any",
 			Name:    "Any",
@@ -188,38 +189,38 @@ func (c *RustCodec) LoadWellKnownTypes(s *genclient.APIState) {
 	}
 }
 
-func ScalarFieldType(f *genclient.Field) string {
+func ScalarFieldType(f *api.Field) string {
 	var out string
 	switch f.Typez {
-	case genclient.DOUBLE_TYPE:
+	case api.DOUBLE_TYPE:
 		out = "f64"
-	case genclient.FLOAT_TYPE:
+	case api.FLOAT_TYPE:
 		out = "f32"
-	case genclient.INT64_TYPE:
+	case api.INT64_TYPE:
 		out = "i64"
-	case genclient.UINT64_TYPE:
+	case api.UINT64_TYPE:
 		out = "u64"
-	case genclient.INT32_TYPE:
+	case api.INT32_TYPE:
 		out = "i32"
-	case genclient.FIXED64_TYPE:
+	case api.FIXED64_TYPE:
 		out = "u64"
-	case genclient.FIXED32_TYPE:
+	case api.FIXED32_TYPE:
 		out = "u32"
-	case genclient.BOOL_TYPE:
+	case api.BOOL_TYPE:
 		out = "bool"
-	case genclient.STRING_TYPE:
+	case api.STRING_TYPE:
 		out = "String"
-	case genclient.BYTES_TYPE:
+	case api.BYTES_TYPE:
 		out = "bytes::Bytes"
-	case genclient.UINT32_TYPE:
+	case api.UINT32_TYPE:
 		out = "u32"
-	case genclient.SFIXED32_TYPE:
+	case api.SFIXED32_TYPE:
 		out = "i32"
-	case genclient.SFIXED64_TYPE:
+	case api.SFIXED64_TYPE:
 		out = "i64"
-	case genclient.SINT32_TYPE:
+	case api.SINT32_TYPE:
 		out = "i32"
-	case genclient.SINT64_TYPE:
+	case api.SINT64_TYPE:
 		out = "i64"
 
 	default:
@@ -229,22 +230,22 @@ func ScalarFieldType(f *genclient.Field) string {
 	return out
 }
 
-func (c *RustCodec) fieldFormatter(typez genclient.Typez) string {
+func (c *RustCodec) fieldFormatter(typez api.Typez) string {
 	switch typez {
-	case genclient.INT64_TYPE,
-		genclient.UINT64_TYPE,
-		genclient.FIXED64_TYPE,
-		genclient.SFIXED64_TYPE,
-		genclient.SINT64_TYPE:
+	case api.INT64_TYPE,
+		api.UINT64_TYPE,
+		api.FIXED64_TYPE,
+		api.SFIXED64_TYPE,
+		api.SINT64_TYPE:
 		return "serde_with::DisplayFromStr"
-	case genclient.BYTES_TYPE:
+	case api.BYTES_TYPE:
 		return "serde_with::base64::Base64"
 	default:
 		return "_"
 	}
 }
 
-func (c *RustCodec) fieldBaseAttributes(f *genclient.Field) []string {
+func (c *RustCodec) fieldBaseAttributes(f *api.Field) []string {
 	if f.Synthetic {
 		return []string{`#[serde(skip)]`}
 	}
@@ -254,43 +255,43 @@ func (c *RustCodec) fieldBaseAttributes(f *genclient.Field) []string {
 	return []string{}
 }
 
-func (c *RustCodec) wrapperFieldAttributes(f *genclient.Field, defaultAttributes []string) []string {
+func (c *RustCodec) wrapperFieldAttributes(f *api.Field, defaultAttributes []string) []string {
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
-		formatter = c.fieldFormatter(genclient.BYTES_TYPE)
+		formatter = c.fieldFormatter(api.BYTES_TYPE)
 	case ".google.protobuf.UInt64Value":
-		formatter = c.fieldFormatter(genclient.UINT64_TYPE)
+		formatter = c.fieldFormatter(api.UINT64_TYPE)
 	case ".google.protobuf.Int64Value":
-		formatter = c.fieldFormatter(genclient.INT64_TYPE)
+		formatter = c.fieldFormatter(api.INT64_TYPE)
 	default:
 		return defaultAttributes
 	}
 	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
 }
 
-func (c *RustCodec) FieldAttributes(f *genclient.Field, state *genclient.APIState) []string {
+func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string {
 	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
-	case genclient.DOUBLE_TYPE,
-		genclient.FLOAT_TYPE,
-		genclient.INT32_TYPE,
-		genclient.FIXED32_TYPE,
-		genclient.BOOL_TYPE,
-		genclient.STRING_TYPE,
-		genclient.UINT32_TYPE,
-		genclient.SFIXED32_TYPE,
-		genclient.SINT32_TYPE,
-		genclient.ENUM_TYPE,
-		genclient.GROUP_TYPE:
+	case api.DOUBLE_TYPE,
+		api.FLOAT_TYPE,
+		api.INT32_TYPE,
+		api.FIXED32_TYPE,
+		api.BOOL_TYPE,
+		api.STRING_TYPE,
+		api.UINT32_TYPE,
+		api.SFIXED32_TYPE,
+		api.SINT32_TYPE,
+		api.ENUM_TYPE,
+		api.GROUP_TYPE:
 		return attributes
 
-	case genclient.INT64_TYPE,
-		genclient.UINT64_TYPE,
-		genclient.FIXED64_TYPE,
-		genclient.SFIXED64_TYPE,
-		genclient.SINT64_TYPE,
-		genclient.BYTES_TYPE:
+	case api.INT64_TYPE,
+		api.UINT64_TYPE,
+		api.FIXED64_TYPE,
+		api.SFIXED64_TYPE,
+		api.SINT64_TYPE,
+		api.BYTES_TYPE:
 		formatter := c.fieldFormatter(f.Typez)
 		if f.Optional {
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
@@ -300,10 +301,10 @@ func (c *RustCodec) FieldAttributes(f *genclient.Field, state *genclient.APIStat
 		}
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
-	case genclient.MESSAGE_TYPE:
+	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
-			var key, value *genclient.Field
+			var key, value *api.Field
 			for _, f := range message.Fields {
 				switch f.Name {
 				case "key":
@@ -332,7 +333,7 @@ func (c *RustCodec) FieldAttributes(f *genclient.Field, state *genclient.APIStat
 	}
 }
 
-func (c *RustCodec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+func (c *RustCodec) FieldType(f *api.Field, state *api.APIState) string {
 	if f.IsOneOf {
 		return c.wrapOneOfField(f, c.baseFieldType(f, state))
 	}
@@ -346,8 +347,8 @@ func (c *RustCodec) FieldType(f *genclient.Field, state *genclient.APIState) str
 }
 
 // Returns the field type, ignoring any repeated or optional attributes.
-func (c *RustCodec) baseFieldType(f *genclient.Field, state *genclient.APIState) string {
-	if f.Typez == genclient.MESSAGE_TYPE {
+func (c *RustCodec) baseFieldType(f *api.Field, state *api.APIState) string {
+	if f.Typez == api.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
@@ -359,14 +360,14 @@ func (c *RustCodec) baseFieldType(f *genclient.Field, state *genclient.APIState)
 			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
 		return c.FQMessageName(m, state)
-	} else if f.Typez == genclient.ENUM_TYPE {
+	} else if f.Typez == api.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
 		return c.FQEnumName(e, state)
-	} else if f.Typez == genclient.GROUP_TYPE {
+	} else if f.Typez == api.GROUP_TYPE {
 		slog.Error("TODO(#39) - better handling of `oneof` fields")
 		return ""
 	}
@@ -374,15 +375,15 @@ func (c *RustCodec) baseFieldType(f *genclient.Field, state *genclient.APIState)
 
 }
 
-func (c *RustCodec) wrapOneOfField(f *genclient.Field, value string) string {
-	if f.Typez == genclient.MESSAGE_TYPE {
+func (c *RustCodec) wrapOneOfField(f *api.Field, value string) string {
+	if f.Typez == api.MESSAGE_TYPE {
 		return fmt.Sprintf("(%s)", value)
 	}
 	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
 }
 
-func (c *RustCodec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
-	if f.Typez == genclient.MESSAGE_TYPE {
+func (c *RustCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
+	if f.Typez == api.MESSAGE_TYPE {
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
@@ -400,7 +401,7 @@ func (c *RustCodec) TemplateDir() string {
 	return "rust/crate"
 }
 
-func (c *RustCodec) MethodInOutTypeName(id string, state *genclient.APIState) string {
+func (c *RustCodec) MethodInOutTypeName(id string, state *api.APIState) string {
 	if id == "" {
 		return ""
 	}
@@ -428,7 +429,7 @@ func (c *RustCodec) rustPackage(packageName string) string {
 	return mapped.Name + "::model"
 }
 
-func (c *RustCodec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
+func (c *RustCodec) MessageAttributes(*api.Message, *api.APIState) []string {
 	serde := `#[serde(default, rename_all = "camelCase")]`
 	if !c.DeserializeWithdDefaults {
 		serde = `#[serde(rename_all = "camelCase")]`
@@ -441,11 +442,11 @@ func (c *RustCodec) MessageAttributes(*genclient.Message, *genclient.APIState) [
 	}
 }
 
-func (c *RustCodec) MessageName(m *genclient.Message, state *genclient.APIState) string {
+func (c *RustCodec) MessageName(m *api.Message, state *api.APIState) string {
 	return c.ToPascal(m.Name)
 }
 
-func (c *RustCodec) messageScopeName(m *genclient.Message, childPackageName string) string {
+func (c *RustCodec) messageScopeName(m *api.Message, childPackageName string) string {
 	if m == nil {
 		return c.rustPackage(childPackageName)
 	}
@@ -455,37 +456,37 @@ func (c *RustCodec) messageScopeName(m *genclient.Message, childPackageName stri
 	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToSnake(m.Name)
 }
 
-func (c *RustCodec) enumScopeName(e *genclient.Enum) string {
+func (c *RustCodec) enumScopeName(e *api.Enum) string {
 	return c.messageScopeName(e.Parent, "")
 }
 
-func (c *RustCodec) FQMessageName(m *genclient.Message, _ *genclient.APIState) string {
+func (c *RustCodec) FQMessageName(m *api.Message, _ *api.APIState) string {
 	return c.messageScopeName(m.Parent, m.Package) + "::" + c.ToPascal(m.Name)
 }
 
-func (c *RustCodec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
+func (c *RustCodec) EnumName(e *api.Enum, state *api.APIState) string {
 	return c.ToPascal(e.Name)
 }
 
-func (c *RustCodec) FQEnumName(e *genclient.Enum, _ *genclient.APIState) string {
+func (c *RustCodec) FQEnumName(e *api.Enum, _ *api.APIState) string {
 	return c.messageScopeName(e.Parent, "") + "::" + c.ToPascal(e.Name)
 }
 
-func (c *RustCodec) EnumValueName(e *genclient.EnumValue, _ *genclient.APIState) string {
+func (c *RustCodec) EnumValueName(e *api.EnumValue, _ *api.APIState) string {
 	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, we do not
 	// need to change anything for Rust
 	return rustEscapeKeyword(e.Name)
 }
 
-func (c *RustCodec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
+func (c *RustCodec) FQEnumValueName(v *api.EnumValue, state *api.APIState) string {
 	return fmt.Sprintf("%s::%s::%s", c.enumScopeName(v.Parent), c.ToSnake(v.Parent.Name), c.EnumValueName(v, state))
 }
 
-func (c *RustCodec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
+func (c *RustCodec) OneOfType(o *api.OneOf, _ *api.APIState) string {
 	return c.messageScopeName(o.Parent, "") + "::" + c.ToPascal(o.Name)
 }
 
-func (c *RustCodec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
+func (c *RustCodec) BodyAccessor(m *api.Method, state *api.APIState) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
@@ -493,7 +494,7 @@ func (c *RustCodec) BodyAccessor(m *genclient.Method, state *genclient.APIState)
 	return "." + c.ToSnake(m.PathInfo.BodyFieldPath)
 }
 
-func (c *RustCodec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
+func (c *RustCodec) HTTPPathFmt(m *api.PathInfo, state *api.APIState) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
@@ -550,7 +551,7 @@ func (c *RustCodec) derefFieldPath(fieldPath string) string {
 	return unwrap
 }
 
-func (c *RustCodec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
+func (c *RustCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string {
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
@@ -560,14 +561,14 @@ func (c *RustCodec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIStat
 	return args
 }
 
-func (c *RustCodec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
+func (c *RustCodec) QueryParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup request type", "id", m.InputTypeID)
 		return nil
 	}
 
-	var queryParams []*genclient.Field
+	var queryParams []*api.Field
 	for _, field := range msg.Fields {
 		if !m.PathInfo.QueryParameters[field.Name] {
 			continue
@@ -667,7 +668,7 @@ func (c *RustCodec) CopyrightYear() string {
 	return c.GenerationYear
 }
 
-func (c *RustCodec) PackageName(api *genclient.API) string {
+func (c *RustCodec) PackageName(api *api.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
 	}
@@ -694,7 +695,7 @@ func (c *RustCodec) validatePackageName(newPackage, elementName string) error {
 		c.SourceSpecificationPackageName, newPackage, elementName)
 }
 
-func (c *RustCodec) Validate(api *genclient.API) error {
+func (c *RustCodec) Validate(api *api.API) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixins will register those after the
 	// source package.

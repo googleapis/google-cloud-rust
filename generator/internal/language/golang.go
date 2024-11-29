@@ -21,6 +21,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/iancoleman/strcase"
 )
@@ -74,13 +75,13 @@ type GoImport struct {
 	Name string
 }
 
-func (c *GoCodec) LoadWellKnownTypes(s *genclient.APIState) {
-	timestamp := &genclient.Message{
+func (c *GoCodec) LoadWellKnownTypes(s *api.APIState) {
+	timestamp := &api.Message{
 		ID:      ".google.protobuf.Timestamp",
 		Name:    "Time",
 		Package: "time",
 	}
-	duration := &genclient.Message{
+	duration := &api.Message{
 		ID:      ".google.protobuf.Duration",
 		Name:    "Duration",
 		Package: "time",
@@ -89,24 +90,24 @@ func (c *GoCodec) LoadWellKnownTypes(s *genclient.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
-func (*GoCodec) FieldAttributes(*genclient.Field, *genclient.APIState) []string {
+func (*GoCodec) FieldAttributes(*api.Field, *api.APIState) []string {
 	return []string{}
 }
 
-func (c *GoCodec) FieldType(f *genclient.Field, state *genclient.APIState) string {
+func (c *GoCodec) FieldType(f *api.Field, state *api.APIState) string {
 	var out string
 	switch f.Typez {
-	case genclient.STRING_TYPE:
+	case api.STRING_TYPE:
 		out = "string"
-	case genclient.INT64_TYPE:
+	case api.INT64_TYPE:
 		out = "int64"
-	case genclient.INT32_TYPE:
+	case api.INT32_TYPE:
 		out = "int32"
-	case genclient.BOOL_TYPE:
+	case api.BOOL_TYPE:
 		out = "bool"
-	case genclient.BYTES_TYPE:
+	case api.BYTES_TYPE:
 		out = "[]byte"
-	case genclient.MESSAGE_TYPE:
+	case api.MESSAGE_TYPE:
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
@@ -119,7 +120,7 @@ func (c *GoCodec) FieldType(f *genclient.Field, state *genclient.APIState) strin
 			break
 		}
 		out = "*" + c.MessageName(m, state)
-	case genclient.ENUM_TYPE:
+	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
@@ -132,7 +133,7 @@ func (c *GoCodec) FieldType(f *genclient.Field, state *genclient.APIState) strin
 	return out
 }
 
-func (c *GoCodec) AsQueryParameter(f *genclient.Field, state *genclient.APIState) string {
+func (c *GoCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
 	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
 }
 
@@ -140,7 +141,7 @@ func (c *GoCodec) TemplateDir() string {
 	return "go"
 }
 
-func (c *GoCodec) MethodInOutTypeName(id string, s *genclient.APIState) string {
+func (c *GoCodec) MethodInOutTypeName(id string, s *api.APIState) string {
 	if id == "" {
 		return ""
 	}
@@ -152,11 +153,11 @@ func (c *GoCodec) MethodInOutTypeName(id string, s *genclient.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
-func (*GoCodec) MessageAttributes(*genclient.Message, *genclient.APIState) []string {
+func (*GoCodec) MessageAttributes(*api.Message, *api.APIState) []string {
 	return []string{}
 }
 
-func (c *GoCodec) MessageName(m *genclient.Message, state *genclient.APIState) string {
+func (c *GoCodec) MessageName(m *api.Message, state *api.APIState) string {
 	if m.Parent != nil {
 		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
 	}
@@ -166,37 +167,37 @@ func (c *GoCodec) MessageName(m *genclient.Message, state *genclient.APIState) s
 	return c.ToPascal(m.Name)
 }
 
-func (c *GoCodec) FQMessageName(m *genclient.Message, state *genclient.APIState) string {
+func (c *GoCodec) FQMessageName(m *api.Message, state *api.APIState) string {
 	return c.MessageName(m, state)
 }
 
-func (c *GoCodec) EnumName(e *genclient.Enum, state *genclient.APIState) string {
+func (c *GoCodec) EnumName(e *api.Enum, state *api.APIState) string {
 	if e.Parent != nil {
 		return c.MessageName(e.Parent, state) + "_" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }
 
-func (c *GoCodec) FQEnumName(e *genclient.Enum, state *genclient.APIState) string {
+func (c *GoCodec) FQEnumName(e *api.Enum, state *api.APIState) string {
 	return c.EnumName(e, state)
 }
 
-func (c *GoCodec) EnumValueName(e *genclient.EnumValue, state *genclient.APIState) string {
+func (c *GoCodec) EnumValueName(e *api.EnumValue, state *api.APIState) string {
 	if e.Parent.Parent != nil {
 		return c.MessageName(e.Parent.Parent, state) + "_" + strings.ToUpper(e.Name)
 	}
 	return strings.ToUpper(e.Name)
 }
 
-func (c *GoCodec) FQEnumValueName(v *genclient.EnumValue, state *genclient.APIState) string {
+func (c *GoCodec) FQEnumValueName(v *api.EnumValue, state *api.APIState) string {
 	return c.EnumValueName(v, state)
 }
 
-func (c *GoCodec) OneOfType(o *genclient.OneOf, _ *genclient.APIState) string {
+func (c *GoCodec) OneOfType(o *api.OneOf, _ *api.APIState) string {
 	panic("not needed for Go")
 }
 
-func (c *GoCodec) BodyAccessor(m *genclient.Method, state *genclient.APIState) string {
+func (c *GoCodec) BodyAccessor(m *api.Method, state *api.APIState) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
@@ -204,7 +205,7 @@ func (c *GoCodec) BodyAccessor(m *genclient.Method, state *genclient.APIState) s
 	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
 }
 
-func (c *GoCodec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) string {
+func (c *GoCodec) HTTPPathFmt(m *api.PathInfo, state *api.APIState) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
@@ -218,7 +219,7 @@ func (c *GoCodec) HTTPPathFmt(m *genclient.PathInfo, state *genclient.APIState) 
 	return fmt
 }
 
-func (c *GoCodec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState) []string {
+func (c *GoCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string {
 	var args []string
 	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
 	for _, segment := range h.PathTemplate {
@@ -230,14 +231,14 @@ func (c *GoCodec) HTTPPathArgs(h *genclient.PathInfo, state *genclient.APIState)
 	return args
 }
 
-func (c *GoCodec) QueryParams(m *genclient.Method, state *genclient.APIState) []*genclient.Field {
+func (c *GoCodec) QueryParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
 	if !ok {
 		slog.Error("unable to lookup type", "id", m.InputTypeID)
 		return nil
 	}
 
-	var queryParams []*genclient.Field
+	var queryParams []*api.Field
 	for _, field := range msg.Fields {
 		if !m.PathInfo.QueryParameters[field.JSONName] {
 			continue
@@ -282,7 +283,7 @@ func (c *GoCodec) CopyrightYear() string {
 	return c.GenerationYear
 }
 
-func (c *GoCodec) PackageName(api *genclient.API) string {
+func (c *GoCodec) PackageName(api *api.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
 	}
@@ -306,7 +307,7 @@ func (c *GoCodec) validatePackageName(newPackage, elementName string) error {
 		c.SourceSpecificationPackageName, newPackage, elementName)
 }
 
-func (c *GoCodec) Validate(api *genclient.API) error {
+func (c *GoCodec) Validate(api *api.API) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixes will register those after the
 	// source package.

@@ -21,7 +21,7 @@ import (
 
 	"cloud.google.com/go/iam/apiv1/iampb"
 	"cloud.google.com/go/longrunning/autogen/longrunningpb"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/genproto/googleapis/cloud/location"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -78,7 +78,7 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 
 // updateMixinState modifies mixin method definitions based on configuration in
 // the service yaml.
-func updateMixinState(serviceConfig *serviceconfig.Service, api *genclient.API) {
+func updateMixinState(serviceConfig *serviceconfig.Service, api *api.API) {
 	// Overwrite the google.api.http annotations with bindings from the Service config.
 	for _, rule := range serviceConfig.GetHttp().GetRules() {
 		selector := rule.GetSelector()

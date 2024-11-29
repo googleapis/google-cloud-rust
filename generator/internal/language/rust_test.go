@@ -21,6 +21,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 )
 
@@ -141,21 +142,21 @@ func TestRust_PackageName(t *testing.T) {
 		Options: map[string]string{
 			"package-name-override": "test-only-overridden",
 		},
-	}, &genclient.API{
+	}, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &genclient.API{
+	rustPackageNameImpl(t, "gcp-sdk-service-v3", &genclient.CodecOptions{}, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &genclient.API{
+	rustPackageNameImpl(t, "gcp-sdk-type", &genclient.CodecOptions{}, &api.API{
 		Name:        "type",
 		PackageName: "",
 	})
 }
 
-func rustPackageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *genclient.API) {
+func rustPackageNameImpl(t *testing.T, want string, copts *genclient.CodecOptions, api *api.API) {
 	t.Helper()
 	codec, err := NewRustCodec(copts)
 	if err != nil {
@@ -178,9 +179,9 @@ func checkRustPackages(t *testing.T, got *RustCodec, want *RustCodec) {
 
 func TestRust_Validate(t *testing.T) {
 	api := newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c := &RustCodec{}
 	if err := c.Validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
@@ -191,36 +192,36 @@ func TestRust_Validate(t *testing.T) {
 }
 
 func TestRust_ValidateMessageMismatch(t *testing.T) {
-	api := newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	test := newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c := &RustCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	test = newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c = &RustCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
+	test = newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
 	c = &RustCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 }
 
 func TestWellKnownTypesExist(t *testing.T) {
-	api := newTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &RustCodec{}
 	c.LoadWellKnownTypes(api.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
@@ -231,7 +232,7 @@ func TestWellKnownTypesExist(t *testing.T) {
 }
 
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
-	api := newTestAPI([]*genclient.Message{}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
@@ -243,16 +244,16 @@ func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 }
 
 func TestRust_MethodInOut(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
 	}
-	nested := &genclient.Message{
+	nested := &api.Message{
 		Name:   "Nested",
 		ID:     "..Target.Nested",
 		Parent: message,
 	}
-	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
@@ -270,28 +271,28 @@ func TestRust_MethodInOut(t *testing.T) {
 }
 
 func TestRust_FieldAttributes(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "f_int64",
 				JSONName: "fInt64",
-				Typez:    genclient.INT64_TYPE,
+				Typez:    api.INT64_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int64_optional",
 				JSONName: "fInt64Optional",
-				Typez:    genclient.INT64_TYPE,
+				Typez:    api.INT64_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int64_repeated",
 				JSONName: "fInt64Repeated",
-				Typez:    genclient.INT64_TYPE,
+				Typez:    api.INT64_TYPE,
 				Optional: false,
 				Repeated: true,
 			},
@@ -299,21 +300,21 @@ func TestRust_FieldAttributes(t *testing.T) {
 			{
 				Name:     "f_bytes",
 				JSONName: "fBytes",
-				Typez:    genclient.BYTES_TYPE,
+				Typez:    api.BYTES_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_bytes_optional",
 				JSONName: "fBytesOptional",
-				Typez:    genclient.BYTES_TYPE,
+				Typez:    api.BYTES_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_bytes_repeated",
 				JSONName: "fBytesRepeated",
-				Typez:    genclient.BYTES_TYPE,
+				Typez:    api.BYTES_TYPE,
 				Optional: false,
 				Repeated: true,
 			},
@@ -321,27 +322,27 @@ func TestRust_FieldAttributes(t *testing.T) {
 			{
 				Name:     "f_string",
 				JSONName: "fString",
-				Typez:    genclient.STRING_TYPE,
+				Typez:    api.STRING_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_string_optional",
 				JSONName: "fStringOptional",
-				Typez:    genclient.STRING_TYPE,
+				Typez:    api.STRING_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_string_repeated",
 				JSONName: "fStringRepeated",
-				Typez:    genclient.STRING_TYPE,
+				Typez:    api.STRING_TYPE,
 				Optional: false,
 				Repeated: true,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -371,80 +372,80 @@ func TestRust_FieldAttributes(t *testing.T) {
 }
 
 func TestRust_MapFieldAttributes(t *testing.T) {
-	target := &genclient.Message{
+	target := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
 	}
-	map1 := &genclient.Message{
+	map1 := &api.Message{
 		Name:  "$map<string, string>",
 		ID:    "$map<string, string>",
 		IsMap: true,
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:  "key",
-				Typez: genclient.STRING_TYPE,
+				Typez: api.STRING_TYPE,
 			},
 			{
 				Name:  "value",
-				Typez: genclient.STRING_TYPE,
+				Typez: api.STRING_TYPE,
 			},
 		},
 	}
-	map2 := &genclient.Message{
+	map2 := &api.Message{
 		Name:  "$map<string, int64>",
 		ID:    "$map<string, int64>",
 		IsMap: true,
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "key",
 				JSONName: "key",
-				Typez:    genclient.STRING_TYPE,
+				Typez:    api.STRING_TYPE,
 			},
 			{
 				Name:     "value",
 				JSONName: "value",
-				Typez:    genclient.INT64_TYPE,
+				Typez:    api.INT64_TYPE,
 			},
 		},
 	}
-	map3 := &genclient.Message{
+	map3 := &api.Message{
 		Name:  "$map<int64, string>",
 		ID:    "$map<int64, string>",
 		IsMap: true,
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:  "key",
-				Typez: genclient.INT64_TYPE,
+				Typez: api.INT64_TYPE,
 			},
 			{
 				Name:  "value",
-				Typez: genclient.STRING_TYPE,
+				Typez: api.STRING_TYPE,
 			},
 		},
 	}
-	map4 := &genclient.Message{
+	map4 := &api.Message{
 		Name:  "$map<string, bytes>",
 		ID:    "$map<string, bytes>",
 		IsMap: true,
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:  "key",
-				Typez: genclient.STRING_TYPE,
+				Typez: api.STRING_TYPE,
 			},
 			{
 				Name:  "value",
-				Typez: genclient.BYTES_TYPE,
+				Typez: api.BYTES_TYPE,
 			},
 		},
 	}
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "target",
 				JSONName: "target",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  target.ID,
 				Optional: true,
 				Repeated: false,
@@ -452,30 +453,30 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 			{
 				Name:     "map",
 				JSONName: "map",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map1.ID,
 			},
 			{
 				Name:     "map_i64",
 				JSONName: "mapI64",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map2.ID,
 			},
 			{
 				Name:     "map_i64_key",
 				JSONName: "mapI64Key",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map3.ID,
 			},
 			{
 				Name:     "map_bytes",
 				JSONName: "mapBytes",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  map4.ID,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{target, map1, map2, map3, map4, message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      ``,
@@ -499,41 +500,41 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 }
 
 func TestRust_WktFieldAttributes(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "f_int64",
 				JSONName: "fInt64",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Int64Value",
 				Optional: true,
 			},
 			{
 				Name:     "f_uint64",
 				JSONName: "fUint64",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.UInt64Value",
 				Optional: true,
 			},
 			{
 				Name:     "f_bytes",
 				JSONName: "fBytes",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.BytesValue",
 				Optional: true,
 			},
 			{
 				Name:     "f_string",
 				JSONName: "fString",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.StringValue",
 				Optional: true,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":  `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
@@ -556,29 +557,29 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 }
 
 func TestRust_FieldLossyName(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name:          "SecretPayload",
 		ID:            "..SecretPayload",
 		Documentation: "A secret payload resource in the Secret Manager API.",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:          "data",
 				JSONName:      "data",
 				Documentation: "The secret data. Must be no larger than 64KiB.",
-				Typez:         genclient.BYTES_TYPE,
+				Typez:         api.BYTES_TYPE,
 				TypezID:       "bytes",
 			},
 			{
 				Name:          "dataCrc32c",
 				JSONName:      "dataCrc32c",
 				Documentation: "Optional. If specified, SecretManagerService will verify the integrity of the received data.",
-				Typez:         genclient.INT64_TYPE,
+				Typez:         api.INT64_TYPE,
 				TypezID:       "int64",
 				Optional:      true,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
@@ -599,34 +600,34 @@ func TestRust_FieldLossyName(t *testing.T) {
 }
 
 func TestRust_SyntheticField(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Unused",
 		ID:   "..Unused",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "updateMask",
 				JSONName: "updateMask",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.FieldMask",
 				Optional: true,
 			},
 			{
 				Name:      "project",
 				JSONName:  "project",
-				Typez:     genclient.STRING_TYPE,
+				Typez:     api.STRING_TYPE,
 				TypezID:   "string",
 				Synthetic: true,
 			},
 			{
 				Name:      "data_crc32c",
 				JSONName:  "dataCrc32c",
-				Typez:     genclient.STRING_TYPE,
+				Typez:     api.STRING_TYPE,
 				TypezID:   "string",
 				Synthetic: true,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"updateMask":  ``,
@@ -648,63 +649,63 @@ func TestRust_SyntheticField(t *testing.T) {
 }
 
 func TestRust_FieldType(t *testing.T) {
-	target := &genclient.Message{
+	target := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
 	}
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Fake",
 		ID:   "..Fake",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "f_int32",
-				Typez:    genclient.INT32_TYPE,
+				Typez:    api.INT32_TYPE,
 				Optional: false,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int32_optional",
-				Typez:    genclient.INT32_TYPE,
+				Typez:    api.INT32_TYPE,
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_int32_repeated",
-				Typez:    genclient.INT32_TYPE,
+				Typez:    api.INT32_TYPE,
 				Optional: false,
 				Repeated: true,
 			},
 			{
 				Name:     "f_msg",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Target",
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_msg_repeated",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Target",
 				Optional: false,
 				Repeated: true,
 			},
 			{
 				Name:     "f_timestamp",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Timestamp",
 				Optional: true,
 				Repeated: false,
 			},
 			{
 				Name:     "f_timestamp_repeated",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Timestamp",
 				Optional: false,
 				Repeated: true,
 			},
 		},
 	}
-	api := newTestAPI([]*genclient.Message{target, message}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedTypes := map[string]string{
 		"f_int32":              "i32",
@@ -730,39 +731,39 @@ func TestRust_FieldType(t *testing.T) {
 }
 
 func TestRust_QueryParams(t *testing.T) {
-	options := &genclient.Message{
+	options := &api.Message{
 		Name:   "Options",
 		ID:     "..Options",
-		Fields: []*genclient.Field{},
+		Fields: []*api.Field{},
 	}
-	optionsField := &genclient.Field{
+	optionsField := &api.Field{
 		Name:     "options_field",
 		JSONName: "optionsField",
-		Typez:    genclient.MESSAGE_TYPE,
+		Typez:    api.MESSAGE_TYPE,
 		TypezID:  options.ID,
 	}
-	anotherField := &genclient.Field{
+	anotherField := &api.Field{
 		Name:     "another_field",
 		JSONName: "anotherField",
-		Typez:    genclient.STRING_TYPE,
+		Typez:    api.STRING_TYPE,
 		TypezID:  options.ID,
 	}
-	request := &genclient.Message{
+	request := &api.Message{
 		Name: "TestRequest",
 		ID:   "..TestRequest",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			optionsField, anotherField,
 			{
 				Name: "unused",
 			},
 		},
 	}
-	method := &genclient.Method{
+	method := &api.Method{
 		Name:         "Test",
 		ID:           "..TestService.Test",
 		InputTypeID:  request.ID,
 		OutputTypeID: ".google.protobuf.Empty",
-		PathInfo: &genclient.PathInfo{
+		PathInfo: &api.PathInfo{
 			Verb: "GET",
 			QueryParameters: map[string]bool{
 				"options_field": true,
@@ -770,54 +771,54 @@ func TestRust_QueryParams(t *testing.T) {
 			},
 		},
 	}
-	api := newTestAPI(
-		[]*genclient.Message{options, request},
-		[]*genclient.Enum{},
-		[]*genclient.Service{
+	test := newTestAPI(
+		[]*api.Message{options, request},
+		[]*api.Enum{},
+		[]*api.Service{
 			{
 				Name:    "TestService",
 				ID:      "..TestService",
-				Methods: []*genclient.Method{method},
+				Methods: []*api.Method{method},
 			},
 		})
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.LoadWellKnownTypes(test.State)
 
-	got := c.QueryParams(method, api.State)
-	want := []*genclient.Field{optionsField, anotherField}
-	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
+	got := c.QueryParams(method, test.State)
+	want := []*api.Field{optionsField, anotherField}
+	less := func(a, b *api.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}
 }
 
 func TestRust_AsQueryParameter(t *testing.T) {
-	options := &genclient.Message{
+	options := &api.Message{
 		Name:   "Options",
 		ID:     "..Options",
-		Fields: []*genclient.Field{},
+		Fields: []*api.Field{},
 	}
-	optionsField := &genclient.Field{
+	optionsField := &api.Field{
 		Name:     "options_field",
 		JSONName: "optionsField",
-		Typez:    genclient.MESSAGE_TYPE,
+		Typez:    api.MESSAGE_TYPE,
 		TypezID:  options.ID,
 	}
-	anotherField := &genclient.Field{
+	anotherField := &api.Field{
 		Name:     "another_field",
 		JSONName: "anotherField",
-		Typez:    genclient.STRING_TYPE,
+		Typez:    api.STRING_TYPE,
 		TypezID:  options.ID,
 	}
-	request := &genclient.Message{
+	request := &api.Message{
 		Name:   "TestRequest",
 		ID:     "..TestRequest",
-		Fields: []*genclient.Field{optionsField, anotherField},
+		Fields: []*api.Field{optionsField, anotherField},
 	}
 	api := newTestAPI(
-		[]*genclient.Message{options, request},
-		[]*genclient.Enum{},
-		[]*genclient.Service{})
+		[]*api.Message{options, request},
+		[]*api.Enum{},
+		[]*api.Service{})
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 
@@ -949,26 +950,26 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 }
 
 func TestRust_MessageNames(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Replication",
 		ID:   "..Replication",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "automatic",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
-	nested := &genclient.Message{
+	nested := &api.Message{
 		Name:   "Automatic",
 		ID:     "..Replication.Automatic",
 		Parent: message,
 	}
 
-	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 
 	c := createRustCodec()
 	if got := c.MessageName(message, api.State); got != "Replication" {
@@ -987,26 +988,26 @@ func TestRust_MessageNames(t *testing.T) {
 }
 
 func TestRust_EnumNames(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "SecretVersion",
 		ID:   "..SecretVersion",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "automatic",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
-	nested := &genclient.Enum{
+	nested := &api.Enum{
 		Name:   "State",
 		ID:     "..SecretVersion.State",
 		Parent: message,
 	}
 
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
 
 	c := createRustCodec()
 	if got := c.EnumName(nested, api.State); got != "State" {
