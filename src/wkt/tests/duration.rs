@@ -32,15 +32,12 @@ fn access() {
 
 #[test]
 fn serialize_in_struct() -> Result {
-    let input = Helper {
-        ..Default::default()
-    };
+    let input = Helper::default();
     let json = serde_json::to_value(input)?;
     assert_eq!(json, json!({}));
 
     let input = Helper {
         time_to_live: Some(Duration::clamp(12, 345678900)),
-        ..Default::default()
     };
 
     let json = serde_json::to_value(input)?;
@@ -51,16 +48,13 @@ fn serialize_in_struct() -> Result {
 #[test]
 fn deserialize_in_struct() -> Result {
     let input = json!({});
-    let want = Helper {
-        ..Default::default()
-    };
+    let want = Helper::default();
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
 
     let input = json!({ "timeToLive": "12.345678900s" });
     let want = Helper {
         time_to_live: Some(Duration::clamp(12, 345678900)),
-        ..Default::default()
     };
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
