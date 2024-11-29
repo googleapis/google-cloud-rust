@@ -28,17 +28,17 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewRustCodec(copts *CodecOptions) (*RustCodec, error) {
+func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &RustCodec{
 		GenerationYear:           fmt.Sprintf("%04d", year),
-		OutputDirectory:          copts.OutDir,
+		OutputDirectory:          outdir,
 		ModulePath:               "model",
 		DeserializeWithdDefaults: true,
 		ExtraPackages:            []*RustPackage{},
 		PackageMapping:           map[string]*RustPackage{},
 	}
-	for key, definition := range copts.Options {
+	for key, definition := range options {
 		switch key {
 		case "package-name-override":
 			codec.PackageNameOverride = definition

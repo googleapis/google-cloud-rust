@@ -25,13 +25,13 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-func NewGoCodec(copts *CodecOptions) (*GoCodec, error) {
+func NewGoCodec(options map[string]string) (*GoCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &GoCodec{
 		GenerationYear: fmt.Sprintf("%04d", year),
 		ImportMap:      map[string]*GoImport{},
 	}
-	for key, definition := range copts.Options {
+	for key, definition := range options {
 		switch {
 		case key == "package-name-override":
 			codec.PackageNameOverride = definition

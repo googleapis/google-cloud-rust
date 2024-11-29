@@ -41,16 +41,14 @@ func createRustCodec() *RustCodec {
 }
 
 func TestRust_ParseOptions(t *testing.T) {
-	copts := &CodecOptions{
-		Options: map[string]string{
-			"package-name-override": "test-only",
-			"copyright-year":        "2035",
-			"module-path":           "alternative::generated",
-			"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-			"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
-		},
+	options := map[string]string{
+		"package-name-override": "test-only",
+		"copyright-year":        "2035",
+		"module-path":           "alternative::generated",
+		"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
+		"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
 	}
-	codec, err := NewRustCodec(copts)
+	codec, err := NewRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -90,15 +88,13 @@ func TestRust_ParseOptions(t *testing.T) {
 }
 
 func TestRust_RequiredPackages(t *testing.T) {
-	copts := &CodecOptions{
-		OutDir: "src/generated/newlib",
-		Options: map[string]string{
-			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
-			"package:gax":   "package=gax,path=src/gax,version=1.2.3",
-			"package:auth":  "ignore=true",
-		},
+	outdir := "src/generated/newlib"
+	options := map[string]string{
+		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
+		"package:gax":   "package=gax,path=src/gax,version=1.2.3",
+		"package:auth":  "ignore=true",
 	}
-	codec, err := NewRustCodec(copts)
+	codec, err := NewRustCodec(outdir, options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -116,13 +112,10 @@ func TestRust_RequiredPackages(t *testing.T) {
 func TestRust_RequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
-	copts := &CodecOptions{
-		OutDir: "",
-		Options: map[string]string{
-			"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
-		},
+	options := map[string]string{
+		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
 	}
-	codec, err := NewRustCodec(copts)
+	codec, err := NewRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -137,27 +130,25 @@ func TestRust_RequiredPackagesLocal(t *testing.T) {
 }
 
 func TestRust_PackageName(t *testing.T) {
-	rustPackageNameImpl(t, "test-only-overridden", &CodecOptions{
-		Options: map[string]string{
-			"package-name-override": "test-only-overridden",
-		},
+	rustPackageNameImpl(t, "test-only-overridden", map[string]string{
+		"package-name-override": "test-only-overridden",
 	}, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-service-v3", &CodecOptions{}, &api.API{
+	rustPackageNameImpl(t, "gcp-sdk-service-v3", nil, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-type", &CodecOptions{}, &api.API{
+	rustPackageNameImpl(t, "gcp-sdk-type", nil, &api.API{
 		Name:        "type",
 		PackageName: "",
 	})
 }
 
-func rustPackageNameImpl(t *testing.T, want string, copts *CodecOptions, api *api.API) {
+func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api *api.API) {
 	t.Helper()
-	codec, err := NewRustCodec(copts)
+	codec, err := NewRustCodec("", opts)
 	if err != nil {
 		t.Fatal(err)
 	}
