@@ -200,7 +200,8 @@ impl<'de> serde::de::Visitor<'de> for DurationVisitor {
         let d = Duration::new(
             sign * seconds.unwrap_or(0),
             sign as i32 * nanos.unwrap_or(0),
-        ).map_err(E::custom)?;
+        )
+        .map_err(E::custom)?;
         Ok(d)
     }
 }
