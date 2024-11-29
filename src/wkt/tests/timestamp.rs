@@ -39,8 +39,7 @@ fn serialize_in_struct() -> Result {
     assert_eq!(json, json!({}));
 
     let input = Helper {
-        create_time: Some(Timestamp::default().set_seconds(12).set_nanos(345_678_900)),
-        ..Default::default()
+        create_time: Some(Timestamp::new(12, 345_678_900)?),
     };
 
     let json = serde_json::to_value(input)?;
@@ -62,8 +61,7 @@ fn deserialize_in_struct() -> Result {
 
     let input = json!({ "createTime": "1970-01-01T00:00:12.3456789Z" });
     let want = Helper {
-        create_time: Some(Timestamp::default().set_seconds(12).set_nanos(345678900)),
-        ..Default::default()
+        create_time: Some(Timestamp::new(12, 345678900)?),
     };
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
@@ -71,12 +69,13 @@ fn deserialize_in_struct() -> Result {
 }
 
 #[test]
-fn compare() {
+fn compare() -> Result {
     let ts0 = Timestamp::default();
-    let ts1 = Timestamp::default().set_seconds(1).set_nanos(100);
-    let ts2 = Timestamp::default().set_seconds(1).set_nanos(200);
-    let ts3 = Timestamp::default().set_seconds(2);
+    let ts1 = Timestamp::new(1, 100)?;
+    let ts2 = Timestamp::new(1, 200)?;
+    let ts3 = Timestamp::new(2, 0)?;
     assert_eq!(ts0.partial_cmp(&ts0), Some(std::cmp::Ordering::Equal));
     assert_eq!(ts0.partial_cmp(&ts1), Some(std::cmp::Ordering::Less));
     assert_eq!(ts2.partial_cmp(&ts3), Some(std::cmp::Ordering::Less));
+    Ok(())
 }

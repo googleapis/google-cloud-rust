@@ -58,17 +58,80 @@ pub struct Timestamp {
     pub nanos: i32,
 }
 
+#[derive(thiserror::Error, Debug, PartialEq)]
+pub enum TimestampError {
+    #[error("seconds and/or nanoseconds out of range")]
+    OutOfRange(),
+}
+
+type Error = TimestampError;
+
 impl Timestamp {
-    /// Set the `seconds` field.
-    pub fn set_seconds(mut self, v: i64) -> Self {
-        self.seconds = v;
-        self
+    const NS: i32 = 1_000_000_000;
+
+    // Obtained via: `date +%s --date='0001-01-01T00:00:00Z'`
+    pub const MIN_SECONDS: i64 = -62135596800;
+    // Obtained via: `date +%s --date='9999-12-31T23:59:59Z'`
+    pub const MAX_SECONDS: i64 = 253402300799;
+    pub const MAX_NANOS: i32 = Self::NS - 1;
+    pub const MIN_NANOS: i32 = 0;
+
+    pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
+        if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
+            return Err(Error::OutOfRange());
+        }
+        if !(Self::MIN_NANOS..=Self::MAX_NANOS).contains(&nanos) {
+            return Err(Error::OutOfRange());
+        }
+        Ok(Self { seconds, nanos })
     }
 
-    /// Set the `nanos` field.
-    pub fn set_nanos(mut self, v: i32) -> Self {
-        self.nanos = v;
-        self
+    /// Create a normalized, clamped [Timestamp].
+    ///
+    /// Timestamps must be between 0001-01-01T00:00:00Z and
+    /// 9999-12-31T23:59:59.999999999Z, and the nanoseconds component must
+    /// always be in the range [0, 999_999_999]. This function creates a
+    /// new [Timestamp] instance clamped to those ranges.
+    ///
+    /// The function effectively adds the nanoseconds part (with carry) to the
+    /// seconds part, with saturation.
+    ///
+    /// `seconds` - the seconds in the interval.
+    /// `nanos` - the nanoseconds *added* to the interval.
+    pub fn clamp(seconds: i64, nanos: i32) -> Self {
+        let (seconds, nanos) = match nanos.cmp(&0_i32) {
+            std::cmp::Ordering::Equal => (seconds, nanos),
+            std::cmp::Ordering::Greater => (
+                seconds.saturating_add((nanos / Self::NS) as i64),
+                nanos % Self::NS,
+            ),
+            std::cmp::Ordering::Less => (
+                seconds.saturating_sub(1 - (nanos / Self::NS) as i64),
+                Self::NS + nanos % Self::NS,
+            ),
+        };
+        if seconds < Self::MIN_SECONDS {
+            return Self {
+                seconds: Self::MIN_SECONDS,
+                nanos: 0,
+            };
+        } else if seconds > Self::MAX_SECONDS {
+            return Self {
+                seconds: Self::MAX_SECONDS,
+                nanos: 0,
+            };
+        }
+        Self { seconds, nanos }
+    }
+
+    /// Returns the seconds part of the timestamp.
+    pub fn seconds(&self) -> i64 {
+        self.seconds
+    }
+
+    /// Returns the sub-second part of the timestamp.
+    pub fn nanos(&self) -> i32 {
+        self.nanos
     }
 }
 
@@ -109,7 +172,7 @@ impl<'de> serde::de::Visitor<'de> for TimestampVisitor {
         let nanos_since_epoch = odt.unix_timestamp_nanos();
         let seconds = (nanos_since_epoch / NS) as i64;
         let nanos = (nanos_since_epoch % NS) as i32;
-        Ok(Self::Value { seconds, nanos })
+        Timestamp::new(seconds, nanos).map_err(E::custom)
     }
 }
 
@@ -133,16 +196,53 @@ mod test {
     // Verify the epoch converts as expected.
     #[test]
     fn unix_epoch() -> Result {
-        let proto = Timestamp {
-            seconds: 0,
-            nanos: 0,
-        };
+        let proto = Timestamp::default();
         let json = serde_json::to_value(&proto)?;
-        let expected = json!(r#"1970-01-01T00:00:00Z"#);
+        let expected = json!("1970-01-01T00:00:00Z");
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Timestamp>(json)?;
         assert_eq!(proto, roundtrip);
         Ok(())
+    }
+
+    fn get_seconds(input: &str) -> i64 {
+        let odt = time::OffsetDateTime::parse(input, &Rfc3339);
+        let odt = odt.unwrap();
+        odt.unix_timestamp()
+    }
+
+    fn get_min_seconds() -> i64 {
+        self::get_seconds("0001-01-01T00:00:00Z")
+    }
+
+    fn get_max_seconds() -> i64 {
+        self::get_seconds("9999-12-31T23:59:59Z")
+    }
+
+    #[test_case(get_min_seconds() - 1, 0; "seconds below range")]
+    #[test_case(get_max_seconds() + 1, 0; "seconds above range")]
+    #[test_case(0, -1; "nanos below range")]
+    #[test_case(0, 1_000_000_000; "nanos above range")]
+    fn new_out_of_range(seconds: i64, nanos: i32) -> Result {
+        let t = Timestamp::new(seconds, nanos);
+        assert_eq!(t, Err(Error::OutOfRange()));
+        Ok(())
+    }
+
+    #[test_case(0, 0, 0, 0; "zero")]
+    #[test_case(0, 1_234_567_890, 1, 234_567_890; "nanos overflow")]
+    #[test_case(0, -1_400_000_000, -2, 600_000_000; "nanos underflow")]
+    #[test_case(self::get_max_seconds() + 1, 0, get_max_seconds(), 0; "seconds over range")]
+    #[test_case(self::get_min_seconds() - 1, 0, get_min_seconds(), 0; "seconds below range")]
+    #[test_case(self::get_max_seconds() - 1, 2_000_000_001, get_max_seconds(), 0; "nanos overflow range")]
+    #[test_case(self::get_min_seconds() + 1, -1_500_000_000, get_min_seconds(), 0; "nanos underflow range")]
+    fn clamp(seconds: i64, nanos: i32, want_seconds: i64, want_nanos: i32) {
+        let got = Timestamp::clamp(seconds, nanos);
+        let want = Timestamp {
+            seconds: want_seconds,
+            nanos: want_nanos,
+        };
+        assert_eq!(got, want);
     }
 
     // Verify timestamps can roundtrip from string -> struct -> string without loss.
@@ -159,6 +259,15 @@ mod test {
             roundtrip,
             "mismatched value for input={input}"
         );
+        Ok(())
+    }
+
+    #[test_case("0000-01-01T00:00:00Z"; "below range")]
+    #[test_case("10000-01-01T00:00:00Z"; "above range")]
+    fn deserialize_out_of_range(input: &str) -> Result {
+        let value = serde_json::to_value(input)?;
+        let got = serde_json::from_value::<Timestamp>(value);
+        assert!(got.is_err());
         Ok(())
     }
 }
