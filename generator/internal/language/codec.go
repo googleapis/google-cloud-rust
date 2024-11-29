@@ -12,66 +12,68 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package api
+package language
 
-// LanguageCodec is an adapter used to transform values into language idiomatic
+import "github.com/googleapis/google-cloud-rust/generator/internal/api"
+
+// Codec is an adapter used to transform values into language idiomatic
 // representations. This is used to manipulate the data the is fed into
 // templates to generate clients.
-type LanguageCodec interface {
+type Codec interface {
 	// TemplateDir returns the directory containing the templates.
 	TemplateDir() string
 	// LoadWellKnownTypes allows a language to load information into the state
 	// for any wellknown types. For example defining how timestamppb should be
 	// represented in a given language or wrappers around operations.
-	LoadWellKnownTypes(s *APIState)
+	LoadWellKnownTypes(s *api.APIState)
 	// FieldAttributes returns a (possibly empty) list of "attributes" included
 	// immediately before the field definition.
-	FieldAttributes(f *Field, state *APIState) []string
+	FieldAttributes(f *api.Field, state *api.APIState) []string
 	// FieldType returns a string representation of a message field type.
-	FieldType(f *Field, state *APIState) string
+	FieldType(f *api.Field, state *api.APIState) string
 	// The field when used to build the query.
-	AsQueryParameter(f *Field, state *APIState) string
+	AsQueryParameter(f *api.Field, state *api.APIState) string
 	// The name of a message type ID when used as an input or output argument
 	// in the client methods.
-	MethodInOutTypeName(id string, state *APIState) string
+	MethodInOutTypeName(id string, state *api.APIState) string
 	// Returns a (possibly empty) list of "attributes" included immediately
 	// before the message definition.
-	MessageAttributes(m *Message, state *APIState) []string
+	MessageAttributes(m *api.Message, state *api.APIState) []string
 	// The (unqualified) message name, as used when defining the type to
 	// represent it.
-	MessageName(m *Message, state *APIState) string
+	MessageName(m *api.Message, state *api.APIState) string
 	// The fully-qualified message name, as used when referring to the name from
 	// another place in the package.
-	FQMessageName(m *Message, state *APIState) string
+	FQMessageName(m *api.Message, state *api.APIState) string
 	// The (unqualified) enum name, as used when defining the type to
 	// represent it.
-	EnumName(e *Enum, state *APIState) string
+	EnumName(e *api.Enum, state *api.APIState) string
 	// The fully-qualified enum name, as used when referring to the name from
 	// another place in the package.
-	FQEnumName(e *Enum, state *APIState) string
+	FQEnumName(e *api.Enum, state *api.APIState) string
 	// The (unqualified) enum value name, as used when defining the constant,
 	// variable, or enum value that holds it.
-	EnumValueName(e *EnumValue, state *APIState) string
+	EnumValueName(e *api.EnumValue, state *api.APIState) string
 	// The fully qualified enum value name, as used when using the constant,
 	// variable, or enum value that holds it.
-	FQEnumValueName(e *EnumValue, state *APIState) string
+	FQEnumValueName(e *api.EnumValue, state *api.APIState) string
 	// OneOfType returns a string representation of a one-of field type.
-	OneOfType(o *OneOf, state *APIState) string
+	OneOfType(o *api.OneOf, state *api.APIState) string
 	// BodyAccessor returns a string representation of the accessor used to
 	// get the body out of a request. For instance this might return `.Body()`.
-	BodyAccessor(m *Method, state *APIState) string
+	BodyAccessor(m *api.Method, state *api.APIState) string
 	// HTTPPathFmt returns a format string used for adding path arguments to a
 	// URL. The replacements should align in both order and value from what is
 	// returned from HTTPPathArgs.
-	HTTPPathFmt(m *PathInfo, state *APIState) string
+	HTTPPathFmt(m *api.PathInfo, state *api.APIState) string
 	// HTTPPathArgs returns a string representation of the path arguments. This
 	// should be used in conjunction with HTTPPathFmt. An example return value
 	// might be `, req.PathParam()`
-	HTTPPathArgs(h *PathInfo, state *APIState) []string
+	HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string
 	// QueryParams returns key-value pairs of name to accessor for query params.
 	// An example return value might be
 	// `&Pair{Key: "secretId", Value: "req.SecretId()"}`
-	QueryParams(m *Method, state *APIState) []*Field
+	QueryParams(m *api.Method, state *api.APIState) []*api.Field
 	// ToSnake converts a symbol name to `snake_case`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToSnake(string) string
@@ -102,9 +104,9 @@ type LanguageCodec interface {
 	RequiredPackages() []string
 	// The package name in the destination language. May be empty, some
 	// languages do not have a package manager.
-	PackageName(api *API) string
+	PackageName(api *api.API) string
 	// Validate an API, some codecs impose restrictions on the input API.
-	Validate(api *API) error
+	Validate(api *api.API) error
 	// The year when this package was first generated.
 	CopyrightYear() string
 	// Pass language-specific information from the Codec to the template engine.
