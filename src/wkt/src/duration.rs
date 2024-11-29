@@ -52,7 +52,7 @@ pub struct Duration {
     nanos: i32,
 }
 
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, PartialEq)]
 pub enum DurationError {
     #[error("seconds and/or nanoseconds out of range")]
     OutOfRange(),
@@ -78,10 +78,10 @@ impl Duration {
     /// `seconds` - the seconds in the interval.
     /// `nanos` - the nanoseconds *added* to the interval.
     pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
-        if seconds < Self::MIN_SECONDS || seconds > Self::MAX_SECONDS {
+        if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
             return Err(Error::OutOfRange());
         }
-        if nanos < Self::MIN_NANOS || nanos > Self::MAX_NANOS {
+        if !(Self::MIN_NANOS..=Self::MAX_NANOS).contains(&nanos) {
             return Err(Error::OutOfRange());
         }
         if (seconds != 0 && nanos != 0) && ((seconds < 0) != (nanos < 0)) {
@@ -108,7 +108,7 @@ impl Duration {
         let mut nanos = nanos % Self::NS;
         if seconds > 0 && nanos < 0 {
             seconds = seconds.saturating_sub(1);
-            nanos = Self::NS + nanos;
+            nanos += Self::NS;
         } else if seconds < 0 && nanos > 0 {
             seconds = seconds.saturating_add(1);
             nanos = -(Self::NS - nanos);
@@ -125,7 +125,7 @@ impl Duration {
                 nanos: 0,
             };
         }
-        return Self { seconds, nanos };
+        Self { seconds, nanos }
     }
 
     /// Returns the seconds part of the duration.
@@ -263,13 +263,7 @@ mod test {
     #[test_case(0, -1_000_000_000 ; "too many negative nanoseconds")]
     fn out_of_range(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert!(d.is_err());
-        match d.as_ref().err().unwrap() {
-            Error::OutOfRange() => {}
-            _ => {
-                assert!(false, "expected an OutOfRange error, got={:?}", d);
-            }
-        }
+        assert_eq!(d, Err(Error::OutOfRange()));
         Ok(())
     }
 
@@ -277,13 +271,7 @@ mod test {
     #[test_case(-1 , 1 ; "mismatched sign case 2")]
     fn mismatched_sign(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert!(d.is_err());
-        match d.as_ref().err().unwrap() {
-            Error::MismatchedSigns() => {}
-            _ => {
-                assert!(false, "expected an MismatchedSigns error, got={:?}", d);
-            }
-        }
+        assert_eq!(d, Err(Error::MismatchedSigns()));
         Ok(())
     }
 
@@ -340,7 +328,7 @@ mod test {
     #[test_case("-315576000001s"; "range edge start")]
     #[test_case("315576000001s"; "range edge end")]
     fn deserialize_out_of_range(input: &str) -> Result {
-        let value = serde_json::to_value(&input)?;
+        let value = serde_json::to_value(input)?;
         let got = serde_json::from_value::<Duration>(value);
         assert!(got.is_err());
         Ok(())
