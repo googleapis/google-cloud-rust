@@ -57,18 +57,12 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return err
 	}
 
-	var (
-		codec api.LanguageCodec
-		copts = &language.CodecOptions{
-			OutDir:  output,
-			Options: config.Codec,
-		}
-	)
+	var codec api.LanguageCodec
 	switch config.General.Language {
 	case "rust":
-		codec, err = language.NewRustCodec(copts)
+		codec, err = language.NewRustCodec(output, config.Codec)
 	case "go":
-		codec, err = language.NewGoCodec(copts)
+		codec, err = language.NewGoCodec(config.Codec)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}
