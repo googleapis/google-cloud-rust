@@ -253,13 +253,9 @@ func (m *message) BasicFields() []*Field {
 
 // ExplicitOneOfs returns a slice of all explicit one-ofs. Notably this leaves
 // out proto3 optional fields which are all considered one-ofs in proto.
-func (m *message) ExplicitOneOfs() []*oneOf {
-	return mapSlice(m.s.OneOfs, func(s *api.OneOf) *oneOf {
-		return &oneOf{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
+func (m *message) ExplicitOneOfs() []*OneOf {
+	return mapSlice(m.s.OneOfs, func(s *api.OneOf) *OneOf {
+		return newOneOf(s, m.c, m.state)
 	})
 }
 
@@ -373,38 +369,6 @@ func (e *enumValue) EnumType() string {
 	return e.c.EnumName(e.e, e.state)
 }
 
-type oneOf struct {
-	s     *api.OneOf
-	c     language.Codec
-	state *api.APIState
-}
-
-func (o *oneOf) NameToPascal() string {
-	return o.c.ToPascal(o.s.Name)
-}
-
-func (o *oneOf) NameToSnake() string {
-	return o.c.ToSnake(o.s.Name)
-}
-
-func (o *oneOf) NameToSnakeNoMangling() string {
-	return o.c.ToSnakeNoMangling(o.s.Name)
-}
-
-func (o *oneOf) FieldType() string {
-	return o.c.OneOfType(o.s, o.state)
-}
-
-func (o *oneOf) DocLines() []string {
-	return o.c.FormatDocComments(o.s.Documentation)
-}
-
-func (o *oneOf) Fields() []*Field {
-	return mapSlice(o.s.Fields, func(s *api.Field) *Field {
-		return newField(s, o.c, o.state)
-	})
-}
-
 func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	result := make([]T, 0)
 	for _, v := range slice {
@@ -422,6 +386,15 @@ func mapSlice[T, R any](s []T, f func(T) R) []R {
 	return r
 }
 
+type OneOf struct {
+	NameToPascal          string
+	NameToSnake           string
+	NameToSnakeNoMangling string
+	FieldType             string
+	DocLines              []string
+	Fields                []*Field
+}
+
 type Field struct {
 	NameToSnake           string
 	NameToSnakeNoMangling string
@@ -432,6 +405,19 @@ type Field struct {
 	FieldType             string
 	JSONName              string
 	AsQueryParameter      string
+}
+
+func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
+	return &OneOf{
+		NameToPascal:          c.ToPascal(oneOf.Name),
+		NameToSnake:           c.ToSnake(oneOf.Name),
+		NameToSnakeNoMangling: c.ToSnakeNoMangling(oneOf.Name),
+		FieldType:             c.OneOfType(oneOf, state),
+		DocLines:              c.FormatDocComments(oneOf.Documentation),
+		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *Field {
+			return newField(field, c, state)
+		}),
+	}
 }
 
 // Constructor function for c.Field
