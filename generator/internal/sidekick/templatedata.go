@@ -118,12 +118,10 @@ type EnumValue struct {
 	EnumType string
 }
 
-// newTemplateData returns a struct that is used as input to the mustache
-// templates. Methods on the types defined in this file are directly associated
-// with the mustache tags. For instances the mustache tag {{#Services}} calls
-// the [templateData.Services] method. templateData uses the raw input of the
-// [API] and uses a [lang.Codec] to transform the input into language
-// idiomatic representations.
+// newTemplateData creates a struct used as input for Mustache templates.
+// Fields and methods defined in this struct directly correspond to Mustache
+// tags. For example, the Mustache tag {{#Services}} uses the
+// [Template.Services] field.
 func newTemplateData(model *api.API, c api.LanguageCodec) *TemplateData {
 	c.LoadWellKnownTypes(model.State)
 	year, _, _ := time.Now().Date()
