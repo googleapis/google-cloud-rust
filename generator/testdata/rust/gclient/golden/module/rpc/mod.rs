@@ -19,25 +19,29 @@
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
 /// is not enabled:
 ///
-///     { "reason": "API_DISABLED"
-///       "domain": "googleapis.com"
-///       "metadata": {
-///         "resource": "projects/123",
-///         "service": "pubsub.googleapis.com"
-///       }
-///     }
+/// ```norust
+/// { "reason": "API_DISABLED"
+///   "domain": "googleapis.com"
+///   "metadata": {
+///     "resource": "projects/123",
+///     "service": "pubsub.googleapis.com"
+///   }
+/// }
+/// ```
 ///
 /// This response indicates that the pubsub.googleapis.com API is not enabled.
 ///
 /// Example of an error that is returned when attempting to create a Spanner
 /// instance in a region that is out of stock:
 ///
-///     { "reason": "STOCKOUT"
-///       "domain": "spanner.googleapis.com",
-///       "metadata": {
-///         "availableRegions": "us-central1,us-east2"
-///       }
-///     }
+/// ```norust
+/// { "reason": "STOCKOUT"
+///   "domain": "spanner.googleapis.com",
+///   "metadata": {
+///     "availableRegions": "us-central1,us-east2"
+///   }
+/// }
+/// ```
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -336,21 +340,27 @@ pub mod bad_request {
         ///
         /// Consider the following:
         ///
-        ///     message CreateContactRequest {
-        ///       message EmailAddress {
-        ///         enum Type {
-        ///           TYPE_UNSPECIFIED = 0;
-        ///           HOME = 1;
-        ///           WORK = 2;
-        ///         }
-        ///
-        ///         optional string email = 1;
-        ///         repeated EmailType type = 2;
-        ///       }
-        ///
-        ///       string full_name = 1;
-        ///       repeated EmailAddress email_addresses = 2;
+        /// ```norust
+        /// message CreateContactRequest {
+        ///   message EmailAddress {
+        ///     enum Type {
+        ///       TYPE_UNSPECIFIED = 0;
+        ///       HOME = 1;
+        ///       WORK = 2;
         ///     }
+        /// ```
+        ///
+        /// ```norust
+        ///     optional string email = 1;
+        ///     repeated EmailType type = 2;
+        ///   }
+        /// ```
+        ///
+        /// ```norust
+        ///   string full_name = 1;
+        ///   repeated EmailAddress email_addresses = 2;
+        /// }
+        /// ```
         ///
         /// In this example, in proto `field` could take one of the following values:
         ///

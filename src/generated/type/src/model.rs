@@ -34,110 +34,134 @@
 ///
 /// Example (Java):
 ///
-///      import com.google.type.Color;
+/// ```norust
+///  import com.google.type.Color;
+/// ```
 ///
-///      // ...
-///      public static java.awt.Color fromProto(Color protocolor) {
-///        float alpha = protocolor.hasAlpha()
-///            ? protocolor.getAlpha().getValue()
-///            : 1.0;
+/// ```norust
+///  // ...
+///  public static java.awt.Color fromProto(Color protocolor) {
+///    float alpha = protocolor.hasAlpha()
+///        ? protocolor.getAlpha().getValue()
+///        : 1.0;
+/// ```
 ///
-///        return new java.awt.Color(
-///            protocolor.getRed(),
-///            protocolor.getGreen(),
-///            protocolor.getBlue(),
-///            alpha);
-///      }
+/// ```norust
+///    return new java.awt.Color(
+///        protocolor.getRed(),
+///        protocolor.getGreen(),
+///        protocolor.getBlue(),
+///        alpha);
+///  }
+/// ```
 ///
-///      public static Color toProto(java.awt.Color color) {
-///        float red = (float) color.getRed();
-///        float green = (float) color.getGreen();
-///        float blue = (float) color.getBlue();
-///        float denominator = 255.0;
-///        Color.Builder resultBuilder =
-///            Color
-///                .newBuilder()
-///                .setRed(red / denominator)
-///                .setGreen(green / denominator)
-///                .setBlue(blue / denominator);
-///        int alpha = color.getAlpha();
-///        if (alpha != 255) {
-///          result.setAlpha(
-///              FloatValue
-///                  .newBuilder()
-///                  .setValue(((float) alpha) / denominator)
-///                  .build());
-///        }
-///        return resultBuilder.build();
-///      }
-///      // ...
+/// ```norust
+///  public static Color toProto(java.awt.Color color) {
+///    float red = (float) color.getRed();
+///    float green = (float) color.getGreen();
+///    float blue = (float) color.getBlue();
+///    float denominator = 255.0;
+///    Color.Builder resultBuilder =
+///        Color
+///            .newBuilder()
+///            .setRed(red / denominator)
+///            .setGreen(green / denominator)
+///            .setBlue(blue / denominator);
+///    int alpha = color.getAlpha();
+///    if (alpha != 255) {
+///      result.setAlpha(
+///          FloatValue
+///              .newBuilder()
+///              .setValue(((float) alpha) / denominator)
+///              .build());
+///    }
+///    return resultBuilder.build();
+///  }
+///  // ...
+/// ```
 ///
 /// Example (iOS / Obj-C):
 ///
-///      // ...
-///      static UIColor* fromProto(Color* protocolor) {
-///         float red = [protocolor red];
-///         float green = [protocolor green];
-///         float blue = [protocolor blue];
-///         FloatValue* alpha_wrapper = [protocolor alpha];
-///         float alpha = 1.0;
-///         if (alpha_wrapper != nil) {
-///           alpha = [alpha_wrapper value];
-///         }
-///         return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-///      }
-///
-///      static Color* toProto(UIColor* color) {
-///          CGFloat red, green, blue, alpha;
-///          if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) {
-///            return nil;
-///          }
-///          Color* result = [[Color alloc] init];
-///          [result setRed:red];
-///          [result setGreen:green];
-///          [result setBlue:blue];
-///          if (alpha <= 0.9999) {
-///            [result setAlpha:floatWrapperWithValue(alpha)];
-///          }
-///          [result autorelease];
-///          return result;
+/// ```norust
+///  // ...
+///  static UIColor* fromProto(Color* protocolor) {
+///     float red = [protocolor red];
+///     float green = [protocolor green];
+///     float blue = [protocolor blue];
+///     FloatValue* alpha_wrapper = [protocolor alpha];
+///     float alpha = 1.0;
+///     if (alpha_wrapper != nil) {
+///       alpha = [alpha_wrapper value];
 ///     }
-///     // ...
+///     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+///  }
+/// ```
+///
+/// ```norust
+///  static Color* toProto(UIColor* color) {
+///      CGFloat red, green, blue, alpha;
+///      if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) {
+///        return nil;
+///      }
+///      Color* result = [[Color alloc] init];
+///      [result setRed:red];
+///      [result setGreen:green];
+///      [result setBlue:blue];
+///      if (alpha <= 0.9999) {
+///        [result setAlpha:floatWrapperWithValue(alpha)];
+///      }
+///      [result autorelease];
+///      return result;
+/// }
+/// // ...
+/// ```
 ///
 ///  Example (JavaScript):
 ///
-///     // ...
+/// ```norust
+/// // ...
+/// ```
 ///
-///     var protoToCssColor = function(rgb_color) {
-///        var redFrac = rgb_color.red || 0.0;
-///        var greenFrac = rgb_color.green || 0.0;
-///        var blueFrac = rgb_color.blue || 0.0;
-///        var red = Math.floor(redFrac * 255);
-///        var green = Math.floor(greenFrac * 255);
-///        var blue = Math.floor(blueFrac * 255);
+/// ```norust
+/// var protoToCssColor = function(rgb_color) {
+///    var redFrac = rgb_color.red || 0.0;
+///    var greenFrac = rgb_color.green || 0.0;
+///    var blueFrac = rgb_color.blue || 0.0;
+///    var red = Math.floor(redFrac * 255);
+///    var green = Math.floor(greenFrac * 255);
+///    var blue = Math.floor(blueFrac * 255);
+/// ```
 ///
-///        if (!('alpha' in rgb_color)) {
-///           return rgbToCssColor(red, green, blue);
-///        }
+/// ```norust
+///    if (!('alpha' in rgb_color)) {
+///       return rgbToCssColor(red, green, blue);
+///    }
+/// ```
 ///
-///        var alphaFrac = rgb_color.alpha.value || 0.0;
-///        var rgbParams = [red, green, blue].join(',');
-///        return ['rgba(', rgbParams, ',', alphaFrac, ')'].join('');
-///     };
+/// ```norust
+///    var alphaFrac = rgb_color.alpha.value || 0.0;
+///    var rgbParams = [red, green, blue].join(',');
+///    return ['rgba(', rgbParams, ',', alphaFrac, ')'].join('');
+/// };
+/// ```
 ///
-///     var rgbToCssColor = function(red, green, blue) {
-///       var rgbNumber = new Number((red << 16) | (green << 8) | blue);
-///       var hexString = rgbNumber.toString(16);
-///       var missingZeros = 6 - hexString.length;
-///       var resultBuilder = ['#'];
-///       for (var i = 0; i < missingZeros; i++) {
-///          resultBuilder.push('0');
-///       }
-///       resultBuilder.push(hexString);
-///       return resultBuilder.join('');
-///     };
+/// ```norust
+/// var rgbToCssColor = function(red, green, blue) {
+///   var rgbNumber = new Number((red << 16) | (green << 8) | blue);
+///   var hexString = rgbNumber.toString(16);
+///   var missingZeros = 6 - hexString.length;
+///   var resultBuilder = ['#'];
+///   for (var i = 0; i < missingZeros; i++) {
+///      resultBuilder.push('0');
+///   }
+///   resultBuilder.push(hexString);
+///   return resultBuilder.join('');
+/// };
+/// ```
 ///
-///     // ...
+/// ```norust
+/// // ...
+/// ```
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -458,17 +482,27 @@ pub struct Decimal {
     ///
     /// The ENBF grammar is:
     ///
-    ///     DecimalString =
-    ///       [Sign] Significand [Exponent];
+    /// ```norust
+    /// DecimalString =
+    ///   [Sign] Significand [Exponent];
+    /// ```
     ///
-    ///     Sign = '+' | '-';
+    /// ```norust
+    /// Sign = '+' | '-';
+    /// ```
     ///
-    ///     Significand =
-    ///       Digits ['.'] [Digits] | [Digits] '.' Digits;
+    /// ```norust
+    /// Significand =
+    ///   Digits ['.'] [Digits] | [Digits] '.' Digits;
+    /// ```
     ///
-    ///     Exponent = ('e' | 'E') [Sign] Digits;
+    /// ```norust
+    /// Exponent = ('e' | 'E') [Sign] Digits;
+    /// ```
     ///
-    ///     Digits = { '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' };
+    /// ```norust
+    /// Digits = { '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' };
+    /// ```
     ///
     /// Services **should** clearly document the range of supported values, the
     /// maximum supported precision (total number of digits), and, if applicable,
@@ -500,27 +534,35 @@ impl Decimal {
 ///
 /// Example (Comparison):
 ///
-///     title: "Summary size limit"
-///     description: "Determines if a summary is less than 100 chars"
-///     expression: "document.summary.size() < 100"
+/// ```norust
+/// title: "Summary size limit"
+/// description: "Determines if a summary is less than 100 chars"
+/// expression: "document.summary.size() < 100"
+/// ```
 ///
 /// Example (Equality):
 ///
-///     title: "Requestor is owner"
-///     description: "Determines if requestor is the document owner"
-///     expression: "document.owner == request.auth.claims.email"
+/// ```norust
+/// title: "Requestor is owner"
+/// description: "Determines if requestor is the document owner"
+/// expression: "document.owner == request.auth.claims.email"
+/// ```
 ///
 /// Example (Logic):
 ///
-///     title: "Public documents"
-///     description: "Determine whether the document should be publicly visible"
-///     expression: "document.type != 'private' && document.type != 'internal'"
+/// ```norust
+/// title: "Public documents"
+/// description: "Determine whether the document should be publicly visible"
+/// expression: "document.type != 'private' && document.type != 'internal'"
+/// ```
 ///
 /// Example (Data Manipulation):
 ///
-///     title: "Notification string"
-///     description: "Create a notification string with a timestamp."
-///     expression: "'New message received at ' + string(document.create_time)"
+/// ```norust
+/// title: "Notification string"
+/// description: "Create a notification string with a timestamp."
+/// expression: "'New message received at ' + string(document.create_time)"
+/// ```
 ///
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
@@ -763,11 +805,17 @@ impl Money {
 /// For instance, in Java this would be:
 ///
 ///    com.google.type.PhoneNumber wireProto =
-///        com.google.type.PhoneNumber.newBuilder().build();
+/// ```norust
+///    com.google.type.PhoneNumber.newBuilder().build();
+/// ```
 ///    com.google.i18n.phonenumbers.Phonenumber.PhoneNumber phoneNumber =
-///        PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
+/// ```norust
+///    PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
+/// ```
 ///    if (!wireProto.getExtension().isEmpty()) {
-///      phoneNumber.setExtension(wireProto.getExtension());
+/// ```norust
+///  phoneNumber.setExtension(wireProto.getExtension());
+/// ```
 ///    }
 ///
 ///  Reference(s):
@@ -1077,7 +1125,9 @@ impl PostalAddress {
 ///
 /// Quaternions are generally represented in this form:
 ///
-///     w + xi + yj + zk
+/// ```norust
+/// w + xi + yj + zk
+/// ```
 ///
 /// where x, y, z, and w are real numbers, and i, j, and k are three imaginary
 /// numbers.
@@ -1093,10 +1143,12 @@ impl PostalAddress {
 /// buffer below *must* follow the Hamilton convention, which defines `ij = k`
 /// (i.e. a right-handed algebra), and therefore:
 ///
-///     i^2 = j^2 = k^2 = ijk = −1
-///     ij = −ji = k
-///     jk = −kj = i
-///     ki = −ik = j
+/// ```norust
+/// i^2 = j^2 = k^2 = ijk = −1
+/// ij = −ji = k
+/// jk = −kj = i
+/// ki = −ik = j
+/// ```
 ///
 /// Please DO NOT use this to represent quaternions that follow the JPL
 /// convention, or any of the other quaternion flavors out there.

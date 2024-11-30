@@ -60,7 +60,9 @@ pub struct Location {
 
     /// Cross-service attributes for the location. For example
     ///
-    ///     {"cloud.googleapis.com/region": "us-east1"}
+    /// ```norust
+    /// {"cloud.googleapis.com/region": "us-east1"}
+    /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<String, String>,
 
@@ -888,9 +890,11 @@ impl ReplicaStatus {
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
 ///
-///     service Foo {
-///       rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
-///     }
+/// ```norust
+/// service Foo {
+///   rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);
+/// }
+/// ```
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1540,27 +1544,35 @@ impl Binding {
 ///
 /// Example (Comparison):
 ///
-///     title: "Summary size limit"
-///     description: "Determines if a summary is less than 100 chars"
-///     expression: "document.summary.size() < 100"
+/// ```norust
+/// title: "Summary size limit"
+/// description: "Determines if a summary is less than 100 chars"
+/// expression: "document.summary.size() < 100"
+/// ```
 ///
 /// Example (Equality):
 ///
-///     title: "Requestor is owner"
-///     description: "Determines if requestor is the document owner"
-///     expression: "document.owner == request.auth.claims.email"
+/// ```norust
+/// title: "Requestor is owner"
+/// description: "Determines if requestor is the document owner"
+/// expression: "document.owner == request.auth.claims.email"
+/// ```
 ///
 /// Example (Logic):
 ///
-///     title: "Public documents"
-///     description: "Determine whether the document should be publicly visible"
-///     expression: "document.type != 'private' && document.type != 'internal'"
+/// ```norust
+/// title: "Public documents"
+/// description: "Determine whether the document should be publicly visible"
+/// expression: "document.type != 'private' && document.type != 'internal'"
+/// ```
 ///
 /// Example (Data Manipulation):
 ///
-///     title: "Notification string"
-///     description: "Create a notification string with a timestamp."
-///     expression: "'New message received at ' + string(document.create_time)"
+/// ```norust
+/// title: "Notification string"
+/// description: "Create a notification string with a timestamp."
+/// expression: "'New message received at ' + string(document.create_time)"
+/// ```
 ///
 /// The exact variables and functions that may be referenced within an expression
 /// are determined by the service that evaluates it. See the service
@@ -1626,41 +1638,43 @@ impl Expr {
 ///
 /// Example Policy with multiple AuditConfigs:
 ///
+/// ```norust
+/// {
+///   "audit_configs": [
 ///     {
-///       "audit_configs": [
+///       "service": "allServices",
+///       "audit_log_configs": [
 ///         {
-///           "service": "allServices",
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ",
-///               "exempted_members": [
-///                 "user:jose@example.com"
-///               ]
-///             },
-///             {
-///               "log_type": "DATA_WRITE"
-///             },
-///             {
-///               "log_type": "ADMIN_READ"
-///             }
+///           "log_type": "DATA_READ",
+///           "exempted_members": [
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
-///           "service": "sampleservice.googleapis.com",
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ"
-///             },
-///             {
-///               "log_type": "DATA_WRITE",
-///               "exempted_members": [
-///                 "user:aliya@example.com"
-///               ]
-///             }
+///           "log_type": "DATA_WRITE"
+///         },
+///         {
+///           "log_type": "ADMIN_READ"
+///         }
+///       ]
+///     },
+///     {
+///       "service": "sampleservice.googleapis.com",
+///       "audit_log_configs": [
+///         {
+///           "log_type": "DATA_READ"
+///         },
+///         {
+///           "log_type": "DATA_WRITE",
+///           "exempted_members": [
+///             "user:aliya@example.com"
 ///           ]
 ///         }
 ///       ]
 ///     }
+///   ]
+/// }
+/// ```
 ///
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
@@ -1699,19 +1713,21 @@ impl AuditConfig {
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
+/// ```norust
+/// {
+///   "audit_log_configs": [
 ///     {
-///       "audit_log_configs": [
-///         {
-///           "log_type": "DATA_READ",
-///           "exempted_members": [
-///             "user:jose@example.com"
-///           ]
-///         },
-///         {
-///           "log_type": "DATA_WRITE"
-///         }
+///       "log_type": "DATA_READ",
+///       "exempted_members": [
+///         "user:jose@example.com"
 ///       ]
+///     },
+///     {
+///       "log_type": "DATA_WRITE"
 ///     }
+///   ]
+/// }
+/// ```
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.

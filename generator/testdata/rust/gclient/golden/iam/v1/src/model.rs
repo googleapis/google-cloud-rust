@@ -437,41 +437,43 @@ impl Binding {
 ///
 /// Example Policy with multiple AuditConfigs:
 ///
+/// ```norust
+/// {
+///   "audit_configs": [
 ///     {
-///       "audit_configs": [
+///       "service": "allServices",
+///       "audit_log_configs": [
 ///         {
-///           "service": "allServices",
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ",
-///               "exempted_members": [
-///                 "user:jose@example.com"
-///               ]
-///             },
-///             {
-///               "log_type": "DATA_WRITE"
-///             },
-///             {
-///               "log_type": "ADMIN_READ"
-///             }
+///           "log_type": "DATA_READ",
+///           "exempted_members": [
+///             "user:jose@example.com"
 ///           ]
 ///         },
 ///         {
-///           "service": "sampleservice.googleapis.com",
-///           "audit_log_configs": [
-///             {
-///               "log_type": "DATA_READ"
-///             },
-///             {
-///               "log_type": "DATA_WRITE",
-///               "exempted_members": [
-///                 "user:aliya@example.com"
-///               ]
-///             }
+///           "log_type": "DATA_WRITE"
+///         },
+///         {
+///           "log_type": "ADMIN_READ"
+///         }
+///       ]
+///     },
+///     {
+///       "service": "sampleservice.googleapis.com",
+///       "audit_log_configs": [
+///         {
+///           "log_type": "DATA_READ"
+///         },
+///         {
+///           "log_type": "DATA_WRITE",
+///           "exempted_members": [
+///             "user:aliya@example.com"
 ///           ]
 ///         }
 ///       ]
 ///     }
+///   ]
+/// }
+/// ```
 ///
 /// For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ
 /// logging. It also exempts `jose@example.com` from DATA_READ logging, and
@@ -510,19 +512,21 @@ impl AuditConfig {
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
+/// ```norust
+/// {
+///   "audit_log_configs": [
 ///     {
-///       "audit_log_configs": [
-///         {
-///           "log_type": "DATA_READ",
-///           "exempted_members": [
-///             "user:jose@example.com"
-///           ]
-///         },
-///         {
-///           "log_type": "DATA_WRITE"
-///         }
+///       "log_type": "DATA_READ",
+///       "exempted_members": [
+///         "user:jose@example.com"
 ///       ]
+///     },
+///     {
+///       "log_type": "DATA_WRITE"
 ///     }
+///   ]
+/// }
+/// ```
 ///
 /// This enables 'DATA_READ' and 'DATA_WRITE' logging, while exempting
 /// jose@example.com from DATA_READ logging.
