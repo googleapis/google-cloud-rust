@@ -18,7 +18,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
@@ -55,7 +54,7 @@ func TestProtobuf_Scalar(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -177,7 +176,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -226,7 +225,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API", "Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -280,7 +279,7 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.LocalMessage")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "LocalMessage",
 		Package:       "test",
 		ID:            ".test.LocalMessage",
@@ -326,7 +325,7 @@ func TestProtobuf_SkipExternaEnums(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.LocalEnum")
 	}
-	checkProtobufEnum(t, *enum, genclient.Enum{
+	checkEnum(t, *enum, genclient.Enum{
 		Name:          "LocalEnum",
 		Package:       "test",
 		Documentation: "This is a local enum, it should be generated.",
@@ -360,7 +359,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Request",
 		Package:       "test",
 		ID:            ".test.Request",
@@ -380,7 +379,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Response.nested")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Nested",
 		Package:       "test",
 		ID:            ".test.Response.Nested",
@@ -400,7 +399,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Response.Status")
 	}
-	checkProtobufEnum(t, *e, genclient.Enum{
+	checkEnum(t, *e, genclient.Enum{
 		Name:          "Status",
 		Package:       "test",
 		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
@@ -422,7 +421,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.Service")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Name:          "Service",
 		ID:            ".test.Service",
 		Package:       "test",
@@ -456,7 +455,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -528,7 +527,7 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -562,7 +561,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -626,7 +625,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -647,7 +646,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkProtobufMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:    "SingularMapEntry",
 		Package: "test",
 		ID:      ".test.Fake.SingularMapEntry",
@@ -680,7 +679,7 @@ func TestProtobuf_Service(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -731,7 +730,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -782,7 +781,7 @@ func TestProtobuf_Enum(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
 	}
-	checkProtobufEnum(t, *e, genclient.Enum{
+	checkEnum(t, *e, genclient.Enum{
 		Name:          "Code",
 		Package:       "test",
 		Documentation: "An enum.",
@@ -856,7 +855,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Documentation: "Manages location-related information with an API service.",
 		DefaultHost:   "cloud.googleapis.com",
 		Name:          "Locations",
@@ -915,7 +914,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
 		DefaultHost:   "iam-meta-api.googleapis.com",
 		Name:          "IAMPolicy",
@@ -982,7 +981,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
 	}
-	checkProtobufService(t, *service, genclient.Service{
+	checkService(t, *service, genclient.Service{
 		Documentation: "Manages long-running operations with an API service.",
 		DefaultHost:   "longrunning.googleapis.com",
 		Name:          "Operations",
@@ -1023,42 +1022,4 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 		t.Fatal(err)
 	}
 	return request
-}
-
-func checkProtobufMessage(t *testing.T, got genclient.Message, want genclient.Message) {
-	t.Helper()
-	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
-		t.Errorf("message attributes mismatch (-want +got):\n%s", diff)
-	}
-	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("field mismatch (-want, +got):\n%s", diff)
-	}
-	// Ignore parent because types are cyclic
-	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.OneOf{}, "Parent")); diff != "" {
-		t.Errorf("oneofs mismatch (-want, +got):\n%s", diff)
-	}
-}
-
-func checkProtobufEnum(t *testing.T, got genclient.Enum, want genclient.Enum) {
-	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Enum{}, "Values", "Parent")); diff != "" {
-		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
-	}
-	less := func(a, b *genclient.EnumValue) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.EnumValue{}, "Parent")); diff != "" {
-		t.Errorf("method mismatch (-want, +got):\n%s", diff)
-	}
-}
-
-func checkProtobufService(t *testing.T, got genclient.Service, want genclient.Service) {
-	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); diff != "" {
-		t.Errorf("Mismatched service attributes (-want, +got):\n%s", diff)
-	}
-	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("method mismatch (-want, +got):\n%s", diff)
-	}
 }
