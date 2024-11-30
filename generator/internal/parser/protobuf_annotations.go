@@ -19,19 +19,19 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *genclient.APIState) (*genclient.PathInfo, error) {
+func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (*api.PathInfo, error) {
 	eHTTP := proto.GetExtension(m.GetOptions(), annotations.E_Http)
 	httpRule := eHTTP.(*annotations.HttpRule)
 	return processRule(httpRule, state, m.GetInputType())
 }
 
-func processRule(httpRule *annotations.HttpRule, state *genclient.APIState, mID string) (*genclient.PathInfo, error) {
+func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathInfo, error) {
 	var verb string
 	var rawPath string
 	switch httpRule.GetPattern().(type) {
@@ -59,7 +59,7 @@ func processRule(httpRule *annotations.HttpRule, state *genclient.APIState, mID 
 		return nil, err
 	}
 
-	return &genclient.PathInfo{
+	return &api.PathInfo{
 		Verb:            verb,
 		PathTemplate:    pathTemplate,
 		QueryParameters: queryParameters,
@@ -67,7 +67,7 @@ func processRule(httpRule *annotations.HttpRule, state *genclient.APIState, mID 
 	}, nil
 }
 
-func queryParameters(msgID string, pathTemplate []genclient.PathSegment, body string, state *genclient.APIState) (map[string]bool, error) {
+func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, state *api.APIState) (map[string]bool, error) {
 	msg, ok := state.MessageByID[msgID]
 	if !ok {
 		return nil, fmt.Errorf("unable to lookup type %s", msgID)
@@ -92,19 +92,19 @@ func queryParameters(msgID string, pathTemplate []genclient.PathSegment, body st
 	return params, nil
 }
 
-func parseRawPath(rawPath string) []genclient.PathSegment {
+func parseRawPath(rawPath string) []api.PathSegment {
 	// TODO(#121) - use a proper parser for the template syntax
-	template := genclient.HTTPPathVarRegex.ReplaceAllStringFunc(rawPath, func(s string) string {
+	template := api.HTTPPathVarRegex.ReplaceAllStringFunc(rawPath, func(s string) string {
 		members := strings.Split(s, "=")
 		if len(members) == 1 {
 			return members[0]
 		}
 		return members[0] + "}"
 	})
-	segments := []genclient.PathSegment{}
+	segments := []api.PathSegment{}
 	for idx, component := range strings.Split(template, ":") {
 		if idx != 0 {
-			segments = append(segments, genclient.PathSegment{Verb: &component})
+			segments = append(segments, api.PathSegment{Verb: &component})
 			continue
 		}
 		for _, element := range strings.Split(component, "/") {
@@ -113,10 +113,10 @@ func parseRawPath(rawPath string) []genclient.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, genclient.PathSegment{FieldPath: &element})
+				segments = append(segments, api.PathSegment{FieldPath: &element})
 				continue
 			}
-			segments = append(segments, genclient.PathSegment{Literal: &element})
+			segments = append(segments, api.PathSegment{Literal: &element})
 		}
 	}
 	return segments
@@ -130,5 +130,3 @@ func parseDefaultHost(m proto.Message) string {
 	}
 	return defaultHost
 }
-
-// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/27

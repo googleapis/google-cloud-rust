@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
 type goCaseConvertTest struct {
@@ -58,25 +58,25 @@ func TestGo_ToPascal(t *testing.T) {
 }
 
 func TestGo_MessageNames(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "Replication",
 		ID:   "..Replication",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "automatic",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
-	nested := &genclient.Message{
+	nested := &api.Message{
 		Name: "Automatic",
 		ID:   "..Replication.Automatic",
 	}
 
-	api := newTestAPI([]*genclient.Message{message, nested}, []*genclient.Enum{}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 
 	c := &GoCodec{}
 	if got := c.MessageName(message, api.State); got != "Replication" {
@@ -95,25 +95,25 @@ func TestGo_MessageNames(t *testing.T) {
 }
 
 func TestGo_EnumNames(t *testing.T) {
-	message := &genclient.Message{
+	message := &api.Message{
 		Name: "SecretVersion",
 		ID:   "..SecretVersion",
-		Fields: []*genclient.Field{
+		Fields: []*api.Field{
 			{
 				Name:     "automatic",
-				Typez:    genclient.MESSAGE_TYPE,
+				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
-	nested := &genclient.Enum{
+	nested := &api.Enum{
 		Name: "State",
 		ID:   "..SecretVersion.State",
 	}
 
-	api := newTestAPI([]*genclient.Message{message}, []*genclient.Enum{nested}, []*genclient.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
 
 	c := &GoCodec{}
 	if got := c.EnumName(nested, api.State); got != "SecretVersion_State" {
@@ -171,9 +171,9 @@ Maybe they wanted to show some JSON:
 
 func TestGo_Validate(t *testing.T) {
 	api := newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c := &GoCodec{}
 	if err := c.Validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
@@ -184,30 +184,30 @@ func TestGo_Validate(t *testing.T) {
 }
 
 func TestGo_ValidateMessageMismatch(t *testing.T) {
-	api := newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	test := newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c := &GoCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}})
+	test = newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c = &GoCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 
-	api = newTestAPI(
-		[]*genclient.Message{{Name: "m1", Package: "p1"}},
-		[]*genclient.Enum{{Name: "e1", Package: "p1"}},
-		[]*genclient.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
+	test = newTestAPI(
+		[]*api.Message{{Name: "m1", Package: "p1"}},
+		[]*api.Enum{{Name: "e1", Package: "p1"}},
+		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
 	c = &GoCodec{}
-	if err := c.Validate(api); err == nil {
+	if err := c.Validate(test); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
 	}
 }

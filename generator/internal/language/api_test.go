@@ -17,14 +17,14 @@ package language
 import (
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func newTestAPI(messages []*genclient.Message, enums []*genclient.Enum, services []*genclient.Service) *genclient.API {
-	state := &genclient.APIState{
-		MessageByID: make(map[string]*genclient.Message),
-		EnumByID:    make(map[string]*genclient.Enum),
-		ServiceByID: make(map[string]*genclient.Service),
+func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Service) *api.API {
+	state := &api.APIState{
+		MessageByID: make(map[string]*api.Message),
+		EnumByID:    make(map[string]*api.Enum),
+		ServiceByID: make(map[string]*api.Service),
 	}
 	for _, m := range messages {
 		state.MessageByID[m.ID] = m
@@ -51,7 +51,7 @@ func newTestAPI(messages []*genclient.Message, enums []*genclient.Enum, services
 		}
 	}
 
-	return &genclient.API{
+	return &api.API{
 		Name:     "Test",
 		Messages: messages,
 		Enums:    enums,

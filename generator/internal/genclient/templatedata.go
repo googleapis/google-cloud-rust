@@ -17,6 +17,7 @@ package genclient
 import (
 	"strings"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
 
@@ -26,7 +27,7 @@ import (
 // the [templateData.Services] method. templateData uses the raw input of the
 // [API] and uses a [lang.Codec] to transform the input into language
 // idiomatic representations.
-func newTemplateData(model *API, codec LanguageCodec) *templateData {
+func newTemplateData(model *api.API, codec api.LanguageCodec) *templateData {
 	codec.LoadWellKnownTypes(model.State)
 	return &templateData{
 		s: model,
@@ -35,8 +36,8 @@ func newTemplateData(model *API, codec LanguageCodec) *templateData {
 }
 
 type templateData struct {
-	s *API
-	c LanguageCodec
+	s *api.API
+	c api.LanguageCodec
 }
 
 func (t *templateData) Name() string {
@@ -90,7 +91,7 @@ func (t templateData) DefaultHost() string {
 }
 
 func (t *templateData) Services() []*service {
-	return mapSlice(t.s.Services, func(s *Service) *service {
+	return mapSlice(t.s.Services, func(s *api.Service) *service {
 		return &service{
 			s:     s,
 			c:     t.c,
@@ -100,7 +101,7 @@ func (t *templateData) Services() []*service {
 }
 
 func (t *templateData) Messages() []*message {
-	return mapSlice(t.s.Messages, func(m *Message) *message {
+	return mapSlice(t.s.Messages, func(m *api.Message) *message {
 		return &message{
 			s:     m,
 			c:     t.c,
@@ -115,13 +116,13 @@ func (t *templateData) NameToLower() string {
 
 // service represents a service in an API.
 type service struct {
-	s     *Service
-	c     LanguageCodec
-	state *APIState
+	s     *api.Service
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 func (s *service) Methods() []*method {
-	return mapSlice(s.s.Methods, func(m *Method) *method {
+	return mapSlice(s.s.Methods, func(m *api.Method) *method {
 		return &method{
 			s:     m,
 			c:     s.c,
@@ -164,9 +165,9 @@ func (s *service) DefaultHost() string {
 
 // method defines a RPC belonging to a Service.
 type method struct {
-	s     *Method
-	c     LanguageCodec
-	state *APIState
+	s     *api.Method
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 // NameToSnake converts a Name to snake_case.
@@ -212,7 +213,7 @@ func (m *method) HTTPPathArgs() []string {
 }
 
 func (m *method) QueryParams() []*field {
-	return mapSlice(m.c.QueryParams(m.s, m.state), func(s *Field) *field {
+	return mapSlice(m.c.QueryParams(m.s, m.state), func(s *api.Field) *field {
 		return &field{
 			s:     s,
 			c:     m.c,
@@ -231,13 +232,13 @@ func (m *method) BodyAccessor() string {
 
 // message defines a message used in request or response handling.
 type message struct {
-	s     *Message
-	c     LanguageCodec
-	state *APIState
+	s     *api.Message
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 func (m *message) Fields() []*field {
-	return mapSlice(m.s.Fields, func(s *Field) *field {
+	return mapSlice(m.s.Fields, func(s *api.Field) *field {
 		return &field{
 			s:     s,
 			c:     m.c,
@@ -249,10 +250,10 @@ func (m *message) Fields() []*field {
 // BasicFields returns all fields associated with a message that are not apart
 // of a explicit one-ofs.
 func (m *message) BasicFields() []*field {
-	filtered := filterSlice(m.s.Fields, func(s *Field) bool {
+	filtered := filterSlice(m.s.Fields, func(s *api.Field) bool {
 		return !s.IsOneOf
 	})
-	return mapSlice(filtered, func(s *Field) *field {
+	return mapSlice(filtered, func(s *api.Field) *field {
 		return &field{
 			s:     s,
 			c:     m.c,
@@ -264,7 +265,7 @@ func (m *message) BasicFields() []*field {
 // ExplicitOneOfs returns a slice of all explicit one-ofs. Notably this leaves
 // out proto3 optional fields which are all considered one-ofs in proto.
 func (m *message) ExplicitOneOfs() []*oneOf {
-	return mapSlice(m.s.OneOfs, func(s *OneOf) *oneOf {
+	return mapSlice(m.s.OneOfs, func(s *api.OneOf) *oneOf {
 		return &oneOf{
 			s:     s,
 			c:     m.c,
@@ -274,7 +275,7 @@ func (m *message) ExplicitOneOfs() []*oneOf {
 }
 
 func (m *message) NestedMessages() []*message {
-	return mapSlice(m.s.Messages, func(s *Message) *message {
+	return mapSlice(m.s.Messages, func(s *api.Message) *message {
 		return &message{
 			s:     s,
 			c:     m.c,
@@ -284,7 +285,7 @@ func (m *message) NestedMessages() []*message {
 }
 
 func (m *message) Enums() []*enum {
-	return mapSlice(m.s.Enums, func(s *Enum) *enum {
+	return mapSlice(m.s.Enums, func(s *api.Enum) *enum {
 		return &enum{
 			s:     s,
 			c:     m.c,
@@ -332,9 +333,9 @@ func (m *message) IsMap() bool {
 }
 
 type enum struct {
-	s     *Enum
-	c     LanguageCodec
-	state *APIState
+	s     *api.Enum
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 func (e *enum) Name() string {
@@ -350,7 +351,7 @@ func (e *enum) DocLines() []string {
 }
 
 func (e *enum) Values() []*enumValue {
-	return mapSlice(e.s.Values, func(s *EnumValue) *enumValue {
+	return mapSlice(e.s.Values, func(s *api.EnumValue) *enumValue {
 		return &enumValue{
 			s:     s,
 			e:     e.s,
@@ -361,10 +362,10 @@ func (e *enum) Values() []*enumValue {
 }
 
 type enumValue struct {
-	s     *EnumValue
-	e     *Enum
-	c     LanguageCodec
-	state *APIState
+	s     *api.EnumValue
+	e     *api.Enum
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 func (e *enumValue) DocLines() []string {
@@ -385,9 +386,9 @@ func (e *enumValue) EnumType() string {
 
 // field defines a field in a Message.
 type field struct {
-	s     *Field
-	c     LanguageCodec
-	state *APIState
+	s     *api.Field
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 // NameToSnake converts a Name to snake_case.
@@ -429,9 +430,9 @@ func (f *field) AsQueryParameter() string {
 }
 
 type oneOf struct {
-	s     *OneOf
-	c     LanguageCodec
-	state *APIState
+	s     *api.OneOf
+	c     api.LanguageCodec
+	state *api.APIState
 }
 
 func (o *oneOf) NameToPascal() string {
@@ -455,7 +456,7 @@ func (o *oneOf) DocLines() []string {
 }
 
 func (o *oneOf) Fields() []*field {
-	return mapSlice(o.s.Fields, func(s *Field) *field {
+	return mapSlice(o.s.Fields, func(s *api.Field) *field {
 		return &field{
 			s:     s,
 			c:     o.c,
