@@ -269,13 +269,9 @@ func (m *message) NestedMessages() []*message {
 	})
 }
 
-func (m *message) Enums() []*enum {
-	return mapSlice(m.s.Enums, func(s *api.Enum) *enum {
-		return &enum{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
+func (m *message) Enums() []*Enum {
+	return mapSlice(m.s.Enums, func(s *api.Enum) *Enum {
+		return newEnum(s, m.c, m.state)
 	})
 }
 
@@ -317,58 +313,6 @@ func (m *message) IsMap() bool {
 	return m.s.IsMap
 }
 
-type enum struct {
-	s     *api.Enum
-	c     language.Codec
-	state *api.APIState
-}
-
-func (e *enum) Name() string {
-	return e.c.EnumName(e.s, e.state)
-}
-
-func (e *enum) NameSnakeCase() string {
-	return e.c.ToSnake(e.c.EnumName(e.s, e.state))
-}
-
-func (e *enum) DocLines() []string {
-	return e.c.FormatDocComments(e.s.Documentation)
-}
-
-func (e *enum) Values() []*enumValue {
-	return mapSlice(e.s.Values, func(s *api.EnumValue) *enumValue {
-		return &enumValue{
-			s:     s,
-			e:     e.s,
-			c:     e.c,
-			state: e.state,
-		}
-	})
-}
-
-type enumValue struct {
-	s     *api.EnumValue
-	e     *api.Enum
-	c     language.Codec
-	state *api.APIState
-}
-
-func (e *enumValue) DocLines() []string {
-	return e.c.FormatDocComments(e.s.Documentation)
-}
-
-func (e *enumValue) Name() string {
-	return e.c.EnumValueName(e.s, e.state)
-}
-
-func (e *enumValue) Number() int32 {
-	return e.s.Number
-}
-
-func (e *enumValue) EnumType() string {
-	return e.c.EnumName(e.e, e.state)
-}
-
 func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	result := make([]T, 0)
 	for _, v := range slice {
@@ -407,6 +351,20 @@ type Field struct {
 	AsQueryParameter      string
 }
 
+type Enum struct {
+	Name          string
+	NameSnakeCase string
+	DocLines      []string
+	Values        []*EnumValue
+}
+
+type EnumValue struct {
+	DocLines []string
+	Name     string
+	Number   int32
+	EnumType string
+}
+
 func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
 	return &OneOf{
 		NameToPascal:          c.ToPascal(oneOf.Name),
@@ -432,5 +390,26 @@ func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
 		FieldType:             c.FieldType(field, state),
 		JSONName:              field.JSONName,
 		AsQueryParameter:      c.AsQueryParameter(field, state),
+	}
+}
+
+func newEnum(e *api.Enum, c language.Codec, state *api.APIState) *Enum {
+	return &Enum{
+		Name:          c.EnumName(e, state),
+		NameSnakeCase: c.ToSnake(c.EnumName(e, state)),
+		DocLines:      c.FormatDocComments(e.Documentation),
+		Values: mapSlice(e.Values, func(s *api.EnumValue) *EnumValue {
+			return newEnumValue(s, e, c, state)
+		}),
+	}
+}
+
+// Constructor function for c.EnumValue
+func newEnumValue(ev *api.EnumValue, e *api.Enum, c language.Codec, state *api.APIState) *EnumValue {
+	return &EnumValue{
+		DocLines: c.FormatDocComments(ev.Documentation),
+		Name:     c.EnumValueName(ev, state),
+		Number:   ev.Number,
+		EnumType: c.EnumName(e, state),
 	}
 }
