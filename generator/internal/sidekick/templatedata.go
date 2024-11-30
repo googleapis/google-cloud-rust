@@ -122,13 +122,9 @@ type service struct {
 	state *api.APIState
 }
 
-func (s *service) Methods() []*method {
-	return mapSlice(s.s.Methods, func(m *api.Method) *method {
-		return &method{
-			s:     m,
-			c:     s.c,
-			state: s.state,
-		}
+func (s *service) Methods() []*Method {
+	return mapSlice(s.s.Methods, func(m *api.Method) *Method {
+		return newMethod(m, s.c, s.state)
 	})
 }
 
@@ -330,6 +326,22 @@ func mapSlice[T, R any](s []T, f func(T) R) []R {
 	return r
 }
 
+type Method struct {
+	NameToSnake       string
+	NameToCamel       string
+	NameToPascal      string
+	DocLines          []string
+	InputTypeName     string
+	OutputTypeName    string
+	HTTPMethod        string
+	HTTPMethodToLower string
+	HTTPPathFmt       string
+	HTTPPathArgs      []string
+	QueryParams       []*Field
+	HasBody           bool
+	BodyAccessor      string
+}
+
 type OneOf struct {
 	NameToPascal          string
 	NameToSnake           string
@@ -411,5 +423,25 @@ func newEnumValue(ev *api.EnumValue, e *api.Enum, c language.Codec, state *api.A
 		Name:     c.EnumValueName(ev, state),
 		Number:   ev.Number,
 		EnumType: c.EnumName(e, state),
+	}
+}
+
+func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
+	return &Method{
+		BodyAccessor:      c.BodyAccessor(m, state),
+		DocLines:          c.FormatDocComments(m.Documentation),
+		HTTPMethod:        m.PathInfo.Verb,
+		HTTPMethodToLower: strings.ToLower(m.PathInfo.Verb),
+		HTTPPathArgs:      c.HTTPPathArgs(m.PathInfo, state),
+		HTTPPathFmt:       c.HTTPPathFmt(m.PathInfo, state),
+		HasBody:           m.PathInfo.BodyFieldPath != "",
+		InputTypeName:     c.MethodInOutTypeName(m.InputTypeID, state),
+		NameToCamel:       strcase.ToCamel(m.Name),
+		NameToPascal:      c.ToPascal(m.Name),
+		NameToSnake:       strcase.ToSnake(m.Name),
+		OutputTypeName:    c.MethodInOutTypeName(m.OutputTypeID, state),
+		QueryParams: mapSlice(c.QueryParams(m, state), func(s *api.Field) *Field {
+			return newField(s, c, state)
+		}),
 	}
 }
