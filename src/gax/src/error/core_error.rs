@@ -67,8 +67,8 @@ impl Error {
     /// # Examples
     ///
     /// ```
-    /// # use gax::error::Error;
-    /// # use gax::error::HttpError;
+    /// # use gcp_sdk_gax::error::Error;
+    /// # use gcp_sdk_gax::error::HttpError;
     /// # use std::collections::HashMap;
     /// let error: Error = HttpError::new(404, HashMap::new(), None).into();
     /// if let Some(e) = error.as_inner::<HttpError>() {
