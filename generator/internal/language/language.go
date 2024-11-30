@@ -12,20 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package language
 
-import "strings"
-
-func splitApiName(name string) (string, string) {
-	li := strings.LastIndex(name, ".")
-	if li == -1 {
-		return "", name
-	}
-	return name[:li], name[li+1:]
-}
-
-func wellKnownMixin(apiName string) bool {
-	return strings.HasPrefix(apiName, "google.cloud.location.Location") ||
-		strings.HasPrefix(apiName, "google.longrunning.Operations") ||
-		strings.HasPrefix(apiName, "google.iam.v1.IAMPolicy")
+type CodecOptions struct {
+	// The output location within ProjectRoot.
+	OutDir string
+	// Additional options.
+	Options map[string]string
 }

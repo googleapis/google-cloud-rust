@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package genclient is a Schema and Language agnostic code generator that applies
-// an API model to a mustache template.
-package genclient
+package sidekick
 
 import (
 	"io/fs"
@@ -27,24 +25,8 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-type ParserOptions struct {
-	// The location where the specification can be found.
-	Source string
-	// The location of the service configuration file.
-	ServiceConfig string
-	// Additional options.
-	Options map[string]string
-}
-
-type CodecOptions struct {
-	// The output location within ProjectRoot.
-	OutDir string
-	// Additional options.
-	Options map[string]string
-}
-
-// GenerateRequest used to generate clients.
-type GenerateRequest struct {
+// generateClientRequest used to generate clients.
+type generateClientRequest struct {
 	// The in memory representation of a parsed input.
 	API *api.API
 	// An adapter to transform values into language idiomatic representations.
@@ -55,7 +37,7 @@ type GenerateRequest struct {
 	TemplateDir string
 }
 
-func (r *GenerateRequest) outDir() string {
+func (r *generateClientRequest) outDir() string {
 	if r.OutDir == "" {
 		wd, _ := os.Getwd()
 		return wd
@@ -63,9 +45,9 @@ func (r *GenerateRequest) outDir() string {
 	return r.OutDir
 }
 
-// Generate takes some state and applies it to a template to create a client
+// generateClient takes some state and applies it to a template to create a client
 // library.
-func Generate(req *GenerateRequest) error {
+func generateClient(req *generateClientRequest) error {
 	data := newTemplateData(req.API, req.Codec)
 	root := filepath.Join(req.TemplateDir, req.Codec.TemplateDir())
 	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {

@@ -19,7 +19,6 @@ import (
 	"path"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
@@ -39,7 +38,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	}
 
 	specFormat := config.General.SpecificationFormat
-	popts := &genclient.ParserOptions{
+	popts := &parser.ParserOptions{
 		Source:        config.General.SpecificationSource,
 		ServiceConfig: config.General.ServiceConfig,
 		Options:       config.Source,
@@ -60,7 +59,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 
 	var (
 		codec api.LanguageCodec
-		copts = &genclient.CodecOptions{
+		copts = &language.CodecOptions{
 			OutDir:  output,
 			Options: config.Codec,
 		}
@@ -80,7 +79,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return err
 	}
 
-	request := &genclient.GenerateRequest{
+	request := &generateClientRequest{
 		API:         a,
 		Codec:       codec,
 		OutDir:      output,
@@ -89,5 +88,5 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if cmdLine.DryRun {
 		return nil
 	}
-	return genclient.Generate(request)
+	return generateClient(request)
 }
