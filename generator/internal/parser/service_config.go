@@ -53,14 +53,14 @@ func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 // The service config files are specified as relative to the `googleapis-root`
 // path (or `test-root` when set). This finds the right path given a
 // configuration
-func findServiceConfigPath(config ParserOptions) string {
+func findServiceConfigPath(serviceConfigFile string, options map[string]string) string {
 	for _, opt := range []string{"test-root", "googleapis-root"} {
-		dir, ok := config.Options[opt]
+		dir, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set
 			continue
 		}
-		location := path.Join(dir, config.ServiceConfig)
+		location := path.Join(dir, serviceConfigFile)
 		stat, err := os.Stat(location)
 		if err == nil && stat.Mode().IsRegular() {
 			return location
@@ -68,5 +68,5 @@ func findServiceConfigPath(config ParserOptions) string {
 	}
 	// Fallback to the current directory, it may fail but that is detected
 	// elsewhere.
-	return config.ServiceConfig
+	return serviceConfigFile
 }

@@ -999,14 +999,11 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
-	popts := ParserOptions{
-		Source: filename,
-		Options: map[string]string{
-			"googleapis-root": "../../testdata/googleapis",
-			"test-root":       "testdata",
-		},
+	options := map[string]string{
+		"googleapis-root": "../../testdata/googleapis",
+		"test-root":       "testdata",
 	}
-	request, err := newCodeGeneratorRequest(popts)
+	request, err := newCodeGeneratorRequest(filename, options)
 	if err != nil {
 		t.Fatal(err)
 	}

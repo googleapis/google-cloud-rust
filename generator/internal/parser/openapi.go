@@ -30,8 +30,8 @@ import (
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
-func ParseOpenAPI(opts ParserOptions) (*api.API, error) {
-	contents, err := os.ReadFile(opts.Source)
+func ParseOpenAPI(source, serviceConfigFile string, options map[string]string) (*api.API, error) {
+	contents, err := os.ReadFile(source)
 	if err != nil {
 		return nil, err
 	}
@@ -40,8 +40,8 @@ func ParseOpenAPI(opts ParserOptions) (*api.API, error) {
 		return nil, err
 	}
 	var serviceConfig *serviceconfig.Service
-	if opts.ServiceConfig != "" {
-		cfg, err := readServiceConfig(findServiceConfigPath(opts))
+	if serviceConfigFile != "" {
+		cfg, err := readServiceConfig(findServiceConfigPath(serviceConfigFile, options))
 		if err != nil {
 			return nil, err
 		}

@@ -37,21 +37,14 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return fmt.Errorf("must provide general.specification-source")
 	}
 
-	specFormat := config.General.SpecificationFormat
-	popts := &parser.ParserOptions{
-		Source:        config.General.SpecificationSource,
-		ServiceConfig: config.General.ServiceConfig,
-		Options:       config.Source,
-	}
-
 	var a *api.API
-	switch specFormat {
+	switch config.General.SpecificationFormat {
 	case "openapi":
-		a, err = parser.ParseOpenAPI(*popts)
+		a, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	case "protobuf":
-		a, err = parser.ParseProtobuf(*popts)
+		a, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	default:
-		return fmt.Errorf("unknown parser %q", specFormat)
+		return fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
 	}
 	if err != nil {
 		return err
