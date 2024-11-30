@@ -67,7 +67,7 @@ func TestOpenAPI_AllOf(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Automatic",
 		ID:            "..Automatic",
 		Documentation: "A replication policy that replicates the Secret payload without any restrictions.",
@@ -131,7 +131,7 @@ func TestOpenAPI_BasicTypes(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -263,7 +263,7 @@ func TestOpenAPI_ArrayTypes(t *testing.T) {
 		t.Errorf("missing message in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -373,7 +373,7 @@ func TestOpenAPI_SimpleObject(t *testing.T) {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
-	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
+	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -420,7 +420,7 @@ func TestOpenAPI_Any(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
+	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -453,7 +453,7 @@ func TestOpenAPI_MapString(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
+	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -502,7 +502,7 @@ func TestOpenAPI_MapInteger(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkOpenAPIMessage(t, *api.Messages[0], genclient.Message{
+	checkMessage(t, *api.Messages[0], genclient.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -542,7 +542,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		t.Errorf("missing message (Location) in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *location, genclient.Message{
+	checkMessage(t, *location, genclient.Message{
 		Documentation: "A resource that represents a Google Cloud location.",
 		Name:          "Location",
 		ID:            "..Location",
@@ -595,7 +595,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		t.Errorf("missing message (ListLocationsResponse) in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *listLocationsResponse, genclient.Message{
+	checkMessage(t, *listLocationsResponse, genclient.Message{
 		Documentation: "The response message for Locations.ListLocations.",
 		Name:          "ListLocationsResponse",
 		ID:            "..ListLocationsResponse",
@@ -626,7 +626,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		t.Errorf("missing message (ListLocationsRequest) in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *listLocationsRequest, genclient.Message{
+	checkMessage(t, *listLocationsRequest, genclient.Message{
 		Name:          "ListLocationsRequest",
 		ID:            "..ListLocationsRequest",
 		Documentation: "The request message for ListLocations.",
@@ -678,7 +678,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		t.Errorf("missing message (SecretPayload) in MessageByID index")
 		return
 	}
-	checkOpenAPIMessage(t, *secretPayload, genclient.Message{
+	checkMessage(t, *secretPayload, genclient.Message{
 		Name:          "SecretPayload",
 		ID:            "..SecretPayload",
 		Documentation: "A secret payload resource in the Secret Manager API. This contains the\nsensitive secret payload that is associated with a SecretVersion.",
@@ -718,7 +718,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 
-	checkOpenAPIMethod(t, service, "ListLocations", &genclient.Method{
+	checkMethod(t, service, "ListLocations", &genclient.Method{
 		Name:          "ListLocations",
 		ID:            "..Service.ListLocations",
 		Documentation: "Lists information about the supported locations for this service.",
@@ -740,7 +740,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		},
 	})
 
-	checkOpenAPIMethod(t, service, "CreateSecret", &genclient.Method{
+	checkMethod(t, service, "CreateSecret", &genclient.Method{
 		Name:          "CreateSecret",
 		ID:            "..Service.CreateSecret",
 		Documentation: "Creates a new Secret containing no SecretVersions.",
@@ -761,7 +761,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		},
 	})
 
-	checkOpenAPIMethod(t, service, "AddSecretVersion", &genclient.Method{
+	checkMethod(t, service, "AddSecretVersion", &genclient.Method{
 		Name:          "AddSecretVersion",
 		ID:            "..Service.AddSecretVersion",
 		Documentation: "Creates a new SecretVersion containing secret data and attaches\nit to an existing Secret.",
@@ -804,7 +804,7 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 		t.Errorf("missing message (%s) in MessageByID index", id)
 		return
 	}
-	checkOpenAPIMessage(t, *setIamPolicyRequest, genclient.Message{
+	checkMessage(t, *setIamPolicyRequest, genclient.Message{
 		Name:          "SetIamPolicyRequest",
 		ID:            "..SetIamPolicyRequest",
 		Documentation: "Request message for `SetIamPolicy` method.",
@@ -851,37 +851,6 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 			},
 		},
 	})
-}
-
-func checkOpenAPIMethod(t *testing.T, service *genclient.Service, name string, want *genclient.Method) {
-	t.Helper()
-	findMethod := func(name string) (*genclient.Method, bool) {
-		for _, method := range service.Methods {
-			if method.Name == name {
-				return method, true
-			}
-		}
-		return nil, false
-	}
-
-	got, ok := findMethod(name)
-	if !ok {
-		t.Errorf("missing method %s", name)
-	}
-	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("mismatched data for method %s (-want, +got):\n%s", name, diff)
-	}
-}
-
-func checkOpenAPIMessage(t *testing.T, got genclient.Message, want genclient.Message) {
-	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields")); diff != "" {
-		t.Errorf("Mismatched attributes (-want, +got):\n%s", diff)
-	}
-	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("field mismatch (-want, +got):\n%s", diff)
-	}
 }
 
 const openAPISingleMessagePreamble = `
