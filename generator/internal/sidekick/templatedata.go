@@ -213,13 +213,9 @@ func (m *method) HTTPPathArgs() []string {
 	return m.c.HTTPPathArgs(m.s.PathInfo, m.state)
 }
 
-func (m *method) QueryParams() []*field {
-	return mapSlice(m.c.QueryParams(m.s, m.state), func(s *api.Field) *field {
-		return &field{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
+func (m *method) QueryParams() []*Field {
+	return mapSlice(m.c.QueryParams(m.s, m.state), func(s *api.Field) *Field {
+		return newField(s, m.c, m.state)
 	})
 }
 
@@ -238,28 +234,20 @@ type message struct {
 	state *api.APIState
 }
 
-func (m *message) Fields() []*field {
-	return mapSlice(m.s.Fields, func(s *api.Field) *field {
-		return &field{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
+func (m *message) Fields() []*Field {
+	return mapSlice(m.s.Fields, func(s *api.Field) *Field {
+		return newField(s, m.c, m.state)
 	})
 }
 
 // BasicFields returns all fields associated with a message that are not apart
 // of a explicit one-ofs.
-func (m *message) BasicFields() []*field {
+func (m *message) BasicFields() []*Field {
 	filtered := filterSlice(m.s.Fields, func(s *api.Field) bool {
 		return !s.IsOneOf
 	})
-	return mapSlice(filtered, func(s *api.Field) *field {
-		return &field{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
+	return mapSlice(filtered, func(s *api.Field) *Field {
+		return newField(s, m.c, m.state)
 	})
 }
 
@@ -385,51 +373,6 @@ func (e *enumValue) EnumType() string {
 	return e.c.EnumName(e.e, e.state)
 }
 
-// field defines a field in a Message.
-type field struct {
-	s     *api.Field
-	c     language.Codec
-	state *api.APIState
-}
-
-// NameToSnake converts a Name to snake_case.
-func (f *field) NameToSnake() string {
-	return f.c.ToSnake(f.s.Name)
-}
-
-func (f *field) NameToSnakeNoMangling() string {
-	return f.c.ToSnakeNoMangling(f.s.Name)
-}
-
-// NameToCamel converts a Name to camelCase.
-func (f *field) NameToCamel() string {
-	return f.c.ToCamel(f.s.Name)
-}
-
-func (f *field) NameToPascal() string {
-	return f.c.ToPascal(f.s.Name)
-}
-
-func (f *field) DocLines() []string {
-	return f.c.FormatDocComments(f.s.Documentation)
-}
-
-func (f *field) FieldAttributes() []string {
-	return f.c.FieldAttributes(f.s, f.state)
-}
-
-func (f *field) FieldType() string {
-	return f.c.FieldType(f.s, f.state)
-}
-
-func (f *field) JSONName() string {
-	return f.s.JSONName
-}
-
-func (f *field) AsQueryParameter() string {
-	return f.c.AsQueryParameter(f.s, f.state)
-}
-
 type oneOf struct {
 	s     *api.OneOf
 	c     language.Codec
@@ -456,13 +399,9 @@ func (o *oneOf) DocLines() []string {
 	return o.c.FormatDocComments(o.s.Documentation)
 }
 
-func (o *oneOf) Fields() []*field {
-	return mapSlice(o.s.Fields, func(s *api.Field) *field {
-		return &field{
-			s:     s,
-			c:     o.c,
-			state: o.state,
-		}
+func (o *oneOf) Fields() []*Field {
+	return mapSlice(o.s.Fields, func(s *api.Field) *Field {
+		return newField(s, o.c, o.state)
 	})
 }
 
@@ -481,4 +420,31 @@ func mapSlice[T, R any](s []T, f func(T) R) []R {
 		r[i] = f(v)
 	}
 	return r
+}
+
+type Field struct {
+	NameToSnake           string
+	NameToSnakeNoMangling string
+	NameToCamel           string
+	NameToPascal          string
+	DocLines              []string
+	FieldAttributes       []string
+	FieldType             string
+	JSONName              string
+	AsQueryParameter      string
+}
+
+// Constructor function for c.Field
+func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
+	return &Field{
+		NameToSnake:           c.ToSnake(field.Name),
+		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
+		NameToCamel:           c.ToCamel(field.Name),
+		NameToPascal:          c.ToPascal(field.Name),
+		DocLines:              c.FormatDocComments(field.Documentation),
+		FieldAttributes:       c.FieldAttributes(field, state),
+		FieldType:             c.FieldType(field, state),
+		JSONName:              field.JSONName,
+		AsQueryParameter:      c.AsQueryParameter(field, state),
+	}
 }
