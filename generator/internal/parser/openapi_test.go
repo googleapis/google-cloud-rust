@@ -373,7 +373,7 @@ func TestOpenAPI_SimpleObject(t *testing.T) {
 		t.Fatalf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], api.Message{
+	checkMessage(t, *test.Messages[0], api.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -420,7 +420,7 @@ func TestOpenAPI_Any(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], api.Message{
+	checkMessage(t, *test.Messages[0], api.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -453,7 +453,7 @@ func TestOpenAPI_MapString(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	checkMessage(t, *api.Messages[0], api.Message{
+	checkMessage(t, *test.Messages[0], api.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",
@@ -502,7 +502,7 @@ func TestOpenAPI_MapInteger(t *testing.T) {
 		t.Errorf("Error in makeAPI() %q", err)
 	}
 
-	checkMessage(t, *api.Messages[0], api.Message{
+	checkMessage(t, *test.Messages[0], api.Message{
 		Name:          "Fake",
 		ID:            "..Fake",
 		Documentation: "A test message.",

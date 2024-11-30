@@ -54,7 +54,7 @@ func TestProtobuf_Scalar(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -175,7 +175,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -223,7 +223,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API", "Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -276,7 +276,7 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.LocalMessage")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "LocalMessage",
 		Package:       "test",
 		ID:            ".test.LocalMessage",
@@ -321,7 +321,7 @@ func TestProtobuf_SkipExternaEnums(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.LocalEnum")
 	}
-	checkEnum(t, *enum, genclient.Enum{
+	checkEnum(t, *enum, api.Enum{
 		Name:          "LocalEnum",
 		Package:       "test",
 		Documentation: "This is a local enum, it should be generated.",
@@ -354,7 +354,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Request",
 		Package:       "test",
 		ID:            ".test.Request",
@@ -374,7 +374,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Response.nested")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Nested",
 		Package:       "test",
 		ID:            ".test.Response.Nested",
@@ -394,7 +394,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Response.Status")
 	}
-	checkEnum(t, *e, genclient.Enum{
+	checkEnum(t, *e, api.Enum{
 		Name:          "Status",
 		Package:       "test",
 		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
@@ -416,7 +416,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.Service")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Name:          "Service",
 		ID:            ".test.Service",
 		Package:       "test",
@@ -450,7 +450,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -521,7 +521,7 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -554,7 +554,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -617,7 +617,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -638,7 +638,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, genclient.Message{
+	checkMessage(t, *message, api.Message{
 		Name:    "SingularMapEntry",
 		Package: "test",
 		ID:      ".test.Fake.SingularMapEntry",
@@ -670,7 +670,7 @@ func TestProtobuf_Service(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -720,7 +720,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -771,7 +771,7 @@ func TestProtobuf_Enum(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
 	}
-	checkEnum(t, *e, genclient.Enum{
+	checkEnum(t, *e, api.Enum{
 		Name:          "Code",
 		Package:       "test",
 		Documentation: "An enum.",
@@ -845,7 +845,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Documentation: "Manages location-related information with an API service.",
 		DefaultHost:   "cloud.googleapis.com",
 		Name:          "Locations",
@@ -904,7 +904,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
 		DefaultHost:   "iam-meta-api.googleapis.com",
 		Name:          "IAMPolicy",
@@ -971,7 +971,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
 	}
-	checkService(t, *service, genclient.Service{
+	checkService(t, *service, api.Service{
 		Documentation: "Manages long-running operations with an API service.",
 		DefaultHost:   "longrunning.googleapis.com",
 		Name:          "Operations",

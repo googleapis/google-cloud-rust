@@ -218,12 +218,12 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		MessageByID: make(map[string]*api.Message),
 		EnumByID:    make(map[string]*api.Enum),
 	}
-	a := &api.API{
+	result := &api.API{
 		State: state,
 	}
 	if serviceConfig != nil {
-		a.Title = serviceConfig.Title
-		a.Description = serviceConfig.Documentation.Summary
+		result.Title = serviceConfig.Title
+		result.Description = serviceConfig.Documentation.Summary
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
@@ -233,7 +233,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 				break
 			}
 		}
-		a.PackageName = packageName
+		result.PackageName = packageName
 	}
 
 	// First we need to add all the message and enums types to the
@@ -263,7 +263,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		for _, m := range f.MessageType {
 			mFQN := fFQN + "." + m.GetName()
 			if msg, ok := state.MessageByID[mFQN]; ok {
-				a.Messages = append(a.Messages, msg)
+				result.Messages = append(result.Messages, msg)
 			} else {
 				slog.Warn("missing message in symbol table", "message", mFQN)
 			}
@@ -273,7 +273,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		for _, e := range f.EnumType {
 			eFQN := fFQN + "." + e.GetName()
 			if e, ok := state.EnumByID[eFQN]; ok {
-				a.Enums = append(a.Enums, e)
+				result.Enums = append(result.Enums, e)
 			} else {
 				slog.Warn("missing enum in symbol table", "message", eFQN)
 			}
@@ -315,7 +315,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 				slog.Warn("file dropped documentation", "loc", p, "docs", loc.GetLeadingComments())
 			}
 		}
-		a.Services = append(a.Services, fileServices...)
+		result.Services = append(result.Services, fileServices...)
 	}
 
 	// Handle mixins
@@ -336,13 +336,13 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			}
 			fileServices = append(fileServices, service)
 		}
-		a.Services = append(a.Services, fileServices...)
+		result.Services = append(result.Services, fileServices...)
 	}
-	updateMixinState(serviceConfig, a)
-	if a.Name == "" && serviceConfig != nil {
-		a.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+	updateMixinState(serviceConfig, result)
+	if result.Name == "" && serviceConfig != nil {
+		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
-	return a
+	return result
 }
 
 var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{

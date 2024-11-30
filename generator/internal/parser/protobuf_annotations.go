@@ -130,5 +130,3 @@ func parseDefaultHost(m proto.Message) string {
 	}
 	return defaultHost
 }
-
-// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/27

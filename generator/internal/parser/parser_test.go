@@ -19,50 +19,50 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/googleapis/google-cloud-rust/generator/internal/genclient"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func checkMessage(t *testing.T, got genclient.Message, want genclient.Message) {
+func checkMessage(t *testing.T, got api.Message, want api.Message) {
 	t.Helper()
 	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
 		t.Errorf("message attributes mismatch (-want +got):\n%s", diff)
 	}
-	less := func(a, b *genclient.Field) bool { return a.Name < b.Name }
+	less := func(a, b *api.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 	// Ignore parent because types are cyclic
-	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.OneOf{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.OneOf{}, "Parent")); diff != "" {
 		t.Errorf("oneofs mismatch (-want, +got):\n%s", diff)
 	}
 }
 
-func checkEnum(t *testing.T, got genclient.Enum, want genclient.Enum) {
+func checkEnum(t *testing.T, got api.Enum, want api.Enum) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Enum{}, "Values", "Parent")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Enum{}, "Values", "Parent")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
-	less := func(a, b *genclient.EnumValue) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(genclient.EnumValue{}, "Parent")); diff != "" {
+	less := func(a, b *api.EnumValue) bool { return a.Name < b.Name }
+	if diff := cmp.Diff(want.Values, got.Values, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.EnumValue{}, "Parent")); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
 
-func checkService(t *testing.T, got genclient.Service, want genclient.Service) {
+func checkService(t *testing.T, got api.Service, want api.Service) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(genclient.Service{}, "Methods")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Service{}, "Methods")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
-	less := func(a, b *genclient.Method) bool { return a.Name < b.Name }
+	less := func(a, b *api.Method) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
 
-func checkMethod(t *testing.T, service *genclient.Service, name string, want *genclient.Method) {
+func checkMethod(t *testing.T, service *api.Service, name string, want *api.Method) {
 	t.Helper()
-	findMethod := func(name string) (*genclient.Method, bool) {
+	findMethod := func(name string) (*api.Method, bool) {
 		for _, method := range service.Methods {
 			if method.Name == name {
 				return method, true

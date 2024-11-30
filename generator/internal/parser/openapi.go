@@ -64,7 +64,7 @@ func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], er
 }
 
 func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*api.API, error) {
-	a := &api.API{
+	result := &api.API{
 		Name:        "",
 		Title:       model.Model.Info.Title,
 		Description: model.Model.Info.Description,
@@ -78,9 +78,9 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	}
 
 	if serviceConfig != nil {
-		a.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
-		a.Title = serviceConfig.Title
-		a.Description = serviceConfig.Documentation.Summary
+		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
+		result.Title = serviceConfig.Title
+		result.Description = serviceConfig.Documentation.Summary
 	}
 
 	// OpenAPI does not define a service name. The service config may provide
@@ -103,7 +103,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 		if err != nil {
 			return nil, err
 		}
-		fields, err := makeMessageFields(a.State, packageName, name, schema)
+		fields, err := makeMessageFields(result.State, packageName, name, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -115,15 +115,15 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 			Fields:        fields,
 		}
 
-		a.Messages = append(a.Messages, message)
-		a.State.MessageByID[id] = message
+		result.Messages = append(result.Messages, message)
+		result.State.MessageByID[id] = message
 	}
 
-	err := makeServices(a, model, packageName, serviceName)
+	err := makeServices(result, model, packageName, serviceName)
 	if err != nil {
 		return nil, err
 	}
-	return a, nil
+	return result, nil
 }
 
 func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {
