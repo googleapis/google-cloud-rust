@@ -97,104 +97,14 @@ func (t *templateData) Services() []*Service {
 	})
 }
 
-func (t *templateData) Messages() []*message {
-	return mapSlice(t.s.Messages, func(m *api.Message) *message {
-		return &message{
-			s:     m,
-			c:     t.c,
-			state: t.s.State,
-		}
+func (t *templateData) Messages() []*Message {
+	return mapSlice(t.s.Messages, func(m *api.Message) *Message {
+		return newMessage(m, t.c, t.s.State)
 	})
 }
 
 func (t *templateData) NameToLower() string {
 	return strings.ToLower(t.s.Name)
-}
-
-// message defines a message used in request or response handling.
-type message struct {
-	s     *api.Message
-	c     language.Codec
-	state *api.APIState
-}
-
-func (m *message) Fields() []*Field {
-	return mapSlice(m.s.Fields, func(s *api.Field) *Field {
-		return newField(s, m.c, m.state)
-	})
-}
-
-// BasicFields returns all fields associated with a message that are not apart
-// of a explicit one-ofs.
-func (m *message) BasicFields() []*Field {
-	filtered := filterSlice(m.s.Fields, func(s *api.Field) bool {
-		return !s.IsOneOf
-	})
-	return mapSlice(filtered, func(s *api.Field) *Field {
-		return newField(s, m.c, m.state)
-	})
-}
-
-// ExplicitOneOfs returns a slice of all explicit one-ofs. Notably this leaves
-// out proto3 optional fields which are all considered one-ofs in proto.
-func (m *message) ExplicitOneOfs() []*OneOf {
-	return mapSlice(m.s.OneOfs, func(s *api.OneOf) *OneOf {
-		return newOneOf(s, m.c, m.state)
-	})
-}
-
-func (m *message) NestedMessages() []*message {
-	return mapSlice(m.s.Messages, func(s *api.Message) *message {
-		return &message{
-			s:     s,
-			c:     m.c,
-			state: m.state,
-		}
-	})
-}
-
-func (m *message) Enums() []*Enum {
-	return mapSlice(m.s.Enums, func(s *api.Enum) *Enum {
-		return newEnum(s, m.c, m.state)
-	})
-}
-
-func (m *message) MessageAttributes() []string {
-	return m.c.MessageAttributes(m.s, m.state)
-}
-
-func (m *message) Name() string {
-	return m.c.MessageName(m.s, m.state)
-}
-
-func (m *message) QualifiedName() string {
-	return m.c.FQMessageName(m.s, m.state)
-}
-
-func (m *message) NameSnakeCase() string {
-	return m.c.ToSnake(m.s.Name)
-}
-
-// HasNestedTypes returns true if the message has nested types, enums, or
-// explicit one-ofs.
-func (m *message) HasNestedTypes() bool {
-	if len(m.s.Enums) > 0 || len(m.s.OneOfs) > 0 {
-		return true
-	}
-	for _, child := range m.s.Messages {
-		if !child.IsMap {
-			return true
-		}
-	}
-	return false
-}
-
-func (m *message) DocLines() []string {
-	return m.c.FormatDocComments(m.s.Documentation)
-}
-
-func (m *message) IsMap() bool {
-	return m.s.IsMap
 }
 
 func filterSlice[T any](slice []T, predicate func(T) bool) []T {
@@ -223,6 +133,21 @@ type Service struct {
 	ServiceName         string
 	DocLines            []string
 	DefaultHost         string
+}
+
+type Message struct {
+	Fields            []*Field
+	BasicFields       []*Field
+	ExplicitOneOfs    []*OneOf
+	NestedMessages    []*Message
+	Enums             []*Enum
+	MessageAttributes []string
+	Name              string
+	QualifiedName     string
+	NameSnakeCase     string
+	HasNestedTypes    bool
+	DocLines          []string
+	IsMap             bool
 }
 
 type Method struct {
@@ -357,5 +282,47 @@ func newService(s *api.Service, c language.Codec, state *api.APIState) *Service 
 		ServiceName:         s.Name,
 		DocLines:            c.FormatDocComments(s.Documentation),
 		DefaultHost:         s.DefaultHost,
+	}
+}
+
+func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message {
+	return &Message{
+		Fields: mapSlice(m.Fields, func(s *api.Field) *Field {
+			return newField(s, c, state)
+		}),
+		BasicFields: func() []*Field {
+			filtered := filterSlice(m.Fields, func(s *api.Field) bool {
+				return !s.IsOneOf
+			})
+			return mapSlice(filtered, func(s *api.Field) *Field {
+				return newField(s, c, state)
+			})
+		}(),
+		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *OneOf {
+			return newOneOf(s, c, state)
+		}),
+		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *Message {
+			return newMessage(s, c, state)
+		}),
+		Enums: mapSlice(m.Enums, func(s *api.Enum) *Enum {
+			return newEnum(s, c, state)
+		}),
+		MessageAttributes: c.MessageAttributes(m, state),
+		Name:              c.MessageName(m, state),
+		QualifiedName:     c.FQMessageName(m, state),
+		NameSnakeCase:     c.ToSnake(m.Name),
+		HasNestedTypes: func() bool {
+			if len(m.Enums) > 0 || len(m.OneOfs) > 0 {
+				return true
+			}
+			for _, child := range m.Messages {
+				if !child.IsMap {
+					return true
+				}
+			}
+			return false
+		}(),
+		DocLines: c.FormatDocComments(m.Documentation),
+		IsMap:    m.IsMap,
 	}
 }
