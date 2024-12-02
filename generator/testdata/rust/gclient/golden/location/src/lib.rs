@@ -17,22 +17,16 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
-use gax::error::{Error, HttpError};
+use gax::error::Error;
 use google_cloud_auth::{Credential, CredentialConfig};
-use std::sync::Arc;
 
 pub mod client;
+pub(crate) mod transport;
 
 const DEFAULT_HOST: &str = "https://cloud.googleapis.com/";
 
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
-
-struct InnerClient {
-    http_client: reqwest::Client,
-    cred: Credential,
-    endpoint: String,
-}
 
 #[derive(Default)]
 pub struct ConfigBuilder {
@@ -70,93 +64,4 @@ impl ConfigBuilder {
     }
 }
 
-#[derive(serde::Serialize)]
-#[allow(dead_code)]
-struct NoBody {}
-
-/// An abstract interface that provides location-related information for
-/// a service. Service-specific metadata is provided through the
-/// [Location.metadata][google.cloud.location.Location.metadata] field.
-#[derive(Clone)]
-pub struct LocationsClient {
-    inner: Arc<InnerClient>,
-}
-
-impl LocationsClient {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = InnerClient {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint.unwrap_or(DEFAULT_HOST.to_string()),
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-
-    /// Lists information about the supported locations for this service.
-    pub async fn list_locations(
-        &self,
-        req: crate::model::ListLocationsRequest,
-    ) -> Result<crate::model::ListLocationsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
-            .http_client
-            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
-            .query(&[("alt", "json")]);
-        let builder =
-            gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        let builder =
-            gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
-            .map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
-    }
-
-    /// Gets information about a location.
-    pub async fn get_location(
-        &self,
-        req: crate::model::GetLocationRequest,
-    ) -> Result<crate::model::Location> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
-            .http_client
-            .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
-            .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
-    }
-
-    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        body: Option<I>,
-    ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
-        if let Some(body) = body {
-            builder = builder.json(&body);
-        }
-        let resp = builder.send().await.map_err(Error::io)?;
-        if !resp.status().is_success() {
-            let status = resp.status().as_u16();
-            let headers = gax::error::convert_headers(resp.headers());
-            let body = resp.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = resp.json::<O>().await.map_err(Error::serde)?;
-        Ok(response)
-    }
-}
+pub type LocationsClient = crate::transport::Locations;
