@@ -35,18 +35,17 @@ use crate::Result;
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
-#[async_trait::async_trait]
 pub trait {{NameToPascal}}: Send + Sync {
     {{#Methods}}
 
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    async fn {{NameToSnake}}(
+    fn {{NameToSnake}}(
         &self,
         _req: {{InputTypeName}},
-    ) -> Result<{{OutputTypeName}}> {
-        Err(Error::other("unimplemented"))
+    ) -> impl std::future::Future<std::result::Result<{{OutputTypeName}}>> + Send {
+        std::future::ready(Err(Error::other("unimplemented")))
     }
     {{/Methods}}
 }
