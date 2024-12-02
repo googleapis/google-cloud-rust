@@ -122,7 +122,7 @@ type EnumValue struct {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func newTemplateData(model *api.API, c api.LanguageCodec) *TemplateData {
+func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 	c.LoadWellKnownTypes(model.State)
 	year, _, _ := time.Now().Date()
 	return &TemplateData{
@@ -154,7 +154,7 @@ func newTemplateData(model *api.API, c api.LanguageCodec) *TemplateData {
 	}
 }
 
-func newService(s *api.Service, c api.LanguageCodec, state *api.APIState) *Service {
+func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
 	return &Service{
 		Methods: mapSlice(s.Methods, func(m *api.Method) *Method {
 			return newMethod(m, c, state)
@@ -169,7 +169,7 @@ func newService(s *api.Service, c api.LanguageCodec, state *api.APIState) *Servi
 	}
 }
 
-func newMessage(m *api.Message, c api.LanguageCodec, state *api.APIState) *Message {
+func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message {
 	return &Message{
 		Fields: mapSlice(m.Fields, func(s *api.Field) *Field {
 			return newField(s, c, state)
@@ -211,7 +211,7 @@ func newMessage(m *api.Message, c api.LanguageCodec, state *api.APIState) *Messa
 	}
 }
 
-func newMethod(m *api.Method, c api.LanguageCodec, state *api.APIState) *Method {
+func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 	return &Method{
 		BodyAccessor:      c.BodyAccessor(m, state),
 		DocLines:          c.FormatDocComments(m.Documentation),
@@ -231,6 +231,53 @@ func newMethod(m *api.Method, c api.LanguageCodec, state *api.APIState) *Method 
 	}
 }
 
+func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
+	return &OneOf{
+		NameToPascal:          c.ToPascal(oneOf.Name),
+		NameToSnake:           c.ToSnake(oneOf.Name),
+		NameToSnakeNoMangling: c.ToSnakeNoMangling(oneOf.Name),
+		FieldType:             c.OneOfType(oneOf, state),
+		DocLines:              c.FormatDocComments(oneOf.Documentation),
+		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *Field {
+			return newField(field, c, state)
+		}),
+	}
+}
+
+func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
+	return &Field{
+		NameToSnake:           c.ToSnake(field.Name),
+		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
+		NameToCamel:           c.ToCamel(field.Name),
+		NameToPascal:          c.ToPascal(field.Name),
+		DocLines:              c.FormatDocComments(field.Documentation),
+		FieldAttributes:       c.FieldAttributes(field, state),
+		FieldType:             c.FieldType(field, state),
+		JSONName:              field.JSONName,
+		AsQueryParameter:      c.AsQueryParameter(field, state),
+	}
+}
+
+func newEnum(e *api.Enum, c language.Codec, state *api.APIState) *Enum {
+	return &Enum{
+		Name:          c.EnumName(e, state),
+		NameSnakeCase: c.ToSnake(c.EnumName(e, state)),
+		DocLines:      c.FormatDocComments(e.Documentation),
+		Values: mapSlice(e.Values, func(s *api.EnumValue) *EnumValue {
+			return newEnumValue(s, e, c, state)
+		}),
+	}
+}
+
+func newEnumValue(ev *api.EnumValue, e *api.Enum, c language.Codec, state *api.APIState) *EnumValue {
+	return &EnumValue{
+		DocLines: c.FormatDocComments(ev.Documentation),
+		Name:     c.EnumValueName(ev, state),
+		Number:   ev.Number,
+		EnumType: c.EnumName(e, state),
+	}
+}
+
 func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	result := make([]T, 0)
 	for _, v := range slice {
@@ -246,53 +293,4 @@ func mapSlice[T, R any](s []T, f func(T) R) []R {
 		r[i] = f(v)
 	}
 	return r
-}
-
-func newOneOf(oneOf *api.OneOf, c api.LanguageCodec, state *api.APIState) *OneOf {
-	return &OneOf{
-		NameToPascal:          c.ToPascal(oneOf.Name),
-		NameToSnake:           c.ToSnake(oneOf.Name),
-		NameToSnakeNoMangling: c.ToSnakeNoMangling(oneOf.Name),
-		FieldType:             c.OneOfType(oneOf, state),
-		DocLines:              c.FormatDocComments(oneOf.Documentation),
-		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *Field {
-			return newField(field, c, state)
-		}),
-	}
-}
-
-// Constructor function for c.Field
-func newField(field *api.Field, c api.LanguageCodec, state *api.APIState) *Field {
-	return &Field{
-		NameToSnake:           c.ToSnake(field.Name),
-		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
-		NameToCamel:           c.ToCamel(field.Name),
-		NameToPascal:          c.ToPascal(field.Name),
-		DocLines:              c.FormatDocComments(field.Documentation),
-		FieldAttributes:       c.FieldAttributes(field, state),
-		FieldType:             c.FieldType(field, state),
-		JSONName:              field.JSONName,
-		AsQueryParameter:      c.AsQueryParameter(field, state),
-	}
-}
-
-func newEnum(e *api.Enum, c api.LanguageCodec, state *api.APIState) *Enum {
-	return &Enum{
-		Name:          c.EnumName(e, state),
-		NameSnakeCase: c.ToSnake(c.EnumName(e, state)),
-		DocLines:      c.FormatDocComments(e.Documentation),
-		Values: mapSlice(e.Values, func(s *api.EnumValue) *EnumValue {
-			return newEnumValue(s, e, c, state)
-		}),
-	}
-}
-
-// Constructor function for c.EnumValue
-func newEnumValue(ev *api.EnumValue, e *api.Enum, c api.LanguageCodec, state *api.APIState) *EnumValue {
-	return &EnumValue{
-		DocLines: c.FormatDocComments(ev.Documentation),
-		Name:     c.EnumValueName(ev, state),
-		Number:   ev.Number,
-		EnumType: c.EnumName(e, state),
-	}
 }
