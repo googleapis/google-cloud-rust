@@ -62,3 +62,8 @@ mod request_parameter;
 
 /// The core error types used by generated clients.
 pub mod error;
+
+/// Defines some types and traits to convert and use List RPCs as a Stream.
+/// Async streams are not yet stable, so neither is the use of this feature.
+#[cfg(feature = "stream")]
+pub mod paginator;
