@@ -157,7 +157,7 @@ impl serde::ser::Serialize for Timestamp {
 
 struct TimestampVisitor;
 
-impl<'de> serde::de::Visitor<'de> for TimestampVisitor {
+impl serde::de::Visitor<'_> for TimestampVisitor {
     type Value = Timestamp;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {

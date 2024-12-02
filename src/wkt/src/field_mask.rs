@@ -275,7 +275,7 @@ where
     deserializer.deserialize_str(PathVisitor)
 }
 
-impl<'de> serde::de::Visitor<'de> for PathVisitor {
+impl serde::de::Visitor<'_> for PathVisitor {
     type Value = Vec<String>;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
