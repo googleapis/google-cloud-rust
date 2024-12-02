@@ -23,6 +23,7 @@ import (
 
 	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 )
 
 // generateClientRequest used to generate clients.
@@ -30,7 +31,7 @@ type generateClientRequest struct {
 	// The in memory representation of a parsed input.
 	API *api.API
 	// An adapter to transform values into language idiomatic representations.
-	Codec api.LanguageCodec
+	Codec language.Codec
 	// OutDir is the path to the output directory.
 	OutDir string
 	// Template directory

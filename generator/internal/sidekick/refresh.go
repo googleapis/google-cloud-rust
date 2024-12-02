@@ -50,7 +50,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return err
 	}
 
-	var codec api.LanguageCodec
+	var codec language.Codec
 	switch config.General.Language {
 	case "rust":
 		codec, err = language.NewRustCodec(output, config.Codec)
