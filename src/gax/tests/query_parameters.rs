@@ -147,11 +147,7 @@ fn with_timestamp() -> Result<()> {
     // Create a basic request.
     let request = FakeRequest {
         parent: "projects/test-only-invalid".into(),
-        expiration: Some(
-            wkt::Timestamp::default()
-                .set_seconds(12)
-                .set_nanos(345_678_900),
-        ),
+        expiration: Some(wkt::Timestamp::new(12, 345_678_900)?),
         ..Default::default()
     };
     let builder = with_query_parameters(&request)?;
