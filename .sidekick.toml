@@ -22,6 +22,6 @@ googleapis-root   = 'https://github.com/googleapis/googleapis/archive/2d08f07eab
 googleapis-sha256 = 'eb853d49313f20a096607fea87dfc10bd6a1b917ad17ad5db8a205b457a940e1'
 
 [codec]
-'package:gax'               = 'package=gcp-sdk-gax,path=src/gax'
+'package:gax'               = 'package=gcp-sdk-gax,path=src/gax,feature=sdk_client'
 'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'
 'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'
