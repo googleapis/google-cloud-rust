@@ -186,6 +186,35 @@ impl<'de> serde::de::Deserialize<'de> for Timestamp {
     }
 }
 
+/// Convert from [time::OffsetDateTime] to [Timestamp].
+///
+/// This conversion may fail if the [time::OffsetDateTime] value is out of range.
+#[cfg(feature = "time")]
+impl TryFrom<time::OffsetDateTime> for Timestamp {
+    type Error = TimestampError;
+
+    fn try_from(value: time::OffsetDateTime) -> std::result::Result<Self, Self::Error> {
+        use time::convert::{Nanosecond, Second};
+
+        let seconds = value.unix_timestamp();
+        let nanos = (value.unix_timestamp_nanos()
+            - seconds as i128 * Nanosecond::per(Second) as i128) as i32;
+        Self::new(seconds, nanos)
+    }
+}
+
+/// Convert from [Timestamp] to [OffsetDateTime][time::OffsetDateTime]
+///
+/// This conversion may fail if the [Timestamp] value is out of range.
+#[cfg(feature = "time")]
+impl TryFrom<Timestamp> for time::OffsetDateTime {
+    type Error = time::error::ComponentRange;
+    fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
+        let ts = time::OffsetDateTime::from_unix_timestamp(value.seconds())?;
+        Ok(ts + time::Duration::nanoseconds(value.nanos() as i64))
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
