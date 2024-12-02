@@ -31,6 +31,8 @@ pub struct Paginator<T, E> {
     stream: Pin<Box<dyn Stream<Item = Result<T, E>>>>,
 }
 
+type ControlFlow = std::ops::ControlFlow<(), String>;
+
 impl<T, E> Paginator<T, E>
 where
     T: PageableResponse,
@@ -39,27 +41,26 @@ where
     /// to fetch the next [PageableResponse].
     pub fn new<F>(seed_token: String, execute: impl Fn(String) -> F + Clone + 'static) -> Self
     where
-        // TODO(codyoss): This, and other types, may also need send here in practice.
         F: Future<Output = Result<T, E>> + 'static,
     {
-        let stream = unfold(IterState::Token(seed_token), move |state| {
+        let stream = unfold(ControlFlow::Continue(seed_token), move |state| {
             let execute = execute.clone();
             async move {
                 let token = match state {
-                    IterState::Token(token) => token,
-                    IterState::End => return None,
+                    ControlFlow::Continue(token) => token,
+                    ControlFlow::Break(_) => return None,
                 };
                 let resp = match execute(token).await {
                     Ok(page_resp) => {
                         let tok = page_resp.next_page_token();
                         let next_state = if tok.is_empty() {
-                            IterState::End
+                            ControlFlow::Break(())
                         } else {
-                            IterState::Token(tok)
+                            ControlFlow::Continue(tok)
                         };
                         Some((Ok(page_resp), next_state))
                     }
-                    Err(e) => Some((Err(e), IterState::End)),
+                    Err(e) => Some((Err(e), ControlFlow::Break(()))),
                 };
                 resp
             }
@@ -73,11 +74,6 @@ where
     pub fn next(&mut self) -> futures::stream::Next<'_, Self> {
         StreamExt::next(self)
     }
-}
-
-enum IterState {
-    Token(String),
-    End,
 }
 
 impl<T, E> Stream for Paginator<T, E> {
@@ -94,6 +90,7 @@ impl<T, E> Stream for Paginator<T, E> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::collections::VecDeque;
     use std::sync::{Arc, Mutex};
 
     #[derive(Clone, Default)]
@@ -127,10 +124,6 @@ mod tests {
     }
 
     impl Client {
-        fn build_outgoing_list_request(&self) {
-            // placeholder for building an http request
-        }
-
         async fn execute(
             data: Arc<Mutex<Vec<TestResponse>>>,
             _: TestRequest,
@@ -145,7 +138,6 @@ mod tests {
             &self,
             req: TestRequest,
         ) -> Result<TestResponse, Box<dyn std::error::Error>> {
-            self.build_outgoing_list_request();
             let inner = self.inner.clone();
             Client::execute(inner.data.clone(), req).await
         }
@@ -168,6 +160,54 @@ mod tests {
 
     #[tokio::test]
     async fn test_paginator() {
+        let seed = "token1".to_string();
+        let mut responses = VecDeque::new();
+        responses.push_back(TestResponse {
+            items: vec![
+                PageItem {
+                    name: "item1".to_string(),
+                },
+                PageItem {
+                    name: "item2".to_string(),
+                },
+            ],
+            next_page_token: "token2".to_string(),
+        });
+        responses.push_back(TestResponse {
+            items: vec![PageItem {
+                name: "item3".to_string(),
+            }],
+            next_page_token: "".to_string(),
+        });
+        let mut expected_tokens = VecDeque::new();
+        expected_tokens.push_back("token1".to_string());
+        expected_tokens.push_back("token2".to_string());
+
+        let state = Arc::new(Mutex::new(responses));
+        let tokens = Arc::new(Mutex::new(expected_tokens));
+
+        let execute = move |token: String| {
+            let expected_token = tokens.clone().lock().unwrap().pop_front().unwrap();
+            assert_eq!(token, expected_token);
+            let resp = state.clone().lock().unwrap().pop_front().unwrap();
+            async move { Ok(resp) }
+        };
+
+        let mut resps = vec![];
+        let mut stream: Paginator<TestResponse, Box<dyn std::error::Error>> =
+            Paginator::new(seed, execute);
+        while let Some(resp) = stream.next().await {
+            if let Ok(resp) = resp {
+                resps.push(resp)
+            }
+        }
+        assert_eq!(resps.len(), 2);
+        assert_eq!(resps[0].items[0].name, "item1");
+        assert_eq!(resps[0].items[1].name, "item2");
+    }
+
+    #[tokio::test]
+    async fn test_paginator_as_client() {
         let responses = vec![
             TestResponse {
                 items: vec![
