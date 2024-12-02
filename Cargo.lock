@@ -431,7 +431,6 @@ dependencies = [
 name = "gcp-sdk-iam-v1"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-type",
@@ -448,7 +447,6 @@ dependencies = [
 name = "gcp-sdk-location"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -468,7 +466,6 @@ version = "0.0.0"
 name = "gcp-sdk-secretmanager-v1"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-iam-v1",
@@ -705,7 +702,6 @@ dependencies = [
 name = "iam-v1-golden-gclient"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -844,7 +840,6 @@ checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
 name = "location-golden-gclient"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -1360,7 +1355,6 @@ dependencies = [
 name = "secretmanager-golden-gclient"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -1378,7 +1372,6 @@ dependencies = [
 name = "secretmanager-golden-openapi"
 version = "0.1.0"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",

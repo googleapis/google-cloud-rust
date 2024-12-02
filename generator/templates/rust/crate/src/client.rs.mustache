@@ -20,7 +20,6 @@ limitations under the License.
 {{#HasServices}}
 
 use gax::error::Error;
-use crate::Result;
 
 {{/HasServices}}
 {{#Services}}
@@ -44,8 +43,8 @@ pub trait {{NameToPascal}}: Send + Sync {
     fn {{NameToSnake}}(
         &self,
         _req: {{InputTypeName}},
-    ) -> impl std::future::Future<std::result::Result<{{OutputTypeName}}>> + Send {
-        std::future::ready(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<{{OutputTypeName}}>> + Send {
+        std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
     }
     {{/Methods}}
 }
