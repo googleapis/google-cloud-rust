@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package api
 
 import (
 	"fmt"
@@ -21,7 +21,6 @@ import (
 
 	"cloud.google.com/go/iam/apiv1/iampb"
 	"cloud.google.com/go/longrunning/autogen/longrunningpb"
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/genproto/googleapis/cloud/location"
 	"google.golang.org/protobuf/reflect/protodesc"
@@ -47,8 +46,8 @@ func loadMixins(serviceConfig *serviceconfig.Service) (mixinMethods, []*descript
 	if len(apis) < 2 {
 		return enabledMixinMethods, files
 	}
-	for _, api := range apis {
-		switch api.GetName() {
+	for _, a := range apis {
+		switch a.GetName() {
 		case locationService:
 			files = append(files, protodesc.ToFileDescriptorProto(location.File_google_cloud_location_locations_proto))
 		case iamService:
@@ -78,18 +77,18 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 
 // updateMixinState modifies mixin method definitions based on configuration in
 // the service yaml.
-func updateMixinState(serviceConfig *serviceconfig.Service, api *api.API) {
-	// Overwrite the google.api.http annotations with bindings from the Service config.
+func updateMixinState(serviceConfig *serviceconfig.Service, model *API) {
+	// Overwrite the google.http.api annotations with bindings from the Service config.
 	for _, rule := range serviceConfig.GetHttp().GetRules() {
 		selector := rule.GetSelector()
 		if !strings.HasPrefix(selector, ".") {
 			selector = "." + selector
 		}
-		m, match := api.State.MethodByID[selector]
+		m, match := model.State.MethodByID[selector]
 		if !match {
 			continue
 		}
-		pathInfo, err := processRule(rule, api.State, m.InputTypeID)
+		pathInfo, err := processRule(rule, model.State, m.InputTypeID)
 		if err != nil {
 			slog.Error("unsupported http rule", "method", m, "rule", rule)
 			continue
@@ -103,7 +102,7 @@ func updateMixinState(serviceConfig *serviceconfig.Service, api *api.API) {
 		if !strings.HasPrefix(selector, ".") {
 			selector = "." + selector
 		}
-		m, ok := api.State.MethodByID[selector]
+		m, ok := model.State.MethodByID[selector]
 		if !ok {
 			continue
 		}
@@ -112,7 +111,7 @@ func updateMixinState(serviceConfig *serviceconfig.Service, api *api.API) {
 	}
 
 	// Add some default docs for mixins if not specified in service config
-	for _, service := range api.Services {
+	for _, service := range model.Services {
 		// only process mixin services
 		if !(service.Package == locationPackage || service.Package == iamPackage || service.Package == longrunningPackage) {
 			continue

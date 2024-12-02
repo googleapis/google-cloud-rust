@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package api
 
 import (
 	"bytes"
@@ -24,16 +24,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-// ParserProtobuf reads Protobuf specifications and converts them into
-// the `api.API` model.
-func ParseProtobuf(source, serviceConfigFile string, options map[string]string) (*api.API, error) {
+// FromProtobuf parses Protobuf specifications and generates an API model.
+func FromProtobuf(source, serviceConfigFile string, options map[string]string) (*API, error) {
 	request, err := newCodeGeneratorRequest(source, options)
 	if err != nil {
 		return nil, err
@@ -205,18 +203,18 @@ const (
 	enumDescriptorValue = 2
 )
 
-func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *api.API {
+func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *API {
 	var (
 		mixinFileDesc       []*descriptorpb.FileDescriptorProto
 		enabledMixinMethods mixinMethods = make(map[string]bool)
 	)
-	state := &api.APIState{
-		ServiceByID: make(map[string]*api.Service),
-		MethodByID:  make(map[string]*api.Method),
-		MessageByID: make(map[string]*api.Message),
-		EnumByID:    make(map[string]*api.Enum),
+	state := &APIState{
+		ServiceByID: make(map[string]*Service),
+		MethodByID:  make(map[string]*Method),
+		MessageByID: make(map[string]*Message),
+		EnumByID:    make(map[string]*Enum),
 	}
-	result := &api.API{
+	result := &API{
 		State: state,
 	}
 	if serviceConfig != nil {
@@ -224,10 +222,10 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Description = serviceConfig.Documentation.Summary
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
-		for _, api := range serviceConfig.Apis {
-			packageName, _ = splitApiName(api.Name)
+		for _, a := range serviceConfig.Apis {
+			packageName, _ = splitApiName(a.Name)
 			// Keep searching after well-known mixin services.
-			if !wellKnownMixin(api.Name) {
+			if !wellKnownMixin(a.Name) {
 				break
 			}
 		}
@@ -254,7 +252,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	// Then we need to add the messages, enums and services to the list of
 	// elements to be generated.
 	for _, f := range req.GetSourceFileDescriptors() {
-		var fileServices []*api.Service
+		var fileServices []*Service
 		fFQN := "." + f.GetPackage()
 
 		// Messages
@@ -318,7 +316,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 
 	// Handle mixins
 	for _, f := range mixinFileDesc {
-		var fileServices []*api.Service
+		var fileServices []*Service
 		fFQN := "." + f.GetPackage()
 		for _, s := range f.Service {
 			sFQN := fFQN + "." + s.GetName()
@@ -343,30 +341,30 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	return result
 }
 
-var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
-	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   api.DOUBLE_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    api.FLOAT_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_INT64:    api.INT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_UINT64:   api.UINT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_INT32:    api.INT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FIXED64:  api.FIXED64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_FIXED32:  api.FIXED32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     api.BOOL_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_STRING:   api.STRING_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    api.BYTES_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_UINT32:   api.UINT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SFIXED32: api.SFIXED32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SFIXED64: api.SFIXED64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SINT32:   api.SINT32_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_SINT64:   api.SINT64_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_GROUP:    api.GROUP_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  api.MESSAGE_TYPE,
-	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     api.ENUM_TYPE,
+var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]Typez{
+	descriptorpb.FieldDescriptorProto_TYPE_DOUBLE:   DOUBLE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FLOAT:    FLOAT_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT64:    INT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT64:   UINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_INT32:    INT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED64:  FIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_FIXED32:  FIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BOOL:     BOOL_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_STRING:   STRING_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_BYTES:    BYTES_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_UINT32:   UINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED32: SFIXED32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SFIXED64: SFIXED64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT32:   SINT32_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_SINT64:   SINT64_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_GROUP:    GROUP_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_MESSAGE:  MESSAGE_TYPE,
+	descriptorpb.FieldDescriptorProto_TYPE_ENUM:     ENUM_TYPE,
 }
 
-func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, field *api.Field) {
+func normalizeTypes(state *APIState, in *descriptorpb.FieldDescriptorProto, field *Field) {
 	typ := in.GetType()
-	field.Typez = api.UNDEFINED_TYPE
+	field.Typez = UNDEFINED_TYPE
 	if tz, ok := descriptorpbToTypez[typ]; ok {
 		field.Typez = tz
 	}
@@ -416,8 +414,8 @@ func normalizeTypes(state *api.APIState, in *descriptorpb.FieldDescriptorProto, 
 
 }
 
-func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *api.Service {
-	service := &api.Service{
+func processService(state *APIState, s *descriptorpb.ServiceDescriptorProto, sFQN, packagez string) *Service {
+	service := &Service{
 		Name:        s.GetName(),
 		ID:          sFQN,
 		Package:     packagez,
@@ -427,13 +425,13 @@ func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto,
 	return service
 }
 
-func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *api.Method {
+func processMethod(state *APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *Method {
 	pathInfo, err := parsePathInfo(m, state)
 	if err != nil {
 		slog.Error("unsupported http method", "method", m)
 		return nil
 	}
-	method := &api.Method{
+	method := &Method{
 		ID:           mFQN,
 		PathInfo:     pathInfo,
 		Name:         m.GetName(),
@@ -444,8 +442,8 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 	return method
 }
 
-func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *api.Message) *api.Message {
-	message := &api.Message{
+func processMessage(state *APIState, m *descriptorpb.DescriptorProto, mFQN, packagez string, parent *Message) *Message {
+	message := &Message{
 		Name:    m.GetName(),
 		ID:      mFQN,
 		Parent:  parent,
@@ -468,7 +466,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 		message.Enums = append(message.Enums, e)
 	}
 	for _, oneof := range m.OneofDecl {
-		oneOfs := &api.OneOf{
+		oneOfs := &OneOf{
 			Name:   oneof.GetName(),
 			ID:     mFQN + "." + oneof.GetName(),
 			Parent: message,
@@ -477,7 +475,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 	}
 	for _, mf := range m.Field {
 		isProtoOptional := mf.Proto3Optional != nil && *mf.Proto3Optional
-		field := &api.Field{
+		field := &Field{
 			Name:     mf.GetName(),
 			ID:       mFQN + "." + mf.GetName(),
 			JSONName: mf.GetJsonName(),
@@ -509,15 +507,15 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 	return message
 }
 
-func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *api.Message) *api.Enum {
-	enum := &api.Enum{
+func processEnum(state *APIState, e *descriptorpb.EnumDescriptorProto, eFQN, packagez string, parent *Message) *Enum {
+	enum := &Enum{
 		Name:    e.GetName(),
 		Parent:  parent,
 		Package: packagez,
 	}
 	state.EnumByID[eFQN] = enum
 	for _, ev := range e.Value {
-		enumValue := &api.EnumValue{
+		enumValue := &EnumValue{
 			Name:   ev.GetName(),
 			Number: ev.GetNumber(),
 			Parent: enum,
@@ -527,7 +525,7 @@ func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN,
 	return enum
 }
 
-func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN string) {
+func addServiceDocumentation(state *APIState, p []int32, doc string, sFQN string) {
 	if len(p) == 0 {
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
@@ -539,7 +537,7 @@ func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN st
 	}
 }
 
-func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
+func addMessageDocumentation(state *APIState, m *descriptorpb.DescriptorProto, p []int32, doc string, mFQN string) {
 	// Beware of refactoring the calls to `trimLeadingSpacesInDocumentation`.
 	// We should modify `doc` only once, upon assignment to `.Documentation`
 	if len(p) == 0 {
@@ -562,7 +560,7 @@ func addMessageDocumentation(state *api.APIState, m *descriptorpb.DescriptorProt
 }
 
 // addEnumDocumentation adds documentation to an enum.
-func addEnumDocumentation(state *api.APIState, p []int32, doc string, eFQN string) {
+func addEnumDocumentation(state *APIState, p []int32, doc string, eFQN string) {
 	if len(p) == 0 {
 		// This is a comment for an enum
 		state.EnumByID[eFQN].Documentation = trimLeadingSpacesInDocumentation(doc)

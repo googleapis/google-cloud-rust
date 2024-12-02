@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package api
 
 import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/types/known/apipb"
@@ -53,116 +52,116 @@ func TestProtobuf_Scalar(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
 		Documentation: "A test message.",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Documentation: "A singular field tag = 1",
 				Name:          "f_double",
 				JSONName:      "fDouble",
 				ID:            ".test.Fake.f_double",
-				Typez:         api.DOUBLE_TYPE,
+				Typez:         DOUBLE_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 2",
 				Name:          "f_float",
 				JSONName:      "fFloat",
 				ID:            ".test.Fake.f_float",
-				Typez:         api.FLOAT_TYPE,
+				Typez:         FLOAT_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 3",
 				Name:          "f_int64",
 				JSONName:      "fInt64",
 				ID:            ".test.Fake.f_int64",
-				Typez:         api.INT64_TYPE,
+				Typez:         INT64_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 4",
 				Name:          "f_uint64",
 				JSONName:      "fUint64",
 				ID:            ".test.Fake.f_uint64",
-				Typez:         api.UINT64_TYPE,
+				Typez:         UINT64_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 5",
 				Name:          "f_int32",
 				JSONName:      "fInt32",
 				ID:            ".test.Fake.f_int32",
-				Typez:         api.INT32_TYPE,
+				Typez:         INT32_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 6",
 				Name:          "f_fixed64",
 				JSONName:      "fFixed64",
 				ID:            ".test.Fake.f_fixed64",
-				Typez:         api.FIXED64_TYPE,
+				Typez:         FIXED64_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 7",
 				Name:          "f_fixed32",
 				JSONName:      "fFixed32",
 				ID:            ".test.Fake.f_fixed32",
-				Typez:         api.FIXED32_TYPE,
+				Typez:         FIXED32_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 8",
 				Name:          "f_bool",
 				JSONName:      "fBool",
 				ID:            ".test.Fake.f_bool",
-				Typez:         api.BOOL_TYPE,
+				Typez:         BOOL_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 9",
 				Name:          "f_string",
 				JSONName:      "fString",
 				ID:            ".test.Fake.f_string",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 12",
 				Name:          "f_bytes",
 				JSONName:      "fBytes",
 				ID:            ".test.Fake.f_bytes",
-				Typez:         api.BYTES_TYPE,
+				Typez:         BYTES_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 13",
 				Name:          "f_uint32",
 				JSONName:      "fUint32",
 				ID:            ".test.Fake.f_uint32",
-				Typez:         api.UINT32_TYPE,
+				Typez:         UINT32_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 15",
 				Name:          "f_sfixed32",
 				JSONName:      "fSfixed32",
 				ID:            ".test.Fake.f_sfixed32",
-				Typez:         api.SFIXED32_TYPE,
+				Typez:         SFIXED32_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 16",
 				Name:          "f_sfixed64",
 				JSONName:      "fSfixed64",
 				ID:            ".test.Fake.f_sfixed64",
-				Typez:         api.SFIXED64_TYPE,
+				Typez:         SFIXED64_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 17",
 				Name:          "f_sint32",
 				JSONName:      "fSint32",
 				ID:            ".test.Fake.f_sint32",
-				Typez:         api.SINT32_TYPE,
+				Typez:         SINT32_TYPE,
 			},
 			{
 				Documentation: "A singular field tag = 18",
 				Name:          "f_sint64",
 				JSONName:      "fSint64",
 				ID:            ".test.Fake.f_sint64",
-				Typez:         api.SINT64_TYPE,
+				Typez:         SINT64_TYPE,
 			},
 		},
 	})
@@ -174,19 +173,19 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
 		Documentation: "A test message.",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Repeated:      true,
 				Documentation: "A repeated field tag = 1",
 				Name:          "f_double",
 				JSONName:      "fDouble",
 				ID:            ".test.Fake.f_double",
-				Typez:         api.DOUBLE_TYPE,
+				Typez:         DOUBLE_TYPE,
 			},
 			{
 				Repeated:      true,
@@ -194,7 +193,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 				Name:          "f_int64",
 				JSONName:      "fInt64",
 				ID:            ".test.Fake.f_int64",
-				Typez:         api.INT64_TYPE,
+				Typez:         INT64_TYPE,
 			},
 			{
 				Repeated:      true,
@@ -202,7 +201,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 				Name:          "f_string",
 				JSONName:      "fString",
 				ID:            ".test.Fake.f_string",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 			},
 			{
 				Repeated:      true,
@@ -210,7 +209,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 				Name:          "f_bytes",
 				JSONName:      "fBytes",
 				ID:            ".test.Fake.f_bytes",
-				Typez:         api.BYTES_TYPE,
+				Typez:         BYTES_TYPE,
 			},
 		},
 	})
@@ -222,19 +221,19 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API", "Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
 		Documentation: "A test message.",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Optional:      true,
 				Documentation: "An optional field tag = 1",
 				Name:          "f_double",
 				JSONName:      "fDouble",
 				ID:            ".test.Fake.f_double",
-				Typez:         api.DOUBLE_TYPE,
+				Typez:         DOUBLE_TYPE,
 			},
 			{
 				Optional:      true,
@@ -242,7 +241,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 				Name:          "f_int64",
 				JSONName:      "fInt64",
 				ID:            ".test.Fake.f_int64",
-				Typez:         api.INT64_TYPE,
+				Typez:         INT64_TYPE,
 			},
 			{
 				Optional:      true,
@@ -250,7 +249,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 				Name:          "f_string",
 				JSONName:      "fString",
 				ID:            ".test.Fake.f_string",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 			},
 			{
 				Optional:      true,
@@ -258,7 +257,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 				Name:          "f_bytes",
 				JSONName:      "fBytes",
 				ID:            ".test.Fake.f_bytes",
-				Typez:         api.BYTES_TYPE,
+				Typez:         BYTES_TYPE,
 			},
 		},
 	})
@@ -275,18 +274,18 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.LocalMessage")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "LocalMessage",
 		Package:       "test",
 		ID:            ".test.LocalMessage",
 		Documentation: "This is a local message, it should be generated.",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Name:          "payload",
 				JSONName:      "payload",
 				ID:            ".test.LocalMessage.payload",
 				Documentation: "This field uses an imported message.",
-				Typez:         api.MESSAGE_TYPE,
+				Typez:         MESSAGE_TYPE,
 				TypezID:       ".away.ImportedMessage",
 				Optional:      true,
 			},
@@ -295,7 +294,7 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 				JSONName:      "value",
 				ID:            ".test.LocalMessage.value",
 				Documentation: "This field uses an imported enum.",
-				Typez:         api.ENUM_TYPE,
+				Typez:         ENUM_TYPE,
 				TypezID:       ".away.ImportedEnum",
 				Optional:      false,
 			},
@@ -320,11 +319,11 @@ func TestProtobuf_SkipExternaEnums(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.LocalEnum")
 	}
-	checkEnum(t, *enum, api.Enum{
+	checkEnum(t, *enum, Enum{
 		Name:          "LocalEnum",
 		Package:       "test",
 		Documentation: "This is a local enum, it should be generated.",
-		Values: []*api.EnumValue{
+		Values: []*EnumValue{
 			{
 				Name:   "RED",
 				Number: 0,
@@ -353,18 +352,18 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Request",
 		Package:       "test",
 		ID:            ".test.Request",
 		Documentation: "A test message.\n\nWith even more of a description.\nMaybe in more than one line.\nAnd some markdown:\n- An item\n  - A nested item\n- Another item",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Name:          "parent",
 				Documentation: "A field.\n\nWith a longer description.",
 				JSONName:      "parent",
 				ID:            ".test.Request.parent",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 			},
 		},
 	})
@@ -373,18 +372,18 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Response.nested")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Nested",
 		Package:       "test",
 		ID:            ".test.Response.Nested",
 		Documentation: "A nested message.\n\n- Item 1\n  Item 1 continued",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Name:          "path",
 				Documentation: "Field in a nested message.\n\n* Bullet 1\n  Bullet 1 continued\n* Bullet 2\n  Bullet 2 continued",
 				JSONName:      "path",
 				ID:            ".test.Response.Nested.path",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 			},
 		},
 	})
@@ -393,11 +392,11 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Response.Status")
 	}
-	checkEnum(t, *e, api.Enum{
+	checkEnum(t, *e, Enum{
 		Name:          "Status",
 		Package:       "test",
 		Documentation: "Some enum.\n\nLine 1.\nLine 2.",
-		Values: []*api.EnumValue{
+		Values: []*EnumValue{
 			{
 				Name:          "NOT_READY",
 				Documentation: "The first enum value description.\n\nValue Line 1.\nValue Line 2.",
@@ -415,25 +414,25 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.Service")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Name:          "Service",
 		ID:            ".test.Service",
 		Package:       "test",
 		Documentation: "A service.\n\nWith a longer service description.",
 		DefaultHost:   "test.googleapis.com",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Name:          "Create",
 				ID:            ".test.Service.Create",
 				Documentation: "Some RPC.\n\nIt does not do much.",
 				InputTypeID:   ".test.Request",
 				OutputTypeID:  ".test.Response",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("parent"),
+						NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "*",
@@ -449,25 +448,25 @@ func TestProtobuf_OneOfs(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
 		Documentation: "A test message.",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Name:          "field_one",
 				Documentation: "A string choice",
 				JSONName:      "fieldOne",
 				ID:            ".test.Fake.field_one",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 				IsOneOf:       true,
 			},
 			{
 				Documentation: "An int choice",
 				Name:          "field_two",
 				ID:            ".test.Fake.field_two",
-				Typez:         api.INT64_TYPE,
+				Typez:         INT64_TYPE,
 				JSONName:      "fieldTwo",
 				IsOneOf:       true,
 			},
@@ -475,7 +474,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 				Documentation: "Optional is oneof in proto",
 				Name:          "field_three",
 				ID:            ".test.Fake.field_three",
-				Typez:         api.STRING_TYPE,
+				Typez:         STRING_TYPE,
 				JSONName:      "fieldThree",
 				Optional:      true,
 			},
@@ -483,15 +482,15 @@ func TestProtobuf_OneOfs(t *testing.T) {
 				Documentation: "A normal field",
 				Name:          "field_four",
 				ID:            ".test.Fake.field_four",
-				Typez:         api.INT32_TYPE,
+				Typez:         INT32_TYPE,
 				JSONName:      "fieldFour",
 			},
 		},
-		OneOfs: []*api.OneOf{
+		OneOfs: []*OneOf{
 			{
 				Name: "choice",
 				ID:   ".test.Fake.choice",
-				Fields: []*api.Field{
+				Fields: []*Field{
 					{
 						Documentation: "A string choice",
 						Name:          "field_one",
@@ -520,18 +519,18 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Repeated: false,
 				Optional: true,
 				Name:     "singular_object",
 				JSONName: "singularObject",
 				ID:       ".test.Fake.singular_object",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".test.Other",
 			},
 			{
@@ -540,7 +539,7 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 				Name:     "repeated_object",
 				JSONName: "repeatedObject",
 				ID:       ".test.Fake.repeated_object",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".test.Other",
 			},
 		},
@@ -553,16 +552,16 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Name:     "field_mask",
 				JSONName: "fieldMask",
 				ID:       ".test.Fake.field_mask",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.FieldMask",
 				Optional: true,
 			},
@@ -570,7 +569,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 				Name:     "timestamp",
 				JSONName: "timestamp",
 				ID:       ".test.Fake.timestamp",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Timestamp",
 				Optional: true,
 			},
@@ -578,7 +577,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 				Name:     "any",
 				JSONName: "any",
 				ID:       ".test.Fake.any",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Any",
 				Optional: true,
 			},
@@ -586,7 +585,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 				Name:     "repeated_field_mask",
 				JSONName: "repeatedFieldMask",
 				ID:       ".test.Fake.repeated_field_mask",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.FieldMask",
 				Repeated: true,
 			},
@@ -594,7 +593,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 				Name:     "repeated_timestamp",
 				JSONName: "repeatedTimestamp",
 				ID:       ".test.Fake.repeated_timestamp",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Timestamp",
 				Repeated: true,
 			},
@@ -602,7 +601,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 				Name:     "repeated_any",
 				JSONName: "repeatedAny",
 				ID:       ".test.Fake.repeated_any",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Any",
 				Repeated: true,
 			},
@@ -616,18 +615,18 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Repeated: false,
 				Optional: false,
 				Name:     "singular_map",
 				JSONName: "singularMap",
 				ID:       ".test.Fake.singular_map",
-				Typez:    api.MESSAGE_TYPE,
+				Typez:    MESSAGE_TYPE,
 				TypezID:  ".test.Fake.SingularMapEntry",
 			},
 		},
@@ -637,19 +636,19 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, *message, Message{
 		Name:    "SingularMapEntry",
 		Package: "test",
 		ID:      ".test.Fake.SingularMapEntry",
 		IsMap:   true,
-		Fields: []*api.Field{
+		Fields: []*Field{
 			{
 				Repeated: false,
 				Optional: false,
 				Name:     "key",
 				JSONName: "key",
 				ID:       ".test.Fake.SingularMapEntry.key",
-				Typez:    api.STRING_TYPE,
+				Typez:    STRING_TYPE,
 			},
 			{
 				Repeated: false,
@@ -657,7 +656,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 				Name:     "value",
 				JSONName: "value",
 				ID:       ".test.Fake.SingularMapEntry.value",
-				Typez:    api.INT32_TYPE,
+				Typez:    INT32_TYPE,
 			},
 		},
 	})
@@ -669,24 +668,24 @@ func TestProtobuf_Service(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
 		Documentation: "A service to unit test the protobuf translator.",
 		DefaultHost:   "test.googleapis.com",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Name:          "GetFoo",
 				ID:            ".test.TestService.GetFoo",
 				Documentation: "Gets a Foo resource.",
 				InputTypeID:   ".test.GetFooRequest",
 				OutputTypeID:  ".test.Foo",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("name"),
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "",
@@ -698,12 +697,12 @@ func TestProtobuf_Service(t *testing.T) {
 				Documentation: "Creates a new Foo resource.",
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("parent"),
+						NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{"foo_id": true},
 					BodyFieldPath:   "foo",
@@ -719,25 +718,25 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
 		Documentation: "A service to unit test the protobuf translator.",
 		DefaultHost:   "test.googleapis.com",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Name:          "CreateFoo",
 				ID:            ".test.TestService.CreateFoo",
 				Documentation: "Creates a new `Foo` resource. `Foo`s are containers for `Bar`s.\n\nShows how a `body: \"${field}\"` option works.",
 				InputTypeID:   ".test.CreateFooRequest",
 				OutputTypeID:  ".test.Foo",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("foos"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("parent"),
+						NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{"foo_id": true},
 					BodyFieldPath:   "bar",
@@ -749,12 +748,12 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 				Documentation: "Add a Bar resource.\n\nShows how a `body: \"*\"` option works.",
 				InputTypeID:   ".test.AddBarRequest",
 				OutputTypeID:  ".test.Bar",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewVerbPathSegment("addFoo"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("parent"),
+						NewVerbPathSegment("addFoo"),
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "*",
@@ -770,11 +769,11 @@ func TestProtobuf_Enum(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
 	}
-	checkEnum(t, *e, api.Enum{
+	checkEnum(t, *e, Enum{
 		Name:          "Code",
 		Package:       "test",
 		Documentation: "An enum.",
-		Values: []*api.EnumValue{
+		Values: []*EnumValue{
 			{
 				Name:          "OK",
 				Documentation: "Not an error; returned on success.",
@@ -844,24 +843,24 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Documentation: "Manages location-related information with an API service.",
 		DefaultHost:   "cloud.googleapis.com",
 		Name:          "Locations",
 		ID:            ".google.cloud.location.Locations",
 		Package:       "google.cloud.location",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Documentation: "GetLocation is an RPC method of Locations.",
 				Name:          "GetLocation",
 				ID:            ".google.cloud.location.Locations.GetLocation",
 				InputTypeID:   ".google.cloud.location.GetLocationRequest",
 				OutputTypeID:  ".google.cloud.location.Location",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("name"),
 					},
 					QueryParameters: map[string]bool{},
 				},
@@ -903,25 +902,25 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
 		DefaultHost:   "iam-meta-api.googleapis.com",
 		Name:          "IAMPolicy",
 		ID:            ".google.iam.v1.IAMPolicy",
 		Package:       "google.iam.v1",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Documentation: "GetIamPolicy is an RPC method of IAMPolicy.",
 				Name:          "GetIamPolicy",
 				ID:            ".google.iam.v1.IAMPolicy.GetIamPolicy",
 				InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
 				OutputTypeID:  ".google.iam.v1.Policy",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("resource"),
-						api.NewVerbPathSegment("getIamPolicy"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v1"),
+						NewFieldPathPathSegment("resource"),
+						NewVerbPathSegment("getIamPolicy"),
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "*",
@@ -970,24 +969,24 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, *service, Service{
 		Documentation: "Manages long-running operations with an API service.",
 		DefaultHost:   "longrunning.googleapis.com",
 		Name:          "Operations",
 		ID:            ".google.longrunning.Operations",
 		Package:       "google.longrunning",
-		Methods: []*api.Method{
+		Methods: []*Method{
 			{
 				Documentation: "Custom docs.",
 				Name:          "GetOperation",
 				ID:            ".google.longrunning.Operations.GetOperation",
 				InputTypeID:   ".google.longrunning.GetOperationRequest",
 				OutputTypeID:  ".google.longrunning.Operation",
-				PathInfo: &api.PathInfo{
+				PathInfo: &PathInfo{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v2"),
-						api.NewFieldPathPathSegment("name"),
+					PathTemplate: []PathSegment{
+						NewLiteralPathSegment("v2"),
+						NewFieldPathPathSegment("name"),
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "*",

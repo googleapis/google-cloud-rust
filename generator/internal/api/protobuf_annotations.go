@@ -12,26 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package api
 
 import (
 	"fmt"
 	"log/slog"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
 )
 
-func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (*api.PathInfo, error) {
+func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *APIState) (*PathInfo, error) {
 	eHTTP := proto.GetExtension(m.GetOptions(), annotations.E_Http)
 	httpRule := eHTTP.(*annotations.HttpRule)
 	return processRule(httpRule, state, m.GetInputType())
 }
 
-func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathInfo, error) {
+func processRule(httpRule *annotations.HttpRule, state *APIState, mID string) (*PathInfo, error) {
 	var verb string
 	var rawPath string
 	switch httpRule.GetPattern().(type) {
@@ -53,13 +52,13 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 	default:
 		return nil, fmt.Errorf("unsupported http method: %q", httpRule.GetPattern())
 	}
-	pathTemplate := parseRawPath(rawPath)
+	pathTemplate := apiawPath(rawPath)
 	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
 		return nil, err
 	}
 
-	return &api.PathInfo{
+	return &PathInfo{
 		Verb:            verb,
 		PathTemplate:    pathTemplate,
 		QueryParameters: queryParameters,
@@ -67,7 +66,7 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 	}, nil
 }
 
-func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, state *api.APIState) (map[string]bool, error) {
+func queryParameters(msgID string, pathTemplate []PathSegment, body string, state *APIState) (map[string]bool, error) {
 	msg, ok := state.MessageByID[msgID]
 	if !ok {
 		return nil, fmt.Errorf("unable to lookup type %s", msgID)
@@ -92,19 +91,19 @@ func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, 
 	return params, nil
 }
 
-func parseRawPath(rawPath string) []api.PathSegment {
-	// TODO(#121) - use a proper parser for the template syntax
-	template := api.HTTPPathVarRegex.ReplaceAllStringFunc(rawPath, func(s string) string {
+func apiawPath(rawPath string) []PathSegment {
+	// TODO(#121) - use a proper api for the template syntax
+	template := HTTPPathVarRegex.ReplaceAllStringFunc(rawPath, func(s string) string {
 		members := strings.Split(s, "=")
 		if len(members) == 1 {
 			return members[0]
 		}
 		return members[0] + "}"
 	})
-	segments := []api.PathSegment{}
+	segments := []PathSegment{}
 	for idx, component := range strings.Split(template, ":") {
 		if idx != 0 {
-			segments = append(segments, api.PathSegment{Verb: &component})
+			segments = append(segments, PathSegment{Verb: &component})
 			continue
 		}
 		for _, element := range strings.Split(component, "/") {
@@ -113,10 +112,10 @@ func parseRawPath(rawPath string) []api.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &element})
+				segments = append(segments, PathSegment{FieldPath: &element})
 				continue
 			}
-			segments = append(segments, api.PathSegment{Literal: &element})
+			segments = append(segments, PathSegment{Literal: &element})
 		}
 	}
 	return segments

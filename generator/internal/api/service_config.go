@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package parser
+package api
 
 import (
 	"fmt"
@@ -48,7 +48,7 @@ func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 	return cfg, nil
 }
 
-// Finds the service config path for the current parser configuration.
+// Finds the service config path for the current api configuration.
 //
 // The service config files are specified as relative to the `googleapis-root`
 // path (or `test-root` when set). This finds the right path given a

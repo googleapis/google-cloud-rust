@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package parser reads specifications and converts them into
-// the `genclient.API` model.
-package parser
+package api
 
 import (
 	"errors"
@@ -22,7 +20,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/pb33f/libopenapi"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	v3 "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -30,8 +27,9 @@ import (
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 )
 
-func ParseOpenAPI(source, serviceConfigFile string, options map[string]string) (*api.API, error) {
-	contents, err := os.ReadFile(source)
+// FromOpenAPI parses an OpenAPI v3 specification and generates an API model.
+func FromOpenAPI(openAPISpec, serviceConfigFile string, options map[string]string) (*API, error) {
+	contents, err := os.ReadFile(openAPISpec)
 	if err != nil {
 		return nil, err
 	}
@@ -62,17 +60,17 @@ func createDocModel(contents []byte) (*libopenapi.DocumentModel[v3.Document], er
 	return docModel, nil
 }
 
-func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*api.API, error) {
-	result := &api.API{
+func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.DocumentModel[v3.Document]) (*API, error) {
+	result := &API{
 		Name:        "",
 		Title:       model.Model.Info.Title,
 		Description: model.Model.Info.Description,
-		Messages:    make([]*api.Message, 0),
-		State: &api.APIState{
-			ServiceByID: make(map[string]*api.Service),
-			MethodByID:  make(map[string]*api.Method),
-			MessageByID: make(map[string]*api.Message),
-			EnumByID:    make(map[string]*api.Enum),
+		Messages:    make([]*Message, 0),
+		State: &APIState{
+			ServiceByID: make(map[string]*Service),
+			MethodByID:  make(map[string]*Method),
+			MessageByID: make(map[string]*Message),
+			EnumByID:    make(map[string]*Enum),
 		},
 	}
 
@@ -87,10 +85,10 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	serviceName := "Service"
 	packageName := ""
 	if serviceConfig != nil {
-		for _, api := range serviceConfig.Apis {
-			packageName, serviceName = splitApiName(api.Name)
+		for _, a := range serviceConfig.Apis {
+			packageName, serviceName = splitApiName(a.Name)
 			// Keep searching after well-known mixin services.
-			if !wellKnownMixin(api.Name) {
+			if !wellKnownMixin(a.Name) {
 				break
 			}
 		}
@@ -106,7 +104,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 		if err != nil {
 			return nil, err
 		}
-		message := &api.Message{
+		message := &Message{
 			Name:          name,
 			ID:            id,
 			Package:       packageName,
@@ -125,7 +123,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	return result, nil
 }
 
-func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {
+func makeServices(a *API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {
 	// It is hard to imagine an OpenAPI specification without at least some
 	// RPCs, but we can simplify the tests if we support specifications without
 	// paths or without any useful methods in the paths.
@@ -140,7 +138,7 @@ func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], pack
 	if len(methods) == 0 {
 		return nil
 	}
-	service := &api.Service{
+	service := &Service{
 		Name:          serviceName,
 		ID:            fmt.Sprintf(".%s.%s", packageName, serviceName),
 		Package:       packageName,
@@ -167,8 +165,8 @@ func defaultHost(model *libopenapi.DocumentModel[v3.Document]) string {
 	return strings.TrimPrefix(defaultHost, "https://")
 }
 
-func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceID string) ([]*api.Method, error) {
-	var methods []*api.Method
+func makeMethods(a *API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceID string) ([]*Method, error) {
+	var methods []*Method
 	if model.Model.Paths == nil {
 		return methods, nil
 	}
@@ -201,14 +199,14 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			if err != nil {
 				return nil, err
 			}
-			pathInfo := &api.PathInfo{
+			pathInfo := &PathInfo{
 				Verb:            op.Verb,
 				PathTemplate:    pathTemplate,
 				QueryParameters: makeQueryParameters(op.Operation),
 				BodyFieldPath:   bodyFieldPath,
 			}
 			mID := fmt.Sprintf("%s.%s", serviceID, op.Operation.OperationId)
-			m := &api.Method{
+			m := &Method{
 				Name:          op.Operation.OperationId,
 				ID:            mID,
 				Documentation: op.Operation.Description,
@@ -223,11 +221,11 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 	return methods, nil
 }
 
-func makePathTemplate(template string) []api.PathSegment {
-	segments := []api.PathSegment{}
+func makePathTemplate(template string) []PathSegment {
+	segments := []PathSegment{}
 	for idx, component := range strings.Split(template, ":") {
 		if idx != 0 {
-			segments = append(segments, api.PathSegment{Verb: &component})
+			segments = append(segments, PathSegment{Verb: &component})
 			continue
 		}
 		for _, element := range strings.Split(component, "/") {
@@ -236,10 +234,10 @@ func makePathTemplate(template string) []api.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &element})
+				segments = append(segments, PathSegment{FieldPath: &element})
 				continue
 			}
-			segments = append(segments, api.PathSegment{Literal: &element})
+			segments = append(segments, PathSegment{Literal: &element})
 		}
 	}
 	return segments
@@ -247,10 +245,10 @@ func makePathTemplate(template string) []api.PathSegment {
 
 // Creates (if needed) the request message for `operation`. Returns the message
 // and the body field path (if any) for the request.
-func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, template string) (*api.Message, string, error) {
+func makeRequestMessage(a *API, operation *v3.Operation, packageName, template string) (*Message, string, error) {
 	messageName := fmt.Sprintf("%sRequest", operation.OperationId)
 	id := fmt.Sprintf(".%s.%s", packageName, messageName)
-	message := &api.Message{
+	message := &Message{
 		Name:          messageName,
 		ID:            id,
 		Package:       packageName,
@@ -284,11 +282,11 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 			// couple of different names.
 			inserted := false
 			for _, name := range []string{"requestBody", "openapiRequestBody"} {
-				field := &api.Field{
+				field := &Field{
 					Name:          name,
 					JSONName:      name,
 					Documentation: "The request body.",
-					Typez:         api.MESSAGE_TYPE,
+					Typez:         MESSAGE_TYPE,
 					TypezID:       bid,
 					Optional:      true,
 				}
@@ -330,7 +328,7 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 					"\n"+
 					"The full target path will be in the form `%s`.", p.Name, template)
 		}
-		field := &api.Field{
+		field := &Field{
 			Name:          p.Name,
 			JSONName:      p.Name, // OpenAPI fields are already camelCase
 			Documentation: documentation,
@@ -344,7 +342,7 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 	return message, bodyFieldPath, nil
 }
 
-func addFieldIfNew(message *api.Message, field *api.Field) bool {
+func addFieldIfNew(message *Message, field *Field) bool {
 	for _, f := range message.Fields {
 		if f.Name == field.Name {
 			// If the exact same field exists, treat that as a success.
@@ -355,7 +353,7 @@ func addFieldIfNew(message *api.Message, field *api.Field) bool {
 	return true
 }
 
-func makeResponseMessage(api *api.API, operation *v3.Operation, packageName string) (*api.Message, error) {
+func makeResponseMessage(model *API, operation *v3.Operation, packageName string) (*Message, error) {
 	if operation.Responses == nil {
 		return nil, fmt.Errorf("missing Responses in specification for operation %s", operation.OperationId)
 	}
@@ -368,7 +366,7 @@ func makeResponseMessage(api *api.API, operation *v3.Operation, packageName stri
 		return nil, err
 	}
 	id := fmt.Sprintf(".%s.%s", packageName, strings.TrimPrefix(reference, "#/components/schemas/"))
-	if message, ok := api.State.MessageByID[id]; ok {
+	if message, ok := model.State.MessageByID[id]; ok {
 		return message, nil
 	}
 	return nil, fmt.Errorf("cannot find response message ref=%s", reference)
@@ -395,8 +393,8 @@ func makeQueryParameters(operation *v3.Operation) map[string]bool {
 	return queryParameters
 }
 
-func makeMessageFields(state *api.APIState, packageName, messageName string, message *base.Schema) ([]*api.Field, error) {
-	var fields []*api.Field
+func makeMessageFields(state *APIState, packageName, messageName string, message *base.Schema) ([]*Field, error) {
+	var fields []*Field
 	for name, f := range message.Properties.FromOldest() {
 		schema, err := f.BuildSchema()
 		if err != nil {
@@ -418,7 +416,7 @@ func makeMessageFields(state *api.APIState, packageName, messageName string, mes
 	return fields, nil
 }
 
-func makeField(state *api.APIState, packageName, messageName, name string, optional bool, field *base.Schema) (*api.Field, error) {
+func makeField(state *APIState, packageName, messageName, name string, optional bool, field *base.Schema) (*Field, error) {
 	if len(field.AllOf) != 0 {
 		// Simple object fields name an AllOf attribute, but no `Type` attribute.
 		return makeObjectField(state, packageName, messageName, name, field)
@@ -438,22 +436,22 @@ func makeField(state *api.APIState, packageName, messageName, name string, optio
 	}
 }
 
-func makeScalarField(messageName, name string, schema *base.Schema, optional bool, field *base.Schema) (*api.Field, error) {
+func makeScalarField(messageName, name string, schema *base.Schema, optional bool, field *base.Schema) (*Field, error) {
 	typez, typezID, err := scalarType(messageName, name, schema)
 	if err != nil {
 		return nil, err
 	}
-	return &api.Field{
+	return &Field{
 		Name:          name,
 		JSONName:      name, // OpenAPI field names are always camelCase
 		Documentation: field.Description,
 		Typez:         typez,
 		TypezID:       typezID,
-		Optional:      optional || (typez == api.MESSAGE_TYPE),
+		Optional:      optional || (typez == MESSAGE_TYPE),
 	}, nil
 }
 
-func makeObjectField(state *api.APIState, packageName, messageName, name string, field *base.Schema) (*api.Field, error) {
+func makeObjectField(state *APIState, packageName, messageName, name string, field *base.Schema) (*Field, error) {
 	if len(field.AllOf) != 0 {
 		return makeObjectFieldAllOf(packageName, messageName, name, field)
 	}
@@ -467,11 +465,11 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 
 		if len(schema.Type) == 0 {
 			// Untyped message fields are .google.protobuf.Any
-			return &api.Field{
+			return &Field{
 				Name:          name,
 				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
-				Typez:         api.MESSAGE_TYPE,
+				Typez:         MESSAGE_TYPE,
 				TypezID:       ".google.protobuf.Any",
 				Optional:      true,
 			}, nil
@@ -480,11 +478,11 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 		if err != nil {
 			return nil, err
 		}
-		return &api.Field{
+		return &Field{
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
-			Typez:         api.MESSAGE_TYPE,
+			Typez:         MESSAGE_TYPE,
 			TypezID:       message.ID,
 			Optional:      false,
 		}, nil
@@ -492,11 +490,11 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 	if field.Items != nil && field.Items.IsA() {
 		proxy := field.Items.A
 		typezID := fmt.Sprintf(".%s.%s", packageName, strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/"))
-		return &api.Field{
+		return &Field{
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
-			Typez:         api.MESSAGE_TYPE,
+			Typez:         MESSAGE_TYPE,
 			TypezID:       typezID,
 			Optional:      true,
 		}, nil
@@ -504,7 +502,7 @@ func makeObjectField(state *api.APIState, packageName, messageName, name string,
 	return nil, fmt.Errorf("unknown object field type for field %s.%s", messageName, name)
 }
 
-func makeArrayField(state *api.APIState, packageName, messageName, name string, field *base.Schema) (*api.Field, error) {
+func makeArrayField(state *APIState, packageName, messageName, name string, field *base.Schema) (*Field, error) {
 	if !field.Items.IsA() {
 		return nil, fmt.Errorf("cannot handle arrays without an `Items` field for %s.%s", messageName, name)
 	}
@@ -516,18 +514,18 @@ func makeArrayField(state *api.APIState, packageName, messageName, name string, 
 	if len(schema.Type) != 1 {
 		return nil, fmt.Errorf("the items for field  %s.%s should have a single type", messageName, name)
 	}
-	var result *api.Field
+	var result *Field
 	switch schema.Type[0] {
 	case "boolean", "integer", "number", "string":
 		result, err = makeScalarField(messageName, name, schema, false, field)
 	case "object":
 		typezID := fmt.Sprintf(".%s.%s", packageName, strings.TrimPrefix(reference, "#/components/schemas/"))
 		if len(typezID) > 0 {
-			new := &api.Field{
+			new := &Field{
 				Name:          name,
 				JSONName:      name, // OpenAPI field names are always camelCase
 				Documentation: field.Description,
-				Typez:         api.MESSAGE_TYPE,
+				Typez:         MESSAGE_TYPE,
 				TypezID:       typezID,
 			}
 			result = new
@@ -545,14 +543,14 @@ func makeArrayField(state *api.APIState, packageName, messageName, name string, 
 	return result, nil
 }
 
-func makeObjectFieldAllOf(packageName, messageName, name string, field *base.Schema) (*api.Field, error) {
+func makeObjectFieldAllOf(packageName, messageName, name string, field *base.Schema) (*Field, error) {
 	for _, proxy := range field.AllOf {
 		typezID := fmt.Sprintf(".%s.%s", packageName, strings.TrimPrefix(proxy.GetReference(), "#/components/schemas/"))
-		return &api.Field{
+		return &Field{
 			Name:          name,
 			JSONName:      name, // OpenAPI field names are always camelCase
 			Documentation: field.Description,
-			Typez:         api.MESSAGE_TYPE,
+			Typez:         MESSAGE_TYPE,
 			TypezID:       typezID,
 			Optional:      true,
 		}, nil
@@ -560,12 +558,12 @@ func makeObjectFieldAllOf(packageName, messageName, name string, field *base.Sch
 	return nil, fmt.Errorf("cannot build any AllOf schema for field %s.%s", messageName, name)
 }
 
-func makeMapMessage(state *api.APIState, messageName, name string, schema *base.Schema) (*api.Message, error) {
+func makeMapMessage(state *APIState, messageName, name string, schema *base.Schema) (*Message, error) {
 	value_typez, value_id, err := scalarType(messageName, name, schema)
 	if err != nil {
 		return nil, err
 	}
-	value := &api.Field{
+	value := &Field{
 		Name:    "value",
 		ID:      value_id,
 		Typez:   value_typez,
@@ -576,19 +574,19 @@ func makeMapMessage(state *api.APIState, messageName, name string, schema *base.
 	message := state.MessageByID[id]
 	if message == nil {
 		// The map was not found, insert the type.
-		key := &api.Field{
+		key := &Field{
 			Name:    "key",
 			ID:      id + ".key",
-			Typez:   api.STRING_TYPE,
+			Typez:   STRING_TYPE,
 			TypezID: "string",
 		}
-		placeholder := &api.Message{
+		placeholder := &Message{
 			Name:             id,
 			Documentation:    id,
 			ID:               id,
 			IsLocalToPackage: false,
 			IsMap:            true,
-			Fields:           []*api.Field{key, value},
+			Fields:           []*Field{key, value},
 			Parent:           nil,
 			Package:          "$",
 		}
@@ -598,11 +596,11 @@ func makeMapMessage(state *api.APIState, messageName, name string, schema *base.
 	return message, nil
 }
 
-func scalarType(messageName, name string, schema *base.Schema) (api.Typez, string, error) {
+func scalarType(messageName, name string, schema *base.Schema) (Typez, string, error) {
 	for _, type_name := range schema.Type {
 		switch type_name {
 		case "boolean":
-			return api.BOOL_TYPE, "bool", nil
+			return BOOL_TYPE, "bool", nil
 		case "integer":
 			return scalarTypeForIntegerFormats(messageName, name, schema)
 		case "number":
@@ -614,54 +612,54 @@ func scalarType(messageName, name string, schema *base.Schema) (api.Typez, strin
 	return 0, "", fmt.Errorf("expected a scalar type for field %s.%s", messageName, name)
 }
 
-func scalarTypeForIntegerFormats(messageName, name string, schema *base.Schema) (api.Typez, string, error) {
+func scalarTypeForIntegerFormats(messageName, name string, schema *base.Schema) (Typez, string, error) {
 	switch schema.Format {
 	case "int32":
 		if schema.Minimum != nil && *schema.Minimum == 0 {
-			return api.UINT32_TYPE, "uint32", nil
+			return UINT32_TYPE, "uint32", nil
 		}
-		return api.INT32_TYPE, "int32", nil
+		return INT32_TYPE, "int32", nil
 	case "int64":
 		if schema.Minimum != nil && *schema.Minimum == 0 {
-			return api.UINT64_TYPE, "uint64", nil
+			return UINT64_TYPE, "uint64", nil
 		}
-		return api.INT64_TYPE, "int64", nil
+		return INT64_TYPE, "int64", nil
 	}
 	return 0, "", fmt.Errorf("unknown integer format (%s) for field %s.%s", schema.Format, messageName, name)
 }
 
-func scalarTypeForNumberFormats(messageName, name string, schema *base.Schema) (api.Typez, string, error) {
+func scalarTypeForNumberFormats(messageName, name string, schema *base.Schema) (Typez, string, error) {
 	switch schema.Format {
 	case "float":
-		return api.FLOAT_TYPE, "float", nil
+		return FLOAT_TYPE, "float", nil
 	case "double":
-		return api.DOUBLE_TYPE, "double", nil
+		return DOUBLE_TYPE, "double", nil
 	}
 	return 0, "", fmt.Errorf("unknown number format (%s) for field %s.%s", schema.Format, messageName, name)
 }
 
-func scalarTypeForStringFormats(messageName, name string, schema *base.Schema) (api.Typez, string, error) {
+func scalarTypeForStringFormats(messageName, name string, schema *base.Schema) (Typez, string, error) {
 	switch schema.Format {
 	case "":
-		return api.STRING_TYPE, "string", nil
+		return STRING_TYPE, "string", nil
 	case "byte":
-		return api.BYTES_TYPE, "bytes", nil
+		return BYTES_TYPE, "bytes", nil
 	case "int32":
 		if schema.Minimum != nil && *schema.Minimum == 0 {
-			return api.UINT32_TYPE, "uint32", nil
+			return UINT32_TYPE, "uint32", nil
 		}
-		return api.INT32_TYPE, "int32", nil
+		return INT32_TYPE, "int32", nil
 	case "int64":
 		if schema.Minimum != nil && *schema.Minimum == 0 {
-			return api.UINT64_TYPE, "uint64", nil
+			return UINT64_TYPE, "uint64", nil
 		}
-		return api.INT64_TYPE, "int64", nil
+		return INT64_TYPE, "int64", nil
 	case "google-duration":
-		return api.MESSAGE_TYPE, ".google.protobuf.Duration", nil
+		return MESSAGE_TYPE, ".google.protobuf.Duration", nil
 	case "date-time":
-		return api.MESSAGE_TYPE, ".google.protobuf.Timestamp", nil
+		return MESSAGE_TYPE, ".google.protobuf.Timestamp", nil
 	case "google-fieldmask":
-		return api.MESSAGE_TYPE, ".google.protobuf.FieldMask", nil
+		return MESSAGE_TYPE, ".google.protobuf.FieldMask", nil
 	}
 	return 0, "", fmt.Errorf("unknown string format (%s) for field %s.%s", schema.Format, messageName, name)
 }

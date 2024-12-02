@@ -20,7 +20,6 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
-	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
 // refresh reruns the generator in one directory, using the configuration
@@ -37,12 +36,12 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return fmt.Errorf("must provide general.specification-source")
 	}
 
-	var a *api.API
+	var model *api.API
 	switch config.General.SpecificationFormat {
 	case "openapi":
-		a, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+		model, err = api.FromOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	case "protobuf":
-		a, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+		model, err = api.FromProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	default:
 		return fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
 	}
@@ -62,12 +61,12 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if err != nil {
 		return err
 	}
-	if err := codec.Validate(a); err != nil {
+	if err := codec.Validate(model); err != nil {
 		return err
 	}
 
 	request := &generateClientRequest{
-		API:         a,
+		API:         model,
 		Codec:       codec,
 		OutDir:      output,
 		TemplateDir: config.General.TemplateDir,

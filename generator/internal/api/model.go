@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package api provides functionality for reading different API specifications
+// and converting them into the same internal model.
 package api
 
 import (
