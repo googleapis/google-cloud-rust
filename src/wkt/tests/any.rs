@@ -41,7 +41,7 @@ fn roundtrip_generic() -> Result {
 
 #[test]
 fn roundtrip_duration() -> Result {
-    let input = Duration::new(12, 3456);
+    let input = Duration::new(12, 3456)?;
     let any = Any::from(&input)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;

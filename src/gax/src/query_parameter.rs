@@ -149,7 +149,7 @@ mod tests {
 
     #[test]
     fn duration() -> Result {
-        let d = wkt::Duration::new(12, 345_678_900);
+        let d = wkt::Duration::new(12, 345_678_900)?;
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");

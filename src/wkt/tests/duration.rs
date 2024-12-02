@@ -26,21 +26,18 @@ pub struct Helper {
 #[test]
 fn access() {
     let d = Duration::default();
-    assert_eq!(d.nanos, 0);
-    assert_eq!(d.seconds, 0);
+    assert_eq!(d.nanos(), 0);
+    assert_eq!(d.seconds(), 0);
 }
 
 #[test]
 fn serialize_in_struct() -> Result {
-    let input = Helper {
-        ..Default::default()
-    };
+    let input = Helper::default();
     let json = serde_json::to_value(input)?;
     assert_eq!(json, json!({}));
 
     let input = Helper {
-        time_to_live: Some(Duration::new(12, 345678900)),
-        ..Default::default()
+        time_to_live: Some(Duration::clamp(12, 345678900)),
     };
 
     let json = serde_json::to_value(input)?;
@@ -51,16 +48,13 @@ fn serialize_in_struct() -> Result {
 #[test]
 fn deserialize_in_struct() -> Result {
     let input = json!({});
-    let want = Helper {
-        ..Default::default()
-    };
+    let want = Helper::default();
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
 
     let input = json!({ "timeToLive": "12.345678900s" });
     let want = Helper {
-        time_to_live: Some(Duration::new(12, 345678900)),
-        ..Default::default()
+        time_to_live: Some(Duration::clamp(12, 345678900)),
     };
     let got = serde_json::from_value::<Helper>(input)?;
     assert_eq!(want, got);
@@ -70,9 +64,9 @@ fn deserialize_in_struct() -> Result {
 #[test]
 fn compare() {
     let ts0 = Duration::default();
-    let ts1 = Duration::default().set_seconds(1).set_nanos(100);
-    let ts2 = Duration::default().set_seconds(1).set_nanos(200);
-    let ts3 = Duration::default().set_seconds(2);
+    let ts1 = Duration::clamp(1, 100);
+    let ts2 = Duration::clamp(1, 200);
+    let ts3 = Duration::clamp(2, 0);
     assert_eq!(ts0.partial_cmp(&ts0), Some(std::cmp::Ordering::Equal));
     assert_eq!(ts0.partial_cmp(&ts1), Some(std::cmp::Ordering::Less));
     assert_eq!(ts2.partial_cmp(&ts3), Some(std::cmp::Ordering::Less));
