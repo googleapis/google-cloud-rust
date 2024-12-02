@@ -14,6 +14,7 @@
 
 use crate::Result;
 use rand::{distributions::Alphanumeric, Rng};
+use smo::client::SecretManagerService;
 
 pub async fn run() -> Result<()> {
     let project_id = crate::project_id()?;

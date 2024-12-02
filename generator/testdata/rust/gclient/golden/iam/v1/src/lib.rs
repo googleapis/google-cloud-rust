@@ -17,22 +17,16 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
-use gax::error::{Error, HttpError};
+use gax::error::Error;
 use google_cloud_auth::{Credential, CredentialConfig};
-use std::sync::Arc;
 
 pub mod client;
+pub(crate) mod transport;
 
 const DEFAULT_HOST: &str = "https://iam-meta-api.googleapis.com/";
 
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
-
-struct InnerClient {
-    http_client: reqwest::Client,
-    cred: Credential,
-    endpoint: String,
-}
 
 #[derive(Default)]
 pub struct ConfigBuilder {
@@ -70,142 +64,4 @@ impl ConfigBuilder {
     }
 }
 
-#[derive(serde::Serialize)]
-#[allow(dead_code)]
-struct NoBody {}
-
-/// API Overview
-///
-/// Manages Identity and Access Management (IAM) policies.
-///
-/// Any implementation of an API that offers access control features
-/// implements the google.iam.v1.IAMPolicy interface.
-///
-/// ## Data model
-///
-/// Access control is applied when a principal (user or service account), takes
-/// some action on a resource exposed by a service. Resources, identified by
-/// URI-like names, are the unit of access control specification. Service
-/// implementations can choose the granularity of access control and the
-/// supported permissions for their resources.
-/// For example one database service may allow access control to be
-/// specified only at the Table level, whereas another might allow access control
-/// to also be specified at the Column level.
-///
-/// ## Policy Structure
-///
-/// See google.iam.v1.Policy
-///
-/// This is intentionally not a CRUD style API because access control policies
-/// are created and deleted implicitly with the resources to which they are
-/// attached.
-#[derive(Clone)]
-pub struct IampolicyClient {
-    inner: Arc<InnerClient>,
-}
-
-impl IampolicyClient {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(ConfigBuilder::new()).await
-    }
-
-    pub async fn new_with_config(conf: ConfigBuilder) -> Result<Self> {
-        let inner = InnerClient {
-            http_client: conf.client.unwrap_or(ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(ConfigBuilder::default_credential().await?),
-            endpoint: conf.endpoint.unwrap_or(DEFAULT_HOST.to_string()),
-        };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
-    }
-
-    /// Sets the access control policy on the specified resource. Replaces any
-    /// existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    pub async fn set_iam_policy(
-        &self,
-        req: crate::model::SetIamPolicyRequest,
-    ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
-            .http_client
-            .post(format!(
-                "{}/v1/{}:setIamPolicy",
-                inner_client.endpoint, req.resource,
-            ))
-            .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
-    }
-
-    /// Gets the access control policy for a resource.
-    /// Returns an empty policy if the resource exists and does not have a policy
-    /// set.
-    pub async fn get_iam_policy(
-        &self,
-        req: crate::model::GetIamPolicyRequest,
-    ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
-            .http_client
-            .post(format!(
-                "{}/v1/{}:getIamPolicy",
-                inner_client.endpoint, req.resource,
-            ))
-            .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
-    }
-
-    /// Returns permissions that a caller has on the specified resource.
-    /// If the resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
-    pub async fn test_iam_permissions(
-        &self,
-        req: crate::model::TestIamPermissionsRequest,
-    ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
-            .http_client
-            .post(format!(
-                "{}/v1/{}:testIamPermissions",
-                inner_client.endpoint, req.resource,
-            ))
-            .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
-    }
-
-    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        body: Option<I>,
-    ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
-        if let Some(body) = body {
-            builder = builder.json(&body);
-        }
-        let resp = builder.send().await.map_err(Error::io)?;
-        if !resp.status().is_success() {
-            let status = resp.status().as_u16();
-            let headers = gax::error::convert_headers(resp.headers());
-            let body = resp.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = resp.json::<O>().await.map_err(Error::serde)?;
-        Ok(response)
-    }
-}
+pub type IampolicyClient = crate::transport::Iampolicy;
