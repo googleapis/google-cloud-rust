@@ -123,7 +123,9 @@ pub struct Location {
 
     /// Cross-service attributes for the location. For example
     ///
-    ///     {"cloud.googleapis.com/region": "us-east1"}
+    /// ```norust
+    /// {"cloud.googleapis.com/region": "us-east1"}
+    /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub labels: std::collections::HashMap<String, String>,
 

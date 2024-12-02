@@ -609,21 +609,69 @@ func (*RustCodec) ToCamel(symbol string) string {
 	return rustEscapeKeyword(strcase.ToLowerCamel(symbol))
 }
 
+// TODO(#92) - protect all quotes with `norust`
+// TODO(#30) - convert protobuf links to Rusty links.
+//
+// Blockquotes require special treatment for Rust. By default, Rust assumes
+// blockquotes contain compilable Rust code samples. To override the default
+// the blockquote must be marked with "```norust". The proto comments have
+// many blockquotes that do not follow this convention (nor should they).
+//
+// This function handles some easy cases of blockquotes, but a full treatment
+// requires parsing of the comments. The CommonMark [spec] includes some
+// difficult examples.
+//
+// [spec]: https://spec.commonmark.org/0.13/#block-quotes
 func (*RustCodec) FormatDocComments(documentation string) []string {
-	inBlockQuote := false
-	ss := strings.Split(documentation, "\n")
-	for i := range ss {
-		if strings.HasSuffix(ss[i], "```") {
-			if !inBlockQuote {
-				ss[i] = ss[i] + "norust"
+	inBlockquote := false
+	blockquotePrefix := ""
+
+	var results []string
+	for _, line := range strings.Split(documentation, "\n") {
+		if inBlockquote {
+			switch {
+			case line == "```":
+				inBlockquote = false
+				results = append(results, "```")
+			case strings.HasPrefix(line, blockquotePrefix):
+				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
+			default:
+				inBlockquote = false
+				results = append(results, "```")
+				results = append(results, line)
 			}
-			inBlockQuote = !inBlockQuote
+		} else {
+			switch {
+			case line == "```":
+				results = append(results, "```norust")
+				inBlockquote = true
+			case strings.HasPrefix(line, "    "):
+				inBlockquote = true
+				blockquotePrefix = "    "
+				results = append(results, "```norust")
+				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
+			case strings.HasPrefix(line, "   > "):
+				inBlockquote = true
+				blockquotePrefix = "   > "
+				results = append(results, "```norust")
+				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
+			case strings.HasPrefix(line, "> "):
+				inBlockquote = true
+				blockquotePrefix = "> "
+				results = append(results, "```norust")
+				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
+			default:
+				results = append(results, line)
+			}
 		}
-		ss[i] = fmt.Sprintf("/// %s", ss[i])
-		// nit: remove the trailing whitespace, this is unsightly.
-		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
 	}
-	return ss
+	if inBlockquote {
+		results = append(results, "```")
+	}
+	for i, line := range results {
+		results[i] = strings.TrimRightFunc(fmt.Sprintf("/// %s", line), unicode.IsSpace)
+	}
+	return results
 }
 
 func (c *RustCodec) projectRoot() string {

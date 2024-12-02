@@ -939,6 +939,108 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 	}
 }
 
+func TestRust_FormatDocCommentsImplicitBlockQuote(t *testing.T) {
+	input := `
+Blockquotes come in many forms. They can start with a leading '> ', as in:
+
+> Block quote style 1
+> Continues 1 - style 1
+> Continues 2 - style 1
+> Continues 3 - style 1
+
+They can start with 3 spaces and then '> ', as in:
+
+   > Block quote style 2
+   > Continues 1 - style 2
+   > Continues 2 - style 2
+   > Continues 3 - style 2
+
+Or they can start with just 4 spaces:
+
+    Block quote style 3
+    Continues 1 - style 3
+    Continues 2 - style 3
+    Continues 3 - style 3
+
+Note that four spaces and a leading '> ' makes the '> ' prefix part of the
+block:
+
+    > Block quote with arrow.
+    > Continues 1 - with arrow
+    > Continues 2 - with arrow
+    Continues 3 - with arrow
+
+`
+
+	want := []string{
+		"///",
+		"/// Blockquotes come in many forms. They can start with a leading '> ', as in:",
+		"///",
+		"/// ```norust",
+		"/// Block quote style 1",
+		"/// Continues 1 - style 1",
+		"/// Continues 2 - style 1",
+		"/// Continues 3 - style 1",
+		"/// ```",
+		"///",
+		"/// They can start with 3 spaces and then '> ', as in:",
+		"///",
+		"/// ```norust",
+		"/// Block quote style 2",
+		"/// Continues 1 - style 2",
+		"/// Continues 2 - style 2",
+		"/// Continues 3 - style 2",
+		"/// ```",
+		"///",
+		"/// Or they can start with just 4 spaces:",
+		"///",
+		"/// ```norust",
+		"/// Block quote style 3",
+		"/// Continues 1 - style 3",
+		"/// Continues 2 - style 3",
+		"/// Continues 3 - style 3",
+		"/// ```",
+		"///",
+		"/// Note that four spaces and a leading '> ' makes the '> ' prefix part of the",
+		"/// block:",
+		"///",
+		"/// ```norust",
+		"/// > Block quote with arrow.",
+		"/// > Continues 1 - with arrow",
+		"/// > Continues 2 - with arrow",
+		"/// Continues 3 - with arrow",
+		"/// ```",
+		"///",
+		"///",
+	}
+
+	c := &RustCodec{}
+	got := c.FormatDocComments(input)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
+	input := `Blockquotes can appear at the end of the comment:
+
+    they should have a closing element.`
+
+	want := []string{
+		"/// Blockquotes can appear at the end of the comment:",
+		"///",
+		"/// ```norust",
+		"/// they should have a closing element.",
+		"/// ```",
+	}
+
+	c := &RustCodec{}
+	got := c.FormatDocComments(input)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestRust_MessageNames(t *testing.T) {
 	message := &api.Message{
 		Name: "Replication",
