@@ -21,6 +21,8 @@ use gax::error::{Error, HttpError};
 use google_cloud_auth::{Credential, CredentialConfig};
 use std::sync::Arc;
 
+pub mod client;
+
 const DEFAULT_HOST: &str = "https://iam-meta-api.googleapis.com/";
 
 /// A `Result` alias where the `Err` case is an [Error].
