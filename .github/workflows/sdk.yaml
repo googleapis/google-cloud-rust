@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.81', '1.70']
+        rust-version: ['1.83', '1.70']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.81']
+        rust-version: ['1.83']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.81']
+        rust-version: ['1.83']
         go-version: ['1.23']
     steps:
       - uses: actions/cache@v4
