@@ -115,7 +115,8 @@ type Method struct {
 	OutputTypeID string
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
-	// IsPagable is true if the method conforms to standard 
+	// IsPageable is true if the method conforms to standard defined by
+	// [AIP-4233](https://google.aip.dev/client-libraries/4233).
 	IsPageable bool
 }
 
