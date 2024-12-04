@@ -122,6 +122,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	if err != nil {
 		return nil, err
 	}
+	updateMethodPagination(result)
 	return result, nil
 }
 

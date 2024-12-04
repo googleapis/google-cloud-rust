@@ -340,6 +340,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	if result.Name == "" && serviceConfig != nil {
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
+	updateMethodPagination(result)
 	return result
 }
 

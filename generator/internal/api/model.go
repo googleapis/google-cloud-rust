@@ -115,6 +115,8 @@ type Method struct {
 	OutputTypeID string
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
+	// IsPagable is true if the method conforms to standard 
+	IsPageable bool
 }
 
 // Normalized request path information.
