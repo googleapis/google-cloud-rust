@@ -931,6 +931,98 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 	})
 }
 
+func TestProtobuf_Pagination(t *testing.T) {
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "pagination.proto"))
+	service, ok := test.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	checkService(t, *service, api.Service{
+		Name:        "TestService",
+		ID:          ".test.TestService",
+		DefaultHost: "test.googleapis.com",
+		Package:     "test",
+		Methods: []*api.Method{
+			{
+				Name:         "ListFoo",
+				ID:           ".test.TestService.ListFoo",
+				InputTypeID:  ".test.ListFooRequest",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+				},
+				IsPageable: true,
+			},
+			{
+				Name:         "ListFooMissingNextPageToken",
+				ID:           ".test.TestService.ListFooMissingNextPageToken",
+				InputTypeID:  ".test.ListFooRequest",
+				OutputTypeID: ".test.ListFooMissingNextPageTokenResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+				},
+			},
+			{
+				Name:         "ListFooMissingPageSize",
+				ID:           ".test.TestService.ListFooMissingPageSize",
+				InputTypeID:  ".test.ListFooMissingPageSizeRequest",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"page_token": true},
+				},
+			},
+			{
+				Name:         "ListFooMissingPageToken",
+				ID:           ".test.TestService.ListFooMissingPageToken",
+				InputTypeID:  ".test.ListFooMissingPageTokenRequest",
+				OutputTypeID: ".test.ListFooResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"page_size": true},
+				},
+			},
+			{
+				Name:         "ListFooMissingRepeatedItemToken",
+				ID:           ".test.TestService.ListFooMissingRepeatedItemToken",
+				InputTypeID:  ".test.ListFooRequest",
+				OutputTypeID: ".test.ListFooMissingRepeatedItemResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"page_size": true, "page_token": true},
+				},
+			},
+		},
+	})
+}
+
 func TestProtobuf_OperationMixin(t *testing.T) {
 	var serviceConfig = &serviceconfig.Service{
 		Name:  "test.googleapis.com",

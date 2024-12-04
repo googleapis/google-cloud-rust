@@ -738,6 +738,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				"pageToken": true,
 			},
 		},
+		IsPageable: true,
 	})
 
 	checkMethod(t, service, "CreateSecret", &api.Method{
@@ -848,6 +849,50 @@ func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
 				Typez:         api.STRING_TYPE,
 				TypezID:       "string",
 				Synthetic:     true,
+			},
+		},
+	})
+}
+
+func TestOpenAPI_Pagination(t *testing.T) {
+	contents, err := os.ReadFile("testdata/pagination_openapi.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	test, err := makeAPIForOpenAPI(nil, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+
+	service, ok := test.State.ServiceByID["..Service"]
+	if !ok {
+		t.Errorf("missing service (Service) in ServiceByID index")
+		return
+	}
+	checkService(t, *service, api.Service{
+		Name: "Service",
+		ID:   "..Service",
+		Methods: []*api.Method{
+			{
+				Name:         "ListFoos",
+				ID:           "..Service.ListFoos",
+				InputTypeID:  "..ListFoosRequest",
+				OutputTypeID: "..ListFoosResponse",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewLiteralPathSegment("projects"),
+						api.NewFieldPathPathSegment("project"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
+				},
+				IsPageable: true,
 			},
 		},
 	})
