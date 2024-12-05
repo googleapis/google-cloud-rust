@@ -12,6 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-    println!("Coming Soon: Google Cloud SDK for Rust")
+use std::collections::HashMap;
+
+use async_trait::async_trait;
+
+pub type Result<T> = std::result::Result<T, crate::errors::AuthError>;
+
+#[async_trait]
+pub trait Credential: Send + Sync {
+    async fn get_token(&mut self) -> Result<crate::token::Token>;
+    async fn get_headers(&mut self) -> Result<HashMap<String, String>>;
+    fn get_quota_project_id(&self) -> Result<String>;
+    fn get_universe_domain(&self) -> Result<String>;
 }
