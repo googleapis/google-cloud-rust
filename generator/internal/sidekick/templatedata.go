@@ -53,18 +53,19 @@ type Service struct {
 }
 
 type Message struct {
-	Fields            []*Field
-	BasicFields       []*Field
-	ExplicitOneOfs    []*OneOf
-	NestedMessages    []*Message
-	Enums             []*Enum
-	MessageAttributes []string
-	Name              string
-	QualifiedName     string
-	NameSnakeCase     string
-	HasNestedTypes    bool
-	DocLines          []string
-	IsMap             bool
+	Fields             []*Field
+	BasicFields        []*Field
+	ExplicitOneOfs     []*OneOf
+	NestedMessages     []*Message
+	Enums              []*Enum
+	MessageAttributes  []string
+	Name               string
+	QualifiedName      string
+	NameSnakeCase      string
+	HasNestedTypes     bool
+	DocLines           []string
+	IsMap              bool
+	IsPageableResponse bool
 }
 
 type Method struct {
@@ -81,6 +82,7 @@ type Method struct {
 	QueryParams       []*Field
 	HasBody           bool
 	BodyAccessor      string
+	IsPageable        bool
 }
 
 type OneOf struct {
@@ -206,8 +208,9 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 			}
 			return false
 		}(),
-		DocLines: c.FormatDocComments(m.Documentation),
-		IsMap:    m.IsMap,
+		DocLines:           c.FormatDocComments(m.Documentation),
+		IsMap:              m.IsMap,
+		IsPageableResponse: m.IsPageableResponse,
 	}
 }
 
@@ -228,6 +231,7 @@ func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 		QueryParams: mapSlice(c.QueryParams(m, state), func(s *api.Field) *Field {
 			return newField(s, c, state)
 		}),
+		IsPageable: m.IsPageable,
 	}
 }
 

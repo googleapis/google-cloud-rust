@@ -210,6 +210,9 @@ type Message struct {
 	// The Protobuf package this message belongs to.
 	Package string
 	IsMap   bool
+	// IsPageableResponse indicated that this Message is returned by a standard
+	// List RPC and conforms to [AIP-4233](https://google.aip.dev/client-libraries/4233).
+	IsPageableResponse bool
 }
 
 // Enum defines a message used in request/response handling.

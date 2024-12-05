@@ -72,5 +72,6 @@ func updateMethodPagination(a *api.API) {
 			continue
 		}
 		m.IsPageable = true
+		respMsg.IsPageableResponse = true
 	}
 }

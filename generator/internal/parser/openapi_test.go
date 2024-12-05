@@ -617,6 +617,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				Optional:      true,
 			},
 		},
+		IsPageableResponse: true,
 	})
 
 	// This is a synthetic message, the OpenAPI spec does not contain requests
@@ -893,6 +894,32 @@ func TestOpenAPI_Pagination(t *testing.T) {
 					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
 				},
 				IsPageable: true,
+			},
+		},
+	})
+	resp, ok := test.State.MessageByID["..ListFoosResponse"]
+	if !ok {
+		t.Errorf("missing message (ListFoosResponse) in MessageByID index")
+		return
+	}
+	checkMessage(t, *resp, api.Message{
+		Name:               "ListFoosResponse",
+		ID:                 "..ListFoosResponse",
+		IsPageableResponse: true,
+		Fields: []*api.Field{
+			{
+				Name:     "nextPageToken",
+				Typez:    9,
+				TypezID:  "string",
+				JSONName: "nextPageToken",
+				Optional: true,
+			},
+			{
+				Name:     "secrets",
+				Typez:    11,
+				TypezID:  "..Foo",
+				JSONName: "secrets",
+				Repeated: true,
 			},
 		},
 	})
