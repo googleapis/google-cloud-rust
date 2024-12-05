@@ -12,12 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::collections::HashMap;
-
+/// Represents an auth token.
 #[derive(Debug)]
 pub struct Token {
+    /// The actual token string.  This is the value used in Authorization header.
     pub token: String,
+
+    /// The type of the token.  Common types include "Bearer".
     pub token_type: String,
-    pub expires_in: Option<i64>,
-    pub metadata: Option<HashMap<String, String>>,
+
+    /// The instant at which the token expires. If `None`, the token does not
+    /// expire (or its expiration is unknown).
+    pub expires_in: Option<std::time::Instant>,
+
+    /// Optional metadata associated with the token. This might include
+    /// information like granted scopes or other claims.
+    pub metadata: Option<std::collections::HashMap<String, String>>,
 }

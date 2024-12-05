@@ -12,16 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::collections::HashMap;
-
-use async_trait::async_trait;
+use std::future::Future;
 
 pub type Result<T> = std::result::Result<T, crate::errors::AuthError>;
 
-#[async_trait]
+/// Represents an auth credential used to obtain auth tokens.
+/// Implementors of this trait provide a way to asynchronously retrieve tokens
+/// and construct auth headers.
 pub trait Credential: Send + Sync {
-    async fn get_token(&mut self) -> Result<crate::token::Token>;
-    async fn get_headers(&mut self) -> Result<HashMap<String, String>>;
-    fn get_quota_project_id(&self) -> Result<String>;
-    fn get_universe_domain(&self) -> Result<String>;
+    /// Asynchronously retrieves a token.
+    ///
+    /// This function returns a `Future` that resolves to a `Result` containing
+    /// either the `Token` or an `AuthError` if an error occurred during
+    /// token retrieval.
+    fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send;
+
+    /// Asynchronously retrieves auth headers.
+    ///
+    /// This function returns a `Future` that resolves to a `Result` containing
+    /// either a vector of key-value pairs representing the headers or an
+    /// `AuthError` if an error occurred during header construction.
+    fn get_headers(&mut self) -> impl Future<Output = Result<Vec<(String, String)>>> + Send;
+
+    /// Retrieves the quota project ID associated with the credential, if any
+    fn get_quota_project_id(&self) -> Option<String>;
+
+    /// Retrieves the universe domain associated with the credential, if any.
+    fn get_universe_domain(&self) -> Option<String>;
 }

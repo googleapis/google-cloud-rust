@@ -24,4 +24,4 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-async-trait = "0.1.74"
+thiserror = "2"

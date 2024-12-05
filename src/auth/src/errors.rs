@@ -12,15 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-type BoxError = Box<dyn std::error::Error + Send + Sync>;
+use std::error::Error;
+use std::fmt::{Display, Formatter, Result};
 
+type BoxError = Box<dyn Error + Send + Sync>;
+
+/// Represents an auth error.  This error type indicates issues
+/// encountered during the auth process.
 #[derive(Debug)]
 pub struct AuthError {
+    /// A boolean value indicating whether the error is retryable. If true,
+    /// the operation that resulted in this error might succeed upon retry.
     is_retryable: bool,
+
+    /// The underlying source of the error. This provides more specific
+    /// information about the cause of the auth failure.
     source: BoxError,
 }
 
 impl AuthError {
+    /// Creates a new `AuthError`.
+    ///
+    /// # Arguments
+    /// * `is_retryable` - A boolean indicating whether the error is retryable.
+    /// * `source` - The underlying error that caused the auth failure.
+    ///
+    /// # Returns
+    /// A new `AuthError` instance.
     pub fn new(is_retryable: bool, source: BoxError) -> Self {
         AuthError {
             is_retryable,
@@ -28,41 +46,24 @@ impl AuthError {
         }
     }
 
+    /// Returns `true` if the error is retryable; otherwise returns `false`.
     pub fn is_retryable(&self) -> bool {
         self.is_retryable
     }
 }
 
-impl std::error::Error for AuthError {}
+impl Error for AuthError {}
 
-impl std::fmt::Display for AuthError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+impl Display for AuthError {
+    /// Formats the error message to include retryability and source.
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         write!(f, "Retryable:{}, Source:{}", self.is_retryable, self.source)
     }
 }
 
-#[derive(Debug)]
-pub struct InnerAuthError {
-    message: String,
-    kind: InnerAuthErrorKind,
-}
-
-impl std::error::Error for InnerAuthError {}
-
-impl std::fmt::Display for InnerAuthError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "Message: {}, Kind: {:?}", self.message, self.kind)
-    }
-}
-
-impl InnerAuthError {
-    pub fn new(message: String, kind: InnerAuthErrorKind) -> Self {
-        InnerAuthError { message, kind }
-    }
-}
-
-#[derive(Debug)]
-pub enum InnerAuthErrorKind {
-    DefaultCredentialsError, // Errors during ADC
-    InvalidOptionsError,     // Errors interpreting options
+/// InnerAuthError enum is designed to enumerate specific auth error types.
+/// This allows distinguishing various causes of auth failures which can be used for more fine-grained error handling.
+#[derive(thiserror::Error, Debug)]
+pub enum InnerAuthError {
+    // Define error types here
 }
