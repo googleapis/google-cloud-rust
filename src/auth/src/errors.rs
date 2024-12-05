@@ -17,14 +17,14 @@ type BoxError = Box<dyn std::error::Error + Send + Sync>;
 #[derive(Debug)]
 pub struct AuthError {
     is_retryable: bool,
-    source: BoxError
+    source: BoxError,
 }
 
 impl AuthError {
     pub fn new(is_retryable: bool, source: BoxError) -> Self {
         AuthError {
             is_retryable,
-            source
+            source,
         }
     }
 
@@ -44,12 +44,12 @@ impl std::fmt::Display for AuthError {
 #[derive(Debug)]
 pub struct InnerAuthError {
     message: String,
-    kind: InnerAuthErrorKind
+    kind: InnerAuthErrorKind,
 }
 
-impl std::error::Error for InnerAuthError{}
+impl std::error::Error for InnerAuthError {}
 
-impl std::fmt::Display for InnerAuthError{
+impl std::fmt::Display for InnerAuthError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "Message: {}, Kind: {:?}", self.message, self.kind)
     }
@@ -57,15 +57,12 @@ impl std::fmt::Display for InnerAuthError{
 
 impl InnerAuthError {
     pub fn new(message: String, kind: InnerAuthErrorKind) -> Self {
-        InnerAuthError {
-            message,
-            kind
-        }
+        InnerAuthError { message, kind }
     }
 }
 
 #[derive(Debug)]
 pub enum InnerAuthErrorKind {
     DefaultCredentialsError, // Errors during ADC
-    InvalidOptionsError, // Errors interpreting options
+    InvalidOptionsError,     // Errors interpreting options
 }

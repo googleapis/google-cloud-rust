@@ -19,5 +19,5 @@ pub struct Token {
     pub token: String,
     pub token_type: String,
     pub expires_in: Option<i64>,
-    pub metadata: Option<HashMap<String, String>>
+    pub metadata: Option<HashMap<String, String>>,
 }
