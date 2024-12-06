@@ -20,7 +20,7 @@ type BoxError = Box<dyn Error + Send + Sync>;
 /// Represents an auth error.  This error type indicates issues
 /// encountered during the auth process.
 #[derive(Debug)]
-pub struct AuthError {
+pub struct CredentialError {
     /// A boolean value indicating whether the error is retryable. If true,
     /// the operation that resulted in this error might succeed upon retry.
     is_retryable: bool,
@@ -30,7 +30,7 @@ pub struct AuthError {
     source: BoxError,
 }
 
-impl AuthError {
+impl CredentialError {
     /// Creates a new `AuthError`.
     ///
     /// # Arguments
@@ -40,7 +40,7 @@ impl AuthError {
     /// # Returns
     /// A new `AuthError` instance.
     pub fn new(is_retryable: bool, source: BoxError) -> Self {
-        AuthError {
+        CredentialError {
             is_retryable,
             source,
         }
@@ -52,13 +52,13 @@ impl AuthError {
     }
 }
 
-impl std::error::Error for AuthError {
+impl std::error::Error for CredentialError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         Some(&*self.source)
     }
 }
 
-impl Display for AuthError {
+impl Display for CredentialError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let msg = if self.is_retryable {

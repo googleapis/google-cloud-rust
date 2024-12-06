@@ -15,7 +15,7 @@
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 
-pub type Result<T> = std::result::Result<T, crate::errors::AuthError>;
+pub type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 
 /// Represents an auth credential used to obtain auth tokens.
 /// Implementors of this trait provide a way to asynchronously retrieve tokens
