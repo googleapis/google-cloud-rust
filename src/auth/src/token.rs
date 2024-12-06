@@ -23,7 +23,7 @@ pub struct Token {
 
     /// The instant at which the token expires. If `None`, the token does not
     /// expire (or its expiration is unknown).
-    pub expires_in: Option<std::time::Instant>,
+    pub expires_at: Option<std::time::Instant>,
 
     /// Optional metadata associated with the token. This might include
     /// information like granted scopes or other claims.

@@ -25,3 +25,4 @@ categories.workspace = true
 
 [dependencies]
 thiserror = "2"
+http      = "1.2.0"

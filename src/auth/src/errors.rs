@@ -52,7 +52,11 @@ impl AuthError {
     }
 }
 
-impl Error for AuthError {}
+impl std::error::Error for AuthError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&*self.source)
+    }
+}
 
 impl Display for AuthError {
     /// Formats the error message to include retryability and source.

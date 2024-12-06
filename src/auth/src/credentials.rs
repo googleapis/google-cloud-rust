@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 
 pub type Result<T> = std::result::Result<T, crate::errors::AuthError>;
@@ -32,7 +33,9 @@ pub trait Credential: Send + Sync {
     /// This function returns a `Future` that resolves to a `Result` containing
     /// either a vector of key-value pairs representing the headers or an
     /// `AuthError` if an error occurred during header construction.
-    fn get_headers(&mut self) -> impl Future<Output = Result<Vec<(String, String)>>> + Send;
+    fn get_headers(
+        &mut self,
+    ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
     /// Retrieves the quota project ID associated with the credential, if any
     fn get_quota_project_id(&self) -> Option<String>;
