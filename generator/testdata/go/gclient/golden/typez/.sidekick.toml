@@ -24,4 +24,5 @@ googleapis-root = 'generator/testdata/googleapis'
 [codec]
 copyright-year = '2024'
 go-package-name = 'typez'
+not-for-publication = 'true'
 package-name-override = 'github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez'
