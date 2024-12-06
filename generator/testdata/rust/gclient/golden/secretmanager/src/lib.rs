@@ -67,3 +67,4 @@ impl ConfigBuilder {
 pub type SecretManagerServiceClient = crate::transport::SecretManagerService;
 
 pub type LocationsClient = crate::transport::Locations;
+

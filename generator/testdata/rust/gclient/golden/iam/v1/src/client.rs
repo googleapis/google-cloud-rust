@@ -50,6 +50,7 @@ use gax::error::Error;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
 pub trait Iampolicy: Send + Sync {
+
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
     ///
@@ -58,9 +59,7 @@ pub trait Iampolicy: Send + Sync {
         &self,
         _req: crate::model::SetIamPolicyRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
     /// Gets the access control policy for a resource.
@@ -70,9 +69,7 @@ pub trait Iampolicy: Send + Sync {
         &self,
         _req: crate::model::GetIamPolicyRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
-        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other(
-            "unimplemented",
-        )))
+        std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -85,10 +82,8 @@ pub trait Iampolicy: Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::TestIamPermissionsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::TestIamPermissionsResponse>>(Err(
-            Error::other("unimplemented"),
-        ))
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::TestIamPermissionsResponse>> + Send {
+        std::future::ready::<crate::Result<crate::model::TestIamPermissionsResponse>>(Err(Error::other("unimplemented")))
     }
 }
+

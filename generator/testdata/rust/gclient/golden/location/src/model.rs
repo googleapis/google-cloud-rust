@@ -20,6 +20,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListLocationsRequest {
+
     /// The resource that owns the locations collection, if applicable.
     pub name: String,
 
@@ -34,6 +35,7 @@ pub struct ListLocationsRequest {
 }
 
 impl ListLocationsRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -65,6 +67,7 @@ impl ListLocationsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListLocationsResponse {
+
     /// A list of locations that matches the specified filter in the request.
     pub locations: Vec<crate::model::Location>,
 
@@ -73,6 +76,7 @@ pub struct ListLocationsResponse {
 }
 
 impl ListLocationsResponse {
+
     /// Sets the value of `locations`.
     pub fn set_locations<T: Into<Vec<crate::model::Location>>>(mut self, v: T) -> Self {
         self.locations = v.into();
@@ -92,11 +96,13 @@ impl ListLocationsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetLocationRequest {
+
     /// Resource name for the location.
     pub name: String,
 }
 
 impl GetLocationRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -110,6 +116,7 @@ impl GetLocationRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Location {
+
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
     pub name: String,
@@ -127,7 +134,7 @@ pub struct Location {
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String, String>,
+    pub labels: std::collections::HashMap<String,String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
@@ -135,6 +142,7 @@ pub struct Location {
 }
 
 impl Location {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -154,7 +162,7 @@ impl Location {
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
         self.labels = v.into();
         self
     }

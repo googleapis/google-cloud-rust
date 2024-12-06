@@ -28,15 +28,13 @@ use gax::error::Error;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
 pub trait Locations: Send + Sync {
+
     /// Lists information about the supported locations for this service.
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLocationsResponse>> + Send
-    {
-        std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other(
-            "unimplemented",
-        )))
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLocationsResponse>> + Send {
+        std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
 
     /// Gets information about a location.
@@ -44,8 +42,7 @@ pub trait Locations: Send + Sync {
         &self,
         _req: crate::model::GetLocationRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Location>> + Send {
-        std::future::ready::<crate::Result<crate::model::Location>>(Err(Error::other(
-            "unimplemented",
-        )))
+        std::future::ready::<crate::Result<crate::model::Location>>(Err(Error::other("unimplemented")))
     }
 }
+

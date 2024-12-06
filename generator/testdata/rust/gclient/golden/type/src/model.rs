@@ -58,6 +58,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
+
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     pub expression: String,
@@ -77,6 +78,7 @@ pub struct Expr {
 }
 
 impl Expr {
+
     /// Sets the value of `expression`.
     pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
         self.expression = v.into();
