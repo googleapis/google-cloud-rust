@@ -1021,6 +1021,40 @@ func TestProtobuf_Pagination(t *testing.T) {
 			},
 		},
 	})
+
+	resp, ok := test.State.MessageByID[".test.ListFooResponse"]
+	if !ok {
+		t.Errorf("missing message (ListFooResponse) in MessageByID index")
+		return
+	}
+	checkMessage(t, *resp, api.Message{
+		Name:               "ListFooResponse",
+		ID:                 ".test.ListFooResponse",
+		Package:            "test",
+		IsPageableResponse: true,
+		Fields: []*api.Field{
+			{
+				Name:     "next_page_token",
+				ID:       ".test.ListFooResponse.next_page_token",
+				Typez:    9,
+				JSONName: "nextPageToken",
+			},
+			{
+				Name:     "foos",
+				ID:       ".test.ListFooResponse.foos",
+				Typez:    11,
+				TypezID:  ".test.Foo",
+				JSONName: "foos",
+				Repeated: true,
+			},
+			{
+				Name:     "total_size",
+				ID:       ".test.ListFooResponse.total_size",
+				Typez:    5,
+				JSONName: "totalSize",
+			},
+		},
+	})
 }
 
 func TestProtobuf_OperationMixin(t *testing.T) {
