@@ -54,6 +54,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 		Output:              outDir,
 		TemplateDir:         templateDir,
 		Codec: map[string]string{
+			"not-for-publication":       "true",
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",
 			"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
@@ -125,6 +126,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			Output:        path.Join(outDir, config.Name),
 			TemplateDir:   templateDir,
 			Codec: map[string]string{
+				"not-for-publication":       "true",
 				"copyright-year":            "2024",
 				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
 				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
@@ -245,6 +247,7 @@ func TestGoFromProtobuf(t *testing.T) {
 			Output:        path.Join(outDir, config.Name),
 			TemplateDir:   templateDir,
 			Codec: map[string]string{
+				"not-for-publication":   "true",
 				"copyright-year":        "2024",
 				"package-name-override": fmt.Sprintf("%s/go/gclient/golden/%s", testdataImportPath, config.Name),
 			},

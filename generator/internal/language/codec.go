@@ -116,4 +116,8 @@ type Codec interface {
 	AdditionalContext() any
 	// Imports to add.
 	Imports() []string
+	// Some packages are not intended for publication. For example, they may be
+	// intended only for testing the generator or the SDK, or the service may
+	// not be GA.
+	NotForPublication() bool
 }

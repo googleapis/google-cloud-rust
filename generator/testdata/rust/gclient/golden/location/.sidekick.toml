@@ -24,6 +24,7 @@ googleapis-root = 'generator/testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
+not-for-publication = 'true'
 package-name-override = 'location-golden-gclient'
 'package:gax' = 'package=gcp-sdk-gax,path=src/gax,feature=sdk_client'
 'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'

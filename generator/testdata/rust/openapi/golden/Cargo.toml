@@ -24,6 +24,7 @@ license.workspace    = true
 repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
+publish              = false
 
 [dependencies]
 serde      = { version = "1.0.214", features = ["serde_derive"] }

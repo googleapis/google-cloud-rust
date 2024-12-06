@@ -17,6 +17,7 @@ package language
 import (
 	"fmt"
 	"log/slog"
+	"strconv"
 	"strings"
 	"time"
 	"unicode"
@@ -37,6 +38,13 @@ func NewGoCodec(options map[string]string) (*GoCodec, error) {
 			codec.PackageNameOverride = definition
 		case key == "go-package-name":
 			codec.GoPackageName = definition
+		case key == "not-for-publication":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
+			}
+			codec.DoNotPublish = value
+			continue
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
@@ -67,6 +75,10 @@ type GoCodec struct {
 	GoPackageName string
 	// A map containing package id to import path information
 	ImportMap map[string]*GoImport
+	// Some packages are not intended for publication. For example, they may be
+	// intended only for testing the generator or the SDK, or the service may
+	// not be GA.
+	DoNotPublish bool
 }
 
 type GoImport struct {
@@ -349,6 +361,10 @@ func (c *GoCodec) Imports() []string {
 		imports = append(imports, fmt.Sprintf("%q", imp.Path))
 	}
 	return imports
+}
+
+func (c *GoCodec) NotForPublication() bool {
+	return c.DoNotPublish
 }
 
 // The list of Golang keywords and reserved words can be found at:
