@@ -15,8 +15,8 @@
 use crate::Result;
 use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
-use sm::client::Locations;
-use sm::client::SecretManagerService;
+use sm::traits::Locations;
+use sm::traits::SecretManagerService;
 
 pub async fn run() -> Result<()> {
     let project_id = crate::project_id()?;
