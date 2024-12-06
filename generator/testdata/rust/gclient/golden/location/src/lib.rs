@@ -65,3 +65,4 @@ impl ConfigBuilder {
 }
 
 pub type LocationsClient = crate::transport::Locations;
+

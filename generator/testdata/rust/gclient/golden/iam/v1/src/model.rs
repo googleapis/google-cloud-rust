@@ -20,6 +20,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SetIamPolicyRequest {
+
     /// REQUIRED: The resource for which the policy is being specified.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: String,
@@ -39,6 +40,7 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
+
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -64,6 +66,7 @@ impl SetIamPolicyRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetIamPolicyRequest {
+
     /// REQUIRED: The resource for which the policy is being requested.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: String,
@@ -74,6 +77,7 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
+
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -93,6 +97,7 @@ impl GetIamPolicyRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsRequest {
+
     /// REQUIRED: The resource for which the policy detail is being requested.
     /// See the operation documentation for the appropriate value for this field.
     pub resource: String,
@@ -105,6 +110,7 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
+
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
         self.resource = v.into();
@@ -124,12 +130,14 @@ impl TestIamPermissionsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TestIamPermissionsResponse {
+
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     pub permissions: Vec<String>,
 }
 
 impl TestIamPermissionsResponse {
+
     /// Sets the value of `permissions`.
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.permissions = v.into();
@@ -143,6 +151,7 @@ impl TestIamPermissionsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetPolicyOptions {
+
     /// Optional. The maximum policy version that will be used to format the
     /// policy.
     ///
@@ -165,6 +174,7 @@ pub struct GetPolicyOptions {
 }
 
 impl GetPolicyOptions {
+
     /// Sets the value of `requested_policy_version`.
     pub fn set_requested_policy_version<T: Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
@@ -250,6 +260,7 @@ impl GetPolicyOptions {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Policy {
+
     /// Specifies the format of the policy.
     ///
     /// Valid values are `0`, `1`, and `3`. Requests that specify an invalid value
@@ -309,6 +320,7 @@ pub struct Policy {
 }
 
 impl Policy {
+
     /// Sets the value of `version`.
     pub fn set_version<T: Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -340,6 +352,7 @@ impl Policy {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Binding {
+
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     pub role: String,
@@ -406,6 +419,7 @@ pub struct Binding {
 }
 
 impl Binding {
+
     /// Sets the value of `role`.
     pub fn set_role<T: Into<String>>(mut self, v: T) -> Self {
         self.role = v.into();
@@ -483,6 +497,7 @@ impl Binding {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfig {
+
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
@@ -493,6 +508,7 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+
     /// Sets the value of `service`.
     pub fn set_service<T: Into<String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -500,10 +516,7 @@ impl AuditConfig {
     }
 
     /// Sets the value of `audit_log_configs`.
-    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(mut self, v: T) -> Self {
         self.audit_log_configs = v.into();
         self
     }
@@ -535,6 +548,7 @@ impl AuditConfig {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditLogConfig {
+
     /// The log type that this config enables.
     pub log_type: crate::model::audit_log_config::LogType,
 
@@ -546,6 +560,7 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
+
     /// Sets the value of `log_type`.
     pub fn set_log_type<T: Into<crate::model::audit_log_config::LogType>>(mut self, v: T) -> Self {
         self.log_type = v.into();
@@ -603,6 +618,7 @@ pub mod audit_log_config {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PolicyDelta {
+
     /// The delta for Bindings between two policies.
     pub binding_deltas: Vec<crate::model::BindingDelta>,
 
@@ -611,6 +627,7 @@ pub struct PolicyDelta {
 }
 
 impl PolicyDelta {
+
     /// Sets the value of `binding_deltas`.
     pub fn set_binding_deltas<T: Into<Vec<crate::model::BindingDelta>>>(mut self, v: T) -> Self {
         self.binding_deltas = v.into();
@@ -618,10 +635,7 @@ impl PolicyDelta {
     }
 
     /// Sets the value of `audit_config_deltas`.
-    pub fn set_audit_config_deltas<T: Into<Vec<crate::model::AuditConfigDelta>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_audit_config_deltas<T: Into<Vec<crate::model::AuditConfigDelta>>>(mut self, v: T) -> Self {
         self.audit_config_deltas = v.into();
         self
     }
@@ -634,6 +648,7 @@ impl PolicyDelta {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct BindingDelta {
+
     /// The action that was performed on a Binding.
     /// Required
     pub action: crate::model::binding_delta::Action,
@@ -653,6 +668,7 @@ pub struct BindingDelta {
 }
 
 impl BindingDelta {
+
     /// Sets the value of `action`.
     pub fn set_action<T: Into<crate::model::binding_delta::Action>>(mut self, v: T) -> Self {
         self.action = v.into();
@@ -719,6 +735,7 @@ pub mod binding_delta {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AuditConfigDelta {
+
     /// The action that was performed on an audit configuration in a policy.
     /// Required
     pub action: crate::model::audit_config_delta::Action,
@@ -741,6 +758,7 @@ pub struct AuditConfigDelta {
 }
 
 impl AuditConfigDelta {
+
     /// Sets the value of `action`.
     pub fn set_action<T: Into<crate::model::audit_config_delta::Action>>(mut self, v: T) -> Self {
         self.action = v.into();

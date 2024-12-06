@@ -65,3 +65,4 @@ impl ConfigBuilder {
 }
 
 pub type SecretManagerServiceClient = crate::transport::SecretManagerService;
+

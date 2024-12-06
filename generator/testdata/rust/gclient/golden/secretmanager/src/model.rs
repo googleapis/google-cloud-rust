@@ -25,6 +25,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Secret {
+
     /// Output only. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret] in the format
     /// `projects/*/secrets/*`.
@@ -52,7 +53,7 @@ pub struct Secret {
     ///
     /// No more than 64 labels can be assigned to a given resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String, String>,
+    pub labels: std::collections::HashMap<String,String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
@@ -80,7 +81,7 @@ pub struct Secret {
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
-    pub version_aliases: std::collections::HashMap<String, i64>,
+    pub version_aliases: std::collections::HashMap<String,i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -95,7 +96,7 @@ pub struct Secret {
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub annotations: std::collections::HashMap<String, String>,
+    pub annotations: std::collections::HashMap<String,String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -132,6 +133,7 @@ pub struct Secret {
 }
 
 impl Secret {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -151,7 +153,7 @@ impl Secret {
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
         self.labels = v.into();
         self
     }
@@ -175,19 +177,13 @@ impl Secret {
     }
 
     /// Sets the value of `version_aliases`.
-    pub fn set_version_aliases<T: Into<std::collections::HashMap<String, i64>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_version_aliases<T: Into<std::collections::HashMap<String,i64>>>(mut self, v: T) -> Self {
         self.version_aliases = v.into();
         self
     }
 
     /// Sets the value of `annotations`.
-    pub fn set_annotations<T: Into<std::collections::HashMap<String, String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_annotations<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
         self.annotations = v.into();
         self
     }
@@ -199,21 +195,13 @@ impl Secret {
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<
-        T: Into<Option<crate::model::CustomerManagedEncryption>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
 
     /// Sets the value of `expiration`.
-    pub fn set_expiration<T: Into<Option<crate::model::secret::Expiration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_expiration<T: Into<Option<crate::model::secret::Expiration>>>(mut self, v: T) ->Self {
         self.expiration = v.into();
         self
     }
@@ -253,6 +241,7 @@ pub mod secret {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretVersion {
+
     /// Output only. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
     /// `projects/*/secrets/*/versions/*`.
@@ -309,6 +298,7 @@ pub struct SecretVersion {
 }
 
 impl SecretVersion {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -334,10 +324,7 @@ impl SecretVersion {
     }
 
     /// Sets the value of `replication_status`.
-    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(mut self, v: T) -> Self {
         self.replication_status = v.into();
         self
     }
@@ -361,12 +348,7 @@ impl SecretVersion {
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<
-        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -424,17 +406,16 @@ pub mod secret_version {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Replication {
+
     /// The replication policy for this secret.
     #[serde(flatten)]
     pub replication: Option<crate::model::replication::Replication>,
 }
 
 impl Replication {
+
     /// Sets the value of `replication`.
-    pub fn set_replication<T: Into<Option<crate::model::replication::Replication>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_replication<T: Into<Option<crate::model::replication::Replication>>>(mut self, v: T) ->Self {
         self.replication = v.into();
         self
     }
@@ -451,6 +432,7 @@ pub mod replication {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Automatic {
+
         /// Optional. The customer-managed encryption configuration of the
         /// [Secret][google.cloud.secretmanager.v1.Secret]. If no configuration is
         /// provided, Google-managed default encryption is used.
@@ -464,13 +446,9 @@ pub mod replication {
     }
 
     impl Automatic {
+
         /// Sets the value of `customer_managed_encryption`.
-        pub fn set_customer_managed_encryption<
-            T: Into<Option<crate::model::CustomerManagedEncryption>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
             self.customer_managed_encryption = v.into();
             self
         }
@@ -484,6 +462,7 @@ pub mod replication {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManaged {
+
         /// Required. The list of Replicas for this
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         ///
@@ -492,11 +471,9 @@ pub mod replication {
     }
 
     impl UserManaged {
+
         /// Sets the value of `replicas`.
-        pub fn set_replicas<T: Into<Vec<crate::model::replication::user_managed::Replica>>>(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_replicas<T: Into<Vec<crate::model::replication::user_managed::Replica>>>(mut self, v: T) -> Self {
             self.replicas = v.into();
             self
         }
@@ -512,6 +489,7 @@ pub mod replication {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct Replica {
+
             /// The canonical IDs of the location to replicate data.
             /// For example: `"us-east1"`.
             pub location: String,
@@ -529,6 +507,7 @@ pub mod replication {
         }
 
         impl Replica {
+
             /// Sets the value of `location`.
             pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
                 self.location = v.into();
@@ -536,12 +515,7 @@ pub mod replication {
             }
 
             /// Sets the value of `customer_managed_encryption`.
-            pub fn set_customer_managed_encryption<
-                T: Into<Option<crate::model::CustomerManagedEncryption>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
                 self.customer_managed_encryption = v.into();
                 self
             }
@@ -569,6 +543,7 @@ pub mod replication {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryption {
+
     /// Required. The resource name of the Cloud KMS CryptoKey used to encrypt
     /// secret payloads.
     ///
@@ -586,6 +561,7 @@ pub struct CustomerManagedEncryption {
 }
 
 impl CustomerManagedEncryption {
+
     /// Sets the value of `kms_key_name`.
     pub fn set_kms_key_name<T: Into<String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -600,6 +576,7 @@ impl CustomerManagedEncryption {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ReplicationStatus {
+
     /// The replication status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     #[serde(flatten)]
@@ -607,13 +584,9 @@ pub struct ReplicationStatus {
 }
 
 impl ReplicationStatus {
+
     /// Sets the value of `replication_status`.
-    pub fn set_replication_status<
-        T: Into<Option<crate::model::replication_status::ReplicationStatus>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_replication_status<T: Into<Option<crate::model::replication_status::ReplicationStatus>>>(mut self, v: T) ->Self {
         self.replication_status = v.into();
         self
     }
@@ -633,6 +606,7 @@ pub mod replication_status {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct AutomaticStatus {
+
         /// Output only. The customer-managed encryption status of the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
         /// populated if customer-managed encryption is used.
@@ -640,13 +614,9 @@ pub mod replication_status {
     }
 
     impl AutomaticStatus {
+
         /// Sets the value of `customer_managed_encryption`.
-        pub fn set_customer_managed_encryption<
-            T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
             self.customer_managed_encryption = v.into();
             self
         }
@@ -663,19 +633,16 @@ pub mod replication_status {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct UserManagedStatus {
+
         /// Output only. The list of replica statuses for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         pub replicas: Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
     }
 
     impl UserManagedStatus {
+
         /// Sets the value of `replicas`.
-        pub fn set_replicas<
-            T: Into<Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
+        pub fn set_replicas<T: Into<Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>>>(mut self, v: T) -> Self {
             self.replicas = v.into();
             self
         }
@@ -691,6 +658,7 @@ pub mod replication_status {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct ReplicaStatus {
+
             /// Output only. The canonical ID of the replica location.
             /// For example: `"us-east1"`.
             pub location: String,
@@ -702,6 +670,7 @@ pub mod replication_status {
         }
 
         impl ReplicaStatus {
+
             /// Sets the value of `location`.
             pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
                 self.location = v.into();
@@ -709,12 +678,7 @@ pub mod replication_status {
             }
 
             /// Sets the value of `customer_managed_encryption`.
-            pub fn set_customer_managed_encryption<
-                T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
-            >(
-                mut self,
-                v: T,
-            ) -> Self {
+            pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
                 self.customer_managed_encryption = v.into();
                 self
             }
@@ -752,6 +716,7 @@ pub mod replication_status {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CustomerManagedEncryptionStatus {
+
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
     /// encrypt the secret payload, in the following format:
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
@@ -759,6 +724,7 @@ pub struct CustomerManagedEncryptionStatus {
 }
 
 impl CustomerManagedEncryptionStatus {
+
     /// Sets the value of `kms_key_version_name`.
     pub fn set_kms_key_version_name<T: Into<String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
@@ -773,6 +739,7 @@ impl CustomerManagedEncryptionStatus {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
+
     /// Required. The resource name of the Pub/Sub topic that will be published to,
     /// in the following format: `projects/*/topics/*`. For publication to succeed,
     /// the Secret Manager service agent must have the `pubsub.topic.publish`
@@ -782,6 +749,7 @@ pub struct Topic {
 }
 
 impl Topic {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -799,6 +767,7 @@ impl Topic {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Rotation {
+
     /// Optional. Timestamp in UTC at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] is scheduled to rotate.
     /// Cannot be set to less than 300s (5 min) in the future and at most
@@ -825,6 +794,7 @@ pub struct Rotation {
 }
 
 impl Rotation {
+
     /// Sets the value of `next_rotation_time`.
     pub fn set_next_rotation_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.next_rotation_time = v.into();
@@ -846,6 +816,7 @@ impl Rotation {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct SecretPayload {
+
     /// The secret data. Must be no larger than 64KiB.
     #[serde_as(as = "serde_with::base64::Base64")]
     pub data: bytes::Bytes,
@@ -872,6 +843,7 @@ pub struct SecretPayload {
 }
 
 impl SecretPayload {
+
     /// Sets the value of `data`.
     pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
@@ -892,6 +864,7 @@ impl SecretPayload {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsRequest {
+
     /// Required. The resource name of the project associated with the
     /// [Secrets][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
     /// or `projects/*/locations/*`
@@ -915,6 +888,7 @@ pub struct ListSecretsRequest {
 }
 
 impl ListSecretsRequest {
+
     /// Sets the value of `parent`.
     pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -947,6 +921,7 @@ impl ListSecretsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretsResponse {
+
     /// The list of [Secrets][google.cloud.secretmanager.v1.Secret] sorted in
     /// reverse by create_time (newest first).
     pub secrets: Vec<crate::model::Secret>,
@@ -964,6 +939,7 @@ pub struct ListSecretsResponse {
 }
 
 impl ListSecretsResponse {
+
     /// Sets the value of `secrets`.
     pub fn set_secrets<T: Into<Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.secrets = v.into();
@@ -990,6 +966,7 @@ impl ListSecretsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct CreateSecretRequest {
+
     /// Required. The resource name of the project to associate with the
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format `projects/*`
     /// or `projects/*/locations/*`.
@@ -1008,6 +985,7 @@ pub struct CreateSecretRequest {
 }
 
 impl CreateSecretRequest {
+
     /// Sets the value of `parent`.
     pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1034,6 +1012,7 @@ impl CreateSecretRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AddSecretVersionRequest {
+
     /// Required. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret] to associate with the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
@@ -1046,6 +1025,7 @@ pub struct AddSecretVersionRequest {
 }
 
 impl AddSecretVersionRequest {
+
     /// Sets the value of `parent`.
     pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1066,6 +1046,7 @@ impl AddSecretVersionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretRequest {
+
     /// Required. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret], in the format
     /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
@@ -1073,6 +1054,7 @@ pub struct GetSecretRequest {
 }
 
 impl GetSecretRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1087,6 +1069,7 @@ impl GetSecretRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsRequest {
+
     /// Required. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret] associated with the
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] to list, in
@@ -1111,6 +1094,7 @@ pub struct ListSecretVersionsRequest {
 }
 
 impl ListSecretVersionsRequest {
+
     /// Sets the value of `parent`.
     pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1143,6 +1127,7 @@ impl ListSecretVersionsRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ListSecretVersionsResponse {
+
     /// The list of [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]
     /// sorted in reverse by create_time (newest first).
     pub versions: Vec<crate::model::SecretVersion>,
@@ -1161,6 +1146,7 @@ pub struct ListSecretVersionsResponse {
 }
 
 impl ListSecretVersionsResponse {
+
     /// Sets the value of `versions`.
     pub fn set_versions<T: Into<Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
         self.versions = v.into();
@@ -1187,6 +1173,7 @@ impl ListSecretVersionsResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GetSecretVersionRequest {
+
     /// Required. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
     /// `projects/*/secrets/*/versions/*` or
@@ -1200,6 +1187,7 @@ pub struct GetSecretVersionRequest {
 }
 
 impl GetSecretVersionRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1214,6 +1202,7 @@ impl GetSecretVersionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct UpdateSecretRequest {
+
     /// Required. [Secret][google.cloud.secretmanager.v1.Secret] with updated field
     /// values.
     pub secret: Option<crate::model::Secret>,
@@ -1223,6 +1212,7 @@ pub struct UpdateSecretRequest {
 }
 
 impl UpdateSecretRequest {
+
     /// Sets the value of `secret`.
     pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.secret = v.into();
@@ -1243,6 +1233,7 @@ impl UpdateSecretRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionRequest {
+
     /// Required. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
     /// `projects/*/secrets/*/versions/*` or
@@ -1256,6 +1247,7 @@ pub struct AccessSecretVersionRequest {
 }
 
 impl AccessSecretVersionRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1270,6 +1262,7 @@ impl AccessSecretVersionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct AccessSecretVersionResponse {
+
     /// The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] in the format
     /// `projects/*/secrets/*/versions/*` or
@@ -1281,6 +1274,7 @@ pub struct AccessSecretVersionResponse {
 }
 
 impl AccessSecretVersionResponse {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1301,6 +1295,7 @@ impl AccessSecretVersionResponse {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DeleteSecretRequest {
+
     /// Required. The resource name of the
     /// [Secret][google.cloud.secretmanager.v1.Secret] to delete in the format
     /// `projects/*/secrets/*`.
@@ -1313,6 +1308,7 @@ pub struct DeleteSecretRequest {
 }
 
 impl DeleteSecretRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1333,6 +1329,7 @@ impl DeleteSecretRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DisableSecretVersionRequest {
+
     /// Required. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to disable in
     /// the format `projects/*/secrets/*/versions/*` or
@@ -1347,6 +1344,7 @@ pub struct DisableSecretVersionRequest {
 }
 
 impl DisableSecretVersionRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1367,6 +1365,7 @@ impl DisableSecretVersionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EnableSecretVersionRequest {
+
     /// Required. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to enable in
     /// the format `projects/*/secrets/*/versions/*` or
@@ -1381,6 +1380,7 @@ pub struct EnableSecretVersionRequest {
 }
 
 impl EnableSecretVersionRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1401,6 +1401,7 @@ impl EnableSecretVersionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DestroySecretVersionRequest {
+
     /// Required. The resource name of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to destroy in
     /// the format `projects/*/secrets/*/versions/*` or
@@ -1415,6 +1416,7 @@ pub struct DestroySecretVersionRequest {
 }
 
 impl DestroySecretVersionRequest {
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
