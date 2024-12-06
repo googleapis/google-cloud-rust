@@ -21,9 +21,9 @@ limitations under the License.
 
 use gax::error::{Error, HttpError};
 use crate::{Credential, Result};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -41,7 +41,7 @@ struct NoBody {}
 {{/DocLines}}
 #[derive(Clone)]
 pub struct {{NameToPascal}} {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for {{NameToPascal}} {
@@ -51,21 +51,16 @@ impl std::fmt::Debug for {{NameToPascal}} {
 }
 
 impl {{NameToPascal}} {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -105,11 +100,10 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{{.}}}
     {{/DocLines}}
     async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .{{HTTPMethodToLower}}(format!(
                "{}{{HTTPPathFmt}}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                {{#HTTPPathArgs}}
                {{{.}}},
                {{/HTTPPathArgs}}
