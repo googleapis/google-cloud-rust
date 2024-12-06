@@ -12,20 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[files]
-extend-exclude = [
-  # The test data have typos, or at least uncommon spelling. We do not care
-  # about them as they are not customer visible.
-  "generator/**/testdata/**",
-  "testdata/**",
-]
+[general]
+language = 'rust'
+template-dir = 'generator/templates'
+specification-format = 'openapi'
+specification-source = 'testdata/secretmanager_openapi_v1.json'
+service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
-[type.mustache]
-extend-glob = ["*.mustache"]
-
-[type.mustache.extend-words]
-ser = "ser"
-
-[type.rust.extend-words]
-# The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
-requestor = "requestor"
+[codec]
+copyright-year = '2024'
+package-name-override = 'secretmanager-openapi-v1'
+'package:gax' = 'package=gcp-sdk-gax,path=src/gax,feature=sdk_client'
+'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'
+'package:wkt' = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'

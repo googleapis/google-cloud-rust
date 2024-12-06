@@ -30,7 +30,7 @@ wkt        = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
 iam_v1     = { path = "../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
 sm         = { path = "../../src/generated/cloud/secretmanager/v1", package = "gcp-sdk-secretmanager-v1" }
 loc        = { path = "../../src/generated/cloud/location", package = "gcp-sdk-location" }
-smo        = { path = "../../generator/testdata/rust/openapi/golden", package = "secretmanager-golden-openapi" }
+smo        = { path = "../../src/generated/openapi-validation", package = "secretmanager-openapi-v1" }
 rand       = "0.8.5"
 futures    = "0.3.31"
 bytes      = "1.8.0"

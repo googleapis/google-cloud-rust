@@ -35,6 +35,7 @@ members = [
   "src/generated/cloud/common",
   "src/generated/iam/v1",
   "src/generated/api",
+  "src/generated/openapi-validation",
   "src/integration-tests",
 ]
 
