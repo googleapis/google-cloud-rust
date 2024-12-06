@@ -114,7 +114,7 @@ impl Iampolicy {
     }
 }
 
-impl crate::client::Iampolicy for Iampolicy {
+impl crate::traits::Iampolicy for Iampolicy {
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
     ///

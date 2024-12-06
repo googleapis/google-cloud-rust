@@ -94,7 +94,7 @@ impl Locations {
     }
 }
 
-impl crate::client::Locations for Locations {
+impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,

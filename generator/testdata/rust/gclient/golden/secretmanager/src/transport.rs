@@ -96,7 +96,7 @@ impl SecretManagerService {
     }
 }
 
-impl crate::client::SecretManagerService for SecretManagerService {
+impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
         let inner_client = self.inner.clone();
@@ -420,7 +420,7 @@ impl Locations {
     }
 }
 
-impl crate::client::Locations for Locations {
+impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(&self, req: location::model::ListLocationsRequest) -> Result<location::model::ListLocationsResponse> {
         let inner_client = self.inner.clone();

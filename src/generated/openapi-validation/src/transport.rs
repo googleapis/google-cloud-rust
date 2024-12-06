@@ -93,7 +93,7 @@ impl SecretManagerService {
     }
 }
 
-impl crate::client::SecretManagerService for SecretManagerService {
+impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,

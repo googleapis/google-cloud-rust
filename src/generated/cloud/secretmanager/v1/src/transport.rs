@@ -98,7 +98,7 @@ impl SecretManagerService {
     }
 }
 
-impl crate::client::SecretManagerService for SecretManagerService {
+impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     async fn list_secrets(
         &self,
@@ -464,7 +464,7 @@ impl Locations {
     }
 }
 
-impl crate::client::Locations for Locations {
+impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
