@@ -61,7 +61,16 @@ impl std::error::Error for AuthError {
 impl Display for AuthError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        write!(f, "Retryable:{}, Source:{}", self.is_retryable, self.source)
+        let msg = if self.is_retryable {
+            "but future attempts may succeed"
+        } else {
+            "and future attempts will not succeed"
+        };
+        write!(
+            f,
+            "cannot create access token, {}, source:{}",
+            msg, self.source
+        )
     }
 }
 
