@@ -25,20 +25,21 @@ import (
 )
 
 type TemplateData struct {
-	TemplateDir      string
-	Name             string
-	Title            string
-	Description      string
-	PackageName      string
-	RequiredPackages []string
-	HasServices      bool
-	CopyrightYear    string
-	BoilerPlate      []string
-	Imports          []string
-	DefaultHost      string
-	Services         []*Service
-	Messages         []*Message
-	NameToLower      string
+	TemplateDir       string
+	Name              string
+	Title             string
+	Description       string
+	PackageName       string
+	RequiredPackages  []string
+	HasServices       bool
+	CopyrightYear     string
+	BoilerPlate       []string
+	Imports           []string
+	DefaultHost       string
+	Services          []*Service
+	Messages          []*Message
+	NameToLower       string
+	NotForPublication bool
 }
 
 type Service struct {
@@ -152,7 +153,8 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 		Messages: mapSlice(model.Messages, func(m *api.Message) *Message {
 			return newMessage(m, c, model.State)
 		}),
-		NameToLower: strings.ToLower(model.Name),
+		NameToLower:       strings.ToLower(model.Name),
+		NotForPublication: c.NotForPublication(),
 	}
 }
 

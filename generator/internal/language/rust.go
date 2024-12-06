@@ -62,6 +62,13 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 		case "copyright-year":
 			codec.GenerationYear = definition
 			continue
+		case "not-for-publication":
+			value, err := strconv.ParseBool(definition)
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
+			}
+			codec.DoNotPublish = value
+			continue
 		}
 		if !strings.HasPrefix(key, "package:") {
 			continue
@@ -135,6 +142,10 @@ type RustCodec struct {
 	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
 	// generate code for one source package at a time.
 	SourceSpecificationPackageName string
+	// Some packages are not intended for publication. For example, they may be
+	// intended only for testing the generator or the SDK, or the service may
+	// not be GA.
+	DoNotPublish bool
 }
 
 type RustPackage struct {
@@ -775,6 +786,10 @@ func (c *RustCodec) AdditionalContext() any {
 
 func (c *RustCodec) Imports() []string {
 	return nil
+}
+
+func (c *RustCodec) NotForPublication() bool {
+	return c.DoNotPublish
 }
 
 // The list of Rust keywords and reserved words can be found at:
