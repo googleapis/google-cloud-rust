@@ -22,3 +22,8 @@ license.workspace    = true
 repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
+
+[dependencies]
+thiserror = "2"
+http      = "1.2.0"
+time      = "0.3.37"
