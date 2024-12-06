@@ -63,20 +63,22 @@ impl Locations {
         })
     }
 
+    async fn fetch_token(&self) -> Result<String> {
+        let tok = self
+            .inner
+            .cred
+            .access_token()
+            .await
+            .map_err(Error::authentication)?;
+        Ok(tok.value)
+    }
+
     async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
+        access_token: String,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
+        builder = builder.bearer_auth(access_token);
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -109,7 +111,8 @@ impl crate::client::Locations for Locations {
             gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
             .map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Gets information about a location.
@@ -122,6 +125,7 @@ impl crate::client::Locations for Locations {
             .http_client
             .get(format!("{}/v1/{}", inner_client.endpoint, req.name,))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 }

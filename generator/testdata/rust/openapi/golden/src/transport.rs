@@ -62,20 +62,22 @@ impl SecretManagerService {
         })
     }
 
+    async fn fetch_token(&self) -> Result<String> {
+        let tok = self
+            .inner
+            .cred
+            .access_token()
+            .await
+            .map_err(Error::authentication)?;
+        Ok(tok.value)
+    }
+
     async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
+        access_token: String,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
+        builder = builder.bearer_auth(access_token);
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -111,7 +113,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
             .map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Gets information about a location.
@@ -127,7 +130,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Lists Secrets.
@@ -149,7 +153,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Creates a new Secret containing no SecretVersions.
@@ -167,7 +172,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
-        self.execute(builder, Some(req.request_body)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req.request_body)).await
     }
 
     /// Lists Secrets.
@@ -189,7 +195,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Creates a new Secret containing no SecretVersions.
@@ -207,7 +214,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
-        self.execute(builder, Some(req.request_body)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req.request_body)).await
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -224,7 +232,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -241,7 +250,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Gets metadata for a given Secret.
@@ -257,7 +267,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Deletes a Secret.
@@ -275,7 +286,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Updates metadata of an existing Secret.
@@ -297,7 +309,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
         )
         .map_err(Error::other)?;
-        self.execute(builder, Some(req.request_body)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req.request_body)).await
     }
 
     /// Gets metadata for a given Secret.
@@ -313,7 +326,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Deletes a Secret.
@@ -331,7 +345,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .query(&[("alt", "json")]);
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Updates metadata of an existing Secret.
@@ -353,7 +368,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             &serde_json::to_value(&req.update_mask).map_err(Error::serde)?,
         )
         .map_err(Error::other)?;
-        self.execute(builder, Some(req.request_body)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req.request_body)).await
     }
 
     /// Lists SecretVersions. This call does not return secret
@@ -376,7 +392,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Lists SecretVersions. This call does not return secret
@@ -399,7 +416,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             .map_err(Error::other)?;
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Gets metadata for a SecretVersion.
@@ -418,7 +436,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Gets metadata for a SecretVersion.
@@ -437,7 +456,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -456,7 +476,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -475,7 +496,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Disables a SecretVersion.
@@ -494,7 +516,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Disables a SecretVersion.
@@ -513,7 +536,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Enables a SecretVersion.
@@ -532,7 +556,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Enables a SecretVersion.
@@ -551,7 +576,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Destroys a SecretVersion.
@@ -571,7 +597,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Destroys a SecretVersion.
@@ -591,7 +618,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -611,7 +639,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -631,7 +660,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Gets the access control policy for a secret.
@@ -654,7 +684,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             &req.options_requested_policy_version,
         )
         .map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Gets the access control policy for a secret.
@@ -677,7 +708,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
             &req.options_requested_policy_version,
         )
         .map_err(Error::other)?;
-        self.execute(builder, None::<NoBody>).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, None::<NoBody>).await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -699,7 +731,8 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -721,6 +754,7 @@ impl crate::client::SecretManagerService for SecretManagerService {
                 inner_client.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 }
