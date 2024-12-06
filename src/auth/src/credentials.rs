@@ -37,9 +37,6 @@ pub trait Credential: Send + Sync {
         &mut self,
     ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
-    /// Retrieves the quota project ID associated with the credential, if any
-    fn get_quota_project_id(&self) -> Option<String>;
-
     /// Retrieves the universe domain associated with the credential, if any.
-    fn get_universe_domain(&self) -> Option<String>;
+    fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
 }
