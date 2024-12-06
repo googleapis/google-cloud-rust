@@ -699,22 +699,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "iam-v1-golden-gclient"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-wkt",
- "google-cloud-auth",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "time",
- "type-golden-gclient",
-]
-
-[[package]]
 name = "iana-time-zone"
 version = "0.1.61"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -835,21 +819,6 @@ name = "linux-raw-sys"
 version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "78b3ae25bc7c8c38cec158d1f2757ee79e9b3740fbc7ccf0e59e4b08d793fa89"
-
-[[package]]
-name = "location-golden-gclient"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-wkt",
- "google-cloud-auth",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "time",
-]
 
 [[package]]
 name = "lock_api"
@@ -1352,38 +1321,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "secretmanager-golden-gclient"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-wkt",
- "google-cloud-auth",
- "iam-v1-golden-gclient",
- "location-golden-gclient",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "time",
-]
-
-[[package]]
-name = "secretmanager-golden-openapi"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-wkt",
- "google-cloud-auth",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "time",
-]
-
-[[package]]
 name = "secretmanager-openapi-v1"
 version = "0.1.0"
 dependencies = [
@@ -1811,21 +1748,6 @@ name = "try-lock"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
-
-[[package]]
-name = "type-golden-gclient"
-version = "0.1.0"
-dependencies = [
- "bytes",
- "gcp-sdk-gax",
- "gcp-sdk-wkt",
- "google-cloud-auth",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "time",
-]
 
 [[package]]
 name = "unicode-bidi"

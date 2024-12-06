@@ -65,7 +65,6 @@ func TestRustFromOpenAPI(t *testing.T) {
 	if err := runSidekick(cmdLine); err != nil {
 		t.Fatal(err)
 	}
-	runCommand(t, ".", "cargo", "fmt", "--manifest-path", path.Join(projectRoot, outDir, "Cargo.toml"))
 }
 
 func TestRustFromProtobuf(t *testing.T) {
@@ -146,7 +145,6 @@ func TestRustFromProtobuf(t *testing.T) {
 			// The module test does not produce a Cargo.toml file
 			continue
 		}
-		runCommand(t, ".", "cargo", "fmt", "--manifest-path", manifest)
 	}
 }
 
