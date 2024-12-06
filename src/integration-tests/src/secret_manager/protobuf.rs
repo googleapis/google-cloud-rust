@@ -17,8 +17,28 @@ use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
 use sm::traits::Locations;
 use sm::traits::SecretManagerService;
+use tracing_subscriber::fmt::format::FmtSpan;
 
-pub async fn run() -> Result<()> {
+async fn new_client(tracing: bool) -> Result<sm::client::SecretManagerService> {
+    if tracing {
+        // We could simplify the code, but we want to test the default
+        // constructor.
+        return sm::client::SecretManagerService::new().await;
+    }
+    sm::client::SecretManagerService::new_with_config(sm::ConfigBuilder::default().enable_tracing())
+        .await
+}
+
+pub async fn run(tracing: bool) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    let subscriber = tracing_subscriber::fmt()
+        .with_level(true)
+        .with_thread_ids(true)
+        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+        .finish();
+    let _guard = tracing::subscriber::set_default(subscriber);
+
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -26,8 +46,10 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = sm::client::SecretManagerService::new().await?;
-    let location_client = sm::client::Locations::new().await?;
+    let client = new_client(tracing).await?;
+    let location_client =
+        sm::client::Locations::new_with_config(sm::ConfigBuilder::default().enable_tracing())
+            .await?;
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 

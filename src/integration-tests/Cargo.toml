@@ -23,19 +23,22 @@ publish           = false
 run-integration-tests = ["dep:tokio"]
 
 [dependencies]
-tokio      = { version = "1.12", features = ["full", "macros"], optional = true }
-auth       = { path = "../../auth", package = "google-cloud-auth" }
-gax        = { path = "../../src/gax", package = "gcp-sdk-gax" }
-wkt        = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
-iam_v1     = { path = "../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
-sm         = { path = "../../src/generated/cloud/secretmanager/v1", package = "gcp-sdk-secretmanager-v1" }
-loc        = { path = "../../src/generated/cloud/location", package = "gcp-sdk-location" }
-smo        = { path = "../../src/generated/openapi-validation", package = "secretmanager-openapi-v1" }
-rand       = "0.8.5"
-futures    = "0.3.31"
-bytes      = "1.8.0"
-crc32c     = "0.6.8"
-serde_json = "1.0.133"
+auth               = { path = "../../auth", package = "google-cloud-auth" }
+gax                = { path = "../../src/gax", package = "gcp-sdk-gax" }
+wkt                = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
+iam_v1             = { path = "../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
+sm                 = { path = "../../src/generated/cloud/secretmanager/v1", package = "gcp-sdk-secretmanager-v1" }
+loc                = { path = "../../src/generated/cloud/location", package = "gcp-sdk-location" }
+smo                = { path = "../../src/generated/openapi-validation", package = "secretmanager-openapi-v1" }
+bytes              = "1.8.0"
+crc32c             = "0.6.8"
+futures            = "0.3.31"
+rand               = "0.8.5"
+serde_json         = "1.0.133"
+tokio              = { version = "1.12", features = ["full", "macros"], optional = true }
+tracing            = "0.1.41"
+tracing-subscriber = "0.3.19"
 
 [dev-dependencies]
-tokio = { version = "1.12", features = ["full", "macros"] }
+test-case          = "3.3.1"
+tokio              = { version = "1.12", features = ["full", "macros"] }
