@@ -85,20 +85,22 @@ impl Iampolicy {
         })
     }
 
+    async fn fetch_token(&self) -> Result<String> {
+        let tok = self
+            .inner
+            .cred
+            .access_token()
+            .await
+            .map_err(Error::authentication)?;
+        Ok(tok.value)
+    }
+
     async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
+        access_token: String,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
+        builder = builder.bearer_auth(access_token);
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -131,7 +133,8 @@ impl crate::client::Iampolicy for Iampolicy {
                 inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Gets the access control policy for a resource.
@@ -149,7 +152,8 @@ impl crate::client::Iampolicy for Iampolicy {
                 inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -171,6 +175,7 @@ impl crate::client::Iampolicy for Iampolicy {
                 inner_client.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
-        self.execute(builder, Some(req)).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, Some(req)).await
     }
 }

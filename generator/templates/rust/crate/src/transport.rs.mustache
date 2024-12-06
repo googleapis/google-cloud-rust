@@ -68,20 +68,22 @@ impl {{NameToPascal}} {
         })
     }
 
+    async fn fetch_token(&self) -> Result<String> {
+        let tok = self
+            .inner
+            .cred
+            .access_token()
+            .await
+            .map_err(Error::authentication)?;
+        Ok(tok.value)
+    }
+
     async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        &self,
+        access_token: String,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        let inner_client = self.inner.clone();
-        builder = builder.bearer_auth(
-            &inner_client
-                .cred
-                .access_token()
-                .await
-                .map_err(Error::authentication)?
-                .value,
-        );
+        builder = builder.bearer_auth(access_token);
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -116,7 +118,8 @@ impl crate::client::{{NameToPascal}} for {{NameToPascal}} {
         {{#QueryParams}}
         let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
         {{/QueryParams}}
-        self.execute(builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<NoBody>{{/HasBody}}).await
+        let access_token = self.fetch_token().await?;
+        Self::execute(access_token, builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<NoBody>{{/HasBody}}).await
     }
 
     {{/Methods}}
