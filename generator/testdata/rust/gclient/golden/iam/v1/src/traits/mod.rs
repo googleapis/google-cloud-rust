@@ -16,6 +16,9 @@
 
 use gax::error::Error;
 
+ #[allow(dead_code)]
+pub(crate) mod dyntraits;
+
 /// API Overview
 ///
 /// Manages Identity and Access Management (IAM) policies.
