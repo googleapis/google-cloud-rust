@@ -20,6 +20,7 @@ pub mod model;
 use gax::error::Error;
 use google_cloud_auth::{Credential, CredentialConfig};
 
+pub mod client;
 pub mod traits;
 pub(crate) mod transport;
 

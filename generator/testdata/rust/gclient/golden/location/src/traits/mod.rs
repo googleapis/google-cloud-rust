@@ -16,7 +16,6 @@
 
 use gax::error::Error;
 
- #[allow(dead_code)]
 pub(crate) mod dyntraits;
 
 /// An abstract interface that provides location-related information for

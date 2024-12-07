@@ -16,7 +16,6 @@
 
 use gax::error::Error;
 
- #[allow(dead_code)]
 pub(crate) mod dyntraits;
 
 /// Secret Manager Service
