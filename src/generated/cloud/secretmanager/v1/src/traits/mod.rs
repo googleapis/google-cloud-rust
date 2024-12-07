@@ -16,6 +16,9 @@
 
 use gax::error::Error;
 
+#[allow(dead_code)]
+pub(crate) mod dyntraits;
+
 /// Secret Manager Service
 ///
 /// Manages secrets and operations using those secrets. Implements a REST
@@ -32,13 +35,15 @@ use gax::error::Error;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
 pub trait SecretManagerService: Send + Sync {
-
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     fn list_secrets(
         &self,
         _req: crate::model::ListSecretsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretsResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::ListSecretsResponse>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ListSecretsResponse>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
@@ -47,7 +52,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::CreateSecretRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Secret>> + Send {
-        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
@@ -57,7 +64,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::AddSecretVersionRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SecretVersion>> + Send {
-        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
@@ -65,7 +74,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::GetSecretRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Secret>> + Send {
-        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Updates metadata of an existing
@@ -74,7 +85,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::UpdateSecretRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Secret>> + Send {
-        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
@@ -90,8 +103,11 @@ pub trait SecretManagerService: Send + Sync {
     fn list_secret_versions(
         &self,
         _req: crate::model::ListSecretVersionsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretVersionsResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::ListSecretVersionsResponse>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretVersionsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::ListSecretVersionsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Gets metadata for a
@@ -103,7 +119,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::GetSecretVersionRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SecretVersion>> + Send {
-        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -114,8 +132,11 @@ pub trait SecretManagerService: Send + Sync {
     fn access_secret_version(
         &self,
         _req: crate::model::AccessSecretVersionRequest,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::AccessSecretVersionResponse>> + Send {
-        std::future::ready::<crate::Result<crate::model::AccessSecretVersionResponse>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::AccessSecretVersionResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::AccessSecretVersionResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -127,7 +148,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::DisableSecretVersionRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SecretVersion>> + Send {
-        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -139,7 +162,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::EnableSecretVersionRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SecretVersion>> + Send {
-        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -152,7 +177,9 @@ pub trait SecretManagerService: Send + Sync {
         &self,
         _req: crate::model::DestroySecretVersionRequest,
     ) -> impl std::future::Future<Output = crate::Result<crate::model::SecretVersion>> + Send {
-        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -164,18 +191,22 @@ pub trait SecretManagerService: Send + Sync {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     fn set_iam_policy(
         &self,
-        _req: iam::model::SetIamPolicyRequest,
-    ) -> impl std::future::Future<Output = crate::Result<iam::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam::model::Policy>>(Err(Error::other("unimplemented")))
+        _req: iam_v1::model::SetIamPolicyRequest,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
+        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
     fn get_iam_policy(
         &self,
-        _req: iam::model::GetIamPolicyRequest,
-    ) -> impl std::future::Future<Output = crate::Result<iam::model::Policy>> + Send {
-        std::future::ready::<crate::Result<iam::model::Policy>>(Err(Error::other("unimplemented")))
+        _req: iam_v1::model::GetIamPolicyRequest,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::Policy>> + Send {
+        std::future::ready::<crate::Result<iam_v1::model::Policy>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -187,9 +218,12 @@ pub trait SecretManagerService: Send + Sync {
     /// may "fail open" without warning.
     fn test_iam_permissions(
         &self,
-        _req: iam::model::TestIamPermissionsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<iam::model::TestIamPermissionsResponse>> + Send {
-        std::future::ready::<crate::Result<iam::model::TestIamPermissionsResponse>>(Err(Error::other("unimplemented")))
+        _req: iam_v1::model::TestIamPermissionsRequest,
+    ) -> impl std::future::Future<Output = crate::Result<iam_v1::model::TestIamPermissionsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<iam_v1::model::TestIamPermissionsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 }
 
@@ -203,13 +237,15 @@ pub trait SecretManagerService: Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
 pub trait Locations: Send + Sync {
-
     /// Lists information about the supported locations for this service.
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
-    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send {
-        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
     }
 
     /// Gets information about a location.
@@ -217,7 +253,8 @@ pub trait Locations: Send + Sync {
         &self,
         _req: location::model::GetLocationRequest,
     ) -> impl std::future::Future<Output = crate::Result<location::model::Location>> + Send {
-        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other("unimplemented")))
+        std::future::ready::<crate::Result<location::model::Location>>(Err(Error::other(
+            "unimplemented",
+        )))
     }
 }
-
