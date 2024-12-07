@@ -216,19 +216,6 @@ pub struct Credential {
     source: Box<dyn Source + Send + Sync>,
 }
 
-// TODO(codyoss): This is currently needed to make generated code easier to generate. Not
-//       great that it is an empty cred. Either this should do a partial ADC lookup
-//       or we should find a different way and remove this. If we did not need
-//       an api call for compute credentials this could just work. But today we
-//       need to make async network requests.
-impl Default for Credential {
-    fn default() -> Self {
-        Self {
-            source: Box::new(NoOpSource {}),
-        }
-    }
-}
-
 impl Credential {
     /// Fetches a [AccessToken] based on environment and/or configuration settings.
     pub async fn access_token(&self) -> Result<AccessToken> {

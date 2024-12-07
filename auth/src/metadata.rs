@@ -25,10 +25,6 @@ const GCE_METADATA_HOST_ENV: &str = "GCE_METADATA_HOST";
 const DEFAULT_GCE_METADATA_HOST: &str = "169.254.169.254";
 const GCE_METADATA_HOST_DNS: &str = "metadata.google.internal";
 
-// TODO(codyoss): cache a client
-// TODO(codyoss): funcs could take &str or impl Into<String>?
-
-// TODO: Create a wrapper for reuse that caches useful values.
 fn new_metadata_client() -> Client {
     let mut headers = HeaderMap::with_capacity(2);
     headers.insert("Metadata-Flavor", "Google".parse().unwrap());
