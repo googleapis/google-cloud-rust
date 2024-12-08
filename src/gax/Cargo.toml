@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-gax"
-version              = "0.0.0"
+version              = "0.1.0"
 description          = "Google Cloud SDK for Rust"
 edition.workspace    = true
 authors.workspace    = true
@@ -33,7 +33,7 @@ serde       = "1.0.214"
 serde_json  = "1.0.133"
 serde_with  = "3.11.0"
 thiserror   = "2.0.3"
-wkt         = { path = "../wkt", package = "gcp-sdk-wkt" }
+wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 
 [dev-dependencies]
 serde = { version = "1.0.214", features = ["serde_derive"] }

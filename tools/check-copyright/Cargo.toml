@@ -16,6 +16,7 @@
 name    = "check-copyright"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
 regex = "1.11.1"
