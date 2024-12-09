@@ -22,6 +22,7 @@ repository  = "https://github.com/googleapis/google-cloud-rust/tree/main/auth"
 keywords    = ["auth", "google", "google-cloud"]
 categories  = ["authentication", "web-programming"]
 edition     = "2021"
+publish     = false
 
 [dependencies]
 base64         = "0.22"
