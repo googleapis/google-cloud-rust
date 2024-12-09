@@ -26,8 +26,8 @@ pub struct Helper {
 #[test]
 fn access() {
     let ts = Timestamp::default();
-    assert_eq!(ts.nanos, 0);
-    assert_eq!(ts.seconds, 0);
+    assert_eq!(ts.nanos(), 0);
+    assert_eq!(ts.seconds(), 0);
 }
 
 #[test]
