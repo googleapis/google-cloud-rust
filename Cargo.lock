@@ -422,6 +422,7 @@ dependencies = [
  "futures",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
+ "google-cloud-auth",
  "http",
  "pin-project",
  "reqwest",
