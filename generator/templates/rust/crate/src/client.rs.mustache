@@ -62,8 +62,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{{.}}}
     {{/DocLines}}
     async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        let response = self.inner.{{NameToSnake}}(req).await?;
-        Ok(response)
+        self.inner.{{NameToSnake}}(req).await
     }
 
     {{/Methods}}
