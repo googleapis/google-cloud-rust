@@ -16,7 +16,7 @@
 
 /// A dyn-compatible, crate-private version of `SecretManagerService`.
 #[async_trait::async_trait]
-pub trait SecretManagerService: Send + Sync {
+pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     async fn list_secrets(
         &self,
@@ -291,7 +291,7 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
 
 /// A dyn-compatible, crate-private version of `Locations`.
 #[async_trait::async_trait]
-pub trait Locations: Send + Sync {
+pub trait Locations: std::fmt::Debug + Send + Sync {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,

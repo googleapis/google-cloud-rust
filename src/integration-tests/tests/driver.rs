@@ -15,28 +15,36 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use gax::error::*;
+    use test_case::test_case;
+
     fn report(e: Error) -> Error {
         println!("\nERROR {e}\n");
         Error::other("test failed")
     }
 
+    #[test_case(true; "with tracing enabled")]
+    #[test_case(false; "with tracing disabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_protobuf() -> integration_tests::Result<()> {
-        integration_tests::secret_manager::protobuf::run()
+    async fn run_secretmanager_protobuf(tracing: bool) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::protobuf::run(tracing)
             .await
             .map_err(report)
     }
 
+    #[test_case(true; "with tracing enabled")]
+    #[test_case(false; "with tracing disabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run()
+    async fn run_secretmanager_openapi(tracing: bool) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run(tracing)
             .await
             .map_err(report)
     }
 
+    #[test_case(true; "with tracing enabled")]
+    #[test_case(false; "with tracing disabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run()
+    async fn run_secretmanager_openapi_locational(tracing: bool) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi_locational::run(tracing)
             .await
             .map_err(report)
     }

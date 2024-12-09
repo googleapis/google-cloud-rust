@@ -17,7 +17,7 @@ use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
 use smo::traits::SecretManagerService;
 
-pub async fn run() -> Result<()> {
+pub async fn run(tracing: bool) -> Result<()> {
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -27,11 +27,13 @@ pub async fn run() -> Result<()> {
 
     let location_id = "us-central1".to_string();
 
-    let client =
-        smo::client::SecretManagerService::new_with_config(smo::ConfigBuilder::new().set_endpoint(
-            format!("https://secretmanager.{location_id}.rep.googleapis.com"),
-        ))
-        .await?;
+    let mut config = smo::ConfigBuilder::new().set_endpoint(format!(
+        "https://secretmanager.{location_id}.rep.googleapis.com"
+    ));
+    if tracing {
+        config = config.enable_tracing();
+    }
+    let client = smo::client::SecretManagerService::new_with_config(config).await?;
 
     cleanup_stale_secrets(&client, &project_id, &location_id).await?;
 

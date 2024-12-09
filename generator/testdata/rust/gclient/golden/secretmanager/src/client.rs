@@ -34,7 +34,7 @@ use std::sync::Arc;
 ///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct SecretManagerService {
     inner: Arc<dyn crate::traits::dyntraits::SecretManagerService>,
 }
@@ -47,9 +47,32 @@ impl SecretManagerService {
 
     /// Creates a new client with the specified configuration.
     pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
-        Ok(Self { 
-            inner: Arc::new(crate::transport::SecretManagerService::new(conf).await?)
-        })
+        let inner = Self::build_inner(conf).await?;
+        Ok(Self { inner }) 
+    }
+
+    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::SecretManagerService>> {
+        if Self::tracing_enabled(conf.tracing) {
+            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::SecretManagerService> {
+        crate::transport::SecretManagerService::new(conf).await
+    }
+
+    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::SecretManagerService> {
+        Self::build_transport(conf).await.map(crate::tracing::SecretManagerService::new)
+    }
+
+    fn tracing_enabled(tracing: bool) -> bool {
+        if tracing {
+            return true;
+        }
+        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
+            .map(|v| v == "true")
+            .unwrap_or(false)
     }
 }
 
@@ -181,7 +204,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 /// already uses an `Arc` internally.
 ///
 /// Manages location-related information with an API service.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Locations {
     inner: Arc<dyn crate::traits::dyntraits::Locations>,
 }
@@ -194,9 +217,32 @@ impl Locations {
 
     /// Creates a new client with the specified configuration.
     pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
-        Ok(Self { 
-            inner: Arc::new(crate::transport::Locations::new(conf).await?)
-        })
+        let inner = Self::build_inner(conf).await?;
+        Ok(Self { inner }) 
+    }
+
+    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
+        if Self::tracing_enabled(conf.tracing) {
+            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
+        crate::transport::Locations::new(conf).await
+    }
+
+    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
+        Self::build_transport(conf).await.map(crate::tracing::Locations::new)
+    }
+
+    fn tracing_enabled(tracing: bool) -> bool {
+        if tracing {
+            return true;
+        }
+        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
+            .map(|v| v == "true")
+            .unwrap_or(false)
     }
 }
 

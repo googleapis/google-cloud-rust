@@ -21,7 +21,7 @@ limitations under the License.
 
 /// A dyn-compatible, crate-private version of `{{NameToPascal}}`.
 #[async_trait::async_trait]
-pub trait {{NameToPascal}}: Send + Sync {
+pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{#Methods}}
     {{#DocLines}}
     {{{.}}}

@@ -22,6 +22,7 @@ use google_cloud_auth::{Credential, CredentialConfig};
 
 pub mod traits;
 pub mod client;
+pub(crate) mod tracing;
 pub(crate) mod transport;
 
 const DEFAULT_HOST: &str = "https://iam-meta-api.googleapis.com/";
@@ -34,6 +35,7 @@ pub struct ConfigBuilder {
     pub(crate) endpoint: Option<String>,
     pub(crate) client: Option<reqwest::Client>,
     pub(crate) cred: Option<Credential>,
+    pub(crate) tracing: bool,
 }
 
 impl ConfigBuilder {
@@ -47,6 +49,18 @@ impl ConfigBuilder {
         self.endpoint = Some(v.into());
         self
     }
+
+    /// Enables tracing.
+    pub fn enable_tracing(mut self) -> Self {
+        self.tracing = true;
+        self
+    } 
+
+    /// Disables tracing.
+    pub fn disable_tracing(mut self) -> Self {
+        self.tracing = false;
+        self
+    } 
 
     pub(crate) fn default_client() -> reqwest::Client {
         reqwest::Client::builder().build().unwrap()

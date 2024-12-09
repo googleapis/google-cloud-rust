@@ -29,7 +29,7 @@ pub(crate) mod dyntraits;
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
-pub trait Locations: Send + Sync {
+pub trait Locations: std::fmt::Debug + Send + Sync {
 
     /// Lists information about the supported locations for this service.
     fn list_locations(

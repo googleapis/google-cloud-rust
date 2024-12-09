@@ -21,6 +21,7 @@ use gax::error::Error;
 use google_cloud_auth::{Credential, CredentialConfig};
 
 pub mod client;
+pub(crate) mod tracing;
 pub mod traits;
 pub(crate) mod transport;
 
@@ -34,6 +35,7 @@ pub struct ConfigBuilder {
     pub(crate) endpoint: Option<String>,
     pub(crate) client: Option<reqwest::Client>,
     pub(crate) cred: Option<Credential>,
+    pub(crate) tracing: bool,
 }
 
 impl ConfigBuilder {
@@ -45,6 +47,18 @@ impl ConfigBuilder {
     /// Sets an endpoint that overrides the default endpoint for a service.
     pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
         self.endpoint = Some(v.into());
+        self
+    }
+
+    /// Enables tracing.
+    pub fn enable_tracing(mut self) -> Self {
+        self.tracing = true;
+        self
+    }
+
+    /// Disables tracing.
+    pub fn disable_tracing(mut self) -> Self {
+        self.tracing = false;
         self
     }
 

@@ -30,7 +30,7 @@ use std::sync::Arc;
 /// An abstract interface that provides location-related information for
 /// a service. Service-specific metadata is provided through the
 /// [Location.metadata][google.cloud.location.Location.metadata] field.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Locations {
     inner: Arc<dyn crate::traits::dyntraits::Locations>,
 }
@@ -43,9 +43,32 @@ impl Locations {
 
     /// Creates a new client with the specified configuration.
     pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
-        Ok(Self { 
-            inner: Arc::new(crate::transport::Locations::new(conf).await?)
-        })
+        let inner = Self::build_inner(conf).await?;
+        Ok(Self { inner }) 
+    }
+
+    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
+        if Self::tracing_enabled(conf.tracing) {
+            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
+        crate::transport::Locations::new(conf).await
+    }
+
+    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
+        Self::build_transport(conf).await.map(crate::tracing::Locations::new)
+    }
+
+    fn tracing_enabled(tracing: bool) -> bool {
+        if tracing {
+            return true;
+        }
+        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
+            .map(|v| v == "true")
+            .unwrap_or(false)
     }
 }
 
