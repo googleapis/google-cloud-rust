@@ -16,7 +16,17 @@ use crate::Result;
 use rand::{distributions::Alphanumeric, Rng};
 use smo::traits::SecretManagerService;
 
-pub async fn run() -> Result<()> {
+async fn new_client(tracing: bool) -> Result<smo::client::SecretManagerService> {
+    if tracing {
+        // We could simplify the code, but we want to test the default
+        // constructor.
+        return smo::client::SecretManagerService::new().await;
+    }
+    smo::client::SecretManagerService::new_with_config(smo::ConfigBuilder::default().enable_tracing())
+        .await
+}
+
+pub async fn run(tracing: bool) -> Result<()> {
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -24,7 +34,7 @@ pub async fn run() -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = smo::client::SecretManagerService::new().await?;
+    let client = new_client(tracing).await?;
 
     println!("\nTesting create_secret()");
     let create = client

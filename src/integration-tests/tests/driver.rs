@@ -34,8 +34,8 @@ mod driver {
     #[test_case(true; "with tracing enabled")]
     #[test_case(false; "with tracing disabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi(_tracing: bool) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run()
+    async fn run_secretmanager_openapi(tracing: bool) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run(tracing)
             .await
             .map_err(report)
     }
@@ -43,8 +43,8 @@ mod driver {
     #[test_case(true; "with tracing enabled")]
     #[test_case(false; "with tracing disabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational(_tracing: bool) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run()
+    async fn run_secretmanager_openapi_locational(tracing: bool) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi_locational::run(tracing)
             .await
             .map_err(report)
     }
