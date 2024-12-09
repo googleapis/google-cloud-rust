@@ -22,8 +22,10 @@ async fn new_client(tracing: bool) -> Result<smo::client::SecretManagerService> 
         // constructor.
         return smo::client::SecretManagerService::new().await;
     }
-    smo::client::SecretManagerService::new_with_config(smo::ConfigBuilder::default().enable_tracing())
-        .await
+    smo::client::SecretManagerService::new_with_config(
+        smo::ConfigBuilder::default().enable_tracing(),
+    )
+    .await
 }
 
 pub async fn run(tracing: bool) -> Result<()> {
