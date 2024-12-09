@@ -104,6 +104,7 @@ impl From<crate::error::HttpError> for Error {
     }
 }
 
+/// The type of error held by an [Error] instance.
 #[derive(Clone, Debug, PartialEq, Default)]
 pub enum ErrorKind {
     /// A serialization or deserialization error.
