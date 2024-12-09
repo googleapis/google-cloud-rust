@@ -52,10 +52,14 @@ pub struct Duration {
     nanos: i32,
 }
 
+/// Represent failures in converting or creating [Duration] instances.
 #[derive(thiserror::Error, Debug, PartialEq)]
 pub enum DurationError {
+    /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
     OutOfRange(),
+
+    /// The sign of the seconds component does not match the sign of the nanoseconds component.
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
     MismatchedSigns(),
 }
@@ -65,18 +69,29 @@ type Error = DurationError;
 impl Duration {
     const NS: i32 = 1_000_000_000;
 
+    /// The maximum value for the `seconds` component, approximately 10,000 years.
     pub const MAX_SECONDS: i64 = 315_576_000_000;
+
+    /// The minimum value for the `seconds` component, approximately -10,000 years.
     pub const MIN_SECONDS: i64 = -Self::MAX_SECONDS;
+
+    /// The maximum value for the `nanos` component.
     pub const MAX_NANOS: i32 = Self::NS - 1;
+
+    /// The minimum value for the `nanos` component.
     pub const MIN_NANOS: i32 = -Self::MAX_NANOS;
 
-    /// Create a [Duration].
+    /// Creates a [Duration] from the seconds and nanoseconds component.
     ///
-    /// Durations must have the same sign in the seconds and nanos field. This
-    /// function creates a normalized value.
+    /// This function validates the `seconds` and `nanos` components and returns
+    /// an error if either are out of range or their signs do not match.
+    /// Consider using [clamp()][Duration::clamp] to add nanoseconds to seconds
+    /// with carry.
     ///
-    /// `seconds` - the seconds in the interval.
-    /// `nanos` - the nanoseconds *added* to the interval.
+    /// # Arguments
+    ///
+    /// * `seconds` - the seconds in the interval.
+    /// * `nanos` - the nanoseconds *added* to the interval.
     pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
             return Err(Error::OutOfRange());
@@ -100,8 +115,10 @@ impl Duration {
     /// The function effectively adds the nanoseconds part (with carry) to the
     /// seconds part, with saturation.
     ///
-    /// `seconds` - the seconds in the interval.
-    /// `nanos` - the nanoseconds *added* to the interval.
+    /// # Arguments
+    ///
+    /// * `seconds` - the seconds in the interval.
+    /// * `nanos` - the nanoseconds *added* to the interval.
     pub fn clamp(seconds: i64, nanos: i32) -> Self {
         let mut seconds = seconds;
         seconds = seconds.saturating_add((nanos / Self::NS) as i64);
@@ -139,6 +156,7 @@ impl Duration {
     }
 }
 
+/// Convert from [std::time::Duration] to [Duration].
 impl std::convert::TryFrom<std::time::Duration> for Duration {
     type Error = DurationError;
 
@@ -153,6 +171,7 @@ impl std::convert::TryFrom<std::time::Duration> for Duration {
     }
 }
 
+/// Convert from [Duration] to [std::time::Duration].
 impl std::convert::TryFrom<Duration> for std::time::Duration {
     type Error = DurationError;
 
