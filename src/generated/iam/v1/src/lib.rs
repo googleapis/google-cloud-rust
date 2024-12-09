@@ -64,5 +64,3 @@ impl ConfigBuilder {
             .map_err(Error::authentication)
     }
 }
-
-pub type IampolicyClient = crate::transport::Iampolicy;

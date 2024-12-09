@@ -65,5 +65,3 @@ impl ConfigBuilder {
     }
 }
 
-pub type IampolicyClient = crate::transport::Iampolicy;
-

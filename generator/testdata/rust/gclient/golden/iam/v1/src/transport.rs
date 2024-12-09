@@ -16,9 +16,9 @@
 
 use gax::error::{Error, HttpError};
 use crate::{Credential, Result};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -56,7 +56,7 @@ struct NoBody {}
 /// attached.
 #[derive(Clone)]
 pub struct Iampolicy {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for Iampolicy {
@@ -66,21 +66,16 @@ impl std::fmt::Debug for Iampolicy {
 }
 
 impl Iampolicy {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -120,11 +115,10 @@ impl crate::traits::Iampolicy for Iampolicy {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:setIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);
@@ -136,11 +130,10 @@ impl crate::traits::Iampolicy for Iampolicy {
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
     async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:getIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);
@@ -156,11 +149,10 @@ impl crate::traits::Iampolicy for Iampolicy {
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
     async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:testIamPermissions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);

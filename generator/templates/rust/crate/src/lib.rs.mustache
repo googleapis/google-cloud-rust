@@ -71,8 +71,3 @@ impl ConfigBuilder {
 }
 
 {{/HasServices}}
-{{#Services}}
-{{! TODO(#370) - remove once the new structure is fully in place }}
-pub type {{NameToPascal}}Client = crate::transport::{{NameToPascal}};
-
-{{/Services}}

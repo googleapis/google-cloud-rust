@@ -16,9 +16,9 @@
 
 use crate::{Credential, Result};
 use gax::error::{Error, HttpError};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -56,7 +56,7 @@ struct NoBody {}
 /// attached.
 #[derive(Clone)]
 pub struct Iampolicy {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for Iampolicy {
@@ -66,23 +66,18 @@ impl std::fmt::Debug for Iampolicy {
 }
 
 impl Iampolicy {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+            .cred
+            .unwrap_or(crate::ConfigBuilder::default_credential().await?);
         let inner = InnerClient {
             http_client: conf
                 .client
                 .unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -126,12 +121,12 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/{}:setIamPolicy",
-                inner_client.endpoint, req.resource,
+                self.inner.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -144,12 +139,12 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/{}:getIamPolicy",
-                inner_client.endpoint, req.resource,
+                self.inner.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -167,12 +162,12 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/{}:testIamPermissions",
-                inner_client.endpoint, req.resource,
+                self.inner.endpoint, req.resource,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;

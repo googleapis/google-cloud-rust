@@ -16,9 +16,9 @@
 
 use crate::{Credential, Result};
 use gax::error::{Error, HttpError};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -33,7 +33,7 @@ struct NoBody {}
 /// Provides convenience while improving security.
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -43,23 +43,18 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+            .cred
+            .unwrap_or(crate::ConfigBuilder::default_credential().await?);
         let inner = InnerClient {
             http_client: conf
                 .client
                 .unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -99,12 +94,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations",
-                inner_client.endpoint, req.project,
+                self.inner.endpoint, req.project,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -122,12 +117,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}",
-                inner_client.endpoint, req.project, req.location,
+                self.inner.endpoint, req.project, req.location,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -139,12 +134,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets",
-                inner_client.endpoint, req.project,
+                self.inner.endpoint, req.project,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -162,12 +157,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::CreateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets",
-                inner_client.endpoint, req.project,
+                self.inner.endpoint, req.project,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -181,12 +176,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets",
-                inner_client.endpoint, req.project, req.location,
+                self.inner.endpoint, req.project, req.location,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -204,12 +199,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::CreateSecretByProjectAndLocationRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets",
-                inner_client.endpoint, req.project, req.location,
+                self.inner.endpoint, req.project, req.location,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -224,12 +219,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:addVersion",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -242,12 +237,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:addVersion",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -259,12 +254,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -276,12 +271,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .delete(format!(
                 "{}/v1/projects/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -295,12 +290,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::UpdateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .patch(format!(
                 "{}/v1/projects/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder = gax::query_parameter::add(
@@ -318,12 +313,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -335,12 +330,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .delete(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -354,12 +349,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .patch(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder = gax::query_parameter::add(
@@ -378,12 +373,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -402,12 +397,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder =
@@ -428,12 +423,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}",
-                inner_client.endpoint, req.project, req.secret, req.version,
+                self.inner.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -448,12 +443,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
-                inner_client.endpoint, req.project, req.location, req.secret, req.version,
+                self.inner.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -468,12 +463,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:access",
-                inner_client.endpoint, req.project, req.secret, req.version,
+                self.inner.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -488,12 +483,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
-                inner_client.endpoint, req.project, req.location, req.secret, req.version,
+                self.inner.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -508,12 +503,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:disable",
-                inner_client.endpoint, req.project, req.secret, req.version,
+                self.inner.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -528,12 +523,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
-                inner_client.endpoint, req.project, req.location, req.secret, req.version,
+                self.inner.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -548,12 +543,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:enable",
-                inner_client.endpoint, req.project, req.secret, req.version,
+                self.inner.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -568,12 +563,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
-                inner_client.endpoint, req.project, req.location, req.secret, req.version,
+                self.inner.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -589,12 +584,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}/versions/{}:destroy",
-                inner_client.endpoint, req.project, req.secret, req.version,
+                self.inner.endpoint, req.project, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -610,12 +605,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
-                inner_client.endpoint, req.project, req.location, req.secret, req.version,
+                self.inner.endpoint, req.project, req.location, req.secret, req.version,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -631,12 +626,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:setIamPolicy",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -652,12 +647,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -670,12 +665,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/secrets/{}:getIamPolicy",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder = gax::query_parameter::add(
@@ -694,12 +689,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .get(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let builder = gax::query_parameter::add(
@@ -723,12 +718,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/secrets/{}:testIamPermissions",
-                inner_client.endpoint, req.project, req.secret,
+                self.inner.endpoint, req.project, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
@@ -746,12 +741,12 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client
+        let builder = self
+            .inner
             .http_client
             .post(format!(
                 "{}/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
-                inner_client.endpoint, req.project, req.location, req.secret,
+                self.inner.endpoint, req.project, req.location, req.secret,
             ))
             .query(&[("alt", "json")]);
         let access_token = self.fetch_token().await?;
