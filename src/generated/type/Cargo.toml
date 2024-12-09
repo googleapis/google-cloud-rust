@@ -33,6 +33,6 @@ serde_json = "1.0.132"
 time       = { version = "0.3.36", features = ["formatting", "parsing"] }
 reqwest    = { version = "0.12.9", features = ["json"] }
 bytes      = { version = "1.8.0", features = ["serde"] }
-gax        = { version = "0.1.0", path = "../../../src/gax", package = "gcp-sdk-gax", features = ["sdk_client"] }
+gax        = { version = "0.1.0", path = "../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 google-cloud-auth = { version = "0.1.0", path = "../../../auth", package = "google-cloud-auth" }
 wkt        = { version = "0.1.0", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
