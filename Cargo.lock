@@ -431,6 +431,7 @@ dependencies = [
 name = "gcp-sdk-iam-v1"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-type",
@@ -447,6 +448,7 @@ dependencies = [
 name = "gcp-sdk-location"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -466,6 +468,7 @@ version = "0.0.0"
 name = "gcp-sdk-secretmanager-v1"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-iam-v1",
@@ -483,6 +486,7 @@ dependencies = [
 name = "gcp-sdk-type"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -1324,6 +1328,7 @@ dependencies = [
 name = "secretmanager-openapi-v1"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",

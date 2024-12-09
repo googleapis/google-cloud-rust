@@ -17,36 +17,36 @@ limitations under the License.
 {{#BoilerPlate}}
 //{{{.}}}
 {{/BoilerPlate}}
-{{#HasServices}}
-
-use gax::error::Error;
-
-{{/HasServices}}
 {{#Services}}
-{{#DocLines}}
-{{{.}}}
-{{/DocLines}}
-///
-/// # Notes
-///
-/// Application developers may use this trait to mock the {{Name}} clients.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+
+/// A dyn-compatible, crate-private version of `{{NameToPascal}}`.
+#[async_trait::async_trait]
 pub trait {{NameToPascal}}: Send + Sync {
     {{#Methods}}
-
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    fn {{NameToSnake}}(
+    async fn {{NameToSnake}}(
         &self,
-        _req: {{InputTypeName}},
-    ) -> impl std::future::Future<Output = crate::Result<{{OutputTypeName}}>> + Send {
-        std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
-    }
+        req: {{InputTypeName}}
+    ) -> crate::Result<{{OutputTypeName}}>;
+
     {{/Methods}}
 }
 
+/// All implementations of [crate::traits::{{NameToPascal}}] also implement [{{NameToPascal}}].
+#[async_trait::async_trait]
+impl<T: crate::traits::{{NameToPascal}}> {{NameToPascal}} for T {
+    {{#Methods}}
+    /// Forwards the call to the implementation provided by `T`.
+    async fn {{NameToSnake}}(
+        &self,
+        req: {{InputTypeName}}
+    ) -> crate::Result<{{OutputTypeName}}> {
+        let response = T::{{NameToSnake}}(self, req).await?;
+        Ok(response)
+    }
+
+    {{/Methods}}
+}
 {{/Services}}
