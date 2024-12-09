@@ -52,7 +52,7 @@ impl SecretManagerService {
     }
 
     async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::SecretManagerService>> {
-        if Self::tracing_enabled(conf.tracing) {
+        if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
@@ -64,15 +64,6 @@ impl SecretManagerService {
 
     async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::SecretManagerService> {
         Self::build_transport(conf).await.map(crate::tracing::SecretManagerService::new)
-    }
-
-    fn tracing_enabled(tracing: bool) -> bool {
-        if tracing {
-            return true;
-        }
-        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
-            .map(|v| v == "true")
-            .unwrap_or(false)
     }
 }
 
@@ -222,7 +213,7 @@ impl Locations {
     }
 
     async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
-        if Self::tracing_enabled(conf.tracing) {
+        if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
@@ -234,15 +225,6 @@ impl Locations {
 
     async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
         Self::build_transport(conf).await.map(crate::tracing::Locations::new)
-    }
-
-    fn tracing_enabled(tracing: bool) -> bool {
-        if tracing {
-            return true;
-        }
-        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
-            .map(|v| v == "true")
-            .unwrap_or(false)
     }
 }
 
