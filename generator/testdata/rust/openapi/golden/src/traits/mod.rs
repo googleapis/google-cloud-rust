@@ -16,7 +16,6 @@
 
 use gax::error::Error;
 
- #[allow(dead_code)]
 pub(crate) mod dyntraits;
 
 /// Stores sensitive data such as API keys, passwords, and certificates.

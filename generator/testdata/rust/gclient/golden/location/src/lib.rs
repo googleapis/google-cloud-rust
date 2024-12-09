@@ -21,6 +21,7 @@ use gax::error::Error;
 use google_cloud_auth::{Credential, CredentialConfig};
 
 pub mod traits;
+pub mod client;
 pub(crate) mod transport;
 
 const DEFAULT_HOST: &str = "https://cloud.googleapis.com/";

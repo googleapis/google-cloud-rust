@@ -1,0 +1,70 @@
+{{!
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}
+// Copyright {{CopyrightYear}} Google LLC
+{{#BoilerPlate}}
+//{{{.}}}
+{{/BoilerPlate}}
+{{#HasServices}}
+
+use crate::Result;
+use std::sync::Arc;
+{{/HasServices}}
+{{#Services}}
+
+/// An implementation of [crate::traits::{{NameToPascal}}] to make requests with.
+///
+/// `{{NameToPascal}}` has various configuration parameters, but the defaults
+/// are set to work with most applications.
+///
+/// `{{NameToPascal}}` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `{{NameToPascal}}` in
+/// an [Rc](std::sync::Rc) or [Arc](std::async::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+///
+{{#DocLines}}
+{{{.}}}
+{{/DocLines}}
+#[derive(Clone)]
+pub struct {{NameToPascal}} {
+    inner: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
+}
+
+impl {{NameToPascal}} {
+    /// Creates a new client with the default configuration.
+    pub async fn new() -> Result<Self> {
+        Self::new_with_config(crate::ConfigBuilder::default()).await
+    }
+
+    /// Creates a new client with the specified configuration.
+    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+        Ok(Self { 
+            inner: Arc::new(crate::transport::{{NameToPascal}}::new_with_config(conf).await?)
+        })
+    }
+}
+
+impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
+    {{#Methods}}
+    {{#DocLines}}
+    {{{.}}}
+    {{/DocLines}}
+    async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
+        self.inner.{{NameToSnake}}(req).await
+    }
+
+    {{/Methods}}
+}
+{{/Services}}
