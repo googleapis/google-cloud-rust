@@ -81,8 +81,7 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self.inner.set_iam_policy(req).await?;
-        Ok(response)
+        self.inner.set_iam_policy(req).await
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -91,8 +90,7 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self.inner.get_iam_policy(req).await?;
-        Ok(response)
+        self.inner.get_iam_policy(req).await
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -106,7 +104,6 @@ impl crate::traits::Iampolicy for Iampolicy {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let response = self.inner.test_iam_permissions(req).await?;
-        Ok(response)
+        self.inner.test_iam_permissions(req).await
     }
 }

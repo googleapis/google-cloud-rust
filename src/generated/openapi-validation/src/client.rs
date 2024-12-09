@@ -54,8 +54,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        let response = self.inner.list_locations(req).await?;
-        Ok(response)
+        self.inner.list_locations(req).await
     }
 
     /// Gets information about a location.
@@ -63,8 +62,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        let response = self.inner.get_location(req).await?;
-        Ok(response)
+        self.inner.get_location(req).await
     }
 
     /// Lists Secrets.
@@ -72,8 +70,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let response = self.inner.list_secrets(req).await?;
-        Ok(response)
+        self.inner.list_secrets(req).await
     }
 
     /// Creates a new Secret containing no SecretVersions.
@@ -81,8 +78,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::CreateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self.inner.create_secret(req).await?;
-        Ok(response)
+        self.inner.create_secret(req).await
     }
 
     /// Lists Secrets.
@@ -90,8 +86,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
     ) -> Result<crate::model::ListSecretsResponse> {
-        let response = self.inner.list_secrets_by_project_and_location(req).await?;
-        Ok(response)
+        self.inner.list_secrets_by_project_and_location(req).await
     }
 
     /// Creates a new Secret containing no SecretVersions.
@@ -99,11 +94,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::CreateSecretByProjectAndLocationRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self
-            .inner
-            .create_secret_by_project_and_location(req)
-            .await?;
-        Ok(response)
+        self.inner.create_secret_by_project_and_location(req).await
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -112,8 +103,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self.inner.add_secret_version(req).await?;
-        Ok(response)
+        self.inner.add_secret_version(req).await
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -122,11 +112,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AddSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self
-            .inner
+        self.inner
             .add_secret_version_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Gets metadata for a given Secret.
@@ -134,8 +122,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self.inner.get_secret(req).await?;
-        Ok(response)
+        self.inner.get_secret(req).await
     }
 
     /// Deletes a Secret.
@@ -143,8 +130,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let response = self.inner.delete_secret(req).await?;
-        Ok(response)
+        self.inner.delete_secret(req).await
     }
 
     /// Updates metadata of an existing Secret.
@@ -152,8 +138,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::UpdateSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self.inner.update_secret(req).await?;
-        Ok(response)
+        self.inner.update_secret(req).await
     }
 
     /// Gets metadata for a given Secret.
@@ -161,11 +146,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self
-            .inner
+        self.inner
             .get_secret_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Deletes a Secret.
@@ -173,11 +156,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Empty> {
-        let response = self
-            .inner
+        self.inner
             .delete_secret_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Updates metadata of an existing Secret.
@@ -185,11 +166,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Secret> {
-        let response = self
-            .inner
+        self.inner
             .update_secret_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Lists SecretVersions. This call does not return secret
@@ -198,8 +177,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let response = self.inner.list_secret_versions(req).await?;
-        Ok(response)
+        self.inner.list_secret_versions(req).await
     }
 
     /// Lists SecretVersions. This call does not return secret
@@ -208,11 +186,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
-        let response = self
-            .inner
+        self.inner
             .list_secret_versions_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Gets metadata for a SecretVersion.
@@ -223,8 +199,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self.inner.get_secret_version(req).await?;
-        Ok(response)
+        self.inner.get_secret_version(req).await
     }
 
     /// Gets metadata for a SecretVersion.
@@ -235,11 +210,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self
-            .inner
+        self.inner
             .get_secret_version_by_project_and_location_and_secret_and_version(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -250,8 +223,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let response = self.inner.access_secret_version(req).await?;
-        Ok(response)
+        self.inner.access_secret_version(req).await
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -262,11 +234,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
-        let response = self
-            .inner
+        self.inner
             .access_secret_version_by_project_and_location_and_secret_and_version(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Disables a SecretVersion.
@@ -277,8 +247,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self.inner.disable_secret_version(req).await?;
-        Ok(response)
+        self.inner.disable_secret_version(req).await
     }
 
     /// Disables a SecretVersion.
@@ -289,11 +258,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DisableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self
-            .inner
+        self.inner
             .disable_secret_version_by_project_and_location_and_secret_and_version(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Enables a SecretVersion.
@@ -304,8 +271,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self.inner.enable_secret_version(req).await?;
-        Ok(response)
+        self.inner.enable_secret_version(req).await
     }
 
     /// Enables a SecretVersion.
@@ -316,11 +282,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::EnableSecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self
-            .inner
+        self.inner
             .enable_secret_version_by_project_and_location_and_secret_and_version(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Destroys a SecretVersion.
@@ -332,8 +296,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self.inner.destroy_secret_version(req).await?;
-        Ok(response)
+        self.inner.destroy_secret_version(req).await
     }
 
     /// Destroys a SecretVersion.
@@ -345,11 +308,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::DestroySecretVersionRequest,
     ) -> Result<crate::model::SecretVersion> {
-        let response = self
-            .inner
+        self.inner
             .destroy_secret_version_by_project_and_location_and_secret_and_version(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -361,8 +322,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self.inner.set_iam_policy(req).await?;
-        Ok(response)
+        self.inner.set_iam_policy(req).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -374,11 +334,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::SetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self
-            .inner
+        self.inner
             .set_iam_policy_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Gets the access control policy for a secret.
@@ -387,8 +345,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self.inner.get_iam_policy(req).await?;
-        Ok(response)
+        self.inner.get_iam_policy(req).await
     }
 
     /// Gets the access control policy for a secret.
@@ -397,11 +354,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
     ) -> Result<crate::model::Policy> {
-        let response = self
-            .inner
+        self.inner
             .get_iam_policy_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -415,8 +370,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let response = self.inner.test_iam_permissions(req).await?;
-        Ok(response)
+        self.inner.test_iam_permissions(req).await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -430,10 +384,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         &self,
         req: crate::model::TestIamPermissionsRequest,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        let response = self
-            .inner
+        self.inner
             .test_iam_permissions_by_project_and_location_and_secret(req)
-            .await?;
-        Ok(response)
+            .await
     }
 }

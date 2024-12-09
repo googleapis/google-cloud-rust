@@ -55,8 +55,7 @@ impl crate::traits::Locations for Locations {
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        let response = self.inner.list_locations(req).await?;
-        Ok(response)
+        self.inner.list_locations(req).await
     }
 
     /// Gets information about a location.
@@ -64,7 +63,6 @@ impl crate::traits::Locations for Locations {
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        let response = self.inner.get_location(req).await?;
-        Ok(response)
+        self.inner.get_location(req).await
     }
 }
