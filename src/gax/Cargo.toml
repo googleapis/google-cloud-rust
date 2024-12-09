@@ -33,6 +33,7 @@ serde       = "1.0.214"
 serde_json  = "1.0.133"
 serde_with  = "3.11.0"
 thiserror   = "2.0.3"
+auth        = { version = "0.1.0", path = "../../auth", package = "google-cloud-auth", optional = true }
 wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 
 [dev-dependencies]
@@ -43,5 +44,5 @@ tokio = { version = "1.41.1", features = ["macros"] }
 gax = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 
 [features]
-unstable-sdk-client = ["dep:reqwest"]
+unstable-sdk-client = ["dep:reqwest", "dep:auth"]
 stream              = ["dep:futures", "dep:pin-project"]
