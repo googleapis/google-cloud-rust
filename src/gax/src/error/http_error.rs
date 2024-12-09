@@ -73,7 +73,7 @@ impl std::fmt::Display for HttpError {
 
 impl std::error::Error for HttpError {}
 
-#[cfg(feature = "sdk_client")]
+#[cfg(feature = "unstable-sdk-client")]
 /// A helpers to convert [reqwest::header::HeaderMap] to [std::collections::HashMap].
 pub fn convert_headers(
     header_map: &reqwest::header::HeaderMap,
