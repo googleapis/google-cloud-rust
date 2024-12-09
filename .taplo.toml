@@ -20,7 +20,7 @@ column_width  = 120
 # format everything we care about. 
 #
 # ```
-# taplot format .
+# taplo format .
 # ```
 #
 exclude = ['generator/testdata/**']
