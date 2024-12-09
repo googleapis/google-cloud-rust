@@ -51,7 +51,7 @@ pub(crate) mod dyntraits;
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
-pub trait Iampolicy: Send + Sync {
+pub trait Iampolicy: std::fmt::Debug + Send + Sync {
 
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
