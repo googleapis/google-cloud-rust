@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Well-known-types for Google Cloud APIs.
+//!
+//! Google Cloud APIs use a number of well-known types. These typically have
+//! custom JSON encoding, and may provide conversion functions to and from
+//! native or commonly used Rust types.
+
 mod any;
 pub use crate::any::*;
 mod duration;

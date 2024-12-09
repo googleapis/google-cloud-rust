@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-///
 /// Well-known point in time representation for Google APIs.
 ///
 /// A Timestamp represents a point in time independent of any time zone or local
@@ -58,8 +57,10 @@ pub struct Timestamp {
     nanos: i32,
 }
 
+/// Represent failures in converting or creating [Timestamp] instances.
 #[derive(thiserror::Error, Debug, PartialEq)]
 pub enum TimestampError {
+    /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
     OutOfRange(),
 }
@@ -70,12 +71,27 @@ impl Timestamp {
     const NS: i32 = 1_000_000_000;
 
     // Obtained via: `date +%s --date='0001-01-01T00:00:00Z'`
+    /// The minimum value for the `seconds` component. Corresponds to '0001-01-01T00:00:00Z'.
     pub const MIN_SECONDS: i64 = -62135596800;
+
     // Obtained via: `date +%s --date='9999-12-31T23:59:59Z'`
+    /// The maximum value for the `seconds` component. Corresponds to '9999-12-31T23:59:59Z'.
     pub const MAX_SECONDS: i64 = 253402300799;
-    pub const MAX_NANOS: i32 = Self::NS - 1;
+
+    /// The minimum value for the `nanos` component.
     pub const MIN_NANOS: i32 = 0;
 
+    /// The maximum value for the `nanos` component.
+    pub const MAX_NANOS: i32 = Self::NS - 1;
+
+    /// Creates a new [Timestamp] from the seconds and nanoseconds.
+    ///
+    /// If either value is out of range it returns an error.
+    ///
+    /// # Arguments
+    ///
+    /// * `seconds` - the seconds on the timestamp.
+    /// * `nanos` - the nanoseconds on the timestamp.
     pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
             return Err(Error::OutOfRange());
@@ -96,8 +112,10 @@ impl Timestamp {
     /// The function effectively adds the nanoseconds part (with carry) to the
     /// seconds part, with saturation.
     ///
-    /// `seconds` - the seconds in the interval.
-    /// `nanos` - the nanoseconds *added* to the interval.
+    /// # Arguments
+    ///
+    /// * `seconds` - the seconds on the timestamp.
+    /// * `nanos` - the nanoseconds added to the seconds.
     pub fn clamp(seconds: i64, nanos: i32) -> Self {
         let (seconds, nanos) = match nanos.cmp(&0_i32) {
             std::cmp::Ordering::Equal => (seconds, nanos),
@@ -124,12 +142,18 @@ impl Timestamp {
         Self { seconds, nanos }
     }
 
-    /// Returns the seconds part of the timestamp.
+    /// Represents seconds of UTC time since Unix epoch (1970-01-01T00:00:00Z).
+    ///
+    /// Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.
     pub fn seconds(&self) -> i64 {
         self.seconds
     }
 
-    /// Returns the sub-second part of the timestamp.
+    /// Non-negative fractions of a second at nanosecond resolution.
+    ///
+    /// Negative second values (before the Unix epoch) with fractions must still
+    /// have non-negative nanos values that count forward in time. Must be from
+    /// 0 to 999,999,999 inclusive.
     pub fn nanos(&self) -> i32 {
         self.nanos
     }

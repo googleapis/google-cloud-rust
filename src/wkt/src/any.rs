@@ -54,12 +54,18 @@
 #[non_exhaustive]
 pub struct Any(serde_json::Value);
 
+/// Indicates a problem trying to use an [Any].
 #[derive(thiserror::Error, Debug)]
 pub enum AnyError {
+    /// Problem serializing an object into an [Any].
     #[error("cannot serialize object into an Any, source={0:?}")]
     SerializationError(#[source] Box<dyn std::error::Error>),
+
+    /// Problem deserializing an object from an [Any].
     #[error("cannot deserialize from an Any, source={0:?}")]
     DeserializationError(#[source] Box<dyn std::error::Error>),
+
+    /// Mismatched type, the [Any] does not contain the desired type.
     #[error("expected type mismatch in Any deserialization type={0}")]
     TypeMismatchError(String),
 }
@@ -67,6 +73,7 @@ pub enum AnyError {
 type Error = AnyError;
 
 impl Any {
+    /// Creates a new [Any] from any object that supports serialization to JSON.
     // TODO(#98) - each message should have a type value
     pub fn from<T>(message: &T) -> Result<Self, Error>
     where
@@ -103,6 +110,7 @@ impl Any {
         Error::DeserializationError(Box::from(s))
     }
 
+    /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
         T: serde::de::DeserializeOwned,
