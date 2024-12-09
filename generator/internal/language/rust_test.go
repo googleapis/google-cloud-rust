@@ -46,7 +46,7 @@ func TestRust_ParseOptions(t *testing.T) {
 		"copyright-year":        "2035",
 		"module-path":           "alternative::generated",
 		"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-		"package:gax":           "package=gax,path=src/gax,feature=sdk_client",
+		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
 	}
 	codec, err := NewRustCodec("", options)
 	if err != nil {
@@ -69,7 +69,7 @@ func TestRust_ParseOptions(t *testing.T) {
 				Package: "gax",
 				Path:    "src/gax",
 				Features: []string{
-					"sdk_client",
+					"unstable-sdk-client",
 				},
 			},
 		},

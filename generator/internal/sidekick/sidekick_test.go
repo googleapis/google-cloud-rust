@@ -58,7 +58,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",
 			"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
+			"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
 		},
 	}
@@ -129,7 +129,7 @@ func TestRustFromProtobuf(t *testing.T) {
 				"copyright-year":            "2024",
 				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
 				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-				"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=sdk_client",
+				"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 				"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
 			},
 		}
