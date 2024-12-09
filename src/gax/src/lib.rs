@@ -18,8 +18,8 @@
 //! implementation of the Google Cloud SDK for Rust.
 //!
 //! <div class="warning">
-//! All the types, traits, and functions defined in the `unstable-sdk-client`
-//! feature are **not** intended for general use. The APIs enabled by this
+//! All the types, traits, and functions defined in the <code>unstable-sdk-client</code>
+//! feature are <b>not</b> intended for general use. The APIs enabled by this
 //! feature will remain unstable for the foreseeable future, even if used in
 //! stable SDKs. We (the Google Cloud SDK for Rust team) control both and will
 //! change both if needed.

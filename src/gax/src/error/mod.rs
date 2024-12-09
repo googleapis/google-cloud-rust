@@ -14,6 +14,32 @@
 
 mod core_error;
 mod http_error;
-pub mod rpc;
 pub use core_error::*;
 pub use http_error::*;
+
+/// Errors and error details returned by Service RPCs.
+///
+/// The Google Cloud SDK for Rust distinguishes between errors detected while
+/// trying to send a RPC (e.g. cannot open a connection), errors trying to
+/// receive a response (e.g. the connection is dropped before the full response),
+/// and errors returned by the service itself.
+///
+/// The types in this module represent detailed information returned by the
+/// Gooogle Cloud services.
+///
+/// # Examples
+///
+/// ```
+/// # use std::result::Result;
+/// # use gcp_sdk_gax::error;
+/// use error::Error;
+/// use error::HttpError;
+/// use error::rpc::Status;
+/// fn handle_error(e: Error) {
+///     if let Some(e) = e.as_inner::<HttpError>() {
+///         let status : Status = e.clone().try_into().unwrap();
+///         println!("{status:?}")
+///     }
+/// }
+/// ```
+pub mod rpc;

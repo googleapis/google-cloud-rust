@@ -279,6 +279,9 @@ impl TryFrom<bytes::Bytes> for Status {
 }
 
 /// The type of details associated with [Status].
+///
+/// Google cloud RPCs often return a detailed error description. This details
+/// can be used to better understand the root cause of the problem.
 #[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase", untagged)]
 #[non_exhaustive]
