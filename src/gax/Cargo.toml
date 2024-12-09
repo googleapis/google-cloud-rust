@@ -40,8 +40,8 @@ serde = { version = "1.0.214", features = ["serde_derive"] }
 tokio = { version = "1.41.1", features = ["macros"] }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-gax = { path = ".", package = "gcp-sdk-gax", features = ["sdk_client"] }
+gax = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 
 [features]
-sdk_client = ["dep:reqwest"]
-stream     = ["dep:futures", "dep:pin-project"]
+unstable-sdk-client = ["dep:reqwest"]
+stream              = ["dep:futures", "dep:pin-project"]

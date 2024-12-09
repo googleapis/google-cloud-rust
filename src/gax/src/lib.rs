@@ -15,10 +15,15 @@
 //! Google APIs helpers.
 //!
 //! This crate contains a number of types and functions used in the
-//! implementation of the Google Cloud SDK for Rust. Unless otherwise noted,
-//! these are **not** intended for general use. This crate will remain unstable
-//! for the foreseeable future, even if used in stable SDKs. We (the Google
-//! Cloud SDK for Rust team) control both and will change both if needed.
+//! implementation of the Google Cloud SDK for Rust.
+//!
+//! <div class="warning">
+//! All the types, traits, and functions defined in the `unstable-sdk-client`
+//! feature are **not** intended for general use. The APIs enabled by this
+//! feature will remain unstable for the foreseeable future, even if used in
+//! stable SDKs. We (the Google Cloud SDK for Rust team) control both and will
+//! change both if needed.
+//! </div>
 
 /// Defines traits and helpers to serialize query parameters.
 ///
@@ -36,7 +41,8 @@
 /// The types are not intended for application developers to use. They are
 /// public because we will generate many crates (roughly one per service), and
 /// most of these crates will use these helpers.
-#[cfg(feature = "sdk_client")]
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
 pub mod query_parameter;
 
 /// Defines traits and helpers to serialize path parameters.
@@ -53,7 +59,8 @@ pub mod query_parameter;
 ///
 /// If accessing deeply nested fields that can results in multiple calls to
 /// `required`.
-#[cfg(feature = "sdk_client")]
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
 pub mod path_parameter;
 
 /// Implementation details for [query_parameter](::crate::query_parameter) and
