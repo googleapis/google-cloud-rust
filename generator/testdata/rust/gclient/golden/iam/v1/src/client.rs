@@ -66,7 +66,7 @@ impl Iampolicy {
     /// Creates a new client with the specified configuration.
     pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
         Ok(Self { 
-            inner: Arc::new(crate::transport::Iampolicy::new_with_config(conf).await?)
+            inner: Arc::new(crate::transport::Iampolicy::new(conf).await?)
         })
     }
 }

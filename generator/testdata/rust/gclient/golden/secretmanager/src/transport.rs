@@ -16,9 +16,9 @@
 
 use gax::error::{Error, HttpError};
 use crate::{Credential, Result};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -38,7 +38,7 @@ struct NoBody {}
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -48,21 +48,16 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -99,11 +94,10 @@ impl SecretManagerService {
 impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.parent,
             ))
             .query(&[("alt", "json")]);
@@ -117,11 +111,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.parent,
             ))
             .query(&[("alt", "json")]);
@@ -134,11 +127,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// containing secret data and attaches it to an existing
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:addVersion",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.parent,
             ))
             .query(&[("alt", "json")]);
@@ -148,11 +140,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
     async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -163,11 +154,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Updates metadata of an existing
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .patch(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                gax::path_parameter::PathParameter::required(&req.secret, "secret").map_err(Error::other)?.name,
             ))
             .query(&[("alt", "json")]);
@@ -178,11 +168,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
     async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<wkt::Empty> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .delete(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -194,11 +183,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
     /// call does not return secret data.
     async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}/versions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.parent,
             ))
             .query(&[("alt", "json")]);
@@ -215,11 +203,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -233,11 +220,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}:access",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -251,11 +237,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
     async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:disable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -269,11 +254,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
     async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:enable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -288,11 +272,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
     /// and irrevocably destroys the secret data.
     async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:destroy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -308,11 +291,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// according to the policy set on the associated
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     async fn set_iam_policy(&self, req: iam::model::SetIamPolicyRequest) -> Result<iam::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:setIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);
@@ -323,11 +305,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
     async fn get_iam_policy(&self, req: iam::model::GetIamPolicyRequest) -> Result<iam::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}:getIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);
@@ -344,11 +325,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
     async fn test_iam_permissions(&self, req: iam::model::TestIamPermissionsRequest) -> Result<iam::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/{}:testIamPermissions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.resource,
             ))
             .query(&[("alt", "json")]);
@@ -362,7 +342,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 /// Manages location-related information with an API service.
 #[derive(Clone)]
 pub struct Locations {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for Locations {
@@ -372,21 +352,16 @@ impl std::fmt::Debug for Locations {
 }
 
 impl Locations {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -423,11 +398,10 @@ impl Locations {
 impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(&self, req: location::model::ListLocationsRequest) -> Result<location::model::ListLocationsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}/locations",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -440,11 +414,10 @@ impl crate::traits::Locations for Locations {
 
     /// Gets information about a location.
     async fn get_location(&self, req: location::model::GetLocationRequest) -> Result<location::model::Location> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);

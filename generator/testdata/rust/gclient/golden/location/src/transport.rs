@@ -16,9 +16,9 @@
 
 use gax::error::{Error, HttpError};
 use crate::{Credential, Result};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -34,7 +34,7 @@ struct NoBody {}
 /// [Location.metadata][google.cloud.location.Location.metadata] field.
 #[derive(Clone)]
 pub struct Locations {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for Locations {
@@ -44,21 +44,16 @@ impl std::fmt::Debug for Locations {
 }
 
 impl Locations {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -95,11 +90,10 @@ impl Locations {
 impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);
@@ -112,11 +106,10 @@ impl crate::traits::Locations for Locations {
 
     /// Gets information about a location.
     async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.name,
             ))
             .query(&[("alt", "json")]);

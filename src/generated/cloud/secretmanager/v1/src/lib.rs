@@ -64,7 +64,3 @@ impl ConfigBuilder {
             .map_err(Error::authentication)
     }
 }
-
-pub type SecretManagerServiceClient = crate::transport::SecretManagerService;
-
-pub type LocationsClient = crate::transport::Locations;

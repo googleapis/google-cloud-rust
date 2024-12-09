@@ -16,9 +16,9 @@
 
 use gax::error::{Error, HttpError};
 use crate::{Credential, Result};
-use std::sync::Arc;
 
 // Shared implementation across clients.
+#[derive(Clone)]
 struct InnerClient {
     http_client: reqwest::Client,
     cred: Credential,
@@ -33,7 +33,7 @@ struct NoBody {}
 /// Provides convenience while improving security.
 #[derive(Clone)]
 pub struct SecretManagerService {
-    inner: Arc<InnerClient>,
+    inner: InnerClient,
 }
 
 impl std::fmt::Debug for SecretManagerService {
@@ -43,21 +43,16 @@ impl std::fmt::Debug for SecretManagerService {
 }
 
 impl SecretManagerService {
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
-    }
-
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
+        let cred = conf
+                .cred
+                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
         let inner = InnerClient {
             http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred: conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?),
+            cred,
             endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
         };
-        Ok(Self {
-            inner: Arc::new(inner),
-        })
+        Ok(Self { inner })
     }
 
     async fn fetch_token(&self) -> Result<String> {
@@ -94,11 +89,10 @@ impl SecretManagerService {
 impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists information about the supported locations for this service.
     async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
             ))
             .query(&[("alt", "json")]);
@@ -111,11 +105,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets information about a location.
     async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
             ))
@@ -126,11 +119,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Lists Secrets.
     async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
             ))
             .query(&[("alt", "json")]);
@@ -143,11 +135,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Creates a new Secret containing no SecretVersions.
     async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
             ))
             .query(&[("alt", "json")]);
@@ -158,11 +149,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Lists Secrets.
     async fn list_secrets_by_project_and_location(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> Result<crate::model::ListSecretsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
             ))
@@ -176,11 +166,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Creates a new Secret containing no SecretVersions.
     async fn create_secret_by_project_and_location(&self, req: crate::model::CreateSecretByProjectAndLocationRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
             ))
@@ -193,11 +182,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
     async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}:addVersion",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -209,11 +197,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
     async fn add_secret_version_by_project_and_location_and_secret(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}:addVersion",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -225,11 +212,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets metadata for a given Secret.
     async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -240,11 +226,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Deletes a Secret.
     async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<crate::model::Empty> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .delete(format!(
                "{}/v1/projects/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -256,11 +241,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Updates metadata of an existing Secret.
     async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .patch(format!(
                "{}/v1/projects/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -272,11 +256,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets metadata for a given Secret.
     async fn get_secret_by_project_and_location_and_secret(&self, req: crate::model::GetSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -288,11 +271,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Deletes a Secret.
     async fn delete_secret_by_project_and_location_and_secret(&self, req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Empty> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .delete(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -305,11 +287,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Updates metadata of an existing Secret.
     async fn update_secret_by_project_and_location_and_secret(&self, req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .patch(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -323,11 +304,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists SecretVersions. This call does not return secret
     /// data.
     async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets/{}/versions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -342,11 +322,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists SecretVersions. This call does not return secret
     /// data.
     async fn list_secret_versions_by_project_and_location_and_secret(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -364,11 +343,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
     async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets/{}/versions/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
                req.version,
@@ -383,11 +361,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
     async fn get_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -403,11 +380,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
     async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets/{}/versions/{}:access",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
                req.version,
@@ -422,11 +398,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
     async fn access_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -442,11 +417,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DISABLED.
     async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}/versions/{}:disable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
                req.version,
@@ -461,11 +435,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DISABLED.
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -481,11 +454,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// ENABLED.
     async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}/versions/{}:enable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
                req.version,
@@ -500,11 +472,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// ENABLED.
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -521,11 +492,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// DESTROYED and irrevocably destroys the
     /// secret data.
     async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}/versions/{}:destroy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
                req.version,
@@ -541,11 +511,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// DESTROYED and irrevocably destroys the
     /// secret data.
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -562,11 +531,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
     async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}:setIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -581,11 +549,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
     async fn set_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -598,11 +565,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
     async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/secrets/{}:getIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -615,11 +581,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
     async fn get_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest) -> Result<crate::model::Policy> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .get(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
@@ -638,11 +603,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
     async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/secrets/{}:testIamPermissions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.secret,
             ))
@@ -659,11 +623,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
     async fn test_iam_permissions_by_project_and_location_and_secret(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        let inner_client = self.inner.clone();
-        let builder = inner_client.http_client
+        let builder = self.inner.http_client
             .post(format!(
                "{}/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions",
-               inner_client.endpoint,
+               self.inner.endpoint,
                req.project,
                req.location,
                req.secret,
