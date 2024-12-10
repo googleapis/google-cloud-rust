@@ -32,7 +32,7 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 ///
 /// Instead, modern authentication protocols exchange the credentials for a
 /// time-limited [Token][token-link], a digital object that shows the caller was
-/// in posession of the credentials. Because tokens are time limited, risk of
+/// in possession of the credentials. Because tokens are time limited, risk of
 /// is also time limited. Tokens may be further restricted to only a certain
 /// subset of the RPCs in the service, or even to specific resources.
 ///
@@ -45,7 +45,7 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 /// [token-link]: https://cloud.google.com/docs/authentication#token
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
-/// [Google Kubernets Engine]: https://cloud.google.com/kubernetes-engine
+/// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 pub trait Credential: Send + Sync {
     /// Asynchronously retrieves a token.
     ///
