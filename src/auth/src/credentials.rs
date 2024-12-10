@@ -15,24 +15,51 @@
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 
-pub type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
+type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 
-/// Represents an auth credential used to obtain auth tokens.
-/// Implementors of this trait provide a way to asynchronously retrieve tokens
-/// and construct auth headers.
+/// Represents a [Credential] used to obtain authentication
+/// [Token][crate::token::Token]s and the corresponding authentication headers.
+///
+/// In general, [Credentials][credentials-link] are "digital object that provide
+/// proof of identity", the archetype may be a username and password
+/// combination, but a private RSA key may be a better example.
+///
+/// Modern authentication protocols do not send the credentials to authenticate
+/// with a service. Even when sent over encrypted transports, the credentials
+/// may be accidentally exposed via logging or may be captured if there are
+/// errors in the transport encryption. Because the credentials are often
+/// long-lived, that risk of exposure is also long-lived.
+///
+/// Instead, modern authentication protocols exchange the credentials for a
+/// time-limited [Token][token-link], a digital object that shows the caller was
+/// in posession of the credentials. Because tokens are time limited, risk of
+/// is also time limited. Tokens may be further restricted to only a certain
+/// subset of the RPCs in the service, or even to specific resources.
+///
+/// In this library credentials also abstract sources of tokens that are not
+/// backed by an specific digital object. The canonical example is the
+/// [Metadata Service] available in many Google Cloud environments, including
+/// [Google Compute Engine] and [Google Kubernetes Engine].
+///
+/// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
+/// [token-link]: https://cloud.google.com/docs/authentication#token
+/// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
+/// [Google Compute Engine]: https://cloud.google.com/products/compute
+/// [Google Kubernets Engine]: https://cloud.google.com/kubernetes-engine
 pub trait Credential: Send + Sync {
     /// Asynchronously retrieves a token.
     ///
-    /// This function returns a `Future` that resolves to a `Result` containing
-    /// either the `Token` or an `AuthError` if an error occurred during
-    /// token retrieval.
+    /// Returns a [Token][crate::token::Token] for the current credentials.
+    /// The underlying implementation refreshes the token as needed.
     fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
-    /// Asynchronously retrieves auth headers.
+    /// Asynchronously constructs the authentication headers.
     ///
-    /// This function returns a `Future` that resolves to a `Result` containing
-    /// either a vector of key-value pairs representing the headers or an
-    /// `AuthError` if an error occurred during header construction.
+    /// Different authentication tokens are sent via different headers. The
+    /// [Credential] constructs the headers (and header values) that should be
+    /// sent with a request.
+    ///
+    /// The underlying implementation refreshes the token as needed.
     fn get_headers(
         &mut self,
     ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;

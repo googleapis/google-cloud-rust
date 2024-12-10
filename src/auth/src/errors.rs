@@ -17,28 +17,34 @@ use std::fmt::{Display, Formatter, Result};
 
 type BoxError = Box<dyn Error + Send + Sync>;
 
-/// Represents an auth error.  This error type indicates issues
-/// encountered during the auth process.
+/// Represents an error creating or using a [Credential](crate::credentials::Credential).
+///
+/// This error type indicates issues encountered while trying to create or use a
+/// `Credential`.
 #[derive(Debug)]
 pub struct CredentialError {
-    /// A boolean value indicating whether the error is retryable. If true,
-    /// the operation that resulted in this error might succeed upon retry.
+    /// A boolean value indicating whether the error is retryable.
+    ///
+    /// If `true`, the operation that resulted in this error might succeed upon
+    /// retry. Applications and client libraries should use
+    /// [Exponential backoff] and [retry budgets] in their retry loops.
+    ///
+    /// [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
+    /// [retry budgets]: https://docs.rs/tower/latest/tower/retry/budget/index.html
     is_retryable: bool,
 
-    /// The underlying source of the error. This provides more specific
-    /// information about the cause of the auth failure.
+    /// The underlying source of the error.
+    ///
+    /// This provides more specific information about the cause of the failure.
     source: BoxError,
 }
 
 impl CredentialError {
-    /// Creates a new `AuthError`.
+    /// Creates a new `CredentialError`.
     ///
     /// # Arguments
     /// * `is_retryable` - A boolean indicating whether the error is retryable.
     /// * `source` - The underlying error that caused the auth failure.
-    ///
-    /// # Returns
-    /// A new `AuthError` instance.
     pub fn new(is_retryable: bool, source: BoxError) -> Self {
         CredentialError {
             is_retryable,
@@ -75,8 +81,10 @@ impl Display for CredentialError {
 }
 
 /// InnerAuthError enum is designed to enumerate specific auth error types.
-/// This allows distinguishing various causes of auth failures which can be used for more fine-grained error handling.
+///
+/// This allows distinguishing various causes of auth failures which can be used
+/// for more fine-grained error handling.
 #[derive(thiserror::Error, Debug)]
 pub enum InnerAuthError {
-    // Define error types here
+    // TODO(#389) - define error types here
 }
