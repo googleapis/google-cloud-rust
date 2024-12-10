@@ -66,6 +66,7 @@ pub mod path_parameter;
 /// Implementation details for [query_parameter](::crate::query_parameter) and
 /// [path_parameter](::crate::path_parameter).
 #[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
 mod request_parameter;
 
 /// The core error types used by generated clients.

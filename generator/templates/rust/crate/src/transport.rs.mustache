@@ -20,7 +20,7 @@ limitations under the License.
 {{#HasServices}}
 
 use crate::Result;
-// Sometimes there are no RPCs with query parameters and this goes unused.
+{{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
 #[allow(unused_imports)]
 use gax::error::Error;
 
