@@ -389,7 +389,7 @@ pub struct TestSource;
 #[async_trait]
 impl Source for TestSource {
     async fn token(&self) -> Result<AccessToken> {
-        Ok(AccessToken { 
+        Ok(AccessToken {
             value: "test-only".to_string(),
             expires: None,
         })
