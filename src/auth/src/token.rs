@@ -15,17 +15,24 @@
 /// Represents an auth token.
 #[derive(Debug)]
 pub struct Token {
-    /// The actual token string.  This is the value used in Authorization header.
+    /// The actual token string.
+    ///
+    /// This is the value used in `Authorization:` header.
     pub token: String,
 
-    /// The type of the token.  Common types include "Bearer".
+    /// The type of the token.
+    ///
+    /// The most common type is `"Bearer"` but other types may appear in the
+    /// future.
     pub token_type: String,
 
-    /// The instant at which the token expires. If `None`, the token does not
-    /// expire (or its expiration is unknown).
+    /// The instant at which the token expires.
+    ///
+    /// If `None`, the token does not expire or its expiration is unknown.
     pub expires_at: Option<time::OffsetDateTime>,
 
-    /// Optional metadata associated with the token. This might include
-    /// information like granted scopes or other claims.
+    /// Optional metadata associated with the token.
+    ///
+    /// This might include information like granted scopes or other claims.
     pub metadata: Option<std::collections::HashMap<String, String>>,
 }
