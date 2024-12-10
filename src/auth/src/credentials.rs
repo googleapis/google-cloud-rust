@@ -38,10 +38,10 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 /// only when used from a given machine (virtual or not). Further limiting the
 /// risks associated with any leaks of these tokens.
 ///
-/// In this library credentials also abstract sources of tokens that are not
-/// backed by an specific digital object. The canonical example is the
-/// [Metadata Service] available in many Google Cloud environments, including
-/// [Google Compute Engine] and [Google Kubernetes Engine].
+/// This trait also abstracts token sources that are not backed by an specific
+/// digital object. The canonical example is the [Metadata Service], available
+/// in many Google Cloud environments, including [Google Compute Engine],
+/// and [Google Kubernetes Engine].
 ///
 /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
 /// [token-link]: https://cloud.google.com/docs/authentication#token
