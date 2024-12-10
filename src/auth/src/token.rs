@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Represents an authentication token.
+/// Represents an auth token.
 #[derive(Debug)]
 pub struct Token {
     /// The actual token string.
