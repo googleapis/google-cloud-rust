@@ -33,8 +33,10 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 /// Instead, modern authentication protocols exchange the credentials for a
 /// time-limited [Token][token-link], a digital object that shows the caller was
 /// in possession of the credentials. Because tokens are time limited, risk of
-/// is also time limited. Tokens may be further restricted to only a certain
-/// subset of the RPCs in the service, or even to specific resources.
+/// misuse is also time limited. Tokens may be further restricted to only a
+/// certain subset of the RPCs in the service, or even to specific resources, or
+/// only when used from a given machine (virtual or not). Further limiting the
+/// risks associated with any leaks of these tokens.
 ///
 /// In this library credentials also abstract sources of tokens that are not
 /// backed by an specific digital object. The canonical example is the
