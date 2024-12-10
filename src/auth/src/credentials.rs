@@ -17,8 +17,8 @@ use std::future::Future;
 
 type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 
-/// Represents a [Credential] used to obtain authentication
-/// [Token][crate::token::Token]s and the corresponding authentication headers.
+/// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
+/// and the corresponding request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
 /// proof of identity", the archetype may be a username and password
@@ -39,9 +39,9 @@ type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
 /// risks associated with any leaks of these tokens.
 ///
 /// This trait also abstracts token sources that are not backed by an specific
-/// digital object. The canonical example is the [Metadata Service], available
-/// in many Google Cloud environments, including [Google Compute Engine],
-/// and [Google Kubernetes Engine].
+/// digital object. The canonical example is the [Metadata Service]. This
+/// service available in many Google Cloud environments, including
+/// [Google Compute Engine], and [Google Kubernetes Engine].
 ///
 /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
 /// [token-link]: https://cloud.google.com/docs/authentication#token
@@ -57,7 +57,7 @@ pub trait Credential: Send + Sync {
 
     /// Asynchronously constructs the authentication headers.
     ///
-    /// Different authentication tokens are sent via different headers. The
+    /// Different auth tokens are sent via different headers. The
     /// [Credential] constructs the headers (and header values) that should be
     /// sent with a request.
     ///
