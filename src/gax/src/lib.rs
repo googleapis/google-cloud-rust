@@ -65,6 +65,8 @@ pub mod path_parameter;
 
 /// Implementation details for [query_parameter](::crate::query_parameter) and
 /// [path_parameter](::crate::path_parameter).
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
 mod request_parameter;
 
 /// The core error types used by generated clients.
@@ -74,3 +76,8 @@ pub mod error;
 /// Async streams are not yet stable, so neither is the use of this feature.
 #[cfg(feature = "stream")]
 pub mod paginator;
+
+/// Defines traits and helpers for HTTP client implementations.
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
+pub mod http_client;

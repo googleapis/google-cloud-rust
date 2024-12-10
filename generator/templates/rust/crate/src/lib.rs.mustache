@@ -23,7 +23,6 @@ pub mod model;
 
 {{#HasServices}}
 use gax::error::Error;
-use google_cloud_auth::{Credential, CredentialConfig};
 
 pub mod traits;
 pub mod client;
@@ -35,53 +34,6 @@ const DEFAULT_HOST: &str = "https://{{DefaultHost}}/";
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Default)]
-pub struct ConfigBuilder {
-    pub(crate) endpoint: Option<String>,
-    pub(crate) client: Option<reqwest::Client>,
-    pub(crate) cred: Option<Credential>,
-    pub(crate) tracing: bool,
-}
-
-impl ConfigBuilder {
-    /// Returns a default [ConfigBuilder].
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    /// Sets an endpoint that overrides the default endpoint for a service.
-    pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
-        self.endpoint = Some(v.into());
-        self
-    }
-
-    /// Enables tracing.
-    pub fn enable_tracing(mut self) -> Self {
-        self.tracing = true;
-        self
-    } 
-
-    /// Disables tracing.
-    pub fn disable_tracing(mut self) -> Self {
-        self.tracing = false;
-        self
-    } 
-
-    pub(crate) fn default_client() -> reqwest::Client {
-        reqwest::Client::builder().build().unwrap()
-    }
-
-    pub(crate) async fn default_credential() -> Result<Credential> {
-        let cc = CredentialConfig::builder()
-            .scopes(vec![
-                "https://www.googleapis.com/auth/cloud-platform".to_string()
-            ])
-            .build()
-            .map_err(Error::authentication)?;
-        Credential::find_default(cc)
-            .await
-            .map_err(Error::authentication)
-    }
-}
+pub type ConfigBuilder = gax::http_client::ClientConfig;
 
 {{/HasServices}}

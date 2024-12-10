@@ -19,78 +19,33 @@ limitations under the License.
 {{/BoilerPlate}}
 {{#HasServices}}
 
-use gax::error::{Error, HttpError};
-use crate::{Credential, Result};
+use crate::Result;
+{{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
+#[allow(unused_imports)]
+use gax::error::Error;
 
-// Shared implementation across clients.
-#[derive(Clone)]
-struct InnerClient {
-    http_client: reqwest::Client,
-    cred: Credential,
-    endpoint: String,
-}
-
-#[derive(serde::Serialize)]
-#[allow(dead_code)]
-struct NoBody {}
 {{/HasServices}}
 {{#Services}}
-
 {{#DocLines}}
 {{{.}}}
 {{/DocLines}}
 #[derive(Clone)]
 pub struct {{NameToPascal}} {
-    inner: InnerClient,
+    inner: gax::http_client::ReqwestClient,
 }
 
 impl std::fmt::Debug for {{NameToPascal}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        write!(f, "{{NameToPascal}}[{}]", self.inner.endpoint)
+        f.debug_struct("{{NameToPascal}}")
+            .field("inner", &self.inner)
+            .finish()
     }
 }
 
 impl {{NameToPascal}} {
-    pub async fn new(conf: crate::ConfigBuilder) -> Result<Self> {
-        let cred = conf
-                .cred
-                .unwrap_or(crate::ConfigBuilder::default_credential().await?); 
-        let inner = InnerClient {
-            http_client: conf.client.unwrap_or(crate::ConfigBuilder::default_client()),
-            cred,
-            endpoint: conf.endpoint.unwrap_or(crate::DEFAULT_HOST.to_string()),
-        };
+    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
+        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
-    }
-
-    async fn fetch_token(&self) -> Result<String> {
-        let tok = self
-            .inner
-            .cred
-            .access_token()
-            .await
-            .map_err(Error::authentication)?;
-        Ok(tok.value)
-    }
-
-    async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
-        access_token: String,
-        mut builder: reqwest::RequestBuilder,
-        body: Option<I>,
-    ) -> Result<O> {
-        builder = builder.bearer_auth(access_token);
-        if let Some(body) = body {
-            builder = builder.json(&body);
-        }
-        let resp = builder.send().await.map_err(Error::io)?;
-        if !resp.status().is_success() {
-            let status = resp.status().as_u16();
-            let headers = gax::error::convert_headers(resp.headers());
-            let body = resp.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
-        }
-        let response = resp.json::<O>().await.map_err(Error::serde)?;
-        Ok(response)
     }
 }
 
@@ -100,20 +55,17 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{{.}}}
     {{/DocLines}}
     async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        let builder = self.inner.http_client
-            .{{HTTPMethodToLower}}(format!(
-               "{}{{HTTPPathFmt}}",
-               self.inner.endpoint,
+        let builder = self.inner.builder(
+            reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
                {{#HTTPPathArgs}}
-               {{{.}}},
+               , {{{.}}}
                {{/HTTPPathArgs}}
             ))
             .query(&[("alt", "json")]);
         {{#QueryParams}}
         let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
         {{/QueryParams}}
-        let access_token = self.fetch_token().await?;
-        Self::execute(access_token, builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<NoBody>{{/HasBody}}).await
+        self.inner.execute(builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}}).await
     }
 
     {{/Methods}}
