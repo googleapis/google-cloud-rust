@@ -61,19 +61,14 @@ func runSidekick(cmdLine *CommandLine) error {
 
 	switch cmdLine.Command {
 	case "generate":
-		if err := generate(config, cmdLine); err != nil {
-			return err
-		}
+		return generate(config, cmdLine)
 	case "refresh":
-		if err := refresh(config, cmdLine, cmdLine.Output); err != nil {
-			return err
-		}
+		return refresh(config, cmdLine, cmdLine.Output)
 	case "refresh-all", "refreshall":
-		if err := refreshAll(config, cmdLine); err != nil {
-			return err
-		}
+		return refreshAll(config, cmdLine)
+	case "update":
+		return update(config, cmdLine)
 	default:
 		return fmt.Errorf("unknown subcommand %s", cmdLine.Command)
 	}
-	return nil
 }
