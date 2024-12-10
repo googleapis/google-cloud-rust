@@ -18,10 +18,10 @@ template-dir         = 'generator/templates'
 specification-format = 'protobuf'
 
 [source]
-googleapis-root   = 'https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz'
-googleapis-sha256 = 'eb853d49313f20a096607fea87dfc10bd6a1b917ad17ad5db8a205b457a940e1'
+googleapis-root   = 'https://github.com/googleapis/googleapis/archive/5285c0c32504691588201fd2d8b100c2cab6eca7.tar.gz'
+googleapis-sha256 = 'e076d2c608c9a2bcdb347e696eb4e536d28b9bd5b9d99153e8f5f8c0b3bdce1c'
 
 [codec]
 'package:gax'               = 'package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
-'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.0'
 'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth,version=0.1.0'
+'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.0'

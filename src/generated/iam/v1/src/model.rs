@@ -799,3 +799,43 @@ pub mod audit_config_delta {
         pub const REMOVE: &str = "REMOVE";
     }
 }
+
+/// Output-only policy member strings of a Google Cloud resource's built-in
+/// identity.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ResourcePolicyMember {
+    /// IAM policy binding member referring to a Google Cloud resource by
+    /// user-assigned name (https://google.aip.dev/122). If a resource is deleted
+    /// and recreated with the same name, the binding will be applicable to the new
+    /// resource.
+    ///
+    /// Example:
+    /// `principal://parametermanager.googleapis.com/projects/12345/name/locations/us-central1-a/parameters/my-parameter`
+    pub iam_policy_name_principal: String,
+
+    /// IAM policy binding member referring to a Google Cloud resource by
+    /// system-assigned unique identifier (https://google.aip.dev/148#uid). If a
+    /// resource is deleted and recreated with the same name, the binding will not
+    /// be applicable to the new resource
+    ///
+    /// Example:
+    /// `principal://parametermanager.googleapis.com/projects/12345/uid/locations/us-central1-a/parameters/a918fed5`
+    pub iam_policy_uid_principal: String,
+}
+
+impl ResourcePolicyMember {
+    /// Sets the value of `iam_policy_name_principal`.
+    pub fn set_iam_policy_name_principal<T: Into<String>>(mut self, v: T) -> Self {
+        self.iam_policy_name_principal = v.into();
+        self
+    }
+
+    /// Sets the value of `iam_policy_uid_principal`.
+    pub fn set_iam_policy_uid_principal<T: Into<String>>(mut self, v: T) -> Self {
+        self.iam_policy_uid_principal = v.into();
+        self
+    }
+}
