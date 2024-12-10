@@ -14,6 +14,7 @@
 // limitations under the License.
 
 use gcp_sdk_gax::http_client::*;
+use gcp_sdk_gax::paginator::{PageableResponse, Paginator};
 use std::collections::HashMap;
 use warp::http::Response;
 use warp::Filter;
@@ -49,11 +50,25 @@ async fn test_paginator() -> Result<()> {
     }
     assert_eq!(items, ["f1", "f2", "f3", "f4"].map(str::to_string).to_vec());
 
+    let mut items = Vec::new();
+    let mut stream = client.list_stream(ListFoosRequest::default());
+    while let Some(response) = stream.next().await {
+        let response = response?;
+        response.items.into_iter().for_each(|s| items.push(s.name));
+    }
+    assert_eq!(items, ["f1", "f2", "f3", "f4"].map(str::to_string).to_vec());
+
     Ok(())
 }
 
 struct Client {
     inner: ReqwestClient,
+}
+
+impl PageableResponse for ListFoosResponse {
+    fn next_page_token(&self) -> String {
+        self.next_page_token.clone()
+    }
 }
 
 impl Client {
@@ -63,7 +78,18 @@ impl Client {
         Ok(Self { inner })
     }
 
-    pub async fn list(&self, req: ListFoosRequest) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
+    pub fn list_stream(&self, req: ListFoosRequest) -> Paginator<ListFoosResponse, gcp_sdk_gax::error::Error> {
+        let inner = self.inner.clone();
+        let execute = move |page_token| {
+            let mut request = req.clone();
+            request.page_token = page_token;
+            let client = Self { inner: inner.clone() };
+            client.list_impl( request)
+        };
+        Paginator::new(String::new(), execute)
+    }
+
+    async fn list_impl(self, req: ListFoosRequest) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
         let mut builder = self.inner.builder(
             reqwest::Method::GET, "/pagination".to_string())
             .query(&[("alt", "json")]);
@@ -71,6 +97,11 @@ impl Client {
             builder = builder.query(&[("pageToken", req.page_token)]);
         }
         self.inner.execute(builder, None::<NoBody>).await
+    }
+
+    pub async fn list(&self, req: ListFoosRequest) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
+        let client = Self { inner: self.inner.clone() };
+        client.list_impl(req).await
     }
 }
 
