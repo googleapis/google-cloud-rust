@@ -530,6 +530,8 @@ dependencies = [
  "anyhow",
  "async-trait",
  "dirs",
+ "gcp-sdk-gax",
+ "http",
  "reqwest",
  "serde",
  "serde_json",
@@ -581,9 +583,9 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "http"
-version = "1.1.0"
+version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "21b9ddb458710bc376481b842f5da65cdf31522de232c1ca8146abce2a358258"
+checksum = "f16ca2af56261c99fba8bac40a10251ce8188205a4c448fbb745a2e4daa76fea"
 dependencies = [
  "bytes",
  "fnv",
@@ -1422,6 +1424,7 @@ dependencies = [
 name = "secretmanager-golden-gclient"
 version = "0.1.0"
 dependencies = [
+ "async-trait",
  "bytes",
  "gcp-sdk-gax",
  "gcp-sdk-wkt",
@@ -1432,6 +1435,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "time",
+ "tokio",
 ]
 
 [[package]]

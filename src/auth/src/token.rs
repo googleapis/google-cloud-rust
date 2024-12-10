@@ -14,11 +14,11 @@ pub struct Token {
 
 #[async_trait]
 pub(crate) trait TokenProvider: Send + Sync {
-    async fn get_token_internal(&self) -> Result<Token>;
+    async fn get_token(&mut self) -> Result<Token>;
 }
 
 pub(crate) struct TokenCache<T: TokenProvider> {
-    token_provider: T,
+    pub token_provider: T,
     cached_token: Option<Token>,
 }
 
@@ -29,11 +29,14 @@ impl<T:TokenProvider> TokenCache<T> {
             cached_token: None,
         }
     }
+}
 
-    pub async fn token_non_blocking(&mut self) -> Result<Token> {
+#[async_trait]
+impl<T:TokenProvider> TokenProvider for TokenCache<T> {
+    async fn get_token(&mut self) -> Result<Token> {
         // TODO: Implement real caching mechanism
         if self.cached_token.is_none() {
-            self.cached_token = Some(self.token_provider.get_token_internal().await?);
+            self.cached_token = Some(self.token_provider.get_token().await?);
         }
 
         Ok(self.cached_token.clone().unwrap())

@@ -35,3 +35,5 @@ gax        = { path = "../../../../../../src/gax", package = "gcp-sdk-gax", feat
 google-cloud-auth = { path = "../../../../../../auth", package = "google-cloud-auth" }
 iam        = { path = "../../../../../../generator/testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }
 wkt        = { path = "../../../../../../src/wkt", package = "gcp-sdk-wkt" }
+tokio = { version = "1.34.0", features = ["full"] }
+async-trait = "0.1.74"

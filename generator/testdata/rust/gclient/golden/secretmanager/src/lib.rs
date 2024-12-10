@@ -419,3 +419,42 @@ impl SecretManagerServiceClient {
         Ok(response)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{SecretManagerServiceClient, model::GetSecretRequest};
+
+    #[tokio::test]
+    async fn get_gcloud_token() {
+        let client = SecretManagerServiceClient::new().await.unwrap();
+        let project = "projects/client-debugging";
+        let secrets = get_all_secret_names(&client, &project).await.unwrap();
+        println!("{:#?}", secrets);
+    }
+
+    async fn get_all_secret_names(
+        client: &SecretManagerServiceClient,
+        project_id: &str,
+    ) -> Result<Vec<String>, gax::error::Error> {
+        let mut names = Vec::new();
+        let mut page_token = String::new();
+        loop {
+            let response = client
+                .list_secrets(
+                    super::model::ListSecretsRequest::default()
+                        .set_parent(format!("projects/{project_id}"))
+                        .set_page_token(&page_token),
+                )
+                .await?;
+            response
+                .secrets
+                .into_iter()
+                .for_each(|s| names.push(s.name));
+            if response.next_page_token.is_empty() {
+                break;
+            }
+            page_token = response.next_page_token;
+        }
+        Ok(names)
+    }
+}
