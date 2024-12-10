@@ -55,7 +55,7 @@ pub trait Credential: Send + Sync {
     /// The underlying implementation refreshes the token as needed.
     fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
-    /// Asynchronously constructs the authentication headers.
+    /// Asynchronously constructs the auth headers.
     ///
     /// Different auth tokens are sent via different headers. The
     /// [Credential] constructs the headers (and header values) that should be
