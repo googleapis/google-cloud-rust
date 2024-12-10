@@ -124,6 +124,11 @@ impl ClientConfig {
         self
     }
 
+    pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
+        self.cred = v.into();
+        self
+    }
+
     pub(crate) async fn default_credential() -> Result<Credential> {
         let cc = auth::CredentialConfig::builder()
             .scopes(vec![

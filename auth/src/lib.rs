@@ -235,6 +235,10 @@ impl Credential {
         })
     }
 
+    pub fn test_credentials() -> Self {
+        Self { source: Box::new(source::TestSource) }
+    }
+
     /// Finds a Source from which to create tokens.
     async fn base_source(
         config: CredentialConfig,
