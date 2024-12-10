@@ -1,4 +1,3 @@
-
 // Copyright 2024 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,9 +38,13 @@ async fn test_paginator() -> Result<()> {
     let client = Client::new(&socket).await?;
 
     let mut page_token = String::default();
-    let mut items = Vec::new(); 
+    let mut items = Vec::new();
     loop {
-        let response = client.list(ListFoosRequest { page_token: page_token }).await?;
+        let response = client
+            .list(ListFoosRequest {
+                page_token: page_token,
+            })
+            .await?;
         response.items.into_iter().for_each(|s| items.push(s.name));
         page_token = response.next_page_token;
         if page_token == "" {
@@ -73,25 +76,34 @@ impl PageableResponse for ListFoosResponse {
 
 impl Client {
     pub async fn new(default_endpoint: &str) -> Result<Self> {
-        let config =  ClientConfig::default().set_credential(auth::Credential::test_credentials());
+        let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
         let inner = ReqwestClient::new(config, default_endpoint).await?;
         Ok(Self { inner })
     }
 
-    pub fn list_stream(&self, req: ListFoosRequest) -> Paginator<ListFoosResponse, gcp_sdk_gax::error::Error> {
+    pub fn list_stream(
+        &self,
+        req: ListFoosRequest,
+    ) -> Paginator<ListFoosResponse, gcp_sdk_gax::error::Error> {
         let inner = self.inner.clone();
         let execute = move |page_token| {
             let mut request = req.clone();
             request.page_token = page_token;
-            let client = Self { inner: inner.clone() };
-            client.list_impl( request)
+            let client = Self {
+                inner: inner.clone(),
+            };
+            client.list_impl(request)
         };
         Paginator::new(String::new(), execute)
     }
 
-    async fn list_impl(self, req: ListFoosRequest) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
-        let mut builder = self.inner.builder(
-            reqwest::Method::GET, "/pagination".to_string())
+    async fn list_impl(
+        self,
+        req: ListFoosRequest,
+    ) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
+        let mut builder = self
+            .inner
+            .builder(reqwest::Method::GET, "/pagination".to_string())
             .query(&[("alt", "json")]);
         if "" != req.page_token {
             builder = builder.query(&[("pageToken", req.page_token)]);
@@ -99,14 +111,25 @@ impl Client {
         self.inner.execute(builder, None::<NoBody>).await
     }
 
-    pub async fn list(&self, req: ListFoosRequest) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
-        let client = Self { inner: self.inner.clone() };
+    pub async fn list(
+        &self,
+        req: ListFoosRequest,
+    ) -> std::result::Result<ListFoosResponse, gcp_sdk_gax::error::Error> {
+        let client = Self {
+            inner: self.inner.clone(),
+        };
         client.list_impl(req).await
     }
 }
 
 fn handle_page(query: HashMap<String, String>) -> warp::http::Result<Response<String>> {
-    let to_items = |v: &[&str]| { v.iter().map(|s| Foo { name: s.to_string() }).collect::<Vec<_>>() };
+    let to_items = |v: &[&str]| {
+        v.iter()
+            .map(|s| Foo {
+                name: s.to_string(),
+            })
+            .collect::<Vec<_>>()
+    };
 
     let page_token = query.get("pageToken").map(String::as_str).unwrap_or("");
     let response = if page_token == "" {
