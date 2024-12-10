@@ -40,6 +40,12 @@ pub struct Status {
     /// [Status] `details` field, or localized by the client.
     pub message: String,
 
+    /// The underlying `google.rpc.Status.code`, as a string.
+    ///
+    /// When serialized over JSON, status messages include both the HTTP status
+    /// code (in the `code` field), and the status [Code] as a string.
+    pub status: Option<String>,
+
     /// A list of messages that carry the error details.  There is a common set
     /// of message types for APIs to use.
     pub details: Vec<StatusDetails>,
@@ -216,6 +222,57 @@ impl Default for Code {
     }
 }
 
+impl std::convert::From<Code> for String {
+    fn from(value: Code) -> String {
+        match value {
+            Code::Ok => "OK",
+            Code::Canceled => "CANCELED",
+            Code::Unknown => "UNKNOWN",
+            Code::InvalidArgument => "INVALID_ARGUMENT",
+            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
+            Code::NotFound => "NOT_FOUND",
+            Code::AlreadyExists => "ALREADY_EXISTS",
+            Code::PermissionDenied => "PERMISSION_DENIED",
+            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
+            Code::FailedPrecondition => "FAILED_PRECONDITION",
+            Code::Aborted => "ABORTED",
+            Code::OutOfRange => "OUT_OF_RANGE",
+            Code::Unimplemented => "UNIMPLEMENTED",
+            Code::Internal => "INTERNAL",
+            Code::Unavailable => "UNAVAILABLE",
+            Code::DataLoss => "DATA_LOSS",
+            Code::Unauthenticated => "UNAUTHENTICATED",
+        }
+        .to_string()
+    }
+}
+
+impl std::convert::TryFrom<&str> for Code {
+    type Error = String;
+    fn try_from(value: &str) -> std::result::Result<Code, Self::Error> {
+        match value {
+            "OK" => Ok(Code::Ok),
+            "CANCELED" => Ok(Code::Canceled),
+            "UNKNOWN" => Ok(Code::Unknown),
+            "INVALID_ARGUMENT" => Ok(Code::InvalidArgument),
+            "DEADLINE_EXCEEDED" => Ok(Code::DeadlineExceeded),
+            "NOT_FOUND" => Ok(Code::NotFound),
+            "ALREADY_EXISTS" => Ok(Code::AlreadyExists),
+            "PERMISSION_DENIED" => Ok(Code::PermissionDenied),
+            "RESOURCE_EXHAUSTED" => Ok(Code::ResourceExhausted),
+            "FAILED_PRECONDITION" => Ok(Code::FailedPrecondition),
+            "ABORTED" => Ok(Code::Aborted),
+            "OUT_OF_RANGE" => Ok(Code::OutOfRange),
+            "UNIMPLEMENTED" => Ok(Code::Unimplemented),
+            "INTERNAL" => Ok(Code::Internal),
+            "UNAVAILABLE" => Ok(Code::Unavailable),
+            "DATA_LOSS" => Ok(Code::DataLoss),
+            "UNAUTHENTICATED" => Ok(Code::Unauthenticated),
+            _ => Err(format!("unknown status code value {value}")),
+        }
+    }
+}
+
 impl Serialize for Code {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -310,12 +367,14 @@ mod test {
     use super::*;
     use serde_json::json;
     use std::collections::HashMap;
+    use test_case::test_case;
 
     #[test]
     fn serialization_all_variants() {
         let status = Status {
             code: 12,
             message: "test".to_string(),
+            status: Some("UNIMPLEMENTED".to_string()),
 
             details: vec![
                 StatusDetails::BadRequest(BadRequest {
@@ -375,6 +434,7 @@ mod test {
         let want = json!({
             "code": 12,
             "message": "test",
+            "status": "UNIMPLEMENTED",
             "details": [
                 {"fieldViolations": [{"field": "field", "description": "desc"}]},
                 {"stackEntries": ["stack"], "detail": "detail"},
@@ -413,6 +473,7 @@ mod test {
         let want = Status {
             code: 20,
             message: "test".to_string(),
+            status: None,
             details: vec![
                 StatusDetails::BadRequest(BadRequest {
                     field_violations: vec![bad_request::FieldViolation {
@@ -480,6 +541,7 @@ mod test {
         let want = ErrorWrapper {
             error: Status {
                 code: 400,
+                status: Some("INVALID_ARGUMENT".to_string()),
                 message:
                     "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
                         .into(),
@@ -494,10 +556,41 @@ mod test {
         let got = TryInto::<Status>::try_into(bytes::Bytes::from_static(SAMPLE_PAYLOAD)).unwrap();
         let want = Status {
             code: 400,
+            status: Some("INVALID_ARGUMENT".to_string()),
             message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
                 .into(),
             details: [].into(),
         };
         assert_eq!(got, want);
+    }
+
+    #[test]
+    fn code_to_string() {
+        let got = String::from(Code::AlreadyExists);
+        let want = "ALREADY_EXISTS";
+        assert_eq!(got, want);
+    }
+
+    #[test_case("OK")]
+    #[test_case("CANCELED")]
+    #[test_case("UNKNOWN")]
+    #[test_case("INVALID_ARGUMENT")]
+    #[test_case("DEADLINE_EXCEEDED")]
+    #[test_case("NOT_FOUND")]
+    #[test_case("ALREADY_EXISTS")]
+    #[test_case("PERMISSION_DENIED")]
+    #[test_case("RESOURCE_EXHAUSTED")]
+    #[test_case("FAILED_PRECONDITION")]
+    #[test_case("ABORTED")]
+    #[test_case("OUT_OF_RANGE")]
+    #[test_case("UNIMPLEMENTED")]
+    #[test_case("INTERNAL")]
+    #[test_case("UNAVAILABLE")]
+    #[test_case("DATA_LOSS")]
+    #[test_case("UNAUTHENTICATED")]
+    fn code_roundtrip(input: &str) {
+        let code = Code::try_from(input);
+        let output: Result<String, _> = code.map(|c| From::from(c));
+        assert_eq!(output, Ok(input.to_string()));
     }
 }

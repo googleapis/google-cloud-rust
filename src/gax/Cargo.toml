@@ -41,6 +41,7 @@ wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 # https://github.com/rust-lang/cargo/issues/2911.
 gax   = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "stream"] }
 serde = { version = "1.0.214", features = ["serde_derive"] }
+test-case = "3.3.1"
 tokio = { version = "1.41.1", features = ["macros"] }
 warp  = "0.3.7"
 
