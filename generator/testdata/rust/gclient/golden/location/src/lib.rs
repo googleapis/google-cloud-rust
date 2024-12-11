@@ -17,14 +17,38 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
+/// Common error returned by the RPCs in this client library.
 use gax::error::Error;
 
+/// The traits implemented by this client library.
 pub mod traits;
+
+/// Concrete implementations of this client library traits.
 pub mod client;
+
+#[doc(hidden)]
 pub(crate) mod tracing;
+
+#[doc(hidden)]
 pub(crate) mod transport;
 
+/// The default host used by the service.
 const DEFAULT_HOST: &str = "https://cloud.googleapis.com/";
+
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
+            let ac = gax::api_header::XGoogApiClient{
+                name:          NAME,
+                version:       VERSION,
+                library_type:  gax::api_header::GAPIC, 
+            };
+            ac.header_value()
+        };
+    }
+}
 
 /// A `Result` alias where the `Err` case is an [Error].
 pub type Result<T> = std::result::Result<T, Error>;

@@ -50,7 +50,11 @@ impl crate::traits::Locations for Locations {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")]);
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         let builder =
@@ -70,7 +74,11 @@ impl crate::traits::Locations for Locations {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
-            .query(&[("alt", "json")]);
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>)
             .await
