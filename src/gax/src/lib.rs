@@ -69,6 +69,11 @@ pub mod path_parameter;
 #[doc(hidden)]
 mod request_parameter;
 
+/// Implements helpers to create telemetry headers.
+#[cfg(feature = "unstable-sdk-client")]
+#[doc(hidden)]
+pub mod api_header;
+
 /// The core error types used by generated clients.
 pub mod error;
 
