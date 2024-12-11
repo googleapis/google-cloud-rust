@@ -59,7 +59,6 @@ func TestRust_ParseOptions(t *testing.T) {
 	}
 	want := &RustCodec{
 		PackageNameOverride:      "test-only",
-		GenerationYear:           "2035",
 		ModulePath:               "alternative::generated",
 		DeserializeWithdDefaults: true,
 		ExtraPackages: []*RustPackage{

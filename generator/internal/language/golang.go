@@ -19,7 +19,6 @@ import (
 	"log/slog"
 	"strconv"
 	"strings"
-	"time"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -27,10 +26,8 @@ import (
 )
 
 func NewGoCodec(options map[string]string) (*GoCodec, error) {
-	year, _, _ := time.Now().Date()
 	codec := &GoCodec{
-		GenerationYear: fmt.Sprintf("%04d", year),
-		ImportMap:      map[string]*GoImport{},
+		ImportMap: map[string]*GoImport{},
 	}
 	for key, definition := range options {
 		switch {
@@ -67,8 +64,6 @@ type GoCodec struct {
 	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
 	// generate code for one source package at a time.
 	SourceSpecificationPackageName string
-	// The year when the files were first generated.
-	GenerationYear string
 	// Package name override. If not empty, overrides the default package name.
 	PackageNameOverride string
 	// The package name to generate code into
@@ -288,10 +283,6 @@ func (*GoCodec) FormatDocComments(documentation string) []string {
 
 func (*GoCodec) RequiredPackages() []string {
 	return []string{}
-}
-
-func (c *GoCodec) CopyrightYear() string {
-	return c.GenerationYear
 }
 
 func (c *GoCodec) PackageName(api *api.API) string {

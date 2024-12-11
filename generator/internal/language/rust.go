@@ -21,7 +21,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -29,9 +28,7 @@ import (
 )
 
 func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) {
-	year, _, _ := time.Now().Date()
 	codec := &RustCodec{
-		GenerationYear:           fmt.Sprintf("%04d", year),
 		OutputDirectory:          outdir,
 		ModulePath:               "model",
 		DeserializeWithdDefaults: true,
@@ -58,9 +55,6 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
 			}
 			codec.DeserializeWithdDefaults = value
-			continue
-		case "copyright-year":
-			codec.GenerationYear = definition
 			continue
 		case "not-for-publication":
 			value, err := strconv.ParseBool(definition)
@@ -119,8 +113,6 @@ type RustCodec struct {
 	OutputDirectory string
 	// Package name override. If not empty, overrides the default package name.
 	PackageNameOverride string
-	// The year when the files were first generated.
-	GenerationYear string
 	// Generate a module of a larger crate, as opposed to a full crate.
 	GenerateModule bool
 	// The full path of the generated module within the crate. This defaults to
@@ -720,10 +712,6 @@ func (c *RustCodec) RequiredPackages() []string {
 	}
 	sort.Strings(lines)
 	return lines
-}
-
-func (c *RustCodec) CopyrightYear() string {
-	return c.GenerationYear
 }
 
 func (c *RustCodec) PackageName(api *api.API) string {

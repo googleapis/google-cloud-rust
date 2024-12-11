@@ -107,8 +107,6 @@ type Codec interface {
 	PackageName(api *api.API) string
 	// Validate an API, some codecs impose restrictions on the input API.
 	Validate(api *api.API) error
-	// The year when this package was first generated.
-	CopyrightYear() string
 	// Pass language-specific information from the Codec to the template engine.
 	// Prefer using specific methods when the information is applicable to most
 	// (or many) languages. Use this method when the information is application
