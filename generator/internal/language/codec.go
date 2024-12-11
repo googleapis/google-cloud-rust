@@ -98,7 +98,7 @@ type Codec interface {
 	//   - Rust requires a `norust` annotation in all blockquotes, that is,
 	//     any ```-sections. Without this annotation Rustdoc assumes the
 	//     blockquote is an Rust code snippet and attempts to compile it.
-	FormatDocComments(string) []string
+	FormatDocComments(string, *api.APIState) []string
 	// Returns a extra set of lines to insert in the module file.
 	// The format of these lines is specific to each language.
 	RequiredPackages() []string

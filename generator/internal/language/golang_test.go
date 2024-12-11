@@ -162,8 +162,9 @@ Maybe they wanted to show some JSON:
 		"}",
 		"```",
 	}
+	state := &api.APIState{}
 	c := &GoCodec{}
-	got := c.FormatDocComments(input)
+	got := c.FormatDocComments(input, state)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}

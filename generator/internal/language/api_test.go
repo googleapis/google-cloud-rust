@@ -23,6 +23,7 @@ import (
 func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Service) *api.API {
 	state := &api.APIState{
 		MessageByID: make(map[string]*api.Message),
+		MethodByID:  make(map[string]*api.Method),
 		EnumByID:    make(map[string]*api.Enum),
 		ServiceByID: make(map[string]*api.Service),
 	}
@@ -34,6 +35,9 @@ func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Serv
 	}
 	for _, s := range services {
 		state.ServiceByID[s.ID] = s
+		for _, m := range s.Methods {
+			state.MethodByID[m.ID] = m
+		}
 	}
 	for _, m := range messages {
 		parentID := parentName(m.ID)

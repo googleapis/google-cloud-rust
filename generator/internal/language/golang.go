@@ -278,7 +278,7 @@ func (*GoCodec) ToCamel(symbol string) string {
 	return strcase.ToLowerCamel(symbol)
 }
 
-func (*GoCodec) FormatDocComments(documentation string) []string {
+func (*GoCodec) FormatDocComments(documentation string, _ *api.APIState) []string {
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
 		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)

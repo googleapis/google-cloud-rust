@@ -34,6 +34,8 @@ use std::sync::Arc;
 ///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
+/// 
+/// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
     inner: Arc<dyn crate::traits::dyntraits::SecretManagerService>,
@@ -163,6 +165,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
+    /// 
+    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::state::DISABLED
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,

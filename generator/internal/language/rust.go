@@ -16,8 +16,10 @@ package language
 
 import (
 	"fmt"
+	"log"
 	"log/slog"
 	"path"
+	"regexp"
 	"sort"
 	"strconv"
 	"strings"
@@ -633,10 +635,17 @@ func (*RustCodec) ToCamel(symbol string) string {
 // difficult examples.
 //
 // [spec]: https://spec.commonmark.org/0.13/#block-quotes
-func (*RustCodec) FormatDocComments(documentation string) []string {
+func (c *RustCodec) FormatDocComments(documentation string, state *api.APIState) []string {
 	inBlockquote := false
 	blockquotePrefix := ""
+	linkRegex, err := regexp.Compile(`\]\[([a-z_]+\.[a-zA-Z0-9_\.]+)\]`)
+	if err != nil {
+		// The regex never changes, failure to compile should be detected during
+		// unit testing.
+		log.Fatal("cannot compile linkRegex", "error", err)
+	}
 
+	links := map[string]bool{}
 	var results []string
 	for _, line := range strings.Split(documentation, "\n") {
 		if inBlockquote {
@@ -652,6 +661,10 @@ func (*RustCodec) FormatDocComments(documentation string) []string {
 				results = append(results, line)
 			}
 		} else {
+			for _, match := range linkRegex.FindAllString(line, -1) {
+				match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
+				links[match] = true
+			}
 			switch {
 			case line == "```":
 				results = append(results, "```norust")
@@ -682,7 +695,111 @@ func (*RustCodec) FormatDocComments(documentation string) []string {
 	for i, line := range results {
 		results[i] = strings.TrimRightFunc(fmt.Sprintf("/// %s", line), unicode.IsSpace)
 	}
+	if len(links) != 0 {
+		results = append(results, "///")
+	}
+	// Sort the links to get stable results.
+	var sortedLinks []string
+	for link := range links {
+		sortedLinks = append(sortedLinks, link)
+	}
+	sort.Strings(sortedLinks)
+	for _, link := range sortedLinks {
+		rusty := c.rustdocLink(link, state)
+		if rusty == "" {
+			continue
+		}
+		results = append(results, fmt.Sprintf("/// [%s]: %s", link, rusty))
+	}
 	return results
+}
+
+func (c *RustCodec) rustdocLink(link string, state *api.APIState) string {
+	id := fmt.Sprintf(".%s", link)
+	m, ok := state.MessageByID[id]
+	if ok {
+		return c.FQMessageName(m, state)
+	}
+	e, ok := state.EnumByID[id]
+	if ok {
+		return c.FQEnumName(e, state)
+	}
+	me, ok := state.MethodByID[id]
+	if ok {
+		return c.methodRustdocLink(me, state)
+	}
+	s, ok := state.ServiceByID[id]
+	if ok {
+		return c.serviceRustdocLink(s, state)
+	}
+	rdLink := c.tryFieldRustdocLink(id, state)
+	if rdLink != "" {
+		return rdLink
+	}
+	rdLink = c.tryEnumValueRustdocLink(id, state)
+	if rdLink != "" {
+		return rdLink
+	}
+	return ""
+}
+
+func (c *RustCodec) tryFieldRustdocLink(id string, state *api.APIState) string {
+	idx := strings.LastIndex(id, ".")
+	if idx == -1 {
+		return ""
+	}
+	messageId := id[0:idx]
+	fieldName := id[idx+1:]
+	m, ok := state.MessageByID[messageId]
+	if !ok {
+		return ""
+	}
+	for _, f := range m.Fields {
+		if f.Name == fieldName {
+			return fmt.Sprintf("%s::%s", c.FQMessageName(m, state), c.ToSnake(f.Name))
+		}
+	}
+	return ""
+}
+
+func (c *RustCodec) tryEnumValueRustdocLink(id string, state *api.APIState) string {
+	idx := strings.LastIndex(id, ".")
+	if idx == -1 {
+		return ""
+	}
+	enumId := id[0:idx]
+	valueName := id[idx+1:]
+	e, ok := state.EnumByID[enumId]
+	if !ok {
+		return ""
+	}
+	for _, v := range e.Values {
+		if v.Name == valueName {
+			return c.FQEnumValueName(v, state)
+		}
+	}
+	return ""
+}
+
+func (c *RustCodec) methodRustdocLink(m *api.Method, state *api.APIState) string {
+	idx := strings.LastIndex(m.ID, ".")
+	if idx == -1 {
+		return ""
+	}
+	serviceId := m.ID[0:idx]
+	s, ok := state.ServiceByID[serviceId]
+	if !ok {
+		return ""
+	}
+	return fmt.Sprintf("%s::%s", c.serviceRustdocLink(s, state), c.ToSnake(m.Name))
+}
+
+func (c *RustCodec) serviceRustdocLink(s *api.Service, _ *api.APIState) string {
+	mapped, ok := c.PackageMapping[s.Package]
+	if ok {
+		return fmt.Sprintf("%s::traits::%s", mapped.Name, s.Name)
+	}
+	return fmt.Sprintf("crate::traits::%s", s.Name)
 }
 
 func (c *RustCodec) projectRoot() string {
