@@ -25,7 +25,8 @@ import (
 
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
-func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
+func refresh(rootConfig *Config, cmdLine *CommandLine) error {
+	output := cmdLine.Output
 	config, err := mergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
 		return err

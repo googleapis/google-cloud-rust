@@ -51,7 +51,8 @@ func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 		go func() {
 			defer wg.Done()
 			fmt.Printf("refreshing directory %s\n", dir)
-			err := refresh(&override, cmdLine, dir)
+			cmdLine.Output = dir
+			err := refresh(&override, cmdLine)
 			results <- result{dir: dir, err: err}
 		}()
 	}
