@@ -16,6 +16,7 @@
 name                 = "gcp-sdk-gax"
 version              = "0.1.0"
 description          = "Google Cloud SDK for Rust"
+build                = "build.rs"
 edition.workspace    = true
 authors.workspace    = true
 license.workspace    = true
@@ -43,6 +44,9 @@ gax   = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client"
 serde = { version = "1.0.214", features = ["serde_derive"] }
 tokio = { version = "1.41.1", features = ["macros"] }
 warp  = "0.3.7"
+
+[build-dependencies]
+built = "0.7"
 
 [features]
 unstable-sdk-client = ["dep:reqwest", "dep:auth"]
