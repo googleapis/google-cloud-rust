@@ -447,6 +447,7 @@ pub struct ResourceInfo {
     /// name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
     /// error is
     /// [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED].
+    ///
     pub resource_name: String,
 
     /// The owner of the resource (optional).

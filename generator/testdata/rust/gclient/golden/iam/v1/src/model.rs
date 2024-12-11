@@ -556,6 +556,8 @@ pub struct AuditLogConfig {
     /// permission.
     /// Follows the same format of
     /// [Binding.members][google.iam.v1.Binding.members].
+    ///
+    /// [google.iam.v1.Binding.members]: crate::model::Binding::members
     pub exempted_members: Vec<String>,
 }
 
