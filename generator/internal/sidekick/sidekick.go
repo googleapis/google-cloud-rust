@@ -16,7 +16,6 @@
 package sidekick
 
 import (
-	"fmt"
 	"maps"
 	"os"
 )
@@ -59,16 +58,9 @@ func runSidekick(cmdLine *CommandLine) error {
 		return err
 	}
 
-	switch cmdLine.Command {
-	case "generate":
-		return generate(config, cmdLine)
-	case "refresh":
-		return refresh(config, cmdLine, cmdLine.Output)
-	case "refresh-all", "refreshall":
-		return refreshAll(config, cmdLine)
-	case "update":
-		return update(config, cmdLine)
-	default:
-		return fmt.Errorf("unknown subcommand %s", cmdLine.Command)
+	cmd, err := lookup(cmdLine.Command)
+	if err != nil {
+		return err
 	}
+	return cmd.run(config, cmdLine)
 }
