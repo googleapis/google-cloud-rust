@@ -17,9 +17,9 @@
 /// value.
 #[derive(Debug, PartialEq)]
 pub struct XGoogApiClient {
-    name: &'static str,
-    library_type: &'static str,
-    version: &'static str,
+    pub name: &'static str,
+    pub library_type: &'static str,
+    pub version: &'static str,
 }
 
 pub const GAPIC: &str = "gapic";
