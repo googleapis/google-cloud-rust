@@ -31,7 +31,6 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 	local := Config{
 		General: GeneralConfig{
 			Language:            cmdLine.Language,
-			TemplateDir:         cmdLine.TemplateDir,
 			SpecificationFormat: cmdLine.SpecificationFormat,
 			SpecificationSource: cmdLine.SpecificationSource,
 			ServiceConfig:       cmdLine.ServiceConfig,

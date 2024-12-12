@@ -463,13 +463,6 @@ func (c *RustCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
 	return fmt.Sprintf("&req.%s", c.ToSnake(f.Name))
 }
 
-func (c *RustCodec) TemplateDir() string {
-	if c.GenerateModule {
-		return "rust/mod"
-	}
-	return "rust/crate"
-}
-
 func (c *RustCodec) TemplatesProvider() func(string) (string, error) {
 	return func(name string) (string, error) {
 		contents, err := rustTemplates.ReadFile(name)

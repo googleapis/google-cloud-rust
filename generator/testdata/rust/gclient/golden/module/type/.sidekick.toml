@@ -14,7 +14,6 @@
 
 [general]
 language = 'rust'
-template-dir = 'templates'
 specification-format = 'protobuf'
 specification-source = 'google/type'
 service-config = 'google/type/type.yaml'

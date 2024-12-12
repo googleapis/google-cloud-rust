@@ -67,10 +67,9 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	}
 
 	request := &generateClientRequest{
-		API:         a,
-		Codec:       codec,
-		OutDir:      output,
-		TemplateDir: config.General.TemplateDir,
+		API:    a,
+		Codec:  codec,
+		OutDir: output,
 	}
 	if cmdLine.DryRun {
 		return nil

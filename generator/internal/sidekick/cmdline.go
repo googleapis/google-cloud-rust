@@ -30,7 +30,6 @@ type CommandLine struct {
 	ServiceConfig       string
 	Source              map[string]string
 	Output              string
-	TemplateDir         string
 	Language            string
 	Codec               map[string]string
 	DryRun              bool
@@ -49,7 +48,6 @@ func parseArgsExplicit(args []string) (*CommandLine, error) {
 		serviceConfig = fs.String("service-config", "", "path to service config")
 		sourceOpts    = map[string]string{}
 		output        = fs.String("output", "", "the path within project-root to put generated files")
-		templateDir   = fs.String("template-dir", "", "the path to the template directory")
 		language      = fs.String("language", "", "the generated language")
 		codecOpts     = map[string]string{}
 		dryrun        = fs.Bool("dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.")
@@ -102,7 +100,6 @@ func parseArgsExplicit(args []string) (*CommandLine, error) {
 		Source:              sourceOpts,
 		Language:            *language,
 		Output:              *output,
-		TemplateDir:         *templateDir,
 		Codec:               codecOpts,
 		DryRun:              *dryrun,
 	}, nil

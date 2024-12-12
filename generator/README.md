@@ -21,7 +21,6 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -projec
   -parser-option googleapis-root=generator/testdata/googleapis \
   -language rust \
   -output generator/testdata/rust/gclient/golden/secretmanager \
-  -template-dir generator/templates \
   -codec-option package-name-override=secretmanager-golden-gclient \
   -codec-option package:wkt=package=types,path=types,source=google.protobuf \
   -codec-option package:gax=package=gax,path=gax,feature=unstable-sdk-client \
@@ -42,7 +41,6 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -projec
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \
   -language rust \
   -output generator/testdata/rust/openapi/golden \
-  -template-dir generator/templates \
   -codec-option package-name-override=secretmanager-golden-openapi \
   -codec-option package:wkt=package=types,path=types,source=google.protobuf \
   -codec-option package:gax=package=gax,path=gax,feature=unstable-sdk-client

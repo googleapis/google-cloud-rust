@@ -33,8 +33,6 @@ type generateClientRequest struct {
 	Codec language.Codec
 	// OutDir is the path to the output directory.
 	OutDir string
-	// Template directory
-	TemplateDir string
 }
 
 func (r *generateClientRequest) outDir() string {
