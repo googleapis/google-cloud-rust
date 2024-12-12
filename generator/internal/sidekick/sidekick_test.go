@@ -29,9 +29,9 @@ import (
 const (
 	// projectRoot is the root of the google-cloud-rust. The golden files for
 	// these tests depend on code in ../../auth and ../../src/gax.
-	projectRoot = "../../.."
-	templateDir = "generator/templates"
-	testdataDir = "generator/testdata"
+	projectRoot = "../.."
+	templateDir = "templates"
+	testdataDir = "testdata"
 )
 
 var (
@@ -39,7 +39,7 @@ var (
 	outputDir                  = fmt.Sprintf("%s/test-only", testdataDir)
 	secretManagerServiceConfig = "googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml"
 	specificationSource        = fmt.Sprintf("%s/openapi/secretmanager_openapi_v1.json", testdataDir)
-	testdataImportPath         = fmt.Sprintf("github.com/google-cloud-rust/%s", testdataDir)
+	testdataImportPath         = fmt.Sprintf("github.com/google-cloud-rust/generator/%s", testdataDir)
 )
 
 func TestRustFromOpenAPI(t *testing.T) {
@@ -57,9 +57,9 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"not-for-publication":       "true",
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",
-			"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
-			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
+			"package:wkt":               "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
+			"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+			"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
 		},
 	}
 	if err := runSidekick(cmdLine); err != nil {
@@ -128,9 +128,9 @@ func TestRustFromProtobuf(t *testing.T) {
 				"not-for-publication":       "true",
 				"copyright-year":            "2024",
 				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
-				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-				"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
-				"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
+				"package:wkt":               "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
+				"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+				"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
 			},
 		}
 		for k, v := range config.ExtraOptions {

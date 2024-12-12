@@ -78,9 +78,14 @@ func findAllDirectories(_ *Config) ([]string, error) {
 			return nil
 		}
 		dir := filepath.Dir(path)
-		if strings.Contains(dir, "/testdata/go/") {
-			// Skip these directories. They are intended for testing only.
-			return nil
+		ignored := []string{
+			"target/package/",     // The output from `cargo package`
+			"generator/testdata/", // Testing
+		}
+		for _, candidate := range ignored {
+			if strings.Contains(dir, candidate) {
+				return nil
+			}
 		}
 		if d.Name() == ".sidekick.toml" && dir != "." {
 			result = append(result, dir)
