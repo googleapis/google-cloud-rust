@@ -3,11 +3,12 @@ use std::env::var;
 use std::path::{Path, PathBuf};
 use tokio::fs::read_to_string;
 use std::result::Result::Ok;
-use anyhow::Result;
+use anyhow::{Result};
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 
-mod user_credential;
+pub mod user_credential;
+pub mod api_key_credential;
 use user_credential::UserCredential;
 
 use crate::options::{self, AccessTokenCredentialOptions, AccessTokenCredentialOptions3, AccessTokenCredentialOptionsBuilder, AccessTokenCredentialOptions3Builder};
@@ -31,6 +32,16 @@ pub mod traits {
         fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send;
     }
 
+    
+
+    // impl <T: Credential> Into<Credential> for T {
+    //     fn into(self) -> Credential {
+    //         Credential {
+    //             inner_credential: Box::new(self),
+    //         }
+    //     }
+    // }
+
     pub(crate) mod dynamic {
         use http::header::{HeaderName, HeaderValue};
         use anyhow::Result;
@@ -50,20 +61,20 @@ pub mod traits {
             async fn get_universe_domain(&mut self) -> Option<String>;
         }
 
-        #[async_trait::async_trait]
-        impl <T: super::Credential> Credential for T {
-            async fn get_headers(
-                &mut self,
-            ) -> Result<Vec<(HeaderName, HeaderValue)>> {
-                let headers = self.get_headers().await?;
-                Ok(headers)
-            }
+        // #[async_trait::async_trait]
+        // impl <T: super::Credential> Credential for T {
+        //     async fn get_headers(
+        //         &mut self,
+        //     ) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        //         let headers = self.get_headers().await?;
+        //         Ok(headers)
+        //     }
 
-            async fn get_universe_domain(&mut self) -> Option<String> {
-                let universe_domain = self.get_universe_domain().await;
-                universe_domain
-            }
-        }
+        //     async fn get_universe_domain(&mut self) -> Option<String> {
+        //         let universe_domain = self.get_universe_domain().await;
+        //         universe_domain
+        //     }
+        // }
     }
 }
 
@@ -82,6 +93,20 @@ impl traits::Credential for Credential {
     fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send {
         self.inner_credential.get_universe_domain()
     }
+}
+
+pub fn create_api_key_credential<T>(api_key: T) -> Result<Credential> 
+where 
+    T: Into<String>
+{
+    let api_key = api_key.into();
+    print!("API KEY:{}", api_key.as_str());
+
+    Ok(
+        Credential {
+            inner_credential: Box::new(api_key_credential::ApiKeyCredential::new(api_key)),
+        }
+    )
 }
 
 
@@ -199,4 +224,22 @@ impl AsRef<Path> for AdcFilePath {
     fn as_ref(&self) -> &Path {
         &self.0
     }
+}
+
+mod test {
+    use traits::Credential;
+
+    use super::*;
+
+    #[tokio::test]
+    async fn test_api_key() {
+        let cred = create_api_key_credential("api_key");
+        assert!(cred.is_ok());
+        let mut cred = cred.unwrap();
+        let headers = cred.get_headers().await;
+
+        print!("{:#?}", headers);
+    }
+
+    
 }

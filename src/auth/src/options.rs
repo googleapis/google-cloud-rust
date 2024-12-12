@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{str::FromStr, time::Duration};
 
 #[derive(Debug, Clone)]
 pub enum CredentialsSource {
@@ -191,15 +191,17 @@ pub struct AccessTokenCredentialOptions3Builder {
     credential_source: CredentialsSource2,
 }
 
-impl AccessTokenCredentialOptions3Builder {
-    pub fn default_credential() -> Self {
+impl Default for AccessTokenCredentialOptions3Builder {
+    fn default() -> Self {
         Self {
             quota_project_id: None,
             scopes: None,
             credential_source: CredentialsSource2::DefaultCredential,
         }
     }
+}
 
+impl AccessTokenCredentialOptions3Builder {
     pub fn from_file(file_path: String) -> Self {
         Self {
             quota_project_id: None,
@@ -208,11 +210,11 @@ impl AccessTokenCredentialOptions3Builder {
         }
     }
 
-    pub fn from_json(json: String) -> Self {
+    pub fn from_json<T: Into<String>>(json: T) -> Self {
         Self {
             quota_project_id: None,
             scopes: None,
-            credential_source: CredentialsSource2::CredentialsJson(json),
+            credential_source: CredentialsSource2::CredentialsJson(json.into()),
         }
     }
 
@@ -221,8 +223,10 @@ impl AccessTokenCredentialOptions3Builder {
     //     self
     // }
 
-    pub fn quota_project_id(&mut self, quota_project_id: String) -> &mut Self {
-        self.quota_project_id = Some(quota_project_id);
+    pub fn quota_project_id<T: Into<String>>(&mut self, quota_project_id: T)
+        -> &mut Self
+    {
+        self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
@@ -240,6 +244,48 @@ impl AccessTokenCredentialOptions3Builder {
     }
 }
 
+
+pub struct ApiKeyCredentialOptions {
+    quota_project_id: Option<String>,
+    universe_domain: String,
+}
+
+pub struct ApiKeyCredentialOptionsBuilder {
+    quota_project_id: Option<String>,
+    universe_domain: String,
+}
+
+impl Default for ApiKeyCredentialOptionsBuilder {
+    fn default() -> Self {
+        Self {
+            quota_project_id: None,
+            universe_domain: String::from_str("googleapis.com").unwrap(),
+        }
+    }
+}
+
+impl ApiKeyCredentialOptionsBuilder {
+    pub fn new() -> Self {
+        ApiKeyCredentialOptionsBuilder::default()
+    }
+
+    pub fn universe_domain<T: Into<String>>(&mut self, universe_domain: T) -> &mut Self {
+        self.universe_domain = universe_domain.into();
+        self
+    }
+
+    pub fn quota_project_id<T: Into<String>>(&mut self, quota_project_id: T) -> &mut Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    pub fn build(&self) -> ApiKeyCredentialOptions {
+        ApiKeyCredentialOptions {
+            quota_project_id: self.quota_project_id.clone(),
+            universe_domain: self.universe_domain.clone(),
+        }
+    }
+}
 
 
 pub enum CommonOptions {

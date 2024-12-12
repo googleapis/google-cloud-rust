@@ -98,7 +98,7 @@ pub struct UserCredentialBuilder {
 }
 
 impl UserCredentialBuilder {
-    pub fn from_json(data: &str) -> Result<Self, anyhow::Error>  {
+    pub fn from_json<T: Into<String>>(data: T) -> Result<Self, anyhow::Error>  {
         Ok(UserCredentialBuilder {
             quota_project_id: None,
             universe_domain: "googleapis.com".to_string(),
@@ -259,14 +259,15 @@ struct UserCredentialJSON {
 #[cfg(test)]
 mod tests {
     use crate::credentials;
-    use crate::credentials::traits::Credential;
+    use crate::credentials::traits::Credential as CredentialTrait;
     use std::fs;
     use std::path::Path;
 
     #[tokio::test]
     async fn get_gcloud_token() {
         let mut cred = credentials::create_access_token_credential(None).await.unwrap();
-        println!("{:#?}", cred.get_headers().await.unwrap())
+        // println!("{:#?}", cred.get_headers().await.unwrap())
+        printcred(cred).await;
     }
 
     #[tokio::test]
@@ -296,9 +297,9 @@ mod tests {
     async fn create_user_cred() {    
         let credentials_path = "/usr/local/google/home/saisunder/.config/gcloud/application_default_credentials.json";
     
-        let json = fs::read_to_string(credentials_path).unwrap().to_string();
+        let json = fs::read_to_string(credentials_path).unwrap();
 
-        let mut cred = super::UserCredentialBuilder::from_json(&json)
+        let mut cred= super::UserCredentialBuilder::from_json(json.as_str())
             .unwrap()
             .token_url("http://abc.com".to_string())
             .scopes(vec!["https://www.googleapis.com/auth/translate".to_string()])
@@ -306,6 +307,10 @@ mod tests {
             .build()
             .unwrap();
 
+        println!("{:#?}", cred.get_headers().await.unwrap())
+    }
+
+    async fn printcred(mut cred: impl CredentialTrait) {
         println!("{:#?}", cred.get_headers().await.unwrap())
     }
 
