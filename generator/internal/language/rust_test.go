@@ -1070,15 +1070,15 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"///",
 		"///",
-		"/// [google.iam.v1.Iampolicy]: iam_v1::client::Iampolicy",
+		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
 		"/// [google.protobuf.Any]: wkt::Any",
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
-		"/// [test.v1.SomeService]: crate::client::SomeService",
-		"/// [test.v1.SomeService.CreateFoo]: crate::client::SomeService::create_foo",
+		"/// [test.v1.SomeService]: crate::traits::SomeService",
+		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
 	}
 
 	wkt := &RustPackage{
