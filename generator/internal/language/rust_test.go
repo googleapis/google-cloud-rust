@@ -1155,6 +1155,64 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	return a
 }
 
+func TestRust_FormatDocCommentsUrls(t *testing.T) {
+	input := `
+blah blah https://cloud.google.com foo bar
+[link](https://example1.com)
+<https://example2.com>
+<https://example3.com>.
+https://example4.com.
+https://example5.com https://cloud.google.com something else.
+[link definition]: https://example6.com/
+http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html
+http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+https://cloud.google.com/apis/design/design_patterns#integer_types
+https://cloud.google.com/apis/design/design_patterns#integer_types.`
+	want := []string{
+		"///",
+		"/// blah blah <https://cloud.google.com> foo bar",
+		"/// [link](https://example1.com)",
+		"/// <https://example2.com>",
+		"/// <https://example3.com>.",
+		"/// <https://example4.com>.",
+		"/// <https://example5.com> <https://cloud.google.com> something else.",
+		"/// [link definition]: https://example6.com/",
+		"/// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>",
+		"/// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.",
+		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>",
+		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>.",
+	}
+
+	wkt := &RustPackage{
+		Name:    "wkt",
+		Package: "gcp-sdk-wkt",
+		Path:    "src/wkt",
+	}
+	iam := &RustPackage{
+		Name:    "iam_v1",
+		Package: "gcp-sdk-iam-v1",
+		Path:    "src/generated/iam/v1",
+	}
+	c := &RustCodec{
+		ModulePath:    "model",
+		ExtraPackages: []*RustPackage{wkt, iam},
+		PackageMapping: map[string]*RustPackage{
+			"google.protobuf": wkt,
+			"google.iam.v1":   iam,
+		},
+	}
+
+	// To test the mappings we need a fairly complex api.API instance. Create it
+	// in a separate function to make this more readable.
+	apiz := makeApiForRustFormatDocCommentsCrossLinks()
+	c.LoadWellKnownTypes(apiz.State)
+
+	got := c.FormatDocComments(input, apiz.State)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestRust_MessageNames(t *testing.T) {
 	message := &api.Message{
 		Name: "Replication",

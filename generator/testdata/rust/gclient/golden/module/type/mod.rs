@@ -19,7 +19,7 @@
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
-/// are documented at https://github.com/google/cel-spec.
+/// are documented at <https://github.com/google/cel-spec>.
 ///
 /// Example (Comparison):
 ///

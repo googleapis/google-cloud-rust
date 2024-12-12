@@ -620,7 +620,7 @@ pub struct SecretPayload {
     ///
     /// The CRC32C value is encoded as a Int64 for compatibility, and can be
     /// safely downconverted to uint32 in languages that support this type.
-    /// https://cloud.google.com/apis/design/design_patterns#integer_types
+    /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     #[serde(rename = "dataCrc32c")]
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub data_crc_32_c: Option<i64>,
@@ -1557,7 +1557,7 @@ impl Binding {
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
-/// are documented at https://github.com/google/cel-spec.
+/// are documented at <https://github.com/google/cel-spec>.
 ///
 /// Example (Comparison):
 ///

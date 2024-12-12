@@ -44,6 +44,23 @@ var commentLinkRegex = regexp.MustCompile(
 		`[a-zA-Z0-9_\.]+` + // We don't try to parse these with a regex, alphanum, underscores and dots are all accepted in any order
 		`\]`) // The closing bracket
 
+// A regular expression to find https links in comments.
+//
+// The Google API documentation (typically in protos) includes some raw HTTP[S]
+// links. While many markdown implementations autolink, Rustdoc does not. It
+// expects the writer to use these:
+//
+// https://www.markdownguide.org/basic-syntax#urls-and-email-addresses
+//
+// Furthermore, rustdoc warns if you have something that looks like an autolink.
+// We convert raw links because raw links are too common in the documentation.
+var commentUrlRegex = regexp.MustCompile(
+	`` + // `go fmt` is annoying
+		`https?://` + // Accept either https or http.
+		`([A-Za-z0-9\.]+\.)+` + // Be generous in accepting most of the authority (hostname)
+		`[a-zA-Z]{2,63}` + // The root domain is far more strict
+		`([-a-zA-Z0-9@:%_\+.~#?&/=]+)?`) // Accept just about anything on the query and URL fragments
+
 func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &RustCodec{
@@ -693,6 +710,45 @@ func (c *RustCodec) FormatDocComments(documentation string, state *api.APIState)
 				results = append(results, "```norust")
 				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
 			default:
+				var sb strings.Builder
+				lastMatch := 0
+				for _, pair := range commentUrlRegex.FindAllStringIndex(line, -1) {
+					sb.WriteString(line[lastMatch:pair[0]])
+					lastMatch = pair[1]
+					prior := ""
+					if pair[0] != 0 {
+						prior = line[pair[0]-1 : pair[0]]
+					}
+					next := ""
+					if pair[1] != len(line) {
+						next = line[pair[1] : pair[1]+1]
+					}
+					match := line[pair[0]:pair[1]]
+					switch {
+					case strings.HasSuffix(line[0:pair[0]], "]: "):
+						// Looks like a markdown link definition [1], no
+						// replacement needed.
+						// [1]: https://spec.commonmark.org/0.31.2/#link-reference-definitions
+						sb.WriteString(match)
+					case strings.HasSuffix(line[0:pair[0]], "](") && next == ")":
+						// This looks like a link destination [1], no
+						// replacement needed.
+						// [1]: https://spec.commonmark.org/0.31.2/#links
+						sb.WriteString(match)
+					case prior == "<" && next == ">":
+						// URLs already surrounded by `<...>` need no replacement
+						sb.WriteString(match)
+					case strings.HasSuffix(match, ".") && pair[1] == len(line):
+						// Many comments end with a URL and then a period. In
+						// most cases (all cases I could find), the period is punctuation,
+						// and not part of the URL.
+						sb.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(match, ".")))
+					default:
+						sb.WriteString(fmt.Sprintf("<%s>", match))
+					}
+				}
+				sb.WriteString(line[lastMatch:])
+				line = sb.String()
 				results = append(results, line)
 			}
 		}

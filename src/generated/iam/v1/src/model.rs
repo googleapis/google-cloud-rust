@@ -813,7 +813,7 @@ pub mod audit_config_delta {
 #[non_exhaustive]
 pub struct ResourcePolicyMember {
     /// IAM policy binding member referring to a Google Cloud resource by
-    /// user-assigned name (https://google.aip.dev/122). If a resource is deleted
+    /// user-assigned name (<https://google.aip.dev/122>). If a resource is deleted
     /// and recreated with the same name, the binding will be applicable to the new
     /// resource.
     ///
@@ -822,7 +822,7 @@ pub struct ResourcePolicyMember {
     pub iam_policy_name_principal: String,
 
     /// IAM policy binding member referring to a Google Cloud resource by
-    /// system-assigned unique identifier (https://google.aip.dev/148#uid). If a
+    /// system-assigned unique identifier (<https://google.aip.dev/148#uid>). If a
     /// resource is deleted and recreated with the same name, the binding will not
     /// be applicable to the new resource
     ///

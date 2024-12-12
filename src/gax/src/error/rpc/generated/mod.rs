@@ -549,7 +549,7 @@ pub mod help {
 #[non_exhaustive]
 pub struct LocalizedMessage {
     /// The locale used following the specification defined at
-    /// https://www.rfc-editor.org/rfc/bcp/bcp47.txt.
+    /// <https://www.rfc-editor.org/rfc/bcp/bcp47.txt>.
     /// Examples are: "en-US", "fr-CH", "es-MX"
     pub locale: String,
 
