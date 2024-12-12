@@ -18,5 +18,3 @@ service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
 [codec]
 copyright-year = '2024'
-'package:iam_v1' = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.1.0'
-'package:location' = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0'
