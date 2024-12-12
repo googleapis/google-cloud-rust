@@ -72,7 +72,7 @@ func generateClient(req *generateClientRequest) error {
 			errs = append(errs, err)
 			continue
 		}
-		destination := filepath.Join(req.OutDir, gen.OutputPath)
+		destination := filepath.Join(req.outDir(), gen.OutputPath)
 		os.MkdirAll(filepath.Dir(destination), 0777) // Ignore errors
 		nestedProvider := mustacheProvider{
 			impl:    provider,
