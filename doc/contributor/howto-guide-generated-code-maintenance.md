@@ -38,7 +38,7 @@ index 44e101c..f03160b 100644
 Add the files to `git`, compile them, and run the tests:
 
 ```bash
-git add src/generated/websecurityscannary/v1
+git add src/generated/websecurityscanner/v1
 cargo build
 cargo test
 cargo doc
