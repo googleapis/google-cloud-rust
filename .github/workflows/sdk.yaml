@@ -54,6 +54,9 @@ jobs:
         run: rustc --version
       - run: cargo clippy -- --deny warnings
       - run: cargo fmt
+      - run: cargo doc
+        env:
+          RUSTDOCFLAGS: "-D warnings"
       - run: git diff --exit-code
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
