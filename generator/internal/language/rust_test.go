@@ -91,7 +91,7 @@ func TestRust_RequiredPackages(t *testing.T) {
 	outdir := "src/generated/newlib"
 	options := map[string]string{
 		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
-		"package:gax":   "package=gax,path=src/gax,version=1.2.3",
+		"package:gax":   "package=gax,path=src/gax,version=1.2.3,force-used=true",
 		"package:auth":  "ignore=true",
 	}
 	codec, err := NewRustCodec(outdir, options)
@@ -100,7 +100,6 @@ func TestRust_RequiredPackages(t *testing.T) {
 	}
 	got := codec.RequiredPackages()
 	want := []string{
-		"gtype      = { path = \"../../../src/generated/type\", package = \"types\" }",
 		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gax\" }",
 	}
 	less := func(a, b string) bool { return a < b }
@@ -113,7 +112,7 @@ func TestRust_RequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
 	options := map[string]string{
-		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
+		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only,force-used=true",
 	}
 	codec, err := NewRustCodec("", options)
 	if err != nil {
