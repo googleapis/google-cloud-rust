@@ -2,7 +2,7 @@
 
 This guide is intended for contributors to the `google-cloud-rust` SDK. It will
 walk you through the steps necessary to set up your development workstation to
-compile the code, run the unit tests, and formatting miscellanous files.
+compile the code, run the unit tests, and formatting miscellaneous files.
 
 ## Installing Rust
 
@@ -40,11 +40,11 @@ cargo fmt && cargo clippy -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
-## Miscellanous Tools
+## Miscellaneous Tools
 
 We use a number of tools to format non-Rust code. The CI builds enforce
 formatting, you can fix any formatting problems manually (using the CI logs),
-or may prefer to intall these tools locally to fix formatting problems.
+or may prefer to install these tools locally to fix formatting problems.
 
 Typically we do not format these files for generated code, so local runs
 requires skipping the generated files.
