@@ -808,7 +808,7 @@ func TestProtobuf_TrimLeadingSpacesInDocumentation(t *testing.T) {
 
 	got := trimLeadingSpacesInDocumentation(input)
 	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+		t.Errorf("mismatch in trimLeadingSpacesInDocumentation (-want, +got)\n:%s", diff)
 	}
 }
 

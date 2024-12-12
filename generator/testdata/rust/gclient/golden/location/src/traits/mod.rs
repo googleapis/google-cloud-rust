@@ -22,6 +22,8 @@ pub(crate) mod dyntraits;
 /// a service. Service-specific metadata is provided through the
 /// [Location.metadata][google.cloud.location.Location.metadata] field.
 ///
+/// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
+///
 /// # Notes
 ///
 /// Application developers may use this trait to mock the cloud clients.

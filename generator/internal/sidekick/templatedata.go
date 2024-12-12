@@ -168,7 +168,7 @@ func newService(s *api.Service, c language.Codec, state *api.APIState) *Service 
 		ServiceNameToPascal: c.ToPascal(s.Name), // Alias for clarity
 		NameToCamel:         c.ToCamel(s.Name),
 		ServiceName:         s.Name,
-		DocLines:            c.FormatDocComments(s.Documentation),
+		DocLines:            c.FormatDocComments(s.Documentation, state),
 		DefaultHost:         s.DefaultHost,
 	}
 }
@@ -210,7 +210,7 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 			}
 			return false
 		}(),
-		DocLines:           c.FormatDocComments(m.Documentation),
+		DocLines:           c.FormatDocComments(m.Documentation, state),
 		IsMap:              m.IsMap,
 		IsPageableResponse: m.IsPageableResponse,
 	}
@@ -219,7 +219,7 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 	return &Method{
 		BodyAccessor:      c.BodyAccessor(m, state),
-		DocLines:          c.FormatDocComments(m.Documentation),
+		DocLines:          c.FormatDocComments(m.Documentation, state),
 		HTTPMethod:        m.PathInfo.Verb,
 		HTTPMethodToLower: strings.ToLower(m.PathInfo.Verb),
 		HTTPPathArgs:      c.HTTPPathArgs(m.PathInfo, state),
@@ -243,7 +243,7 @@ func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
 		NameToSnake:           c.ToSnake(oneOf.Name),
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(oneOf.Name),
 		FieldType:             c.OneOfType(oneOf, state),
-		DocLines:              c.FormatDocComments(oneOf.Documentation),
+		DocLines:              c.FormatDocComments(oneOf.Documentation, state),
 		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *Field {
 			return newField(field, c, state)
 		}),
@@ -256,7 +256,7 @@ func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
 		NameToCamel:           c.ToCamel(field.Name),
 		NameToPascal:          c.ToPascal(field.Name),
-		DocLines:              c.FormatDocComments(field.Documentation),
+		DocLines:              c.FormatDocComments(field.Documentation, state),
 		FieldAttributes:       c.FieldAttributes(field, state),
 		FieldType:             c.FieldType(field, state),
 		JSONName:              field.JSONName,
@@ -268,7 +268,7 @@ func newEnum(e *api.Enum, c language.Codec, state *api.APIState) *Enum {
 	return &Enum{
 		Name:          c.EnumName(e, state),
 		NameSnakeCase: c.ToSnake(c.EnumName(e, state)),
-		DocLines:      c.FormatDocComments(e.Documentation),
+		DocLines:      c.FormatDocComments(e.Documentation, state),
 		Values: mapSlice(e.Values, func(s *api.EnumValue) *EnumValue {
 			return newEnumValue(s, e, c, state)
 		}),
@@ -277,7 +277,7 @@ func newEnum(e *api.Enum, c language.Codec, state *api.APIState) *Enum {
 
 func newEnumValue(ev *api.EnumValue, e *api.Enum, c language.Codec, state *api.APIState) *EnumValue {
 	return &EnumValue{
-		DocLines: c.FormatDocComments(ev.Documentation),
+		DocLines: c.FormatDocComments(ev.Documentation, state),
 		Name:     c.EnumValueName(ev, state),
 		Number:   ev.Number,
 		EnumType: c.EnumName(e, state),

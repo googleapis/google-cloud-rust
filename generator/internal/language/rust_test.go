@@ -907,8 +907,9 @@ Maybe they wanted to show some JSON:
 		"/// ```",
 	}
 
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &RustCodec{}
-	got := c.FormatDocComments(input)
+	got := c.FormatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -932,8 +933,9 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	got := c.FormatDocComments(input)
+	got := c.FormatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1014,8 +1016,9 @@ block:
 		"///",
 	}
 
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &RustCodec{}
-	got := c.FormatDocComments(input)
+	got := c.FormatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1034,11 +1037,122 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 		"/// ```",
 	}
 
+	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &RustCodec{}
-	got := c.FormatDocComments(input)
+	got := c.FormatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
+}
+
+func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
+	input := `
+[Any][google.protobuf.Any]
+[Message][test.v1.SomeMessage]
+[Enum][test.v1.SomeMessage.SomeEnum]
+[Message][test.v1.SomeMessage] repeated
+[Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
+[ExternalMessage][google.iam.v1.SetIamPolicyRequest]
+[ExternalService][google.iam.v1.Iampolicy]
+[ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
+[SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
+`
+	want := []string{
+		"///",
+		"/// [Any][google.protobuf.Any]",
+		"/// [Message][test.v1.SomeMessage]",
+		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
+		"/// [Message][test.v1.SomeMessage] repeated",
+		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
+		"/// [ExternalService][google.iam.v1.Iampolicy]",
+		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
+		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
+		"///",
+		"///",
+		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
+		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
+		"/// [google.protobuf.Any]: wkt::Any",
+		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
+		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
+		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [test.v1.SomeService]: crate::traits::SomeService",
+		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
+	}
+
+	wkt := &RustPackage{
+		Name:    "wkt",
+		Package: "gcp-sdk-wkt",
+		Path:    "src/wkt",
+	}
+	iam := &RustPackage{
+		Name:    "iam_v1",
+		Package: "gcp-sdk-iam-v1",
+		Path:    "src/generated/iam/v1",
+	}
+	c := &RustCodec{
+		ModulePath:    "model",
+		ExtraPackages: []*RustPackage{wkt, iam},
+		PackageMapping: map[string]*RustPackage{
+			"google.protobuf": wkt,
+			"google.iam.v1":   iam,
+		},
+	}
+
+	// To test the mappings we need a fairly complex api.API instance. Create it
+	// in a separate function to make this more readable.
+	apiz := makeApiForRustFormatDocCommentsCrossLinks()
+	c.LoadWellKnownTypes(apiz.State)
+
+	got := c.FormatDocComments(input, apiz.State)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
+	enumValue := &api.EnumValue{
+		Name: "ENUM_VALUE",
+		ID:   ".test.v1.SomeMessage.SomeEnum.ENUM_VALUE",
+	}
+	someEnum := &api.Enum{
+		Name:   "SomeEnum",
+		ID:     ".test.v1.SomeMessage.SomeEnum",
+		Values: []*api.EnumValue{enumValue},
+	}
+	enumValue.Parent = someEnum
+	someMessage := &api.Message{
+		Name:  "SomeMessage",
+		ID:    ".test.v1.SomeMessage",
+		Enums: []*api.Enum{someEnum},
+		Fields: []*api.Field{
+			{Name: "unused"}, {Name: "field"},
+		},
+	}
+	someService := &api.Service{
+		Name: "SomeService",
+		ID:   ".test.v1.SomeService",
+		Methods: []*api.Method{
+			{Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo"},
+		},
+	}
+	a := newTestAPI(
+		[]*api.Message{someMessage},
+		[]*api.Enum{someEnum},
+		[]*api.Service{someService})
+	a.PackageName = "test.v1"
+	a.State.MessageByID[".google.iam.v1.SetIamPolicyRequest"] = &api.Message{
+		Name:    "SetIamPolicyRequest",
+		Package: "google.iam.v1",
+		ID:      ".google.iam.v1.SetIamPolicyRequest",
+	}
+	a.State.ServiceByID[".google.iam.v1.Iampolicy"] = &api.Service{
+		Name:    "Iampolicy",
+		Package: "google.iam.v1",
+		ID:      ".google.iam.v1.Iampolicy",
+	}
+	return a
 }
 
 func TestRust_MessageNames(t *testing.T) {

@@ -25,6 +25,9 @@ use gax::error::Error;
 ///
 /// * [Secret][google.cloud.secretmanager.v1.Secret]
 /// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
+///
+/// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+/// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
 #[derive(Clone)]
 pub struct SecretManagerService {
     inner: gax::http_client::ReqwestClient,
@@ -47,6 +50,8 @@ impl SecretManagerService {
 
 impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
@@ -72,6 +77,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
@@ -92,6 +100,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
     /// containing secret data and attaches it to an existing
     /// [Secret][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
@@ -111,6 +122,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
@@ -130,6 +143,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Updates metadata of an existing
     /// [Secret][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
@@ -160,6 +175,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<wkt::Empty> {
         let builder = self
             .inner
@@ -178,6 +195,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
     /// call does not return secret data.
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
@@ -206,6 +225,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
@@ -228,6 +249,8 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
@@ -250,6 +273,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::state::DISABLED
+    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
@@ -270,6 +297,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
+    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
@@ -291,6 +322,10 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
     /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
     /// and irrevocably destroys the secret data.
+    ///
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
+    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
@@ -313,6 +348,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
     /// according to the policy set on the associated
     /// [Secret][google.cloud.secretmanager.v1.Secret].
+    ///
+    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,

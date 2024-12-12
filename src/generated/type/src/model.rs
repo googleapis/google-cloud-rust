@@ -229,6 +229,8 @@ impl Color {
 ///
 /// Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and
 /// `google.protobuf.Timestamp`.
+///
+/// [google.type.TimeOfDay]: crate::model::TimeOfDay
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1221,6 +1223,8 @@ impl Quaternion {
 /// or are specified elsewhere. An API may choose to allow leap seconds. Related
 /// types are [google.type.Date][google.type.Date] and
 /// `google.protobuf.Timestamp`.
+///
+/// [google.type.Date]: crate::model::Date
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
