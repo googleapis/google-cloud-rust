@@ -38,5 +38,5 @@ reqwest    = { version = "0.12.9", features = ["json"] }
 bytes      = { version = "1.8.0", features = ["serde"] }
 gax        = { path = "../../../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 google-cloud-auth = { path = "../../../../../../../auth", package = "google-cloud-auth" }
-gtype      = { path = "../../../../../../../generator/testdata/rust/gclient/golden/type", package = "type-golden-gclient" }
+gtype      = { path = "../../../../../../testdata/rust/gclient/golden/type", package = "type-golden-gclient" }
 wkt        = { path = "../../../../../../../src/wkt", package = "gcp-sdk-wkt" }

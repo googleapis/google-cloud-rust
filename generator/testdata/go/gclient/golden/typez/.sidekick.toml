@@ -14,12 +14,12 @@
 
 [general]
 language = 'go'
-template-dir = 'generator/templates'
+template-dir = 'templates'
 specification-format = 'protobuf'
-specification-source = 'generator/testdata/googleapis/google/type'
+specification-source = 'testdata/googleapis/google/type'
 
 [source]
-googleapis-root = 'generator/testdata/googleapis'
+googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2024'

@@ -14,20 +14,20 @@
 
 [general]
 language = 'rust'
-template-dir = 'generator/templates'
+template-dir = 'templates'
 specification-format = 'protobuf'
-specification-source = 'generator/testdata/googleapis/google/cloud/secretmanager/v1'
-service-config = 'generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+specification-source = 'testdata/googleapis/google/cloud/secretmanager/v1'
+service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
 [source]
-googleapis-root = 'generator/testdata/googleapis'
+googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
 not-for-publication = 'true'
 package-name-override = 'secretmanager-golden-gclient'
-'package:gax' = 'package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client'
-'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth'
-'package:iam' = 'package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1'
-'package:location' = 'package=location-golden-gclient,path=generator/testdata/rust/gclient/golden/location,source=google.cloud.location'
-'package:wkt' = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf'
+'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'
+'package:google-cloud-auth' = 'package=google-cloud-auth,path=../auth'
+'package:iam' = 'package=iam-v1-golden-gclient,path=testdata/rust/gclient/golden/iam/v1,source=google.iam.v1'
+'package:location' = 'package=location-golden-gclient,path=testdata/rust/gclient/golden/location,source=google.cloud.location'
+'package:wkt' = 'package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf'

@@ -30,7 +30,7 @@ func TestParseArgs(t *testing.T) {
 		"-source-option", fmt.Sprintf("googleapis-root=%s", googleapisRoot),
 		"-language", "rust",
 		"-output", outputDir,
-		"-template-dir", "generator/templates",
+		"-template-dir", "templates",
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
