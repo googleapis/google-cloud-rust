@@ -15,6 +15,7 @@
 package language
 
 import (
+	"embed"
 	"fmt"
 	"log/slog"
 	"path"
@@ -28,6 +29,9 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
+
+//go:embed templates/rust
+var rustTemplates embed.FS
 
 // A regular expression to find code links in comments.
 //
@@ -464,6 +468,24 @@ func (c *RustCodec) TemplateDir() string {
 		return "rust/mod"
 	}
 	return "rust/crate"
+}
+
+func (c *RustCodec) TemplatesProvider() func(string) (string, error) {
+	return func(name string) (string, error) {
+		contents, err := rustTemplates.ReadFile(name)
+		if err != nil {
+			return "", err
+		}
+		return string(contents), nil
+	}
+}
+
+func (c *RustCodec) GeneratedFiles() []GeneratedFile {
+	root := "templates/rust/crate"
+	if c.GenerateModule {
+		root = "templates/rust/mod"
+	}
+	return walkTemplatesDir(rustTemplates, root)
 }
 
 func (c *RustCodec) MethodInOutTypeName(id string, state *api.APIState) string {
