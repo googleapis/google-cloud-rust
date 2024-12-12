@@ -37,7 +37,6 @@ time       = { version = "0.3.36", features = ["formatting", "parsing"] }
 reqwest    = { version = "0.12.9", features = ["json"] }
 bytes      = { version = "1.8.0", features = ["serde"] }
 gax        = { path = "../../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
-google-cloud-auth = { path = "../../../../../../auth", package = "google-cloud-auth" }
 iam        = { path = "../../../../../testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }
 location   = { path = "../../../../../testdata/rust/gclient/golden/location", package = "location-golden-gclient" }
 wkt        = { path = "../../../../../../src/wkt", package = "gcp-sdk-wkt" }
