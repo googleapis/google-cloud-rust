@@ -16,7 +16,6 @@ package language
 
 import (
 	"fmt"
-	"log"
 	"log/slog"
 	"path"
 	"regexp"
@@ -29,6 +28,21 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
+
+// A regular expression to find code links in comments.
+//
+// The Google API documentation (typically in protos) include links to code
+// elements in the form `[Thing][google.package.blah.v1.Thing.SubThing]`.
+// This regular expression captures the `][...]` part. There is a lot of scaping
+// because the brackets are metacharacters in regex.
+var commentLinkRegex = regexp.MustCompile(
+	`` + // `go fmt` is annoying
+		`\]` + // The closing bracket for the `[Thing]`
+		`\[` + // The opening bracket for the code element.
+		`[a-z_]+` + // Must start with an all lowercase name like `google` or `grafeas`.
+		`\.` + // Separated by a dot
+		`[a-zA-Z0-9_\.]+` + // We don't try to parse these with a regex, alphanum, underscores and dots are all accepted in any order
+		`\]`) // The closing bracket
 
 func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -638,12 +652,6 @@ func (*RustCodec) ToCamel(symbol string) string {
 func (c *RustCodec) FormatDocComments(documentation string, state *api.APIState) []string {
 	inBlockquote := false
 	blockquotePrefix := ""
-	linkRegex, err := regexp.Compile(`\]\[([a-z_]+\.[a-zA-Z0-9_\.]+)\]`)
-	if err != nil {
-		// The regex never changes, failure to compile should be detected during
-		// unit testing.
-		log.Fatal("cannot compile linkRegex", "error", err)
-	}
 
 	links := map[string]bool{}
 	var results []string
@@ -661,7 +669,7 @@ func (c *RustCodec) FormatDocComments(documentation string, state *api.APIState)
 				results = append(results, line)
 			}
 		} else {
-			for _, match := range linkRegex.FindAllString(line, -1) {
+			for _, match := range commentLinkRegex.FindAllString(line, -1) {
 				match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
 				links[match] = true
 			}
