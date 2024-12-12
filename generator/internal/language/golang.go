@@ -38,13 +38,14 @@ func NewGoCodec(options map[string]string) (*GoCodec, error) {
 			codec.PackageNameOverride = definition
 		case key == "go-package-name":
 			codec.GoPackageName = definition
+		case key == "copyright-year":
+			codec.GenerationYear = definition
 		case key == "not-for-publication":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
 				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
 			}
 			codec.DoNotPublish = value
-			continue
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
