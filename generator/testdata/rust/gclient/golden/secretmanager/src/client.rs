@@ -24,7 +24,7 @@ use std::sync::Arc;
 ///
 /// `SecretManagerService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SecretManagerService` in
-/// an [Rc](std::sync::Rc) or [Arc](std::async::Arc) to reuse it, because it
+/// an [Rc](std::sync::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 ///
 /// Secret Manager Service
@@ -191,7 +191,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 ///
 /// `Locations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Locations` in
-/// an [Rc](std::sync::Rc) or [Arc](std::async::Arc) to reuse it, because it
+/// an [Rc](std::sync::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
 ///
 /// Manages location-related information with an API service.
