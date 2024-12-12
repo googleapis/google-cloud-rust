@@ -20,8 +20,8 @@ type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 /// fields are sent as query parameters and may need special formatting:
 /// - Simple scalars are formatted as usual.
 /// - Fields of well-known types are formatted as strings. These include
-///   [Duration](types::Duration), [FieldMask](types::FieldMask), and
-///   [Timestamp](types::Timestamp).
+///   [Duration](wkt::Duration), [FieldMask](wkt::FieldMask), and
+///   [Timestamp](wkt::Timestamp).
 /// - [Option] fields that do not contain a value are not included in the HTTP
 ///   query.
 /// - Repeated fields are formatted as repeated query parameters.
