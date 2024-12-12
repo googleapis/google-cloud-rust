@@ -955,7 +955,7 @@ pub struct SecretPayload {
     ///
     /// The CRC32C value is encoded as a Int64 for compatibility, and can be
     /// safely downconverted to uint32 in languages that support this type.
-    /// https://cloud.google.com/apis/design/design_patterns#integer_types
+    /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     ///
     /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::traits::SecretManagerService
     /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::traits::SecretManagerService::access_secret_version
