@@ -21,6 +21,8 @@ pub mod model;
 use gax::error::Error;
 
 /// The traits implemented by this client library.
+#[allow(rustdoc::invalid_html_tags)]
+#[allow(rustdoc::redundant_explicit_links)]
 pub mod traits;
 
 /// Concrete implementations of this client library traits.

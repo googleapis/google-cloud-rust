@@ -53,4 +53,3 @@ impl<T: crate::traits::Locations> Locations for T {
     }
 
 }
-

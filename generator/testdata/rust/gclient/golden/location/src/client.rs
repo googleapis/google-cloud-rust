@@ -24,8 +24,8 @@ use std::sync::Arc;
 ///
 /// `Locations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Locations` in
-/// an [Rc](std::sync::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 ///
 /// An abstract interface that provides location-related information for
 /// a service. Service-specific metadata is provided through the

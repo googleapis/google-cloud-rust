@@ -323,7 +323,6 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
 
 }
 
-
 /// A dyn-compatible, crate-private version of `Locations`.
 #[async_trait::async_trait]
 pub trait Locations: std::fmt::Debug + Send + Sync {
@@ -363,4 +362,3 @@ impl<T: crate::traits::Locations> Locations for T {
     }
 
 }
-

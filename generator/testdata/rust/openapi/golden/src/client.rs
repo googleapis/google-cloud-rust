@@ -24,8 +24,8 @@ use std::sync::Arc;
 ///
 /// `SecretManagerService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SecretManagerService` in
-/// an [Rc](std::sync::Rc) or [Arc](std::sync::Arc) to reuse it, because it
-/// already uses an `Arc` internally.
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 ///
 /// Stores sensitive data such as API keys, passwords, and certificates.
 /// Provides convenience while improving security.
