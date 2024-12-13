@@ -18,5 +18,4 @@ service-config = 'google/cloud/location/cloud.yaml'
 
 [codec]
 copyright-year = '2024'
-'package:iam_v1' = 'ignore=true'
 'package:location' = 'ignore=true'

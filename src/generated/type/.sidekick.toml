@@ -18,5 +18,3 @@ service-config = 'google/type/type.yaml'
 
 [codec]
 copyright-year = '2024'
-'package:iam_v1' = 'ignore=true'
-'package:location' = 'ignore=true'
