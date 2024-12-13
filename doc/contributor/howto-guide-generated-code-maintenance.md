@@ -8,40 +8,42 @@ when the generator changes.
 ## Generate new library
 
 We will use "Web Security Scanner" as an example, most likely you will generate
-a different library, change the paths as needed:
+a different library, change the paths as needed. Start with a new branch in your
+fork:
+
+```bash
+git checkout -b feat-websecurityscanner-generate-library
+```
+
+Create an empty library using `cargo`. The contents will be overwritten by
+`sidekick`, but this automatically updates the top-level `Cargo.toml` file:
+
+```bash
+cargo new --lib --vcs none src/generated/cloud/websecurityscanner/v1
+taplo fmt Cargo.toml
+```
+
+Generate the library:
 
 ```bash
 go -C generator/ run ./cmd/sidekick -project-root .. \
     -specification-source google/cloud/websecurityscanner/v1 \
     -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml \
-    -output src/generated/websecurityscanner/v1 \
+    -output src/generated/cloud/websecurityscanner/v1 \
     generate
-```
-
-Edit the top-level `Cargo.toml` file and add the new directory.
-
-```bash
-git diff Cargo.toml
-diff --git a/Cargo.toml b/Cargo.toml
-index 44e101c..f03160b 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
-@@ -31,6 +31,7 @@ members = [
-   "src/generated/iam/v1",
-   "src/generated/api",
-   "src/generated/openapi-validation",
-+  "src/generated/websecurityscanner/v1",
-   "src/integration-tests",
- ]
 ```
 
 Add the files to `git`, compile them, and run the tests:
 
 ```bash
-git add src/generated/websecurityscanner/v1
-cargo build
-cargo test
-cargo doc
+git add src/generated/cloud/websecurityscanner/v1
+cargo fmt && cargo build && cargo test && cargo doc
+```
+
+Commit all these changes and send a PR to merge them.
+
+```bash
+git commit -m"feat(websecurityscanner): generate library" .
 ```
 
 ## Update the code with new googleapis protos
