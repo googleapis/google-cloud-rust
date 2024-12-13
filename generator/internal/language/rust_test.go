@@ -42,6 +42,7 @@ func createRustCodec() *RustCodec {
 
 func TestRust_ParseOptions(t *testing.T) {
 	options := map[string]string{
+		"version":               "1.2.3",
 		"package-name-override": "test-only",
 		"copyright-year":        "2035",
 		"module-path":           "alternative::generated",
@@ -58,6 +59,7 @@ func TestRust_ParseOptions(t *testing.T) {
 		Path:    "src/wkt",
 	}
 	want := &RustCodec{
+		Version:                  "1.2.3",
 		PackageNameOverride:      "test-only",
 		GenerationYear:           "2035",
 		ModulePath:               "alternative::generated",

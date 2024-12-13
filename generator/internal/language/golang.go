@@ -316,6 +316,11 @@ func (c *GoCodec) PackageName(api *api.API) string {
 	return api.Name
 }
 
+func (c *GoCodec) PackageVersion() string {
+	// Go does not need package versions in any generated file.
+	return ""
+}
+
 func (c *GoCodec) validatePackageName(newPackage, elementName string) error {
 	if c.SourceSpecificationPackageName == newPackage {
 		return nil

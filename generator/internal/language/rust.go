@@ -74,6 +74,7 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 		DeserializeWithdDefaults: true,
 		ExtraPackages:            []*RustPackage{},
 		PackageMapping:           map[string]*RustPackage{},
+		Version:                  "0.0.0",
 	}
 	for key, definition := range options {
 		switch {
@@ -101,6 +102,8 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
 			}
 			codec.DoNotPublish = value
+		case key == "version":
+			codec.Version = definition
 		case strings.HasPrefix(key, "package:"):
 			pkgOption, err := parseRustPackageOption(key, definition)
 			if err != nil {
@@ -197,6 +200,8 @@ type RustCodec struct {
 	// intended only for testing the generator or the SDK, or the service may
 	// not be GA.
 	DoNotPublish bool
+	// The version of the generated crate.
+	Version string
 }
 
 type RustPackage struct {
@@ -960,6 +965,10 @@ func (c *RustCodec) RequiredPackages() []string {
 
 func (c *RustCodec) CopyrightYear() string {
 	return c.GenerationYear
+}
+
+func (c *RustCodec) PackageVersion() string {
+	return c.Version
 }
 
 func (c *RustCodec) PackageName(api *api.API) string {
