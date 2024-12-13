@@ -24,6 +24,11 @@ pub struct XGoogApiClient {
 
 pub const GAPIC: &str = "gapic";
 pub const GCCL: &str = "gccl";
+lazy_static::lazy_static! {
+    pub(crate) static ref USER_AGENT: String = {
+        user_agent()
+    };
+}
 
 mod built_info {
     // The file has been placed there by the build script.
@@ -33,21 +38,26 @@ mod built_info {
 impl XGoogApiClient {
     /// Format the struct as needed for the `x-goog-api-client` header.
     pub fn header_value(&self) -> String {
-        // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
-        // found, leave RUSTC_VERSION unchanged.
-        let rustc_version = built_info::RUSTC_VERSION;
-        let rustc_version = rustc_version
-            .strip_prefix("rustc ")
-            .unwrap_or(built_info::RUSTC_VERSION);
-
-        // Capture the gax version too.
-        let gax_version = built_info::PKG_VERSION;
-
         format!(
-            "gl-rust/{rustc_version} gax/{gax_version} {}/{}",
-            self.library_type, self.version
+            "{}/{} {}",
+            self.library_type,
+            self.version,
+            USER_AGENT.as_str()
         )
     }
+}
+
+pub(crate) fn user_agent() -> String {
+    // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
+    // found, leave RUSTC_VERSION unchanged.
+    let rustc_version = built_info::RUSTC_VERSION;
+    let rustc_version = rustc_version
+        .strip_prefix("rustc ")
+        .unwrap_or(built_info::RUSTC_VERSION);
+
+    // Capture the gax version too.
+    let gax_version = built_info::PKG_VERSION;
+    format!("gax/{gax_version} gl-rust/{rustc_version}")
 }
 
 #[cfg(test)]

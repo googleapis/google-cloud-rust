@@ -86,3 +86,6 @@ pub mod paginator;
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
 pub mod http_client;
+
+/// Defines traits and helpers to set options on requests.
+pub mod options;

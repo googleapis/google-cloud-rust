@@ -612,6 +612,7 @@ dependencies = [
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "http",
+ "lazy_static",
  "pin-project",
  "reqwest",
  "serde",

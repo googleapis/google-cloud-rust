@@ -49,10 +49,22 @@ impl ReqwestClient {
 
     pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
         &self,
-        mut builder: reqwest::RequestBuilder,
+        builder: reqwest::RequestBuilder,
         body: Option<I>,
     ) -> Result<O> {
-        builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
+        self.execute_with_options::<I, O>(builder, body, crate::options::RequestOptions::default())
+            .await
+    }
+
+    pub async fn execute_with_options<I: serde::ser::Serialize, O: serde::de::DeserializeOwned>(
+        &self,
+        mut builder: reqwest::RequestBuilder,
+        body: Option<I>,
+        options: crate::options::RequestOptions,
+    ) -> Result<O> {
+        builder = builder
+            .header(reqwest::header::USER_AGENT, Self::user_agent(&options)?)
+            .bearer_auth(Self::fetch_token(&self.cred).await?);
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -65,6 +77,17 @@ impl ReqwestClient {
         }
         let response = resp.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
+    }
+
+    fn user_agent(
+        options: &crate::options::RequestOptions,
+    ) -> Result<reqwest::header::HeaderValue> {
+        let value = options
+            .get::<crate::options::UserAgentPrefix>()
+            .map(|v| format!("{v} {}", crate::api_header::USER_AGENT.as_str()))
+            .unwrap_or_else(|| crate::api_header::USER_AGENT.clone());
+
+        reqwest::header::HeaderValue::from_str(&value).map_err(Error::other)
     }
 
     async fn fetch_token(cred: &Credential) -> Result<String> {
