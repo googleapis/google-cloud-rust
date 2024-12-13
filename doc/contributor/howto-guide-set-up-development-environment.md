@@ -40,6 +40,59 @@ cargo fmt && cargo clippy -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+## Running the integration tests
+
+This guide assumes you are familiar with the [Google Cloud CLI], you have access
+to an existing Google Cloud Projects, and have enough permissions on that
+project.
+
+### One time set up
+
+We use [Secret Manager] to run integration tests. Follow the
+[Enable the Secret Manager API] guide to, as it says, enable the API and make
+sure that billing is enabled in your projects.
+
+Verify this is working with something like:
+
+```bash
+gcloud secrets list
+```
+
+It is fine if the list is empty, you just don't want an error.
+
+The integration tests perform some IAM operations, you will need a service
+account. For a test project, just create the SA using the CLI:
+
+```bash
+gcloud iam service-accounts create rust-sdk-test \
+    --display-name="Used in SA testing" \
+    --description="This SA gets assigned to roles on short-lived resources during integration tests"
+```
+
+For extra safety, disable the service account:
+
+```bash
+GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
+gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
+```
+
+### Running the Integration Tests
+
+Use `cargo test` to run the tests. The `run-integration-tests` features enables
+running the integration tests. The default is to only run unit tests:
+
+```bash
+env \
+    GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT}
+  cargo test --features run-integration-tests --package integration-tests
+```
+
+There are (at the moment) six integration tests. All using secret manager. We
+test the OpenAPI-generated client, the OpenAPI-generated client with locational
+endpoints, and the Protobuf generated client. For each version we run the tests
+with logging enabled and with logging disabled.
+
 ## Miscellaneous Tools
 
 We use a number of tools to format non-Rust code. The CI builds enforce
@@ -94,5 +147,8 @@ use with:
 git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
 ```
 
+[enable the secret manager api]: docs/configuring-secret-manager
 [getting-started-rust]: https://www.rust-lang.org/learn/get-started
 [golang-install]: https://go.dev/doc/install
+[google cloud cli]: https://cloud.google.com/cli
+[secret manager]: https://cloud.google.com/secret-manager/
