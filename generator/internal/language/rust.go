@@ -72,85 +72,93 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 		PackageMapping:           map[string]*RustPackage{},
 	}
 	for key, definition := range options {
-		switch key {
-		case "package-name-override":
+		switch {
+		case key == "package-name-override":
 			codec.PackageNameOverride = definition
-			continue
-		case "generate-module":
+		case key == "generate-module":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
 				return nil, fmt.Errorf("cannot convert `generate-module` value %q to boolean: %w", definition, err)
 			}
 			codec.GenerateModule = value
-			continue
-		case "module-path":
+		case key == "module-path":
 			codec.ModulePath = definition
-		case "deserialize-with-defaults":
+		case key == "deserialize-with-defaults":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
 				return nil, fmt.Errorf("cannot convert `deserialize-with-defaults` value %q to boolean: %w", definition, err)
 			}
 			codec.DeserializeWithdDefaults = value
-			continue
-		case "copyright-year":
+		case key == "copyright-year":
 			codec.GenerationYear = definition
-			continue
-		case "not-for-publication":
+		case key == "not-for-publication":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
 				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
 			}
 			codec.DoNotPublish = value
-			continue
-		}
-		if !strings.HasPrefix(key, "package:") {
-			continue
-		}
-		var specificationPackages []string
-		pkg := &RustPackage{
-			Name: strings.TrimPrefix(key, "package:"),
-		}
-		for _, element := range strings.Split(definition, ",") {
-			s := strings.SplitN(element, "=", 2)
-			if len(s) != 2 {
-				return nil, fmt.Errorf("the definition for package %q should be a comma-separated list of key=value pairs, got=%q", key, definition)
+		case strings.HasPrefix(key, "package:"):
+			pkgOption, err := parseRustPackageOption(key, definition)
+			if err != nil {
+				return nil, err
 			}
-			switch s[0] {
-			case "package":
-				pkg.Package = s[1]
-			case "path":
-				pkg.Path = s[1]
-			case "version":
-				pkg.Version = s[1]
-			case "source":
-				specificationPackages = append(specificationPackages, s[1])
-			case "feature":
-				pkg.Features = append(pkg.Features, strings.Split(s[1], ",")...)
-			case "ignore":
-				value, err := strconv.ParseBool(s[1])
-				if err != nil {
-					return nil, fmt.Errorf("cannot convert `ignore` value %q (part of %q) to boolean: %w", definition, s[1], err)
-				}
-				pkg.Ignore = value
-			case "force-used":
-				value, err := strconv.ParseBool(s[1])
-				if err != nil {
-					return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
-				}
-				pkg.Used = value
-			default:
-				return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
+			codec.ExtraPackages = append(codec.ExtraPackages, pkgOption.pkg)
+			for _, source := range pkgOption.otherNames {
+				codec.PackageMapping[source] = pkgOption.pkg
 			}
-		}
-		if !pkg.Ignore && pkg.Package == "" {
-			return nil, fmt.Errorf("missing rust package name for package %s, got=%s", key, definition)
-		}
-		codec.ExtraPackages = append(codec.ExtraPackages, pkg)
-		for _, source := range specificationPackages {
-			codec.PackageMapping[source] = pkg
+		default:
+			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
 	}
 	return codec, nil
+}
+
+type rustPackageOption struct {
+	pkg        *RustPackage
+	otherNames []string
+}
+
+func parseRustPackageOption(key, definition string) (*rustPackageOption, error) {
+	var specificationPackages []string
+	pkg := &RustPackage{
+		Name: strings.TrimPrefix(key, "package:"),
+	}
+	for _, element := range strings.Split(definition, ",") {
+		s := strings.SplitN(element, "=", 2)
+		if len(s) != 2 {
+			return nil, fmt.Errorf("the definition for package %q should be a comma-separated list of key=value pairs, got=%q", key, definition)
+		}
+		switch s[0] {
+		case "package":
+			pkg.Package = s[1]
+		case "path":
+			pkg.Path = s[1]
+		case "version":
+			pkg.Version = s[1]
+		case "source":
+			specificationPackages = append(specificationPackages, s[1])
+		case "feature":
+			pkg.Features = append(pkg.Features, strings.Split(s[1], ",")...)
+		case "ignore":
+			value, err := strconv.ParseBool(s[1])
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `ignore` value %q (part of %q) to boolean: %w", definition, s[1], err)
+			}
+			pkg.Ignore = value
+		case "force-used":
+			value, err := strconv.ParseBool(s[1])
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
+			}
+			pkg.Used = value
+		default:
+			return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
+		}
+	}
+	if !pkg.Ignore && pkg.Package == "" {
+		return nil, fmt.Errorf("missing rust package name for package %s, got=%s", key, definition)
+	}
+	return &rustPackageOption{pkg: pkg, otherNames: specificationPackages}, nil
 }
 
 type RustCodec struct {
