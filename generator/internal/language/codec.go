@@ -108,6 +108,8 @@ type Codec interface {
 	// The package name in the destination language. May be empty, some
 	// languages do not have a package manager.
 	PackageName(api *api.API) string
+	// Some languages need a package version.
+	PackageVersion() string
 	// Validate an API, some codecs impose restrictions on the input API.
 	Validate(api *api.API) error
 	// The year when this package was first generated.
