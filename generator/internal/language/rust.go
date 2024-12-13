@@ -132,6 +132,12 @@ func NewRustCodec(outdir string, options map[string]string) (*RustCodec, error) 
 					return nil, fmt.Errorf("cannot convert `ignore` value %q (part of %q) to boolean: %w", definition, s[1], err)
 				}
 				pkg.Ignore = value
+			case "force-used":
+				value, err := strconv.ParseBool(s[1])
+				if err != nil {
+					return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
+				}
+				pkg.Used = value
 			default:
 				return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 			}
@@ -196,6 +202,9 @@ type RustPackage struct {
 	Version string
 	// Optional features enabled for the package.
 	Features []string
+	// If true, this package was referenced by a generated message, service, or
+	// by the documentation.
+	Used bool
 }
 
 func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
@@ -229,6 +238,11 @@ func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
 	}
 	for _, message := range wellKnown {
 		s.MessageByID[message.ID] = message
+	}
+	for _, pkg := range c.ExtraPackages {
+		if pkg.Name == "gax" {
+			pkg.Used = len(s.ServiceByID) > 0
+		}
 	}
 }
 
@@ -460,7 +474,7 @@ func (c *RustCodec) rustPackage(packageName string) string {
 	if packageName == c.SourceSpecificationPackageName {
 		return "crate::" + c.ModulePath
 	}
-	mapped, ok := c.PackageMapping[packageName]
+	mapped, ok := c.mapPackage(packageName)
 	if !ok {
 		slog.Error("unknown source package name", "name", packageName)
 		return packageName
@@ -859,7 +873,7 @@ func (c *RustCodec) methodRustdocLink(m *api.Method, state *api.APIState) string
 }
 
 func (c *RustCodec) serviceRustdocLink(s *api.Service, _ *api.APIState) string {
-	mapped, ok := c.PackageMapping[s.Package]
+	mapped, ok := c.mapPackage(s.Package)
 	if ok {
 		return fmt.Sprintf("%s::traits::%s", mapped.Name, s.Name)
 	}
@@ -877,10 +891,21 @@ func (c *RustCodec) projectRoot() string {
 	return rel
 }
 
+func (c *RustCodec) mapPackage(source string) (*RustPackage, bool) {
+	mapped, ok := c.PackageMapping[source]
+	if ok {
+		mapped.Used = true
+	}
+	return mapped, ok
+}
+
 func (c *RustCodec) RequiredPackages() []string {
 	lines := []string{}
 	for _, pkg := range c.ExtraPackages {
 		if pkg.Ignore {
+			continue
+		}
+		if !pkg.Used {
 			continue
 		}
 		components := []string{}
