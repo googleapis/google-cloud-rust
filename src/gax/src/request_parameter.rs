@@ -68,7 +68,7 @@ impl RequestParameter for String {
 
 impl RequestParameter for wkt::Duration {
     fn format(&self) -> Result {
-        Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
+        Ok(self.to_json())
     }
 }
 
@@ -80,7 +80,7 @@ impl RequestParameter for wkt::FieldMask {
 
 impl RequestParameter for wkt::Timestamp {
     fn format(&self) -> Result {
-        Ok(serde_json::to_value(self)?.as_str().unwrap().to_string())
+        self.to_json().map_err(|e| Error::Format(e.into()))
     }
 }
 

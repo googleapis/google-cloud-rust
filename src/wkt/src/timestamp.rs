@@ -63,6 +63,12 @@ pub enum TimestampError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
     OutOfRange(),
+
+    #[error("cannot serialize timestamp: {0}")]
+    Serialize(String),
+
+    #[error("cannot deserialize timestamp: {0}")]
+    Deserialize(String),
 }
 
 type Error = TimestampError;
@@ -157,6 +163,24 @@ impl Timestamp {
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
+
+    pub fn to_json(&self) -> Result<String, TimestampError> {
+        let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
+            self.seconds as i128 * NS + self.nanos as i128,
+        )
+        .map_err(|e| TimestampError::Serialize(format!("{e}")))?;
+        ts.format(&Rfc3339)
+            .map_err(|e| TimestampError::Serialize(format!("{e}")))
+    }
+
+    pub fn from_json(value: &str) -> Result<Self, TimestampError> {
+        let odt = time::OffsetDateTime::parse(value, &Rfc3339)
+            .map_err(|e| TimestampError::Deserialize(format!("{e}")))?;
+        let nanos_since_epoch = odt.unix_timestamp_nanos();
+        let seconds = (nanos_since_epoch / NS) as i64;
+        let nanos = (nanos_since_epoch % NS) as i32;
+        Timestamp::new(seconds, nanos)
+    }
 }
 
 use time::format_description::well_known::Rfc3339;
@@ -169,11 +193,7 @@ impl serde::ser::Serialize for Timestamp {
         S: serde::ser::Serializer,
     {
         use serde::ser::Error as _;
-        let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
-            self.seconds as i128 * NS + self.nanos as i128,
-        )
-        .map_err(S::Error::custom)?;
-        ts.format(&Rfc3339)
+        self.to_json()
             .map_err(S::Error::custom)?
             .serialize(serializer)
     }
@@ -192,11 +212,7 @@ impl serde::de::Visitor<'_> for TimestampVisitor {
     where
         E: serde::de::Error,
     {
-        let odt = time::OffsetDateTime::parse(value, &Rfc3339).map_err(E::custom)?;
-        let nanos_since_epoch = odt.unix_timestamp_nanos();
-        let seconds = (nanos_since_epoch / NS) as i64;
-        let nanos = (nanos_since_epoch % NS) as i32;
-        Timestamp::new(seconds, nanos).map_err(E::custom)
+        Timestamp::from_json(value).map_err(E::custom)
     }
 }
 
