@@ -17,13 +17,13 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Iampolicy] to make requests with.
+/// An implementation of [crate::traits::IAMPolicy] to make requests with.
 ///
-/// `Iampolicy` has various configuration parameters, but the defaults
+/// `IAMPolicy` has various configuration parameters, but the defaults
 /// are set to work with most applications.
 ///
-/// `Iampolicy` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Iampolicy` in
+/// `IAMPolicy` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `IAMPolicy` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 ///
@@ -53,11 +53,11 @@ use std::sync::Arc;
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
 #[derive(Clone, Debug)]
-pub struct Iampolicy {
-    inner: Arc<dyn crate::traits::dyntraits::Iampolicy>,
+pub struct IAMPolicy {
+    inner: Arc<dyn crate::traits::dyntraits::IAMPolicy>,
 }
 
-impl Iampolicy {
+impl IAMPolicy {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
         Self::new_with_config(crate::ConfigBuilder::default()).await
@@ -69,23 +69,23 @@ impl Iampolicy {
         Ok(Self { inner }) 
     }
 
-    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::Iampolicy>> {
+    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::IAMPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Iampolicy> {
-        crate::transport::Iampolicy::new(conf).await
+    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::IAMPolicy> {
+        crate::transport::IAMPolicy::new(conf).await
     }
 
-    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Iampolicy> {
-        Self::build_transport(conf).await.map(crate::tracing::Iampolicy::new)
+    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::IAMPolicy> {
+        Self::build_transport(conf).await.map(crate::tracing::IAMPolicy::new)
     }
 }
 
-impl crate::traits::Iampolicy for Iampolicy {
+impl crate::traits::IAMPolicy for IAMPolicy {
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
     ///

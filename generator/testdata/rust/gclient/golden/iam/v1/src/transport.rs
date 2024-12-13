@@ -44,26 +44,26 @@ use gax::error::Error;
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
 #[derive(Clone)]
-pub struct Iampolicy {
+pub struct IAMPolicy {
     inner: gax::http_client::ReqwestClient,
 }
 
-impl std::fmt::Debug for Iampolicy {
+impl std::fmt::Debug for IAMPolicy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Iampolicy")
+        f.debug_struct("IAMPolicy")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl Iampolicy {
+impl IAMPolicy {
     pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
         let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::traits::Iampolicy for Iampolicy {
+impl crate::traits::IAMPolicy for IAMPolicy {
     /// Sets the access control policy on the specified resource. Replaces any
     /// existing policy.
     ///

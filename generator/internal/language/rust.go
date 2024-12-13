@@ -660,6 +660,13 @@ func (*RustCodec) ToSnakeNoMangling(symbol string) string {
 //
 //	`ToPascal("self") -> "Self"`
 func (*RustCodec) ToPascal(symbol string) string {
+	if symbol == "" {
+		return ""
+	}
+	runes := []rune(symbol)
+	if unicode.IsUpper(runes[0]) && !strings.ContainsRune(symbol, '_') {
+		return rustEscapeKeyword(symbol)
+	}
 	return rustEscapeKeyword(strcase.ToCamel(symbol))
 }
 
