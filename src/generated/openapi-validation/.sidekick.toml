@@ -14,7 +14,6 @@
 
 [general]
 language = 'rust'
-template-dir = 'generator/templates'
 specification-format = 'openapi'
 specification-source = 'testdata/secretmanager_openapi_v1.json'
 service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'

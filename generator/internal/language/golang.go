@@ -15,6 +15,7 @@
 package language
 
 import (
+	"embed"
 	"fmt"
 	"log/slog"
 	"strconv"
@@ -25,6 +26,9 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
+
+//go:embed templates/go
+var goTemplates embed.FS
 
 func NewGoCodec(options map[string]string) (*GoCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -149,8 +153,18 @@ func (c *GoCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
 	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
 }
 
-func (c *GoCodec) TemplateDir() string {
-	return "go"
+func (c *GoCodec) TemplatesProvider() TemplateProvider {
+	return func(name string) (string, error) {
+		contents, err := goTemplates.ReadFile(name)
+		if err != nil {
+			return "", err
+		}
+		return string(contents), nil
+	}
+}
+
+func (c *GoCodec) GeneratedFiles() []GeneratedFile {
+	return walkTemplatesDir(goTemplates, "templates/go")
 }
 
 func (c *GoCodec) MethodInOutTypeName(id string, s *api.APIState) string {

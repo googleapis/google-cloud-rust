@@ -70,7 +70,6 @@ func TestUpdateRootConfig(t *testing.T) {
 	rootConfig := &Config{
 		General: GeneralConfig{
 			Language:            "rust",
-			TemplateDir:         "generator/templates",
 			SpecificationFormat: "protobuf",
 		},
 		Source: map[string]string{

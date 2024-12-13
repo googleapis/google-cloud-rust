@@ -23,7 +23,6 @@ import (
 )
 
 type TemplateData struct {
-	TemplateDir       string
 	Name              string
 	Title             string
 	Description       string
@@ -126,7 +125,6 @@ type EnumValue struct {
 func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 	c.LoadWellKnownTypes(model.State)
 	data := &TemplateData{
-		TemplateDir:   c.TemplateDir(),
 		Name:          model.Name,
 		Title:         model.Title,
 		Description:   model.Description,

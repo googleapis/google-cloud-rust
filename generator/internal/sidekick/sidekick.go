@@ -48,8 +48,7 @@ func runSidekick(cmdLine *CommandLine) error {
 	}
 	argsConfig := &Config{
 		General: GeneralConfig{
-			Language:    cmdLine.Language,
-			TemplateDir: cmdLine.TemplateDir,
+			Language: cmdLine.Language,
 		},
 		Source: maps.Clone(cmdLine.Source),
 		Codec:  maps.Clone(cmdLine.Codec),

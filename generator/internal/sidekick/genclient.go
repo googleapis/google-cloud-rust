@@ -15,11 +15,10 @@
 package sidekick
 
 import (
-	"io/fs"
-	"log/slog"
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -34,8 +33,6 @@ type generateClientRequest struct {
 	Codec language.Codec
 	// OutDir is the path to the output directory.
 	OutDir string
-	// Template directory
-	TemplateDir string
 }
 
 func (r *generateClientRequest) outDir() string {
@@ -46,43 +43,50 @@ func (r *generateClientRequest) outDir() string {
 	return r.OutDir
 }
 
+type mustacheProvider struct {
+	impl    func(string) (string, error)
+	dirname string
+}
+
+func (p *mustacheProvider) Get(name string) (string, error) {
+	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
+}
+
 // generateClient takes some state and applies it to a template to create a client
 // library.
 func generateClient(req *generateClientRequest) error {
 	data := newTemplateData(req.API, req.Codec)
-	root := filepath.Join(req.TemplateDir, req.Codec.TemplateDir())
-	err := filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
-		if d.IsDir() {
-			dn := filepath.Join(req.outDir(), strings.TrimPrefix(path, root))
-			os.MkdirAll(dn, 0777) // Ignore errors
-			return nil
-		}
-		if filepath.Ext(path) != ".mustache" {
-			return nil
-		}
-		if strings.Count(d.Name(), ".") == 1 {
-			// skipping partials
-			return nil
-		}
-		var context []any
-		context = append(context, data)
-		if req.Codec.AdditionalContext() != nil {
-			context = append(context, req.Codec.AdditionalContext())
-		}
-		s, err := mustache.RenderFile(path, context...)
-		if err != nil {
-			return err
-		}
-		fn := filepath.Join(req.outDir(), filepath.Dir(strings.TrimPrefix(path, root)), strings.TrimSuffix(d.Name(), ".mustache"))
-		return os.WriteFile(fn, []byte(s), os.ModePerm)
-	})
-	if err != nil {
-		slog.Error("error walking templates", "err", err.Error())
-		return err
+	var context []any
+	context = append(context, data)
+	if req.Codec.AdditionalContext() != nil {
+		context = append(context, req.Codec.AdditionalContext())
 	}
 
+	provider := req.Codec.TemplatesProvider()
+	var errs []error
+	for _, gen := range req.Codec.GeneratedFiles() {
+		templateContents, err := provider(gen.TemplatePath)
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		destination := filepath.Join(req.outDir(), gen.OutputPath)
+		os.MkdirAll(filepath.Dir(destination), 0777) // Ignore errors
+		nestedProvider := mustacheProvider{
+			impl:    provider,
+			dirname: filepath.Dir(gen.TemplatePath),
+		}
+		s, err := mustache.RenderPartials(templateContents, &nestedProvider, context...)
+		if err != nil {
+			errs = append(errs, err)
+			continue
+		}
+		if err := os.WriteFile(destination, []byte(s), os.ModePerm); err != nil {
+			errs = append(errs, err)
+		}
+	}
+	if len(errs) > 0 {
+		return fmt.Errorf("errors generating output files: %w", errors.Join(errs...))
+	}
 	return nil
 }

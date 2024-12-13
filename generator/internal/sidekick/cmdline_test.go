@@ -30,7 +30,6 @@ func TestParseArgs(t *testing.T) {
 		"-source-option", fmt.Sprintf("googleapis-root=%s", googleapisRoot),
 		"-language", "rust",
 		"-output", outputDir,
-		"-template-dir", "templates",
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
@@ -51,9 +50,8 @@ func TestParseArgs(t *testing.T) {
 		Source: map[string]string{
 			"googleapis-root": googleapisRoot,
 		},
-		Language:    "rust",
-		Output:      outputDir,
-		TemplateDir: templateDir,
+		Language: "rust",
+		Output:   outputDir,
 		Codec: map[string]string{
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",

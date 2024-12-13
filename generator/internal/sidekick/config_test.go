@@ -33,7 +33,6 @@ func TestLoadRootConfigOnlyGeneral(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 		},
 	}
@@ -69,7 +68,6 @@ func TestLoadRootConfig(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 		},
 		Source: map[string]string{
@@ -102,7 +100,6 @@ func TestMergeLocalForGeneral(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 		},
 	}
@@ -110,7 +107,6 @@ func TestMergeLocalForGeneral(t *testing.T) {
 	local := Config{
 		General: GeneralConfig{
 			Language:            "local-language",
-			TemplateDir:         "local-template-dir",
 			SpecificationFormat: "local-specification-format",
 			SpecificationSource: "local-specification-source",
 			ServiceConfig:       "local-service-config",
@@ -124,7 +120,6 @@ func TestMergeLocalForGeneral(t *testing.T) {
 	want := &Config{
 		General: GeneralConfig{
 			Language:            "local-language",
-			TemplateDir:         "local-template-dir",
 			SpecificationFormat: "local-specification-format",
 			SpecificationSource: "local-specification-source",
 			ServiceConfig:       "local-service-config",
@@ -142,7 +137,6 @@ func TestMergeIgnoreRootSourceAndServiceConfig(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 			SpecificationSource: "root-specification-source",
 			ServiceConfig:       "root-service-config",
@@ -152,7 +146,6 @@ func TestMergeIgnoreRootSourceAndServiceConfig(t *testing.T) {
 	local := Config{
 		General: GeneralConfig{
 			Language:            "local-language",
-			TemplateDir:         "local-template-dir",
 			SpecificationFormat: "local-specification-format",
 		},
 	}
@@ -164,7 +157,6 @@ func TestMergeIgnoreRootSourceAndServiceConfig(t *testing.T) {
 	want := &Config{
 		General: GeneralConfig{
 			Language:            "local-language",
-			TemplateDir:         "local-template-dir",
 			SpecificationFormat: "local-specification-format",
 			SpecificationSource: "",
 			ServiceConfig:       "",
@@ -182,7 +174,6 @@ func TestMergeCodecAndSource(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 		},
 		Codec: map[string]string{
@@ -217,7 +208,6 @@ func TestMergeCodecAndSource(t *testing.T) {
 	want := &Config{
 		General: GeneralConfig{
 			Language:            "root-language",
-			TemplateDir:         "root-template-dir",
 			SpecificationFormat: "root-specification-format",
 			SpecificationSource: "local-specification-source",
 			ServiceConfig:       "local-service-config",

@@ -14,7 +14,6 @@
 
 [general]
 language = 'rust'
-template-dir = 'templates'
 specification-format = 'protobuf'
 specification-source = 'google/rpc/error_details.proto'
 service-config = 'google/rpc/rpc_publish.yaml'

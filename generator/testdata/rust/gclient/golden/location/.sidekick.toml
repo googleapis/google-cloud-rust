@@ -14,7 +14,6 @@
 
 [general]
 language = 'rust'
-template-dir = 'templates'
 specification-format = 'protobuf'
 specification-source = 'testdata/googleapis/google/cloud/location'
 service-config = 'testdata/googleapis/google/cloud/location/cloud.yaml'

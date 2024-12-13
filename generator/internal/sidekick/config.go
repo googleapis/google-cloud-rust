@@ -32,7 +32,6 @@ type Config struct {
 // selection of parser and codec.
 type GeneralConfig struct {
 	Language            string `toml:"language,omitempty"`
-	TemplateDir         string `toml:"template-dir,omitempty"`
 	SpecificationFormat string `toml:"specification-format,omitempty"`
 	SpecificationSource string `toml:"specification-source,omitempty"`
 	ServiceConfig       string `toml:"service-config,omitempty"`
@@ -70,7 +69,6 @@ func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 	merged := Config{
 		General: GeneralConfig{
 			Language:            rootConfig.General.Language,
-			TemplateDir:         rootConfig.General.TemplateDir,
 			SpecificationFormat: rootConfig.General.SpecificationFormat,
 		},
 		Source: map[string]string{},
@@ -92,9 +90,6 @@ func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 	}
 	if local.General.Language != "" {
 		merged.General.Language = local.General.Language
-	}
-	if local.General.TemplateDir != "" {
-		merged.General.TemplateDir = local.General.TemplateDir
 	}
 	for k, v := range local.Codec {
 		merged.Codec[k] = v

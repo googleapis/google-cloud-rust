@@ -30,7 +30,6 @@ const (
 	// projectRoot is the root of the google-cloud-rust. The golden files for
 	// these tests depend on code in ../../auth and ../../src/gax.
 	projectRoot = "../.."
-	templateDir = "templates"
 	testdataDir = "testdata"
 )
 
@@ -52,7 +51,6 @@ func TestRustFromOpenAPI(t *testing.T) {
 		ServiceConfig:       fmt.Sprintf("%s/%s", testdataDir, secretManagerServiceConfig),
 		Language:            "rust",
 		Output:              outDir,
-		TemplateDir:         templateDir,
 		Codec: map[string]string{
 			"not-for-publication":       "true",
 			"copyright-year":            "2024",
@@ -123,7 +121,6 @@ func TestRustFromProtobuf(t *testing.T) {
 			ServiceConfig: config.ServiceConfig,
 			Language:      "rust",
 			Output:        path.Join(outDir, config.Name),
-			TemplateDir:   templateDir,
 			Codec: map[string]string{
 				"not-for-publication":       "true",
 				"copyright-year":            "2024",
@@ -185,7 +182,6 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			ServiceConfig: config.ServiceConfig,
 			Language:      "rust",
 			Output:        path.Join(testdataDir, "rust/gclient/golden/module", config.Name),
-			TemplateDir:   templateDir,
 			Codec: map[string]string{
 				"copyright-year":  "2024",
 				"generate-module": "true",
@@ -243,7 +239,6 @@ func TestGoFromProtobuf(t *testing.T) {
 			ServiceConfig: "",
 			Language:      "go",
 			Output:        path.Join(outDir, config.Name),
-			TemplateDir:   templateDir,
 			Codec: map[string]string{
 				"not-for-publication":   "true",
 				"copyright-year":        "2024",
