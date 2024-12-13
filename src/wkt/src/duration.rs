@@ -62,6 +62,14 @@ pub enum DurationError {
     /// The sign of the seconds component does not match the sign of the nanoseconds component.
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
     MismatchedSigns(),
+
+    /// Cannot serialize the duration.
+    #[error("cannot serialize the duration")]
+    Serializate(),
+
+    /// Cannot deserialize the duration.
+    #[error("cannot deserialize the duration: {0:?}")]
+    Deserialize(String),
 }
 
 type Error = DurationError;
@@ -92,7 +100,7 @@ impl Duration {
     ///
     /// * `seconds` - the seconds in the interval.
     /// * `nanos` - the nanoseconds *added* to the interval.
-    pub fn new(seconds: i64, nanos: i32) -> std::result::Result<Self, Error> {
+    pub fn new(seconds: i64, nanos: i32) -> Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
             return Err(Error::OutOfRange());
         }
@@ -154,13 +162,57 @@ impl Duration {
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
+
+    /// Returns the JSON representation of the duration.
+    pub fn to_json(&self) -> String {
+        let sign = if self.seconds < 0 || self.nanos < 0 {
+            "-"
+        } else {
+            ""
+        };
+        if self.nanos == 0 {
+            return format!("{sign}{}s", self.seconds.abs());
+        }
+        if self.seconds == 0 {
+            return format!("{sign}0.{}", self.nanos.abs());
+        }
+        format!("{sign}{}.{:09}s", self.seconds.abs(), self.nanos.abs())
+    }
+
+    /// Parses a duration from the JSON representation.
+    pub fn from_json(value: &str) -> Result<Self, DurationError> {
+        if !value.ends_with('s') {
+            return Err(DurationError::Deserialize("missing trailing 's'".into()));
+        }
+        let digits = &value[..(value.len() - 1)];
+        let (sign, digits) = if let Some(trailing) = digits.strip_prefix('-') {
+            (-1, trailing)
+        } else {
+            (1, digits)
+        };
+        let mut split = digits.splitn(2, '.');
+        let (s, n) = (split.next(), split.next());
+        let seconds = s
+            .map(str::parse::<i64>)
+            .transpose()
+            .map_err(|e| DurationError::Deserialize(format!("{e}")))?;
+        let nanos = n
+            .map(str::parse::<i32>)
+            .transpose()
+            .map_err(|e| DurationError::Deserialize(format!("{e}")))?;
+
+        Duration::new(
+            sign * seconds.unwrap_or(0),
+            sign as i32 * nanos.unwrap_or(0),
+        )
+    }
 }
 
 /// Convert from [std::time::Duration] to [Duration].
 impl std::convert::TryFrom<std::time::Duration> for Duration {
     type Error = DurationError;
 
-    fn try_from(value: std::time::Duration) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: std::time::Duration) -> Result<Self, Self::Error> {
         if value.as_secs() > (i64::MAX as u64) {
             return Err(Error::OutOfRange());
         }
@@ -175,7 +227,7 @@ impl std::convert::TryFrom<std::time::Duration> for Duration {
 impl std::convert::TryFrom<Duration> for std::time::Duration {
     type Error = DurationError;
 
-    fn try_from(value: Duration) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: Duration) -> Result<Self, Self::Error> {
         if value.seconds < 0 {
             return Err(Error::OutOfRange());
         }
@@ -193,7 +245,7 @@ impl std::convert::TryFrom<Duration> for std::time::Duration {
 impl std::convert::TryFrom<time::Duration> for Duration {
     type Error = DurationError;
 
-    fn try_from(value: time::Duration) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: time::Duration) -> Result<Self, Self::Error> {
         Self::new(value.whole_seconds(), value.subsec_nanoseconds())
     }
 }
@@ -211,23 +263,11 @@ impl std::convert::From<Duration> for time::Duration {
 
 /// Implement [`serde`](::serde) serialization for [Duration].
 impl serde::ser::Serialize for Duration {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        let sign = if self.seconds < 0 || self.nanos < 0 {
-            "-"
-        } else {
-            ""
-        };
-        let formatted = if self.nanos == 0 {
-            format!("{sign}{}s", self.seconds.abs())
-        } else if self.seconds == 0 {
-            format!("{sign}0.{}", self.nanos.abs())
-        } else {
-            format!("{sign}{}.{:09}s", self.seconds.abs(), self.nanos.abs())
-        };
-
+        let formatted = self.to_json();
         formatted.serialize(serializer)
     }
 }
@@ -245,33 +285,7 @@ impl serde::de::Visitor<'_> for DurationVisitor {
     where
         E: serde::de::Error,
     {
-        use serde::de::Error;
-
-        if !value.ends_with('s') {
-            return Err(serde::de::Error::custom("cannot find trailing 's'"));
-        }
-        let digits = &value[..(value.len() - 1)];
-        let (sign, digits) = if let Some(trailing) = digits.strip_prefix('-') {
-            (-1, trailing)
-        } else {
-            (1, digits)
-        };
-        let mut split = digits.splitn(2, '.');
-        let (s, n) = (split.next(), split.next());
-        let seconds = s
-            .map(str::parse::<i64>)
-            .transpose()
-            .map_err(Error::custom)?;
-        let nanos = n
-            .map(str::parse::<i32>)
-            .transpose()
-            .map_err(Error::custom)?;
-
-        let d = Duration::new(
-            sign * seconds.unwrap_or(0),
-            sign as i32 * nanos.unwrap_or(0),
-        )
-        .map_err(E::custom)?;
+        let d = Duration::from_json(value).map_err(E::custom)?;
         Ok(d)
     }
 }
