@@ -153,7 +153,7 @@ func (c *GoCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
 	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
 }
 
-func (c *GoCodec) TemplatesProvider() func(string) (string, error) {
+func (c *GoCodec) TemplatesProvider() TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := goTemplates.ReadFile(name)
 		if err != nil {

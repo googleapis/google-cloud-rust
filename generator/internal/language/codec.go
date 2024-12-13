@@ -22,7 +22,7 @@ import "github.com/googleapis/google-cloud-rust/generator/internal/api"
 type Codec interface {
 	// TemplatesProvider returns a function that loads templates from whatever
 	// filesystem the Codec is using.
-	TemplatesProvider() func(string) (string, error)
+	TemplatesProvider() TemplateProvider
 	// GeneratedFiles returns the list of input templates and output files.
 	GeneratedFiles() []GeneratedFile
 	// LoadWellKnownTypes allows a language to load information into the state
@@ -132,3 +132,10 @@ type GeneratedFile struct {
 	// The name of the output file, relative to the output directory.
 	OutputPath string
 }
+
+// A provider for Mustache template contents.
+//
+// The function is expected to accept a template name, including its full path
+// and the `.mustache` extension, such as `rust/crate/src/lib.rs.mustach` and
+// tuen return the full contents of the template (or an error).
+type TemplateProvider func(templateName string) (string, error)
