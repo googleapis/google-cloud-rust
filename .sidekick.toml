@@ -22,6 +22,7 @@ googleapis-sha256 = 'e076d2c608c9a2bcdb347e696eb4e536d28b9bd5b9d99153e8f5f8c0b3b
 
 [codec]
 version                     = "0.1.0"
+'package:gtype'             = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0'
 'package:gax'               = 'package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
 'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth,version=0.1.0'
 'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.0'

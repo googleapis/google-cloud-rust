@@ -18,6 +18,3 @@ service-config = 'google/iam/v1/iam_meta_api.yaml'
 
 [codec]
 copyright-year = '2024'
-'package:gtype' = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0'
-'package:iam_v1' = 'ignore=true'
-'package:location' = 'ignore=true'
