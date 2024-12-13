@@ -17,21 +17,21 @@ resolver = "2"
 
 members = [
   "auth",
-  "tools/check-copyright",
-  "src/root",
-  "src/base",
   "src/auth",
+  "src/base",
   "src/gax",
-  "src/wkt",
-  "src/generated/longrunning",
-  "src/generated/type",
+  "src/generated/api",
+  "src/generated/cloud/common",
   "src/generated/cloud/location",
   "src/generated/cloud/secretmanager/v1",
-  "src/generated/cloud/common",
   "src/generated/iam/v1",
-  "src/generated/api",
+  "src/generated/longrunning",
   "src/generated/openapi-validation",
+  "src/generated/type",
   "src/integration-tests",
+  "src/root",
+  "src/wkt",
+  "tools/check-copyright",
 ]
 
 [workspace.package]
@@ -40,5 +40,5 @@ authors     = ["Google LLC"]
 description = "Google Cloud SDK for Rust"
 license     = "Apache-2.0"
 repository  = "https://github.com/googleapis/google-cloud-rust/tree/main"
-keywords    = ["google-cloud", "google-cloud-rust", "gcp", "sdk"]
+keywords    = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories  = ["network-programming"]

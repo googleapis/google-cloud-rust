@@ -13,8 +13,9 @@
 # limitations under the License.
 
 [formatting]
-align_entries = true
-column_width  = 120
+align_entries  = true
+column_width   = 120
+reorder_arrays = true
 
 # The CI builds exclude these explicitly. Having them here makes it easier to
 # format everything we care about. 
