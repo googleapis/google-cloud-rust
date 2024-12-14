@@ -20,7 +20,6 @@ use crate::{AccessToken, Error, ErrorKind, Result};
 use async_trait::async_trait;
 use chrono::{Duration, Utc};
 use rustls::sign::Signer;
-use rustls::sign::SigningKey;
 use rustls_pemfile::Item;
 use serde::{Deserialize, Serialize};
 use std::path::Path;
@@ -158,14 +157,18 @@ impl ServiceAccountKeySource {
 
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self) -> Result<Box<dyn Signer>> {
+        let crypto_provider = rustls::crypto::CryptoProvider::get_default()
+            .ok_or_else(|| Error::new("missing default crypto provider", ErrorKind::Environment))?;
+        let key_provider = crypto_provider.key_provider;
+
         let pk = rustls_pemfile::read_one(&mut self.file.private_key.as_bytes())
             .map_err(|e| Error::wrap(e, ErrorKind::Other))?
             .ok_or_else(|| {
                 Error::new("unable to parse service account key", ErrorKind::Validation)
             })?;
         let pk = match pk {
-            Item::Pkcs1Key(item) => item.secret_pkcs1_der().to_vec(),
-            Item::Pkcs8Key(item) => item.secret_pkcs8_der().to_vec(),
+            Item::Pkcs1Key(item) => key_provider.load_private_key(item.into()),
+            Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
             other => {
                 return Err(Error::new(
                     format!(
@@ -176,9 +179,10 @@ impl ServiceAccountKeySource {
                 ))
             }
         };
-        rustls::sign::RsaSigningKey::new(&rustls::PrivateKey(pk))
-            .map_err(|e| Error::new_with_error("unable to create signer", e, ErrorKind::Other))?
-            .choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
+        let sk = pk.map_err(|e| {
+            Error::new_with_error("unable to create signing key", e, ErrorKind::Other)
+        })?;
+        sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
             .ok_or_else(|| Error::new("invalid signing scheme", ErrorKind::Validation))
     }
 
