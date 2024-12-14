@@ -164,8 +164,8 @@ impl ServiceAccountKeySource {
                 Error::new("unable to parse service account key", ErrorKind::Validation)
             })?;
         let pk = match pk {
-            Item::RSAKey(item) => item,
-            Item::PKCS8Key(item) => item,
+            Item::Pkcs1Key(item) => item.secret_pkcs1_der().to_vec(),
+            Item::Pkcs8Key(item) => item.secret_pkcs8_der().to_vec(),
             other => {
                 return Err(Error::new(
                     format!(
