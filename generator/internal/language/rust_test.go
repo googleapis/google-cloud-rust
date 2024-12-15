@@ -48,15 +48,17 @@ func TestRust_ParseOptions(t *testing.T) {
 		"module-path":           "alternative::generated",
 		"package:wkt":           "package=types,path=src/wkt,source=google.protobuf,source=test-only",
 		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
+		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
 	}
 	codec, err := NewRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
 	gp := &RustPackage{
-		Name:    "wkt",
-		Package: "types",
-		Path:    "src/wkt",
+		Name:            "wkt",
+		Package:         "types",
+		Path:            "src/wkt",
+		DefaultFeatures: true,
 	}
 	want := &RustCodec{
 		Version:                  "1.2.3",
@@ -73,6 +75,13 @@ func TestRust_ParseOptions(t *testing.T) {
 				Features: []string{
 					"unstable-sdk-client",
 				},
+				DefaultFeatures: true,
+			},
+			{
+				Name:            "serde_with",
+				Package:         "serde_with",
+				Version:         "2.3.4",
+				DefaultFeatures: false,
 			},
 		},
 		PackageMapping: map[string]*RustPackage{

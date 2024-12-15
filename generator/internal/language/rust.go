@@ -128,7 +128,8 @@ type rustPackageOption struct {
 func parseRustPackageOption(key, definition string) (*rustPackageOption, error) {
 	var specificationPackages []string
 	pkg := &RustPackage{
-		Name: strings.TrimPrefix(key, "package:"),
+		Name:            strings.TrimPrefix(key, "package:"),
+		DefaultFeatures: true,
 	}
 	for _, element := range strings.Split(definition, ",") {
 		s := strings.SplitN(element, "=", 2)
@@ -146,6 +147,12 @@ func parseRustPackageOption(key, definition string) (*rustPackageOption, error) 
 			specificationPackages = append(specificationPackages, s[1])
 		case "feature":
 			pkg.Features = append(pkg.Features, strings.Split(s[1], ",")...)
+		case "default-features":
+			value, err := strconv.ParseBool(s[1])
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `default-features` value %q (part of %q) to boolean: %w", definition, s[1], err)
+			}
+			pkg.DefaultFeatures = value
 		case "ignore":
 			value, err := strconv.ParseBool(s[1])
 			if err != nil {
@@ -222,6 +229,8 @@ type RustPackage struct {
 	// If true, this package was referenced by a generated message, service, or
 	// by the documentation.
 	Used bool
+	// If true, the default features are enabled.
+	DefaultFeatures bool
 }
 
 func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
@@ -952,6 +961,9 @@ func (c *RustCodec) RequiredPackages() []string {
 		}
 		if pkg.Package != "" && pkg.Name != pkg.Package {
 			components = append(components, fmt.Sprintf("package = %q", pkg.Package))
+		}
+		if !pkg.DefaultFeatures {
+			components = append(components, "default-features = false")
 		}
 		if len(pkg.Features) > 0 {
 			feats := strings.Join(mapSlice(pkg.Features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
