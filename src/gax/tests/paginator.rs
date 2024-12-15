@@ -12,30 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use axum::extract::Query;
+use axum::http::StatusCode;
 use gcp_sdk_gax::http_client::*;
 use gcp_sdk_gax::paginator::{PageableResponse, Paginator};
 use std::collections::HashMap;
-use warp::http::Response;
-use warp::Filter;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn test_paginator() -> Result<()> {
     // Create a small server to satisfy the request.
+    let app = axum::Router::new().route("/pagination", axum::routing::get(handle_page));
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
+    let addr = listener.local_addr()?;
+    let endpoint = format!("http://{}:{}", addr.ip(), addr.port());
+    println!("endpoint = {endpoint}");
 
-    let page = warp::get()
-        .and(warp::path("pagination"))
-        .and(warp::query::<HashMap<String, String>>())
-        .map(|p| handle_page(p));
-    let (socket, server) = warp::serve(page).bind_ephemeral(([127, 0, 0, 1], 0));
-
-    let _server = tokio::spawn(async move { server.await });
-
-    println!("{socket:?}");
-
-    let socket = format!("http://{socket}");
-    let client = Client::new(&socket).await?;
+    let _server = tokio::spawn(async { axum::serve(listener, app).await });
+    let client = Client::new(&endpoint).await?;
 
     let mut page_token = String::default();
     let mut items = Vec::new();
@@ -122,7 +117,7 @@ impl Client {
     }
 }
 
-fn handle_page(query: HashMap<String, String>) -> warp::http::Result<Response<String>> {
+async fn handle_page(Query(params): Query<HashMap<String, String>>) -> (StatusCode, String) {
     let to_items = |v: &[&str]| {
         v.iter()
             .map(|s| Foo {
@@ -131,7 +126,7 @@ fn handle_page(query: HashMap<String, String>) -> warp::http::Result<Response<St
             .collect::<Vec<_>>()
     };
 
-    let page_token = query.get("pageToken").map(String::as_str).unwrap_or("");
+    let page_token = params.get("pageToken").map(String::as_str).unwrap_or("");
     let response = if page_token == "" {
         ListFoosResponse {
             items: to_items(&["f1", "f2"]),
@@ -145,16 +140,10 @@ fn handle_page(query: HashMap<String, String>) -> warp::http::Result<Response<St
     };
     let response = serde_json::to_string(&response);
 
-    let response = match response {
-        Ok(s) => Response::builder()
-            .header("content-type", "application/json")
-            .body(s),
-        Err(e) => Response::builder()
-            .status(warp::http::StatusCode::INTERNAL_SERVER_ERROR)
-            .body(format!("{e}")),
-    };
-    let response = response?;
-    Ok(response)
+    match response {
+        Ok(s) => (StatusCode::OK, s),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, format!("{e}")),
+    }
 }
 
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]

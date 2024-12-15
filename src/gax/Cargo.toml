@@ -41,10 +41,10 @@ wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
 gax       = { path = ".", package = "gcp-sdk-gax", features = ["stream", "unstable-sdk-client"] }
+axum      = "0.7.9"
 serde     = { version = "1.0.214", features = ["serde_derive"] }
 test-case = "3.3.1"
 tokio     = { version = "1.41.1", features = ["macros"] }
-warp      = "0.3.7"
 
 [build-dependencies]
 built = "0.7"
