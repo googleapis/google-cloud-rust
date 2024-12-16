@@ -18,11 +18,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "go"
+  - package-ecosystem: "gomod"
     directory: "/generator"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "rust"
+  - package-ecosystem: "cargo"
     directory: "/"
     schedule:
       interval: "weekly"
