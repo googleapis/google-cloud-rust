@@ -98,9 +98,10 @@ pub mod traits {
     /// Further limiting the risks associated with any leaks of these tokens.
     ///
     /// This struct also abstracts token sources that are not backed by a
-    /// specific digital object. The canonical example is the [Metadata
-    /// Service]. This service is available in many Google Cloud environments,
-    /// including [Google Compute Engine], and [Google Kubernetes Engine].
+    /// specific digital object. The canonical example is the
+    /// [Metadata Service]. This service is available in many Google Cloud
+    /// environments, including [Google Compute Engine], and
+    /// [Google Kubernetes Engine].
     ///
     /// # Notes
     ///
@@ -108,12 +109,11 @@ pub mod traits {
     /// to mock the credentials. Application developers who use the Google Cloud
     /// Rust SDK directly should not need this functionality.
     ///
-    /// [credentials-link]:
-    /// https://cloud.google.com/docs/authentication#credentials [token-link]:
-    /// https://cloud.google.com/docs/authentication#token [Metadata Service]:
-    /// https://cloud.google.com/compute/docs/metadata/overview [Google Compute
-    /// Engine]: https://cloud.google.com/products/compute [Google Kubernetes
-    /// Engine]: https://cloud.google.com/kubernetes-engine
+    /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
+    /// [token-link]: https://cloud.google.com/docs/authentication#token
+    /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
+    /// [Google Compute Engine]: https://cloud.google.com/products/compute
+    /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
     pub trait Credential {
         /// Asynchronously retrieves a token.
         ///
