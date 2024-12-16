@@ -4,7 +4,7 @@ go 1.23.2
 
 require (
 	cloud.google.com/go/iam v1.2.2
-	cloud.google.com/go/longrunning v0.6.2
+	cloud.google.com/go/longrunning v0.6.3
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/google/go-cmp v0.6.0
