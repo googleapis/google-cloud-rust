@@ -41,3 +41,5 @@ pub mod credentials;
 ///
 /// [Tokens]: https://cloud.google.com/docs/authentication#token
 pub mod token;
+
+pub(crate) type Result<T> = std::result::Result<T, crate::errors::CredentialError>;
