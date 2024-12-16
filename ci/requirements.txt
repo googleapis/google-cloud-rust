@@ -16,7 +16,7 @@
 # makes these dependencies visible to robots like dependabot and renovatebot.
 
 mdformat==0.7.18
-mdformat-gfm==0.3.7
+mdformat-gfm==0.4.1
 mdformat-frontmatter==2.0.8
 mdformat-footnote==0.1.1
 mdformat-gfm-alerts==1.0.1
