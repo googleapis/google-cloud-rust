@@ -28,7 +28,7 @@ pub trait PageableResponse {
 #[pin_project]
 pub struct Paginator<T, E> {
     #[pin]
-    stream: Pin<Box<dyn Stream<Item = Result<T, E>>>>,
+    stream: Pin<Box<dyn Stream<Item = Result<T, E>> + Send>>,
 }
 
 type ControlFlow = std::ops::ControlFlow<(), String>;
@@ -39,9 +39,12 @@ where
 {
     /// Creates a new [Paginator] given the initial page token and a function
     /// to fetch the next [PageableResponse].
-    pub fn new<F>(seed_token: String, execute: impl Fn(String) -> F + Clone + 'static) -> Self
+    pub fn new<F>(
+        seed_token: String,
+        execute: impl Fn(String) -> F + Clone + Send + 'static,
+    ) -> Self
     where
-        F: Future<Output = Result<T, E>> + 'static,
+        F: Future<Output = Result<T, E>> + Send + 'static,
     {
         let stream = unfold(ControlFlow::Continue(seed_token), move |state| {
             let execute = execute.clone();
@@ -84,6 +87,12 @@ impl<T, E> Stream for Paginator<T, E> {
         cx: &mut std::task::Context<'_>,
     ) -> std::task::Poll<Option<Self::Item>> {
         self.project().stream.poll_next(cx)
+    }
+}
+
+impl<T, E> std::fmt::Debug for Paginator<T, E> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Paginator").finish()
     }
 }
 

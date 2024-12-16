@@ -40,7 +40,7 @@ wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 [dev-dependencies]
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-gax       = { path = ".", package = "gcp-sdk-gax", features = ["stream", "unstable-sdk-client"] }
+gax       = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 axum      = "0.7.9"
 serde     = { version = "1.0.214", features = ["serde_derive"] }
 test-case = "3.3.1"
@@ -51,4 +51,4 @@ built = "0.7"
 
 [features]
 unstable-sdk-client = ["dep:auth", "dep:reqwest"]
-stream              = ["dep:futures", "dep:pin-project"]
+unstable-stream     = ["dep:futures", "dep:pin-project"]
