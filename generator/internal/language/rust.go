@@ -950,7 +950,7 @@ func (c *RustCodec) RequiredPackages() []string {
 		if pkg.Path != "" {
 			components = append(components, fmt.Sprintf("path = %q", path.Join(c.projectRoot(), pkg.Path)))
 		}
-		if pkg.Package != "" {
+		if pkg.Package != "" && pkg.Name != pkg.Package {
 			components = append(components, fmt.Sprintf("package = %q", pkg.Package))
 		}
 		if len(pkg.Features) > 0 {

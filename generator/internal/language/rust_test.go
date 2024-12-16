@@ -92,9 +92,10 @@ func TestRust_ParseOptions(t *testing.T) {
 func TestRust_RequiredPackages(t *testing.T) {
 	outdir := "src/generated/newlib"
 	options := map[string]string{
-		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only",
-		"package:gax":   "package=gax,path=src/gax,version=1.2.3,force-used=true",
-		"package:auth":  "ignore=true",
+		"package:async-trait": "package=async-trait,version=0.1.83,force-used=true",
+		"package:gtype":       "package=gcp-sdk-type,path=src/generated/type,source=google.type,source=test-only",
+		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
+		"package:auth":        "ignore=true",
 	}
 	codec, err := NewRustCodec(outdir, options)
 	if err != nil {
@@ -102,7 +103,8 @@ func TestRust_RequiredPackages(t *testing.T) {
 	}
 	got := codec.RequiredPackages()
 	want := []string{
-		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gax\" }",
+		"async-trait = { version = \"0.1.83\" }",
+		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gcp-sdk-gax\" }",
 	}
 	less := func(a, b string) bool { return a < b }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
