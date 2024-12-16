@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::Result;
+use crate::Result;
 
 /// Represents an auth token.
 #[derive(Clone, Debug, PartialEq)]
@@ -43,4 +43,18 @@ pub struct Token {
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) trait TokenProvider: Send + Sync {
     async fn get_token(&mut self) -> Result<Token>;
+}
+
+#[cfg(test)]
+pub(crate) mod test {
+    use super::*;
+
+    mockall::mock! {
+        pub TokenProvider { }
+
+        #[async_trait::async_trait]
+        impl TokenProvider for TokenProvider {
+            async fn get_token(&mut self) -> Result<Token>;
+        }
+    }
 }

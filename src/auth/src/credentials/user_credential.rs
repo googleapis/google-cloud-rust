@@ -20,12 +20,18 @@ use http::header::{HeaderName, HeaderValue};
 
 /// Data model for a UserCredential
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-pub(crate) struct UserCredential {
-    token_provider: Box<dyn TokenProvider>,
+pub(crate) struct UserCredential<T>
+where
+    T: TokenProvider,
+{
+    token_provider: T,
 }
 
 #[async_trait::async_trait]
-impl Credential for UserCredential {
+impl<T> Credential for UserCredential<T>
+where
+    T: TokenProvider,
+{
     async fn get_token(&mut self) -> Result<Token> {
         self.token_provider.get_token().await
     }
@@ -43,32 +49,7 @@ impl Credential for UserCredential {
 #[cfg(test)]
 mod test {
     use super::*;
-
-    struct TestTokenProvider {
-        token: Token,
-    }
-
-    #[async_trait::async_trait]
-    impl TokenProvider for TestTokenProvider {
-        async fn get_token(&mut self) -> Result<Token> {
-            Ok(self.token.clone())
-        }
-    }
-
-    struct TestErrorProvider {
-        is_retryable: bool,
-        message: String,
-    }
-
-    #[async_trait::async_trait]
-    impl TokenProvider for TestErrorProvider {
-        async fn get_token(&mut self) -> Result<Token> {
-            Err(CredentialError::new(
-                self.is_retryable,
-                BoxError::from(self.message.clone()),
-            ))
-        }
-    }
+    use crate::token::test::MockTokenProvider;
 
     #[tokio::test]
     async fn get_token_success() {
@@ -78,12 +59,15 @@ mod test {
             expires_at: None,
             metadata: None,
         };
+        let expected_clone = expected.clone();
 
-        let tp = TestTokenProvider {
-            token: expected.clone(),
-        };
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Ok(expected_clone));
+
         let mut uc = UserCredential {
-            token_provider: Box::new(tp),
+            token_provider: mock,
         };
         let actual = uc.get_token().await.unwrap();
         assert_eq!(actual, expected);
@@ -91,12 +75,13 @@ mod test {
 
     #[tokio::test]
     async fn get_token_failure() {
-        let tp = TestErrorProvider {
-            is_retryable: false,
-            message: "fail".to_string(),
-        };
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Err(CredentialError::new(false, BoxError::from("fail"))));
+
         let mut uc = UserCredential {
-            token_provider: Box::new(tp),
+            token_provider: mock,
         };
         assert!(uc.get_token().await.is_err());
     }
