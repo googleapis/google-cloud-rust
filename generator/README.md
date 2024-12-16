@@ -61,7 +61,7 @@ we suggest two approaches:
 - The Protobuf team ships easy to install binaries with each release. In the
   [latest Protobuf release][protobuf-latest] you can find a `.zip` file for
   your platform. Download and extract such that the `bin/` subdirectory is in
-  your path.  For example:
+  your path. For example:
 
   ```shell
   curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
