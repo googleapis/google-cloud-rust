@@ -567,8 +567,10 @@ version = "0.1.0-rc2"
 dependencies = [
  "async-trait",
  "http",
+ "test-case",
  "thiserror",
  "time",
+ "tokio",
 ]
 
 [[package]]
