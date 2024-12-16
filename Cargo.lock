@@ -565,6 +565,7 @@ version = "0.0.0"
 name = "gcp-sdk-auth"
 version = "0.0.0"
 dependencies = [
+ "async-trait",
  "http",
  "thiserror",
  "time",
