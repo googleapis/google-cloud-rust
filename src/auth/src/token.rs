@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::Result;
+
 /// Represents an auth token.
-#[derive(Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Token {
     /// The actual token string.
     ///
@@ -35,4 +37,24 @@ pub struct Token {
     ///
     /// This might include information like granted scopes or other claims.
     pub metadata: Option<std::collections::HashMap<String, String>>,
+}
+
+#[async_trait::async_trait]
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+pub(crate) trait TokenProvider: Send + Sync {
+    async fn get_token(&mut self) -> Result<Token>;
+}
+
+#[cfg(test)]
+pub(crate) mod test {
+    use super::*;
+
+    mockall::mock! {
+        pub TokenProvider { }
+
+        #[async_trait::async_trait]
+        impl TokenProvider for TokenProvider {
+            async fn get_token(&mut self) -> Result<Token>;
+        }
+    }
 }

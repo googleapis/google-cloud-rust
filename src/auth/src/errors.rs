@@ -15,7 +15,7 @@
 use std::error::Error;
 use std::fmt::{Display, Formatter, Result};
 
-type BoxError = Box<dyn Error + Send + Sync>;
+pub(crate) type BoxError = Box<dyn Error + Send + Sync>;
 
 /// Represents an error creating or using a [Credential](crate::credentials::Credential).
 ///
