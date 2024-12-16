@@ -603,7 +603,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-iam-v1"
-version = "0.1.0"
+version = "0.1.0-rc1"
 dependencies = [
  "async-trait",
  "bytes",
@@ -621,7 +621,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-location"
-version = "0.1.0"
+version = "0.1.0-rc1"
 dependencies = [
  "async-trait",
  "bytes",
@@ -642,7 +642,7 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-secretmanager-v1"
-version = "0.1.0"
+version = "0.1.0-rc1"
 dependencies = [
  "async-trait",
  "bytes",
@@ -661,7 +661,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-type"
-version = "0.1.0"
+version = "0.1.0-rc1"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1720,7 +1720,7 @@ checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
 
 [[package]]
 name = "secretmanager-openapi-v1"
-version = "0.1.0"
+version = "0.1.0-rc1"
 dependencies = [
  "async-trait",
  "bytes",

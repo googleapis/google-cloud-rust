@@ -23,7 +23,7 @@ googleapis-sha256 = 'e076d2c608c9a2bcdb347e696eb4e536d28b9bd5b9d99153e8f5f8c0b3b
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.1.0"
+version = "0.1.0-rc1"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
 'package:async-trait' = 'force-used=true,package=async-trait,version=0.1.83'
@@ -37,9 +37,9 @@ version = "0.1.0"
 'package:tracing'     = 'force-used=true,package=tracing,version=0.1.41'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
-'package:gtype'             = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0'
-'package:gax'               = 'package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
-'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth,version=0.1.0'
-'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.0'
-'package:iam_v1'            = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.1.0'
-'package:location'          = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0'
+'package:gtype'             = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0-rc1'
+'package:gax'               = 'package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0-rc1'
+'package:google-cloud-auth' = 'package=google-cloud-auth,path=auth,version=0.1.0-rc1'
+'package:wkt'               = 'package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.0-rc1'
+'package:iam_v1'            = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.1.0-rc1'
+'package:location'          = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0-rc1'
