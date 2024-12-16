@@ -18,17 +18,14 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-
   - package-ecosystem: "go"
     directory: "/generator"
     schedule:
       interval: "weekly"
-
   - package-ecosystem: "rust"
     directory: "/"
     schedule:
       interval: "weekly"
-
   - package-ecosystem: "pip"
     directory: "/ci"
     schedule:
