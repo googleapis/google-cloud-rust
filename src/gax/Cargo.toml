@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-gax"
-version              = "0.1.0"
+version              = "0.1.0-rc2"
 description          = "Google Cloud SDK for Rust"
 build                = "build.rs"
 edition.workspace    = true
@@ -35,7 +35,7 @@ serde_json  = "1.0.133"
 serde_with  = { version = "3.11.0", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2.0.3"
 auth        = { version = "0.1.0", path = "../../auth", package = "google-cloud-auth", optional = true }
-wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
+wkt         = { version = "0.1.0-rc2", path = "../wkt", package = "gcp-sdk-wkt" }
 
 [dev-dependencies]
 # This is a workaround to integration test features of this crate. Open issue
