@@ -14,9 +14,9 @@
 
 use crate::credentials::traits::dynamic::Credential;
 use crate::credentials::Result;
-use crate::errors::{BoxError, CredentialError};
+use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
-use http::header::{HeaderName, HeaderValue};
+use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 
 /// Data model for a UserCredential
 #[allow(dead_code)] // TODO(#442) - implementation in progress
@@ -37,8 +37,11 @@ where
     }
 
     async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        // TODO(#442) - implementation in progress
-        Err(CredentialError::new(false, BoxError::from("unimplemented")))
+        let token = self.get_token().await?;
+        let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+            .map_err(|e| CredentialError::new(false, e.into()))?;
+        value.set_sensitive(true);
+        Ok(vec![(AUTHORIZATION, value)])
     }
 
     async fn get_universe_domain(&mut self) -> Option<String> {
@@ -78,11 +81,68 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, BoxError::from("fail"))));
+            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
         let mut uc = UserCredential {
             token_provider: mock,
         };
         assert!(uc.get_token().await.is_err());
+    }
+
+    #[tokio::test]
+    async fn get_headers_success() {
+        #[derive(Debug, PartialEq)]
+        struct HV {
+            header: String,
+            value: String,
+            is_sensitive: bool,
+        }
+
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token().times(1).return_once(|| Ok(token));
+
+        let mut uc = UserCredential {
+            token_provider: mock,
+        };
+        let headers: Vec<HV> = uc
+            .get_headers()
+            .await
+            .unwrap()
+            .into_iter()
+            .map(|(h, v)| HV {
+                header: h.to_string(),
+                value: v.to_str().unwrap().to_string(),
+                is_sensitive: v.is_sensitive(),
+            })
+            .collect();
+
+        assert_eq!(
+            headers,
+            vec![HV {
+                header: AUTHORIZATION.to_string(),
+                value: "Bearer test-token".to_string(),
+                is_sensitive: true,
+            }]
+        );
+    }
+
+    #[tokio::test]
+    async fn get_headers_failure() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+
+        let mut uc = UserCredential {
+            token_provider: mock,
+        };
+        assert!(uc.get_headers().await.is_err());
     }
 }
