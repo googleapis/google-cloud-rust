@@ -66,6 +66,12 @@ impl SecretManagerService {
         self.inner.list_locations(req, gax::options::RequestOptions).await
     }
 
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
+    }
+
     /// Gets information about a location.
     pub async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
         self.inner.get_location(req, gax::options::RequestOptions).await
@@ -76,6 +82,12 @@ impl SecretManagerService {
         self.inner.list_secrets(req, gax::options::RequestOptions).await
     }
 
+    /// Like list_secrets, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_stream(req).await
+    }
+
     /// Creates a new Secret containing no SecretVersions.
     pub async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
         self.inner.create_secret(req, gax::options::RequestOptions).await
@@ -84,6 +96,12 @@ impl SecretManagerService {
     /// Lists Secrets.
     pub async fn list_secrets_by_project_and_location(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> Result<crate::model::ListSecretsResponse> {
         self.inner.list_secrets_by_project_and_location(req, gax::options::RequestOptions).await
+    }
+
+    /// Like list_secrets_by_project_and_location, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secrets_by_project_and_location_stream(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_by_project_and_location_stream(req).await
     }
 
     /// Creates a new Secret containing no SecretVersions.
@@ -139,10 +157,22 @@ impl SecretManagerService {
         self.inner.list_secret_versions(req, gax::options::RequestOptions).await
     }
 
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_stream(req).await
+    }
+
     /// Lists SecretVersions. This call does not return secret
     /// data.
     pub async fn list_secret_versions_by_project_and_location_and_secret(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> Result<crate::model::ListSecretVersionsResponse> {
         self.inner.list_secret_versions_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    }
+
+    /// Like list_secret_versions_by_project_and_location_and_secret, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secret_versions_by_project_and_location_and_secret_stream(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_by_project_and_location_and_secret_stream(req).await
     }
 
     /// Gets metadata for a SecretVersion.

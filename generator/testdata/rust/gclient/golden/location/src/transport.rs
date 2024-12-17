@@ -41,9 +41,7 @@ impl Locations {
         let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
-}
 
-impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
@@ -60,6 +58,28 @@ impl crate::traits::Locations for Locations {
         let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
         self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+    }
+}
+
+impl crate::traits::Locations for Locations {
+
+    /// Lists information about the supported locations for this service.
+    async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
+        self.clone().list_locations_impl(req).await
+    }
+
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, Error> {
+        let service = self.clone();
+        let token = gax::paginator::extract_token(&req.page_token);
+        let execute = move |token: String| {
+            let mut req = req.clone();
+            let service = service.clone();
+            req.page_token = token.into();
+            service.list_locations_impl(req)
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Gets information about a location.

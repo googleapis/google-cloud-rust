@@ -38,9 +38,7 @@ impl SecretManagerService {
         let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
-}
 
-impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
@@ -59,6 +57,90 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, None::<gax::http_client::NoBody>).await
     }
 
+    /// Lists Secrets.
+    async fn list_secrets_impl(self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
+        let builder = self.inner.builder(
+            reqwest::Method::GET, format!("/v1/projects/{}/secrets"
+               , req.project
+            ))
+            .query(&[("alt", "json")])
+            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+    }
+
+    /// Lists Secrets.
+    async fn list_secrets_by_project_and_location_impl(self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> Result<crate::model::ListSecretsResponse> {
+        let builder = self.inner.builder(
+            reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets"
+               , req.project
+               , req.location
+            ))
+            .query(&[("alt", "json")])
+            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+    }
+
+    /// Lists SecretVersions. This call does not return secret
+    /// data.
+    async fn list_secret_versions_impl(self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
+        let builder = self.inner.builder(
+            reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}/versions"
+               , req.project
+               , req.secret
+            ))
+            .query(&[("alt", "json")])
+            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+    }
+
+    /// Lists SecretVersions. This call does not return secret
+    /// data.
+    async fn list_secret_versions_by_project_and_location_and_secret_impl(self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> Result<crate::model::ListSecretVersionsResponse> {
+        let builder = self.inner.builder(
+            reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}/versions"
+               , req.project
+               , req.location
+               , req.secret
+            ))
+            .query(&[("alt", "json")])
+            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+    }
+}
+
+impl crate::traits::SecretManagerService for SecretManagerService {
+
+    /// Lists information about the supported locations for this service.
+    async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
+        self.clone().list_locations_impl(req).await
+    }
+
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, Error> {
+        let service = self.clone();
+        let token = gax::paginator::extract_token(&req.page_token);
+        let execute = move |token: String| {
+            let mut req = req.clone();
+            let service = service.clone();
+            req.page_token = token.into();
+            service.list_locations_impl(req)
+        };
+        gax::paginator::Paginator::new(token, execute)
+    }
+
     /// Gets information about a location.
     async fn get_location(
         &self,
@@ -74,6 +156,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(builder, None::<gax::http_client::NoBody>).await
     }
+
 
     /// Lists Secrets.
     async fn list_secrets(
@@ -108,6 +191,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder = gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
         self.inner.execute(builder, Some(req.request_body)).await
     }
+
 
     /// Lists Secrets.
     async fn list_secrets_by_project_and_location(
@@ -283,6 +367,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req.request_body)).await
     }
 
+
     /// Lists SecretVersions. This call does not return secret
     /// data.
     async fn list_secret_versions(
@@ -302,6 +387,21 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         self.inner.execute(builder, None::<gax::http_client::NoBody>).await
     }
+
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, Error> {
+        let service = self.clone();
+        let token = gax::paginator::extract_token(&req.page_token);
+        let execute = move |token: String| {
+            let mut req = req.clone();
+            let service = service.clone();
+            req.page_token = token.into();
+            service.list_secret_versions_impl(req)
+        };
+        gax::paginator::Paginator::new(token, execute)
+    }
+
 
     /// Lists SecretVersions. This call does not return secret
     /// data.

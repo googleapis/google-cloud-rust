@@ -49,6 +49,18 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<{{OutputTypeName}}>> + Send {
         std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
     }
+    {{#IsPageable}}
+    /// Like {{NameToSnake}}, but returns a futures::Stream.
+    #[cfg(feature = "unstable-stream")]
+    fn {{NameToSnake}}_stream(&self, _req: {{InputTypeName}}
+    ) -> impl std::future::Future<Output = gax::paginator::Paginator<{{OutputTypeName}}, Error>> + Send {
+        let execute = move |_| {
+            let res: crate::Result<{{OutputTypeName}}> = Err(Error::other("unimplemented"));
+            std::future::ready(res)
+        };
+        std::future::ready(gax::paginator::Paginator::new(String::new(), execute))
+    }
+    {{/IsPageable}}
     {{/Methods}}
 }
 

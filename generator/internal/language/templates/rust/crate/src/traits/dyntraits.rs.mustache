@@ -32,6 +32,11 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> crate::Result<{{OutputTypeName}}>;
 
+    {{#IsPageable}}
+    /// Like {{NameToSnake}}, but returns a futures::Stream.
+    //#[cfg(feature = "stream")]
+    async fn {{NameToSnake}}_stream(&self, req: {{InputTypeName}}) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error>;
+    {{/IsPageable}}
     {{/Methods}}
 }
 
@@ -48,6 +53,14 @@ impl<T: crate::traits::{{NameToPascal}}> {{NameToPascal}} for T {
         T::{{NameToSnake}}(self, req, options).await
     }
 
+    {{#IsPageable}}
+    /// Like {{NameToSnake}}, but returns a futures::Stream.
+    #[cfg(feature = "unstable-stream")]
+    async fn {{NameToSnake}}_stream(&self, req: {{InputTypeName}}) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error>{
+        T::{{NameToSnake}}_stream(self, req).await
+    }
+
+    {{/IsPageable}}
     {{/Methods}}
 }
 {{/Services}}

@@ -41,6 +41,16 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLocationsResponse>> + Send {
         std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    fn list_locations_stream(&self, _req: crate::model::ListLocationsRequest
+    ) -> impl std::future::Future<Output = gax::paginator::Paginator<crate::model::ListLocationsResponse, Error>> + Send {
+        let execute = move |_| {
+            let res: crate::Result<crate::model::ListLocationsResponse> = Err(Error::other("unimplemented"));
+            std::future::ready(res)
+        };
+        std::future::ready(gax::paginator::Paginator::new(String::new(), execute))
+    }
 
     /// Gets information about a location.
     fn get_location(

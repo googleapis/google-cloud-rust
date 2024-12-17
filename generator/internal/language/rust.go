@@ -1038,10 +1038,19 @@ func (c *RustCodec) Validate(api *api.API) error {
 }
 
 // RustContext contains Rust specific data that can be referenced in templates.
-type RustContext struct{}
+type RustContext struct {
+	HasStreamingRPC bool
+}
 
-func (c *RustCodec) AdditionalContext(*api.API) any {
-	return nil
+func (c *RustCodec) AdditionalContext(api *api.API) any {
+	var hasStreamingRPC bool
+	for _, m := range api.Messages {
+		if m.IsPageableResponse {
+			hasStreamingRPC = true
+			break
+		}
+	}
+	return RustContext{HasStreamingRPC: hasStreamingRPC}
 }
 
 func (c *RustCodec) Imports() []string {

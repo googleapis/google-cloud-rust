@@ -24,6 +24,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListLocationsResponse>;
 
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>;
     /// Gets information about a location.
     async fn get_location(
         &self,
@@ -43,6 +46,12 @@ impl<T: crate::traits::Locations> Locations for T {
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListLocationsResponse> {
         T::list_locations(self, req, options).await
+    }
+
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>{
+        T::list_locations_stream(self, req).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

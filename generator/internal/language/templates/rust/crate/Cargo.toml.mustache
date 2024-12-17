@@ -36,3 +36,8 @@ publish              = false
 {{#RequiredPackages}}
 {{{.}}}
 {{/RequiredPackages}}
+
+{{#HasStreamingRPC}}
+[features]
+unstable-stream = ["gax/unstable-stream"]
+{{/HasStreamingRPC}}

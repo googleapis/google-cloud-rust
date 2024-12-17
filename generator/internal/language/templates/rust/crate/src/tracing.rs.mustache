@@ -49,6 +49,14 @@ where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
         self.inner.{{NameToSnake}}(req, options).await
     }
 
+    {{#IsPageable}}
+    #[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn {{NameToSnake}}_stream(&self, req: {{InputTypeName}}) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
+        self.inner.{{NameToSnake}}_stream(req).await
+    }
+
+    {{/IsPageable}}
     {{/Methods}}
 }
 
