@@ -130,3 +130,18 @@ func parseDefaultHost(m proto.Message) string {
 	}
 	return defaultHost
 }
+
+func isFieldRequired(field *descriptorpb.FieldDescriptorProto) bool {
+	name := field.GetName()
+	_ = name
+	fb, ok := proto.GetExtension(field.GetOptions(), annotations.E_FieldBehavior).([]annotations.FieldBehavior)
+	if !ok {
+		return false
+	}
+	for _, b := range fb {
+		if annotations.FieldBehavior(b.Number()) == annotations.FieldBehavior_REQUIRED {
+			return true
+		}
+	}
+	return false
+}

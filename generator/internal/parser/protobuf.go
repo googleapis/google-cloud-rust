@@ -482,7 +482,7 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 			Name:     mf.GetName(),
 			ID:       mFQN + "." + mf.GetName(),
 			JSONName: mf.GetJsonName(),
-			Optional: isProtoOptional,
+			Optional: isProtoOptional && !isFieldRequired(mf),
 			Repeated: mf.Label != nil && *mf.Label == descriptorpb.FieldDescriptorProto_LABEL_REPEATED,
 			IsOneOf:  mf.OneofIndex != nil && !isProtoOptional,
 		}

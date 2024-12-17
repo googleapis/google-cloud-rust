@@ -297,7 +297,6 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 				Documentation: "This field uses an imported enum.",
 				Typez:         api.ENUM_TYPE,
 				TypezID:       ".away.ImportedEnum",
-				Optional:      false,
 			},
 		},
 	})
