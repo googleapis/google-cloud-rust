@@ -41,8 +41,7 @@ where
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(|e| CredentialError::new(false, e.into()))?;
         value.set_sensitive(true);
-        let headers = vec![(AUTHORIZATION, value)];
-        Ok(headers)
+        Ok(vec![(AUTHORIZATION, value)])
     }
 
     async fn get_universe_domain(&mut self) -> Option<String> {
@@ -92,6 +91,13 @@ mod test {
 
     #[tokio::test]
     async fn get_headers_success() {
+        #[derive(Debug, PartialEq)]
+        struct HV {
+            header: String,
+            value: String,
+            is_sensitive: bool,
+        }
+
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -105,11 +111,26 @@ mod test {
         let mut uc = UserCredential {
             token_provider: mock,
         };
-        let actual = uc.get_headers().await.unwrap();
-        assert_eq!(actual.len(), 1);
-        assert_eq!(actual[0].0, AUTHORIZATION);
-        assert_eq!(actual[0].1, "Bearer test-token");
-        assert!(actual[0].1.is_sensitive());
+        let headers: Vec<HV> = uc
+            .get_headers()
+            .await
+            .unwrap()
+            .into_iter()
+            .map(|(h, v)| HV {
+                header: h.to_string(),
+                value: v.to_str().unwrap().to_string(),
+                is_sensitive: v.is_sensitive(),
+            })
+            .collect();
+
+        assert_eq!(
+            headers,
+            vec![HV {
+                header: AUTHORIZATION.to_string(),
+                value: "Bearer test-token".to_string(),
+                is_sensitive: true,
+            }]
+        );
     }
 
     #[tokio::test]
