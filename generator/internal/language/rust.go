@@ -1037,7 +1037,10 @@ func (c *RustCodec) Validate(api *api.API) error {
 	return nil
 }
 
-func (c *RustCodec) AdditionalContext() any {
+// RustContext contains Rust specific data that can be referenced in templates.
+type RustContext struct{}
+
+func (c *RustCodec) AdditionalContext(*api.API) any {
 	return nil
 }
 

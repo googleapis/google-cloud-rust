@@ -58,8 +58,8 @@ func generateClient(req *generateClientRequest) error {
 	data := newTemplateData(req.API, req.Codec)
 	var context []any
 	context = append(context, data)
-	if req.Codec.AdditionalContext() != nil {
-		context = append(context, req.Codec.AdditionalContext())
+	if languageContext := req.Codec.AdditionalContext(req.API); languageContext != nil {
+		context = append(context, languageContext)
 	}
 
 	provider := req.Codec.TemplatesProvider()

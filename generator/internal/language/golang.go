@@ -369,7 +369,7 @@ type GoContext struct {
 	GoPackage string
 }
 
-func (c *GoCodec) AdditionalContext() any {
+func (c *GoCodec) AdditionalContext(*api.API) any {
 	return GoContext{
 		GoPackage: c.GoPackageName,
 	}

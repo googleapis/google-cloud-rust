@@ -118,7 +118,7 @@ type Codec interface {
 	// Prefer using specific methods when the information is applicable to most
 	// (or many) languages. Use this method when the information is application
 	// to only one language.
-	AdditionalContext() any
+	AdditionalContext(api *api.API) any
 	// Imports to add.
 	Imports() []string
 	// Some packages are not intended for publication. For example, they may be
