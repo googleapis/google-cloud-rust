@@ -17,8 +17,11 @@ language             = 'rust'
 specification-format = 'protobuf'
 
 [source]
-googleapis-root   = 'https://github.com/googleapis/googleapis/archive/5285c0c32504691588201fd2d8b100c2cab6eca7.tar.gz'
-googleapis-sha256 = 'e076d2c608c9a2bcdb347e696eb4e536d28b9bd5b9d99153e8f5f8c0b3bdce1c'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/5285c0c32504691588201fd2d8b100c2cab6eca7.tar.gz'
+googleapis-sha256           = 'e076d2c608c9a2bcdb347e696eb4e536d28b9bd5b9d99153e8f5f8c0b3bdce1c'
+extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.35.5.tar.gz'
+extra-protos-sha256         = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
+extra-protos-extracted-name = 'gapic-showcase-0.35.5'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's

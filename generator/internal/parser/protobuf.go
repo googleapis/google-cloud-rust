@@ -105,7 +105,7 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 		"--retain_options",
 		"--descriptor_set_out", tempFile,
 	}
-	for _, name := range []string{"test-root", "googleapis-root"} {
+	for _, name := range []string{"extra-protos-root", "googleapis-root"} {
 		if path, ok := options[name]; ok {
 			args = append(args, "--proto_path")
 			args = append(args, path)
@@ -119,14 +119,14 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 	cmd.Stderr = &stderr
 	cmd.Stdout = &stdout
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("error calling protoc\ndetails:\n%s\n: %w", stderr.String(), err)
+		return nil, fmt.Errorf("error calling protoc\ndetails:\n%s\nargs:\n%v\n: %w", stderr.String(), args, err)
 	}
 
 	return os.ReadFile(tempFile)
 }
 
 func determineInputFiles(source string, options map[string]string) ([]string, error) {
-	// `config.Source` is relative to the `googleapis-root` (or `test-root`) if
+	// `config.Source` is relative to the `googleapis-root` (or `extra-protos-root`) if
 	// that is set. When it is a single file, this is easy, just return the
 	// filename and `protoc` will find it.
 
@@ -136,7 +136,7 @@ func determineInputFiles(source string, options map[string]string) ([]string, er
 		return []string{source}, nil
 	}
 
-	for _, opt := range []string{"test-root", "googleapis-root"} {
+	for _, opt := range []string{"extra-protos-root", "googleapis-root"} {
 		location, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set

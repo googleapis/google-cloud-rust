@@ -1126,8 +1126,8 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	options := map[string]string{
-		"googleapis-root": "../../testdata/googleapis",
-		"test-root":       "testdata",
+		"googleapis-root":   "../../testdata/googleapis",
+		"extra-protos-root": "testdata",
 	}
 	request, err := newCodeGeneratorRequest(filename, options)
 	if err != nil {

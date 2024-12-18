@@ -51,10 +51,10 @@ func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 // Finds the service config path for the current parser configuration.
 //
 // The service config files are specified as relative to the `googleapis-root`
-// path (or `test-root` when set). This finds the right path given a
+// path (or `extra-protos-root` when set). This finds the right path given a
 // configuration
 func findServiceConfigPath(serviceConfigFile string, options map[string]string) string {
-	for _, opt := range []string{"test-root", "googleapis-root"} {
+	for _, opt := range []string{"extra-protos-root", "googleapis-root"} {
 		dir, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set

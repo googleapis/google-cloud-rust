@@ -39,7 +39,7 @@ func TestExistingDirectory(t *testing.T) {
 			"googleapis-root": tmp,
 		},
 	}
-	root, err := makeGoogleapisRoot(&rootConfig)
+	root, err := makeSourceRoot(&rootConfig, "googleapis")
 	if err != nil {
 		t.Error(err)
 	}
@@ -54,7 +54,7 @@ func TestValidateConfig(t *testing.T) {
 			"googleapis-root": "https://unused",
 		},
 	}
-	_, err := makeGoogleapisRoot(&rootConfig)
+	_, err := makeSourceRoot(&rootConfig, "googleapis")
 	if err == nil {
 		t.Errorf("expected error when missing `googleapis-sha256")
 	}
@@ -92,12 +92,12 @@ func TestWithDownload(t *testing.T) {
 			"cachedir":          testDir,
 		},
 	}
-	got, err := makeGoogleapisRoot(rootConfig)
+	got, err := makeSourceRoot(rootConfig, "googleapis")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !strings.HasSuffix(got, tarball.Sha256) {
-		t.Errorf("mismatched suffix in makeGoogleapisRoot want=%s, got=%s", tarball.Sha256, got)
+		t.Errorf("mismatched suffix in makeSourceRoot want=%s, got=%s", tarball.Sha256, got)
 	}
 	if err := os.RemoveAll(got); err != nil {
 		t.Error(err)
@@ -130,12 +130,12 @@ func TestTargetExists(t *testing.T) {
 	if err := os.MkdirAll(path.Join(downloads, sha256), 0755); err != nil {
 		t.Fatal(err)
 	}
-	got, err := makeGoogleapisRoot(rootConfig)
+	got, err := makeSourceRoot(rootConfig, "googleapis")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !strings.HasSuffix(got, sha256) {
-		t.Errorf("mismatched suffix in makeGoogleapisRoot want=%s, got=%s", sha256, got)
+		t.Errorf("mismatched suffix in makeSourceRoot want=%s, got=%s", sha256, got)
 	}
 	if err := os.RemoveAll(got); err != nil {
 		t.Error(err)
@@ -160,7 +160,7 @@ func TestDownloadGoogleapisRootTgzExists(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if err := downloadGoogleapisRoot(target, "https://unused/placeholder.tar.gz", tarball.Sha256); err != nil {
+	if err := downloadSourceRoot(target, "https://unused/placeholder.tar.gz", tarball.Sha256); err != nil {
 		t.Error(err)
 	}
 }
@@ -188,7 +188,7 @@ func TestDownloadGoogleapisRootNeedsDownload(t *testing.T) {
 	defer server.Close()
 
 	expected := path.Join(testDir, "new-file")
-	if err := downloadGoogleapisRoot(expected, server.URL+"/placeholder.tar.gz", tarball.Sha256); err != nil {
+	if err := downloadSourceRoot(expected, server.URL+"/placeholder.tar.gz", tarball.Sha256); err != nil {
 		t.Error(err)
 	}
 	got, err := os.ReadFile(expected)
@@ -259,7 +259,7 @@ func makeTestTarball(t *testing.T, tempDir, subdir string) (*contents, error) {
 
 func TestExtractedName(t *testing.T) {
 	var rootConfig Config
-	got := extractedName(&rootConfig, "https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz")
+	got := extractedName(&rootConfig, "https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz", "googleapis")
 	want := "googleapis-2d08f07eab9bbe8300cd20b871d0811bbb693fab"
 	if got != want {
 		t.Errorf("mismatched extractedName, got=%s, want=%s", got, want)
@@ -273,7 +273,7 @@ func TestExtractedNameOverride(t *testing.T) {
 			"googleapis-extracted-name": want,
 		},
 	}
-	got := extractedName(&rootConfig, "https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz")
+	got := extractedName(&rootConfig, "https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz", "googleapis")
 	if got != want {
 		t.Errorf("mismatched extractedName, got=%s, want=%s", got, want)
 	}

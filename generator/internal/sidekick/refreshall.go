@@ -25,8 +25,26 @@ import (
 	"sync"
 )
 
+func overrideSources(rootConfig *Config) (*Config, error) {
+	override := *rootConfig
+	override.Codec = maps.Clone(rootConfig.Codec)
+	override.Source = maps.Clone(rootConfig.Source)
+	for _, configPrefix := range []string{"googleapis", "extra-protos"} {
+		configName := fmt.Sprintf("%s-root", configPrefix)
+		if _, ok := rootConfig.Source[configName]; !ok {
+			continue
+		}
+		root, err := makeSourceRoot(rootConfig, configPrefix)
+		if err != nil {
+			return nil, err
+		}
+		override.Source[fmt.Sprintf("%s-root", configPrefix)] = root
+	}
+	return &override, nil
+}
+
 func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
-	root, err := makeGoogleapisRoot(rootConfig)
+	override, err := overrideSources(rootConfig)
 	if err != nil {
 		return err
 	}
@@ -34,11 +52,6 @@ func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 	if err != nil {
 		return err
 	}
-
-	override := *rootConfig
-	override.Codec = maps.Clone(rootConfig.Codec)
-	override.Source = maps.Clone(rootConfig.Source)
-	override.Source["googleapis-root"] = root
 
 	type result struct {
 		dir string
@@ -51,7 +64,7 @@ func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 		go func() {
 			defer wg.Done()
 			fmt.Printf("refreshing directory %s\n", dir)
-			err := refresh(&override, cmdLine, dir)
+			err := refresh(override, cmdLine, dir)
 			results <- result{dir: dir, err: err}
 		}()
 	}

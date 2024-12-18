@@ -28,21 +28,21 @@ import (
 	"github.com/walle/targz"
 )
 
-func makeGoogleapisRoot(rootConfig *Config) (string, error) {
-	googleapisRoot, ok := rootConfig.Source["googleapis-root"]
+func makeSourceRoot(rootConfig *Config, configPrefix string) (string, error) {
+	sourceRoot, ok := rootConfig.Source[fmt.Sprintf("%s-root", configPrefix)]
 	if !ok {
 		return "", nil
 	}
-	if ok := isDirectory(googleapisRoot); ok {
-		return googleapisRoot, nil
+	if ok := isDirectory(sourceRoot); ok {
+		return sourceRoot, nil
 	}
-	if !requiresDownload(googleapisRoot) {
+	if !requiresDownload(sourceRoot) {
 		return "", fmt.Errorf("only directories and https URLs are supported for googleapis-root")
 	}
 	// Treat `googleapis-root` as a URL to download. We want to avoid downloads
 	// if possible, so we will first try to use a cache directory in $HOME.
 	// Only if that fails we try a new download.
-	googleapisSha256, ok := rootConfig.Source["googleapis-sha256"]
+	source, ok := rootConfig.Source[fmt.Sprintf("%s-sha256", configPrefix)]
 	if !ok {
 		return "", fmt.Errorf("using an https:// URL for googleapis-root requires setting googleapis-sha256")
 	}
@@ -50,34 +50,34 @@ func makeGoogleapisRoot(rootConfig *Config) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	target := path.Join(cacheDir, googleapisSha256)
+	target := path.Join(cacheDir, source)
 	if isDirectory(target) {
 		return target, nil
 	}
 	tgz := target + ".tar.gz"
-	if err := downloadGoogleapisRoot(tgz, googleapisRoot, googleapisSha256); err != nil {
+	if err := downloadSourceRoot(tgz, sourceRoot, source); err != nil {
 		return "", err
 	}
 
 	if err := targz.Extract(tgz, cacheDir); err != nil {
 		return "", err
 	}
-	name := extractedName(rootConfig, googleapisRoot)
-	if err := os.Rename(path.Join(cacheDir, name), target); err != nil {
+	dirname := extractedName(rootConfig, sourceRoot, configPrefix)
+	if err := os.Rename(path.Join(cacheDir, dirname), target); err != nil {
 		return "", err
 	}
 	return target, nil
 }
 
-func extractedName(rootConfig *Config, googleapisRoot string) string {
-	name, ok := rootConfig.Source["googleapis-extracted-name"]
+func extractedName(rootConfig *Config, googleapisRoot, configPrefix string) string {
+	name, ok := rootConfig.Source[fmt.Sprintf("%s-extracted-name", configPrefix)]
 	if ok {
 		return name
 	}
 	return "googleapis-" + filepath.Base(strings.TrimSuffix(googleapisRoot, ".tar.gz"))
 }
 
-func downloadGoogleapisRoot(target, source, sha256 string) error {
+func downloadSourceRoot(target, source, sha256 string) error {
 	if fileExists(target) {
 		return nil
 	}
