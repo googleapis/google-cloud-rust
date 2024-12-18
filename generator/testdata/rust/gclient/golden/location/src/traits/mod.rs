@@ -24,7 +24,7 @@ pub(crate) mod dyntraits;
 ///
 /// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
 ///
-/// # Notes
+/// # Mocking
 ///
 /// Application developers may use this trait to mock the cloud clients.
 ///
@@ -37,6 +37,7 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListLocationsResponse>> + Send {
         std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
@@ -45,6 +46,7 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     fn get_location(
         &self,
         _req: crate::model::GetLocationRequest,
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Location>> + Send {
         std::future::ready::<crate::Result<crate::model::Location>>(Err(Error::other("unimplemented")))
     }

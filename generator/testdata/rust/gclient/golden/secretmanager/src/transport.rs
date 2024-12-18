@@ -52,7 +52,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
+    async fn list_secrets(
+        &self,
+        req: crate::model::ListSecretsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/secrets"
                , req.parent
@@ -70,7 +74,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
+    async fn create_secret(
+        &self,
+        req: crate::model::CreateSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}/secrets"
                , req.parent
@@ -87,7 +95,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn add_secret_version(
+        &self,
+        req: crate::model::AddSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:addVersion"
                , req.parent
@@ -100,7 +112,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
+    async fn get_secret(
+        &self,
+        req: crate::model::GetSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name
@@ -114,7 +130,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
+    async fn update_secret(
+        &self,
+        req: crate::model::UpdateSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::PATCH, format!("/v1/{}"
                , gax::path_parameter::PathParameter::required(&req.secret, "secret").map_err(Error::other)?.name
@@ -128,7 +148,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<wkt::Empty> {
+    async fn delete_secret(
+        &self,
+        req: crate::model::DeleteSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
         let builder = self.inner.builder(
             reqwest::Method::DELETE, format!("/v1/{}"
                , req.name
@@ -143,7 +167,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// call does not return secret data.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
+    async fn list_secret_versions(
+        &self,
+        req: crate::model::ListSecretVersionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretVersionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/versions"
                , req.parent
@@ -163,7 +191,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn get_secret_version(
+        &self,
+        req: crate::model::GetSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name
@@ -180,7 +212,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
+    async fn access_secret_version(
+        &self,
+        req: crate::model::AccessSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::AccessSecretVersionResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}:access"
                , req.name
@@ -199,7 +235,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::state::DISABLED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn disable_secret_version(
+        &self,
+        req: crate::model::DisableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:disable"
                , req.name
@@ -218,7 +258,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn enable_secret_version(
+        &self,
+        req: crate::model::EnableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:enable"
                , req.name
@@ -238,7 +282,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn destroy_secret_version(
+        &self,
+        req: crate::model::DestroySecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:destroy"
                , req.name
@@ -258,7 +306,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    async fn set_iam_policy(&self, req: iam::model::SetIamPolicyRequest) -> Result<iam::model::Policy> {
+    async fn set_iam_policy(
+        &self,
+        req: iam::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<iam::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:setIamPolicy"
                , req.resource
@@ -270,7 +322,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    async fn get_iam_policy(&self, req: iam::model::GetIamPolicyRequest) -> Result<iam::model::Policy> {
+    async fn get_iam_policy(
+        &self,
+        req: iam::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<iam::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}:getIamPolicy"
                , req.resource
@@ -288,7 +344,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    async fn test_iam_permissions(&self, req: iam::model::TestIamPermissionsRequest) -> Result<iam::model::TestIamPermissionsResponse> {
+    async fn test_iam_permissions(
+        &self,
+        req: iam::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<iam::model::TestIamPermissionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:testIamPermissions"
                , req.resource
@@ -323,7 +383,11 @@ impl Locations {
 
 impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
-    async fn list_locations(&self, req: location::model::ListLocationsRequest) -> Result<location::model::ListLocationsResponse> {
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<location::model::ListLocationsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/locations"
                , req.name
@@ -337,7 +401,11 @@ impl crate::traits::Locations for Locations {
     }
 
     /// Gets information about a location.
-    async fn get_location(&self, req: location::model::GetLocationRequest) -> Result<location::model::Location> {
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<location::model::Location> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name

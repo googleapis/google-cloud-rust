@@ -45,7 +45,11 @@ impl Locations {
 
 impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
-    async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
+    async fn list_locations(
+        &self,
+        req: crate::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListLocationsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name
@@ -59,7 +63,11 @@ impl crate::traits::Locations for Locations {
     }
 
     /// Gets information about a location.
-    async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
+    async fn get_location(
+        &self,
+        req: crate::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Location> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name

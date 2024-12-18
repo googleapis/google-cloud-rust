@@ -42,7 +42,11 @@ impl SecretManagerService {
 
 impl crate::traits::SecretManagerService for SecretManagerService {
     /// Lists information about the supported locations for this service.
-    async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
+    async fn list_locations(
+        &self,
+        req: crate::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListLocationsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations"
                , req.project
@@ -56,7 +60,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Gets information about a location.
-    async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
+    async fn get_location(
+        &self,
+        req: crate::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Location> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}"
                , req.project
@@ -68,7 +76,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Lists Secrets.
-    async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
+    async fn list_secrets(
+        &self,
+        req: crate::model::ListSecretsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets"
                , req.project
@@ -82,7 +94,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
+    async fn create_secret(
+        &self,
+        req: crate::model::CreateSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets"
                , req.project
@@ -94,7 +110,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Lists Secrets.
-    async fn list_secrets_by_project_and_location(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> Result<crate::model::ListSecretsResponse> {
+    async fn list_secrets_by_project_and_location(
+        &self,
+        req: crate::model::ListSecretsByProjectAndLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets"
                , req.project
@@ -109,7 +129,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    async fn create_secret_by_project_and_location(&self, req: crate::model::CreateSecretByProjectAndLocationRequest) -> Result<crate::model::Secret> {
+    async fn create_secret_by_project_and_location(
+        &self,
+        req: crate::model::CreateSecretByProjectAndLocationRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets"
                , req.project
@@ -123,7 +147,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn add_secret_version(
+        &self,
+        req: crate::model::AddSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}:addVersion"
                , req.project
@@ -136,7 +164,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    async fn add_secret_version_by_project_and_location_and_secret(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn add_secret_version_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::AddSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}:addVersion"
                , req.project
@@ -149,7 +181,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Gets metadata for a given Secret.
-    async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
+    async fn get_secret(
+        &self,
+        req: crate::model::GetSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}"
                , req.project
@@ -161,7 +197,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Deletes a Secret.
-    async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<crate::model::Empty> {
+    async fn delete_secret(
+        &self,
+        req: crate::model::DeleteSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Empty> {
         let builder = self.inner.builder(
             reqwest::Method::DELETE, format!("/v1/projects/{}/secrets/{}"
                , req.project
@@ -174,7 +214,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Updates metadata of an existing Secret.
-    async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
+    async fn update_secret(
+        &self,
+        req: crate::model::UpdateSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::PATCH, format!("/v1/projects/{}/secrets/{}"
                , req.project
@@ -187,7 +231,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Gets metadata for a given Secret.
-    async fn get_secret_by_project_and_location_and_secret(&self, req: crate::model::GetSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
+    async fn get_secret_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}"
                , req.project
@@ -200,7 +248,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Deletes a Secret.
-    async fn delete_secret_by_project_and_location_and_secret(&self, req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Empty> {
+    async fn delete_secret_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Empty> {
         let builder = self.inner.builder(
             reqwest::Method::DELETE, format!("/v1/projects/{}/locations/{}/secrets/{}"
                , req.project
@@ -214,7 +266,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     }
 
     /// Updates metadata of an existing Secret.
-    async fn update_secret_by_project_and_location_and_secret(&self, req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
+    async fn update_secret_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Secret> {
         let builder = self.inner.builder(
             reqwest::Method::PATCH, format!("/v1/projects/{}/locations/{}/secrets/{}"
                , req.project
@@ -229,7 +285,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
+    async fn list_secret_versions(
+        &self,
+        req: crate::model::ListSecretVersionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretVersionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}/versions"
                , req.project
@@ -245,7 +305,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    async fn list_secret_versions_by_project_and_location_and_secret(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> Result<crate::model::ListSecretVersionsResponse> {
+    async fn list_secret_versions_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::ListSecretVersionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}/versions"
                , req.project
@@ -264,7 +328,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn get_secret_version(
+        &self,
+        req: crate::model::GetSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}/versions/{}"
                , req.project
@@ -280,7 +348,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    async fn get_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn get_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}/versions/{}"
                , req.project
@@ -297,7 +369,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
+    async fn access_secret_version(
+        &self,
+        req: crate::model::AccessSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::AccessSecretVersionResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}/versions/{}:access"
                , req.project
@@ -313,7 +389,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    async fn access_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
+    async fn access_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::AccessSecretVersionResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}/versions/{}:access"
                , req.project
@@ -330,7 +410,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn disable_secret_version(
+        &self,
+        req: crate::model::DisableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}/versions/{}:disable"
                , req.project
@@ -346,7 +430,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    async fn disable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn disable_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        req: crate::model::DisableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}/versions/{}:disable"
                , req.project
@@ -363,7 +451,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn enable_secret_version(
+        &self,
+        req: crate::model::EnableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}/versions/{}:enable"
                , req.project
@@ -379,7 +471,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    async fn enable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn enable_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        req: crate::model::EnableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}/versions/{}:enable"
                , req.project
@@ -397,7 +493,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn destroy_secret_version(
+        &self,
+        req: crate::model::DestroySecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}/versions/{}:destroy"
                , req.project
@@ -414,7 +514,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    async fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
+    async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        req: crate::model::DestroySecretVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::SecretVersion> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}/versions/{}:destroy"
                , req.project
@@ -432,7 +536,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}:setIamPolicy"
                , req.project
@@ -448,7 +556,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    async fn set_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
+    async fn set_iam_policy_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}:setIamPolicy"
                , req.project
@@ -462,7 +574,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/secrets/{}:getIamPolicy"
                , req.project
@@ -476,7 +592,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    async fn get_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest) -> Result<crate::model::Policy> {
+    async fn get_iam_policy_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/projects/{}/locations/{}/secrets/{}:getIamPolicy"
                , req.project
@@ -496,7 +616,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::TestIamPermissionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/secrets/{}:testIamPermissions"
                , req.project
@@ -514,7 +638,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    async fn test_iam_permissions_by_project_and_location_and_secret(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
+    async fn test_iam_permissions_by_project_and_location_and_secret(
+        &self,
+        req: crate::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::TestIamPermissionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/projects/{}/locations/{}/secrets/{}:testIamPermissions"
                , req.project

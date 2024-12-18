@@ -33,78 +33,138 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
 impl<T> crate::traits::SecretManagerService for SecretManagerService<T>
 where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
-    async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
-        self.inner.list_secrets(req).await
+    async fn list_secrets(
+        &self,
+        req: crate::model::ListSecretsRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::ListSecretsResponse> {
+        self.inner.list_secrets(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.create_secret(req).await
+    async fn create_secret(
+        &self,
+        req: crate::model::CreateSecretRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::Secret> {
+        self.inner.create_secret(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.add_secret_version(req).await
+    async fn add_secret_version(
+        &self,
+        req: crate::model::AddSecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::SecretVersion> {
+        self.inner.add_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.get_secret(req).await
+    async fn get_secret(
+        &self,
+        req: crate::model::GetSecretRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::Secret> {
+        self.inner.get_secret(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.update_secret(req).await
+    async fn update_secret(
+        &self,
+        req: crate::model::UpdateSecretRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::Secret> {
+        self.inner.update_secret(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<wkt::Empty> {
-        self.inner.delete_secret(req).await
+    async fn delete_secret(
+        &self,
+        req: crate::model::DeleteSecretRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<wkt::Empty> {
+        self.inner.delete_secret(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        self.inner.list_secret_versions(req).await
+    async fn list_secret_versions(
+        &self,
+        req: crate::model::ListSecretVersionsRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::ListSecretVersionsResponse> {
+        self.inner.list_secret_versions(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.get_secret_version(req).await
+    async fn get_secret_version(
+        &self,
+        req: crate::model::GetSecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::SecretVersion> {
+        self.inner.get_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        self.inner.access_secret_version(req).await
+    async fn access_secret_version(
+        &self,
+        req: crate::model::AccessSecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::AccessSecretVersionResponse> {
+        self.inner.access_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.disable_secret_version(req).await
+    async fn disable_secret_version(
+        &self,
+        req: crate::model::DisableSecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::SecretVersion> {
+        self.inner.disable_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.enable_secret_version(req).await
+    async fn enable_secret_version(
+        &self,
+        req: crate::model::EnableSecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::SecretVersion> {
+        self.inner.enable_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.destroy_secret_version(req).await
+    async fn destroy_secret_version(
+        &self,
+        req: crate::model::DestroySecretVersionRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::SecretVersion> {
+        self.inner.destroy_secret_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn set_iam_policy(&self, req: iam::model::SetIamPolicyRequest) -> Result<iam::model::Policy> {
-        self.inner.set_iam_policy(req).await
+    async fn set_iam_policy(
+        &self,
+        req: iam::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<iam::model::Policy> {
+        self.inner.set_iam_policy(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_iam_policy(&self, req: iam::model::GetIamPolicyRequest) -> Result<iam::model::Policy> {
-        self.inner.get_iam_policy(req).await
+    async fn get_iam_policy(
+        &self,
+        req: iam::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<iam::model::Policy> {
+        self.inner.get_iam_policy(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(&self, req: iam::model::TestIamPermissionsRequest) -> Result<iam::model::TestIamPermissionsResponse> {
-        self.inner.test_iam_permissions(req).await
+    async fn test_iam_permissions(
+        &self,
+        req: iam::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<iam::model::TestIamPermissionsResponse> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
 }
@@ -127,13 +187,21 @@ where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
 impl<T> crate::traits::Locations for Locations<T>
 where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
-    async fn list_locations(&self, req: location::model::ListLocationsRequest) -> Result<location::model::ListLocationsResponse> {
-        self.inner.list_locations(req).await
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<location::model::ListLocationsResponse> {
+        self.inner.list_locations(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_location(&self, req: location::model::GetLocationRequest) -> Result<location::model::Location> {
-        self.inner.get_location(req).await
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<location::model::Location> {
+        self.inner.get_location(req, options).await
     }
 
 }

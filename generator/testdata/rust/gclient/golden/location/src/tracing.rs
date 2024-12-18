@@ -33,13 +33,21 @@ where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
 impl<T> crate::traits::Locations for Locations<T>
 where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
     #[tracing::instrument(ret)]
-    async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
-        self.inner.list_locations(req).await
+    async fn list_locations(
+        &self,
+        req: crate::model::ListLocationsRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::ListLocationsResponse> {
+        self.inner.list_locations(req, options).await
     }
 
     #[tracing::instrument(ret)]
-    async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
-        self.inner.get_location(req).await
+    async fn get_location(
+        &self,
+        req: crate::model::GetLocationRequest,
+        options: gax::options::RequestOptions
+    ) -> Result<crate::model::Location> {
+        self.inner.get_location(req, options).await
     }
 
 }
