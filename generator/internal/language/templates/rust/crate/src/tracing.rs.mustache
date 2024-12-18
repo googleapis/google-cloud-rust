@@ -41,8 +41,12 @@ impl<T> crate::traits::{{NameToPascal}} for {{NameToPascal}}<T>
 where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     {{#Methods}}
     #[tracing::instrument(ret)]
-    async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        self.inner.{{NameToSnake}}(req).await
+    async fn {{NameToSnake}}(
+        &self,
+        req: {{InputTypeName}},
+        options: gax::options::RequestOptions
+    ) -> Result<{{OutputTypeName}}> {
+        self.inner.{{NameToSnake}}(req, options).await
     }
 
     {{/Methods}}

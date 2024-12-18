@@ -54,7 +54,11 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
+    async fn {{NameToSnake}}(
+        &self,
+        req: {{InputTypeName}},
+        _options: gax::options::RequestOptions,
+    ) -> Result<{{OutputTypeName}}> {
         let builder = self.inner.builder(
             reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
                {{#HTTPPathArgs}}

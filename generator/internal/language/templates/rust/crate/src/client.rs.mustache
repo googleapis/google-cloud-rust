@@ -68,15 +68,13 @@ impl {{NameToPascal}} {
     async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::{{NameToPascal}}> {
         Self::build_transport(conf).await.map(crate::tracing::{{NameToPascal}}::new)
     }
-}
 
-impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{#Methods}}
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        self.inner.{{NameToSnake}}(req).await
+    pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
+        self.inner.{{NameToSnake}}(req, gax::options::RequestOptions).await
     }
 
     {{/Methods}}

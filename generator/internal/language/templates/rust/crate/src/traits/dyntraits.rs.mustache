@@ -28,7 +28,8 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{/DocLines}}
     async fn {{NameToSnake}}(
         &self,
-        req: {{InputTypeName}}
+        req: {{InputTypeName}},
+        options: gax::options::RequestOptions
     ) -> crate::Result<{{OutputTypeName}}>;
 
     {{/Methods}}
@@ -41,10 +42,10 @@ impl<T: crate::traits::{{NameToPascal}}> {{NameToPascal}} for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn {{NameToSnake}}(
         &self,
-        req: {{InputTypeName}}
+        req: {{InputTypeName}},
+        options: gax::options::RequestOptions
     ) -> crate::Result<{{OutputTypeName}}> {
-        let response = T::{{NameToSnake}}(self, req).await?;
-        Ok(response)
+        T::{{NameToSnake}}(self, req, options).await
     }
 
     {{/Methods}}

@@ -14,7 +14,6 @@
 
 use crate::Result;
 use rand::{distributions::Alphanumeric, Rng};
-use smo::traits::SecretManagerService;
 
 async fn new_client(tracing: bool) -> Result<smo::client::SecretManagerService> {
     if tracing {
