@@ -590,7 +590,7 @@ mod test {
     #[test_case("UNAUTHENTICATED")]
     fn code_roundtrip(input: &str) {
         let code = Code::try_from(input);
-        let output: Result<String, _> = code.map(|c| From::from(c));
+        let output: Result<String, _> = code.map(From::from);
         assert_eq!(output, Ok(input.to_string()));
     }
 }
