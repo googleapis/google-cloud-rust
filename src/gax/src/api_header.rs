@@ -83,7 +83,7 @@ mod test {
         let want = built_info::RUSTC_VERSION;
         assert!(
             got.as_ref()
-                .map(|s| want.contains(s) && s != "")
+                .map(|s| want.contains(s) && !s.is_empty())
                 .unwrap_or(false),
             "mismatched rustc version {} and {:?}",
             want,

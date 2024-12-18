@@ -35,14 +35,10 @@ async fn test_paginator() -> Result<()> {
     let mut page_token = String::default();
     let mut items = Vec::new();
     loop {
-        let response = client
-            .list(ListFoosRequest {
-                page_token: page_token,
-            })
-            .await?;
+        let response = client.list(ListFoosRequest { page_token }).await?;
         response.items.into_iter().for_each(|s| items.push(s.name));
         page_token = response.next_page_token;
-        if page_token == "" {
+        if page_token.is_empty() {
             break;
         }
     }
@@ -100,7 +96,7 @@ impl Client {
             .inner
             .builder(reqwest::Method::GET, "/pagination".to_string())
             .query(&[("alt", "json")]);
-        if "" != req.page_token {
+        if !req.page_token.is_empty() {
             builder = builder.query(&[("pageToken", req.page_token)]);
         }
         self.inner.execute(builder, None::<NoBody>).await
@@ -127,7 +123,7 @@ async fn handle_page(Query(params): Query<HashMap<String, String>>) -> (StatusCo
     };
 
     let page_token = params.get("pageToken").map(String::as_str).unwrap_or("");
-    let response = if page_token == "" {
+    let response = if page_token.is_empty() {
         ListFoosResponse {
             items: to_items(&["f1", "f2"]),
             next_page_token: "abc123".to_string(),
