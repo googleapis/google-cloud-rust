@@ -25,6 +25,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -32,6 +33,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -44,6 +46,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
 }
 
@@ -54,26 +57,26 @@ impl<T: crate::traits::IAMPolicy> IAMPolicy for T {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::set_iam_policy(self, req).await?;
-        Ok(response)
+        T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::get_iam_policy(self, req).await?;
-        Ok(response)
+        T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
-        let response = T::test_iam_permissions(self, req).await?;
-        Ok(response)
+        T::test_iam_permissions(self, req, options).await
     }
 }

@@ -42,23 +42,26 @@ where
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
-        self.inner.set_iam_policy(req).await
+        self.inner.set_iam_policy(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
-        self.inner.get_iam_policy(req).await
+        self.inner.get_iam_policy(req, options).await
     }
 
     #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.inner.test_iam_permissions(req).await
+        self.inner.test_iam_permissions(req, options).await
     }
 }

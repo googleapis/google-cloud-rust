@@ -55,6 +55,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretsResponse> {
         let builder = self
             .inner
@@ -83,6 +84,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         let builder = self
             .inner
@@ -106,6 +108,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         let builder = self
             .inner
@@ -127,6 +130,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         let builder = self
             .inner
@@ -148,6 +152,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
         let builder = self
             .inner
@@ -177,7 +182,11 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<wkt::Empty> {
+    async fn delete_secret(
+        &self,
+        req: crate::model::DeleteSecretRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<wkt::Empty> {
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -200,6 +209,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
         let builder = self
             .inner
@@ -230,6 +240,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         let builder = self
             .inner
@@ -254,6 +265,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
         let builder = self
             .inner
@@ -280,6 +292,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         let builder = self
             .inner
@@ -304,6 +317,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         let builder = self
             .inner
@@ -329,6 +343,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
         let builder = self
             .inner
@@ -354,6 +369,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn set_iam_policy(
         &self,
         req: iam_v1::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<iam_v1::model::Policy> {
         let builder = self
             .inner
@@ -374,6 +390,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn get_iam_policy(
         &self,
         req: iam_v1::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<iam_v1::model::Policy> {
         let builder = self
             .inner
@@ -407,6 +424,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
     async fn test_iam_permissions(
         &self,
         req: iam_v1::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
         let builder = self
             .inner
@@ -449,6 +467,7 @@ impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<location::model::ListLocationsResponse> {
         let builder = self
             .inner
@@ -473,6 +492,7 @@ impl crate::traits::Locations for Locations {
     async fn get_location(
         &self,
         req: location::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<location::model::Location> {
         let builder = self
             .inner

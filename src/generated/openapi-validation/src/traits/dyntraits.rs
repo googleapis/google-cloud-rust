@@ -21,36 +21,42 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListLocationsResponse>;
 
     /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Location>;
 
     /// Lists Secrets.
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretsResponse>;
 
     /// Creates a new Secret containing no SecretVersions.
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Lists Secrets.
     async fn list_secrets_by_project_and_location(
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretsResponse>;
 
     /// Creates a new Secret containing no SecretVersions.
     async fn create_secret_by_project_and_location(
         &self,
         req: crate::model::CreateSecretByProjectAndLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -58,6 +64,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -65,42 +72,49 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
         req: crate::model::AddSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Gets metadata for a given Secret.
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Deletes a Secret.
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Empty>;
 
     /// Updates metadata of an existing Secret.
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Gets metadata for a given Secret.
     async fn get_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Deletes a Secret.
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Empty>;
 
     /// Updates metadata of an existing Secret.
     async fn update_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret>;
 
     /// Lists SecretVersions. This call does not return secret
@@ -108,6 +122,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretVersionsResponse>;
 
     /// Lists SecretVersions. This call does not return secret
@@ -115,6 +130,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretVersionsResponse>;
 
     /// Gets metadata for a SecretVersion.
@@ -124,6 +140,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Gets metadata for a SecretVersion.
@@ -133,6 +150,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -142,6 +160,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::AccessSecretVersionResponse>;
 
     /// Accesses a SecretVersion. This call returns the secret data.
@@ -151,6 +170,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::AccessSecretVersionResponse>;
 
     /// Disables a SecretVersion.
@@ -160,6 +180,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Disables a SecretVersion.
@@ -169,6 +190,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Enables a SecretVersion.
@@ -178,6 +200,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Enables a SecretVersion.
@@ -187,6 +210,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Destroys a SecretVersion.
@@ -197,6 +221,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Destroys a SecretVersion.
@@ -207,6 +232,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion>;
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -217,6 +243,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -227,6 +254,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Gets the access control policy for a secret.
@@ -234,6 +262,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Gets the access control policy for a secret.
@@ -241,6 +270,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy>;
 
     /// Returns permissions that a caller has for the specified secret.
@@ -253,6 +283,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
 
     /// Returns permissions that a caller has for the specified secret.
@@ -265,6 +296,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
 }
 
@@ -275,298 +307,292 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListLocationsResponse> {
-        let response = T::list_locations(self, req).await?;
-        Ok(response)
+        T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Location> {
-        let response = T::get_location(self, req).await?;
-        Ok(response)
+        T::get_location(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretsResponse> {
-        let response = T::list_secrets(self, req).await?;
-        Ok(response)
+        T::list_secrets(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::create_secret(self, req).await?;
-        Ok(response)
+        T::create_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_secrets_by_project_and_location(
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretsResponse> {
-        let response = T::list_secrets_by_project_and_location(self, req).await?;
-        Ok(response)
+        T::list_secrets_by_project_and_location(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn create_secret_by_project_and_location(
         &self,
         req: crate::model::CreateSecretByProjectAndLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::create_secret_by_project_and_location(self, req).await?;
-        Ok(response)
+        T::create_secret_by_project_and_location(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::add_secret_version(self, req).await?;
-        Ok(response)
+        T::add_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
         req: crate::model::AddSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::add_secret_version_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::add_secret_version_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::get_secret(self, req).await?;
-        Ok(response)
+        T::get_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Empty> {
-        let response = T::delete_secret(self, req).await?;
-        Ok(response)
+        T::delete_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::update_secret(self, req).await?;
-        Ok(response)
+        T::update_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::get_secret_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::get_secret_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Empty> {
-        let response = T::delete_secret_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::delete_secret_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn update_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Secret> {
-        let response = T::update_secret_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::update_secret_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretVersionsResponse> {
-        let response = T::list_secret_versions(self, req).await?;
-        Ok(response)
+        T::list_secret_versions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListSecretVersionsResponse> {
-        let response =
-            T::list_secret_versions_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::list_secret_versions_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::get_secret_version(self, req).await?;
-        Ok(response)
+        T::get_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response =
-            T::get_secret_version_by_project_and_location_and_secret_and_version(self, req).await?;
-        Ok(response)
+        T::get_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::AccessSecretVersionResponse> {
-        let response = T::access_secret_version(self, req).await?;
-        Ok(response)
+        T::access_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::AccessSecretVersionResponse> {
-        let response =
-            T::access_secret_version_by_project_and_location_and_secret_and_version(self, req)
-                .await?;
-        Ok(response)
+        T::access_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::disable_secret_version(self, req).await?;
-        Ok(response)
+        T::disable_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response =
-            T::disable_secret_version_by_project_and_location_and_secret_and_version(self, req)
-                .await?;
-        Ok(response)
+        T::disable_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::enable_secret_version(self, req).await?;
-        Ok(response)
+        T::enable_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response =
-            T::enable_secret_version_by_project_and_location_and_secret_and_version(self, req)
-                .await?;
-        Ok(response)
+        T::enable_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response = T::destroy_secret_version(self, req).await?;
-        Ok(response)
+        T::destroy_secret_version(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::SecretVersion> {
-        let response =
-            T::destroy_secret_version_by_project_and_location_and_secret_and_version(self, req)
-                .await?;
-        Ok(response)
+        T::destroy_secret_version_by_project_and_location_and_secret_and_version(self, req, options)
+            .await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::set_iam_policy(self, req).await?;
-        Ok(response)
+        T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::set_iam_policy_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::set_iam_policy_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::get_iam_policy(self, req).await?;
-        Ok(response)
+        T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::get_iam_policy_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::get_iam_policy_by_project_and_location_and_secret(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
-        let response = T::test_iam_permissions(self, req).await?;
-        Ok(response)
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
-        let response =
-            T::test_iam_permissions_by_project_and_location_and_secret(self, req).await?;
-        Ok(response)
+        T::test_iam_permissions_by_project_and_location_and_secret(self, req, options).await
     }
 }

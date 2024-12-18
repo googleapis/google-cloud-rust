@@ -21,12 +21,14 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListLocationsResponse>;
 
     /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Location>;
 }
 
@@ -37,17 +39,17 @@ impl<T: crate::traits::Locations> Locations for T {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListLocationsResponse> {
-        let response = T::list_locations(self, req).await?;
-        Ok(response)
+        T::list_locations(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Location> {
-        let response = T::get_location(self, req).await?;
-        Ok(response)
+        T::get_location(self, req, options).await
     }
 }
