@@ -68,7 +68,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:setIamPolicy"
                , req.resource
@@ -81,7 +85,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
-    async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:getIamPolicy"
                , req.resource
@@ -98,7 +106,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<crate::model::TestIamPermissionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:testIamPermissions"
                , req.resource

@@ -23,7 +23,8 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     async fn set_iam_policy(
         &self,
-        req: crate::model::SetIamPolicyRequest
+        req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy>;
 
     /// Gets the access control policy for a resource.
@@ -31,7 +32,8 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     /// set.
     async fn get_iam_policy(
         &self,
-        req: crate::model::GetIamPolicyRequest
+        req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy>;
 
     /// Returns permissions that a caller has on the specified resource.
@@ -43,7 +45,8 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     /// may "fail open" without warning.
     async fn test_iam_permissions(
         &self,
-        req: crate::model::TestIamPermissionsRequest
+        req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::TestIamPermissionsResponse>;
 
 }
@@ -54,28 +57,28 @@ impl<T: crate::traits::IAMPolicy> IAMPolicy for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn set_iam_policy(
         &self,
-        req: crate::model::SetIamPolicyRequest
+        req: crate::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::set_iam_policy(self, req).await?;
-        Ok(response)
+        T::set_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn get_iam_policy(
         &self,
-        req: crate::model::GetIamPolicyRequest
+        req: crate::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy> {
-        let response = T::get_iam_policy(self, req).await?;
-        Ok(response)
+        T::get_iam_policy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
     async fn test_iam_permissions(
         &self,
-        req: crate::model::TestIamPermissionsRequest
+        req: crate::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::TestIamPermissionsResponse> {
-        let response = T::test_iam_permissions(self, req).await?;
-        Ok(response)
+        T::test_iam_permissions(self, req, options).await
     }
 
 }

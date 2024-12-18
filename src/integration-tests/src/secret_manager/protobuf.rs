@@ -15,8 +15,6 @@
 use crate::Result;
 use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
-use sm::traits::Locations;
-use sm::traits::SecretManagerService;
 use tracing_subscriber::fmt::format::FmtSpan;
 
 async fn new_client(tracing: bool) -> Result<sm::client::SecretManagerService> {

@@ -48,6 +48,7 @@ impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListLocationsResponse> {
         let builder = self
             .inner
@@ -72,6 +73,7 @@ impl crate::traits::Locations for Locations {
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
+        _options: gax::options::RequestOptions,
     ) -> Result<crate::model::Location> {
         let builder = self
             .inner

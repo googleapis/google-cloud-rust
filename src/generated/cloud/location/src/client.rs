@@ -69,22 +69,24 @@ impl Locations {
             .await
             .map(crate::tracing::Locations::new)
     }
-}
 
-impl crate::traits::Locations for Locations {
     /// Lists information about the supported locations for this service.
-    async fn list_locations(
+    pub async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
     ) -> Result<crate::model::ListLocationsResponse> {
-        self.inner.list_locations(req).await
+        self.inner
+            .list_locations(req, gax::options::RequestOptions)
+            .await
     }
 
     /// Gets information about a location.
-    async fn get_location(
+    pub async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
     ) -> Result<crate::model::Location> {
-        self.inner.get_location(req).await
+        self.inner
+            .get_location(req, gax::options::RequestOptions)
+            .await
     }
 }

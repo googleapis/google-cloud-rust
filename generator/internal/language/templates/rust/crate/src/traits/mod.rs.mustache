@@ -29,7 +29,7 @@ pub(crate) mod dyntraits;
 {{{.}}}
 {{/DocLines}}
 ///
-/// # Notes
+/// # Mocking
 ///
 /// Application developers may use this trait to mock the {{Name}} clients.
 ///
@@ -45,6 +45,7 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     fn {{NameToSnake}}(
         &self,
         _req: {{InputTypeName}},
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<{{OutputTypeName}}>> + Send {
         std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
     }

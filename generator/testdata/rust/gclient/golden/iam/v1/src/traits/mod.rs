@@ -44,7 +44,7 @@ pub(crate) mod dyntraits;
 /// are created and deleted implicitly with the resources to which they are
 /// attached.
 ///
-/// # Notes
+/// # Mocking
 ///
 /// Application developers may use this trait to mock the  clients.
 ///
@@ -60,6 +60,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     fn set_iam_policy(
         &self,
         _req: crate::model::SetIamPolicyRequest,
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
@@ -70,6 +71,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     fn get_iam_policy(
         &self,
         _req: crate::model::GetIamPolicyRequest,
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::Policy>> + Send {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
@@ -84,6 +86,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::TestIamPermissionsResponse>> + Send {
         std::future::ready::<crate::Result<crate::model::TestIamPermissionsResponse>>(Err(Error::other("unimplemented")))
     }
