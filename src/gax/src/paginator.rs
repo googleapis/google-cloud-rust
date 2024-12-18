@@ -53,7 +53,6 @@ where
                     ControlFlow::Continue(token) => token,
                     ControlFlow::Break(_) => return None,
                 };
-
                 match execute(token).await {
                     Ok(page_resp) => {
                         let tok = page_resp.next_page_token();
@@ -94,6 +93,40 @@ impl<T, E> Stream for Paginator<T, E> {
 impl<T, E> std::fmt::Debug for Paginator<T, E> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Paginator").finish()
+    }
+}
+
+#[cfg(feature = "unstable-sdk-client")]
+pub use sdk_util::*;
+
+mod sdk_util {
+    /// Extracts a token value from the input provided.
+    pub fn extract_token<T>(input: T) -> String
+    where
+        T: TokenExtractor,
+    {
+        T::extract(&input)
+    }
+
+    /// [TokenExtractor] is a trait representing types that be be turned into a
+    /// pagination token.
+    pub trait TokenExtractor {
+        fn extract(&self) -> String;
+    }
+
+    impl TokenExtractor for &String {
+        fn extract(&self) -> String {
+            self.to_string()
+        }
+    }
+
+    impl TokenExtractor for &Option<String> {
+        fn extract(&self) -> String {
+            match self {
+                Some(v) => v.clone(),
+                None => String::new(),
+            }
+        }
     }
 }
 
@@ -274,5 +307,12 @@ mod tests {
             }
         }
         assert_eq!(count, 1);
+    }
+
+    #[test]
+    fn test_extract_token() {
+        assert_eq!(sdk_util::extract_token(&"abc".to_string()), "abc");
+        assert_eq!(sdk_util::extract_token(&Some("abc".to_string())), "abc");
+        assert_eq!(sdk_util::extract_token(&None::<String>), "");
     }
 }
