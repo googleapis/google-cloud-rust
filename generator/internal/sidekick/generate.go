@@ -54,7 +54,7 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 	override.Source["googleapis-root"] = root
 
 	// Load the .sidekick.toml file and refresh the code.
-	return refresh(&override, cmdLine, cmdLine.Output)
+	return refresh(&override, cmdLine)
 }
 
 func writeSidekickToml(outDir string, config *Config) error {
