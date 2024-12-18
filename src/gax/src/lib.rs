@@ -86,3 +86,5 @@ pub mod paginator;
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
 pub mod http_client;
+
+pub mod options;
