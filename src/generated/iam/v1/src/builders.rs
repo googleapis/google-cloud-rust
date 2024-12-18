@@ -26,7 +26,9 @@ pub struct IAMPolicyRequestBuilder<R: std::default::Default> {
 }
 
 impl<R> IAMPolicyRequestBuilder<R>
-where R: std::default::Default {
+where
+    R: std::default::Default,
+{
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::IAMPolicy>) -> Self {
         Self {
             stub,
@@ -41,9 +43,7 @@ pub struct SetIamPolicy(IAMPolicyRequestBuilder<crate::model::SetIamPolicyReques
 
 impl SetIamPolicy {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::IAMPolicy>) -> Self {
-        Self(
-            IAMPolicyRequestBuilder::new(stub)
-        )
+        Self(IAMPolicyRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -54,9 +54,11 @@ impl SetIamPolicy {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.set_iam_policy(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .set_iam_policy(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
@@ -82,9 +84,7 @@ pub struct GetIamPolicy(IAMPolicyRequestBuilder<crate::model::GetIamPolicyReques
 
 impl GetIamPolicy {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::IAMPolicy>) -> Self {
-        Self(
-            IAMPolicyRequestBuilder::new(stub)
-        )
+        Self(IAMPolicyRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -95,9 +95,11 @@ impl GetIamPolicy {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.get_iam_policy(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_iam_policy(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
@@ -117,9 +119,7 @@ pub struct TestIamPermissions(IAMPolicyRequestBuilder<crate::model::TestIamPermi
 
 impl TestIamPermissions {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::IAMPolicy>) -> Self {
-        Self(
-            IAMPolicyRequestBuilder::new(stub)
-        )
+        Self(IAMPolicyRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -130,9 +130,11 @@ impl TestIamPermissions {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.0.stub.test_iam_permissions(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .test_iam_permissions(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
@@ -146,4 +148,3 @@ impl TestIamPermissions {
         self
     }
 }
-

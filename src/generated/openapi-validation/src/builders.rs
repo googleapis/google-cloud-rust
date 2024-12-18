@@ -26,7 +26,9 @@ pub struct SecretManagerServiceRequestBuilder<R: std::default::Default> {
 }
 
 impl<R> SecretManagerServiceRequestBuilder<R>
-where R: std::default::Default {
+where
+    R: std::default::Default,
+{
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
         Self {
             stub,
@@ -41,9 +43,7 @@ pub struct ListLocations(SecretManagerServiceRequestBuilder<crate::model::ListLo
 
 impl ListLocations {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -54,9 +54,11 @@ impl ListLocations {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListLocationsResponse> {
-        self.0.stub.list_locations(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_locations(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -88,9 +90,7 @@ pub struct GetLocation(SecretManagerServiceRequestBuilder<crate::model::GetLocat
 
 impl GetLocation {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -101,9 +101,11 @@ impl GetLocation {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Location> {
-        self.0.stub.get_location(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_location(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -123,9 +125,7 @@ pub struct ListSecrets(SecretManagerServiceRequestBuilder<crate::model::ListSecr
 
 impl ListSecrets {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -136,9 +136,11 @@ impl ListSecrets {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListSecretsResponse> {
-        self.0.stub.list_secrets(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_secrets(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -170,9 +172,7 @@ pub struct CreateSecret(SecretManagerServiceRequestBuilder<crate::model::CreateS
 
 impl CreateSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -183,9 +183,11 @@ impl CreateSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Secret> {
-        self.0.stub.create_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .create_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `request_body`.
     pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
@@ -207,26 +209,31 @@ impl CreateSecret {
 }
 
 /// The request builder for a SecretManagerService::list_secrets_by_project_and_location call.
-pub struct ListSecretsByProjectAndLocation(SecretManagerServiceRequestBuilder<crate::model::ListSecretsByProjectAndLocationRequest>);
+pub struct ListSecretsByProjectAndLocation(
+    SecretManagerServiceRequestBuilder<crate::model::ListSecretsByProjectAndLocationRequest>,
+);
 
 impl ListSecretsByProjectAndLocation {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::ListSecretsByProjectAndLocationRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::ListSecretsByProjectAndLocationRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListSecretsResponse> {
-        self.0.stub.list_secrets_by_project_and_location(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_secrets_by_project_and_location(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -260,26 +267,31 @@ impl ListSecretsByProjectAndLocation {
 }
 
 /// The request builder for a SecretManagerService::create_secret_by_project_and_location call.
-pub struct CreateSecretByProjectAndLocation(SecretManagerServiceRequestBuilder<crate::model::CreateSecretByProjectAndLocationRequest>);
+pub struct CreateSecretByProjectAndLocation(
+    SecretManagerServiceRequestBuilder<crate::model::CreateSecretByProjectAndLocationRequest>,
+);
 
 impl CreateSecretByProjectAndLocation {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::CreateSecretByProjectAndLocationRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::CreateSecretByProjectAndLocationRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Secret> {
-        self.0.stub.create_secret_by_project_and_location(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .create_secret_by_project_and_location(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `request_body`.
     pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
@@ -307,13 +319,13 @@ impl CreateSecretByProjectAndLocation {
 }
 
 /// The request builder for a SecretManagerService::add_secret_version call.
-pub struct AddSecretVersion(SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>);
+pub struct AddSecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>,
+);
 
 impl AddSecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -324,9 +336,11 @@ impl AddSecretVersion {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.add_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .add_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `payload`.
     pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
@@ -354,13 +368,13 @@ impl AddSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::add_secret_version_by_project_and_location_and_secret call.
-pub struct AddSecretVersionByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>);
+pub struct AddSecretVersionByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>,
+);
 
 impl AddSecretVersionByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -371,9 +385,11 @@ impl AddSecretVersionByProjectAndLocationAndSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.add_secret_version_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .add_secret_version_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `payload`.
     pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
@@ -405,9 +421,7 @@ pub struct GetSecret(SecretManagerServiceRequestBuilder<crate::model::GetSecretR
 
 impl GetSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -420,7 +434,6 @@ impl GetSecret {
     pub async fn send(self) -> Result<crate::model::Secret> {
         self.0.stub.get_secret(self.0.request, self.0.options).await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -440,9 +453,7 @@ pub struct DeleteSecret(SecretManagerServiceRequestBuilder<crate::model::DeleteS
 
 impl DeleteSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -453,9 +464,11 @@ impl DeleteSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Empty> {
-        self.0.stub.delete_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .delete_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -481,9 +494,7 @@ pub struct UpdateSecret(SecretManagerServiceRequestBuilder<crate::model::UpdateS
 
 impl UpdateSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -494,9 +505,11 @@ impl UpdateSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Secret> {
-        self.0.stub.update_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .update_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `request_body`.
     pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
@@ -524,26 +537,31 @@ impl UpdateSecret {
 }
 
 /// The request builder for a SecretManagerService::get_secret_by_project_and_location_and_secret call.
-pub struct GetSecretByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::GetSecretByProjectAndLocationAndSecretRequest>);
+pub struct GetSecretByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<crate::model::GetSecretByProjectAndLocationAndSecretRequest>,
+);
 
 impl GetSecretByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::GetSecretByProjectAndLocationAndSecretRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::GetSecretByProjectAndLocationAndSecretRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Secret> {
-        self.0.stub.get_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_secret_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -565,26 +583,33 @@ impl GetSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::delete_secret_by_project_and_location_and_secret call.
-pub struct DeleteSecretByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>);
+pub struct DeleteSecretByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<
+        crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
+    >,
+);
 
 impl DeleteSecretByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Empty> {
-        self.0.stub.delete_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .delete_secret_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -612,26 +637,33 @@ impl DeleteSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::update_secret_by_project_and_location_and_secret call.
-pub struct UpdateSecretByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>);
+pub struct UpdateSecretByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<
+        crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
+    >,
+);
 
 impl UpdateSecretByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Secret> {
-        self.0.stub.update_secret_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .update_secret_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `request_body`.
     pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
@@ -665,13 +697,13 @@ impl UpdateSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::list_secret_versions call.
-pub struct ListSecretVersions(SecretManagerServiceRequestBuilder<crate::model::ListSecretVersionsRequest>);
+pub struct ListSecretVersions(
+    SecretManagerServiceRequestBuilder<crate::model::ListSecretVersionsRequest>,
+);
 
 impl ListSecretVersions {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -682,9 +714,11 @@ impl ListSecretVersions {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListSecretVersionsResponse> {
-        self.0.stub.list_secret_versions(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_secret_versions(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -718,26 +752,35 @@ impl ListSecretVersions {
 }
 
 /// The request builder for a SecretManagerService::list_secret_versions_by_project_and_location_and_secret call.
-pub struct ListSecretVersionsByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>);
+pub struct ListSecretVersionsByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<
+        crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
+    >,
+);
 
 impl ListSecretVersionsByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<
+        V: Into<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>,
+    >(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListSecretVersionsResponse> {
-        self.0.stub.list_secret_versions_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_secret_versions_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -777,13 +820,13 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::get_secret_version call.
-pub struct GetSecretVersion(SecretManagerServiceRequestBuilder<crate::model::GetSecretVersionRequest>);
+pub struct GetSecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::GetSecretVersionRequest>,
+);
 
 impl GetSecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -794,9 +837,11 @@ impl GetSecretVersion {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.get_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -818,26 +863,38 @@ impl GetSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version call.
-pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(SecretManagerServiceRequestBuilder<crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(
+    SecretManagerServiceRequestBuilder<
+        crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+    >,
+);
 
 impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<
+        V: Into<crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    >(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.get_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_secret_version_by_project_and_location_and_secret_and_version(
+                self.0.request,
+                self.0.options,
+            )
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -865,13 +922,13 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::access_secret_version call.
-pub struct AccessSecretVersion(SecretManagerServiceRequestBuilder<crate::model::AccessSecretVersionRequest>);
+pub struct AccessSecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::AccessSecretVersionRequest>,
+);
 
 impl AccessSecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -882,9 +939,11 @@ impl AccessSecretVersion {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::AccessSecretVersionResponse> {
-        self.0.stub.access_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .access_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -906,26 +965,38 @@ impl AccessSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version call.
-pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(SecretManagerServiceRequestBuilder<crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>);
+pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(
+    SecretManagerServiceRequestBuilder<
+        crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
+    >,
+);
 
 impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<
+        V: Into<crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
+    >(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::AccessSecretVersionResponse> {
-        self.0.stub.access_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .access_secret_version_by_project_and_location_and_secret_and_version(
+                self.0.request,
+                self.0.options,
+            )
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -953,26 +1024,31 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::disable_secret_version call.
-pub struct DisableSecretVersion(SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>);
+pub struct DisableSecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>,
+);
 
 impl DisableSecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.disable_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .disable_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1006,26 +1082,34 @@ impl DisableSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version call.
-pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>);
+pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(
+    SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>,
+);
 
 impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.disable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .disable_secret_version_by_project_and_location_and_secret_and_version(
+                self.0.request,
+                self.0.options,
+            )
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1059,13 +1143,13 @@ impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::enable_secret_version call.
-pub struct EnableSecretVersion(SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>);
+pub struct EnableSecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>,
+);
 
 impl EnableSecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1076,9 +1160,11 @@ impl EnableSecretVersion {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.enable_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .enable_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1112,13 +1198,13 @@ impl EnableSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version call.
-pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>);
+pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(
+    SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>,
+);
 
 impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1129,9 +1215,14 @@ impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.enable_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .enable_secret_version_by_project_and_location_and_secret_and_version(
+                self.0.request,
+                self.0.options,
+            )
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1165,26 +1256,31 @@ impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::destroy_secret_version call.
-pub struct DestroySecretVersion(SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>);
+pub struct DestroySecretVersion(
+    SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>,
+);
 
 impl DestroySecretVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.destroy_secret_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .destroy_secret_version(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1218,26 +1314,34 @@ impl DestroySecretVersion {
 }
 
 /// The request builder for a SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version call.
-pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>);
+pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(
+    SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>,
+);
 
 impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::SecretVersion> {
-        self.0.stub.destroy_secret_version_by_project_and_location_and_secret_and_version(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .destroy_secret_version_by_project_and_location_and_secret_and_version(
+                self.0.request,
+                self.0.options,
+            )
+            .await
     }
-
 
     /// Sets the value of `etag`.
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
@@ -1275,9 +1379,7 @@ pub struct SetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::SetIamP
 
 impl SetIamPolicy {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1288,9 +1390,11 @@ impl SetIamPolicy {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.set_iam_policy(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .set_iam_policy(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `policy`.
     pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
@@ -1324,13 +1428,13 @@ impl SetIamPolicy {
 }
 
 /// The request builder for a SecretManagerService::set_iam_policy_by_project_and_location_and_secret call.
-pub struct SetIamPolicyByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::SetIamPolicyRequest>);
+pub struct SetIamPolicyByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<crate::model::SetIamPolicyRequest>,
+);
 
 impl SetIamPolicyByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1341,9 +1445,11 @@ impl SetIamPolicyByProjectAndLocationAndSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.set_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .set_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `policy`.
     pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
@@ -1381,9 +1487,7 @@ pub struct GetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::GetIamP
 
 impl GetIamPolicy {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1394,9 +1498,11 @@ impl GetIamPolicy {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.get_iam_policy(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_iam_policy(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -1418,26 +1524,33 @@ impl GetIamPolicy {
 }
 
 /// The request builder for a SecretManagerService::get_iam_policy_by_project_and_location_and_secret call.
-pub struct GetIamPolicyByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>);
+pub struct GetIamPolicyByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<
+        crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
+    >,
+);
 
 impl GetIamPolicyByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
-    pub fn with_request<V: Into<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>>(mut self, v: V) -> Self {
+    pub fn with_request<V: Into<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>>(
+        mut self,
+        v: V,
+    ) -> Self {
         self.0.request = v.into();
         self
     }
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Policy> {
-        self.0.stub.get_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_iam_policy_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `project`.
     pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
@@ -1465,13 +1578,13 @@ impl GetIamPolicyByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::test_iam_permissions call.
-pub struct TestIamPermissions(SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>);
+pub struct TestIamPermissions(
+    SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>,
+);
 
 impl TestIamPermissions {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1482,9 +1595,11 @@ impl TestIamPermissions {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.0.stub.test_iam_permissions(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .test_iam_permissions(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `permissions`.
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
@@ -1512,13 +1627,13 @@ impl TestIamPermissions {
 }
 
 /// The request builder for a SecretManagerService::test_iam_permissions_by_project_and_location_and_secret call.
-pub struct TestIamPermissionsByProjectAndLocationAndSecret(SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>);
+pub struct TestIamPermissionsByProjectAndLocationAndSecret(
+    SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>,
+);
 
 impl TestIamPermissionsByProjectAndLocationAndSecret {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
-        Self(
-            SecretManagerServiceRequestBuilder::new(stub)
-        )
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -1529,9 +1644,11 @@ impl TestIamPermissionsByProjectAndLocationAndSecret {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.0.stub.test_iam_permissions_by_project_and_location_and_secret(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .test_iam_permissions_by_project_and_location_and_secret(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `permissions`.
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
@@ -1557,4 +1674,3 @@ impl TestIamPermissionsByProjectAndLocationAndSecret {
         self
     }
 }
-

@@ -26,7 +26,9 @@ pub struct LocationsRequestBuilder<R: std::default::Default> {
 }
 
 impl<R> LocationsRequestBuilder<R>
-where R: std::default::Default {
+where
+    R: std::default::Default,
+{
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
         Self {
             stub,
@@ -41,9 +43,7 @@ pub struct ListLocations(LocationsRequestBuilder<crate::model::ListLocationsRequ
 
 impl ListLocations {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(
-            LocationsRequestBuilder::new(stub)
-        )
+        Self(LocationsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -54,9 +54,11 @@ impl ListLocations {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::ListLocationsResponse> {
-        self.0.stub.list_locations(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .list_locations(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
@@ -88,9 +90,7 @@ pub struct GetLocation(LocationsRequestBuilder<crate::model::GetLocationRequest>
 
 impl GetLocation {
     pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(
-            LocationsRequestBuilder::new(stub)
-        )
+        Self(LocationsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -101,9 +101,11 @@ impl GetLocation {
 
     /// Sends the request.
     pub async fn send(self) -> Result<crate::model::Location> {
-        self.0.stub.get_location(self.0.request, self.0.options).await
+        self.0
+            .stub
+            .get_location(self.0.request, self.0.options)
+            .await
     }
-
 
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
@@ -111,4 +113,3 @@ impl GetLocation {
         self
     }
 }
-

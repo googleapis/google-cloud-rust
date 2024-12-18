@@ -62,151 +62,151 @@ impl SecretManagerService {
     }
 
     /// Lists information about the supported locations for this service.
-    pub async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
-        self.inner.list_locations(req, gax::options::RequestOptions).await
+    pub fn list_locations(&self) -> crate::builders::ListLocations {
+        crate::builders::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
-        self.inner.get_location(req, gax::options::RequestOptions).await
+    pub fn get_location(&self) -> crate::builders::GetLocation {
+        crate::builders::GetLocation::new(self.inner.clone())
     }
 
     /// Lists Secrets.
-    pub async fn list_secrets(&self, req: crate::model::ListSecretsRequest) -> Result<crate::model::ListSecretsResponse> {
-        self.inner.list_secrets(req, gax::options::RequestOptions).await
+    pub fn list_secrets(&self) -> crate::builders::ListSecrets {
+        crate::builders::ListSecrets::new(self.inner.clone())
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub async fn create_secret(&self, req: crate::model::CreateSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.create_secret(req, gax::options::RequestOptions).await
+    pub fn create_secret(&self) -> crate::builders::CreateSecret {
+        crate::builders::CreateSecret::new(self.inner.clone())
     }
 
     /// Lists Secrets.
-    pub async fn list_secrets_by_project_and_location(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> Result<crate::model::ListSecretsResponse> {
-        self.inner.list_secrets_by_project_and_location(req, gax::options::RequestOptions).await
+    pub fn list_secrets_by_project_and_location(&self) -> crate::builders::ListSecretsByProjectAndLocation {
+        crate::builders::ListSecretsByProjectAndLocation::new(self.inner.clone())
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub async fn create_secret_by_project_and_location(&self, req: crate::model::CreateSecretByProjectAndLocationRequest) -> Result<crate::model::Secret> {
-        self.inner.create_secret_by_project_and_location(req, gax::options::RequestOptions).await
+    pub fn create_secret_by_project_and_location(&self) -> crate::builders::CreateSecretByProjectAndLocation {
+        crate::builders::CreateSecretByProjectAndLocation::new(self.inner.clone())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub async fn add_secret_version(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.add_secret_version(req, gax::options::RequestOptions).await
+    pub fn add_secret_version(&self) -> crate::builders::AddSecretVersion {
+        crate::builders::AddSecretVersion::new(self.inner.clone())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub async fn add_secret_version_by_project_and_location_and_secret(&self, req: crate::model::AddSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.add_secret_version_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn add_secret_version_by_project_and_location_and_secret(&self) -> crate::builders::AddSecretVersionByProjectAndLocationAndSecret {
+        crate::builders::AddSecretVersionByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a given Secret.
-    pub async fn get_secret(&self, req: crate::model::GetSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.get_secret(req, gax::options::RequestOptions).await
+    pub fn get_secret(&self) -> crate::builders::GetSecret {
+        crate::builders::GetSecret::new(self.inner.clone())
     }
 
     /// Deletes a Secret.
-    pub async fn delete_secret(&self, req: crate::model::DeleteSecretRequest) -> Result<crate::model::Empty> {
-        self.inner.delete_secret(req, gax::options::RequestOptions).await
+    pub fn delete_secret(&self) -> crate::builders::DeleteSecret {
+        crate::builders::DeleteSecret::new(self.inner.clone())
     }
 
     /// Updates metadata of an existing Secret.
-    pub async fn update_secret(&self, req: crate::model::UpdateSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.update_secret(req, gax::options::RequestOptions).await
+    pub fn update_secret(&self) -> crate::builders::UpdateSecret {
+        crate::builders::UpdateSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a given Secret.
-    pub async fn get_secret_by_project_and_location_and_secret(&self, req: crate::model::GetSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.get_secret_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn get_secret_by_project_and_location_and_secret(&self) -> crate::builders::GetSecretByProjectAndLocationAndSecret {
+        crate::builders::GetSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Deletes a Secret.
-    pub async fn delete_secret_by_project_and_location_and_secret(&self, req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Empty> {
-        self.inner.delete_secret_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn delete_secret_by_project_and_location_and_secret(&self) -> crate::builders::DeleteSecretByProjectAndLocationAndSecret {
+        crate::builders::DeleteSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Updates metadata of an existing Secret.
-    pub async fn update_secret_by_project_and_location_and_secret(&self, req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest) -> Result<crate::model::Secret> {
-        self.inner.update_secret_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn update_secret_by_project_and_location_and_secret(&self) -> crate::builders::UpdateSecretByProjectAndLocationAndSecret {
+        crate::builders::UpdateSecretByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        self.inner.list_secret_versions(req, gax::options::RequestOptions).await
+    pub fn list_secret_versions(&self) -> crate::builders::ListSecretVersions {
+        crate::builders::ListSecretVersions::new(self.inner.clone())
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub async fn list_secret_versions_by_project_and_location_and_secret(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> Result<crate::model::ListSecretVersionsResponse> {
-        self.inner.list_secret_versions_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn list_secret_versions_by_project_and_location_and_secret(&self) -> crate::builders::ListSecretVersionsByProjectAndLocationAndSecret {
+        crate::builders::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub async fn get_secret_version(&self, req: crate::model::GetSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.get_secret_version(req, gax::options::RequestOptions).await
+    pub fn get_secret_version(&self) -> crate::builders::GetSecretVersion {
+        crate::builders::GetSecretVersion::new(self.inner.clone())
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub async fn get_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.get_secret_version_by_project_and_location_and_secret_and_version(req, gax::options::RequestOptions).await
+    pub fn get_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::GetSecretVersionByProjectAndLocationAndSecretAndVersion {
+        crate::builders::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub async fn access_secret_version(&self, req: crate::model::AccessSecretVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        self.inner.access_secret_version(req, gax::options::RequestOptions).await
+    pub fn access_secret_version(&self) -> crate::builders::AccessSecretVersion {
+        crate::builders::AccessSecretVersion::new(self.inner.clone())
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub async fn access_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest) -> Result<crate::model::AccessSecretVersionResponse> {
-        self.inner.access_secret_version_by_project_and_location_and_secret_and_version(req, gax::options::RequestOptions).await
+    pub fn access_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
+        crate::builders::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
     /// Disables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub async fn disable_secret_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.disable_secret_version(req, gax::options::RequestOptions).await
+    pub fn disable_secret_version(&self) -> crate::builders::DisableSecretVersion {
+        crate::builders::DisableSecretVersion::new(self.inner.clone())
     }
 
     /// Disables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub async fn disable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DisableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.disable_secret_version_by_project_and_location_and_secret_and_version(req, gax::options::RequestOptions).await
+    pub fn disable_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
+        crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
     /// Enables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub async fn enable_secret_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.enable_secret_version(req, gax::options::RequestOptions).await
+    pub fn enable_secret_version(&self) -> crate::builders::EnableSecretVersion {
+        crate::builders::EnableSecretVersion::new(self.inner.clone())
     }
 
     /// Enables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub async fn enable_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::EnableSecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.enable_secret_version_by_project_and_location_and_secret_and_version(req, gax::options::RequestOptions).await
+    pub fn enable_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
+        crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
     /// Destroys a SecretVersion.
@@ -214,8 +214,8 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub async fn destroy_secret_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.destroy_secret_version(req, gax::options::RequestOptions).await
+    pub fn destroy_secret_version(&self) -> crate::builders::DestroySecretVersion {
+        crate::builders::DestroySecretVersion::new(self.inner.clone())
     }
 
     /// Destroys a SecretVersion.
@@ -223,8 +223,8 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub async fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self, req: crate::model::DestroySecretVersionRequest) -> Result<crate::model::SecretVersion> {
-        self.inner.destroy_secret_version_by_project_and_location_and_secret_and_version(req, gax::options::RequestOptions).await
+    pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
+        crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -232,8 +232,8 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        self.inner.set_iam_policy(req, gax::options::RequestOptions).await
+    pub fn set_iam_policy(&self) -> crate::builders::SetIamPolicy {
+        crate::builders::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -241,20 +241,20 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub async fn set_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        self.inner.set_iam_policy_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn set_iam_policy_by_project_and_location_and_secret(&self) -> crate::builders::SetIamPolicyByProjectAndLocationAndSecret {
+        crate::builders::SetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
-        self.inner.get_iam_policy(req, gax::options::RequestOptions).await
+    pub fn get_iam_policy(&self) -> crate::builders::GetIamPolicy {
+        crate::builders::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub async fn get_iam_policy_by_project_and_location_and_secret(&self, req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest) -> Result<crate::model::Policy> {
-        self.inner.get_iam_policy_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn get_iam_policy_by_project_and_location_and_secret(&self) -> crate::builders::GetIamPolicyByProjectAndLocationAndSecret {
+        crate::builders::GetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -264,8 +264,8 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.inner.test_iam_permissions(req, gax::options::RequestOptions).await
+    pub fn test_iam_permissions(&self) -> crate::builders::TestIamPermissions {
+        crate::builders::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -275,8 +275,8 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub async fn test_iam_permissions_by_project_and_location_and_secret(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.inner.test_iam_permissions_by_project_and_location_and_secret(req, gax::options::RequestOptions).await
+    pub fn test_iam_permissions_by_project_and_location_and_secret(&self) -> crate::builders::TestIamPermissionsByProjectAndLocationAndSecret {
+        crate::builders::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
     }
 
 }
