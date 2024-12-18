@@ -39,22 +39,20 @@ pub async fn run(tracing: bool) -> Result<()> {
 
     println!("\nTesting create_secret()");
     let create = client
-        .create_secret(
-            smo::model::CreateSecretRequest::default()
-                .set_project(&project_id)
-                .set_secret_id(&secret_id)
-                .set_request_body(
-                    smo::model::Secret::default()
-                        .set_replication(
-                            smo::model::Replication::default()
-                                .set_automatic(smo::model::Automatic::default()),
-                        )
-                        .set_labels(
-                            [("integration-test", "true")]
-                                .map(|(k, v)| (k.to_string(), v.to_string())),
-                        ),
+        .create_secret()
+        .set_project(&project_id)
+        .set_secret_id(&secret_id)
+        .set_request_body(
+            smo::model::Secret::default()
+                .set_replication(
+                    smo::model::Replication::default()
+                        .set_automatic(smo::model::Automatic::default()),
+                )
+                .set_labels(
+                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
                 ),
         )
+        .send()
         .await?;
     println!("CREATE = {create:?}");
 
@@ -66,11 +64,10 @@ pub async fn run(tracing: bool) -> Result<()> {
 
     println!("\nTesting get_secret()");
     let get = client
-        .get_secret(
-            smo::model::GetSecretRequest::default()
-                .set_project(&project_id)
-                .set_secret(&secret_id),
-        )
+        .get_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
+        .send()
         .await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
@@ -82,15 +79,14 @@ pub async fn run(tracing: bool) -> Result<()> {
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
-        .update_secret(
-            smo::model::UpdateSecretRequest::default()
-                .set_project(&project_id)
-                .set_secret(&secret_id)
-                .set_update_mask(
-                    wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
-                )
-                .set_request_body(smo::model::Secret::default().set_labels(new_labels)),
+        .update_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
+        .set_update_mask(
+            wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
         )
+        .set_request_body(smo::model::Secret::default().set_labels(new_labels))
+        .send()
         .await?;
     println!("UPDATE = {update:?}");
 
@@ -108,11 +104,10 @@ pub async fn run(tracing: bool) -> Result<()> {
 
     println!("\nTesting delete_secret()");
     let response = client
-        .delete_secret(
-            smo::model::DeleteSecretRequest::default()
-                .set_project(&project_id)
-                .set_secret(&secret_id),
-        )
+        .delete_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
+        .send()
         .await?;
     println!("DELETE = {response:?}");
     Ok(())
@@ -121,7 +116,9 @@ pub async fn run(tracing: bool) -> Result<()> {
 async fn run_locations(client: &smo::client::SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
-        .list_locations(smo::model::ListLocationsRequest::default().set_project(project_id))
+        .list_locations()
+        .set_project(project_id)
+        .send()
         .await?;
     println!("LOCATIONS = {locations:?}");
 
@@ -137,11 +134,10 @@ async fn run_locations(client: &smo::client::SecretManagerService, project_id: &
 
     println!("\nTesting get_location()");
     let get = client
-        .get_location(
-            smo::model::GetLocationRequest::default()
-                .set_project(project_id)
-                .set_location(first.location_id.clone().unwrap()),
-        )
+        .get_location()
+        .set_project(project_id)
+        .set_location(first.location_id.clone().unwrap())
+        .send()
         .await?;
     println!("GET = {get:?}");
 
@@ -159,26 +155,24 @@ async fn run_iam(
 
     println!("\nTesting get_iam_policy()");
     let policy = client
-        .get_iam_policy(
-            smo::model::GetIamPolicyRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id),
-        )
+        .get_iam_policy()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .send()
         .await?;
     println!("POLICY = {policy:?}");
 
     println!("\nTesting test_iam_permissions()");
     let response = client
-        .test_iam_permissions(
-            smo::model::TestIamPermissionsRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_permissions(
-                    ["secretmanager.versions.access"]
-                        .map(str::to_string)
-                        .to_vec(),
-                ),
+        .test_iam_permissions()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_permissions(
+            ["secretmanager.versions.access"]
+                .map(str::to_string)
+                .to_vec(),
         )
+        .send()
         .await?;
     println!("RESPONSE = {response:?}");
 
@@ -204,15 +198,14 @@ async fn run_iam(
         );
     }
     let response = client
-        .set_iam_policy(
-            smo::model::SetIamPolicyRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_update_mask(
-                    wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
-                )
-                .set_policy(new_policy),
+        .set_iam_policy()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_update_mask(
+            wkt::FieldMask::default().set_paths(["bindings"].map(str::to_string).to_vec()),
         )
+        .set_policy(new_policy)
+        .send()
         .await?;
     println!("RESPONSE = {response:?}");
 
@@ -228,16 +221,15 @@ async fn run_secret_versions(
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create = client
-        .add_secret_version(
-            smo::model::AddSecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_payload(
-                    smo::model::SecretPayload::default()
-                        .set_data(bytes::Bytes::from(data))
-                        .set_data_crc_32_c(checksum as i64),
-                ),
+        .add_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_payload(
+            smo::model::SecretPayload::default()
+                .set_data(bytes::Bytes::from(data))
+                .set_data_crc_32_c(checksum as i64),
         )
+        .send()
         .await?;
     println!("CREATE_SECRET_VERSION = {create:?}");
 
@@ -257,12 +249,11 @@ async fn run_secret_versions(
 
     println!("\nTesting get_secret_version()");
     let get = client
-        .get_secret_version(
-            smo::model::GetSecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
-        )
+        .get_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
         .await?;
     println!("GET_SECRET_VERSION = {get:?}");
     assert_eq!(get, create);
@@ -279,12 +270,11 @@ async fn run_secret_versions(
 
     println!("\nTesting access_secret_version()");
     let access_secret_version = client
-        .access_secret_version(
-            smo::model::AccessSecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
-        )
+        .access_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
     assert_eq!(
@@ -294,34 +284,31 @@ async fn run_secret_versions(
 
     println!("\nTesting disable_secret_version()");
     let disable = client
-        .disable_secret_version(
-            smo::model::DisableSecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
-        )
+        .disable_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
     println!("\nTesting enable_secret_version()");
     let enable = client
-        .enable_secret_version(
-            smo::model::EnableSecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
-        )
+        .enable_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
     println!("\nTesting destroy_secret_version()");
     let delete = client
-        .destroy_secret_version(
-            smo::model::DestroySecretVersionRequest::default()
-                .set_project(project_id)
-                .set_secret(secret_id)
-                .set_version(version_id),
-        )
+        .destroy_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
+        .send()
         .await?;
     println!("RESPONSE = {delete:?}");
 
@@ -337,12 +324,11 @@ async fn get_all_secret_version_names(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secret_versions(
-                smo::model::ListSecretVersionsRequest::default()
-                    .set_project(project_id)
-                    .set_secret(secret_id)
-                    .set_page_token(page_token),
-            )
+            .list_secret_versions()
+            .set_project(project_id)
+            .set_secret(secret_id)
+            .set_page_token(page_token)
+            .send()
             .await?;
         response
             .versions
@@ -365,11 +351,10 @@ async fn get_all_secret_names(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secrets(
-                smo::model::ListSecretsRequest::default()
-                    .set_project(project_id)
-                    .set_page_token(page_token),
-            )
+            .list_secrets()
+            .set_project(project_id)
+            .set_page_token(page_token)
+            .send()
             .await?;
         response
             .secrets

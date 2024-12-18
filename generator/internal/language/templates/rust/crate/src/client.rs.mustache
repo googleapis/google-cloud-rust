@@ -73,8 +73,8 @@ impl {{NameToPascal}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    pub async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
-        self.inner.{{NameToSnake}}(req, gax::options::RequestOptions).await
+    pub fn {{NameToSnake}}(&self) -> crate::builders::{{NameToPascal}} {
+        crate::builders::{{NameToPascal}}::new(self.inner.clone())
     }
 
     {{/Methods}}
