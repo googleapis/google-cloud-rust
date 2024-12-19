@@ -48,6 +48,16 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretsResponse>> + Send {
         std::future::ready::<crate::Result<crate::model::ListSecretsResponse>>(Err(Error::other("unimplemented")))
     }
+    /// Like list_secrets, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    fn list_secrets_stream(&self, _req: crate::model::ListSecretsRequest
+    ) -> impl std::future::Future<Output = gax::paginator::Paginator<crate::model::ListSecretsResponse, Error>> + Send {
+        let execute = move |_| {
+            let res: crate::Result<crate::model::ListSecretsResponse> = Err(Error::other("unimplemented"));
+            std::future::ready(res)
+        };
+        std::future::ready(gax::paginator::Paginator::new(String::new(), execute))
+    }
 
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
@@ -120,6 +130,16 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<crate::model::ListSecretVersionsResponse>> + Send {
         std::future::ready::<crate::Result<crate::model::ListSecretVersionsResponse>>(Err(Error::other("unimplemented")))
+    }
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    fn list_secret_versions_stream(&self, _req: crate::model::ListSecretVersionsRequest
+    ) -> impl std::future::Future<Output = gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, Error>> + Send {
+        let execute = move |_| {
+            let res: crate::Result<crate::model::ListSecretVersionsResponse> = Err(Error::other("unimplemented"));
+            std::future::ready(res)
+        };
+        std::future::ready(gax::paginator::Paginator::new(String::new(), execute))
     }
 
     /// Gets metadata for a
@@ -266,6 +286,16 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions
     ) -> impl std::future::Future<Output = crate::Result<location::model::ListLocationsResponse>> + Send {
         std::future::ready::<crate::Result<location::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
+    }
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    fn list_locations_stream(&self, _req: location::model::ListLocationsRequest
+    ) -> impl std::future::Future<Output = gax::paginator::Paginator<location::model::ListLocationsResponse, Error>> + Send {
+        let execute = move |_| {
+            let res: crate::Result<location::model::ListLocationsResponse> = Err(Error::other("unimplemented"));
+            std::future::ready(res)
+        };
+        std::future::ready(gax::paginator::Paginator::new(String::new(), execute))
     }
 
     /// Gets information about a location.

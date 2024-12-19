@@ -76,6 +76,12 @@ impl SecretManagerService {
         self.inner.list_secrets(req, gax::options::RequestOptions).await
     }
 
+    /// Like list_secrets, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_stream(req).await
+    }
+
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     ///
@@ -123,6 +129,12 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub async fn list_secret_versions(&self, req: crate::model::ListSecretVersionsRequest) -> Result<crate::model::ListSecretVersionsResponse> {
         self.inner.list_secret_versions(req, gax::options::RequestOptions).await
+    }
+
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_stream(req).await
     }
 
     /// Gets metadata for a
@@ -266,6 +278,12 @@ impl Locations {
     /// Lists information about the supported locations for this service.
     pub async fn list_locations(&self, req: location::model::ListLocationsRequest) -> Result<location::model::ListLocationsResponse> {
         self.inner.list_locations(req, gax::options::RequestOptions).await
+    }
+
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: location::model::ListLocationsRequest) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
     }
 
     /// Gets information about a location.

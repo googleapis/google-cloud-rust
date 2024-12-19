@@ -41,6 +41,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         self.inner.list_locations(req, options).await
     }
 
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
+    }
+
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,
@@ -59,6 +65,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         self.inner.list_secrets(req, options).await
     }
 
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_stream(req).await
+    }
+
     #[tracing::instrument(ret)]
     async fn create_secret(
         &self,
@@ -75,6 +87,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> Result<crate::model::ListSecretsResponse> {
         self.inner.list_secrets_by_project_and_location(req, options).await
+    }
+
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secrets_by_project_and_location_stream(&self, req: crate::model::ListSecretsByProjectAndLocationRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_by_project_and_location_stream(req).await
     }
 
     #[tracing::instrument(ret)]
@@ -167,6 +185,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         self.inner.list_secret_versions(req, options).await
     }
 
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_stream(req).await
+    }
+
     #[tracing::instrument(ret)]
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
@@ -174,6 +198,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> Result<crate::model::ListSecretVersionsResponse> {
         self.inner.list_secret_versions_by_project_and_location_and_secret(req, options).await
+    }
+
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secret_versions_by_project_and_location_and_secret_stream(&self, req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_by_project_and_location_and_secret_stream(req).await
     }
 
     #[tracing::instrument(ret)]

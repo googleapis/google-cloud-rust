@@ -77,6 +77,14 @@ impl {{NameToPascal}} {
         self.inner.{{NameToSnake}}(req, gax::options::RequestOptions).await
     }
 
+    {{#IsPageable}}
+    /// Like {{NameToSnake}}, but returns a futures::Stream.
+    #[cfg(feature = "unstable-stream")]
+    async fn {{NameToSnake}}_stream(&self, req: {{InputTypeName}}) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
+        self.inner.{{NameToSnake}}_stream(req).await
+    }
+
+    {{/IsPageable}}
     {{/Methods}}
 }
 {{/Services}}

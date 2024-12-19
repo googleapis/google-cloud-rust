@@ -47,10 +47,33 @@ impl {{NameToPascal}} {
         let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
+    {{#Methods}}
+    {{#IsPageable}}
+
+    {{#DocLines}}
+    {{{.}}}
+    {{/DocLines}}
+    async fn {{NameToSnake}}_impl(self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
+        let builder = self.inner.builder(
+            reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
+               {{#HTTPPathArgs}}
+               , {{{.}}}
+               {{/HTTPPathArgs}}
+            ))
+            .query(&[("alt", "json")])
+            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
+        {{#QueryParams}}
+        let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
+        {{/QueryParams}}
+        self.inner.execute(builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}}).await
+    }
+    {{/IsPageable}}
+    {{/Methods}}
 }
 
 impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{#Methods}}
+    {{^IsPageable}}
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
@@ -73,6 +96,31 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         self.inner.execute(builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}}).await
     }
 
+    {{/IsPageable}}
+    {{#IsPageable}}
+
+    {{#DocLines}}
+    {{{.}}}
+    {{/DocLines}}
+    async fn {{NameToSnake}}(&self, req: {{InputTypeName}}) -> Result<{{OutputTypeName}}> {
+        self.clone().{{NameToSnake}}_impl(req).await
+    }
+
+    /// Like {{NameToSnake}}, but returns a futures::Stream.
+    #[cfg(feature = "unstable-stream")]
+    async fn {{NameToSnake}}_stream(&self, req: {{InputTypeName}}) -> gax::paginator::Paginator<{{OutputTypeName}}, Error> {
+        let service = self.clone();
+        let token = gax::paginator::extract_token(&req.page_token);
+        let execute = move |token: String| {
+            let mut req = req.clone();
+            let service = service.clone();
+            req.page_token = token.into();
+            service.{{NameToSnake}}_impl(req)
+        };
+        gax::paginator::Paginator::new(token, execute)
+    }
+
+    {{/IsPageable}}
     {{/Methods}}
 }
 

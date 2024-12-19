@@ -69,6 +69,12 @@ impl Locations {
         self.inner.list_locations(req, gax::options::RequestOptions).await
     }
 
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
+    }
+
     /// Gets information about a location.
     pub async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
         self.inner.get_location(req, gax::options::RequestOptions).await

@@ -27,5 +27,5 @@ categories.workspace = true
 publish              = false
 
 [dependencies]
-gax        = { path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
+gax        = { path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 wkt        = { path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }

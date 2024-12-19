@@ -26,6 +26,9 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListSecretsResponse>;
 
+    /// Like list_secrets, but returns a futures::Stream.
+    //#[cfg(feature = "stream")]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>;
     /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
     ///
@@ -87,6 +90,9 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListSecretVersionsResponse>;
 
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "stream")]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>;
     /// Gets metadata for a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
@@ -210,6 +216,12 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
         T::list_secrets(self, req, options).await
     }
 
+    /// Like list_secrets, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>{
+        T::list_secrets_stream(self, req).await
+    }
+
     /// Forwards the call to the implementation provided by `T`.
     async fn create_secret(
         &self,
@@ -262,6 +274,12 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListSecretVersionsResponse> {
         T::list_secret_versions(self, req, options).await
+    }
+
+    /// Like list_secret_versions, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>{
+        T::list_secret_versions_stream(self, req).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -348,6 +366,9 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> crate::Result<location::model::ListLocationsResponse>;
 
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "stream")]
+    async fn list_locations_stream(&self, req: location::model::ListLocationsRequest) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>;
     /// Gets information about a location.
     async fn get_location(
         &self,
@@ -367,6 +388,12 @@ impl<T: crate::traits::Locations> Locations for T {
         options: gax::options::RequestOptions
     ) -> crate::Result<location::model::ListLocationsResponse> {
         T::list_locations(self, req, options).await
+    }
+
+    /// Like list_locations, but returns a futures::Stream.
+    //#[cfg(feature = "unstable-stream")]
+    async fn list_locations_stream(&self, req: location::model::ListLocationsRequest) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>{
+        T::list_locations_stream(self, req).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

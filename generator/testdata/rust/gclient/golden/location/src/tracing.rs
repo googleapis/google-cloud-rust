@@ -41,6 +41,12 @@ where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
         self.inner.list_locations(req, options).await
     }
 
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_locations_stream(&self, req: crate::model::ListLocationsRequest) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
+    }
+
     #[tracing::instrument(ret)]
     async fn get_location(
         &self,

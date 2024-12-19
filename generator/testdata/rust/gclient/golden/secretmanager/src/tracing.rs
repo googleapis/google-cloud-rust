@@ -41,6 +41,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         self.inner.list_secrets(req, options).await
     }
 
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secrets_stream(&self, req: crate::model::ListSecretsRequest) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        self.inner.list_secrets_stream(req).await
+    }
+
     #[tracing::instrument(ret)]
     async fn create_secret(
         &self,
@@ -93,6 +99,12 @@ where T: crate::traits::SecretManagerService + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> Result<crate::model::ListSecretVersionsResponse> {
         self.inner.list_secret_versions(req, options).await
+    }
+
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_secret_versions_stream(&self, req: crate::model::ListSecretVersionsRequest) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error> {
+        self.inner.list_secret_versions_stream(req).await
     }
 
     #[tracing::instrument(ret)]
@@ -193,6 +205,12 @@ where T: crate::traits::Locations + std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions
     ) -> Result<location::model::ListLocationsResponse> {
         self.inner.list_locations(req, options).await
+    }
+
+    //#[cfg(feature = "unstable-stream")]
+    #[tracing::instrument(ret)]
+    async fn list_locations_stream(&self, req: location::model::ListLocationsRequest) -> gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error> {
+        self.inner.list_locations_stream(req).await
     }
 
     #[tracing::instrument(ret)]

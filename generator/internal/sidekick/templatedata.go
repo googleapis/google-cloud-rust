@@ -103,6 +103,7 @@ type Field struct {
 	FieldType             string
 	JSONName              string
 	AsQueryParameter      string
+	IsOptional            bool
 }
 
 type Enum struct {
@@ -251,6 +252,9 @@ func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
 }
 
 func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
+	if field == nil {
+		return nil
+	}
 	return &Field{
 		NameToSnake:           c.ToSnake(field.Name),
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
@@ -261,6 +265,7 @@ func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
 		FieldType:             c.FieldType(field, state),
 		JSONName:              field.JSONName,
 		AsQueryParameter:      c.AsQueryParameter(field, state),
+		IsOptional:            field.Optional,
 	}
 }
 
