@@ -1128,6 +1128,7 @@ dependencies = [
  "gcp-sdk-secretmanager-v1",
  "gcp-sdk-wkt",
  "google-cloud-auth",
+ "mockall",
  "rand",
  "secretmanager-openapi-v1",
  "serde_json",
