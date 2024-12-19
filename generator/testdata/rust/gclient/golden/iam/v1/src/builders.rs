@@ -18,7 +18,7 @@ use crate::Result;
 use std::sync::Arc;
 
 /// Common implementation for [crate::client::IAMPolicy] request builders.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct IAMPolicyRequestBuilder<R: std::default::Default> {
     stub: Arc<dyn crate::traits::dyntraits::IAMPolicy>,
     request: R,
@@ -37,6 +37,7 @@ where R: std::default::Default {
 }
 
 /// The request builder for a IAMPolicy::set_iam_policy call.
+#[derive(Clone, Debug)]
 pub struct SetIamPolicy(IAMPolicyRequestBuilder<crate::model::SetIamPolicyRequest>);
 
 impl SetIamPolicy {
@@ -56,7 +57,6 @@ impl SetIamPolicy {
     pub async fn send(self) -> Result<crate::model::Policy> {
         self.0.stub.set_iam_policy(self.0.request, self.0.options).await
     }
-
 
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
@@ -78,6 +78,7 @@ impl SetIamPolicy {
 }
 
 /// The request builder for a IAMPolicy::get_iam_policy call.
+#[derive(Clone, Debug)]
 pub struct GetIamPolicy(IAMPolicyRequestBuilder<crate::model::GetIamPolicyRequest>);
 
 impl GetIamPolicy {
@@ -98,7 +99,6 @@ impl GetIamPolicy {
         self.0.stub.get_iam_policy(self.0.request, self.0.options).await
     }
 
-
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.resource = v.into();
@@ -113,6 +113,7 @@ impl GetIamPolicy {
 }
 
 /// The request builder for a IAMPolicy::test_iam_permissions call.
+#[derive(Clone, Debug)]
 pub struct TestIamPermissions(IAMPolicyRequestBuilder<crate::model::TestIamPermissionsRequest>);
 
 impl TestIamPermissions {
@@ -132,7 +133,6 @@ impl TestIamPermissions {
     pub async fn send(self) -> Result<crate::model::TestIamPermissionsResponse> {
         self.0.stub.test_iam_permissions(self.0.request, self.0.options).await
     }
-
 
     /// Sets the value of `resource`.
     pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {

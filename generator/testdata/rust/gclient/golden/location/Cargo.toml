@@ -29,3 +29,6 @@ publish              = false
 [dependencies]
 gax        = { path = "../../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 wkt        = { path = "../../../../../../src/wkt", package = "gcp-sdk-wkt" }
+
+[features]
+unstable-stream = ["gax/unstable-stream"]

@@ -45,6 +45,12 @@ impl ListLocationsResponse {
         self
     }
 }
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListLocationsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
+    }
+}
 
 /// A resource that represents a Google Cloud location.
 #[serde_with::serde_as]
@@ -148,6 +154,12 @@ impl ListSecretsResponse {
     pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
+    }
+}
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListSecretsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
     }
 }
 
@@ -942,6 +954,12 @@ impl ListSecretVersionsResponse {
     pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
+    }
+}
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
     }
 }
 
