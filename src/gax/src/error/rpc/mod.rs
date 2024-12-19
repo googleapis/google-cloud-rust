@@ -15,9 +15,6 @@
 use crate::error::{Error, HttpError};
 use serde::{Deserialize, Serialize};
 
-mod generated;
-pub use generated::*;
-
 /// The [Status] type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. Each
 /// [Status] message contains three pieces of data: error code, error message,
@@ -345,25 +342,25 @@ impl TryFrom<bytes::Bytes> for Status {
 #[serde(tag = "@type")]
 pub enum StatusDetails {
     #[serde(rename = "google.rpc.BadRequest")]
-    BadRequest(BadRequest),
+    BadRequest(rpc::model::BadRequest),
     #[serde(rename = "google.rpc.DebugInfo")]
-    DebugInfo(DebugInfo),
+    DebugInfo(rpc::model::DebugInfo),
     #[serde(rename = "google.rpc.ErrorInfo")]
-    ErrorInfo(ErrorInfo),
+    ErrorInfo(rpc::model::ErrorInfo),
     #[serde(rename = "google.rpc.Help")]
-    Help(Help),
+    Help(rpc::model::Help),
     #[serde(rename = "google.rpc.LocalizedMessage")]
-    LocalizedMessage(LocalizedMessage),
+    LocalizedMessage(rpc::model::LocalizedMessage),
     #[serde(rename = "google.rpc.PreconditionFailure")]
-    PreconditionFailure(PreconditionFailure),
+    PreconditionFailure(rpc::model::PreconditionFailure),
     #[serde(rename = "google.rpc.QuotaFailure")]
-    QuotaFailure(QuotaFailure),
+    QuotaFailure(rpc::model::QuotaFailure),
     #[serde(rename = "google.rpc.RequestInfo")]
-    RequestInfo(RequestInfo),
+    RequestInfo(rpc::model::RequestInfo),
     #[serde(rename = "google.rpc.ResourceInfo")]
-    ResourceInfo(ResourceInfo),
+    ResourceInfo(rpc::model::ResourceInfo),
     #[serde(rename = "google.rpc.RetryInfo")]
-    RetryInfo(RetryInfo),
+    RetryInfo(rpc::model::RetryInfo),
     Other(wkt::Any),
 }
 
@@ -376,71 +373,86 @@ impl Default for StatusDetails {
 #[cfg(test)]
 mod test {
     use super::*;
+    use rpc::model::BadRequest;
+    use rpc::model::DebugInfo;
+    use rpc::model::ErrorInfo;
+    use rpc::model::Help;
+    use rpc::model::LocalizedMessage;
+    use rpc::model::PreconditionFailure;
+    use rpc::model::QuotaFailure;
+    use rpc::model::RequestInfo;
+    use rpc::model::ResourceInfo;
+    use rpc::model::RetryInfo;
     use serde_json::json;
     use std::collections::HashMap;
     use test_case::test_case;
 
     #[test]
     fn serialization_all_variants() {
-        let status = Status {
-            code: 12,
-            message: "test".to_string(),
-            status: Some("UNIMPLEMENTED".to_string()),
+        let status =
+            Status {
+                code: 12,
+                message: "test".to_string(),
+                status: Some("UNIMPLEMENTED".to_string()),
 
-            details: vec![
-                StatusDetails::BadRequest(BadRequest {
-                    field_violations: vec![bad_request::FieldViolation {
-                        field: "field".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::DebugInfo(DebugInfo {
-                    stack_entries: vec!["stack".to_string()],
-                    detail: "detail".to_string(),
-                }),
-                StatusDetails::ErrorInfo(ErrorInfo {
-                    reason: "reason".to_string(),
-                    domain: "domain".to_string(),
-                    metadata: HashMap::new(),
-                }),
-                StatusDetails::Help(Help {
-                    links: vec![help::Link {
-                        description: "desc".to_string(),
-                        url: "url".to_string(),
-                    }],
-                }),
-                StatusDetails::LocalizedMessage(LocalizedMessage {
-                    locale: "locale".to_string(),
-                    message: "message".to_string(),
-                }),
-                StatusDetails::PreconditionFailure(PreconditionFailure {
-                    violations: vec![precondition_failure::Violation {
-                        r#type: "type".to_string(),
-                        subject: "subject".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::QuotaFailure(QuotaFailure {
-                    violations: vec![quota_failure::Violation {
-                        subject: "subject".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::RequestInfo(RequestInfo {
-                    request_id: "id".to_string(),
-                    serving_data: "data".to_string(),
-                }),
-                StatusDetails::ResourceInfo(ResourceInfo {
-                    resource_type: "type".to_string(),
-                    resource_name: "name".to_string(),
-                    owner: "owner".to_string(),
-                    description: "desc".to_string(),
-                }),
-                StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(wkt::Duration::clamp(1, 0)),
-                }),
-            ],
-        };
+                details: vec![
+                    StatusDetails::BadRequest(BadRequest::default().set_field_violations(
+                        vec![rpc::model::bad_request::FieldViolation::default()
+                        .set_field("field").set_description("desc")],
+                    )),
+                    StatusDetails::DebugInfo(
+                        DebugInfo::default()
+                            .set_stack_entries(vec!["stack".to_string()])
+                            .set_detail("detail"),
+                    ),
+                    StatusDetails::ErrorInfo(
+                        ErrorInfo::default()
+                            .set_reason("reason")
+                            .set_domain("domain")
+                            .set_metadata(HashMap::new()),
+                    ),
+                    StatusDetails::Help(Help::default().set_links(
+                        vec![rpc::model::help::Link::default()
+                        .set_description( "desc")
+                        .set_url( "url")
+                    ],
+                    )),
+                    StatusDetails::LocalizedMessage(
+                        LocalizedMessage::default()
+                            .set_locale("locale")
+                            .set_message("message"),
+                    ),
+                    StatusDetails::PreconditionFailure(
+                        PreconditionFailure::default().set_violations(vec![
+                            rpc::model::precondition_failure::Violation::default()
+                                .set_type("type")
+                                .set_subject("subject")
+                                .set_description("desc"),
+                        ]),
+                    ),
+                    StatusDetails::QuotaFailure(QuotaFailure::default().set_violations(
+                        vec![rpc::model::quota_failure::Violation::default()
+                        .set_subject( "subject")
+                        .set_description( "desc")
+                    ],
+                    )),
+                    StatusDetails::RequestInfo(
+                        RequestInfo::default()
+                            .set_request_id("id")
+                            .set_serving_data("data"),
+                    ),
+                    StatusDetails::ResourceInfo(
+                        ResourceInfo::default()
+                            .set_resource_type("type")
+                            .set_resource_name("name")
+                            .set_owner("owner")
+                            .set_description("desc"),
+                    ),
+                    StatusDetails::RetryInfo(
+                        RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0)),
+                    ),
+                ],
+            };
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
             "code": 12,
@@ -486,57 +498,58 @@ mod test {
             message: "test".to_string(),
             status: None,
             details: vec![
-                StatusDetails::BadRequest(BadRequest {
-                    field_violations: vec![bad_request::FieldViolation {
-                        field: "field".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::DebugInfo(DebugInfo {
-                    stack_entries: vec!["stack".to_string()],
-                    detail: "detail".to_string(),
-                }),
-                StatusDetails::ErrorInfo(ErrorInfo {
-                    reason: "reason".to_string(),
-                    domain: "domain".to_string(),
-                    metadata: HashMap::new(),
-                }),
-                StatusDetails::Help(Help {
-                    links: vec![help::Link {
-                        description: "desc".to_string(),
-                        url: "url".to_string(),
-                    }],
-                }),
-                StatusDetails::LocalizedMessage(LocalizedMessage {
-                    locale: "locale".to_string(),
-                    message: "message".to_string(),
-                }),
-                StatusDetails::PreconditionFailure(PreconditionFailure {
-                    violations: vec![precondition_failure::Violation {
-                        r#type: "type".to_string(),
-                        subject: "subject".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::QuotaFailure(QuotaFailure {
-                    violations: vec![quota_failure::Violation {
-                        subject: "subject".to_string(),
-                        description: "desc".to_string(),
-                    }],
-                }),
-                StatusDetails::RequestInfo(RequestInfo {
-                    request_id: "id".to_string(),
-                    serving_data: "data".to_string(),
-                }),
-                StatusDetails::ResourceInfo(ResourceInfo {
-                    resource_type: "type".to_string(),
-                    resource_name: "name".to_string(),
-                    owner: "owner".to_string(),
-                    description: "desc".to_string(),
-                }),
-                StatusDetails::RetryInfo(RetryInfo {
-                    retry_delay: Some(wkt::Duration::clamp(1, 0)),
-                }),
+                StatusDetails::BadRequest(BadRequest::default().set_field_violations(
+                    vec![rpc::model::bad_request::FieldViolation::default()
+                        .set_field( "field" )
+                        .set_description( "desc" )
+                    ],
+                )),
+                StatusDetails::DebugInfo(
+                    DebugInfo::default()
+                        .set_stack_entries(vec!["stack".to_string()])
+                        .set_detail("detail"),
+                ),
+                StatusDetails::ErrorInfo(
+                    ErrorInfo::default()
+                        .set_reason("reason")
+                        .set_domain("domain"),
+                ),
+                StatusDetails::Help(Help::default().set_links(vec![
+                    rpc::model::help::Link::default().set_description("desc").set_url("url"),
+                ])),
+                StatusDetails::LocalizedMessage(
+                    LocalizedMessage::default()
+                        .set_locale("locale")
+                        .set_message("message"),
+                ),
+                StatusDetails::PreconditionFailure(PreconditionFailure::default().set_violations(
+                    vec![rpc::model::precondition_failure::Violation::default()
+                        .set_type( "type" )
+                        .set_subject( "subject" )
+                        .set_description( "desc" )
+                    ],
+                )),
+                StatusDetails::QuotaFailure(QuotaFailure::default().set_violations(
+                    vec![rpc::model::quota_failure::Violation::default()
+                        .set_subject( "subject")
+                        .set_description( "desc")
+                    ],
+                )),
+                StatusDetails::RequestInfo(
+                    RequestInfo::default()
+                        .set_request_id("id")
+                        .set_serving_data("data"),
+                ),
+                StatusDetails::ResourceInfo(
+                    ResourceInfo::default()
+                        .set_resource_type("type")
+                        .set_resource_name("name")
+                        .set_owner("owner")
+                        .set_description("desc"),
+                ),
+                StatusDetails::RetryInfo(
+                    RetryInfo::default().set_retry_delay(wkt::Duration::clamp(1, 0)),
+                ),
             ],
         };
         assert_eq!(got, want);
