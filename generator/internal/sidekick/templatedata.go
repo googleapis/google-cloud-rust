@@ -65,23 +65,29 @@ type Message struct {
 	DocLines           []string
 	IsMap              bool
 	IsPageableResponse bool
+	ID                 string
 }
 
 type Method struct {
-	NameToSnake       string
-	NameToCamel       string
-	NameToPascal      string
-	DocLines          []string
-	InputTypeName     string
-	OutputTypeName    string
-	HTTPMethod        string
-	HTTPMethodToLower string
-	HTTPPathFmt       string
-	HTTPPathArgs      []string
-	QueryParams       []*Field
-	HasBody           bool
-	BodyAccessor      string
-	IsPageable        bool
+	NameToSnake         string
+	NameToCamel         string
+	NameToPascal        string
+	DocLines            []string
+	InputTypeName       string
+	OutputTypeName      string
+	HTTPMethod          string
+	HTTPMethodToLower   string
+	HTTPPathFmt         string
+	HTTPPathArgs        []string
+	QueryParams         []*Field
+	HasBody             bool
+	BodyAccessor        string
+	IsPageable          bool
+	ServiceNameToPascal string
+	ServiceNameToCamel  string
+	ServiceNameToSnake  string
+	InputTypeID         string
+	InputType           *Message
 }
 
 type OneOf struct {
@@ -155,13 +161,27 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
 	data.RequiredPackages = c.RequiredPackages()
+
+	messagesByID := map[string]*Message{}
+	for _, m := range data.Messages {
+		messagesByID[m.ID] = m
+	}
+	for _, s := range data.Services {
+		for _, method := range s.Methods {
+			if msg, ok := messagesByID[method.InputTypeID]; ok {
+				method.InputType = msg
+			} else if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
+				method.InputType = newMessage(m, c, model.State)
+			}
+		}
+	}
 	return data
 }
 
 func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
 	return &Service{
 		Methods: mapSlice(s.Methods, func(m *api.Method) *Method {
-			return newMethod(m, c, state)
+			return newMethod(s, m, c, state)
 		}),
 		NameToSnake:         c.ToSnake(s.Name),
 		NameToPascal:        c.ToPascal(s.Name),
@@ -213,10 +233,11 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 		DocLines:           c.FormatDocComments(m.Documentation, state),
 		IsMap:              m.IsMap,
 		IsPageableResponse: m.IsPageableResponse,
+		ID:                 m.ID,
 	}
 }
 
-func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
+func newMethod(s *api.Service, m *api.Method, c language.Codec, state *api.APIState) *Method {
 	return &Method{
 		BodyAccessor:      c.BodyAccessor(m, state),
 		DocLines:          c.FormatDocComments(m.Documentation, state),
@@ -233,7 +254,11 @@ func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 		QueryParams: mapSlice(c.QueryParams(m, state), func(s *api.Field) *Field {
 			return newField(s, c, state)
 		}),
-		IsPageable: m.IsPageable,
+		IsPageable:          m.IsPageable,
+		ServiceNameToPascal: c.ToPascal(s.Name),
+		ServiceNameToCamel:  c.ToCamel(s.Name),
+		ServiceNameToSnake:  c.ToSnake(s.Name),
+		InputTypeID:         m.InputTypeID,
 	}
 }
 

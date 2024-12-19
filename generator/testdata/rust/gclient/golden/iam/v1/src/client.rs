@@ -88,15 +88,15 @@ impl IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    pub async fn set_iam_policy(&self, req: crate::model::SetIamPolicyRequest) -> Result<crate::model::Policy> {
-        self.inner.set_iam_policy(req, gax::options::RequestOptions).await
+    pub fn set_iam_policy(&self) -> crate::builders::SetIamPolicy {
+        crate::builders::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
-    pub async fn get_iam_policy(&self, req: crate::model::GetIamPolicyRequest) -> Result<crate::model::Policy> {
-        self.inner.get_iam_policy(req, gax::options::RequestOptions).await
+    pub fn get_iam_policy(&self) -> crate::builders::GetIamPolicy {
+        crate::builders::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -106,8 +106,8 @@ impl IAMPolicy {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub async fn test_iam_permissions(&self, req: crate::model::TestIamPermissionsRequest) -> Result<crate::model::TestIamPermissionsResponse> {
-        self.inner.test_iam_permissions(req, gax::options::RequestOptions).await
+    pub fn test_iam_permissions(&self) -> crate::builders::TestIamPermissions {
+        crate::builders::TestIamPermissions::new(self.inner.clone())
     }
 
 }

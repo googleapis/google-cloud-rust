@@ -65,13 +65,13 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub async fn list_locations(&self, req: crate::model::ListLocationsRequest) -> Result<crate::model::ListLocationsResponse> {
-        self.inner.list_locations(req, gax::options::RequestOptions).await
+    pub fn list_locations(&self) -> crate::builders::ListLocations {
+        crate::builders::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub async fn get_location(&self, req: crate::model::GetLocationRequest) -> Result<crate::model::Location> {
-        self.inner.get_location(req, gax::options::RequestOptions).await
+    pub fn get_location(&self) -> crate::builders::GetLocation {
+        crate::builders::GetLocation::new(self.inner.clone())
     }
 
 }

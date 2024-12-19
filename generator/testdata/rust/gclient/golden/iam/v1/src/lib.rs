@@ -28,6 +28,9 @@ pub mod traits;
 /// Concrete implementations of this client library traits.
 pub mod client;
 
+/// Request builders.
+pub mod builders;
+
 #[doc(hidden)]
 pub(crate) mod tracing;
 

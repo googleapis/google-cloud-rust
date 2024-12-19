@@ -1,0 +1,87 @@
+{{!
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}
+// Copyright {{CopyrightYear}} Google LLC
+{{#BoilerPlate}}
+//{{{.}}}
+{{/BoilerPlate}}
+{{#HasServices}}
+
+use crate::Result;
+use std::sync::Arc;
+{{/HasServices}}
+{{#Services}}
+
+/// Common implementation for [crate::client::{{NameToPascal}}] request builders.
+#[derive(Debug)]
+pub struct {{NameToPascal}}RequestBuilder<R: std::default::Default> {
+    stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
+    request: R,
+    options: gax::options::RequestOptions,
+}
+
+impl<R> {{NameToPascal}}RequestBuilder<R>
+where R: std::default::Default {
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>) -> Self {
+        Self {
+            stub,
+            request: R::default(),
+            options: gax::options::RequestOptions,
+        }
+    }
+}
+
+{{#Methods}}
+/// The request builder for a {{ServiceNameToPascal}}::{{NameToSnake}} call.
+pub struct {{NameToPascal}}({{ServiceNameToPascal}}RequestBuilder<{{InputTypeName}}>);
+
+impl {{NameToPascal}} {
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{ServiceNameToPascal}}>) -> Self {
+        Self(
+            {{ServiceNameToPascal}}RequestBuilder::new(stub)
+        )
+    }
+
+    /// Set the full request.
+    pub fn with_request<V: Into<{{InputTypeName}}>>(mut self, v: V) -> Self {
+        self.0.request = v.into();
+        self
+    }
+
+    /// Sends the request.
+    pub async fn send(self) -> Result<{{OutputTypeName}}> {
+        self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
+    }
+
+    {{#InputType.BasicFields}}
+
+    /// Sets the value of `{{NameToSnake}}`.
+    pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
+        self.0.request.{{NameToSnake}} = v.into();
+        self
+    }
+    {{/InputType.BasicFields}}
+    {{#InputType.ExplicitOneOfs}}
+
+    /// Sets the value of `{{NameToSnake}}`.
+    pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
+        self.0.request.{{NameToSnake}} = v.into();
+        self
+    }
+    {{/InputType.ExplicitOneOfs}}
+}
+
+{{/Methods}}
+{{/Services}}
