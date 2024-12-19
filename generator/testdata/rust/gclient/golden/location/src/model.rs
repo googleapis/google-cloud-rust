@@ -97,6 +97,13 @@ impl ListLocationsResponse {
     }
 }
 
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListLocationsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
+    }
+}
+
 /// The request message for [Locations.GetLocation][google.cloud.location.Locations.GetLocation].
 ///
 /// [google.cloud.location.Locations.GetLocation]: crate::traits::Locations::get_location

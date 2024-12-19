@@ -31,3 +31,6 @@ gax        = { path = "../../../../../../src/gax", package = "gcp-sdk-gax", feat
 iam        = { path = "../../../../../testdata/rust/gclient/golden/iam/v1", package = "iam-v1-golden-gclient" }
 location   = { path = "../../../../../testdata/rust/gclient/golden/location", package = "location-golden-gclient" }
 wkt        = { path = "../../../../../../src/wkt", package = "gcp-sdk-wkt" }
+
+[features]
+unstable-stream = ["gax/unstable-stream", "location/unstable-stream"]

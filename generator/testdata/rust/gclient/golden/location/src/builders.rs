@@ -18,7 +18,7 @@ use crate::Result;
 use std::sync::Arc;
 
 /// Common implementation for [crate::client::Locations] request builders.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct LocationsRequestBuilder<R: std::default::Default> {
     stub: Arc<dyn crate::traits::dyntraits::Locations>,
     request: R,
@@ -37,6 +37,7 @@ where R: std::default::Default {
 }
 
 /// The request builder for a Locations::list_locations call.
+#[derive(Clone, Debug)]
 pub struct ListLocations(LocationsRequestBuilder<crate::model::ListLocationsRequest>);
 
 impl ListLocations {
@@ -57,6 +58,17 @@ impl ListLocations {
         self.0.stub.list_locations(self.0.request, self.0.options).await
     }
 
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(self) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
+    }
 
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
@@ -84,6 +96,7 @@ impl ListLocations {
 }
 
 /// The request builder for a Locations::get_location call.
+#[derive(Clone, Debug)]
 pub struct GetLocation(LocationsRequestBuilder<crate::model::GetLocationRequest>);
 
 impl GetLocation {
@@ -103,7 +116,6 @@ impl GetLocation {
     pub async fn send(self) -> Result<crate::model::Location> {
         self.0.stub.get_location(self.0.request, self.0.options).await
     }
-
 
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {

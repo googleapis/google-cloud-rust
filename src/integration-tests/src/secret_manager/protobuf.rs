@@ -318,22 +318,16 @@ async fn get_all_secret_names(
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
-    let mut page_token = String::new();
-    loop {
-        let response = client
-            .list_secrets()
-            .set_parent(format!("projects/{project_id}"))
-            .set_page_token(&page_token)
-            .send()
-            .await?;
-        response
+    let mut stream = client
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
+        .stream()
+        .await;
+    while let Some(response) = stream.next().await {
+        response?
             .secrets
             .into_iter()
             .for_each(|s| names.push(s.name));
-        if response.next_page_token.is_empty() {
-            break;
-        }
-        page_token = response.next_page_token;
     }
     Ok(names)
 }

@@ -21,5 +21,5 @@
 /// options.
 ///
 /// All other code uses this type indirectly, via the per-request builders.
-#[derive(Debug, Default)]
+#[derive(Clone, Debug, Default)]
 pub struct RequestOptions;

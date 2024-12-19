@@ -1037,10 +1037,42 @@ func (c *RustCodec) Validate(api *api.API) error {
 }
 
 // RustContext contains Rust specific data that can be referenced in templates.
-type RustContext struct{}
+type RustContext struct {
+	HasFeatures bool
+	Features    []string
+}
 
-func (c *RustCodec) AdditionalContext(*api.API) any {
-	return nil
+func (c *RustCodec) AdditionalContext(api *api.API) any {
+	rustContext := &RustContext{}
+	c.addStreamingFeature(rustContext, api)
+	return rustContext
+}
+
+func (c *RustCodec) addStreamingFeature(rustContext *RustContext, api *api.API) {
+	var hasStreamingRPC bool
+	for _, m := range api.Messages {
+		if m.IsPageableResponse {
+			hasStreamingRPC = true
+			break
+		}
+	}
+	if !hasStreamingRPC {
+		return
+	}
+	var sb strings.Builder
+	sb.WriteString(`unstable-stream = ["gax/unstable-stream"`)
+	// Add streaming feature for deps
+	for _, p := range c.ExtraPackages {
+		if p.Ignore || !p.Used {
+			continue
+		}
+		if p.Name == "location" {
+			sb.WriteString(`, "location/unstable-stream"`)
+		}
+	}
+	sb.WriteString("]")
+	rustContext.Features = append(rustContext.Features, sb.String())
+	rustContext.HasFeatures = true
 }
 
 func (c *RustCodec) Imports() []string {

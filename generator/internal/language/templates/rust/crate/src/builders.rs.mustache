@@ -25,7 +25,7 @@ use std::sync::Arc;
 {{#Services}}
 
 /// Common implementation for [crate::client::{{NameToPascal}}] request builders.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct {{NameToPascal}}RequestBuilder<R: std::default::Default> {
     stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
     request: R,
@@ -45,6 +45,7 @@ where R: std::default::Default {
 
 {{#Methods}}
 /// The request builder for a {{ServiceNameToPascal}}::{{NameToSnake}} call.
+#[derive(Clone, Debug)]
 pub struct {{NameToPascal}}({{ServiceNameToPascal}}RequestBuilder<{{InputTypeName}}>);
 
 impl {{NameToPascal}} {
@@ -64,7 +65,20 @@ impl {{NameToPascal}} {
     pub async fn send(self) -> Result<{{OutputTypeName}}> {
         self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
     }
+    {{#IsPageable}}
 
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(self) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
+    }
+    {{/IsPageable}}
     {{#InputType.BasicFields}}
 
     /// Sets the value of `{{NameToSnake}}`.
