@@ -16,4 +16,3 @@
 
 /// The messages and enums that are part of this client library.
 pub mod model;
-
