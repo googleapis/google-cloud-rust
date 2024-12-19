@@ -54,6 +54,19 @@ impl SecretManagerService {
         Ok(Self { inner })
     }
 
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is when mocking the
+    /// client.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: crate::traits::SecretManagerService + 'static,
+    {
+        Self {
+            inner: Arc::new(stub),
+        }
+    }
+
     async fn build_inner(
         conf: crate::ConfigBuilder,
     ) -> Result<Arc<dyn crate::traits::dyntraits::SecretManagerService>> {
@@ -253,6 +266,19 @@ impl Locations {
     pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is when mocking the
+    /// client.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: crate::traits::Locations + 'static,
+    {
+        Self {
+            inner: Arc::new(stub),
+        }
     }
 
     async fn build_inner(

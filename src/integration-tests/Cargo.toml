@@ -40,5 +40,6 @@ tracing            = "0.1.41"
 tracing-subscriber = "0.3.19"
 
 [dev-dependencies]
+mockall   = "0.13.1"
 test-case = "3.3.1"
 tokio     = { version = "1.42", features = ["full", "macros"] }
