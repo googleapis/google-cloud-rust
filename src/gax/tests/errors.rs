@@ -99,7 +99,7 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
         "code": 9,
         "message": "msg",
         "details": [
-            {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+            {"@type": "google.rpc.QuotaFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
         ]
     });
     let json = serde_json::json!({"error": json});
