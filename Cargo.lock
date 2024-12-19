@@ -662,6 +662,22 @@ name = "gcp-sdk-longrunning"
 version = "0.0.0"
 
 [[package]]
+name = "gcp-sdk-rpc"
+version = "0.1.0-rc2"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "time",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-secretmanager-v1"
 version = "0.1.0-rc2"
 dependencies = [
