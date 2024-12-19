@@ -22,4 +22,36 @@
 ///
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
-pub struct RequestOptions;
+pub struct RequestOptions {
+    user_agent: Option<String>,
+}
+
+impl RequestOptions {
+    /// Prepends this prefix to the user agent header value.
+    pub fn set_user_agent<T: Into<String>>(&mut self, v: T) {
+        self.user_agent = Some(v.into());
+    }
+
+    /// Gets the current user-agent prefix
+    pub fn user_agent_prefix(&self) -> &Option<String> {
+        &self.user_agent
+    }
+}
+
+pub trait RequestBuilder {
+    fn request_options(&mut self) -> &mut RequestOptions;
+}
+
+pub trait RequestOptionsBuilder {
+    fn with_user_agent<T: Into<String>>(self, v: T) -> Self;
+}
+
+impl<T> RequestOptionsBuilder for T
+where
+    T: RequestBuilder,
+{
+    fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
+        self.request_options().set_user_agent(v);
+        self
+    }
+}

@@ -25,6 +25,11 @@
 //! change both if needed.
 //! </div>
 
+/// An alias of [std::result::Result] where the error is always [crate::error::Error].
+///
+/// This is the result type used by all functions wrapping RPCs.
+type Result<T> = std::result::Result<T, crate::error::Error>;
+
 /// Defines traits and helpers to serialize query parameters.
 ///
 /// Query parameters in the Google APIs can be types other than strings and

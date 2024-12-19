@@ -72,7 +72,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let builder = self
             .inner
@@ -85,7 +85,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(builder, Some(req), &options).await
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -93,7 +93,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let builder = self
             .inner
@@ -106,7 +106,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(builder, Some(req), &options).await
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -119,7 +119,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
         let builder = self
             .inner
@@ -132,6 +132,6 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(builder, Some(req), &options).await
     }
 }
