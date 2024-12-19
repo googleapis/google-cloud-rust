@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use http::StatusCode;
 use std::error::Error;
 use std::fmt::{Display, Formatter, Result};
 
@@ -87,4 +88,40 @@ impl Display for CredentialError {
 #[derive(thiserror::Error, Debug)]
 pub enum InnerAuthError {
     // TODO(#389) - define error types here
+}
+
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+pub(crate) fn is_retryable(c: StatusCode) -> bool {
+    match c {
+        // Internal server errors do not indicate that there is anything wrong
+        // with our request, so we retry them.
+        StatusCode::INTERNAL_SERVER_ERROR
+        | StatusCode::SERVICE_UNAVAILABLE
+        | StatusCode::REQUEST_TIMEOUT
+        | StatusCode::TOO_MANY_REQUESTS => true,
+        _ => false,
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use test_case::test_case;
+
+    #[test_case(StatusCode::INTERNAL_SERVER_ERROR)]
+    #[test_case(StatusCode::SERVICE_UNAVAILABLE)]
+    #[test_case(StatusCode::REQUEST_TIMEOUT)]
+    #[test_case(StatusCode::TOO_MANY_REQUESTS)]
+    fn retryable(c: StatusCode) {
+        assert!(is_retryable(c));
+    }
+
+    #[test_case(StatusCode::NOT_FOUND)]
+    #[test_case(StatusCode::UNAUTHORIZED)]
+    #[test_case(StatusCode::BAD_REQUEST)]
+    #[test_case(StatusCode::BAD_GATEWAY)]
+    #[test_case(StatusCode::PRECONDITION_FAILED)]
+    fn non_retryable(c: StatusCode) {
+        assert!(!is_retryable(c));
+    }
 }
