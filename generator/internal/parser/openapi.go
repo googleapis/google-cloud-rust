@@ -149,6 +149,9 @@ func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], pack
 		DefaultHost:   defaultHost(model),
 		Methods:       methods,
 	}
+	for _, m := range methods {
+		m.Parent = service
+	}
 	a.Services = append(a.Services, service)
 	a.State.ServiceByID[service.ID] = service
 	return nil

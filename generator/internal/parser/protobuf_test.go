@@ -415,7 +415,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.Service")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Name:          "Service",
 		ID:            ".test.Service",
 		Package:       "test",
@@ -669,7 +669,7 @@ func TestProtobuf_Service(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -719,7 +719,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Name:          "TestService",
 		Package:       "test",
 		ID:            ".test.TestService",
@@ -844,7 +844,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Documentation: "Manages location-related information with an API service.",
 		DefaultHost:   "cloud.googleapis.com",
 		Name:          "Locations",
@@ -903,7 +903,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
 		DefaultHost:   "iam-meta-api.googleapis.com",
 		Name:          "IAMPolicy",
@@ -937,7 +937,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Name:        "TestService",
 		ID:          ".test.TestService",
 		DefaultHost: "test.googleapis.com",
@@ -1096,7 +1096,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Documentation: "Manages long-running operations with an API service.",
 		DefaultHost:   "longrunning.googleapis.com",
 		Name:          "Operations",

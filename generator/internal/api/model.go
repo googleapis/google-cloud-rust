@@ -118,6 +118,7 @@ type Method struct {
 	// IsPageable is true if the method conforms to standard defined by
 	// [AIP-4233](https://google.aip.dev/client-libraries/4233).
 	IsPageable bool
+	Parent     *Service
 }
 
 // Normalized request path information.

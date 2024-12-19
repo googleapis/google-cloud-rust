@@ -874,7 +874,7 @@ func TestOpenAPI_Pagination(t *testing.T) {
 		t.Errorf("missing service (Service) in ServiceByID index")
 		return
 	}
-	checkService(t, *service, api.Service{
+	checkService(t, service, &api.Service{
 		Name: "Service",
 		ID:   "..Service",
 		Methods: []*api.Method{
