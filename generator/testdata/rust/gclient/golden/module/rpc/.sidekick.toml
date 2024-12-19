@@ -15,7 +15,7 @@
 [general]
 language = 'rust'
 specification-format = 'protobuf'
-specification-source = 'google/rpc/error_details.proto'
+specification-source = 'google/rpc'
 service-config = 'google/rpc/rpc_publish.yaml'
 
 [source]

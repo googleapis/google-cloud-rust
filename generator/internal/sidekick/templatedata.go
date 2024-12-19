@@ -36,6 +36,7 @@ type TemplateData struct {
 	DefaultHost       string
 	Services          []*Service
 	Messages          []*Message
+	Enums             []*Enum
 	NameToLower       string
 	NotForPublication bool
 }
@@ -154,6 +155,9 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 		}),
 		Messages: mapSlice(model.Messages, func(m *api.Message) *Message {
 			return newMessage(m, c, model.State)
+		}),
+		Enums: mapSlice(model.Enums, func(e *api.Enum) *Enum {
+			return newEnum(e, c, model.State)
 		}),
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.NotForPublication(),

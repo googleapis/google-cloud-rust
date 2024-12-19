@@ -1273,3 +1273,159 @@ impl TimeOfDay {
         self
     }
 }
+
+/// A `CalendarPeriod` represents the abstract concept of a time period that has
+/// a canonical start. Grammatically, "the start of the current
+/// `CalendarPeriod`." All calendar times begin at midnight UTC.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct CalendarPeriod(String);
+
+impl CalendarPeriod {
+    /// Sets the enum value.
+    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        self.0 = v.into();
+        self
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Useful constants to work with [CalendarPeriod](CalendarPeriod)
+pub mod calendar_period {
+
+    /// Undefined period, raises an error.
+    pub const CALENDAR_PERIOD_UNSPECIFIED: &str = "CALENDAR_PERIOD_UNSPECIFIED";
+
+    /// A day.
+    pub const DAY: &str = "DAY";
+
+    /// A week. Weeks begin on Monday, following
+    /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
+    pub const WEEK: &str = "WEEK";
+
+    /// A fortnight. The first calendar fortnight of the year begins at the start
+    /// of week 1 according to
+    /// [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date).
+    pub const FORTNIGHT: &str = "FORTNIGHT";
+
+    /// A month.
+    pub const MONTH: &str = "MONTH";
+
+    /// A quarter. Quarters start on dates 1-Jan, 1-Apr, 1-Jul, and 1-Oct of each
+    /// year.
+    pub const QUARTER: &str = "QUARTER";
+
+    /// A half-year. Half-years start on dates 1-Jan and 1-Jul.
+    pub const HALF: &str = "HALF";
+
+    /// A year.
+    pub const YEAR: &str = "YEAR";
+}
+
+/// Represents a day of the week.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct DayOfWeek(String);
+
+impl DayOfWeek {
+    /// Sets the enum value.
+    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        self.0 = v.into();
+        self
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Useful constants to work with [DayOfWeek](DayOfWeek)
+pub mod day_of_week {
+
+    /// The day of the week is unspecified.
+    pub const DAY_OF_WEEK_UNSPECIFIED: &str = "DAY_OF_WEEK_UNSPECIFIED";
+
+    /// Monday
+    pub const MONDAY: &str = "MONDAY";
+
+    /// Tuesday
+    pub const TUESDAY: &str = "TUESDAY";
+
+    /// Wednesday
+    pub const WEDNESDAY: &str = "WEDNESDAY";
+
+    /// Thursday
+    pub const THURSDAY: &str = "THURSDAY";
+
+    /// Friday
+    pub const FRIDAY: &str = "FRIDAY";
+
+    /// Saturday
+    pub const SATURDAY: &str = "SATURDAY";
+
+    /// Sunday
+    pub const SUNDAY: &str = "SUNDAY";
+}
+
+/// Represents a month in the Gregorian calendar.
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct Month(String);
+
+impl Month {
+    /// Sets the enum value.
+    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        self.0 = v.into();
+        self
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Useful constants to work with [Month](Month)
+pub mod month {
+
+    /// The unspecified month.
+    pub const MONTH_UNSPECIFIED: &str = "MONTH_UNSPECIFIED";
+
+    /// The month of January.
+    pub const JANUARY: &str = "JANUARY";
+
+    /// The month of February.
+    pub const FEBRUARY: &str = "FEBRUARY";
+
+    /// The month of March.
+    pub const MARCH: &str = "MARCH";
+
+    /// The month of April.
+    pub const APRIL: &str = "APRIL";
+
+    /// The month of May.
+    pub const MAY: &str = "MAY";
+
+    /// The month of June.
+    pub const JUNE: &str = "JUNE";
+
+    /// The month of July.
+    pub const JULY: &str = "JULY";
+
+    /// The month of August.
+    pub const AUGUST: &str = "AUGUST";
+
+    /// The month of September.
+    pub const SEPTEMBER: &str = "SEPTEMBER";
+
+    /// The month of October.
+    pub const OCTOBER: &str = "OCTOBER";
+
+    /// The month of November.
+    pub const NOVEMBER: &str = "NOVEMBER";
+
+    /// The month of December.
+    pub const DECEMBER: &str = "DECEMBER";
+}
