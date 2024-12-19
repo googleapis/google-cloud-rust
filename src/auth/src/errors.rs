@@ -92,10 +92,15 @@ pub enum InnerAuthError {
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) fn is_retryable(c: StatusCode) -> bool {
-    c == StatusCode::INTERNAL_SERVER_ERROR
-        || c == StatusCode::SERVICE_UNAVAILABLE
-        || c == StatusCode::REQUEST_TIMEOUT
-        || c == StatusCode::TOO_MANY_REQUESTS
+    match c {
+        // Internal server errors do not indicate that there is anything wrong
+        // with our request, so we retry them.
+        StatusCode::INTERNAL_SERVER_ERROR
+        | StatusCode::SERVICE_UNAVAILABLE
+        | StatusCode::REQUEST_TIMEOUT
+        | StatusCode::TOO_MANY_REQUESTS => true,
+        _ => false,
+    }
 }
 
 #[cfg(test)]
