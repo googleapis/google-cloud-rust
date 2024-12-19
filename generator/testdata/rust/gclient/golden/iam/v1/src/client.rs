@@ -69,7 +69,7 @@ impl IAMPolicy {
         Ok(Self { inner }) 
     }
 
-    /// Creates a new cient from the provided stub.
+    /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is when mocking the
     /// client.
