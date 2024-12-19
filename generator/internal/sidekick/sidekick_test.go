@@ -154,7 +154,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 	configs := []TestConfig{
 		{
-			Source:        "google/rpc/error_details.proto",
+			Source:        "google/rpc",
 			ServiceConfig: "google/rpc/rpc_publish.yaml",
 			Name:          "rpc",
 			ExtraOptions: map[string]string{
