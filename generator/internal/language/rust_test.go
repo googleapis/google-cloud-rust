@@ -1229,27 +1229,33 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 
 func TestRust_MessageNames(t *testing.T) {
 	message := &api.Message{
-		Name: "Replication",
-		ID:   "..Replication",
+		Name:    "Replication",
+		ID:      ".test.Replication",
+		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "automatic",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  "..Automatic",
+				TypezID:  ".test.Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
 	nested := &api.Message{
-		Name:   "Automatic",
-		ID:     "..Replication.Automatic",
-		Parent: message,
+		Name:    "Automatic",
+		ID:      ".test.Replication.Automatic",
+		Parent:  message,
+		Package: "test",
 	}
 
 	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
+	api.PackageName = "test"
 
 	c := createRustCodec()
+	if err := c.Validate(api); err != nil {
+		t.Fatal(err)
+	}
 	if got := c.MessageName(message, api.State); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
@@ -1267,31 +1273,45 @@ func TestRust_MessageNames(t *testing.T) {
 
 func TestRust_EnumNames(t *testing.T) {
 	message := &api.Message{
-		Name: "SecretVersion",
-		ID:   "..SecretVersion",
+		Name:    "SecretVersion",
+		ID:      ".test.SecretVersion",
+		Package: "test",
 		Fields: []*api.Field{
 			{
 				Name:     "automatic",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  "..Automatic",
+				TypezID:  ".test.Automatic",
 				Optional: true,
 				Repeated: false,
 			},
 		},
 	}
 	nested := &api.Enum{
-		Name:   "State",
-		ID:     "..SecretVersion.State",
-		Parent: message,
+		Name:    "State",
+		ID:      ".test.SecretVersion.State",
+		Parent:  message,
+		Package: "test",
+	}
+	non_nested := &api.Enum{
+		Name:    "Code",
+		ID:      ".test.Code",
+		Package: "test",
 	}
 
-	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
+	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	api.PackageName = "test"
 
 	c := createRustCodec()
+	if err := c.Validate(api); err != nil {
+		t.Fatal(err)
+	}
 	if got := c.EnumName(nested, api.State); got != "State" {
-		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
+		t.Errorf("mismatched enum name, got=%s, want=Automatic", got)
 	}
 	if got := c.FQEnumName(nested, api.State); got != "crate::model::secret_version::State" {
-		t.Errorf("mismatched message name, got=%s, want=crate::model::secret_version::State", got)
+		t.Errorf("mismatched enum name, got=%s, want=crate::model::secret_version::State", got)
+	}
+	if got := c.FQEnumName(non_nested, api.State); got != "crate::model::Code" {
+		t.Errorf("mismatched enum name, got=%s, want=%s", got, "crate::model::Code")
 	}
 }

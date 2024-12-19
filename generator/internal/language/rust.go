@@ -513,7 +513,6 @@ func (c *RustCodec) rustPackage(packageName string) string {
 	}
 	mapped, ok := c.mapPackage(packageName)
 	if !ok {
-		slog.Error("unknown source package name", "name", packageName)
 		return packageName
 	}
 	// TODO(#158) - maybe google.protobuf should not be this special?
@@ -551,7 +550,7 @@ func (c *RustCodec) messageScopeName(m *api.Message, childPackageName string) st
 }
 
 func (c *RustCodec) enumScopeName(e *api.Enum) string {
-	return c.messageScopeName(e.Parent, "")
+	return c.messageScopeName(e.Parent, e.Package)
 }
 
 func (c *RustCodec) FQMessageName(m *api.Message, _ *api.APIState) string {
@@ -563,7 +562,7 @@ func (c *RustCodec) EnumName(e *api.Enum, state *api.APIState) string {
 }
 
 func (c *RustCodec) FQEnumName(e *api.Enum, _ *api.APIState) string {
-	return c.messageScopeName(e.Parent, "") + "::" + c.ToPascal(e.Name)
+	return c.messageScopeName(e.Parent, e.Package) + "::" + c.ToPascal(e.Name)
 }
 
 func (c *RustCodec) EnumValueName(e *api.EnumValue, _ *api.APIState) string {
