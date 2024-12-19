@@ -181,7 +181,7 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
 	return &Service{
 		Methods: mapSlice(s.Methods, func(m *api.Method) *Method {
-			return newMethod(s, m, c, state)
+			return newMethod(m, c, state)
 		}),
 		NameToSnake:         c.ToSnake(s.Name),
 		NameToPascal:        c.ToPascal(s.Name),
@@ -237,7 +237,7 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 	}
 }
 
-func newMethod(s *api.Service, m *api.Method, c language.Codec, state *api.APIState) *Method {
+func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 	return &Method{
 		BodyAccessor:      c.BodyAccessor(m, state),
 		DocLines:          c.FormatDocComments(m.Documentation, state),
@@ -255,9 +255,9 @@ func newMethod(s *api.Service, m *api.Method, c language.Codec, state *api.APISt
 			return newField(s, c, state)
 		}),
 		IsPageable:          m.IsPageable,
-		ServiceNameToPascal: c.ToPascal(s.Name),
-		ServiceNameToCamel:  c.ToCamel(s.Name),
-		ServiceNameToSnake:  c.ToSnake(s.Name),
+		ServiceNameToPascal: c.ToPascal(m.Parent.Name),
+		ServiceNameToCamel:  c.ToCamel(m.Parent.Name),
+		ServiceNameToSnake:  c.ToSnake(m.Parent.Name),
 		InputTypeID:         m.InputTypeID,
 	}
 }
