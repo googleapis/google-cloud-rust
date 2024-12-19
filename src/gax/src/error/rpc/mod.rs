@@ -340,18 +340,29 @@ impl TryFrom<bytes::Bytes> for Status {
 /// Google cloud RPCs often return a detailed error description. This details
 /// can be used to better understand the root cause of the problem.
 #[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase", untagged)]
+#[serde(rename_all = "camelCase")]
 #[non_exhaustive]
+#[serde(tag = "@type")]
 pub enum StatusDetails {
+    #[serde(rename = "google.rpc.BadRequest")]
     BadRequest(BadRequest),
+    #[serde(rename = "google.rpc.DebugInfo")]
     DebugInfo(DebugInfo),
+    #[serde(rename = "google.rpc.ErrorInfo")]
     ErrorInfo(ErrorInfo),
+    #[serde(rename = "google.rpc.Help")]
     Help(Help),
+    #[serde(rename = "google.rpc.LocalizedMessage")]
     LocalizedMessage(LocalizedMessage),
+    #[serde(rename = "google.rpc.PreconditionFailure")]
     PreconditionFailure(PreconditionFailure),
+    #[serde(rename = "google.rpc.QuotaFailure")]
     QuotaFailure(QuotaFailure),
+    #[serde(rename = "google.rpc.RequestInfo")]
     RequestInfo(RequestInfo),
+    #[serde(rename = "google.rpc.ResourceInfo")]
     ResourceInfo(ResourceInfo),
+    #[serde(rename = "google.rpc.RetryInfo")]
     RetryInfo(RetryInfo),
     Other(wkt::Any),
 }
@@ -436,16 +447,16 @@ mod test {
             "message": "test",
             "status": "UNIMPLEMENTED",
             "details": [
-                {"fieldViolations": [{"field": "field", "description": "desc"}]},
-                {"stackEntries": ["stack"], "detail": "detail"},
-                {"reason": "reason", "domain": "domain"},
-                {"links": [{"description": "desc", "url": "url"}]},
-                {"locale": "locale", "message": "message"},
-                {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"violations": [{"subject": "subject", "description": "desc"}]},
-                {"requestId": "id", "servingData": "data"},
-                {"resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
-                {"retryDelay": "1s"},
+                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
+                {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
+                {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain"},
+                {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
+                {"@type": "google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
+                {"@type": "google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+                {"@type": "google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
+                {"@type": "google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
+                {"@type": "google.rpc.RetryInfo", "retryDelay": "1s"},
             ]
         });
         assert_eq!(got, want);
@@ -457,16 +468,16 @@ mod test {
             "code": 20,
             "message": "test",
             "details": [
-                {"fieldViolations": [{"field": "field", "description": "desc"}]},
-                {"stackEntries": ["stack"], "detail": "detail"},
-                {"reason": "reason", "domain": "domain", "metadata": {}},
-                {"links": [{"description": "desc", "url": "url"}]},
-                {"locale": "locale", "message": "message"},
-                {"violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
-                {"violations": [{"subject": "subject", "description": "desc"}]},
-                {"requestId": "id", "servingData": "data"},
-                {"resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
-                {"retryDelay": "1s"},
+                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
+                {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
+                {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain", "metadata": {}},
+                {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
+                {"@type": "google.rpc.LocalizedMessage", "locale": "locale", "message": "message"},
+                {"@type": "google.rpc.PreconditionFailure", "violations": [{"type": "type", "subject": "subject", "description": "desc"}]},
+                {"@type": "google.rpc.QuotaFailure", "violations": [{"subject": "subject", "description": "desc"}]},
+                {"@type": "google.rpc.RequestInfo", "requestId": "id", "servingData": "data"},
+                {"@type": "google.rpc.ResourceInfo", "resourceType": "type", "resourceName": "name", "owner": "owner", "description": "desc"},
+                {"@type": "google.rpc.RetryInfo", "retryDelay": "1s"},
             ]
         });
         let got: Status = serde_json::from_value(json).unwrap();
