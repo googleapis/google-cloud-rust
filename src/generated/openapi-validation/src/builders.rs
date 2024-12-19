@@ -68,9 +68,8 @@ impl ListLocations {
     ) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
         let token = gax::paginator::extract_token(&self.0.request.page_token);
         let execute = move |token: String| {
-            let mut builder = self.clone();
-            let req = builder.0.request.clone().set_page_token(token);
-            builder.0.request = req;
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
             builder.send()
         };
         gax::paginator::Paginator::new(token, execute)
@@ -167,9 +166,8 @@ impl ListSecrets {
     ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
         let token = gax::paginator::extract_token(&self.0.request.page_token);
         let execute = move |token: String| {
-            let mut builder = self.clone();
-            let req = builder.0.request.clone().set_page_token(token);
-            builder.0.request = req;
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
             builder.send()
         };
         gax::paginator::Paginator::new(token, execute)
@@ -277,9 +275,8 @@ impl ListSecretsByProjectAndLocation {
     ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
         let token = gax::paginator::extract_token(&self.0.request.page_token);
         let execute = move |token: String| {
-            let mut builder = self.clone();
-            let req = builder.0.request.clone().set_page_token(token);
-            builder.0.request = req;
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
             builder.send()
         };
         gax::paginator::Paginator::new(token, execute)
@@ -788,9 +785,8 @@ impl ListSecretVersions {
     {
         let token = gax::paginator::extract_token(&self.0.request.page_token);
         let execute = move |token: String| {
-            let mut builder = self.clone();
-            let req = builder.0.request.clone().set_page_token(token);
-            builder.0.request = req;
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
             builder.send()
         };
         gax::paginator::Paginator::new(token, execute)
@@ -867,9 +863,8 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
     {
         let token = gax::paginator::extract_token(&self.0.request.page_token);
         let execute = move |token: String| {
-            let mut builder = self.clone();
-            let req = builder.0.request.clone().set_page_token(token);
-            builder.0.request = req;
+            let builder = self.clone();
+            builder.0.request.clone().set_page_token(token);
             builder.send()
         };
         gax::paginator::Paginator::new(token, execute)

@@ -64,6 +64,7 @@ impl {{Name}} {
     {{/ExplicitOneOfs}}
 }
 {{#IsPageableResponse}}
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for {{Name}} {
     fn next_page_token(&self) -> String {
