@@ -1060,7 +1060,7 @@ func (c *RustCodec) addStreamingFeature(rustContext *RustContext, api *api.API) 
 	if !hasStreamingRPC {
 		return
 	}
-	var sb strings.Builder 
+	var sb strings.Builder
 	sb.WriteString(`unstable-stream = ["gax/unstable-stream"`)
 	// Add streaming feature for deps
 	for _, p := range c.ExtraPackages {

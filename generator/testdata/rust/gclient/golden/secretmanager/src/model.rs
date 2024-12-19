@@ -1097,6 +1097,7 @@ impl ListSecretsResponse {
         self
     }
 }
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretsResponse {
     fn next_page_token(&self) -> String {
@@ -1341,6 +1342,7 @@ impl ListSecretVersionsResponse {
         self
     }
 }
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     fn next_page_token(&self) -> String {

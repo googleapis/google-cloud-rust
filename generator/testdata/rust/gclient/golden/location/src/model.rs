@@ -96,6 +96,7 @@ impl ListLocationsResponse {
         self
     }
 }
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLocationsResponse {
     fn next_page_token(&self) -> String {
