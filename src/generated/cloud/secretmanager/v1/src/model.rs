@@ -1121,6 +1121,12 @@ impl ListSecretsResponse {
         self
     }
 }
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListSecretsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
+    }
+}
 
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
@@ -1347,6 +1353,12 @@ impl ListSecretVersionsResponse {
     pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
+    }
+}
+#[cfg(feature = "unstable-stream")]
+impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
+    fn next_page_token(&self) -> String {
+        gax::paginator::extract_token(&self.next_page_token)
     }
 }
 

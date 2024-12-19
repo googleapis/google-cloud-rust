@@ -18,7 +18,7 @@ use crate::Result;
 use std::sync::Arc;
 
 /// Common implementation for [crate::client::SecretManagerService] request builders.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SecretManagerServiceRequestBuilder<R: std::default::Default> {
     stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>,
     request: R,
@@ -39,6 +39,7 @@ where
 }
 
 /// The request builder for a SecretManagerService::list_locations call.
+#[derive(Clone, Debug)]
 pub struct ListLocations(SecretManagerServiceRequestBuilder<crate::model::ListLocationsRequest>);
 
 impl ListLocations {
@@ -58,6 +59,21 @@ impl ListLocations {
             .stub
             .list_locations(self.0.request, self.0.options)
             .await
+    }
+
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(
+        self,
+    ) -> gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error> {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let mut builder = self.clone();
+            let req = builder.0.request.clone().set_page_token(token);
+            builder.0.request = req;
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Sets the value of `project`.
@@ -86,6 +102,7 @@ impl ListLocations {
 }
 
 /// The request builder for a SecretManagerService::get_location call.
+#[derive(Clone, Debug)]
 pub struct GetLocation(SecretManagerServiceRequestBuilder<crate::model::GetLocationRequest>);
 
 impl GetLocation {
@@ -121,6 +138,7 @@ impl GetLocation {
 }
 
 /// The request builder for a SecretManagerService::list_secrets call.
+#[derive(Clone, Debug)]
 pub struct ListSecrets(SecretManagerServiceRequestBuilder<crate::model::ListSecretsRequest>);
 
 impl ListSecrets {
@@ -140,6 +158,21 @@ impl ListSecrets {
             .stub
             .list_secrets(self.0.request, self.0.options)
             .await
+    }
+
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(
+        self,
+    ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let mut builder = self.clone();
+            let req = builder.0.request.clone().set_page_token(token);
+            builder.0.request = req;
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Sets the value of `project`.
@@ -168,6 +201,7 @@ impl ListSecrets {
 }
 
 /// The request builder for a SecretManagerService::create_secret call.
+#[derive(Clone, Debug)]
 pub struct CreateSecret(SecretManagerServiceRequestBuilder<crate::model::CreateSecretRequest>);
 
 impl CreateSecret {
@@ -209,6 +243,7 @@ impl CreateSecret {
 }
 
 /// The request builder for a SecretManagerService::list_secrets_by_project_and_location call.
+#[derive(Clone, Debug)]
 pub struct ListSecretsByProjectAndLocation(
     SecretManagerServiceRequestBuilder<crate::model::ListSecretsByProjectAndLocationRequest>,
 );
@@ -233,6 +268,21 @@ impl ListSecretsByProjectAndLocation {
             .stub
             .list_secrets_by_project_and_location(self.0.request, self.0.options)
             .await
+    }
+
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(
+        self,
+    ) -> gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error> {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let mut builder = self.clone();
+            let req = builder.0.request.clone().set_page_token(token);
+            builder.0.request = req;
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Sets the value of `project`.
@@ -267,6 +317,7 @@ impl ListSecretsByProjectAndLocation {
 }
 
 /// The request builder for a SecretManagerService::create_secret_by_project_and_location call.
+#[derive(Clone, Debug)]
 pub struct CreateSecretByProjectAndLocation(
     SecretManagerServiceRequestBuilder<crate::model::CreateSecretByProjectAndLocationRequest>,
 );
@@ -319,6 +370,7 @@ impl CreateSecretByProjectAndLocation {
 }
 
 /// The request builder for a SecretManagerService::add_secret_version call.
+#[derive(Clone, Debug)]
 pub struct AddSecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>,
 );
@@ -368,6 +420,7 @@ impl AddSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::add_secret_version_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct AddSecretVersionByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<crate::model::AddSecretVersionRequest>,
 );
@@ -417,6 +470,7 @@ impl AddSecretVersionByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::get_secret call.
+#[derive(Clone, Debug)]
 pub struct GetSecret(SecretManagerServiceRequestBuilder<crate::model::GetSecretRequest>);
 
 impl GetSecret {
@@ -449,6 +503,7 @@ impl GetSecret {
 }
 
 /// The request builder for a SecretManagerService::delete_secret call.
+#[derive(Clone, Debug)]
 pub struct DeleteSecret(SecretManagerServiceRequestBuilder<crate::model::DeleteSecretRequest>);
 
 impl DeleteSecret {
@@ -490,6 +545,7 @@ impl DeleteSecret {
 }
 
 /// The request builder for a SecretManagerService::update_secret call.
+#[derive(Clone, Debug)]
 pub struct UpdateSecret(SecretManagerServiceRequestBuilder<crate::model::UpdateSecretRequest>);
 
 impl UpdateSecret {
@@ -537,6 +593,7 @@ impl UpdateSecret {
 }
 
 /// The request builder for a SecretManagerService::get_secret_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct GetSecretByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<crate::model::GetSecretByProjectAndLocationAndSecretRequest>,
 );
@@ -583,6 +640,7 @@ impl GetSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::delete_secret_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct DeleteSecretByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<
         crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
@@ -637,6 +695,7 @@ impl DeleteSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::update_secret_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct UpdateSecretByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<
         crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
@@ -697,6 +756,7 @@ impl UpdateSecretByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::list_secret_versions call.
+#[derive(Clone, Debug)]
 pub struct ListSecretVersions(
     SecretManagerServiceRequestBuilder<crate::model::ListSecretVersionsRequest>,
 );
@@ -718,6 +778,22 @@ impl ListSecretVersions {
             .stub
             .list_secret_versions(self.0.request, self.0.options)
             .await
+    }
+
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(
+        self,
+    ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
+    {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let mut builder = self.clone();
+            let req = builder.0.request.clone().set_page_token(token);
+            builder.0.request = req;
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Sets the value of `project`.
@@ -752,6 +828,7 @@ impl ListSecretVersions {
 }
 
 /// The request builder for a SecretManagerService::list_secret_versions_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct ListSecretVersionsByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<
         crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
@@ -780,6 +857,22 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
             .stub
             .list_secret_versions_by_project_and_location_and_secret(self.0.request, self.0.options)
             .await
+    }
+
+    /// Streams the responses back.
+    #[cfg(feature = "unstable-stream")]
+    pub async fn stream(
+        self,
+    ) -> gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
+    {
+        let token = gax::paginator::extract_token(&self.0.request.page_token);
+        let execute = move |token: String| {
+            let mut builder = self.clone();
+            let req = builder.0.request.clone().set_page_token(token);
+            builder.0.request = req;
+            builder.send()
+        };
+        gax::paginator::Paginator::new(token, execute)
     }
 
     /// Sets the value of `project`.
@@ -820,6 +913,7 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::get_secret_version call.
+#[derive(Clone, Debug)]
 pub struct GetSecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::GetSecretVersionRequest>,
 );
@@ -863,6 +957,7 @@ impl GetSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version call.
+#[derive(Clone, Debug)]
 pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(
     SecretManagerServiceRequestBuilder<
         crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -922,6 +1017,7 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::access_secret_version call.
+#[derive(Clone, Debug)]
 pub struct AccessSecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::AccessSecretVersionRequest>,
 );
@@ -965,6 +1061,7 @@ impl AccessSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version call.
+#[derive(Clone, Debug)]
 pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(
     SecretManagerServiceRequestBuilder<
         crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -1024,6 +1121,7 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::disable_secret_version call.
+#[derive(Clone, Debug)]
 pub struct DisableSecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>,
 );
@@ -1082,6 +1180,7 @@ impl DisableSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version call.
+#[derive(Clone, Debug)]
 pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(
     SecretManagerServiceRequestBuilder<crate::model::DisableSecretVersionRequest>,
 );
@@ -1143,6 +1242,7 @@ impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::enable_secret_version call.
+#[derive(Clone, Debug)]
 pub struct EnableSecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>,
 );
@@ -1198,6 +1298,7 @@ impl EnableSecretVersion {
 }
 
 /// The request builder for a SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version call.
+#[derive(Clone, Debug)]
 pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(
     SecretManagerServiceRequestBuilder<crate::model::EnableSecretVersionRequest>,
 );
@@ -1256,6 +1357,7 @@ impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::destroy_secret_version call.
+#[derive(Clone, Debug)]
 pub struct DestroySecretVersion(
     SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>,
 );
@@ -1314,6 +1416,7 @@ impl DestroySecretVersion {
 }
 
 /// The request builder for a SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version call.
+#[derive(Clone, Debug)]
 pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(
     SecretManagerServiceRequestBuilder<crate::model::DestroySecretVersionRequest>,
 );
@@ -1375,6 +1478,7 @@ impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
 }
 
 /// The request builder for a SecretManagerService::set_iam_policy call.
+#[derive(Clone, Debug)]
 pub struct SetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::SetIamPolicyRequest>);
 
 impl SetIamPolicy {
@@ -1428,6 +1532,7 @@ impl SetIamPolicy {
 }
 
 /// The request builder for a SecretManagerService::set_iam_policy_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct SetIamPolicyByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<crate::model::SetIamPolicyRequest>,
 );
@@ -1483,6 +1588,7 @@ impl SetIamPolicyByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::get_iam_policy call.
+#[derive(Clone, Debug)]
 pub struct GetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::GetIamPolicyRequest>);
 
 impl GetIamPolicy {
@@ -1524,6 +1630,7 @@ impl GetIamPolicy {
 }
 
 /// The request builder for a SecretManagerService::get_iam_policy_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct GetIamPolicyByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<
         crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
@@ -1578,6 +1685,7 @@ impl GetIamPolicyByProjectAndLocationAndSecret {
 }
 
 /// The request builder for a SecretManagerService::test_iam_permissions call.
+#[derive(Clone, Debug)]
 pub struct TestIamPermissions(
     SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>,
 );
@@ -1627,6 +1735,7 @@ impl TestIamPermissions {
 }
 
 /// The request builder for a SecretManagerService::test_iam_permissions_by_project_and_location_and_secret call.
+#[derive(Clone, Debug)]
 pub struct TestIamPermissionsByProjectAndLocationAndSecret(
     SecretManagerServiceRequestBuilder<crate::model::TestIamPermissionsRequest>,
 );
