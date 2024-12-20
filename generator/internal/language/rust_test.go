@@ -1066,6 +1066,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [Enum][test.v1.SomeMessage.SomeEnum]
 [Message][test.v1.SomeMessage] repeated
 [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
+[SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
 [ExternalService][google.iam.v1.Iampolicy]
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
@@ -1078,6 +1079,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
 		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
 		"/// [ExternalService][google.iam.v1.Iampolicy]",
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
@@ -1090,6 +1092,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [test.v1.SomeService]: crate::traits::SomeService",
 		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
@@ -1136,12 +1139,29 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		Values: []*api.EnumValue{enumValue},
 	}
 	enumValue.Parent = someEnum
+	response := &api.Field{
+		Name:    "response",
+		ID:      ".test.v1.SomeMessage.response",
+		IsOneOf: true,
+	}
+	errorz := &api.Field{
+		Name:    "error",
+		ID:      ".test.v1.SomeMessage.error",
+		IsOneOf: true,
+	}
 	someMessage := &api.Message{
 		Name:  "SomeMessage",
 		ID:    ".test.v1.SomeMessage",
 		Enums: []*api.Enum{someEnum},
 		Fields: []*api.Field{
-			{Name: "unused"}, {Name: "field"},
+			{Name: "unused"}, {Name: "field"}, response, errorz,
+		},
+		OneOfs: []*api.OneOf{
+			{
+				Name:   "result",
+				ID:     ".test.v1.SomeMessage.result",
+				Fields: []*api.Field{response, errorz},
+			},
 		},
 	}
 	someService := &api.Service{

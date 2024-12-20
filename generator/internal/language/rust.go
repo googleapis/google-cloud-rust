@@ -893,7 +893,22 @@ func (c *RustCodec) tryFieldRustdocLink(id string, state *api.APIState) string {
 	}
 	for _, f := range m.Fields {
 		if f.Name == fieldName {
-			return fmt.Sprintf("%s::%s", c.FQMessageName(m, state), c.ToSnake(f.Name))
+			if !f.IsOneOf {
+				return fmt.Sprintf("%s::%s", c.FQMessageName(m, state), c.ToSnake(f.Name))
+			} else {
+				return c.tryOneOfRustdocLink(f, m, state)
+			}
+		}
+	}
+	return ""
+}
+
+func (c *RustCodec) tryOneOfRustdocLink(field *api.Field, message *api.Message, state *api.APIState) string {
+	for _, o := range message.OneOfs {
+		for _, f := range o.Fields {
+			if f.ID == field.ID {
+				return fmt.Sprintf("%s::%s", c.FQMessageName(message, state), c.ToSnake(o.Name))
+			}
 		}
 	}
 	return ""
