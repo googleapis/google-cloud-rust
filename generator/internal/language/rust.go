@@ -209,6 +209,8 @@ type RustCodec struct {
 	DoNotPublish bool
 	// The version of the generated crate.
 	Version string
+	// True if the API model includes any services
+	HasServices bool
 }
 
 type RustPackage struct {
@@ -265,9 +267,10 @@ func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnown {
 		s.MessageByID[message.ID] = message
 	}
+	c.HasServices = len(s.ServiceByID) > 0
 	for _, pkg := range c.ExtraPackages {
 		if pkg.Name == "gax" {
-			pkg.Used = len(s.ServiceByID) > 0
+			pkg.Used = c.HasServices
 		}
 	}
 }
@@ -488,9 +491,14 @@ func (c *RustCodec) TemplatesProvider() TemplateProvider {
 }
 
 func (c *RustCodec) GeneratedFiles() []GeneratedFile {
-	root := "templates/rust/crate"
-	if c.GenerateModule {
+	var root string
+	switch {
+	case c.GenerateModule:
 		root = "templates/rust/mod"
+	case !c.HasServices:
+		root = "templates/rust/nosvc"
+	default:
+		root = "templates/rust/crate"
 	}
 	return walkTemplatesDir(rustTemplates, root)
 }
