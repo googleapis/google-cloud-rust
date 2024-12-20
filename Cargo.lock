@@ -586,6 +586,8 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
+ "serde",
+ "serde_json",
  "test-case",
  "thiserror",
  "time",
