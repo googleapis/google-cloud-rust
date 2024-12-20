@@ -609,6 +609,7 @@ dependencies = [
  "bytes",
  "futures",
  "gcp-sdk-gax",
+ "gcp-sdk-rpc",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "http",
