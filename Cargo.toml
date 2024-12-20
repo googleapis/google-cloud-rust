@@ -27,6 +27,7 @@ members = [
   "src/generated/iam/v1",
   "src/generated/longrunning",
   "src/generated/openapi-validation",
+  "src/generated/rpc",
   "src/generated/type",
   "src/integration-tests",
   "src/root",
