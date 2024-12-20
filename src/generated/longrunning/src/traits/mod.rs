@@ -88,7 +88,7 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
     /// [google.rpc.Status.code][google.rpc.Status.code] of `1`, corresponding to
     /// `Code.CANCELLED`.
     ///
-    /// [google.longrunning.Operation.error]: crate::model::Operation::error
+    /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: crate::traits::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
     fn cancel_operation(
