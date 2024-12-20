@@ -194,6 +194,7 @@ const (
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
 	serviceDescriptorProtoMethod = 2
+	serviceDescriptorProtoOption = 3
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto
 	messageDescriptorField      = 2
@@ -531,14 +532,22 @@ func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN,
 }
 
 func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN string) {
-	if len(p) == 0 {
+	switch {
+	case len(p) == 0:
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if len(p) == 2 && p[0] == serviceDescriptorProtoMethod {
+	case p[0] == serviceDescriptorProtoMethod && len(p) == 2:
 		// This is a comment for a method
 		state.ServiceByID[sFQN].Methods[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else {
-		slog.Warn("service dropped documentation", "loc", p, "docs", doc)
+	case p[0] == serviceDescriptorProtoMethod:
+		// A comment for something within a method (options, arguments, etc).
+		// Ignored, as these comments do not refer to any artifact in the
+		// generated code.
+	case p[0] == serviceDescriptorProtoOption:
+		// This is a comment for a service option. Ignored, as these comments do
+		// not refer to any artifact in the generated code.
+	default:
+		slog.Warn("service dropped unknown documentation", "loc", p, "docs", doc)
 	}
 }
 
