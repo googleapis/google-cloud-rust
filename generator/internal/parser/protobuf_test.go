@@ -1054,6 +1054,14 @@ func TestProtobuf_Pagination(t *testing.T) {
 				JSONName: "totalSize",
 			},
 		},
+		PageableItem: &api.Field{
+			Name:     "foos",
+			ID:       ".test.ListFooResponse.foos",
+			Typez:    11,
+			TypezID:  ".test.Foo",
+			JSONName: "foos",
+			Repeated: true,
+		},
 	})
 }
 

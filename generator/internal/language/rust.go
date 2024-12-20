@@ -26,6 +26,7 @@ import (
 	"time"
 	"unicode"
 
+	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
@@ -1046,12 +1047,30 @@ func (c *RustCodec) Validate(api *api.API) error {
 
 // RustContext contains Rust specific data that can be referenced in templates.
 type RustContext struct {
-	HasFeatures bool
-	Features    []string
+	HasFeatures       bool
+	Features          []string
+	RemoveTypeWrapper mustache.LambdaFunc
+}
+
+// removeTypeWrapper removes a container type around another. For example it
+// would transform `Vec<String>` to `String`.
+func removeTypeWrapper(text string, render mustache.RenderFunc) (string, error) {
+	res, err := render(text)
+	if err != nil {
+		return "", err
+	}
+	wrapperStart := strings.Index(res, "<")
+	wrapperEnd := strings.LastIndex(res, ">")
+	if wrapperStart == -1 || wrapperEnd == -1 {
+		return "", fmt.Errorf("unable to find type wrapper")
+	}
+	return res[wrapperStart+1 : wrapperEnd], nil
 }
 
 func (c *RustCodec) AdditionalContext(api *api.API) any {
-	rustContext := &RustContext{}
+	rustContext := &RustContext{
+		RemoveTypeWrapper: removeTypeWrapper,
+	}
 	c.addStreamingFeature(rustContext, api)
 	return rustContext
 }
