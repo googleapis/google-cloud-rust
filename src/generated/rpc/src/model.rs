@@ -67,11 +67,12 @@ pub struct ErrorInfo {
 
     /// Additional structured details about this error.
     ///
-    /// Keys should match /[a-zA-Z0-9-_]/ and be limited to 64 characters in
+    /// Keys must match a regular expression of `[a-z][a-zA-Z0-9-_]+` but should
+    /// ideally be lowerCamelCase. Also, they must be limited to 64 characters in
     /// length. When identifying the current value of an exceeded limit, the units
     /// should be contained in the key, not the value.  For example, rather than
-    /// {"instanceLimit": "100/request"}, should be returned as,
-    /// {"instanceLimitPerRequest": "100"}, if the client exceeds the number of
+    /// `{"instanceLimit": "100/request"}`, should be returned as,
+    /// `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
     /// instances that can be created in a single (batch) request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub metadata: std::collections::HashMap<String, String>,
@@ -379,6 +380,18 @@ pub mod bad_request {
 
         /// A description of why the request element is bad.
         pub description: String,
+
+        /// The reason of the field-level error. This is a constant value that
+        /// identifies the proximate cause of the field-level error. It should
+        /// uniquely identify the type of the FieldViolation within the scope of the
+        /// google.rpc.ErrorInfo.domain. This should be at most 63
+        /// characters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,
+        /// which represents UPPER_SNAKE_CASE.
+        pub reason: String,
+
+        /// Provides a localized error message for field-level errors that is safe to
+        /// return to the API consumer.
+        pub localized_message: Option<crate::model::LocalizedMessage>,
     }
 
     impl FieldViolation {
@@ -391,6 +404,21 @@ pub mod bad_request {
         /// Sets the value of `description`.
         pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
             self.description = v.into();
+            self
+        }
+
+        /// Sets the value of `reason`.
+        pub fn set_reason<T: Into<String>>(mut self, v: T) -> Self {
+            self.reason = v.into();
+            self
+        }
+
+        /// Sets the value of `localized_message`.
+        pub fn set_localized_message<T: Into<Option<crate::model::LocalizedMessage>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.localized_message = v.into();
             self
         }
     }

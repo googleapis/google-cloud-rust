@@ -453,13 +453,15 @@ mod test {
                     ),
                 ],
             };
+        // TODO(#505) - change this test so it does not require updates as new
+        //     fields appear.
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
             "code": 12,
             "message": "test",
             "status": "UNIMPLEMENTED",
             "details": [
-                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
+                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc", "reason": "", "localizedMessage": null}]},
                 {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
                 {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain"},
                 {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},
