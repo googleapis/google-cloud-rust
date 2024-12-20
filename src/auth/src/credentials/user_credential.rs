@@ -41,8 +41,7 @@ impl TokenProvider for UserTokenProvider {
             client_secret: self.client_secret.clone(),
             refresh_token: self.refresh_token.clone(),
         };
-        let header = HeaderValue::try_from("application/json")
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+        let header = HeaderValue::from_static("application/json");
         let builder = client
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
@@ -144,6 +143,7 @@ mod test {
     use axum::extract::Json;
     use http::StatusCode;
     use std::error::Error;
+    use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -303,15 +303,53 @@ mod test {
         assert_eq!(response, roundtrip);
     }
 
+    // Starts a server running locally. Returns an (endpoint, handler) pair.
+    async fn start(response_code: StatusCode, response_body: String) -> (String, JoinHandle<()>) {
+        let code = response_code.clone();
+        let body = response_body.clone();
+        let handler = move |req| async move { handle_token_factory(code, body)(req) };
+        let app = axum::Router::new().route("/token", axum::routing::post(handler));
+        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async {
+            axum::serve(listener, app).await.unwrap();
+        });
+
+        (
+            format!("http://{}:{}/token", addr.ip(), addr.port()),
+            server,
+        )
+    }
+
+    // Creates a handler that
+    // - verifies fields in an Oauth2RefreshRequest
+    // - returns a pre-canned HTTP response
+    fn handle_token_factory(
+        response_code: StatusCode,
+        response_body: String,
+    ) -> impl Fn(Json<Oauth2RefreshRequest>) -> (StatusCode, String) {
+        move |request: Json<Oauth2RefreshRequest>| -> (StatusCode, String) {
+            assert_eq!(request.client_id, "test-client-id");
+            assert_eq!(request.client_secret, "test-client-secret");
+            assert_eq!(request.refresh_token, "test-refresh-token");
+            assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
+
+            (response_code, response_body.clone())
+        }
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
-        let app = axum::Router::new().route("/token", axum::routing::post(handle_token_full));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
-        let addr = listener.local_addr()?;
-        let endpoint = format!("http://{}:{}/token", addr.ip(), addr.port());
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: Some(3600),
+            refresh_token: Some("test-refresh-token".to_string()),
+            scope: Some("scope1 scope2".to_string()),
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_string(&response).unwrap();
+        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
         println!("endpoint = {endpoint}");
-
-        let _server = tokio::spawn(async { axum::serve(listener, app).await });
 
         let tp = UserTokenProvider {
             client_id: "test-client-id".to_string(),
@@ -331,31 +369,18 @@ mod test {
         Ok(())
     }
 
-    async fn handle_token_full(request: Json<Oauth2RefreshRequest>) -> String {
-        assert_eq!(request.client_id, "test-client-id");
-        assert_eq!(request.client_secret, "test-client-secret");
-        assert_eq!(request.refresh_token, "test-refresh-token");
-        assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
-
-        let response = Oauth2RefreshResponse {
-            access_token: "test-access-token".to_string(),
-            expires_in: Some(3600),
-            refresh_token: Some("test-refresh-token".to_string()),
-            scope: Some("scope1 scope2".to_string()),
-            token_type: "test-token-type".to_string(),
-        };
-        serde_json::to_string(&response).unwrap()
-    }
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_partial() -> TestResult {
-        let app = axum::Router::new().route("/token", axum::routing::post(handle_token_partial));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
-        let addr = listener.local_addr()?;
-        let endpoint = format!("http://{}:{}/token", addr.ip(), addr.port());
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            expires_in: None,
+            refresh_token: None,
+            scope: None,
+            token_type: "test-token-type".to_string(),
+        };
+        let response_body = serde_json::to_string(&response).unwrap();
+        let (endpoint, _server) = start(StatusCode::OK, response_body).await;
         println!("endpoint = {endpoint}");
-
-        let _server = tokio::spawn(async { axum::serve(listener, app).await });
 
         let tp = UserTokenProvider {
             client_id: "test-client-id".to_string(),
@@ -372,32 +397,11 @@ mod test {
         Ok(())
     }
 
-    async fn handle_token_partial(request: Json<Oauth2RefreshRequest>) -> String {
-        assert_eq!(request.client_id, "test-client-id");
-        assert_eq!(request.client_secret, "test-client-secret");
-        assert_eq!(request.refresh_token, "test-refresh-token");
-        assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
-
-        let response = Oauth2RefreshResponse {
-            access_token: "test-access-token".to_string(),
-            expires_in: None,
-            refresh_token: None,
-            scope: None,
-            token_type: "test-token-type".to_string(),
-        };
-        serde_json::to_string(&response).unwrap()
-    }
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
-        let app =
-            axum::Router::new().route("/token", axum::routing::post(handle_token_retryable_error));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
-        let addr = listener.local_addr()?;
-        let endpoint = format!("http://{}:{}/token", addr.ip(), addr.port());
+        let (endpoint, _server) =
+            start(StatusCode::SERVICE_UNAVAILABLE, "try again".to_string()).await;
         println!("endpoint = {endpoint}");
-
-        let _server = tokio::spawn(async { axum::serve(listener, app).await });
 
         let tp = UserTokenProvider {
             client_id: "test-client-id".to_string(),
@@ -413,29 +417,10 @@ mod test {
         Ok(())
     }
 
-    async fn handle_token_retryable_error(
-        request: Json<Oauth2RefreshRequest>,
-    ) -> (StatusCode, String) {
-        assert_eq!(request.client_id, "test-client-id");
-        assert_eq!(request.client_secret, "test-client-secret");
-        assert_eq!(request.refresh_token, "test-refresh-token");
-        assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
-
-        (StatusCode::SERVICE_UNAVAILABLE, "try again".to_string())
-    }
-
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
-        let app = axum::Router::new().route(
-            "/token",
-            axum::routing::post(handle_token_nonretryable_error),
-        );
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
-        let addr = listener.local_addr()?;
-        let endpoint = format!("http://{}:{}/token", addr.ip(), addr.port());
+        let (endpoint, _server) = start(StatusCode::UNAUTHORIZED, "epic fail".to_string()).await;
         println!("endpoint = {endpoint}");
-
-        let _server = tokio::spawn(async { axum::serve(listener, app).await });
 
         let tp = UserTokenProvider {
             client_id: "test-client-id".to_string(),
@@ -449,16 +434,5 @@ mod test {
         assert!(e.source().unwrap().to_string().contains("epic fail"));
 
         Ok(())
-    }
-
-    async fn handle_token_nonretryable_error(
-        request: Json<Oauth2RefreshRequest>,
-    ) -> (StatusCode, String) {
-        assert_eq!(request.client_id, "test-client-id");
-        assert_eq!(request.client_secret, "test-client-secret");
-        assert_eq!(request.refresh_token, "test-refresh-token");
-        assert_eq!(request.grant_type, RefreshGrantType::RefreshToken);
-
-        (StatusCode::UNAUTHORIZED, "epic fail".to_string())
     }
 }
