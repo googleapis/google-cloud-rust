@@ -1071,6 +1071,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [ExternalService][google.iam.v1.Iampolicy]
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
 [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
+[SomeService.CreateBar][test.v1.SomeService.CreateBar]
 `
 	want := []string{
 		"///",
@@ -1084,6 +1085,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [ExternalService][google.iam.v1.Iampolicy]",
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
+		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
 		"///",
 		"///",
 		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
@@ -1095,6 +1097,8 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [test.v1.SomeService]: crate::traits::SomeService",
+		// Skipped because the method is skipped
+		// "/// [test.v1.SomeService.CreateBar]: crate::traits::SomeService::create_bar",
 		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
 	}
 
@@ -1168,7 +1172,16 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		Name: "SomeService",
 		ID:   ".test.v1.SomeService",
 		Methods: []*api.Method{
-			{Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo"},
+			{
+				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/foo"),
+					},
+				},
+			},
+			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
 		},
 	}
 	a := newTestAPI(

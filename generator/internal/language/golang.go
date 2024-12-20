@@ -387,6 +387,14 @@ func (c *GoCodec) NotForPublication() bool {
 	return c.DoNotPublish
 }
 
+func (c *GoCodec) GenerateMethod(m *api.Method) bool {
+	// Ignore methods without HTTP annotations, we cannot generate working
+	// RPCs for them.
+	// TODO(#499) - switch to explicitly excluding such functions. Easier to
+	//     find them and fix them that way.
+	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+}
+
 // The list of Golang keywords and reserved words can be found at:
 //
 // https://go.dev/ref/spec#Keywords

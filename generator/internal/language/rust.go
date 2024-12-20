@@ -934,6 +934,11 @@ func (c *RustCodec) tryEnumValueRustdocLink(id string, state *api.APIState) stri
 }
 
 func (c *RustCodec) methodRustdocLink(m *api.Method, state *api.APIState) string {
+	// Sometimes we remove methods from a service. In that case we cannot
+	// reference the method.
+	if !c.GenerateMethod(m) {
+		return ""
+	}
 	idx := strings.LastIndex(m.ID, ".")
 	if idx == -1 {
 		return ""
@@ -1112,6 +1117,14 @@ func (c *RustCodec) Imports() []string {
 
 func (c *RustCodec) NotForPublication() bool {
 	return c.DoNotPublish
+}
+
+func (c *RustCodec) GenerateMethod(m *api.Method) bool {
+	// Ignore methods without HTTP annotations, we cannot generate working
+	// RPCs for them.
+	// TODO(#499) - switch to explicitly excluding such functions. Easier to
+	//     find them and fix them that way.
+	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
 }
 
 // The list of Rust keywords and reserved words can be found at:

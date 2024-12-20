@@ -183,16 +183,9 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 }
 
 func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
-	// Ignore streaming RPCs.
+	// Some codecs skip some methods.
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
-		return !m.ClientSideStreaming && !m.ServerSideStreaming
-	})
-	// Ignore methods without HTTP annotations, we cannot generate working
-	// RPCs for them.
-	// TODO(#499) - switch to explicitly excluding such functions. Easier to
-	//     find them and fix them that way.
-	methods = filterSlice(methods, func(m *api.Method) bool {
-		return m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+		return c.GenerateMethod(m)
 	})
 	return &Service{
 		Methods: mapSlice(methods, func(m *api.Method) *Method {

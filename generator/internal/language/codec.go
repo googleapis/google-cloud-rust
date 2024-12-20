@@ -125,6 +125,9 @@ type Codec interface {
 	// intended only for testing the generator or the SDK, or the service may
 	// not be GA.
 	NotForPublication() bool
+	// Return true if the method should be generated. Some codecs may
+	// (temporarily) not support some methods.
+	GenerateMethod(m *api.Method) bool
 }
 
 // This represents an input template and its corresponding output file.
