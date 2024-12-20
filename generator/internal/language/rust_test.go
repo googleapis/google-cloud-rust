@@ -1315,3 +1315,44 @@ func TestRust_EnumNames(t *testing.T) {
 		t.Errorf("mismatched enum name, got=%s, want=%s", got, "crate::model::Code")
 	}
 }
+
+func TestRemoveTypeWrapper(t *testing.T) {
+	tests := []struct {
+		name    string
+		input   string
+		want    string
+		wantErr bool
+	}{
+		{
+			name:  "happy path",
+			input: "Vec<String>",
+			want:  "String",
+		},
+		{
+			name:    "Missing starting bracket",
+			input:   "VecString>",
+			wantErr: true,
+		},
+		{
+			name:    "Missing starting bracket",
+			input:   "Vec<String",
+			wantErr: true,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			got, err := removeTypeWrapper(test.input, func(text string) (string, error) {
+				return text, nil
+			})
+			if (err != nil) != test.wantErr {
+				t.Errorf("removeTypeWrapper() error = %v, wantErr %v", err, test.wantErr)
+				return
+			}
+			if got != test.want {
+				t.Errorf("removeTypeWrapper() = %v, want %v", got, test.want)
+			}
+
+		})
+	}
+
+}
