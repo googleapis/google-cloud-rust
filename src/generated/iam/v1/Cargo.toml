@@ -17,7 +17,7 @@
 [package]
 name                 = "gcp-sdk-iam-v1"
 version              = "0.1.0-rc2"
-description          = "Google Cloud SDK for Rust - IAM Meta API"
+description          = "Google Cloud Client Libraries for Rust - IAM Meta API"
 edition.workspace    = true
 authors.workspace    = true
 license.workspace    = true

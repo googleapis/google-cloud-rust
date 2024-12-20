@@ -15,13 +15,13 @@
 //! Google APIs helpers.
 //!
 //! This crate contains a number of types and functions used in the
-//! implementation of the Google Cloud SDK for Rust.
+//! implementation of the Google Cloud Client Libraries for Rust.
 //!
 //! <div class="warning">
 //! All the types, traits, and functions defined in the <code>unstable-sdk-client</code>
 //! feature are <b>not</b> intended for general use. The APIs enabled by this
 //! feature will remain unstable for the foreseeable future, even if used in
-//! stable SDKs. We (the Google Cloud SDK for Rust team) control both and will
+//! stable SDKs. We (the Google Cloud Client Libraries for Rust team) control both and will
 //! change both if needed.
 //! </div>
 
