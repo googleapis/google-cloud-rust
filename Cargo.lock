@@ -636,7 +636,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
@@ -653,7 +652,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
@@ -665,16 +663,10 @@ version = "0.0.0"
 name = "gcp-sdk-rpc"
 version = "0.1.0-rc2"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-wkt",
- "lazy_static",
- "reqwest",
  "serde",
- "serde_json",
  "serde_with",
- "time",
- "tracing",
 ]
 
 [[package]]
@@ -692,7 +684,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
@@ -700,16 +691,10 @@ dependencies = [
 name = "gcp-sdk-type"
 version = "0.1.0-rc2"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-wkt",
- "lazy_static",
- "reqwest",
  "serde",
- "serde_json",
  "serde_with",
- "time",
- "tracing",
 ]
 
 [[package]]
@@ -1821,7 +1806,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 

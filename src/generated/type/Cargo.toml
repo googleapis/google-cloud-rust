@@ -26,13 +26,7 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-async-trait = { version = "0.1.83" }
 bytes      = { version = "1.8.0", features = ["serde"] }
-lazy_static = { version = "1.5.0" }
-reqwest    = { version = "0.12.9", features = ["json"] }
 serde      = { version = "1.0.214", features = ["serde_derive"] }
-serde_json = { version = "1.0.132" }
 serde_with = { version = "3.11.0", default-features = false, features = ["base64", "macros", "std"] }
-time       = { version = "0.3.36", features = ["formatting", "parsing"] }
-tracing    = { version = "0.1.41" }
 wkt        = { version = "0.1.0-rc2", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
