@@ -33,7 +33,7 @@ where
         Self {
             stub,
             request: R::default(),
-            options: gax::options::RequestOptions,
+            options: gax::options::RequestOptions::default(),
         }
     }
 }
@@ -100,6 +100,12 @@ impl ListLocations {
     }
 }
 
+impl gax::options::RequestBuilder for ListLocations {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::get_location call.
 #[derive(Clone, Debug)]
 pub struct GetLocation(SecretManagerServiceRequestBuilder<crate::model::GetLocationRequest>);
@@ -133,6 +139,12 @@ impl GetLocation {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetLocation {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -198,6 +210,12 @@ impl ListSecrets {
     }
 }
 
+impl gax::options::RequestBuilder for ListSecrets {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::create_secret call.
 #[derive(Clone, Debug)]
 pub struct CreateSecret(SecretManagerServiceRequestBuilder<crate::model::CreateSecretRequest>);
@@ -237,6 +255,12 @@ impl CreateSecret {
     pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.secret_id = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for CreateSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -313,6 +337,12 @@ impl ListSecretsByProjectAndLocation {
     }
 }
 
+impl gax::options::RequestBuilder for ListSecretsByProjectAndLocation {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::create_secret_by_project_and_location call.
 #[derive(Clone, Debug)]
 pub struct CreateSecretByProjectAndLocation(
@@ -366,6 +396,12 @@ impl CreateSecretByProjectAndLocation {
     }
 }
 
+impl gax::options::RequestBuilder for CreateSecretByProjectAndLocation {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::add_secret_version call.
 #[derive(Clone, Debug)]
 pub struct AddSecretVersion(
@@ -413,6 +449,12 @@ impl AddSecretVersion {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for AddSecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -466,6 +508,12 @@ impl AddSecretVersionByProjectAndLocationAndSecret {
     }
 }
 
+impl gax::options::RequestBuilder for AddSecretVersionByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::get_secret call.
 #[derive(Clone, Debug)]
 pub struct GetSecret(SecretManagerServiceRequestBuilder<crate::model::GetSecretRequest>);
@@ -496,6 +544,12 @@ impl GetSecret {
     pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.secret = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -538,6 +592,12 @@ impl DeleteSecret {
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.0.request.etag = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for DeleteSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -589,6 +649,12 @@ impl UpdateSecret {
     }
 }
 
+impl gax::options::RequestBuilder for UpdateSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::get_secret_by_project_and_location_and_secret call.
 #[derive(Clone, Debug)]
 pub struct GetSecretByProjectAndLocationAndSecret(
@@ -633,6 +699,12 @@ impl GetSecretByProjectAndLocationAndSecret {
     pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.secret = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetSecretByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -688,6 +760,12 @@ impl DeleteSecretByProjectAndLocationAndSecret {
     pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.0.request.etag = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for DeleteSecretByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -749,6 +827,12 @@ impl UpdateSecretByProjectAndLocationAndSecret {
     pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.0.request.update_mask = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for UpdateSecretByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -820,6 +904,12 @@ impl ListSecretVersions {
     pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
         self.0.request.filter = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for ListSecretVersions {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -907,6 +997,12 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
     }
 }
 
+impl gax::options::RequestBuilder for ListSecretVersionsByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::get_secret_version call.
 #[derive(Clone, Debug)]
 pub struct GetSecretVersion(
@@ -948,6 +1044,12 @@ impl GetSecretVersion {
     pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.version = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetSecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1011,6 +1113,12 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
     }
 }
 
+impl gax::options::RequestBuilder for GetSecretVersionByProjectAndLocationAndSecretAndVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::access_secret_version call.
 #[derive(Clone, Debug)]
 pub struct AccessSecretVersion(
@@ -1052,6 +1160,12 @@ impl AccessSecretVersion {
     pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.version = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for AccessSecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1115,6 +1229,12 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
     }
 }
 
+impl gax::options::RequestBuilder for AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::disable_secret_version call.
 #[derive(Clone, Debug)]
 pub struct DisableSecretVersion(
@@ -1171,6 +1291,12 @@ impl DisableSecretVersion {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for DisableSecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1236,6 +1362,12 @@ impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
     }
 }
 
+impl gax::options::RequestBuilder for DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::enable_secret_version call.
 #[derive(Clone, Debug)]
 pub struct EnableSecretVersion(
@@ -1289,6 +1421,12 @@ impl EnableSecretVersion {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for EnableSecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1351,6 +1489,12 @@ impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
     }
 }
 
+impl gax::options::RequestBuilder for EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::destroy_secret_version call.
 #[derive(Clone, Debug)]
 pub struct DestroySecretVersion(
@@ -1407,6 +1551,12 @@ impl DestroySecretVersion {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for DestroySecretVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1472,6 +1622,12 @@ impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
     }
 }
 
+impl gax::options::RequestBuilder for DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::set_iam_policy call.
 #[derive(Clone, Debug)]
 pub struct SetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::SetIamPolicyRequest>);
@@ -1523,6 +1679,12 @@ impl SetIamPolicy {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for SetIamPolicy {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1582,6 +1744,12 @@ impl SetIamPolicyByProjectAndLocationAndSecret {
     }
 }
 
+impl gax::options::RequestBuilder for SetIamPolicyByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::get_iam_policy call.
 #[derive(Clone, Debug)]
 pub struct GetIamPolicy(SecretManagerServiceRequestBuilder<crate::model::GetIamPolicyRequest>);
@@ -1621,6 +1789,12 @@ impl GetIamPolicy {
     pub fn set_options_requested_policy_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
         self.0.request.options_requested_policy_version = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetIamPolicy {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 
@@ -1679,6 +1853,12 @@ impl GetIamPolicyByProjectAndLocationAndSecret {
     }
 }
 
+impl gax::options::RequestBuilder for GetIamPolicyByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::test_iam_permissions call.
 #[derive(Clone, Debug)]
 pub struct TestIamPermissions(
@@ -1729,6 +1909,12 @@ impl TestIamPermissions {
     }
 }
 
+impl gax::options::RequestBuilder for TestIamPermissions {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a SecretManagerService::test_iam_permissions_by_project_and_location_and_secret call.
 #[derive(Clone, Debug)]
 pub struct TestIamPermissionsByProjectAndLocationAndSecret(
@@ -1776,5 +1962,11 @@ impl TestIamPermissionsByProjectAndLocationAndSecret {
     pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.location = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for TestIamPermissionsByProjectAndLocationAndSecret {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }

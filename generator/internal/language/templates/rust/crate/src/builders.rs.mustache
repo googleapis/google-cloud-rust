@@ -38,7 +38,7 @@ where R: std::default::Default {
         Self {
             stub,
             request: R::default(),
-            options: gax::options::RequestOptions,
+            options: gax::options::RequestOptions::default(),
         }
     }
 }
@@ -95,6 +95,12 @@ impl {{NameToPascal}} {
         self
     }
     {{/InputType.ExplicitOneOfs}}
+}
+
+impl gax::options::RequestBuilder for {{NameToPascal}} {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
 }
 
 {{/Methods}}

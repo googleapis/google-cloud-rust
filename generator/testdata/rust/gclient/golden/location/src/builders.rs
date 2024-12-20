@@ -31,7 +31,7 @@ where R: std::default::Default {
         Self {
             stub,
             request: R::default(),
-            options: gax::options::RequestOptions,
+            options: gax::options::RequestOptions::default(),
         }
     }
 }
@@ -95,6 +95,12 @@ impl ListLocations {
     }
 }
 
+impl gax::options::RequestBuilder for ListLocations {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a Locations::get_location call.
 #[derive(Clone, Debug)]
 pub struct GetLocation(LocationsRequestBuilder<crate::model::GetLocationRequest>);
@@ -121,6 +127,12 @@ impl GetLocation {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.name = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for GetLocation {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 

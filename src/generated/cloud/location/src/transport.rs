@@ -48,7 +48,7 @@ impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListLocationsResponse> {
         let builder = self
             .inner
@@ -65,7 +65,7 @@ impl crate::traits::Locations for Locations {
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
             .map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -73,7 +73,7 @@ impl crate::traits::Locations for Locations {
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Location> {
         let builder = self
             .inner
@@ -84,7 +84,7 @@ impl crate::traits::Locations for Locations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 }

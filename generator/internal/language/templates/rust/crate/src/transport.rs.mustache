@@ -57,7 +57,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     async fn {{NameToSnake}}(
         &self,
         req: {{InputTypeName}},
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<{{OutputTypeName}}> {
         let builder = self.inner.builder(
             reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
@@ -70,7 +70,11 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         {{#QueryParams}}
         let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
         {{/QueryParams}}
-        self.inner.execute(builder, {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}}).await
+        self.inner.execute(
+            builder,
+            {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}},
+            options,
+        ).await
     }
 
     {{/Methods}}

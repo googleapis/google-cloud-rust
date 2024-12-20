@@ -71,7 +71,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:setIamPolicy"
@@ -79,7 +79,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(
+            builder,
+            Some(req),
+            options,
+        ).await
     }
 
     /// Gets the access control policy for a resource.
@@ -88,7 +92,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:getIamPolicy"
@@ -96,7 +100,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(
+            builder,
+            Some(req),
+            options,
+        ).await
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -109,7 +117,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:testIamPermissions"
@@ -117,7 +125,11 @@ impl crate::traits::IAMPolicy for IAMPolicy {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(builder, Some(req)).await
+        self.inner.execute(
+            builder,
+            Some(req),
+            options,
+        ).await
     }
 
 }
