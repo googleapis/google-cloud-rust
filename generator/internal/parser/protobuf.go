@@ -191,6 +191,8 @@ const (
 	fileDescriptorMessageType = 4
 	fileDescriptorEnumType    = 5
 	fileDescriptorService     = 6
+	fileDescriptorExtension   = 7
+	fileDescriptorOptions     = 8
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
 	serviceDescriptorProtoMethod = 2
@@ -311,8 +313,11 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
 				addServiceDocumentation(state, p[2:], loc.GetLeadingComments(), sFQN)
+			case fileDescriptorExtension, fileDescriptorOptions:
+				// We ignore this type of documentation because it produces no
+				// output in the generated code.
 			default:
-				slog.Warn("file dropped documentation", "loc", p, "docs", loc.GetLeadingComments())
+				slog.Warn("dropped unknown documentation type", "loc", p, "docs", loc.GetLeadingComments())
 			}
 		}
 		result.Services = append(result.Services, fileServices...)
@@ -438,11 +443,13 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		return nil
 	}
 	method := &api.Method{
-		ID:           mFQN,
-		PathInfo:     pathInfo,
-		Name:         m.GetName(),
-		InputTypeID:  m.GetInputType(),
-		OutputTypeID: m.GetOutputType(),
+		ID:                  mFQN,
+		PathInfo:            pathInfo,
+		Name:                m.GetName(),
+		InputTypeID:         m.GetInputType(),
+		OutputTypeID:        m.GetOutputType(),
+		ClientSideStreaming: m.GetClientStreaming(),
+		ServerSideStreaming: m.GetServerStreaming(),
 	}
 	state.MethodByID[mFQN] = method
 	return method

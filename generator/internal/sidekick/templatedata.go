@@ -183,8 +183,19 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 }
 
 func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
+	// Ignore streaming RPCs.
+	methods := filterSlice(s.Methods, func(m *api.Method) bool {
+		return !m.ClientSideStreaming && !m.ServerSideStreaming
+	})
+	// Ignore methods without HTTP annotations, we cannot generate working
+	// RPCs for them.
+	// TODO(#499) - switch to explicitly excluding such functions. Easier to
+	//     find them and fix them that way.
+	methods = filterSlice(methods, func(m *api.Method) bool {
+		return m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	})
 	return &Service{
-		Methods: mapSlice(s.Methods, func(m *api.Method) *Method {
+		Methods: mapSlice(methods, func(m *api.Method) *Method {
 			return newMethod(m, c, state)
 		}),
 		NameToSnake:         c.ToSnake(s.Name),
@@ -322,6 +333,7 @@ func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	}
 	return result
 }
+
 func mapSlice[T, R any](s []T, f func(T) R) []R {
 	r := make([]R, len(s))
 	for i, v := range s {
