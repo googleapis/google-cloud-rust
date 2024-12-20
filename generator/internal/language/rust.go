@@ -165,6 +165,12 @@ func parseRustPackageOption(key, definition string) (*rustPackageOption, error) 
 				return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
 			}
 			pkg.Used = value
+		case "required-by-services":
+			value, err := strconv.ParseBool(s[1])
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `required-by-services` value %q (part of %q) to boolean: %w", definition, s[1], err)
+			}
+			pkg.RequiredByServices = value
 		default:
 			return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 		}
@@ -233,6 +239,8 @@ type RustPackage struct {
 	Used bool
 	// If true, the default features are enabled.
 	DefaultFeatures bool
+	// If true, this package is only needed in crates with services.
+	RequiredByServices bool
 }
 
 func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
@@ -269,7 +277,7 @@ func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
 	}
 	c.HasServices = len(s.ServiceByID) > 0
 	for _, pkg := range c.ExtraPackages {
-		if pkg.Name == "gax" {
+		if pkg.RequiredByServices {
 			pkg.Used = c.HasServices
 		}
 	}
