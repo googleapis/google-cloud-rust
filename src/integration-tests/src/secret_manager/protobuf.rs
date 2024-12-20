@@ -322,12 +322,11 @@ async fn get_all_secret_names(
         .list_secrets()
         .set_parent(format!("projects/{project_id}"))
         .stream()
-        .await;
+        .await
+        .items();
     while let Some(response) = stream.next().await {
-        response?
-            .secrets
-            .into_iter()
-            .for_each(|s| names.push(s.name));
+        let item = response?;
+        names.push(item.name);
     }
     Ok(names)
 }
