@@ -30,22 +30,6 @@
 /// This is the result type used by all functions wrapping RPCs.
 type Result<T> = std::result::Result<T, crate::error::Error>;
 
-/// Defines traits and helpers to serialize query parameters.
-///
-/// Query parameters in the Google APIs can be types other than strings and
-/// integers. We need a helper to efficiently serialize parameters of different
-/// types. We also want the generator to be relatively simple.
-///
-/// The Rust SDK generator produces query parameters as optional fields in the
-/// request object. The generator code can be simplified if all the query
-/// parameters can be treated uniformly, without any conditionally generated
-/// code to handle different types.
-///
-/// This module defines some traits and helpers to simplify the code generator.
-///
-/// The types are not intended for application developers to use. They are
-/// public because we will generate many crates (roughly one per service), and
-/// most of these crates will use these helpers.
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
 pub mod query_parameter;

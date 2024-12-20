@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use base64::Engine;
+
 type Result = std::result::Result<String, Error>;
 
 pub(crate) trait RequestParameter {
@@ -63,6 +65,18 @@ impl RequestParameter for f64 {
 impl RequestParameter for String {
     fn format(&self) -> Result {
         Ok(self.clone())
+    }
+}
+impl RequestParameter for bool {
+    fn format(&self) -> Result {
+        Ok(format!("{self}"))
+    }
+}
+
+impl RequestParameter for bytes::Bytes {
+    fn format(&self) -> Result {
+        use base64::engine::general_purpose::URL_SAFE_NO_PAD;
+        Ok(URL_SAFE_NO_PAD.encode(self.iter()))
     }
 }
 

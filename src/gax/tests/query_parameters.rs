@@ -23,6 +23,7 @@ pub struct FakeRequest {
     pub parent: String,
     // Most query parameter fields are optional.
     pub count: Option<i32>,
+    pub boolean: Option<bool>,
     pub filter_expression: Option<String>,
     pub get_mask: Option<wkt::FieldMask>,
     pub ttl: Option<wkt::Duration>,
@@ -55,6 +56,7 @@ fn with_query_parameters(request: &FakeRequest) -> Result<reqwest::RequestBuilde
     let client = reqwest::Client::builder().build()?;
     let builder = client.get("https://test.googleapis.com/v1/unused");
     let builder = gcp_sdk_gax::query_parameter::add(builder, "count", &request.count)?;
+    let builder = gcp_sdk_gax::query_parameter::add(builder, "boolean", &request.boolean)?;
     let builder =
         gcp_sdk_gax::query_parameter::add(builder, "filterExpression", &request.filter_expression)?;
     let builder = gcp_sdk_gax::query_parameter::add(builder, "getMask", &request.get_mask)?;

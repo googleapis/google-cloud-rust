@@ -607,6 +607,7 @@ name = "gcp-sdk-gax"
 version = "0.1.0-rc2"
 dependencies = [
  "axum",
+ "base64",
  "built",
  "bytes",
  "futures",
