@@ -16,5 +16,5 @@ require (
 	cloud.google.com/go/compute/metadata v0.6.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.14.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
-	google.golang.org/protobuf v1.35.2 // indirect
+	google.golang.org/protobuf v1.36.0 // indirect
 )
