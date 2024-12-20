@@ -15,7 +15,7 @@
 [package]
 name                 = "gcp-sdk-gax"
 version              = "0.1.0-rc2"
-description          = "Google Cloud SDK for Rust"
+description          = "Google Cloud Client Libraries for Rust"
 build                = "build.rs"
 edition.workspace    = true
 authors.workspace    = true

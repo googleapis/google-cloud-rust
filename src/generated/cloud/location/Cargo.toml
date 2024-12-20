@@ -17,7 +17,7 @@
 [package]
 name                 = "gcp-sdk-location"
 version              = "0.1.0-rc2"
-description          = "Google Cloud SDK for Rust - Cloud Metadata API"
+description          = "Google Cloud Client Libraries for Rust - Cloud Metadata API"
 edition.workspace    = true
 authors.workspace    = true
 license.workspace    = true
