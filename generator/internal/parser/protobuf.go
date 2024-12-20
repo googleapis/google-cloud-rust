@@ -448,8 +448,8 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		Name:                m.GetName(),
 		InputTypeID:         m.GetInputType(),
 		OutputTypeID:        m.GetOutputType(),
-		ClientSideStreaming: m.ClientStreaming != nil && *m.ClientStreaming,
-		ServerSideStreaming: m.ServerStreaming != nil && *m.ServerStreaming,
+		ClientSideStreaming: m.GetClientStreaming(),
+		ServerSideStreaming: m.GetServerStreaming(),
 	}
 	state.MethodByID[mFQN] = method
 	return method
