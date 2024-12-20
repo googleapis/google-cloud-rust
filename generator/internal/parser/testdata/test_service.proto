@@ -42,6 +42,19 @@ service TestService {
     };
     option (google.api.method_signature) = "parent,foo_id,foo";
   }
+
+  // A client-side streaming RPC.
+  rpc UploadFoos(stream CreateFooRequest) returns (Foo) {}
+
+  // A server-side streaming RPC.
+  rpc DownloadFoos(GetFooRequest) returns (stream Foo) {
+    option (google.api.http) = {
+      get: "/v1/{name=projects/*/foos/*}:Download"
+    };
+  }
+
+  // A bidi streaming RPC.
+  rpc ChatLike(stream Foo) returns (stream Foo) {}
 }
 
 // The resource message.
