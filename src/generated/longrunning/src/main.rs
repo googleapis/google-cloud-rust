@@ -13,5 +13,5 @@
 // limitations under the License.
 
 fn main() {
-    println!("Coming Soon: Google Cloud Client Libraries for Rust")
+    println!("Coming Soon: Google Cloud SDK for Rust")
 }
