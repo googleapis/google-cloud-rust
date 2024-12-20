@@ -584,8 +584,10 @@ name = "gcp-sdk-auth"
 version = "0.1.0-rc2"
 dependencies = [
  "async-trait",
+ "axum",
  "http",
  "mockall",
+ "reqwest",
  "serde",
  "serde_json",
  "test-case",
