@@ -49,6 +49,32 @@ where
     }
 }
 
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+enum RefreshGrantType {
+    #[serde(rename = "refresh_token")]
+    RefreshToken,
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+struct Oauth2RefreshRequest {
+    grant_type: RefreshGrantType,
+    client_id: String,
+    client_secret: String,
+    refresh_token: String,
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+struct Oauth2RefreshResponse {
+    access_token: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    scope: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    expires_in: Option<u64>,
+    token_type: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    refresh_token: Option<String>,
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -144,5 +170,69 @@ mod test {
             token_provider: mock,
         };
         assert!(uc.get_headers().await.is_err());
+    }
+
+    #[test]
+    fn oauth2_request_serde() {
+        let request = Oauth2RefreshRequest {
+            grant_type: RefreshGrantType::RefreshToken,
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+        };
+
+        let json = serde_json::to_value(&request).unwrap();
+        let expected = serde_json::json!({
+            "grant_type": "refresh_token",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token"
+        });
+        assert_eq!(json, expected);
+        let roundtrip = serde_json::from_value::<Oauth2RefreshRequest>(json).unwrap();
+        assert_eq!(request, roundtrip);
+    }
+
+    #[test]
+    fn oauth2_response_serde_full() {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            scope: Some("scope1 scope2".to_string()),
+            expires_in: Some(3600),
+            token_type: "test-token-type".to_string(),
+            refresh_token: Some("test-refresh-token".to_string()),
+        };
+
+        let json = serde_json::to_value(&response).unwrap();
+        let expected = serde_json::json!({
+            "access_token": "test-access-token",
+            "scope": "scope1 scope2",
+            "expires_in": 3600,
+            "token_type": "test-token-type",
+            "refresh_token": "test-refresh-token"
+        });
+        assert_eq!(json, expected);
+        let roundtrip = serde_json::from_value::<Oauth2RefreshResponse>(json).unwrap();
+        assert_eq!(response, roundtrip);
+    }
+
+    #[test]
+    fn oauth2_response_serde_partial() {
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            scope: None,
+            expires_in: None,
+            token_type: "test-token-type".to_string(),
+            refresh_token: None,
+        };
+
+        let json = serde_json::to_value(&response).unwrap();
+        let expected = serde_json::json!({
+            "access_token": "test-access-token",
+            "token_type": "test-token-type",
+        });
+        assert_eq!(json, expected);
+        let roundtrip = serde_json::from_value::<Oauth2RefreshResponse>(json).unwrap();
+        assert_eq!(response, roundtrip);
     }
 }
