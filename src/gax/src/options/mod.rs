@@ -38,14 +38,28 @@ impl RequestOptions {
     }
 }
 
+/// Implementations of this trait provide setters to configure request options.
+/// 
+/// The Google Cloud Client Libraries for Rust provide a builder for each RPC.
+/// These builders can be used to set the request parameters, e.g., the name of
+/// the resource targeted by the RPC, as well as any options affecting the
+/// request, such as additional headers or timeouts.
+pub trait RequestOptionsBuilder {
+    /// Set the user agent header.
+    fn with_user_agent<T: Into<String>>(self, v: T) -> Self;
+}
+
+/// Simplify implementation of the `RequestOptionsBuilder` trait in generated
+/// code.
+/// 
+/// This is an implementation detail, most applications have little need to
+/// worry about or use this trait.
 pub trait RequestBuilder {
     fn request_options(&mut self) -> &mut RequestOptions;
 }
 
-pub trait RequestOptionsBuilder {
-    fn with_user_agent<T: Into<String>>(self, v: T) -> Self;
-}
-
+/// Implements the [RequestOptionsBuilder] trait for any [RequestBuilder]
+/// implementation.
 impl<T> RequestOptionsBuilder for T
 where
     T: RequestBuilder,
