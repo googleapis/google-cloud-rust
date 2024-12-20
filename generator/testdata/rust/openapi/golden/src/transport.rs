@@ -59,7 +59,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -79,7 +79,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -101,7 +101,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -121,7 +121,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.request_body),
-            &options,
+            options,
         ).await
     }
 
@@ -144,7 +144,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -165,7 +165,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.request_body),
-            &options,
+            options,
         ).await
     }
 
@@ -186,7 +186,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -208,7 +208,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -228,7 +228,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -249,7 +249,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -270,7 +270,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.request_body),
-            &options,
+            options,
         ).await
     }
 
@@ -291,7 +291,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -313,7 +313,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -335,7 +335,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.request_body),
-            &options,
+            options,
         ).await
     }
 
@@ -359,7 +359,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -384,7 +384,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -408,7 +408,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -433,7 +433,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -457,7 +457,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -482,7 +482,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -506,7 +506,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -531,7 +531,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -555,7 +555,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -580,7 +580,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -605,7 +605,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -631,7 +631,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -655,7 +655,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -680,7 +680,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -702,7 +702,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -725,7 +725,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -751,7 +751,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -778,7 +778,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 

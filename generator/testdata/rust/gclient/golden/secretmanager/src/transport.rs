@@ -69,7 +69,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -93,7 +93,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.secret),
-            &options,
+            options,
         ).await
     }
 
@@ -117,7 +117,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -138,7 +138,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -161,7 +161,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req.secret),
-            &options,
+            options,
         ).await
     }
 
@@ -183,7 +183,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -208,7 +208,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -233,7 +233,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -258,7 +258,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -285,7 +285,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -312,7 +312,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -340,7 +340,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -368,7 +368,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -389,7 +389,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -414,7 +414,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -460,7 +460,7 @@ impl crate::traits::Locations for Locations {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 
@@ -479,7 +479,7 @@ impl crate::traits::Locations for Locations {
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
-            &options,
+            options,
         ).await
     }
 

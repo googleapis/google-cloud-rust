@@ -85,7 +85,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
@@ -106,7 +106,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -132,6 +132,6 @@ impl crate::traits::IAMPolicy for IAMPolicy {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 }

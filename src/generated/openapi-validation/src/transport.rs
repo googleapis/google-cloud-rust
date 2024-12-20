@@ -65,7 +65,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
             .map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -87,7 +87,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -115,7 +115,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -139,7 +139,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
         self.inner
-            .execute(builder, Some(req.request_body), &options)
+            .execute(builder, Some(req.request_body), options)
             .await
     }
 
@@ -170,7 +170,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -197,7 +197,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
         self.inner
-            .execute(builder, Some(req.request_body), &options)
+            .execute(builder, Some(req.request_body), options)
             .await
     }
 
@@ -222,7 +222,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
@@ -246,7 +246,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Gets metadata for a given Secret.
@@ -267,7 +267,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -291,7 +291,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -319,7 +319,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         )
         .map_err(Error::other)?;
         self.inner
-            .execute(builder, Some(req.request_body), &options)
+            .execute(builder, Some(req.request_body), options)
             .await
     }
 
@@ -344,7 +344,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -371,7 +371,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -402,7 +402,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         )
         .map_err(Error::other)?;
         self.inner
-            .execute(builder, Some(req.request_body), &options)
+            .execute(builder, Some(req.request_body), options)
             .await
     }
 
@@ -434,7 +434,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -466,7 +466,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         let builder =
             gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -494,7 +494,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -522,7 +522,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -550,7 +550,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -578,7 +578,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -605,7 +605,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Disables a SecretVersion.
@@ -631,7 +631,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Enables a SecretVersion.
@@ -657,7 +657,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Enables a SecretVersion.
@@ -683,7 +683,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Destroys a SecretVersion.
@@ -710,7 +710,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Destroys a SecretVersion.
@@ -737,7 +737,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -764,7 +764,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -791,7 +791,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Gets the access control policy for a secret.
@@ -822,7 +822,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         )
         .map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -854,7 +854,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         )
         .map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -884,7 +884,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -913,6 +913,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        self.inner.execute(builder, Some(req), &options).await
+        self.inner.execute(builder, Some(req), options).await
     }
 }

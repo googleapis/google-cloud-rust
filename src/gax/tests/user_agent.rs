@@ -31,7 +31,7 @@ async fn test_user_agent() -> Result<()> {
     let builder = client.builder(reqwest::Method::GET, "/echo".into());
     let body = json!({});
     let response: serde_json::Value = client
-        .execute(builder, Some(body), &RequestOptions::default())
+        .execute(builder, Some(body), RequestOptions::default())
         .await?;
     let got = get_header_value(&response, "user-agent");
     assert_eq!(got, None);
@@ -53,7 +53,7 @@ async fn test_user_agent_with_prefix() -> Result<()> {
         o.set_user_agent(prefix);
         o
     };
-    let response: serde_json::Value = client.execute(builder, Some(body), &options).await?;
+    let response: serde_json::Value = client.execute(builder, Some(body), options).await?;
     let got = get_header_value(&response, "user-agent");
     assert_eq!(got.as_deref(), Some(prefix));
     Ok(())

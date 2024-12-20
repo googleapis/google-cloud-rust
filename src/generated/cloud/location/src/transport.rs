@@ -65,7 +65,7 @@ impl crate::traits::Locations for Locations {
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token)
             .map_err(Error::other)?;
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 
@@ -84,7 +84,7 @@ impl crate::traits::Locations for Locations {
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
         self.inner
-            .execute(builder, None::<gax::http_client::NoBody>, &options)
+            .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
 }

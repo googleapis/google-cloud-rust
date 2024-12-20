@@ -51,7 +51,7 @@ impl ReqwestClient {
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
-        options: &crate::options::RequestOptions,
+        options: crate::options::RequestOptions,
     ) -> Result<O> {
         builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
         if let Some(user_agent) = options.user_agent_prefix() {

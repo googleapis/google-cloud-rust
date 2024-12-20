@@ -73,7 +73,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         self.inner.execute(
             builder,
             {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}},
-            &options,
+            options,
         ).await
     }
 

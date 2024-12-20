@@ -82,7 +82,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -103,7 +103,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 
@@ -128,7 +128,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         self.inner.execute(
             builder,
             Some(req),
-            &options,
+            options,
         ).await
     }
 

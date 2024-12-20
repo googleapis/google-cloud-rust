@@ -103,7 +103,7 @@ impl Client {
             .execute(
                 builder,
                 None::<NoBody>,
-                &gcp_sdk_gax::options::RequestOptions::default(),
+                gcp_sdk_gax::options::RequestOptions::default(),
             )
             .await
     }
