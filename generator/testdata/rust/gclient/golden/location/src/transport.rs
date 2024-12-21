@@ -18,11 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// An abstract interface that provides location-related information for
-/// a service. Service-specific metadata is provided through the
-/// [Location.metadata][google.cloud.location.Location.metadata] field.
-///
-/// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
+/// Implements [Locations](crate::traits::) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
     inner: gax::http_client::ReqwestClient,
@@ -44,7 +40,6 @@ impl Locations {
 }
 
 impl crate::traits::Locations for Locations {
-    /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
@@ -66,7 +61,6 @@ impl crate::traits::Locations for Locations {
         ).await
     }
 
-    /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
