@@ -26,9 +26,7 @@ use gax::error::Error;
 
 {{/HasServices}}
 {{#Services}}
-{{#DocLines}}
-{{{.}}}
-{{/DocLines}}
+/// Implements [{{NameToPascal}}](crate::traits::{{NametoPascal}}) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct {{NameToPascal}} {
     inner: gax::http_client::ReqwestClient,
@@ -51,9 +49,6 @@ impl {{NameToPascal}} {
 
 impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{#Methods}}
-    {{#DocLines}}
-    {{{.}}}
-    {{/DocLines}}
     async fn {{NameToSnake}}(
         &self,
         req: {{InputTypeName}},
