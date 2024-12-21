@@ -18,7 +18,6 @@ coverage:
   status:
     project: off
     patch: off
-
 # Ignore generated code that lives with handcrafted code.
 ignore:
   - src/generated
