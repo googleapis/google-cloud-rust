@@ -348,16 +348,16 @@ func TestRust_FieldAttributes(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
 
-		"f_bytes":          `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"f_bytes_optional": `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
+		"f_bytes":          `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
 
-		"f_string":          ``,
-		"f_string_optional": ``,
-		"f_string_repeated": ``,
+		"f_string":          `#[serde(skip_serializing_if = "String::is_empty")]`,
+		"f_string_optional": `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -481,7 +481,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 	api := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"target":      ``,
+		"target":      `#[serde(skip_serializing_if = "Option::is_none")]`,
 		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
@@ -534,15 +534,32 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				TypezID:  ".google.protobuf.StringValue",
 				Optional: true,
 			},
+			{
+				Name:     "f_repeated_any",
+				JSONName: "fRepeatedAny",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Optional: false,
+				Repeated: true,
+			},
+			{
+				Name:     "f_any",
+				JSONName: "fAny",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Optional: true,
+			},
 		},
 	}
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":  `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_bytes":  `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_string": ``,
+		"f_int64":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64":       `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_bytes":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_string":       `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"f_repeated_any": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
+		"f_any":          `#[serde(skip_serializing_if = "Option::is_none")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -584,8 +601,8 @@ func TestRust_FieldLossyName(t *testing.T) {
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"data":       `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -632,7 +649,7 @@ func TestRust_SyntheticField(t *testing.T) {
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"updateMask":  ``,
+		"updateMask":  `#[serde(skip_serializing_if = "Option::is_none")]`,
 		"project":     `#[serde(skip)]`,
 		"data_crc32c": `#[serde(skip)]`,
 	}
