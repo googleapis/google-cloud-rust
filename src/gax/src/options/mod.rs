@@ -24,6 +24,7 @@
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
     user_agent: Option<String>,
+    attempt_timeout: Option<std::time::Duration>,
 }
 
 impl RequestOptions {
@@ -36,6 +37,19 @@ impl RequestOptions {
     pub fn user_agent_prefix(&self) -> &Option<String> {
         &self.user_agent
     }
+
+    /// Sets the per-attempt timeout.
+    ///
+    /// When using a retry loop, this affects the timeout for each attempt. The
+    /// overall timeout for a request is set by the retry policy.
+    pub fn set_attempt_timeout<T: Into<std::time::Duration>>(&mut self, v: T) {
+        self.attempt_timeout = Some(v.into());
+    }
+
+    /// Gets the current per-attempt timeout.
+    pub fn attempt_timeout(&self) -> &Option<std::time::Duration> {
+        &self.attempt_timeout
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -46,7 +60,13 @@ impl RequestOptions {
 /// request, such as additional headers or timeouts.
 pub trait RequestOptionsBuilder {
     /// Set the user agent header.
-    fn with_user_agent<T: Into<String>>(self, v: T) -> Self;
+    fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
+
+    /// Sets the per-attempt timeout.
+    ///
+    /// When using a retry loop, this affects the timeout for each attempt. The
+    /// overall timeout for a request is set by the retry policy.
+    fn with_attempt_timeout<V: Into<std::time::Duration>>(self, v: V) -> Self;
 }
 
 /// Simplify implementation of the [RequestOptionsBuilder] trait in generated
@@ -66,6 +86,11 @@ where
 {
     fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
         self.request_options().set_user_agent(v);
+        self
+    }
+
+    fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
+        self.request_options().set_attempt_timeout(v);
         self
     }
 }

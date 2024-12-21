@@ -35,6 +35,7 @@ serde       = "1.0.214"
 serde_json  = "1.0.133"
 serde_with  = { version = "3.11.0", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2.0.3"
+tokio       = { version = "1.42", features = ["time"] }
 auth        = { version = "0.1.0", path = "../../auth", package = "google-cloud-auth", optional = true }
 rpc         = { version = "0.1.0-rc2", path = "../generated/rpc", package = "gcp-sdk-rpc" }
 wkt         = { version = "0.1.0-rc2", path = "../wkt", package = "gcp-sdk-wkt" }
@@ -46,7 +47,7 @@ gax       = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-cli
 axum      = "0.7.9"
 serde     = { version = "1.0.214", features = ["serde_derive"] }
 test-case = "3.3.1"
-tokio     = { version = "1.42", features = ["macros"] }
+tokio     = { version = "1.42", features = ["macros", "test-util"] }
 
 [build-dependencies]
 built = "0.7"
