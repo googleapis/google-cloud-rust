@@ -66,6 +66,7 @@ type Message struct {
 	DocLines           []string
 	IsMap              bool
 	IsPageableResponse bool
+	PageableItem       *Field
 	ID                 string
 }
 
@@ -241,6 +242,7 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 		DocLines:           c.FormatDocComments(m.Documentation, state),
 		IsMap:              m.IsMap,
 		IsPageableResponse: m.IsPageableResponse,
+		PageableItem:       newField(m.PageableItem, c, state),
 		ID:                 m.ID,
 	}
 }
@@ -284,6 +286,9 @@ func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {
 }
 
 func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
+	if field == nil {
+		return nil
+	}
 	return &Field{
 		NameToSnake:           c.ToSnake(field.Name),
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),

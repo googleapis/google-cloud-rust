@@ -63,6 +63,7 @@ func updateMethodPagination(a *api.API) {
 			}
 			if f.Repeated && f.Typez == api.MESSAGE_TYPE {
 				hasRepeatedItem = true
+				respMsg.PageableItem = f
 			}
 			if hasNextPageToken && hasRepeatedItem {
 				break

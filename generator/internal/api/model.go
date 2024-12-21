@@ -219,6 +219,8 @@ type Message struct {
 	// IsPageableResponse indicated that this Message is returned by a standard
 	// List RPC and conforms to [AIP-4233](https://google.aip.dev/client-libraries/4233).
 	IsPageableResponse bool
+	// PageableItem is the field to be paginated over.
+	PageableItem *Field
 }
 
 // Enum defines a message used in request/response handling.

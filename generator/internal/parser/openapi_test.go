@@ -618,6 +618,14 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			},
 		},
 		IsPageableResponse: true,
+		PageableItem: &api.Field{
+			Documentation: "A list of locations that matches the specified filter in the request.",
+			Name:          "locations",
+			Typez:         11,
+			TypezID:       "..Location",
+			JSONName:      "locations",
+			Repeated:      true,
+		},
 	})
 
 	// This is a synthetic message, the OpenAPI spec does not contain requests
@@ -921,6 +929,13 @@ func TestOpenAPI_Pagination(t *testing.T) {
 				JSONName: "secrets",
 				Repeated: true,
 			},
+		},
+		PageableItem: &api.Field{
+			Name:     "secrets",
+			Typez:    11,
+			TypezID:  "..Foo",
+			JSONName: "secrets",
+			Repeated: true,
 		},
 	})
 }

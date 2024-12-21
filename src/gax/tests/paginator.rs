@@ -15,7 +15,7 @@
 use axum::extract::Query;
 use axum::http::StatusCode;
 use gcp_sdk_gax::http_client::*;
-use gcp_sdk_gax::paginator::{PageableResponse, Paginator};
+use gcp_sdk_gax::paginator::{ItemPaginator, PageableResponse, Paginator};
 use std::collections::HashMap;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -55,11 +55,39 @@ async fn test_paginator() -> Result<()> {
     Ok(())
 }
 
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn test_item_paginator() -> Result<()> {
+    // Create a small server to satisfy the request.
+    let app = axum::Router::new().route("/pagination", axum::routing::get(handle_page));
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
+    let addr = listener.local_addr()?;
+    let endpoint = format!("http://{}:{}", addr.ip(), addr.port());
+    println!("endpoint = {endpoint}");
+
+    let _server = tokio::spawn(async { axum::serve(listener, app).await });
+    let client = Client::new(&endpoint).await?;
+
+    let mut items = Vec::new();
+    let mut stream = client.list_stream_items(ListFoosRequest::default());
+    while let Some(response) = stream.next().await {
+        let response = response?;
+        items.push(response.name);
+    }
+    assert_eq!(items, ["f1", "f2", "f3", "f4"].map(str::to_string).to_vec());
+
+    Ok(())
+}
+
 struct Client {
     inner: ReqwestClient,
 }
 
 impl PageableResponse for ListFoosResponse {
+    type PageItem = Foo;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.items
+    }
     fn next_page_token(&self) -> String {
         self.next_page_token.clone()
     }
@@ -86,6 +114,13 @@ impl Client {
             client.list_impl(request)
         };
         Paginator::new(String::new(), execute)
+    }
+
+    pub fn list_stream_items(
+        &self,
+        req: ListFoosRequest,
+    ) -> ItemPaginator<ListFoosResponse, gcp_sdk_gax::error::Error> {
+        self.list_stream(req).items()
     }
 
     async fn list_impl(
