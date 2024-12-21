@@ -25,12 +25,14 @@
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being specified.
     /// See the operation documentation for the appropriate value for this field.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub resource: String,
 
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Cloud Platform services (such as Projects)
     /// might reject them.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<crate::model::Policy>,
 
     /// OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
@@ -38,6 +40,7 @@ pub struct SetIamPolicyRequest {
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub update_mask: Option<wkt::FieldMask>,
 }
 
@@ -69,10 +72,12 @@ impl SetIamPolicyRequest {
 pub struct GetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being requested.
     /// See the operation documentation for the appropriate value for this field.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub resource: String,
 
     /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
     /// `GetIamPolicy`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub options: Option<crate::model::GetPolicyOptions>,
 }
 
@@ -98,12 +103,14 @@ impl GetIamPolicyRequest {
 pub struct TestIamPermissionsRequest {
     /// REQUIRED: The resource for which the policy detail is being requested.
     /// See the operation documentation for the appropriate value for this field.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub resource: String,
 
     /// The set of permissions to check for the `resource`. Permissions with
     /// wildcards (such as '*' or 'storage.*') are not allowed. For more
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub permissions: Vec<String>,
 }
 
@@ -129,6 +136,7 @@ impl TestIamPermissionsRequest {
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub permissions: Vec<String>,
 }
 
@@ -290,9 +298,11 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub bindings: Vec<crate::model::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub audit_configs: Vec<crate::model::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
@@ -307,6 +317,7 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
+    #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: bytes::Bytes,
 }
@@ -345,6 +356,7 @@ impl Policy {
 pub struct Binding {
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub role: String,
 
     /// Specifies the principals requesting access for a Google Cloud resource.
@@ -391,6 +403,7 @@ pub struct Binding {
     ///    users of that domain. For example, `google.com` or `example.com`.
     ///
     ///
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub members: Vec<String>,
 
     /// The condition that is associated with this binding.
@@ -405,6 +418,7 @@ pub struct Binding {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub condition: Option<gtype::model::Expr>,
 }
 
@@ -489,9 +503,11 @@ pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub service: String,
 
     /// The configuration for logging of each type of permission.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
 }
 
@@ -547,6 +563,7 @@ pub struct AuditLogConfig {
     /// [Binding.members][google.iam.v1.Binding.members].
     ///
     /// [google.iam.v1.Binding.members]: crate::model::Binding::members
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub exempted_members: Vec<String>,
 }
 
@@ -609,9 +626,11 @@ pub mod audit_log_config {
 #[non_exhaustive]
 pub struct PolicyDelta {
     /// The delta for Bindings between two policies.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub binding_deltas: Vec<crate::model::BindingDelta>,
 
     /// The delta for AuditConfigs between two policies.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub audit_config_deltas: Vec<crate::model::AuditConfigDelta>,
 }
 
@@ -646,14 +665,17 @@ pub struct BindingDelta {
     /// Role that is assigned to `members`.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     /// Required
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub role: String,
 
     /// A single identity requesting access for a Google Cloud resource.
     /// Follows the same format of Binding.members.
     /// Required
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub member: String,
 
     /// The condition that is associated with this binding.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub condition: Option<gtype::model::Expr>,
 }
 
@@ -732,16 +754,19 @@ pub struct AuditConfigDelta {
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
     /// Required
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub service: String,
 
     /// A single identity that is exempted from "data access" audit
     /// logging for the `service` specified above.
     /// Follows the same format of Binding.members.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub exempted_member: String,
 
     /// Specifies the log_type that was be enabled. ADMIN_ACTIVITY is always
     /// enabled, and cannot be configured.
     /// Required
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub log_type: String,
 }
 
@@ -819,6 +844,7 @@ pub struct ResourcePolicyMember {
     ///
     /// Example:
     /// `principal://parametermanager.googleapis.com/projects/12345/name/locations/us-central1-a/parameters/my-parameter`
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub iam_policy_name_principal: String,
 
     /// IAM policy binding member referring to a Google Cloud resource by
@@ -828,6 +854,7 @@ pub struct ResourcePolicyMember {
     ///
     /// Example:
     /// `principal://parametermanager.googleapis.com/projects/12345/uid/locations/us-central1-a/parameters/a918fed5`
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub iam_policy_uid_principal: String,
 }
 
