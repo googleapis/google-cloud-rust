@@ -17,48 +17,24 @@
 /// A dyn-compatible, crate-private version of `Operations`.
 #[async_trait::async_trait]
 pub trait Operations: std::fmt::Debug + Send + Sync {
-    /// Lists operations that match the specified filter in the request. If the
-    /// server doesn't support this method, it returns `UNIMPLEMENTED`.
     async fn list_operations(
         &self,
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::ListOperationsResponse>;
 
-    /// Gets the latest state of a long-running operation.  Clients can use this
-    /// method to poll the operation result at intervals as recommended by the API
-    /// service.
     async fn get_operation(
         &self,
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<crate::model::Operation>;
 
-    /// Deletes a long-running operation. This method indicates that the client is
-    /// no longer interested in the operation result. It does not cancel the
-    /// operation. If the server doesn't support this method, it returns
-    /// `google.rpc.Code.UNIMPLEMENTED`.
     async fn delete_operation(
         &self,
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<wkt::Empty>;
 
-    /// Starts asynchronous cancellation on a long-running operation.  The server
-    /// makes a best effort to cancel the operation, but success is not
-    /// guaranteed.  If the server doesn't support this method, it returns
-    /// `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
-    /// [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
-    /// other methods to check whether the cancellation succeeded or whether the
-    /// operation completed despite cancellation. On successful cancellation,
-    /// the operation is not deleted; instead, it becomes an operation with
-    /// an [Operation.error][google.longrunning.Operation.error] value with a
-    /// [google.rpc.Status.code][google.rpc.Status.code] of `1`, corresponding to
-    /// `Code.CANCELLED`.
-    ///
-    /// [google.longrunning.Operation.error]: crate::model::Operation::result
-    /// [google.longrunning.Operations.GetOperation]: crate::traits::Operations::get_operation
-    /// [google.rpc.Status.code]: rpc::model::Status::code
     async fn cancel_operation(
         &self,
         req: crate::model::CancelOperationRequest,

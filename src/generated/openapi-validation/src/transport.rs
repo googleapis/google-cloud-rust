@@ -18,8 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Stores sensitive data such as API keys, passwords, and certificates.
-/// Provides convenience while improving security.
+/// Implements [SecretManagerService](crate::traits::) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
     inner: gax::http_client::ReqwestClient,
@@ -41,7 +40,6 @@ impl SecretManagerService {
 }
 
 impl crate::traits::SecretManagerService for SecretManagerService {
-    /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
@@ -69,7 +67,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
@@ -91,7 +88,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Lists Secrets.
     async fn list_secrets(
         &self,
         req: crate::model::ListSecretsRequest,
@@ -119,7 +115,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Creates a new Secret containing no SecretVersions.
     async fn create_secret(
         &self,
         req: crate::model::CreateSecretRequest,
@@ -143,7 +138,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Lists Secrets.
     async fn list_secrets_by_project_and_location(
         &self,
         req: crate::model::ListSecretsByProjectAndLocationRequest,
@@ -174,7 +168,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Creates a new Secret containing no SecretVersions.
     async fn create_secret_by_project_and_location(
         &self,
         req: crate::model::CreateSecretByProjectAndLocationRequest,
@@ -201,8 +194,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Creates a new SecretVersion containing secret data and attaches
-    /// it to an existing Secret.
     async fn add_secret_version(
         &self,
         req: crate::model::AddSecretVersionRequest,
@@ -225,8 +216,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Creates a new SecretVersion containing secret data and attaches
-    /// it to an existing Secret.
     async fn add_secret_version_by_project_and_location_and_secret(
         &self,
         req: crate::model::AddSecretVersionRequest,
@@ -249,7 +238,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Gets metadata for a given Secret.
     async fn get_secret(
         &self,
         req: crate::model::GetSecretRequest,
@@ -271,7 +259,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Deletes a Secret.
     async fn delete_secret(
         &self,
         req: crate::model::DeleteSecretRequest,
@@ -295,7 +282,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Updates metadata of an existing Secret.
     async fn update_secret(
         &self,
         req: crate::model::UpdateSecretRequest,
@@ -323,7 +309,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Gets metadata for a given Secret.
     async fn get_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
@@ -348,7 +333,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Deletes a Secret.
     async fn delete_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
@@ -375,7 +359,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Updates metadata of an existing Secret.
     async fn update_secret_by_project_and_location_and_secret(
         &self,
         req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
@@ -406,8 +389,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Lists SecretVersions. This call does not return secret
-    /// data.
     async fn list_secret_versions(
         &self,
         req: crate::model::ListSecretVersionsRequest,
@@ -438,8 +419,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Lists SecretVersions. This call does not return secret
-    /// data.
     async fn list_secret_versions_by_project_and_location_and_secret(
         &self,
         req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
@@ -470,10 +449,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Gets metadata for a SecretVersion.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
     async fn get_secret_version(
         &self,
         req: crate::model::GetSecretVersionRequest,
@@ -498,10 +473,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Gets metadata for a SecretVersion.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
     async fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -526,10 +497,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Accesses a SecretVersion. This call returns the secret data.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
     async fn access_secret_version(
         &self,
         req: crate::model::AccessSecretVersionRequest,
@@ -554,10 +521,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Accesses a SecretVersion. This call returns the secret data.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
     async fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -582,10 +545,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Disables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DISABLED.
     async fn disable_secret_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
@@ -608,10 +567,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Disables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DISABLED.
     async fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DisableSecretVersionRequest,
@@ -634,10 +589,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Enables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// ENABLED.
     async fn enable_secret_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
@@ -660,10 +611,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Enables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// ENABLED.
     async fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::EnableSecretVersionRequest,
@@ -686,11 +633,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Destroys a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DESTROYED and irrevocably destroys the
-    /// secret data.
     async fn destroy_secret_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
@@ -713,11 +655,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Destroys a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DESTROYED and irrevocably destroys the
-    /// secret data.
     async fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         req: crate::model::DestroySecretVersionRequest,
@@ -740,11 +677,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Sets the access control policy on the specified secret. Replaces any
-    /// existing policy.
-    ///
-    /// Permissions on SecretVersions are enforced according
-    /// to the policy set on the associated Secret.
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
@@ -767,11 +699,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Sets the access control policy on the specified secret. Replaces any
-    /// existing policy.
-    ///
-    /// Permissions on SecretVersions are enforced according
-    /// to the policy set on the associated Secret.
     async fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::SetIamPolicyRequest,
@@ -794,8 +721,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Gets the access control policy for a secret.
-    /// Returns empty policy if the secret exists and does not have a policy set.
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
@@ -826,8 +751,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Gets the access control policy for a secret.
-    /// Returns empty policy if the secret exists and does not have a policy set.
     async fn get_iam_policy_by_project_and_location_and_secret(
         &self,
         req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
@@ -858,13 +781,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             .await
     }
 
-    /// Returns permissions that a caller has for the specified secret.
-    /// If the secret does not exist, this call returns an empty set of
-    /// permissions, not a NOT_FOUND error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,
@@ -887,13 +803,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         self.inner.execute(builder, Some(req), options).await
     }
 
-    /// Returns permissions that a caller has for the specified secret.
-    /// If the secret does not exist, this call returns an empty set of
-    /// permissions, not a NOT_FOUND error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
     async fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         req: crate::model::TestIamPermissionsRequest,
