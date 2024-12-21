@@ -27,12 +27,14 @@ pub struct Operation {
     /// The server-assigned name, which is only unique within the same service that
     /// originally returns it. If you use the default HTTP mapping, the
     /// `name` should be a resource name ending with `operations/{unique_id}`.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 
     /// Service-specific metadata associated with the operation.  It typically
     /// contains progress information and common metadata such as create time.
     /// Some services might not provide such metadata.  Any method that returns a
     /// long-running operation should document the metadata type, if any.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<wkt::Any>,
 
     /// If the value is `false`, it means the operation is still in progress.
@@ -109,6 +111,7 @@ pub mod operation {
 #[non_exhaustive]
 pub struct GetOperationRequest {
     /// The name of the operation resource.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 }
 
@@ -130,15 +133,18 @@ impl GetOperationRequest {
 #[non_exhaustive]
 pub struct ListOperationsRequest {
     /// The name of the operation's parent resource.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 
     /// The standard list filter.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub filter: String,
 
     /// The standard list page size.
     pub page_size: i32,
 
     /// The standard list page token.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub page_token: String,
 }
 
@@ -178,9 +184,11 @@ impl ListOperationsRequest {
 #[non_exhaustive]
 pub struct ListOperationsResponse {
     /// A list of operations that matches the specified filter in the request.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub operations: Vec<crate::model::Operation>,
 
     /// The standard List next-page token.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub next_page_token: String,
 }
 
@@ -215,6 +223,7 @@ impl gax::paginator::PageableResponse for ListOperationsResponse {
 #[non_exhaustive]
 pub struct CancelOperationRequest {
     /// The name of the operation resource to be cancelled.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 }
 
@@ -236,6 +245,7 @@ impl CancelOperationRequest {
 #[non_exhaustive]
 pub struct DeleteOperationRequest {
     /// The name of the operation resource to be deleted.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 }
 
@@ -256,11 +266,13 @@ impl DeleteOperationRequest {
 #[non_exhaustive]
 pub struct WaitOperationRequest {
     /// The name of the operation resource to wait on.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 
     /// The maximum duration to wait before timing out. If left blank, the wait
     /// will be at most the time permitted by the underlying HTTP/RPC protocol.
     /// If RPC context deadline is also specified, the shorter one will be used.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub timeout: Option<wkt::Duration>,
 }
 
@@ -303,6 +315,7 @@ pub struct OperationInfo {
     /// message name must be used (e.g. `google.protobuf.Struct`).
     ///
     /// Note: Altering this value constitutes a breaking change.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub response_type: String,
 
     /// Required. The message name of the metadata type for this long-running
@@ -312,6 +325,7 @@ pub struct OperationInfo {
     /// message name must be used (e.g. `google.protobuf.Struct`).
     ///
     /// Note: Altering this value constitutes a breaking change.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub metadata_type: String,
 }
 

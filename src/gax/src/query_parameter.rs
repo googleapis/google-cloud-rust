@@ -159,7 +159,7 @@ mod tests {
         let builder = QueryParameter::add(&Some(true), builder, "bool")?;
         let builder = QueryParameter::add(
             &Some(bytes::Bytes::from(
-                "the quick brown fox jumps over the laze dog",
+                "the quick brown fox jumps over the lazy dog",
             )),
             builder,
             "bytes",
@@ -176,7 +176,7 @@ mod tests {
                     "f64=42",
                     "string=42",
                     "bool=true",
-                    "bytes=dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw",
+                    "bytes=dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
                 ]
                 .join("&")
                 .as_str()

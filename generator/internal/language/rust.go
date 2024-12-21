@@ -339,17 +339,32 @@ func (c *RustCodec) fieldFormatter(typez api.Typez) string {
 	}
 }
 
-func (c *RustCodec) fieldBaseAttributes(f *api.Field) []string {
-	if f.Synthetic {
-		return []string{`#[serde(skip)]`}
+func (c *RustCodec) fieldSkipAttributes(f *api.Field) []string {
+	switch f.Typez {
+	case api.STRING_TYPE:
+		return []string{`#[serde(skip_serializing_if = "String::is_empty")]`}
+	case api.BYTES_TYPE:
+		return []string{`#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]`}
+	default:
+		return []string{}
 	}
+}
+
+func (c *RustCodec) fieldBaseAttributes(f *api.Field) []string {
 	if c.ToCamel(c.ToSnake(f.Name)) != f.JSONName {
 		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
 	}
 	return []string{}
 }
 
-func (c *RustCodec) wrapperFieldAttributes(f *api.Field, defaultAttributes []string) []string {
+func (c *RustCodec) wrapperFieldAttributes(f *api.Field, attributes []string) []string {
+	// Message fields could be `Vec<..>`, and are always optional:
+	if f.Optional {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+	}
+	if f.Repeated {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+	}
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -359,12 +374,19 @@ func (c *RustCodec) wrapperFieldAttributes(f *api.Field, defaultAttributes []str
 	case ".google.protobuf.Int64Value":
 		formatter = c.fieldFormatter(api.INT64_TYPE)
 	default:
-		return defaultAttributes
+		return attributes
 	}
-	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
+	// A few message types require ad-hoc treatment. Most are just managed with
+	// the default handler.
+	return append(
+		attributes,
+		fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 }
 
 func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string {
+	if f.Synthetic {
+		return []string{`#[serde(skip)]`}
+	}
 	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
 	case api.DOUBLE_TYPE,
@@ -378,7 +400,13 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 		api.SINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
-		return attributes
+		if f.Optional {
+			return append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+		}
+		if f.Repeated {
+			return append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+		}
+		return append(attributes, c.fieldSkipAttributes(f)...)
 
 	case api.INT64_TYPE,
 		api.UINT64_TYPE,
@@ -388,15 +416,19 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 		api.BYTES_TYPE:
 		formatter := c.fieldFormatter(f.Typez)
 		if f.Optional {
+			attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 		}
 		if f.Repeated {
+			attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter))
 		}
+		attributes = append(attributes, c.fieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
+			// map<> field types require special treatment.
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
 			var key, value *api.Field
 			for _, f := range message.Fields {

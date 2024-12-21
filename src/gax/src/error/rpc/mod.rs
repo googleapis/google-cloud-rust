@@ -461,7 +461,7 @@ mod test {
             "message": "test",
             "status": "UNIMPLEMENTED",
             "details": [
-                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc", "reason": "", "localizedMessage": null}]},
+                {"@type": "google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
                 {"@type": "google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
                 {"@type": "google.rpc.ErrorInfo", "reason": "reason", "domain": "domain"},
                 {"@type": "google.rpc.Help", "links": [{"description": "desc", "url": "url"}]},

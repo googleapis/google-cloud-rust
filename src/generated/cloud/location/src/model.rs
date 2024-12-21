@@ -26,15 +26,18 @@
 #[non_exhaustive]
 pub struct ListLocationsRequest {
     /// The resource that owns the locations collection, if applicable.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 
     /// The standard list filter.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub filter: String,
 
     /// The standard list page size.
     pub page_size: i32,
 
     /// The standard list page token.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub page_token: String,
 }
 
@@ -73,9 +76,11 @@ impl ListLocationsRequest {
 #[non_exhaustive]
 pub struct ListLocationsResponse {
     /// A list of locations that matches the specified filter in the request.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub locations: Vec<crate::model::Location>,
 
     /// The standard List next-page token.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub next_page_token: String,
 }
 
@@ -109,6 +114,7 @@ impl gax::paginator::PageableResponse for ListLocationsResponse {
 #[non_exhaustive]
 pub struct GetLocationRequest {
     /// Resource name for the location.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 }
 
@@ -128,13 +134,16 @@ impl GetLocationRequest {
 pub struct Location {
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 
     /// The canonical id for this location. For example: `"us-east1"`.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub location_id: String,
 
     /// The friendly name for this location, typically a nearby city name.
     /// For example, "Tokyo".
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub display_name: String,
 
     /// Cross-service attributes for the location. For example
@@ -147,6 +156,7 @@ pub struct Location {
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<wkt::Any>,
 }
 
