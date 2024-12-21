@@ -48,8 +48,8 @@ package  = "secretmanager-openapi-v1"
 features = ["unstable-stream"]
 
 [dev-dependencies]
-mockall   = "0.13.1"
-serde     = { version = "1.0.216", features = ["serde_derive"] }
+mockall    = "0.13.1"
+serde      = { version = "1.0.216", features = ["serde_derive"] }
 serde_with = { version = "3.11.0", features = ["base64"] }
-test-case = "3.3.1"
-tokio     = { version = "1.42", features = ["full", "macros"] }
+test-case  = "3.3.1"
+tokio      = { version = "1.42", features = ["full", "macros"] }
