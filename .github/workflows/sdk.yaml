@@ -55,7 +55,7 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: cargo tarpaulin --out xml # --exclude-files 'generator/**' --exclude-files 'src/generated/**' --exclude-files 'src/integration-tests/**'
+      - run: cargo tarpaulin --out xml
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:
