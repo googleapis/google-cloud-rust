@@ -60,17 +60,20 @@ impl ReqwestClient {
                 reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
             );
         }
+        if let Some(timeout) = options.attempt_timeout() {
+            builder = builder.timeout(*timeout);
+        }
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        let resp = builder.send().await.map_err(Error::io)?;
-        if !resp.status().is_success() {
-            let status = resp.status().as_u16();
-            let headers = crate::error::convert_headers(resp.headers());
-            let body = resp.bytes().await.map_err(Error::io)?;
+        let response = builder.send().await.map_err(Error::io)?;
+        if !response.status().is_success() {
+            let status = response.status().as_u16();
+            let headers = crate::error::convert_headers(response.headers());
+            let body = response.bytes().await.map_err(Error::io)?;
             return Err(HttpError::new(status, headers, Some(body)).into());
         }
-        let response = resp.json::<O>().await.map_err(Error::serde)?;
+        let response = response.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
     }
 
