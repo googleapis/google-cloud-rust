@@ -31,7 +31,7 @@ where R: std::default::Default {
         Self {
             stub,
             request: R::default(),
-            options: gax::options::RequestOptions,
+            options: gax::options::RequestOptions::default(),
         }
     }
 }
@@ -77,6 +77,12 @@ impl SetIamPolicy {
     }
 }
 
+impl gax::options::RequestBuilder for SetIamPolicy {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a IAMPolicy::get_iam_policy call.
 #[derive(Clone, Debug)]
 pub struct GetIamPolicy(IAMPolicyRequestBuilder<crate::model::GetIamPolicyRequest>);
@@ -112,6 +118,12 @@ impl GetIamPolicy {
     }
 }
 
+impl gax::options::RequestBuilder for GetIamPolicy {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
+    }
+}
+
 /// The request builder for a IAMPolicy::test_iam_permissions call.
 #[derive(Clone, Debug)]
 pub struct TestIamPermissions(IAMPolicyRequestBuilder<crate::model::TestIamPermissionsRequest>);
@@ -144,6 +156,12 @@ impl TestIamPermissions {
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.0.request.permissions = v.into();
         self
+    }
+}
+
+impl gax::options::RequestBuilder for TestIamPermissions {
+    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+        &mut self.0.options
     }
 }
 

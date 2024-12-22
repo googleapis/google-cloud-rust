@@ -25,3 +25,6 @@
 # Ignore terraform files.
 .terraform/
 terraform.tfstate
+
+# Ignore code coverage output files.
+cobertura.xml

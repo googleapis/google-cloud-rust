@@ -17,14 +17,12 @@
 /// A dyn-compatible, crate-private version of `Locations`.
 #[async_trait::async_trait]
 pub trait Locations: std::fmt::Debug + Send + Sync {
-    /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::ListLocationsResponse>;
 
-    /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,

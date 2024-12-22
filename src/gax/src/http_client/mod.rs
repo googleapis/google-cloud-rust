@@ -14,8 +14,8 @@
 
 use crate::error::Error;
 use crate::error::HttpError;
+use crate::Result;
 use auth::Credential;
-type Result<T> = std::result::Result<T, crate::error::Error>;
 
 #[derive(Clone)]
 pub struct ReqwestClient {
@@ -51,8 +51,15 @@ impl ReqwestClient {
         &self,
         mut builder: reqwest::RequestBuilder,
         body: Option<I>,
+        options: crate::options::RequestOptions,
     ) -> Result<O> {
         builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
+        if let Some(user_agent) = options.user_agent_prefix() {
+            builder = builder.header(
+                reqwest::header::USER_AGENT,
+                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
+            );
+        }
         if let Some(body) = body {
             builder = builder.json(&body);
         }

@@ -54,7 +54,7 @@ jobs:
       - name: Format Markdown Files
         run: |
           pip install -r ci/requirements.txt
-          git ls-files -z -- '*.md' ':!:**/testdata/**' | \
+          git ls-files -z -- '*.md' ':!:**/testdata/**' ':!:src/generated/**' | \
             xargs -0 -r -P "$(nproc)" -n 50 mdformat
       - name: Format YAML Files
         run: |

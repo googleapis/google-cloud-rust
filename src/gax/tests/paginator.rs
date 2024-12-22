@@ -134,7 +134,13 @@ impl Client {
         if !req.page_token.is_empty() {
             builder = builder.query(&[("pageToken", req.page_token)]);
         }
-        self.inner.execute(builder, None::<NoBody>).await
+        self.inner
+            .execute(
+                builder,
+                None::<NoBody>,
+                gcp_sdk_gax::options::RequestOptions::default(),
+            )
+            .await
     }
 
     pub async fn list(

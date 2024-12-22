@@ -18,12 +18,9 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"io"
-	"maps"
 	"net/http"
 	"os"
 	"strings"
-
-	toml "github.com/pelletier/go-toml/v2"
 )
 
 const (
@@ -70,25 +67,28 @@ func updateRootConfig(rootConfig *Config) error {
 	}
 	fmt.Printf("updating .sidekick.toml\n")
 
-	newConfig := Config{
-		General: rootConfig.General,
-		Source:  maps.Clone(rootConfig.Source),
-		Codec:   maps.Clone(rootConfig.Codec),
-	}
-	newConfig.Source["googleapis-root"] = newRoot
-	newConfig.Source["googleapis-sha256"] = newSha256
-
 	contents, err := os.ReadFile(".sidekick.toml")
 	if err != nil {
-		// If the file does not exist just fallback on an empty boilerplate.
-		contents = []byte{}
+		return err
 	}
-	var boilerPlate []string
+	var newContents []string
 	for _, line := range strings.Split(string(contents), "\n") {
-		if !strings.HasPrefix(line, "#") {
-			break
+		switch {
+		case strings.HasPrefix(line, "googleapis-root "):
+			s := strings.SplitN(line, "=", 2)
+			if len(s) != 2 {
+				return fmt.Errorf("invalid googleapis-root line, expected = separator, got=%q", line)
+			}
+			newContents = append(newContents, fmt.Sprintf("%s= '%s'", s[0], newRoot))
+		case strings.HasPrefix(line, "googleapis-sha256 "):
+			s := strings.SplitN(line, "=", 2)
+			if len(s) != 2 {
+				return fmt.Errorf("invalid googleapis-sha256 line, expected = separator, got=%q", line)
+			}
+			newContents = append(newContents, fmt.Sprintf("%s= '%s'", s[0], newSha256))
+		default:
+			newContents = append(newContents, line)
 		}
-		boilerPlate = append(boilerPlate, line)
 	}
 
 	cwd, _ := os.Getwd()
@@ -98,15 +98,11 @@ func updateRootConfig(rootConfig *Config) error {
 		return err
 	}
 	defer f.Close()
-
-	t := toml.NewEncoder(f)
-	for _, line := range boilerPlate {
+	for i, line := range newContents {
 		f.Write([]byte(line))
-		f.Write([]byte("\n"))
-	}
-	f.Write([]byte("\n"))
-	if err := t.Encode(newConfig); err != nil {
-		return err
+		if i != len(newContents)-1 {
+			f.Write([]byte("\n"))
+		}
 	}
 	return f.Close()
 }

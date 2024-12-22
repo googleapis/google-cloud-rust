@@ -52,8 +52,10 @@ pub async fn run(tracing: bool) -> Result<()> {
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
     println!("\nTesting create_secret()");
+    use gax::options::RequestOptionsBuilder;
     let create = client
         .create_secret()
+        .with_user_agent("test/1.2.3")
         .set_parent(format!("projects/{project_id}"))
         .set_secret_id(&secret_id)
         .set_secret(

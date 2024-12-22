@@ -40,6 +40,34 @@ cargo fmt && cargo clippy -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+## Getting code coverage locally
+
+### Install coverage tools (once)
+
+You will need to install `cargo-tarpaulin`:
+
+```bash
+cargo install cargo-tarpaulin
+```
+
+On macOS you need to enable an extra feature:
+
+```bash
+cargo install cargo-tarpaulin --features vendored-openssl
+```
+
+### Getting coverage in cobertura format
+
+```bash
+cargo tarpaulin --out xml
+```
+
+If you prefer to exclude generated code:
+
+```bash
+cargo tarpaulin --out xml --exclude-files 'generator/**' --exclude-files 'src/generated/**' --exclude-files 'src/integration-tests/**'
+```
+
 ## Running the integration tests
 
 This guide assumes you are familiar with the [Google Cloud CLI], you have access
@@ -102,6 +130,8 @@ or may prefer to install these tools locally to fix formatting problems.
 Typically we do not format these files for generated code, so local runs
 requires skipping the generated files.
 
+### Format TOML files
+
 We use `taplo` to format the hand-crafted TOML files. Install with:
 
 ```bash
@@ -114,11 +144,15 @@ use with:
 git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:src/generated/**' | xargs -0 taplo fmt
 ```
 
+### Detect typos in comments and code
+
 We use `typos` to detect typos. Install with:
 
 ```bash
 cargo install typos-cli
 ```
+
+### Format Markdown files
 
 We use `mdformat` to format hand-crafted markdown files. Install with:
 
@@ -133,6 +167,8 @@ use with:
 ```bash
 git ls-files -z -- '*.md' ':!:**/testdata/**' | xargs -0 -r -P "$(nproc)" -n 50 mdformat
 ```
+
+### Format YAML files
 
 We use `yamlfmt` to format hand-crafted YAML files (mostly GitHub Actions).
 Install and use with:

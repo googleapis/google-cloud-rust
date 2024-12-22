@@ -51,7 +51,14 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 		verb = "PATCH"
 		rawPath = httpRule.GetPatch()
 	default:
-		return nil, fmt.Errorf("unsupported http method: %q", httpRule.GetPattern())
+		// Most often this happens with streaming RPCs. We will handle any
+		/// errors later in the code generation, maybe by ignoring the RPC.
+		return &api.PathInfo{
+			Verb:            "POST",
+			PathTemplate:    []api.PathSegment{},
+			QueryParameters: map[string]bool{},
+			BodyFieldPath:   "*",
+		}, nil
 	}
 	pathTemplate := parseRawPath(rawPath)
 	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)

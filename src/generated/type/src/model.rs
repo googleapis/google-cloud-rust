@@ -190,6 +190,7 @@ pub struct Color {
     /// possible to distinguish between a default value and the value being unset.
     /// If omitted, this color object is rendered as a solid color
     /// (as if the alpha value had been explicitly given a value of 1.0).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub alpha: Option<wkt::FloatValue>,
 }
 
@@ -420,9 +421,11 @@ pub mod date_time {
 #[non_exhaustive]
 pub struct TimeZone {
     /// IANA Time Zone Database time zone, e.g. "America/New_York".
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub id: String,
 
     /// Optional. IANA Time Zone Database version number, e.g. "2019a".
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub version: String,
 }
 
@@ -522,6 +525,7 @@ pub struct Decimal {
     ///
     /// Services **should** error with `400 Bad Request` (`INVALID_ARGUMENT` in
     /// gRPC) if the service receives a value outside of the supported range.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub value: String,
 }
 
@@ -579,19 +583,23 @@ impl Decimal {
 pub struct Expr {
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub expression: String,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub title: String,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub description: String,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub location: String,
 }
 
@@ -666,12 +674,14 @@ pub struct Interval {
     ///
     /// If specified, a Timestamp matching this interval will have to be the same
     /// or after the start.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub start_time: Option<wkt::Timestamp>,
 
     /// Optional. Exclusive end of the interval.
     ///
     /// If specified, a Timestamp matching this interval will have to be before the
     /// end.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub end_time: Option<wkt::Timestamp>,
 }
 
@@ -727,12 +737,14 @@ impl LatLng {
 #[non_exhaustive]
 pub struct LocalizedText {
     /// Localized string in the language corresponding to `language_code' below.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub text: String,
 
     /// The text's BCP-47 language code, such as "en-US" or "sr-Latn".
     ///
     /// For more information, see
     /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub language_code: String,
 }
 
@@ -757,6 +769,7 @@ impl LocalizedText {
 #[non_exhaustive]
 pub struct Money {
     /// The three-letter currency code defined in ISO 4217.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub currency_code: String,
 
     /// The whole units of the amount.
@@ -839,6 +852,7 @@ pub struct PhoneNumber {
     /// field is normally only set in conjunction with an E.164 number. It is held
     /// separately from the E.164 number to allow for short code extensions in the
     /// future.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub extension: String,
 
     /// Required.  Either a regular number, or a short code.  New fields may be
@@ -884,10 +898,12 @@ pub mod phone_number {
         ///
         /// Reference(s):
         ///  - <http://www.unicode.org/reports/tr35/#unicode_region_subtag>
+        #[serde(skip_serializing_if = "String::is_empty")]
         pub region_code: String,
 
         /// Required. The short code digits, without a leading plus ('+') or country
         /// calling code, e.g. "611".
+        #[serde(skip_serializing_if = "String::is_empty")]
         pub number: String,
     }
 
@@ -969,6 +985,7 @@ pub struct PostalAddress {
     /// correct. See <http://cldr.unicode.org/> and
     /// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>
     /// for details. Example: "CH" for Switzerland.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub region_code: String,
 
     /// Optional. BCP-47 language code of the contents of this address (if
@@ -983,12 +1000,14 @@ pub struct PostalAddress {
     /// possibly incorrect default).
     ///
     /// Examples: "zh-Hant", "ja", "ja-Latn", "en".
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub language_code: String,
 
     /// Optional. Postal code of the address. Not all countries use or require
     /// postal codes to be present, but where they are used, they may trigger
     /// additional validation with other parts of the address (e.g. state/zip
     /// validation in the U.S.A.).
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub postal_code: String,
 
     /// Optional. Additional, country-specific, sorting code. This is not used
@@ -996,6 +1015,7 @@ pub struct PostalAddress {
     /// "CEDEX", optionally followed by a number (e.g. "CEDEX 7"), or just a number
     /// alone, representing the "sector code" (Jamaica), "delivery area indicator"
     /// (Malawi) or "post office indicator" (e.g. Côte d'Ivoire).
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub sorting_code: String,
 
     /// Optional. Highest administrative subdivision which is used for postal
@@ -1005,16 +1025,19 @@ pub struct PostalAddress {
     /// community (e.g. "Barcelona" and not "Catalonia").
     /// Many countries don't use an administrative area in postal addresses. E.g.
     /// in Switzerland this should be left unpopulated.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub administrative_area: String,
 
     /// Optional. Generally refers to the city/town portion of the address.
     /// Examples: US city, IT comune, UK post town.
     /// In regions of the world where localities are not well defined or do not fit
     /// into this structure well, leave locality empty and use address_lines.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub locality: String,
 
     /// Optional. Sublocality of the address.
     /// For example, this can be neighborhoods, boroughs, districts.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub sublocality: String,
 
     /// Unstructured address lines describing the lower levels of an address.
@@ -1039,14 +1062,17 @@ pub struct PostalAddress {
     /// then geocoding is the recommended way to handle completely unstructured
     /// addresses (as opposed to guessing which parts of the address should be
     /// localities or administrative areas).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub address_lines: Vec<String>,
 
     /// Optional. The recipient at the address.
     /// This field may, under certain circumstances, contain multiline information.
     /// For example, it might contain "care of" information.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub recipients: Vec<String>,
 
     /// Optional. The name of the organization at the address.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub organization: String,
 }
 

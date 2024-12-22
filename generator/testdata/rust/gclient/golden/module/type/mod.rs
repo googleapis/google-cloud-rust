@@ -64,19 +64,23 @@ pub struct Expr {
 
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub expression: String,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub title: String,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub description: String,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub location: String,
 }
 

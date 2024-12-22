@@ -164,12 +164,13 @@ mod test {
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    #[serde_with::skip_serializing_none]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct Stored {
+        #[serde(skip_serializing_if = "String::is_empty")]
         pub parent: String,
+        #[serde(skip_serializing_if = "String::is_empty")]
         pub id: String,
     }
 
