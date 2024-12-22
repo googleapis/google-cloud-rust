@@ -94,7 +94,7 @@ mod tests {
     use std::collections::HashMap;
 
     #[test]
-    fn diplay_without_payload() {
+    fn display_without_payload() {
         let headers = HashMap::from_iter(
             [
                 ("content-type", "application/json"),
@@ -108,7 +108,7 @@ mod tests {
     }
 
     #[test]
-    fn diplay_handles_blob() {
+    fn display_handles_blob() {
         let headers = HashMap::from_iter(
             [
                 ("content-type", "application/json"),
@@ -123,7 +123,7 @@ mod tests {
     }
 
     #[test]
-    fn diplay_includes_status() {
+    fn display_includes_status() {
         let headers = HashMap::from_iter(
             [
                 ("content-type", "application/json"),
