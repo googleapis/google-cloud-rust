@@ -96,46 +96,69 @@ mod tests {
     #[test]
     fn display_without_payload() {
         let headers = HashMap::from_iter(
-            [
-                ("content-type", "application/json"),
-            ].map(|(k, v)| (k.to_string(), v.to_string())));
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
         let error = HttpError::new(400, headers, None);
         let display = format!("{error}");
-        
-        assert!(display.contains(r##""content-type": "application/json""##), "missing header in {error}");
+
+        assert!(
+            display.contains(r##""content-type": "application/json""##),
+            "missing header in {error}"
+        );
         assert!(display.contains(r##"code=400"##), "missing code in {error}");
-        assert!(!display.contains(r##"payload:"##), "unexpected payload in {error}");
+        assert!(
+            !display.contains(r##"payload:"##),
+            "unexpected payload in {error}"
+        );
     }
 
     #[test]
     fn display_handles_blob() {
         let headers = HashMap::from_iter(
-            [
-                ("content-type", "application/json"),
-            ].map(|(k, v)| (k.to_string(), v.to_string())));
-        let error = HttpError::new(400, headers, 
-            Some(bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog")));
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        let error = HttpError::new(
+            400,
+            headers,
+            Some(bytes::Bytes::from_static(
+                b"the quick brown fox jumps over the lazy dog",
+            )),
+        );
         let display = format!("{error}");
-        
-        assert!(display.contains(r##""content-type": "application/json""##), "missing header in {error}");
+
+        assert!(
+            display.contains(r##""content-type": "application/json""##),
+            "missing header in {error}"
+        );
         assert!(display.contains(r##"code=400"##), "missing code in {error}");
-        assert!(display.contains("payload:\nb\"the quick brown fox jumps over the lazy dog\""), "missing payload in {error}");
+        assert!(
+            display.contains("payload:\nb\"the quick brown fox jumps over the lazy dog\""),
+            "missing payload in {error}"
+        );
     }
 
     #[test]
     fn display_includes_status() {
         let headers = HashMap::from_iter(
-            [
-                ("content-type", "application/json"),
-            ].map(|(k, v)| (k.to_string(), v.to_string())));
-        let payload = json!({"error": { "code": 400, "status": "INVALID_ARGUMENT", "message": "something"}});
-        let error = HttpError::new(400, headers, 
-            Some(bytes::Bytes::from_owner(payload.to_string())));
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        let payload =
+            json!({"error": { "code": 400, "status": "INVALID_ARGUMENT", "message": "something"}});
+        let error = HttpError::new(
+            400,
+            headers,
+            Some(bytes::Bytes::from_owner(payload.to_string())),
+        );
         let display = format!("{error}");
-        
-        assert!(display.contains(r##""content-type": "application/json""##), "missing header in {error}");
-        assert!(display.contains(r##"code=400"##), "missing code in {error}");
-        assert!(display.contains("payload:\nStatus { code: 400"), "missing payload in {error}");
-    }
 
+        assert!(
+            display.contains(r##""content-type": "application/json""##),
+            "missing header in {error}"
+        );
+        assert!(display.contains(r##"code=400"##), "missing code in {error}");
+        assert!(
+            display.contains("payload:\nStatus { code: 400"),
+            "missing payload in {error}"
+        );
+    }
 }

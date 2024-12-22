@@ -135,7 +135,6 @@ impl std::fmt::Display for ErrorKind {
     }
 }
 
-
 #[cfg(test)]
 mod test {
     use super::*;
@@ -170,7 +169,10 @@ mod test {
         let kind_msg = format!("{kind}");
         let error = Error::new(kind, "test-error-msg".to_string());
         let msg = format!("{error}");
-        assert!(msg.contains("test-error-msg"), "missing error message in {msg:?}");
+        assert!(
+            msg.contains("test-error-msg"),
+            "missing error message in {msg:?}"
+        );
         assert!(msg.contains(&kind_msg), "missing kind message in {msg:?}");
     }
 }
