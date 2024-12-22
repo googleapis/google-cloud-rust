@@ -60,6 +60,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
   lint:
     runs-on: ubuntu-24.04
     strategy:
