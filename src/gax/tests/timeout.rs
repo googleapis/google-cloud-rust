@@ -20,8 +20,6 @@ use std::time::Duration;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-mod echo_server;
-
 #[tokio::test(start_paused = true)]
 async fn test_no_timeout() -> Result<()> {
     let (endpoint, server) = echo_server::start().await?;

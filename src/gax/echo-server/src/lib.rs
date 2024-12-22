@@ -28,7 +28,9 @@ use tokio::task::JoinHandle;
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 pub async fn start() -> Result<(String, JoinHandle<()>)> {
-    let app = axum::Router::new().route("/echo", axum::routing::get(echo));
+    let app = axum::Router::new()
+        .route("/echo", axum::routing::get(echo))
+        .route("/error", axum::routing::get(error));
     let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
     let addr = listener.local_addr()?;
     let server = tokio::spawn(async {
@@ -38,13 +40,22 @@ pub async fn start() -> Result<(String, JoinHandle<()>)> {
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
 }
 
+pub fn make_status() -> Result<gax::error::rpc::Status> {
+    let value = make_status_value()?;
+    let value = value
+        .get("error")
+        .ok_or("missing error field in status payload")?;
+    let status = serde_json::from_value::<gax::error::rpc::Status>(value.clone())?;
+    Ok(status)
+}
+
 async fn echo(
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
-) -> (http::StatusCode, String) {
+) -> (StatusCode, String) {
     let response = echo_impl(query, headers).await;
     match response {
-        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, format!("{e}")),
+        Err(e) => internal_error(e),
         Ok(s) => (StatusCode::OK, s),
     }
 }
@@ -73,6 +84,45 @@ async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> Result
     Ok(body)
 }
 
+async fn error(
+    Query(query): Query<HashMap<String, String>>,
+    headers: HeaderMap,
+) -> (StatusCode, String) {
+    let response = error_impl(query, headers).await;
+    match response {
+        Err(e) => internal_error(e),
+        Ok(r) => r,
+    }
+}
+
+async fn error_impl(
+    _query: HashMap<String, String>,
+    _headers: HeaderMap,
+) -> Result<(StatusCode, String)> {
+    let status = make_status_value()?;
+    Ok((StatusCode::BAD_REQUEST, status.to_string()))
+}
+
+fn make_status_value() -> Result<serde_json::Value> {
+    use gax::error::rpc::StatusDetails;
+    use rpc::model::bad_request::FieldViolation;
+    use rpc::model::BadRequest;
+    let details = StatusDetails::BadRequest(BadRequest::default().set_field_violations(
+        vec![FieldViolation::default()
+            .set_field( "field" )
+            .set_description( "desc" )
+        ],
+    ));
+    let details = serde_json::to_value(&details)?;
+    let status = json!({"error": {
+        "code": StatusCode::BAD_REQUEST.as_u16(),
+        "status": "INVALID_ARGUMENT",
+        "message": "this path always returns an error",
+        "details": [details],
+    }});
+    Ok(status)
+}
+
 fn headers_to_json(headers: HeaderMap) -> Result<serde_json::Value> {
     let to_dyn = |e| -> Box<dyn std::error::Error + 'static> { Box::new(e) };
     let headers = headers
@@ -88,4 +138,8 @@ fn headers_to_json(headers: HeaderMap) -> Result<serde_json::Value> {
         .collect::<Result<Vec<_>>>()?;
 
     Ok(serde_json::Value::Object(headers.into_iter().collect()))
+}
+
+fn internal_error(e: Box<dyn std::error::Error>) -> (StatusCode, String) {
+    (StatusCode::INTERNAL_SERVER_ERROR, format!("{e}"))
 }
