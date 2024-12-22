@@ -386,6 +386,7 @@ mod test {
     use serde_json::json;
     use std::collections::HashMap;
     use test_case::test_case;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
     fn serialization_all_variants() {
@@ -614,9 +615,59 @@ mod test {
     #[test_case("UNAVAILABLE")]
     #[test_case("DATA_LOSS")]
     #[test_case("UNAUTHENTICATED")]
-    fn code_roundtrip(input: &str) {
-        let code = Code::try_from(input);
-        let output: Result<String, _> = code.map(From::from);
-        assert_eq!(output, Ok(input.to_string()));
+    fn code_roundtrip(input: &str) -> Result {
+        let code = Code::try_from(input)?;
+        let output = String::from(code);
+        assert_eq!(output.as_str(), input.to_string());
+        Ok(())
+    }
+
+    #[test_case("OK")]
+    #[test_case("CANCELED")]
+    #[test_case("UNKNOWN")]
+    #[test_case("INVALID_ARGUMENT")]
+    #[test_case("DEADLINE_EXCEEDED")]
+    #[test_case("NOT_FOUND")]
+    #[test_case("ALREADY_EXISTS")]
+    #[test_case("PERMISSION_DENIED")]
+    #[test_case("RESOURCE_EXHAUSTED")]
+    #[test_case("FAILED_PRECONDITION")]
+    #[test_case("ABORTED")]
+    #[test_case("OUT_OF_RANGE")]
+    #[test_case("UNIMPLEMENTED")]
+    #[test_case("INTERNAL")]
+    #[test_case("UNAVAILABLE")]
+    #[test_case("DATA_LOSS")]
+    #[test_case("UNAUTHENTICATED")]
+    fn code_serialize_roundtrip(input: &str) -> Result {
+        let want = Code::try_from(input).unwrap();
+        let serialized = serde_json::to_value(&want)?;
+        let got = serde_json::from_value::<Code>(serialized)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn code_try_from_string_error() {
+        let err = Code::try_from("INVALID-NOT-A-CODE");
+        match err {
+            Err(s) => assert!(s.contains("INVALID-NOT-A-CODE"), "expected invalid string in error {s}"),
+            Ok(v) => assert!(false, "expected error in try_from, got {v:?}"),
+        };
+    }
+
+    #[test]
+    fn code_deserialize_invalid_type() {
+        let input = json!({"k": "v"});
+        let err = serde_json::from_value::<Code>(input);
+        assert!(err.is_err(), "expected an error, got {err:?}");
+    }
+
+    #[test]
+    fn code_deserialize_unknown() -> Result {
+        let input = json!(-17);
+        let code = serde_json::from_value::<Code>(input)?;
+        assert_eq!(code, Code::Unknown);
+        Ok(())
     }
 }
