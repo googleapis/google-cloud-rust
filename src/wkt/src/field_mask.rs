@@ -329,4 +329,13 @@ mod test {
         assert_eq!(got.paths, want);
         Ok(())
     }
+
+    #[test]
+    fn deserialize_unexpected_input_type() -> Result {
+        let got = serde_json::from_value::<FieldMask>(serde_json::json!({"paths": {"a": "b"}}));
+        assert!(got.is_err());
+        let msg = format!("{got:?}");
+        assert!(msg.contains("field mask paths"), "message={}", msg);
+        Ok(())
+    }
 }

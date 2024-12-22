@@ -174,7 +174,8 @@ impl Duration {
             return format!("{sign}{}s", self.seconds.abs());
         }
         if self.seconds == 0 {
-            return format!("{sign}0.{}", self.nanos.abs());
+            let ns = format!("{:09}", self.nanos.abs());
+            return format!("{sign}0.{}s", ns.trim_end_matches('0'));
         }
         format!("{sign}{}.{:09}s", self.seconds.abs(), self.nanos.abs())
     }
@@ -185,26 +186,29 @@ impl Duration {
             return Err(DurationError::Deserialize("missing trailing 's'".into()));
         }
         let digits = &value[..(value.len() - 1)];
-        let (sign, digits) = if let Some(trailing) = digits.strip_prefix('-') {
-            (-1, trailing)
+        let (sign, digits) = if digits.starts_with('-') {
+            (-1, &digits[1..])
         } else {
-            (1, digits)
+            (1, &digits[0..])
         };
         let mut split = digits.splitn(2, '.');
-        let (s, n) = (split.next(), split.next());
-        let seconds = s
+        let (seconds, nanos) = (split.next(), split.next());
+        let seconds = seconds
             .map(str::parse::<i64>)
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?;
-        let nanos = n
-            .map(str::parse::<i32>)
+            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .unwrap_or(0);
+        let nanos = nanos
+            .map(|s| {
+                let pad ="000000000"; 
+                format!("{s}{}", &pad[s.len()..])}
+            )
+            .map(|s| s.parse::<i32>())
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?;
+            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .unwrap_or(0);
 
-        Duration::new(
-            sign * seconds.unwrap_or(0),
-            sign as i32 * nanos.unwrap_or(0),
-        )
+        Duration::new(sign * seconds, sign as i32 * nanos)
     }
 }
 
@@ -385,6 +389,8 @@ mod test {
 
     // Verify durations can roundtrip from string -> struct -> string without loss.
     #[test_case(0, 0, "0s" ; "zero")]
+    #[test_case(0, 2, "0.000000002s" ; "2ns")]
+    #[test_case(0, 200_000_000, "0.2s" ; "200ms")]
     #[test_case(12, 0, "12s"; "round positive seconds")]
     #[test_case(12, 123, "12.000000123s"; "positive seconds and nanos")]
     #[test_case(12, 123_000, "12.000123000s"; "positive seconds and micros")]
@@ -443,6 +449,34 @@ mod test {
     fn to_time_in_range(value: Duration, want: time::Duration) -> Result {
         let got = time::Duration::from(value);
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case("" ; "empty")]
+    #[test_case("1.0" ; "missing final s")]
+    #[test_case("1.2.3.4s" ; "too many periods")]
+    #[test_case("aaas" ; "not a number")]
+    #[test_case("aaaa.0s" ; "seconds are not a number [aaa]")]
+    #[test_case("1a.0s" ; "seconds are not a number [1a]")]
+    #[test_case("1.aaas" ; "nanos are not a number [aaa]")]
+    #[test_case("1.0as" ; "nanos are not a number [0a]")]
+    fn parse_detect_bad_input(input: &str) -> Result {
+        let got = Duration::from_json(input);
+        assert!(got.is_err());
+        let err = got.err().unwrap();
+        match err {
+            DurationError::Deserialize(_) => { assert!(true) },
+            _ => assert!(false, "unexpected error {err:?}"),
+        };
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_unexpected_input_type() -> Result {
+        let got = serde_json::from_value::<Duration>(serde_json::json!({}));
+        assert!(got.is_err());
+        let msg = format!("{got:?}");
+        assert!(msg.contains("duration in Google format"), "message={}", msg);
         Ok(())
     }
 }
