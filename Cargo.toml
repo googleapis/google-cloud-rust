@@ -27,6 +27,7 @@ members = [
   "src/generated/iam/v1",
   "src/generated/longrunning",
   "src/generated/openapi-validation",
+  "src/generated/rpc",
   "src/generated/type",
   "src/integration-tests",
   "src/root",
@@ -37,7 +38,7 @@ members = [
 [workspace.package]
 edition     = "2021"
 authors     = ["Google LLC"]
-description = "Google Cloud SDK for Rust"
+description = "Google Cloud Client Libraries for Rust"
 license     = "Apache-2.0"
 repository  = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords    = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]

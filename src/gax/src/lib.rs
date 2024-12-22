@@ -15,32 +15,21 @@
 //! Google APIs helpers.
 //!
 //! This crate contains a number of types and functions used in the
-//! implementation of the Google Cloud SDK for Rust.
+//! implementation of the Google Cloud Client Libraries for Rust.
 //!
 //! <div class="warning">
 //! All the types, traits, and functions defined in the <code>unstable-sdk-client</code>
 //! feature are <b>not</b> intended for general use. The APIs enabled by this
 //! feature will remain unstable for the foreseeable future, even if used in
-//! stable SDKs. We (the Google Cloud SDK for Rust team) control both and will
+//! stable SDKs. We (the Google Cloud Client Libraries for Rust team) control both and will
 //! change both if needed.
 //! </div>
 
-/// Defines traits and helpers to serialize query parameters.
+/// An alias of [std::result::Result] where the error is always [crate::error::Error].
 ///
-/// Query parameters in the Google APIs can be types other than strings and
-/// integers. We need a helper to efficiently serialize parameters of different
-/// types. We also want the generator to be relatively simple.
-///
-/// The Rust SDK generator produces query parameters as optional fields in the
-/// request object. The generator code can be simplified if all the query
-/// parameters can be treated uniformly, without any conditionally generated
-/// code to handle different types.
-///
-/// This module defines some traits and helpers to simplify the code generator.
-///
-/// The types are not intended for application developers to use. They are
-/// public because we will generate many crates (roughly one per service), and
-/// most of these crates will use these helpers.
+/// This is the result type used by all functions wrapping RPCs.
+type Result<T> = std::result::Result<T, crate::error::Error>;
+
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
 pub mod query_parameter;

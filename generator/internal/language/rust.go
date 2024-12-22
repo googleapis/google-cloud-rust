@@ -165,6 +165,12 @@ func parseRustPackageOption(key, definition string) (*rustPackageOption, error) 
 				return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
 			}
 			pkg.Used = value
+		case "required-by-services":
+			value, err := strconv.ParseBool(s[1])
+			if err != nil {
+				return nil, fmt.Errorf("cannot convert `required-by-services` value %q (part of %q) to boolean: %w", definition, s[1], err)
+			}
+			pkg.RequiredByServices = value
 		default:
 			return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 		}
@@ -233,6 +239,8 @@ type RustPackage struct {
 	Used bool
 	// If true, the default features are enabled.
 	DefaultFeatures bool
+	// If true, this package is only needed in crates with services.
+	RequiredByServices bool
 }
 
 func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
@@ -269,7 +277,7 @@ func (c *RustCodec) LoadWellKnownTypes(s *api.APIState) {
 	}
 	c.HasServices = len(s.ServiceByID) > 0
 	for _, pkg := range c.ExtraPackages {
-		if pkg.Name == "gax" {
+		if pkg.RequiredByServices {
 			pkg.Used = c.HasServices
 		}
 	}
@@ -331,17 +339,32 @@ func (c *RustCodec) fieldFormatter(typez api.Typez) string {
 	}
 }
 
-func (c *RustCodec) fieldBaseAttributes(f *api.Field) []string {
-	if f.Synthetic {
-		return []string{`#[serde(skip)]`}
+func (c *RustCodec) fieldSkipAttributes(f *api.Field) []string {
+	switch f.Typez {
+	case api.STRING_TYPE:
+		return []string{`#[serde(skip_serializing_if = "String::is_empty")]`}
+	case api.BYTES_TYPE:
+		return []string{`#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]`}
+	default:
+		return []string{}
 	}
+}
+
+func (c *RustCodec) fieldBaseAttributes(f *api.Field) []string {
 	if c.ToCamel(c.ToSnake(f.Name)) != f.JSONName {
 		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
 	}
 	return []string{}
 }
 
-func (c *RustCodec) wrapperFieldAttributes(f *api.Field, defaultAttributes []string) []string {
+func (c *RustCodec) wrapperFieldAttributes(f *api.Field, attributes []string) []string {
+	// Message fields could be `Vec<..>`, and are always optional:
+	if f.Optional {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+	}
+	if f.Repeated {
+		attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+	}
 	var formatter string
 	switch f.TypezID {
 	case ".google.protobuf.BytesValue":
@@ -351,12 +374,19 @@ func (c *RustCodec) wrapperFieldAttributes(f *api.Field, defaultAttributes []str
 	case ".google.protobuf.Int64Value":
 		formatter = c.fieldFormatter(api.INT64_TYPE)
 	default:
-		return defaultAttributes
+		return attributes
 	}
-	return []string{fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter)}
+	// A few message types require ad-hoc treatment. Most are just managed with
+	// the default handler.
+	return append(
+		attributes,
+		fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 }
 
 func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string {
+	if f.Synthetic {
+		return []string{`#[serde(skip)]`}
+	}
 	attributes := c.fieldBaseAttributes(f)
 	switch f.Typez {
 	case api.DOUBLE_TYPE,
@@ -370,7 +400,13 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 		api.SINT32_TYPE,
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
-		return attributes
+		if f.Optional {
+			return append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+		}
+		if f.Repeated {
+			return append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+		}
+		return append(attributes, c.fieldSkipAttributes(f)...)
 
 	case api.INT64_TYPE,
 		api.UINT64_TYPE,
@@ -380,15 +416,19 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 		api.BYTES_TYPE:
 		formatter := c.fieldFormatter(f.Typez)
 		if f.Optional {
+			attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
 		}
 		if f.Repeated {
+			attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
 			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter))
 		}
+		attributes = append(attributes, c.fieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 
 	case api.MESSAGE_TYPE:
 		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
+			// map<> field types require special treatment.
 			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
 			var key, value *api.Field
 			for _, f := range message.Fields {
@@ -885,7 +925,22 @@ func (c *RustCodec) tryFieldRustdocLink(id string, state *api.APIState) string {
 	}
 	for _, f := range m.Fields {
 		if f.Name == fieldName {
-			return fmt.Sprintf("%s::%s", c.FQMessageName(m, state), c.ToSnake(f.Name))
+			if !f.IsOneOf {
+				return fmt.Sprintf("%s::%s", c.FQMessageName(m, state), c.ToSnake(f.Name))
+			} else {
+				return c.tryOneOfRustdocLink(f, m, state)
+			}
+		}
+	}
+	return ""
+}
+
+func (c *RustCodec) tryOneOfRustdocLink(field *api.Field, message *api.Message, state *api.APIState) string {
+	for _, o := range message.OneOfs {
+		for _, f := range o.Fields {
+			if f.ID == field.ID {
+				return fmt.Sprintf("%s::%s", c.FQMessageName(message, state), c.ToSnake(o.Name))
+			}
 		}
 	}
 	return ""
@@ -911,6 +966,11 @@ func (c *RustCodec) tryEnumValueRustdocLink(id string, state *api.APIState) stri
 }
 
 func (c *RustCodec) methodRustdocLink(m *api.Method, state *api.APIState) string {
+	// Sometimes we remove methods from a service. In that case we cannot
+	// reference the method.
+	if !c.GenerateMethod(m) {
+		return ""
+	}
 	idx := strings.LastIndex(m.ID, ".")
 	if idx == -1 {
 		return ""
@@ -1089,6 +1149,14 @@ func (c *RustCodec) Imports() []string {
 
 func (c *RustCodec) NotForPublication() bool {
 	return c.DoNotPublish
+}
+
+func (c *RustCodec) GenerateMethod(m *api.Method) bool {
+	// Ignore methods without HTTP annotations, we cannot generate working
+	// RPCs for them.
+	// TODO(#499) - switch to explicitly excluding such functions. Easier to
+	//     find them and fix them that way.
+	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
 }
 
 // The list of Rust keywords and reserved words can be found at:

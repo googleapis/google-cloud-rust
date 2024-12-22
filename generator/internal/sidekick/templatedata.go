@@ -183,8 +183,12 @@ func newTemplateData(model *api.API, c language.Codec) *TemplateData {
 }
 
 func newService(s *api.Service, c language.Codec, state *api.APIState) *Service {
+	// Some codecs skip some methods.
+	methods := filterSlice(s.Methods, func(m *api.Method) bool {
+		return c.GenerateMethod(m)
+	})
 	return &Service{
-		Methods: mapSlice(s.Methods, func(m *api.Method) *Method {
+		Methods: mapSlice(methods, func(m *api.Method) *Method {
 			return newMethod(m, c, state)
 		}),
 		NameToSnake:         c.ToSnake(s.Name),
@@ -322,6 +326,7 @@ func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	}
 	return result
 }
+
 func mapSlice[T, R any](s []T, f func(T) R) []R {
 	r := make([]R, len(s))
 	for i, v := range s {

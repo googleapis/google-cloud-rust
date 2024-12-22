@@ -348,16 +348,16 @@ func TestRust_FieldAttributes(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
 
-		"f_bytes":          `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"f_bytes_optional": `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
+		"f_bytes":          `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
 
-		"f_string":          ``,
-		"f_string_optional": ``,
-		"f_string_repeated": ``,
+		"f_string":          `#[serde(skip_serializing_if = "String::is_empty")]`,
+		"f_string_optional": `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -481,7 +481,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 	api := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"target":      ``,
+		"target":      `#[serde(skip_serializing_if = "Option::is_none")]`,
 		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
@@ -534,15 +534,32 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				TypezID:  ".google.protobuf.StringValue",
 				Optional: true,
 			},
+			{
+				Name:     "f_repeated_any",
+				JSONName: "fRepeatedAny",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Optional: false,
+				Repeated: true,
+			},
+			{
+				Name:     "f_any",
+				JSONName: "fAny",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Optional: true,
+			},
 		},
 	}
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":  `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64": `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_bytes":  `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_string": ``,
+		"f_int64":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64":       `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"f_bytes":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
+		"f_string":       `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"f_repeated_any": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
+		"f_any":          `#[serde(skip_serializing_if = "Option::is_none")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -584,8 +601,8 @@ func TestRust_FieldLossyName(t *testing.T) {
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"data":       `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"data":       `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
@@ -632,7 +649,7 @@ func TestRust_SyntheticField(t *testing.T) {
 	api := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"updateMask":  ``,
+		"updateMask":  `#[serde(skip_serializing_if = "Option::is_none")]`,
 		"project":     `#[serde(skip)]`,
 		"data_crc32c": `#[serde(skip)]`,
 	}
@@ -1066,10 +1083,12 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [Enum][test.v1.SomeMessage.SomeEnum]
 [Message][test.v1.SomeMessage] repeated
 [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
+[SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
 [ExternalService][google.iam.v1.Iampolicy]
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
 [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
+[SomeService.CreateBar][test.v1.SomeService.CreateBar]
 `
 	want := []string{
 		"///",
@@ -1078,10 +1097,12 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
 		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
 		"/// [ExternalService][google.iam.v1.Iampolicy]",
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
+		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
 		"///",
 		"///",
 		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
@@ -1090,8 +1111,11 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
 		"/// [test.v1.SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
 		"/// [test.v1.SomeService]: crate::traits::SomeService",
+		// Skipped because the method is skipped
+		// "/// [test.v1.SomeService.CreateBar]: crate::traits::SomeService::create_bar",
 		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
 	}
 
@@ -1136,19 +1160,45 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		Values: []*api.EnumValue{enumValue},
 	}
 	enumValue.Parent = someEnum
+	response := &api.Field{
+		Name:    "response",
+		ID:      ".test.v1.SomeMessage.response",
+		IsOneOf: true,
+	}
+	errorz := &api.Field{
+		Name:    "error",
+		ID:      ".test.v1.SomeMessage.error",
+		IsOneOf: true,
+	}
 	someMessage := &api.Message{
 		Name:  "SomeMessage",
 		ID:    ".test.v1.SomeMessage",
 		Enums: []*api.Enum{someEnum},
 		Fields: []*api.Field{
-			{Name: "unused"}, {Name: "field"},
+			{Name: "unused"}, {Name: "field"}, response, errorz,
+		},
+		OneOfs: []*api.OneOf{
+			{
+				Name:   "result",
+				ID:     ".test.v1.SomeMessage.result",
+				Fields: []*api.Field{response, errorz},
+			},
 		},
 	}
 	someService := &api.Service{
 		Name: "SomeService",
 		ID:   ".test.v1.SomeService",
 		Methods: []*api.Method{
-			{Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo"},
+			{
+				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/foo"),
+					},
+				},
+			},
+			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
 		},
 	}
 	a := newTestAPI(

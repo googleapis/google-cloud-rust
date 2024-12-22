@@ -22,4 +22,50 @@
 ///
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
-pub struct RequestOptions;
+pub struct RequestOptions {
+    user_agent: Option<String>,
+}
+
+impl RequestOptions {
+    /// Prepends this prefix to the user agent header value.
+    pub fn set_user_agent<T: Into<String>>(&mut self, v: T) {
+        self.user_agent = Some(v.into());
+    }
+
+    /// Gets the current user-agent prefix
+    pub fn user_agent_prefix(&self) -> &Option<String> {
+        &self.user_agent
+    }
+}
+
+/// Implementations of this trait provide setters to configure request options.
+///
+/// The Google Cloud Client Libraries for Rust provide a builder for each RPC.
+/// These builders can be used to set the request parameters, e.g., the name of
+/// the resource targeted by the RPC, as well as any options affecting the
+/// request, such as additional headers or timeouts.
+pub trait RequestOptionsBuilder {
+    /// Set the user agent header.
+    fn with_user_agent<T: Into<String>>(self, v: T) -> Self;
+}
+
+/// Simplify implementation of the [RequestOptionsBuilder] trait in generated
+/// code.
+///
+/// This is an implementation detail, most applications have little need to
+/// worry about or use this trait.
+pub trait RequestBuilder {
+    fn request_options(&mut self) -> &mut RequestOptions;
+}
+
+/// Implements the [RequestOptionsBuilder] trait for any [RequestBuilder]
+/// implementation.
+impl<T> RequestOptionsBuilder for T
+where
+    T: RequestBuilder,
+{
+    fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
+        self.request_options().set_user_agent(v);
+        self
+    }
+}

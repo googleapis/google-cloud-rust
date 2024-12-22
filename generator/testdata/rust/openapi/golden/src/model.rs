@@ -25,9 +25,11 @@
 pub struct ListLocationsResponse {
 
     /// A list of locations that matches the specified filter in the request.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub locations: Vec<crate::model::Location>,
 
     /// The standard List next-page token.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub next_page_token: Option<String>,
 }
 
@@ -62,13 +64,16 @@ pub struct Location {
 
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
     /// The canonical id for this location. For example: `"us-east1"`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub location_id: Option<String>,
 
     /// The friendly name for this location, typically a nearby city name.
     /// For example, "Tokyo".
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub display_name: Option<String>,
 
     /// Cross-service attributes for the location. For example
@@ -81,6 +86,7 @@ pub struct Location {
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<wkt::Any>,
 }
 
@@ -126,14 +132,17 @@ pub struct ListSecretsResponse {
 
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub secrets: Vec<crate::model::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretsRequest.page_token to retrieve the next page.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub next_page_token: Option<String>,
 
     /// The total number of Secrets but 0 when the
     /// ListSecretsRequest.filter field is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_size: Option<i32>,
 }
 
@@ -177,14 +186,17 @@ impl gax::paginator::PageableResponse for ListSecretsResponse {
 pub struct Secret {
 
     /// Output only. The resource name of the Secret in the format `projects/_*_/secrets/*`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
     /// Optional. Immutable. The replication policy of the secret data attached to the Secret.
     ///
     /// The replication policy cannot be changed after the Secret has been created.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub replication: Option<crate::model::Replication>,
 
     /// Output only. The time at which the Secret was created.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub create_time: Option<wkt::Timestamp>,
 
     /// The labels assigned to this Secret.
@@ -203,20 +215,25 @@ pub struct Secret {
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub topics: Vec<crate::model::Topic>,
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expire_time: Option<wkt::Timestamp>,
 
     /// Input only. The TTL for the Secret.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ttl: Option<wkt::Duration>,
 
     /// Optional. Etag of the currently stored Secret.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
 
     /// Optional. Rotation policy attached to the Secret. May be excluded if there is no
     /// rotation policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rotation: Option<crate::model::Rotation>,
 
     /// Optional. Mapping from version alias to version name.
@@ -255,6 +272,7 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub version_destroy_ttl: Option<wkt::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised Secrets.
@@ -263,6 +281,7 @@ pub struct Secret {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 }
 
@@ -355,9 +374,11 @@ impl Secret {
 pub struct Replication {
 
     /// The Secret will automatically be replicated without any restrictions.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub automatic: Option<crate::model::Automatic>,
 
     /// The Secret will only be replicated into the locations specified.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_managed: Option<crate::model::UserManaged>,
 }
 
@@ -390,6 +411,7 @@ pub struct Automatic {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 }
 
@@ -421,6 +443,7 @@ pub struct CustomerManagedEncryption {
     /// type, Cloud KMS CryptoKeys must reside in `global`.
     ///
     /// The expected format is `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/*`.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub kms_key_name: String,
 }
 
@@ -444,6 +467,7 @@ pub struct UserManaged {
     /// Required. The list of Replicas for this Secret.
     ///
     /// Cannot be empty.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub replicas: Vec<crate::model::Replica>,
 }
 
@@ -465,6 +489,7 @@ pub struct Replica {
 
     /// The canonical IDs of the location to replicate data.
     /// For example: `"us-east1"`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 
     /// Optional. The customer-managed encryption configuration of the User-Managed
@@ -474,6 +499,7 @@ pub struct Replica {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
 }
 
@@ -505,6 +531,7 @@ pub struct Topic {
     /// Secret Manager service agent must have the `pubsub.topic.publish`
     /// permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
 }
 
@@ -531,6 +558,7 @@ pub struct Rotation {
     /// years).
     ///
     /// next_rotation_time MUST  be set if rotation_period is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub next_rotation_time: Option<wkt::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
@@ -539,6 +567,7 @@ pub struct Rotation {
     /// If rotation_period is set, next_rotation_time must be set.
     /// next_rotation_time will be advanced by this period when the service
     /// automatically sends rotation notifications.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub rotation_period: Option<wkt::Duration>,
 }
 
@@ -565,6 +594,7 @@ impl Rotation {
 pub struct AddSecretVersionRequest {
 
     /// Required. The secret payload of the SecretVersion.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub payload: Option<crate::model::SecretPayload>,
 
     /// The `{project}` component of the target path.
@@ -622,6 +652,7 @@ impl AddSecretVersionRequest {
 pub struct SecretPayload {
 
     /// The secret data. Must be no larger than 64KiB.
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde_as(as = "Option<serde_with::base64::Base64>")]
     pub data: Option<bytes::Bytes>,
 
@@ -636,6 +667,7 @@ pub struct SecretPayload {
     /// safely downconverted to uint32 in languages that support this type.
     /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     #[serde(rename = "dataCrc32c")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
     pub data_crc_32_c: Option<i64>,
 }
@@ -667,28 +699,35 @@ pub struct SecretVersion {
     ///
     /// SecretVersion IDs in a Secret start at 1 and
     /// are incremented for each subsequent version of the secret.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
     /// Output only. The time at which the SecretVersion was created.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub create_time: Option<wkt::Timestamp>,
 
     /// Output only. The time this SecretVersion was destroyed.
     /// Only present if state is
     /// DESTROYED.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub destroy_time: Option<wkt::Timestamp>,
 
     /// Output only. The current state of the SecretVersion.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub state: Option<String>,
 
     /// The replication status of the SecretVersion.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub replication_status: Option<crate::model::ReplicationStatus>,
 
     /// Output only. Etag of the currently stored SecretVersion.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
 
     /// Output only. True if payload checksum specified in SecretPayload object has been
     /// received by SecretManagerService on
     /// SecretManagerService.AddSecretVersion.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub client_specified_payload_checksum: Option<bool>,
 
     /// Optional. Output only. Scheduled destroy time for secret version.
@@ -696,11 +735,13 @@ pub struct SecretVersion {
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub scheduled_destroy_time: Option<wkt::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
     /// a Regionalised Secret.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
@@ -773,6 +814,7 @@ pub struct ReplicationStatus {
     ///
     /// Only populated if the parent Secret has an automatic replication
     /// policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub automatic: Option<crate::model::AutomaticStatus>,
 
     /// Describes the replication status of a SecretVersion with
@@ -780,6 +822,7 @@ pub struct ReplicationStatus {
     ///
     /// Only populated if the parent Secret has a user-managed replication
     /// policy.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_managed: Option<crate::model::UserManagedStatus>,
 }
 
@@ -810,6 +853,7 @@ pub struct AutomaticStatus {
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
@@ -832,6 +876,7 @@ pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to encrypt the
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub kms_key_version_name: String,
 }
 
@@ -856,6 +901,7 @@ impl CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
 
     /// Output only. The list of replica statuses for the SecretVersion.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub replicas: Vec<crate::model::ReplicaStatus>,
 }
 
@@ -877,10 +923,12 @@ pub struct ReplicaStatus {
 
     /// Output only. The canonical ID of the replica location.
     /// For example: `"us-east1"`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
@@ -927,14 +975,17 @@ pub struct ListSecretVersionsResponse {
 
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub versions: Vec<crate::model::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretVersionsRequest.page_token to retrieve the next page.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub next_page_token: Option<String>,
 
     /// The total number of SecretVersions but 0 when the
     /// ListSecretsRequest.filter field is set.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub total_size: Option<i32>,
 }
 
@@ -976,9 +1027,11 @@ pub struct AccessSecretVersionResponse {
     /// The resource name of the SecretVersion in the format
     /// `projects/_*_/secrets/_*_/versions/*` or
     /// `projects/_*_/locations/_*_/secrets/_*_/versions/*`.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
     /// Secret payload
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub payload: Option<crate::model::SecretPayload>,
 }
 
@@ -1007,6 +1060,7 @@ pub struct DisableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
 
     /// The `{project}` component of the target path.
@@ -1077,6 +1131,7 @@ pub struct EnableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
 
     /// The `{project}` component of the target path.
@@ -1147,6 +1202,7 @@ pub struct DestroySecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub etag: Option<String>,
 
     /// The `{project}` component of the target path.
@@ -1218,6 +1274,7 @@ pub struct SetIamPolicyRequest {
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Google Cloud services (such as Projects)
     /// might reject them.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub policy: Option<crate::model::Policy>,
 
     /// OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
@@ -1225,6 +1282,7 @@ pub struct SetIamPolicyRequest {
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub update_mask: Option<wkt::FieldMask>,
 
     /// The `{project}` component of the target path.
@@ -1380,6 +1438,7 @@ pub struct Policy {
     ///
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<i32>,
 
     /// Associates a list of `members`, or principals, with a `role`. Optionally,
@@ -1392,9 +1451,11 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub bindings: Vec<crate::model::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub audit_configs: Vec<crate::model::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
@@ -1409,6 +1470,7 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde_as(as = "Option<serde_with::base64::Base64>")]
     pub etag: Option<bytes::Bytes>,
 }
@@ -1454,6 +1516,7 @@ pub struct Binding {
     /// [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For
     /// a list of the available pre-defined roles, see
     /// [here](https://cloud.google.com/iam/docs/understanding-roles).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
 
     /// Specifies the principals requesting access for a Google Cloud resource.
@@ -1538,6 +1601,7 @@ pub struct Binding {
     /// * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`:
     ///   Deleted single identity in a workforce identity pool. For example,
     ///   `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub members: Vec<String>,
 
     /// The condition that is associated with this binding.
@@ -1552,6 +1616,7 @@ pub struct Binding {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub condition: Option<crate::model::Expr>,
 }
 
@@ -1623,19 +1688,23 @@ pub struct Expr {
 
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub expression: Option<String>,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub location: Option<String>,
 }
 
@@ -1728,9 +1797,11 @@ pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub service: Option<String>,
 
     /// The configuration for logging of each type of permission.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
 }
 
@@ -1777,11 +1848,13 @@ impl AuditConfig {
 pub struct AuditLogConfig {
 
     /// The log type that this config enables.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub log_type: Option<String>,
 
     /// Specifies the identities that do not cause logging for this type of
     /// permission.
     /// Follows the same format of Binding.members.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub exempted_members: Vec<String>,
 }
 
@@ -1811,6 +1884,7 @@ pub struct TestIamPermissionsRequest {
     /// wildcards (such as `*` or `storage.*`) are not allowed. For more
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub permissions: Vec<String>,
 
     /// The `{project}` component of the target path.
@@ -1868,6 +1942,7 @@ pub struct TestIamPermissionsResponse {
 
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     pub permissions: Vec<String>,
 }
 
@@ -2040,6 +2115,7 @@ impl ListSecretsRequest {
 pub struct CreateSecretRequest {
 
     /// The request body.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_body: Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
@@ -2158,6 +2234,7 @@ impl ListSecretsByProjectAndLocationRequest {
 pub struct CreateSecretByProjectAndLocationRequest {
 
     /// The request body.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_body: Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
@@ -2298,6 +2375,7 @@ impl DeleteSecretRequest {
 pub struct UpdateSecretRequest {
 
     /// The request body.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_body: Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
@@ -2458,6 +2536,7 @@ impl DeleteSecretByProjectAndLocationAndSecretRequest {
 pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
 
     /// The request body.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub request_body: Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.

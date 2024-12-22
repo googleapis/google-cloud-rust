@@ -17,32 +17,18 @@
 /// A dyn-compatible, crate-private version of `IAMPolicy`.
 #[async_trait::async_trait]
 pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
-    /// Sets the access control policy on the specified resource. Replaces any
-    /// existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     async fn set_iam_policy(
         &self,
         req: crate::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy>;
 
-    /// Gets the access control policy for a resource.
-    /// Returns an empty policy if the resource exists and does not have a policy
-    /// set.
     async fn get_iam_policy(
         &self,
         req: crate::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions
     ) -> crate::Result<crate::model::Policy>;
 
-    /// Returns permissions that a caller has on the specified resource.
-    /// If the resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
     async fn test_iam_permissions(
         &self,
         req: crate::model::TestIamPermissionsRequest,

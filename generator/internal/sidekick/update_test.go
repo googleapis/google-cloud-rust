@@ -80,6 +80,9 @@ func TestUpdateRootConfig(t *testing.T) {
 		},
 		Codec: map[string]string{},
 	}
+	if err := writeSidekickToml(".", rootConfig); err != nil {
+		t.Fatal(err)
+	}
 
 	if err := updateRootConfig(rootConfig); err != nil {
 		t.Fatal(err)

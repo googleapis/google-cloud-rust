@@ -584,6 +584,7 @@ name = "gcp-sdk-auth"
 version = "0.1.0-rc2"
 dependencies = [
  "async-trait",
+ "axum",
  "http",
  "lazy_static",
  "mockall",
@@ -609,10 +610,12 @@ name = "gcp-sdk-gax"
 version = "0.1.0-rc2"
 dependencies = [
  "axum",
+ "base64",
  "built",
  "bytes",
  "futures",
  "gcp-sdk-gax",
+ "gcp-sdk-rpc",
  "gcp-sdk-wkt",
  "google-cloud-auth",
  "http",
@@ -640,7 +643,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
@@ -657,13 +659,35 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
 [[package]]
 name = "gcp-sdk-longrunning"
-version = "0.0.0"
+version = "0.1.0-rc2"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
+name = "gcp-sdk-rpc"
+version = "0.1.0-rc2"
+dependencies = [
+ "bytes",
+ "gcp-sdk-wkt",
+ "serde",
+ "serde_with",
+]
 
 [[package]]
 name = "gcp-sdk-secretmanager-v1"
@@ -680,7 +704,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 
@@ -688,16 +711,10 @@ dependencies = [
 name = "gcp-sdk-type"
 version = "0.1.0-rc2"
 dependencies = [
- "async-trait",
  "bytes",
  "gcp-sdk-wkt",
- "lazy_static",
- "reqwest",
  "serde",
- "serde_json",
  "serde_with",
- "time",
- "tracing",
 ]
 
 [[package]]
@@ -1135,7 +1152,9 @@ dependencies = [
  "mockall",
  "rand",
  "secretmanager-openapi-v1",
+ "serde",
  "serde_json",
+ "serde_with",
  "test-case",
  "tokio",
  "tracing",
@@ -1809,7 +1828,6 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
- "time",
  "tracing",
 ]
 

@@ -191,9 +191,12 @@ const (
 	fileDescriptorMessageType = 4
 	fileDescriptorEnumType    = 5
 	fileDescriptorService     = 6
+	fileDescriptorExtension   = 7
+	fileDescriptorOptions     = 8
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#ServiceDescriptorProto
 	serviceDescriptorProtoMethod = 2
+	serviceDescriptorProtoOption = 3
 
 	// From https://pkg.go.dev/google.golang.org/protobuf/types/descriptorpb#DescriptorProto
 	messageDescriptorField      = 2
@@ -310,8 +313,11 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			case fileDescriptorService:
 				sFQN := fFQN + "." + f.GetService()[p[1]].GetName()
 				addServiceDocumentation(state, p[2:], loc.GetLeadingComments(), sFQN)
+			case fileDescriptorExtension, fileDescriptorOptions:
+				// We ignore this type of documentation because it produces no
+				// output in the generated code.
 			default:
-				slog.Warn("file dropped documentation", "loc", p, "docs", loc.GetLeadingComments())
+				slog.Warn("dropped unknown documentation type", "loc", p, "docs", loc.GetLeadingComments())
 			}
 		}
 		result.Services = append(result.Services, fileServices...)
@@ -437,11 +443,13 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		return nil
 	}
 	method := &api.Method{
-		ID:           mFQN,
-		PathInfo:     pathInfo,
-		Name:         m.GetName(),
-		InputTypeID:  m.GetInputType(),
-		OutputTypeID: m.GetOutputType(),
+		ID:                  mFQN,
+		PathInfo:            pathInfo,
+		Name:                m.GetName(),
+		InputTypeID:         m.GetInputType(),
+		OutputTypeID:        m.GetOutputType(),
+		ClientSideStreaming: m.GetClientStreaming(),
+		ServerSideStreaming: m.GetServerStreaming(),
 	}
 	state.MethodByID[mFQN] = method
 	return method
@@ -531,14 +539,22 @@ func processEnum(state *api.APIState, e *descriptorpb.EnumDescriptorProto, eFQN,
 }
 
 func addServiceDocumentation(state *api.APIState, p []int32, doc string, sFQN string) {
-	if len(p) == 0 {
+	switch {
+	case len(p) == 0:
 		// This is a comment for a service
 		state.ServiceByID[sFQN].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else if len(p) == 2 && p[0] == serviceDescriptorProtoMethod {
+	case p[0] == serviceDescriptorProtoMethod && len(p) == 2:
 		// This is a comment for a method
 		state.ServiceByID[sFQN].Methods[p[1]].Documentation = trimLeadingSpacesInDocumentation(doc)
-	} else {
-		slog.Warn("service dropped documentation", "loc", p, "docs", doc)
+	case p[0] == serviceDescriptorProtoMethod:
+		// A comment for something within a method (options, arguments, etc).
+		// Ignored, as these comments do not refer to any artifact in the
+		// generated code.
+	case p[0] == serviceDescriptorProtoOption:
+		// This is a comment for a service option. Ignored, as these comments do
+		// not refer to any artifact in the generated code.
+	default:
+		slog.Warn("service dropped unknown documentation", "loc", p, "docs", doc)
 	}
 }
 

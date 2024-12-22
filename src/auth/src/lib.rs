@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google Cloud SDK for Rust - Authentication Components
+//! Google Cloud Client Libraries for Rust - Authentication Components
 //!
 //! This crate contains types and functions used to authenticate applications
 //! on Google Cloud.  The SDK clients consume an implementation of

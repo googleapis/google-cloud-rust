@@ -709,6 +709,53 @@ func TestProtobuf_Service(t *testing.T) {
 					BodyFieldPath:   "foo",
 				},
 			},
+			{
+				Name:          "UploadFoos",
+				ID:            ".test.TestService.UploadFoos",
+				Documentation: "A client-side streaming RPC.",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".test.Foo",
+				PathInfo: &api.PathInfo{
+					Verb:            "POST",
+					PathTemplate:    []api.PathSegment{},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+				ClientSideStreaming: true,
+			},
+			{
+				Name:          "DownloadFoos",
+				ID:            ".test.TestService.DownloadFoos",
+				Documentation: "A server-side streaming RPC.",
+				InputTypeID:   ".test.GetFooRequest",
+				OutputTypeID:  ".test.Foo",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("name"),
+						api.NewVerbPathSegment("Download"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "",
+				},
+				ServerSideStreaming: true,
+			},
+			{
+				Name:          "ChatLike",
+				ID:            ".test.TestService.ChatLike",
+				Documentation: "A bidi streaming RPC.",
+				InputTypeID:   ".test.Foo",
+				OutputTypeID:  ".test.Foo",
+				PathInfo: &api.PathInfo{
+					Verb:            "POST",
+					PathTemplate:    []api.PathSegment{},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "*",
+				},
+				ClientSideStreaming: true,
+				ServerSideStreaming: true,
+			},
 		},
 	})
 }

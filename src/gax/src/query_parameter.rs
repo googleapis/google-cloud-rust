@@ -12,6 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Defines traits and helpers to serialize query parameters.
+//!
+//! Query parameters in the Google APIs can be types other than strings and
+//! integers. We need a helper to efficiently serialize parameters of different
+//! types. We also want the generator to be relatively simple.
+//!
+//! The Rust SDK generator produces query parameters as optional fields in the
+//! request object. The generator code can be simplified if all the query
+//! parameters can be treated uniformly, without any conditionally generated
+//! code to handle different types.
+//!
+//! This module defines some traits and helpers to simplify the code generator.
+//!
+//! The types are not intended for application developers to use. They are
+//! public because we will generate many crates (roughly one per service), and
+//! most of these crates will use these helpers.
+
 type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 
 /// Adds a query parameter to a builder.
@@ -118,6 +135,9 @@ mod tests {
         let builder = QueryParameter::add(&None::<u64>, builder, "test")?;
         let builder = QueryParameter::add(&None::<f32>, builder, "test")?;
         let builder = QueryParameter::add(&None::<f64>, builder, "test")?;
+        let builder = QueryParameter::add(&None::<String>, builder, "test")?;
+        let builder = QueryParameter::add(&None::<bool>, builder, "test")?;
+        let builder = QueryParameter::add(&None::<bytes::Bytes>, builder, "test")?;
         let r = builder.build()?;
         assert_eq!(None, r.url().query());
 
@@ -135,12 +155,31 @@ mod tests {
         let builder = QueryParameter::add(&Some(42_u64), builder, "u64")?;
         let builder = QueryParameter::add(&Some(42_f32), builder, "f32")?;
         let builder = QueryParameter::add(&Some(42_f64), builder, "f64")?;
+        let builder = QueryParameter::add(&Some("42".to_string()), builder, "string")?;
+        let builder = QueryParameter::add(&Some(true), builder, "bool")?;
+        let builder = QueryParameter::add(
+            &Some(bytes::Bytes::from(
+                "the quick brown fox jumps over the lazy dog",
+            )),
+            builder,
+            "bytes",
+        )?;
         let r = builder.build()?;
         assert_eq!(
             Some(
-                ["i32=42", "i64=42", "u32=42", "u64=42", "f32=42", "f64=42",]
-                    .join("&")
-                    .as_str()
+                [
+                    "i32=42",
+                    "i64=42",
+                    "u32=42",
+                    "u64=42",
+                    "f32=42",
+                    "f64=42",
+                    "string=42",
+                    "bool=true",
+                    "bytes=dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
+                ]
+                .join("&")
+                .as_str()
             ),
             r.url().query()
         );

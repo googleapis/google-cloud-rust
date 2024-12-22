@@ -18,11 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// An abstract interface that provides location-related information for
-/// a service. Service-specific metadata is provided through the
-/// [Location.metadata][google.cloud.location.Location.metadata] field.
-///
-/// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
+/// Implements [Locations](crate::traits::) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
     inner: gax::http_client::ReqwestClient,
@@ -44,11 +40,10 @@ impl Locations {
 }
 
 impl crate::traits::Locations for Locations {
-    /// Lists information about the supported locations for this service.
     async fn list_locations(
         &self,
         req: crate::model::ListLocationsRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListLocationsResponse> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
@@ -59,14 +54,17 @@ impl crate::traits::Locations for Locations {
         let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
         let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
         let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
-        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+        self.inner.execute(
+            builder,
+            None::<gax::http_client::NoBody>,
+            options,
+        ).await
     }
 
-    /// Gets information about a location.
     async fn get_location(
         &self,
         req: crate::model::GetLocationRequest,
-        _options: gax::options::RequestOptions,
+        options: gax::options::RequestOptions,
     ) -> Result<crate::model::Location> {
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
@@ -74,7 +72,11 @@ impl crate::traits::Locations for Locations {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        self.inner.execute(builder, None::<gax::http_client::NoBody>).await
+        self.inner.execute(
+            builder,
+            None::<gax::http_client::NoBody>,
+            options,
+        ).await
     }
 
 }
