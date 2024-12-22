@@ -149,6 +149,10 @@ func (c *GoCodec) FieldType(f *api.Field, state *api.APIState) string {
 	return out
 }
 
+func (c *GoCodec) PrimitiveFieldType(f *api.Field, state *api.APIState) string {
+	return c.FieldType(f, state)
+}
+
 func (c *GoCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
 	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
 }

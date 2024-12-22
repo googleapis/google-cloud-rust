@@ -26,7 +26,6 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
 )
@@ -421,13 +420,21 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 }
 
 func (c *RustCodec) FieldType(f *api.Field, state *api.APIState) string {
-	if f.IsOneOf {
+	return c.fieldType(f, state, false)
+}
+
+func (c *RustCodec) PrimitiveFieldType(f *api.Field, state *api.APIState) string {
+	return c.fieldType(f, state, true)
+}
+
+func (c *RustCodec) fieldType(f *api.Field, state *api.APIState, primitive bool) string {
+	if !primitive && f.IsOneOf {
 		return c.wrapOneOfField(f, c.baseFieldType(f, state))
 	}
-	if f.Repeated {
+	if !primitive && f.Repeated {
 		return fmt.Sprintf("Vec<%s>", c.baseFieldType(f, state))
 	}
-	if f.Optional {
+	if !primitive && f.Optional {
 		return fmt.Sprintf("Option<%s>", c.baseFieldType(f, state))
 	}
 	return c.baseFieldType(f, state)
@@ -1047,30 +1054,12 @@ func (c *RustCodec) Validate(api *api.API) error {
 
 // RustContext contains Rust specific data that can be referenced in templates.
 type RustContext struct {
-	HasFeatures       bool
-	Features          []string
-	RemoveTypeWrapper mustache.LambdaFunc
-}
-
-// removeTypeWrapper removes a container type around another. For example it
-// would transform `Vec<String>` to `String`.
-func removeTypeWrapper(text string, render mustache.RenderFunc) (string, error) {
-	res, err := render(text)
-	if err != nil {
-		return "", err
-	}
-	wrapperStart := strings.Index(res, "<")
-	wrapperEnd := strings.LastIndex(res, ">")
-	if wrapperStart == -1 || wrapperEnd == -1 {
-		return "", fmt.Errorf("unable to find type wrapper")
-	}
-	return res[wrapperStart+1 : wrapperEnd], nil
+	HasFeatures bool
+	Features    []string
 }
 
 func (c *RustCodec) AdditionalContext(api *api.API) any {
-	rustContext := &RustContext{
-		RemoveTypeWrapper: removeTypeWrapper,
-	}
+	rustContext := &RustContext{}
 	c.addStreamingFeature(rustContext, api)
 	return rustContext
 }

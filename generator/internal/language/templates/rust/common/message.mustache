@@ -68,7 +68,7 @@ impl {{Name}} {
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for {{Name}} {
     {{#PageableItem}}
-    type PageItem = {{#RemoveTypeWrapper}}{{{FieldType}}}{{/RemoveTypeWrapper}};
+    type PageItem = {{{PrimitiveFieldType}}};
 
     fn items(self) -> Vec<Self::PageItem> {
         self.{{{NameToSnake}}}

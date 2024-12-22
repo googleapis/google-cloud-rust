@@ -109,6 +109,7 @@ type Field struct {
 	DocLines              []string
 	FieldAttributes       []string
 	FieldType             string
+	PrimitiveFieldType    string
 	JSONName              string
 	AsQueryParameter      string
 }
@@ -293,6 +294,7 @@ func newField(field *api.Field, c language.Codec, state *api.APIState) *Field {
 		DocLines:              c.FormatDocComments(field.Documentation, state),
 		FieldAttributes:       c.FieldAttributes(field, state),
 		FieldType:             c.FieldType(field, state),
+		PrimitiveFieldType:    c.PrimitiveFieldType(field, state),
 		JSONName:              field.JSONName,
 		AsQueryParameter:      c.AsQueryParameter(field, state),
 	}

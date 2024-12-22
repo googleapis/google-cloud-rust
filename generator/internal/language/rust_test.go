@@ -718,6 +718,15 @@ func TestRust_FieldType(t *testing.T) {
 		"f_timestamp":          "Option<gax_wkt::Timestamp>",
 		"f_timestamp_repeated": "Vec<gax_wkt::Timestamp>",
 	}
+	expectedPrimitiveTypes := map[string]string{
+		"f_int32":              "i32",
+		"f_int32_optional":     "i32",
+		"f_int32_repeated":     "i32",
+		"f_msg":                "crate::model::Target",
+		"f_msg_repeated":       "crate::model::Target",
+		"f_timestamp":          "gax_wkt::Timestamp",
+		"f_timestamp_repeated": "gax_wkt::Timestamp",
+	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
@@ -726,6 +735,15 @@ func TestRust_FieldType(t *testing.T) {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
 		got := c.FieldType(field, api.State)
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+
+		want, ok = expectedPrimitiveTypes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got = c.PrimitiveFieldType(field, api.State)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -1314,45 +1332,4 @@ func TestRust_EnumNames(t *testing.T) {
 	if got := c.FQEnumName(non_nested, api.State); got != "crate::model::Code" {
 		t.Errorf("mismatched enum name, got=%s, want=%s", got, "crate::model::Code")
 	}
-}
-
-func TestRemoveTypeWrapper(t *testing.T) {
-	tests := []struct {
-		name    string
-		input   string
-		want    string
-		wantErr bool
-	}{
-		{
-			name:  "happy path",
-			input: "Vec<String>",
-			want:  "String",
-		},
-		{
-			name:    "Missing starting bracket",
-			input:   "VecString>",
-			wantErr: true,
-		},
-		{
-			name:    "Missing starting bracket",
-			input:   "Vec<String",
-			wantErr: true,
-		},
-	}
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			got, err := removeTypeWrapper(test.input, func(text string) (string, error) {
-				return text, nil
-			})
-			if (err != nil) != test.wantErr {
-				t.Errorf("removeTypeWrapper() error = %v, wantErr %v", err, test.wantErr)
-				return
-			}
-			if got != test.want {
-				t.Errorf("removeTypeWrapper() = %v, want %v", got, test.want)
-			}
-
-		})
-	}
-
 }
