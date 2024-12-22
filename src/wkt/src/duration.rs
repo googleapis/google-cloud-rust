@@ -186,8 +186,8 @@ impl Duration {
             return Err(DurationError::Deserialize("missing trailing 's'".into()));
         }
         let digits = &value[..(value.len() - 1)];
-        let (sign, digits) = if digits.starts_with('-') {
-            (-1, &digits[1..])
+        let (sign, digits) = if let Some(stripped) = digits.strip_prefix('-') {
+            (-1, stripped)
         } else {
             (1, &digits[0..])
         };
@@ -200,9 +200,9 @@ impl Duration {
             .unwrap_or(0);
         let nanos = nanos
             .map(|s| {
-                let pad ="000000000"; 
-                format!("{s}{}", &pad[s.len()..])}
-            )
+                let pad = "000000000";
+                format!("{s}{}", &pad[s.len()..])
+            })
             .map(|s| s.parse::<i32>())
             .transpose()
             .map_err(|e| DurationError::Deserialize(format!("{e}")))?
@@ -465,7 +465,9 @@ mod test {
         assert!(got.is_err());
         let err = got.err().unwrap();
         match err {
-            DurationError::Deserialize(_) => { assert!(true) },
+            DurationError::Deserialize(_) => {
+                assert!(true)
+            }
             _ => assert!(false, "unexpected error {err:?}"),
         };
         Ok(())
