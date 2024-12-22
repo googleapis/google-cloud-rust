@@ -50,7 +50,7 @@ You will need to install `cargo-tarpaulin`:
 cargo install cargo-tarpaulin
 ```
 
-on macOS you need to enable an extra feature:
+On macOS you need to enable an extra feature:
 
 ```bash
 cargo install cargo-tarpaulin --features vendored-openssl
