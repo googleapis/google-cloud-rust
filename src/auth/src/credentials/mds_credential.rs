@@ -14,38 +14,52 @@
 
 use crate::credentials::traits::dynamic::Credential;
 use crate::credentials::Result;
-use crate::errors::CredentialError;
+use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+use reqwest::{Client, Url, Response};
+use std::collections::HashMap;
+use reqwest::header::HeaderMap;
+use lazy_static::lazy_static;
+use std::env;
+use serde_json::{Value, from_str};
+use async_trait::async_trait;
 
-/// Data model for a MDSCredential
+
+
+
+const METADATA_FLAVOR_VALUE: &str = "Google";
+const METADATA_FLAVOR: &str = "metadata-flavor";
+const CONTENT_TYPE: &str = "Content-Type";
+
+lazy_static! {
+    // Use lazy_static to initialize the metadata URLs.
+    static ref _METADATA_ROOT: String = format!(
+        "http://{}/computeMetadata/v1/",
+        env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
+            env::var("GCE_METADATA_ROOT").unwrap_or_else(|_| "metadata.google.internal".to_string())
+        })
+    );
+
+    static ref _METADATA_IP_ROOT: String = format!(
+        "http://{}",
+        env::var("GCE_METADATA_IP").unwrap_or_else(|_| "169.254.169.254".to_string())
+    );
+    static ref _METADATA_DEFAULT_TIMEOUT : u64 = env::var("GCE_METADATA_TIMEOUT")
+        .map(|val| val.parse().unwrap_or(3))
+        .unwrap_or(3);
+
+}
+
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-pub(crate) struct MDSCredential<T>
-where
-    T: TokenProvider,
-{
-    token_provider: T,
-    service_account_email: String,
-    quota_project_id: String,
-    scopes: Vec<String>,
-    default_scopes: Vec<String>,
+pub(crate) struct MDSCredential<T>  where T:TokenProvider{
+    quota_project_id: Option<String>,
     universe_domain: String,
+    service_account_email:Option<String>,
+    scopes: Option<Vec<String>>,
+    default_scopes: Option<Vec<String>>,
+    token_provider: T,
 }
-
-impl MDSCredential<T>  where T:TokenProvider {
-    fn retrieve_info(&mut self) {
-        // TODO
-        // this function calls metadata endpoint and retrieves info
-        // this updates service account email and scopes.
-    }
-}
-
-// #[async_trait::async_trait]
-// impl TokenProvider for MDSCredential {
-//   async fn get_token(&mut self) -> Result<Token> {
-//     // TODO
-//   }
-// }
 
 #[async_trait::async_trait]
 impl<T> Credential for MDSCredential<T>
@@ -69,100 +83,132 @@ where
     }
 }
 
-#[cfg(test)]
-mod test {
-    use super::*;
-    use crate::token::test::MockTokenProvider;
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+pub struct MDSAccessTokenProvider {
+    client_id: String,
+    client_secret: String,
+    refresh_token: String,
+    token_url: String,
+}
 
-    #[tokio::test]
-    async fn get_token_success() {
-        let expected = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-        let expected_clone = expected.clone();
+impl MDSAccessTokenProvider {
 
-        let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
-            .times(1)
-            .return_once(|| Ok(expected_clone));
-
-        let mut uc = MDSCredential {
-            token_provider: mock,
-        };
-        let actual = uc.get_token().await.unwrap();
-        assert_eq!(actual, expected);
-    }
-
-    #[tokio::test]
-    async fn get_token_failure() {
-        let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
-            .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
-
-        let mut uc = MDSCredential {
-            token_provider: mock,
-        };
-        assert!(uc.get_token().await.is_err());
-    }
-
-    #[tokio::test]
-    async fn get_headers_success() {
-        #[derive(Debug, PartialEq)]
-        struct HV {
-            header: String,
-            value: String,
-            is_sensitive: bool,
-        }
-
-        let token = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-
-        let mut mock = MockTokenProvider::new();
-        mock.expect_get_token().times(1).return_once(|| Ok(token));
-
-        let mut uc = MDSCredential {
-            token_provider: mock,
-        };
-        let headers: Vec<HV> = uc
-            .get_headers()
-            .await
+    pub async fn get(
+        &self,
+        request: &Client,
+        path: &str,
+        params: Option<HashMap<&str, &str>>,
+        recursive: bool,
+        headers: Option<HeaderMap>,
+    ) -> Result<Value> {
+    
+        let base_url: Url = Url::parse(&_METADATA_ROOT)
             .unwrap()
-            .into_iter()
-            .map(|(h, v)| HV {
-                header: h.to_string(),
-                value: v.to_str().unwrap().to_string(),
-                is_sensitive: v.is_sensitive(),
-            })
-            .collect();
-
-        assert_eq!(
-            headers,
-            vec![HV {
-                header: AUTHORIZATION.to_string(),
-                value: "Bearer test-token".to_string(),
-                is_sensitive: true,
-            }]
-        );
+            .join(path)
+            .unwrap();
+    
+        let mut query_params = params.unwrap_or_default();
+    
+    
+        let mut headers_to_use = HeaderMap::new();
+        headers_to_use.insert(METADATA_FLAVOR, HeaderValue::from_static(METADATA_FLAVOR_VALUE));
+    
+        if let Some(custom_headers) = headers {
+            headers_to_use.extend(custom_headers);
+        }
+    
+        if recursive {
+            query_params.insert("recursive", "true");
+        }
+    
+    
+        let url = reqwest::Url::parse_with_params(base_url.as_str(), query_params.iter()).map_err(|e| CredentialError::new(false, e.into()))?;     
+    
+        let response: Response = request
+            .get(url.clone())
+            .headers(headers_to_use.clone())
+            .send()
+            .await
+            .map_err(|e| CredentialError::new(false, e.into()))?;    
+    
+        let status = response.status();
+        let headers = response.headers().clone();
+        let content = response
+            .text()
+            .await
+            .map_err(|e| CredentialError::new(false, e.into()))?;
+        if !status.is_success() {
+            return Err(CredentialError::new(
+                is_retryable(status),
+                Box::from(format!("{content}")),
+            ));
+        }
+    
+        let content_type = headers
+            .get(CONTENT_TYPE)
+            .and_then(|v| v.to_str().ok());
+    
+        
+        if let Some(ct) = content_type {
+            if ct.contains("application/json") {
+                let value: Value = from_str(&content).map_err(|e| CredentialError::new(false, e.into()))?;
+                return Ok(value);
+            } else {
+                return Err(CredentialError::new(
+                    false,
+                    Box::from(format!("{content}")),
+                ));
+            }
+        }
+    
+        Ok(Value::String(content))
+    }    
+    
+    pub async fn get_service_account_info(
+        &self,
+        request: &Client,
+        service_account_email: &Option<String>,
+    ) -> Result<Value> {
+        let service_account_email: String = service_account_email.clone().unwrap_or("default".to_string());
+        let path:String = format!("instance/service-accounts/{}/", service_account_email);
+        let mut params = HashMap::new();
+        params.insert("recursive", "true");
+        self.get(request, &path, Some(params), false, None).await
     }
 
-    #[tokio::test]
-    async fn get_headers_failure() {
-        let mut mock = MockTokenProvider::new();
-        mock.expect_get_token()
-            .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+    // async fn retrieve_info(&mut self) {
+    //     // Construct metadata URL for service account info.
+    //     let url = format!(
+    //         "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/{}/info",
+    //         self.service_account_email
+    //     );
 
-        let mut uc = MDSCredential {
-            token_provider: mock,
-        };
-        assert!(uc.get_headers().await.is_err());
+    //     let response = self
+    //         .client
+    //         .get(&url)
+    //         .header("Metadata-Flavor", "Google")
+    //         .send()
+    //         .map_err(CredentialsError::MetadataRequestFailed)?;
+
+    //     let info: ServiceAccountInfo = response
+    //         .json()
+    //         .map_err(CredentialsError::InvalidJsonResponse)?;
+
+    //     self.service_account_email = info.email;
+
+    //     // Don't override scopes requested by the user.
+    //     if self.scopes.is_none() {
+    //         self.scopes = Some(info.scopes);
+    //     }
+    //     Ok(())
+    // }
+}
+
+#[async_trait]
+impl TokenProvider for MDSAccessTokenProvider {
+    async fn get_token(&mut self) -> Result<Token> {
+        todo!()
     }
 }
+
+

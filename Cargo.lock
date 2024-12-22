@@ -585,7 +585,11 @@ version = "0.1.0-rc2"
 dependencies = [
  "async-trait",
  "http",
+ "lazy_static",
  "mockall",
+ "reqwest",
+ "serde",
+ "serde_json",
  "test-case",
  "thiserror",
  "time",
