@@ -34,6 +34,32 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - run: cargo test
+  coverage:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['1.83']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ matrix.rust-version }}
+          cargo install cargo-tarpaulin
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: cargo tarpaulin --out xml
+      - name: Upload to codecov.io
+        uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
   lint:
     runs-on: ubuntu-24.04
     strategy:
