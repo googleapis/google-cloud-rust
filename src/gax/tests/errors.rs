@@ -114,7 +114,7 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
         Some(json.to_string().into()),
     );
 
-    let status: Status = http_err.try_into()?;
+    let status = Status::try_from(&http_err)?;
     assert_eq!(status.code, 9);
     assert_eq!(status.message, "msg");
     assert_eq!(status.details.len(), 1);
@@ -130,7 +130,7 @@ fn http_error_to_status() -> Result<(), Box<dyn std::error::Error>> {
         Some(html.into()),
     );
 
-    let status: Result<Status, Error> = http_err.try_into();
+    let status = Status::try_from(&http_err);
     assert!(status.is_err());
 
     Ok(())

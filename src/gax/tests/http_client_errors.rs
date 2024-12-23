@@ -42,7 +42,7 @@ async fn test_error_with_status() -> Result<()> {
                 axum::http::StatusCode::BAD_REQUEST.as_u16()
             );
             assert!(!inner.headers().is_empty(), "missing headers in {inner}");
-            let got = gax::error::rpc::Status::try_from(inner.clone()).map_err(|e| Box::new(e))?;
+            let got = gax::error::rpc::Status::try_from(inner).map_err(|e| Box::new(e))?;
             let want = echo_server::make_status()?;
             assert_eq!(got, want);
         }
