@@ -26,12 +26,6 @@ pub enum Error {
     Format(Box<dyn std::error::Error + Send + Sync>),
 }
 
-impl From<serde_json::Error> for Error {
-    fn from(e: serde_json::Error) -> Self {
-        Self::Format(e.into())
-    }
-}
-
 impl RequestParameter for i32 {
     fn format(&self) -> Result {
         Ok(format!("{self}"))
