@@ -77,3 +77,4 @@ pub mod paginator;
 pub mod http_client;
 
 pub mod options;
+pub mod retry_policy;

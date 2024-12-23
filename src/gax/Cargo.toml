@@ -45,6 +45,7 @@ echo-server = { path = "echo-server" }
 # https://github.com/rust-lang/cargo/issues/2911.
 gax         = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 axum        = "0.7.9"
+mockall     = "0.13.1"
 serial_test = "3.2.0"
 serde       = { version = "1.0.214", features = ["serde_derive"] }
 test-case   = "3.3.1"
