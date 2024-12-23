@@ -19,8 +19,6 @@ use serde_json::json;
 
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-mod echo_server;
-
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn test_user_agent() -> Result<()> {
     let (endpoint, _server) = echo_server::start().await?;
