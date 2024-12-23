@@ -36,7 +36,7 @@ version = "0.1.0-rc2"
 'package:async-trait' = 'required-by-services=true,package=async-trait,version=0.1.83'
 'package:lazy_static' = 'required-by-services=true,package=lazy_static,version=1.5.0'
 'package:reqwest'     = 'required-by-services=true,package=reqwest,version=0.12.9,feature=json'
-'package:serde_json'  = 'required-by-services=true,package=serde_json,version=1.0.132'
+'package:serde_json'  = 'required-by-services=true,package=serde_json,version=1.0.134'
 'package:tracing'     = 'required-by-services=true,package=tracing,version=0.1.41'
 'package:gax'         = 'required-by-services=true,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0-rc2'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
