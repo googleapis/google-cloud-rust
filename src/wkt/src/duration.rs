@@ -220,9 +220,7 @@ impl std::convert::TryFrom<std::time::Duration> for Duration {
         if value.as_secs() > (i64::MAX as u64) {
             return Err(Error::OutOfRange());
         }
-        if value.subsec_nanos() > (i32::MAX as u32) {
-            return Err(Error::OutOfRange());
-        }
+        assert!(value.subsec_nanos() <= (i32::MAX as u32));
         Self::new(value.as_secs() as i64, value.subsec_nanos() as i32)
     }
 }
