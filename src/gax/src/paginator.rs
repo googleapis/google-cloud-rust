@@ -20,6 +20,13 @@ use std::pin::Pin;
 
 /// Describes a type that can be iterated over asyncly when used with [Paginator].
 pub trait PageableResponse {
+    type PageItem;
+
+    // Consumes the [PageableResponse] and returns the items associated with the
+    // current page.
+    fn items(self) -> Vec<Self::PageItem>;
+
+    /// Returns the next page token.
     fn next_page_token(&self) -> String;
 }
 
@@ -72,6 +79,11 @@ where
         }
     }
 
+    /// Creates a new [ItemPaginator] from an existing [Paginator].
+    pub fn items(self) -> ItemPaginator<T, E> {
+        ItemPaginator::new(self)
+    }
+
     /// Returns the next mutation of the wrapped stream.
     #[allow(clippy::should_implement_trait)]
     pub fn next(&mut self) -> futures::stream::Next<'_, Self> {
@@ -93,6 +105,69 @@ impl<T, E> Stream for Paginator<T, E> {
 impl<T, E> std::fmt::Debug for Paginator<T, E> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Paginator").finish()
+    }
+}
+
+/// An adapter that converts a [Paginator] into a stream of individual page
+/// items.
+#[pin_project]
+pub struct ItemPaginator<T, E>
+where
+    T: PageableResponse,
+{
+    #[pin]
+    stream: Paginator<T, E>,
+    current_items: Option<std::vec::IntoIter<T::PageItem>>,
+}
+
+impl<T, E> ItemPaginator<T, E>
+where
+    T: PageableResponse,
+{
+    /// Creates a new [ItemPaginator] from an existing [Paginator].
+    fn new(paginator: Paginator<T, E>) -> Self {
+        Self {
+            stream: paginator,
+            current_items: None,
+        }
+    }
+
+    /// Returns the next mutation of the wrapped stream.
+    #[allow(clippy::should_implement_trait)]
+    pub fn next(&mut self) -> futures::stream::Next<'_, Self> {
+        StreamExt::next(self)
+    }
+}
+
+impl<T, E> Stream for ItemPaginator<T, E>
+where
+    T: PageableResponse,
+{
+    type Item = Result<T::PageItem, E>;
+
+    fn poll_next(
+        mut self: Pin<&mut Self>,
+        cx: &mut std::task::Context<'_>,
+    ) -> std::task::Poll<Option<Self::Item>> {
+        loop {
+            if let Some(ref mut iter) = self.current_items {
+                if let Some(item) = iter.next() {
+                    return std::task::Poll::Ready(Some(Ok(item)));
+                }
+            }
+
+            let next_page_poll = self.as_mut().project().stream.poll_next(cx);
+            match next_page_poll {
+                std::task::Poll::Ready(Some(Ok(page))) => {
+                    self.current_items = Some(page.items().into_iter());
+                }
+                std::task::Poll::Ready(Some(Err(e))) => {
+                    return std::task::Poll::Ready(Some(Err(e)));
+                }
+                std::task::Poll::Ready(None) => return std::task::Poll::Ready(None),
+                std::task::Poll::Pending => return std::task::Poll::Pending,
+            }
+        }
     }
 }
 
@@ -152,6 +227,12 @@ mod tests {
     }
 
     impl PageableResponse for TestResponse {
+        type PageItem = PageItem;
+
+        fn items(self) -> Vec<Self::PageItem> {
+            self.items
+        }
+
         fn next_page_token(&self) -> String {
             self.next_page_token.clone()
         }

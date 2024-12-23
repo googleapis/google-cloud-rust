@@ -735,6 +735,15 @@ func TestRust_FieldType(t *testing.T) {
 		"f_timestamp":          "Option<gax_wkt::Timestamp>",
 		"f_timestamp_repeated": "Vec<gax_wkt::Timestamp>",
 	}
+	expectedPrimitiveTypes := map[string]string{
+		"f_int32":              "i32",
+		"f_int32_optional":     "i32",
+		"f_int32_repeated":     "i32",
+		"f_msg":                "crate::model::Target",
+		"f_msg_repeated":       "crate::model::Target",
+		"f_timestamp":          "gax_wkt::Timestamp",
+		"f_timestamp_repeated": "gax_wkt::Timestamp",
+	}
 	c := createRustCodec()
 	c.LoadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
@@ -743,6 +752,15 @@ func TestRust_FieldType(t *testing.T) {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
 		got := c.FieldType(field, api.State)
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+
+		want, ok = expectedPrimitiveTypes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got = c.PrimitiveFieldType(field, api.State)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}

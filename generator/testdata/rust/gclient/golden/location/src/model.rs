@@ -104,6 +104,12 @@ impl ListLocationsResponse {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLocationsResponse {
+    type PageItem = crate::model::Location;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.locations
+    }
+
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }

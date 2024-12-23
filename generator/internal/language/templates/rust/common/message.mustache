@@ -67,6 +67,14 @@ impl {{Name}} {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for {{Name}} {
+    {{#PageableItem}}
+    type PageItem = {{{PrimitiveFieldType}}};
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.{{{NameToSnake}}}
+    }
+
+    {{/PageableItem}}
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }

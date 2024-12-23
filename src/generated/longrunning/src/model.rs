@@ -208,6 +208,12 @@ impl ListOperationsResponse {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListOperationsResponse {
+    type PageItem = crate::model::Operation;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.operations
+    }
+
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }

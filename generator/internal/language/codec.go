@@ -34,6 +34,10 @@ type Codec interface {
 	FieldAttributes(f *api.Field, state *api.APIState) []string
 	// FieldType returns a string representation of a message field type.
 	FieldType(f *api.Field, state *api.APIState) string
+	// PrimitiveFieldType is like FieldType but removes any wrapper types that
+	// would added for a given language. For example it may remove a
+	// slice/vector wrapper around the type.
+	PrimitiveFieldType(f *api.Field, state *api.APIState) string
 	// The field when used to build the query.
 	AsQueryParameter(f *api.Field, state *api.APIState) string
 	// The name of a message type ID when used as an input or output argument

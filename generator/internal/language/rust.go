@@ -460,13 +460,21 @@ func (c *RustCodec) FieldAttributes(f *api.Field, state *api.APIState) []string 
 }
 
 func (c *RustCodec) FieldType(f *api.Field, state *api.APIState) string {
-	if f.IsOneOf {
+	return c.fieldType(f, state, false)
+}
+
+func (c *RustCodec) PrimitiveFieldType(f *api.Field, state *api.APIState) string {
+	return c.fieldType(f, state, true)
+}
+
+func (c *RustCodec) fieldType(f *api.Field, state *api.APIState, primitive bool) string {
+	if !primitive && f.IsOneOf {
 		return c.wrapOneOfField(f, c.baseFieldType(f, state))
 	}
-	if f.Repeated {
+	if !primitive && f.Repeated {
 		return fmt.Sprintf("Vec<%s>", c.baseFieldType(f, state))
 	}
-	if f.Optional {
+	if !primitive && f.Optional {
 		return fmt.Sprintf("Option<%s>", c.baseFieldType(f, state))
 	}
 	return c.baseFieldType(f, state)

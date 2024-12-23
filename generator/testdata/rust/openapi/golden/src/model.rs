@@ -50,6 +50,12 @@ impl ListLocationsResponse {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLocationsResponse {
+    type PageItem = crate::model::Location;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.locations
+    }
+
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }
@@ -169,6 +175,12 @@ impl ListSecretsResponse {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretsResponse {
+    type PageItem = crate::model::Secret;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.secrets
+    }
+
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }
@@ -1012,6 +1024,12 @@ impl ListSecretVersionsResponse {
 
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
+    type PageItem = crate::model::SecretVersion;
+
+    fn items(self) -> Vec<Self::PageItem> {
+        self.versions
+    }
+
     fn next_page_token(&self) -> String {
         gax::paginator::extract_token(&self.next_page_token)
     }
