@@ -20,8 +20,8 @@ edition.workspace = true
 publish           = false
 
 [dependencies]
-axum        = "0.7.9"
-serde_json  = "1.0.133"
-tokio       = { version = "1.42", features = ["macros"] }
-gax         = { path = "..", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
-rpc         = { version = "0.1.0-rc2", path = "../../generated/rpc", package = "gcp-sdk-rpc" }
+axum       = "0.7.9"
+serde_json = "1.0.133"
+tokio      = { version = "1.42", features = ["macros"] }
+gax        = { path = "..", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
+rpc        = { version = "0.1.0-rc2", path = "../../generated/rpc", package = "gcp-sdk-rpc" }
