@@ -101,6 +101,8 @@ pub struct ClientConfig {
     pub(crate) tracing: bool,
 }
 
+const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
+
 impl ClientConfig {
     /// Returns a default [ConfigBuilder].
     pub fn new() -> Self {
@@ -111,7 +113,7 @@ impl ClientConfig {
         if self.tracing {
             return true;
         }
-        std::env::var("GOOGLE_CLOUD_RUST_TRACING")
+        std::env::var(LOGGING_VAR)
             .map(|v| v == "true")
             .unwrap_or(false)
     }
@@ -150,4 +152,68 @@ impl ClientConfig {
             .await
             .map_err(Error::authentication)
     }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    // This test must run serially because `std::env::remove_var` and
+    // `std::env::set_var` are unsafe otherwise.
+    #[test]
+    #[serial_test::serial]
+    fn config_tracing() {
+        unsafe {
+            std::env::remove_var(LOGGING_VAR);
+        }
+        let config = ClientConfig::new();
+        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
+        let config = ClientConfig::new().enable_tracing();
+        assert!(config.tracing_enabled(), "expected tracing to be enabled");
+        let config = config.disable_tracing();
+        assert!(!config.tracing_enabled(), "expected tracing to be disaabled");
+        
+        unsafe {
+            std::env::set_var(LOGGING_VAR, "true");
+        }
+        let config = ClientConfig::new();
+        assert!(config.tracing_enabled(), "expected tracing to be enabled");
+
+        unsafe {
+            std::env::set_var(LOGGING_VAR, "not-true");
+        }
+        let config = ClientConfig::new();
+        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
+    }
+
+    #[test]
+     fn config_endpoint() {
+        let config = ClientConfig::new().set_endpoint("http://storage.googleapis.com");
+        assert_eq!(config.endpoint, Some("http://storage.googleapis.com".to_string()));
+    }
+
+    #[tokio::test]
+    async fn config_credentials() -> Result {
+        let config = ClientConfig::new().set_credential(auth::Credential::test_credentials());
+        let cred = config.cred.unwrap();
+        let token = cred.access_token().await?;
+        assert!(token.value.contains("test-only"), "unexpected test token {}", token.value);
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn config_default_credentials() -> Result {
+        let dir = tempfile::tempdir()?;
+        let path = dir.path().to_str().unwrap();
+        unsafe {
+            // This is not readable as a file and should cause the default credentials to fail.
+            std::env::set_var("GOOGLE_APPLICATION_CREDENTIALS", path);
+        }
+        let cred = ClientConfig::default_credential().await;
+        assert!(cred.is_err());
+        Ok(())
+    }
+
 }
