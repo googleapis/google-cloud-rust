@@ -37,7 +37,7 @@ pub use http_error::*;
 /// use error::rpc::Status;
 /// fn handle_error(e: Error) {
 ///     if let Some(e) = e.as_inner::<HttpError>() {
-///         let status : Status = e.clone().try_into().unwrap();
+///         let status = Status::try_from(e).unwrap();
 ///         println!("{status:?}")
 ///     }
 /// }

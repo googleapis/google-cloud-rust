@@ -313,22 +313,22 @@ struct ErrorWrapper {
     error: Status,
 }
 
-impl TryFrom<HttpError> for Status {
+impl TryFrom<&HttpError> for Status {
     type Error = Error;
 
-    fn try_from(value: HttpError) -> Result<Self, Self::Error> {
-        let wrapper: ErrorWrapper =
-            serde_json::from_slice(value.payload().unwrap()).map_err(Error::serde)?;
-        Ok(wrapper.error)
+    fn try_from(value: &HttpError) -> Result<Self, Self::Error> {
+        let payload = value.payload().ok_or_else(|| Error::other("no payload"))?;
+        Status::try_from(payload)
     }
 }
 
-impl TryFrom<bytes::Bytes> for Status {
+impl TryFrom<&bytes::Bytes> for Status {
     type Error = Error;
 
-    fn try_from(value: bytes::Bytes) -> Result<Self, Self::Error> {
-        let wrapper: ErrorWrapper = serde_json::from_slice(&value).map_err(Error::serde)?;
-        Ok(wrapper.error)
+    fn try_from(value: &bytes::Bytes) -> Result<Self, Self::Error> {
+        serde_json::from_slice::<ErrorWrapper>(value)
+            .map(|w| w.error)
+            .map_err(Error::serde)
     }
 }
 
@@ -562,6 +562,25 @@ mod test {
     // validate the serialization helpers.
     const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
 
+    // The corresponding status message.
+    fn sample_status() -> Status {
+        Status {
+            code: 400,
+            status: Some("INVALID_ARGUMENT".to_string()),
+            message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
+                .into(),
+            details: [].into(),
+        }
+    }
+
+    fn sample_http_error() -> HttpError {
+        HttpError::new(
+            400,
+            HashMap::new(),
+            Some(bytes::Bytes::from_static(SAMPLE_PAYLOAD)),
+        )
+    }
+
     #[test]
     fn deserialize_status() {
         let got = serde_json::from_slice::<ErrorWrapper>(SAMPLE_PAYLOAD).unwrap();
@@ -579,16 +598,36 @@ mod test {
     }
 
     #[test]
-    fn try_from_bytes() {
-        let got = TryInto::<Status>::try_into(bytes::Bytes::from_static(SAMPLE_PAYLOAD)).unwrap();
-        let want = Status {
-            code: 400,
-            status: Some("INVALID_ARGUMENT".to_string()),
-            message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
-                .into(),
-            details: [].into(),
-        };
+    fn try_from_bytes() -> Result {
+        let got = Status::try_from(&bytes::Bytes::from_static(SAMPLE_PAYLOAD))?;
+        let want = sample_status();
         assert_eq!(got, want);
+
+        let got = Status::try_from(&bytes::Bytes::from_static(b"\"error\": 1234"));
+        assert!(got.is_err());
+        let err = got.err().unwrap();
+        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+
+        let got = Status::try_from(&bytes::Bytes::from_static(b"\"missing-error\": 1234"));
+        assert!(got.is_err());
+        let err = got.err().unwrap();
+        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+        Ok(())
+    }
+
+    #[test]
+    fn status_try_from_http_error() -> Result {
+        let error = sample_http_error();
+        let got = Status::try_from(&error)?;
+        let want = sample_status();
+        assert_eq!(got, want);
+
+        let error = HttpError::new(400, HashMap::new(), None);
+        let got = Status::try_from(&error);
+        assert!(got.is_err());
+        let err = got.err().unwrap();
+        assert_eq!(err.kind(), crate::error::ErrorKind::Other);
+        Ok(())
     }
 
     #[test]

@@ -62,7 +62,7 @@ impl std::fmt::Display for HttpError {
             self.status_code, self.headers
         )?;
         if let Some(payload) = self.payload() {
-            if let Ok(status) = TryInto::<crate::error::rpc::Status>::try_into(payload.clone()) {
+            if let Ok(status) = TryInto::<crate::error::rpc::Status>::try_into(payload) {
                 return write!(f, ", payload:\n{:?}", status);
             }
             write!(f, ", payload:\n{:?}", payload)?;
