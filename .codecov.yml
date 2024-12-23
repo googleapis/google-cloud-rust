@@ -12,19 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Rust places its build artifacts in this directory
-/target/
-
-# We use a few Python tools for development [^1]. Reserve `.env/` to install
-# these tools in a local Python virtual environment.
-/.venv/
-
-.vscode
-.idea/
-
-# Ignore terraform files.
-.terraform/
-terraform.tfstate
-
-# Ignore code coverage output files.
-cobertura.xml
+# Disable commit statuses
+coverage:
+  range: 80..100
+  status:
+    project: off
+    patch: off
+# Ignore generated code that lives with handcrafted code.
+ignore:
+  - src/generated
+  - src/integration-tests
+  - generator/testdata
+  - tools/check-copyright

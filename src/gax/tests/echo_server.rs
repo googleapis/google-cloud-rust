@@ -38,19 +38,6 @@ pub async fn start() -> Result<(String, JoinHandle<()>)> {
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
 }
 
-#[allow(dead_code)]
-pub fn get_query_value(response: &serde_json::Value, name: &str) -> Option<String> {
-    response
-        .as_object()
-        .map(|o| o.get("query"))
-        .flatten()
-        .map(|h| h.get(name))
-        .flatten()
-        .map(|v| v.as_str())
-        .flatten()
-        .map(str::to_string)
-}
-
 async fn echo(
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
@@ -63,6 +50,14 @@ async fn echo(
 }
 
 async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> Result<String> {
+    if let Some(delay) = query
+        .get("delay_ms")
+        .map(|s| s.parse::<u64>())
+        .transpose()?
+        .map(tokio::time::Duration::from_millis)
+    {
+        tokio::time::sleep(delay).await;
+    }
     let query = serde_json::Value::Object(
         query
             .into_iter()
