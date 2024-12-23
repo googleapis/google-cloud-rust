@@ -172,8 +172,11 @@ mod test {
         let config = ClientConfig::new().enable_tracing();
         assert!(config.tracing_enabled(), "expected tracing to be enabled");
         let config = config.disable_tracing();
-        assert!(!config.tracing_enabled(), "expected tracing to be disaabled");
-        
+        assert!(
+            !config.tracing_enabled(),
+            "expected tracing to be disaabled"
+        );
+
         unsafe {
             std::env::set_var(LOGGING_VAR, "true");
         }
@@ -188,9 +191,12 @@ mod test {
     }
 
     #[test]
-     fn config_endpoint() {
+    fn config_endpoint() {
         let config = ClientConfig::new().set_endpoint("http://storage.googleapis.com");
-        assert_eq!(config.endpoint, Some("http://storage.googleapis.com".to_string()));
+        assert_eq!(
+            config.endpoint,
+            Some("http://storage.googleapis.com".to_string())
+        );
     }
 
     #[tokio::test]
@@ -198,7 +204,11 @@ mod test {
         let config = ClientConfig::new().set_credential(auth::Credential::test_credentials());
         let cred = config.cred.unwrap();
         let token = cred.access_token().await?;
-        assert!(token.value.contains("test-only"), "unexpected test token {}", token.value);
+        assert!(
+            token.value.contains("test-only"),
+            "unexpected test token {}",
+            token.value
+        );
         Ok(())
     }
 
@@ -215,5 +225,4 @@ mod test {
         assert!(cred.is_err());
         Ok(())
     }
-
 }
