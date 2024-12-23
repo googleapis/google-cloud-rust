@@ -17,57 +17,62 @@ use gcp_sdk_gax::error::Error;
 use gcp_sdk_gax::error::HttpError;
 use std::collections::HashMap;
 
-#[derive(Debug, Default)]
-struct LeafError {}
+#[cfg(test)]
+mod test {
+    use super::*;
 
-impl LeafError {
-    fn hey(&self) -> &'static str {
-        "hey"
-    }
-}
+    #[derive(Debug, Default)]
+    struct LeafError {}
 
-impl std::fmt::Display for LeafError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "other error")
-    }
-}
-
-impl std::error::Error for LeafError {}
-
-#[derive(Debug)]
-struct MiddleError {
-    pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
-}
-
-impl std::fmt::Display for MiddleError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "middle error")
-    }
-}
-
-impl std::error::Error for MiddleError {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match &self.source {
-            Some(e) => Some(e.as_ref()),
-            None => None,
+    impl LeafError {
+        fn hey(&self) -> &'static str {
+            "hey"
         }
     }
-}
 
-#[test]
-fn downcast() -> Result<(), Box<dyn std::error::Error>> {
-    let leaf_err = LeafError::default();
-    let middle_err = MiddleError {
-        source: Some(Box::new(leaf_err)),
-    };
-    let root_err = Error::other(middle_err);
-    let msg = root_err.as_inner::<LeafError>().unwrap().hey();
-    assert_eq!(msg, "hey");
+    impl std::fmt::Display for LeafError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "other error")
+        }
+    }
 
-    let root_err = Error::other(MiddleError { source: None });
-    let inner_err = root_err.as_inner::<LeafError>();
-    assert!(inner_err.is_none());
-    Ok(())
+    impl std::error::Error for LeafError {}
+
+    #[derive(Debug)]
+    struct MiddleError {
+        pub source: Option<Box<dyn std::error::Error + Send + Sync>>,
+    }
+
+    impl std::fmt::Display for MiddleError {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "middle error")
+        }
+    }
+
+    impl std::error::Error for MiddleError {
+        fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+            match &self.source {
+                Some(e) => Some(e.as_ref()),
+                None => None,
+            }
+        }
+    }
+
+    #[test]
+    fn downcast() -> Result<(), Box<dyn std::error::Error>> {
+        let leaf_err = LeafError::default();
+        let middle_err = MiddleError {
+            source: Some(Box::new(leaf_err)),
+        };
+        let root_err = Error::other(middle_err);
+        let msg = root_err.as_inner::<LeafError>().unwrap().hey();
+        assert_eq!(msg, "hey");
+
+        let root_err = Error::other(MiddleError { source: None });
+        let inner_err = root_err.as_inner::<LeafError>();
+        assert!(inner_err.is_none());
+        Ok(())
+    }
 }
 
 #[tokio::test]

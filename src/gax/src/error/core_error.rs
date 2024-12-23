@@ -134,3 +134,45 @@ impl std::fmt::Display for ErrorKind {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use test_case::test_case;
+
+    #[test]
+    fn error_matches_kind() {
+        use std::error::Error as E;
+        let error = Error::serde("source".to_string());
+        assert_eq!(error.kind(), ErrorKind::Serde);
+        assert!(error.source().is_some(), "missing source for {error:?}");
+        let error = Error::authentication("source".to_string());
+        assert_eq!(error.kind(), ErrorKind::Authentication);
+        assert!(error.source().is_some(), "missing source for {error:?}");
+        let error = Error::io("source".to_string());
+        assert_eq!(error.kind(), ErrorKind::Io);
+        assert!(error.source().is_some(), "missing source for {error:?}");
+        let error = Error::rpc("source".to_string());
+        assert_eq!(error.kind(), ErrorKind::Rpc);
+        assert!(error.source().is_some(), "missing source for {error:?}");
+        let error = Error::other("source".to_string());
+        assert_eq!(error.kind(), ErrorKind::Other);
+        assert!(error.source().is_some(), "missing source for {error:?}");
+    }
+
+    #[test_case(ErrorKind::Serde)]
+    #[test_case(ErrorKind::Authentication)]
+    #[test_case(ErrorKind::Io)]
+    #[test_case(ErrorKind::Rpc)]
+    #[test_case(ErrorKind::Other)]
+    fn error_display_includes_kind_and_source(kind: ErrorKind) {
+        let kind_msg = format!("{kind}");
+        let error = Error::new(kind, "test-error-msg".to_string());
+        let msg = format!("{error}");
+        assert!(
+            msg.contains("test-error-msg"),
+            "missing error message in {msg:?}"
+        );
+        assert!(msg.contains(&kind_msg), "missing kind message in {msg:?}");
+    }
+}
