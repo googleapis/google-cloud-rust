@@ -40,24 +40,10 @@ lazy_static! {
             env::var("GCE_METADATA_ROOT").unwrap_or_else(|_| "metadata.google.internal".to_string())
         })
     );
-
-    static ref _METADATA_IP_ROOT: String = format!(
-        "http://{}",
-        env::var("GCE_METADATA_IP").unwrap_or_else(|_| "169.254.169.254".to_string())
-    );
-    static ref _METADATA_DEFAULT_TIMEOUT : u64 = env::var("GCE_METADATA_TIMEOUT")
-        .map(|val| val.parse().unwrap_or(3))
-        .unwrap_or(3);
-
 }
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) struct MDSCredential<T>  where T:TokenProvider{
-    quota_project_id: Option<String>,
-    universe_domain: String,
-    service_account_email:Option<String>,
-    scopes: Option<Vec<String>>,
-    default_scopes: Option<Vec<String>>,
     token_provider: T,
 }
 
@@ -85,10 +71,8 @@ where
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub struct MDSAccessTokenProvider {
-    client_id: String,
-    client_secret: String,
-    refresh_token: String,
-    token_url: String,
+    pub service_account_email: String,
+    pub scopes: Option<Vec<String>>,
 }
 
 impl MDSAccessTokenProvider {
@@ -167,7 +151,7 @@ impl MDSAccessTokenProvider {
     pub async fn get_service_account_info(
         &self,
         request: &Client,
-        service_account_email: &Option<String>,
+        service_account_email: Option<String>,
     ) -> Result<Value> {
         let service_account_email: String = service_account_email.clone().unwrap_or("default".to_string());
         let path:String = format!("instance/service-accounts/{}/", service_account_email);
@@ -175,33 +159,6 @@ impl MDSAccessTokenProvider {
         params.insert("recursive", "true");
         self.get(request, &path, Some(params), false, None).await
     }
-
-    // async fn retrieve_info(&mut self) {
-    //     // Construct metadata URL for service account info.
-    //     let url = format!(
-    //         "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/{}/info",
-    //         self.service_account_email
-    //     );
-
-    //     let response = self
-    //         .client
-    //         .get(&url)
-    //         .header("Metadata-Flavor", "Google")
-    //         .send()
-    //         .map_err(CredentialsError::MetadataRequestFailed)?;
-
-    //     let info: ServiceAccountInfo = response
-    //         .json()
-    //         .map_err(CredentialsError::InvalidJsonResponse)?;
-
-    //     self.service_account_email = info.email;
-
-    //     // Don't override scopes requested by the user.
-    //     if self.scopes.is_none() {
-    //         self.scopes = Some(info.scopes);
-    //     }
-    //     Ok(())
-    // }
 }
 
 #[async_trait]
