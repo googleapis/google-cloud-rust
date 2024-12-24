@@ -156,20 +156,22 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		slog.Error("unable to lookup request type", "id", m.InputTypeID)
 		return nil
 	}
-	pathNames := map[string]bool{}
+	pathNames := []string{}
 	for _, arg := range m.PathInfo.PathTemplate {
 		if arg.FieldPath != nil {
 			components := strings.Split(*arg.FieldPath, ".")
-			pathNames[components[0]] = true
+			pathNames = append(pathNames, components[0])
 		}
 	}
 
 	var params []*api.Field
-	for _, field := range msg.Fields {
-		if !pathNames[field.Name] {
-			continue
+	for _, name := range pathNames {
+		for _, field := range msg.Fields {
+			if field.Name == name {
+				params = append(params, field)
+				break
+			}
 		}
-		params = append(params, field)
 	}
 	return params
 }
