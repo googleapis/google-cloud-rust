@@ -767,68 +767,6 @@ func TestRust_FieldType(t *testing.T) {
 	}
 }
 
-func TestRust_QueryParams(t *testing.T) {
-	options := &api.Message{
-		Name:   "Options",
-		ID:     "..Options",
-		Fields: []*api.Field{},
-	}
-	optionsField := &api.Field{
-		Name:     "options_field",
-		JSONName: "optionsField",
-		Typez:    api.MESSAGE_TYPE,
-		TypezID:  options.ID,
-	}
-	anotherField := &api.Field{
-		Name:     "another_field",
-		JSONName: "anotherField",
-		Typez:    api.STRING_TYPE,
-		TypezID:  options.ID,
-	}
-	request := &api.Message{
-		Name: "TestRequest",
-		ID:   "..TestRequest",
-		Fields: []*api.Field{
-			optionsField, anotherField,
-			{
-				Name: "unused",
-			},
-		},
-	}
-	method := &api.Method{
-		Name:         "Test",
-		ID:           "..TestService.Test",
-		InputTypeID:  request.ID,
-		OutputTypeID: ".google.protobuf.Empty",
-		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			QueryParameters: map[string]bool{
-				"options_field": true,
-				"another_field": true,
-			},
-		},
-	}
-	test := newTestAPI(
-		[]*api.Message{options, request},
-		[]*api.Enum{},
-		[]*api.Service{
-			{
-				Name:    "TestService",
-				ID:      "..TestService",
-				Methods: []*api.Method{method},
-			},
-		})
-	c := createRustCodec()
-	c.LoadWellKnownTypes(test.State)
-
-	got := c.QueryParams(method, test.State)
-	want := []*api.Field{optionsField, anotherField}
-	less := func(a, b *api.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
-	}
-}
-
 func TestRust_AsQueryParameter(t *testing.T) {
 	options := &api.Message{
 		Name:   "Options",

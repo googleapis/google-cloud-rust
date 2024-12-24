@@ -710,23 +710,6 @@ func (c *RustCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string 
 	return args
 }
 
-func (c *RustCodec) QueryParams(m *api.Method, state *api.APIState) []*api.Field {
-	msg, ok := state.MessageByID[m.InputTypeID]
-	if !ok {
-		slog.Error("unable to lookup request type", "id", m.InputTypeID)
-		return nil
-	}
-
-	var queryParams []*api.Field
-	for _, field := range msg.Fields {
-		if !m.PathInfo.QueryParameters[field.Name] {
-			continue
-		}
-		queryParams = append(queryParams, field)
-	}
-	return queryParams
-}
-
 // Convert a name to `snake_case`. The Rust naming conventions use this style
 // for modules, fields, and functions.
 //
