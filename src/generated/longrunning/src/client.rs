@@ -91,23 +91,32 @@ impl Operations {
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(&self) -> crate::builders::ListOperations {
-        crate::builders::ListOperations::new(self.inner.clone())
+    pub fn list_operations<IntoName>(&self, name: IntoName) -> crate::builders::ListOperations
+    where
+        IntoName: Into<String>,
+    {
+        crate::builders::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
     /// method to poll the operation result at intervals as recommended by the API
     /// service.
-    pub fn get_operation(&self) -> crate::builders::GetOperation {
-        crate::builders::GetOperation::new(self.inner.clone())
+    pub fn get_operation<IntoName>(&self, name: IntoName) -> crate::builders::GetOperation
+    where
+        IntoName: Into<String>,
+    {
+        crate::builders::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
     /// no longer interested in the operation result. It does not cancel the
     /// operation. If the server doesn't support this method, it returns
     /// `google.rpc.Code.UNIMPLEMENTED`.
-    pub fn delete_operation(&self) -> crate::builders::DeleteOperation {
-        crate::builders::DeleteOperation::new(self.inner.clone())
+    pub fn delete_operation<IntoName>(&self, name: IntoName) -> crate::builders::DeleteOperation
+    where
+        IntoName: Into<String>,
+    {
+        crate::builders::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -125,7 +134,10 @@ impl Operations {
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: crate::traits::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
-    pub fn cancel_operation(&self) -> crate::builders::CancelOperation {
-        crate::builders::CancelOperation::new(self.inner.clone())
+    pub fn cancel_operation<IntoName>(&self, name: IntoName) -> crate::builders::CancelOperation
+    where
+        IntoName: Into<String>,
+    {
+        crate::builders::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
