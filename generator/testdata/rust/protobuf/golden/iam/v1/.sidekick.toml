@@ -15,8 +15,7 @@
 [general]
 language = 'rust'
 specification-format = 'protobuf'
-specification-source = 'testdata/googleapis/google/cloud/secretmanager/v1'
-service-config = 'testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+specification-source = 'testdata/googleapis/google/iam/v1'
 
 [source]
 googleapis-root = 'testdata/googleapis'
@@ -24,9 +23,8 @@ googleapis-root = 'testdata/googleapis'
 [codec]
 copyright-year = '2024'
 not-for-publication = 'true'
-package-name-override = 'secretmanager-golden-gclient'
+package-name-override = 'iam-v1-golden-protobuf'
 'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'
 'package:google-cloud-auth' = 'package=google-cloud-auth,path=../auth'
-'package:iam' = 'package=iam-v1-golden-gclient,path=testdata/rust/gclient/golden/iam/v1,source=google.iam.v1'
-'package:location' = 'package=location-golden-gclient,path=testdata/rust/gclient/golden/location,source=google.cloud.location'
+'package:gtype' = 'package=type-golden-protobuf,path=testdata/rust/protobuf/golden/type,source=google.type'
 'package:wkt' = 'package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf'

@@ -26,8 +26,8 @@ import (
 	"net/url"
 
 	"cloud.google.com/go/auth"
-	"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/typez"
-	"github.com/google-cloud-rust/generator/testdata/go/gclient/golden/wkt"
+	"github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/typez"
+	"github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/wkt"
 )
 
 const defaultHost = "https://iam-meta-api.googleapis.com"

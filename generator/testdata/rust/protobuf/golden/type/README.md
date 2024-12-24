@@ -6,4 +6,4 @@ Defines common types for Google APIs.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/type-golden-gclient/latest/type-golden-gclient)
+* Read the [crate's documentation](https://docs.rs/type-golden-protobuf/latest/type-golden-protobuf)
