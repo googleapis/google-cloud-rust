@@ -189,23 +189,23 @@ impl SecretManagerService {
     /// it to an existing Secret.
     pub fn add_secret_version_by_project_and_location_and_secret<
         IntoProject,
-        IntoSecret,
         IntoLocation,
+        IntoSecret,
     >(
         &self,
         project: IntoProject,
-        secret: IntoSecret,
         location: IntoLocation,
+        secret: IntoSecret,
     ) -> crate::builders::AddSecretVersionByProjectAndLocationAndSecret
     where
         IntoProject: Into<String>,
-        IntoSecret: Into<String>,
         IntoLocation: Into<String>,
+        IntoSecret: Into<String>,
     {
         crate::builders::AddSecretVersionByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_secret ( secret.into() )
             .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets metadata for a given Secret.
@@ -509,27 +509,27 @@ impl SecretManagerService {
     /// DISABLED.
     pub fn disable_secret_version_by_project_and_location_and_secret_and_version<
         IntoProject,
+        IntoLocation,
         IntoSecret,
         IntoVersion,
-        IntoLocation,
     >(
         &self,
         project: IntoProject,
+        location: IntoLocation,
         secret: IntoSecret,
         version: IntoVersion,
-        location: IntoLocation,
     ) -> crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     where
         IntoProject: Into<String>,
+        IntoLocation: Into<String>,
         IntoSecret: Into<String>,
         IntoVersion: Into<String>,
-        IntoLocation: Into<String>,
     {
         crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
+            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
-            .set_location ( location.into() )
     }
 
     /// Enables a SecretVersion.
@@ -563,27 +563,27 @@ impl SecretManagerService {
     /// ENABLED.
     pub fn enable_secret_version_by_project_and_location_and_secret_and_version<
         IntoProject,
+        IntoLocation,
         IntoSecret,
         IntoVersion,
-        IntoLocation,
     >(
         &self,
         project: IntoProject,
+        location: IntoLocation,
         secret: IntoSecret,
         version: IntoVersion,
-        location: IntoLocation,
     ) -> crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     where
         IntoProject: Into<String>,
+        IntoLocation: Into<String>,
         IntoSecret: Into<String>,
         IntoVersion: Into<String>,
-        IntoLocation: Into<String>,
     {
         crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
+            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
-            .set_location ( location.into() )
     }
 
     /// Destroys a SecretVersion.
@@ -619,27 +619,27 @@ impl SecretManagerService {
     /// secret data.
     pub fn destroy_secret_version_by_project_and_location_and_secret_and_version<
         IntoProject,
+        IntoLocation,
         IntoSecret,
         IntoVersion,
-        IntoLocation,
     >(
         &self,
         project: IntoProject,
+        location: IntoLocation,
         secret: IntoSecret,
         version: IntoVersion,
-        location: IntoLocation,
     ) -> crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     where
         IntoProject: Into<String>,
+        IntoLocation: Into<String>,
         IntoSecret: Into<String>,
         IntoVersion: Into<String>,
-        IntoLocation: Into<String>,
     {
         crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
             .set_project ( project.into() )
+            .set_location ( location.into() )
             .set_secret ( secret.into() )
             .set_version ( version.into() )
-            .set_location ( location.into() )
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -671,23 +671,23 @@ impl SecretManagerService {
     /// to the policy set on the associated Secret.
     pub fn set_iam_policy_by_project_and_location_and_secret<
         IntoProject,
-        IntoSecret,
         IntoLocation,
+        IntoSecret,
     >(
         &self,
         project: IntoProject,
-        secret: IntoSecret,
         location: IntoLocation,
+        secret: IntoSecret,
     ) -> crate::builders::SetIamPolicyByProjectAndLocationAndSecret
     where
         IntoProject: Into<String>,
-        IntoSecret: Into<String>,
         IntoLocation: Into<String>,
+        IntoSecret: Into<String>,
     {
         crate::builders::SetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_secret ( secret.into() )
             .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets the access control policy for a secret.
@@ -765,23 +765,23 @@ impl SecretManagerService {
     /// may "fail open" without warning.
     pub fn test_iam_permissions_by_project_and_location_and_secret<
         IntoProject,
-        IntoSecret,
         IntoLocation,
+        IntoSecret,
     >(
         &self,
         project: IntoProject,
-        secret: IntoSecret,
         location: IntoLocation,
+        secret: IntoSecret,
     ) -> crate::builders::TestIamPermissionsByProjectAndLocationAndSecret
     where
         IntoProject: Into<String>,
-        IntoSecret: Into<String>,
         IntoLocation: Into<String>,
+        IntoSecret: Into<String>,
     {
         crate::builders::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
             .set_project ( project.into() )
-            .set_secret ( secret.into() )
             .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
 }
