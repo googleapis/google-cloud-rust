@@ -82,8 +82,25 @@ impl {{NameToPascal}} {
     {{#DocLines}}
     {{{.}}}
     {{/DocLines}}
-    pub fn {{NameToSnake}}(&self) -> crate::builders::{{NameToPascal}} {
+    pub fn {{NameToSnake}}<
+        {{#PathParams}}
+        Into{{{NameToPascal}}},
+        {{/PathParams}}
+    >(
+        &self,
+        {{#PathParams}}
+        {{{NameToSnake}}}: Into{{{NameToPascal}}},
+        {{/PathParams}}
+    ) -> crate::builders::{{NameToPascal}}
+    where
+        {{#PathParams}}
+        Into{{NameToPascal}}: Into<{{{PrimitiveFieldType}}}>,
+        {{/PathParams}}
+    {
         crate::builders::{{NameToPascal}}::new(self.inner.clone())
+        {{#PathParams}}
+            .set_{{NameToSnakeNoMangling}} ( {{NameToSnake}}.into() )
+        {{/PathParams}}
     }
 
     {{/Methods}}

@@ -261,23 +261,6 @@ func (c *GoCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string {
 	return args
 }
 
-func (c *GoCodec) QueryParams(m *api.Method, state *api.APIState) []*api.Field {
-	msg, ok := state.MessageByID[m.InputTypeID]
-	if !ok {
-		slog.Error("unable to lookup type", "id", m.InputTypeID)
-		return nil
-	}
-
-	var queryParams []*api.Field
-	for _, field := range msg.Fields {
-		if !m.PathInfo.QueryParameters[field.JSONName] {
-			continue
-		}
-		queryParams = append(queryParams, field)
-	}
-	return queryParams
-}
-
 func (c *GoCodec) ToSnake(symbol string) string {
 	return goEscapeKeyword(c.ToSnakeNoMangling(symbol))
 }
