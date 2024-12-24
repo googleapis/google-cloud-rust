@@ -81,6 +81,7 @@ type Method struct {
 	HTTPMethodToLower   string
 	HTTPPathFmt         string
 	HTTPPathArgs        []string
+	PathParams          []*Field
 	QueryParams         []*Field
 	HasBody             bool
 	BodyAccessor        string
@@ -262,7 +263,10 @@ func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 		NameToPascal:      c.ToPascal(m.Name),
 		NameToSnake:       strcase.ToSnake(m.Name),
 		OutputTypeName:    c.MethodInOutTypeName(m.OutputTypeID, state),
-		QueryParams: mapSlice(c.QueryParams(m, state), func(s *api.Field) *Field {
+		PathParams: mapSlice(language.PathParams(m, state), func(s *api.Field) *Field {
+			return newField(s, c, state)
+		}),
+		QueryParams: mapSlice(language.QueryParams(m, state), func(s *api.Field) *Field {
 			return newField(s, c, state)
 		}),
 		IsPageable:          m.IsPageable,
