@@ -20,7 +20,7 @@ import (
 
 var (
 	rootCmd       = newCommand("root", "root command", nil)
-	child1Cmd     = newCommand("child1", "child command", rootCmd)
+	child1Cmd     = newCommand("child1", "child command", rootCmd).AddAltName("ch1")
 	grandchildCmd = newCommand("grandchild", "grandchild command", child1Cmd)
 	child2Cmd     = newCommand("child2", "another child command", rootCmd)
 )
@@ -39,6 +39,16 @@ func TestLookupFindsChildCommand(t *testing.T) {
 	cmd, found, _ := rootCmd.Lookup([]string{"child1"})
 	if !found {
 		t.Fatal("couldn't find child command")
+	}
+	if cmd != child1Cmd {
+		t.Fatalf("found the wrong command %v", cmd)
+	}
+}
+
+func TestLookupFindsCommandByAltName(t *testing.T) {
+	cmd, found, _ := rootCmd.Lookup([]string{"ch1"})
+	if !found {
+		t.Fatal("couldn't find child command by alternative name")
 	}
 	if cmd != child1Cmd {
 		t.Fatalf("found the wrong command %v", cmd)

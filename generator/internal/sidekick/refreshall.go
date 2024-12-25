@@ -33,7 +33,9 @@ Reruns the generator for a all client libraries. Uses the configuration paramete
 `,
 	CmdSidekick,
 	refreshAll,
-)
+).
+	AddAltName("refreshall").
+	AddAltName("refreshAll")
 
 func overrideSources(rootConfig *Config) (*Config, error) {
 	override := *rootConfig

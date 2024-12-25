@@ -17,6 +17,7 @@ package sidekick
 import (
 	"flag"
 	"fmt"
+	"slices"
 	"strings"
 )
 
@@ -25,6 +26,7 @@ import (
 type Command struct {
 	action           func(rootConfig *Config, cmdLine *CommandLine) error
 	usageLine        string
+	altNames         []string
 	shortDescription string
 	longDescription  string
 	flags            *flag.FlagSet
@@ -57,6 +59,11 @@ func (c *Command) LongName() string {
 	return strings.TrimSpace(strings.TrimPrefix(name, "sidekick"))
 }
 
+func (c *Command) AddAltName(n string) *Command {
+	c.altNames = append(c.altNames, n)
+	return c
+}
+
 // Name returns the command's short name: the last word in the usage line before a flag or argument.
 func (c *Command) Name() string {
 	name := c.LongName()
@@ -64,6 +71,12 @@ func (c *Command) Name() string {
 		name = name[i+1:]
 	}
 	return name
+}
+
+func (c *Command) Names() []string {
+	names := []string{c.Name()}
+	names = append(names, c.altNames...)
+	return names
 }
 
 func (c *Command) Runnable() bool {
@@ -83,8 +96,7 @@ func (c *Command) Lookup(args []string) (*Command, bool, []string) {
 		return c, true, args
 	}
 	for _, sub := range c.commands {
-		//TODO add support for alternative names
-		if sub.Name() == args[0] {
+		if slices.Contains(sub.Names(), args[0]) {
 			return sub.Lookup(args[1:])
 		}
 	}
@@ -187,6 +199,7 @@ func NewCommand(
 func newCommand(usageLine string, shortDescription string, parent *Command) *Command {
 	c := &Command{
 		usageLine:        usageLine,
+		altNames:         []string{},
 		shortDescription: shortDescription,
 		flags:            flag.NewFlagSet(usageLine, flag.ContinueOnError),
 		commands:         []*Command{},
