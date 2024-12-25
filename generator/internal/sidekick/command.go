@@ -17,8 +17,10 @@ package sidekick
 import (
 	"flag"
 	"fmt"
+	"os"
 	"slices"
 	"strings"
+	"text/template"
 )
 
 // A Command is an implementation of a sidekick command
@@ -215,4 +217,40 @@ func newCommand(usageLine string, shortDescription string, parent *Command) *Com
 		_ = c.PrintUsage()
 	}
 	return c
+}
+
+var usageTemplate = `
+{{.LongDescription | trim}}
+` + // first prints the entire Long Description for the given command
+	`
+Usage:
+	 sidekick {{.LongName}} {{if (gt (len .Commands) 0) }}<command>{{end}} {{if (gt (len .Flags) 0) }}[flags]{{end}}
+
+` + // then prints the usage line, skipping over <command> if there are no sub-commands, and [flags] if there are no flags
+	`{{if (gt (len .Commands) 0) }}The commands are:
+{{range .Commands}}	{{.Name | printf "%-15s"}} {{.ShortDescription}}
+{{end}}{{end}}
+` + // if there are sub-commands, prints the list of sub-commands
+	`{{if (gt (len .Flags) 0) }}The flags are:
+{{range .Flags}}	-{{.Name | printf "%-25s"}} {{.Usage}}
+{{if and (ne .DefValue nil) (gt (len .DefValue) 0)}}	                           Default Value: {{.DefValue}}
+{{end}}{{end}}{{end}}
+` + // list all flags accepted by this command, if any
+	`{{if (gt (len .Commands) 0) }}Use "sidekick help{{with .LongName}} {{.}}{{end}} <command>" for more information about a command.
+{{end}}
+` // if any sub-commands are available, ends with a note about how to get more information about a sub-command
+
+// PrintUsage prints the usage of the command to os.Stdout.
+// This logic was copied from the Go source code, and simplified by defaulting to os.Stdout.
+// See https://github.com/golang/go/blob/go1.23.4/src/cmd/go/internal/help/help.go#L161 for reference.
+func (c *Command) PrintUsage() error {
+	t := template.New("usage")
+	t.Funcs(template.FuncMap{
+		"trim": strings.TrimSpace,
+	})
+	template.Must(t.Parse(usageTemplate))
+	if err := t.Execute(os.Stdout, c); err != nil {
+		return fmt.Errorf("error executing template: %v", err)
+	}
+	return nil
 }

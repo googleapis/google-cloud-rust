@@ -62,14 +62,16 @@ func Run() error {
 }
 
 func runSidekick(args []string) error {
-
 	if args[0] == "help" {
-		return Help(args[1:])
+		cmd, found, unusedArgs := CmdSidekick.Lookup(args[1:])
+		if !found {
+			return NotFoundError(cmd, args[1:], unusedArgs, fmt.Sprintf("Could not find help documentation for 'sidekick help %s'", strings.Join(args[1:], " ")))
+		}
+		return cmd.PrintUsage()
 	} else {
 		cmd, found, cmdArgs := CmdSidekick.Lookup(args)
 		if !found {
-			_ = cmd.PrintUsage()
-			return fmt.Errorf("could not find command \"sidekick %s\"", strings.Join(args, " "))
+			return NotFoundError(cmd, args, cmdArgs, fmt.Sprintf("Could not find command 'sidekick %s'", strings.Join(args, " ")))
 		} else {
 			var err error
 			if cmdLine, err := cmd.ParseCmdLine(cmdArgs); err == nil {
@@ -78,6 +80,17 @@ func runSidekick(args []string) error {
 			return err
 		}
 	}
+}
+
+func NotFoundError(bestMatch *Command, allArgs []string, unusedArgs []string, msg string) error {
+	validHelp := "sidekick help"
+	if bestMatch != CmdSidekick {
+		validHelp += " " + strings.Join(allArgs[0:len(allArgs)-len(unusedArgs)], " ")
+	}
+	return fmt.Errorf(
+		"%s. For help, run '%s'",
+		msg,
+		validHelp)
 }
 
 func runCommand(cmd *Command, cmdLine *CommandLine) error {
