@@ -24,6 +24,19 @@ import (
 	toml "github.com/pelletier/go-toml/v2"
 )
 
+var CmdGenerate = NewCommand(
+	"sidekick generate",
+	"Runs the generator for the first time for a client library.",
+	`
+
+Runs the generator for the first time for a client library. 
+
+Uses the configuration provided in the command line arguments, and it in a .sidekick.toml file in the output directory.
+`,
+	CmdSidekick,
+	generate,
+)
+
 // generate takes some state and applies it to a template to create a client
 // library.
 func generate(rootConfig *Config, cmdLine *CommandLine) error {
@@ -50,7 +63,7 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 	}
 
 	// Load the .sidekick.toml file and refresh the code.
-	return refresh(override, cmdLine, cmdLine.Output)
+	return refresh(override, cmdLine)
 }
 
 func writeSidekickToml(outDir string, config *Config) error {

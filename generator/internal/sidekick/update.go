@@ -30,6 +30,17 @@ const (
 	branch           = "master"
 )
 
+var CmdUpdate = NewCommand(
+	"sidekick update",
+	"Updates .sidekick.toml with the latest root and SHA256.",
+	`
+Updates .sidekick.toml with the latest root and SHA256.
+This command will update the googleapis-root and googleapis-sha256 fields in the .sidekick.toml file.
+`,
+	CmdSidekick,
+	update,
+)
+
 func update(rootConfig *Config, cmdLine *CommandLine) error {
 	if err := updateRootConfig(rootConfig); err != nil {
 		return err

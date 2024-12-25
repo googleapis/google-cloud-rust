@@ -16,6 +16,7 @@ package sidekick
 
 import (
 	"fmt"
+	"maps"
 	"os"
 
 	toml "github.com/pelletier/go-toml/v2"
@@ -35,6 +36,27 @@ type GeneralConfig struct {
 	SpecificationFormat string `toml:"specification-format,omitempty"`
 	SpecificationSource string `toml:"specification-source,omitempty"`
 	ServiceConfig       string `toml:"service-config,omitempty"`
+}
+
+func loadConfig(cmdLine *CommandLine) (*Config, error) {
+	// Load the top-level configuration file. If there are any errors loading
+	// the file just run with the defaults.
+	rootConfig, err := loadRootConfig(".sidekick.toml")
+	if err != nil {
+		return nil, err
+	}
+	argsConfig := &Config{
+		General: GeneralConfig{
+			Language: cmdLine.Language,
+		},
+		Source: maps.Clone(cmdLine.Source),
+		Codec:  maps.Clone(cmdLine.Codec),
+	}
+	config, err := mergeConfigs(rootConfig, argsConfig)
+	if err != nil {
+		return nil, err
+	}
+	return config, nil
 }
 
 func loadRootConfig(filename string) (*Config, error) {

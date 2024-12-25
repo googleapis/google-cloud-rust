@@ -25,6 +25,16 @@ import (
 	"sync"
 )
 
+var CmdRefreshAll = NewCommand(
+	"sidekick refresh-all",
+	"Reruns the generator for all client libraries.",
+	`
+Reruns the generator for a all client libraries. Uses the configuration parameters saved in the .sidekick.toml file.
+`,
+	CmdSidekick,
+	refreshAll,
+)
+
 func overrideSources(rootConfig *Config) (*Config, error) {
 	override := *rootConfig
 	override.Codec = maps.Clone(rootConfig.Codec)
@@ -64,7 +74,7 @@ func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 		go func() {
 			defer wg.Done()
 			fmt.Printf("refreshing directory %s\n", dir)
-			err := refresh(override, cmdLine, dir)
+			err := refreshDir(override, cmdLine, dir)
 			results <- result{dir: dir, err: err}
 		}()
 	}

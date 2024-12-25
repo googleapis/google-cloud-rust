@@ -23,9 +23,23 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
+var CmdRefresh = NewCommand(
+	"sidekick refresh",
+	"Reruns the generator for a single client library.",
+	`
+Reruns the generator for a single client library. Uses the configuration parameters saved in the .sidekick.toml file.
+`,
+	CmdSidekick,
+	refresh,
+)
+
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
-func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
+func refresh(rootConfig *Config, cmdLine *CommandLine) error {
+	return refreshDir(rootConfig, cmdLine, cmdLine.Output)
+}
+
+func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	config, err := mergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
 		return err
@@ -69,7 +83,7 @@ func refresh(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	request := &generateClientRequest{
 		API:    a,
 		Codec:  codec,
-		OutDir: output,
+		OutDir: cmdLine.Output,
 	}
 	if cmdLine.DryRun {
 		return nil

@@ -17,57 +17,81 @@ package sidekick
 
 import (
 	"fmt"
-	"maps"
 	"os"
+	"strings"
+	//"maps"
+	//"os"
 )
 
+var CmdSidekick = newCommand(
+	"sidekick",
+	"sidekick is a tool for automating code generation.",
+	nil, //nil parent can only be used with the private newCommand function.
+).
+	AddFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
+	AddFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
+	AddFlagString(&source, "specification-source", "", "the path to the input data").
+	AddFlagString(&serviceConfig, "service-config", "", "path to service config").
+	AddFlagString(&output, "output", "", "the path within project-root to put generated files").
+	AddFlagString(&flagLanguage, "language", "", "the generated language").
+	AddFlagBool(&dryrun, "dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.").
+	AddFlagFunc("source-option", "source options", func(opt string) error {
+		components := strings.SplitN(opt, "=", 2)
+		if len(components) != 2 {
+			return fmt.Errorf("invalid source option, must be in key=value format (%s)", opt)
+		}
+		sourceOpts[components[0]] = components[1]
+		return nil
+	}).
+	AddFlagFunc("codec-option", "codec options", func(opt string) error {
+		components := strings.SplitN(opt, "=", 2)
+		if len(components) != 2 {
+			return fmt.Errorf("invalid codec option, must be in key=value format (%s)", opt)
+		}
+		codecOpts[components[0]] = components[1]
+		return nil
+	})
+
 func Run() error {
-	cmdLine, err := parseArgs()
-	if err != nil {
-		return err
+	if len(os.Args) < 2 {
+		_ = CmdSidekick.PrintUsage()
+		return fmt.Errorf("no command given")
 	}
-	return runSidekick(cmdLine)
+
+	return runSidekick(os.Args[1:])
 }
 
-func runSidekick(cmdLine *CommandLine) error {
-	if cmdLine.ProjectRoot != "" {
-		cwd, err := os.Getwd()
-		if err != nil {
-			return err
-		}
-		defer os.Chdir(cwd)
-		if err := os.Chdir(cmdLine.ProjectRoot); err != nil {
-			return err
-		}
-	}
-	// Load the top-level configuration file. If there are any errors loading
-	// the file just run with the defaults.
-	rootConfig, err := loadRootConfig(".sidekick.toml")
-	if err != nil {
-		return err
-	}
-	argsConfig := &Config{
-		General: GeneralConfig{
-			Language: cmdLine.Language,
-		},
-		Source: maps.Clone(cmdLine.Source),
-		Codec:  maps.Clone(cmdLine.Codec),
-	}
-	config, err := mergeConfigs(rootConfig, argsConfig)
-	if err != nil {
-		return err
-	}
+func runSidekick(args []string) error {
 
-	switch cmdLine.Command {
-	case "generate":
-		return generate(config, cmdLine)
-	case "refresh":
-		return refresh(config, cmdLine, cmdLine.Output)
-	case "refresh-all", "refreshall":
-		return refreshAll(config, cmdLine)
-	case "update":
-		return update(config, cmdLine)
-	default:
-		return fmt.Errorf("unknown subcommand %s", cmdLine.Command)
+	if args[0] == "help" {
+		return Help(args[1:])
+	} else {
+		cmd, found, cmdArgs := CmdSidekick.Lookup(args)
+		if !found {
+			_ = cmd.PrintUsage()
+			return fmt.Errorf("could not find command \"sidekick %s\"", strings.Join(args, " "))
+		} else {
+			var err error
+			if cmdLine, err := cmd.ParseCmdLine(cmdArgs); err == nil {
+				return runCommand(cmd, cmdLine)
+			}
+			return err
+		}
 	}
+}
+
+func runCommand(cmd *Command, cmdLine *CommandLine) error {
+	var err error
+	if cmdLine.ProjectRoot != "" {
+		if cwd, err := os.Getwd(); err == nil {
+			defer func(dir string) {
+				_ = os.Chdir(dir)
+			}(cwd)
+		}
+		err = os.Chdir(cmdLine.ProjectRoot)
+	}
+	if config, err := loadConfig(cmdLine); err == nil {
+		return cmd.Run(config, cmdLine)
+	}
+	return err
 }
