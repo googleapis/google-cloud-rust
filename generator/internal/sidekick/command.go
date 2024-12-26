@@ -21,46 +21,29 @@ import (
 	"strings"
 )
 
-// A Command is an implementation of a sidekick command
-// like sidekick generate
-type Command struct {
+// command is an implementation of a sidekick command, like 'sidekick generate'
+type command struct {
 	action           func(rootConfig *Config, cmdLine *CommandLine) error
 	usageLine        string
 	altNames         []string
 	shortDescription string
 	longDescription  string
 	flags            *flag.FlagSet
-	commands         []*Command
-	parent           *Command
+	commands         []*command
+	parent           *command
 }
 
-func (c *Command) UsageLine() string {
-	return c.usageLine
-}
-
-func (c *Command) LongDescription() string {
-	if c.longDescription != "" {
-		return c.longDescription
-	} else {
-		return c.shortDescription
-	}
-}
-
-func (c *Command) ShortDescription() string {
-	return c.shortDescription
-}
-
-// Name returns the command's short name: the last word in the usage line before a flag or argument.
-func (c *Command) Name() string {
-	name := c.LongName()
+// name returns the command's short name: the last word in the usage line before a flag or argument.
+func (c *command) name() string {
+	name := c.longName()
 	if i := strings.LastIndex(name, " "); i >= 0 {
 		name = name[i+1:]
 	}
 	return name
 }
 
-// LongName returns the command's long name: all the words in the usage line before a flag or argument,
-func (c *Command) LongName() string {
+// longName returns the command's long name: all the words in the usage line before a flag or argument,
+func (c *command) longName() string {
 	name := c.usageLine
 	if i := strings.Index(name, " ["); i >= 0 {
 		name = name[:i]
@@ -68,84 +51,80 @@ func (c *Command) LongName() string {
 	return strings.TrimSpace(name)
 }
 
-// AddAltName adds an alternative name to the command. These alternative names are used for the Lookup function.
-func (c *Command) AddAltName(n string) *Command {
+// addAltName adds an alternative name to the command. These alternative names are used for the Lookup function.
+func (c *command) addAltName(n string) *command {
 	c.altNames = append(c.altNames, n)
 	return c
 }
 
-// Names returns all the names of the command, including the main name declared in the usage line, and any alternative names.
-func (c *Command) Names() []string {
-	names := []string{c.Name()}
+// names returns all the names of the command, including the main name declared in the usage line, and any alternative names.
+func (c *command) names() []string {
+	names := []string{c.name()}
 	names = append(names, c.altNames...)
 	return names
 }
 
-func (c *Command) Commands() []*Command {
-	return c.commands
-}
-
-// Lookup recursively iterates through the command's sub-commands to find the one that matches the first argument,
+// lookup recursively iterates through the command's sub-commands to find the one that matches the first argument,
 // until no arguments are left or a flag is found.
 // If an exact match is found, it returns the command, true, and the remaining args.
 // If no exact match is found, it returns the last command to match the args, false, and the remaining args.
-func (c *Command) Lookup(args []string) (*Command, bool, []string) {
+func (c *command) lookup(args []string) (*command, bool, []string) {
 	if len(args) == 0 || strings.HasPrefix(args[0], "-") {
 		return c, true, args
 	}
 	for _, sub := range c.commands {
-		if slices.Contains(sub.Names(), args[0]) {
-			return sub.Lookup(args[1:])
+		if slices.Contains(sub.names(), args[0]) {
+			return sub.lookup(args[1:])
 		}
 	}
 	return c, false, args
 }
 
-// The following AddFlag* methods are syntax sugar to enable flags to be added in the same line as the Command is created.
+// The following addFlag* methods are syntax sugar to enable flags to be added in the same line as the command is created.
 // Not all flag types are supported yet, only the ones used in the current implementation.
 
-func (c *Command) AddFlagBool(p *bool, name string, value bool, usage string) *Command {
+func (c *command) addFlagBool(p *bool, name string, value bool, usage string) *command {
 	c.flags.BoolVar(p, name, value, usage)
 	return c
 }
 
-func (c *Command) AddFlagString(p *string, name string, value string, usage string) *Command {
+func (c *command) addFlagString(p *string, name string, value string, usage string) *command {
 	c.flags.StringVar(p, name, value, usage)
 	return c
 }
 
-func (c *Command) AddFlagFunc(name string, usage string, fn func(string) error) *Command {
+func (c *command) addFlagFunc(name string, usage string, fn func(string) error) *command {
 	c.flags.Func(name, usage, fn)
 	return c
 }
 
-// Flags returns all flags added to this command, as well as its parent hierarchy
-func (c *Command) Flags() []*flag.Flag {
+// allFlags returns all flags added to this command, as well as its parent hierarchy
+func (c *command) allFlags() []*flag.Flag {
 	var flags []*flag.Flag
-	c.VisitAllFlags(func(f *flag.Flag) {
+	c.visitAllFlags(func(f *flag.Flag) {
 		flags = append(flags, f)
 	})
 	return flags
 }
 
-// VisitAllFlags visits all flags in the command, including those of its parent hierarchy
-func (c *Command) VisitAllFlags(fn func(f *flag.Flag)) {
+// visitAllFlags visits all flags in the command, including those of its parent hierarchy
+func (c *command) visitAllFlags(fn func(f *flag.Flag)) {
 	c.flags.VisitAll(fn)
 	if c.parent != nil {
-		c.parent.VisitAllFlags(fn)
+		c.parent.visitAllFlags(fn)
 	}
 }
 
-func (c *Command) Run(rootConfig *Config, cmdLine *CommandLine) error {
+func (c *command) run(rootConfig *Config, cmdLine *CommandLine) error {
 	if c.action == nil {
-		return fmt.Errorf("command %s is not runnable", c.LongName())
+		return fmt.Errorf("command %s is not runnable", c.longName())
 	}
 	return c.action(rootConfig, cmdLine)
 }
 
-func (c *Command) ParseCmdLine(args []string) (*CommandLine, error) {
+func (c *command) parseCmdLine(args []string) (*CommandLine, error) {
 	if c.parent != nil {
-		c.parent.VisitAllFlags(func(f *flag.Flag) {
+		c.parent.visitAllFlags(func(f *flag.Flag) {
 			c.flags.Var(f.Value, f.Name, f.Usage)
 		})
 	}
@@ -168,13 +147,13 @@ func (c *Command) ParseCmdLine(args []string) (*CommandLine, error) {
 	}, nil
 }
 
-func NewCommand(
+func newCommand(
 	usageLine string,
 	shortDescription string,
 	longDescription string,
-	parent *Command,
+	parent *command,
 	action func(rootConfig *Config, cmdLine *CommandLine) error,
-) *Command {
+) *command {
 	if len(usageLine) == 0 {
 		panic("command usage line cannot be empty")
 	}
@@ -185,61 +164,65 @@ func NewCommand(
 		panic("command short description cannot be empty")
 	}
 
-	c := &Command{
+	c := &command{
 		usageLine:        usageLine,
 		altNames:         []string{},
 		shortDescription: shortDescription,
 		longDescription:  longDescription,
 		action:           action,
 		flags:            flag.NewFlagSet(usageLine, flag.ContinueOnError),
-		commands:         []*Command{},
+		commands:         []*command{},
 		parent:           parent,
 	}
 
 	if parent != nil {
 		parent.commands = append(parent.commands, c)
-	} else if c.Name() != "sidekick" {
+	} else if c.name() != "sidekick" {
 		panic("Only the sidekick root command can have a nil parent")
 	}
 
 	c.flags.Usage = func() {
-		c.PrintUsage()
+		c.printUsage()
 	}
 
 	return c
 }
 
-// PrintUsage prints the usage of the command to os.Stdout, following the same logic as the usageTemplate, but using standatd fmt.Println statements instead.
-func (c *Command) PrintUsage() {
+// printUsage prints the usage of the command to os.Stdout, following the same logic as the usageTemplate, but using standatd fmt.Println statements instead.
+func (c *command) printUsage() {
 
 	// first prints the entire Long Description for the given command
-	fmt.Println(c.LongDescription())
+	if len(c.longDescription) > 0 {
+		fmt.Println(c.longDescription)
+	} else {
+		fmt.Println(c.shortDescription)
+	}
 	fmt.Printf("\n")
 
 	// Then prints the usage line, skipping over <command> if there are no sub-commands, and [flags] if there are no flags
 	fmt.Printf("Usage:\n")
-	fmt.Printf("    %s", c.LongName())
-	if len(c.Commands()) > 0 {
+	fmt.Printf("    %s", c.longName())
+	if len(c.commands) > 0 {
 		fmt.Printf(" <command>")
 	}
-	if len(c.Flags()) > 0 {
+	if len(c.allFlags()) > 0 {
 		fmt.Printf(" [flags]")
 	}
 	fmt.Printf("\n\n")
 
 	// if this command supports sub-commands, prints their names, along with their short descriptions
-	if len(c.Commands()) > 0 {
+	if len(c.commands) > 0 {
 		fmt.Println("The commands are:")
-		for _, sub := range c.Commands() {
-			fmt.Printf("%s%-15s %s\n", strings.Repeat(" ", 4), sub.Name(), sub.ShortDescription())
+		for _, sub := range c.commands {
+			fmt.Printf("%s%-15s %s\n", strings.Repeat(" ", 4), sub.name(), sub.shortDescription)
 		}
 		fmt.Printf("\n\n")
 	}
 
 	// if this command supports any flags, prints their names and usage
-	if len(c.Flags()) > 0 {
+	if len(c.allFlags()) > 0 {
 		fmt.Println("The flags are:")
-		for _, f := range c.Flags() {
+		for _, f := range c.allFlags() {
 			fmt.Printf("%s-%-25s%s\n", strings.Repeat(" ", 4), f.Name, f.Usage)
 			if f.DefValue != "" {
 				fmt.Printf("%sDefault Value: %s\n", strings.Repeat(" ", 4+1+25), f.DefValue)
@@ -249,8 +232,8 @@ func (c *Command) PrintUsage() {
 	}
 
 	// if the command supports sub-commands, prints a note about how to get more information about a specific sub-command
-	if len(c.Commands()) > 0 {
-		helpSuffix := strings.TrimSpace(strings.TrimPrefix(c.LongName(), "sidekick"))
+	if len(c.commands) > 0 {
+		helpSuffix := strings.TrimSpace(strings.TrimPrefix(c.longName(), "sidekick"))
 		if len(helpSuffix) > 0 {
 			helpSuffix = " " + helpSuffix
 		}

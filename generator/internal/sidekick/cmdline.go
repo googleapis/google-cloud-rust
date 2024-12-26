@@ -14,7 +14,7 @@
 
 package sidekick
 
-// Represents the arguments received from the command line.
+// CommandLine Represents the arguments received from the command line.
 type CommandLine struct {
 	Command             []string
 	ProjectRoot         string

@@ -19,14 +19,14 @@ import (
 )
 
 var (
-	rootCmd       = NewCommand("sidekick", "root command", "", nil, nil)
-	child1Cmd     = NewCommand("sidekick child1", "child command", "", rootCmd, nil).AddAltName("ch1")
-	grandchildCmd = NewCommand("sidekick child1 grandchild", "grandchild command", "", child1Cmd, nil)
-	child2Cmd     = NewCommand("sidekick child2", "another child command", "", rootCmd, nil)
+	rootCmd       = newCommand("sidekick", "root command", "", nil, nil)
+	child1Cmd     = newCommand("sidekick child1", "child command", "", rootCmd, nil).addAltName("ch1")
+	grandchildCmd = newCommand("sidekick child1 grandchild", "grandchild command", "", child1Cmd, nil)
+	child2Cmd     = newCommand("sidekick child2", "another child command", "", rootCmd, nil)
 )
 
 func TestLookupFindsRootCommand(t *testing.T) {
-	cmd, found, _ := rootCmd.Lookup([]string{})
+	cmd, found, _ := rootCmd.lookup([]string{})
 	if !found {
 		t.Fatal("couldn't find root command")
 	}
@@ -36,7 +36,7 @@ func TestLookupFindsRootCommand(t *testing.T) {
 }
 
 func TestLookupFindsChildCommand(t *testing.T) {
-	cmd, found, _ := rootCmd.Lookup([]string{"child1"})
+	cmd, found, _ := rootCmd.lookup([]string{"child1"})
 	if !found {
 		t.Fatal("couldn't find child command")
 	}
@@ -46,7 +46,7 @@ func TestLookupFindsChildCommand(t *testing.T) {
 }
 
 func TestLookupFindsCommandByAltName(t *testing.T) {
-	cmd, found, _ := rootCmd.Lookup([]string{"ch1"})
+	cmd, found, _ := rootCmd.lookup([]string{"ch1"})
 	if !found {
 		t.Fatal("couldn't find child command by alternative name")
 	}
@@ -56,7 +56,7 @@ func TestLookupFindsCommandByAltName(t *testing.T) {
 }
 
 func TestLookupFindsGrandChildCommand(t *testing.T) {
-	cmd, found, _ := rootCmd.Lookup([]string{"child1", "grandchild"})
+	cmd, found, _ := rootCmd.lookup([]string{"child1", "grandchild"})
 	if !found {
 		t.Fatal("couldn't find child command")
 	}
@@ -66,7 +66,7 @@ func TestLookupFindsGrandChildCommand(t *testing.T) {
 }
 
 func TestLookupReturnsFalseWhenNoMatch(t *testing.T) {
-	cmd, found, args := rootCmd.Lookup([]string{"child2", "badparam"})
+	cmd, found, args := rootCmd.lookup([]string{"child2", "bad-param"})
 	if found {
 		t.Fatal("expected lookup to return false")
 	}
@@ -74,13 +74,13 @@ func TestLookupReturnsFalseWhenNoMatch(t *testing.T) {
 		t.Fatalf("lookup should return the last matching command in the hierarchy, not %v", cmd)
 	}
 
-	if len(args) != 1 || args[0] != "badparam" {
+	if len(args) != 1 || args[0] != "bad-param" {
 		t.Fatalf("expected to find one argument, got %v", args)
 	}
 }
 
 func TestLookupStopsOnFirstFlag(t *testing.T) {
-	cmd, found, args := rootCmd.Lookup([]string{"child2", "-flag", "value", "notflag"})
+	cmd, found, args := rootCmd.lookup([]string{"child2", "-flag", "value", "not-a-flag"})
 	if !found {
 		t.Fatal("expected lookup to return true")
 	}

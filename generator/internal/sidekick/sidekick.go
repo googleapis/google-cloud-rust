@@ -21,20 +21,20 @@ import (
 	"strings"
 )
 
-var CmdSidekick = NewCommand(
+var cmdSidekick = newCommand(
 	"sidekick",
 	"sidekick is a tool for automating code generation.",
 	``,
 	nil, // nil parent is only allowed for the root command
 	nil).
-	AddFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
-	AddFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
-	AddFlagString(&source, "specification-source", "", "the path to the input data").
-	AddFlagString(&serviceConfig, "service-config", "", "path to service config").
-	AddFlagString(&output, "output", "", "the path within project-root to put generated files").
-	AddFlagString(&flagLanguage, "language", "", "the generated language").
-	AddFlagBool(&dryrun, "dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.").
-	AddFlagFunc("source-option", "source options", func(opt string) error {
+	addFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
+	addFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
+	addFlagString(&source, "specification-source", "", "the path to the input data").
+	addFlagString(&serviceConfig, "service-config", "", "path to service config").
+	addFlagString(&output, "output", "", "the path within project-root to put generated files").
+	addFlagString(&flagLanguage, "language", "rust", "the generated language").
+	addFlagBool(&dryrun, "dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.").
+	addFlagFunc("source-option", "source options", func(opt string) error {
 		components := strings.SplitN(opt, "=", 2)
 		if len(components) != 2 {
 			return fmt.Errorf("invalid source option, must be in key=value format (%s)", opt)
@@ -42,7 +42,7 @@ var CmdSidekick = NewCommand(
 		sourceOpts[components[0]] = components[1]
 		return nil
 	}).
-	AddFlagFunc("codec-option", "codec options", func(opt string) error {
+	addFlagFunc("codec-option", "codec options", func(opt string) error {
 		components := strings.SplitN(opt, "=", 2)
 		if len(components) != 2 {
 			return fmt.Errorf("invalid codec option, must be in key=value format (%s)", opt)
@@ -54,23 +54,23 @@ var CmdSidekick = NewCommand(
 // Run is the entry point for the sidekick logic. It expects args to be the command line arguments, minus the program name.
 func Run(args []string) error {
 	if len(args) < 1 {
-		CmdSidekick.PrintUsage()
+		cmdSidekick.printUsage()
 		return fmt.Errorf("no command given")
 	}
 	if args[0] == "help" {
-		cmd, found, unusedArgs := CmdSidekick.Lookup(args[1:])
+		cmd, found, unusedArgs := cmdSidekick.lookup(args[1:])
 		if !found {
 			return NotFoundError(cmd, args[1:], unusedArgs, fmt.Sprintf("Could not find help documentation for 'sidekick help %s'", strings.Join(args[1:], " ")))
 		}
-		cmd.PrintUsage()
+		cmd.printUsage()
 		return nil
 	} else {
-		cmd, found, cmdArgs := CmdSidekick.Lookup(args)
+		cmd, found, cmdArgs := cmdSidekick.lookup(args)
 		if !found {
 			return NotFoundError(cmd, args, cmdArgs, fmt.Sprintf("Could not find command 'sidekick %s'", strings.Join(args, " ")))
 		} else {
 			var err error
-			if cmdLine, err := cmd.ParseCmdLine(cmdArgs); err == nil {
+			if cmdLine, err := cmd.parseCmdLine(cmdArgs); err == nil {
 				return runCommand(cmd, cmdLine)
 			}
 			return err
@@ -78,9 +78,9 @@ func Run(args []string) error {
 	}
 }
 
-func NotFoundError(bestMatch *Command, allArgs []string, unusedArgs []string, msg string) error {
+func NotFoundError(bestMatch *command, allArgs []string, unusedArgs []string, msg string) error {
 	validHelp := "sidekick help"
-	if bestMatch != CmdSidekick {
+	if bestMatch != cmdSidekick {
 		validHelp += " " + strings.Join(allArgs[0:len(allArgs)-len(unusedArgs)], " ")
 	}
 	return fmt.Errorf(
@@ -89,7 +89,7 @@ func NotFoundError(bestMatch *Command, allArgs []string, unusedArgs []string, ms
 		validHelp)
 }
 
-func runCommand(cmd *Command, cmdLine *CommandLine) error {
+func runCommand(cmd *command, cmdLine *CommandLine) error {
 	var err error
 	if cmdLine.ProjectRoot != "" {
 		if cwd, err := os.Getwd(); err == nil {
@@ -100,7 +100,7 @@ func runCommand(cmd *Command, cmdLine *CommandLine) error {
 		err = os.Chdir(cmdLine.ProjectRoot)
 	}
 	if config, err := loadConfig(cmdLine); err == nil {
-		return cmd.Run(config, cmdLine)
+		return cmd.run(config, cmdLine)
 	}
 	return err
 }

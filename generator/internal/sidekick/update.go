@@ -30,15 +30,17 @@ const (
 	branch           = "master"
 )
 
-var CmdUpdate = NewCommand(
-	"sidekick update",
-	"Updates .sidekick.toml with the latest googleapis version and SHA256 and refreshes all the libraries.",
-	`
+func init() {
+	newCommand(
+		"sidekick update",
+		"Updates .sidekick.toml with the latest googleapis version and SHA256 and refreshes all the libraries.",
+		`
 This command will update the googleapis-root and googleapis-sha256 fields in the .sidekick.toml file so they reference the latest googleapis version on Github. After successfully updating the fields, the command will regenerate all the libraries with the new version of the protos. 
 `,
-	CmdSidekick,
-	update,
-)
+		cmdSidekick,
+		update,
+	)
+}
 
 func update(rootConfig *Config, cmdLine *CommandLine) error {
 	if err := updateRootConfig(rootConfig); err != nil {

@@ -60,7 +60,9 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
 		},
 	}
-	if err := runCommand(CmdGenerate, cmdLine); err != nil {
+
+	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+	if err := runCommand(cmdGenerate, cmdLine); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -133,7 +135,8 @@ func TestRustFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runCommand(CmdGenerate, cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
@@ -190,7 +193,8 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runCommand(CmdGenerate, cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -248,7 +252,8 @@ func TestGoFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runCommand(CmdGenerate, cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 

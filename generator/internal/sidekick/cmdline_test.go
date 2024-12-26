@@ -43,7 +43,8 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 	}
-	got, err := CmdGenerate.ParseCmdLine(args)
+	cmd, _, _ := cmdSidekick.lookup([]string{"generate"})
+	got, err := cmd.parseCmdLine(args)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +78,7 @@ func TestDefaults(t *testing.T) {
 	args := []string{
 		"-project-root", root,
 	}
-	got, err := CmdSidekick.ParseCmdLine(args)
+	got, err := cmdSidekick.parseCmdLine(args)
 	if err != nil {
 		t.Fatal(err)
 	}

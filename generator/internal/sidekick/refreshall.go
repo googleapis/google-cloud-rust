@@ -25,17 +25,19 @@ import (
 	"sync"
 )
 
-var CmdRefreshAll = NewCommand(
-	"sidekick refresh-all",
-	"Reruns the generator for all client libraries.",
-	`
+func init() {
+	newCommand(
+		"sidekick refresh-all",
+		"Reruns the generator for all client libraries.",
+		`
 Reruns the generator for all client libraries, using the configuration parameters saved in the .sidekick.toml file for each library.
 `,
-	CmdSidekick,
-	refreshAll,
-).
-	AddAltName("refreshall").
-	AddAltName("refreshAll")
+		cmdSidekick,
+		refreshAll,
+	).
+		addAltName("refreshall").
+		addAltName("refreshAll")
+}
 
 func overrideSources(rootConfig *Config) (*Config, error) {
 	override := *rootConfig

@@ -23,15 +23,17 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
-var CmdRefresh = NewCommand(
-	"sidekick refresh",
-	"Reruns the generator for a single client library.",
-	`
+func init() {
+	newCommand(
+		"sidekick refresh",
+		"Reruns the generator for a single client library.",
+		`
 Reruns the generator for a single client library, using the configuration parameters saved in the .sidekick.toml file.
 `,
-	CmdSidekick,
-	refresh,
-)
+		cmdSidekick,
+		refresh,
+	)
+}
 
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
