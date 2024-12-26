@@ -86,8 +86,7 @@ impl MDSAccessTokenProvider {
         metadata_service_endpoint: String,
         service_account_email: Option<String>,
     ) -> Result<ServiceAccountInfo> {
-        let service_account_email: String = service_account_email
-            .unwrap_or("default".to_string());
+        let service_account_email: String = service_account_email.unwrap_or("default".to_string());
         let path: String = format!(
             "{}/instance/service-accounts/{}/",
             metadata_service_endpoint, service_account_email
