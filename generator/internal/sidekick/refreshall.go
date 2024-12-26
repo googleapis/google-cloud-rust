@@ -29,7 +29,7 @@ var CmdRefreshAll = NewCommand(
 	"sidekick refresh-all",
 	"Reruns the generator for all client libraries.",
 	`
-Reruns the generator for a all client libraries. Uses the configuration parameters saved in the .sidekick.toml file.
+Reruns the generator for all client libraries, using the configuration parameters saved in the .sidekick.toml file for each library.
 `,
 	CmdSidekick,
 	refreshAll,

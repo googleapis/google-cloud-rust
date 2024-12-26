@@ -27,7 +27,7 @@ var CmdRefresh = NewCommand(
 	"sidekick refresh",
 	"Reruns the generator for a single client library.",
 	`
-Reruns the generator for a single client library. Uses the configuration parameters saved in the .sidekick.toml file.
+Reruns the generator for a single client library, using the configuration parameters saved in the .sidekick.toml file.
 `,
 	CmdSidekick,
 	refresh,

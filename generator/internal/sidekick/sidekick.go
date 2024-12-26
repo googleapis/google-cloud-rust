@@ -19,8 +19,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	//"maps"
-	//"os"
 )
 
 var CmdSidekick = newCommand(
