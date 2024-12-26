@@ -164,6 +164,29 @@ impl Duration {
     }
 }
 
+/// Convert from [Duration] to String representation
+impl std::convert::From<&Duration> for String {
+    fn from(duration: &Duration) -> String {
+        let sign = if duration.seconds < 0 || duration.nanos < 0 {
+            "-"
+        } else {
+            ""
+        };
+        if duration.nanos == 0 {
+            return format!("{sign}{}s", duration.seconds.abs());
+        }
+        if duration.seconds == 0 {
+            let ns = format!("{:09}", duration.nanos.abs());
+            return format!("{sign}0.{}s", ns.trim_end_matches('0'));
+        }
+        format!(
+            "{sign}{}.{:09}s",
+            duration.seconds.abs(),
+            duration.nanos.abs()
+        )
+    }
+}
+
 /// Convert from String representation to [Duration]
 impl std::convert::TryFrom<&str> for Duration {
     type Error = DurationError;
@@ -195,29 +218,6 @@ impl std::convert::TryFrom<&str> for Duration {
             .unwrap_or(0);
 
         Duration::new(sign * seconds, sign as i32 * nanos)
-    }
-}
-
-/// Convert from [Duration] to String representation
-impl std::convert::From<&Duration> for String {
-    fn from(duration: &Duration) -> String {
-        let sign = if duration.seconds < 0 || duration.nanos < 0 {
-            "-"
-        } else {
-            ""
-        };
-        if duration.nanos == 0 {
-            return format!("{sign}{}s", duration.seconds.abs());
-        }
-        if duration.seconds == 0 {
-            let ns = format!("{:09}", duration.nanos.abs());
-            return format!("{sign}0.{}s", ns.trim_end_matches('0'));
-        }
-        format!(
-            "{sign}{}.{:09}s",
-            duration.seconds.abs(),
-            duration.nanos.abs()
-        )
     }
 }
 
