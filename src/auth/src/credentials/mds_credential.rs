@@ -132,9 +132,8 @@ mod test {
 
     use super::*;
     use axum::response::IntoResponse;
-    use http::request;
     use reqwest::StatusCode;
-    use serde_json::json;
+    use serde_json::Value;
     use tokio::task::JoinHandle;
 
     fn handle_token_factory(
@@ -145,7 +144,7 @@ mod test {
         (response_code, response_headers, response_body.to_string()).into_response()
     }
 
-    // Starts a server running locally. Returns an (endpoint, handler) pair.
+    // Starts a server running locally. Returns an (endpoint, path, handler) pair.
     async fn start(
         response_code: StatusCode,
         response_body: Value,
