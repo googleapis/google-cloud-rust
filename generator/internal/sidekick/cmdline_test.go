@@ -30,6 +30,7 @@ func resetArgs() {
 func TestParseArgs(t *testing.T) {
 	t.Cleanup(resetArgs)
 	args := []string{
+		"generate",
 		"-project-root", "../..",
 		"-specification-format", "openapi",
 		"-specification-source", specificationSource,
@@ -43,7 +44,11 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 	}
-	cmd, _, _ := cmdSidekick.lookup([]string{"generate"})
+	cmd, _, args := cmdSidekick.lookup(args)
+	if cmd.name() != "generate" {
+		t.Fatal("expected lookup to return 'generate' command")
+	}
+
 	got, err := cmd.parseCmdLine(args)
 	if err != nil {
 		t.Fatal(err)
