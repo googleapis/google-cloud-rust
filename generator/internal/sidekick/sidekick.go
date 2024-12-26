@@ -102,7 +102,10 @@ func runCommand(cmd *command, cmdLine *CommandLine) error {
 			return fmt.Errorf("could not change to project root [%s]: %v", cmdLine.ProjectRoot, err)
 		}
 	}
-	if config, err := loadConfig(cmdLine); err == nil {
-		return cmd.run(config, cmdLine)
+	config, err := loadConfig(cmdLine)
+	if err != nil {
+		return fmt.Errorf("could not load configuration: %v", err)
 	}
+
+	return cmd.run(config, cmdLine)
 }
