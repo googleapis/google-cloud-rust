@@ -31,7 +31,7 @@ members = [
   "src/generated/type",
   "src/integration-tests",
   "src/root",
-  "src/wkt",
+  "src/wkt", "test-mds",
   "tools/check-copyright",
 ]
 
