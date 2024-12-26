@@ -35,7 +35,7 @@ var CmdUpdate = NewCommand(
 	"Updates .sidekick.toml with the latest root and SHA256.",
 	`
 Updates .sidekick.toml with the latest root and SHA256.
-This command will update the googleapis-root and googleapis-sha256 fields in the .sidekick.toml file.
+This command will update the googleapis-root and googleapis-sha256 fields in the .sidekick.toml file so they reference the latest googleapis version on Github. After successfully updating the fields, the command will regenerate all the libraries with the new version of the protos. 
 `,
 	CmdSidekick,
 	update,
