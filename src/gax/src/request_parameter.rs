@@ -76,7 +76,7 @@ impl RequestParameter for bytes::Bytes {
 
 impl RequestParameter for wkt::Duration {
     fn format(&self) -> Result {
-        Ok(self.to_json())
+        Ok(String::from(self))
     }
 }
 
