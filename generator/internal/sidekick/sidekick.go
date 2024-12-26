@@ -23,7 +23,7 @@ import (
 
 var cmdSidekick = newCommand(
 	"sidekick",
-	"sidekick is a tool for automating code generation.",
+	"sidekick is a tool for automating SDK generation.",
 	``,
 	nil, // nil parent is only allowed for the root command
 	nil).
