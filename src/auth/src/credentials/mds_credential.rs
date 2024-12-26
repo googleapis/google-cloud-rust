@@ -104,7 +104,7 @@ impl MDSAccessTokenProvider {
         let url = reqwest::Url::parse_with_params(path.as_str(), params.iter())
             .map_err(|e| CredentialError::new(false, e.into()))?;
 
-        let response: Response = request
+        let response = request
             .get(url.clone())
             .headers(headers)
             .send()
@@ -128,8 +128,6 @@ impl TokenProvider for MDSAccessTokenProvider {
 
 #[cfg(test)]
 mod test {
-    use std::fmt::format;
-
     use super::*;
     use axum::response::IntoResponse;
     use reqwest::StatusCode;
@@ -228,7 +226,6 @@ mod test {
             Some(service_account.to_string()),
         )
         .await;
-        println!("{:?}", result);
         assert!(result.is_err());
     }
 }
