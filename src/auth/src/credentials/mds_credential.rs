@@ -69,96 +69,153 @@ where
     }
 }
 
+
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-pub struct MDSAccessTokenProvider {
-    pub service_account_email: String,
-    pub scopes: Option<Vec<String>>,
+#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+struct ServiceAccountInfo {
+    service_account_email: String,
+    scopes: Option<Vec<String>>,
+    aliases: Option<Vec<String>>,
+}
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+struct MDSAccessTokenProvider {
+    token_endpoint: String,
 }
 
 #[allow(dead_code)]
 impl MDSAccessTokenProvider {
-    pub async fn get(
-        &self,
+    async fn get_service_account_info(
         request: &Client,
-        path: &str,
-        params: Option<HashMap<&str, &str>>,
-        recursive: bool,
-        headers: Option<HeaderMap>,
-    ) -> Result<Value> {
-        let base_url: Url = Url::parse(&_METADATA_ROOT).unwrap().join(path).unwrap();
+        metadata_service_endpoint: String,
+        service_account_email: Option<String>,
+    ) -> Result<ServiceAccountInfo> {
+        let service_account_email: String = service_account_email
+            .clone()
+            .unwrap_or("default".to_string());
+        let path: String = format!("{}/instance/service-accounts/{}/", metadata_service_endpoint, service_account_email);
+        let params = HashMap::from([("recursive", "true")]);
 
-        let mut query_params = params.unwrap_or_default();
-
-        let mut headers_to_use = HeaderMap::new();
-        headers_to_use.insert(
+        let mut headers = HeaderMap::new();
+        headers.insert(
             METADATA_FLAVOR,
             HeaderValue::from_static(METADATA_FLAVOR_VALUE),
         );
 
-        if let Some(custom_headers) = headers {
-            headers_to_use.extend(custom_headers);
-        }
 
-        if recursive {
-            query_params.insert("recursive", "true");
-        }
-
-        let url = reqwest::Url::parse_with_params(base_url.as_str(), query_params.iter())
+        let url = reqwest::Url::parse_with_params(path.as_str(), params.iter())
             .map_err(|e| CredentialError::new(false, e.into()))?;
 
         let response: Response = request
             .get(url.clone())
-            .headers(headers_to_use.clone())
+            .headers(headers)
             .send()
             .await
             .map_err(|e| CredentialError::new(false, e.into()))?;
 
-        let status = response.status();
-        let headers = response.headers().clone();
-        let content = response
-            .text()
-            .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
-        if !status.is_success() {
-            return Err(CredentialError::new(
-                is_retryable(status),
-                Box::from(content),
-            ));
-        }
+        response.json::<ServiceAccountInfo>().await.map_err(|e| CredentialError::new(false, e.into()))
 
-        let content_type = headers.get(CONTENT_TYPE).and_then(|v| v.to_str().ok());
-
-        if let Some(ct) = content_type {
-            if ct.contains("application/json") {
-                let value: Value =
-                    from_str(&content).map_err(|e| CredentialError::new(false, e.into()))?;
-                return Ok(value);
-            } else {
-                return Err(CredentialError::new(false, Box::from(content)));
-            }
-        }
-
-        Ok(Value::String(content))
-    }
-
-    pub async fn get_service_account_info(
-        &self,
-        request: &Client,
-        service_account_email: Option<String>,
-    ) -> Result<Value> {
-        let service_account_email: String = service_account_email
-            .clone()
-            .unwrap_or("default".to_string());
-        let path: String = format!("instance/service-accounts/{}/", service_account_email);
-        let mut params = HashMap::new();
-        params.insert("recursive", "true");
-        self.get(request, &path, Some(params), false, None).await
     }
 }
 
 #[async_trait]
+#[allow(dead_code)]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&mut self) -> Result<Token> {
         todo!()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use std::fmt::format;
+
+    use super::*;
+    use axum::response::{IntoResponse};
+    use http::request;
+    use reqwest::StatusCode;
+    use tokio::task::JoinHandle;
+    use serde_json::json;
+
+
+    fn handle_token_factory(
+        response_code: StatusCode,
+        response_headers: HeaderMap,
+        response_body: Value,
+    ) -> impl IntoResponse {
+        (
+            response_code,
+            response_headers,
+            response_body.to_string(), 
+        )
+        .into_response() 
+
+    }
+
+    // Starts a server running locally. Returns an (endpoint, handler) pair.
+    async fn start(response_code: StatusCode, response_body: Value, path: String) -> (String, String, JoinHandle<()>) {
+        let code = response_code.clone();
+        let body = response_body.clone();
+        let header_map = HeaderMap::new();
+        let handler = move || async move { handle_token_factory(code, header_map, body) };
+        let app = axum::Router::new().route(&path, axum::routing::get(handler));
+        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = tokio::spawn(async {
+            axum::serve(listener, app).await.unwrap();
+        });
+
+        (
+            format!("http://{}:{}", addr.ip(), addr.port()),
+            path,
+            server,
+        )
+    }
+
+
+    #[tokio::test]
+    async fn get_default_service_account_info_success() {
+        let service_account = "default";
+        let path = format!("/instance/service-accounts/{}/", service_account);
+        let service_account_info = ServiceAccountInfo {
+            service_account_email: "test@test.com".to_string(),
+            scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
+            aliases: None,
+        };
+        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
+        let (endpoint, _path, _server) = start(StatusCode::OK, service_account_info_json, path).await;
+        let request = Client::new();
+        let result = MDSAccessTokenProvider::get_service_account_info(&request, endpoint, Option::None).await;
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap(), service_account_info);
+
+    }
+
+    #[tokio::test]
+    async fn get_custom_service_account_info_success() {
+        let service_account = "test@test";
+        let path = format!("/instance/service-accounts/{}/", service_account);
+        let service_account_info = ServiceAccountInfo {
+            service_account_email: format!("{}.com", service_account),
+            scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
+            aliases: None,
+        };
+        let service_account_info_json = serde_json::to_value(service_account_info.clone()).unwrap();
+        let (endpoint, _path, _server) = start(StatusCode::OK, service_account_info_json, path).await;
+        let request = Client::new();
+        let result = MDSAccessTokenProvider::get_service_account_info(&request, endpoint, Some(service_account.to_string())).await;
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap(), service_account_info);
+    }
+
+    #[tokio::test]
+    async fn get_service_account_info_server_error() { 
+        let service_account = "test@test";
+        let path = format!("/instance/service-accounts/{}/", service_account);
+        let (endpoint, _path, _server) =
+            start(StatusCode::SERVICE_UNAVAILABLE, serde_json::to_value("try again").unwrap(), path).await;
+        let request = Client::new();
+        let result = MDSAccessTokenProvider::get_service_account_info(&request, endpoint, Some(service_account.to_string())).await;
+        println!("{:?}", result);
+        assert!(result.is_err());
     }
 }
