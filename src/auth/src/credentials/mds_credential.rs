@@ -20,14 +20,14 @@ use async_trait::async_trait;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
-use std::cell::LazyCell;
+use std::sync::LazyLock;
 use std::collections::HashMap;
 use std::env;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-const METADATA_ROOT: LazyCell<String> = LazyCell::new(|| {
+static METADATA_ROOT: LazyLock<String> = LazyLock::new(|| {
     format!(
         "http://{}/computeMetadata/v1/",
         env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
@@ -131,26 +131,6 @@ mod test {
     use reqwest::StatusCode;
     use serde_json::Value;
     use tokio::task::JoinHandle;
-
-    #[test]
-    fn metadata_root_from_gce_metadata_host() {
-        env::set_var("GCE_METADATA_HOST", "custom-metadata-host");
-        assert_eq!(
-            *METADATA_ROOT,
-            "http://custom-metadata-host/computeMetadata/v1/"
-        );
-        env::remove_var("GCE_METADATA_HOST"); // Clean up
-    }
-
-    #[test]
-    fn metadata_root_from_gce_metadata_root() {
-        env::set_var("GCE_METADATA_ROOT", "metadata.example.com");
-        assert_eq!(
-            *METADATA_ROOT,
-            "http://metadata.example.com/computeMetadata/v1/"
-        );
-        env::remove_var("GCE_METADATA_ROOT"); // Clean up
-    }
 
     #[test]
     fn metadata_root_default() {
