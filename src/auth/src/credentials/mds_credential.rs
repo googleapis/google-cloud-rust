@@ -20,9 +20,9 @@ use async_trait::async_trait;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
-use std::sync::LazyLock;
 use std::collections::HashMap;
 use std::env;
+use std::sync::LazyLock;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
