@@ -28,6 +28,3 @@ terraform.tfstate
 
 # Ignore code coverage output files.
 cobertura.xml
-
-
-test-mds/
