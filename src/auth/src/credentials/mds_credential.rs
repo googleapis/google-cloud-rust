@@ -26,7 +26,8 @@ use std::env;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-const _METADATA_ROOT: LazyCell<String> = LazyCell::new(|| {
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+const METADATA_ROOT: LazyCell<String> = LazyCell::new(|| {
     format!(
         "http://{}/computeMetadata/v1/",
         env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
@@ -135,7 +136,7 @@ mod test {
     fn metadata_root_from_gce_metadata_host() {
         env::set_var("GCE_METADATA_HOST", "custom-metadata-host");
         assert_eq!(
-            *_METADATA_ROOT,
+            *METADATA_ROOT,
             "http://custom-metadata-host/computeMetadata/v1/"
         );
         env::remove_var("GCE_METADATA_HOST"); // Clean up
@@ -145,7 +146,7 @@ mod test {
     fn metadata_root_from_gce_metadata_root() {
         env::set_var("GCE_METADATA_ROOT", "metadata.example.com");
         assert_eq!(
-            *_METADATA_ROOT,
+            *METADATA_ROOT,
             "http://metadata.example.com/computeMetadata/v1/"
         );
         env::remove_var("GCE_METADATA_ROOT"); // Clean up
@@ -157,7 +158,7 @@ mod test {
         env::remove_var("GCE_METADATA_HOST");
 
         assert_eq!(
-            *_METADATA_ROOT,
+            *METADATA_ROOT,
             "http://metadata.google.internal/computeMetadata/v1/"
         );
     }
