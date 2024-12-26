@@ -59,9 +59,7 @@ func (c *command) addAltName(n string) *command {
 
 // names returns all the names of the command, including the main name declared in the usage line, and any alternative names.
 func (c *command) names() []string {
-	names := []string{c.name()}
-	names = append(names, c.altNames...)
-	return names
+	return append([]string{c.name()}, c.altNames...)
 }
 
 // lookup recursively iterates through the command's sub-commands to find the one that matches the first argument,
