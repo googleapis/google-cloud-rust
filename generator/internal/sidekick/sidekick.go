@@ -90,17 +90,19 @@ func NotFoundError(bestMatch *command, allArgs []string, unusedArgs []string, ms
 }
 
 func runCommand(cmd *command, cmdLine *CommandLine) error {
-	var err error
 	if cmdLine.ProjectRoot != "" {
-		if cwd, err := os.Getwd(); err == nil {
-			defer func(dir string) {
-				_ = os.Chdir(dir)
-			}(cwd)
+		cwd, err := os.Getwd()
+		if err != nil {
+			return fmt.Errorf("could not get current working directory: %v", err)
 		}
-		err = os.Chdir(cmdLine.ProjectRoot)
+		defer func(dir string) {
+			_ = os.Chdir(dir)
+		}(cwd)
+		if err = os.Chdir(cmdLine.ProjectRoot); err != nil {
+			return fmt.Errorf("could not change to project root [%s]: %v", cmdLine.ProjectRoot, err)
+		}
 	}
 	if config, err := loadConfig(cmdLine); err == nil {
 		return cmd.run(config, cmdLine)
 	}
-	return err
 }
