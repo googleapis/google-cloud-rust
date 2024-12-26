@@ -70,7 +70,7 @@ where
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
 struct ServiceAccountInfo {
-    service_account_email: String,
+    email: String,
     scopes: Option<Vec<String>>,
     aliases: Option<Vec<String>>,
 }
@@ -84,12 +84,12 @@ impl MDSAccessTokenProvider {
     async fn get_service_account_info(
         request: &Client,
         metadata_service_endpoint: String,
-        service_account_email: Option<String>,
+        email: Option<String>,
     ) -> Result<ServiceAccountInfo> {
-        let service_account_email: String = service_account_email.unwrap_or("default".to_string());
+        let email: String = email.unwrap_or("default".to_string());
         let path: String = format!(
             "{}/instance/service-accounts/{}/",
-            metadata_service_endpoint, service_account_email
+            metadata_service_endpoint, email
         );
         let params = HashMap::from([("recursive", "true")]);
 
@@ -127,10 +127,145 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::token::test::MockTokenProvider;
     use axum::response::IntoResponse;
     use reqwest::StatusCode;
     use serde_json::Value;
     use tokio::task::JoinHandle;
+
+    #[tokio::test]
+    async fn get_token_success() {
+        let expected = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+        let expected_clone = expected.clone();
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Ok(expected_clone));
+
+        let mut uc = MDSCredential {
+            token_provider: mock,
+        };
+        let actual = uc.get_token().await.unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[tokio::test]
+    async fn get_token_failure() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+
+        let mut uc = MDSCredential {
+            token_provider: mock,
+        };
+        assert!(uc.get_token().await.is_err());
+    }
+
+    #[tokio::test]
+    async fn get_headers_success() {
+        #[derive(Debug, PartialEq)]
+        struct HV {
+            header: String,
+            value: String,
+            is_sensitive: bool,
+        }
+
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token().times(1).return_once(|| Ok(token));
+
+        let mut uc = MDSCredential {
+            token_provider: mock,
+        };
+        let headers: Vec<HV> = uc
+            .get_headers()
+            .await
+            .unwrap()
+            .into_iter()
+            .map(|(h, v)| HV {
+                header: h.to_string(),
+                value: v.to_str().unwrap().to_string(),
+                is_sensitive: v.is_sensitive(),
+            })
+            .collect();
+
+        assert_eq!(
+            headers,
+            vec![HV {
+                header: AUTHORIZATION.to_string(),
+                value: "Bearer test-token".to_string(),
+                is_sensitive: true,
+            }]
+        );
+    }
+
+    #[test]
+    fn metadata_root_from_gce_metadata_host() {
+        env::set_var("GCE_METADATA_HOST", "custom-metadata-host");
+        // Recreate lazy_static value which depends on env variable
+        lazy_static::initialize(&_METADATA_ROOT);
+
+        assert_eq!(
+            &_METADATA_ROOT.to_string(),
+            "http://metadata.google.internal/computeMetadata/v1/"
+        );
+
+        env::remove_var("GCE_METADATA_HOST"); // Clean up
+    }
+
+    #[test]
+    fn metadata_root_from_gce_metadata_root() {
+        env::set_var("GCE_METADATA_ROOT", "metadata.example.com");
+        // Recreate lazy_static value which depends on env variable
+        lazy_static::initialize(&_METADATA_ROOT);
+
+        assert_eq!(
+            &_METADATA_ROOT.to_string(),
+            "http://metadata.google.internal/computeMetadata/v1/"
+        );
+
+        env::remove_var("GCE_METADATA_ROOT"); // Clean up
+    }
+
+    #[test]
+    fn metadata_root_default() {
+        // Remove env vars if they exist from previous tests
+        env::remove_var("GCE_METADATA_ROOT");
+        env::remove_var("GCE_METADATA_HOST");
+        // Recreate lazy_static value which depends on env variable
+        lazy_static::initialize(&_METADATA_ROOT);
+
+        assert_eq!(
+            &_METADATA_ROOT.to_string(),
+            "http://metadata.google.internal/computeMetadata/v1/"
+        );
+    }
+
+    #[tokio::test]
+    async fn get_headers_failure() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token()
+            .times(1)
+            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+
+        let mut uc = MDSCredential {
+            token_provider: mock,
+        };
+        assert!(uc.get_headers().await.is_err());
+    }
 
     fn handle_token_factory(
         response_code: StatusCode,
@@ -169,7 +304,7 @@ mod test {
         let service_account = "default";
         let path = format!("/instance/service-accounts/{}/", service_account);
         let service_account_info = ServiceAccountInfo {
-            service_account_email: "test@test.com".to_string(),
+            email: "test@test.com".to_string(),
             scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
             aliases: None,
         };
@@ -189,7 +324,7 @@ mod test {
         let service_account = "test@test";
         let path = format!("/instance/service-accounts/{}/", service_account);
         let service_account_info = ServiceAccountInfo {
-            service_account_email: format!("{}.com", service_account),
+            email: format!("{}.com", service_account),
             scopes: Some(vec!["scope 1".to_string(), "scope 2".to_string()]),
             aliases: None,
         };
