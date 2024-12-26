@@ -24,7 +24,7 @@ import (
 var CmdSidekick = newCommand(
 	"sidekick",
 	"sidekick is a tool for automating code generation.",
-	nil, //nil parent can only be used with the private newCommand function.
+	nil, // nil parent can only be used with the private newCommand function.
 ).
 	AddFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
 	AddFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
