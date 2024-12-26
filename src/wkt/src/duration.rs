@@ -162,26 +162,35 @@ impl Duration {
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
+}
 
-    /// Returns the JSON representation of the duration.
-    pub fn to_json(&self) -> String {
-        let sign = if self.seconds < 0 || self.nanos < 0 {
+/// Converts a [Duration] to its [String] representation.
+impl std::convert::From<&Duration> for String {
+    fn from(duration: &Duration) -> String {
+        let sign = if duration.seconds < 0 || duration.nanos < 0 {
             "-"
         } else {
             ""
         };
-        if self.nanos == 0 {
-            return format!("{sign}{}s", self.seconds.abs());
+        if duration.nanos == 0 {
+            return format!("{sign}{}s", duration.seconds.abs());
         }
-        if self.seconds == 0 {
-            let ns = format!("{:09}", self.nanos.abs());
+        if duration.seconds == 0 {
+            let ns = format!("{:09}", duration.nanos.abs());
             return format!("{sign}0.{}s", ns.trim_end_matches('0'));
         }
-        format!("{sign}{}.{:09}s", self.seconds.abs(), self.nanos.abs())
+        format!(
+            "{sign}{}.{:09}s",
+            duration.seconds.abs(),
+            duration.nanos.abs()
+        )
     }
+}
 
-    /// Parses a duration from the JSON representation.
-    pub fn from_json(value: &str) -> Result<Self, DurationError> {
+/// Converts the [String] representation of a duration to [Duration].
+impl std::convert::TryFrom<&str> for Duration {
+    type Error = DurationError;
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
         if !value.ends_with('s') {
             return Err(DurationError::Deserialize("missing trailing 's'".into()));
         }
@@ -269,7 +278,7 @@ impl serde::ser::Serialize for Duration {
     where
         S: serde::ser::Serializer,
     {
-        let formatted = self.to_json();
+        let formatted = String::from(self);
         formatted.serialize(serializer)
     }
 }
@@ -287,7 +296,7 @@ impl serde::de::Visitor<'_> for DurationVisitor {
     where
         E: serde::de::Error,
     {
-        let d = Duration::from_json(value).map_err(E::custom)?;
+        let d = Duration::try_from(value).map_err(E::custom)?;
         Ok(d)
     }
 }
@@ -459,7 +468,7 @@ mod test {
     #[test_case("1.aaas" ; "nanos are not a number [aaa]")]
     #[test_case("1.0as" ; "nanos are not a number [0a]")]
     fn parse_detect_bad_input(input: &str) -> Result {
-        let got = Duration::from_json(input);
+        let got = Duration::try_from(input);
         assert!(got.is_err());
         let err = got.err().unwrap();
         match err {
