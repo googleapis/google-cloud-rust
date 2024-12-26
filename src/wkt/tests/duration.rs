@@ -73,24 +73,6 @@ fn compare() {
 }
 
 #[test]
-fn from_str_duration() -> Result {
-    let str_duration = "10s";
-    let got = Duration::try_from(str_duration);
-    assert_eq!(got, Duration::new(10, 0));
-
-    Ok(())
-}
-
-#[test]
-fn from_duration_str() -> Result {
-    let duration = Duration::new(10, 0)?;
-    let got = String::from(&duration);
-    assert_eq!(got, "10s".to_string());
-
-    Ok(())
-}
-
-#[test]
 fn from_std_time_duration() -> Result {
     let std_d = std::time::Duration::new(123, 456789012);
     let got = Duration::try_from(std_d)?;

@@ -164,7 +164,7 @@ impl Duration {
     }
 }
 
-/// Convert from [Duration] to String representation
+/// Converts a [Duration] to its [String] representation.
 impl std::convert::From<&Duration> for String {
     fn from(duration: &Duration) -> String {
         let sign = if duration.seconds < 0 || duration.nanos < 0 {
@@ -187,7 +187,7 @@ impl std::convert::From<&Duration> for String {
     }
 }
 
-/// Convert from String representation to [Duration]
+/// Converts the [String] representation of a duration to [Duration].
 impl std::convert::TryFrom<&str> for Duration {
     type Error = DurationError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
