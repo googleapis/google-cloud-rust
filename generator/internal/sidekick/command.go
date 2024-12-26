@@ -81,10 +81,6 @@ func (c *Command) Names() []string {
 	return names
 }
 
-func (c *Command) Runnable() bool {
-	return c.action != nil
-}
-
 func (c *Command) Commands() []*Command {
 	return c.commands
 }
@@ -141,10 +137,9 @@ func (c *Command) VisitAllFlags(fn func(f *flag.Flag)) {
 }
 
 func (c *Command) Run(rootConfig *Config, cmdLine *CommandLine) error {
-	if !c.Runnable() {
-		return fmt.Errorf("command sidekick %s is not runnable", c.LongName())
+	if c.action == nil {
+		return fmt.Errorf("command %s is not runnable", c.LongName())
 	}
-
 	return c.action(rootConfig, cmdLine)
 }
 
