@@ -38,8 +38,10 @@ type GeneralConfig struct {
 	ServiceConfig       string `toml:"service-config,omitempty"`
 }
 
-// loadConfig loads the top-level configuration file, validates its contents and where applicable, overrides its
-// values with the ones passed in the command line arguments.
+// loadConfig loads the top-level configuration file and validates its contents.
+// If no top-level file is found, falls back to the default configuration.
+// Where applicable, overrides the top level (or default) configuration values with the ones passed in the command line.
+// Returns the merged configuration, or an error if the top level configuration is invalid.
 func loadConfig(cmdLine *CommandLine) (*Config, error) {
 	rootConfig, err := loadRootConfig(".sidekick.toml")
 	if err != nil {
