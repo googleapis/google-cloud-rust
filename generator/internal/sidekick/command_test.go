@@ -19,10 +19,10 @@ import (
 )
 
 var (
-	rootCmd       = newCommand("root", "root command", nil)
-	child1Cmd     = newCommand("child1", "child command", rootCmd).AddAltName("ch1")
-	grandchildCmd = newCommand("grandchild", "grandchild command", child1Cmd)
-	child2Cmd     = newCommand("child2", "another child command", rootCmd)
+	rootCmd       = NewCommand("sidekick", "root command", "", nil, nil)
+	child1Cmd     = NewCommand("sidekick child1", "child command", "", rootCmd, nil).AddAltName("ch1")
+	grandchildCmd = NewCommand("sidekick child1 grandchild", "grandchild command", "", child1Cmd, nil)
+	child2Cmd     = NewCommand("sidekick child2", "another child command", "", rootCmd, nil)
 )
 
 func TestLookupFindsRootCommand(t *testing.T) {

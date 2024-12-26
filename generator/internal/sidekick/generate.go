@@ -28,7 +28,6 @@ var CmdGenerate = NewCommand(
 	"sidekick generate",
 	"Runs the generator for the first time for a client library.",
 	`
-
 Runs the generator for the first time for a client library. 
 
 Uses the configuration provided in the command line arguments, and saves it in a .sidekick.toml file in the output directory.

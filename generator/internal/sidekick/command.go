@@ -17,10 +17,8 @@ package sidekick
 import (
 	"flag"
 	"fmt"
-	"os"
 	"slices"
 	"strings"
-	"text/template"
 )
 
 // A Command is an implementation of a sidekick command
@@ -52,20 +50,6 @@ func (c *Command) ShortDescription() string {
 	return c.shortDescription
 }
 
-// LongName returns the command's long name: all the words in the usage line between "sidekick" and a flag or argument,
-func (c *Command) LongName() string {
-	name := c.usageLine
-	if i := strings.Index(name, " ["); i >= 0 {
-		name = name[:i]
-	}
-	return strings.TrimSpace(strings.TrimPrefix(name, "sidekick"))
-}
-
-func (c *Command) AddAltName(n string) *Command {
-	c.altNames = append(c.altNames, n)
-	return c
-}
-
 // Name returns the command's short name: the last word in the usage line before a flag or argument.
 func (c *Command) Name() string {
 	name := c.LongName()
@@ -75,6 +59,22 @@ func (c *Command) Name() string {
 	return name
 }
 
+// LongName returns the command's long name: all the words in the usage line before a flag or argument,
+func (c *Command) LongName() string {
+	name := c.usageLine
+	if i := strings.Index(name, " ["); i >= 0 {
+		name = name[:i]
+	}
+	return strings.TrimSpace(name)
+}
+
+// AddAltName adds an alternative name to the command. These alternative names are used for the Lookup function.
+func (c *Command) AddAltName(n string) *Command {
+	c.altNames = append(c.altNames, n)
+	return c
+}
+
+// Names returns all the names of the command, including the main name declared in the usage line, and any alternative names.
 func (c *Command) Names() []string {
 	names := []string{c.Name()}
 	names = append(names, c.altNames...)
@@ -125,7 +125,7 @@ func (c *Command) AddFlagFunc(name string, usage string, fn func(string) error) 
 
 // Flags returns all flags added to this command, as well as its parent hierarchy
 func (c *Command) Flags() []*flag.Flag {
-	var flags = []*flag.Flag{}
+	var flags []*flag.Flag
 	c.VisitAllFlags(func(f *flag.Flag) {
 		flags = append(flags, f)
 	})
@@ -189,68 +189,76 @@ func NewCommand(
 	if len(shortDescription) == 0 {
 		panic("command short description cannot be empty")
 	}
-	if parent == nil {
-		panic("command must have a parent")
-	}
-	c := newCommand(usageLine, shortDescription, parent)
-	c.longDescription = longDescription
-	c.action = action
-	return c
-}
 
-func newCommand(usageLine string, shortDescription string, parent *Command) *Command {
 	c := &Command{
 		usageLine:        usageLine,
 		altNames:         []string{},
 		shortDescription: shortDescription,
+		longDescription:  longDescription,
+		action:           action,
 		flags:            flag.NewFlagSet(usageLine, flag.ContinueOnError),
 		commands:         []*Command{},
+		parent:           parent,
 	}
 
-	// the only command that is valid without a parent is `sidekick`
 	if parent != nil {
 		parent.commands = append(parent.commands, c)
+	} else if c.Name() != "sidekick" {
+		panic("Only the sidekick root command can have a nil parent")
 	}
-	c.parent = parent
 
 	c.flags.Usage = func() {
-		_ = c.PrintUsage()
+		c.PrintUsage()
 	}
+
 	return c
 }
 
-var usageTemplate = `
-{{.LongDescription | trim}}
-` + // first prints the entire Long Description for the given command
-	`
-Usage:
-	 sidekick {{.LongName}} {{if (gt (len .Commands) 0) }}<command>{{end}} {{if (gt (len .Flags) 0) }}[flags]{{end}}
+// PrintUsage prints the usage of the command to os.Stdout, following the same logic as the usageTemplate, but using standatd fmt.Println statements instead.
+func (c *Command) PrintUsage() {
 
-` + // then prints the usage line, skipping over <command> if there are no sub-commands, and [flags] if there are no flags
-	`{{if (gt (len .Commands) 0) }}The commands are:
-{{range .Commands}}	{{.Name | printf "%-15s"}} {{.ShortDescription}}
-{{end}}{{end}}
-` + // if there are sub-commands, prints the list of sub-commands
-	`{{if (gt (len .Flags) 0) }}The flags are:
-{{range .Flags}}	-{{.Name | printf "%-25s"}} {{.Usage}}
-{{if and (ne .DefValue nil) (gt (len .DefValue) 0)}}	                           Default Value: {{.DefValue}}
-{{end}}{{end}}{{end}}
-` + // list all flags accepted by this command, if any
-	`{{if (gt (len .Commands) 0) }}Use "sidekick help{{with .LongName}} {{.}}{{end}} <command>" for more information about a command.
-{{end}}
-` // if any sub-commands are available, ends with a note about how to get more information about a sub-command
+	// first prints the entire Long Description for the given command
+	fmt.Println(c.LongDescription())
+	fmt.Printf("\n")
 
-// PrintUsage prints the usage of the command to os.Stdout.
-// This logic was copied from the Go source code, and simplified by defaulting to os.Stdout.
-// See https://github.com/golang/go/blob/go1.23.4/src/cmd/go/internal/help/help.go#L161 for reference.
-func (c *Command) PrintUsage() error {
-	t := template.New("usage")
-	t.Funcs(template.FuncMap{
-		"trim": strings.TrimSpace,
-	})
-	template.Must(t.Parse(usageTemplate))
-	if err := t.Execute(os.Stdout, c); err != nil {
-		return fmt.Errorf("error executing template: %v", err)
+	// Then prints the usage line, skipping over <command> if there are no sub-commands, and [flags] if there are no flags
+	fmt.Printf("Usage:\n")
+	fmt.Printf("    %s", c.LongName())
+	if len(c.Commands()) > 0 {
+		fmt.Printf(" <command>")
 	}
-	return nil
+	if len(c.Flags()) > 0 {
+		fmt.Printf(" [flags]")
+	}
+	fmt.Printf("\n\n")
+
+	// if this command supports sub-commands, prints their names, along with their short descriptions
+	if len(c.Commands()) > 0 {
+		fmt.Println("The commands are:")
+		for _, sub := range c.Commands() {
+			fmt.Printf("%s%-15s %s\n", strings.Repeat(" ", 4), sub.Name(), sub.ShortDescription())
+		}
+		fmt.Printf("\n\n")
+	}
+
+	// if this command supports any flags, prints their names and usage
+	if len(c.Flags()) > 0 {
+		fmt.Println("The flags are:")
+		for _, f := range c.Flags() {
+			fmt.Printf("%s-%-25s%s\n", strings.Repeat(" ", 4), f.Name, f.Usage)
+			if f.DefValue != "" {
+				fmt.Printf("%sDefault Value: %s\n", strings.Repeat(" ", 4+1+25), f.DefValue)
+			}
+		}
+		fmt.Printf("\n\n")
+	}
+
+	// if the command supports sub-commands, prints a note about how to get more information about a specific sub-command
+	if len(c.Commands()) > 0 {
+		helpSuffix := strings.TrimSpace(strings.TrimPrefix(c.LongName(), "sidekick"))
+		if len(helpSuffix) > 0 {
+			helpSuffix = " " + helpSuffix
+		}
+		fmt.Printf("Use \"sidekick help%s <command>\" for more information about a command.\n", helpSuffix)
+	}
 }

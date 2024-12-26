@@ -21,11 +21,12 @@ import (
 	"strings"
 )
 
-var CmdSidekick = newCommand(
+var CmdSidekick = NewCommand(
 	"sidekick",
 	"sidekick is a tool for automating code generation.",
-	nil, // nil parent can only be used with the private newCommand function.
-).
+	``,
+	nil, // nil parent is only allowed for the root command
+	nil).
 	AddFlagString(&flagProjectRoot, "project-root", "", "the root of the output project").
 	AddFlagString(&format, "specification-format", "", "the specification format. Protobuf or OpenAPI v3.").
 	AddFlagString(&source, "specification-source", "", "the path to the input data").
@@ -53,7 +54,7 @@ var CmdSidekick = newCommand(
 // Run is the entry point for the sidekick logic. It expects args to be the command line arguments, minus the program name.
 func Run(args []string) error {
 	if len(args) < 1 {
-		_ = CmdSidekick.PrintUsage()
+		CmdSidekick.PrintUsage()
 		return fmt.Errorf("no command given")
 	}
 	if args[0] == "help" {
@@ -61,7 +62,8 @@ func Run(args []string) error {
 		if !found {
 			return NotFoundError(cmd, args[1:], unusedArgs, fmt.Sprintf("Could not find help documentation for 'sidekick help %s'", strings.Join(args[1:], " ")))
 		}
-		return cmd.PrintUsage()
+		cmd.PrintUsage()
+		return nil
 	} else {
 		cmd, found, cmdArgs := CmdSidekick.Lookup(args)
 		if !found {
