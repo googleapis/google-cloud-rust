@@ -52,16 +52,12 @@ var CmdSidekick = newCommand(
 		return nil
 	})
 
-func Run() error {
-	if len(os.Args) < 2 {
+// Run is the entry point for the sidekick logic. It expects args to be the command line arguments, minus the program name.
+func Run(args []string) error {
+	if len(args) < 1 {
 		_ = CmdSidekick.PrintUsage()
 		return fmt.Errorf("no command given")
 	}
-
-	return runSidekick(os.Args[1:])
-}
-
-func runSidekick(args []string) error {
 	if args[0] == "help" {
 		cmd, found, unusedArgs := CmdSidekick.Lookup(args[1:])
 		if !found {

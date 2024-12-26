@@ -22,7 +22,7 @@ import (
 )
 
 func main() {
-	if err := sidekick.Run(); err != nil {
+	if err := sidekick.Run(os.Args[1:]); err != nil {
 		fmt.Fprintf(os.Stderr, "%v\n", err)
 		os.Exit(1)
 	}

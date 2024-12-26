@@ -17,7 +17,7 @@ package sidekick
 import "testing"
 
 func TestRefreshAll(t *testing.T) {
-	if err := runSidekick([]string{"refresh-all", "-dry-run", "true"}); err != nil {
+	if err := Run([]string{"refresh-all", "-dry-run", "true"}); err != nil {
 		t.Fatal(err)
 	}
 }
