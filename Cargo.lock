@@ -586,7 +586,6 @@ dependencies = [
  "async-trait",
  "axum",
  "http",
- "lazy_static",
  "mockall",
  "reqwest",
  "serde",

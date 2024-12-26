@@ -18,24 +18,22 @@ use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
-use lazy_static::lazy_static;
 use reqwest::header::HeaderMap;
 use reqwest::Client;
+use std::cell::LazyCell;
 use std::collections::HashMap;
 use std::env;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-
-lazy_static! {
-    // Use lazy_static to initialize the metadata URLs.
-    static ref _METADATA_ROOT: String = format!(
+const _METADATA_ROOT: LazyCell<String> = LazyCell::new(|| {
+    format!(
         "http://{}/computeMetadata/v1/",
         env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
             env::var("GCE_METADATA_ROOT").unwrap_or_else(|_| "metadata.google.internal".to_string())
         })
-    );
-}
+    )
+});
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) struct MDSCredential<T>
@@ -133,6 +131,37 @@ mod test {
     use serde_json::Value;
     use tokio::task::JoinHandle;
 
+    #[test]
+    fn metadata_root_from_gce_metadata_host() {
+        env::set_var("GCE_METADATA_HOST", "custom-metadata-host");
+        assert_eq!(
+            *_METADATA_ROOT,
+            "http://custom-metadata-host/computeMetadata/v1/"
+        );
+        env::remove_var("GCE_METADATA_HOST"); // Clean up
+    }
+
+    #[test]
+    fn metadata_root_from_gce_metadata_root() {
+        env::set_var("GCE_METADATA_ROOT", "metadata.example.com");
+        assert_eq!(
+            *_METADATA_ROOT,
+            "http://metadata.example.com/computeMetadata/v1/"
+        );
+        env::remove_var("GCE_METADATA_ROOT"); // Clean up
+    }
+
+    #[test]
+    fn metadata_root_default() {
+        env::remove_var("GCE_METADATA_ROOT"); // Ensure default is used
+        env::remove_var("GCE_METADATA_HOST");
+
+        assert_eq!(
+            *_METADATA_ROOT,
+            "http://metadata.google.internal/computeMetadata/v1/"
+        );
+    }
+
     #[tokio::test]
     async fn get_token_success() {
         let expected = Token {
@@ -209,48 +238,6 @@ mod test {
                 value: "Bearer test-token".to_string(),
                 is_sensitive: true,
             }]
-        );
-    }
-
-    #[test]
-    fn metadata_root_from_gce_metadata_host() {
-        env::set_var("GCE_METADATA_HOST", "custom-metadata-host");
-        // Recreate lazy_static value which depends on env variable
-        lazy_static::initialize(&_METADATA_ROOT);
-
-        assert_eq!(
-            &_METADATA_ROOT.to_string(),
-            "http://metadata.google.internal/computeMetadata/v1/"
-        );
-
-        env::remove_var("GCE_METADATA_HOST"); // Clean up
-    }
-
-    #[test]
-    fn metadata_root_from_gce_metadata_root() {
-        env::set_var("GCE_METADATA_ROOT", "metadata.example.com");
-        // Recreate lazy_static value which depends on env variable
-        lazy_static::initialize(&_METADATA_ROOT);
-
-        assert_eq!(
-            &_METADATA_ROOT.to_string(),
-            "http://metadata.google.internal/computeMetadata/v1/"
-        );
-
-        env::remove_var("GCE_METADATA_ROOT"); // Clean up
-    }
-
-    #[test]
-    fn metadata_root_default() {
-        // Remove env vars if they exist from previous tests
-        env::remove_var("GCE_METADATA_ROOT");
-        env::remove_var("GCE_METADATA_HOST");
-        // Recreate lazy_static value which depends on env variable
-        lazy_static::initialize(&_METADATA_ROOT);
-
-        assert_eq!(
-            &_METADATA_ROOT.to_string(),
-            "http://metadata.google.internal/computeMetadata/v1/"
         );
     }
 
