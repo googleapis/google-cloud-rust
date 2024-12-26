@@ -20,7 +20,7 @@ use async_trait::async_trait;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use lazy_static::lazy_static;
 use reqwest::header::HeaderMap;
-use reqwest::{Client, Response};
+use reqwest::Client;
 use std::collections::HashMap;
 use std::env;
 
@@ -87,7 +87,6 @@ impl MDSAccessTokenProvider {
         service_account_email: Option<String>,
     ) -> Result<ServiceAccountInfo> {
         let service_account_email: String = service_account_email
-            .clone()
             .unwrap_or("default".to_string());
         let path: String = format!(
             "{}/instance/service-accounts/{}/",
