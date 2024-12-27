@@ -29,7 +29,7 @@ const METADATA_FLAVOR: &str = "metadata-flavor";
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 static METADATA_ROOT: LazyLock<String> = LazyLock::new(|| {
     format!(
-        "http://{}/computeMetadata/v1/",
+        "http://{}/computeMetadata/v1",
         env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
             env::var("GCE_METADATA_ROOT").unwrap_or_else(|_| "metadata.google.internal".to_string())
         })
@@ -143,7 +143,7 @@ mod test {
 
         assert_eq!(
             *METADATA_ROOT,
-            "http://metadata.google.internal/computeMetadata/v1/"
+            "http://metadata.google.internal/computeMetadata/v1"
         );
     }
 
