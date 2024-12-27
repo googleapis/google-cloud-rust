@@ -113,7 +113,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			config.ServiceConfig = filepath.Join(testdataDir, config.ServiceConfig)
 		}
 		cmdLine := &CommandLine{
-			Command:             []string{"generate"},
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
@@ -175,7 +175,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 
 	for _, config := range configs {
 		cmdLine := &CommandLine{
-			Command:             []string{"generate"},
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
@@ -233,7 +233,7 @@ func TestGoFromProtobuf(t *testing.T) {
 
 	for _, config := range configs {
 		cmdLine := &CommandLine{
-			Command:             []string{"generate"},
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
