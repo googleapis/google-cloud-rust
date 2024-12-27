@@ -186,7 +186,7 @@ func newCommand(
 	return c
 }
 
-// printUsage prints the usage of the command to os.Stdout, following the same logic as the usageTemplate, but using standard fmt.Println statements instead.
+// printUsage prints the usage of the command to os.Stdout
 func (c *command) printUsage() {
 
 	// first prints the entire Long Description for the given command
