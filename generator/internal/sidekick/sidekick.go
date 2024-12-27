@@ -60,14 +60,26 @@ func Run(args []string) error {
 	if args[0] == "help" {
 		cmd, found, unusedArgs := cmdSidekick.lookup(args[1:])
 		if !found {
-			return newNotFoundError(cmd, args[1:], unusedArgs, fmt.Sprintf("Could not find help documentation for 'sidekick help %s'", strings.Join(args[1:], " ")))
+			return newNotFoundError(
+				cmd,
+				args[1:],
+				unusedArgs,
+				fmt.Sprintf(
+					"Could not find help documentation for 'sidekick help %s'",
+					strings.Join(args[1:], " ")))
 		}
 		cmd.printUsage()
 		return nil
 	} else {
 		cmd, found, cmdArgs := cmdSidekick.lookup(args)
 		if !found {
-			return newNotFoundError(cmd, args, cmdArgs, fmt.Sprintf("Could not find command 'sidekick %s'", strings.Join(args, " ")))
+			return newNotFoundError(
+				cmd,
+				args,
+				cmdArgs,
+				fmt.Sprintf(
+					"Could not find command 'sidekick %s'",
+					strings.Join(args, " ")))
 		} else {
 			var err error
 			if cmdLine, err := cmd.parseCmdLine(cmdArgs); err == nil {
@@ -93,18 +105,18 @@ func runCommand(cmd *command, cmdLine *CommandLine) error {
 	if cmdLine.ProjectRoot != "" {
 		cwd, err := os.Getwd()
 		if err != nil {
-			return fmt.Errorf("could not get current working directory: %v", err)
+			return fmt.Errorf("could not get current working directory: %w", err)
 		}
 		defer func(dir string) {
 			_ = os.Chdir(dir)
 		}(cwd)
 		if err = os.Chdir(cmdLine.ProjectRoot); err != nil {
-			return fmt.Errorf("could not change to project root [%s]: %v", cmdLine.ProjectRoot, err)
+			return fmt.Errorf("could not change to project root [%s]: %w", cmdLine.ProjectRoot, err)
 		}
 	}
 	config, err := loadConfig(cmdLine)
 	if err != nil {
-		return fmt.Errorf("could not load configuration: %v", err)
+		return fmt.Errorf("could not load configuration: %w", err)
 	}
 
 	return cmd.run(config, cmdLine)
