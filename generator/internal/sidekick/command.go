@@ -21,7 +21,7 @@ import (
 	"strings"
 )
 
-// command is an implementation of a sidekick command, like 'sidekick generate'
+// command is an implementation of a sidekick command, like 'sidekick generate'.
 type command struct {
 	action           func(rootConfig *Config, cmdLine *CommandLine) error
 	usageLine        string
@@ -42,7 +42,7 @@ func (c *command) name() string {
 	return name
 }
 
-// longName returns the command's long name: all the words in the usage line before a flag or argument,
+// longName returns the command's long name: all the words in the usage line before a flag or argument.
 func (c *command) longName() string {
 	name := c.usageLine
 	if i := strings.Index(name, " ["); i >= 0 {
@@ -57,7 +57,8 @@ func (c *command) addAltName(n string) *command {
 	return c
 }
 
-// names returns all the names of the command, including the main name declared in the usage line, and any alternative names.
+// names returns all the names of the command, including the main name declared in the usage line,
+// and any alternative names.
 func (c *command) names() []string {
 	return append([]string{c.name()}, c.altNames...)
 }
@@ -96,7 +97,7 @@ func (c *command) addFlagFunc(name string, usage string, fn func(string) error) 
 	return c
 }
 
-// allFlags returns all flags added to this command, as well as its parent hierarchy
+// allFlags returns all flags added to this command, as well as its parent hierarchy.
 func (c *command) allFlags() []*flag.Flag {
 	var flags []*flag.Flag
 	c.visitAllFlags(func(f *flag.Flag) {
@@ -105,7 +106,7 @@ func (c *command) allFlags() []*flag.Flag {
 	return flags
 }
 
-// visitAllFlags visits all flags in the command, including those of its parent hierarchy
+// visitAllFlags visits all flags in the command, including those of its parent hierarchy.
 func (c *command) visitAllFlags(fn func(f *flag.Flag)) {
 	c.flags.VisitAll(fn)
 	if c.parent != nil {
@@ -113,6 +114,7 @@ func (c *command) visitAllFlags(fn func(f *flag.Flag)) {
 	}
 }
 
+// run executes the command's action, if it has one.
 func (c *command) run(rootConfig *Config, cmdLine *CommandLine) error {
 	if c.action == nil {
 		return fmt.Errorf("command %s is not runnable", c.longName())
@@ -120,6 +122,7 @@ func (c *command) run(rootConfig *Config, cmdLine *CommandLine) error {
 	return c.action(rootConfig, cmdLine)
 }
 
+// parseCmdLine parses the command line arguments and returns a CommandLine struct.
 func (c *command) parseCmdLine(args []string) (*CommandLine, error) {
 	if c.parent != nil {
 		c.parent.visitAllFlags(func(f *flag.Flag) {
@@ -186,10 +189,8 @@ func newCommand(
 	return c
 }
 
-// printUsage prints the usage of the command to os.Stdout
+// printUsage prints the usage of the command to os.Stdout.
 func (c *command) printUsage() {
-
-	// first prints the entire Long Description for the given command
 	if len(c.longDescription) > 0 {
 		fmt.Println(c.longDescription)
 	} else {
@@ -197,7 +198,6 @@ func (c *command) printUsage() {
 	}
 	fmt.Printf("\n")
 
-	// Then prints the usage line, skipping over <command> if there are no sub-commands, and [flags] if there are no flags
 	fmt.Printf("Usage:\n")
 	fmt.Printf("    %s", c.longName())
 	if len(c.commands) > 0 {
@@ -208,7 +208,6 @@ func (c *command) printUsage() {
 	}
 	fmt.Printf("\n\n")
 
-	// if this command supports sub-commands, prints their names, along with their short descriptions
 	if len(c.commands) > 0 {
 		fmt.Println("The commands are:")
 		for _, sub := range c.commands {
@@ -217,7 +216,6 @@ func (c *command) printUsage() {
 		fmt.Printf("\n\n")
 	}
 
-	// if this command supports any flags, prints their names and usage
 	if len(c.allFlags()) > 0 {
 		fmt.Println("The flags are:")
 		for _, f := range c.allFlags() {
@@ -229,7 +227,6 @@ func (c *command) printUsage() {
 		fmt.Printf("\n\n")
 	}
 
-	// if the command supports sub-commands, prints a note about how to get more information about a specific sub-command
 	if len(c.commands) > 0 {
 		helpSuffix := strings.TrimSpace(strings.TrimPrefix(c.longName(), "sidekick"))
 		if len(helpSuffix) > 0 {
