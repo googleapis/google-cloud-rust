@@ -14,16 +14,9 @@
 
 package sidekick
 
-import (
-	"flag"
-	"fmt"
-	"os"
-	"strings"
-)
-
-// Represents the arguments received from the command line.
+// CommandLine Represents the arguments received from the command line.
 type CommandLine struct {
-	Command             string
+	Command             []string
 	ProjectRoot         string
 	SpecificationFormat string
 	SpecificationSource string
@@ -35,72 +28,14 @@ type CommandLine struct {
 	DryRun              bool
 }
 
-func parseArgs() (*CommandLine, error) {
-	return parseArgsExplicit(os.Args[1:])
-}
-
-func parseArgsExplicit(args []string) (*CommandLine, error) {
-	fs := flag.NewFlagSet("sidekick", flag.ContinueOnError)
-	var (
-		projectRoot   = fs.String("project-root", "", "the root of the output project")
-		format        = fs.String("specification-format", "", "the specification format. Protobuf or OpenAPI v3.")
-		source        = fs.String("specification-source", "", "the path to the input data")
-		serviceConfig = fs.String("service-config", "", "path to service config")
-		sourceOpts    = map[string]string{}
-		output        = fs.String("output", "", "the path within project-root to put generated files")
-		language      = fs.String("language", "", "the generated language")
-		codecOpts     = map[string]string{}
-		dryrun        = fs.Bool("dry-run", false, "do a dry-run: load the configuration, but do not perform any changes.")
-	)
-
-	fs.Func("source-option", "source options", func(opt string) error {
-		components := strings.SplitN(opt, "=", 2)
-		if len(components) != 2 {
-			return fmt.Errorf("invalid source option, must be in key=value format (%s)", opt)
-		}
-		sourceOpts[components[0]] = components[1]
-		return nil
-	})
-	fs.Func("codec-option", "codec options", func(opt string) error {
-		components := strings.SplitN(opt, "=", 2)
-		if len(components) != 2 {
-			return fmt.Errorf("invalid codec option, must be in key=value format (%s)", opt)
-		}
-		codecOpts[components[0]] = components[1]
-		return nil
-	})
-	fs.Usage = func() {
-		fmt.Println("Usage: sidekick [options] <command (generate|refresh|refreshall)>")
-		fs.PrintDefaults()
-	}
-	fs.Parse(args)
-
-	args = fs.Args()
-	var command string
-	switch len(args) {
-	case 0:
-		return nil, fmt.Errorf("missing command")
-	case 1:
-		command = args[0]
-	default:
-		return nil, fmt.Errorf("unrecognized arguments %v", args)
-	}
-
-	if command == "help" {
-		fs.Usage()
-		os.Exit(0)
-	}
-
-	return &CommandLine{
-		Command:             command,
-		ProjectRoot:         *projectRoot,
-		SpecificationFormat: *format,
-		SpecificationSource: *source,
-		ServiceConfig:       *serviceConfig,
-		Source:              sourceOpts,
-		Language:            *language,
-		Output:              *output,
-		Codec:               codecOpts,
-		DryRun:              *dryrun,
-	}, nil
-}
+var (
+	flagProjectRoot string
+	format          string
+	source          string
+	serviceConfig   string
+	sourceOpts      = map[string]string{}
+	output          string
+	flagLanguage    string
+	codecOpts       = map[string]string{}
+	dryrun          bool
+)

@@ -17,12 +17,7 @@ package sidekick
 import "testing"
 
 func TestRefreshAll(t *testing.T) {
-	cmdLine := &CommandLine{
-		Command:     "refreshall",
-		ProjectRoot: ".",
-		DryRun:      true,
-	}
-	if err := runSidekick(cmdLine); err != nil {
+	if err := Run([]string{"refresh-all", "-dry-run", "true"}); err != nil {
 		t.Fatal(err)
 	}
 }

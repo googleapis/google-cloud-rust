@@ -5,7 +5,7 @@ and maintaining SDKs for Google Cloud.
 
 ## Example Run with Protobuf
 
-You wneed to have `protoc` installed in your path. You can find useful links
+You need to have `protoc` installed in your path. You can find useful links
 below.
 
 This will generate the client library for [Secret Manager] in the
@@ -14,7 +14,7 @@ options should be already configured in a `.sidekick.toml` file.
 
 ```bash
 cd generator
-go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -project-root=.. generate \
+go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest generate -project-root=.. \
   -specification-format protobuf \
   -specification-source generator/testdata/googleapis/google/cloud/secretmanager/v1 \
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \
@@ -35,7 +35,7 @@ options should be already configured in a `.sidekick.toml` file.
 
 ```bash
 cd generator
-go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest -project-root=.. generate \
+go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest generate -project-root=.. \
   -specification-format openapi \
   -specification-source generator/testdata/openapi/secretmanager_openapi_v1.json \
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \

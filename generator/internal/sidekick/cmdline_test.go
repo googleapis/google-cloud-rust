@@ -21,8 +21,16 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
+func resetArgs() {
+	flagProjectRoot, format, source, serviceConfig, output, flagLanguage = "", "", "", "", "", ""
+	sourceOpts, codecOpts = map[string]string{}, map[string]string{}
+	dryrun = false
+}
+
 func TestParseArgs(t *testing.T) {
+	t.Cleanup(resetArgs)
 	args := []string{
+		"generate",
 		"-project-root", "../..",
 		"-specification-format", "openapi",
 		"-specification-source", specificationSource,
@@ -35,14 +43,18 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
-		"generate",
 	}
-	got, err := parseArgsExplicit(args)
+	cmd, _, args := cmdSidekick.lookup(args)
+	if cmd.name() != "generate" {
+		t.Fatal("expected lookup to return 'generate' command")
+	}
+
+	got, err := cmd.parseCmdLine(args)
 	if err != nil {
 		t.Fatal(err)
 	}
 	want := &CommandLine{
-		Command:             "generate",
+		Command:             args,
 		ProjectRoot:         "../..",
 		SpecificationFormat: "openapi",
 		SpecificationSource: specificationSource,
@@ -66,17 +78,17 @@ func TestParseArgs(t *testing.T) {
 }
 
 func TestDefaults(t *testing.T) {
+	t.Cleanup(resetArgs)
 	root := t.TempDir()
 	args := []string{
 		"-project-root", root,
-		"generate",
 	}
-	got, err := parseArgsExplicit(args)
+	got, err := cmdSidekick.parseCmdLine(args)
 	if err != nil {
 		t.Fatal(err)
 	}
 	want := &CommandLine{
-		Command:     "generate",
+		Command:     args,
 		ProjectRoot: root,
 		Source:      map[string]string{},
 		Codec:       map[string]string{},

@@ -44,7 +44,7 @@ var (
 func TestRustFromOpenAPI(t *testing.T) {
 	var outDir = fmt.Sprintf("%s/rust/openapi/golden", testdataDir)
 	cmdLine := &CommandLine{
-		Command:             "generate",
+		Command:             []string{},
 		ProjectRoot:         projectRoot,
 		SpecificationFormat: "openapi",
 		SpecificationSource: specificationSource,
@@ -60,7 +60,9 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
 		},
 	}
-	if err := runSidekick(cmdLine); err != nil {
+
+	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+	if err := runCommand(cmdGenerate, cmdLine); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -111,7 +113,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			config.ServiceConfig = filepath.Join(testdataDir, config.ServiceConfig)
 		}
 		cmdLine := &CommandLine{
-			Command:             "generate",
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
@@ -133,7 +135,8 @@ func TestRustFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runSidekick(cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
@@ -172,7 +175,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 
 	for _, config := range configs {
 		cmdLine := &CommandLine{
-			Command:             "generate",
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
@@ -190,7 +193,8 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runSidekick(cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -229,7 +233,7 @@ func TestGoFromProtobuf(t *testing.T) {
 
 	for _, config := range configs {
 		cmdLine := &CommandLine{
-			Command:             "generate",
+			Command:             []string{},
 			ProjectRoot:         projectRoot,
 			SpecificationFormat: "protobuf",
 			SpecificationSource: config.Source,
@@ -248,22 +252,23 @@ func TestGoFromProtobuf(t *testing.T) {
 		for k, v := range config.ExtraOptions {
 			cmdLine.Codec[k] = v
 		}
-		if err := runSidekick(cmdLine); err != nil {
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
 			t.Fatal(err)
 		}
 
 		dir := path.Join(projectRoot, outDir, config.Name)
-		runCommand(t, dir, "goimports", "-w", ".")
+		execCommand(t, dir, "goimports", "-w", ".")
 
 		for _, key := range orderedKeys(config.ModReplace) {
 			dir := path.Join(projectRoot, outDir, config.Name)
-			runCommand(t, dir, "go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
+			execCommand(t, dir, "go", "mod", "edit", "-replace", key+"=../../"+config.ModReplace[key])
 		}
-		runCommand(t, path.Join(projectRoot, outDir, config.Name), "go", "mod", "tidy")
+		execCommand(t, path.Join(projectRoot, outDir, config.Name), "go", "mod", "tidy")
 	}
 }
 
-func runCommand(t *testing.T, dir, c string, arg ...string) {
+func execCommand(t *testing.T, dir, c string, arg ...string) {
 	t.Helper()
 	cmd := exec.Command(c, arg...)
 	cmd.Dir = dir

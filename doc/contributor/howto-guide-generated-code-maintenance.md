@@ -26,11 +26,11 @@ taplo fmt Cargo.toml
 Generate the library:
 
 ```bash
-go -C generator/ run ./cmd/sidekick -project-root .. \
+go -C generator/ run ./cmd/sidekick generate \
+    -project-root .. \
     -specification-source google/cloud/websecurityscanner/v1 \
     -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml \
-    -output src/generated/cloud/websecurityscanner/v1 \
-    generate
+    -output src/generated/cloud/websecurityscanner/v1
 ```
 
 Add the files to `git`, compile them, and run the tests:
@@ -51,7 +51,7 @@ git commit -m"feat(websecurityscanner): generate library" .
 Run:
 
 ```bash
-go -C generator/ run ./cmd/sidekick -project-root .. update && taplo fmt .sidekick.toml && cargo fmt
+go -C generator/ run ./cmd/sidekick update -project-root .. && taplo fmt .sidekick.toml && cargo fmt
 ```
 
 Then run the unit tests and send a PR with whatever changed.
@@ -61,7 +61,7 @@ Then run the unit tests and send a PR with whatever changed.
 Run:
 
 ```bash
-go -C generator/ run ./cmd/sidekick -project-root .. refreshall && cargo fmt
+go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
 ```
 
 Then run the unit tests and send a PR with whatever changed.
