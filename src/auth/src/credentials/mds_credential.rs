@@ -21,20 +21,11 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
 use std::collections::HashMap;
-use std::env;
-use std::sync::LazyLock;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-static METADATA_ROOT: LazyLock<String> = LazyLock::new(|| {
-    format!(
-        "http://{}/computeMetadata/v1",
-        env::var("GCE_METADATA_HOST").unwrap_or_else(|_| {
-            env::var("GCE_METADATA_ROOT").unwrap_or_else(|_| "metadata.google.internal".to_string())
-        })
-    )
-});
+const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) struct MDSCredential<T>
@@ -132,20 +123,6 @@ mod test {
     use reqwest::StatusCode;
     use serde_json::Value;
     use tokio::task::JoinHandle;
-
-    #[test]
-    #[serial_test::serial]
-    fn metadata_root_default() {
-        unsafe {
-            env::remove_var("GCE_METADATA_ROOT"); // Ensure default is used
-            env::remove_var("GCE_METADATA_HOST");
-        }
-
-        assert_eq!(
-            *METADATA_ROOT,
-            "http://metadata.google.internal/computeMetadata/v1"
-        );
-    }
 
     #[tokio::test]
     async fn get_token_success() {
