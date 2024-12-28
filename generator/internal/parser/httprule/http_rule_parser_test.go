@@ -15,7 +15,9 @@
 package httprule
 
 import (
+	"fmt"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"testing"
 )
@@ -40,41 +42,94 @@ import (
 //	  {FieldPath: "secret"},
 //	  {Verb:      "getIamPolicy"},
 //	}
-func TestProtobuf_PathSegments(t *testing.T) {
-	expectError(t, "foo", "path must start with slash")
-	expectError(t, "/", "path cannot end with slash")
-	expectError(t, "/foo/", "path cannot end with slash")
 
-	//TODO these should work in the future, but expect an error for now, because the parser is not implemented
-	expectError(t, "/foo:bar", "verb is not implemented")
-	expectError(t, "/v1/{name}", "variable is not implemented")
-	expectError(t, "/v1/{name=projects}", "variable with value is not implemented")
-	expectError(t, "/v1/{name=*}", "variable with wildcard is not implemented")
-	expectError(t, "/v1/*/foo", "path with wildcard is not implemented")
-}
+func TestProtobuf_Parse(t *testing.T) {
+	expectSuccessTests := []struct {
+		path string
+		want []api.PathSegment
+	}{
+		{"/v1", []api.PathSegment{api.NewLiteralPathSegment("v1")}},
+		{"/v1/foo", []api.PathSegment{
+			api.NewLiteralPathSegment("v1"),
+			api.NewLiteralPathSegment("foo"),
+		}},
+		{"/v1/*/foo", []api.PathSegment{
+			api.NewLiteralPathSegment("v1"),
+			api.NewLiteralPathSegment("*"),
+			api.NewLiteralPathSegment("foo"),
+		}},
+		{"/v1/**/foo", []api.PathSegment{
+			api.NewLiteralPathSegment("v1"),
+			api.NewLiteralPathSegment("**"),
+			api.NewLiteralPathSegment("foo"),
+		}},
+		{"/foo:bar", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewVerbPathSegment("bar"),
+		}},
 
-func TestProtobuf_PathSegmentLiterals(t *testing.T) {
-	expectEqual(t, "/v1", []api.PathSegment{api.NewLiteralPathSegment("v1")})
-	expectEqual(t, "/v1/foo", []api.PathSegment{
-		api.NewLiteralPathSegment("v1"),
-		api.NewLiteralPathSegment("foo"),
-	})
+		{"/foo/{bar}", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewFieldPathPathSegment("bar"),
+		}},
+		{"/foo/{bar=baz}", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewFieldPathPathSegment("bar"),
+		}},
+		{"/foo/{bar=*}", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewFieldPathPathSegment("bar"),
+		}},
+		{"/foo/{bar=*}/baz", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewFieldPathPathSegment("bar"),
+			api.NewLiteralPathSegment("baz"),
+		}},
+	}
+
+	for _, tc := range expectSuccessTests {
+		t.Run(fmt.Sprintf("expect success for %s", tc.path), func(t *testing.T) {
+			expectEqual(t, tc.path, tc.want)
+		})
+	}
+
+	expectErrorTests := []struct {
+		path        string
+		explanation string
+	}{
+		{"foo", "path must start with slash"},
+		{"/", "path cannot end with slash"},
+		{"/foo/", "path cannot end with slash"},
+		{"/foo/***/bar", "wildcard literal cannot exceed two *"},
+
+		//verb tests
+		{"/foo/:bar", "verb cannot come after slash"},
+		{"/foo:bar/baz", "verb must be the last segment"},
+		{":foo", "verb cannot be the first segment"},
+	}
+
+	for _, tc := range expectErrorTests {
+
+		t.Run(fmt.Sprintf("expect failure for %s: %s", tc.path, tc.explanation), func(t *testing.T) {
+			expectError(t, tc.path, tc.explanation)
+		})
+	}
 }
 
 func expectEqual(t *testing.T, path string, want []api.PathSegment) {
 	t.Helper()
 	got, err := Parse(path)
 	if err != nil {
-		t.Fatal("expected no error, got:", err)
+		t.Fatalf("expected no error, got: %v", err)
 	}
-	if diff := cmp.Diff(want, got); diff != "" {
-		t.Errorf("failed parsing path [%s] (-want, +got):\n%s", path, diff)
+	if diff := cmp.Diff(want, got, cmpopts.EquateEmpty()); diff != "" {
+		t.Fatalf("failed parsing path [%s] (-want, +got):\n%s", path, diff)
 	}
 }
-func expectError(t *testing.T, path string, want string) {
+func expectError(t *testing.T, path string, explanation string) {
 	t.Helper()
 	_, err := Parse(path)
 	if err == nil {
-		t.Errorf("Parse(%s) succeeded, want error: %s", path, want)
+		t.Fatalf("Parse(%s) succeeded, want error: %s", path, explanation)
 	}
 }
