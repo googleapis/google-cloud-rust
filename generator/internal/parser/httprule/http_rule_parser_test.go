@@ -15,7 +15,6 @@
 package httprule
 
 import (
-	"fmt"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -44,74 +43,73 @@ import (
 //	}
 
 func TestProtobuf_Parse(t *testing.T) {
-	expectSuccessTests := []struct {
-		path string
-		want []api.PathSegment
+	tests := []struct {
+		path        string
+		want        []api.PathSegment
+		explanation string
 	}{
-		{"/v1", []api.PathSegment{api.NewLiteralPathSegment("v1")}},
-		{"/v1/foo", []api.PathSegment{
-			api.NewLiteralPathSegment("v1"),
+		{"/foo", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
-		}},
+		}, ""},
+		{"/foo/bar", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewLiteralPathSegment("bar"),
+		}, ""},
 		{"/v1/*/foo", []api.PathSegment{
 			api.NewLiteralPathSegment("v1"),
 			api.NewLiteralPathSegment("*"),
 			api.NewLiteralPathSegment("foo"),
-		}},
+		}, ""},
 		{"/v1/**/foo", []api.PathSegment{
 			api.NewLiteralPathSegment("v1"),
 			api.NewLiteralPathSegment("**"),
 			api.NewLiteralPathSegment("foo"),
-		}},
+		}, ""},
 		{"/foo:bar", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
 			api.NewVerbPathSegment("bar"),
-		}},
+		}, ""},
 
 		{"/foo/{bar}", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
 			api.NewFieldPathPathSegment("bar"),
-		}},
+		}, ""},
 		{"/foo/{bar=baz}", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
 			api.NewFieldPathPathSegment("bar"),
-		}},
+		}, ""},
 		{"/foo/{bar=*}", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
 			api.NewFieldPathPathSegment("bar"),
-		}},
+		}, ""},
 		{"/foo/{bar=*}/baz", []api.PathSegment{
 			api.NewLiteralPathSegment("foo"),
 			api.NewFieldPathPathSegment("bar"),
 			api.NewLiteralPathSegment("baz"),
-		}},
-	}
-
-	for _, tc := range expectSuccessTests {
-		t.Run(fmt.Sprintf("expect success for %s", tc.path), func(t *testing.T) {
-			expectEqual(t, tc.path, tc.want)
-		})
-	}
-
-	expectErrorTests := []struct {
-		path        string
-		explanation string
-	}{
-		{"foo", "path must start with slash"},
-		{"/", "path cannot end with slash"},
-		{"/foo/", "path cannot end with slash"},
-		{"/foo/***/bar", "wildcard literal cannot exceed two *"},
+		}, ""},
+		{"/foo/{bar.baz}", []api.PathSegment{
+			api.NewLiteralPathSegment("foo"),
+			api.NewFieldPathPathSegment("bar.baz"),
+		}, ""},
+		{"foo", nil, "path must start with slash"},
+		{"/", nil, "path cannot end with slash"},
+		{"/foo/", nil, "path cannot end with slash"},
+		{"/foo/***/bar", nil, "wildcard literal cannot exceed two *"},
 
 		//verb tests
-		{"/foo/:bar", "verb cannot come after slash"},
-		{"/foo:bar/baz", "verb must be the last segment"},
-		{":foo", "verb cannot be the first segment"},
+		{"/foo/:bar", nil, "verb cannot come after slash"},
+		{"/foo:bar/baz", nil, "verb must be the last segment"},
+		{":foo", nil, "verb cannot be the first segment"},
 	}
 
-	for _, tc := range expectErrorTests {
+	for _, tc := range tests {
+		t.Run(tc.path, func(t *testing.T) {
+			if tc.want != nil {
+				expectEqual(t, tc.path, tc.want)
+			} else {
+				expectError(t, tc.path, tc.explanation)
+			}
 
-		t.Run(fmt.Sprintf("expect failure for %s: %s", tc.path, tc.explanation), func(t *testing.T) {
-			expectError(t, tc.path, tc.explanation)
 		})
 	}
 }
