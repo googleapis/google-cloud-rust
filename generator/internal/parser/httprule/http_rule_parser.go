@@ -88,7 +88,7 @@ func Parse(pathTemplate string) (*PathTemplate, error) {
 
 // ParseSegments flattens the result of Parse into a slice of api.PathSegment,
 // ignoring variable values and match (* and **) segments.
-// TODO: This function is a temporary shim to allow the existing tests to pass.
+// TODO(#557): This function is a temporary shim to allow the existing tests to pass.
 func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
 	path, err := parsePathTemplate(pathTemplate)
 	if err != nil {
