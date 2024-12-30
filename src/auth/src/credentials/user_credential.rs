@@ -22,11 +22,29 @@ use std::time::Duration;
 use time::OffsetDateTime;
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
+const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
+
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+#[derive(Debug, PartialEq)]
 struct UserTokenProvider {
     client_id: String,
     client_secret: String,
     refresh_token: String,
     endpoint: String,
+}
+
+impl UserTokenProvider {
+    #[allow(dead_code)] // TODO(#442) - implementation in progress
+    fn from_json(js: serde_json::Value) -> Result<Self> {
+        let au: AuthorizedUser =
+            serde_json::from_value(js).map_err(|e| CredentialError::new(false, e.into()))?;
+        Ok(UserTokenProvider {
+            client_id: au.client_id,
+            client_secret: au.client_secret,
+            refresh_token: au.refresh_token,
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        })
+    }
 }
 
 #[async_trait::async_trait]
@@ -110,6 +128,15 @@ where
     }
 }
 
+#[derive(Debug, PartialEq, serde::Deserialize)]
+pub(crate) struct AuthorizedUser {
+    #[serde(rename = "type")]
+    cred_type: String,
+    client_id: String,
+    client_secret: String,
+    refresh_token: String,
+}
+
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 enum RefreshGrantType {
     #[serde(rename = "refresh_token")]
@@ -146,6 +173,48 @@ mod test {
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn user_token_provider_from_json_success() {
+        let json = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        let expected = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        };
+        let actual = UserTokenProvider::from_json(json).unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn user_token_provider_from_json_parse_fail() {
+        let json_full = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        for required_field in ["client_id", "client_secret", "refresh_token"] {
+            let mut json = json_full.clone();
+            // Remove a required field from the JSON
+            json[required_field].take();
+            UserTokenProvider::from_json(json).err().unwrap();
+        }
+    }
 
     #[tokio::test]
     async fn get_token_success() {
