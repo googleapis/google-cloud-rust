@@ -284,13 +284,9 @@ impl std::convert::TryFrom<chrono::Duration> for Duration {
 
 /// Converts from [Duration] to [chrono::Duration].
 #[cfg(feature = "chrono")]
-impl std::convert::TryFrom<Duration> for chrono::Duration {
-    type Error = DurationError;
-    fn try_from(value: Duration) -> Result<Self, Self::Error> {
-        if value.nanos < 0 {
-            return Err(Error::OutOfRange());
-        }
-        Ok(Self::new(value.seconds(), value.nanos() as u32).unwrap())
+impl std::convert::From<Duration> for chrono::Duration {
+    fn from(value: Duration) -> Self {
+        Self::seconds(value.seconds) + Self::nanoseconds(value.nanos as i64)
     }
 }
 
@@ -525,7 +521,7 @@ mod test {
     #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
     #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
     fn to_chrono_time_in_range(value: Duration, want: chrono::Duration) -> Result {
-        let got = chrono::Duration::try_from(value)?;
+        let got = chrono::Duration::from(value);
         assert_eq!(got, want);
         Ok(())
     }
@@ -534,12 +530,6 @@ mod test {
     #[test_case(chrono::Duration::new(-10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "below the range")]
     fn from_chrono_time_out_of_range(value: chrono::Duration) {
         let got = Duration::try_from(value);
-        assert_eq!(got, Err(DurationError::OutOfRange()));
-    }
-
-    #[test_case(Duration::new(0, -10_001).unwrap() ; "below the range")]
-    fn to_chrono_time_out_of_range(value: Duration) {
-        let got = chrono::Duration::try_from(value);
         assert_eq!(got, Err(DurationError::OutOfRange()));
     }
 }
