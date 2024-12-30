@@ -15,7 +15,6 @@
 pub(crate) mod mds_credential;
 pub(crate) mod user_credential;
 
-use crate::errors::CredentialError;
 use crate::Result;
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
@@ -171,9 +170,9 @@ pub mod traits {
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 #[allow(dead_code)] // TODO(#442) - implementation in progress
-fn adc_path() -> Result<String> {
+fn adc_path() -> Option<String> {
     if let Ok(e) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
-        return Ok(e);
+        return Some(e);
     }
     adc_well_known_path()
 }
@@ -182,35 +181,28 @@ fn adc_path() -> Result<String> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(target_os = "windows")]
-fn adc_well_known_path() -> Result<String> {
+fn adc_well_known_path() -> Option<String> {
     if let Ok(root) = std::env::var("APPDATA") {
-        return Ok(root + "/gcloud/application_default_credentials.json");
+        return Some(root + "/gcloud/application_default_credentials.json");
     }
-    Err(CredentialError::new(
-        false,
-        Box::from("Error loading ADC: %APPDATA% environment variable not set."),
-    ))
+    None
 }
 
 /// The well-known path to ADC on Linux and Mac, as specified in [AIP-4113].
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(not(target_os = "windows"))]
-fn adc_well_known_path() -> Result<String> {
+fn adc_well_known_path() -> Option<String> {
     if let Ok(root) = std::env::var("HOME") {
-        return Ok(root + "/.config/gcloud/application_default_credentials.json");
+        return Some(root + "/.config/gcloud/application_default_credentials.json");
     }
-    Err(CredentialError::new(
-        false,
-        Box::from("Error loading ADC: ${HOME} environment variable not set."),
-    ))
+    None
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
     use scoped_env::ScopedEnv;
-    use std::error::Error;
 
     #[cfg(target_os = "windows")]
     #[test]
@@ -234,16 +226,8 @@ mod test {
     fn adc_well_known_path_windows_no_appdata() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("APPDATA");
-
-        let e = adc_well_known_path().err().unwrap();
-        let msg = e.source().unwrap().to_string();
-        assert!(msg.contains("Error loading ADC"));
-        assert!(msg.contains("APPDATA"));
-
-        let e = adc_path().err().unwrap();
-        let msg = e.source().unwrap().to_string();
-        assert!(msg.contains("Error loading ADC"));
-        assert!(msg.contains("APPDATA"));
+        assert!(adc_well_known_path().is_none());
+        assert!(adc_path().is_none());
     }
 
     #[cfg(not(target_os = "windows"))]
@@ -268,16 +252,8 @@ mod test {
     fn adc_well_known_path_posix_no_home() {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("HOME");
-
-        let e = adc_well_known_path().err().unwrap();
-        let msg = e.source().unwrap().to_string();
-        assert!(msg.contains("Error loading ADC"));
-        assert!(msg.contains("HOME"));
-
-        let e = adc_path().err().unwrap();
-        let msg = e.source().unwrap().to_string();
-        assert!(msg.contains("Error loading ADC"));
-        assert!(msg.contains("HOME"));
+        assert!(adc_well_known_path().is_none());
+        assert!(adc_path().is_none());
     }
 
     #[test]
