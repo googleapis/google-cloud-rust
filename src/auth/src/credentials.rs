@@ -165,3 +165,105 @@ pub mod traits {
         }
     }
 }
+
+/// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
+///
+/// [AIP-4110]: https://google.aip.dev/auth/4110
+#[allow(dead_code)] // TODO(#442) - implementation in progress
+fn adc_path() -> Option<String> {
+    if let Ok(e) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
+        return Some(e);
+    }
+    adc_well_known_path()
+}
+
+/// The well-known path to ADC on Windows, as specified in [AIP-4113].
+///
+/// [AIP-4113]: https://google.aip.dev/auth/4113
+#[cfg(target_os = "windows")]
+fn adc_well_known_path() -> Option<String> {
+    std::env::var("APPDATA")
+        .ok()
+        .map(|root| root + "/gcloud/application_default_credentials.json")
+}
+
+/// The well-known path to ADC on Linux and Mac, as specified in [AIP-4113].
+///
+/// [AIP-4113]: https://google.aip.dev/auth/4113
+#[cfg(not(target_os = "windows"))]
+fn adc_well_known_path() -> Option<String> {
+    std::env::var("HOME")
+        .ok()
+        .map(|root| root + "/.config/gcloud/application_default_credentials.json")
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use scoped_env::ScopedEnv;
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn adc_well_known_path_windows() {
+        let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _appdata = ScopedEnv::set("APPDATA", "C:/Users/foo");
+        assert_eq!(
+            adc_well_known_path(),
+            Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
+        );
+        assert_eq!(
+            adc_path(),
+            Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
+        );
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn adc_well_known_path_windows_no_appdata() {
+        let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _appdata = ScopedEnv::remove("APPDATA");
+        assert_eq!(adc_well_known_path(), None);
+        assert_eq!(adc_path(), None);
+    }
+
+    #[cfg(not(target_os = "windows"))]
+    #[test]
+    #[serial_test::serial]
+    fn adc_well_known_path_posix() {
+        let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _home = ScopedEnv::set("HOME", "/home/foo");
+        assert_eq!(
+            adc_well_known_path(),
+            Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
+        );
+        assert_eq!(
+            adc_path(),
+            Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
+        );
+    }
+
+    #[cfg(not(target_os = "windows"))]
+    #[test]
+    #[serial_test::serial]
+    fn adc_well_known_path_posix_no_home() {
+        let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _appdata = ScopedEnv::remove("HOME");
+        assert_eq!(adc_well_known_path(), None);
+        assert_eq!(adc_path(), None);
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn adc_path_from_env() {
+        let _creds = ScopedEnv::set(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            "/usr/bar/application_default_credentials.json",
+        );
+        assert_eq!(
+            adc_path(),
+            Some("/usr/bar/application_default_credentials.json".to_string())
+        );
+    }
+}

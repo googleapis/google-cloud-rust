@@ -599,8 +599,10 @@ dependencies = [
  "http",
  "mockall",
  "reqwest",
+ "scoped-env",
  "serde",
  "serde_json",
+ "serial_test",
  "test-case",
  "thiserror",
  "time",
@@ -1832,6 +1834,12 @@ checksum = "1f29ebaa345f945cec9fbbc532eb307f0fdad8161f281b6369539c8d84876b3d"
 dependencies = [
  "windows-sys 0.59.0",
 ]
+
+[[package]]
+name = "scoped-env"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a86338a78d9058ae1bb70bf4ec558e9c51c611b443a356f7d041d29bb6c1c026"
 
 [[package]]
 name = "scopeguard"
