@@ -735,6 +735,7 @@ name = "gcp-sdk-wkt"
 version = "0.1.0-rc2"
 dependencies = [
  "bytes",
+ "chrono",
  "gcp-sdk-wkt",
  "serde",
  "serde_json",
