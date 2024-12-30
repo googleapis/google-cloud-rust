@@ -35,7 +35,7 @@ location   = { version = "0.1.0-rc2", path = "../../../../../src/generated/cloud
 reqwest    = { version = "0.12.11", features = ["json"] }
 serde      = { version = "1.0.214", features = ["serde_derive"] }
 serde_json = { version = "1.0.134" }
-serde_with = { version = "3.11.0", default-features = false, features = ["base64", "macros", "std"] }
+serde_with = { version = "3.12.0", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1.41" }
 wkt        = { version = "0.1.0-rc2", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
 
