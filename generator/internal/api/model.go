@@ -14,13 +14,6 @@
 
 package api
 
-import (
-	"regexp"
-)
-
-// HTTPPathVarRegex extracts the arg name from positional path strings.
-var HTTPPathVarRegex = regexp.MustCompile(`{([a-zA-Z0-9_.]+?)(=[^{}]+)?}`)
-
 // Typez represent different field types that may be found in messages.
 type Typez int
 

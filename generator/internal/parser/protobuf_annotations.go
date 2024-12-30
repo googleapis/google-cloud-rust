@@ -16,13 +16,12 @@ package parser
 
 import (
 	"fmt"
-	"log/slog"
-	"strings"
-
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser/httprule"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
+	"log/slog"
 )
 
 func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (*api.PathInfo, error) {
@@ -60,7 +59,10 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 			BodyFieldPath:   "*",
 		}, nil
 	}
-	pathTemplate := parseRawPath(rawPath)
+	pathTemplate, err := httprule.ParseSegments(rawPath)
+	if err != nil {
+		return nil, err
+	}
 	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
 		return nil, err
@@ -97,36 +99,6 @@ func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, 
 		delete(params, body)
 	}
 	return params, nil
-}
-
-func parseRawPath(rawPath string) []api.PathSegment {
-	// TODO(#121) - use a proper parser for the template syntax
-	template := api.HTTPPathVarRegex.ReplaceAllStringFunc(rawPath, func(s string) string {
-		members := strings.Split(s, "=")
-		if len(members) == 1 {
-			return members[0]
-		}
-		return members[0] + "}"
-	})
-	segments := []api.PathSegment{}
-	for idx, component := range strings.Split(template, ":") {
-		if idx != 0 {
-			segments = append(segments, api.PathSegment{Verb: &component})
-			continue
-		}
-		for _, element := range strings.Split(component, "/") {
-			if element == "" {
-				continue
-			}
-			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
-				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &element})
-				continue
-			}
-			segments = append(segments, api.PathSegment{Literal: &element})
-		}
-	}
-	return segments
 }
 
 func parseDefaultHost(m proto.Message) string {
