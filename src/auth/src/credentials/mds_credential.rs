@@ -14,16 +14,15 @@
 
 use crate::credentials::traits::dynamic::Credential;
 use crate::credentials::Result;
-use crate::errors::{is_retryable,CredentialError};
+use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
 use std::collections::HashMap;
-use time::OffsetDateTime;
 use std::time::Duration;
-
+use time::OffsetDateTime;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
@@ -73,7 +72,7 @@ struct MDSTokenResponse {
     access_token: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     expires_in: Option<u64>,
-    token_type: String,    
+    token_type: String,
 }
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress
@@ -123,11 +122,7 @@ impl MDSAccessTokenProvider {
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&mut self) -> Result<Token> {
         let request = Client::new();
-        let service_account_email = "default";
-        let path: String = format!(
-            "{}/instance/service-accounts/{}/token",
-            self.endpoint, service_account_email
-        );
+        let path: String = format!("{}/instance/service-accounts/default/token", self.endpoint);
         let mut headers = HeaderMap::new();
         headers.insert(
             METADATA_FLAVOR,
@@ -176,8 +171,8 @@ mod test {
     use axum::response::IntoResponse;
     use reqwest::StatusCode;
     use serde_json::Value;
-    use tokio::task::JoinHandle;
     use std::error::Error;
+    use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -373,9 +368,7 @@ mod test {
         let (endpoint, _server) = start(StatusCode::OK, response_body, path.to_string()).await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider {
-            endpoint: endpoint,
-        };
+        let tp = MDSAccessTokenProvider { endpoint: endpoint };
         let mut uc = MDSCredential { token_provider: tp };
         let now = OffsetDateTime::now_utc();
         let token = uc.get_token().await?;
@@ -400,9 +393,7 @@ mod test {
         let (endpoint, _server) = start(StatusCode::OK, response_body, path.to_string()).await;
         println!("endpoint = {endpoint}");
 
-        let tp = MDSAccessTokenProvider {
-            endpoint: endpoint,
-        };
+        let tp = MDSAccessTokenProvider { endpoint: endpoint };
         let mut uc = MDSCredential { token_provider: tp };
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -415,12 +406,14 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_retryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) =
-            start(StatusCode::SERVICE_UNAVAILABLE, serde_json::to_value("try again")?, path.to_string()).await;
+        let (endpoint, _server) = start(
+            StatusCode::SERVICE_UNAVAILABLE,
+            serde_json::to_value("try again")?,
+            path.to_string(),
+        )
+        .await;
 
-        let tp = MDSAccessTokenProvider {
-            endpoint: endpoint,
-        };
+        let tp = MDSAccessTokenProvider { endpoint: endpoint };
         let mut mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
@@ -432,11 +425,14 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
         let path = "/instance/service-accounts/default/token";
-        let (endpoint, _server) = start(StatusCode::UNAUTHORIZED, serde_json::to_value("epic fail".to_string())?, path.to_string()).await;
+        let (endpoint, _server) = start(
+            StatusCode::UNAUTHORIZED,
+            serde_json::to_value("epic fail".to_string())?,
+            path.to_string(),
+        )
+        .await;
 
-        let tp = MDSAccessTokenProvider {
-            endpoint: endpoint,
-        };
+        let tp = MDSAccessTokenProvider { endpoint: endpoint };
         let mut mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
