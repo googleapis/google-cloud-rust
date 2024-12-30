@@ -32,7 +32,7 @@ gax        = { version = "0.1.0-rc2", path = "../../../../../src/gax", package =
 iam_v1     = { version = "0.1.0-rc2", path = "../../../../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
 lazy_static = { version = "1.5.0" }
 location   = { version = "0.1.0-rc2", path = "../../../../../src/generated/cloud/location", package = "gcp-sdk-location" }
-reqwest    = { version = "0.12.9", features = ["json"] }
+reqwest    = { version = "0.12.11", features = ["json"] }
 serde      = { version = "1.0.214", features = ["serde_derive"] }
 serde_json = { version = "1.0.134" }
 serde_with = { version = "3.11.0", default-features = false, features = ["base64", "macros", "std"] }

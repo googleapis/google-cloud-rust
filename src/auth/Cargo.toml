@@ -26,7 +26,7 @@ categories.workspace = true
 [dependencies]
 async-trait = "0.1.83"
 http        = "1.2.0"
-reqwest     = { version = "0.12.9", features = ["json"] }
+reqwest     = { version = "0.12.11", features = ["json"] }
 serde       = { version = "1.0.214", features = ["derive"] }
 serde_json  = "1.0.134"
 thiserror   = "2"
