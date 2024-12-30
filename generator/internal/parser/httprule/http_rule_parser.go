@@ -16,41 +16,17 @@ package httprule
 
 import (
 	"fmt"
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"strings"
 )
 
-// The logic in this file is based on the Mustache template implementation.
-// Reference:
-// - https://go.dev/talks/2011/lex.slide (slides)
-// - https://go.dev/talks/2011/lex/r59-lex.go (code)
-
-func Parse(pathTemplate string) ([]api.PathSegment, error) {
-
-	l := &lexer{
-		input:    pathTemplate,
-		state:    slashState, // the first state is always slashState
-		segments: make(chan segment, 2),
-	}
-	var segments []api.PathSegment
-	for {
-		s := l.nextItem()
-		switch s.typ {
-		case segmentLiteral:
-			segments = append(segments, api.NewLiteralPathSegment(s.val))
-		case segmentIdentifier:
-			segments = append(segments, api.NewFieldPathPathSegment(s.val))
-		case segmentVerb:
-			segments = append(segments, api.NewVerbPathSegment(s.val))
-		case segmentError:
-			return nil, fmt.Errorf("error parsing path template (%s): %s", pathTemplate, s.val)
-		case segmentEOF:
-			return segments, nil
-		}
-
-	}
-}
-
-// ### Path template syntax
+// The following documentation was copied from https://github.com/googleapis/google-cloud-cpp/blob/4174d656136f4b849c8a3d327237f3a96be3e003/generator/internal/http_annotation_parser.h#L49-L58
+// The result of parsing a `google.api.http` annotation.
+//
+// A `google.api.http` annotation describes how to convert gRPC RPCs to HTTP
+// URLs. The description uses a "path template", showing what portions of the
+// URL path are replaced with values from the gRPC request message.
+//
+// These path templates follow a specific grammar. The grammar is defined by:
 //
 //	Template = "/" Segments [ Verb ] ;
 //	Segments = Segment { "/" Segment } ;
@@ -58,14 +34,80 @@ func Parse(pathTemplate string) ([]api.PathSegment, error) {
 //	Variable = "{" FieldPath [ "=" Segments ] "}" ;
 //	FieldPath = IDENT { "." IDENT } ;
 //	Verb     = ":" LITERAL ;
-const (
-	segmentError segmentType = iota // 0
-	segmentLiteral
-	segmentIdentifier
-	segmentVerb //a verb is actually ':' + LITERAL,
-	// but we need a way to differentiate a literal within a segment, from a literal within a verb
-	segmentEOF
-)
+//
+// The specific notation is not defined, but it seems inspired by
+// [Backus-Naur Form]. In this notation, `{ ... }` allows repetition.
+//
+// The documentation goes on to say:
+//
+//	A variable template must not contain other variables.
+//
+// So the grammar is better defined by:
+//
+//	Template = "/" Segments [ Verb ] ;
+//	Segments = Segment { "/" Segment } ;
+//	Segment  = Variable | PlainSegment;
+//	PlainSegment  = "*" | "**" | LITERAL ;
+//	Variable = "{" FieldPath [ "=" PlainSegments ] "}" ;
+//	PlainSegments = PlainSegment { "/" PlainSegment };
+//	FieldPath = IDENT { "." IDENT } ;
+//	Verb     = ":" LITERAL ;
+//
+// Neither "IDENT" nor "LITERAL" are defined. From context we can infer that
+// IDENT must be a valid proto3 identifier, so matching the regular expression
+// `[A-Za-z][A-Za-z0-9_]*`. Likewise, we can infer that LITERAL must be a path
+// segment in a URL. [RFC 3986] provides a definition for these, which we
+// summarize as:
+//
+// LITERAL     = pchar { pchar }
+// pchar       = unreserved | pct-encoded | sub-delims | ":" | "@"
+// unreserved  = ALPHA | DIGIT | "-" | "." | "_" | "~"
+// pct-encoded = "%" HEXDIG HEXDIG
+// sub-delims  = "!" | "$" | "&" | "'" | "(" | ")"
+//
+//	| "*" | "+" | "," | ";" | "="
+//
+// ALPHA       = [A-Za-z]
+// DIGIT       = [0-9]
+// HEXDIG      = [0-9A-Fa-f]
+//
+// [RFC 3986]: https://datatracker.ietf.org/doc/html/rfc3986#section-3.3
+// [Backus-Naur Form]: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+
+func Parse(pathTemplate string) (*PathTemplate, error) {
+	return parsePathTemplate(pathTemplate)
+}
+
+// PathTemplate represents the structure in Go.
+type PathTemplate struct {
+	Segments []*Segment
+	Verb     *Literal
+}
+
+// Match represents a single '*' match.
+type Match struct{}
+
+// MatchRecursive represents a '**' match.
+type MatchRecursive struct{}
+
+type Literal string
+type Identifier string
+
+// Variable represents a variable in the path template with its field path and nested segments.
+type Variable struct {
+	FieldPath []*Identifier
+	Segments  []*Segment
+}
+
+// Segment represents a single segment of the path template, which can hold one of several types of values.
+type Segment struct {
+	Literal        *Literal
+	Match          *Match
+	MatchRecursive *MatchRecursive
+	Variable       *Variable
+}
+
+const eof = -1
 
 const (
 	slash    = '/'
@@ -73,119 +115,233 @@ const (
 	varLeft  = '{'
 	varRight = '}'
 	varSep   = '='
+	identSep = '.'
 	verbSep  = ':'
 )
 
-type stateFn func(*lexer) stateFn
-
-// slashState is the first state before a segment
-func slashState(l *lexer) stateFn {
-	if !l.ignoreIfMatches(slash) {
-		return l.unexpectedRuneError(slash, l.peek())
+func parsePathTemplate(pathTemplate string) (*PathTemplate, error) {
+	if len(pathTemplate) < 2 {
+		return nil, fmt.Errorf("invalid path template, expected at least two characters: %s", pathTemplate)
+	} else if pathTemplate[0] != slash {
+		return nil, fmt.Errorf("invalid path template, expected it to start with '/': %s", pathTemplate)
+	} else if pathTemplate[len(pathTemplate)-1] == slash {
+		return nil, fmt.Errorf("invalid path template, expected it to not end with '/': %s", pathTemplate)
 	}
-	return segmentState
+
+	lastPos := len(pathTemplate)
+	var err error
+	var verb *Literal
+	if strings.ContainsRune(pathTemplate, verbSep) {
+		lastPos = strings.LastIndex(pathTemplate, string(verbSep))
+		verb, err = parseVerb(pathTemplate[lastPos:])
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	segments, err := parseSegments(pathTemplate[1:lastPos])
+	if err != nil {
+		return nil, err
+	}
+
+	return &PathTemplate{
+		Segments: segments,
+		Verb:     verb,
+	}, nil
+
 }
 
-func segmentState(l *lexer) stateFn {
-	switch l.peek() {
-	case eof, slash, verbSep:
-		return l.errorf("expected a segment, found %q", l.peek())
-	case varLeft:
-		return varState
+func parseVerb(verbString string) (*Literal, error) {
+	if len(verbString) == 0 {
+		return nil, nil
 	}
-	return literalState
+	if len(verbString) < 2 {
+		return nil, fmt.Errorf("invalid verb, when not empty, must have at least two characters")
+	} else if verbString[0] != verbSep {
+		return nil, fmt.Errorf("invalid verb, must start with '%q': %s", verbSep, verbString)
+	}
+	return parseLiteral(verbString[1:])
 }
 
-const validFirstIdentifierRunes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-	"abcdefghiljkmnopqrstuvwxyz"
-
-const validIdentifierRunes = validFirstIdentifierRunes +
-	"0123456789" +
-	"_"
-const validVariableValueRunes = validIdentifierRunes + "/*"
-
-func varState(l *lexer) stateFn {
-	if !l.ignoreIfMatches(varLeft) {
-		return l.unexpectedRuneError(varLeft, l.peek())
+// parseSegments parses the first segment out of the provided string, and calls itself recursively to parse the remaining segments, if any.
+func parseSegments(segmentsString string) ([]*Segment, error) {
+	if len(segmentsString) < 1 {
+		return nil, fmt.Errorf("invalid segments, expected at least one character")
+	} else if segmentsString[0] == slash {
+		return nil, fmt.Errorf("invalid segments, cannot start with '/': %s", segmentsString)
+	} else if segmentsString[len(segmentsString)-1] == slash {
+		return nil, fmt.Errorf("invalid segments, cannot end with '/': %s", segmentsString)
 	}
 
-	if !l.accept(validFirstIdentifierRunes) {
-		return l.errorf("expected a valid first rune for a variable identifier, got %q", l.peek())
-	}
-
-	// The identifier is a single or multiple characters, just take all that match.
-	_ = l.acceptAll(validIdentifierRunes)
-
-	// We have reached the end of the valid characters for an identifier
-	// emit the segment now and process the rest of the variable for correctness.
-	l.emit(segmentIdentifier)
-
-	if l.ignoreIfMatches(varSep) {
-		// This var has a value, we don't use it for anything, so lets just ignore it.
-		//TODO The valid format for a variable value is a sequence of segments, we could validate that here.
-		if !l.acceptAll(validVariableValueRunes) {
-			return l.errorf("expected a valid variable value, got %q", l.peek())
+	var firstSegment *Segment
+	var lastPos int
+	var err error
+	if segmentsString[0] == varLeft {
+		lastPos = strings.Index(segmentsString, string(varRight))
+		if lastPos == eof {
+			return nil, fmt.Errorf("invalid variable, expected to find '%q' before the end of the string: %s",
+				varRight,
+				segmentsString)
 		}
-		l.ignore()
+		firstSegment, err = parseVarSegment(segmentsString[:lastPos+1])
+		if lastPos == len(segmentsString)-1 {
+			lastPos = eof
+		} else {
+			// If this isn't the last segment in the string, we need to skip the slash.
+			lastPos += 1
+		}
+	} else {
+		lastPos = strings.Index(segmentsString, string(slash))
+		if lastPos != eof {
+			firstSegment, err = parsePlainSegment(segmentsString[:lastPos])
+		} else {
+			firstSegment, err = parsePlainSegment(segmentsString)
+		}
 	}
 
-	if !l.ignoreIfMatches(varRight) {
-		return l.unexpectedRuneError(varRight, l.peek())
+	if err != nil {
+		return nil, err
 	}
-	return eoSegmentState
+
+	if lastPos == eof {
+		return []*Segment{firstSegment}, nil
+	} else {
+		segments, err := parseSegments(segmentsString[lastPos+1:])
+		if err != nil {
+			return nil, err
+		}
+		return append([]*Segment{firstSegment}, segments...), nil
+	}
 }
 
-// verbState must start with a verbSep
-func verbState(l *lexer) stateFn {
-	if !l.ignoreIfMatches(verbSep) {
-		return l.unexpectedRuneError(verbSep, l.peek())
+func parseVarSegment(varString string) (*Segment, error) {
+	if len(varString) < 3 {
+		return nil, fmt.Errorf("invalid variable, expected at least three characters: %s", varString)
+	} else if varString[0] != varLeft {
+		return nil, fmt.Errorf("invalid variable, expected it to start with '%q': %s", varLeft, varString)
+	} else if varString[len(varString)-1] != varRight {
+		return nil, fmt.Errorf("invalid variable, expected it to end with '%q': %s", varRight, varString)
 	}
-	if !l.acceptAll(validLiteralRunes) {
-		return l.errorf("expected a literal segment")
+	// Remove the '{' and '}' from the variable string
+	varString = varString[1 : len(varString)-1]
+	indexOfSep := strings.Index(varString, string(varSep))
+	if indexOfSep != eof {
+		fieldPath, err := parseFieldPath(varString[:indexOfSep])
+		if err != nil {
+			return nil, err
+		}
+		segments, err := parsePlainSegments(varString[indexOfSep+1:])
+		if err != nil {
+			return nil, err
+		}
+
+		return &Segment{
+			Variable: &Variable{
+				FieldPath: fieldPath,
+				Segments:  segments,
+			},
+		}, nil
+	} else {
+		fieldPath, err := parseFieldPath(varString)
+		if err != nil {
+			return nil, err
+		}
+		return &Segment{
+			Variable: &Variable{
+				FieldPath: fieldPath,
+			},
+		}, nil
 	}
-	l.emit(segmentVerb)
-	// the only valid rune after a verb is EOF
-	return eofState
 }
 
-const validLiteralRunes = "abcdefghijklmnopqrstuvwxyz" +
-	"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-	"0123456789" +
-	"-._~" +
-	"%" +
-	"!$&'()*+,;="
-
-func literalState(l *lexer) stateFn {
-	if l.accept(string(star)) {
-		// if literal starts with a *, it can have either a * or ** as the value
-		// we don't differentiate between those, so just accept the next character if it's a *
-		_ = l.accept(string(star))
-	} else if !l.acceptAll(validLiteralRunes) {
-		return l.errorf("expected a literal segment")
+func parsePlainSegments(segmentsString string) ([]*Segment, error) {
+	plainSegments := strings.Split(segmentsString, string(slash))
+	parsedSegments := make([]*Segment, 0, len(plainSegments))
+	for _, plainSegment := range plainSegments {
+		parsedSegment, err := parsePlainSegment(plainSegment)
+		if err != nil {
+			return nil, err
+		}
+		parsedSegments = append(parsedSegments, parsedSegment)
 	}
-
-	l.emit(segmentLiteral)
-	return eoSegmentState
+	return parsedSegments, nil
 }
 
-// eoSegmentState represents the state at the end of a segment
-// This state makes no modifications to the lexer, it just decides which state to transition to next
-func eoSegmentState(l *lexer) stateFn {
-	switch l.peek() {
-	case eof:
-		return eofState
-	case slash:
-		return slashState
-	case verbSep:
-		return verbState
+func parseFieldPath(fieldPathString string) ([]*Identifier, error) {
+	identifiers := strings.Split(fieldPathString, string(identSep))
+	parsedIdentifiers := make([]*Identifier, 0, len(identifiers))
+	for _, identifier := range identifiers {
+		identifier, err := parseIdentifier(identifier)
+		if err != nil {
+			return nil, err
+		}
+		parsedIdentifiers = append(parsedIdentifiers, identifier)
 	}
-	return nil
+	return parsedIdentifiers, nil
 }
 
-func eofState(l *lexer) stateFn {
-	if l.peek() != eof {
-		return l.errorf("expected EOF, but got %q", l.peek())
+func parsePlainSegment(plainSegment string) (*Segment, error) {
+	if plainSegment == string(star) {
+		return &Segment{Match: &Match{}}, nil
+	} else if plainSegment == string(star)+string(star) {
+		return &Segment{MatchRecursive: &MatchRecursive{}}, nil
+	} else {
+		literal, err := parseLiteral(plainSegment)
+		if err != nil {
+			return nil, err
+		}
+		return &Segment{Literal: literal}, nil
 	}
-	l.emit(segmentEOF)
-	return nil
+}
+
+const (
+	hexStart   = '%'
+	hexdig     = "0123456789ABCDEFabcdef"
+	digit      = "0123456789"
+	alpha      = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	subDelims  = "!$&'()*+,;="
+	unreserved = alpha + digit + "-._~"
+	pchar      = unreserved + subDelims + ":@"
+)
+
+// parseLiteral validates that the provided string conforms to the LITERAL definition, and returns a Literal type if it does.
+func parseLiteral(literal string) (*Literal, error) {
+	if len(literal) < 1 {
+		return nil, fmt.Errorf("invalid literal, expected at least one character: %s", literal)
+	}
+	i := 0
+	for i < len(literal) {
+		if strings.ContainsRune(pchar, rune(literal[i])) {
+			i++
+		} else if literal[i] == hexStart {
+			if i+2 >= len(literal) {
+				return nil, fmt.Errorf("invalid literal, expected at least 2 characters after the '%%': %s", literal)
+			}
+			if !strings.ContainsRune(hexdig, rune(literal[i+1])) || !strings.ContainsRune(hexdig, rune(literal[i+2])) {
+				return nil, fmt.Errorf("invalid literal: %s", literal)
+			}
+			i += 3
+		} else {
+			return nil, fmt.Errorf("invalid literal: %s", literal)
+		}
+	}
+	return (*Literal)(&literal), nil
+}
+
+func parseIdentifier(identifier string) (*Identifier, error) {
+	if len(identifier) < 1 {
+		return nil, fmt.Errorf("invalid identifier, expected at least one character: %s", identifier)
+	}
+	if !strings.ContainsRune(alpha, rune(identifier[0])) {
+		return nil, fmt.Errorf("invalid identifier, expected it to start with a letter: %s", identifier)
+	}
+	i := 1
+	for i < len(identifier) {
+		if strings.ContainsRune(alpha+digit+"_", rune(identifier[i])) {
+			i++
+		} else {
+			return nil, fmt.Errorf("invalid identifier, rune '%q' is not valid in an identifier: %s", identifier[i], identifier)
+		}
+	}
+	return (*Identifier)(&identifier), nil
 }
