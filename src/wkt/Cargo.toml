@@ -25,7 +25,7 @@ categories.workspace = true
 
 [features]
 chrono = []
-time = []
+time   = []
 
 [dependencies]
 serde      = { version = "1.0.214", features = ["serde_derive"] }
