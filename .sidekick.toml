@@ -30,8 +30,8 @@ version = "0.1.0-rc2"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
 'package:bytes'      = 'force-used=true,package=bytes,version=1.8.0,feature=serde'
-'package:serde'      = 'force-used=true,package=serde,version=1.0.214,feature=serde_derive'
-'package:serde_with' = 'force-used=true,package=serde_with,version=3.11.0,default-features=false,feature=base64,feature=macros,feature=std'
+'package:serde'      = 'force-used=true,package=serde,version=1.0.216,feature=serde_derive'
+'package:serde_with' = 'force-used=true,package=serde_with,version=3.12.0,default-features=false,feature=base64,feature=macros,feature=std'
 # These are used by crates with services.
 'package:async-trait' = 'required-by-services=true,package=async-trait,version=0.1.83'
 'package:lazy_static' = 'required-by-services=true,package=lazy_static,version=1.5.0'
