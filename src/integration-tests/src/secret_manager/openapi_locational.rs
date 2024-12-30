@@ -16,7 +16,21 @@ use crate::Result;
 use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
 
-pub async fn run(tracing: bool) -> Result<()> {
+pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -24,14 +38,10 @@ pub async fn run(tracing: bool) -> Result<()> {
         .map(char::from)
         .collect();
 
+    // We must override the configuration to use a regional endpoint.
     let location_id = "us-central1".to_string();
-
-    let mut config = gax::options::ClientConfig::new().set_endpoint(format!(
-        "https://secretmanager.{location_id}.rep.googleapis.com"
-    ));
-    if tracing {
-        config = config.enable_tracing();
-    }
+    let endpoint = format!("https://secretmanager.{location_id}.rep.googleapis.com");
+    let config = config.unwrap_or_default().set_endpoint(endpoint);
     let client = smo::client::SecretManagerService::new_with_config(config).await?;
 
     cleanup_stale_secrets(&client, &project_id, &location_id).await?;

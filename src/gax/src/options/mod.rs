@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
-    idempotent: Option<bool>,
+    pub(crate) idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
