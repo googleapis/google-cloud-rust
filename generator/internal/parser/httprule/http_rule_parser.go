@@ -371,13 +371,9 @@ func parseIdentifier(identifier string) (*Identifier, error) {
 	if !strings.ContainsRune(alpha, rune(identifier[0])) {
 		return nil, fmt.Errorf("invalid identifier, expected it to start with a letter: %s", identifier)
 	}
-	i := 1
-	for i < len(identifier) {
-		if strings.ContainsRune(alpha+digit+"_", rune(identifier[i])) {
-			i++
-		} else {
-			return nil, fmt.Errorf("invalid identifier, rune '%q' is not valid in an identifier: %s", identifier[i], identifier)
-		}
+
+	if i := strings.IndexFunc(identifier, func(r rune) bool { return !strings.ContainsRune(alpha+digit+"_", r) }); i != -1 {
+		return nil, fmt.Errorf("invalid identifier, rune '%q' is not valid in an identifier: %s", identifier[i], identifier)
 	}
 	return (*Identifier)(&identifier), nil
 }
