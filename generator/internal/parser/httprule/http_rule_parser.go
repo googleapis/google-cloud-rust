@@ -16,6 +16,7 @@ package httprule
 
 import (
 	"fmt"
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"strings"
 )
 
@@ -76,6 +77,40 @@ import (
 
 func Parse(pathTemplate string) (*PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
+}
+
+// ParseSegments flattens the result of Parse into a slice of api.PathSegment,
+// ignoring variable values and match (* and **) segments.
+// TODO: This function is a temporary shim to allow the existing tests to pass.
+func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
+	path, err := parsePathTemplate(pathTemplate)
+	if err != nil {
+		return nil, err
+	}
+	var segments []api.PathSegment
+	for _, s := range path.Segments {
+		segment := api.PathSegment{}
+		if s.Literal != nil {
+			literal := string(*s.Literal)
+			segment.Literal = &literal
+		} else if s.Variable != nil {
+			ids := make([]string, len(s.Variable.FieldPath))
+			for i, id := range s.Variable.FieldPath {
+				ids[i] = string(*id)
+			}
+			fieldPath := strings.Join(ids, ".")
+			segment.FieldPath = &fieldPath
+		}
+		segments = append(segments, segment)
+	}
+
+	if path.Verb != nil {
+		verb := string(*path.Verb)
+		segments = append(segments, api.PathSegment{
+			Verb: &verb,
+		})
+	}
+	return segments, nil
 }
 
 // PathTemplate represents the structure in Go.

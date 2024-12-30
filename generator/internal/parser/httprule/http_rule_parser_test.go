@@ -20,27 +20,6 @@ import (
 	"testing"
 )
 
-// ### Path template syntax
-//
-//	    Template = "/" Segments [ Verb ] ;
-//	    Segments = Segment { "/" Segment } ;
-//	    Segment  = "*" | "**" | LITERAL | Variable ;
-//	    Variable = "{" FieldPath [ "=" Segments ] "}" ;
-//	    FieldPath = IDENT { "." IDENT } ;
-//	    Verb     = ":" LITERAL ;
-
-// `/v1/projects/{project}/secrets/{secret}:getIamPolicy`
-// should produce:
-//
-//	[]PathSegment{
-//	  {Literal:   "v1"},
-//	  {Literal:   "projects"},
-//	  {FieldPath: "project"},
-//	  {Literal:   "secrets"},
-//	  {FieldPath: "secret"},
-//	  {Verb:      "getIamPolicy"},
-//	}
-
 func TestProtobuf_Parse(t *testing.T) {
 	tests := []struct {
 		path        string
@@ -65,6 +44,17 @@ func TestProtobuf_Parse(t *testing.T) {
 		// the following test is failing because * is a sub-delimiter, which is allowed in the LITERAL segment
 		//{"/foo/***/bar", nil, "wildcard literal cannot exceed two *"},
 
+		{"/%0f", template(literal("%0f")), ""},
+		{"/%0z", nil, "bad percent encoding"},
+		{"/foo//bar", nil, "segment is too short"},
+		{"/foo/:", nil, "verb is too short"},
+		{"/foo/{}/bar", nil, "var too short"},
+		{"/foo/{a.}/bar", nil, "var identifier too short"},
+		{"/foo/{.a}/bar", nil, "var identifier too short"},
+		{"/foo/{a=}/bar", nil, "var value too short"},
+		{"/foo/{9bar}", nil, "var identifier has bad first character"},
+		{"/foo/{bar9}", template(literal("foo"), varr("bar9")), ""},
+		{"/foo/{b&r}", nil, "var identifier has bad character"},
 		{"/foo/:bar", nil, "verb cannot come after slash"},
 		{"/foo:bar/baz", nil, "verb must be the last segment"},
 		{":foo", nil, "verb cannot be the first segment"},
@@ -90,40 +80,6 @@ func TestProtobuf_Parse(t *testing.T) {
 			}
 		})
 	}
-}
-
-func Test_parseSegments(t *testing.T) {
-	tests := []struct {
-		path        string
-		want        []*Segment
-		explanation string
-	}{
-		{"foo", []*Segment{{Literal: newLiteral("foo")}}, ""},
-		{"foo/bar", []*Segment{{Literal: newLiteral("foo")}, {Literal: newLiteral("bar")}}, ""},
-		{"v1/*/foo", []*Segment{{Literal: newLiteral("v1")}, {Match: &Match{}}, {Literal: newLiteral("foo")}}, ""},
-		{"v1/**/foo", []*Segment{{Literal: newLiteral("v1")}, {MatchRecursive: &MatchRecursive{}}, {Literal: newLiteral("foo")}}, ""},
-	}
-
-	for _, tc := range tests {
-		t.Run(tc.path, func(t *testing.T) {
-			if tc.want != nil {
-				got, err := parseSegments(tc.path)
-				if err != nil {
-					t.Fatalf("expected no error, got: %v", err)
-				}
-				if diff := cmp.Diff(tc.want, got, cmpopts.EquateEmpty()); diff != "" {
-					t.Fatalf("failed parsing path [%s] (-want, +got):\n%s", tc.path, diff)
-				}
-			} else {
-				_, err := parseSegments(tc.path)
-				if err == nil {
-					t.Fatalf("Parse(%s) succeeded, want error: %s", tc.path, tc.explanation)
-				}
-			}
-
-		})
-	}
-
 }
 
 func templateV(s []*Segment, v *Literal) *PathTemplate {
