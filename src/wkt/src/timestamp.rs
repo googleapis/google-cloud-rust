@@ -263,7 +263,7 @@ impl TryFrom<&str> for Timestamp {
     }
 }
 
-/// Convert from [chrono::DateTime] to [Timestamp].
+/// Converts from [chrono::DateTime] to [Timestamp].
 ///
 /// This conversion may fail if the [chrono::DateTime] value is out of range.
 #[cfg(feature = "chrono")]
@@ -276,7 +276,7 @@ impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
     }
 }
 
-/// Convert from [Timestamp] to [chrono::DateTime].
+/// Converts from [Timestamp] to [chrono::DateTime].
 #[cfg(feature = "chrono")]
 impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
     type Error = TimestampError;
