@@ -239,20 +239,17 @@ func parseSegments(segmentsString string) ([]*Segment, error) {
 			firstSegment, err = parsePlainSegment(segmentsString)
 		}
 	}
-
 	if err != nil {
 		return nil, err
 	}
-
 	if lastPos == eof {
 		return []*Segment{firstSegment}, nil
-	} else {
-		segments, err := parseSegments(segmentsString[lastPos+1:])
-		if err != nil {
-			return nil, err
-		}
-		return append([]*Segment{firstSegment}, segments...), nil
 	}
+	segments, err := parseSegments(segmentsString[lastPos+1:])
+	if err != nil {
+		return nil, err
+	}
+	return append([]*Segment{firstSegment}, segments...), nil
 }
 
 func parseVarSegment(varString string) (*Segment, error) {
