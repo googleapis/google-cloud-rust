@@ -235,7 +235,7 @@ mod test {
         let header_map = HeaderMap::new();
         let handler = move || async move { handle_token_factory(code, header_map, body) };
         let app = axum::Router::new().route(&path, axum::routing::get(handler));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
         let server = tokio::spawn(async {
             axum::serve(listener, app).await.unwrap();

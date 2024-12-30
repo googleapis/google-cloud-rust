@@ -309,7 +309,7 @@ mod test {
         let body = response_body.clone();
         let handler = move |req| async move { handle_token_factory(code, body)(req) };
         let app = axum::Router::new().route("/token", axum::routing::post(handler));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
         let server = tokio::spawn(async {
             axum::serve(listener, app).await.unwrap();
