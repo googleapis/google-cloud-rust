@@ -20,8 +20,9 @@ import (
 	"strings"
 )
 
-// The following documentation was copied from https://github.com/googleapis/google-cloud-cpp/blob/4174d656136f4b849c8a3d327237f3a96be3e003/generator/internal/http_annotation_parser.h#L49-L58
-// The result of parsing a `google.api.http` annotation.
+// The following documentation was copied and adapted from the [C++ HTTP Annotation parser]
+//
+// This parser interprets the PathTemplate syntax, defined at the [google.api.http annotation].
 //
 // A `google.api.http` annotation describes how to convert gRPC RPCs to HTTP
 // URLs. The description uses a "path template", showing what portions of the
@@ -60,20 +61,26 @@ import (
 // segment in a URL. [RFC 3986] provides a definition for these, which we
 // summarize as:
 //
-// LITERAL     = pchar { pchar }
+// Segment     = pchar { pchar }
 // pchar       = unreserved | pct-encoded | sub-delims | ":" | "@"
 // unreserved  = ALPHA | DIGIT | "-" | "." | "_" | "~"
 // pct-encoded = "%" HEXDIG HEXDIG
-// sub-delims  = "!" | "$" | "&" | "'" | "(" | ")"
-//
-//	| "*" | "+" | "," | ";" | "="
+// sub-delims  = "!" | "$" | "&" | "'" | "(" | ")" | "*" | "+" | "," | ";" | "="
 //
 // ALPHA       = [A-Za-z]
 // DIGIT       = [0-9]
 // HEXDIG      = [0-9A-Fa-f]
 //
+// Because pchar includes special characters like ':' and '*', which are part of the
+// HTTP Rule spec, we define LITERAL as the following subset of pchar:
+//
+// LITERAL     = unreserved | pct-encoded { unreserved | pct-encoded }
+//
+//
 // [RFC 3986]: https://datatracker.ietf.org/doc/html/rfc3986#section-3.3
 // [Backus-Naur Form]: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+// [C++ HTTP Annotation parser]: https://github.com/googleapis/google-cloud-cpp/blob/4174d656136f4b849c8a3d327237f3a96be3e003/generator/internal/http_annotation_parser.h#L49-L58
+// [google.api.http annotation]: https://github.com/googleapis/google-cloud-rust/blob/61b9d3bbac5530e4321ac19fe7d2760db82e31db/generator/testdata/googleapis/google/api/http.proto
 
 func Parse(pathTemplate string) (*PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
@@ -142,9 +149,8 @@ type Segment struct {
 	Variable       *Variable
 }
 
-const eof = -1
-
 const (
+	eof      = -1
 	slash    = '/'
 	star     = '*'
 	varLeft  = '{'
@@ -334,9 +340,7 @@ const (
 	hexdig     = "0123456789ABCDEFabcdef"
 	digit      = "0123456789"
 	alpha      = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	subDelims  = "!$&'()*+,;="
 	unreserved = alpha + digit + "-._~"
-	pchar      = unreserved + subDelims + ":@"
 )
 
 // parseLiteral validates that the provided string conforms to the LITERAL definition, and returns a Literal type if it does.
@@ -346,7 +350,7 @@ func parseLiteral(literal string) (*Literal, error) {
 	}
 	i := 0
 	for i < len(literal) {
-		if strings.ContainsRune(pchar, rune(literal[i])) {
+		if strings.ContainsRune(unreserved, rune(literal[i])) {
 			i++
 		} else if literal[i] == hexStart {
 			if i+2 >= len(literal) {

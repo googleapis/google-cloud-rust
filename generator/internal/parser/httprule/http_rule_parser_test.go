@@ -46,10 +46,7 @@ func TestProtobuf_Parse(t *testing.T) {
 		{"foo", nil, "path must start with slash"},
 		{"/", nil, "path cannot end with slash"},
 		{"/foo/", nil, "path cannot end with slash"},
-
-		// the following test is failing because * is a sub-delimiter, which is allowed in the LITERAL segment
-		//{"/foo/***/bar", nil, "wildcard literal cannot exceed two *"},
-
+		{"/foo/***/bar", nil, "wildcard literal cannot exceed two *, and * isn't allowed in a LITERAL"},
 		{"/%0f", expectTemplate().withLiteral("%0f"), ""},
 		{"/%0z", nil, "bad percent encoding"},
 		{"/foo//bar", nil, "segment is too short"},
@@ -62,7 +59,7 @@ func TestProtobuf_Parse(t *testing.T) {
 		{"/foo/{bar9}", expectTemplate().withLiteral("foo").withVariableNamed("bar9"), ""},
 		{"/foo/{b&r}", nil, "var identifier has bad character"},
 		{"/foo/:bar", nil, "verb cannot come after slash"},
-		{"/foo:bar/baz", nil, "verb must be the last segment"},
+		{"/foo:bar/baz", nil, "verb must be the last segment, and : isn't allowed in a LITERAL"},
 		{":foo", nil, "verb cannot be the first segment"},
 	}
 
