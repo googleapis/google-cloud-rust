@@ -26,17 +26,23 @@ func TestProtobuf_Parse(t *testing.T) {
 		want        *PathTemplate
 		explanation string
 	}{
-		{"/foo", template(literal("foo")), ""},
-		{"/foo/bar", template(literal("foo"), literal("bar")), ""},
-		{"/v1/*/foo", template(literal("v1"), match(), literal("foo")), ""},
-		{"/v1/**/foo", template(literal("v1"), matchR(), literal("foo")), ""},
-		{"/foo:bar", templateV(segments(literal("foo")), verb("bar")), ""},
-		{"/foo/{bar}", template(literal("foo"), varr("bar")), ""},
-		{"/foo/{bar.baz}", template(literal("foo"), varr("bar", "baz")), ""},
-		{"/foo/{bar=baz}", template(literal("foo"), varrs(ids("bar"), segments(literal("baz")))), ""},
-		{"/foo/{bar=*}", template(literal("foo"), varrs(ids("bar"), segments(match()))), ""},
-		{"/foo/{bar=*}/baz", template(literal("foo"), varrs(ids("bar"), segments(match())), literal("baz")), ""},
-		{"/foo/{bar=*}/baz:qux", templateV(segments(literal("foo"), varrs(ids("bar"), segments(match())), literal("baz")), verb("qux")), ""},
+		{"/foo", expectTemplate().withLiteral("foo"), ""},
+		{"/foo/bar", expectTemplate().withLiteral("foo").withLiteral("bar"), ""},
+		{"/v1/*/foo", expectTemplate().withLiteral("v1").withMatch().withLiteral("foo"), ""},
+		{"/v1/**/foo", expectTemplate().withLiteral("v1").withMatchRecursive().withLiteral("foo"), ""},
+		{"/foo:bar", expectTemplate().withLiteral("foo").withVerb("bar"), ""},
+		{"/foo/{bar}", expectTemplate().withLiteral("foo").withVariableNamed("bar"), ""},
+		{"/foo/{bar.baz}", expectTemplate().withLiteral("foo").withVariableNamed("bar", "baz"), ""},
+		{"/foo/{bar=baz}", expectTemplate().withLiteral("foo").withVariable(
+			variable("bar").withLiteral("baz")), ""},
+		{"/foo/{bar=*}", expectTemplate().withLiteral("foo").withVariable(
+			variable("bar").withMatch()), ""},
+		{"/foo/{bar=*}/baz", expectTemplate().withLiteral("foo").withVariable(
+			variable("bar").withMatch()).
+			withLiteral("baz"), ""},
+		{"/foo/{bar=**}/baz:qux", expectTemplate().withLiteral("foo").withVariable(
+			variable("bar").withMatchRecursive()).
+			withLiteral("baz").withVerb("qux"), ""},
 		{"foo", nil, "path must start with slash"},
 		{"/", nil, "path cannot end with slash"},
 		{"/foo/", nil, "path cannot end with slash"},
@@ -44,7 +50,7 @@ func TestProtobuf_Parse(t *testing.T) {
 		// the following test is failing because * is a sub-delimiter, which is allowed in the LITERAL segment
 		//{"/foo/***/bar", nil, "wildcard literal cannot exceed two *"},
 
-		{"/%0f", template(literal("%0f")), ""},
+		{"/%0f", expectTemplate().withLiteral("%0f"), ""},
 		{"/%0z", nil, "bad percent encoding"},
 		{"/foo//bar", nil, "segment is too short"},
 		{"/foo/:", nil, "verb is too short"},
@@ -53,7 +59,7 @@ func TestProtobuf_Parse(t *testing.T) {
 		{"/foo/{.a}/bar", nil, "var identifier too short"},
 		{"/foo/{a=}/bar", nil, "var value too short"},
 		{"/foo/{9bar}", nil, "var identifier has bad first character"},
-		{"/foo/{bar9}", template(literal("foo"), varr("bar9")), ""},
+		{"/foo/{bar9}", expectTemplate().withLiteral("foo").withVariableNamed("bar9"), ""},
 		{"/foo/{b&r}", nil, "var identifier has bad character"},
 		{"/foo/:bar", nil, "verb cannot come after slash"},
 		{"/foo:bar/baz", nil, "verb must be the last segment"},
@@ -82,55 +88,61 @@ func TestProtobuf_Parse(t *testing.T) {
 	}
 }
 
-func templateV(s []*Segment, v *Literal) *PathTemplate {
-	return &PathTemplate{Segments: s, Verb: v}
+func expectTemplate() *PathTemplate {
+	return &PathTemplate{}
 }
 
-func template(s ...*Segment) *PathTemplate {
-	return &PathTemplate{Segments: s}
-}
-func segments(s ...*Segment) []*Segment {
-	return s
+func (p *PathTemplate) withLiteral(l string) *PathTemplate {
+	p.Segments = append(p.Segments, &Segment{Literal: (*Literal)(&l)})
+	return p
 }
 
-func matchR() *Segment {
-	return &Segment{MatchRecursive: &MatchRecursive{}}
+func (v *Variable) withLiteral(l string) *Variable {
+	v.Segments = append(v.Segments, &Segment{Literal: (*Literal)(&l)})
+	return v
 }
 
-func match() *Segment {
-	return &Segment{Match: &Match{}}
+func (p *PathTemplate) withMatchRecursive() *PathTemplate {
+	p.Segments = append(p.Segments, &Segment{MatchRecursive: &MatchRecursive{}})
+	return p
 }
 
-func verb(s string) *Literal {
-	return newLiteral(s)
+func (v *Variable) withMatchRecursive() *Variable {
+	v.Segments = append(v.Segments, &Segment{MatchRecursive: &MatchRecursive{}})
+	return v
 }
 
-func literal(s string) *Segment {
-	return &Segment{Literal: newLiteral(s)}
+func (p *PathTemplate) withMatch() *PathTemplate {
+	p.Segments = append(p.Segments, &Segment{Match: &Match{}})
+	return p
 }
 
-func varr(i ...string) *Segment {
-	return &Segment{Variable: &Variable{FieldPath: ids(i...)}}
+func (v *Variable) withMatch() *Variable {
+	v.Segments = append(v.Segments, &Segment{Match: &Match{}})
+	return v
 }
 
-func varrs(i []*Identifier, s []*Segment) *Segment {
-	return &Segment{Variable: &Variable{FieldPath: i, Segments: s}}
+func (p *PathTemplate) withVariableNamed(idsAsStr ...string) *PathTemplate {
+	p.Segments = append(p.Segments, &Segment{Variable: variable(idsAsStr...)})
+	return p
 }
 
-func ids(i ...string) []*Identifier {
+func variable(idsAsStr ...string) *Variable {
 	var ids []*Identifier
-	for _, id := range i {
-		ids = append(ids, newIdentifier(id))
+	for _, idAsStr := range idsAsStr {
+		id := Identifier(idAsStr)
+		ids = append(ids, &id)
 	}
-	return ids
+	return &Variable{FieldPath: ids}
 }
 
-func newLiteral(s string) *Literal {
-	literal := Literal(s)
-	return &literal
+func (p *PathTemplate) withVariable(v *Variable) *PathTemplate {
+	p.Segments = append(p.Segments, &Segment{Variable: v})
+	return p
 }
 
-func newIdentifier(s string) *Identifier {
-	identifier := Identifier(s)
-	return &identifier
+func (p *PathTemplate) withVerb(v string) *PathTemplate {
+	l := Literal(v)
+	p.Verb = &l
+	return p
 }
