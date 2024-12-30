@@ -30,7 +30,7 @@ async-trait = { version = "0.1.83" }
 bytes      = { version = "1.8.0", features = ["serde"] }
 gax        = { version = "0.1.0-rc2", path = "../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 lazy_static = { version = "1.5.0" }
-reqwest    = { version = "0.12.9", features = ["json"] }
+reqwest    = { version = "0.12.11", features = ["json"] }
 rpc        = { version = "0.1.0-rc2", path = "../../../src/generated/rpc", package = "gcp-sdk-rpc" }
 serde      = { version = "1.0.214", features = ["serde_derive"] }
 serde_json = { version = "1.0.134" }
