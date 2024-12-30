@@ -171,10 +171,9 @@ pub mod traits {
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 #[allow(dead_code)] // TODO(#442) - implementation in progress
 fn adc_path() -> Option<String> {
-    if let Ok(e) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
-        return Some(e);
-    }
-    adc_well_known_path()
+    std::env::var("GOOGLE_APPLICATION_CREDENTIALS")
+        .ok()
+        .or_else(adc_well_known_path)
 }
 
 /// The well-known path to ADC on Windows, as specified in [AIP-4113].
