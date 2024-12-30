@@ -39,4 +39,4 @@ bytes      = { version = "1.8.0", features = ["serde"] }
 [dev-dependencies]
 test-case = "3.3.1"
 bytes     = { version = "1.8.0", features = ["serde"] }
-wkt       = { path = ".", package = "gcp-sdk-wkt", features = ["time", "chrono"] }
+wkt       = { path = ".", package = "gcp-sdk-wkt", features = ["chrono", "time"] }
