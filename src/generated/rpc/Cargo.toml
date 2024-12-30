@@ -27,6 +27,6 @@ categories.workspace = true
 
 [dependencies]
 bytes      = { version = "1.8.0", features = ["serde"] }
-serde      = { version = "1.0.214", features = ["serde_derive"] }
+serde      = { version = "1.0.217", features = ["serde_derive"] }
 serde_with = { version = "3.11.0", default-features = false, features = ["base64", "macros", "std"] }
 wkt        = { version = "0.1.0-rc2", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
