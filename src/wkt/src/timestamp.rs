@@ -163,24 +163,6 @@ impl Timestamp {
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
-
-    pub fn to_json(&self) -> Result<String, TimestampError> {
-        let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
-            self.seconds as i128 * NS + self.nanos as i128,
-        )
-        .map_err(|e| TimestampError::Serialize(format!("{e}")))?;
-        ts.format(&Rfc3339)
-            .map_err(|e| TimestampError::Serialize(format!("{e}")))
-    }
-
-    pub fn from_json(value: &str) -> Result<Self, TimestampError> {
-        let odt = time::OffsetDateTime::parse(value, &Rfc3339)
-            .map_err(|e| TimestampError::Deserialize(format!("{e}")))?;
-        let nanos_since_epoch = odt.unix_timestamp_nanos();
-        let seconds = (nanos_since_epoch / NS) as i64;
-        let nanos = (nanos_since_epoch % NS) as i32;
-        Timestamp::new(seconds, nanos)
-    }
 }
 
 use time::format_description::well_known::Rfc3339;
@@ -193,7 +175,7 @@ impl serde::ser::Serialize for Timestamp {
         S: serde::ser::Serializer,
     {
         use serde::ser::Error as _;
-        self.to_json()
+        String::try_from(self)
             .map_err(S::Error::custom)?
             .serialize(serializer)
     }
@@ -212,7 +194,7 @@ impl serde::de::Visitor<'_> for TimestampVisitor {
     where
         E: serde::de::Error,
     {
-        Timestamp::from_json(value).map_err(E::custom)
+        Timestamp::try_from(value).map_err(E::custom)
     }
 }
 
@@ -252,6 +234,55 @@ impl TryFrom<Timestamp> for time::OffsetDateTime {
     fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
         let ts = time::OffsetDateTime::from_unix_timestamp(value.seconds())?;
         Ok(ts + time::Duration::nanoseconds(value.nanos() as i64))
+    }
+}
+
+/// Converts a [Timestamp] to its [String] representation.
+impl TryFrom<&Timestamp> for String {
+    type Error = TimestampError;
+    fn try_from(timestamp: &Timestamp) -> std::result::Result<Self, Self::Error> {
+        let ts = time::OffsetDateTime::from_unix_timestamp_nanos(
+            timestamp.seconds as i128 * NS + timestamp.nanos as i128,
+        )
+        .map_err(|e| TimestampError::Serialize(format!("{e}")))?;
+        ts.format(&Rfc3339)
+            .map_err(|e| TimestampError::Serialize(format!("{e}")))
+    }
+}
+
+/// Converts the [String] representation of a timestamp to [Timestamp].
+impl TryFrom<&str> for Timestamp {
+    type Error = TimestampError;
+    fn try_from(value: &str) -> std::result::Result<Self, Self::Error> {
+        let odt = time::OffsetDateTime::parse(value, &Rfc3339)
+            .map_err(|e| TimestampError::Deserialize(format!("{e}")))?;
+        let nanos_since_epoch = odt.unix_timestamp_nanos();
+        let seconds = (nanos_since_epoch / NS) as i64;
+        let nanos = (nanos_since_epoch % NS) as i32;
+        Timestamp::new(seconds, nanos)
+    }
+}
+
+/// Convert from [chrono::DateTime] to [Timestamp].
+///
+/// This conversion may fail if the [chrono::DateTime] value is out of range.
+#[cfg(feature = "chrono")]
+impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
+    type Error = TimestampError;
+
+    fn try_from(value: chrono::DateTime<chrono::Utc>) -> std::result::Result<Self, Self::Error> {
+        assert!(value.timestamp_subsec_nanos() <= (i32::MAX as u32));
+        Timestamp::new(value.timestamp(), value.timestamp_subsec_nanos() as i32)
+    }
+}
+
+/// Convert from [Timestamp] to [chrono::DateTime].
+#[cfg(feature = "chrono")]
+impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
+    type Error = TimestampError;
+    fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
+        let ts = chrono::DateTime::from_timestamp(value.seconds, 0).unwrap();
+        Ok(ts + chrono::Duration::nanoseconds(value.nanos as i64))
     }
 }
 
