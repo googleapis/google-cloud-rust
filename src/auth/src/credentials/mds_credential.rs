@@ -121,28 +121,28 @@ impl MDSAccessTokenProvider {
 #[allow(dead_code)]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&mut self) -> Result<Token> {
-        let request = Client::new();
-        let path: String = format!("{}/instance/service-accounts/default/token", self.endpoint);
-        let mut headers = HeaderMap::new();
-        headers.insert(
-            METADATA_FLAVOR,
-            HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-        );
-        let url = reqwest::Url::parse(path.as_str())
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+        let client = Client::new();
+        let request = client
+            .get(format!(
+                "{}/instance/service-accounts/default/token",
+                self.endpoint
+            ))
+            .header(
+                METADATA_FLAVOR,
+                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
+            );
+
         let response = request
-            .get(url.clone())
-            .headers(headers)
             .send()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(|e| CredentialError::new(true, e.into()))?;
         // Process the response
         if !response.status().is_success() {
             let status = response.status();
             let body = response
                 .text()
                 .await
-                .map_err(|e| CredentialError::new(false, e.into()))?;
+                .map_err(|e| CredentialError::new(is_retryable(status), e.into()))?;
             return Err(CredentialError::new(
                 is_retryable(status),
                 Box::from(format!("Failed to fetch token. {body}")),
@@ -151,7 +151,7 @@ impl TokenProvider for MDSAccessTokenProvider {
         let response = response
             .json::<MDSTokenResponse>()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(|e| CredentialError::new(true, e.into()))?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -356,6 +356,7 @@ mod test {
         .await;
         assert!(result.is_err());
     }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_full() -> TestResult {
         let response = MDSTokenResponse {
