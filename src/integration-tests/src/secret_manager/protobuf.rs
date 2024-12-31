@@ -23,8 +23,10 @@ async fn new_client(tracing: bool) -> Result<sm::client::SecretManagerService> {
         // constructor.
         return sm::client::SecretManagerService::new().await;
     }
-    sm::client::SecretManagerService::new_with_config(sm::ConfigBuilder::default().enable_tracing())
-        .await
+    sm::client::SecretManagerService::new_with_config(
+        gax::options::ClientConfig::default().enable_tracing(),
+    )
+    .await
 }
 
 pub async fn run(tracing: bool) -> Result<()> {
@@ -45,9 +47,10 @@ pub async fn run(tracing: bool) -> Result<()> {
         .collect();
 
     let client = new_client(tracing).await?;
-    let location_client =
-        sm::client::Locations::new_with_config(sm::ConfigBuilder::default().enable_tracing())
-            .await?;
+    let location_client = sm::client::Locations::new_with_config(
+        gax::options::ClientConfig::default().enable_tracing(),
+    )
+    .await?;
 
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 

@@ -26,7 +26,7 @@ pub async fn run(tracing: bool) -> Result<()> {
 
     let location_id = "us-central1".to_string();
 
-    let mut config = smo::ConfigBuilder::new().set_endpoint(format!(
+    let mut config = gax::options::ClientConfig::new().set_endpoint(format!(
         "https://secretmanager.{location_id}.rep.googleapis.com"
     ));
     if tracing {
