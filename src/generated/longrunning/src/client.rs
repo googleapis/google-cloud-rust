@@ -46,11 +46,11 @@ pub struct Operations {
 impl Operations {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
+        Self::new_with_config(gax::options::ClientConfig::default()).await
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -69,7 +69,7 @@ impl Operations {
     }
 
     async fn build_inner(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<Arc<dyn crate::traits::dyntraits::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
@@ -77,12 +77,14 @@ impl Operations {
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Operations> {
+    async fn build_transport(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl crate::traits::Operations> {
         crate::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<impl crate::traits::Operations> {
         Self::build_transport(conf)
             .await

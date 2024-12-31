@@ -60,11 +60,11 @@ pub struct IAMPolicy {
 impl IAMPolicy {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
+        Self::new_with_config(gax::options::ClientConfig::default()).await
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner }) 
     }
@@ -78,18 +78,18 @@ impl IAMPolicy {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: crate::ConfigBuilder) -> Result<Arc<dyn crate::traits::dyntraits::IAMPolicy>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::IAMPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::IAMPolicy> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::IAMPolicy> {
         crate::transport::IAMPolicy::new(conf).await
     }
 
-    async fn build_with_tracing(conf: crate::ConfigBuilder) -> Result<impl crate::traits::IAMPolicy> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::IAMPolicy> {
         Self::build_transport(conf).await.map(crate::tracing::IAMPolicy::new)
     }
 
