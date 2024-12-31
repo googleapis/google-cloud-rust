@@ -35,7 +35,7 @@ serde       = "1.0.216"
 serde_json  = "1.0.134"
 serde_with  = { version = "3.12.0", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2.0.9"
-auth        = { version = "0.1.0", path = "../../auth", package = "google-cloud-auth", optional = true }
+auth        = { version = "0.1.0", path = "../../auth", package = "google-cloud-auth" }
 rpc         = { version = "0.1.0-rc2", path = "../generated/rpc", package = "gcp-sdk-rpc" }
 wkt         = { version = "0.1.0-rc2", path = "../wkt", package = "gcp-sdk-wkt" }
 
@@ -55,5 +55,5 @@ tempfile    = "3.14.0"
 built = "0.7"
 
 [features]
-unstable-sdk-client = ["dep:auth", "dep:reqwest"]
+unstable-sdk-client = ["dep:reqwest"]
 unstable-stream     = ["dep:futures", "dep:pin-project"]

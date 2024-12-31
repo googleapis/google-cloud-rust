@@ -12,11 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Per request options.
+//! Client configuration and per request options.
 //!
-//! Applications may need to customize the behavior of some calls made via a
-//! client. The `*Builder` returned by each client method implements the
+//! While the client library  defaults are intended to work for most
+//! applications, it is sometimes necessary to change the configuration. Notably
+//! the default endpoint, and the default authentication credentials do not work
+//! for some applications.
+//!
+//! Likewise, applications may need to customize the behavior of some calls made
+//! via a client, even a customized one. Applications sometimes change the
+//! timeout for an specific call, or change the retry configuration. The
+//! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
+
+use crate::error::Error;
+use crate::Result;
+use auth::Credential;
 
 /// A set of options configuring a single request.
 ///
@@ -99,10 +110,71 @@ where
     }
 }
 
+#[derive(Default)]
+pub struct ClientConfig {
+    pub(crate) endpoint: Option<String>,
+    pub(crate) cred: Option<Credential>,
+    pub(crate) tracing: bool,
+}
+
+const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
+
+impl ClientConfig {
+    /// Returns a default [ClientConfig].
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn tracing_enabled(&self) -> bool {
+        if self.tracing {
+            return true;
+        }
+        std::env::var(LOGGING_VAR)
+            .map(|v| v == "true")
+            .unwrap_or(false)
+    }
+
+    /// Sets an endpoint that overrides the default endpoint for a service.
+    pub fn set_endpoint<T: Into<String>>(mut self, v: T) -> Self {
+        self.endpoint = Some(v.into());
+        self
+    }
+
+    /// Enables tracing.
+    pub fn enable_tracing(mut self) -> Self {
+        self.tracing = true;
+        self
+    }
+
+    /// Disables tracing.
+    pub fn disable_tracing(mut self) -> Self {
+        self.tracing = false;
+        self
+    }
+
+    pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
+        self.cred = v.into();
+        self
+    }
+
+    pub(crate) async fn default_credential() -> Result<Credential> {
+        let cc = auth::CredentialConfig::builder()
+            .scopes(vec![
+                "https://www.googleapis.com/auth/cloud-platform".to_string()
+            ])
+            .build()
+            .map_err(Error::authentication)?;
+        Credential::find_default(cc)
+            .await
+            .map_err(Error::authentication)
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
     use std::time::Duration;
+    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[derive(Debug, Default)]
     struct TestBuilder {
@@ -158,5 +230,72 @@ mod test {
         let mut builder = TestBuilder::default().with_attempt_timeout(d);
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &Some(d));
+    }
+
+    // This test must run serially because `std::env::remove_var` and
+    // `std::env::set_var` are unsafe otherwise.
+    #[test]
+    #[serial_test::serial]
+    fn config_tracing() {
+        unsafe {
+            std::env::remove_var(LOGGING_VAR);
+        }
+        let config = ClientConfig::new();
+        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
+        let config = ClientConfig::new().enable_tracing();
+        assert!(config.tracing_enabled(), "expected tracing to be enabled");
+        let config = config.disable_tracing();
+        assert!(
+            !config.tracing_enabled(),
+            "expected tracing to be disaabled"
+        );
+
+        unsafe {
+            std::env::set_var(LOGGING_VAR, "true");
+        }
+        let config = ClientConfig::new();
+        assert!(config.tracing_enabled(), "expected tracing to be enabled");
+
+        unsafe {
+            std::env::set_var(LOGGING_VAR, "not-true");
+        }
+        let config = ClientConfig::new();
+        assert!(!config.tracing_enabled(), "expected tracing to be disabled");
+    }
+
+    #[test]
+    fn config_endpoint() {
+        let config = ClientConfig::new().set_endpoint("http://storage.googleapis.com");
+        assert_eq!(
+            config.endpoint,
+            Some("http://storage.googleapis.com".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn config_credentials() -> Result {
+        let config = ClientConfig::new().set_credential(auth::Credential::test_credentials());
+        let cred = config.cred.unwrap();
+        let token = cred.access_token().await?;
+        assert!(
+            token.value.contains("test-only"),
+            "unexpected test token {}",
+            token.value
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn config_default_credentials() -> Result {
+        let dir = tempfile::tempdir()?;
+        let path = dir.path().to_str().unwrap();
+        unsafe {
+            // This is not readable as a file and should cause the default credentials to fail.
+            std::env::set_var("GOOGLE_APPLICATION_CREDENTIALS", path);
+        }
+        let cred = ClientConfig::default_credential().await;
+        assert!(cred.is_err());
+        Ok(())
     }
 }

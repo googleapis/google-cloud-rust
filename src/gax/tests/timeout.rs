@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::http_client::*;
+use gax::http_client::ReqwestClient;
 use gax::options::*;
 use gcp_sdk_gax as gax;
 use serde_json::json;
