@@ -42,7 +42,7 @@
 //! }
 //! ```
 //!
-//! [RetryThrottler]: https://sre.google/sre-book/handling-overload/
+//! [RetryThrottler]: crate::retry_throttler::RetryThrottler
 //! [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 

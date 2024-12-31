@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Verify retry policies are usable from outside the crate.
+//! Verify backoff policies are usable from outside the crate.
 
 #[cfg(test)]
 mod tests {
