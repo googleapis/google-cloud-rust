@@ -13,6 +13,10 @@
 // limitations under the License.
 
 //! Per request options.
+//!
+//! Applications may need to customize the behavior of some calls made via a
+//! client. The `*Builder` returned by each client method implements the
+//! [RequestOptionsBuilder] trait where applications can override some defaults.
 
 /// A set of options configuring a single request.
 ///
@@ -34,7 +38,7 @@ impl RequestOptions {
     }
 
     /// Gets the current user-agent prefix
-    pub fn user_agent_prefix(&self) -> &Option<String> {
+    pub fn user_agent(&self) -> &Option<String> {
         &self.user_agent
     }
 
@@ -92,5 +96,67 @@ where
     fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.request_options().set_attempt_timeout(v);
         self
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::time::Duration;
+
+    #[derive(Debug, Default)]
+    struct TestBuilder {
+        request_options: RequestOptions,
+    }
+    impl RequestBuilder for TestBuilder {
+        fn request_options(&mut self) -> &mut RequestOptions {
+            &mut self.request_options
+        }
+    }
+
+    #[test]
+    fn request_options() {
+        let mut opts = RequestOptions::default();
+        assert_eq!(opts.user_agent(), &None);
+        assert_eq!(opts.attempt_timeout(), &None);
+        let debug = format!("{opts:?}");
+        assert!(debug.contains("RequestOptions"), "{debug}");
+        assert!(debug.contains("user_agent"), "{debug}");
+        assert!(debug.contains("attempt_timeout"), "{debug}");
+
+        opts.set_user_agent("test-only");
+        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        assert_eq!(opts.attempt_timeout(), &None);
+
+        let d = Duration::from_secs(123);
+        opts.set_attempt_timeout(d);
+        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        assert_eq!(opts.attempt_timeout(), &Some(d));
+
+        let debug = format!("{opts:?}");
+        assert!(debug.contains("RequestOptions"), "{debug}");
+        assert!(debug.contains("user_agent"), "{debug}");
+        assert!(debug.contains("Some(\"test-only\")"), "{debug}");
+        assert!(debug.contains("attempt_timeout"), "{debug}");
+        assert!(debug.contains("Some(123s)"), "{debug}");
+    }
+
+    #[test]
+    fn request_options_builder() {
+        let mut builder = TestBuilder::default();
+        assert_eq!(builder.request_options().user_agent(), &None);
+        assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_user_agent("test-only");
+        assert_eq!(
+            builder.request_options().user_agent().as_deref(),
+            Some("test-only")
+        );
+        assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let d = Duration::from_secs(123);
+        let mut builder = TestBuilder::default().with_attempt_timeout(d);
+        assert_eq!(builder.request_options().user_agent(), &None);
+        assert_eq!(builder.request_options().attempt_timeout(), &Some(d));
     }
 }

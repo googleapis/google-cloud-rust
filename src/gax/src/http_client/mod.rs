@@ -54,7 +54,7 @@ impl ReqwestClient {
         options: crate::options::RequestOptions,
     ) -> Result<O> {
         builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
-        if let Some(user_agent) = options.user_agent_prefix() {
+        if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
                 reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::other)?,
