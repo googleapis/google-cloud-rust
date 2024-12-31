@@ -272,6 +272,24 @@ impl std::convert::From<Duration> for time::Duration {
     }
 }
 
+/// Converts from [chrono::Duration] to [Duration].
+#[cfg(feature = "chrono")]
+impl std::convert::TryFrom<chrono::Duration> for Duration {
+    type Error = DurationError;
+
+    fn try_from(value: chrono::Duration) -> Result<Self, Self::Error> {
+        Self::new(value.num_seconds(), value.subsec_nanos())
+    }
+}
+
+/// Converts from [Duration] to [chrono::Duration].
+#[cfg(feature = "chrono")]
+impl std::convert::From<Duration> for chrono::Duration {
+    fn from(value: Duration) -> Self {
+        Self::seconds(value.seconds) + Self::nanoseconds(value.nanos as i64)
+    }
+}
+
 /// Implement [`serde`](::serde) serialization for [Duration].
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -487,5 +505,31 @@ mod test {
         let msg = format!("{got:?}");
         assert!(msg.contains("duration in Google format"), "message={}", msg);
         Ok(())
+    }
+
+    #[test_case(chrono::Duration::default(), Duration::default() ; "default")]
+    #[test_case(chrono::Duration::new(0, 0).unwrap(), Duration::new(0, 0).unwrap() ; "zero")]
+    #[test_case(chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
+    #[test_case(chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap(), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    fn from_chrono_time_in_range(value: chrono::Duration, want: Duration) -> Result {
+        let got = Duration::try_from(value)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+    #[test_case(Duration::default(), chrono::Duration::default() ; "default")]
+    #[test_case(Duration::new(0, 0).unwrap(), chrono::Duration::new(0, 0).unwrap() ; "zero")]
+    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
+    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), chrono::Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    fn to_chrono_time_in_range(value: Duration, want: chrono::Duration) -> Result {
+        let got = chrono::Duration::from(value);
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(chrono::Duration::new(10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "above the range")]
+    #[test_case(chrono::Duration::new(-10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "below the range")]
+    fn from_chrono_time_out_of_range(value: chrono::Duration) {
+        let got = Duration::try_from(value);
+        assert_eq!(got, Err(DurationError::OutOfRange()));
     }
 }

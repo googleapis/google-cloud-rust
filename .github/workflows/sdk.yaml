@@ -127,3 +127,41 @@ jobs:
         # committed code that is an error. All the inputs should be pinned,
         # including the generator version and the googleapis SHA.
       - run: git diff --exit-code
+  windows:
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        rust-version: ['1.83']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ matrix.rust-version }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: cargo test
+  macos:
+    runs-on: macos-14
+    strategy:
+      matrix:
+        rust-version: ['1.83']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: rustup toolchain install ${{ matrix.rust-version }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: cargo test

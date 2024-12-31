@@ -24,7 +24,7 @@ type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 async fn test_paginator() -> Result<()> {
     // Create a small server to satisfy the request.
     let app = axum::Router::new().route("/pagination", axum::routing::get(handle_page));
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
     let endpoint = format!("http://{}:{}", addr.ip(), addr.port());
     println!("endpoint = {endpoint}");
@@ -59,7 +59,7 @@ async fn test_paginator() -> Result<()> {
 async fn test_item_paginator() -> Result<()> {
     // Create a small server to satisfy the request.
     let app = axum::Router::new().route("/pagination", axum::routing::get(handle_page));
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await?;
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
     let endpoint = format!("http://{}:{}", addr.ip(), addr.port());
     println!("endpoint = {endpoint}");
