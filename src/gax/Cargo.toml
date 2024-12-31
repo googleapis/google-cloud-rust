@@ -38,6 +38,7 @@ thiserror   = "2.0.9"
 auth        = { version = "0.1.0-rc3", path = "../auth", package = "gcp-sdk-auth" }
 rpc         = { version = "0.1.0-rc3", path = "../generated/rpc", package = "gcp-sdk-rpc" }
 wkt         = { version = "0.1.0-rc3", path = "../wkt", package = "gcp-sdk-wkt" }
+rand        = "0.8.5"
 
 [dev-dependencies]
 echo-server = { path = "echo-server" }

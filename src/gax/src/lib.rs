@@ -76,5 +76,6 @@ pub mod paginator;
 #[doc(hidden)]
 pub mod http_client;
 
+pub mod backoff_policy;
 pub mod options;
 pub mod retry_policy;
