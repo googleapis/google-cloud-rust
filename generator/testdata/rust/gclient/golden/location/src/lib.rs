@@ -17,8 +17,7 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
-/// Common error returned by the RPCs in this client library.
-use gax::error::Error;
+pub(crate) use gax::Result;
 
 /// The traits implemented by this client library.
 #[allow(rustdoc::invalid_html_tags)]
@@ -54,9 +53,4 @@ pub(crate) mod info {
         };
     }
 }
-
-/// A `Result` alias where the `Err` case is an [Error].
-pub type Result<T> = std::result::Result<T, Error>;
-
-pub type ConfigBuilder = gax::http_client::ClientConfig;
 
