@@ -22,7 +22,7 @@ async fn new_client(tracing: bool) -> Result<smo::client::SecretManagerService> 
         return smo::client::SecretManagerService::new().await;
     }
     smo::client::SecretManagerService::new_with_config(
-        smo::ConfigBuilder::default().enable_tracing(),
+        gax::options::ClientConfig::default().enable_tracing(),
     )
     .await
 }

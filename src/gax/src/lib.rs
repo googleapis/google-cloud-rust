@@ -28,7 +28,7 @@
 /// An alias of [std::result::Result] where the error is always [crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
-type Result<T> = std::result::Result<T, crate::error::Error>;
+pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
