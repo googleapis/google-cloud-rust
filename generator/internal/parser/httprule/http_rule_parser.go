@@ -161,30 +161,28 @@ const (
 )
 
 func parsePathTemplate(pathTemplate string) (*PathTemplate, error) {
+	var pos int
+	var segments []*Segment
+	var verb *Literal
 	if len(pathTemplate) < 2 {
 		return nil, fmt.Errorf("invalid path template, expected at least two characters: %s", pathTemplate)
 	} else if pathTemplate[0] != slash {
 		return nil, fmt.Errorf("invalid path template, expected it to start with '/': %s", pathTemplate)
-	} else if pathTemplate[len(pathTemplate)-1] == slash {
-		return nil, fmt.Errorf("invalid path template, expected it to not end with '/': %s", pathTemplate)
 	}
-
-	lastPos := len(pathTemplate)
-	var err error
-	var verb *Literal
-	if strings.ContainsRune(pathTemplate, verbSep) {
-		lastPos = strings.LastIndex(pathTemplate, string(verbSep))
-		verb, err = parseVerb(pathTemplate[lastPos:])
-	}
+	pos++ // Skip slash
+	segments, width, err := parseSegments(pathTemplate[pos:])
 	if err != nil {
 		return nil, err
 	}
-
-	segments, err := parseSegments(pathTemplate[1:lastPos])
+	pos += width
+	verb, width, err = parseVerb(pathTemplate[pos:])
 	if err != nil {
 		return nil, err
 	}
-
+	pos += width
+	if pos != len(pathTemplate) {
+		return nil, fmt.Errorf("invalid path template, expected it to end at position %d: %s", pos, pathTemplate)
+	}
 	return &PathTemplate{
 		Segments: segments,
 		Verb:     verb,
@@ -192,144 +190,145 @@ func parsePathTemplate(pathTemplate string) (*PathTemplate, error) {
 
 }
 
-func parseVerb(verbString string) (*Literal, error) {
+func parseVerb(verbString string) (*Literal, int, error) {
 	if len(verbString) == 0 {
-		return nil, nil
+		return nil, 0, nil
 	}
-	if len(verbString) < 2 {
-		return nil, fmt.Errorf("invalid verb, when not empty, must have at least two characters")
-	} else if verbString[0] != verbSep {
-		return nil, fmt.Errorf("invalid verb, must start with '%q': %s", verbSep, verbString)
+	var pos int
+	if verbString[pos] != verbSep {
+		return nil, 0, fmt.Errorf("invalid verb, must start with '%q': %s", verbSep, verbString)
 	}
-	return parseLiteral(verbString[1:])
+	pos++ // Skip verbSep
+	verb, width, err := parseLiteral(verbString[pos:])
+	if err != nil {
+		return nil, 0, err
+	}
+	pos += width
+	return verb, pos, nil
 }
 
-// parseSegments parses the first segment out of the provided string, and calls itself recursively to parse the remaining segments, if any.
-func parseSegments(segmentsString string) ([]*Segment, error) {
-	if len(segmentsString) < 1 {
-		return nil, fmt.Errorf("invalid segments, expected at least one character")
-	} else if segmentsString[0] == slash {
-		return nil, fmt.Errorf("invalid segments, cannot start with '/': %s", segmentsString)
-	} else if segmentsString[len(segmentsString)-1] == slash {
-		return nil, fmt.Errorf("invalid segments, cannot end with '/': %s", segmentsString)
-	}
+// parseSegments parses a sequence of variable and/or plain segments starting at the beginning of the provided string.
+func parseSegments(segmentsString string) ([]*Segment, int, error) {
+	var segments []*Segment
+	var pos int
+	for {
+		var err error
+		var segment *Segment
+		var width int
 
-	var firstSegment *Segment
-	var lastPos int
-	var err error
-	if segmentsString[0] == varLeft {
-		lastPos = strings.Index(segmentsString, string(varRight))
-		if lastPos == eof {
-			return nil, fmt.Errorf("invalid variable, expected to find '%q' before the end of the string: %s",
-				varRight,
-				segmentsString)
+		if pos == len(segmentsString) {
+			return nil, pos, fmt.Errorf("expected a segment, found eof: %s", segmentsString)
 		}
-		firstSegment, err = parseVarSegment(segmentsString[:lastPos+1])
-		if lastPos == len(segmentsString)-1 {
-			lastPos = eof
+		if segmentsString[pos] == varLeft {
+			segment, width, err = parseVarSegment(segmentsString[pos:])
 		} else {
-			// If this isn't the last segment in the string, we need to skip the slash.
-			lastPos += 1
+			segment, width, err = parsePlainSegment(segmentsString[pos:])
 		}
-	} else {
-		lastPos = strings.Index(segmentsString, string(slash))
-		if lastPos != eof {
-			firstSegment, err = parsePlainSegment(segmentsString[:lastPos])
-		} else {
-			firstSegment, err = parsePlainSegment(segmentsString)
+		if err != nil {
+			return nil, pos, err
 		}
+		segments = append(segments, segment)
+		pos += width
+		if pos == len(segmentsString) || segmentsString[pos] != slash {
+			break
+		}
+		pos++ // Skip slash
 	}
-	if err != nil {
-		return nil, err
-	}
-	if lastPos == eof {
-		return []*Segment{firstSegment}, nil
-	}
-	segments, err := parseSegments(segmentsString[lastPos+1:])
-	if err != nil {
-		return nil, err
-	}
-	return append([]*Segment{firstSegment}, segments...), nil
+	return segments, pos, nil
 }
 
-func parseVarSegment(varString string) (*Segment, error) {
+func parseVarSegment(varString string) (*Segment, int, error) {
 	if len(varString) < 3 {
-		return nil, fmt.Errorf("invalid variable, expected at least three characters: %s", varString)
-	} else if varString[0] != varLeft {
-		return nil, fmt.Errorf("invalid variable, expected it to start with '%q': %s", varLeft, varString)
-	} else if varString[len(varString)-1] != varRight {
-		return nil, fmt.Errorf("invalid variable, expected it to end with '%q': %s", varRight, varString)
+		return nil, 0, fmt.Errorf("invalid variable, expected at least three characters: %s", varString)
 	}
-	// Remove the '{' and '}' from the variable string
-	varString = varString[1 : len(varString)-1]
-	indexOfSep := strings.Index(varString, string(varSep))
-	if indexOfSep != eof {
-		fieldPath, err := parseFieldPath(varString[:indexOfSep])
-		if err != nil {
-			return nil, err
-		}
-		segments, err := parsePlainSegments(varString[indexOfSep+1:])
-		if err != nil {
-			return nil, err
-		}
-
-		return &Segment{
-			Variable: &Variable{
-				FieldPath: fieldPath,
-				Segments:  segments,
-			},
-		}, nil
-	} else {
-		fieldPath, err := parseFieldPath(varString)
-		if err != nil {
-			return nil, err
-		}
-		return &Segment{
-			Variable: &Variable{
-				FieldPath: fieldPath,
-			},
-		}, nil
+	var pos int
+	if varString[pos] != varLeft {
+		return nil, 0, fmt.Errorf("invalid variable, expected it to start with '%q': %s", varLeft, varString)
 	}
+	pos++ // Skip varLeft
+	var width int
+	var segments []*Segment
+	fieldPath, width, err := parseFieldPath(varString[pos:])
+	if err != nil {
+		return nil, 0, err
+	}
+	pos += width
+	if pos < len(varString) && varString[pos] == varSep {
+		pos++ // Skip varSep
+		segments, width, err = parsePlainSegments(varString[pos:])
+		if err != nil {
+			return nil, 0, err
+		}
+		pos += width
+	}
+	if pos == len(varString) || varString[pos] != varRight {
+		return nil, 0, fmt.Errorf("invalid variable, expected it to end with '%q': %s", varRight, varString)
+	}
+	pos++ // Skip varRight
+	return &Segment{
+		Variable: &Variable{
+			FieldPath: fieldPath,
+			Segments:  segments,
+		},
+	}, pos, nil
 }
 
-func parsePlainSegments(segmentsString string) ([]*Segment, error) {
-	plainSegments := strings.Split(segmentsString, string(slash))
-	parsedSegments := make([]*Segment, 0, len(plainSegments))
-	for _, plainSegment := range plainSegments {
-		parsedSegment, err := parsePlainSegment(plainSegment)
+func parsePlainSegments(segmentsString string) ([]*Segment, int, error) {
+	var pos int
+	var segments []*Segment
+
+	for {
+		segment, width, err := parsePlainSegment(segmentsString[pos:])
 		if err != nil {
-			return nil, err
+			return nil, pos, err
 		}
-		parsedSegments = append(parsedSegments, parsedSegment)
+		segments = append(segments, segment)
+		pos += width
+		if pos == len(segmentsString) || segmentsString[pos] != slash {
+			break
+		}
+		pos++ // Skip slash
 	}
-	return parsedSegments, nil
+	return segments, pos, nil
 }
 
-func parseFieldPath(fieldPathString string) ([]*Identifier, error) {
-	identifiers := strings.Split(fieldPathString, string(identSep))
-	parsedIdentifiers := make([]*Identifier, 0, len(identifiers))
-	for _, identifier := range identifiers {
-		identifier, err := parseIdentifier(identifier)
+func parseFieldPath(fieldPathString string) ([]*Identifier, int, error) {
+	var pos int
+	var identifiers []*Identifier
+	for {
+		identifier, width, err := parseIdentifier(fieldPathString[pos:])
 		if err != nil {
-			return nil, err
+			return nil, pos, err
 		}
-		parsedIdentifiers = append(parsedIdentifiers, identifier)
+
+		identifiers = append(identifiers, identifier)
+		pos += width
+		if pos == len(fieldPathString) || fieldPathString[pos] != identSep {
+			break
+		}
+		pos++ // Skip identSep
 	}
-	return parsedIdentifiers, nil
+	return identifiers, pos, nil
 }
 
-func parsePlainSegment(plainSegment string) (*Segment, error) {
-	if plainSegment == string(star) {
-		return &Segment{Match: &Match{}}, nil
-	} else if plainSegment == string(star)+string(star) {
-		return &Segment{MatchRecursive: &MatchRecursive{}}, nil
-	} else {
-		literal, err := parseLiteral(plainSegment)
-		if err != nil {
-			return nil, err
-		}
-		return &Segment{Literal: literal}, nil
+func parsePlainSegment(plainSegment string) (*Segment, int, error) {
+	if len(plainSegment) < 1 {
+		return nil, 0, fmt.Errorf("invalid plain segment, expected at least one character: %s", plainSegment)
 	}
+	if plainSegment[0] == slash {
+		return nil, 0, fmt.Errorf("invalid plain segment, cannot start with : %q", slash)
+	}
+	if len(plainSegment) >= 2 && plainSegment[0:2] == string(star)+string(star) {
+		return &Segment{MatchRecursive: &MatchRecursive{}}, 2, nil
+	}
+	if plainSegment[0] == star {
+		return &Segment{Match: &Match{}}, 1, nil
+	}
+	literal, pos, err := parseLiteral(plainSegment)
+	if err != nil {
+		return nil, 0, err
+	}
+	return &Segment{Literal: literal}, pos, nil
 }
 
 const (
@@ -341,39 +340,41 @@ const (
 )
 
 // parseLiteral validates that the provided string conforms to the LITERAL definition, and returns a Literal type if it does.
-func parseLiteral(literal string) (*Literal, error) {
-	if len(literal) < 1 {
-		return nil, fmt.Errorf("invalid literal, expected at least one character: %s", literal)
-	}
-	i := 0
-	for i < len(literal) {
-		if strings.ContainsRune(unreserved, rune(literal[i])) {
-			i++
-		} else if literal[i] == hexStart {
-			if i+2 >= len(literal) {
-				return nil, fmt.Errorf("invalid literal, expected at least 2 characters after the '%%': %s", literal)
+func parseLiteral(literal string) (*Literal, int, error) {
+	var pos int
+	for pos < len(literal) {
+		if strings.ContainsRune(unreserved, rune(literal[pos])) {
+			pos++
+		} else if literal[pos] == hexStart {
+			if pos+2 >= len(literal) {
+				return nil, pos, fmt.Errorf("invalid literal, expected at least 2 characters after the '%%': %s", literal)
 			}
-			if !strings.ContainsRune(hexdig, rune(literal[i+1])) || !strings.ContainsRune(hexdig, rune(literal[i+2])) {
-				return nil, fmt.Errorf("invalid literal: %s", literal)
+			if !strings.ContainsRune(hexdig, rune(literal[pos+1])) || !strings.ContainsRune(hexdig, rune(literal[pos+2])) {
+				return nil, pos, fmt.Errorf("invalid literal: %s", literal)
 			}
-			i += 3
+			pos += 3
 		} else {
-			return nil, fmt.Errorf("invalid literal: %s", literal)
+			break
 		}
 	}
-	return (*Literal)(&literal), nil
+	if pos < 1 {
+		return nil, 0, fmt.Errorf("invalid literal, expected at least one character: %s", literal)
+	}
+	literal = literal[:pos]
+	return (*Literal)(&literal), pos, nil
 }
 
-func parseIdentifier(identifier string) (*Identifier, error) {
+func parseIdentifier(identifier string) (*Identifier, int, error) {
 	if len(identifier) < 1 {
-		return nil, fmt.Errorf("invalid identifier, expected at least one character: %s", identifier)
+		return nil, 0, fmt.Errorf("invalid identifier, expected at least one character: %s", identifier)
 	}
 	if !strings.ContainsRune(alpha, rune(identifier[0])) {
-		return nil, fmt.Errorf("invalid identifier, expected it to start with a letter: %s", identifier)
+		return nil, 0, fmt.Errorf("invalid identifier, expected it to start with a letter: %s", identifier)
 	}
-
-	if i := strings.IndexFunc(identifier, func(r rune) bool { return !strings.ContainsRune(alpha+digit+"_", r) }); i != -1 {
-		return nil, fmt.Errorf("invalid identifier, rune '%q' is not valid in an identifier: %s", identifier[i], identifier)
+	pos := strings.IndexFunc(identifier, func(r rune) bool { return !strings.ContainsRune(alpha+digit+"_", r) })
+	if pos == eof {
+		pos = len(identifier)
 	}
-	return (*Identifier)(&identifier), nil
+	identifier = identifier[0:pos]
+	return (*Identifier)(&identifier), pos, nil
 }
