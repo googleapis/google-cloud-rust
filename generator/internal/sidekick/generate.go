@@ -41,7 +41,6 @@ Uses the configuration provided in the command line arguments, and saves it in a
 // generate takes some state and applies it to a template to create a client
 // library.
 func generate(rootConfig *Config, cmdLine *CommandLine) error {
-	generation_year, _, _ := time.Now().Date()
 	local := Config{
 		General: GeneralConfig{
 			Language:            cmdLine.Language,
@@ -52,7 +51,10 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 		Source: maps.Clone(cmdLine.Source),
 		Codec:  maps.Clone(cmdLine.Codec),
 	}
-	local.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
+	if _, ok := local.Codec["copyright-year"]; !ok {
+		generation_year, _, _ := time.Now().Date()
+		local.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
+	}
 
 	if err := writeSidekickToml(cmdLine.Output, &local); err != nil {
 		return err
