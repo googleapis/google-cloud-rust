@@ -71,151 +71,347 @@ impl SecretManagerService {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> crate::builders::ListLocations {
+    pub fn list_locations(
+        &self,
+        project: impl Into<String>,
+    ) -> crate::builders::ListLocations
+    {
         crate::builders::ListLocations::new(self.inner.clone())
+            .set_project ( project.into() )
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> crate::builders::GetLocation {
+    pub fn get_location(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+    ) -> crate::builders::GetLocation
+    {
         crate::builders::GetLocation::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
     }
 
     /// Lists Secrets.
-    pub fn list_secrets(&self) -> crate::builders::ListSecrets {
+    pub fn list_secrets(
+        &self,
+        project: impl Into<String>,
+    ) -> crate::builders::ListSecrets
+    {
         crate::builders::ListSecrets::new(self.inner.clone())
+            .set_project ( project.into() )
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub fn create_secret(&self) -> crate::builders::CreateSecret {
+    pub fn create_secret(
+        &self,
+        project: impl Into<String>,
+    ) -> crate::builders::CreateSecret
+    {
         crate::builders::CreateSecret::new(self.inner.clone())
+            .set_project ( project.into() )
     }
 
     /// Lists Secrets.
-    pub fn list_secrets_by_project_and_location(&self) -> crate::builders::ListSecretsByProjectAndLocation {
+    pub fn list_secrets_by_project_and_location(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+    ) -> crate::builders::ListSecretsByProjectAndLocation
+    {
         crate::builders::ListSecretsByProjectAndLocation::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
     }
 
     /// Creates a new Secret containing no SecretVersions.
-    pub fn create_secret_by_project_and_location(&self) -> crate::builders::CreateSecretByProjectAndLocation {
+    pub fn create_secret_by_project_and_location(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+    ) -> crate::builders::CreateSecretByProjectAndLocation
+    {
         crate::builders::CreateSecretByProjectAndLocation::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub fn add_secret_version(&self) -> crate::builders::AddSecretVersion {
+    pub fn add_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::AddSecretVersion
+    {
         crate::builders::AddSecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
-    pub fn add_secret_version_by_project_and_location_and_secret(&self) -> crate::builders::AddSecretVersionByProjectAndLocationAndSecret {
+    pub fn add_secret_version_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::AddSecretVersionByProjectAndLocationAndSecret
+    {
         crate::builders::AddSecretVersionByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets metadata for a given Secret.
-    pub fn get_secret(&self) -> crate::builders::GetSecret {
+    pub fn get_secret(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::GetSecret
+    {
         crate::builders::GetSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Deletes a Secret.
-    pub fn delete_secret(&self) -> crate::builders::DeleteSecret {
+    pub fn delete_secret(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::DeleteSecret
+    {
         crate::builders::DeleteSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Updates metadata of an existing Secret.
-    pub fn update_secret(&self) -> crate::builders::UpdateSecret {
+    pub fn update_secret(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::UpdateSecret
+    {
         crate::builders::UpdateSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets metadata for a given Secret.
-    pub fn get_secret_by_project_and_location_and_secret(&self) -> crate::builders::GetSecretByProjectAndLocationAndSecret {
+    pub fn get_secret_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::GetSecretByProjectAndLocationAndSecret
+    {
         crate::builders::GetSecretByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Deletes a Secret.
-    pub fn delete_secret_by_project_and_location_and_secret(&self) -> crate::builders::DeleteSecretByProjectAndLocationAndSecret {
+    pub fn delete_secret_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::DeleteSecretByProjectAndLocationAndSecret
+    {
         crate::builders::DeleteSecretByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Updates metadata of an existing Secret.
-    pub fn update_secret_by_project_and_location_and_secret(&self) -> crate::builders::UpdateSecretByProjectAndLocationAndSecret {
+    pub fn update_secret_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::UpdateSecretByProjectAndLocationAndSecret
+    {
         crate::builders::UpdateSecretByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub fn list_secret_versions(&self) -> crate::builders::ListSecretVersions {
+    pub fn list_secret_versions(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::ListSecretVersions
+    {
         crate::builders::ListSecretVersions::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Lists SecretVersions. This call does not return secret
     /// data.
-    pub fn list_secret_versions_by_project_and_location_and_secret(&self) -> crate::builders::ListSecretVersionsByProjectAndLocationAndSecret {
+    pub fn list_secret_versions_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::ListSecretVersionsByProjectAndLocationAndSecret
+    {
         crate::builders::ListSecretVersionsByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn get_secret_version(&self) -> crate::builders::GetSecretVersion {
+    pub fn get_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::GetSecretVersion
+    {
         crate::builders::GetSecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Gets metadata for a SecretVersion.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn get_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::GetSecretVersionByProjectAndLocationAndSecretAndVersion {
+    pub fn get_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::GetSecretVersionByProjectAndLocationAndSecretAndVersion
+    {
         crate::builders::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn access_secret_version(&self) -> crate::builders::AccessSecretVersion {
+    pub fn access_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::AccessSecretVersion
+    {
         crate::builders::AccessSecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Accesses a SecretVersion. This call returns the secret data.
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
-    pub fn access_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
+    pub fn access_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
+    {
         crate::builders::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Disables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub fn disable_secret_version(&self) -> crate::builders::DisableSecretVersion {
+    pub fn disable_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::DisableSecretVersion
+    {
         crate::builders::DisableSecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Disables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
-    pub fn disable_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    pub fn disable_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
+    {
         crate::builders::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Enables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub fn enable_secret_version(&self) -> crate::builders::EnableSecretVersion {
+    pub fn enable_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::EnableSecretVersion
+    {
         crate::builders::EnableSecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Enables a SecretVersion.
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
-    pub fn enable_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    pub fn enable_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
+    {
         crate::builders::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Destroys a SecretVersion.
@@ -223,8 +419,17 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub fn destroy_secret_version(&self) -> crate::builders::DestroySecretVersion {
+    pub fn destroy_secret_version(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::DestroySecretVersion
+    {
         crate::builders::DestroySecretVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Destroys a SecretVersion.
@@ -232,8 +437,19 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
-    pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self) -> crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
+    pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+        version: impl Into<String>,
+    ) -> crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
+    {
         crate::builders::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
+            .set_version ( version.into() )
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -241,8 +457,15 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub fn set_iam_policy(&self) -> crate::builders::SetIamPolicy {
+    pub fn set_iam_policy(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::SetIamPolicy
+    {
         crate::builders::SetIamPolicy::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Sets the access control policy on the specified secret. Replaces any
@@ -250,20 +473,45 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
-    pub fn set_iam_policy_by_project_and_location_and_secret(&self) -> crate::builders::SetIamPolicyByProjectAndLocationAndSecret {
+    pub fn set_iam_policy_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::SetIamPolicyByProjectAndLocationAndSecret
+    {
         crate::builders::SetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> crate::builders::GetIamPolicy {
+    pub fn get_iam_policy(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::GetIamPolicy
+    {
         crate::builders::GetIamPolicy::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy_by_project_and_location_and_secret(&self) -> crate::builders::GetIamPolicyByProjectAndLocationAndSecret {
+    pub fn get_iam_policy_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::GetIamPolicyByProjectAndLocationAndSecret
+    {
         crate::builders::GetIamPolicyByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -273,8 +521,15 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> crate::builders::TestIamPermissions {
+    pub fn test_iam_permissions(
+        &self,
+        project: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::TestIamPermissions
+    {
         crate::builders::TestIamPermissions::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_secret ( secret.into() )
     }
 
     /// Returns permissions that a caller has for the specified secret.
@@ -284,8 +539,17 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions_by_project_and_location_and_secret(&self) -> crate::builders::TestIamPermissionsByProjectAndLocationAndSecret {
+    pub fn test_iam_permissions_by_project_and_location_and_secret(
+        &self,
+        project: impl Into<String>,
+        location: impl Into<String>,
+        secret: impl Into<String>,
+    ) -> crate::builders::TestIamPermissionsByProjectAndLocationAndSecret
+    {
         crate::builders::TestIamPermissionsByProjectAndLocationAndSecret::new(self.inner.clone())
+            .set_project ( project.into() )
+            .set_location ( location.into() )
+            .set_secret ( secret.into() )
     }
 
 }

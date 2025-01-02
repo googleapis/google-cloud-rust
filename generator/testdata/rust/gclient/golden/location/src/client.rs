@@ -74,13 +74,23 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> crate::builders::ListLocations {
+    pub fn list_locations(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::ListLocations
+    {
         crate::builders::ListLocations::new(self.inner.clone())
+            .set_name ( name.into() )
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> crate::builders::GetLocation {
+    pub fn get_location(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::GetLocation
+    {
         crate::builders::GetLocation::new(self.inner.clone())
+            .set_name ( name.into() )
     }
 
 }
