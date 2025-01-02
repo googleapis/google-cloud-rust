@@ -29,7 +29,7 @@ mod test {
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
         let err = create_access_token_credential().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unable to find ADC"));
+        assert!(msg.contains("Unable to find Application Default Credentials"));
     }
 
     #[tokio::test]
@@ -39,7 +39,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
         let err = create_access_token_credential().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unable to find ADC"));
+        assert!(msg.contains("Unable to find Application Default Credentials"));
     }
 
     #[tokio::test]
@@ -53,7 +53,7 @@ mod test {
 
             let err = create_access_token_credential().await.err().unwrap();
             let msg = err.source().unwrap().to_string();
-            assert!(msg.contains("Failed to parse ADC"));
+            assert!(msg.contains("Failed to parse"));
             assert!(msg.contains("`type` field"));
         }
     }

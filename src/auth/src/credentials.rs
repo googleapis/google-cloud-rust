@@ -178,10 +178,12 @@ pub mod traits {
 ///
 /// Consider using these credentials when:
 ///
-/// - Your application is deployed to a GCP environment such as GCE, GKE, or
-///   Cloud Run. Each of these deployment environments provides a default service
-///   account to the application, and offers mechanisms to change the default
-///   credentials without any code changes to your application.
+/// - Your application is deployed to a Google Cloud environment such as
+///   [Google Compute Engine (GCE)][gce-link],
+///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
+///   deployment environments provides a default service account to the
+///   application, and offers mechanisms to change this default service account
+///   without any code changes to your application.
 /// - You are testing or developing the application on a workstation (physical or
 ///   virtual). These credentials will use your preferences as set with
 ///   [gcloud auth application-default]. These preferences can be your own GCP
@@ -208,18 +210,23 @@ pub mod traits {
 ///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
 /// [AIP-4110]: https://google.aip.dev/auth/4110
+/// [Cloud Run]: https://cloud.google.com/run
+/// [gce-link]: https://cloud.google.com/products/compute
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
+/// [gke-link]: https://cloud.google.com/kubernetes-engine
 pub async fn create_access_token_credential() -> Result<Credential> {
-    let adc_path = adc_path().ok_or(
+    let adc_path = adc_path().ok_or_else(||
         // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
-        CredentialError::new(false, Box::from("Unable to find ADC.")),
-    )?;
+        CredentialError::new(false, Box::from("Unable to find Application Default Credentials.")))?;
 
     let contents = std::fs::read_to_string(adc_path).map_err(|e| {
         match e.kind() {
             std::io::ErrorKind::NotFound => {
                 // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
-                CredentialError::new(false, Box::from("Unable to find ADC."))
+                CredentialError::new(
+                    false,
+                    Box::from("Unable to find Application Default Credentials."),
+                )
             }
             _ => CredentialError::new(false, e.into()),
         }
@@ -228,20 +235,20 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         serde_json::from_str(&contents).map_err(|e| CredentialError::new(false, e.into()))?;
     let cred_type = js
         .get("type")
-        .ok_or(CredentialError::new(
+        .ok_or_else(|| CredentialError::new(
             false,
-            Box::from("Failed to parse ADC. No `type` field found."),
+            Box::from("Failed to parse Application Default Credentials (ADC). No `type` field found."),
         ))?
         .as_str()
-        .ok_or(CredentialError::new(
+        .ok_or_else(|| CredentialError::new(
             false,
-            Box::from("Failed to parse ADC. `type` field is not a string."),
+            Box::from("Failed to parse Application Default Credentials (ADC). `type` field is not a string."),
         ))?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
         _ => Err(CredentialError::new(
             false,
-            Box::from(format! {"Unimplemented credential type: {cred_type}"}),
+            Box::from(format!("Unimplemented credential type: {cred_type}")),
         )),
     }
 }

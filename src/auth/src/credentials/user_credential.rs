@@ -25,10 +25,10 @@ use time::OffsetDateTime;
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let tp = UserTokenProvider::from_json(js)?;
+    let token_provider = UserTokenProvider::from_json(js)?;
 
     Ok(Credential {
-        inner: Box::new(UserCredential { token_provider: tp }),
+        inner: Box::new(UserCredential { token_provider }),
     })
 }
 
