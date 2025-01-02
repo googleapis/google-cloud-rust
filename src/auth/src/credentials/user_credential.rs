@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential;
+use crate::credentials::traits::dynamic::Credential as CredentialTrait;
+use crate::credentials::Credential;
 use crate::credentials::Result;
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
@@ -21,10 +22,16 @@ use reqwest::{Client, Method};
 use std::time::Duration;
 use time::OffsetDateTime;
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let tp = UserTokenProvider::from_json(js)?;
+
+    Ok(Credential {
+        inner: Box::new(UserCredential { token_provider: tp }),
+    })
+}
+
 #[derive(Debug, PartialEq)]
 struct UserTokenProvider {
     client_id: String,
@@ -34,7 +41,6 @@ struct UserTokenProvider {
 }
 
 impl UserTokenProvider {
-    #[allow(dead_code)] // TODO(#442) - implementation in progress
     fn from_json(js: serde_json::Value) -> Result<Self> {
         let au: AuthorizedUser =
             serde_json::from_value(js).map_err(|e| CredentialError::new(false, e.into()))?;
@@ -98,7 +104,8 @@ impl TokenProvider for UserTokenProvider {
 }
 
 /// Data model for a UserCredential
-#[allow(dead_code)] // TODO(#442) - implementation in progress
+///
+/// See: https://cloud.google.com/docs/authentication#user-accounts
 pub(crate) struct UserCredential<T>
 where
     T: TokenProvider,
@@ -107,7 +114,7 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> Credential for UserCredential<T>
+impl<T> CredentialTrait for UserCredential<T>
 where
     T: TokenProvider,
 {
