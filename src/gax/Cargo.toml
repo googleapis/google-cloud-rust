@@ -50,7 +50,7 @@ serde       = { version = "1.0.216", features = ["serde_derive"] }
 test-case   = "3.3.1"
 tokio       = { version = "1.42", features = ["macros", "test-util"] }
 tempfile    = "3.14.0"
-mockall = "0.13.1"
+mockall     = "0.13.1"
 
 [build-dependencies]
 built = "0.7"
