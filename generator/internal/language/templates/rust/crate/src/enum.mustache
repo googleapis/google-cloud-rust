@@ -14,3 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 {{> ../../common/enum}}
+
+{{! TODO: before merging, make the following code conditional on the need for the enum to be used as a path parameter }}
+
+impl gax::path_parameter::PathParameter for {{Name}} {
+
+    type P = {{Name}};
+
+    fn required<'a>(&'a self, _: &str) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
+        Ok(self)
+    }
+
+
+}
