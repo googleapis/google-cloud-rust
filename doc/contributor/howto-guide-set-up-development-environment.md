@@ -30,7 +30,7 @@ cargo build
 ## Running the unit tests
 
 > Note: the `/auth` crate (which is to be replaced by `/src/auth`) requires
-> that you run have [Set up Application Default Credentials], run this once:
+> that you have to [Set up Application Default Credentials]. Run this once:
 >
 > `gcloud auth application-default login`
 
