@@ -84,18 +84,12 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations<IntoName>(&self, name: IntoName) -> crate::builders::ListLocations
-    where
-        IntoName: Into<String>,
-    {
+    pub fn list_locations(&self, name: impl Into<String>) -> crate::builders::ListLocations {
         crate::builders::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location<IntoName>(&self, name: IntoName) -> crate::builders::GetLocation
-    where
-        IntoName: Into<String>,
-    {
+    pub fn get_location(&self, name: impl Into<String>) -> crate::builders::GetLocation {
         crate::builders::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

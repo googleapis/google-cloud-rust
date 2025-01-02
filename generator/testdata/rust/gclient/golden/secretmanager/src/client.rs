@@ -81,14 +81,10 @@ impl SecretManagerService {
     /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    pub fn list_secrets<
-        IntoParent,
-    >(
+    pub fn list_secrets(
         &self,
-        parent: IntoParent,
+        parent: impl Into<String>,
     ) -> crate::builders::ListSecrets
-    where
-        IntoParent: Into<String>,
     {
         crate::builders::ListSecrets::new(self.inner.clone())
             .set_parent ( parent.into() )
@@ -99,14 +95,10 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn create_secret<
-        IntoParent,
-    >(
+    pub fn create_secret(
         &self,
-        parent: IntoParent,
+        parent: impl Into<String>,
     ) -> crate::builders::CreateSecret
-    where
-        IntoParent: Into<String>,
     {
         crate::builders::CreateSecret::new(self.inner.clone())
             .set_parent ( parent.into() )
@@ -118,14 +110,10 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn add_secret_version<
-        IntoParent,
-    >(
+    pub fn add_secret_version(
         &self,
-        parent: IntoParent,
+        parent: impl Into<String>,
     ) -> crate::builders::AddSecretVersion
-    where
-        IntoParent: Into<String>,
     {
         crate::builders::AddSecretVersion::new(self.inner.clone())
             .set_parent ( parent.into() )
@@ -134,14 +122,10 @@ impl SecretManagerService {
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    pub fn get_secret<
-        IntoName,
-    >(
+    pub fn get_secret(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::GetSecret
-    where
-        IntoName: Into<String>,
     {
         crate::builders::GetSecret::new(self.inner.clone())
             .set_name ( name.into() )
@@ -151,14 +135,10 @@ impl SecretManagerService {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    pub fn update_secret<
-        IntoSecret,
-    >(
+    pub fn update_secret(
         &self,
-        secret: IntoSecret,
+        secret: impl Into<crate::model::Secret>,
     ) -> crate::builders::UpdateSecret
-    where
-        IntoSecret: Into<crate::model::Secret>,
     {
         crate::builders::UpdateSecret::new(self.inner.clone())
             .set_secret ( secret.into() )
@@ -167,14 +147,10 @@ impl SecretManagerService {
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    pub fn delete_secret<
-        IntoName,
-    >(
+    pub fn delete_secret(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::DeleteSecret
-    where
-        IntoName: Into<String>,
     {
         crate::builders::DeleteSecret::new(self.inner.clone())
             .set_name ( name.into() )
@@ -184,14 +160,10 @@ impl SecretManagerService {
     /// call does not return secret data.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn list_secret_versions<
-        IntoParent,
-    >(
+    pub fn list_secret_versions(
         &self,
-        parent: IntoParent,
+        parent: impl Into<String>,
     ) -> crate::builders::ListSecretVersions
-    where
-        IntoParent: Into<String>,
     {
         crate::builders::ListSecretVersions::new(self.inner.clone())
             .set_parent ( parent.into() )
@@ -204,14 +176,10 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn get_secret_version<
-        IntoName,
-    >(
+    pub fn get_secret_version(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::GetSecretVersion
-    where
-        IntoName: Into<String>,
     {
         crate::builders::GetSecretVersion::new(self.inner.clone())
             .set_name ( name.into() )
@@ -224,14 +192,10 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn access_secret_version<
-        IntoName,
-    >(
+    pub fn access_secret_version(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::AccessSecretVersion
-    where
-        IntoName: Into<String>,
     {
         crate::builders::AccessSecretVersion::new(self.inner.clone())
             .set_name ( name.into() )
@@ -246,14 +210,10 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::state::DISABLED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    pub fn disable_secret_version<
-        IntoName,
-    >(
+    pub fn disable_secret_version(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::DisableSecretVersion
-    where
-        IntoName: Into<String>,
     {
         crate::builders::DisableSecretVersion::new(self.inner.clone())
             .set_name ( name.into() )
@@ -268,14 +228,10 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    pub fn enable_secret_version<
-        IntoName,
-    >(
+    pub fn enable_secret_version(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::EnableSecretVersion
-    where
-        IntoName: Into<String>,
     {
         crate::builders::EnableSecretVersion::new(self.inner.clone())
             .set_name ( name.into() )
@@ -291,14 +247,10 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    pub fn destroy_secret_version<
-        IntoName,
-    >(
+    pub fn destroy_secret_version(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::DestroySecretVersion
-    where
-        IntoName: Into<String>,
     {
         crate::builders::DestroySecretVersion::new(self.inner.clone())
             .set_name ( name.into() )
@@ -314,14 +266,10 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    pub fn set_iam_policy<
-        IntoResource,
-    >(
+    pub fn set_iam_policy(
         &self,
-        resource: IntoResource,
+        resource: impl Into<String>,
     ) -> crate::builders::SetIamPolicy
-    where
-        IntoResource: Into<String>,
     {
         crate::builders::SetIamPolicy::new(self.inner.clone())
             .set_resource ( resource.into() )
@@ -329,14 +277,10 @@ impl SecretManagerService {
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
-    pub fn get_iam_policy<
-        IntoResource,
-    >(
+    pub fn get_iam_policy(
         &self,
-        resource: IntoResource,
+        resource: impl Into<String>,
     ) -> crate::builders::GetIamPolicy
-    where
-        IntoResource: Into<String>,
     {
         crate::builders::GetIamPolicy::new(self.inner.clone())
             .set_resource ( resource.into() )
@@ -349,14 +293,10 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions<
-        IntoResource,
-    >(
+    pub fn test_iam_permissions(
         &self,
-        resource: IntoResource,
+        resource: impl Into<String>,
     ) -> crate::builders::TestIamPermissions
-    where
-        IntoResource: Into<String>,
     {
         crate::builders::TestIamPermissions::new(self.inner.clone())
             .set_resource ( resource.into() )
@@ -417,28 +357,20 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations<
-        IntoName,
-    >(
+    pub fn list_locations(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::ListLocations
-    where
-        IntoName: Into<String>,
     {
         crate::builders::ListLocations::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
     /// Gets information about a location.
-    pub fn get_location<
-        IntoName,
-    >(
+    pub fn get_location(
         &self,
-        name: IntoName,
+        name: impl Into<String>,
     ) -> crate::builders::GetLocation
-    where
-        IntoName: Into<String>,
     {
         crate::builders::GetLocation::new(self.inner.clone())
             .set_name ( name.into() )
