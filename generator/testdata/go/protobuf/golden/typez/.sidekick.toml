@@ -13,18 +13,15 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
+language = 'go'
 specification-format = 'protobuf'
-specification-source = 'testdata/googleapis/google/cloud/location'
-service-config = 'testdata/googleapis/google/cloud/location/cloud.yaml'
+specification-source = 'testdata/googleapis/google/type'
 
 [source]
 googleapis-root = 'testdata/googleapis'
 
 [codec]
 copyright-year = '2024'
+go-package-name = 'typez'
 not-for-publication = 'true'
-package-name-override = 'location-golden-gclient'
-'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'
-'package:google-cloud-auth' = 'package=google-cloud-auth,path=../auth'
-'package:wkt' = 'package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf'
+package-name-override = 'github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/typez'

@@ -68,7 +68,7 @@ func TestRustFromOpenAPI(t *testing.T) {
 }
 
 func TestRustFromProtobuf(t *testing.T) {
-	var outDir = fmt.Sprintf("%s/rust/gclient/golden", testdataDir)
+	var outDir = fmt.Sprintf("%s/rust/protobuf/golden", testdataDir)
 
 	type TestConfig struct {
 		Source        string
@@ -92,7 +92,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			Source: "googleapis/google/iam/v1",
 			Name:   "iam/v1",
 			ExtraOptions: map[string]string{
-				"package:gtype": fmt.Sprintf("package=type-golden-gclient,path=%s/rust/gclient/golden/type,source=google.type", testdataDir),
+				"package:gtype": fmt.Sprintf("package=type-golden-protobuf,path=%s/rust/protobuf/golden/type,source=google.type", testdataDir),
 			},
 		},
 		{
@@ -100,8 +100,8 @@ func TestRustFromProtobuf(t *testing.T) {
 			ServiceConfig: secretManagerServiceConfig,
 			Name:          "secretmanager",
 			ExtraOptions: map[string]string{
-				"package:iam":      fmt.Sprintf("package=iam-v1-golden-gclient,path=%s/rust/gclient/golden/iam/v1,source=google.iam.v1", testdataDir),
-				"package:location": fmt.Sprintf("package=location-golden-gclient,path=%s/rust/gclient/golden/location,source=google.cloud.location", testdataDir),
+				"package:iam":      fmt.Sprintf("package=iam-v1-golden-protobuf,path=%s/rust/protobuf/golden/iam/v1,source=google.iam.v1", testdataDir),
+				"package:location": fmt.Sprintf("package=location-golden-protobuf,path=%s/rust/protobuf/golden/location,source=google.cloud.location", testdataDir),
 			},
 		},
 	}
@@ -126,7 +126,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			Codec: map[string]string{
 				"not-for-publication":       "true",
 				"copyright-year":            "2024",
-				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-gclient",
+				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-protobuf",
 				"package:wkt":               "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
 				"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
 				"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
@@ -184,7 +184,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			},
 			ServiceConfig: config.ServiceConfig,
 			Language:      "rust",
-			Output:        path.Join(testdataDir, "rust/gclient/golden/module", config.Name),
+			Output:        path.Join(testdataDir, "rust/protobuf/golden/module", config.Name),
 			Codec: map[string]string{
 				"copyright-year":  "2024",
 				"generate-module": "true",
@@ -201,7 +201,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 }
 
 func TestGoFromProtobuf(t *testing.T) {
-	var outDir = fmt.Sprintf("%s/go/gclient/golden", testdataDir)
+	var outDir = fmt.Sprintf("%s/go/protobuf/golden", testdataDir)
 	type TestConfig struct {
 		Source       string
 		Name         string
@@ -220,13 +220,13 @@ func TestGoFromProtobuf(t *testing.T) {
 			Source: fmt.Sprintf("%s/google/iam/v1", googleapisRoot),
 			Name:   "iam/v1",
 			ExtraOptions: map[string]string{
-				"import-mapping:google.type":     fmt.Sprintf("%s/go/gclient/golden/typez;typez", testdataImportPath),
-				"import-mapping:google.protobuf": fmt.Sprintf("%s/go/gclient/golden/wkt;wkt", testdataImportPath),
+				"import-mapping:google.type":     fmt.Sprintf("%s/go/protobuf/golden/typez;typez", testdataImportPath),
+				"import-mapping:google.protobuf": fmt.Sprintf("%s/go/protobuf/golden/wkt;wkt", testdataImportPath),
 				"go-package-name":                "iam",
 			},
 			ModReplace: map[string]string{
-				fmt.Sprintf("%s/go/gclient/golden/typez", testdataImportPath): "typez",
-				fmt.Sprintf("%s/go/gclient/golden/wkt", testdataImportPath):   "wkt",
+				fmt.Sprintf("%s/go/protobuf/golden/typez", testdataImportPath): "typez",
+				fmt.Sprintf("%s/go/protobuf/golden/wkt", testdataImportPath):   "wkt",
 			},
 		},
 	}
@@ -246,7 +246,7 @@ func TestGoFromProtobuf(t *testing.T) {
 			Codec: map[string]string{
 				"not-for-publication":   "true",
 				"copyright-year":        "2024",
-				"package-name-override": fmt.Sprintf("%s/go/gclient/golden/%s", testdataImportPath, config.Name),
+				"package-name-override": fmt.Sprintf("%s/go/protobuf/golden/%s", testdataImportPath, config.Name),
 			},
 		}
 		for k, v := range config.ExtraOptions {
