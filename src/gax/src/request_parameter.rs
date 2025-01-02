@@ -88,7 +88,7 @@ impl RequestParameter for wkt::FieldMask {
 
 impl RequestParameter for wkt::Timestamp {
     fn format(&self) -> Result {
-        self.to_json().map_err(|e| Error::Format(e.into()))
+        String::try_from(self).map_err(|e| Error::Format(e.into()))
     }
 }
 
