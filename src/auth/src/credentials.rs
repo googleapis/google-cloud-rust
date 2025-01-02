@@ -195,13 +195,15 @@ pub mod traits {
 /// Example usage:
 ///
 /// ```
-/// # tokio_test::block_on(async {
 /// # use gcp_sdk_auth::credentials::create_access_token_credential;
 /// # use gcp_sdk_auth::credentials::traits::Credential;
-/// let mut creds = create_access_token_credential().await.unwrap();
-/// let token = creds.get_token().await.unwrap();
+/// # use gcp_sdk_auth::errors::CredentialError;
+/// # tokio_test::block_on(async {
+/// let mut creds = create_access_token_credential().await?;
+/// let token = creds.get_token().await?;
 /// println!("Token: {}", token.token);
-/// # })
+/// # Ok::<(), CredentialError>(())
+/// # });
 /// ```
 ///
 /// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
