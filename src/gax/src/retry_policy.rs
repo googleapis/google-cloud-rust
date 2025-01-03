@@ -396,20 +396,16 @@ where
 {
     fn on_error(
         &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
+        start: std::time::Instant,
+        count: u32,
         idempotent: bool,
         error: Error,
     ) -> RetryFlow {
-        let exhausted = std::time::Instant::now() >= loop_start + self.maximum_duration;
-        match self
-            .inner
-            .on_error(loop_start, attempt_count, idempotent, error)
-        {
+        match self.inner.on_error(start, count, idempotent, error) {
             RetryFlow::Permanent(e) => RetryFlow::Permanent(e),
             RetryFlow::Exhausted(e) => RetryFlow::Exhausted(e),
             RetryFlow::Continue(e) => {
-                if exhausted {
+                if std::time::Instant::now() >= start + self.maximum_duration {
                     RetryFlow::Exhausted(e)
                 } else {
                     RetryFlow::Continue(e)
@@ -514,20 +510,16 @@ where
 {
     fn on_error(
         &self,
-        loop_start: std::time::Instant,
-        attempt_count: u32,
+        start: std::time::Instant,
+        count: u32,
         idempotent: bool,
         error: Error,
     ) -> RetryFlow {
-        let exhausted = attempt_count >= self.maximum_attempts;
-        match self
-            .inner
-            .on_error(loop_start, attempt_count, idempotent, error)
-        {
+        match self.inner.on_error(start, count, idempotent, error) {
             RetryFlow::Permanent(e) => RetryFlow::Permanent(e),
             RetryFlow::Exhausted(e) => RetryFlow::Exhausted(e),
             RetryFlow::Continue(e) => {
-                if exhausted {
+                if count >= self.maximum_attempts {
                     RetryFlow::Exhausted(e)
                 } else {
                     RetryFlow::Continue(e)
