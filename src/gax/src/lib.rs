@@ -56,7 +56,7 @@ pub mod path_parameter;
 /// [path_parameter](::crate::path_parameter).
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
-mod request_parameter;
+pub mod request_parameter;
 
 /// Implements helpers to create telemetry headers.
 #[cfg(feature = "unstable-sdk-client")]

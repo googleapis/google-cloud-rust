@@ -492,14 +492,9 @@ pub mod secret_version {
         pub const DESTROYED: &str = "DESTROYED";
     }
 
-    impl gax::path_parameter::PathParameter for State {
-        type P = State;
-
-        fn required<'a>(
-            &'a self,
-            _: &str,
-        ) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
-            Ok(self)
+    impl gax::request_parameter::RequestParameter for State {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
         }
     }
 }

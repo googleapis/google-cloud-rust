@@ -618,14 +618,9 @@ pub mod audit_log_config {
         pub const DATA_READ: &str = "DATA_READ";
     }
 
-    impl gax::path_parameter::PathParameter for LogType {
-        type P = LogType;
-
-        fn required<'a>(
-            &'a self,
-            _: &str,
-        ) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
-            Ok(self)
+    impl gax::request_parameter::RequestParameter for LogType {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
         }
     }
 }
@@ -749,14 +744,9 @@ pub mod binding_delta {
         pub const REMOVE: &str = "REMOVE";
     }
 
-    impl gax::path_parameter::PathParameter for Action {
-        type P = Action;
-
-        fn required<'a>(
-            &'a self,
-            _: &str,
-        ) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
-            Ok(self)
+    impl gax::request_parameter::RequestParameter for Action {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
         }
     }
 }
@@ -851,14 +841,9 @@ pub mod audit_config_delta {
         pub const REMOVE: &str = "REMOVE";
     }
 
-    impl gax::path_parameter::PathParameter for Action {
-        type P = Action;
-
-        fn required<'a>(
-            &'a self,
-            _: &str,
-        ) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
-            Ok(self)
+    impl gax::request_parameter::RequestParameter for Action {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
         }
     }
 }

@@ -15,15 +15,8 @@ limitations under the License.
 }}
 {{> ../../common/enum}}
 
-{{! TODO: before merging, make the following code conditional on the need for the enum to be used as a path parameter }}
-
-impl gax::path_parameter::PathParameter for {{Name}} {
-
-    type P = {{Name}};
-
-    fn required<'a>(&'a self, _: &str) -> std::result::Result<&'a Self::P, gax::path_parameter::Error> {
-        Ok(self)
+impl gax::request_parameter::RequestParameter for {{Name}} {
+    fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+        Ok(self.0.clone())
     }
-
-
 }

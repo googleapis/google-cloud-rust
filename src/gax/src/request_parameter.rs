@@ -16,7 +16,7 @@ use base64::Engine;
 
 type Result = std::result::Result<String, Error>;
 
-pub(crate) trait RequestParameter {
+pub trait RequestParameter {
     fn format(&self) -> Result;
 }
 
