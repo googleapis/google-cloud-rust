@@ -103,15 +103,11 @@ impl ReqwestClient {
             };
             if throttle {
                 // This counts as an error for the purposes of the retry policy.
-                let flow = retry_policy.on_error(
-                    true,
-                    Error::authentication(
-                        "TODO(#437) - maybe change to a specific RetryPolicy::on_throttle() function?"
-                            .to_string(),
-                    ),
-                );
+                if let Some(error) = retry_policy.on_throttle() {
+                    return Err(error);
+                }
                 let delay = backoff.on_failure();
-                self.on_error(flow, delay).await?;
+                tokio::time::sleep(delay).await;
                 continue;
             }
             first_attempt = false;

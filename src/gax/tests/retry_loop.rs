@@ -398,13 +398,10 @@ mod test {
                         .in_sequence(&mut seq)
                         .return_const(None);
                     policy
-                        .expect_on_error()
-                        .withf(|idempotent, error| {
-                            *idempotent && error.kind() == gax::error::ErrorKind::Authentication
-                        })
+                        .expect_on_throttle()
                         .once()
                         .in_sequence(&mut seq)
-                        .returning(|_, e| RetryFlow::Continue(e));
+                        .returning(|| None);
                 }
                 policy
                     .expect_remaining_time()
@@ -412,13 +409,10 @@ mod test {
                     .in_sequence(&mut seq)
                     .return_const(None);
                 policy
-                    .expect_on_error()
-                    .withf(|idempotent, error| {
-                        *idempotent && error.kind() == gax::error::ErrorKind::Authentication
-                    })
+                    .expect_on_throttle()
                     .once()
                     .in_sequence(&mut seq)
-                    .returning(|_, e| RetryFlow::Exhausted(e));
+                    .returning(|| Some(Error::other(format!("exhausted"))));
 
                 Box::new(policy)
             });
@@ -448,7 +442,7 @@ mod test {
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         let response = response.err().unwrap();
-        assert_eq!(response.kind(), gax::error::ErrorKind::Authentication);
+        assert_eq!(response.kind(), gax::error::ErrorKind::Other);
         Ok(())
     }
 
@@ -709,25 +703,39 @@ mod test {
             .return_once(move || -> Box<dyn RetryPolicy> {
                 let mut seq = mockall::Sequence::new();
                 let mut policy = MockRetryPolicy::new();
-                for i in 0..2 {
-                    let rtx = retry_tx.clone();
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_error()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(move |_, e| {
-                            if i == 0 {
-                                rtx.send("--marker--").unwrap();
-                            }
-                            rtx.send("retry::on_error").unwrap();
-                            RetryFlow::Continue(e)
-                        });
-                }
+                // The first request fails and the retry policy is queried.
+                policy
+                    .expect_remaining_time()
+                    .once()
+                    .in_sequence(&mut seq)
+                    .return_const(None);
+                let rtx = retry_tx.clone();
+                policy
+                    .expect_on_error()
+                    .once()
+                    .in_sequence(&mut seq)
+                    .returning(move |_, e| {
+                        rtx.send("--marker--").unwrap();
+                        rtx.send("retry::on_error").unwrap();
+                        RetryFlow::Continue(e)
+                    });
+                // The next request is throttled.
+                policy
+                    .expect_remaining_time()
+                    .once()
+                    .in_sequence(&mut seq)
+                    .return_const(None);
+                let rtx = retry_tx.clone();
+                policy
+                    .expect_on_throttle()
+                    .once()
+                    .in_sequence(&mut seq)
+                    .returning(move || {
+                        rtx.send("retry::on_error").unwrap();
+                        None
+                    });
+                // The last request succeeds, but before issuing it, the
+                // remaining time is queried.
                 policy
                     .expect_remaining_time()
                     .once()
@@ -824,6 +832,7 @@ mod test {
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
             fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow;
+            fn on_throttle(&self) -> Option<Error>;
             fn remaining_time(&self) -> Option<std::time::Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
