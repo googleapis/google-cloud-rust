@@ -218,12 +218,12 @@ pub async fn create_access_token_credential() -> Result<Credential> {
     let adc_path = match adc_path() {
         Some(path) => path,
         None => {
-            return mds_credential::new();
+            return Ok(mds_credential::new());
         }
     };
     let contents = match std::fs::read_to_string(adc_path) {
         Ok(contents) => contents,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return mds_credential::new(),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(mds_credential::new()),
         Err(e) => return Err(CredentialError::new(false, e.into())),
     };
     let js: serde_json::Value =

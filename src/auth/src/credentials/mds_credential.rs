@@ -26,17 +26,17 @@ use time::OffsetDateTime;
 
 const METADATA_FLAVOR_VALUE: &str = "Google";
 const METADATA_FLAVOR: &str = "metadata-flavor";
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 const METADATA_ROOT: &str = "http://metadata.google.internal/computeMetadata/v1";
 
-pub(crate) fn new() -> Result<Credential> {
+pub(crate) fn new() -> Credential {
     let token_provider = MDSAccessTokenProvider {
         endpoint: METADATA_ROOT.to_string(),
     };
-    Ok(Credential {
+    Credential {
         inner: Box::new(MDSCredential { token_provider }),
-    })
+    }
 }
+
 struct MDSCredential<T>
 where
     T: TokenProvider,
@@ -66,8 +66,7 @@ where
     }
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
-#[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Clone)]
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 struct ServiceAccountInfo {
     email: String,
     scopes: Option<Vec<String>>,
@@ -124,7 +123,6 @@ impl MDSAccessTokenProvider {
 }
 
 #[async_trait]
-#[allow(dead_code)]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn get_token(&mut self) -> Result<Token> {
         let client = Client::new();
