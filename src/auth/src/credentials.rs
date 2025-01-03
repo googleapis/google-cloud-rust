@@ -215,24 +215,9 @@ pub mod traits {
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 pub async fn create_access_token_credential() -> Result<Credential> {
-    let (adc_path_kind, adc_path) = match adc_path() {
-        Some((adc_path_kind, adc_path)) => (adc_path_kind, adc_path),
-        None => return Ok(mds_credential::new()),
-    };
-    let contents = match std::fs::read_to_string(&adc_path) {
-        Ok(contents) => contents,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => match adc_path_kind {
-            AdcPathKind::WellKnown => return Ok(mds_credential::new()),
-            AdcPathKind::FromEnv => {
-                return Err(CredentialError::new(
-                    false,
-                    Box::from(format!(
-                        "Failed to load Application Default Credentials (ADC) from {adc_path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
-                    )),
-                ))
-            }
-        },
-        Err(e) => return Err(CredentialError::new(false, e.into())),
+    let contents = match load_adc()? {
+        AdcContents::Contents(contents) => contents,
+        AdcContents::FallbackToMds => return Ok(mds_credential::new()),
     };
     let js: serde_json::Value =
         serde_json::from_str(&contents).map_err(|e| CredentialError::new(false, e.into()))?;
@@ -257,19 +242,55 @@ pub async fn create_access_token_credential() -> Result<Credential> {
 }
 
 #[derive(Debug, PartialEq)]
-enum AdcPathKind {
-    FromEnv,
-    WellKnown,
+enum AdcPath {
+    FromEnv(String),
+    WellKnown(String),
+    None,
+}
+
+#[derive(Debug, PartialEq)]
+enum AdcContents {
+    Contents(String),
+    FallbackToMds,
+}
+
+fn load_adc() -> Result<AdcContents> {
+    match adc_path() {
+        AdcPath::None => Ok(AdcContents::FallbackToMds),
+        AdcPath::FromEnv(path) => {
+            match std::fs::read_to_string(&path) {
+                Ok(contents) => Ok(AdcContents::Contents(contents)),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(CredentialError::new(
+                    false,
+                    Box::from(format!(
+                        "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+                    )))),
+                Err(e) => Err(CredentialError::new(false, e.into())),
+            }
+        },
+        AdcPath::WellKnown(path) => {
+            match std::fs::read_to_string(path) {
+                Ok(contents) => Ok(AdcContents::Contents(contents)),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
+                Err(e) => Err(CredentialError::new(false, e.into())),
+            }
+        },
+    }
 }
 
 /// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
-fn adc_path() -> Option<(AdcPathKind, String)> {
+fn adc_path() -> AdcPath {
     std::env::var("GOOGLE_APPLICATION_CREDENTIALS")
         .ok()
-        .map(|v| (AdcPathKind::FromEnv, v))
-        .or_else(|| adc_well_known_path().map(|v| (AdcPathKind::WellKnown, v)))
+        .map_or_else(
+            || match adc_well_known_path() {
+                Some(path) => AdcPath::WellKnown(path),
+                None => AdcPath::None,
+            },
+            AdcPath::FromEnv,
+        )
 }
 
 /// The well-known path to ADC on Windows, as specified in [AIP-4113].
@@ -296,6 +317,7 @@ fn adc_well_known_path() -> Option<String> {
 mod test {
     use super::*;
     use scoped_env::ScopedEnv;
+    use std::error::Error;
 
     #[cfg(target_os = "windows")]
     #[test]
@@ -309,10 +331,9 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some((
-                AdcPathKind::WellKnown,
+            AdcPath::WellKnown(
                 "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
-            ))
+            )
         );
     }
 
@@ -323,7 +344,7 @@ mod test {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("APPDATA");
         assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), None);
+        assert_eq!(adc_path(), AdcPath::None);
     }
 
     #[cfg(not(target_os = "windows"))]
@@ -338,10 +359,9 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some((
-                AdcPathKind::WellKnown,
+            AdcPath::WellKnown(
                 "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
-            ))
+            )
         );
     }
 
@@ -352,7 +372,7 @@ mod test {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("HOME");
         assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), None);
+        assert_eq!(adc_path(), AdcPath::None);
     }
 
     #[test]
@@ -364,10 +384,53 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some((
-                AdcPathKind::FromEnv,
-                "/usr/bar/application_default_credentials.json".to_string()
-            ))
+            AdcPath::FromEnv("/usr/bar/application_default_credentials.json".to_string())
+        );
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_well_known_path_fallback_to_mds() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        assert_eq!(load_adc().unwrap(), AdcContents::FallbackToMds);
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_well_known_path_fallback_to_mds() {
+        // Create a new temp directory. There is not an ADC file in here.
+        let dir = tempfile::TempDir::new().unwrap();
+        let path = dir.path().to_str().unwrap();
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::set("HOME", path); // For posix
+        let _e3 = ScopedEnv::set("APPDATA", path); // For windows
+        assert_eq!(load_adc().unwrap(), AdcContents::FallbackToMds);
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_env_is_error() {
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
+        let err = load_adc().err().unwrap();
+        let msg = err.source().unwrap().to_string();
+        assert!(msg.contains("Failed to load Application Default Credentials"));
+        assert!(msg.contains("file-does-not-exist.json"));
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
+    }
+
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_success() {
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, "contents").expect("Unable to write to temporary file.");
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        assert_eq!(
+            load_adc().unwrap(),
+            AdcContents::Contents("contents".to_string())
         );
     }
 }

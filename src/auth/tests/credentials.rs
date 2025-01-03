@@ -22,10 +22,12 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_no_adc_filepath_fallback_to_mds() {
+    async fn create_access_token_credential_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+
+        // We will assume that if credentials were created successfully, they are MDS Credentials.
         create_access_token_credential().await.unwrap();
     }
 
