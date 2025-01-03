@@ -15,6 +15,7 @@
 pub(crate) mod mds_credential;
 pub(crate) mod user_credential;
 
+use crate::errors::CredentialError;
 use crate::Result;
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
@@ -166,10 +167,95 @@ pub mod traits {
     }
 }
 
+/// Create access token credentials.
+///
+/// Returns [Application Default Credentials (ADC)][ADC-link]. These are the
+/// most commonly used credentials, and are expected to meet the needs of most
+/// applications. They conform to [AIP-4110].
+///
+/// The access tokens returned by these credentials are to be used in the
+/// `Authorization` HTTP header.
+///
+/// Consider using these credentials when:
+///
+/// - Your application is deployed to a Google Cloud environment such as
+///   [Google Compute Engine (GCE)][gce-link],
+///   [Google Kubernetes Engine (GKE)][gke-link], or [Cloud Run]. Each of these
+///   deployment environments provides a default service account to the
+///   application, and offers mechanisms to change this default service account
+///   without any code changes to your application.
+/// - You are testing or developing the application on a workstation (physical or
+///   virtual). These credentials will use your preferences as set with
+///   [gcloud auth application-default]. These preferences can be your own GCP
+///   user credentials, or some service account.
+/// - Regardless of where your application is running, you can use the
+///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
+///   defaults. This environment variable should point to a file containing a
+///   service account key file, or a JSON object describing your user
+///   credentials.
+///
+/// Example usage:
+///
+/// ```
+/// # use gcp_sdk_auth::credentials::create_access_token_credential;
+/// # use gcp_sdk_auth::credentials::traits::Credential;
+/// # use gcp_sdk_auth::errors::CredentialError;
+/// # tokio_test::block_on(async {
+/// let mut creds = create_access_token_credential().await?;
+/// let token = creds.get_token().await?;
+/// println!("Token: {}", token.token);
+/// # Ok::<(), CredentialError>(())
+/// # });
+/// ```
+///
+/// [ADC-link]: https://cloud.google.com/docs/authentication/application-default-credentials
+/// [AIP-4110]: https://google.aip.dev/auth/4110
+/// [Cloud Run]: https://cloud.google.com/run
+/// [gce-link]: https://cloud.google.com/products/compute
+/// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
+/// [gke-link]: https://cloud.google.com/kubernetes-engine
+pub async fn create_access_token_credential() -> Result<Credential> {
+    let adc_path = adc_path().ok_or_else(||
+        // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
+        CredentialError::new(false, Box::from("Unable to find Application Default Credentials.")))?;
+
+    let contents = std::fs::read_to_string(adc_path).map_err(|e| {
+        match e.kind() {
+            std::io::ErrorKind::NotFound => {
+                // TODO(#442) - This should (successfully) fall back to MDS Credentials. We will temporarily return an error.
+                CredentialError::new(
+                    false,
+                    Box::from("Unable to find Application Default Credentials."),
+                )
+            }
+            _ => CredentialError::new(false, e.into()),
+        }
+    })?;
+    let js: serde_json::Value =
+        serde_json::from_str(&contents).map_err(|e| CredentialError::new(false, e.into()))?;
+    let cred_type = js
+        .get("type")
+        .ok_or_else(|| CredentialError::new(
+            false,
+            Box::from("Failed to parse Application Default Credentials (ADC). No `type` field found."),
+        ))?
+        .as_str()
+        .ok_or_else(|| CredentialError::new(
+            false,
+            Box::from("Failed to parse Application Default Credentials (ADC). `type` field is not a string."),
+        ))?;
+    match cred_type {
+        "authorized_user" => user_credential::creds_from(js),
+        _ => Err(CredentialError::new(
+            false,
+            Box::from(format!("Unimplemented credential type: {cred_type}")),
+        )),
+    }
+}
+
 /// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 fn adc_path() -> Option<String> {
     std::env::var("GOOGLE_APPLICATION_CREDENTIALS")
         .ok()
