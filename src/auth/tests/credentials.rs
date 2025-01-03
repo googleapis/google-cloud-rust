@@ -31,9 +31,13 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_no_adc_file_fallback_to_mds() {
+    async fn create_access_token_credential_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        create_access_token_credential().await.unwrap();
+        let err = create_access_token_credential().await.err().unwrap();
+        let msg = err.source().unwrap().to_string();
+        assert!(msg.contains("Failed to load Application Default Credentials"));
+        assert!(msg.contains("file-does-not-exist.json"));
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
     }
 
     #[tokio::test]

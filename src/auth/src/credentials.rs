@@ -215,15 +215,23 @@ pub mod traits {
 /// [gcloud auth application-default]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 pub async fn create_access_token_credential() -> Result<Credential> {
-    let adc_path = match adc_path() {
-        Some(path) => path,
-        None => {
-            return Ok(mds_credential::new());
-        }
+    let (adc_path_kind, adc_path) = match adc_path() {
+        Some((adc_path_kind, adc_path)) => (adc_path_kind, adc_path),
+        None => return Ok(mds_credential::new()),
     };
-    let contents = match std::fs::read_to_string(adc_path) {
+    let contents = match std::fs::read_to_string(&adc_path) {
         Ok(contents) => contents,
-        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(mds_credential::new()),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => match adc_path_kind {
+            AdcPathKind::WellKnown => return Ok(mds_credential::new()),
+            AdcPathKind::FromEnv => {
+                return Err(CredentialError::new(
+                    false,
+                    Box::from(format!(
+                        "Failed to load Application Default Credentials (ADC) from {adc_path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+                    )),
+                ))
+            }
+        },
         Err(e) => return Err(CredentialError::new(false, e.into())),
     };
     let js: serde_json::Value =
@@ -248,13 +256,20 @@ pub async fn create_access_token_credential() -> Result<Credential> {
     }
 }
 
+#[derive(Debug, PartialEq)]
+enum AdcPathKind {
+    FromEnv,
+    WellKnown,
+}
+
 /// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
-fn adc_path() -> Option<String> {
+fn adc_path() -> Option<(AdcPathKind, String)> {
     std::env::var("GOOGLE_APPLICATION_CREDENTIALS")
         .ok()
-        .or_else(adc_well_known_path)
+        .map(|v| (AdcPathKind::FromEnv, v))
+        .or_else(|| adc_well_known_path().map(|v| (AdcPathKind::WellKnown, v)))
 }
 
 /// The well-known path to ADC on Windows, as specified in [AIP-4113].
@@ -294,7 +309,10 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
+            Some((
+                AdcPathKind::WellKnown,
+                "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
+            ))
         );
     }
 
@@ -320,7 +338,10 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
+            Some((
+                AdcPathKind::WellKnown,
+                "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
+            ))
         );
     }
 
@@ -343,7 +364,10 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            Some("/usr/bar/application_default_credentials.json".to_string())
+            Some((
+                AdcPathKind::FromEnv,
+                "/usr/bar/application_default_credentials.json".to_string()
+            ))
         );
     }
 }
