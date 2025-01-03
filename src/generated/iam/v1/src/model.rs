@@ -617,6 +617,12 @@ pub mod audit_log_config {
         /// Data reads. Example: CloudSQL Users list
         pub const DATA_READ: &str = "DATA_READ";
     }
+
+    impl gax::request_parameter::RequestParameter for LogType {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
+        }
+    }
 }
 
 /// The difference delta between two policies.
@@ -737,6 +743,12 @@ pub mod binding_delta {
         /// Removal of a Binding.
         pub const REMOVE: &str = "REMOVE";
     }
+
+    impl gax::request_parameter::RequestParameter for Action {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
+        }
+    }
 }
 
 /// One delta entry for AuditConfig. Each individual change (only one
@@ -827,6 +839,12 @@ pub mod audit_config_delta {
 
         /// Removal of an audit configuration.
         pub const REMOVE: &str = "REMOVE";
+    }
+
+    impl gax::request_parameter::RequestParameter for Action {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
+        }
     }
 }
 

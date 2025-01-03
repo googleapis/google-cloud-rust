@@ -13,6 +13,8 @@
 // limitations under the License.
 
 use gcp_sdk_gax::path_parameter::PathParameter;
+use gcp_sdk_gax::request_parameter::Error;
+use gcp_sdk_gax::request_parameter::RequestParameter;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -39,6 +41,37 @@ impl FakeRequest {
     }
 }
 
+/// The struct defined below simulates a generated struct representing a protobuf enum
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+pub struct FakeEnumParameter(String);
+
+impl FakeEnumParameter {
+    /// Sets the enum value.
+    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        self.0 = v.into();
+        self
+    }
+
+    /// Gets the enum value.
+    pub fn value(&self) -> &str {
+        &self.0
+    }
+}
+
+/// Constants representing the known values of the enum
+pub mod fake_enum_parameter {
+
+    pub const FOO: &str = "FOO";
+
+    pub const BAR: &str = "BAR";
+}
+
+impl RequestParameter for FakeEnumParameter {
+    fn format(&self) -> std::result::Result<String, Error> {
+        Ok(self.0.clone())
+    }
+}
+
 // We use this to simulate a request and how it is used in the client.
 #[serde_with::skip_serializing_none]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -54,6 +87,30 @@ impl FakePayload {
         self.id = v.into();
         self
     }
+}
+
+#[test]
+fn make_reqwest_with_enum_path_parameter() -> Result {
+    let client = reqwest::Client::builder().build()?;
+    let builder = client.get(format!(
+        "https://test.googleapis.com/v1/{}/{}",
+        gcp_sdk_gax::path_parameter::PathParameter::required(
+            &FakeEnumParameter::default().set_value(fake_enum_parameter::FOO),
+            "not used"
+        )?
+        .value(),
+        gcp_sdk_gax::path_parameter::PathParameter::required(
+            &FakeEnumParameter::default().set_value(fake_enum_parameter::BAR),
+            "not used"
+        )?
+        .value(),
+    ));
+
+    let r = builder.build()?;
+    assert_eq!("test.googleapis.com", r.url().authority());
+    assert_eq!("/v1/FOO/BAR", r.url().path());
+
+    Ok(())
 }
 
 #[test]

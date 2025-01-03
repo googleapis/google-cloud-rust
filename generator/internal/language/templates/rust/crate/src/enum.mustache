@@ -14,3 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 {{> ../../common/enum}}
+
+impl gax::request_parameter::RequestParameter for {{Name}} {
+    fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+        Ok(self.0.clone())
+    }
+}

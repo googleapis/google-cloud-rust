@@ -491,6 +491,12 @@ pub mod secret_version {
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
         pub const DESTROYED: &str = "DESTROYED";
     }
+
+    impl gax::request_parameter::RequestParameter for State {
+        fn format(&self) -> std::result::Result<String, gax::request_parameter::Error> {
+            Ok(self.0.clone())
+        }
+    }
 }
 
 /// A policy that defines the replication and encryption configuration of data.
