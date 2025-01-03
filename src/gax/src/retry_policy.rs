@@ -545,13 +545,14 @@ where
     P: RetryPolicy,
 {
     fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow {
-        let exhausted = match self.attempt_count.lock() {
-            Err(_) => true,
-            Ok(guard) => {
-                let count = guard.get().saturating_add(1);
-                guard.set(count);
-                count > self.maximum_attempts
-            }
+        let exhausted = {
+            let guard = self
+                .attempt_count
+                .lock()
+                .expect("retry policy attempt counter is poisoned");
+            let count = guard.get().saturating_add(1);
+            guard.set(count);
+            count > self.maximum_attempts
         };
         match self.inner.on_error(idempotent, error) {
             RetryFlow::Permanent(e) => RetryFlow::Permanent(e),
