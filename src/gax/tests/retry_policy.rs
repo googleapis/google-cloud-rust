@@ -20,17 +20,28 @@ mod tests {
     use gcp_sdk_gax::retry_policy::*;
     use std::time::Duration;
 
-    #[derive(Clone)]
+    #[derive(Debug)]
     struct CustomRetryPolicy;
     impl RetryPolicy for CustomRetryPolicy {
-        fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow {
+        fn on_error(
+            &self,
+            _loop_start: std::time::Instant,
+            _attempt_count: u32,
+            idempotent: bool,
+            error: Error,
+        ) -> RetryFlow {
             if idempotent {
                 RetryFlow::Continue(error)
             } else {
                 RetryFlow::Permanent(error)
             }
         }
-        fn remaining_time(&self) -> Option<std::time::Duration> {
+
+        fn remaining_time(
+            &self,
+            _loop_start: std::time::Instant,
+            _attempt_count: u32,
+        ) -> Option<std::time::Duration> {
             None
         }
     }
@@ -38,12 +49,14 @@ mod tests {
     #[test]
     fn create_limited_error_retry() {
         let _policy = LimitedAttemptCount::custom(CustomRetryPolicy, 3);
+        let _policy = CustomRetryPolicy.with_attempt_limit(3);
         let _policy = LimitedAttemptCount::new(3);
     }
 
     #[test]
     fn create_limit_elapsed_time() {
         let _policy = LimitedElapsedTime::custom(CustomRetryPolicy, Duration::from_millis(100));
+        let _policy = CustomRetryPolicy.with_time_limit(Duration::from_secs(3));
         let _policy = LimitedElapsedTime::new(Duration::from_millis(100));
     }
 }

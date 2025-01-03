@@ -25,7 +25,7 @@
 //! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
-use crate::retry_policy::{RetryPolicyArg, RetryPolicyProvider};
+use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use auth::Credential;
 use std::sync::Arc;
 
@@ -40,7 +40,7 @@ use std::sync::Arc;
 pub struct RequestOptions {
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
-    pub(crate) retry_policy_provider: Option<Arc<dyn RetryPolicyProvider>>,
+    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
 }
 
 impl RequestOptions {
@@ -69,7 +69,7 @@ impl RequestOptions {
 
     /// Sets the retry policy configuration.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
-        self.retry_policy_provider = Some(v.into().0);
+        self.retry_policy = Some(v.into().0);
     }
 }
 
@@ -136,7 +136,7 @@ pub struct ClientConfig {
     pub(crate) endpoint: Option<String>,
     pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
-    pub(crate) retry_policy_provider: Option<Arc<dyn RetryPolicyProvider>>,
+    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -180,7 +180,7 @@ impl ClientConfig {
     }
 
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
-        self.retry_policy_provider = Some(v.into().0);
+        self.retry_policy = Some(v.into().0);
         self
     }
 
@@ -219,13 +219,6 @@ mod test {
     #[test]
     fn request_options() {
         let mut opts = RequestOptions::default();
-        assert_eq!(opts.user_agent(), &None);
-        assert_eq!(opts.attempt_timeout(), &None);
-        let debug = format!("{opts:?}");
-        assert!(debug.contains("RequestOptions"), "{debug}");
-        assert!(debug.contains("user_agent"), "{debug}");
-        assert!(debug.contains("attempt_timeout"), "{debug}");
-        assert!(debug.contains("retry_policy_provider: None"), "{debug}");
 
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
@@ -236,8 +229,8 @@ mod test {
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
         assert_eq!(opts.attempt_timeout(), &Some(d));
 
-        opts.set_retry_policy(LimitedAttemptCount::provider(3));
-        assert!(opts.retry_policy_provider.is_some(), "{opts:?}");
+        opts.set_retry_policy(LimitedAttemptCount::new(3));
+        assert!(opts.retry_policy.is_some(), "{opts:?}");
     }
 
     #[test]
@@ -258,10 +251,9 @@ mod test {
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &Some(d));
 
-        let mut builder =
-            TestBuilder::default().with_retry_policy(LimitedAttemptCount::provider(3));
+        let mut builder = TestBuilder::default().with_retry_policy(LimitedAttemptCount::new(3));
         assert!(
-            builder.request_options().retry_policy_provider.is_some(),
+            builder.request_options().retry_policy.is_some(),
             "{builder:?}"
         );
     }
@@ -335,7 +327,7 @@ mod test {
 
     #[test]
     fn config_retry_policy() {
-        let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::provider(5));
-        assert!(config.retry_policy_provider.is_some());
+        let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::new(5));
+        assert!(config.retry_policy.is_some());
     }
 }

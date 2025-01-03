@@ -26,11 +26,13 @@
 //!
 //! # Example:
 //! ```
-//! # use std::sync::Arc;
 //! # use gcp_sdk_gax::retry_policy::*;
-//! # use gcp_sdk_gax::options::RequestOptionsBuilder;
-//! fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-//!     builder.with_retry_policy(LimitedAttemptCount::provider(5))
+//! # use gcp_sdk_gax::options;
+//! fn customize_retry_policy(config: options::ClientConfig) -> options::ClientConfig {
+//!     // Retry for at most 10 seconds or at most 5 attempts: whichever limit
+//!     // is reached first stops the retry loop.
+//!     let d = std::time::Duration::from_secs(10);
+//!     config.set_retry_policy(Aip194Strict.with_time_limit(d).with_attempt_limit(5))
 //! }
 //! ```
 //!
@@ -38,9 +40,7 @@
 
 use crate::error::rpc::Status;
 use crate::error::{Error, HttpError};
-use std::cell::Cell;
 use std::sync::Arc;
-use std::sync::Mutex;
 
 /// The result of a retry policy decision.
 ///
@@ -89,62 +89,118 @@ impl RetryFlow {
 ///
 /// Implementations of this trait determine if errors are retryable, and for how
 /// long the retry loop may continue.
-pub trait RetryPolicy: Send + Sync {
+pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// Query the retry policy after an error.
     ///
     /// # Parameters
+    /// * `loop_start` - when the retry loop started.
+    /// * `attempt_count` - the number of attempts. This includes the initial
+    ///   attempt. This method called after the first attempt, so the
+    ///   value is always non-zero.
     /// * `idempotent` - if `true` assume the operation is idempotent. Many more
     ///   errors are retryable on idempotent operations.
     /// * `error` - the last error when attempting the request.
-    fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow;
+    fn on_error(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        idempotent: bool,
+        error: Error,
+    ) -> RetryFlow;
 
     /// The remaining time in the retry policy.
     ///
     /// For policies based on time, this returns the remaining time in the
     /// policy. The retry loop can use this value to adjust the next RPC
     /// timeout. For policies that are not time based this returns `None`.
-    fn remaining_time(&self) -> Option<std::time::Duration> {
+    ///
+    /// # Parameters
+    /// * `loop_start` - when the retry loop started.
+    /// * `attempt_count` - the number of attempts. This method is called before
+    ///    the first attempt, so the first value is zero.
+    fn remaining_time(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+    ) -> Option<std::time::Duration> {
         None
     }
 }
 
-/// Creates retry policies.
-///
-/// Retry policies typically keep state that is specific to each retry loop. For
-/// example, the number of attempts, or maybe some span to group all retry
-/// attempts for tracing purposes.
-///
-/// The application configures clients by setting the default provider used when
-/// no method provider is available. The application may also set a provider in
-/// effect for a client method. Note that some methods issue multiple RPCs, for
-/// example, pagination helpers and LRO helpers. The provider is used to create
-/// a retry policy for each one of the RPCs.
-///
-/// Retry policy providers are passed between async functions, so they must be
-/// `Send` and `Sync`.  They must also implement [Debug][std::fmt::Debug]
-/// because they are logged as part of the overall request / response logs.
-pub trait RetryPolicyProvider: Send + Sync + std::fmt::Debug {
-    fn make(&self) -> Box<dyn RetryPolicy>;
-}
-
 /// A helper type to use [RetryPolicy] in client and request options.
 #[derive(Clone)]
-pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicyProvider>);
+pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
 
 impl<T> std::convert::From<T> for RetryPolicyArg
 where
-    T: RetryPolicyProvider + 'static,
+    T: RetryPolicy + 'static,
 {
     fn from(value: T) -> Self {
         Self(Arc::new(value))
     }
 }
 
-impl std::convert::From<Arc<dyn RetryPolicyProvider>> for RetryPolicyArg {
-    fn from(value: Arc<dyn RetryPolicyProvider>) -> Self {
+impl std::convert::From<Arc<dyn RetryPolicy>> for RetryPolicyArg {
+    fn from(value: Arc<dyn RetryPolicy>) -> Self {
         Self(value)
     }
 }
+
+/// Extension trait for [`RetryPolicy`]
+pub trait RetryPolicyExt: RetryPolicy + Sized {
+    /// Decorate a [`RetryPolicy`] to limit the total elapsed time in the retry loop.
+    ///
+    /// While the time spent in the retry loop (including time in backoff) is
+    /// less than the prescribed duration the `on_error()` method returns the
+    /// results of the inner policy. After that time it returns
+    /// [Exhausted][RetryFlow::Exhausted] if the inner policy returns
+    /// [Continue][RetryFlow::Continue].
+    ///
+    /// The `remaining_time()` function returns the remaining time. This is
+    /// always [Duration::ZERO][std::time::Duration::ZERO] once or after the
+    /// policy's expiration time is reached.
+    ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::retry_policy::*;
+    /// let d = std::time::Duration::from_secs(10);
+    /// let policy = Aip194Strict.with_time_limit(d);
+    /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
+    /// ```
+    fn with_time_limit(self, maximum_duration: std::time::Duration) -> LimitedElapsedTime<Self> {
+        LimitedElapsedTime::custom(self, maximum_duration)
+    }
+
+    /// Decorate a [RetryPolicy] to limit the number of retry attempts.
+    ///
+    /// This policy decorates an inner policy and limits the total number of
+    /// attempts. Note that `on_error()` is not called before the initial
+    /// (non-retry) attempt. Therefore, setting the maximum number of attempts
+    /// to 0 or 1 results in no retry attempts.
+    ///
+    /// The policy passes through the results from the inner policy as long as
+    /// `attempt_count < maximum_attempts`. Once the maximum number of attempts
+    /// is reached, the policy returns [Exhausted][RetryFlow::Exhausted] if the
+    /// inner policy returns [Continue][RetryFlow::Continue].
+    ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::retry_policy::*;
+    /// # use gcp_sdk_gax::error::*;
+    /// use std::time::Instant;
+    /// let policy = Aip194Strict.with_attempt_limit(3);
+    /// assert_eq!(policy.remaining_time(Instant::now(), 0), None);
+    /// assert!(policy.on_error(Instant::now(), 0, true, Error::authentication(format!("transient"))).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 1, true, Error::authentication(format!("transient"))).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, true, Error::authentication(format!("transient"))).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 3, true, Error::authentication(format!("transient"))).is_exhausted());
+    /// ```
+    fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
+        LimitedAttemptCount::custom(self, maximum_attempts)
+    }
+}
+
+impl<T: RetryPolicy> RetryPolicyExt for T {}
 
 /// A retry policy that strictly follows [AIP-194].
 ///
@@ -161,8 +217,7 @@ impl std::convert::From<Arc<dyn RetryPolicyProvider>> for RetryPolicyArg {
 /// # use gcp_sdk_gax::retry_policy::*;
 /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(
-///         LimitedAttemptCount::custom_provider(Aip194Strict, 3))
+///     builder.with_retry_policy(Aip194Strict.with_attempt_limit(3))
 /// }
 /// ```
 ///
@@ -171,7 +226,13 @@ impl std::convert::From<Arc<dyn RetryPolicyProvider>> for RetryPolicyArg {
 pub struct Aip194Strict;
 
 impl RetryPolicy for Aip194Strict {
-    fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow {
+    fn on_error(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+        idempotent: bool,
+        error: Error,
+    ) -> RetryFlow {
         if let Some(http) = error.as_inner::<crate::error::HttpError>() {
             if !idempotent {
                 return RetryFlow::Permanent(error);
@@ -225,7 +286,7 @@ fn match_status_code_string(http: &HttpError, code: &str) -> bool {
 /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
 ///     builder.with_retry_policy(
-///         LimitedAttemptCount::custom_provider(AlwaysRetry, 3))
+///         AlwaysRetry.with_attempt_limit(3))
 /// }
 /// ```
 ///
@@ -234,29 +295,14 @@ fn match_status_code_string(http: &HttpError, code: &str) -> bool {
 pub struct AlwaysRetry;
 
 impl RetryPolicy for AlwaysRetry {
-    fn on_error(&self, _idempotent: bool, error: Error) -> RetryFlow {
+    fn on_error(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+        _idempotent: bool,
+        error: Error,
+    ) -> RetryFlow {
         RetryFlow::Continue(error)
-    }
-}
-
-#[derive(Clone, Debug)]
-struct LimitedElapsedTimeProvider<P>
-where
-    P: RetryPolicy + Clone + std::fmt::Debug,
-{
-    inner: P,
-    duration: std::time::Duration,
-}
-
-impl<P> RetryPolicyProvider for LimitedElapsedTimeProvider<P>
-where
-    P: RetryPolicy + Clone + std::fmt::Debug + 'static,
-{
-    fn make(&self) -> Box<dyn RetryPolicy> {
-        Box::new(LimitedElapsedTime::custom(
-            self.inner.clone(),
-            self.duration,
-        ))
     }
 }
 
@@ -275,12 +321,13 @@ where
 ///
 /// # Parameters
 /// * `P` - the inner retry policy, defaults to [Aip194Strict].
+#[derive(Debug)]
 pub struct LimitedElapsedTime<P = Aip194Strict>
 where
     P: RetryPolicy,
 {
     inner: P,
-    deadline: std::time::Instant,
+    maximum_duration: std::time::Duration,
 }
 
 impl LimitedElapsedTime {
@@ -288,33 +335,25 @@ impl LimitedElapsedTime {
     ///
     /// # Example
     /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// let d = std::time::Duration::from_secs(10);
-    /// let policy = LimitedElapsedTime::new(d.clone());
-    /// assert_eq!(policy.remaining_time().map(|t| t <= d), Some(true));
-    /// ```
-    pub fn new(maximum_duration: std::time::Duration) -> Self {
-        Self {
-            inner: Aip194Strict,
-            deadline: std::time::Instant::now() + maximum_duration,
-        }
-    }
-
-    /// Creates a new provider, suitable to configure the request or client options.
-    ///
-    /// # Example
-    /// ```
     /// # use std::sync::Arc;
     /// # use gcp_sdk_gax::retry_policy::*;
     /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
     /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedElapsedTime::provider(std::time::Duration::from_secs(10)))
+    ///     builder.with_retry_policy(LimitedElapsedTime::new(std::time::Duration::from_secs(10)))
     /// }
     /// ```
-    pub fn provider(duration: std::time::Duration) -> impl RetryPolicyProvider {
-        LimitedElapsedTimeProvider {
+    ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::retry_policy::*;
+    /// let d = std::time::Duration::from_secs(10);
+    /// let policy = LimitedElapsedTime::new(d);
+    /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
+    /// ```
+    pub fn new(maximum_duration: std::time::Duration) -> Self {
+        Self {
             inner: Aip194Strict,
-            duration,
+            maximum_duration,
         }
     }
 }
@@ -327,48 +366,46 @@ where
     ///
     /// # Example
     /// ```
-    /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::*;
     /// # use gcp_sdk_gax::retry_policy::*;
     /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
+    ///     builder.with_retry_policy(LimitedElapsedTime::custom(AlwaysRetry, std::time::Duration::from_secs(10)))
+    /// }
+    /// ```
     ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::retry_policy::*;
+    /// # use gcp_sdk_gax::error;
     /// let d = std::time::Duration::from_secs(10);
-    /// let policy = LimitedElapsedTime::custom(AlwaysRetry, d.clone());
-    /// assert!(policy.on_error(false, error::Error::other(format!("test"))).is_continue());
-    /// assert_eq!(policy.remaining_time().map(|t| t < d), Some(true));
+    /// let policy = AlwaysRetry.with_time_limit(d);
+    /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
+    /// assert!(policy.on_error(std::time::Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());
     /// ```
     pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
         Self {
             inner,
-            deadline: std::time::Instant::now() + maximum_duration,
+            maximum_duration,
         }
     }
+}
 
-    /// Creates a new provider, suitable to configure the request or client options.
-    ///
-    /// # Example
-    /// ```
-    /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
-    ///
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(
-    ///         LimitedElapsedTime::custom_provider(
-    ///             AlwaysRetry, std::time::Duration::from_secs(10)))
-    /// }
-    /// ```
-    pub fn custom_provider(inner: P, duration: std::time::Duration) -> impl RetryPolicyProvider
-    where
-        P: RetryPolicy + Clone + std::fmt::Debug + 'static,
-    {
-        LimitedElapsedTimeProvider { inner, duration }
-    }
-
-    fn on_error_now(&self, now: std::time::Instant, idempotent: bool, error: Error) -> RetryFlow {
-        let exhausted = now >= self.deadline;
-        match self.inner.on_error(idempotent, error) {
+impl<P> RetryPolicy for LimitedElapsedTime<P>
+where
+    P: RetryPolicy + 'static,
+{
+    fn on_error(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        idempotent: bool,
+        error: Error,
+    ) -> RetryFlow {
+        let exhausted = std::time::Instant::now() >= loop_start + self.maximum_duration;
+        match self
+            .inner
+            .on_error(loop_start, attempt_count, idempotent, error)
+        {
             RetryFlow::Permanent(e) => RetryFlow::Permanent(e),
             RetryFlow::Exhausted(e) => RetryFlow::Exhausted(e),
             RetryFlow::Continue(e) => {
@@ -381,46 +418,17 @@ where
         }
     }
 
-    fn remaining_time_now(&self, now: std::time::Instant) -> Option<std::time::Duration> {
-        let remaining = self.deadline.saturating_duration_since(now);
-        if let Some(inner) = self.inner.remaining_time() {
+    fn remaining_time(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+    ) -> Option<std::time::Duration> {
+        let deadline = loop_start + self.maximum_duration;
+        let remaining = deadline.saturating_duration_since(std::time::Instant::now());
+        if let Some(inner) = self.inner.remaining_time(loop_start, attempt_count) {
             return Some(std::cmp::min(remaining, inner));
         }
         Some(remaining)
-    }
-}
-
-impl<P> RetryPolicy for LimitedElapsedTime<P>
-where
-    P: RetryPolicy + 'static,
-{
-    fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow {
-        self.on_error_now(std::time::Instant::now(), idempotent, error)
-    }
-
-    fn remaining_time(&self) -> Option<std::time::Duration> {
-        self.remaining_time_now(std::time::Instant::now())
-    }
-}
-
-#[derive(Clone, Debug)]
-struct LimitedAttemptCountProvider<P>
-where
-    P: RetryPolicy + Clone + std::fmt::Debug,
-{
-    inner: P,
-    maximum_attempts: i32,
-}
-
-impl<P> RetryPolicyProvider for LimitedAttemptCountProvider<P>
-where
-    P: RetryPolicy + Clone + std::fmt::Debug + 'static,
-{
-    fn make(&self) -> Box<dyn RetryPolicy> {
-        Box::new(LimitedAttemptCount::custom(
-            self.inner.clone(),
-            self.maximum_attempts,
-        ))
     }
 }
 
@@ -438,40 +446,17 @@ where
 ///
 /// # Parameters
 /// * `P` - the inner retry policy.
+#[derive(Debug)]
 pub struct LimitedAttemptCount<P = Aip194Strict>
 where
     P: RetryPolicy,
 {
     inner: P,
-    maximum_attempts: i32,
-    attempt_count: Mutex<Cell<i32>>,
+    maximum_attempts: u32,
 }
 
 impl LimitedAttemptCount {
     /// Creates a new instance, with the default inner policy.
-    ///
-    /// # Example
-    /// ```
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::error::*;
-    /// let policy = LimitedAttemptCount::new(3);
-    /// # let transient_error = Error::authentication(format!("test only"));
-    /// assert!(policy.on_error(true, transient_error).is_continue());
-    /// # let transient_error = Error::authentication(format!("test only"));
-    /// assert!(policy.on_error(true, transient_error).is_continue());
-    /// # let transient_error = Error::authentication(format!("test only"));
-    /// assert!(policy.on_error(true, transient_error).is_exhausted());
-    /// assert_eq!(policy.remaining_time(), None);
-    /// ```
-    pub fn new(maximum_attempts: i32) -> Self {
-        Self {
-            inner: Aip194Strict,
-            maximum_attempts,
-            attempt_count: Mutex::new(Cell::new(1)),
-        }
-    }
-
-    /// Creates a new provider, suitable to configure the request or client options.
     ///
     /// # Example
     /// ```
@@ -480,11 +465,11 @@ impl LimitedAttemptCount {
     /// # use gcp_sdk_gax::*;
     /// fn customize_retry_policy() -> options::ClientConfig {
     ///     options::ClientConfig::new()
-    ///         .set_retry_policy(LimitedAttemptCount::provider(5))
+    ///         .set_retry_policy(LimitedAttemptCount::new(5))
     /// }
     /// ```
-    pub fn provider(maximum_attempts: i32) -> impl RetryPolicyProvider {
-        LimitedAttemptCountProvider {
+    pub fn new(maximum_attempts: u32) -> Self {
+        Self {
             inner: Aip194Strict,
             maximum_attempts,
         }
@@ -499,41 +484,24 @@ where
     ///
     /// # Example
     /// ```
-    /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::*;
-    /// # use gcp_sdk_gax::retry_policy::*;
-    /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
-    ///
-    /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
-    /// assert!(policy.on_error(false, error::Error::other(format!("test"))).is_continue());
-    /// assert!(policy.on_error(false, error::Error::other(format!("test"))).is_exhausted());
-    /// ```
-    pub fn custom(inner: P, maximum_attempts: i32) -> Self {
-        Self {
-            inner,
-            maximum_attempts,
-            attempt_count: Mutex::new(Cell::new(1)),
-        }
-    }
-
-    /// Creates a new provider, suitable to configure the request or client options.
-    ///
-    /// # Example
-    /// ```
-    /// # use std::sync::Arc;
-    /// # use gcp_sdk_gax::*;
     /// # use gcp_sdk_gax::retry_policy::*;
     /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
     /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(
-    ///         LimitedAttemptCount::custom_provider(AlwaysRetry, 10))
+    ///     builder.with_retry_policy(LimitedAttemptCount::custom(AlwaysRetry, 10))
     /// }
     /// ```
-    pub fn custom_provider(inner: P, maximum_attempts: i32) -> impl RetryPolicyProvider
-    where
-        P: RetryPolicy + Clone + std::fmt::Debug + 'static,
-    {
-        LimitedAttemptCountProvider {
+    ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::retry_policy::*;
+    /// # use gcp_sdk_gax::error;
+    /// use std::time::Instant;
+    /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
+    /// assert!(policy.on_error(Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, false, error::Error::other(format!("test"))).is_exhausted());
+    /// ```
+    pub fn custom(inner: P, maximum_attempts: u32) -> Self {
+        Self {
             inner,
             maximum_attempts,
         }
@@ -544,17 +512,18 @@ impl<P> RetryPolicy for LimitedAttemptCount<P>
 where
     P: RetryPolicy,
 {
-    fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow {
-        let exhausted = {
-            let guard = self
-                .attempt_count
-                .lock()
-                .expect("retry policy attempt counter is poisoned");
-            let count = guard.get().saturating_add(1);
-            guard.set(count);
-            count > self.maximum_attempts
-        };
-        match self.inner.on_error(idempotent, error) {
+    fn on_error(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        idempotent: bool,
+        error: Error,
+    ) -> RetryFlow {
+        let exhausted = attempt_count >= self.maximum_attempts;
+        match self
+            .inner
+            .on_error(loop_start, attempt_count, idempotent, error)
+        {
             RetryFlow::Permanent(e) => RetryFlow::Permanent(e),
             RetryFlow::Exhausted(e) => RetryFlow::Exhausted(e),
             RetryFlow::Continue(e) => {
@@ -567,8 +536,12 @@ where
         }
     }
 
-    fn remaining_time(&self) -> Option<std::time::Duration> {
-        self.inner.remaining_time()
+    fn remaining_time(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+    ) -> Option<std::time::Duration> {
+        self.inner.remaining_time(loop_start, attempt_count)
     }
 }
 
@@ -598,87 +571,95 @@ mod tests {
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
     fn retry_policy_arg() {
-        let provider = LimitedAttemptCount::provider(3);
-        let _ = RetryPolicyArg::from(provider);
+        let policy = LimitedAttemptCount::new(3);
+        let _ = RetryPolicyArg::from(policy);
 
-        let provider: Arc<dyn RetryPolicyProvider> = Arc::new(LimitedAttemptCount::provider(3));
-        let _ = RetryPolicyArg::from(provider);
+        let policy: Arc<dyn RetryPolicy> = Arc::new(LimitedAttemptCount::new(3));
+        let _ = RetryPolicyArg::from(policy);
     }
 
     #[test]
     fn aip194_strict() {
         let p = Aip194Strict;
 
-        assert!(p.on_error(true, unavailable()).is_continue());
-        assert!(p.on_error(false, unavailable()).is_permanent());
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, unavailable()).is_permanent());
 
-        assert!(p.on_error(true, permission_denied()).is_permanent());
-        assert!(p.on_error(false, permission_denied()).is_permanent());
-
-        assert!(p.on_error(true, Error::io("err".to_string())).is_continue());
+        assert!(p.on_error(now, 0, true, permission_denied()).is_permanent());
         assert!(p
-            .on_error(false, Error::io("err".to_string()))
+            .on_error(now, 0, false, permission_denied())
             .is_permanent());
 
         assert!(p
-            .on_error(true, Error::authentication("err".to_string()))
+            .on_error(now, 0, true, Error::io("err".to_string()))
             .is_continue());
         assert!(p
-            .on_error(false, Error::authentication("err".to_string()))
+            .on_error(now, 0, false, Error::io("err".to_string()))
+            .is_permanent());
+
+        assert!(p
+            .on_error(now, 0, true, Error::authentication("err".to_string()))
+            .is_continue());
+        assert!(p
+            .on_error(now, 0, false, Error::authentication("err".to_string()))
             .is_continue());
 
         assert!(p
-            .on_error(true, Error::serde("err".to_string()))
+            .on_error(now, 0, true, Error::serde("err".to_string()))
             .is_permanent());
         assert!(p
-            .on_error(false, Error::serde("err".to_string()))
+            .on_error(now, 0, false, Error::serde("err".to_string()))
             .is_permanent());
         assert!(p
-            .on_error(true, Error::other("err".to_string()))
+            .on_error(now, 0, true, Error::other("err".to_string()))
             .is_permanent());
         assert!(p
-            .on_error(false, Error::other("err".to_string()))
+            .on_error(now, 0, false, Error::other("err".to_string()))
             .is_permanent());
 
-        assert!(p.remaining_time().is_none());
+        assert!(p.remaining_time(now, 0).is_none());
     }
 
     #[test]
     fn always_retry() {
         let p = AlwaysRetry;
 
-        assert!(p.on_error(true, unavailable()).is_continue());
-        assert!(p.on_error(false, unavailable()).is_continue());
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, true, unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, unavailable()).is_continue());
 
-        assert!(p.on_error(true, permission_denied()).is_continue());
-        assert!(p.on_error(false, permission_denied()).is_continue());
-
-        assert!(p.on_error(true, Error::io("err".to_string())).is_continue());
-        assert!(p
-            .on_error(false, Error::io("err".to_string()))
-            .is_continue());
+        assert!(p.on_error(now, 0, true, permission_denied()).is_continue());
+        assert!(p.on_error(now, 0, false, permission_denied()).is_continue());
 
         assert!(p
-            .on_error(true, Error::authentication("err".to_string()))
+            .on_error(now, 0, true, Error::io("err".to_string()))
             .is_continue());
         assert!(p
-            .on_error(false, Error::authentication("err".to_string()))
+            .on_error(now, 0, false, Error::io("err".to_string()))
             .is_continue());
 
         assert!(p
-            .on_error(true, Error::serde("err".to_string()))
+            .on_error(now, 0, true, Error::authentication("err".to_string()))
             .is_continue());
         assert!(p
-            .on_error(false, Error::serde("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(true, Error::other("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(false, Error::other("err".to_string()))
+            .on_error(now, 0, false, Error::authentication("err".to_string()))
             .is_continue());
 
-        assert!(p.remaining_time().is_none());
+        assert!(p
+            .on_error(now, 0, true, Error::serde("err".to_string()))
+            .is_continue());
+        assert!(p
+            .on_error(now, 0, false, Error::serde("err".to_string()))
+            .is_continue());
+        assert!(p
+            .on_error(now, 0, true, Error::other("err".to_string()))
+            .is_continue());
+        assert!(p
+            .on_error(now, 0, false, Error::other("err".to_string()))
+            .is_continue());
+
+        assert!(p.remaining_time(now, 0).is_none());
     }
 
     fn from_status(status: Status) -> Error {
@@ -709,22 +690,17 @@ mod tests {
     }
 
     mockall::mock! {
+        #[derive(Debug)]
         Policy {}
         impl RetryPolicy for Policy {
-            fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryFlow;
 
             /// The remaining time in the retry policy.
             ///
             /// For policies based on time, this returns the remaining time in the
             /// policy. The retry loop can use this value to adjust the next RPC
             /// timeout. For policies that are not time based this returns `None`.
-            fn remaining_time(&self) -> Option<std::time::Duration>;
-        }
-    }
-
-    impl Clone for MockPolicy {
-        fn clone(&self) -> Self {
-            MockPolicy::new()
+            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
     }
 
@@ -735,14 +711,15 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, e| RetryFlow::Continue(e));
-        mock.expect_remaining_time().times(1).returning(|| None);
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
+        mock.expect_remaining_time().times(1).returning(|_, _| None);
 
+        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(true, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 0, true, Error::other("err".to_string()));
         assert!(rf.is_continue());
 
-        let rt = policy.remaining_time();
+        let rt = policy.remaining_time(now, 0);
         assert!(rt.is_some());
     }
 
@@ -751,18 +728,21 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
 
+        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error_now(
-            policy.deadline - Duration::from_secs(10),
+        let rf = policy.on_error(
+            now - Duration::from_secs(10),
+            1,
             true,
             Error::other("err".to_string()),
         );
         assert!(rf.is_continue());
 
-        let rf = policy.on_error_now(
-            policy.deadline + Duration::from_secs(10),
+        let rf = policy.on_error(
+            now - Duration::from_secs(70),
+            1,
             true,
             Error::other("err".to_string()),
         );
@@ -774,18 +754,22 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, e| RetryFlow::Permanent(e));
+            .returning(|_, _, _, e| RetryFlow::Permanent(e));
+
+        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error_now(
-            policy.deadline - Duration::from_secs(10),
+        let rf = policy.on_error(
+            now - Duration::from_secs(10),
+            1,
             false,
             Error::other("err".to_string()),
         );
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error_now(
-            policy.deadline + Duration::from_secs(10),
+        let rf = policy.on_error(
+            now + Duration::from_secs(10),
+            1,
             false,
             Error::other("err".to_string()),
         );
@@ -797,18 +781,22 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, e| RetryFlow::Exhausted(e));
+            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
+
+        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error_now(
-            policy.deadline - Duration::from_secs(10),
+        let rf = policy.on_error(
+            now - Duration::from_secs(10),
+            1,
             false,
             Error::other("err".to_string()),
         );
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error_now(
-            policy.deadline + Duration::from_secs(10),
+        let rf = policy.on_error(
+            now + Duration::from_secs(10),
+            1,
             false,
             Error::other("err".to_string()),
         );
@@ -820,11 +808,13 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_remaining_time()
             .times(1)
-            .returning(|| Some(Duration::from_secs(50)));
+            .returning(|_, _| Some(Duration::from_secs(30)));
+
+        let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let remaining = policy.remaining_time_now(policy.deadline - Duration::from_secs(10));
-        assert_eq!(remaining, Some(Duration::from_secs(10)));
+        let remaining = policy.remaining_time(now - Duration::from_secs(55), 0);
+        assert!(remaining <= Some(Duration::from_secs(5)), "{remaining:?}");
     }
 
     #[test]
@@ -832,38 +822,23 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_remaining_time()
             .times(1)
-            .returning(|| Some(Duration::from_secs(5)));
+            .returning(|_, _| Some(Duration::from_secs(5)));
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let remaining = policy.remaining_time_now(policy.deadline - Duration::from_secs(10));
-        assert_eq!(remaining, Some(Duration::from_secs(5)));
+        let now = std::time::Instant::now();
+        let remaining = policy.remaining_time(now - Duration::from_secs(5), 0);
+        assert!(remaining <= Some(Duration::from_secs(10)), "{remaining:?}");
     }
 
     #[test]
     fn test_limited_time_remaining_inner_is_none() {
         let mut mock = MockPolicy::new();
-        mock.expect_remaining_time().times(1).returning(|| None);
+        mock.expect_remaining_time().times(1).returning(|_, _| None);
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let remaining = policy.remaining_time_now(policy.deadline - Duration::from_secs(10));
-        assert_eq!(remaining, Some(Duration::from_secs(10)));
-    }
-
-    #[test]
-    fn test_limited_time_remaining_provider() {
-        let provider = LimitedElapsedTime::provider(Duration::from_secs(1234));
-        let policy = provider.make();
-        assert!(policy.on_error(true, unavailable()).is_continue());
-        let fmt = format!("{provider:?}");
-        assert!(fmt.contains("1234s"), "{provider:?}");
-        assert!(fmt.contains("Aip194Strict"), "{provider:?}");
-
-        let provider = LimitedElapsedTime::custom_provider(AlwaysRetry, Duration::from_secs(1234));
-        let policy = provider.make();
-        assert!(policy.on_error(true, unavailable()).is_continue());
-        let fmt = format!("{provider:?}");
-        assert!(fmt.contains("1234s"), "{provider:?}");
-        assert!(fmt.contains("AlwaysRetry"), "{provider:?}");
+        let now = std::time::Instant::now();
+        let remaining = policy.remaining_time(now - Duration::from_secs(50), 0);
+        assert!(remaining <= Some(Duration::from_secs(10)), "{remaining:?}");
     }
 
     #[test]
@@ -871,27 +846,29 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
 
+        let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
         assert!(policy
-            .on_error(true, Error::other("err".to_string()))
+            .on_error(now, 1, true, Error::other("err".to_string()))
             .is_continue());
         assert!(policy
-            .on_error(true, Error::other("err".to_string()))
+            .on_error(now, 2, true, Error::other("err".to_string()))
             .is_continue());
         assert!(policy
-            .on_error(true, Error::other("err".to_string()))
+            .on_error(now, 3, true, Error::other("err".to_string()))
             .is_exhausted());
     }
 
     #[test]
     fn test_limited_attempt_count_remaining_none() {
         let mut mock = MockPolicy::new();
-        mock.expect_remaining_time().times(1).returning(|| None);
+        mock.expect_remaining_time().times(1).returning(|_, _| None);
         let policy = LimitedAttemptCount::custom(mock, 3);
 
-        assert!(policy.remaining_time().is_none());
+        let now = std::time::Instant::now();
+        assert!(policy.remaining_time(now, 0).is_none());
     }
 
     #[test]
@@ -899,10 +876,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_remaining_time()
             .times(1)
-            .returning(|| Some(Duration::from_secs(123)));
+            .returning(|_, _| Some(Duration::from_secs(123)));
         let policy = LimitedAttemptCount::custom(mock, 3);
 
-        assert_eq!(policy.remaining_time(), Some(Duration::from_secs(123)));
+        let now = std::time::Instant::now();
+        assert_eq!(
+            policy.remaining_time(now, 0),
+            Some(Duration::from_secs(123))
+        );
     }
 
     #[test]
@@ -910,13 +891,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, e| RetryFlow::Permanent(e));
+            .returning(|_, _, _, e| RetryFlow::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
+        let now = std::time::Instant::now();
 
-        let rf = policy.on_error(false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
         assert!(rf.is_permanent());
     }
 
@@ -925,30 +907,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, e| RetryFlow::Exhausted(e));
+            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
+        let now = std::time::Instant::now();
 
-        let rf = policy.on_error(false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
         assert!(rf.is_exhausted());
-    }
-
-    #[test]
-    fn test_limited_attempt_count_provider() {
-        let provider = LimitedAttemptCount::provider(2345);
-        let policy = provider.make();
-        assert!(policy.on_error(true, unavailable()).is_continue());
-        let fmt = format!("{provider:?}");
-        assert!(fmt.contains("2345"), "{provider:?}");
-        assert!(fmt.contains("Aip194Strict"), "{provider:?}");
-
-        let provider = LimitedAttemptCount::custom_provider(AlwaysRetry, 2345);
-        let policy = provider.make();
-        assert!(policy.on_error(true, unavailable()).is_continue());
-        let fmt = format!("{provider:?}");
-        assert!(fmt.contains("2345"), "{provider:?}");
-        assert!(fmt.contains("AlwaysRetry"), "{provider:?}");
     }
 }
