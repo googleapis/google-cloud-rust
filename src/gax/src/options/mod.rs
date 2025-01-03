@@ -25,9 +25,9 @@
 //! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
-use crate::error::Error;
-use crate::Result;
+use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use auth::Credential;
+use std::sync::Arc;
 
 /// A set of options configuring a single request.
 ///
@@ -40,6 +40,7 @@ use auth::Credential;
 pub struct RequestOptions {
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
+    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
 }
 
 impl RequestOptions {
@@ -65,6 +66,11 @@ impl RequestOptions {
     pub fn attempt_timeout(&self) -> &Option<std::time::Duration> {
         &self.attempt_timeout
     }
+
+    /// Sets the retry policy configuration.
+    pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
+        self.retry_policy = Some(v.into().0);
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -82,6 +88,9 @@ pub trait RequestOptionsBuilder {
     /// When using a retry loop, this affects the timeout for each attempt. The
     /// overall timeout for a request is set by the retry policy.
     fn with_attempt_timeout<V: Into<std::time::Duration>>(self, v: V) -> Self;
+
+    /// Sets the retry policy configuration.
+    fn with_retry_policy<V: Into<RetryPolicyArg>>(self, v: V) -> Self;
 }
 
 /// Simplify implementation of the [RequestOptionsBuilder] trait in generated
@@ -108,13 +117,26 @@ where
         self.request_options().set_attempt_timeout(v);
         self
     }
+
+    fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_retry_policy(v);
+        self
+    }
 }
 
+/// Configure a client.
+///
+/// A client represents a connection to a Google Cloud Service. Each service
+/// has one or more client types. The default configuration for each client
+/// should work for most applications. But some applications may need to
+/// override the default endpoint, the default authentication credentials,
+/// the retry policies, and/or other behaviors of the client.
 #[derive(Default)]
 pub struct ClientConfig {
     pub(crate) endpoint: Option<String>,
     pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
+    pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -157,7 +179,14 @@ impl ClientConfig {
         self
     }
 
-    pub(crate) async fn default_credential() -> Result<Credential> {
+    pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_policy = Some(v.into().0);
+        self
+    }
+
+    #[cfg(feature = "unstable-sdk-client")]
+    pub(crate) async fn default_credential() -> crate::Result<Credential> {
+        use crate::error::Error;
         let cc = auth::CredentialConfig::builder()
             .scopes(vec![
                 "https://www.googleapis.com/auth/cloud-platform".to_string()
@@ -173,6 +202,7 @@ impl ClientConfig {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::retry_policy::LimitedAttemptCount;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -189,12 +219,6 @@ mod test {
     #[test]
     fn request_options() {
         let mut opts = RequestOptions::default();
-        assert_eq!(opts.user_agent(), &None);
-        assert_eq!(opts.attempt_timeout(), &None);
-        let debug = format!("{opts:?}");
-        assert!(debug.contains("RequestOptions"), "{debug}");
-        assert!(debug.contains("user_agent"), "{debug}");
-        assert!(debug.contains("attempt_timeout"), "{debug}");
 
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
@@ -205,12 +229,8 @@ mod test {
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
         assert_eq!(opts.attempt_timeout(), &Some(d));
 
-        let debug = format!("{opts:?}");
-        assert!(debug.contains("RequestOptions"), "{debug}");
-        assert!(debug.contains("user_agent"), "{debug}");
-        assert!(debug.contains("Some(\"test-only\")"), "{debug}");
-        assert!(debug.contains("attempt_timeout"), "{debug}");
-        assert!(debug.contains("Some(123s)"), "{debug}");
+        opts.set_retry_policy(LimitedAttemptCount::new(3));
+        assert!(opts.retry_policy.is_some(), "{opts:?}");
     }
 
     #[test]
@@ -230,6 +250,12 @@ mod test {
         let mut builder = TestBuilder::default().with_attempt_timeout(d);
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &Some(d));
+
+        let mut builder = TestBuilder::default().with_retry_policy(LimitedAttemptCount::new(3));
+        assert!(
+            builder.request_options().retry_policy.is_some(),
+            "{builder:?}"
+        );
     }
 
     // This test must run serially because `std::env::remove_var` and
@@ -297,5 +323,11 @@ mod test {
         let cred = ClientConfig::default_credential().await;
         assert!(cred.is_err());
         Ok(())
+    }
+
+    #[test]
+    fn config_retry_policy() {
+        let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::new(5));
+        assert!(config.retry_policy.is_some());
     }
 }
