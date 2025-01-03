@@ -17,7 +17,7 @@ use crate::backoff_policy::ExponentialBackoff;
 use crate::error::Error;
 use crate::error::HttpError;
 use crate::options;
-use crate::retry_policy::{RetryFlow, RetryPolicyProvider};
+use crate::retry_policy::{RetryFlow, RetryPolicy};
 use crate::retry_throttler::RetryThrottlerWrapped;
 use crate::Result;
 use auth::Credential;
@@ -28,7 +28,7 @@ pub struct ReqwestClient {
     inner: reqwest::Client,
     cred: Credential,
     endpoint: String,
-    retry_policy_provider: Option<Arc<dyn RetryPolicyProvider>>,
+    retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy_provider: Option<Arc<dyn BackoffPolicyProvider>>,
     retry_throttler: RetryThrottlerWrapped,
 }
@@ -48,7 +48,7 @@ impl ReqwestClient {
             inner,
             cred,
             endpoint,
-            retry_policy_provider: config.retry_policy_provider,
+            retry_policy: config.retry_policy,
             backoff_policy_provider: config.backoff_policy_provider,
             retry_throttler: config.retry_throttler,
         })
@@ -75,7 +75,7 @@ impl ReqwestClient {
         if let Some(body) = body {
             builder = builder.json(&body);
         }
-        match self.make_retry_policy(&options) {
+        match self.get_retry_policy(&options) {
             None => self.request_attempt::<O>(builder, &options, None).await,
             Some(policy) => self.retry_loop::<O>(builder, &options, policy).await,
         }
@@ -85,17 +85,18 @@ impl ReqwestClient {
         &self,
         builder: reqwest::RequestBuilder,
         options: &crate::options::RequestOptions,
-        retry_policy: Box<dyn crate::retry_policy::RetryPolicy>,
+        retry_policy: Arc<dyn RetryPolicy>,
     ) -> Result<O> {
+        let loop_start = std::time::Instant::now();
         let throttler = self.find_retry_throttler(options);
         let mut backoff = self.make_backoff_policy(options);
-        let mut first_attempt = true;
+        let mut attempt_count = 0;
         loop {
             let builder = builder
                 .try_clone()
                 .ok_or_else(|| Error::other("cannot clone builder in retry loop".to_string()))?;
-            let remaining_time = retry_policy.remaining_time();
-            let throttle = if first_attempt {
+            let remaining_time = retry_policy.remaining_time(loop_start, attempt_count);
+            let throttle = if attempt_count == 0 {
                 false
             } else {
                 let t = throttler.lock().expect("retry throttler lock is poisoned");
@@ -103,14 +104,14 @@ impl ReqwestClient {
             };
             if throttle {
                 // This counts as an error for the purposes of the retry policy.
-                if let Some(error) = retry_policy.on_throttle() {
+                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
                     return Err(error);
                 }
                 let delay = backoff.on_failure();
                 tokio::time::sleep(delay).await;
                 continue;
             }
-            first_attempt = false;
+            attempt_count += 1;
             match self.request_attempt(builder, options, remaining_time).await {
                 Ok(r) => {
                     throttler
@@ -120,7 +121,12 @@ impl ReqwestClient {
                     return Ok(r);
                 }
                 Err(e) => {
-                    let flow = retry_policy.on_error(options.idempotent.unwrap_or(false), e);
+                    let flow = retry_policy.on_error(
+                        loop_start,
+                        attempt_count,
+                        options.idempotent.unwrap_or(false),
+                        e,
+                    );
                     let delay = backoff.on_failure();
                     {
                         throttler
@@ -178,15 +184,8 @@ impl ReqwestClient {
         Ok(tok.value)
     }
 
-    fn make_retry_policy(
-        &self,
-        options: &options::RequestOptions,
-    ) -> Option<Box<dyn crate::retry_policy::RetryPolicy>> {
-        options
-            .retry_policy_provider
-            .as_ref()
-            .or(self.retry_policy_provider.as_ref())
-            .map(|provider| provider.make())
+    fn get_retry_policy(&self, options: &options::RequestOptions) -> Option<Arc<dyn RetryPolicy>> {
+        options.retry_policy.clone().or(self.retry_policy.clone())
     }
 
     pub(crate) fn make_backoff_policy(
@@ -216,7 +215,7 @@ impl std::fmt::Debug for ReqwestClient {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         f.debug_struct("ReqwestClient")
             .field("endpoint", &self.endpoint)
-            .field("retry_policy_provider", &self.retry_policy_provider)
+            .field("retry_policy", &self.retry_policy)
             .field("backoff_policy_provider", &self.backoff_policy_provider)
             .field("retry_throttler", &self.retry_throttler)
             .finish()
