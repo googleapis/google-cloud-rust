@@ -40,6 +40,7 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
+    idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
@@ -48,6 +49,22 @@ pub struct RequestOptions {
 }
 
 impl RequestOptions {
+    /// Treat the RPC underlying this method as idempotent.
+    pub fn set_idempotent(&mut self) {
+        self.idempotent = Some(true);
+    }
+
+    /// Treat the RPC underlying this method as non-idempotent.
+    pub fn set_not_idempotent(&mut self) {
+        self.idempotent = Some(false);
+    }
+
+    /// Set the idempotency for this method if it is not set already.
+    pub fn set_idempotent_default(mut self, default: bool) -> Self {
+        self.idempotent.get_or_insert(default);
+        self
+    }
+
     /// Prepends this prefix to the user agent header value.
     pub fn set_user_agent<T: Into<String>>(&mut self, v: T) {
         self.user_agent = Some(v.into());
@@ -94,6 +111,12 @@ impl RequestOptions {
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
 pub trait RequestOptionsBuilder {
+    /// Treat the RPC underlying this method as idempotent.
+    fn with_idempotent(self) -> Self;
+
+    /// Treat the RPC underlying this method as non-idempotent.
+    fn with_not_idempotent(self) -> Self;
+
     /// Set the user agent header.
     fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
 
@@ -128,6 +151,16 @@ impl<T> RequestOptionsBuilder for T
 where
     T: RequestBuilder,
 {
+    fn with_idempotent(mut self) -> Self {
+        self.request_options().set_idempotent();
+        self
+    }
+
+    fn with_not_idempotent(mut self) -> Self {
+        self.request_options().set_not_idempotent();
+        self
+    }
+
     fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
         self.request_options().set_user_agent(v);
         self
@@ -269,6 +302,12 @@ mod test {
     fn request_options() {
         let mut opts = RequestOptions::default();
 
+        assert_eq!(opts.idempotent, None);
+        opts.set_idempotent();
+        assert_eq!(opts.idempotent, Some(true));
+        opts.set_not_idempotent();
+        assert_eq!(opts.idempotent, Some(false));
+
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
         assert_eq!(opts.attempt_timeout(), &None);
@@ -289,10 +328,28 @@ mod test {
     }
 
     #[test]
+    fn request_options_idempotency() {
+        let opts = RequestOptions::default().set_idempotent_default(true);
+        assert_eq!(opts.idempotent, Some(true));
+        let opts = opts.set_idempotent_default(false);
+        assert_eq!(opts.idempotent, Some(true));
+
+        let opts = RequestOptions::default().set_idempotent_default(false);
+        assert_eq!(opts.idempotent, Some(false));
+        let opts = opts.set_idempotent_default(true);
+        assert_eq!(opts.idempotent, Some(false));
+    }
+
+    #[test]
     fn request_options_builder() -> Result {
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_idempotent();
+        assert_eq!(builder.request_options().idempotent, Some(true));
+        let mut builder = TestBuilder::default().with_not_idempotent();
+        assert_eq!(builder.request_options().idempotent, Some(false));
 
         let mut builder = TestBuilder::default().with_user_agent("test-only");
         assert_eq!(
