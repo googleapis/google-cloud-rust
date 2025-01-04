@@ -56,6 +56,14 @@ use std::sync::Arc;
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 #[derive(Clone, Debug)]
 pub struct Credential {
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // Credentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
     inner: Arc<dyn traits::dynamic::Credential>,
 }
 
