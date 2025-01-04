@@ -27,8 +27,9 @@ mod test {
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
-        // We will assume that if credentials were created successfully, they are MDS Credentials.
-        create_access_token_credential().await.unwrap();
+        let mds = create_access_token_credential().await.unwrap();
+        let fmt = format!("{:?}", mds);
+        assert!(fmt.contains("MDSCredential"));
     }
 
     #[tokio::test]
@@ -91,6 +92,8 @@ mod test {
         std::fs::write(&path, contents).expect("Unable to write to temporary file.");
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        create_access_token_credential().await.unwrap();
+        let uc = create_access_token_credential().await.unwrap();
+        let fmt = format!("{:?}", uc);
+        assert!(fmt.contains("UserCredential"));
     }
 }
