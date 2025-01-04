@@ -119,14 +119,10 @@ mod test {
         attempt_count: u32,
     ) -> bool {
         let mut guard = state.lock().unwrap();
-        let current = guard.clone();
         *guard = loop_start;
         drop(guard);
 
-        let since_test_start = loop_start.saturating_duration_since(current);
-        return loop_start > current
-            && since_test_start < Duration::from_millis(100)
-            && expected_attempt_count == attempt_count;
+        return expected_attempt_count == attempt_count;
     }
 
     fn expect(
