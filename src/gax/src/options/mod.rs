@@ -25,7 +25,9 @@
 //! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
+use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
+use crate::retry_throttler::{RetryThrottlerArg, RetryThrottlerWrapped};
 use auth::Credential;
 use std::sync::Arc;
 
@@ -38,12 +40,31 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
+    pub(crate) idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
+    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    pub(crate) retry_throttler: Option<RetryThrottlerWrapped>,
 }
 
 impl RequestOptions {
+    /// Treat the RPC underlying this method as idempotent.
+    pub fn set_idempotent(&mut self) {
+        self.idempotent = Some(true);
+    }
+
+    /// Treat the RPC underlying this method as non-idempotent.
+    pub fn set_not_idempotent(&mut self) {
+        self.idempotent = Some(false);
+    }
+
+    /// Set the idempotency for this method if it is not set already.
+    pub fn set_idempotent_default(mut self, default: bool) -> Self {
+        self.idempotent.get_or_insert(default);
+        self
+    }
+
     /// Prepends this prefix to the user agent header value.
     pub fn set_user_agent<T: Into<String>>(&mut self, v: T) {
         self.user_agent = Some(v.into());
@@ -71,6 +92,16 @@ impl RequestOptions {
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
         self.retry_policy = Some(v.into().0);
     }
+
+    /// Sets the backoff policy configuration.
+    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(&mut self, v: V) {
+        self.backoff_policy = Some(v.into().0);
+    }
+
+    /// Sets the retry throttling configuration.
+    pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(&mut self, v: V) {
+        self.retry_throttler = Some(v.into().0);
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -80,6 +111,12 @@ impl RequestOptions {
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
 pub trait RequestOptionsBuilder {
+    /// Treat the RPC underlying this method as idempotent.
+    fn with_idempotent(self) -> Self;
+
+    /// Treat the RPC underlying this method as non-idempotent.
+    fn with_not_idempotent(self) -> Self;
+
     /// Set the user agent header.
     fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
 
@@ -91,6 +128,12 @@ pub trait RequestOptionsBuilder {
 
     /// Sets the retry policy configuration.
     fn with_retry_policy<V: Into<RetryPolicyArg>>(self, v: V) -> Self;
+
+    /// Sets the backoff policy configuration.
+    fn with_backoff_policy<V: Into<BackoffPolicyArg>>(self, v: V) -> Self;
+
+    /// Sets the retry throttler configuration.
+    fn with_retry_throttler<V: Into<RetryThrottlerArg>>(self, v: V) -> Self;
 }
 
 /// Simplify implementation of the [RequestOptionsBuilder] trait in generated
@@ -108,6 +151,16 @@ impl<T> RequestOptionsBuilder for T
 where
     T: RequestBuilder,
 {
+    fn with_idempotent(mut self) -> Self {
+        self.request_options().set_idempotent();
+        self
+    }
+
+    fn with_not_idempotent(mut self) -> Self {
+        self.request_options().set_not_idempotent();
+        self
+    }
+
     fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
         self.request_options().set_user_agent(v);
         self
@@ -122,6 +175,17 @@ where
         self.request_options().set_retry_policy(v);
         self
     }
+
+    fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_backoff_policy(v);
+        self
+    }
+
+    /// Sets the retry throttler configuration.
+    fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.request_options().set_retry_throttler(v);
+        self
+    }
 }
 
 /// Configure a client.
@@ -131,12 +195,13 @@ where
 /// should work for most applications. But some applications may need to
 /// override the default endpoint, the default authentication credentials,
 /// the retry policies, and/or other behaviors of the client.
-#[derive(Default)]
 pub struct ClientConfig {
     pub(crate) endpoint: Option<String>,
     pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
+    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    pub(crate) retry_throttler: RetryThrottlerWrapped,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -174,13 +239,27 @@ impl ClientConfig {
         self
     }
 
+    /// Configure the authentication credentials.
     pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
         self.cred = v.into();
         self
     }
 
+    /// Configure the retry policy.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_policy = Some(v.into().0);
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.backoff_policy = Some(v.into().0);
+        self
+    }
+
+    /// Configure the retry throttler.
+    pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_throttler = v.into().0;
         self
     }
 
@@ -199,10 +278,27 @@ impl ClientConfig {
     }
 }
 
+impl std::default::Default for ClientConfig {
+    fn default() -> Self {
+        use crate::retry_throttler::AdaptiveThrottler;
+        use std::sync::{Arc, Mutex};
+        Self {
+            endpoint: None,
+            cred: None,
+            tracing: false,
+            retry_policy: None,
+            backoff_policy: None,
+            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::backoff_policy::ExponentialBackoffBuilder;
     use crate::retry_policy::LimitedAttemptCount;
+    use crate::retry_throttler::AdaptiveThrottler;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -220,6 +316,12 @@ mod test {
     fn request_options() {
         let mut opts = RequestOptions::default();
 
+        assert_eq!(opts.idempotent, None);
+        opts.set_idempotent();
+        assert_eq!(opts.idempotent, Some(true));
+        opts.set_not_idempotent();
+        assert_eq!(opts.idempotent, Some(false));
+
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
         assert_eq!(opts.attempt_timeout(), &None);
@@ -231,13 +333,37 @@ mod test {
 
         opts.set_retry_policy(LimitedAttemptCount::new(3));
         assert!(opts.retry_policy.is_some(), "{opts:?}");
+
+        opts.set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(opts.backoff_policy.is_some(), "{opts:?}");
+
+        opts.set_retry_throttler(AdaptiveThrottler::default());
+        assert!(opts.retry_throttler.is_some(), "{opts:?}");
     }
 
     #[test]
-    fn request_options_builder() {
+    fn request_options_idempotency() {
+        let opts = RequestOptions::default().set_idempotent_default(true);
+        assert_eq!(opts.idempotent, Some(true));
+        let opts = opts.set_idempotent_default(false);
+        assert_eq!(opts.idempotent, Some(true));
+
+        let opts = RequestOptions::default().set_idempotent_default(false);
+        assert_eq!(opts.idempotent, Some(false));
+        let opts = opts.set_idempotent_default(true);
+        assert_eq!(opts.idempotent, Some(false));
+    }
+
+    #[test]
+    fn request_options_builder() -> Result {
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_idempotent();
+        assert_eq!(builder.request_options().idempotent, Some(true));
+        let mut builder = TestBuilder::default().with_not_idempotent();
+        assert_eq!(builder.request_options().idempotent, Some(false));
 
         let mut builder = TestBuilder::default().with_user_agent("test-only");
         assert_eq!(
@@ -256,6 +382,21 @@ mod test {
             builder.request_options().retry_policy.is_some(),
             "{builder:?}"
         );
+
+        let mut builder =
+            TestBuilder::default().with_backoff_policy(ExponentialBackoffBuilder::new().build()?);
+        assert!(
+            builder.request_options().backoff_policy.is_some(),
+            "{builder:?}"
+        );
+
+        let mut builder = TestBuilder::default().with_retry_throttler(AdaptiveThrottler::default());
+        assert!(
+            builder.request_options().retry_throttler.is_some(),
+            "{builder:?}"
+        );
+
+        Ok(())
     }
 
     // This test must run serially because `std::env::remove_var` and
@@ -329,5 +470,30 @@ mod test {
     fn config_retry_policy() {
         let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::new(5));
         assert!(config.retry_policy.is_some());
+    }
+
+    #[test]
+    fn config_backoff() {
+        let config =
+            ClientConfig::new().set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(config.backoff_policy.is_some());
+    }
+
+    fn map_lock_err<T>(e: std::sync::PoisonError<T>) -> Box<dyn std::error::Error> {
+        format!("cannot acquire lock {e}").into()
+    }
+
+    #[test]
+    fn config_retry_throttler() -> Result {
+        use crate::retry_throttler::CircuitBreaker;
+        let config = ClientConfig::new();
+        let throttler = config.retry_throttler.lock().map_err(map_lock_err)?;
+        assert!(!throttler.throttle_retry_attempt());
+
+        let config = ClientConfig::new().set_retry_throttler(CircuitBreaker::default());
+        let throttler = config.retry_throttler.lock().map_err(map_lock_err)?;
+        assert!(!throttler.throttle_retry_attempt());
+
+        Ok(())
     }
 }
