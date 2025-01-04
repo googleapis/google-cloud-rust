@@ -37,6 +37,7 @@ pub(crate) fn new() -> Credential {
     }
 }
 
+#[derive(Debug)]
 struct MDSCredential<T>
 where
     T: TokenProvider,
@@ -81,6 +82,7 @@ struct MDSTokenResponse {
     token_type: String,
 }
 
+#[derive(Debug)]
 struct MDSAccessTokenProvider {
     endpoint: String,
 }

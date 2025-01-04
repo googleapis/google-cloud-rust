@@ -32,12 +32,23 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     })
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(PartialEq)]
 struct UserTokenProvider {
     client_id: String,
     client_secret: String,
     refresh_token: String,
     endpoint: String,
+}
+
+impl std::fmt::Debug for UserTokenProvider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("UserTokenCredential")
+            .field("client_id", &self.client_id)
+            .field("client_secret", &"[censored]")
+            .field("refresh_token", &"[censored]")
+            .field("endpoint", &self.endpoint)
+            .finish()
+    }
 }
 
 impl UserTokenProvider {
@@ -106,6 +117,7 @@ impl TokenProvider for UserTokenProvider {
 /// Data model for a UserCredential
 ///
 /// See: https://cloud.google.com/docs/authentication#user-accounts
+#[derive(Debug)]
 pub(crate) struct UserCredential<T>
 where
     T: TokenProvider,
@@ -180,6 +192,21 @@ mod test {
     use tokio::task::JoinHandle;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn debug_token_provider() {
+        let expected = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        };
+        let fmt = format!("{expected:?}");
+        assert!(fmt.contains("test-client-id"), "{fmt}");
+        assert!(!fmt.contains("test-client-secret"), "{fmt}");
+        assert!(!fmt.contains("test-refresh-token"), "{fmt}");
+        assert!(fmt.contains(OAUTH2_ENDPOINT), "{fmt}");
+    }
 
     #[test]
     fn user_token_provider_from_json_success() {
