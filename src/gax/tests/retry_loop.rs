@@ -25,7 +25,7 @@
 mod test {
     use axum::extract::State;
     use axum::http::StatusCode;
-    use gax::backoff_policy::{BackoffPolicy, BackoffPolicyProvider, ExponentialBackoffBuilder};
+    use gax::backoff_policy::{BackoffPolicy, ExponentialBackoffBuilder};
     use gax::error::Error;
     use gax::http_client::ReqwestClient;
     use gax::options::*;
@@ -85,21 +85,14 @@ mod test {
     async fn retry_loop_with_retry_immediate_success() -> Result<()> {
         let (endpoint, _server) = start(vec![success()]).await?;
 
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                policy.expect_on_error().never();
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        retry_policy.expect_on_error().never();
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -107,7 +100,7 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options
         };
         let response = client
@@ -123,35 +116,29 @@ mod test {
         // We create a server that will return two transient errors and then succeed.
         let (endpoint, _server) = start(vec![transient(), transient(), success()]).await?;
 
-        // Create a matching policy provider. It returns a policy that expects two
-        // errors.
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                for _ in 0..2 {
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_error()
-                        .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(|_, e| RetryFlow::Continue(e));
-                }
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        for i in 0..2 {
+            let attempt = i + 1;
+            retry_policy
+                .expect_remaining_time()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(None);
+            retry_policy
+                .expect_on_error()
+                .withf(move |_, a, _, error| {
+                    (*a == attempt) && error.as_inner::<gax::error::HttpError>().is_some()
+                })
+                .once()
+                .in_sequence(&mut seq)
+                .returning(|_, _, _, e| RetryFlow::Continue(e));
+        }
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -159,7 +146,7 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options.set_backoff_policy(test_backoff()); // faster tests
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options
@@ -175,36 +162,27 @@ mod test {
     async fn retry_loop_retry_idempotency(expected: bool, options: RequestOptions) -> Result<()> {
         let (endpoint, _server) = start(vec![transient(), transient(), success()]).await?;
 
-        // Create a matching policy provider. It returns a policy that expects two
-        // errors.
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(move || -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                for _ in 0..2 {
-                    let expected = expected;
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_error()
-                        .withf(move |idempotent, _| idempotent == &expected)
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(|_, e| RetryFlow::Continue(e));
-                }
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        for _ in 0..2 {
+            let expected = expected;
+            retry_policy
+                .expect_remaining_time()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(None);
+            retry_policy
+                .expect_on_error()
+                .withf(move |_, _, idempotent, _| idempotent == &expected)
+                .once()
+                .in_sequence(&mut seq)
+                .returning(|_, _, _, e| RetryFlow::Continue(e));
+        }
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -212,7 +190,7 @@ mod test {
 
         let options = {
             let mut options = options;
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options.set_backoff_policy(test_backoff()); // faster tests
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options
@@ -250,41 +228,32 @@ mod test {
         // We create a server that will return two transient errors and then succeed.
         let (endpoint, _server) = start(vec![transient(), transient(), transient()]).await?;
 
-        // Create a matching policy provider. It returns a policy that expects two
-        // errors.
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                for _ in 0..2 {
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_error()
-                        .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(|_, e| RetryFlow::Continue(e));
-                }
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                policy
-                    .expect_on_error()
-                    .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(|_, e| RetryFlow::Exhausted(e));
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        for _ in 0..2 {
+            retry_policy
+                .expect_remaining_time()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(None);
+            retry_policy
+                .expect_on_error()
+                .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+                .once()
+                .in_sequence(&mut seq)
+                .returning(|_, _, _, e| RetryFlow::Continue(e));
+        }
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        retry_policy
+            .expect_on_error()
+            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -292,7 +261,7 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options.set_backoff_policy(test_backoff()); // faster tests
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options
@@ -313,37 +282,30 @@ mod test {
 
         // Create a matching policy provider. It returns a policy that expects two
         // errors.
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                policy
-                    .expect_on_error()
-                    .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(|_, e| RetryFlow::Continue(e));
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                policy
-                    .expect_on_error()
-                    .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(|_, e| RetryFlow::Exhausted(e));
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        retry_policy
+            .expect_on_error()
+            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        retry_policy
+            .expect_on_error()
+            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -351,7 +313,7 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options.set_backoff_policy(test_backoff()); // faster tests
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options
@@ -370,52 +332,43 @@ mod test {
         // We create a server that will return two transient errors and then succeed.
         let (endpoint, _server) = start(vec![transient()]).await?;
 
-        // Create a matching policy provider. It returns a policy that expects two
-        // errors.
-        let mut provider = MockRetryPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                // The first error is a HttpError.
-                policy
-                    .expect_on_error()
-                    .withf(|_, error| error.as_inner::<gax::error::HttpError>().is_some())
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(|_, e| RetryFlow::Continue(e));
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        // The first error is a HttpError.
+        retry_policy
+            .expect_on_error()
+            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
 
-                for _ in 0..4 {
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_throttle()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(|| None);
-                }
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                policy
-                    .expect_on_throttle()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(|| Some(Error::other(format!("exhausted"))));
-
-                Box::new(policy)
-            });
+        for _ in 0..4 {
+            retry_policy
+                .expect_remaining_time()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(None);
+            retry_policy
+                .expect_on_throttle()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(|_, _| None);
+        }
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        retry_policy
+            .expect_on_throttle()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _| Some(Error::other(format!("exhausted"))));
 
         let mut throttler = MockThrottler::new();
         throttler
@@ -433,7 +386,7 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_retry_policy(provider);
+            options.set_retry_policy(retry_policy);
             options.set_backoff_policy(test_backoff()); // faster tests
             options.set_retry_throttler(throttler);
             options
@@ -450,23 +403,15 @@ mod test {
     async fn retry_loop_backoff() -> Result<()> {
         let (endpoint, _server) = start(vec![transient(), transient(), success()]).await?;
 
-        // Create a backoff policy provider to verify the expected calls happen.
-        let mut provider = MockBackoffPolicyProvider::new();
-        provider
-            .expect_make()
-            .return_once(|| -> Box<dyn BackoffPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockBackoffPolicy::new();
-                for _ in 0..2 {
-                    policy
-                        .expect_on_failure()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(Duration::from_millis(1));
-                }
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        for _ in 0..2 {
+            backoff_policy
+                .expect_on_failure()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(Duration::from_millis(1));
+        }
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -474,8 +419,8 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_backoff_policy(provider);
-            options.set_retry_policy(LimitedAttemptCount::provider(5));
+            options.set_backoff_policy(backoff_policy);
+            options.set_retry_policy(LimitedAttemptCount::new(5));
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options.set_idempotent();
             options
@@ -503,60 +448,44 @@ mod test {
         // connect them.
         let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
 
-        let mut backoff_provider = MockBackoffPolicyProvider::new();
-        let backoff_tx = tx.clone();
-        backoff_provider
-            .expect_make()
-            .return_once(move || -> Box<dyn BackoffPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockBackoffPolicy::new();
-                for _ in 0..2 {
-                    let btx = backoff_tx.clone();
-                    policy
-                        .expect_on_failure()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(move || {
-                            btx.send("backoff::on_failure").unwrap();
-                            BACKOFF
-                        });
-                }
+        let mut seq = mockall::Sequence::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        for _ in 0..2 {
+            let btx = tx.clone();
+            backoff_policy
+                .expect_on_failure()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |_, _| {
+                    btx.send("backoff::on_failure").unwrap();
+                    BACKOFF
+                });
+        }
 
-                Box::new(policy)
-            });
-
-        let mut retry_provider = MockRetryPolicyProvider::new();
-        let retry_tx = tx.clone();
-        retry_provider
-            .expect_make()
-            .return_once(move || -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                for _ in 0..2 {
-                    let rtx = retry_tx.clone();
-                    policy
-                        .expect_remaining_time()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .return_const(None);
-                    policy
-                        .expect_on_error()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(move |_, e| {
-                            rtx.send("--marker--").unwrap();
-                            rtx.send("retry::on_error").unwrap();
-                            RetryFlow::Continue(e)
-                        });
-                }
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        for _ in 0..2 {
+            let rtx = tx.clone();
+            retry_policy
+                .expect_remaining_time()
+                .once()
+                .in_sequence(&mut seq)
+                .return_const(None);
+            retry_policy
+                .expect_on_error()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |_, _, _, e| {
+                    rtx.send("--marker--").unwrap();
+                    rtx.send("retry::on_error").unwrap();
+                    RetryFlow::Continue(e)
+                });
+        }
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
 
         let (endpoint, server) = start(vec![transient(), transient(), success()]).await?;
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
@@ -565,8 +494,8 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_backoff_policy(backoff_provider);
-            options.set_retry_policy(retry_provider);
+            options.set_backoff_policy(backoff_policy);
+            options.set_retry_policy(retry_policy);
             options.set_retry_throttler(test_retry_throttler()); // never throttle
             options
         };
@@ -637,27 +566,19 @@ mod test {
         // connect them.
         let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
 
-        let mut backoff_provider = MockBackoffPolicyProvider::new();
-        let backoff_tx = tx.clone();
-        backoff_provider
-            .expect_make()
-            .return_once(move || -> Box<dyn BackoffPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockBackoffPolicy::new();
-                for _ in 0..2 {
-                    let btx = backoff_tx.clone();
-                    policy
-                        .expect_on_failure()
-                        .once()
-                        .in_sequence(&mut seq)
-                        .returning(move || {
-                            btx.send("backoff::on_failure").unwrap();
-                            Duration::from_secs(10)
-                        });
-                }
-
-                Box::new(policy)
-            });
+        let mut seq = mockall::Sequence::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        for _ in 0..2 {
+            let btx = tx.clone();
+            backoff_policy
+                .expect_on_failure()
+                .once()
+                .in_sequence(&mut seq)
+                .returning(move |_, _| {
+                    btx.send("backoff::on_failure").unwrap();
+                    Duration::from_secs(10)
+                });
+        }
 
         let mut seq = mockall::Sequence::new();
         let mut throttler = MockThrottler::new();
@@ -696,54 +617,46 @@ mod test {
             .in_sequence(&mut seq)
             .return_const(());
 
-        let mut retry_provider = MockRetryPolicyProvider::new();
-        let retry_tx = tx.clone();
-        retry_provider
-            .expect_make()
-            .return_once(move || -> Box<dyn RetryPolicy> {
-                let mut seq = mockall::Sequence::new();
-                let mut policy = MockRetryPolicy::new();
-                // The first request fails and the retry policy is queried.
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                let rtx = retry_tx.clone();
-                policy
-                    .expect_on_error()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(move |_, e| {
-                        rtx.send("--marker--").unwrap();
-                        rtx.send("retry::on_error").unwrap();
-                        RetryFlow::Continue(e)
-                    });
-                // The next request is throttled.
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-                let rtx = retry_tx.clone();
-                policy
-                    .expect_on_throttle()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .returning(move || {
-                        rtx.send("retry::on_error").unwrap();
-                        None
-                    });
-                // The last request succeeds, but before issuing it, the
-                // remaining time is queried.
-                policy
-                    .expect_remaining_time()
-                    .once()
-                    .in_sequence(&mut seq)
-                    .return_const(None);
-
-                Box::new(policy)
+        let mut seq = mockall::Sequence::new();
+        let mut retry_policy = MockRetryPolicy::new();
+        // The first request fails and the retry policy is queried.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        let rtx = tx.clone();
+        retry_policy
+            .expect_on_error()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_, _, _, e| {
+                rtx.send("--marker--").unwrap();
+                rtx.send("retry::on_error").unwrap();
+                RetryFlow::Continue(e)
             });
+        // The next request is throttled.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        let rtx = tx.clone();
+        retry_policy
+            .expect_on_throttle()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(move |_, _| {
+                rtx.send("retry::on_error").unwrap();
+                None
+            });
+        // The last request succeeds, but before issuing it, the
+        // remaining time is queried.
+        retry_policy
+            .expect_remaining_time()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
 
         let (endpoint, server) = start(vec![transient(), success()]).await?;
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
@@ -752,8 +665,8 @@ mod test {
 
         let options = {
             let mut options = RequestOptions::default();
-            options.set_backoff_policy(backoff_provider);
-            options.set_retry_policy(retry_provider);
+            options.set_backoff_policy(backoff_policy);
+            options.set_retry_policy(retry_policy);
             options.set_retry_throttler(throttler);
             options
         };
@@ -829,11 +742,12 @@ mod test {
     }
 
     mockall::mock! {
+        #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self, idempotent: bool, error: Error) -> RetryFlow;
-            fn on_throttle(&self) -> Option<Error>;
-            fn remaining_time(&self) -> Option<std::time::Duration>;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryFlow;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
             fn clone(&self) -> Self;
@@ -842,25 +756,9 @@ mod test {
 
     mockall::mock! {
         #[derive(Debug)]
-        RetryPolicyProvider {}
-        impl gax::retry_policy::RetryPolicyProvider for RetryPolicyProvider {
-            fn make(&self) -> Box<dyn RetryPolicy>;
-        }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
         BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(&mut self) -> std::time::Duration;
-        }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        BackoffPolicyProvider {}
-        impl gax::backoff_policy::BackoffPolicyProvider for BackoffPolicyProvider {
-            fn make(&self) -> Box<dyn BackoffPolicy>;
+            fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32) -> std::time::Duration;
         }
     }
 
@@ -903,11 +801,11 @@ mod test {
         ClientConfig::default().set_credential(auth::Credential::test_credentials())
     }
 
-    fn test_backoff() -> impl BackoffPolicyProvider {
+    fn test_backoff() -> impl BackoffPolicy {
         ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_millis(1))
             .with_maximum_delay(Duration::from_millis(1))
-            .provider_with_clamped_values()
+            .clamp()
     }
 
     fn test_retry_throttler() -> impl RetryThrottler {

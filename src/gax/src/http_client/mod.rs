@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::backoff_policy::BackoffPolicyProvider;
+use crate::backoff_policy::BackoffPolicy;
 use crate::backoff_policy::ExponentialBackoff;
 use crate::error::Error;
 use crate::error::HttpError;
@@ -29,7 +29,7 @@ pub struct ReqwestClient {
     cred: Credential,
     endpoint: String,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
-    backoff_policy_provider: Option<Arc<dyn BackoffPolicyProvider>>,
+    backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: RetryThrottlerWrapped,
 }
 
@@ -49,7 +49,7 @@ impl ReqwestClient {
             cred,
             endpoint,
             retry_policy: config.retry_policy,
-            backoff_policy_provider: config.backoff_policy_provider,
+            backoff_policy: config.backoff_policy,
             retry_throttler: config.retry_throttler,
         })
     }
@@ -89,7 +89,7 @@ impl ReqwestClient {
     ) -> Result<O> {
         let loop_start = std::time::Instant::now();
         let throttler = self.find_retry_throttler(options);
-        let mut backoff = self.make_backoff_policy(options);
+        let backoff = self.get_backoff_policy(options);
         let mut attempt_count = 0;
         loop {
             let builder = builder
@@ -107,7 +107,7 @@ impl ReqwestClient {
                 if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
                     return Err(error);
                 }
-                let delay = backoff.on_failure();
+                let delay = backoff.on_failure(loop_start, attempt_count);
                 tokio::time::sleep(delay).await;
                 continue;
             }
@@ -127,7 +127,7 @@ impl ReqwestClient {
                         options.idempotent.unwrap_or(false),
                         e,
                     );
-                    let delay = backoff.on_failure();
+                    let delay = backoff.on_failure(loop_start, attempt_count);
                     {
                         throttler
                             .lock()
@@ -185,19 +185,18 @@ impl ReqwestClient {
     }
 
     fn get_retry_policy(&self, options: &options::RequestOptions) -> Option<Arc<dyn RetryPolicy>> {
-        options.retry_policy.clone().or(self.retry_policy.clone())
+        options.retry_policy.clone().or_else(|| self.retry_policy.clone())
     }
 
-    pub(crate) fn make_backoff_policy(
+    pub(crate) fn get_backoff_policy(
         &self,
         options: &options::RequestOptions,
-    ) -> Box<dyn crate::backoff_policy::BackoffPolicy> {
+    ) -> Arc<dyn BackoffPolicy> {
         options
-            .backoff_policy_provider
-            .as_ref()
-            .or(self.backoff_policy_provider.as_ref())
-            .map(|provider| provider.make())
-            .unwrap_or_else(|| Box::new(ExponentialBackoff::default()))
+            .backoff_policy
+            .clone()
+            .or_else(|| self.backoff_policy.clone())
+            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
     }
 
     pub(crate) fn find_retry_throttler(
@@ -216,7 +215,7 @@ impl std::fmt::Debug for ReqwestClient {
         f.debug_struct("ReqwestClient")
             .field("endpoint", &self.endpoint)
             .field("retry_policy", &self.retry_policy)
-            .field("backoff_policy_provider", &self.backoff_policy_provider)
+            .field("backoff_policy_provider", &self.backoff_policy)
             .field("retry_throttler", &self.retry_throttler)
             .finish()
     }
