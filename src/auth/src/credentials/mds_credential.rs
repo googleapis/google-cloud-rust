@@ -21,6 +21,7 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use reqwest::header::HeaderMap;
 use reqwest::Client;
 use std::collections::HashMap;
+use std::sync::Arc;
 use std::time::Duration;
 use time::OffsetDateTime;
 
@@ -33,7 +34,7 @@ pub(crate) fn new() -> Credential {
         endpoint: METADATA_ROOT.to_string(),
     };
     Credential {
-        inner: Box::new(MDSCredential { token_provider }),
+        inner: Arc::new(MDSCredential { token_provider }),
     }
 }
 
@@ -50,11 +51,11 @@ impl<T> CredentialTrait for MDSCredential<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(|e| CredentialError::new(false, e.into()))?;
@@ -62,7 +63,7 @@ where
         Ok(vec![(AUTHORIZATION, value)])
     }
 
-    async fn get_universe_domain(&mut self) -> Option<String> {
+    async fn get_universe_domain(&self) -> Option<String> {
         Some("googleapis.com".to_string())
     }
 }
@@ -126,7 +127,7 @@ impl MDSAccessTokenProvider {
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
         let request = client
             .get(format!(
@@ -197,10 +198,10 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let mut uc = MDSCredential {
+        let mdsc = MDSCredential {
             token_provider: mock,
         };
-        let actual = uc.get_token().await.unwrap();
+        let actual = mdsc.get_token().await.unwrap();
         assert_eq!(actual, expected);
     }
 
@@ -211,10 +212,10 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = MDSCredential {
+        let mdsc = MDSCredential {
             token_provider: mock,
         };
-        assert!(uc.get_token().await.is_err());
+        assert!(mdsc.get_token().await.is_err());
     }
 
     #[tokio::test]
@@ -236,10 +237,10 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let mut uc = MDSCredential {
+        let mdsc = MDSCredential {
             token_provider: mock,
         };
-        let headers: Vec<HV> = uc
+        let headers: Vec<HV> = mdsc
             .get_headers()
             .await
             .unwrap()
@@ -268,10 +269,10 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = MDSCredential {
+        let mdsc = MDSCredential {
             token_provider: mock,
         };
-        assert!(uc.get_headers().await.is_err());
+        assert!(mdsc.get_headers().await.is_err());
     }
 
     fn handle_token_factory(
@@ -376,9 +377,9 @@ mod test {
         println!("endpoint = {endpoint}");
 
         let tp = MDSAccessTokenProvider { endpoint: endpoint };
-        let mut uc = MDSCredential { token_provider: tp };
+        let mdsc = MDSCredential { token_provider: tp };
         let now = OffsetDateTime::now_utc();
-        let token = uc.get_token().await?;
+        let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert!(token
@@ -401,8 +402,8 @@ mod test {
         println!("endpoint = {endpoint}");
 
         let tp = MDSAccessTokenProvider { endpoint: endpoint };
-        let mut uc = MDSCredential { token_provider: tp };
-        let token = uc.get_token().await?;
+        let mdsc = MDSCredential { token_provider: tp };
+        let token = mdsc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
         assert_eq!(token.expires_at, None);
@@ -421,7 +422,7 @@ mod test {
         .await;
 
         let tp = MDSAccessTokenProvider { endpoint: endpoint };
-        let mut mdsc = MDSCredential { token_provider: tp };
+        let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -440,7 +441,7 @@ mod test {
         .await;
 
         let tp = MDSAccessTokenProvider { endpoint: endpoint };
-        let mut mdsc = MDSCredential { token_provider: tp };
+        let mdsc = MDSCredential { token_provider: tp };
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
