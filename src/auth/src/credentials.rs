@@ -245,7 +245,6 @@ pub async fn create_access_token_credential() -> Result<Credential> {
 enum AdcPath {
     FromEnv(String),
     WellKnown(String),
-    None,
 }
 
 #[derive(Debug, PartialEq)]
@@ -254,26 +253,26 @@ enum AdcContents {
     FallbackToMds,
 }
 
+fn path_not_found(path: String) -> CredentialError {
+    CredentialError::new(
+        false,
+        Box::from(format!(
+            "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+        )))
+}
+
 fn load_adc() -> Result<AdcContents> {
     match adc_path() {
-        AdcPath::None => Ok(AdcContents::FallbackToMds),
-        AdcPath::FromEnv(path) => {
-            match std::fs::read_to_string(&path) {
-                Ok(contents) => Ok(AdcContents::Contents(contents)),
-                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(CredentialError::new(
-                    false,
-                    Box::from(format!(
-                        "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
-                    )))),
-                Err(e) => Err(CredentialError::new(false, e.into())),
-            }
+        None => Ok(AdcContents::FallbackToMds),
+        Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
+            Ok(contents) => Ok(AdcContents::Contents(contents)),
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
+            Err(e) => Err(CredentialError::new(false, e.into())),
         },
-        AdcPath::WellKnown(path) => {
-            match std::fs::read_to_string(path) {
-                Ok(contents) => Ok(AdcContents::Contents(contents)),
-                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
-                Err(e) => Err(CredentialError::new(false, e.into())),
-            }
+        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
+            Ok(contents) => Ok(AdcContents::Contents(contents)),
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
+            Err(e) => Err(CredentialError::new(false, e.into())),
         },
     }
 }
@@ -281,16 +280,11 @@ fn load_adc() -> Result<AdcContents> {
 /// The path to Application Default Credentials (ADC), as specified in [AIP-4110].
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
-fn adc_path() -> AdcPath {
-    std::env::var("GOOGLE_APPLICATION_CREDENTIALS")
-        .ok()
-        .map_or_else(
-            || match adc_well_known_path() {
-                Some(path) => AdcPath::WellKnown(path),
-                None => AdcPath::None,
-            },
-            AdcPath::FromEnv,
-        )
+fn adc_path() -> Option<AdcPath> {
+    if let Ok(path) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
+        return Some(AdcPath::FromEnv(path));
+    }
+    Some(AdcPath::WellKnown(adc_well_known_path()?))
 }
 
 /// The well-known path to ADC on Windows, as specified in [AIP-4113].
@@ -331,9 +325,9 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            AdcPath::WellKnown(
+            Some(AdcPath::WellKnown(
                 "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
-            )
+            ))
         );
     }
 
@@ -344,7 +338,7 @@ mod test {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("APPDATA");
         assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), AdcPath::None);
+        assert_eq!(adc_path(), None);
     }
 
     #[cfg(not(target_os = "windows"))]
@@ -359,9 +353,9 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            AdcPath::WellKnown(
+            Some(AdcPath::WellKnown(
                 "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
-            )
+            ))
         );
     }
 
@@ -372,7 +366,7 @@ mod test {
         let _creds = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _appdata = ScopedEnv::remove("HOME");
         assert_eq!(adc_well_known_path(), None);
-        assert_eq!(adc_path(), AdcPath::None);
+        assert_eq!(adc_path(), None);
     }
 
     #[test]
@@ -384,7 +378,9 @@ mod test {
         );
         assert_eq!(
             adc_path(),
-            AdcPath::FromEnv("/usr/bar/application_default_credentials.json".to_string())
+            Some(AdcPath::FromEnv(
+                "/usr/bar/application_default_credentials.json".to_string()
+            ))
         );
     }
 
