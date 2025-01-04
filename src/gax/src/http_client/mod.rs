@@ -185,7 +185,10 @@ impl ReqwestClient {
     }
 
     fn get_retry_policy(&self, options: &options::RequestOptions) -> Option<Arc<dyn RetryPolicy>> {
-        options.retry_policy.clone().or_else(|| self.retry_policy.clone())
+        options
+            .retry_policy
+            .clone()
+            .or_else(|| self.retry_policy.clone())
     }
 
     pub(crate) fn get_backoff_policy(
@@ -215,7 +218,7 @@ impl std::fmt::Debug for ReqwestClient {
         f.debug_struct("ReqwestClient")
             .field("endpoint", &self.endpoint)
             .field("retry_policy", &self.retry_policy)
-            .field("backoff_policy_provider", &self.backoff_policy)
+            .field("backoff_policy", &self.backoff_policy)
             .field("retry_throttler", &self.retry_throttler)
             .finish()
     }
@@ -238,8 +241,8 @@ mod test {
 
         let fmt = format!("{client:?}");
         assert!(fmt.contains("endpoint: "), "{fmt}");
-        assert!(fmt.contains("retry_policy_provider: "), "{fmt}");
-        assert!(fmt.contains("backoff_policy_provider: "), "{fmt}");
+        assert!(fmt.contains("retry_policy: "), "{fmt}");
+        assert!(fmt.contains("backoff_policy: "), "{fmt}");
         assert!(fmt.contains("retry_throttler: "), "{fmt}");
         Ok(())
     }
