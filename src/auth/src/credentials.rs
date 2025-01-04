@@ -53,6 +53,7 @@ use std::future::Future;
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
+#[derive(Debug)]
 pub struct Credential {
     inner: Box<dyn traits::dynamic::Credential>,
 }
@@ -117,7 +118,7 @@ pub mod traits {
     /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
     /// [Google Compute Engine]: https://cloud.google.com/products/compute
     /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
-    pub trait Credential {
+    pub trait Credential: std::fmt::Debug {
         /// Asynchronously retrieves a token.
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
@@ -145,7 +146,7 @@ pub mod traits {
 
         /// A dyn-compatible, crate-private version of `Credential`.
         #[async_trait::async_trait]
-        pub trait Credential: Send + Sync {
+        pub trait Credential: Send + Sync + std::fmt::Debug {
             /// Asynchronously retrieves a token.
             ///
             /// Returns a [Token][crate::token::Token] for the current credentials.
