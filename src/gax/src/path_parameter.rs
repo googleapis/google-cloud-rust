@@ -55,7 +55,7 @@
 /// Defines how to handle a path parameter.
 ///
 /// Path parameters are always required, but sometimes the field in the request
-/// is an Option<T>. We want to simplify the code generator, and generate the
+/// is an `Option<T>`. We want to simplify the code generator, and generate the
 /// same code, regardless of whether the field is `Option<T>` or `T` or is a
 /// nested field within several `Option<M1>` subfields. This type makes that
 /// possible.
@@ -82,13 +82,14 @@ where
     }
 }
 
+/// The error type used by [PathParameter].
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("missing required parameter {0}")]
     MissingRequiredParameter(String),
 }
 
-///
+/// The result type used by [PathParameter].
 pub type Result<T> = std::result::Result<T, Error>;
 
 #[cfg(test)]
