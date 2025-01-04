@@ -19,6 +19,7 @@ use crate::errors::CredentialError;
 use crate::Result;
 use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
+use std::sync::Arc;
 
 /// An implementation of [crate::credentials::traits::Credential].
 ///
@@ -53,23 +54,29 @@ use std::future::Future;
 /// [Metadata Service]: https://cloud.google.com/compute/docs/metadata/overview
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct Credential {
-    inner: Box<dyn traits::dynamic::Credential>,
+    // We use an `Arc` to hold the inner implementation.
+    //
+    // Credentials may be shared across threads (`Send + Sync`), so an `Rc`
+    // will not do.
+    //
+    // They also need to derive `Clone`, as the
+    // `gax::http_client::ReqwestClient`s which hold them derive `Clone`. So a
+    // `Box` will not do.
+    inner: Arc<dyn traits::dynamic::Credential>,
 }
 
 impl traits::Credential for Credential {
-    fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send {
+    fn get_token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send {
         self.inner.get_token()
     }
 
-    fn get_headers(
-        &mut self,
-    ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send {
+    fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send {
         self.inner.get_headers()
     }
 
-    fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send {
+    fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send {
         self.inner.get_universe_domain()
     }
 }
@@ -123,7 +130,7 @@ pub mod traits {
         ///
         /// Returns a [Token][crate::token::Token] for the current credentials.
         /// The underlying implementation refreshes the token as needed.
-        fn get_token(&mut self) -> impl Future<Output = Result<crate::token::Token>> + Send;
+        fn get_token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send;
 
         /// Asynchronously constructs the auth headers.
         ///
@@ -133,11 +140,11 @@ pub mod traits {
         ///
         /// The underlying implementation refreshes the token as needed.
         fn get_headers(
-            &mut self,
+            &self,
         ) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
 
         /// Retrieves the universe domain associated with the credential, if any.
-        fn get_universe_domain(&mut self) -> impl Future<Output = Option<String>> + Send;
+        fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
     }
 
     pub(crate) mod dynamic {
@@ -151,7 +158,7 @@ pub mod traits {
             ///
             /// Returns a [Token][crate::token::Token] for the current credentials.
             /// The underlying implementation refreshes the token as needed.
-            async fn get_token(&mut self) -> Result<crate::token::Token>;
+            async fn get_token(&self) -> Result<crate::token::Token>;
 
             /// Asynchronously constructs the auth headers.
             ///
@@ -160,10 +167,10 @@ pub mod traits {
             /// sent with a request.
             ///
             /// The underlying implementation refreshes the token as needed.
-            async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+            async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
             /// Retrieves the universe domain associated with the credential, if any.
-            async fn get_universe_domain(&mut self) -> Option<String>;
+            async fn get_universe_domain(&self) -> Option<String>;
         }
     }
 }
