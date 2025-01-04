@@ -22,24 +22,24 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_no_adc_filepath_fallback() {
-        // TODO(#442) - We should (successfully) fall back to MDS Credentials. But for now we are temporarily returning an error.
+    async fn create_access_token_credential_fallback_to_mds() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
-        let err = create_access_token_credential().await.err().unwrap();
-        let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unable to find Application Default Credentials"));
+
+        // We will assume that if credentials were created successfully, they are MDS Credentials.
+        create_access_token_credential().await.unwrap();
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credential_no_adc_file_fallback() {
-        // TODO(#442) - We should (successfully) fall back to MDS Credentials. But for now we are temporarily returning an error.
+    async fn create_access_token_credential_errors_if_adc_env_is_not_a_file() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
         let err = create_access_token_credential().await.err().unwrap();
         let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Unable to find Application Default Credentials"));
+        assert!(msg.contains("Failed to load Application Default Credentials"));
+        assert!(msg.contains("file-does-not-exist.json"));
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
     }
 
     #[tokio::test]
