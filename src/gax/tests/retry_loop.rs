@@ -34,7 +34,7 @@ mod test {
     use gcp_sdk_gax as gax;
     use serde_json::json;
     use std::sync::{Arc, Mutex};
-    use std::time::Duration;
+    use std::time::{Duration, Instant};
     use tokio::task::JoinHandle;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -111,34 +111,137 @@ mod test {
         Ok(())
     }
 
+    // Check the `start_loop`` and `attempt_count` expectations.
+    fn check_and_save(
+        state: &Arc<Mutex<Instant>>,
+        expected_attempt_count: u32,
+        loop_start: Instant,
+        attempt_count: u32,
+    ) -> bool {
+        let mut guard = state.lock().unwrap();
+        let current = guard.clone();
+        *guard = loop_start;
+        drop(guard);
+
+        let since_test_start = loop_start.saturating_duration_since(current);
+        return loop_start > current
+            && since_test_start < Duration::from_millis(100)
+            && expected_attempt_count == attempt_count;
+    }
+
+    fn expect(
+        state: &Arc<Mutex<Instant>>,
+        expected_attempt_count: u32,
+        loop_start: Instant,
+        attempt_count: u32,
+    ) -> bool {
+        let guard = state.lock().unwrap();
+        return loop_start == *guard && expected_attempt_count == attempt_count;
+    }
+
+    fn is_transient(error: &Error) -> bool {
+        if let Some(e) = error.as_inner::<gax::error::HttpError>() {
+            return e.status_code() == StatusCode::SERVICE_UNAVAILABLE.as_u16();
+        }
+        false
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_success() -> Result<()> {
         // We create a server that will return two transient errors and then succeed.
         let (endpoint, _server) = start(vec![transient(), transient(), success()]).await?;
 
+        // Create mocks that expect the corresponding sequence of calls. In this
+        // test we will verify the calls receive the correct attempt numbers and
+        // (reasonable) values for `now`.
+        let expected_loop_start = Arc::new(Mutex::new(Instant::now()));
         let mut seq = mockall::Sequence::new();
+        let mut backoff_policy = MockBackoffPolicy::new();
+        let mut throttler = MockThrottler::new();
         let mut retry_policy = MockRetryPolicy::new();
-        for i in 0..2 {
-            let attempt = i + 1;
-            retry_policy
-                .expect_remaining_time()
-                .once()
-                .in_sequence(&mut seq)
-                .return_const(None);
-            retry_policy
-                .expect_on_error()
-                .withf(move |_, a, _, error| {
-                    (*a == attempt) && error.as_inner::<gax::error::HttpError>().is_some()
-                })
-                .once()
-                .in_sequence(&mut seq)
-                .returning(|_, _, _, e| RetryFlow::Continue(e));
-        }
+
+        // Initial call...
+        let state = expected_loop_start.clone();
         retry_policy
             .expect_remaining_time()
+            .withf(move |s, a| check_and_save(&state, 0, *s, *a))
             .once()
             .in_sequence(&mut seq)
             .return_const(None);
+        // Call results
+        let state = expected_loop_start.clone();
+        retry_policy
+            .expect_on_error()
+            .withf(move |s, a, _, e| expect(&state, 1, *s, *a) && is_transient(e))
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
+        let state = expected_loop_start.clone();
+        backoff_policy
+            .expect_on_failure()
+            .withf(move |s, a| expect(&state, 1, *s, *a))
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _| Duration::from_millis(1));
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(());
+
+        // First retry
+        let state = expected_loop_start.clone();
+        retry_policy
+            .expect_remaining_time()
+            .withf(move |s, a| expect(&state, 1, *s, *a))
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(false);
+        // Call results
+        let state = expected_loop_start.clone();
+        retry_policy
+            .expect_on_error()
+            .withf(move |s, a, _, e| expect(&state, 2, *s, *a) && is_transient(e))
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _, _, e| RetryFlow::Continue(e));
+        let state = expected_loop_start.clone();
+        backoff_policy
+            .expect_on_failure()
+            .withf(move |s, a| expect(&state, 2, *s, *a))
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_, _| Duration::from_millis(1));
+        throttler
+            .expect_on_retry_failure()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(());
+
+        // Second retry
+        let state = expected_loop_start.clone();
+        retry_policy
+            .expect_remaining_time()
+            .withf(move |s, a| expect(&state, 2, *s, *a))
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(None);
+        throttler
+            .expect_throttle_retry_attempt()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(false);
+        // Call succeeds .
+        throttler
+            .expect_on_success()
+            .once()
+            .in_sequence(&mut seq)
+            .return_const(());
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -147,8 +250,8 @@ mod test {
         let options = {
             let mut options = RequestOptions::default();
             options.set_retry_policy(retry_policy);
-            options.set_backoff_policy(test_backoff()); // faster tests
-            options.set_retry_throttler(test_retry_throttler()); // never throttle
+            options.set_backoff_policy(backoff_policy);
+            options.set_retry_throttler(throttler);
             options
         };
         let response = client
