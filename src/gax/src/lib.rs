@@ -34,20 +34,6 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 #[doc(hidden)]
 pub mod query_parameter;
 
-/// Defines traits and helpers to serialize path parameters.
-///
-/// Path parameters in the Google APIs are always required, but they may need
-/// to be source from fields that are inside a message field, which are always
-/// `Option<T>`.
-///
-/// This module defines some traits and helpers to simplify the code generator.
-/// They automatically convert `Option<T>` to `Result<T, Error>`, so the
-/// generator always writes:
-///
-/// gax::path_parameter::required(req.field)?.sub
-///
-/// If accessing deeply nested fields that can results in multiple calls to
-/// `required`.
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
 pub mod path_parameter;
