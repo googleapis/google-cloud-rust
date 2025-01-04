@@ -91,6 +91,12 @@ type Method struct {
 	ServiceNameToSnake  string
 	InputTypeID         string
 	InputType           *Message
+	OperationInfo       *OperationInfo
+}
+
+type OperationInfo struct {
+	MetadataType string
+	ResponseType string
 }
 
 type OneOf struct {
@@ -250,7 +256,7 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 }
 
 func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
-	return &Method{
+	method := &Method{
 		BodyAccessor:      c.BodyAccessor(m, state),
 		DocLines:          c.FormatDocComments(m.Documentation, state),
 		HTTPMethod:        m.PathInfo.Verb,
@@ -275,6 +281,13 @@ func newMethod(m *api.Method, c language.Codec, state *api.APIState) *Method {
 		ServiceNameToSnake:  c.ToSnake(m.Parent.Name),
 		InputTypeID:         m.InputTypeID,
 	}
+	if m.OperationInfo != nil {
+		method.OperationInfo = &OperationInfo{
+			MetadataType: c.MethodInOutTypeName(m.OperationInfo.MetadataTypeID, state),
+			ResponseType: c.MethodInOutTypeName(m.OperationInfo.ResponseTypeID, state),
+		}
+	}
+	return method
 }
 
 func newOneOf(oneOf *api.OneOf, c language.Codec, state *api.APIState) *OneOf {

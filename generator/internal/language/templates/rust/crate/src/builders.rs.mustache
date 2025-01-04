@@ -62,6 +62,13 @@ impl {{NameToPascal}} {
     }
 
     /// Sends the request.
+    {{#OperationInfo}}
+    ///
+    /// # Long running operations
+    ///
+    /// This starts, but does not poll, a longrunning operation. More information
+    /// on [{{NameToSnake}}][crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
+    {{/OperationInfo}}
     pub async fn send(self) -> Result<{{OutputTypeName}}> {
         self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
     }

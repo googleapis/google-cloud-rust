@@ -288,7 +288,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			service := processService(state, s, sFQN, f.GetPackage())
 			for _, m := range s.Method {
 				mFQN := sFQN + "." + m.GetName()
-				if method := processMethod(state, m, mFQN); method != nil {
+				if method := processMethod(state, m, mFQN, f.GetPackage()); method != nil {
 					method.Parent = service
 					service.Methods = append(service.Methods, method)
 				}
@@ -337,7 +337,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 				if !enabledMixinMethods[mFQN] {
 					continue
 				}
-				if method := processMethod(state, m, mFQN); method != nil {
+				if method := processMethod(state, m, mFQN, f.GetPackage()); method != nil {
 					method.Parent = service
 					service.Methods = append(service.Methods, method)
 				}
@@ -438,7 +438,7 @@ func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto,
 	return service
 }
 
-func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, mFQN string) *api.Method {
+func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, mFQN, packagez string) *api.Method {
 	pathInfo, err := parsePathInfo(m, state)
 	if err != nil {
 		slog.Error("unsupported http method", "method", m)
@@ -452,6 +452,7 @@ func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, m
 		OutputTypeID:        m.GetOutputType(),
 		ClientSideStreaming: m.GetClientStreaming(),
 		ServerSideStreaming: m.GetServerStreaming(),
+		OperationInfo:       parseOperationInfo(packagez, m),
 	}
 	state.MethodByID[mFQN] = method
 	return method

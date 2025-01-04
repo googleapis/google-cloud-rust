@@ -16,13 +16,43 @@ package parser
 
 import (
 	"fmt"
+	"log/slog"
+	"strings"
+
+	"cloud.google.com/go/longrunning/autogen/longrunningpb"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser/httprule"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/descriptorpb"
-	"log/slog"
 )
+
+// The types in LRO annotations sometimes (always?) are missing the leading `.`.
+// We need to add them so they are useful when searching in
+// `state.MessageByID[]`.
+func normalizeTypeID(packagez, id string) string {
+	if strings.HasPrefix(id, ".") {
+		return id
+	}
+	if strings.Contains(id, ".") {
+		// Already has a package, return the string.
+		return "." + id
+	}
+	return fmt.Sprintf(".%s.%s", packagez, id)
+}
+
+func parseOperationInfo(packagez string, m *descriptorpb.MethodDescriptorProto) *api.OperationInfo {
+	extensionId := longrunningpb.E_OperationInfo
+	if !proto.HasExtension(m.GetOptions(), extensionId) {
+		return nil
+	}
+	protobufInfo := proto.GetExtension(m.GetOptions(), extensionId).(*longrunningpb.OperationInfo)
+	operationInfo := &api.OperationInfo{
+		MetadataTypeID: normalizeTypeID(packagez, protobufInfo.GetMetadataType()),
+		ResponseTypeID: normalizeTypeID(packagez, protobufInfo.GetResponseType()),
+	}
+	return operationInfo
+}
 
 func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (*api.PathInfo, error) {
 	eHTTP := proto.GetExtension(m.GetOptions(), annotations.E_Http)
