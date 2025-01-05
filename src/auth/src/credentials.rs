@@ -341,7 +341,7 @@ pub mod testing {
     }
 
     #[derive(Debug)]
-    struct TestCredential {}
+    struct TestCredential;
 
     #[async_trait::async_trait]
     impl CredentialTrait for TestCredential {

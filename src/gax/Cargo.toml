@@ -44,7 +44,6 @@ echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
 gax         = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
-async-trait = "0.1.83"
 axum        = "0.7.9"
 serial_test = "3.2.0"
 serde       = { version = "1.0.216", features = ["serde_derive"] }
