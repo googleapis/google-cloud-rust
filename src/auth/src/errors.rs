@@ -93,7 +93,6 @@ pub enum InnerAuthError {
     // TODO(#389) - define error types here
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) fn is_retryable(c: StatusCode) -> bool {
     match c {
         // Internal server errors do not indicate that there is anything wrong
