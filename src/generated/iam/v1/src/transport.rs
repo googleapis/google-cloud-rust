@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [IAMPolicy](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [IAMPolicy](crate::traits::IAMPolicy) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct IAMPolicy {
     inner: gax::http_client::ReqwestClient,

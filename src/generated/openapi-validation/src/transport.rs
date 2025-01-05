@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SecretManagerService](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [SecretManagerService](crate::traits::SecretManagerService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SecretManagerService {
     inner: gax::http_client::ReqwestClient,
