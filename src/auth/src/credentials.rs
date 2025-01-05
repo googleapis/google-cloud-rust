@@ -327,6 +327,8 @@ mod test {
     use super::*;
     use scoped_env::ScopedEnv;
     use std::error::Error;
+    use traits::Credential;
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[derive(Clone, Debug)]
     pub(crate) struct TestCredential;
@@ -353,6 +355,31 @@ mod test {
         async fn get_universe_domain(&self) -> Option<String> {
             None
         }
+    }
+
+    #[tokio::test]
+    async fn test_test_credentials() -> TestResult {
+        let credentials = super::test_credentials();
+        let token = credentials.get_token().await?;
+        assert!(
+            !token.token.is_empty(),
+            "token={token:?} credentials={credentials:?}"
+        );
+        assert!(
+            !token.token_type.is_empty(),
+            "token={token:?} credentials={credentials:?}"
+        );
+
+        let headers = credentials.get_headers().await?;
+        assert!(
+            headers.is_empty(),
+            "headers={headers:?} credentials={credentials:?}"
+        );
+
+        let ud = credentials.get_universe_domain().await;
+        assert_eq!(ud, None, "credentials={credentials:?}");
+
+        Ok(())
     }
 
     #[cfg(target_os = "windows")]
