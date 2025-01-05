@@ -24,7 +24,8 @@ async fn test_error_with_status() -> Result<()> {
     use serde_json::Value;
     let (endpoint, _server) = echo_server::start().await?;
 
-    let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+    let config =
+        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
     let client = ReqwestClient::new(config, &endpoint).await?;
 
     let builder = client.builder(reqwest::Method::GET, "/error".into());

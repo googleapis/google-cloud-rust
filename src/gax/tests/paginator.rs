@@ -95,7 +95,8 @@ impl PageableResponse for ListFoosResponse {
 
 impl Client {
     pub async fn new(default_endpoint: &str) -> Result<Self> {
-        let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+        let config =
+            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
         let inner = ReqwestClient::new(config, default_endpoint).await?;
         Ok(Self { inner })
     }

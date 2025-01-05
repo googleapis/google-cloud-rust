@@ -315,6 +315,58 @@ fn adc_well_known_path() -> Option<String> {
         .map(|root| root + "/.config/gcloud/application_default_credentials.json")
 }
 
+/// A module providing invalid credentials where authentication does not matter.
+///
+/// These credentials are a convenient way to avoid errors from loading
+/// Application Default Credentials in tests.
+///
+/// This module is mainly relevant to other `gcp-sdk-*` crates, but some
+/// external developers (i.e. consumers, not developers of `google-cloud-rust`)
+/// may find it useful.
+pub mod testing {
+    use crate::credentials::traits::dynamic::Credential as CredentialTrait;
+    use crate::credentials::Credential;
+    use crate::token::Token;
+    use crate::Result;
+    use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+    use std::sync::Arc;
+
+    /// A simple credentials implementation to use in tests where authentication does not matter.
+    ///
+    /// Always returns a "Bearer" token, with "test-only-token" as the value.
+    pub fn test_credentials() -> Credential {
+        Credential {
+            inner: Arc::from(TestCredential {}),
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestCredential {}
+
+    #[async_trait::async_trait]
+    impl CredentialTrait for TestCredential {
+        async fn get_token(&self) -> Result<Token> {
+            Ok(Token {
+                token: "test-only-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        }
+
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            Ok(vec![(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer: test-only-token"),
+            )])
+        }
+
+        async fn get_universe_domain(&self) -> Option<String> {
+            Some("googleapis.com".to_string())
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
