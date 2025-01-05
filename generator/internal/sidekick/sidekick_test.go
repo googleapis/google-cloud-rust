@@ -52,12 +52,11 @@ func TestRustFromOpenAPI(t *testing.T) {
 		Language:            "rust",
 		Output:              outDir,
 		Codec: map[string]string{
-			"not-for-publication":       "true",
-			"copyright-year":            "2024",
-			"package-name-override":     "secretmanager-golden-openapi",
-			"package:wkt":               "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
-			"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
-			"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
+			"not-for-publication":   "true",
+			"copyright-year":        "2024",
+			"package-name-override": "secretmanager-golden-openapi",
+			"package:wkt":           "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
+			"package:gax":           "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
 		},
 	}
 
@@ -124,12 +123,11 @@ func TestRustFromProtobuf(t *testing.T) {
 			Language:      "rust",
 			Output:        path.Join(outDir, config.Name),
 			Codec: map[string]string{
-				"not-for-publication":       "true",
-				"copyright-year":            "2024",
-				"package-name-override":     strings.Replace(config.Name, "/", "-", -1) + "-golden-protobuf",
-				"package:wkt":               "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
-				"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
-				"package:google-cloud-auth": "package=google-cloud-auth,path=../auth",
+				"not-for-publication":   "true",
+				"copyright-year":        "2024",
+				"package-name-override": strings.Replace(config.Name, "/", "-", -1) + "-golden-protobuf",
+				"package:wkt":           "package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf",
+				"package:gax":           "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
 			},
 		}
 		for k, v := range config.ExtraOptions {

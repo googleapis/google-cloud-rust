@@ -29,11 +29,6 @@ cargo build
 
 ## Running the unit tests
 
-> Note: the `/auth` crate (which is to be replaced by `/src/auth`) requires
-> that you have to [Set up Application Default Credentials]. Run this once:
->
-> `gcloud auth application-default login`
-
 ```bash
 cargo test
 ```
@@ -194,4 +189,3 @@ git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
 [secret manager]: https://cloud.google.com/secret-manager/
-[set up application default credentials]: https://cloud.google.com/docs/authentication/provide-credentials-adc
