@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential as CredentialTrait;
+use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::Credential;
 use crate::credentials::Result;
 use crate::errors::{is_retryable, CredentialError};
