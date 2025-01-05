@@ -316,10 +316,44 @@ fn adc_well_known_path() -> Option<String> {
 }
 
 #[cfg(test)]
+pub fn test_credentials() -> Credential {
+    Credential {
+        inner: Arc::new(test::TestCredential::new()),
+    }
+}
+
+#[cfg(test)]
 mod test {
     use super::*;
     use scoped_env::ScopedEnv;
     use std::error::Error;
+
+    #[derive(Clone, Debug)]
+    pub(crate) struct TestCredential;
+
+    impl TestCredential {
+        pub fn new() -> Self {
+            Self
+        }
+    }
+
+    #[async_trait::async_trait]
+    impl super::traits::dynamic::Credential for TestCredential {
+        async fn get_token(&self) -> Result<crate::token::Token> {
+            Ok(crate::token::Token {
+                token: "test-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        }
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            Ok(Vec::new())
+        }
+        async fn get_universe_domain(&self) -> Option<String> {
+            None
+        }
+    }
 
     #[cfg(target_os = "windows")]
     #[test]
