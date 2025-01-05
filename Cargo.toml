@@ -16,7 +16,6 @@
 resolver = "2"
 
 members = [
-  "auth",
   "src/auth",
   "src/base",
   "src/gax",

@@ -42,7 +42,6 @@ func TestParseArgs(t *testing.T) {
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
 		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
-		"-codec-option", "package:google-cloud-auth=package=google-cloud-auth,path=auth",
 	}
 	cmd, _, args := cmdSidekick.lookup(args)
 	if cmd.name() != "generate" {
@@ -65,11 +64,10 @@ func TestParseArgs(t *testing.T) {
 		Language: "rust",
 		Output:   outputDir,
 		Codec: map[string]string{
-			"copyright-year":            "2024",
-			"package-name-override":     "secretmanager-golden-openapi",
-			"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
-			"package:gax":               "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
-			"package:google-cloud-auth": "package=google-cloud-auth,path=auth",
+			"copyright-year":        "2024",
+			"package-name-override": "secretmanager-golden-openapi",
+			"package:wkt":           "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+			"package:gax":           "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		},
 	}
 	if diff := cmp.Diff(want, got); diff != "" {
