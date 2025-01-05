@@ -26,7 +26,7 @@
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
-use auth::Credential;
+use auth::credentials::Credential;
 use std::sync::Arc;
 
 /// A set of options configuring a single request.
@@ -183,20 +183,6 @@ impl ClientConfig {
         self.retry_policy = Some(v.into().0);
         self
     }
-
-    #[cfg(feature = "unstable-sdk-client")]
-    pub(crate) async fn default_credential() -> crate::Result<Credential> {
-        use crate::error::Error;
-        let cc = auth::CredentialConfig::builder()
-            .scopes(vec![
-                "https://www.googleapis.com/auth/cloud-platform".to_string()
-            ])
-            .build()
-            .map_err(Error::authentication)?;
-        Credential::find_default(cc)
-            .await
-            .map_err(Error::authentication)
-    }
 }
 
 #[cfg(test)]
@@ -300,28 +286,12 @@ mod test {
 
     #[tokio::test]
     async fn config_credentials() -> Result {
-        let config = ClientConfig::new().set_credential(auth::Credential::test_credentials());
+        use auth::credentials::traits::Credential;
+        let config =
+            ClientConfig::new().set_credential(auth::credentials::testing::test_credentials());
         let cred = config.cred.unwrap();
-        let token = cred.access_token().await?;
-        assert!(
-            token.value.contains("test-only"),
-            "unexpected test token {}",
-            token.value
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    #[serial_test::serial]
-    async fn config_default_credentials() -> Result {
-        let dir = tempfile::tempdir()?;
-        let path = dir.path().to_str().unwrap();
-        unsafe {
-            // This is not readable as a file and should cause the default credentials to fail.
-            std::env::set_var("GOOGLE_APPLICATION_CREDENTIALS", path);
-        }
-        let cred = ClientConfig::default_credential().await;
-        assert!(cred.is_err());
+        let token = cred.get_token().await?;
+        assert_eq!(token.token, "test-only-token");
         Ok(())
     }
 

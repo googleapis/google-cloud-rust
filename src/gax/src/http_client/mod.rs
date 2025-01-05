@@ -15,7 +15,8 @@
 use crate::error::Error;
 use crate::error::HttpError;
 use crate::Result;
-use auth::Credential;
+use auth::credentials::traits::Credential as CredentialTrait;
+use auth::credentials::{create_access_token_credential, Credential};
 
 #[derive(Clone)]
 pub struct ReqwestClient {
@@ -30,7 +31,9 @@ impl ReqwestClient {
         let cred = if let Some(c) = config.cred {
             c
         } else {
-            ClientConfig::default_credential().await?
+            create_access_token_credential()
+                .await
+                .map_err(Error::authentication)?
         };
         let endpoint = config
             .endpoint
@@ -53,7 +56,14 @@ impl ReqwestClient {
         body: Option<I>,
         options: crate::options::RequestOptions,
     ) -> Result<O> {
-        builder = builder.bearer_auth(Self::fetch_token(&self.cred).await?);
+        let auth_headers = self
+            .cred
+            .get_headers()
+            .await
+            .map_err(Error::authentication)?;
+        for header in auth_headers.into_iter() {
+            builder = builder.header(header.0, header.1);
+        }
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
                 reqwest::header::USER_AGENT,
@@ -75,11 +85,6 @@ impl ReqwestClient {
         }
         let response = response.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
-    }
-
-    async fn fetch_token(cred: &Credential) -> Result<String> {
-        let tok = cred.access_token().await.map_err(Error::authentication)?;
-        Ok(tok.value)
     }
 }
 
