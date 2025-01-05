@@ -15,7 +15,7 @@
 use crate::error::Error;
 use crate::error::HttpError;
 use crate::Result;
-use auth::credentials::traits::Credential as CredentialTrait;
+use auth::credentials::CredentialTrait;
 use auth::credentials::{create_access_token_credential, Credential};
 
 #[derive(Clone)]
