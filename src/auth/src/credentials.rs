@@ -67,6 +67,17 @@ pub struct Credential {
     inner: Arc<dyn dynamic::CredentialTrait>,
 }
 
+impl<T> std::convert::From<T> for Credential
+where
+    T: crate::credentials::CredentialTrait + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
 impl Credential {
     pub async fn get_token(&self) -> Result<crate::token::Token> {
         self.inner.get_token().await
@@ -112,9 +123,9 @@ impl Credential {
 /// # Notes
 ///
 /// Application developers who directly use the Auth SDK can use this trait,
-/// along with [crate::credentials::Credential::from_trait()] to mock the
-/// credentials. Application developers who use the Google Cloud Rust SDK
-/// directly should not need this functionality.
+/// along with [crate::credentials::Credential::from()] to mock the credentials.
+/// Application developers who use the Google Cloud Rust SDK directly should not
+/// need this functionality.
 ///
 /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
 /// [token-link]: https://cloud.google.com/docs/authentication#token
