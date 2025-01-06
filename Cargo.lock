@@ -556,7 +556,7 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-auth"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "axum 0.8.1",
@@ -585,7 +585,7 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-gax"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "axum 0.8.1",
  "base64",
@@ -613,7 +613,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-iam-v1"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -630,7 +630,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-location"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -646,7 +646,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-longrunning"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -663,7 +663,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-rpc"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "bytes",
  "gcp-sdk-wkt",
@@ -673,7 +673,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-secretmanager-v1"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "bytes",
@@ -691,7 +691,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-type"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "bytes",
  "gcp-sdk-wkt",
@@ -701,7 +701,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-wkt"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "bytes",
  "chrono",
@@ -1710,7 +1710,7 @@ checksum = "478f121bb72bbf63c52c93011ea1791dca40140dfe13f8336c4c5ac952c33aa9"
 
 [[package]]
 name = "secretmanager-openapi-v1"
-version = "0.1.0-rc2"
+version = "0.1.0-rc3"
 dependencies = [
  "async-trait",
  "bytes",
