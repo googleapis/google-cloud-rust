@@ -67,17 +67,17 @@ pub struct Credential {
     inner: Arc<dyn dynamic::CredentialTrait>,
 }
 
-impl CredentialTrait for Credential {
-    fn get_token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send {
-        self.inner.get_token()
+impl Credential {
+    pub async fn get_token(&self) -> Result<crate::token::Token> {
+        self.inner.get_token().await
     }
 
-    fn get_headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send {
-        self.inner.get_headers()
+    pub async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+        self.inner.get_headers().await
     }
 
-    fn get_universe_domain(&self) -> impl Future<Output = Option<String>> + Send {
-        self.inner.get_universe_domain()
+    pub async fn get_universe_domain(&self) -> Option<String> {
+        self.inner.get_universe_domain().await
     }
 }
 
