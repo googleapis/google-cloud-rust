@@ -33,7 +33,7 @@ thiserror   = "2"
 time        = "0.3.37"
 
 [dev-dependencies]
-axum        = "0.7.9"
+axum        = "0.8.1"
 mockall     = "0.13.1"
 scoped-env  = "2.1.0"
 serial_test = "3.2.0"
