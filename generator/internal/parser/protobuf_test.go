@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
@@ -44,6 +45,23 @@ func TestProtobuf_Info(t *testing.T) {
 	}
 	if diff := cmp.Diff(test.Description, serviceConfig.Documentation.Summary); diff != "" {
 		t.Errorf("description mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestProtobuf_PartialInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+	}
+
+	got := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	want := &api.API{
+		Name:        "secretmanager",
+		Title:       "Secret Manager API",
+		Description: "",
+	}
+	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
+		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
 	}
 }
 

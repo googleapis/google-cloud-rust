@@ -224,7 +224,9 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	}
 	if serviceConfig != nil {
 		result.Title = serviceConfig.Title
-		result.Description = serviceConfig.Documentation.Summary
+		if serviceConfig.Documentation != nil {
+			result.Description = serviceConfig.Documentation.Summary
+		}
 		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
