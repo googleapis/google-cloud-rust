@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-auth"
-version              = "0.1.0-rc3"
+version              = "0.1.0-rc4"
 description          = "Google Cloud Client Libraries for Rust - Authentication"
 edition.workspace    = true
 authors.workspace    = true
