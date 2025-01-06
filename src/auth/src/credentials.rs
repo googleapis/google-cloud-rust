@@ -198,7 +198,6 @@ pub(crate) mod dynamic {
 ///
 /// ```
 /// # use gcp_sdk_auth::credentials::create_access_token_credential;
-/// # use gcp_sdk_auth::credentials::CredentialTrait;
 /// # use gcp_sdk_auth::errors::CredentialError;
 /// # tokio_test::block_on(async {
 /// let mut creds = create_access_token_credential().await?;
