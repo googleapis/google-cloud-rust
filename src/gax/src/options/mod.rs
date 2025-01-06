@@ -40,6 +40,7 @@ use std::sync::Arc;
 /// All other code uses this type indirectly, via the per-request builders.
 #[derive(Clone, Debug, Default)]
 pub struct RequestOptions {
+    idempotent: Option<bool>,
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
@@ -48,6 +49,31 @@ pub struct RequestOptions {
 }
 
 impl RequestOptions {
+    /// Treat the RPC underlying RPC in this method as idempotent.
+    ///
+    /// If a retry policy is configured, the policy may examine the idempotency
+    /// and the error details to decide if the error is retryable. Typically
+    /// [idempotent] RPCs are safe to retry under more error conditions
+    /// than non-idempotent RPCs.
+    ///
+    /// The client libraries provide a default for RPC idempotency, based on the
+    /// HTTP method (`GET`, `POST`, `DELETE`, etc.).
+    ///
+    /// [idempotent]: https://en.wikipedia.org/wiki/Idempotence
+    pub fn set_idempotency(&mut self, value: bool) {
+        self.idempotent = Some(value);
+    }
+
+    /// Set the idempotency for the underlying RPC unless it is already set.
+    ///
+    /// If [set_idempotency][Self::set_idempotency] was already called this
+    /// method has no effect. Otherwise it sets the idempotency. The client
+    /// libraries use this to provide a default idempotency value.
+    pub fn set_default_idempotency(mut self, default: bool) -> Self {
+        self.idempotent.get_or_insert(default);
+        self
+    }
+
     /// Prepends this prefix to the user agent header value.
     pub fn set_user_agent<T: Into<String>>(&mut self, v: T) {
         self.user_agent = Some(v.into());
@@ -94,6 +120,9 @@ impl RequestOptions {
 /// the resource targeted by the RPC, as well as any options affecting the
 /// request, such as additional headers or timeouts.
 pub trait RequestOptionsBuilder {
+    /// If `v` is `true`, treat the RPC underlying this method as idempotent.
+    fn with_idempotency(self, v: bool) -> Self;
+
     /// Set the user agent header.
     fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
 
@@ -128,6 +157,11 @@ impl<T> RequestOptionsBuilder for T
 where
     T: RequestBuilder,
 {
+    fn with_idempotency(mut self, v: bool) -> Self {
+        self.request_options().set_idempotency(v);
+        self
+    }
+
     fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
         self.request_options().set_user_agent(v);
         self
@@ -269,6 +303,12 @@ mod test {
     fn request_options() {
         let mut opts = RequestOptions::default();
 
+        assert_eq!(opts.idempotent, None);
+        opts.set_idempotency(true);
+        assert_eq!(opts.idempotent, Some(true));
+        opts.set_idempotency(false);
+        assert_eq!(opts.idempotent, Some(false));
+
         opts.set_user_agent("test-only");
         assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
         assert_eq!(opts.attempt_timeout(), &None);
@@ -289,10 +329,28 @@ mod test {
     }
 
     #[test]
+    fn request_options_idempotency() {
+        let opts = RequestOptions::default().set_default_idempotency(true);
+        assert_eq!(opts.idempotent, Some(true));
+        let opts = opts.set_default_idempotency(false);
+        assert_eq!(opts.idempotent, Some(true));
+
+        let opts = RequestOptions::default().set_default_idempotency(false);
+        assert_eq!(opts.idempotent, Some(false));
+        let opts = opts.set_default_idempotency(true);
+        assert_eq!(opts.idempotent, Some(false));
+    }
+
+    #[test]
     fn request_options_builder() -> Result {
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_idempotency(true);
+        assert_eq!(builder.request_options().idempotent, Some(true));
+        let mut builder = TestBuilder::default().with_idempotency(false);
+        assert_eq!(builder.request_options().idempotent, Some(false));
 
         let mut builder = TestBuilder::default().with_user_agent("test-only");
         assert_eq!(
