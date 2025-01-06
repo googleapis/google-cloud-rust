@@ -21,6 +21,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"google.golang.org/genproto/googleapis/api/serviceconfig"
+	"google.golang.org/protobuf/types/known/apipb"
 )
 
 func TestOpenAPI_AllOf(t *testing.T) {
@@ -791,6 +793,83 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			QueryParameters: map[string]bool{},
 		},
 	})
+}
+
+func TestOpenAPI_MakeApiWithServiceConfig(t *testing.T) {
+	contents, err := os.ReadFile("../../testdata/openapi/secretmanager_openapi_v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	serviceConfig := &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+		Apis: []*apipb.Api{
+			{
+				Name: "google.cloud.location.Locations",
+			},
+			{
+				Name: "google.cloud.secretmanager.v1.SecretManagerService",
+			},
+		},
+	}
+	got, err := makeAPIForOpenAPI(serviceConfig, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+	want := &api.API{
+		Name:        "secretmanager",
+		Title:       "Secret Manager API",
+		Description: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
+	}
+
+	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
+		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
+	}
+
+}
+
+func TestOpenAPI_MakeApiServiceConfigOverridesDescription(t *testing.T) {
+	contents, err := os.ReadFile("../../testdata/openapi/secretmanager_openapi_v1.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	serviceConfig := &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+		Apis: []*apipb.Api{
+			{
+				Name: "google.cloud.location.Locations",
+			},
+			{
+				Name: "google.cloud.secretmanager.v1.SecretManagerService",
+			},
+		},
+		Documentation: &serviceconfig.Documentation{
+			Summary: "Test Only - Override Description.",
+		},
+	}
+	got, err := makeAPIForOpenAPI(serviceConfig, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+	want := &api.API{
+		Name:        "secretmanager",
+		Title:       "Secret Manager API",
+		Description: "Test Only - Override Description.",
+	}
+
+	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
+		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
+	}
+
 }
 
 func TestOpenAPI_SyntheticMessageWithExistingRequest(t *testing.T) {
