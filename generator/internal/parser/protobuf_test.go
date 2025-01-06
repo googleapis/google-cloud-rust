@@ -1196,6 +1196,98 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 	})
 }
 
+func TestProtobuf_OperationInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_operation_info.proto"))
+	service, ok := test.State.ServiceByID[".test.LroService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.LroService")
+	}
+	checkService(t, service, &api.Service{
+		Documentation: "A service to unit test the protobuf translator.",
+		DefaultHost:   "test.googleapis.com",
+		Name:          "LroService",
+		ID:            ".test.LroService",
+		Package:       "test",
+		Methods: []*api.Method{
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFoo",
+				ID:            ".test.LroService.CreateFoo",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".google.protobuf.Empty",
+					ResponseTypeID: ".test.Foo",
+				},
+			},
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFooWithProgress",
+				ID:            ".test.LroService.CreateFooWithProgress",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.CreateMetadata",
+					ResponseTypeID: ".test.Foo",
+				},
+			},
+		},
+	})
+}
+
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	options := map[string]string{

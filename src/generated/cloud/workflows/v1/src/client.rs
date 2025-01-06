@@ -98,6 +98,33 @@ impl Workflows {
     /// exists in the specified project and location, the long running operation
     /// returns a [ALREADY_EXISTS][google.rpc.Code.ALREADY_EXISTS] error.
     ///
+    ///
+    /// # Long running operations
+    ///
+    /// Calling `send()` on the resulting builder starts a longrunning operation.
+    /// Long running operations run in the background, and the application may
+    /// poll them periodically to find out their completion status.
+    ///
+    /// To poll the operation use the [get_operation] method. Use the [name]
+    /// field in the [Operation] returned from [send()]. When the operation
+    /// completes successfully, the [result] field will contain a
+    /// [crate::model::Workflow]. If the operation completes with an error it will
+    /// contain a `Status` with the error information.
+    ///
+    /// If the operation is still pending, the [metadata] field will contain a
+    /// [crate::model::OperationMetadata]. In many services this provides an indication of
+    /// progress.
+    ///
+    /// Note that most errors on [get_operation] do not indicate that the
+    /// long-running operation failed. Long-running operation failures return
+    /// the error status in the [result] field.
+    ///
+    /// [send()]: crate::builders::CreateWorkflow::send
+    /// [get_operation]: crate::client::Operations::get_operation
+    /// [metadata]: longrunning::model::Operation::result
+    /// [name]: longrunning::model::Operation::name
+    /// [Operation]: longrunning::model::Operation
+    /// [result]: longrunning::model::Operation::result
     pub fn create_workflow(&self, parent: impl Into<String>) -> crate::builders::CreateWorkflow {
         crate::builders::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
     }
@@ -105,6 +132,33 @@ impl Workflows {
     /// Deletes a workflow with the specified name.
     /// This method also cancels and deletes all running executions of the
     /// workflow.
+    ///
+    /// # Long running operations
+    ///
+    /// Calling `send()` on the resulting builder starts a longrunning operation.
+    /// Long running operations run in the background, and the application may
+    /// poll them periodically to find out their completion status.
+    ///
+    /// To poll the operation use the [get_operation] method. Use the [name]
+    /// field in the [Operation] returned from [send()]. When the operation
+    /// completes successfully, the [result] field will contain a
+    /// [wkt::Empty]. If the operation completes with an error it will
+    /// contain a `Status` with the error information.
+    ///
+    /// If the operation is still pending, the [metadata] field will contain a
+    /// [crate::model::OperationMetadata]. In many services this provides an indication of
+    /// progress.
+    ///
+    /// Note that most errors on [get_operation] do not indicate that the
+    /// long-running operation failed. Long-running operation failures return
+    /// the error status in the [result] field.
+    ///
+    /// [send()]: crate::builders::DeleteWorkflow::send
+    /// [get_operation]: crate::client::Operations::get_operation
+    /// [metadata]: longrunning::model::Operation::result
+    /// [name]: longrunning::model::Operation::name
+    /// [Operation]: longrunning::model::Operation
+    /// [result]: longrunning::model::Operation::result
     pub fn delete_workflow(&self, name: impl Into<String>) -> crate::builders::DeleteWorkflow {
         crate::builders::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
     }
@@ -114,6 +168,33 @@ impl Workflows {
     /// workflow. A new revision of the workflow might be created as a result of a
     /// successful update operation. In that case, the new revision is used
     /// in new workflow executions.
+    ///
+    /// # Long running operations
+    ///
+    /// Calling `send()` on the resulting builder starts a longrunning operation.
+    /// Long running operations run in the background, and the application may
+    /// poll them periodically to find out their completion status.
+    ///
+    /// To poll the operation use the [get_operation] method. Use the [name]
+    /// field in the [Operation] returned from [send()]. When the operation
+    /// completes successfully, the [result] field will contain a
+    /// [crate::model::Workflow]. If the operation completes with an error it will
+    /// contain a `Status` with the error information.
+    ///
+    /// If the operation is still pending, the [metadata] field will contain a
+    /// [crate::model::OperationMetadata]. In many services this provides an indication of
+    /// progress.
+    ///
+    /// Note that most errors on [get_operation] do not indicate that the
+    /// long-running operation failed. Long-running operation failures return
+    /// the error status in the [result] field.
+    ///
+    /// [send()]: crate::builders::UpdateWorkflow::send
+    /// [get_operation]: crate::client::Operations::get_operation
+    /// [metadata]: longrunning::model::Operation::result
+    /// [name]: longrunning::model::Operation::name
+    /// [Operation]: longrunning::model::Operation
+    /// [result]: longrunning::model::Operation::result
     pub fn update_workflow(
         &self,
         workflow: impl Into<crate::model::Workflow>,

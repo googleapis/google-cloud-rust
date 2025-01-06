@@ -170,6 +170,11 @@ impl CreateWorkflow {
     }
 
     /// Sends the request.
+    ///
+    /// # Long running operations
+    ///
+    /// This starts, but does not poll, a longrunning operation. More information
+    /// on [create_workflow][crate::client::Workflows::create_workflow].
     pub async fn send(self) -> Result<longrunning::model::Operation> {
         self.0
             .stub
@@ -218,6 +223,11 @@ impl DeleteWorkflow {
     }
 
     /// Sends the request.
+    ///
+    /// # Long running operations
+    ///
+    /// This starts, but does not poll, a longrunning operation. More information
+    /// on [delete_workflow][crate::client::Workflows::delete_workflow].
     pub async fn send(self) -> Result<longrunning::model::Operation> {
         self.0
             .stub
@@ -254,6 +264,11 @@ impl UpdateWorkflow {
     }
 
     /// Sends the request.
+    ///
+    /// # Long running operations
+    ///
+    /// This starts, but does not poll, a longrunning operation. More information
+    /// on [update_workflow][crate::client::Workflows::update_workflow].
     pub async fn send(self) -> Result<longrunning::model::Operation> {
         self.0
             .stub

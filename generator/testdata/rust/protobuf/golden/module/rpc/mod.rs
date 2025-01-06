@@ -607,6 +607,61 @@ impl LocalizedMessage {
     }
 }
 
+/// The `Status` type defines a logical error model that is suitable for
+/// different programming environments, including REST APIs and RPC APIs. It is
+/// used by [gRPC](https://github.com/grpc). Each `Status` message contains
+/// three pieces of data: error code, error message, and error details.
+///
+/// You can find out more about this error model and how to work with it in the
+/// [API Design Guide](https://cloud.google.com/apis/design/errors).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Status {
+
+    /// The status code, which should be an enum value of
+    /// [google.rpc.Code][google.rpc.Code].
+    ///
+    /// [google.rpc.Code]: crate::error::rpc::generated::Code
+    pub code: i32,
+
+    /// A developer-facing error message, which should be in English. Any
+    /// user-facing error message should be localized and sent in the
+    /// [google.rpc.Status.details][google.rpc.Status.details] field, or localized
+    /// by the client.
+    ///
+    /// [google.rpc.Status.details]: crate::error::rpc::generated::Status::details
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub message: String,
+
+    /// A list of messages that carry the error details.  There is a common set of
+    /// message types for APIs to use.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub details: Vec<wkt::Any>,
+}
+
+impl Status {
+
+    /// Sets the value of `code`.
+    pub fn set_code<T: Into<i32>>(mut self, v: T) -> Self {
+        self.code = v.into();
+        self
+    }
+
+    /// Sets the value of `message`.
+    pub fn set_message<T: Into<String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// Sets the value of `details`.
+    pub fn set_details<T: Into<Vec<wkt::Any>>>(mut self, v: T) -> Self {
+        self.details = v.into();
+        self
+    }
+}
+
 /// The canonical error codes for gRPC APIs.
 ///
 ///
