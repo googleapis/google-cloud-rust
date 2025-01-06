@@ -428,7 +428,6 @@ mod test {
 
     #[tokio::test]
     async fn config_credentials() -> Result {
-        use auth::credentials::CredentialTrait;
         let config =
             ClientConfig::new().set_credential(auth::credentials::testing::test_credentials());
         let cred = config.cred.unwrap();
