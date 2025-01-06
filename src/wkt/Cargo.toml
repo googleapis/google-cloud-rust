@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-wkt"
-version              = "0.1.0-rc3"
+version              = "0.1.0-rc4"
 description          = "Google Cloud Client Libraries for Rust - Well Known Types"
 edition.workspace    = true
 authors.workspace    = true
