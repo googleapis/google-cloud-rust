@@ -717,7 +717,7 @@ dependencies = [
 
 [[package]]
 name = "gcp-sdk-workflows-v1"
-version = "0.1.0-rc3"
+version = "0.1.0-rc4"
 dependencies = [
  "async-trait",
  "bytes",
