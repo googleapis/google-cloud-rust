@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Operations](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [Operations](crate::traits::Operations) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Operations {
     inner: gax::http_client::ReqwestClient,

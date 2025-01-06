@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Locations](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [Locations](crate::traits::Locations) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
     inner: gax::http_client::ReqwestClient,
