@@ -45,6 +45,7 @@ impl crate::traits::Workflows for Workflows {
         req: crate::model::ListWorkflowsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListWorkflowsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(
@@ -74,6 +75,7 @@ impl crate::traits::Workflows for Workflows {
         req: crate::model::GetWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Workflow> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -94,6 +96,7 @@ impl crate::traits::Workflows for Workflows {
         req: crate::model::CreateWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
             .builder(
@@ -117,6 +120,7 @@ impl crate::traits::Workflows for Workflows {
         req: crate::model::DeleteWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -135,6 +139,7 @@ impl crate::traits::Workflows for Workflows {
         req: crate::model::UpdateWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self
             .inner
             .builder(
@@ -190,6 +195,7 @@ impl crate::traits::Locations for Locations {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<location::model::ListLocationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/locations", req.name))
@@ -214,6 +220,7 @@ impl crate::traits::Locations for Locations {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<location::model::Location> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -255,6 +262,7 @@ impl crate::traits::Operations for Operations {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<longrunning::model::ListOperationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}/operations", req.name))
@@ -279,6 +287,7 @@ impl crate::traits::Operations for Operations {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<longrunning::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -297,6 +306,7 @@ impl crate::traits::Operations for Operations {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))

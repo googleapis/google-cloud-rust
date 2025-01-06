@@ -45,6 +45,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::ListSecretsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/secrets"
                , req.parent
@@ -66,6 +67,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::CreateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}/secrets"
                , req.parent
@@ -85,6 +87,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::AddSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:addVersion"
                , req.parent
@@ -103,6 +106,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::GetSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name
@@ -121,6 +125,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::UpdateSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Secret> {
+        let options = options.set_default_idempotency(reqwest::Method::PATCH.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::PATCH, format!("/v1/{}"
                , gax::path_parameter::PathParameter::required(&req.secret, "secret").map_err(Error::other)?.name
@@ -140,6 +145,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::DeleteSecretRequest,
         options: gax::options::RequestOptions,
     ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::DELETE, format!("/v1/{}"
                , req.name
@@ -159,6 +165,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::ListSecretVersionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListSecretVersionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/versions"
                , req.parent
@@ -180,6 +187,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::GetSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name
@@ -198,6 +206,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::AccessSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::AccessSecretVersionResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}:access"
                , req.name
@@ -216,6 +225,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::DisableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:disable"
                , req.name
@@ -234,6 +244,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::EnableSecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:enable"
                , req.name
@@ -252,6 +263,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: crate::model::DestroySecretVersionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::SecretVersion> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:destroy"
                , req.name
@@ -270,6 +282,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: iam::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<iam::model::Policy> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:setIamPolicy"
                , req.resource
@@ -288,6 +301,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: iam::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<iam::model::Policy> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}:getIamPolicy"
                , req.resource
@@ -307,6 +321,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
         req: iam::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<iam::model::TestIamPermissionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::POST, format!("/v1/{}:testIamPermissions"
                , req.resource
@@ -349,6 +364,7 @@ impl crate::traits::Locations for Locations {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<location::model::ListLocationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}/locations"
                , req.name
@@ -370,6 +386,7 @@ impl crate::traits::Locations for Locations {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<location::model::Location> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::GET, format!("/v1/{}"
                , req.name

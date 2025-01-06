@@ -45,6 +45,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         req: crate::model::SetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
             .builder(
@@ -64,6 +65,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         req: crate::model::GetIamPolicyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
             .builder(
@@ -83,6 +85,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         req: crate::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
             .builder(

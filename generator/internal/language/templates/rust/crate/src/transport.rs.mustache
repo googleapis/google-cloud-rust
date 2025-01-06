@@ -54,6 +54,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         req: {{InputTypeName}},
         options: gax::options::RequestOptions,
     ) -> Result<{{OutputTypeName}}> {
+        let options = options.set_default_idempotency(reqwest::Method::{{HTTPMethod}}.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
                {{#HTTPPathArgs}}
