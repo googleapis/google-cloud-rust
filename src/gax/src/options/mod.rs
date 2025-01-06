@@ -25,6 +25,7 @@
 //! `*Builder` returned by each client method implements the
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
+use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use auth::credentials::Credential;
 use std::sync::Arc;
@@ -41,6 +42,7 @@ pub struct RequestOptions {
     user_agent: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
+    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
 }
 
 impl RequestOptions {
@@ -71,6 +73,11 @@ impl RequestOptions {
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
         self.retry_policy = Some(v.into().0);
     }
+
+    /// Sets the backoff policy configuration.
+    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(&mut self, v: V) {
+        self.backoff_policy = Some(v.into().0);
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -91,6 +98,9 @@ pub trait RequestOptionsBuilder {
 
     /// Sets the retry policy configuration.
     fn with_retry_policy<V: Into<RetryPolicyArg>>(self, v: V) -> Self;
+
+    /// Sets the backoff policy configuration.
+    fn with_backoff_policy<V: Into<BackoffPolicyArg>>(self, v: V) -> Self;
 }
 
 /// Simplify implementation of the [RequestOptionsBuilder] trait in generated
@@ -122,6 +132,11 @@ where
         self.request_options().set_retry_policy(v);
         self
     }
+
+    fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_backoff_policy(v);
+        self
+    }
 }
 
 /// Configure a client.
@@ -137,6 +152,7 @@ pub struct ClientConfig {
     pub(crate) cred: Option<Credential>,
     pub(crate) tracing: bool,
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
+    pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -174,13 +190,21 @@ impl ClientConfig {
         self
     }
 
+    /// Configure the authentication credentials.
     pub fn set_credential<T: Into<Option<Credential>>>(mut self, v: T) -> Self {
         self.cred = v.into();
         self
     }
 
+    /// Configure the retry policy.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.retry_policy = Some(v.into().0);
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.backoff_policy = Some(v.into().0);
         self
     }
 }
@@ -188,6 +212,7 @@ impl ClientConfig {
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::backoff_policy::ExponentialBackoffBuilder;
     use crate::retry_policy::LimitedAttemptCount;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -217,10 +242,13 @@ mod test {
 
         opts.set_retry_policy(LimitedAttemptCount::new(3));
         assert!(opts.retry_policy.is_some(), "{opts:?}");
+
+        opts.set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(opts.backoff_policy.is_some(), "{opts:?}");
     }
 
     #[test]
-    fn request_options_builder() {
+    fn request_options_builder() -> Result {
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
@@ -242,6 +270,15 @@ mod test {
             builder.request_options().retry_policy.is_some(),
             "{builder:?}"
         );
+
+        let mut builder =
+            TestBuilder::default().with_backoff_policy(ExponentialBackoffBuilder::new().build()?);
+        assert!(
+            builder.request_options().backoff_policy.is_some(),
+            "{builder:?}"
+        );
+
+        Ok(())
     }
 
     // This test must run serially because `std::env::remove_var` and
@@ -299,5 +336,12 @@ mod test {
     fn config_retry_policy() {
         let config = ClientConfig::new().set_retry_policy(LimitedAttemptCount::new(5));
         assert!(config.retry_policy.is_some());
+    }
+
+    #[test]
+    fn config_backoff() {
+        let config =
+            ClientConfig::new().set_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(config.backoff_policy.is_some());
     }
 }
