@@ -171,30 +171,7 @@ where
     ) -> Result<iam_v1::model::TestIamPermissionsResponse> {
         self.inner.test_iam_permissions(req, options).await
     }
-}
 
-/// Implements a [Locations](crate::traits::) decorator for logging and tracing.
-#[derive(Clone, Debug)]
-pub struct Locations<T>
-where
-    T: crate::traits::Locations + std::fmt::Debug + Send + Sync,
-{
-    inner: T,
-}
-
-impl<T> Locations<T>
-where
-    T: crate::traits::Locations + std::fmt::Debug + Send + Sync,
-{
-    pub fn new(inner: T) -> Self {
-        Self { inner }
-    }
-}
-
-impl<T> crate::traits::Locations for Locations<T>
-where
-    T: crate::traits::Locations + std::fmt::Debug + Send + Sync,
-{
     #[tracing::instrument(ret)]
     async fn list_locations(
         &self,

@@ -246,18 +246,6 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<iam::model::TestIamPermissionsResponse>> + Send {
         std::future::ready::<crate::Result<iam::model::TestIamPermissionsResponse>>(Err(Error::other("unimplemented")))
     }
-}
-
-/// Manages location-related information with an API service.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the secretmanager clients.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
-pub trait Locations: std::fmt::Debug + Send + Sync {
 
     /// Lists information about the supported locations for this service.
     fn list_locations(

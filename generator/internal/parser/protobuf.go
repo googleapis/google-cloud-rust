@@ -325,28 +325,31 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Services = append(result.Services, fileServices...)
 	}
 
-	// Handle mixins
-	for _, f := range mixinFileDesc {
-		var fileServices []*api.Service
-		fFQN := "." + f.GetPackage()
-		for _, s := range f.Service {
-			sFQN := fFQN + "." + s.GetName()
-			service := processService(state, s, sFQN, f.GetPackage())
-			for _, m := range s.Method {
-				mFQN := sFQN + "." + m.GetName()
-				if !enabledMixinMethods[mFQN] {
-					continue
-				}
-				if method := processMethod(state, m, mFQN, f.GetPackage()); method != nil {
-					method.Parent = service
-					service.Methods = append(service.Methods, method)
+	// Add the mixing methods to the existing services.
+	for _, service := range result.Services {
+		for _, f := range mixinFileDesc {
+			fFQN := "." + f.GetPackage()
+			for _, mixinProto := range f.Service {
+				sFQN := fFQN + "." + mixinProto.GetName()
+				mixin := processService(state, mixinProto, sFQN, f.GetPackage())
+				for _, m := range mixinProto.Method {
+					// We want to include the method in the existing service,
+					// and not on the mixing.
+					mFQN := service.ID + "." + m.GetName()
+					originalFQN := sFQN + "." + m.GetName()
+					if !enabledMixinMethods[originalFQN] {
+						continue
+					}
+					if method := processMethod(state, m, mFQN, service.Package); method != nil {
+						method.Parent = service
+						applyServiceConfigMethodOverrides(method, originalFQN, serviceConfig, result, mixin)
+						service.Methods = append(service.Methods, method)
+					}
 				}
 			}
-			fileServices = append(fileServices, service)
 		}
-		result.Services = append(result.Services, fileServices...)
 	}
-	updateMixinState(serviceConfig, result)
+
 	if result.Name == "" && serviceConfig != nil {
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}

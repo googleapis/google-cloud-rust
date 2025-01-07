@@ -120,7 +120,7 @@ impl Workflows {
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::CreateWorkflow::send
-    /// [get_operation]: crate::client::Operations::get_operation
+    /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
@@ -154,7 +154,7 @@ impl Workflows {
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::DeleteWorkflow::send
-    /// [get_operation]: crate::client::Operations::get_operation
+    /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
@@ -190,7 +190,7 @@ impl Workflows {
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::UpdateWorkflow::send
-    /// [get_operation]: crate::client::Operations::get_operation
+    /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
@@ -200,71 +200,6 @@ impl Workflows {
         workflow: impl Into<crate::model::Workflow>,
     ) -> crate::builders::UpdateWorkflow {
         crate::builders::UpdateWorkflow::new(self.inner.clone()).set_workflow(workflow.into())
-    }
-}
-
-/// An implementation of [crate::traits::Locations] to make requests with.
-///
-/// `Locations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Locations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Locations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
-///
-/// Manages location-related information with an API service.
-#[derive(Clone, Debug)]
-pub struct Locations {
-    inner: Arc<dyn crate::traits::dyntraits::Locations>,
-}
-
-impl Locations {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
-    }
-
-    /// Creates a new client from the provided stub.
-    ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
-    pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: crate::traits::Locations + 'static,
-    {
-        Self {
-            inner: Arc::new(stub),
-        }
-    }
-
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
-        if conf.tracing_enabled() {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
-        }
-        Ok(Arc::new(Self::build_transport(conf).await?))
-    }
-
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Locations> {
-        crate::transport::Locations::new(conf).await
-    }
-
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Locations> {
-        Self::build_transport(conf)
-            .await
-            .map(crate::tracing::Locations::new)
     }
 
     /// Lists information about the supported locations for this service.
@@ -276,83 +211,24 @@ impl Locations {
     pub fn get_location(&self, name: impl Into<String>) -> crate::builders::GetLocation {
         crate::builders::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
-}
 
-/// An implementation of [crate::traits::Operations] to make requests with.
-///
-/// `Operations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Operations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Operations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
-///
-/// Manages long-running operations with an API service.
-#[derive(Clone, Debug)]
-pub struct Operations {
-    inner: Arc<dyn crate::traits::dyntraits::Operations>,
-}
-
-impl Operations {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner })
-    }
-
-    /// Creates a new client from the provided stub.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
-    pub fn from_stub<T>(stub: T) -> Self
-    where
-        T: crate::traits::Operations + 'static,
-    {
-        Self {
-            inner: Arc::new(stub),
-        }
-    }
-
-    async fn build_inner(
-        conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Operations>> {
-        if conf.tracing_enabled() {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
-        }
-        Ok(Arc::new(Self::build_transport(conf).await?))
-    }
-
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Operations> {
-        crate::transport::Operations::new(conf).await
-    }
-
-    async fn build_with_tracing(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Operations> {
-        Self::build_transport(conf)
-            .await
-            .map(crate::tracing::Operations::new)
-    }
-
-    /// ListOperations is an RPC method of Operations.
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn list_operations(&self, name: impl Into<String>) -> crate::builders::ListOperations {
         crate::builders::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
-    /// GetOperation is an RPC method of Operations.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn get_operation(&self, name: impl Into<String>) -> crate::builders::GetOperation {
         crate::builders::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
-    /// DeleteOperation is an RPC method of Operations.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn delete_operation(&self, name: impl Into<String>) -> crate::builders::DeleteOperation {
         crate::builders::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }

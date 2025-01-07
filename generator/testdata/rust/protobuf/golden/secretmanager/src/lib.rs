@@ -26,7 +26,6 @@
 //! More specifically:
 //!
 //! * [SecretManagerService](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager-golden-protobuf/client/struct.SecretManagerService.html)
-//! * [Locations](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager-golden-protobuf/client/struct.Locations.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

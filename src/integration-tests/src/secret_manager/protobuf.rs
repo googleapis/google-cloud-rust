@@ -51,11 +51,6 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .collect();
 
     let client = new_client(config).await?;
-    let location_client = sm::client::Locations::new_with_config(
-        gax::options::ClientConfig::default().enable_tracing(),
-    )
-    .await?;
-
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
     println!("\nTesting create_secret()");
@@ -115,7 +110,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
 
     run_secret_versions(&client, &create.name).await?;
     run_iam(&client, &create.name).await?;
-    run_locations(&location_client, &project_id).await?;
+    run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
     let delete = client.delete_secret(get.name).send().await?;
@@ -124,7 +119,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     Ok(())
 }
 
-async fn run_locations(client: &sm::client::Locations, project_id: &str) -> Result<()> {
+async fn run_locations(client: &sm::client::SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
         .list_locations(format!("projects/{project_id}"))

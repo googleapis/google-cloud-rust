@@ -105,28 +105,28 @@ impl IAMPolicy {
             .map(crate::tracing::IAMPolicy::new)
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
+    /// Sets the access control policy on the specified resource. Replaces any
+    /// existing policy.
     ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     pub fn set_iam_policy(&self, resource: impl Into<String>) -> crate::builders::SetIamPolicy {
         crate::builders::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Gets the access control policy for a resource.
+    /// Returns an empty policy if the resource exists and does not have a policy
+    /// set.
     pub fn get_iam_policy(&self, resource: impl Into<String>) -> crate::builders::GetIamPolicy {
         crate::builders::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
+    /// Returns permissions that a caller has on the specified resource.
+    /// If the resource does not exist, this will return an empty set of
     /// permissions, not a `NOT_FOUND` error.
     ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Note: This operation is designed to be used for building permission-aware
+    /// UIs and command-line tools, not for authorization checking. This operation
+    /// may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<String>,

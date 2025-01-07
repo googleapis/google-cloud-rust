@@ -98,18 +98,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
             "unimplemented",
         )))
     }
-}
 
-/// Manages location-related information with an API service.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the workflows clients.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
-pub trait Locations: std::fmt::Debug + Send + Sync {
     /// Lists information about the supported locations for this service.
     fn list_locations(
         &self,
@@ -132,19 +121,10 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
             "unimplemented",
         )))
     }
-}
 
-/// Manages long-running operations with an API service.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the workflows clients.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
-pub trait Operations: std::fmt::Debug + Send + Sync {
-    /// ListOperations is an RPC method of Operations.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -156,7 +136,9 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// GetOperation is an RPC method of Operations.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -168,7 +150,9 @@ pub trait Operations: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// DeleteOperation is an RPC method of Operations.
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::traits::Operations
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

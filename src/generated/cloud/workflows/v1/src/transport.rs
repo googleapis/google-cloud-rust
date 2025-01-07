@@ -166,30 +166,7 @@ impl crate::traits::Workflows for Workflows {
             .execute(builder, Some(req.workflow), options)
             .await
     }
-}
 
-/// Implements [Locations](crate::traits::Locations) using a [gax::http_client::ReqwestClient].
-#[derive(Clone)]
-pub struct Locations {
-    inner: gax::http_client::ReqwestClient,
-}
-
-impl std::fmt::Debug for Locations {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Locations")
-            .field("inner", &self.inner)
-            .finish()
-    }
-}
-
-impl Locations {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        Ok(Self { inner })
-    }
-}
-
-impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -233,30 +210,7 @@ impl crate::traits::Locations for Locations {
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
-}
 
-/// Implements [Operations](crate::traits::Operations) using a [gax::http_client::ReqwestClient].
-#[derive(Clone)]
-pub struct Operations {
-    inner: gax::http_client::ReqwestClient,
-}
-
-impl std::fmt::Debug for Operations {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Operations")
-            .field("inner", &self.inner)
-            .finish()
-    }
-}
-
-impl Operations {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        Ok(Self { inner })
-    }
-}
-
-impl crate::traits::Operations for Operations {
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,

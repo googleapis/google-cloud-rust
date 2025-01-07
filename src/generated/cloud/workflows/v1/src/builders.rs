@@ -295,34 +295,13 @@ impl gax::options::RequestBuilder for UpdateWorkflow {
     }
 }
 
-/// Common implementation for [crate::client::Locations] request builders.
+/// The request builder for a Workflows::list_locations call.
 #[derive(Clone, Debug)]
-pub struct LocationsRequestBuilder<R: std::default::Default> {
-    stub: Arc<dyn crate::traits::dyntraits::Locations>,
-    request: R,
-    options: gax::options::RequestOptions,
-}
-
-impl<R> LocationsRequestBuilder<R>
-where
-    R: std::default::Default,
-{
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self {
-            stub,
-            request: R::default(),
-            options: gax::options::RequestOptions::default(),
-        }
-    }
-}
-
-/// The request builder for a Locations::list_locations call.
-#[derive(Clone, Debug)]
-pub struct ListLocations(LocationsRequestBuilder<location::model::ListLocationsRequest>);
+pub struct ListLocations(WorkflowsRequestBuilder<location::model::ListLocationsRequest>);
 
 impl ListLocations {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(LocationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        Self(WorkflowsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -384,13 +363,13 @@ impl gax::options::RequestBuilder for ListLocations {
     }
 }
 
-/// The request builder for a Locations::get_location call.
+/// The request builder for a Workflows::get_location call.
 #[derive(Clone, Debug)]
-pub struct GetLocation(LocationsRequestBuilder<location::model::GetLocationRequest>);
+pub struct GetLocation(WorkflowsRequestBuilder<location::model::GetLocationRequest>);
 
 impl GetLocation {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(LocationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        Self(WorkflowsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -420,34 +399,13 @@ impl gax::options::RequestBuilder for GetLocation {
     }
 }
 
-/// Common implementation for [crate::client::Operations] request builders.
+/// The request builder for a Workflows::list_operations call.
 #[derive(Clone, Debug)]
-pub struct OperationsRequestBuilder<R: std::default::Default> {
-    stub: Arc<dyn crate::traits::dyntraits::Operations>,
-    request: R,
-    options: gax::options::RequestOptions,
-}
-
-impl<R> OperationsRequestBuilder<R>
-where
-    R: std::default::Default,
-{
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
-        Self {
-            stub,
-            request: R::default(),
-            options: gax::options::RequestOptions::default(),
-        }
-    }
-}
-
-/// The request builder for a Operations::list_operations call.
-#[derive(Clone, Debug)]
-pub struct ListOperations(OperationsRequestBuilder<longrunning::model::ListOperationsRequest>);
+pub struct ListOperations(WorkflowsRequestBuilder<longrunning::model::ListOperationsRequest>);
 
 impl ListOperations {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
-        Self(OperationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        Self(WorkflowsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -513,13 +471,13 @@ impl gax::options::RequestBuilder for ListOperations {
     }
 }
 
-/// The request builder for a Operations::get_operation call.
+/// The request builder for a Workflows::get_operation call.
 #[derive(Clone, Debug)]
-pub struct GetOperation(OperationsRequestBuilder<longrunning::model::GetOperationRequest>);
+pub struct GetOperation(WorkflowsRequestBuilder<longrunning::model::GetOperationRequest>);
 
 impl GetOperation {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
-        Self(OperationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        Self(WorkflowsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -549,13 +507,13 @@ impl gax::options::RequestBuilder for GetOperation {
     }
 }
 
-/// The request builder for a Operations::delete_operation call.
+/// The request builder for a Workflows::delete_operation call.
 #[derive(Clone, Debug)]
-pub struct DeleteOperation(OperationsRequestBuilder<longrunning::model::DeleteOperationRequest>);
+pub struct DeleteOperation(WorkflowsRequestBuilder<longrunning::model::DeleteOperationRequest>);
 
 impl DeleteOperation {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
-        Self(OperationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        Self(WorkflowsRequestBuilder::new(stub))
     }
 
     /// Set the full request.
