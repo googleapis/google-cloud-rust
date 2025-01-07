@@ -67,6 +67,17 @@ pub struct Credential {
     inner: Arc<dyn dynamic::CredentialTrait>,
 }
 
+impl<T> std::convert::From<T> for Credential
+where
+    T: crate::credentials::CredentialTrait + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
 impl Credential {
     pub async fn get_token(&self) -> Result<crate::token::Token> {
         self.inner.get_token().await
@@ -111,9 +122,10 @@ impl Credential {
 ///
 /// # Notes
 ///
-/// Application developers who directly use the Auth SDK can use this trait
-/// to mock the credentials. Application developers who use the Google Cloud
-/// Rust SDK directly should not need this functionality.
+/// Application developers who directly use the Auth SDK can use this trait,
+/// along with [crate::credentials::Credential::from()] to mock the credentials.
+/// Application developers who use the Google Cloud Rust SDK directly should not
+/// need this functionality.
 ///
 /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
 /// [token-link]: https://cloud.google.com/docs/authentication#token
@@ -164,6 +176,23 @@ pub(crate) mod dynamic {
 
         /// Retrieves the universe domain associated with the credential, if any.
         async fn get_universe_domain(&self) -> Option<String>;
+    }
+
+    /// The public CredentialTrait implements the dyn-compatible CredentialTrait.
+    #[async_trait::async_trait]
+    impl<T> CredentialTrait for T
+    where
+        T: super::CredentialTrait + Send + Sync,
+    {
+        async fn get_token(&self) -> Result<crate::token::Token> {
+            T::get_token(self).await
+        }
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            T::get_headers(self).await
+        }
+        async fn get_universe_domain(&self) -> Option<String> {
+            T::get_universe_domain(self).await
+        }
     }
 }
 
