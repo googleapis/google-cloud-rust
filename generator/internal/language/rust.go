@@ -469,7 +469,7 @@ func (c *RustCodec) PrimitiveFieldType(f *api.Field, state *api.APIState) string
 
 func (c *RustCodec) fieldType(f *api.Field, state *api.APIState, primitive bool) string {
 	if !primitive && f.IsOneOf {
-		return c.wrapOneOfField(f, c.baseFieldType(f, state))
+		return fmt.Sprintf("(%s)", c.baseFieldType(f, state))
 	}
 	if !primitive && f.Repeated {
 		return fmt.Sprintf("Vec<%s>", c.baseFieldType(f, state))
@@ -507,13 +507,6 @@ func (c *RustCodec) baseFieldType(f *api.Field, state *api.APIState) string {
 	}
 	return ScalarFieldType(f)
 
-}
-
-func (c *RustCodec) wrapOneOfField(f *api.Field, value string) string {
-	if f.Typez == api.MESSAGE_TYPE {
-		return fmt.Sprintf("(%s)", value)
-	}
-	return fmt.Sprintf("{ %s: %s }", c.ToSnake(f.Name), value)
 }
 
 func (c *RustCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
@@ -729,7 +722,7 @@ func (*RustCodec) ToSnakeNoMangling(symbol string) string {
 
 // Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this
 // `ToCamel` while usually `camelCase` starts with a lowercase letter. The
-// Rust naming convensions use this style for structs, enums and traits.
+// Rust naming conventions use this style for structs, enums and traits.
 //
 // This type of conversion rarely introduces keywords. The one example is
 //

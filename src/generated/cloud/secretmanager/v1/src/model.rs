@@ -157,7 +157,7 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub expiration: Option<crate::model::secret::Expiration>,
 }
 
@@ -500,7 +500,7 @@ pub mod secret_version {
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub replication: Option<crate::model::replication::Replication>,
 }
 
@@ -707,7 +707,7 @@ pub struct ReplicationStatus {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
 }
 
