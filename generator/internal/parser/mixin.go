@@ -76,61 +76,44 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 	return enabledMixinMethods
 }
 
-// updateMixinState modifies mixin method definitions based on configuration in
-// the service yaml.
-func updateMixinState(serviceConfig *serviceconfig.Service, api *api.API) {
-	// Overwrite the google.api.http annotations with bindings from the Service config.
+// Apply `serviceConfig` overrides to `targetMethod`.
+//
+// The service config file may include overrides to mixin method definitions.
+// These overrides reference the original fully-qualified name of the method,
+// but should be applied to each copy of the method.
+func applyServiceConfigMethodOverrides(
+	targetMethod *api.Method,
+	originalID string,
+	serviceConfig *serviceconfig.Service,
+	api *api.API,
+	mixin *api.Service) {
 	for _, rule := range serviceConfig.GetHttp().GetRules() {
 		selector := rule.GetSelector()
 		if !strings.HasPrefix(selector, ".") {
 			selector = "." + selector
 		}
-		m, match := api.State.MethodByID[selector]
-		if !match {
+		if selector != originalID {
 			continue
 		}
-		pathInfo, err := processRule(rule, api.State, m.InputTypeID)
+		pathInfo, err := processRule(rule, api.State, targetMethod.InputTypeID)
 		if err != nil {
-			slog.Error("unsupported http rule", "method", m, "rule", rule)
+			slog.Error("unsupported http rule", "method", targetMethod, "rule", rule)
 			continue
 		}
-		m.PathInfo = pathInfo
+		targetMethod.PathInfo = pathInfo
 	}
 
-	// Include any documentation from the Service config.
 	for _, rule := range serviceConfig.GetDocumentation().GetRules() {
 		selector := rule.GetSelector()
 		if !strings.HasPrefix(selector, ".") {
 			selector = "." + selector
 		}
-		m, ok := api.State.MethodByID[selector]
-		if !ok {
+		if selector != originalID {
 			continue
 		}
-
-		m.Documentation = rule.GetDescription()
+		targetMethod.Documentation = rule.GetDescription()
 	}
-
-	// Add some default docs for mixins if not specified in service config
-	for _, service := range api.Services {
-		// only process mixin services
-		if !(service.Package == locationPackage || service.Package == iamPackage || service.Package == longrunningPackage) {
-			continue
-		}
-		if service.Package == locationPackage && service.Documentation == "" {
-			service.Documentation = "Manages location-related information with an API service."
-		}
-		if service.Package == iamPackage && service.Documentation == "" {
-			service.Documentation = "Manages Identity and Access Management (IAM) policies with an API service."
-		}
-		if service.Package == longrunningPackage && service.Documentation == "" {
-			service.Documentation = "Manages long-running operations with an API service."
-		}
-
-		for _, method := range service.Methods {
-			if method.Documentation == "" {
-				method.Documentation = fmt.Sprintf("%s is an RPC method of %s.", method.Name, service.Name)
-			}
-		}
+	if targetMethod.Documentation == "" {
+		targetMethod.Documentation = fmt.Sprintf("Provides the [%s][%s] service functionality in this service.", mixin.Name, mixin.ID[1:])
 	}
 }
