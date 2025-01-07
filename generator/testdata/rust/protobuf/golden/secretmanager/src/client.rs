@@ -302,60 +302,6 @@ impl SecretManagerService {
             .set_resource ( resource.into() )
     }
 
-}
-
-/// An implementation of [crate::traits::Locations] to make requests with.
-///
-/// `Locations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Locations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Locations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
-///
-/// Manages location-related information with an API service.
-#[derive(Clone, Debug)]
-pub struct Locations {
-    inner: Arc<dyn crate::traits::dyntraits::Locations>,
-}
-
-impl Locations {
-    /// Creates a new client with the default configuration.
-    pub async fn new() -> Result<Self> {
-        Self::new_with_config(gax::options::ClientConfig::default()).await
-    }
-
-    /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
-        let inner = Self::build_inner(conf).await?;
-        Ok(Self { inner }) 
-    }
-
-    /// Creates a new client from the provided stub.
-    ///
-    /// The most common case for calling this function is when mocking the
-    /// client.
-    pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::Locations + 'static {
-        Self { inner: Arc::new(stub) }
-    }
-
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
-        if conf.tracing_enabled() {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
-        }
-        Ok(Arc::new(Self::build_transport(conf).await?))
-    }
-
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Locations> {
-        crate::transport::Locations::new(conf).await
-    }
-
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Locations> {
-        Self::build_transport(conf).await.map(crate::tracing::Locations::new)
-    }
-
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,

@@ -106,6 +106,18 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         req: iam_v1::model::TestIamPermissionsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::ListLocationsResponse>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::Location>;
 }
 
 /// All implementations of [crate::traits::SecretManagerService] also implement [SecretManagerService].
@@ -245,27 +257,7 @@ impl<T: crate::traits::SecretManagerService> SecretManagerService for T {
     ) -> crate::Result<iam_v1::model::TestIamPermissionsResponse> {
         T::test_iam_permissions(self, req, options).await
     }
-}
 
-/// A dyn-compatible, crate-private version of `Locations`.
-#[async_trait::async_trait]
-pub trait Locations: std::fmt::Debug + Send + Sync {
-    async fn list_locations(
-        &self,
-        req: location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
-
-    async fn get_location(
-        &self,
-        req: location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
-}
-
-/// All implementations of [crate::traits::Locations] also implement [Locations].
-#[async_trait::async_trait]
-impl<T: crate::traits::Locations> Locations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
