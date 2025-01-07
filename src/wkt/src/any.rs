@@ -127,7 +127,9 @@ impl Any {
             .and_then(|v| v.as_str())
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Self::map_de_str)?;
-        if r#type.starts_with("type.googleapis.com/google.protobuf.") {
+        if r#type.starts_with("type.googleapis.com/google.protobuf.")
+            && r#type != "type.googleapis.com/google.protobuf.Empty"
+        {
             return map
                 .get("value")
                 .map(|v| serde_json::from_value::<T>(v.clone()))
@@ -164,6 +166,7 @@ impl<'de> serde::de::Deserialize<'de> for Any {
 mod test {
     use super::*;
     use crate::duration::*;
+    use crate::empty::Empty;
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -193,6 +196,26 @@ mod test {
         let any = Any(input.as_object().unwrap().clone());
         let d = any.try_into_message::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
+        Ok(())
+    }
+
+    #[test]
+    fn serialize_empty() -> Result {
+        let empty = Empty::default();
+        let any = Any::from(&empty)?;
+        let got = serde_json::to_value(any)?;
+        // TODO(#98) - this should be "type.googleapis.com/google.protobuf.Empty"
+        let want = json!({"@type": ""});
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_empty() -> Result {
+        let input = json!({"@type": "type.googleapis.com/google.protobuf.Empty"});
+        let any = Any(input.as_object().unwrap().clone());
+        let empty = any.try_into_message::<Empty>()?;
+        assert_eq!(empty, Empty::default());
         Ok(())
     }
 
