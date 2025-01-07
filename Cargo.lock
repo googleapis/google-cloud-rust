@@ -599,6 +599,8 @@ dependencies = [
  "http",
  "mockall",
  "reqwest",
+ "rustls",
+ "rustls-pemfile",
  "serde",
  "serde_json",
  "test-case",
