@@ -125,7 +125,7 @@ pub struct Workflow {
     /// Required. Location of the workflow source code.
     /// Modifying this field for an existing workflow results in a new workflow
     /// revision.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub source_code: Option<crate::model::workflow::SourceCode>,
 }
 
@@ -366,7 +366,7 @@ pub mod workflow {
     #[non_exhaustive]
     pub enum SourceCode {
         /// Workflow code to be executed. The size limit is 128KB.
-        SourceContents { source_contents: String },
+        SourceContents(String),
     }
 }
 

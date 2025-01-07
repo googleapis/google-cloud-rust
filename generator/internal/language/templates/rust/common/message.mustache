@@ -40,7 +40,7 @@ pub struct {{Name}} {
     {{#FieldAttributes}}
     {{{.}}}
     {{/FieldAttributes}}
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }

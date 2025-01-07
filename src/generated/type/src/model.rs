@@ -335,7 +335,7 @@ pub struct DateTime {
     /// in the future (for example, a country modifies their DST start/end dates,
     /// and future DateTimes in the affected range had already been stored).
     /// If omitted, the DateTime is considered to be in local time.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub time_offset: Option<crate::model::date_time::TimeOffset>,
 }
 
@@ -858,7 +858,7 @@ pub struct PhoneNumber {
     /// Required.  Either a regular number, or a short code.  New fields may be
     /// added to the oneof below in the future, so clients should ignore phone
     /// numbers for which none of the fields they coded against are set.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub kind: Option<crate::model::phone_number::Kind>,
 }
 
@@ -943,7 +943,7 @@ pub mod phone_number {
         ///  - <https://www.itu.int/rec/T-REC-E.164-201011-I>
         ///  - <https://en.wikipedia.org/wiki/E.164>.
         ///  - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
-        E164Number { e164_number: String },
+        E164Number(String),
         /// A short code.
         ///
         /// Reference(s):

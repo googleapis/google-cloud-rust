@@ -46,7 +46,7 @@ pub struct Operation {
     /// If `done` == `false`, neither `error` nor `response` is set.
     /// If `done` == `true`, exactly one of `error` or `response` can be set.
     /// Some services might not provide the result.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub result: Option<crate::model::operation::Result>,
 }
 
