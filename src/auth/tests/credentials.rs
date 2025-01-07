@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gcp_sdk_auth::credentials::testing::test_credentials;
 use gcp_sdk_auth::credentials::{create_access_token_credential, Credential, CredentialTrait};
 use gcp_sdk_auth::errors::CredentialError;
 use gcp_sdk_auth::token::Token;
@@ -132,6 +133,15 @@ mod test {
         assert!(creds.get_headers().await?.is_empty());
         assert_eq!(creds.get_universe_domain().await, None);
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn testing_credentials() -> Result<()> {
+        let creds = test_credentials();
+        assert_eq!(creds.get_token().await?.token, "test-only-token");
+        assert!(creds.get_headers().await?.is_empty());
+        assert_eq!(creds.get_universe_domain().await, None);
         Ok(())
     }
 }
