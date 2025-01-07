@@ -25,24 +25,17 @@ use rustls_pemfile::Item;
 use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
+use crate::credentials::jws::{JwsClaims, JwsHeader};
+
 
 
 
 const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
-/// JSON Web Signature for a token.
-#[derive(Serialize)]
-struct JwsClaims<'a> {
-    pub iss: &'a str,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope: Option<&'a str>,
-    pub aud: &'a str,
-    pub exp: Option<i64>,
-    pub iat: Option<i64>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub typ: Option<&'a str>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub sub: Option<&'a str>,
-}
+const DEFAULT_HEADER: JwsHeader = JwsHeader {
+    alg: "RS256",
+    typ: "JWT",
+    kid: None,
+};
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
@@ -80,32 +73,29 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let service_account_info = Self::from_file(&self.file_path).await?;
         let signer = self.signer(&service_account_info);
 
-        todo!()
-        // let info = self.from_service_account_file().await?;
-        // let signer = self.signer(&info)?;
-        // let mut claims = JwsClaims {
-        //     iss: info.client_email.as_str(),
-        //     aud: info.token_uri.as_str(),
-        //     exp: None,
-        //     iat: None,
-        //     sub: None,
-        //     typ: None,
-        // };
-        // let header = DEFAULT_HEADER;
+        let mut claims = JwsClaims {
+            iss: service_account_info.client_email.as_str(),
+            aud: service_account_info.token_uri.as_str(),
+            scope: None,
+            exp: None,
+            iat: None,
+            sub: None,
+            typ: None,
+        };
+        let header = DEFAULT_HEADER;
 
-        // let ss = format!("{}.{}", header.encode()?, claims.encode()?);
-        // let sig = signer
-        //     .sign(ss.as_bytes())
-        //     .map_err(|e| CredentialError::new(false, e.into()))?;
-        // // use the private key there to create a self signed jwt.
-        // let token = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
-        // let token = Token {
-        //     token: token,
-        //     token_type: "jwt".to_string(),
-        //     expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
-        //     metadata: None,
-        // };
-        // Ok(token)
+        let ss = format!("{}.{}", header.encode()?, claims.encode()?);
+        let sig = signer?
+            .sign(ss.as_bytes())
+            .map_err(|e| CredentialError::new(false, e.into()))?;
+        let token = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
+        let token = Token {
+            token: token,
+            token_type: "jwt".to_string(),
+            expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
+            metadata: None,
+        };
+        Ok(token)
     }
 }
 
