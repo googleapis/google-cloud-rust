@@ -33,6 +33,7 @@ thiserror   = "2"
 time        = "0.3.37"
 rustls         = "0.23.20"
 rustls-pemfile = "2.2"
+tokio       = { version = "1.42", features = ["fs"] }
 
 [dev-dependencies]
 axum        = "0.8.1"
@@ -41,5 +42,5 @@ scoped-env  = "2.1.0"
 serial_test = "3.2.0"
 tempfile    = "3.14.0"
 test-case   = "3.3.1"
-tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
+tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util", "full"] }
 tokio-test  = "0.4.4"
