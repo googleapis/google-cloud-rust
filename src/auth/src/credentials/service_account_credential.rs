@@ -57,8 +57,8 @@ where
 
 #[allow(dead_code)]
 #[derive(Debug)]
-struct ServiceAccountTokenProvider {
-    file_path: String,
+pub struct ServiceAccountTokenProvider {
+    pub file_path: String,
 }
 
 #[async_trait]
