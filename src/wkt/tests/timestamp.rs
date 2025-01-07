@@ -99,3 +99,21 @@ fn convert_to_time() -> Result {
     assert_eq!(got, want);
     Ok(())
 }
+
+#[test]
+fn convert_from_chrono_time() -> Result {
+    let ts = chrono::DateTime::from_timestamp(123, 456789012).unwrap();
+    let got = Timestamp::try_from(ts)?;
+    let want = Timestamp::new(123, 456789012)?;
+    assert_eq!(got, want);
+    Ok(())
+}
+
+#[test]
+fn convert_to_chrono_time() -> Result {
+    let ts = Timestamp::new(123, 456789012)?;
+    let got = chrono::DateTime::try_from(ts)?;
+    let want = chrono::DateTime::from_timestamp(123, 456789012).unwrap();
+    assert_eq!(got, want);
+    Ok(())
+}

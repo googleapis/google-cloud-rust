@@ -14,7 +14,12 @@
 
 package language
 
-import "github.com/googleapis/google-cloud-rust/generator/internal/api"
+import (
+	"log/slog"
+	"strings"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+)
 
 // Codec is an adapter used to transform values into language idiomatic
 // representations. This is used to manipulate the data the is fed into
@@ -77,10 +82,6 @@ type Codec interface {
 	// should be used in conjunction with HTTPPathFmt. An example return value
 	// might be `, req.PathParam()`
 	HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string
-	// QueryParams returns key-value pairs of name to accessor for query params.
-	// An example return value might be
-	// `&Pair{Key: "secretId", Value: "req.SecretId()"}`
-	QueryParams(m *api.Method, state *api.APIState) []*api.Field
 	// ToSnake converts a symbol name to `snake_case`, applying any mangling
 	// required by the language, e.g., to avoid clashes with reserved words.
 	ToSnake(string) string
@@ -148,3 +149,46 @@ type GeneratedFile struct {
 // and the `.mustache` extension, such as `rust/crate/src/lib.rs.mustach` and
 // tuen return the full contents of the template (or an error).
 type TemplateProvider func(templateName string) (string, error)
+
+func PathParams(m *api.Method, state *api.APIState) []*api.Field {
+	msg, ok := state.MessageByID[m.InputTypeID]
+	if !ok {
+		slog.Error("unable to lookup request type", "id", m.InputTypeID)
+		return nil
+	}
+	pathNames := []string{}
+	for _, arg := range m.PathInfo.PathTemplate {
+		if arg.FieldPath != nil {
+			components := strings.Split(*arg.FieldPath, ".")
+			pathNames = append(pathNames, components[0])
+		}
+	}
+
+	var params []*api.Field
+	for _, name := range pathNames {
+		for _, field := range msg.Fields {
+			if field.Name == name {
+				params = append(params, field)
+				break
+			}
+		}
+	}
+	return params
+}
+
+func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
+	msg, ok := state.MessageByID[m.InputTypeID]
+	if !ok {
+		slog.Error("unable to lookup request type", "id", m.InputTypeID)
+		return nil
+	}
+
+	var queryParams []*api.Field
+	for _, field := range msg.Fields {
+		if !m.PathInfo.QueryParameters[field.Name] {
+			continue
+		}
+		queryParams = append(queryParams, field)
+	}
+	return queryParams
+}

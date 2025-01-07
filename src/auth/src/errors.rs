@@ -65,13 +65,16 @@ impl std::error::Error for CredentialError {
     }
 }
 
+const RETRYABLE_MSG: &str = "but future attempts may succeed";
+const NON_RETRYABLE_MSG: &str = "and future attempts will not succeed";
+
 impl Display for CredentialError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let msg = if self.is_retryable {
-            "but future attempts may succeed"
+            RETRYABLE_MSG
         } else {
-            "and future attempts will not succeed"
+            NON_RETRYABLE_MSG
         };
         write!(
             f,
@@ -90,7 +93,6 @@ pub enum InnerAuthError {
     // TODO(#389) - define error types here
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
 pub(crate) fn is_retryable(c: StatusCode) -> bool {
     match c {
         // Internal server errors do not indicate that there is anything wrong
@@ -123,5 +125,18 @@ mod test {
     #[test_case(StatusCode::PRECONDITION_FAILED)]
     fn non_retryable(c: StatusCode) {
         assert!(!is_retryable(c));
+    }
+
+    #[test]
+    fn fmt() {
+        let e = CredentialError::new(true, "test-only-err-123".to_string().into());
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(RETRYABLE_MSG), "{got}");
+
+        let e = CredentialError::new(false, "test-only-err-123".to_string().into());
+        let got = format!("{e}");
+        assert!(got.contains("test-only-err-123"), "{got}");
+        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
     }
 }

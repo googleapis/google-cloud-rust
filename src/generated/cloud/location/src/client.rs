@@ -40,11 +40,11 @@ pub struct Locations {
 impl Locations {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
+        Self::new_with_config(gax::options::ClientConfig::default()).await
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -63,7 +63,7 @@ impl Locations {
     }
 
     async fn build_inner(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
@@ -71,12 +71,14 @@ impl Locations {
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Locations> {
+    async fn build_transport(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl crate::traits::Locations> {
         crate::transport::Locations::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<impl crate::traits::Locations> {
         Self::build_transport(conf)
             .await
@@ -84,12 +86,12 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self) -> crate::builders::ListLocations {
-        crate::builders::ListLocations::new(self.inner.clone())
+    pub fn list_locations(&self, name: impl Into<String>) -> crate::builders::ListLocations {
+        crate::builders::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self) -> crate::builders::GetLocation {
-        crate::builders::GetLocation::new(self.inner.clone())
+    pub fn get_location(&self, name: impl Into<String>) -> crate::builders::GetLocation {
+        crate::builders::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 }

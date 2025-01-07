@@ -12,16 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential;
+use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::Credential;
 use crate::credentials::Result;
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use reqwest::{Client, Method};
+use std::sync::Arc;
 use std::time::Duration;
 use time::OffsetDateTime;
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
+const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
+
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let token_provider = UserTokenProvider::from_json(js)?;
+
+    Ok(Credential {
+        inner: Arc::new(UserCredential { token_provider }),
+    })
+}
+
+#[derive(PartialEq)]
 struct UserTokenProvider {
     client_id: String,
     client_secret: String,
@@ -29,9 +41,33 @@ struct UserTokenProvider {
     endpoint: String,
 }
 
+impl std::fmt::Debug for UserTokenProvider {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("UserTokenCredential")
+            .field("client_id", &self.client_id)
+            .field("client_secret", &"[censored]")
+            .field("refresh_token", &"[censored]")
+            .field("endpoint", &self.endpoint)
+            .finish()
+    }
+}
+
+impl UserTokenProvider {
+    fn from_json(js: serde_json::Value) -> Result<Self> {
+        let au: AuthorizedUser =
+            serde_json::from_value(js).map_err(|e| CredentialError::new(false, e.into()))?;
+        Ok(UserTokenProvider {
+            client_id: au.client_id,
+            client_secret: au.client_secret,
+            refresh_token: au.refresh_token,
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        })
+    }
+}
+
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         let client = Client::new();
 
         // Make the request
@@ -80,7 +116,9 @@ impl TokenProvider for UserTokenProvider {
 }
 
 /// Data model for a UserCredential
-#[allow(dead_code)] // TODO(#442) - implementation in progress
+///
+/// See: https://cloud.google.com/docs/authentication#user-accounts
+#[derive(Debug)]
 pub(crate) struct UserCredential<T>
 where
     T: TokenProvider,
@@ -89,15 +127,15 @@ where
 }
 
 #[async_trait::async_trait]
-impl<T> Credential for UserCredential<T>
+impl<T> CredentialTrait for UserCredential<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(|e| CredentialError::new(false, e.into()))?;
@@ -105,9 +143,18 @@ where
         Ok(vec![(AUTHORIZATION, value)])
     }
 
-    async fn get_universe_domain(&mut self) -> Option<String> {
+    async fn get_universe_domain(&self) -> Option<String> {
         Some("googleapis.com".to_string())
     }
+}
+
+#[derive(Debug, PartialEq, serde::Deserialize)]
+pub(crate) struct AuthorizedUser {
+    #[serde(rename = "type")]
+    cred_type: String,
+    client_id: String,
+    client_secret: String,
+    refresh_token: String,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -147,6 +194,63 @@ mod test {
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    #[test]
+    fn debug_token_provider() {
+        let expected = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        };
+        let fmt = format!("{expected:?}");
+        assert!(fmt.contains("test-client-id"), "{fmt}");
+        assert!(!fmt.contains("test-client-secret"), "{fmt}");
+        assert!(!fmt.contains("test-refresh-token"), "{fmt}");
+        assert!(fmt.contains(OAUTH2_ENDPOINT), "{fmt}");
+    }
+
+    #[test]
+    fn user_token_provider_from_json_success() {
+        let json = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        let expected = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: OAUTH2_ENDPOINT.to_string(),
+        };
+        let actual = UserTokenProvider::from_json(json).unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn user_token_provider_from_json_parse_fail() {
+        let json_full = serde_json::json!({
+            "account": "",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "googleapis.com",
+            "quota_project_id": "test-project"
+        });
+
+        for required_field in ["client_id", "client_secret", "refresh_token"] {
+            let mut json = json_full.clone();
+            // Remove a required field from the JSON
+            json[required_field].take();
+            UserTokenProvider::from_json(json).err().unwrap();
+        }
+    }
+
     #[tokio::test]
     async fn get_token_success() {
         let expected = Token {
@@ -162,7 +266,7 @@ mod test {
             .times(1)
             .return_once(|| Ok(expected_clone));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         let actual = uc.get_token().await.unwrap();
@@ -176,7 +280,7 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         assert!(uc.get_token().await.is_err());
@@ -201,7 +305,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token().times(1).return_once(|| Ok(token));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         let headers: Vec<HV> = uc
@@ -233,7 +337,7 @@ mod test {
             .times(1)
             .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
 
-        let mut uc = UserCredential {
+        let uc = UserCredential {
             token_provider: mock,
         };
         assert!(uc.get_headers().await.is_err());
@@ -309,7 +413,7 @@ mod test {
         let body = response_body.clone();
         let handler = move |req| async move { handle_token_factory(code, body)(req) };
         let app = axum::Router::new().route("/token", axum::routing::post(handler));
-        let listener = tokio::net::TcpListener::bind("0.0.0.0:0").await.unwrap();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
         let addr = listener.local_addr().unwrap();
         let server = tokio::spawn(async {
             axum::serve(listener, app).await.unwrap();
@@ -357,7 +461,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let now = OffsetDateTime::now_utc();
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -388,7 +492,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -409,7 +513,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let e = uc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -428,7 +532,7 @@ mod test {
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let mut uc = UserCredential { token_provider: tp };
+        let uc = UserCredential { token_provider: tp };
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));

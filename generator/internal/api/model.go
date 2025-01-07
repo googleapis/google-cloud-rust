@@ -14,13 +14,6 @@
 
 package api
 
-import (
-	"regexp"
-)
-
-// HTTPPathVarRegex extracts the arg name from positional path strings.
-var HTTPPathVarRegex = regexp.MustCompile(`{([a-zA-Z0-9_.]+?)(=[^{}]+)?}`)
-
 // Typez represent different field types that may be found in messages.
 type Typez int
 
@@ -124,6 +117,8 @@ type Method struct {
 	// set to true.
 	ClientSideStreaming bool
 	ServerSideStreaming bool
+	// For methods returning long-running operations
+	OperationInfo *OperationInfo
 }
 
 // Normalized request path information.
@@ -149,6 +144,16 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
+}
+
+// Normalized long running operation info
+type OperationInfo struct {
+	// The metadata type. If there is no metadata, this is set to
+	// `.google.protobuf.Empty`.
+	MetadataTypeID string
+	// The result type. This is the expected type when the long running
+	// operation completes successfully.
+	ResponseTypeID string
 }
 
 // A path segment is either a string literal (such as "projects") or a field

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Locations](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [Locations](crate::traits::Locations) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Locations {
     inner: gax::http_client::ReqwestClient,
@@ -45,6 +45,7 @@ impl crate::traits::Locations for Locations {
         req: crate::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListLocationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -69,6 +70,7 @@ impl crate::traits::Locations for Locations {
         req: crate::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Location> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))

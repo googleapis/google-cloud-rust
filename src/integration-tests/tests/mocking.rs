@@ -20,7 +20,7 @@ mod mocking {
         #[derive(Debug)]
         SecretManagerService {}
         impl sm::traits::SecretManagerService for SecretManagerService {
-            async fn create_secret(&self, req: sm::model::CreateSecretRequest, _options: gax::options::RequestOptions) -> sm::Result<sm::model::Secret>;
+            async fn create_secret(&self, req: sm::model::CreateSecretRequest, _options: gax::options::RequestOptions) -> gax::Result<sm::model::Secret>;
         }
     }
 
@@ -30,10 +30,9 @@ mod mocking {
         project: &str,
         region: &str,
         id: &str,
-    ) -> sm::Result<sm::model::Secret> {
+    ) -> gax::Result<sm::model::Secret> {
         client
-            .create_secret()
-            .set_parent(format!("projects/{project}/locations/{region}"))
+            .create_secret(format!("projects/{project}/locations/{region}"))
             .set_secret_id(id)
             .send()
             .await

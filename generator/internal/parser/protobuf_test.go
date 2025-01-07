@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
@@ -44,6 +45,23 @@ func TestProtobuf_Info(t *testing.T) {
 	}
 	if diff := cmp.Diff(test.Description, serviceConfig.Documentation.Summary); diff != "" {
 		t.Errorf("description mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestProtobuf_PartialInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+	}
+
+	got := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	want := &api.API{
+		Name:        "secretmanager",
+		Title:       "Secret Manager API",
+		Description: "",
+	}
+	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
+		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
 	}
 }
 
@@ -1172,6 +1190,98 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 					},
 					QueryParameters: map[string]bool{},
 					BodyFieldPath:   "*",
+				},
+			},
+		},
+	})
+}
+
+func TestProtobuf_OperationInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_operation_info.proto"))
+	service, ok := test.State.ServiceByID[".test.LroService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.LroService")
+	}
+	checkService(t, service, &api.Service{
+		Documentation: "A service to unit test the protobuf translator.",
+		DefaultHost:   "test.googleapis.com",
+		Name:          "LroService",
+		ID:            ".test.LroService",
+		Package:       "test",
+		Methods: []*api.Method{
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFoo",
+				ID:            ".test.LroService.CreateFoo",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".google.protobuf.Empty",
+					ResponseTypeID: ".test.Foo",
+				},
+			},
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFooWithProgress",
+				ID:            ".test.LroService.CreateFooWithProgress",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.CreateMetadata",
+					ResponseTypeID: ".test.Foo",
 				},
 			},
 		},

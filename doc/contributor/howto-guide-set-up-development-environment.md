@@ -68,7 +68,7 @@ If you prefer to exclude generated code:
 cargo tarpaulin --out xml --exclude-files 'generator/**' --exclude-files 'src/generated/**' --exclude-files 'src/integration-tests/**'
 ```
 
-## Running the integration tests
+## Integration tests
 
 This guide assumes you are familiar with the [Google Cloud CLI], you have access
 to an existing Google Cloud Projects, and have enough permissions on that
@@ -104,15 +104,16 @@ GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
 ```
 
-### Running the Integration Tests
+### Running
 
 Use `cargo test` to run the tests. The `run-integration-tests` features enables
 running the integration tests. The default is to only run unit tests:
 
 ```bash
+GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 env \
     GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
-    GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT}
+    GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
   cargo test --features run-integration-tests --package integration-tests
 ```
 

@@ -3,13 +3,13 @@ module github.com/googleapis/google-cloud-rust/generator
 go 1.23.2
 
 require (
-	cloud.google.com/go/iam v1.3.0
-	cloud.google.com/go/longrunning v0.6.3
+	cloud.google.com/go/iam v1.3.1
+	cloud.google.com/go/longrunning v0.6.4
 	github.com/cbroglie/mustache v1.4.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/google/go-cmp v0.6.0
 	github.com/iancoleman/strcase v0.3.0
-	github.com/pb33f/libopenapi v0.18.7
+	github.com/pb33f/libopenapi v0.19.1
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
 	google.golang.org/genproto v0.0.0-20241219192143-6b3ec007d9bb

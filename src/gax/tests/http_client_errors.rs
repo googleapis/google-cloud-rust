@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::http_client::*;
+use gax::http_client::ReqwestClient;
 use gax::options::*;
 use gcp_sdk_gax as gax;
 use serde_json::json;
@@ -24,7 +24,8 @@ async fn test_error_with_status() -> Result<()> {
     use serde_json::Value;
     let (endpoint, _server) = echo_server::start().await?;
 
-    let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+    let config =
+        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
     let client = ReqwestClient::new(config, &endpoint).await?;
 
     let builder = client.builder(reqwest::Method::GET, "/error".into());

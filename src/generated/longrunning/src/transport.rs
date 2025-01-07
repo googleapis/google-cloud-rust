@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Operations](crate::traits::) using a [gax::http_client::ReqwestClient].
+/// Implements [Operations](crate::traits::Operations) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Operations {
     inner: gax::http_client::ReqwestClient,
@@ -45,6 +45,7 @@ impl crate::traits::Operations for Operations {
         req: crate::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListOperationsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -69,6 +70,7 @@ impl crate::traits::Operations for Operations {
         req: crate::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Operation> {
+        let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::GET, format!("/v1/{}", req.name))
@@ -87,6 +89,7 @@ impl crate::traits::Operations for Operations {
         req: crate::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::DELETE.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::DELETE, format!("/v1/{}", req.name))
@@ -105,6 +108,7 @@ impl crate::traits::Operations for Operations {
         req: crate::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<wkt::Empty> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
         let builder = self
             .inner
             .builder(reqwest::Method::POST, format!("/v1/{}:cancel", req.name))

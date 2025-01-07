@@ -46,11 +46,11 @@ pub struct Operations {
 impl Operations {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
+        Self::new_with_config(gax::options::ClientConfig::default()).await
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -69,7 +69,7 @@ impl Operations {
     }
 
     async fn build_inner(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<Arc<dyn crate::traits::dyntraits::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
@@ -77,12 +77,14 @@ impl Operations {
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::Operations> {
+    async fn build_transport(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl crate::traits::Operations> {
         crate::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<impl crate::traits::Operations> {
         Self::build_transport(conf)
             .await
@@ -91,23 +93,23 @@ impl Operations {
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(&self) -> crate::builders::ListOperations {
-        crate::builders::ListOperations::new(self.inner.clone())
+    pub fn list_operations(&self, name: impl Into<String>) -> crate::builders::ListOperations {
+        crate::builders::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
     /// method to poll the operation result at intervals as recommended by the API
     /// service.
-    pub fn get_operation(&self) -> crate::builders::GetOperation {
-        crate::builders::GetOperation::new(self.inner.clone())
+    pub fn get_operation(&self, name: impl Into<String>) -> crate::builders::GetOperation {
+        crate::builders::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
     /// no longer interested in the operation result. It does not cancel the
     /// operation. If the server doesn't support this method, it returns
     /// `google.rpc.Code.UNIMPLEMENTED`.
-    pub fn delete_operation(&self) -> crate::builders::DeleteOperation {
-        crate::builders::DeleteOperation::new(self.inner.clone())
+    pub fn delete_operation(&self, name: impl Into<String>) -> crate::builders::DeleteOperation {
+        crate::builders::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -125,7 +127,7 @@ impl Operations {
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: crate::traits::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
-    pub fn cancel_operation(&self) -> crate::builders::CancelOperation {
-        crate::builders::CancelOperation::new(self.inner.clone())
+    pub fn cancel_operation(&self, name: impl Into<String>) -> crate::builders::CancelOperation {
+        crate::builders::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }
 }
