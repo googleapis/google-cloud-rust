@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::traits::dynamic::Credential;
+use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::Result;
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::crypto::aws_lc_rs::sign;
 use crate::errors::CredentialError;
 use std::path::Path;
-use std::fs::File;
-use std::io::Read;
 use async_trait::async_trait;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
@@ -46,8 +44,11 @@ struct JwsClaims<'a> {
     pub sub: Option<&'a str>,
 }
 
+/// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
+/// for more details.
 #[allow(dead_code)] // Implementation in progress
-struct ServiceAccountInfo {
+#[derive(serde::Deserialize)]
+struct ServiceAccountKeyFile {
     client_email: String,
     private_key_id: String,
     private_key: String,
@@ -58,6 +59,7 @@ struct ServiceAccountInfo {
 }
 
 #[allow(dead_code)] // Implementation in progress
+#[derive(Debug)]
 pub(crate) struct ServiceAccountCredential<T>
 where
     T: TokenProvider,
@@ -65,50 +67,61 @@ where
     token_provider: T,
 }
 
-#[allow(dead_code)] // TODO(#442) - implementation in progress
+#[allow(dead_code)]
+#[derive(Debug)]
 struct ServiceAccountTokenProvider {
-    service_account_info: ServiceAccountInfo,
+    file_path: String,
 }
 
 #[async_trait]
 #[allow(dead_code)]
 impl TokenProvider for ServiceAccountTokenProvider {
-    async fn get_token(&mut self) -> Result<Token> {
-        let info = self.from_service_account_file().await?;
-        let signer = self.signer(&info)?;
-        let mut claims = JwsClaims {
-            iss: info.client_email.as_str(),
-            aud: info.token_uri.as_str(),
-            exp: None,
-            iat: None,
-            sub: None,
-            typ: None,
-        };
-        let header = DEFAULT_HEADER;
+    async fn get_token(&self) -> Result<Token> {
+        let service_account_info = Self::from_file(&self.file_path).await?;
+        let signer = self.signer(&service_account_info);
 
-        let ss = format!("{}.{}", header.encode()?, claims.encode()?);
-        let sig = signer
-            .sign(ss.as_bytes())
-            .map_err(|e| CredentialError::new(false, e.into()))?;
-        // use the private key there to create a self signed jwt.
-        let tt = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
-        let token = Token {
-            token: tt,
-            token_type: "jwt",
-            expires_at: OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT,
-            metadata: None,
-        };
-        Ok(token)
+        todo!()
+        // let info = self.from_service_account_file().await?;
+        // let signer = self.signer(&info)?;
+        // let mut claims = JwsClaims {
+        //     iss: info.client_email.as_str(),
+        //     aud: info.token_uri.as_str(),
+        //     exp: None,
+        //     iat: None,
+        //     sub: None,
+        //     typ: None,
+        // };
+        // let header = DEFAULT_HEADER;
+
+        // let ss = format!("{}.{}", header.encode()?, claims.encode()?);
+        // let sig = signer
+        //     .sign(ss.as_bytes())
+        //     .map_err(|e| CredentialError::new(false, e.into()))?;
+        // // use the private key there to create a self signed jwt.
+        // let token = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
+        // let token = Token {
+        //     token: token,
+        //     token_type: "jwt".to_string(),
+        //     expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
+        //     metadata: None,
+        // };
+        // Ok(token)
     }
 }
 
 impl ServiceAccountTokenProvider {
-    async fn from_service_account_file<P: AsRef<Path>>(&mut self) -> Result<ServiceAccountInfo> {
-        //reads the file and returns back ServiceAccountInfo object
-        todo!()
+    async fn from_file(
+        path: impl AsRef<Path>,
+    ) -> Result<ServiceAccountKeyFile> {
+        // todo!()
+        let sa: ServiceAccountKeyFile =
+            serde_json::from_slice(&tokio::fs::read(path).await.map_err(|e| CredentialError::new(false, e.into()))?)
+                .map_err(|e| CredentialError::new(false, e.into()))?;
+        Ok(sa)
     }
-        // Creates a signer using the private key stored in the service account file.
-    fn signer(&self, service_account_info: &ServiceAccountInfo) -> Result<Box<dyn Signer>> {
+
+    // Creates a signer using the private key stored in the service account file.
+    fn signer(&self, service_account_info: &ServiceAccountKeyFile) -> Result<Box<dyn Signer>> {
         let crypto_provider = rustls::crypto::CryptoProvider::get_default()
             .ok_or_else(|| CredentialError::new(false, Box::from("unable to get crypto provider")))?;
 
@@ -143,15 +156,15 @@ impl ServiceAccountTokenProvider {
 
 
 #[async_trait::async_trait]
-impl<T> Credential for ServiceAccountCredential<T>
+impl<T> CredentialTrait for ServiceAccountCredential<T>
 where
     T: TokenProvider,
 {
-    async fn get_token(&mut self) -> Result<Token> {
+    async fn get_token(&self) -> Result<Token> {
         self.token_provider.get_token().await
     }
 
-    async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+    async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
             .map_err(|e| CredentialError::new(false, e.into()))?;
@@ -159,7 +172,7 @@ where
         Ok(vec![(AUTHORIZATION, value)])
     }
 
-    async fn get_universe_domain(&mut self) -> Option<String> {
+    async fn get_universe_domain(&self) -> Option<String> {
         Some("googleapis.com".to_string())
     }
 }
