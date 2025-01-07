@@ -348,7 +348,7 @@ pub mod testing {
     use crate::credentials::Credential;
     use crate::token::Token;
     use crate::Result;
-    use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+    use http::header::{HeaderName, HeaderValue};
     use std::sync::Arc;
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
@@ -375,14 +375,11 @@ pub mod testing {
         }
 
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Ok(vec![(
-                AUTHORIZATION,
-                HeaderValue::from_static("Bearer: test-only-token"),
-            )])
+            Ok(Vec::new())
         }
 
         async fn get_universe_domain(&self) -> Option<String> {
-            Some("googleapis.com".to_string())
+            None
         }
     }
 }
