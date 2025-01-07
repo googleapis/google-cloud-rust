@@ -13,22 +13,17 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
+use crate::credentials::jws::{JwsClaims, JwsHeader};
 use crate::credentials::Result;
-use crate::token::{Token, TokenProvider};
-use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
-use rustls::crypto::aws_lc_rs::sign;
 use crate::errors::CredentialError;
-use std::path::Path;
+use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
+use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
-use serde::Serialize;
+use std::path::Path;
 use std::time::Duration;
 use time::OffsetDateTime;
-use crate::credentials::jws::{JwsClaims, JwsHeader};
-
-
-
 
 const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 const DEFAULT_HEADER: JwsHeader = JwsHeader {
@@ -90,7 +85,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
             .map_err(|e| CredentialError::new(false, e.into()))?;
         let token = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
         let token = Token {
-            token: token,
+            token,
             token_type: "jwt".to_string(),
             expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
             metadata: None,
@@ -100,50 +95,47 @@ impl TokenProvider for ServiceAccountTokenProvider {
 }
 
 impl ServiceAccountTokenProvider {
-    async fn from_file(
-        path: impl AsRef<Path>,
-    ) -> Result<ServiceAccountKeyFile> {
-        // todo!()
-        let sa: ServiceAccountKeyFile =
-            serde_json::from_slice(&tokio::fs::read(path).await.map_err(|e| CredentialError::new(false, e.into()))?)
-                .map_err(|e| CredentialError::new(false, e.into()))?;
+    async fn from_file(path: impl AsRef<Path>) -> Result<ServiceAccountKeyFile> {
+        let sa: ServiceAccountKeyFile = serde_json::from_slice(
+            &tokio::fs::read(path)
+                .await
+                .map_err(|e| CredentialError::new(false, e.into()))?,
+        )
+        .map_err(|e| CredentialError::new(false, e.into()))?;
         Ok(sa)
     }
 
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, service_account_info: &ServiceAccountKeyFile) -> Result<Box<dyn Signer>> {
-        let crypto_provider = rustls::crypto::CryptoProvider::get_default()
-            .ok_or_else(|| CredentialError::new(false, Box::from("unable to get crypto provider")))?;
-
+        let crypto_provider = rustls::crypto::CryptoProvider::get_default().ok_or_else(|| {
+            CredentialError::new(false, Box::from("unable to get crypto provider"))
+        })?;
 
         let key_provider = crypto_provider.key_provider;
 
         let pk = rustls_pemfile::read_one(&mut service_account_info.private_key.as_bytes())
-        .map_err(|e| CredentialError::new(false, e.into()))?
+            .map_err(|e| CredentialError::new(false, e.into()))?
             .ok_or_else(|| {
-                CredentialError::new(false,Box::from("unable to parse service account key"))
+                CredentialError::new(false, Box::from("unable to parse service account key"))
             })?;
         let pk = match pk {
             Item::Pkcs1Key(item) => key_provider.load_private_key(item.into()),
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
             other => {
-                return Err(CredentialError::new(false, Box::from(
-                    format!(
+                return Err(CredentialError::new(
+                    false,
+                    Box::from(format!(
                         "expected key to be in form of RSA or PKCS8, found {:?}",
                         other
-                    )
-                )))
+                    )),
+                ))
             }
         };
-        let sk = pk.map_err(|e| {
-            CredentialError::new(false, Box::from("unable to create signing key"))
-        })?;
+        let sk = pk.map_err(|e| CredentialError::new(false, e.into()))?;
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
             .ok_or_else(|| CredentialError::new(false, Box::from("invalid signing scheme")))
     }
-    
 }
-
 
 #[async_trait::async_trait]
 impl<T> CredentialTrait for ServiceAccountCredential<T>

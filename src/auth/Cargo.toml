@@ -34,6 +34,8 @@ time        = "0.3.37"
 rustls         = "0.23.20"
 rustls-pemfile = "2.2"
 tokio       = { version = "1.42", features = ["fs"] }
+base64         = "0.22"
+
 
 [dev-dependencies]
 axum        = "0.8.1"
