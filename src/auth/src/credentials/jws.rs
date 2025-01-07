@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{Error, ErrorKind, Result};
-use chrono::Utc;
+// use super::{Error, ErrorKind, Result};
+// use chrono::Utc;
 use serde::Serialize;
+use serde_json::to_string;
+use crate::credentials::Result;
 
 /// JSON Web Signature for a token.
 #[derive(Serialize)]
@@ -33,21 +35,22 @@ pub struct JwsClaims<'a> {
 
 impl JwsClaims<'_> {
     pub fn encode(&mut self) -> Result<String> {
-        let now = Utc::now() - chrono::Duration::seconds(10);
-        self.iat = self.iat.or_else(|| Some(now.timestamp()));
-        self.exp = self
-            .iat
-            .or_else(|| Some((now + chrono::Duration::hours(1)).timestamp()));
-        if self.exp.unwrap() < self.iat.unwrap() {
-            return Err(Error::new(
-                "exp must be later than iat",
-                ErrorKind::Validation,
-            ));
-        }
+        // let now = OffsetDateTime::now_utc()- chrono::Duration::seconds(10);
+        // self.iat = self.iat.or_else(|| Some(now.timestamp()));
+        // self.exp = self
+        //     .iat
+        //     .or_else(|| Some((now + chrono::Duration::hours(1)).timestamp()));
+        // if self.exp.unwrap() < self.iat.unwrap() {
+        //     return Err(Error::new(
+        //         "exp must be later than iat",
+        //         ErrorKind::Validation,
+        //     ));
+        // }
 
-        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
-        Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
+        // use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        // let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
+        // Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
+        todo!()
     }
 }
 
@@ -62,8 +65,9 @@ pub struct JwsHeader<'a> {
 
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
-        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
-        Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
+        // use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        // let json = serde_json::to_string(&self).map_err(Error::wrap_serialization)?;
+        // Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
+        todo!()
     }
 }
