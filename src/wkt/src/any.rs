@@ -359,6 +359,23 @@ mod test {
         Ok(())
     }
 
+    #[derive(Default, serde::Serialize)]
+    struct DetectBadMessages(serde_json::Value);
+    impl crate::message::Message for DetectBadMessages {
+        fn typename() -> &'static str {
+            "not used"
+        }
+    }
+
+    #[test]
+    fn try_from_error() -> Result {
+        let input = DetectBadMessages(json!([2, 3]));
+        let got = Any::try_from(&input);
+        assert!(got.is_err(), "{got:?}");
+
+        Ok(())
+    }
+
     #[test]
     fn deserialize_error() -> Result {
         let input = json!({"@type-is-missing": ""});
