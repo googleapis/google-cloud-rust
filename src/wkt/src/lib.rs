@@ -35,3 +35,4 @@ mod timestamp;
 pub use crate::timestamp::*;
 mod wrappers;
 pub use crate::wrappers::*;
+pub mod message;

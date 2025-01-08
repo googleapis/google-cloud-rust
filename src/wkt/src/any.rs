@@ -76,7 +76,7 @@ impl AnyError {
     }
 
     pub(crate) fn deser<T: Into<BoxedError>>(v: T) -> Self {
-        Self::SerializationError(v.into())
+        Self::DeserializationError(v.into())
     }
 }
 
@@ -84,6 +84,41 @@ type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = AnyError;
 
 impl Any {
+    /// Creates a new [Any] from any [Message][crate::message::Message] that
+    /// also supports serialization to JSON.
+    pub fn try_from<T>(message: &T) -> Result<Self, Error>
+    where
+        T: serde::ser::Serialize + crate::message::Message,
+    {
+        use serde_json::{Map, Value};
+
+        let value = serde_json::to_value(message).map_err(Error::ser)?;
+        let value = match value {
+            Value::Object(mut map) => {
+                map.insert(
+                    "@type".to_string(),
+                    Value::String(T::typename().to_string()),
+                );
+                map
+            }
+            Value::String(s) => {
+                // Only a few well-known messages are serialized into something
+                // other than a object. In all cases, they are serialized using
+                // a small JSON object, with the string in the `value` field.
+                let map: Map<String, serde_json::Value> =
+                    [("@type", T::typename().to_string()), ("value", s)]
+                        .into_iter()
+                        .map(|(k, v)| (k.to_string(), Value::String(v)))
+                        .collect();
+                map
+            }
+            _ => {
+                return Err(Self::unexpected_json_type());
+            }
+        };
+        Ok(Any(value))
+    }
+
     /// Creates a new [Any] from any object that supports serialization to JSON.
     // TODO(#98) - each message should have a type value
     pub fn from<T>(message: &T) -> Result<Self, Error>
@@ -131,6 +166,7 @@ impl Any {
             .map_err(Error::deser)?;
         if r#type.starts_with("type.googleapis.com/google.protobuf.")
             && r#type != "type.googleapis.com/google.protobuf.Empty"
+            && r#type != "type.googleapis.com/google.protobuf.FieldMask"
         {
             return map
                 .get("value")
@@ -176,6 +212,8 @@ mod test {
     use super::*;
     use crate::duration::*;
     use crate::empty::Empty;
+    use crate::field_mask::*;
+    use crate::timestamp::*;
     use serde_json::json;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -192,16 +230,17 @@ mod test {
     #[test]
     fn serialize_duration() -> Result {
         let d = Duration::clamp(60, 0);
-        let any = Any::from(&d)?;
+        let any = Any::try_from(&d)?;
         let got = serde_json::to_value(any)?;
-        let want = json!({"@type": "type.googleapis.com/google.protobuf.", "value": "60s"});
+        let want = json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "60s"});
         assert_eq!(got, want);
         Ok(())
     }
 
     #[test]
     fn deserialize_duration() -> Result {
-        let input = json!({"@type": "type.googleapis.com/google.protobuf.", "value": "60s"});
+        let input =
+            json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "60s"});
         let any = Any(input.as_object().unwrap().clone());
         let d = any.try_into_message::<Duration>()?;
         assert_eq!(d, Duration::clamp(60, 0));
@@ -211,10 +250,9 @@ mod test {
     #[test]
     fn serialize_empty() -> Result {
         let empty = Empty::default();
-        let any = Any::from(&empty)?;
+        let any = Any::try_from(&empty)?;
         let got = serde_json::to_value(any)?;
-        // TODO(#98) - this should be "type.googleapis.com/google.protobuf.Empty"
-        let want = json!({"@type": ""});
+        let want = json!({"@type": "type.googleapis.com/google.protobuf.Empty"});
         assert_eq!(got, want);
         Ok(())
     }
@@ -225,6 +263,49 @@ mod test {
         let any = Any(input.as_object().unwrap().clone());
         let empty = any.try_into_message::<Empty>()?;
         assert_eq!(empty, Empty::default());
+        Ok(())
+    }
+
+    #[test]
+    fn serialize_field_mask() -> Result {
+        let d = FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
+        let any = Any::try_from(&d)?;
+        let got = serde_json::to_value(any)?;
+        let want =
+            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_field_mask() -> Result {
+        let input =
+            json!({"@type": "type.googleapis.com/google.protobuf.FieldMask", "paths": "a,b"});
+        let any = Any(input.as_object().unwrap().clone());
+        let d = any.try_into_message::<FieldMask>()?;
+        assert_eq!(
+            d,
+            FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec())
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn serialize_timestamp() -> Result {
+        let d = Timestamp::clamp(123, 0);
+        let any = Any::try_from(&d)?;
+        let got = serde_json::to_value(any)?;
+        let want = json!({"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": "1970-01-01T00:02:03Z"});
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialize_timestamp() -> Result {
+        let input = json!({"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": "1970-01-01T00:02:03Z"});
+        let any = Any(input.as_object().unwrap().clone());
+        let d = any.try_into_message::<Timestamp>()?;
+        assert_eq!(d, Timestamp::clamp(123, 0));
         Ok(())
     }
 
@@ -275,6 +356,23 @@ mod test {
             Error::SerializationError(_) => assert!(true),
             _ => assert!(false, "unexpected error {got:?}"),
         };
+        Ok(())
+    }
+
+    #[derive(Default, serde::Serialize)]
+    struct DetectBadMessages(serde_json::Value);
+    impl crate::message::Message for DetectBadMessages {
+        fn typename() -> &'static str {
+            "not used"
+        }
+    }
+
+    #[test]
+    fn try_from_error() -> Result {
+        let input = DetectBadMessages(json!([2, 3]));
+        let got = Any::try_from(&input);
+        assert!(got.is_err(), "{got:?}");
+
         Ok(())
     }
 

@@ -253,6 +253,12 @@ impl FieldMask {
     }
 }
 
+impl crate::message::Message for FieldMask {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.FieldMask"
+    }
+}
+
 /// Implement [`serde`](::serde) serialization for [FieldMask]
 impl serde::ser::Serialize for FieldMask {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
