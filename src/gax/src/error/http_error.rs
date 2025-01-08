@@ -73,20 +73,6 @@ impl std::fmt::Display for HttpError {
 
 impl std::error::Error for HttpError {}
 
-#[cfg(feature = "unstable-sdk-client")]
-/// A helpers to convert [reqwest::header::HeaderMap] to [std::collections::HashMap].
-pub fn convert_headers(
-    header_map: &reqwest::header::HeaderMap,
-) -> std::collections::HashMap<String, String> {
-    let mut headers = std::collections::HashMap::new();
-    for (key, value) in header_map {
-        if let Ok(value) = value.to_str() {
-            headers.insert(key.to_string(), value.to_string());
-        }
-    }
-    headers
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
