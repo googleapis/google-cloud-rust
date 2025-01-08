@@ -31,7 +31,7 @@ serde       = { version = "1.0.216", features = ["derive"] }
 serde_json  = "1.0.134"
 thiserror   = "2"
 time        = "0.3.37"
-rustls = { version = "0.21", features = ["default", "ring"] } 
+rustls = "0.23.20"
 rustls-pemfile = "2.2"
 tokio       = { version = "1.42", features = ["fs"] }
 base64         = "0.22"

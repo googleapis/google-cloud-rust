@@ -12,3 +12,4 @@ categories.workspace = true
 [dependencies]
 gcp-sdk-auth = { path = "../src/auth" }
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
+rustls = {version ="0.23.20", features = ["ring"]}
