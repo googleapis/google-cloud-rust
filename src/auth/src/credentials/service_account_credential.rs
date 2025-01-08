@@ -66,7 +66,7 @@ pub struct ServiceAccountTokenProvider {
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let service_account_info = Self::from_file(&self.file_path).await?;
-        let signer = self.signer(&service_account_info);
+        let signer = self.signer(&service_account_info.private_key)?;
 
         let mut claims = JwsClaims {
             iss: service_account_info.client_email.as_str(),
@@ -80,13 +80,15 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let header = DEFAULT_HEADER;
 
         let ss = format!("{}.{}", header.encode()?, claims.encode()?);
-        let sig = signer?
+        let sig = signer
             .sign(ss.as_bytes())
             .map_err(|e| CredentialError::new(false, e.into()))?;
-        let token = String::from_utf8(sig).map_err(|e| CredentialError::new(false, e.into()))?;
+        use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
+        let token = format!("{}.{}", ss, &BASE64_URL_SAFE_NO_PAD.encode(sig));
+
         let token = Token {
             token,
-            token_type: "jwt".to_string(),
+            token_type: "JWT".to_string(),
             expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
             metadata: None,
         };
@@ -106,14 +108,14 @@ impl ServiceAccountTokenProvider {
     }
 
     // Creates a signer using the private key stored in the service account file.
-    fn signer(&self, service_account_info: &ServiceAccountKeyFile) -> Result<Box<dyn Signer>> {
+    fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
         let crypto_provider = rustls::crypto::CryptoProvider::get_default().ok_or_else(|| {
             CredentialError::new(false, Box::from("unable to get crypto provider"))
         })?;
 
         let key_provider = crypto_provider.key_provider;
 
-        let pk = rustls_pemfile::read_one(&mut service_account_info.private_key.as_bytes())
+        let pk = rustls_pemfile::read_one(&mut private_key.as_bytes())
             .map_err(|e| CredentialError::new(false, e.into()))?
             .ok_or_else(|| {
                 CredentialError::new(false, Box::from("unable to parse service account key"))
