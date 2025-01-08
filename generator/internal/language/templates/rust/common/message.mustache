@@ -63,6 +63,12 @@ impl {{Name}} {
     }
     {{/ExplicitOneOfs}}
 }
+
+impl wkt::message::Message for {{Name}} {
+    fn typename() -> &'static str {
+        "type.googleapis.com/{{SourcePackageName}}.{{Name}}"
+    }
+}
 {{#IsPageableResponse}}
 
 #[cfg(feature = "unstable-stream")]

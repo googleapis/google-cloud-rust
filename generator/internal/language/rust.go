@@ -1034,6 +1034,10 @@ func (c *RustCodec) PackageVersion() string {
 	return c.Version
 }
 
+func (c *RustCodec) SourcePackageName() string {
+	return c.SourceSpecificationPackageName
+}
+
 func (c *RustCodec) PackageName(api *api.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
