@@ -119,44 +119,10 @@ impl Any {
         Ok(Any(value))
     }
 
-    /// Creates a new [Any] from any object that supports serialization to JSON.
-    // TODO(#98) - each message should have a type value
-    pub fn from<T>(message: &T) -> Result<Self, Error>
-    where
-        T: serde::ser::Serialize,
-    {
-        use serde_json::Value;
-
-        let value = serde_json::to_value(message).map_err(Error::ser)?;
-        let value = match value {
-            Value::Object(mut map) => {
-                map.insert("@type".to_string(), serde_json::json!(""));
-                map
-            }
-            Value::String(s) => {
-                // Only a handful of well-known messages are serialized into
-                // something other than a object. In all cases, they are
-                // serialized using a `value` field.
-                // TODO(#98) - each message should have a type value
-                let mut map = serde_json::Map::new();
-                map.insert(
-                    "@type".to_string(),
-                    serde_json::Value::String("type.googleapis.com/google.protobuf.".into()),
-                );
-                map.insert("value".to_string(), serde_json::Value::String(s));
-                map
-            }
-            _ => {
-                return Err(Self::unexpected_json_type());
-            }
-        };
-        Ok(Any(value))
-    }
-
     /// Extracts (if possible) a `T` value from the [Any].
     pub fn try_into_message<T>(&self) -> Result<T, Error>
     where
-        T: serde::de::DeserializeOwned,
+        T: serde::de::DeserializeOwned + crate::message::Message,
     {
         let map = &self.0;
         let r#type = map
@@ -164,6 +130,7 @@ impl Any {
             .and_then(|v| v.as_str())
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
             .map_err(Error::deser)?;
+        Self::check_typename(r#type, T::typename())?;
         if r#type.starts_with("type.googleapis.com/google.protobuf.")
             && r#type != "type.googleapis.com/google.protobuf.Empty"
             && r#type != "type.googleapis.com/google.protobuf.FieldMask"
@@ -183,6 +150,13 @@ impl Any {
 
     fn unexpected_json_type() -> Error {
         Error::ser("unexpected JSON type, only Object and String are supported")
+    }
+
+    fn check_typename(got: &str, want: &str) -> Result<(), Error> {
+        if got == want {
+            return Ok(());
+        }
+        Err(Error::deser(format!("mismatched typenames extracting from Any, the any has {got}, the target type is {want}")))
     }
 }
 
@@ -225,6 +199,12 @@ mod test {
         pub parent: String,
         #[serde(skip_serializing_if = "String::is_empty")]
         pub id: String,
+    }
+
+    impl crate::message::Message for Stored {
+        fn typename() -> &'static str {
+            "type.googleapis.com/wkt.test.Stored"
+        }
     }
 
     #[test]
@@ -315,16 +295,18 @@ mod test {
             parent: "parent".to_string(),
             id: "id".to_string(),
         };
-        let any = Any::from(&d)?;
+        let any = Any::try_from(&d)?;
         let got = serde_json::to_value(any)?;
-        let want = json!({"@type": "", "parent": "parent", "id": "id"});
+        let want =
+            json!({"@type": "type.googleapis.com/wkt.test.Stored", "parent": "parent", "id": "id"});
         assert_eq!(got, want);
         Ok(())
     }
 
     #[test]
     fn deserialize_generic() -> Result {
-        let input = json!({"@type": "", "parent": "parent", "id": "id"});
+        let input =
+            json!({"@type": "type.googleapis.com/wkt.test.Stored", "parent": "parent", "id": "id"});
         let any = Any(input.as_object().unwrap().clone());
         let d = any.try_into_message::<Stored>()?;
         assert_eq!(
@@ -334,28 +316,6 @@ mod test {
                 id: "id".to_string()
             }
         );
-        Ok(())
-    }
-
-    #[test]
-    fn serialize_error() -> Result {
-        use std::collections::BTreeMap;
-        let mut input = BTreeMap::new();
-        input.insert(vec![2, 3], "unused");
-        let got = Any::from(&input);
-        assert!(got.is_err());
-        match got.as_ref().err().unwrap() {
-            Error::SerializationError(_) => assert!(true),
-            _ => assert!(false, "unexpected error {got:?}"),
-        };
-
-        let input = vec![2, 3, 4];
-        let got = Any::from(&input);
-        assert!(got.is_err());
-        match got.as_ref().err().unwrap() {
-            Error::SerializationError(_) => assert!(true),
-            _ => assert!(false, "unexpected error {got:?}"),
-        };
         Ok(())
     }
 
@@ -377,28 +337,58 @@ mod test {
     }
 
     #[test]
-    fn deserialize_error() -> Result {
+    fn deserialize_missing_type_field() -> Result {
         let input = json!({"@type-is-missing": ""});
         let any = serde_json::from_value::<Any>(input)?;
         let got = any.try_into_message::<Stored>();
         assert!(got.is_err());
+        Ok(())
+    }
 
+    #[test]
+    fn deserialize_invalid_type_field() -> Result {
         let input = json!({"@type": [1, 2, 3]});
         let any = serde_json::from_value::<Any>(input)?;
         let got = any.try_into_message::<Stored>();
         assert!(got.is_err());
+        Ok(())
+    }
 
+    #[test]
+    fn deserialize_missing_value_field() -> Result {
         let input = json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value-is-missing": "1.2s"});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Stored>();
+        let got = any.try_into_message::<Duration>();
         assert!(got.is_err());
+        Ok(())
+    }
 
+    #[test]
+    fn deserialize_invalid_value_field() -> Result {
         let input =
             json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": ["1.2s"]});
         let any = serde_json::from_value::<Any>(input)?;
-        let got = any.try_into_message::<Stored>();
+        let got = any.try_into_message::<Duration>();
         assert!(got.is_err());
+        Ok(())
+    }
 
+    #[test]
+    fn deserialize_type_mismatch() -> Result {
+        let input =
+            json!({"@type": "type.googleapis.com/google.protobuf.Duration", "value": "1.2s"});
+        let any = serde_json::from_value::<Any>(input)?;
+        let got = any.try_into_message::<Timestamp>();
+        assert!(got.is_err());
+        let error = got.err().unwrap();
+        assert!(
+            format!("{error}").contains("type.googleapis.com/google.protobuf.Duration"),
+            "{error}"
+        );
+        assert!(
+            format!("{error}").contains("type.googleapis.com/google.protobuf.Timestamp"),
+            "{error}"
+        );
         Ok(())
     }
 }
