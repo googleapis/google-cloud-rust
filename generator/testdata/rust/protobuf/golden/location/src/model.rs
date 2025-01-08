@@ -69,6 +69,12 @@ impl ListLocationsRequest {
     }
 }
 
+impl wkt::message::Message for ListLocationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.location.ListLocationsRequest"
+    }
+}
+
 /// The response message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
 /// [google.cloud.location.Locations.ListLocations]: crate::traits::Locations::list_locations
@@ -99,6 +105,12 @@ impl ListLocationsResponse {
     pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListLocationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.location.ListLocationsResponse"
     }
 }
 
@@ -135,6 +147,12 @@ impl GetLocationRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetLocationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.location.GetLocationRequest"
     }
 }
 
@@ -203,5 +221,11 @@ impl Location {
     pub fn set_metadata<T: Into<Option<wkt::Any>>>(mut self, v: T) -> Self {
         self.metadata = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Location {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.location.Location"
     }
 }

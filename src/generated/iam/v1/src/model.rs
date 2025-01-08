@@ -64,6 +64,12 @@ impl SetIamPolicyRequest {
     }
 }
 
+impl wkt::message::Message for SetIamPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.SetIamPolicyRequest"
+    }
+}
+
 /// Request message for `GetIamPolicy` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -92,6 +98,12 @@ impl GetIamPolicyRequest {
     pub fn set_options<T: Into<Option<crate::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
         self.options = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetIamPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.GetIamPolicyRequest"
     }
 }
 
@@ -128,6 +140,12 @@ impl TestIamPermissionsRequest {
     }
 }
 
+impl wkt::message::Message for TestIamPermissionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.TestIamPermissionsRequest"
+    }
+}
+
 /// Response message for `TestIamPermissions` method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -145,6 +163,12 @@ impl TestIamPermissionsResponse {
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.permissions = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for TestIamPermissionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.TestIamPermissionsResponse"
     }
 }
 
@@ -180,6 +204,12 @@ impl GetPolicyOptions {
     pub fn set_requested_policy_version<T: Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetPolicyOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.GetPolicyOptions"
     }
 }
 
@@ -348,6 +378,12 @@ impl Policy {
     }
 }
 
+impl wkt::message::Message for Policy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.Policy"
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -442,6 +478,12 @@ impl Binding {
     }
 }
 
+impl wkt::message::Message for Binding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.Binding"
+    }
+}
+
 /// Specifies the audit configuration for a service.
 /// The configuration determines which permission types are logged, and what
 /// identities, if any, are exempted from logging.
@@ -528,6 +570,12 @@ impl AuditConfig {
     }
 }
 
+impl wkt::message::Message for AuditConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.AuditConfig"
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -578,6 +626,12 @@ impl AuditLogConfig {
     pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.exempted_members = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for AuditLogConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.AuditLogConfig"
     }
 }
 
@@ -651,6 +705,12 @@ impl PolicyDelta {
     }
 }
 
+impl wkt::message::Message for PolicyDelta {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.PolicyDelta"
+    }
+}
+
 /// One delta entry for Binding. Each individual change (only one member in each
 /// entry) to a binding will be a separate entry.
 #[serde_with::serde_as]
@@ -702,6 +762,12 @@ impl BindingDelta {
     pub fn set_condition<T: Into<Option<gtype::model::Expr>>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for BindingDelta {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.BindingDelta"
     }
 }
 
@@ -796,6 +862,12 @@ impl AuditConfigDelta {
     }
 }
 
+impl wkt::message::Message for AuditConfigDelta {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.AuditConfigDelta"
+    }
+}
+
 /// Defines additional types related to AuditConfigDelta
 pub mod audit_config_delta {
 
@@ -869,5 +941,11 @@ impl ResourcePolicyMember {
     pub fn set_iam_policy_uid_principal<T: Into<String>>(mut self, v: T) -> Self {
         self.iam_policy_uid_principal = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ResourcePolicyMember {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.v1.ResourcePolicyMember"
     }
 }
