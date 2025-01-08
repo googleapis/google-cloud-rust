@@ -270,7 +270,7 @@ pub mod workflow {
 
     impl wkt::message::Message for StateError {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.workflows.v1.StateError"
+            "type.googleapis.com/google.cloud.workflows.v1.Workflow.StateError"
         }
     }
 

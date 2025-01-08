@@ -265,7 +265,7 @@ pub mod quota_failure {
 
     impl wkt::message::Message for Violation {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.rpc.Violation"
+            "type.googleapis.com/google.rpc.QuotaFailure.Violation"
         }
     }
 }
@@ -355,7 +355,7 @@ pub mod precondition_failure {
 
     impl wkt::message::Message for Violation {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.rpc.Violation"
+            "type.googleapis.com/google.rpc.PreconditionFailure.Violation"
         }
     }
 }
@@ -466,7 +466,7 @@ pub mod bad_request {
 
     impl wkt::message::Message for FieldViolation {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.rpc.FieldViolation"
+            "type.googleapis.com/google.rpc.BadRequest.FieldViolation"
         }
     }
 }
@@ -646,7 +646,7 @@ pub mod help {
 
     impl wkt::message::Message for Link {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.rpc.Link"
+            "type.googleapis.com/google.rpc.Help.Link"
         }
     }
 }

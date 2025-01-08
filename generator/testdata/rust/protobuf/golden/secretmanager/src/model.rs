@@ -555,7 +555,7 @@ pub mod replication {
 
     impl wkt::message::Message for Automatic {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.secretmanager.v1.Automatic"
+            "type.googleapis.com/google.cloud.secretmanager.v1.Replication.Automatic"
         }
     }
 
@@ -591,7 +591,7 @@ pub mod replication {
 
     impl wkt::message::Message for UserManaged {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.secretmanager.v1.UserManaged"
+            "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged"
         }
     }
 
@@ -646,7 +646,7 @@ pub mod replication {
 
         impl wkt::message::Message for Replica {
             fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.secretmanager.v1.Replica"
+                "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged.Replica"
             }
         }
     }
@@ -783,7 +783,7 @@ pub mod replication_status {
 
     impl wkt::message::Message for AutomaticStatus {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.secretmanager.v1.AutomaticStatus"
+            "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.AutomaticStatus"
         }
     }
 
@@ -821,7 +821,7 @@ pub mod replication_status {
 
     impl wkt::message::Message for UserManagedStatus {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.secretmanager.v1.UserManagedStatus"
+            "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus"
         }
     }
 
@@ -869,7 +869,7 @@ pub mod replication_status {
 
         impl wkt::message::Message for ReplicaStatus {
             fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.secretmanager.v1.ReplicaStatus"
+                "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus.ReplicaStatus"
             }
         }
     }

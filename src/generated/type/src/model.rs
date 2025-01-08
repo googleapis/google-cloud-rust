@@ -995,7 +995,7 @@ pub mod phone_number {
 
     impl wkt::message::Message for ShortCode {
         fn typename() -> &'static str {
-            "type.googleapis.com/google.type.ShortCode"
+            "type.googleapis.com/google.type.PhoneNumber.ShortCode"
         }
     }
 
