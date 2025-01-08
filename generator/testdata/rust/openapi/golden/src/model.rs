@@ -48,6 +48,12 @@ impl ListLocationsResponse {
     }
 }
 
+impl wkt::message::Message for ListLocationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListLocationsResponse"
+    }
+}
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListLocationsResponse {
     type PageItem = crate::model::Location;
@@ -129,6 +135,12 @@ impl Location {
     }
 }
 
+impl wkt::message::Message for Location {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Location"
+    }
+}
+
 /// Response message for SecretManagerService.ListSecrets.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -170,6 +182,12 @@ impl ListSecretsResponse {
     pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListSecretsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretsResponse"
     }
 }
 
@@ -378,6 +396,12 @@ impl Secret {
     }
 }
 
+impl wkt::message::Message for Secret {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Secret"
+    }
+}
+
 /// A policy that defines the replication and encryption configuration of data.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -409,6 +433,12 @@ impl Replication {
     }
 }
 
+impl wkt::message::Message for Replication {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Replication"
+    }
+}
+
 /// A replication policy that replicates the Secret payload without any
 /// restrictions.
 #[serde_with::serde_as]
@@ -433,6 +463,12 @@ impl Automatic {
     pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Automatic {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Automatic"
     }
 }
 
@@ -468,6 +504,12 @@ impl CustomerManagedEncryption {
     }
 }
 
+impl wkt::message::Message for CustomerManagedEncryption {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CustomerManagedEncryption"
+    }
+}
+
 /// A replication policy that replicates the Secret payload into the
 /// locations specified in Secret.replication.user_managed.replicas
 #[serde_with::serde_as]
@@ -489,6 +531,12 @@ impl UserManaged {
     pub fn set_replicas<T: Into<Vec<crate::model::Replica>>>(mut self, v: T) -> Self {
         self.replicas = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for UserManaged {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.UserManaged"
     }
 }
 
@@ -530,6 +578,12 @@ impl Replica {
     }
 }
 
+impl wkt::message::Message for Replica {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Replica"
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 #[serde_with::serde_as]
@@ -553,6 +607,12 @@ impl Topic {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Topic {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Topic"
     }
 }
 
@@ -595,6 +655,12 @@ impl Rotation {
     pub fn set_rotation_period<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.rotation_period = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Rotation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Rotation"
     }
 }
 
@@ -696,6 +762,12 @@ impl SecretPayload {
     pub fn set_data_crc_32_c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
         self.data_crc_32_c = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for SecretPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.SecretPayload"
     }
 }
 
@@ -814,6 +886,12 @@ impl SecretVersion {
     }
 }
 
+impl wkt::message::Message for SecretVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.SecretVersion"
+    }
+}
+
 /// The replication status of a SecretVersion.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -853,6 +931,12 @@ impl ReplicationStatus {
     }
 }
 
+impl wkt::message::Message for ReplicationStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus"
+    }
+}
+
 /// The replication status of a SecretVersion using automatic replication.
 ///
 /// Only populated if the parent Secret has an automatic replication
@@ -875,6 +959,12 @@ impl AutomaticStatus {
     pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for AutomaticStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AutomaticStatus"
     }
 }
 
@@ -901,6 +991,12 @@ impl CustomerManagedEncryptionStatus {
     }
 }
 
+impl wkt::message::Message for CustomerManagedEncryptionStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CustomerManagedEncryptionStatus"
+    }
+}
+
 /// The replication status of a SecretVersion using user-managed
 /// replication.
 ///
@@ -923,6 +1019,12 @@ impl UserManagedStatus {
     pub fn set_replicas<T: Into<Vec<crate::model::ReplicaStatus>>>(mut self, v: T) -> Self {
         self.replicas = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for UserManagedStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.UserManagedStatus"
     }
 }
 
@@ -959,6 +1061,12 @@ impl ReplicaStatus {
     }
 }
 
+impl wkt::message::Message for ReplicaStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ReplicaStatus"
+    }
+}
+
 /// A generic empty message that you can re-use to avoid defining duplicated
 /// empty messages in your APIs. A typical example is to use it as the request
 /// or the response type of an API method. For instance:
@@ -976,6 +1084,12 @@ pub struct Empty {
 }
 
 impl Empty {
+}
+
+impl wkt::message::Message for Empty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Empty"
+    }
 }
 
 /// Response message for SecretManagerService.ListSecretVersions.
@@ -1022,6 +1136,12 @@ impl ListSecretVersionsResponse {
     }
 }
 
+impl wkt::message::Message for ListSecretVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretVersionsResponse"
+    }
+}
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
@@ -1065,6 +1185,12 @@ impl AccessSecretVersionResponse {
     pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for AccessSecretVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AccessSecretVersionResponse"
     }
 }
 
@@ -1520,6 +1646,12 @@ impl Policy {
     }
 }
 
+impl wkt::message::Message for Policy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Policy"
+    }
+}
+
 /// Associates `members`, or principals, with a `role`.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1659,6 +1791,12 @@ impl Binding {
     }
 }
 
+impl wkt::message::Message for Binding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Binding"
+    }
+}
+
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
 /// are documented at <https://github.com/google/cel-spec>.
@@ -1753,6 +1891,12 @@ impl Expr {
     }
 }
 
+impl wkt::message::Message for Expr {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Expr"
+    }
+}
+
 /// Specifies the audit configuration for a service.
 /// The configuration determines which permission types are logged, and what
 /// identities, if any, are exempted from logging.
@@ -1838,6 +1982,12 @@ impl AuditConfig {
     }
 }
 
+impl wkt::message::Message for AuditConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AuditConfig"
+    }
+}
+
 /// Provides the configuration for logging a type of permissions.
 /// Example:
 ///
@@ -1888,6 +2038,12 @@ impl AuditLogConfig {
     pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.exempted_members = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for AuditLogConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AuditLogConfig"
     }
 }
 
@@ -1970,6 +2126,12 @@ impl TestIamPermissionsResponse {
     pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.permissions = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for TestIamPermissionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.TestIamPermissionsResponse"
     }
 }
 

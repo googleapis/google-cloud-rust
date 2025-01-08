@@ -63,6 +63,14 @@ impl {{Name}} {
     }
     {{/ExplicitOneOfs}}
 }
+{{^HasSyntheticFields}}
+
+impl wkt::message::Message for {{Name}} {
+    fn typename() -> &'static str {
+        "type.googleapis.com/{{SourceFQN}}"
+    }
+}
+{{/HasSyntheticFields}}
 {{#IsPageableResponse}}
 
 #[cfg(feature = "unstable-stream")]

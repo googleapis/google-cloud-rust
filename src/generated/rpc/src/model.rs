@@ -103,6 +103,12 @@ impl ErrorInfo {
     }
 }
 
+impl wkt::message::Message for ErrorInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.ErrorInfo"
+    }
+}
+
 /// Describes when the clients can retry a failed request. Clients could ignore
 /// the recommendation here or retry when this information is missing from error
 /// responses.
@@ -131,6 +137,12 @@ impl RetryInfo {
     pub fn set_retry_delay<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.retry_delay = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for RetryInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.RetryInfo"
     }
 }
 
@@ -163,6 +175,12 @@ impl DebugInfo {
     }
 }
 
+impl wkt::message::Message for DebugInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.DebugInfo"
+    }
+}
+
 /// Describes how a quota check failed.
 ///
 /// For example if a daily limit was exceeded for the calling project,
@@ -192,6 +210,12 @@ impl QuotaFailure {
     ) -> Self {
         self.violations = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for QuotaFailure {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.QuotaFailure"
     }
 }
 
@@ -235,6 +259,12 @@ pub mod quota_failure {
             self
         }
     }
+
+    impl wkt::message::Message for Violation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rpc.QuotaFailure.Violation"
+        }
+    }
 }
 
 /// Describes what preconditions have failed.
@@ -260,6 +290,12 @@ impl PreconditionFailure {
     ) -> Self {
         self.violations = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for PreconditionFailure {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.PreconditionFailure"
     }
 }
 
@@ -312,6 +348,12 @@ pub mod precondition_failure {
             self
         }
     }
+
+    impl wkt::message::Message for Violation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rpc.PreconditionFailure.Violation"
+        }
+    }
 }
 
 /// Describes violations in a client request. This error type focuses on the
@@ -334,6 +376,12 @@ impl BadRequest {
     ) -> Self {
         self.field_violations = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for BadRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.BadRequest"
     }
 }
 
@@ -439,6 +487,12 @@ pub mod bad_request {
             self
         }
     }
+
+    impl wkt::message::Message for FieldViolation {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rpc.BadRequest.FieldViolation"
+        }
+    }
 }
 
 /// Contains metadata about the request that clients can attach when filing a bug
@@ -470,6 +524,12 @@ impl RequestInfo {
     pub fn set_serving_data<T: Into<String>>(mut self, v: T) -> Self {
         self.serving_data = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for RequestInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.RequestInfo"
     }
 }
 
@@ -533,6 +593,12 @@ impl ResourceInfo {
     }
 }
 
+impl wkt::message::Message for ResourceInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.ResourceInfo"
+    }
+}
+
 /// Provides links to documentation or for performing an out of band action.
 ///
 /// For example, if a quota check failed with an error indicating the calling
@@ -553,6 +619,12 @@ impl Help {
     pub fn set_links<T: Into<Vec<crate::model::help::Link>>>(mut self, v: T) -> Self {
         self.links = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Help {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.Help"
     }
 }
 
@@ -587,6 +659,12 @@ pub mod help {
             self
         }
     }
+
+    impl wkt::message::Message for Link {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.rpc.Help.Link"
+        }
+    }
 }
 
 /// Provides a localized error message that is safe to return to the user
@@ -618,6 +696,12 @@ impl LocalizedMessage {
     pub fn set_message<T: Into<String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for LocalizedMessage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.LocalizedMessage"
     }
 }
 
@@ -672,6 +756,12 @@ impl HttpRequest {
     }
 }
 
+impl wkt::message::Message for HttpRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.HttpRequest"
+    }
+}
+
 /// Represents an HTTP response.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -722,6 +812,12 @@ impl HttpResponse {
     }
 }
 
+impl wkt::message::Message for HttpResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.HttpResponse"
+    }
+}
+
 /// Represents an HTTP header.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -748,6 +844,12 @@ impl HttpHeader {
     pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for HttpHeader {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.HttpHeader"
     }
 }
 
@@ -801,6 +903,12 @@ impl Status {
     pub fn set_details<T: Into<Vec<wkt::Any>>>(mut self, v: T) -> Self {
         self.details = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Status {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rpc.Status"
     }
 }
 

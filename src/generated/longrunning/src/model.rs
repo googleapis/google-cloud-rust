@@ -76,6 +76,12 @@ impl Operation {
     }
 }
 
+impl wkt::message::Message for Operation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.Operation"
+    }
+}
+
 /// Defines additional types related to Operation
 pub mod operation {
 
@@ -120,6 +126,12 @@ impl GetOperationRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.GetOperationRequest"
     }
 }
 
@@ -174,6 +186,12 @@ impl ListOperationsRequest {
     }
 }
 
+impl wkt::message::Message for ListOperationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.ListOperationsRequest"
+    }
+}
+
 /// The response message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
@@ -203,6 +221,12 @@ impl ListOperationsResponse {
     pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListOperationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.ListOperationsResponse"
     }
 }
 
@@ -241,6 +265,12 @@ impl CancelOperationRequest {
     }
 }
 
+impl wkt::message::Message for CancelOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.CancelOperationRequest"
+    }
+}
+
 /// The request message for
 /// [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
 ///
@@ -260,6 +290,12 @@ impl DeleteOperationRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for DeleteOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.DeleteOperationRequest"
     }
 }
 
@@ -293,6 +329,12 @@ impl WaitOperationRequest {
     pub fn set_timeout<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.timeout = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for WaitOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.WaitOperationRequest"
     }
 }
 
@@ -346,5 +388,11 @@ impl OperationInfo {
     pub fn set_metadata_type<T: Into<String>>(mut self, v: T) -> Self {
         self.metadata_type = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for OperationInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.OperationInfo"
     }
 }

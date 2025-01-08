@@ -296,6 +296,10 @@ func (c *GoCodec) CopyrightYear() string {
 	return c.GenerationYear
 }
 
+func (c *GoCodec) SourcePackageName() string {
+	return c.SourceSpecificationPackageName
+}
+
 func (c *GoCodec) PackageName(api *api.API) string {
 	if len(c.PackageNameOverride) > 0 {
 		return c.PackageNameOverride
