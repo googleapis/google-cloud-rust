@@ -69,6 +69,11 @@ type Message struct {
 	IsPageableResponse bool
 	PageableItem       *Field
 	ID                 string
+	// The FQN is the source specification
+	SourceFQN string
+	// If true, this is a synthetic message, some generation is skipped for
+	// synthetic messages
+	HasSyntheticFields bool
 }
 
 type Method struct {
@@ -213,6 +218,13 @@ func newService(s *api.Service, c language.Codec, state *api.APIState) *Service 
 }
 
 func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message {
+	hasSyntheticFields := false
+	for _, f := range m.Fields {
+		if f.Synthetic {
+			hasSyntheticFields = true
+			break
+		}
+	}
 	return &Message{
 		Fields: mapSlice(m.Fields, func(s *api.Field) *Field {
 			return newField(s, c, state)
@@ -254,6 +266,8 @@ func newMessage(m *api.Message, c language.Codec, state *api.APIState) *Message 
 		IsPageableResponse: m.IsPageableResponse,
 		PageableItem:       newField(m.PageableItem, c, state),
 		ID:                 m.ID,
+		SourceFQN:          strings.TrimPrefix(m.ID, "."),
+		HasSyntheticFields: hasSyntheticFields,
 	}
 }
 
