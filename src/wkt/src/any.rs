@@ -59,17 +59,28 @@ pub struct Any(serde_json::Map<String, serde_json::Value>);
 pub enum AnyError {
     /// Problem serializing an object into an [Any].
     #[error("cannot serialize object into an Any, source={0:?}")]
-    SerializationError(#[source] Box<dyn std::error::Error>),
+    SerializationError(#[source] BoxedError),
 
     /// Problem deserializing an object from an [Any].
     #[error("cannot deserialize from an Any, source={0:?}")]
-    DeserializationError(#[source] Box<dyn std::error::Error>),
+    DeserializationError(#[source] BoxedError),
 
     /// Mismatched type, the [Any] does not contain the desired type.
     #[error("expected type mismatch in Any deserialization type={0}")]
     TypeMismatchError(String),
 }
 
+impl AnyError {
+    pub(crate) fn ser<T: Into<BoxedError>>(v: T) -> Self {
+        Self::SerializationError(v.into())
+    }
+
+    pub(crate) fn deser<T: Into<BoxedError>>(v: T) -> Self {
+        Self::SerializationError(v.into())
+    }
+}
+
+type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = AnyError;
 
 impl Any {
@@ -81,12 +92,11 @@ impl Any {
     {
         use serde_json::Value;
 
-        let value =
-            serde_json::to_value(message).map_err(|e| Error::SerializationError(e.into()))?;
+        let value = serde_json::to_value(message).map_err(Error::ser)?;
         let value = match value {
             Value::Object(mut map) => {
                 map.insert("@type".to_string(), serde_json::json!(""));
-                Ok(map)
+                map
             }
             Value::String(s) => {
                 // Only a handful of well-known messages are serialized into
@@ -99,21 +109,13 @@ impl Any {
                     serde_json::Value::String("type.googleapis.com/google.protobuf.".into()),
                 );
                 map.insert("value".to_string(), serde_json::Value::String(s));
-                Ok(map)
+                map
             }
-            _ => Err(Error::SerializationError(Box::from(
-                "unexpected JSON type, only Object and String are supported",
-            ))),
-        }?;
+            _ => {
+                return Err(Self::unexpected_json_type());
+            }
+        };
         Ok(Any(value))
-    }
-
-    fn map_de_err(e: Box<dyn std::error::Error>) -> Error {
-        Error::DeserializationError(e)
-    }
-
-    fn map_de_str(s: String) -> Error {
-        Error::DeserializationError(Box::from(s))
     }
 
     /// Extracts (if possible) a `T` value from the [Any].
@@ -126,18 +128,25 @@ impl Any {
             .get("@type")
             .and_then(|v| v.as_str())
             .ok_or_else(|| "@type field is missing or is not a string".to_string())
-            .map_err(Self::map_de_str)?;
+            .map_err(Error::deser)?;
         if r#type.starts_with("type.googleapis.com/google.protobuf.")
             && r#type != "type.googleapis.com/google.protobuf.Empty"
         {
             return map
                 .get("value")
                 .map(|v| serde_json::from_value::<T>(v.clone()))
-                .ok_or_else(|| Self::map_de_str("value field is missing".to_string()))?
-                .map_err(|e| Self::map_de_err(e.into()));
+                .ok_or_else(Self::missing_value_field)?
+                .map_err(Error::deser);
         }
-        serde_json::from_value::<T>(serde_json::Value::Object(map.clone()))
-            .map_err(|e| Self::map_de_err(e.into()))
+        serde_json::from_value::<T>(serde_json::Value::Object(map.clone())).map_err(Error::deser)
+    }
+
+    fn missing_value_field() -> Error {
+        Error::deser("value field is missing")
+    }
+
+    fn unexpected_json_type() -> Error {
+        Error::ser("unexpected JSON type, only Object and String are supported")
     }
 }
 
