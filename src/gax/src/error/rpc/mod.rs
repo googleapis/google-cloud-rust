@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::{Error, HttpError};
+use crate::error::Error;
 use serde::{Deserialize, Serialize};
 
 /// The [Status] type defines a logical error model that is suitable for
@@ -317,15 +317,6 @@ impl<'de> Deserialize<'de> for Code {
 #[derive(Clone, Debug, Deserialize, Serialize)]
 struct ErrorWrapper {
     error: Status,
-}
-
-impl TryFrom<&HttpError> for Status {
-    type Error = Error;
-
-    fn try_from(value: &HttpError) -> Result<Self, Self::Error> {
-        let payload = value.payload().ok_or_else(|| Error::other("no payload"))?;
-        Status::try_from(payload)
-    }
 }
 
 impl TryFrom<&bytes::Bytes> for Status {
@@ -686,14 +677,6 @@ mod test {
         }
     }
 
-    fn sample_http_error() -> HttpError {
-        HttpError::new(
-            400,
-            HashMap::new(),
-            Some(bytes::Bytes::from_static(SAMPLE_PAYLOAD)),
-        )
-    }
-
     #[test]
     fn deserialize_status() {
         let got = serde_json::from_slice::<ErrorWrapper>(SAMPLE_PAYLOAD).unwrap();
@@ -725,21 +708,6 @@ mod test {
         assert!(got.is_err());
         let err = got.err().unwrap();
         assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
-        Ok(())
-    }
-
-    #[test]
-    fn status_try_from_http_error() -> Result {
-        let error = sample_http_error();
-        let got = Status::try_from(&error)?;
-        let want = sample_status();
-        assert_eq!(got, want);
-
-        let error = HttpError::new(400, HashMap::new(), None);
-        let got = Status::try_from(&error);
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Other);
         Ok(())
     }
 

@@ -16,6 +16,7 @@ use crate::backoff_policy::BackoffPolicy;
 use crate::backoff_policy::ExponentialBackoff;
 use crate::error::Error;
 use crate::error::HttpError;
+use crate::error::ServiceError;
 use crate::options;
 use crate::retry_policy::{RetryFlow, RetryPolicy};
 use crate::retry_throttler::RetryThrottlerWrapped;
@@ -186,10 +187,19 @@ impl ReqwestClient {
     }
 
     async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
-        let status = response.status().as_u16();
+        let status_code = response.status().as_u16();
         let headers = Self::convert_headers(response.headers());
         let body = response.bytes().await.map_err(Error::io)?;
-        Err(HttpError::new(status, headers, Some(body)).into())
+        let error = if let Ok(status) = crate::error::rpc::Status::try_from(&body) {
+            Error::rpc(
+                ServiceError::from(status)
+                    .with_headers(headers)
+                    .with_http_status_code(status_code),
+            )
+        } else {
+            Error::rpc(HttpError::new(status_code, headers, Some(body)))
+        };
+        Err(error)
     }
 
     fn convert_headers(
@@ -349,6 +359,40 @@ mod test {
             err.payload(),
             Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_error_with_status() -> TestResult {
+        use crate::error::rpc::*;
+        use crate::error::ServiceError;
+        let status = Status {
+            code: 404,
+            message: "The thing is not there, oh noes!".to_string(),
+            status: Some("NOT_FOUND".to_string()),
+            details: vec![StatusDetails::LocalizedMessage(
+                rpc::model::LocalizedMessage::default()
+                    .set_locale("en-US")
+                    .set_message("we searched everywhere, honest"),
+            )],
+        };
+        let body = serde_json::json!({"error": serde_json::to_value(&status)?});
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(404)
+            .body(body.to_string())?;
+        let response: reqwest::Response = http_resp.into();
+        assert!(response.status().is_client_error());
+        let response = ReqwestClient::to_http_error::<()>(response).await;
+        assert!(response.is_err(), "{response:?}");
+        let err = response.err().unwrap();
+        let err = err.as_inner::<ServiceError>().unwrap();
+        assert_eq!(err.status(), &status);
+        assert_eq!(err.http_status_code(), &Some(404 as u16));
+        let want = HashMap::from(
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        assert_eq!(err.headers(), &Some(want));
         Ok(())
     }
 }

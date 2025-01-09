@@ -37,15 +37,17 @@ async fn test_error_with_status() -> Result<()> {
     match response {
         Ok(v) => assert!(false, "expected an error got={v}"),
         Err(e) => {
-            let inner = e.as_inner::<gax::error::HttpError>().unwrap();
+            let inner = e.as_inner::<gax::error::ServiceError>().unwrap();
             assert_eq!(
-                inner.status_code(),
+                inner.http_status_code().unwrap_or_default(),
                 axum::http::StatusCode::BAD_REQUEST.as_u16()
             );
-            assert!(!inner.headers().is_empty(), "missing headers in {inner}");
-            let got = gax::error::rpc::Status::try_from(inner).map_err(|e| Box::new(e))?;
+            assert!(inner.headers().is_some(), "missing headers in {inner:?}");
+            let headers = inner.headers().clone().unwrap();
+            assert!(!headers.is_empty(), "empty headers in {inner:?}");
+            let got = inner.status();
             let want = echo_server::make_status()?;
-            assert_eq!(got, want);
+            assert_eq!(got, &want);
         }
     }
 
