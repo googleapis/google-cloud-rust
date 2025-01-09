@@ -179,13 +179,31 @@ impl ReqwestClient {
         }
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
-            let status = response.status().as_u16();
-            let headers = crate::error::convert_headers(response.headers());
-            let body = response.bytes().await.map_err(Error::io)?;
-            return Err(HttpError::new(status, headers, Some(body)).into());
+            return Self::to_http_error(response).await;
         }
         let response = response.json::<O>().await.map_err(Error::serde)?;
         Ok(response)
+    }
+
+    async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
+        let status = response.status().as_u16();
+        let headers = Self::convert_headers(response.headers());
+        let body = response.bytes().await.map_err(Error::io)?;
+        Err(HttpError::new(status, headers, Some(body)).into())
+    }
+
+    fn convert_headers(
+        header_map: &reqwest::header::HeaderMap,
+    ) -> std::collections::HashMap<String, String> {
+        let mut headers = std::collections::HashMap::new();
+        for (key, value) in header_map {
+            if value.is_sensitive() {
+                headers.insert(key.to_string(), SENSITIVE_HEADER.to_string());
+            } else if let Ok(value) = value.to_str() {
+                headers.insert(key.to_string(), value.to_string());
+            }
+        }
+        headers
     }
 
     fn get_retry_policy(&self, options: &options::RequestOptions) -> Option<Arc<dyn RetryPolicy>> {
@@ -231,11 +249,14 @@ impl std::fmt::Debug for ReqwestClient {
 #[derive(serde::Serialize)]
 pub struct NoBody {}
 
+const SENSITIVE_HEADER: &str = "[sensitive]";
+
 pub type ClientConfig = crate::options::ClientConfig;
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::collections::HashMap;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test(flavor = "multi_thread")]
@@ -249,6 +270,85 @@ mod test {
         assert!(fmt.contains("retry_policy: "), "{fmt}");
         assert!(fmt.contains("backoff_policy: "), "{fmt}");
         assert!(fmt.contains("retry_throttler: "), "{fmt}");
+        Ok(())
+    }
+
+    #[test]
+    fn headers_empty() -> TestResult {
+        let http_resp = http::Response::builder()
+            .status(reqwest::StatusCode::OK)
+            .body("")?;
+        let response: reqwest::Response = http_resp.into();
+        let got = ReqwestClient::convert_headers(response.headers());
+        assert!(got.is_empty(), "{got:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn headers_basic() -> TestResult {
+        let http_resp = http::Response::builder()
+            .header("content-type", "application/json")
+            .header("x-test-k1", "v1")
+            .status(reqwest::StatusCode::OK)
+            .body("")?;
+        let response: reqwest::Response = http_resp.into();
+        let got = ReqwestClient::convert_headers(response.headers());
+        let want = HashMap::from(
+            [("content-type", "application/json"), ("x-test-k1", "v1")]
+                .map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn headers_sensitive() -> TestResult {
+        let sensitive = {
+            let mut h = reqwest::header::HeaderValue::from_static("abc123");
+            h.set_sensitive(true);
+            h
+        };
+        let http_resp = http::Response::builder()
+            .header("content-type", "application/json")
+            .header("x-test-k1", "v1")
+            .header("x-sensitive", sensitive)
+            .status(reqwest::StatusCode::OK)
+            .body("")?;
+        let response: reqwest::Response = http_resp.into();
+        let got = ReqwestClient::convert_headers(response.headers());
+        let want = HashMap::from(
+            [
+                ("content-type", "application/json"),
+                ("x-test-k1", "v1"),
+                ("x-sensitive", SENSITIVE_HEADER),
+            ]
+            .map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_http_error_bytes() -> TestResult {
+        let http_resp = http::Response::builder()
+            .header("Content-Type", "application/json")
+            .status(400)
+            .body(r#"{"error": "bad request"}"#)?;
+        let response: reqwest::Response = http_resp.into();
+        assert!(response.status().is_client_error());
+        let response = ReqwestClient::to_http_error::<()>(response).await;
+        assert!(response.is_err(), "{response:?}");
+        let err = response.err().unwrap();
+        let err = err.as_inner::<HttpError>().unwrap();
+        assert_eq!(err.status_code(), 400);
+        let want = HashMap::from(
+            [("content-type", "application/json")].map(|(k, v)| (k.to_string(), v.to_string())),
+        );
+        assert_eq!(err.headers(), &want);
+        assert_eq!(
+            err.payload(),
+            Some(bytes::Bytes::from(r#"{"error": "bad request"}"#)).as_ref()
+        );
         Ok(())
     }
 }
