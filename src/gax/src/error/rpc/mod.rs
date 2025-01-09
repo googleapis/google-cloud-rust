@@ -381,12 +381,6 @@ pub enum StatusDetails {
     Other(wkt::Any),
 }
 
-impl Default for StatusDetails {
-    fn default() -> Self {
-        Self::Other(wkt::Any::default())
-    }
-}
-
 impl From<wkt::Any> for StatusDetails {
     fn from(value: wkt::Any) -> Self {
         use rpc::model::*;
