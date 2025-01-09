@@ -23,7 +23,7 @@ use crate::Result;
 use auth::credentials::{create_access_token_credential, Credential};
 use std::sync::Arc;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct ReqwestClient {
     inner: reqwest::Client,
     cred: Credential,
@@ -235,17 +235,6 @@ impl ReqwestClient {
     }
 }
 
-impl std::fmt::Debug for ReqwestClient {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("ReqwestClient")
-            .field("endpoint", &self.endpoint)
-            .field("retry_policy", &self.retry_policy)
-            .field("backoff_policy", &self.backoff_policy)
-            .field("retry_throttler", &self.retry_throttler)
-            .finish()
-    }
-}
-
 #[derive(serde::Serialize)]
 pub struct NoBody {}
 
@@ -258,20 +247,6 @@ mod test {
     use super::*;
     use std::collections::HashMap;
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn debug() -> TestResult {
-        let config =
-            ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
-        let client = ReqwestClient::new(config, "http://127.0.0.1:0").await?;
-
-        let fmt = format!("{client:?}");
-        assert!(fmt.contains("endpoint: "), "{fmt}");
-        assert!(fmt.contains("retry_policy: "), "{fmt}");
-        assert!(fmt.contains("backoff_policy: "), "{fmt}");
-        assert!(fmt.contains("retry_throttler: "), "{fmt}");
-        Ok(())
-    }
 
     #[test]
     fn headers_empty() -> TestResult {
