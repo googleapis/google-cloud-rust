@@ -21,6 +21,8 @@ use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 use std::sync::Arc;
 
+pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+
 /// An implementation of [crate::credentials::CredentialTrait].
 ///
 /// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
