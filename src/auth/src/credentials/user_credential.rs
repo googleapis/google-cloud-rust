@@ -25,8 +25,8 @@ use time::OffsetDateTime;
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let au = serde_json::from_value::<AuthorizedUser>(js)
-        .map_err(|e| CredentialError::new(false, e.into()))?;
+    let au =
+        serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
     let token_provider = UserTokenProvider {
         client_id: au.client_id,
         client_secret: au.client_secret,
@@ -81,15 +81,12 @@ impl TokenProvider for UserTokenProvider {
         let resp = builder
             .send()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
 
         // Process the response
         if !resp.status().is_success() {
             let status = resp.status();
-            let body = resp
-                .text()
-                .await
-                .map_err(|e| CredentialError::new(false, e.into()))?;
+            let body = resp.text().await.map_err(CredentialError::non_retryable)?;
             return Err(CredentialError::new(
                 is_retryable(status),
                 Box::from(format!("Failed to fetch token. {body}")),
@@ -98,7 +95,7 @@ impl TokenProvider for UserTokenProvider {
         let response = resp
             .json::<Oauth2RefreshResponse>()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -135,7 +132,7 @@ where
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
         let mut headers = vec![(AUTHORIZATION, value)];
         if let Some(project) = &self.quota_project_id {
@@ -309,7 +306,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
@@ -369,7 +366,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
