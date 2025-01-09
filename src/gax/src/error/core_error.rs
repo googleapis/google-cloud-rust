@@ -70,7 +70,7 @@ impl Error {
     /// # use gcp_sdk_gax::error::Error;
     /// # use gcp_sdk_gax::error::HttpError;
     /// # use std::collections::HashMap;
-    /// let error: Error = HttpError::new(404, HashMap::new(), None).into();
+    /// let error = Error::rpc(HttpError::new(404, HashMap::new(), None));
     /// if let Some(e) = error.as_inner::<HttpError>() {
     ///     assert_eq!(e.status_code(), 404);
     /// }
@@ -95,12 +95,6 @@ impl std::fmt::Display for Error {
 impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         Some(self.source.as_ref())
-    }
-}
-
-impl From<crate::error::HttpError> for Error {
-    fn from(e: super::http_error::HttpError) -> Self {
-        Error::rpc(e)
     }
 }
 

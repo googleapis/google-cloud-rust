@@ -35,11 +35,11 @@ pub use service_error::*;
 /// # use std::result::Result;
 /// # use gcp_sdk_gax::error;
 /// use error::Error;
-/// use error::HttpError;
+/// use error::ServiceError;
 /// use error::rpc::Status;
 /// fn handle_error(e: Error) {
-///     if let Some(e) = e.as_inner::<HttpError>() {
-///         let status = Status::try_from(e).unwrap();
+///     if let Some(e) = e.as_inner::<ServiceError>() {
+///         let status : Status = e.status().clone();
 ///         println!("{status:?}")
 ///     }
 /// }

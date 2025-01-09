@@ -76,8 +76,8 @@ mod test {
             .await;
         assert!(response.is_err(), "{response:?}");
         let response = response.err().unwrap();
-        let error = response.as_inner::<gax::error::HttpError>().unwrap();
-        assert_eq!(error.status_code(), permanent().0.as_u16());
+        let error = response.as_inner::<gax::error::ServiceError>().unwrap();
+        assert_eq!(error.http_status_code(), &Some(permanent().0.as_u16()));
         Ok(())
     }
 
@@ -136,8 +136,8 @@ mod test {
     }
 
     fn is_transient(error: &Error) -> bool {
-        if let Some(e) = error.as_inner::<gax::error::HttpError>() {
-            return e.status_code() == StatusCode::SERVICE_UNAVAILABLE.as_u16();
+        if let Some(e) = error.as_inner::<gax::error::ServiceError>() {
+            return e.http_status_code() == &Some(StatusCode::SERVICE_UNAVAILABLE.as_u16());
         }
         false
     }
@@ -337,7 +337,7 @@ mod test {
                 .return_const(None);
             retry_policy
                 .expect_on_error()
-                .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+                .withf(|_, _, _, error| is_transient(error))
                 .once()
                 .in_sequence(&mut seq)
                 .returning(|_, _, _, e| RetryFlow::Continue(e));
@@ -349,7 +349,7 @@ mod test {
             .return_const(None);
         retry_policy
             .expect_on_error()
-            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _, _, e| RetryFlow::Exhausted(e));
@@ -369,8 +369,8 @@ mod test {
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         let response = response.err().unwrap();
-        let error = response.as_inner::<gax::error::HttpError>().unwrap();
-        assert_eq!(error.status_code(), transient().0.as_u16());
+        let error = response.as_inner::<gax::error::ServiceError>().unwrap();
+        assert_eq!(error.http_status_code(), &Some(transient().0.as_u16()));
         Ok(())
     }
 
@@ -390,7 +390,7 @@ mod test {
             .return_const(None);
         retry_policy
             .expect_on_error()
-            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _, _, e| RetryFlow::Continue(e));
@@ -401,7 +401,7 @@ mod test {
             .return_const(None);
         retry_policy
             .expect_on_error()
-            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .withf(|_, _, _, error| !is_transient(error))
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _, _, e| RetryFlow::Exhausted(e));
@@ -421,8 +421,8 @@ mod test {
             .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
             .await;
         let response = response.err().unwrap();
-        let error = response.as_inner::<gax::error::HttpError>().unwrap();
-        assert_eq!(error.status_code(), permanent().0.as_u16());
+        let error = response.as_inner::<gax::error::ServiceError>().unwrap();
+        assert_eq!(error.http_status_code(), &Some(permanent().0.as_u16()));
         Ok(())
     }
 
@@ -441,7 +441,7 @@ mod test {
         // The first error is a HttpError.
         retry_policy
             .expect_on_error()
-            .withf(|_, _, _, error| error.as_inner::<gax::error::HttpError>().is_some())
+            .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _, _, e| RetryFlow::Continue(e));
