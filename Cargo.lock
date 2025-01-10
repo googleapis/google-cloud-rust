@@ -688,6 +688,7 @@ dependencies = [
  "gcp-sdk-gax",
  "gcp-sdk-location",
  "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
  "gcp-sdk-wkt",
  "lazy_static",
  "reqwest",
