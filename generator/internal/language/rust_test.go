@@ -175,7 +175,6 @@ func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api 
 	if want != got {
 		t.Errorf("mismatch in package name, want=%s, got=%s", want, got)
 	}
-
 }
 
 func checkRustPackages(t *testing.T, got *rustCodec, want *rustCodec) {
@@ -237,6 +236,97 @@ func TestWellKnownTypesExist(t *testing.T) {
 		if _, ok := api.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
 			t.Errorf("cannot find well-known message %s in API", name)
 		}
+	}
+}
+
+func TestRust_NoStreamingFeature(t *testing.T) {
+	codec := &rustCodec{
+		modulePath:     "model",
+		extraPackages:  []*rustPackage{},
+		packageMapping: map[string]*rustPackage{},
+	}
+	api := newTestAPI([]*api.Message{
+		{Name: "CreateResource", IsPageableResponse: false},
+	}, []*api.Enum{}, []*api.Service{})
+	codec.loadWellKnownTypes(api.State)
+	data := &RustTemplateData{}
+	codec.addStreamingFeature(data, api)
+	if data.HasFeatures {
+		t.Errorf("mismatch in data.HasFeatures, expected `HasFeatures: false`, got=%v", data)
+	}
+}
+
+func TestRust_StreamingFeature(t *testing.T) {
+	location := &rustPackage{
+		name:        "location",
+		packageName: "gcp-sdk-location",
+		path:        "src/generated/location",
+		used:        true,
+	}
+	longrunning := &rustPackage{
+		name:        "longrunning",
+		packageName: "gcp-sdk-longrunning",
+		path:        "src/generated/longrunning",
+		used:        true,
+	}
+
+	location.used = false
+	codec := &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{location},
+		packageMapping: map[string]*rustPackage{
+			"google.cloud.location": location,
+		},
+	}
+	checkRustContext(t, codec, `unstable-stream = ["gax/unstable-stream"]`)
+
+	location.used = true
+	codec = &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{location},
+		packageMapping: map[string]*rustPackage{
+			"google.cloud.location": location,
+		},
+	}
+	checkRustContext(t, codec, `unstable-stream = ["gax/unstable-stream", "location/unstable-stream"]`)
+
+	codec = &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{longrunning},
+		packageMapping: map[string]*rustPackage{
+			"google.longrunning": longrunning,
+		},
+	}
+	checkRustContext(t, codec, `unstable-stream = ["gax/unstable-stream", "longrunning/unstable-stream"]`)
+
+	codec = &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{location, longrunning},
+		packageMapping: map[string]*rustPackage{
+			"google.cloud.location": location,
+			"google.longrunning":    longrunning,
+		},
+	}
+	checkRustContext(t, codec, `unstable-stream = ["gax/unstable-stream", "location/unstable-stream", "longrunning/unstable-stream"]`)
+
+}
+
+func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
+	t.Helper()
+
+	api := newTestAPI([]*api.Message{
+		{Name: "ListResources", IsPageableResponse: true},
+	}, []*api.Enum{}, []*api.Service{})
+	codec.loadWellKnownTypes(api.State)
+	data := &RustTemplateData{}
+	codec.addStreamingFeature(data, api)
+	want := []string{wantFeatures}
+	if !data.HasFeatures {
+		t.Errorf("mismatch in data.HasFeatures, expected `HasFeatures: true`, got=%v", data)
+	}
+
+	if diff := cmp.Diff(data.Features, want); diff != "" {
+		t.Errorf("mismatch in checkRustContext (-want, +got)\n:%s", diff)
 	}
 }
 
