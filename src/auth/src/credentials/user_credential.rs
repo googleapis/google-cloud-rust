@@ -138,8 +138,7 @@ where
         if let Some(project) = &self.quota_project_id {
             headers.push((
                 HeaderName::from_static(QUOTA_PROJECT_KEY),
-                HeaderValue::from_str(project)
-                    .map_err(|e| CredentialError::new(false, e.into()))?,
+                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
             ));
         }
         Ok(headers)
