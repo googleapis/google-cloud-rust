@@ -57,6 +57,16 @@ impl CredentialError {
     pub fn is_retryable(&self) -> bool {
         self.is_retryable
     }
+
+    /// A helper to create a retryable error.
+    pub(crate) fn retryable<T: Into<BoxError>>(source: T) -> Self {
+        CredentialError::new(true, source.into())
+    }
+
+    /// A helper to create a non-retryable error.
+    pub(crate) fn non_retryable<T: Into<BoxError>>(source: T) -> Self {
+        CredentialError::new(false, source.into())
+    }
 }
 
 impl std::error::Error for CredentialError {
