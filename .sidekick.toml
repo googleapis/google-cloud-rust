@@ -33,12 +33,12 @@ version = "0.1.0"
 'package:serde'      = 'force-used=true,package=serde,version=1.0.216,feature=serde_derive'
 'package:serde_with' = 'force-used=true,package=serde_with,version=3.12.0,default-features=false,feature=base64,feature=macros,feature=std'
 # These are used by crates with services.
-'package:async-trait' = 'required-by-services=true,package=async-trait,version=0.1.84'
-'package:lazy_static' = 'required-by-services=true,package=lazy_static,version=1.5.0'
-'package:reqwest'     = 'required-by-services=true,package=reqwest,version=0.12.12,feature=json'
-'package:serde_json'  = 'required-by-services=true,package=serde_json,version=1.0.134'
-'package:tracing'     = 'required-by-services=true,package=tracing,version=0.1.41'
-'package:gax'         = 'required-by-services=true,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
+'package:async-trait' = 'used-if=services,package=async-trait,version=0.1.84'
+'package:lazy_static' = 'used-if=services,package=lazy_static,version=1.5.0'
+'package:reqwest'     = 'used-if=services,package=reqwest,version=0.12.12,feature=json'
+'package:serde_json'  = 'used-if=services,package=serde_json,version=1.0.134'
+'package:tracing'     = 'used-if=services,package=tracing,version=0.1.41'
+'package:gax'         = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
 'package:gtype'       = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0'
