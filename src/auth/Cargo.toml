@@ -24,16 +24,16 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-async-trait = "0.1.84"
-http        = "1.2.0"
-reqwest     = { version = "0.12.11", features = ["json"] }
-serde       = { version = "1.0.216", features = ["derive"] }
-serde_json  = "1.0.134"
-thiserror   = "2"
-time        = "0.3.37"
-rustls = "0.23.20"
+async-trait    = "0.1.84"
+http           = "1.2.0"
+reqwest        = { version = "0.12.11", features = ["json"] }
+serde          = { version = "1.0.216", features = ["derive"] }
+serde_json     = "1.0.134"
+thiserror      = "2"
+time           = "0.3.37"
+rustls         = "0.23.20"
 rustls-pemfile = "2.2"
-tokio       = { version = "1.42", features = ["fs"] }
+tokio          = { version = "1.42", features = ["fs"] }
 base64         = "0.22"
 derive_builder = "0.20.2"
 
