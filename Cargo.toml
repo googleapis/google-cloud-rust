@@ -15,7 +15,7 @@
 [workspace]
 resolver = "2"
 
-members = [ "service_account_creds",
+members = [
   "src/auth",
   "src/base",
   "src/gax",
