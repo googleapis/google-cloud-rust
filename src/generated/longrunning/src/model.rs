@@ -46,7 +46,7 @@ pub struct Operation {
     /// If `done` == `false`, neither `error` nor `response` is set.
     /// If `done` == `true`, exactly one of `error` or `response` can be set.
     /// Some services might not provide the result.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub result: Option<crate::model::operation::Result>,
 }
 
@@ -73,6 +73,12 @@ impl Operation {
     pub fn set_result<T: Into<Option<crate::model::operation::Result>>>(mut self, v: T) -> Self {
         self.result = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Operation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.Operation"
     }
 }
 
@@ -120,6 +126,12 @@ impl GetOperationRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.GetOperationRequest"
     }
 }
 
@@ -174,6 +186,12 @@ impl ListOperationsRequest {
     }
 }
 
+impl wkt::message::Message for ListOperationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.ListOperationsRequest"
+    }
+}
+
 /// The response message for
 /// [Operations.ListOperations][google.longrunning.Operations.ListOperations].
 ///
@@ -203,6 +221,12 @@ impl ListOperationsResponse {
     pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListOperationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.ListOperationsResponse"
     }
 }
 
@@ -241,6 +265,12 @@ impl CancelOperationRequest {
     }
 }
 
+impl wkt::message::Message for CancelOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.CancelOperationRequest"
+    }
+}
+
 /// The request message for
 /// [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
 ///
@@ -260,6 +290,12 @@ impl DeleteOperationRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for DeleteOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.DeleteOperationRequest"
     }
 }
 
@@ -293,6 +329,12 @@ impl WaitOperationRequest {
     pub fn set_timeout<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.timeout = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for WaitOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.WaitOperationRequest"
     }
 }
 
@@ -346,5 +388,11 @@ impl OperationInfo {
     pub fn set_metadata_type<T: Into<String>>(mut self, v: T) -> Self {
         self.metadata_type = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for OperationInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.longrunning.OperationInfo"
     }
 }

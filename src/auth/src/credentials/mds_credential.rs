@@ -58,7 +58,7 @@ where
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
         Ok(vec![(AUTHORIZATION, value)])
     }
@@ -109,19 +109,19 @@ impl MDSAccessTokenProvider {
         );
 
         let url = reqwest::Url::parse_with_params(path.as_str(), params.iter())
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
 
         let response = request
             .get(url.clone())
             .headers(headers)
             .send()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
 
         response
             .json::<ServiceAccountInfo>()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))
+            .map_err(CredentialError::non_retryable)
     }
 }
 
@@ -139,10 +139,7 @@ impl TokenProvider for MDSAccessTokenProvider {
                 HeaderValue::from_static(METADATA_FLAVOR_VALUE),
             );
 
-        let response = request
-            .send()
-            .await
-            .map_err(|e| CredentialError::new(true, e.into()))?;
+        let response = request.send().await.map_err(CredentialError::retryable)?;
         // Process the response
         if !response.status().is_success() {
             let status = response.status();
@@ -158,7 +155,7 @@ impl TokenProvider for MDSAccessTokenProvider {
         let response = response
             .json::<MDSTokenResponse>()
             .await
-            .map_err(|e| CredentialError::new(true, e.into()))?;
+            .map_err(CredentialError::retryable)?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -210,7 +207,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let mdsc = MDSCredential {
             token_provider: mock,
@@ -267,7 +264,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let mdsc = MDSCredential {
             token_provider: mock,

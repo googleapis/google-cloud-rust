@@ -110,3 +110,9 @@ impl Expr {
         self
     }
 }
+
+impl wkt::message::Message for Expr {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.type.Expr"
+    }
+}

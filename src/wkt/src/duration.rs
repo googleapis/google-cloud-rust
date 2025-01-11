@@ -164,6 +164,12 @@ impl Duration {
     }
 }
 
+impl crate::message::Message for Duration {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Duration"
+    }
+}
+
 /// Converts a [Duration] to its [String] representation.
 impl std::convert::From<&Duration> for String {
     fn from(duration: &Duration) -> String {

@@ -23,6 +23,8 @@ use http::header::{HeaderName, HeaderValue};
 use std::future::Future;
 use std::sync::Arc;
 
+pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
+
 /// An implementation of [crate::credentials::CredentialTrait].
 ///
 /// Represents a [Credential] used to obtain auth [Token][crate::token::Token]s
@@ -69,6 +71,17 @@ pub struct Credential {
     inner: Arc<dyn dynamic::CredentialTrait>,
 }
 
+impl<T> std::convert::From<T> for Credential
+where
+    T: crate::credentials::CredentialTrait + Send + Sync + 'static,
+{
+    fn from(value: T) -> Self {
+        Self {
+            inner: Arc::new(value),
+        }
+    }
+}
+
 impl Credential {
     pub async fn get_token(&self) -> Result<crate::token::Token> {
         self.inner.get_token().await
@@ -113,9 +126,10 @@ impl Credential {
 ///
 /// # Notes
 ///
-/// Application developers who directly use the Auth SDK can use this trait
-/// to mock the credentials. Application developers who use the Google Cloud
-/// Rust SDK directly should not need this functionality.
+/// Application developers who directly use the Auth SDK can use this trait,
+/// along with [crate::credentials::Credential::from()] to mock the credentials.
+/// Application developers who use the Google Cloud Rust SDK directly should not
+/// need this functionality.
 ///
 /// [credentials-link]: https://cloud.google.com/docs/authentication#credentials
 /// [token-link]: https://cloud.google.com/docs/authentication#token
@@ -166,6 +180,23 @@ pub(crate) mod dynamic {
 
         /// Retrieves the universe domain associated with the credential, if any.
         async fn get_universe_domain(&self) -> Option<String>;
+    }
+
+    /// The public CredentialTrait implements the dyn-compatible CredentialTrait.
+    #[async_trait::async_trait]
+    impl<T> CredentialTrait for T
+    where
+        T: super::CredentialTrait + Send + Sync,
+    {
+        async fn get_token(&self) -> Result<crate::token::Token> {
+            T::get_token(self).await
+        }
+        async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
+            T::get_headers(self).await
+        }
+        async fn get_universe_domain(&self) -> Option<String> {
+            T::get_universe_domain(self).await
+        }
     }
 }
 
@@ -221,24 +252,18 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         AdcContents::FallbackToMds => return Ok(mds_credential::new()),
     };
     let js: serde_json::Value =
-        serde_json::from_str(&contents).map_err(|e| CredentialError::new(false, e.into()))?;
+        serde_json::from_str(&contents).map_err(CredentialError::non_retryable)?;
     let cred_type = js
         .get("type")
-        .ok_or_else(|| CredentialError::new(
-            false,
-            Box::from("Failed to parse Application Default Credentials (ADC). No `type` field found."),
-        ))?
+        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). No `type` field found."))?
         .as_str()
-        .ok_or_else(|| CredentialError::new(
-            false,
-            Box::from("Failed to parse Application Default Credentials (ADC). `type` field is not a string."),
-        ))?;
+        .ok_or_else(|| CredentialError::non_retryable("Failed to parse Application Default Credentials (ADC). `type` field is not a string.")
+        )?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
-        _ => Err(CredentialError::new(
-            false,
-            Box::from(format!("Unimplemented credential type: {cred_type}")),
-        )),
+        _ => Err(CredentialError::non_retryable(format!(
+            "Unimplemented credential type: {cred_type}"
+        ))),
     }
 }
 
@@ -255,11 +280,10 @@ enum AdcContents {
 }
 
 fn path_not_found(path: String) -> CredentialError {
-    CredentialError::new(
-        false,
-        Box::from(format!(
+    CredentialError::non_retryable(
+        format!(
             "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
-        )))
+        ))
 }
 
 fn load_adc() -> Result<AdcContents> {
@@ -268,12 +292,12 @@ fn load_adc() -> Result<AdcContents> {
         Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
-            Err(e) => Err(CredentialError::new(false, e.into())),
+            Err(e) => Err(CredentialError::non_retryable(e)),
         },
         Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
-            Err(e) => Err(CredentialError::new(false, e.into())),
+            Err(e) => Err(CredentialError::non_retryable(e)),
         },
     }
 }
@@ -321,7 +345,7 @@ pub mod testing {
     use crate::credentials::Credential;
     use crate::token::Token;
     use crate::Result;
-    use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+    use http::header::{HeaderName, HeaderValue};
     use std::sync::Arc;
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
@@ -348,14 +372,11 @@ pub mod testing {
         }
 
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Ok(vec![(
-                AUTHORIZATION,
-                HeaderValue::from_static("Bearer: test-only-token"),
-            )])
+            Ok(Vec::new())
         }
 
         async fn get_universe_domain(&self) -> Option<String> {
-            Some("googleapis.com".to_string())
+            None
         }
     }
 }

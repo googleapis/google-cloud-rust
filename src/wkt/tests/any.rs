@@ -25,13 +25,19 @@ pub struct TestOnly {
     pub filter: Option<String>,
 }
 
+impl gcp_sdk_wkt::message::Message for TestOnly {
+    fn typename() -> &'static str {
+        "type.googleapis.com/wkt.test.TEstOnly"
+    }
+}
+
 #[test]
 fn roundtrip_generic() -> Result {
     let input = TestOnly {
         parent: "parent".to_string(),
         ..Default::default()
     };
-    let any = Any::from(&input)?;
+    let any = Any::try_from(&input)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;
     let output = any.try_into_message::<TestOnly>()?;
@@ -42,7 +48,7 @@ fn roundtrip_generic() -> Result {
 #[test]
 fn roundtrip_duration() -> Result {
     let input = Duration::new(12, 3456)?;
-    let any = Any::from(&input)?;
+    let any = Any::try_from(&input)?;
     let json = serde_json::to_value(any)?;
     let any = serde_json::from_value::<Any>(json)?;
     let output = any.try_into_message::<Duration>()?;

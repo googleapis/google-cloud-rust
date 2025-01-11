@@ -165,6 +165,12 @@ impl Timestamp {
     }
 }
 
+impl crate::message::Message for Timestamp {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Timestamp"
+    }
+}
+
 use time::format_description::well_known::Rfc3339;
 const NS: i128 = 1_000_000_000;
 

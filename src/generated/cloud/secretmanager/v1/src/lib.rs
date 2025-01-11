@@ -26,7 +26,6 @@
 //! More specifically:
 //!
 //! * [SecretManagerService](https://docs.rs/gcp-sdk-secretmanager-v1/latest/gcp-sdk-secretmanager-v1/client/struct.SecretManagerService.html)
-//! * [Locations](https://docs.rs/gcp-sdk-secretmanager-v1/latest/gcp-sdk-secretmanager-v1/client/struct.Locations.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

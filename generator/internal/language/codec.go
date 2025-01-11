@@ -110,6 +110,8 @@ type Codec interface {
 	// Returns a extra set of lines to insert in the module file.
 	// The format of these lines is specific to each language.
 	RequiredPackages() []string
+	// The package name in the source specification language.
+	SourcePackageName() string
 	// The package name in the destination language. May be empty, some
 	// languages do not have a package manager.
 	PackageName(api *api.API) string

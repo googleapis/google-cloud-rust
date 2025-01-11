@@ -13,8 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::Credential;
-use crate::credentials::Result;
+use crate::credentials::{Credential, Result, QUOTA_PROJECT_KEY};
 use crate::errors::{is_retryable, CredentialError};
 use crate::token::{Token, TokenProvider};
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
@@ -26,10 +25,20 @@ use time::OffsetDateTime;
 const OAUTH2_ENDPOINT: &str = "https://oauth2.googleapis.com/token";
 
 pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
-    let token_provider = UserTokenProvider::from_json(js)?;
+    let au =
+        serde_json::from_value::<AuthorizedUser>(js).map_err(CredentialError::non_retryable)?;
+    let token_provider = UserTokenProvider {
+        client_id: au.client_id,
+        client_secret: au.client_secret,
+        refresh_token: au.refresh_token,
+        endpoint: OAUTH2_ENDPOINT.to_string(),
+    };
 
     Ok(Credential {
-        inner: Arc::new(UserCredential { token_provider }),
+        inner: Arc::new(UserCredential {
+            token_provider,
+            quota_project_id: au.quota_project_id,
+        }),
     })
 }
 
@@ -49,19 +58,6 @@ impl std::fmt::Debug for UserTokenProvider {
             .field("refresh_token", &"[censored]")
             .field("endpoint", &self.endpoint)
             .finish()
-    }
-}
-
-impl UserTokenProvider {
-    fn from_json(js: serde_json::Value) -> Result<Self> {
-        let au: AuthorizedUser =
-            serde_json::from_value(js).map_err(|e| CredentialError::new(false, e.into()))?;
-        Ok(UserTokenProvider {
-            client_id: au.client_id,
-            client_secret: au.client_secret,
-            refresh_token: au.refresh_token,
-            endpoint: OAUTH2_ENDPOINT.to_string(),
-        })
     }
 }
 
@@ -85,15 +81,12 @@ impl TokenProvider for UserTokenProvider {
         let resp = builder
             .send()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
 
         // Process the response
         if !resp.status().is_success() {
             let status = resp.status();
-            let body = resp
-                .text()
-                .await
-                .map_err(|e| CredentialError::new(false, e.into()))?;
+            let body = resp.text().await.map_err(CredentialError::non_retryable)?;
             return Err(CredentialError::new(
                 is_retryable(status),
                 Box::from(format!("Failed to fetch token. {body}")),
@@ -102,7 +95,7 @@ impl TokenProvider for UserTokenProvider {
         let response = resp
             .json::<Oauth2RefreshResponse>()
             .await
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -124,6 +117,7 @@ where
     T: TokenProvider,
 {
     token_provider: T,
+    quota_project_id: Option<String>,
 }
 
 #[async_trait::async_trait]
@@ -138,9 +132,16 @@ where
     async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
         let token = self.get_token().await?;
         let mut value = HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(|e| CredentialError::new(false, e.into()))?;
+            .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
-        Ok(vec![(AUTHORIZATION, value)])
+        let mut headers = vec![(AUTHORIZATION, value)];
+        if let Some(project) = &self.quota_project_id {
+            headers.push((
+                HeaderName::from_static(QUOTA_PROJECT_KEY),
+                HeaderValue::from_str(project).map_err(CredentialError::non_retryable)?,
+            ));
+        }
+        Ok(headers)
     }
 
     async fn get_universe_domain(&self) -> Option<String> {
@@ -155,6 +156,8 @@ pub(crate) struct AuthorizedUser {
     client_id: String,
     client_secret: String,
     refresh_token: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    quota_project_id: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -210,7 +213,7 @@ mod test {
     }
 
     #[test]
-    fn user_token_provider_from_json_success() {
+    fn authorized_user_full_from_json_success() {
         let json = serde_json::json!({
             "account": "",
             "client_id": "test-client-id",
@@ -221,18 +224,39 @@ mod test {
             "quota_project_id": "test-project"
         });
 
-        let expected = UserTokenProvider {
+        let expected = AuthorizedUser {
+            cred_type: "authorized_user".to_string(),
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
-            endpoint: OAUTH2_ENDPOINT.to_string(),
+            quota_project_id: Some("test-project".to_string()),
         };
-        let actual = UserTokenProvider::from_json(json).unwrap();
+        let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
     }
 
     #[test]
-    fn user_token_provider_from_json_parse_fail() {
+    fn authorized_user_partial_from_json_success() {
+        let json = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+        });
+
+        let expected = AuthorizedUser {
+            cred_type: "authorized_user".to_string(),
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            quota_project_id: None,
+        };
+        let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn authorized_user_from_json_parse_fail() {
         let json_full = serde_json::json!({
             "account": "",
             "client_id": "test-client-id",
@@ -247,7 +271,9 @@ mod test {
             let mut json = json_full.clone();
             // Remove a required field from the JSON
             json[required_field].take();
-            UserTokenProvider::from_json(json).err().unwrap();
+            serde_json::from_value::<AuthorizedUser>(json)
+                .err()
+                .unwrap();
         }
     }
 
@@ -268,6 +294,7 @@ mod test {
 
         let uc = UserCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         let actual = uc.get_token().await.unwrap();
         assert_eq!(actual, expected);
@@ -278,23 +305,25 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         assert!(uc.get_token().await.is_err());
     }
 
+    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
+    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+    struct HV {
+        header: String,
+        value: String,
+        is_sensitive: bool,
+    }
+
     #[tokio::test]
     async fn get_headers_success() {
-        #[derive(Debug, PartialEq)]
-        struct HV {
-            header: String,
-            value: String,
-            is_sensitive: bool,
-        }
-
         let token = Token {
             token: "test-token".to_string(),
             token_type: "Bearer".to_string(),
@@ -307,6 +336,7 @@ mod test {
 
         let uc = UserCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         let headers: Vec<HV> = uc
             .get_headers()
@@ -335,12 +365,60 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let uc = UserCredential {
             token_provider: mock,
+            quota_project_id: None,
         };
         assert!(uc.get_headers().await.is_err());
+    }
+
+    #[tokio::test]
+    async fn get_headers_with_quota_project_success() {
+        let token = Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        };
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_get_token().times(1).return_once(|| Ok(token));
+
+        let uc = UserCredential {
+            token_provider: mock,
+            quota_project_id: Some("test-project".to_string()),
+        };
+        let mut headers: Vec<HV> = uc
+            .get_headers()
+            .await
+            .unwrap()
+            .into_iter()
+            .map(|(h, v)| HV {
+                header: h.to_string(),
+                value: v.to_str().unwrap().to_string(),
+                is_sensitive: v.is_sensitive(),
+            })
+            .collect();
+
+        // The ordering of the headers does not matter.
+        headers.sort();
+        assert_eq!(
+            headers,
+            vec![
+                HV {
+                    header: AUTHORIZATION.to_string(),
+                    value: "Bearer test-token".to_string(),
+                    is_sensitive: true,
+                },
+                HV {
+                    header: QUOTA_PROJECT_KEY.to_string(),
+                    value: "test-project".to_string(),
+                    is_sensitive: false,
+                }
+            ]
+        );
     }
 
     #[test]
@@ -455,13 +533,16 @@ mod test {
         let (endpoint, _server) = start(StatusCode::OK, response_body).await;
         println!("endpoint = {endpoint}");
 
-        let tp = UserTokenProvider {
+        let token_provider = UserTokenProvider {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential { token_provider: tp };
+        let uc = UserCredential {
+            token_provider,
+            quota_project_id: None,
+        };
         let now = OffsetDateTime::now_utc();
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
@@ -486,13 +567,16 @@ mod test {
         let (endpoint, _server) = start(StatusCode::OK, response_body).await;
         println!("endpoint = {endpoint}");
 
-        let tp = UserTokenProvider {
+        let token_provider = UserTokenProvider {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential { token_provider: tp };
+        let uc = UserCredential {
+            token_provider,
+            quota_project_id: None,
+        };
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
@@ -507,13 +591,16 @@ mod test {
             start(StatusCode::SERVICE_UNAVAILABLE, "try again".to_string()).await;
         println!("endpoint = {endpoint}");
 
-        let tp = UserTokenProvider {
+        let token_provider = UserTokenProvider {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential { token_provider: tp };
+        let uc = UserCredential {
+            token_provider,
+            quota_project_id: None,
+        };
         let e = uc.get_token().await.err().unwrap();
         assert!(e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("try again"));
@@ -526,13 +613,16 @@ mod test {
         let (endpoint, _server) = start(StatusCode::UNAUTHORIZED, "epic fail".to_string()).await;
         println!("endpoint = {endpoint}");
 
-        let tp = UserTokenProvider {
+        let token_provider = UserTokenProvider {
             client_id: "test-client-id".to_string(),
             client_secret: "test-client-secret".to_string(),
             refresh_token: "test-refresh-token".to_string(),
             endpoint: endpoint,
         };
-        let uc = UserCredential { token_provider: tp };
+        let uc = UserCredential {
+            token_provider,
+            quota_project_id: None,
+        };
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));

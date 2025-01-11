@@ -52,11 +52,10 @@ pub(crate) mod dyntraits;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation for each method. These implementations return an error.
 pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
+    /// Sets the access control policy on the specified resource. Replaces any
+    /// existing policy.
     ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     fn set_iam_policy(
         &self,
         _req: crate::model::SetIamPolicyRequest,
@@ -67,8 +66,9 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Gets the access control policy for a resource.
+    /// Returns an empty policy if the resource exists and does not have a policy
+    /// set.
     fn get_iam_policy(
         &self,
         _req: crate::model::GetIamPolicyRequest,
@@ -79,13 +79,13 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
+    /// Returns permissions that a caller has on the specified resource.
+    /// If the resource does not exist, this will return an empty set of
     /// permissions, not a `NOT_FOUND` error.
     ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Note: This operation is designed to be used for building permission-aware
+    /// UIs and command-line tools, not for authorization checking. This operation
+    /// may "fail open" without warning.
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,

@@ -38,8 +38,7 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::error::rpc::Status;
-use crate::error::{Error, HttpError};
+use crate::error::Error;
 use std::sync::Arc;
 
 /// The result of a retry policy decision.
@@ -247,11 +246,22 @@ impl RetryPolicy for Aip194Strict {
         idempotent: bool,
         error: Error,
     ) -> RetryFlow {
+        if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
+            if !idempotent {
+                return RetryFlow::Permanent(error);
+            }
+            return if svc.status().status.as_deref() == Some("UNAVAILABLE") {
+                RetryFlow::Continue(error)
+            } else {
+                RetryFlow::Permanent(error)
+            };
+        }
+
         if let Some(http) = error.as_inner::<crate::error::HttpError>() {
             if !idempotent {
                 return RetryFlow::Permanent(error);
             }
-            return if match_status_code_string(http, "UNAVAILABLE") {
+            return if http.status_code() == reqwest::StatusCode::SERVICE_UNAVAILABLE {
                 RetryFlow::Continue(error)
             } else {
                 RetryFlow::Permanent(error)
@@ -275,14 +285,6 @@ impl RetryPolicy for Aip194Strict {
             ErrorKind::Other => RetryFlow::Permanent(error),
         }
     }
-}
-
-// A helper function to simplify `Api194Strict::on_error()`:
-fn match_status_code_string(http: &HttpError, code: &str) -> bool {
-    Status::try_from(http)
-        .ok()
-        .map(|v| v.status.as_deref() == Some(code))
-        .unwrap_or(false)
 }
 
 /// A retry policy that retries all errors.
@@ -587,21 +589,21 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::rpc::Status;
+    use crate::error::{rpc::Status, ServiceError};
 
     #[test]
     fn retry_flow() {
-        let flow = RetryFlow::Permanent(unavailable());
+        let flow = RetryFlow::Permanent(http_unavailable());
         assert!(flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = RetryFlow::Exhausted(unavailable());
+        let flow = RetryFlow::Exhausted(http_unavailable());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = RetryFlow::Continue(unavailable());
+        let flow = RetryFlow::Continue(http_unavailable());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(flow.is_continue(), "{flow:?}");
@@ -629,6 +631,17 @@ mod tests {
         assert!(p.on_error(now, 0, true, permission_denied()).is_permanent());
         assert!(p
             .on_error(now, 0, false, permission_denied())
+            .is_permanent());
+
+        assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, http_unavailable()).is_permanent());
+        assert!(p.on_throttle(now, 0).is_none());
+
+        assert!(p
+            .on_error(now, 0, true, http_permission_denied())
+            .is_permanent());
+        assert!(p
+            .on_error(now, 0, false, http_permission_denied())
             .is_permanent());
 
         assert!(p
@@ -666,12 +679,19 @@ mod tests {
         let p = AlwaysRetry;
 
         let now = std::time::Instant::now();
-        assert!(p.on_error(now, 0, true, unavailable()).is_continue());
-        assert!(p.on_error(now, 0, false, unavailable()).is_continue());
+        assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, http_unavailable()).is_continue());
         assert!(p.on_throttle(now, 0).is_none());
 
-        assert!(p.on_error(now, 0, true, permission_denied()).is_continue());
-        assert!(p.on_error(now, 0, false, permission_denied()).is_continue());
+        assert!(p.on_error(now, 0, true, unavailable()).is_continue());
+        assert!(p.on_error(now, 0, false, unavailable()).is_continue());
+
+        assert!(p
+            .on_error(now, 0, true, http_permission_denied())
+            .is_continue());
+        assert!(p
+            .on_error(now, 0, false, http_permission_denied())
+            .is_continue());
 
         assert!(p
             .on_error(now, 0, true, Error::io("err".to_string()))
@@ -714,7 +734,7 @@ mod tests {
         Error::rpc(http)
     }
 
-    fn unavailable() -> Error {
+    fn http_unavailable() -> Error {
         let mut status = Status::default();
         status.code = 503;
         status.message = "SERVICE UNAVAILABLE".to_string();
@@ -722,12 +742,28 @@ mod tests {
         from_status(status)
     }
 
-    fn permission_denied() -> Error {
+    fn http_permission_denied() -> Error {
         let mut status = Status::default();
         status.code = 403;
         status.message = "PERMISSION DENIED".to_string();
         status.status = Some("PERMISSION_DENIED".to_string());
         from_status(status)
+    }
+
+    fn unavailable() -> Error {
+        use crate::error::rpc::Code;
+        let status = rpc::model::Status::default()
+            .set_code(Code::Unavailable as i32)
+            .set_message("UNAVAILABLE");
+        Error::rpc(ServiceError::from(status))
+    }
+
+    fn permission_denied() -> Error {
+        use crate::error::rpc::Code;
+        let status = rpc::model::Status::default()
+            .set_code(Code::PermissionDenied as i32)
+            .set_message("PERMISSION_DENIED");
+        Error::rpc(ServiceError::from(status))
     }
 
     mockall::mock! {

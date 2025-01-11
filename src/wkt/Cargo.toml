@@ -29,7 +29,7 @@ time   = []
 
 [dependencies]
 serde      = { version = "1.0.217", features = ["serde_derive"] }
-serde_with = { version = "3.12.0", default-features = false, features = ["base64"] }
+serde_with = { version = "3.12.0", default-features = false, features = ["base64", "macros", "std"] }
 serde_json = "1.0.134"
 time       = { version = "0.3.36", features = ["formatting", "parsing"] }
 chrono     = { version = "0.4.39", optional = true }

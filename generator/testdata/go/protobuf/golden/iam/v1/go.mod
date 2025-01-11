@@ -7,7 +7,7 @@ replace github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/typez
 replace github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/wkt => ../../wkt
 
 require (
-	cloud.google.com/go/auth v0.13.0
+	cloud.google.com/go/auth v0.14.0
 	github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/typez v0.0.0-00010101000000-000000000000
 	github.com/google-cloud-rust/generator/testdata/go/protobuf/golden/wkt v0.0.0-00010101000000-000000000000
 )

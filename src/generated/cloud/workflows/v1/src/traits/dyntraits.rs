@@ -46,6 +46,36 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         req: crate::model::UpdateWorkflowRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::ListLocationsResponse>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<location::model::Location>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<longrunning::model::Operation>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<wkt::Empty>;
 }
 
 /// All implementations of [crate::traits::Workflows] also implement [Workflows].
@@ -95,27 +125,7 @@ impl<T: crate::traits::Workflows> Workflows for T {
     ) -> crate::Result<longrunning::model::Operation> {
         T::update_workflow(self, req, options).await
     }
-}
 
-/// A dyn-compatible, crate-private version of `Locations`.
-#[async_trait::async_trait]
-pub trait Locations: std::fmt::Debug + Send + Sync {
-    async fn list_locations(
-        &self,
-        req: location::model::ListLocationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::ListLocationsResponse>;
-
-    async fn get_location(
-        &self,
-        req: location::model::GetLocationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<location::model::Location>;
-}
-
-/// All implementations of [crate::traits::Locations] also implement [Locations].
-#[async_trait::async_trait]
-impl<T: crate::traits::Locations> Locations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
@@ -133,33 +143,7 @@ impl<T: crate::traits::Locations> Locations for T {
     ) -> crate::Result<location::model::Location> {
         T::get_location(self, req, options).await
     }
-}
 
-/// A dyn-compatible, crate-private version of `Operations`.
-#[async_trait::async_trait]
-pub trait Operations: std::fmt::Debug + Send + Sync {
-    async fn list_operations(
-        &self,
-        req: longrunning::model::ListOperationsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::ListOperationsResponse>;
-
-    async fn get_operation(
-        &self,
-        req: longrunning::model::GetOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<longrunning::model::Operation>;
-
-    async fn delete_operation(
-        &self,
-        req: longrunning::model::DeleteOperationRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<wkt::Empty>;
-}
-
-/// All implementations of [crate::traits::Operations] also implement [Operations].
-#[async_trait::async_trait]
-impl<T: crate::traits::Operations> Operations for T {
     /// Forwards the call to the implementation provided by `T`.
     async fn list_operations(
         &self,

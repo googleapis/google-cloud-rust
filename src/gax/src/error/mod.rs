@@ -14,8 +14,10 @@
 
 mod core_error;
 mod http_error;
+mod service_error;
 pub use core_error::*;
 pub use http_error::*;
+pub use service_error::*;
 
 /// Errors and error details returned by Service RPCs.
 ///
@@ -33,11 +35,11 @@ pub use http_error::*;
 /// # use std::result::Result;
 /// # use gcp_sdk_gax::error;
 /// use error::Error;
-/// use error::HttpError;
+/// use error::ServiceError;
 /// use error::rpc::Status;
 /// fn handle_error(e: Error) {
-///     if let Some(e) = e.as_inner::<HttpError>() {
-///         let status = Status::try_from(e).unwrap();
+///     if let Some(e) = e.as_inner::<ServiceError>() {
+///         let status : Status = e.status().clone();
 ///         println!("{status:?}")
 ///     }
 /// }

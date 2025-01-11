@@ -21,6 +21,7 @@ publish           = false
 
 [features]
 run-integration-tests = ["dep:tokio"]
+log-integration-tests = ["dep:tokio"]
 
 [dependencies]
 gax                = { path = "../../src/gax", package = "gcp-sdk-gax" }

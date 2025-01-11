@@ -25,6 +25,12 @@
 #[derive(Clone, Debug, Default, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Empty {}
 
+impl crate::message::Message for Empty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.Empty"
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

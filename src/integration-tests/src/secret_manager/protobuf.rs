@@ -15,29 +15,33 @@
 use crate::Result;
 use gax::error::Error;
 use rand::{distributions::Alphanumeric, Rng};
-use tracing_subscriber::fmt::format::FmtSpan;
 
-async fn new_client(tracing: bool) -> Result<sm::client::SecretManagerService> {
-    if tracing {
-        // We could simplify the code, but we want to test the default
-        // constructor.
-        return sm::client::SecretManagerService::new().await;
+async fn new_client(
+    config: Option<gax::options::ClientConfig>,
+) -> Result<sm::client::SecretManagerService> {
+    // We could simplify the code, but we want to test both ::new_with_config()
+    // and ::new().
+    if let Some(config) = config {
+        sm::client::SecretManagerService::new_with_config(config).await
+    } else {
+        sm::client::SecretManagerService::new().await
     }
-    sm::client::SecretManagerService::new_with_config(
-        gax::options::ClientConfig::default().enable_tracing(),
-    )
-    .await
 }
 
-pub async fn run(tracing: bool) -> Result<()> {
+pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
-    let subscriber = tracing_subscriber::fmt()
-        .with_level(true)
-        .with_thread_ids(true)
-        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-        .finish();
-    let _guard = tracing::subscriber::set_default(subscriber);
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
 
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
@@ -46,12 +50,7 @@ pub async fn run(tracing: bool) -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = new_client(tracing).await?;
-    let location_client = sm::client::Locations::new_with_config(
-        gax::options::ClientConfig::default().enable_tracing(),
-    )
-    .await?;
-
+    let client = new_client(config).await?;
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
     println!("\nTesting create_secret()");
@@ -111,7 +110,7 @@ pub async fn run(tracing: bool) -> Result<()> {
 
     run_secret_versions(&client, &create.name).await?;
     run_iam(&client, &create.name).await?;
-    run_locations(&location_client, &project_id).await?;
+    run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
     let delete = client.delete_secret(get.name).send().await?;
@@ -120,7 +119,7 @@ pub async fn run(tracing: bool) -> Result<()> {
     Ok(())
 }
 
-async fn run_locations(client: &sm::client::Locations, project_id: &str) -> Result<()> {
+async fn run_locations(client: &sm::client::SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
         .list_locations(format!("projects/{project_id}"))

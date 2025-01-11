@@ -125,7 +125,7 @@ pub struct Workflow {
     /// Required. Location of the workflow source code.
     /// Modifying this field for an existing workflow results in a new workflow
     /// revision.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub source_code: Option<crate::model::workflow::SourceCode>,
 }
 
@@ -227,6 +227,12 @@ impl Workflow {
     }
 }
 
+impl wkt::message::Message for Workflow {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.Workflow"
+    }
+}
+
 /// Defines additional types related to Workflow
 pub mod workflow {
 
@@ -259,6 +265,12 @@ pub mod workflow {
         ) -> Self {
             self.r#type = v.into();
             self
+        }
+    }
+
+    impl wkt::message::Message for StateError {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.workflows.v1.Workflow.StateError"
         }
     }
 
@@ -366,7 +378,7 @@ pub mod workflow {
     #[non_exhaustive]
     pub enum SourceCode {
         /// Workflow code to be executed. The size limit is 128KB.
-        SourceContents { source_contents: String },
+        SourceContents(String),
     }
 }
 
@@ -443,6 +455,12 @@ impl ListWorkflowsRequest {
     }
 }
 
+impl wkt::message::Message for ListWorkflowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowsRequest"
+    }
+}
+
 /// Response for the
 /// [ListWorkflows][google.cloud.workflows.v1.Workflows.ListWorkflows]
 /// method.
@@ -484,6 +502,12 @@ impl ListWorkflowsResponse {
     pub fn set_unreachable<T: Into<Vec<String>>>(mut self, v: T) -> Self {
         self.unreachable = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListWorkflowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.ListWorkflowsResponse"
     }
 }
 
@@ -534,6 +558,12 @@ impl GetWorkflowRequest {
     pub fn set_revision_id<T: Into<String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetWorkflowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.GetWorkflowRequest"
     }
 }
 
@@ -588,6 +618,12 @@ impl CreateWorkflowRequest {
     }
 }
 
+impl wkt::message::Message for CreateWorkflowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.CreateWorkflowRequest"
+    }
+}
+
 /// Request for the
 /// [DeleteWorkflow][google.cloud.workflows.v1.Workflows.DeleteWorkflow]
 /// method.
@@ -609,6 +645,12 @@ impl DeleteWorkflowRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for DeleteWorkflowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.DeleteWorkflowRequest"
     }
 }
 
@@ -643,6 +685,12 @@ impl UpdateWorkflowRequest {
     pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for UpdateWorkflowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.UpdateWorkflowRequest"
     }
 }
 
@@ -702,5 +750,11 @@ impl OperationMetadata {
     pub fn set_api_version<T: Into<String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for OperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.workflows.v1.OperationMetadata"
     }
 }

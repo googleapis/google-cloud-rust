@@ -15,19 +15,32 @@
 use crate::Result;
 use rand::{distributions::Alphanumeric, Rng};
 
-async fn new_client(tracing: bool) -> Result<smo::client::SecretManagerService> {
-    if tracing {
-        // We could simplify the code, but we want to test the default
-        // constructor.
-        return smo::client::SecretManagerService::new().await;
+async fn new_client(
+    config: Option<gax::options::ClientConfig>,
+) -> Result<smo::client::SecretManagerService> {
+    // We could simplify the code, but we want to test both ::new_with_config()
+    // and ::new().
+    if let Some(config) = config {
+        smo::client::SecretManagerService::new_with_config(config).await
+    } else {
+        smo::client::SecretManagerService::new().await
     }
-    smo::client::SecretManagerService::new_with_config(
-        gax::options::ClientConfig::default().enable_tracing(),
-    )
-    .await
 }
 
-pub async fn run(tracing: bool) -> Result<()> {
+pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
     let project_id = crate::project_id()?;
     let secret_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
@@ -35,7 +48,7 @@ pub async fn run(tracing: bool) -> Result<()> {
         .map(char::from)
         .collect();
 
-    let client = new_client(tracing).await?;
+    let client = new_client(config).await?;
 
     println!("\nTesting create_secret()");
     let create = client

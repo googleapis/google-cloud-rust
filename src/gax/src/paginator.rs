@@ -174,6 +174,7 @@ where
 #[cfg(feature = "unstable-sdk-client")]
 pub use sdk_util::*;
 
+#[cfg(feature = "unstable-sdk-client")]
 mod sdk_util {
     /// Extracts a token value from the input provided.
     pub fn extract_token<T>(input: T) -> String

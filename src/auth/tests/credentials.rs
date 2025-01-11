@@ -12,11 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_auth::credentials::create_access_token_credential;
+use gcp_sdk_auth::credentials::testing::test_credentials;
+use gcp_sdk_auth::credentials::{create_access_token_credential, Credential, CredentialTrait};
+use gcp_sdk_auth::errors::CredentialError;
+use gcp_sdk_auth::token::Token;
+
+type Result<T> = std::result::Result<T, CredentialError>;
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use http::header::{HeaderName, HeaderValue};
     use scoped_env::ScopedEnv;
     use std::error::Error;
 
@@ -95,5 +101,47 @@ mod test {
         let uc = create_access_token_credential().await.unwrap();
         let fmt = format!("{:?}", uc);
         assert!(fmt.contains("UserCredential"));
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Credential {}
+
+        impl CredentialTrait for Credential {
+            async fn get_token(&self) -> Result<Token>;
+            async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+            async fn get_universe_domain(&self) -> Option<String>;
+        }
+    }
+
+    #[tokio::test]
+    async fn mocking() -> Result<()> {
+        let mut mock = MockCredential::new();
+        mock.expect_get_token().return_once(|| {
+            Ok(Token {
+                token: "test-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: None,
+                metadata: None,
+            })
+        });
+        mock.expect_get_headers().return_once(|| Ok(Vec::new()));
+        mock.expect_get_universe_domain().return_once(|| None);
+
+        let creds = Credential::from(mock);
+        assert_eq!(creds.get_token().await?.token, "test-token");
+        assert!(creds.get_headers().await?.is_empty());
+        assert_eq!(creds.get_universe_domain().await, None);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn testing_credentials() -> Result<()> {
+        let creds = test_credentials();
+        assert_eq!(creds.get_token().await?.token, "test-only-token");
+        assert!(creds.get_headers().await?.is_empty());
+        assert_eq!(creds.get_universe_domain().await, None);
+        Ok(())
     }
 }

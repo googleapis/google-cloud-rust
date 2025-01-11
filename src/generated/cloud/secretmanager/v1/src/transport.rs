@@ -356,30 +356,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             );
         self.inner.execute(builder, Some(req), options).await
     }
-}
 
-/// Implements [Locations](crate::traits::Locations) using a [gax::http_client::ReqwestClient].
-#[derive(Clone)]
-pub struct Locations {
-    inner: gax::http_client::ReqwestClient,
-}
-
-impl std::fmt::Debug for Locations {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("Locations")
-            .field("inner", &self.inner)
-            .finish()
-    }
-}
-
-impl Locations {
-    pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
-        let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        Ok(Self { inner })
-    }
-}
-
-impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

@@ -40,7 +40,7 @@ pub struct {{Name}} {
     {{#FieldAttributes}}
     {{{.}}}
     {{/FieldAttributes}}
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub {{NameToSnake}}: Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }
@@ -63,6 +63,14 @@ impl {{Name}} {
     }
     {{/ExplicitOneOfs}}
 }
+{{^HasSyntheticFields}}
+
+impl wkt::message::Message for {{Name}} {
+    fn typename() -> &'static str {
+        "type.googleapis.com/{{SourceFQN}}"
+    }
+}
+{{/HasSyntheticFields}}
 {{#IsPageableResponse}}
 
 #[cfg(feature = "unstable-stream")]
