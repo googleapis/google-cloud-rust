@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sidekick
+package license
 
 import "fmt"
 
-func licenseHeader(year string) []string {
+func LicenseHeader(year string) []string {
 	full := []string{fmt.Sprintf(" Copyright %s Google LLC", year)}
-	full = append(full, licenseHeaderBulk()...)
+	full = append(full, LicenseHeaderBulk()...)
 	return full
 }
 
-func licenseHeaderBulk() []string {
+func LicenseHeaderBulk() []string {
 	return []string{
 		"",
 		" Licensed under the Apache License, Version 2.0 (the \"License\");",

@@ -21,6 +21,7 @@ import (
 	"path"
 	"time"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/license"
 	toml "github.com/pelletier/go-toml/v2"
 )
 
@@ -29,7 +30,7 @@ func init() {
 		"sidekick generate",
 		"Runs the generator for the first time for a client library.",
 		`
-Runs the generator for the first time for a client library. 
+Runs the generator for the first time for a client library.
 
 Uses the configuration provided in the command line arguments, and saves it in a .sidekick.toml file in the output directory.
 `,
@@ -80,7 +81,7 @@ func writeSidekickToml(outDir string, config *Config) error {
 	defer f.Close()
 
 	year := config.Codec["copyright-year"]
-	for _, line := range licenseHeader(year) {
+	for _, line := range license.LicenseHeader(year) {
 		if line == "" {
 			fmt.Fprintln(f, "#")
 		} else {
