@@ -14,17 +14,19 @@
 
 use crate::credentials::CredentialError;
 use crate::credentials::Result;
+use derive_builder::Builder;
 use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
 
 /// JSON Web Signature for a token.
-#[derive(Serialize)]
+#[derive(Serialize, Default, Builder)]
+#[builder(setter(into, strip_option), default)]
 pub struct JwsClaims<'a> {
     pub iss: &'a str,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope: Option<&'a str>,
-    pub aud: &'a str,
+    pub aud: Option<&'a str>,
     pub exp: Option<i64>,
     pub iat: Option<i64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -38,7 +40,7 @@ impl JwsClaims<'_> {
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
         self.iat = self.iat.or_else(|| Some(now.unix_timestamp()));
         self.exp = self
-            .iat
+            .exp
             .or_else(|| Some((now + Duration::from_secs(3600)).unix_timestamp()));
         if self.exp.unwrap() < self.iat.unwrap() {
             return Err(CredentialError::new(
