@@ -65,24 +65,8 @@ func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if err != nil {
 		return err
 	}
-
-	var codec language.Codec
-	switch config.General.Language {
-	case "rust":
-		codec, err = language.NewRustCodec(output, config.Codec)
-	case "go":
-		codec, err = language.NewGoCodec(config.Codec)
-	default:
-		return fmt.Errorf("unknown language: %s", config.General.Language)
-	}
-	if err != nil {
-		return err
-	}
-	if err := codec.Validate(model); err != nil {
-		return err
-	}
 	if cmdLine.DryRun {
 		return nil
 	}
-	return language.GenerateClient(model, codec, output)
+	return language.GenerateClient(model, config.General.Language, output, config.Codec)
 }

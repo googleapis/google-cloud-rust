@@ -33,17 +33,49 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
 }
 
-func GenerateClient(model *api.API, codec Codec, outdir string) error {
-	data := newTemplateData(model, codec)
-	var context []any
-	context = append(context, data)
-	if languageContext := codec.AdditionalContext(model); languageContext != nil {
-		context = append(context, languageContext)
+func GenerateClient(model *api.API, language, outdir string, options map[string]string) error {
+	var (
+		context        []any
+		provider       TemplateProvider
+		generatedFiles []GeneratedFile
+	)
+	switch language {
+	case "rust":
+		codec, err := NewRustCodec(outdir, options)
+		if err != nil {
+			return err
+		}
+		if err := codec.Validate(model); err != nil {
+			return err
+		}
+		data := newRustTemplateData(model, codec)
+		context = append(context, data)
+		if languageContext := codec.AdditionalContext(model); languageContext != nil {
+			context = append(context, languageContext)
+		}
+		provider = codec.TemplatesProvider()
+		generatedFiles = codec.GeneratedFiles()
+	case "go":
+		codec, err := NewGoCodec(options)
+		if err != nil {
+			return err
+		}
+		if err := codec.Validate(model); err != nil {
+			return err
+		}
+		data := newGoTemplateData(model, codec)
+		context = append(context, data)
+		if languageContext := codec.AdditionalContext(model); languageContext != nil {
+			context = append(context, languageContext)
+		}
+		provider = codec.TemplatesProvider()
+		generatedFiles = codec.GeneratedFiles()
+	default:
+		return fmt.Errorf("unknown language: %s", language)
 	}
 
-	provider := codec.TemplatesProvider()
 	var errs []error
-	for _, gen := range codec.GeneratedFiles() {
+	for _, gen := range generatedFiles {
 		templateContents, err := provider(gen.TemplatePath)
 		if err != nil {
 			errs = append(errs, err)
