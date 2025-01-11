@@ -65,11 +65,8 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		}
 		data := newGoTemplateData(model, codec)
 		context = append(context, data)
-		if languageContext := codec.additionalContext(model); languageContext != nil {
-			context = append(context, languageContext)
-		}
 		provider = codec.templatesProvider()
-		generatedFiles = codec.generatedFiles()
+		generatedFiles = walkTemplatesDir(goTemplates, "templates/go")
 	default:
 		return fmt.Errorf("unknown language: %s", language)
 	}

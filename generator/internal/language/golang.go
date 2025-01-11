@@ -18,7 +18,6 @@ import (
 	"embed"
 	"fmt"
 	"log/slog"
-	"strconv"
 	"strings"
 	"time"
 	"unicode"
@@ -44,12 +43,6 @@ func newGoCodec(options map[string]string) (*goCodec, error) {
 			codec.goPackageName = definition
 		case key == "copyright-year":
 			codec.generationYear = definition
-		case key == "not-for-publication":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
-			}
-			codec.doNotPublish = value
 		case strings.HasPrefix(key, "import-mapping"):
 			keys := strings.Split(key, ":")
 			if len(keys) != 2 {
@@ -80,10 +73,6 @@ type goCodec struct {
 	goPackageName string
 	// A map containing package id to import path information
 	importMap map[string]*goImport
-	// Some packages are not intended for publication. For example, they may be
-	// intended only for testing the generator or the SDK, or the service may
-	// not be GA.
-	doNotPublish bool
 }
 
 type goImport struct {
@@ -104,10 +93,6 @@ func (c *goCodec) loadWellKnownTypes(s *api.APIState) {
 	}
 	s.MessageByID[timestamp.ID] = timestamp
 	s.MessageByID[duration.ID] = duration
-}
-
-func (*goCodec) fieldAttributes(*api.Field, *api.APIState) []string {
-	return []string{}
 }
 
 func (c *goCodec) fieldType(f *api.Field, state *api.APIState) string {
@@ -149,12 +134,8 @@ func (c *goCodec) fieldType(f *api.Field, state *api.APIState) string {
 	return out
 }
 
-func (c *goCodec) primitiveFieldType(f *api.Field, state *api.APIState) string {
-	return c.fieldType(f, state)
-}
-
 func (c *goCodec) asQueryParameter(f *api.Field, _ *api.APIState) string {
-	return fmt.Sprintf("req.%s.to_str()", c.toCamel(f.Name))
+	return fmt.Sprintf("req.%s.to_str()", strcase.ToLowerCamel(f.Name))
 }
 
 func (c *goCodec) templatesProvider() templateProvider {
@@ -165,10 +146,6 @@ func (c *goCodec) templatesProvider() templateProvider {
 		}
 		return string(contents), nil
 	}
-}
-
-func (c *goCodec) generatedFiles() []GeneratedFile {
-	return walkTemplatesDir(goTemplates, "templates/go")
 }
 
 func (c *goCodec) methodInOutTypeName(id string, s *api.APIState) string {
@@ -183,10 +160,6 @@ func (c *goCodec) methodInOutTypeName(id string, s *api.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
-func (*goCodec) messageAttributes(*api.Message, *api.APIState) []string {
-	return []string{}
-}
-
 func (c *goCodec) messageName(m *api.Message) string {
 	if m.Parent != nil {
 		return c.messageName(m.Parent) + "_" + strcase.ToCamel(m.Name)
@@ -197,19 +170,11 @@ func (c *goCodec) messageName(m *api.Message) string {
 	return c.toPascal(m.Name)
 }
 
-func (c *goCodec) fqMessageName(m *api.Message) string {
-	return c.messageName(m)
-}
-
 func (c *goCodec) enumName(e *api.Enum) string {
 	if e.Parent != nil {
 		return c.messageName(e.Parent) + "_" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
-}
-
-func (c *goCodec) fqEnumName(e *api.Enum, state *api.APIState) string {
-	return c.enumName(e)
 }
 
 func (c *goCodec) enumValueName(e *api.EnumValue) string {
@@ -253,23 +218,8 @@ func (c *goCodec) httpPathArgs(h *api.PathInfo) []string {
 	return args
 }
 
-func (c *goCodec) toSnake(symbol string) string {
-	return goEscapeKeyword(c.toSnakeNoMangling(symbol))
-}
-
-func (*goCodec) toSnakeNoMangling(symbol string) string {
-	if strings.ToLower(symbol) == symbol {
-		return goEscapeKeyword(symbol)
-	}
-	return goEscapeKeyword(strcase.ToSnake(symbol))
-}
-
 func (*goCodec) toPascal(symbol string) string {
 	return goEscapeKeyword(strcase.ToCamel(symbol))
-}
-
-func (*goCodec) toCamel(symbol string) string {
-	return strcase.ToLowerCamel(symbol)
 }
 
 func (*goCodec) formatDocComments(documentation string, _ *api.APIState) []string {
@@ -280,28 +230,11 @@ func (*goCodec) formatDocComments(documentation string, _ *api.APIState) []strin
 	return ss
 }
 
-func (*goCodec) requiredPackages() []string {
-	return []string{}
-}
-
-func (c *goCodec) copyrightYear() string {
-	return c.generationYear
-}
-
-func (c *goCodec) sourcePackageName() string {
-	return c.sourceSpecificationPackageName
-}
-
 func (c *goCodec) packageName(api *api.API) string {
 	if len(c.packageNameOverride) > 0 {
 		return c.packageNameOverride
 	}
 	return api.Name
-}
-
-func (c *goCodec) packageVersion() string {
-	// Go does not need package versions in any generated file.
-	return ""
 }
 
 func (c *goCodec) validatePackageName(newPackage, elementName string) error {
@@ -348,27 +281,12 @@ func (c *goCodec) validate(api *api.API) error {
 	return nil
 }
 
-// GoContext provides additional context for the Go template.
-type GoContext struct {
-	GoPackage string
-}
-
-func (c *goCodec) additionalContext(*api.API) any {
-	return GoContext{
-		GoPackage: c.goPackageName,
-	}
-}
-
 func (c *goCodec) imports() []string {
 	var imports []string
 	for _, imp := range c.importMap {
 		imports = append(imports, fmt.Sprintf("%q", imp.path))
 	}
 	return imports
-}
-
-func (c *goCodec) notForPublication() bool {
-	return c.doNotPublish
 }
 
 func (c *goCodec) generateMethod(m *api.Method) bool {
