@@ -1868,7 +1868,6 @@ dependencies = [
  "aws-lc-rs",
  "log",
  "once_cell",
- "ring",
  "rustls-pki-types",
  "rustls-webpki",
  "subtle",
@@ -2102,15 +2101,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
-]
-
-[[package]]
-name = "service_account_creds"
-version = "0.1.0"
-dependencies = [
- "gcp-sdk-auth",
- "rustls",
- "tokio",
 ]
 
 [[package]]

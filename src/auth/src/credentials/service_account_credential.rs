@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -38,14 +38,14 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
 #[allow(dead_code)] // Implementation in progress
 #[derive(serde::Deserialize, Debug, Builder)]
 #[builder(setter(into))]
-pub struct ServiceAccountInfo {
-    pub client_email: String,
-    pub private_key_id: String,
-    pub private_key: String,
-    pub auth_uri: String,
-    pub token_uri: String,
-    pub project_id: String,
-    pub universe_domain: String,
+pub(crate) struct ServiceAccountInfo {
+    client_email: String,
+    private_key_id: String,
+    private_key: String,
+    auth_uri: String,
+    token_uri: String,
+    project_id: String,
+    universe_domain: String,
 }
 
 #[allow(dead_code)] // Implementation in progress
@@ -59,8 +59,8 @@ where
 
 #[allow(dead_code)]
 #[derive(Debug)]
-pub struct ServiceAccountTokenProvider {
-    pub service_account_info: ServiceAccountInfo,
+pub(crate) struct ServiceAccountTokenProvider {
+    service_account_info: ServiceAccountInfo,
 }
 
 #[async_trait]
@@ -68,14 +68,13 @@ pub struct ServiceAccountTokenProvider {
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_info.private_key)?;
-        //TODO: allow the user to pass in the scopes
+
         let mut claims = JwsClaimsBuilder::default()
             .iss(self.service_account_info.client_email.as_str())
             .aud(self.service_account_info.token_uri.as_str())
             .build()
             .map_err(|e| CredentialError::new(false, e.into()))?;
 
-        //TODO: In the first iteration we only allow user to specify RSA algorithm
         let header = DEFAULT_HEADER;
 
         let ss = format!("{}.{}", header.encode()?, claims.encode()?);
