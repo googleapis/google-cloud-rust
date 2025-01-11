@@ -58,7 +58,7 @@ func TestGo_ToPascal(t *testing.T) {
 }
 
 func TestGo_MessageNames(t *testing.T) {
-	message := &api.Message{
+	replication := &api.Message{
 		Name: "Replication",
 		ID:   "..Replication",
 		Fields: []*api.Field{
@@ -71,26 +71,28 @@ func TestGo_MessageNames(t *testing.T) {
 			},
 		},
 	}
-	nested := &api.Message{
-		Name: "Automatic",
-		ID:   "..Replication.Automatic",
+	automatic := &api.Message{
+		Parent: replication,
+		Name:   "Automatic",
+		ID:     "..Replication.Automatic",
 	}
 
-	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
-
-	c := &GoCodec{}
-	if got := c.MessageName(message, api.State); got != "Replication" {
-		t.Errorf("mismatched message name, want=Replication, got=%s", got)
-	}
-	if got := c.FQMessageName(message, api.State); got != "Replication" {
-		t.Errorf("mismatched message name, want=Replication, got=%s", got)
-	}
-
-	if got := c.MessageName(nested, api.State); got != "Replication_Automatic" {
-		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
-	}
-	if got := c.FQMessageName(nested, api.State); got != "Replication_Automatic" {
-		t.Errorf("mismatched message name, want=Replication_Automatic, got=%s", got)
+	for _, test := range []struct {
+		message *api.Message
+		want    string
+	}{
+		{replication, "Replication"},
+		{automatic, "Replication_Automatic"},
+	} {
+		t.Run(test.want, func(t *testing.T) {
+			c := &GoCodec{}
+			if got := c.MessageName(test.message, nil); got != test.want {
+				t.Errorf("c.MessageName = %q, want = %q", got, test.want)
+			}
+			if got := c.FQMessageName(test.message, nil); got != test.want {
+				t.Errorf("c.FQMessageName = %q, want = %q", got, test.want)
+			}
+		})
 	}
 }
 
