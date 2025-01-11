@@ -16,6 +16,7 @@ package language
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"testing"
 
@@ -50,7 +51,7 @@ func TestRust_ParseOptions(t *testing.T) {
 		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
 		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
 	}
-	codec, err := NewRustCodec("", options)
+	got, err := NewRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -89,13 +90,19 @@ func TestRust_ParseOptions(t *testing.T) {
 			"test-only":       gp,
 		},
 	}
-	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(RustCodec{}, "ExtraPackages", "PackageMapping")); diff != "" {
+	sort.Slice(want.ExtraPackages, func(i, j int) bool {
+		return want.ExtraPackages[i].Name < want.ExtraPackages[j].Name
+	})
+	sort.Slice(got.ExtraPackages, func(i, j int) bool {
+		return got.ExtraPackages[i].Name < got.ExtraPackages[j].Name
+	})
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(RustCodec{}, "ExtraPackages", "PackageMapping")); diff != "" {
 		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
 	}
-	if want.PackageNameOverride != codec.PackageNameOverride {
-		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.PackageNameOverride, codec.PackageNameOverride)
+	if want.PackageNameOverride != got.PackageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.PackageNameOverride, got.PackageNameOverride)
 	}
-	checkRustPackages(t, codec, want)
+	checkRustPackages(t, got, want)
 }
 
 func TestRust_RequiredPackages(t *testing.T) {
