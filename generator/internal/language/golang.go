@@ -187,9 +187,9 @@ func (*GoCodec) MessageAttributes(*api.Message, *api.APIState) []string {
 	return []string{}
 }
 
-func (c *GoCodec) MessageName(m *api.Message, state *api.APIState) string {
+func (c *GoCodec) MessageName(m *api.Message, _ *api.APIState) string {
 	if m.Parent != nil {
-		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
+		return c.MessageName(m.Parent, nil) + "_" + strcase.ToCamel(m.Name)
 	}
 	if imp, ok := c.ImportMap[m.Package]; ok {
 		return imp.Name + "." + c.ToPascal(m.Name)
@@ -197,8 +197,8 @@ func (c *GoCodec) MessageName(m *api.Message, state *api.APIState) string {
 	return c.ToPascal(m.Name)
 }
 
-func (c *GoCodec) FQMessageName(m *api.Message, state *api.APIState) string {
-	return c.MessageName(m, state)
+func (c *GoCodec) FQMessageName(m *api.Message, _ *api.APIState) string {
+	return c.MessageName(m, nil)
 }
 
 func (c *GoCodec) EnumName(e *api.Enum, state *api.APIState) string {
