@@ -34,7 +34,7 @@ type GeneratedFile struct {
 // The function is expected to accept a template name, including its full path
 // and the `.mustache` extension, such as `rust/crate/src/lib.rs.mustach` and
 // tuen return the full contents of the template (or an error).
-type TemplateProvider func(templateName string) (string, error)
+type templateProvider func(templateName string) (string, error)
 
 func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]

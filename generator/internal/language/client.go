@@ -36,40 +36,40 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 func GenerateClient(model *api.API, language, outdir string, options map[string]string) error {
 	var (
 		context        []any
-		provider       TemplateProvider
+		provider       templateProvider
 		generatedFiles []GeneratedFile
 	)
 	switch language {
 	case "rust":
-		codec, err := NewRustCodec(outdir, options)
+		codec, err := newRustCodec(outdir, options)
 		if err != nil {
 			return err
 		}
-		if err := codec.Validate(model); err != nil {
+		if err := codec.validate(model); err != nil {
 			return err
 		}
 		data := newRustTemplateData(model, codec)
 		context = append(context, data)
-		if languageContext := codec.AdditionalContext(model); languageContext != nil {
+		if languageContext := codec.additionalContext(model); languageContext != nil {
 			context = append(context, languageContext)
 		}
-		provider = codec.TemplatesProvider()
-		generatedFiles = codec.GeneratedFiles()
+		provider = codec.templatesProvider()
+		generatedFiles = codec.generatedFiles()
 	case "go":
-		codec, err := NewGoCodec(options)
+		codec, err := newGoCodec(options)
 		if err != nil {
 			return err
 		}
-		if err := codec.Validate(model); err != nil {
+		if err := codec.validate(model); err != nil {
 			return err
 		}
 		data := newGoTemplateData(model, codec)
 		context = append(context, data)
-		if languageContext := codec.AdditionalContext(model); languageContext != nil {
+		if languageContext := codec.additionalContext(model); languageContext != nil {
 			context = append(context, languageContext)
 		}
-		provider = codec.TemplatesProvider()
-		generatedFiles = codec.GeneratedFiles()
+		provider = codec.templatesProvider()
+		generatedFiles = codec.generatedFiles()
 	default:
 		return fmt.Errorf("unknown language: %s", language)
 	}
