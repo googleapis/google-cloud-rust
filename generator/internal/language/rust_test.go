@@ -1531,7 +1531,7 @@ func TestRust_MessageNames(t *testing.T) {
 }
 
 func TestRust_EnumNames(t *testing.T) {
-	message := &api.Message{
+	parent := &api.Message{
 		Name:    "SecretVersion",
 		ID:      ".test.SecretVersion",
 		Package: "test",
@@ -1548,7 +1548,7 @@ func TestRust_EnumNames(t *testing.T) {
 	nested := &api.Enum{
 		Name:    "State",
 		ID:      ".test.SecretVersion.State",
-		Parent:  message,
+		Parent:  parent,
 		Package: "test",
 	}
 	non_nested := &api.Enum{
@@ -1557,20 +1557,24 @@ func TestRust_EnumNames(t *testing.T) {
 		Package: "test",
 	}
 
-	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested, non_nested}, []*api.Service{})
-	api.PackageName = "test"
-
+	model := newTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	model.PackageName = "test"
 	c := createRustCodec()
-	if err := c.validate(api); err != nil {
+	if err := c.validate(model); err != nil {
 		t.Fatal(err)
 	}
-	if got := rustEnumName(nested); got != "State" {
-		t.Errorf("mismatched enum name, got=%s, want=Automatic", got)
-	}
-	if got := c.fqEnumName(nested); got != "crate::model::secret_version::State" {
-		t.Errorf("mismatched enum name, got=%s, want=crate::model::secret_version::State", got)
-	}
-	if got := c.fqEnumName(non_nested); got != "crate::model::Code" {
-		t.Errorf("mismatched enum name, got=%s, want=%s", got, "crate::model::Code")
+	for _, test := range []struct {
+		enum                 *api.Enum
+		wantEnum, wantFQEnum string
+	}{
+		{nested, "State", "crate::model::secret_version::State"},
+		{non_nested, "Code", "crate::model::Code"},
+	} {
+		if got := rustEnumName(test.enum); got != test.wantEnum {
+			t.Errorf("c.enumName(%q) = %q; want = %s", test.enum.Name, got, test.wantEnum)
+		}
+		if got := c.fqEnumName(test.enum); got != test.wantFQEnum {
+			t.Errorf("c.fqEnumName(%q) = %q; want = %s", test.enum.Name, got, test.wantFQEnum)
+		}
 	}
 }
