@@ -24,24 +24,6 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-// GenerateClientRequest used to generate clients.
-type GenerateClientRequest struct {
-	// The in memory representation of a parsed input.
-	API *api.API
-	// An adapter to transform values into language idiomatic representations.
-	Codec Codec
-	// OutDir is the path to the output directory.
-	OutDir string
-}
-
-func (r *GenerateClientRequest) outDir() string {
-	if r.OutDir == "" {
-		wd, _ := os.Getwd()
-		return wd
-	}
-	return r.OutDir
-}
-
 type mustacheProvider struct {
 	impl    func(string) (string, error)
 	dirname string
@@ -51,23 +33,27 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
 }
 
-func GenerateClient(req *GenerateClientRequest) error {
-	data := newTemplateData(req.API, req.Codec)
+func GenerateClient(model *api.API, codec Codec, outdir string) error {
+	data := newTemplateData(model, codec)
 	var context []any
 	context = append(context, data)
-	if languageContext := req.Codec.AdditionalContext(req.API); languageContext != nil {
+	if languageContext := codec.AdditionalContext(model); languageContext != nil {
 		context = append(context, languageContext)
 	}
 
-	provider := req.Codec.TemplatesProvider()
+	provider := codec.TemplatesProvider()
 	var errs []error
-	for _, gen := range req.Codec.GeneratedFiles() {
+	for _, gen := range codec.GeneratedFiles() {
 		templateContents, err := provider(gen.TemplatePath)
 		if err != nil {
 			errs = append(errs, err)
 			continue
 		}
-		destination := filepath.Join(req.outDir(), gen.OutputPath)
+		if outdir == "" {
+			wd, _ := os.Getwd()
+			outdir = wd
+		}
+		destination := filepath.Join(outdir, gen.OutputPath)
 		os.MkdirAll(filepath.Dir(destination), 0777) // Ignore errors
 		nestedProvider := mustacheProvider{
 			impl:    provider,
