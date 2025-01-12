@@ -34,7 +34,7 @@ func newGoCodec(options map[string]string) (*goCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &goCodec{
 		generationYear: fmt.Sprintf("%04d", year),
-		importMap:      map[string]*GoImport{},
+		importMap:      map[string]*goImport{},
 	}
 	for key, definition := range options {
 		switch {
@@ -59,9 +59,9 @@ func newGoCodec(options map[string]string) (*goCodec, error) {
 			if len(defs) != 2 {
 				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
 			}
-			codec.importMap[keys[1]] = &GoImport{
-				Path: defs[0],
-				Name: defs[1],
+			codec.importMap[keys[1]] = &goImport{
+				path: defs[0],
+				name: defs[1],
 			}
 		}
 	}
@@ -79,16 +79,16 @@ type goCodec struct {
 	// The package name to generate code into
 	goPackageName string
 	// A map containing package id to import path information
-	importMap map[string]*GoImport
+	importMap map[string]*goImport
 	// Some packages are not intended for publication. For example, they may be
 	// intended only for testing the generator or the SDK, or the service may
 	// not be GA.
 	doNotPublish bool
 }
 
-type GoImport struct {
-	Path string
-	Name string
+type goImport struct {
+	path string
+	name string
 }
 
 func (c *goCodec) loadWellKnownTypes(s *api.APIState) {
@@ -192,7 +192,7 @@ func (c *goCodec) messageName(m *api.Message) string {
 		return c.messageName(m.Parent) + "_" + strcase.ToCamel(m.Name)
 	}
 	if imp, ok := c.importMap[m.Package]; ok {
-		return imp.Name + "." + c.toPascal(m.Name)
+		return imp.name + "." + c.toPascal(m.Name)
 	}
 	return c.toPascal(m.Name)
 }
@@ -362,7 +362,7 @@ func (c *goCodec) additionalContext(*api.API) any {
 func (c *goCodec) imports() []string {
 	var imports []string
 	for _, imp := range c.importMap {
-		imports = append(imports, fmt.Sprintf("%q", imp.Path))
+		imports = append(imports, fmt.Sprintf("%q", imp.path))
 	}
 	return imports
 }
