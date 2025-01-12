@@ -758,7 +758,7 @@ func TestRust_FieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := c.nonPrimitiveFieldType(field, api.State)
+		got := c.fieldType(field, api.State, false)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -767,7 +767,7 @@ func TestRust_FieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got = c.primitiveFieldType(field, api.State)
+		got = c.fieldType(field, api.State, true)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}

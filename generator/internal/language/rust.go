@@ -459,14 +459,6 @@ func (c *rustCodec) fieldAttributes(f *api.Field, state *api.APIState) []string 
 	}
 }
 
-func (c *rustCodec) nonPrimitiveFieldType(f *api.Field, state *api.APIState) string {
-	return c.fieldType(f, state, false)
-}
-
-func (c *rustCodec) primitiveFieldType(f *api.Field, state *api.APIState) string {
-	return c.fieldType(f, state, true)
-}
-
 func (c *rustCodec) fieldType(f *api.Field, state *api.APIState, primitive bool) string {
 	if !primitive && f.IsOneOf {
 		return fmt.Sprintf("(%s)", c.baseFieldType(f, state))
@@ -489,8 +481,8 @@ func (c *rustCodec) baseFieldType(f *api.Field, state *api.APIState) string {
 			return ""
 		}
 		if m.IsMap {
-			key := c.nonPrimitiveFieldType(m.Fields[0], state)
-			val := c.nonPrimitiveFieldType(m.Fields[1], state)
+			key := c.fieldType(m.Fields[0], state, false)
+			val := c.fieldType(m.Fields[1], state, false)
 			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
 		return c.fqMessageName(m, state)
@@ -1034,10 +1026,6 @@ func (c *rustCodec) packageVersion() string {
 	return c.version
 }
 
-func (c *rustCodec) sourcePackageName() string {
-	return c.sourceSpecificationPackageName
-}
-
 func (c *rustCodec) packageName(api *api.API) string {
 	if len(c.packageNameOverride) > 0 {
 		return c.packageNameOverride
@@ -1092,19 +1080,7 @@ func (c *rustCodec) validate(api *api.API) error {
 	return nil
 }
 
-// rustContext contains Rust specific data that can be referenced in templates.
-type rustContext struct {
-	HasFeatures bool
-	Features    []string
-}
-
-func (c *rustCodec) additionalContext(api *api.API) any {
-	rustContext := &rustContext{}
-	c.addStreamingFeature(rustContext, api)
-	return rustContext
-}
-
-func (c *rustCodec) addStreamingFeature(rustContext *rustContext, api *api.API) {
+func (c *rustCodec) addStreamingFeature(data *RustTemplateData, api *api.API) {
 	var hasStreamingRPC bool
 	for _, m := range api.Messages {
 		if m.IsPageableResponse {
@@ -1127,12 +1103,8 @@ func (c *rustCodec) addStreamingFeature(rustContext *rustContext, api *api.API) 
 		}
 	}
 	sb.WriteString("]")
-	rustContext.Features = append(rustContext.Features, sb.String())
-	rustContext.HasFeatures = true
-}
-
-func (c *rustCodec) imports() []string {
-	return nil
+	data.Features = append(data.Features, sb.String())
+	data.HasFeatures = true
 }
 
 func (c *rustCodec) notForPublication() bool {
