@@ -35,7 +35,7 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 
 func GenerateClient(model *api.API, language, outdir string, options map[string]string) error {
 	var (
-		context        []any
+		data           any
 		provider       templateProvider
 		generatedFiles []GeneratedFile
 	)
@@ -48,11 +48,7 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		if err := codec.validate(model); err != nil {
 			return err
 		}
-		data := newRustTemplateData(model, codec)
-		context = append(context, data)
-		if languageContext := codec.additionalContext(model); languageContext != nil {
-			context = append(context, languageContext)
-		}
+		data = newRustTemplateData(model, codec)
 		provider = codec.templatesProvider()
 		generatedFiles = codec.generatedFiles()
 	case "go":
@@ -63,8 +59,7 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		if err := codec.validate(model); err != nil {
 			return err
 		}
-		data := newGoTemplateData(model, codec)
-		context = append(context, data)
+		data = newGoTemplateData(model, codec)
 		provider = codec.templatesProvider()
 		generatedFiles = walkTemplatesDir(goTemplates, "templates/go")
 	default:
@@ -88,7 +83,7 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 			impl:    provider,
 			dirname: filepath.Dir(gen.TemplatePath),
 		}
-		s, err := mustache.RenderPartials(templateContents, &nestedProvider, context...)
+		s, err := mustache.RenderPartials(templateContents, &nestedProvider, data)
 		if err != nil {
 			errs = append(errs, err)
 			continue
