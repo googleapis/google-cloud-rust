@@ -52,15 +52,12 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		provider = codec.templatesProvider()
 		generatedFiles = codec.generatedFiles()
 	case "go":
-		codec, err := newGoCodec(options)
+		var err error
+		data, err = newGoTemplateData(model, options)
 		if err != nil {
 			return err
 		}
-		if err := codec.validate(model); err != nil {
-			return err
-		}
-		data = newGoTemplateData(model, codec)
-		provider = codec.templatesProvider()
+		provider = goTemplatesProvider()
 		generatedFiles = walkTemplatesDir(goTemplates, "templates/go")
 	default:
 		return fmt.Errorf("unknown language: %s", language)
