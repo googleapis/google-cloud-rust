@@ -43,15 +43,11 @@ impl JwsClaims<'_> {
             .exp
             .or_else(|| Some((now + Duration::from_secs(3600)).unix_timestamp()));
         if self.exp.unwrap() < self.iat.unwrap() {
-            return Err(CredentialError::new(
-                false,
-                Box::from("exp must be later than iat"),
-            ));
+            return Err(CredentialError::non_retryable("exp must be later than iat"));
         }
 
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let json =
-            serde_json::to_string(&self).map_err(|e| CredentialError::new(false, e.into()))?;
+        let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
@@ -68,8 +64,7 @@ pub struct JwsHeader<'a> {
 impl JwsHeader<'_> {
     pub fn encode(&self) -> Result<String> {
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let json =
-            serde_json::to_string(&self).map_err(|e| CredentialError::new(false, e.into()))?;
+        let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
