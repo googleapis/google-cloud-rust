@@ -22,7 +22,7 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-type TemplateData struct {
+type RustTemplateData struct {
 	Name              string
 	Title             string
 	Description       string
@@ -35,15 +35,15 @@ type TemplateData struct {
 	BoilerPlate       []string
 	Imports           []string
 	DefaultHost       string
-	Services          []*Service
-	Messages          []*Message
-	Enums             []*Enum
+	Services          []*RustService
+	Messages          []*RustMessage
+	Enums             []*RustEnum
 	NameToLower       string
 	NotForPublication bool
 }
 
-type Service struct {
-	Methods             []*Method
+type RustService struct {
+	Methods             []*RustMethod
 	NameToSnake         string
 	NameToPascal        string
 	ServiceNameToPascal string
@@ -53,12 +53,12 @@ type Service struct {
 	DefaultHost         string
 }
 
-type Message struct {
-	Fields             []*Field
-	BasicFields        []*Field
-	ExplicitOneOfs     []*OneOf
-	NestedMessages     []*Message
-	Enums              []*Enum
+type RustMessage struct {
+	Fields             []*RustField
+	BasicFields        []*RustField
+	ExplicitOneOfs     []*RustOneOf
+	NestedMessages     []*RustMessage
+	Enums              []*RustEnum
 	MessageAttributes  []string
 	Name               string
 	QualifiedName      string
@@ -67,7 +67,7 @@ type Message struct {
 	DocLines           []string
 	IsMap              bool
 	IsPageableResponse bool
-	PageableItem       *Field
+	PageableItem       *RustField
 	ID                 string
 	// The FQN is the source specification
 	SourceFQN string
@@ -76,7 +76,7 @@ type Message struct {
 	HasSyntheticFields bool
 }
 
-type Method struct {
+type RustMethod struct {
 	NameToSnake         string
 	NameToCamel         string
 	NameToPascal        string
@@ -87,8 +87,8 @@ type Method struct {
 	HTTPMethodToLower   string
 	HTTPPathFmt         string
 	HTTPPathArgs        []string
-	PathParams          []*Field
-	QueryParams         []*Field
+	PathParams          []*RustField
+	QueryParams         []*RustField
 	HasBody             bool
 	BodyAccessor        string
 	IsPageable          bool
@@ -96,25 +96,25 @@ type Method struct {
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
 	InputTypeID         string
-	InputType           *Message
-	OperationInfo       *OperationInfo
+	InputType           *RustMessage
+	OperationInfo       *RustOperationInfo
 }
 
-type OperationInfo struct {
+type RustOperationInfo struct {
 	MetadataType string
 	ResponseType string
 }
 
-type OneOf struct {
+type RustOneOf struct {
 	NameToPascal          string
 	NameToSnake           string
 	NameToSnakeNoMangling string
 	FieldType             string
 	DocLines              []string
-	Fields                []*Field
+	Fields                []*RustField
 }
 
-type Field struct {
+type RustField struct {
 	NameToSnake           string
 	NameToSnakeNoMangling string
 	NameToCamel           string
@@ -127,27 +127,27 @@ type Field struct {
 	AsQueryParameter      string
 }
 
-type Enum struct {
+type RustEnum struct {
 	Name          string
 	NameSnakeCase string
 	DocLines      []string
-	Values        []*EnumValue
+	Values        []*RustEnumValue
 }
 
-type EnumValue struct {
+type RustEnumValue struct {
 	DocLines []string
 	Name     string
 	Number   int32
 	EnumType string
 }
 
-// newTemplateData creates a struct used as input for Mustache templates.
+// newRustTemplateData creates a struct used as input for Mustache templates.
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func newTemplateData(model *api.API, c Codec) *TemplateData {
+func newRustTemplateData(model *api.API, c *RustCodec) *RustTemplateData {
 	c.LoadWellKnownTypes(model.State)
-	data := &TemplateData{
+	data := &RustTemplateData{
 		Name:              model.Name,
 		Title:             model.Title,
 		Description:       model.Description,
@@ -166,14 +166,14 @@ func newTemplateData(model *api.API, c Codec) *TemplateData {
 			}
 			return ""
 		}(),
-		Services: mapSlice(model.Services, func(s *api.Service) *Service {
-			return newService(s, c, model.State)
+		Services: mapSlice(model.Services, func(s *api.Service) *RustService {
+			return newRustService(s, c, model.State)
 		}),
-		Messages: mapSlice(model.Messages, func(m *api.Message) *Message {
-			return newMessage(m, c, model.State)
+		Messages: mapSlice(model.Messages, func(m *api.Message) *RustMessage {
+			return newRustMessage(m, c, model.State)
 		}),
-		Enums: mapSlice(model.Enums, func(e *api.Enum) *Enum {
-			return newEnum(e, c, model.State)
+		Enums: mapSlice(model.Enums, func(e *api.Enum) *RustEnum {
+			return newRustEnum(e, c, model.State)
 		}),
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.NotForPublication(),
@@ -182,7 +182,7 @@ func newTemplateData(model *api.API, c Codec) *TemplateData {
 	// used.
 	data.RequiredPackages = c.RequiredPackages()
 
-	messagesByID := map[string]*Message{}
+	messagesByID := map[string]*RustMessage{}
 	for _, m := range data.Messages {
 		messagesByID[m.ID] = m
 	}
@@ -191,21 +191,21 @@ func newTemplateData(model *api.API, c Codec) *TemplateData {
 			if msg, ok := messagesByID[method.InputTypeID]; ok {
 				method.InputType = msg
 			} else if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
-				method.InputType = newMessage(m, c, model.State)
+				method.InputType = newRustMessage(m, c, model.State)
 			}
 		}
 	}
 	return data
 }
 
-func newService(s *api.Service, c Codec, state *api.APIState) *Service {
+func newRustService(s *api.Service, c *RustCodec, state *api.APIState) *RustService {
 	// Some codecs skip some methods.
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
 		return c.GenerateMethod(m)
 	})
-	return &Service{
-		Methods: mapSlice(methods, func(m *api.Method) *Method {
-			return newMethod(m, c, state)
+	return &RustService{
+		Methods: mapSlice(methods, func(m *api.Method) *RustMethod {
+			return newRustMethod(m, c, state)
 		}),
 		NameToSnake:         c.ToSnake(s.Name),
 		NameToPascal:        c.ToPascal(s.Name),
@@ -217,7 +217,7 @@ func newService(s *api.Service, c Codec, state *api.APIState) *Service {
 	}
 }
 
-func newMessage(m *api.Message, c Codec, state *api.APIState) *Message {
+func newRustMessage(m *api.Message, c *RustCodec, state *api.APIState) *RustMessage {
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
 		if f.Synthetic {
@@ -225,26 +225,26 @@ func newMessage(m *api.Message, c Codec, state *api.APIState) *Message {
 			break
 		}
 	}
-	return &Message{
-		Fields: mapSlice(m.Fields, func(s *api.Field) *Field {
-			return newField(s, c, state)
+	return &RustMessage{
+		Fields: mapSlice(m.Fields, func(s *api.Field) *RustField {
+			return newRustField(s, c, state)
 		}),
-		BasicFields: func() []*Field {
+		BasicFields: func() []*RustField {
 			filtered := filterSlice(m.Fields, func(s *api.Field) bool {
 				return !s.IsOneOf
 			})
-			return mapSlice(filtered, func(s *api.Field) *Field {
-				return newField(s, c, state)
+			return mapSlice(filtered, func(s *api.Field) *RustField {
+				return newRustField(s, c, state)
 			})
 		}(),
-		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *OneOf {
-			return newOneOf(s, c, state)
+		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *RustOneOf {
+			return newRustOneOf(s, c, state)
 		}),
-		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *Message {
-			return newMessage(s, c, state)
+		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *RustMessage {
+			return newRustMessage(s, c, state)
 		}),
-		Enums: mapSlice(m.Enums, func(s *api.Enum) *Enum {
-			return newEnum(s, c, state)
+		Enums: mapSlice(m.Enums, func(s *api.Enum) *RustEnum {
+			return newRustEnum(s, c, state)
 		}),
 		MessageAttributes: c.MessageAttributes(m, state),
 		Name:              c.MessageName(m, state),
@@ -264,15 +264,15 @@ func newMessage(m *api.Message, c Codec, state *api.APIState) *Message {
 		DocLines:           c.FormatDocComments(m.Documentation, state),
 		IsMap:              m.IsMap,
 		IsPageableResponse: m.IsPageableResponse,
-		PageableItem:       newField(m.PageableItem, c, state),
+		PageableItem:       newRustField(m.PageableItem, c, state),
 		ID:                 m.ID,
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
 
-func newMethod(m *api.Method, c Codec, state *api.APIState) *Method {
-	method := &Method{
+func newRustMethod(m *api.Method, c *RustCodec, state *api.APIState) *RustMethod {
+	method := &RustMethod{
 		BodyAccessor:      c.BodyAccessor(m, state),
 		DocLines:          c.FormatDocComments(m.Documentation, state),
 		HTTPMethod:        m.PathInfo.Verb,
@@ -285,11 +285,11 @@ func newMethod(m *api.Method, c Codec, state *api.APIState) *Method {
 		NameToPascal:      c.ToPascal(m.Name),
 		NameToSnake:       strcase.ToSnake(m.Name),
 		OutputTypeName:    c.MethodInOutTypeName(m.OutputTypeID, state),
-		PathParams: mapSlice(PathParams(m, state), func(s *api.Field) *Field {
-			return newField(s, c, state)
+		PathParams: mapSlice(PathParams(m, state), func(s *api.Field) *RustField {
+			return newRustField(s, c, state)
 		}),
-		QueryParams: mapSlice(QueryParams(m, state), func(s *api.Field) *Field {
-			return newField(s, c, state)
+		QueryParams: mapSlice(QueryParams(m, state), func(s *api.Field) *RustField {
+			return newRustField(s, c, state)
 		}),
 		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: c.ToPascal(m.Parent.Name),
@@ -298,7 +298,7 @@ func newMethod(m *api.Method, c Codec, state *api.APIState) *Method {
 		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
-		method.OperationInfo = &OperationInfo{
+		method.OperationInfo = &RustOperationInfo{
 			MetadataType: c.MethodInOutTypeName(m.OperationInfo.MetadataTypeID, state),
 			ResponseType: c.MethodInOutTypeName(m.OperationInfo.ResponseTypeID, state),
 		}
@@ -306,24 +306,24 @@ func newMethod(m *api.Method, c Codec, state *api.APIState) *Method {
 	return method
 }
 
-func newOneOf(oneOf *api.OneOf, c Codec, state *api.APIState) *OneOf {
-	return &OneOf{
+func newRustOneOf(oneOf *api.OneOf, c *RustCodec, state *api.APIState) *RustOneOf {
+	return &RustOneOf{
 		NameToPascal:          c.ToPascal(oneOf.Name),
 		NameToSnake:           c.ToSnake(oneOf.Name),
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(oneOf.Name),
 		FieldType:             c.OneOfType(oneOf, state),
 		DocLines:              c.FormatDocComments(oneOf.Documentation, state),
-		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *Field {
-			return newField(field, c, state)
+		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *RustField {
+			return newRustField(field, c, state)
 		}),
 	}
 }
 
-func newField(field *api.Field, c Codec, state *api.APIState) *Field {
+func newRustField(field *api.Field, c *RustCodec, state *api.APIState) *RustField {
 	if field == nil {
 		return nil
 	}
-	return &Field{
+	return &RustField{
 		NameToSnake:           c.ToSnake(field.Name),
 		NameToSnakeNoMangling: c.ToSnakeNoMangling(field.Name),
 		NameToCamel:           c.ToCamel(field.Name),
@@ -337,32 +337,22 @@ func newField(field *api.Field, c Codec, state *api.APIState) *Field {
 	}
 }
 
-func newEnum(e *api.Enum, c Codec, state *api.APIState) *Enum {
-	return &Enum{
+func newRustEnum(e *api.Enum, c *RustCodec, state *api.APIState) *RustEnum {
+	return &RustEnum{
 		Name:          c.EnumName(e, state),
 		NameSnakeCase: c.ToSnake(c.EnumName(e, state)),
 		DocLines:      c.FormatDocComments(e.Documentation, state),
-		Values: mapSlice(e.Values, func(s *api.EnumValue) *EnumValue {
-			return newEnumValue(s, e, c, state)
+		Values: mapSlice(e.Values, func(s *api.EnumValue) *RustEnumValue {
+			return newRustEnumValue(s, e, c, state)
 		}),
 	}
 }
 
-func newEnumValue(ev *api.EnumValue, e *api.Enum, c Codec, state *api.APIState) *EnumValue {
-	return &EnumValue{
+func newRustEnumValue(ev *api.EnumValue, e *api.Enum, c *RustCodec, state *api.APIState) *RustEnumValue {
+	return &RustEnumValue{
 		DocLines: c.FormatDocComments(ev.Documentation, state),
 		Name:     c.EnumValueName(ev, state),
 		Number:   ev.Number,
 		EnumType: c.EnumName(e, state),
 	}
-}
-
-func filterSlice[T any](slice []T, predicate func(T) bool) []T {
-	result := make([]T, 0)
-	for _, v := range slice {
-		if predicate(v) {
-			result = append(result, v)
-		}
-	}
-	return result
 }
