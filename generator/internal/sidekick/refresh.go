@@ -82,7 +82,7 @@ func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return err
 	}
 
-	request := &generateClientRequest{
+	request := &language.GenerateClientRequest{
 		API:    a,
 		Codec:  codec,
 		OutDir: output,
@@ -90,5 +90,5 @@ func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
 	if cmdLine.DryRun {
 		return nil
 	}
-	return generateClient(request)
+	return language.GenerateClient(request)
 }

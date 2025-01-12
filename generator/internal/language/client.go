@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sidekick
+package language
 
 import (
 	"errors"
@@ -22,20 +22,19 @@ import (
 
 	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 )
 
-// generateClientRequest used to generate clients.
-type generateClientRequest struct {
+// GenerateClientRequest used to generate clients.
+type GenerateClientRequest struct {
 	// The in memory representation of a parsed input.
 	API *api.API
 	// An adapter to transform values into language idiomatic representations.
-	Codec language.Codec
+	Codec Codec
 	// OutDir is the path to the output directory.
 	OutDir string
 }
 
-func (r *generateClientRequest) outDir() string {
+func (r *GenerateClientRequest) outDir() string {
 	if r.OutDir == "" {
 		wd, _ := os.Getwd()
 		return wd
@@ -52,9 +51,7 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
 }
 
-// generateClient takes some state and applies it to a template to create a client
-// library.
-func generateClient(req *generateClientRequest) error {
+func GenerateClient(req *GenerateClientRequest) error {
 	data := newTemplateData(req.API, req.Codec)
 	var context []any
 	context = append(context, data)
