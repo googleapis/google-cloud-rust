@@ -20,15 +20,17 @@ use std::time::Duration;
 use time::OffsetDateTime;
 
 /// JSON Web Signature for a token.
-#[derive(Serialize, Default, Builder)]
+#[derive(Clone, Serialize, Default, Builder)]
 #[builder(setter(into, strip_option), default)]
 pub struct JwsClaims<'a> {
     pub iss: &'a str,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope: Option<&'a str>,
     pub aud: Option<&'a str>,
-    pub exp: Option<i64>,
-    pub iat: Option<i64>,
+    #[serde(with = "time::serde::timestamp::option")]
+    pub exp: Option<OffsetDateTime>,
+    #[serde(with = "time::serde::timestamp::option")]
+    pub iat: Option<OffsetDateTime>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub typ: Option<&'a str>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -36,18 +38,25 @@ pub struct JwsClaims<'a> {
 }
 
 impl JwsClaims<'_> {
-    pub fn encode(&mut self) -> Result<String> {
+    pub fn encode(&self) -> Result<String> {
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
-        self.iat = self.iat.or_else(|| Some(now.unix_timestamp()));
-        self.exp = self
-            .exp
-            .or_else(|| Some((now + Duration::from_secs(3600)).unix_timestamp()));
-        if self.exp.unwrap() < self.iat.unwrap() {
-            return Err(CredentialError::non_retryable("exp must be later than iat"));
+        let iat = self.iat.or(Some(now));
+        let exp = self.exp.or(Some(now + Duration::from_secs(3600)));
+        if exp.unwrap() < iat.unwrap() {
+            return Err(CredentialError::non_retryable(format!(
+                "expiration time {:?}, must be later than issued time {:?}",
+                self.exp, self.iat
+            )));
         }
 
+        let updated_jws_claim = JwsClaims {
+            iat,
+            exp,
+            ..self.clone()
+        };
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let json = serde_json::to_string(&self).map_err(CredentialError::non_retryable)?;
+        let json =
+            serde_json::to_string(&updated_jws_claim).map_err(CredentialError::non_retryable)?;
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }

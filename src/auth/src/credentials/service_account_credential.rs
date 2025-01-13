@@ -35,7 +35,7 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
-#[allow(dead_code)] // Implementation in progress
+#[allow(dead_code)]
 #[derive(serde::Deserialize, Debug, Builder)]
 #[builder(setter(into))]
 pub(crate) struct ServiceAccountInfo {
@@ -48,7 +48,7 @@ pub(crate) struct ServiceAccountInfo {
     universe_domain: String,
 }
 
-#[allow(dead_code)] // Implementation in progress
+#[allow(dead_code)] // TODO(#679) - implementation in progress
 #[derive(Debug)]
 pub(crate) struct ServiceAccountCredential<T>
 where
@@ -64,12 +64,11 @@ pub(crate) struct ServiceAccountTokenProvider {
 }
 
 #[async_trait]
-#[allow(dead_code)]
 impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_info.private_key)?;
 
-        let mut claims = JwsClaimsBuilder::default()
+        let claims = JwsClaimsBuilder::default()
             .iss(self.service_account_info.client_email.as_str())
             .aud(self.service_account_info.token_uri.as_str())
             .build()
@@ -117,7 +116,7 @@ impl ServiceAccountTokenProvider {
         };
         let sk = pk.map_err(CredentialError::non_retryable)?;
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
-            .ok_or_else(|| CredentialError::non_retryable("invalid signing scheme"))
+            .ok_or_else(|| CredentialError::non_retryable("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
     }
 }
 
@@ -136,10 +135,6 @@ where
             .map_err(CredentialError::non_retryable)?;
         value.set_sensitive(true);
         Ok(vec![(AUTHORIZATION, value)])
-    }
-
-    async fn get_universe_domain(&self) -> Option<String> {
-        Some("googleapis.com".to_string())
     }
 }
 

@@ -23,11 +23,11 @@ jobs:
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/lint.yaml', 'testdata/') }}
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/lint.yaml') }}
       - run: |
           rustup component list
           cargo install typos-cli --version 1.29.4
-      - run: typos
+      - run: typos -x "testdata"
   misc-formatting:
     runs-on: ubuntu-24.04
     steps:
