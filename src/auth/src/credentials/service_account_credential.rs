@@ -143,6 +143,7 @@ mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
     use std::path::Path;
+    use serial_test::serial;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -261,8 +262,20 @@ mod test {
         Ok(sa)
     }
 
+    // #[tokio::test]
+    // #[serial]
+    // async fn signer_crypto_provider_error() -> TestResult{
+    //     let tp = ServiceAccountTokenProvider {
+    //         service_account_info: get_mock_service_account(),
+    //     };
+    //     let signer = tp.signer(&tp.service_account_info.private_key);
+    //     let expected_error_message = "unable to get crypto provider";
+    //     assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
+    //     Ok(())
+    // }
+
     #[tokio::test]
-    async fn get_service_account_token_success() {
+    async fn get_service_account_token_success() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         // Get the path to the current crate's root directory.
         let crate_root = Path::new(env!("CARGO_MANIFEST_DIR"));
@@ -274,14 +287,18 @@ mod test {
             service_account_info,
         };
         assert!(token_provider.get_token().await.is_ok());
+        Ok(())
     }
 
     #[test]
     fn signer_failure() -> TestResult {
+        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let tp = ServiceAccountTokenProvider {
             service_account_info: get_mock_service_account(),
         };
-        assert!(tp.signer(&tp.service_account_info.private_key).is_err());
+        let signer = tp.signer(&tp.service_account_info.private_key);
+        let expected_error_message = "unable to parse service account key";
+        assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
 }
