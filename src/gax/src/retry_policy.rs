@@ -226,7 +226,6 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 ///
 /// # Example
 /// ```
-/// # use std::sync::Arc;
 /// # use gcp_sdk_gax::retry_policy::*;
 /// # use gcp_sdk_gax::options::RequestOptionsBuilder;
 /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
@@ -319,6 +318,34 @@ impl RetryPolicy for AlwaysRetry {
         error: Error,
     ) -> RetryFlow {
         RetryFlow::Continue(error)
+    }
+}
+
+/// A retry policy that never retries.
+///
+/// This policy is useful when the client already has (or may already have) a
+/// retry policy configured, and you want to avoid retrying a particular method.
+///
+/// # Example
+/// ```
+/// # use gcp_sdk_gax::retry_policy::*;
+/// # use gcp_sdk_gax::options::RequestOptionsBuilder;
+/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
+///     builder.with_retry_policy(NeverRetry)
+/// }
+/// ```
+#[derive(Clone, Debug)]
+pub struct NeverRetry;
+
+impl RetryPolicy for NeverRetry {
+    fn on_error(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+        _idempotent: bool,
+        error: Error,
+    ) -> RetryFlow {
+        RetryFlow::Exhausted(error)
     }
 }
 
@@ -679,48 +706,62 @@ mod tests {
         let p = AlwaysRetry;
 
         let now = std::time::Instant::now();
+        assert!(p.remaining_time(now, 0).is_none());
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_continue());
         assert!(p.on_throttle(now, 0).is_none());
 
         assert!(p.on_error(now, 0, true, unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, unavailable()).is_continue());
+    }
+
+    #[test_case::test_case(true, Error::io("err"))]
+    #[test_case::test_case(true, Error::authentication("err"))]
+    #[test_case::test_case(true, Error::serde("err"))]
+    #[test_case::test_case(true, Error::other("err"))]
+    #[test_case::test_case(false, Error::io("err"))]
+    #[test_case::test_case(false, Error::authentication("err"))]
+    #[test_case::test_case(false, Error::serde("err"))]
+    #[test_case::test_case(false, Error::other("err"))]
+    fn always_retry_error_kind(idempotent: bool, error: Error) {
+        let p = AlwaysRetry;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, idempotent, error).is_continue());
+    }
+
+    #[test]
+    fn never_retry() {
+        let p = NeverRetry;
+
+        let now = std::time::Instant::now();
+        assert!(p.remaining_time(now, 0).is_none());
+        assert!(p.on_error(now, 0, true, http_unavailable()).is_exhausted());
+        assert!(p.on_error(now, 0, false, http_unavailable()).is_exhausted());
+        assert!(p.on_throttle(now, 0).is_none());
+
+        assert!(p.on_error(now, 0, true, unavailable()).is_exhausted());
+        assert!(p.on_error(now, 0, false, unavailable()).is_exhausted());
 
         assert!(p
             .on_error(now, 0, true, http_permission_denied())
-            .is_continue());
+            .is_exhausted());
         assert!(p
             .on_error(now, 0, false, http_permission_denied())
-            .is_continue());
+            .is_exhausted());
+    }
 
-        assert!(p
-            .on_error(now, 0, true, Error::io("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::io("err".to_string()))
-            .is_continue());
-
-        assert!(p
-            .on_error(now, 0, true, Error::authentication("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::authentication("err".to_string()))
-            .is_continue());
-
-        assert!(p
-            .on_error(now, 0, true, Error::serde("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::serde("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, true, Error::other("err".to_string()))
-            .is_continue());
-        assert!(p
-            .on_error(now, 0, false, Error::other("err".to_string()))
-            .is_continue());
-
-        assert!(p.remaining_time(now, 0).is_none());
+    #[test_case::test_case(true, Error::io("err"))]
+    #[test_case::test_case(true, Error::authentication("err"))]
+    #[test_case::test_case(true, Error::serde("err"))]
+    #[test_case::test_case(true, Error::other("err"))]
+    #[test_case::test_case(false, Error::io("err"))]
+    #[test_case::test_case(false, Error::authentication("err"))]
+    #[test_case::test_case(false, Error::serde("err"))]
+    #[test_case::test_case(false, Error::other("err"))]
+    fn never_retry_error_kind(idempotent: bool, error: Error) {
+        let p = NeverRetry;
+        let now = std::time::Instant::now();
+        assert!(p.on_error(now, 0, idempotent, error).is_exhausted());
     }
 
     fn from_status(status: Status) -> Error {
