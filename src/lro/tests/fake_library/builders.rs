@@ -63,10 +63,8 @@ impl CreateResource {
         self,
     ) -> impl gcp_sdk_lro::Poller<super::model::Resource, super::model::CreateResourceMetadata>
     {
-        type Operation = gcp_sdk_lro::Operation<
-            super::model::Resource,
-            super::model::CreateResourceMetadata,
-        >;
+        type Operation =
+            gcp_sdk_lro::Operation<super::model::Resource, super::model::CreateResourceMetadata>;
 
         let stub = self.stub.clone();
         let options = self.options.clone()

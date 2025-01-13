@@ -16,7 +16,9 @@
 
 use super::*;
 
-pub(crate) fn handle_start<R, M>(result: Result<Operation<R, M>>) -> (Option<String>, PollingResult<R, M>)
+pub(crate) fn handle_start<R, M>(
+    result: Result<Operation<R, M>>,
+) -> (Option<String>, PollingResult<R, M>)
 where
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
@@ -27,7 +29,9 @@ where
     }
 }
 
-pub(crate) fn handle_poll<R, M>(result: Result<Operation<R, M>>) -> (Option<String>, PollingResult<R, M>)
+pub(crate) fn handle_poll<R, M>(
+    result: Result<Operation<R, M>>,
+) -> (Option<String>, PollingResult<R, M>)
 where
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
