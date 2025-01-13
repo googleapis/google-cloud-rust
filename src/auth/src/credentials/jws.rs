@@ -39,6 +39,8 @@ pub struct JwsClaims<'a> {
 
 impl JwsClaims<'_> {
     pub fn encode(&self) -> Result<String> {
+        // To avoid token being rejected due to any clock skews between 2 servers, 
+        // subtracting 10 seconds from current time.
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
         let iat = self.iat.or(Some(now));
         let exp = self.exp.or(Some(now + Duration::from_secs(3600)));

@@ -27,7 +27,7 @@ jobs:
       - run: |
           rustup component list
           cargo install typos-cli --version 1.29.4
-      - run: typos --exclude "testdata"
+      - run: typos
   misc-formatting:
     runs-on: ubuntu-24.04
     steps:
