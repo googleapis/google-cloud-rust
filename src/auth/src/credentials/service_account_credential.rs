@@ -142,8 +142,10 @@ where
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
-    use std::path::Path;
-    use serial_test::serial;
+    use rsa::pkcs1::EncodeRsaPrivateKey;
+    use rsa::pkcs8::EncodePrivateKey;
+    use rsa::pkcs8::LineEnding;
+    use rsa::RsaPrivateKey;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -252,37 +254,43 @@ mod test {
             .unwrap()
     }
 
-    async fn from_file(path: impl AsRef<Path>) -> Result<ServiceAccountInfo> {
-        let sa: ServiceAccountInfo = serde_json::from_slice(
-            &tokio::fs::read(path)
-                .await
-                .map_err(|e| CredentialError::new(false, e.into()))?,
-        )
-        .map_err(|e| CredentialError::new(false, e.into()))?;
-        Ok(sa)
+    fn generate_pkcs1_key() -> String {
+        let mut rng = rand::thread_rng();
+        let bits = 2048;
+        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+        priv_key
+            .to_pkcs1_pem(LineEnding::LF)
+            .expect("Failed to encode key to PKCS#1 PEM")
+            .to_string()
     }
 
-    // #[tokio::test]
-    // #[serial]
-    // async fn signer_crypto_provider_error() -> TestResult{
-    //     let tp = ServiceAccountTokenProvider {
-    //         service_account_info: get_mock_service_account(),
-    //     };
-    //     let signer = tp.signer(&tp.service_account_info.private_key);
-    //     let expected_error_message = "unable to get crypto provider";
-    //     assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
-    //     Ok(())
-    // }
+    #[tokio::test]
+    async fn get_service_account_token_pkcs1_key_success() -> TestResult {
+        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
+        let mut service_account_info = get_mock_service_account();
+        service_account_info.private_key = generate_pkcs1_key();
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info,
+        };
+        assert!(token_provider.get_token().await.is_ok());
+        Ok(())
+    }
+
+    fn generate_pkcs8_key() -> String {
+        let mut rng = rand::thread_rng();
+        let bits = 2048;
+        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
+        priv_key
+            .to_pkcs8_pem(LineEnding::LF)
+            .expect("Failed to encode key to PKCS#8 PEM")
+            .to_string()
+    }
 
     #[tokio::test]
-    async fn get_service_account_token_success() -> TestResult {
+    async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
-        // Get the path to the current crate's root directory.
-        let crate_root = Path::new(env!("CARGO_MANIFEST_DIR"));
-
-        // Construct the relative path to your test data file.
-        let testdata_path = crate_root.join("testdata").join("sa_account_key.json");
-        let service_account_info = from_file(testdata_path).await.unwrap();
+        let mut service_account_info = get_mock_service_account();
+        service_account_info.private_key = generate_pkcs8_key();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };

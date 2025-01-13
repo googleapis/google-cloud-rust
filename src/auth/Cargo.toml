@@ -30,7 +30,7 @@ reqwest        = { version = "0.12.11", features = ["json"] }
 serde          = { version = "1.0.216", features = ["derive"] }
 serde_json     = "1.0.134"
 thiserror      = "2"
-time           = { version ="0.3.37", features = ["serde"] }
+time           = { version = "0.3.37", features = ["serde"] }
 rustls         = "0.23.20"
 rustls-pemfile = "2.2"
 tokio          = { version = "1.42", features = ["fs"] }
@@ -47,3 +47,5 @@ tempfile    = "3.14.0"
 test-case   = "3.3.1"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test  = "0.4.4"
+rsa         = { version = "0.9.7", features = ["pem"] }
+rand        = "0.8.5"
