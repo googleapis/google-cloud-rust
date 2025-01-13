@@ -39,8 +39,12 @@ pub struct JwsClaims<'a> {
 
 impl JwsClaims<'_> {
     pub fn encode(&self) -> Result<String> {
-        // To avoid token being rejected due to any clock skews between 2 servers,
-        // subtracting 10 seconds from current time.
+        // Services reject assertions with `iat` in the future. Unfortunately all
+        // machines have some amount of clock skew, and it is possible that
+        // the machine creating this assertion has a clock a few milliseconds
+        // or seconds ahead of the machines receiving the assertion.
+        // Create the assertion with a 10 second margin to avoid most clock
+        // skew problems.
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
         let iat = self.iat.or(Some(now));
         let exp = self.exp.or(Some(now + Duration::from_secs(3600)));
