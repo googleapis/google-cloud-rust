@@ -608,6 +608,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-lro"
+version = "0.0.0"
+dependencies = [
+ "axum",
+ "futures",
+ "gcp-sdk-auth",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "pin-project",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "gcp-sdk-rpc"
 version = "0.1.0"
 dependencies = [
