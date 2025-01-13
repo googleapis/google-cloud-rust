@@ -222,6 +222,62 @@ mod test {
     type MetadataType = wkt::Timestamp;
     type TestOperation = TypedOperation<ResponseType, MetadataType>;
 
+    #[test]
+    fn typed_operation_with_metadata() -> Result<()> {
+        let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+        let op = longrunning::model::Operation::default()
+            .set_name("test-only-name")
+            .set_metadata(any);
+        let op = TestOperation::new(op);
+        assert_eq!(op.name(), "test-only-name");
+        assert!(!op.done());
+        assert!(matches!(op.metadata(), Some(_)));
+        assert!(matches!(op.response(), None));
+        assert!(matches!(op.error(), None));
+        let got = op.metadata().unwrap().try_into_message::<wkt::Timestamp>().map_err(Error::other)?;
+        assert_eq!(got, wkt::Timestamp::clamp(123, 0));
+
+        Ok(())
+    }
+
+    #[test]
+    fn typed_operation_with_response() -> Result<()> {
+        let any = wkt::Any::try_from(&wkt::Duration::clamp(23, 0))
+            .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+        let op = longrunning::model::Operation::default()
+            .set_name("test-only-name")
+            .set_result(longrunning::model::operation::Result::Response(any));
+        let op = TestOperation::new(op);
+        assert_eq!(op.name(), "test-only-name");
+        assert!(!op.done());
+        assert!(matches!(op.metadata(), None));
+        assert!(matches!(op.response(), Some(_)));
+        assert!(matches!(op.error(), None));
+        let got = op.response().unwrap().try_into_message::<wkt::Duration>().map_err(Error::other)?;
+        assert_eq!(got, wkt::Duration::clamp(23, 0));
+
+        Ok(())
+    }
+
+    #[test]
+    fn typed_operation_with_error() -> Result<()> {
+        let rpc = rpc::model::Status::default().set_message("test only").set_code(16);
+        let op = longrunning::model::Operation::default()
+            .set_name("test-only-name")
+            .set_result(longrunning::model::operation::Result::Error(rpc.clone()));
+        let op = TestOperation::new(op);
+        assert_eq!(op.name(), "test-only-name");
+        assert!(!op.done());
+        assert!(matches!(op.metadata(), None));
+        assert!(matches!(op.response(), None));
+        assert!(matches!(op.error(), Some(_)));
+        let got = op.error().unwrap();
+        assert_eq!(got, &rpc);
+
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread")]
     async fn poll_basic_flow() {
         let start = || async move {
