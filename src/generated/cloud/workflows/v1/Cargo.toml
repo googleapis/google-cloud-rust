@@ -40,4 +40,4 @@ tracing    = { version = "0.1.41" }
 wkt        = { version = "0.1.0", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
 
 [features]
-unstable-stream = ["gax/unstable-stream", "location/unstable-stream"]
+unstable-stream = ["gax/unstable-stream", "location/unstable-stream", "longrunning/unstable-stream"]
