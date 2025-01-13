@@ -177,7 +177,9 @@ pub(crate) mod dynamic {
         async fn get_headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
         /// Retrieves the universe domain associated with the credential, if any.
-        async fn get_universe_domain(&self) -> Option<String>;
+        async fn get_universe_domain(&self) -> Option<String> {
+            Some("googleapis.com".to_string())
+        }
     }
 
     /// The public CredentialTrait implements the dyn-compatible CredentialTrait.
