@@ -273,4 +273,56 @@ mod test {
         let p2 = poller.poll().await;
         assert!(p2.is_none(), "{p2:?}");
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn poll_basic_stream() {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any);
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = TestOperation::new(op);
+
+            Ok::<TestOperation, Error>(op)
+        };
+
+        use futures::StreamExt;
+        let mut stream = PollerImpl::new(start, query).to_stream();
+        let mut stream = std::pin::pin!(stream);
+        let p0 = stream.next().await;
+        match p0.unwrap() {
+            PollingResult::InProgress(m) => {
+                assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+            }
+            r => {
+                assert!(false, "{r:?}");
+            }
+        }
+
+        let p1 = stream.next().await;
+        match p1.unwrap() {
+            PollingResult::Completed(r) => {
+                let response = r.unwrap();
+                assert_eq!(response, wkt::Duration::clamp(234, 0));
+            }
+            r => {
+                assert!(false, "{r:?}");
+            }
+        }
+
+        let p2 = stream.next().await;
+        assert!(p2.is_none(), "{p2:?}");
+    }
 }
