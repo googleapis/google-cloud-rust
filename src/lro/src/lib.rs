@@ -113,7 +113,7 @@ pub trait Poller<R, M> {
 }
 
 /// Creates a new `impl Poller<R, M>` from the closures created by the generator.
-/// 
+///
 /// This is intended as an implementation detail of the generated clients.
 /// Applications should have no need to create or use this struct.
 #[doc(hidden)]
