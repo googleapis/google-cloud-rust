@@ -227,6 +227,23 @@ mod test {
     }
 
     #[test]
+    fn extract_result_with_error() -> TestResult {
+        use longrunning::model::*;
+        type R = wkt::Duration;
+        type M = wkt::Timestamp;
+        type O = TypedOperation<R, M>;
+        let op = Operation::default().set_result(operation::Result::Error(
+            rpc::model::Status::default().set_message("test only"),
+        ));
+        let op = O::new(op);
+        let result = as_result(op);
+        let err = result.err().unwrap();
+        assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err}");
+
+        Ok(())
+    }
+
+    #[test]
     fn extract_result_bad_type() -> TestResult {
         use longrunning::model::*;
         type R = wkt::Duration;
