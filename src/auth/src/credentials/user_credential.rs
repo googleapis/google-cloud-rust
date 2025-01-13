@@ -104,10 +104,6 @@ where
         value.set_sensitive(true);
         Ok(vec![(AUTHORIZATION, value)])
     }
-
-    async fn get_universe_domain(&mut self) -> Option<String> {
-        Some("googleapis.com".to_string())
-    }
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]

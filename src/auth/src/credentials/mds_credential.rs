@@ -51,10 +51,6 @@ where
         value.set_sensitive(true);
         Ok(vec![(AUTHORIZATION, value)])
     }
-
-    async fn get_universe_domain(&mut self) -> Option<String> {
-        Some("googleapis.com".to_string())
-    }
 }
 
 #[allow(dead_code)] // TODO(#442) - implementation in progress

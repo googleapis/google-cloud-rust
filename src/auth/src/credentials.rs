@@ -161,7 +161,9 @@ pub mod traits {
             async fn get_headers(&mut self) -> Result<Vec<(HeaderName, HeaderValue)>>;
 
             /// Retrieves the universe domain associated with the credential, if any.
-            async fn get_universe_domain(&mut self) -> Option<String>;
+            async fn get_universe_domain(&mut self) -> Option<String> {
+                Some("googleapis.com".to_string())
+            }
         }
     }
 }
