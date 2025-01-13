@@ -1091,20 +1091,26 @@ func (c *rustCodec) addStreamingFeature(data *RustTemplateData, api *api.API) {
 	if !hasStreamingRPC {
 		return
 	}
-	var sb strings.Builder
-	sb.WriteString(`unstable-stream = ["gax/unstable-stream"`)
-	// Add streaming feature for deps
+	// Create a list of dependency features we need to enable. To avoid
+	// uninteresting changes, always sort the list.
+	feature := func(name string) string {
+		return fmt.Sprintf(`"%s/unstable-stream"`, name)
+	}
+	deps := []string{feature("gax")}
 	for _, p := range c.extraPackages {
 		if p.ignore || !p.used {
 			continue
 		}
-		if p.name == "location" {
-			sb.WriteString(`, "location/unstable-stream"`)
+		// Only mixins are relevant here, and only longrunning and location have
+		// streaming features. Hardcoding the list is not a terrible problem.
+		if p.name == "location" || p.name == "longrunning" {
+			deps = append(deps, feature(p.name))
 		}
 	}
-	sb.WriteString("]")
-	data.Features = append(data.Features, sb.String())
+	sort.Strings(deps)
+	features := fmt.Sprintf("unstable-stream = [%s]", strings.Join(deps, ", "))
 	data.HasFeatures = true
+	data.Features = append(data.Features, features)
 }
 
 func (c *rustCodec) notForPublication() bool {
