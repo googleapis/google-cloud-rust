@@ -165,12 +165,8 @@ func parseRustPackageOption(key, definition string) (*rustPackageOption, error) 
 				return nil, fmt.Errorf("cannot convert `force-used` value %q (part of %q) to boolean: %w", definition, s[1], err)
 			}
 			pkg.used = value
-		case "required-by-services":
-			value, err := strconv.ParseBool(s[1])
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `required-by-services` value %q (part of %q) to boolean: %w", definition, s[1], err)
-			}
-			pkg.requiredByServices = value
+		case "used-if":
+			pkg.usedIf = append(pkg.usedIf, s[1])
 		default:
 			return nil, fmt.Errorf("unknown field %q in definition of rust package %q, got=%q", s[0], key, definition)
 		}
@@ -237,10 +233,12 @@ type rustPackage struct {
 	// If true, this package was referenced by a generated message, service, or
 	// by the documentation.
 	used bool
+	// Some packages are used if a particular feature or named pattern is
+	// present. For example, the LRO support helpers are used if LROs are found,
+	// and the service support functions are used if any service is found.
+	usedIf []string
 	// If true, the default features are enabled.
 	defaultFeatures bool
-	// If true, this package is only needed in crates with services.
-	requiredByServices bool
 }
 
 func (c *rustCodec) loadWellKnownTypes(s *api.APIState) {
@@ -275,10 +273,35 @@ func (c *rustCodec) loadWellKnownTypes(s *api.APIState) {
 	for _, message := range wellKnown {
 		s.MessageByID[message.ID] = message
 	}
-	c.hasServices = len(s.ServiceByID) > 0
+}
+
+func (c *rustCodec) resolveUsedPackages(model *api.API) {
+	c.hasServices = len(model.State.ServiceByID) > 0
+	hasLROs := false
+	for _, s := range model.Services {
+		if hasLROs {
+			break
+		}
+		for _, m := range s.Methods {
+			if m.OperationInfo != nil {
+				hasLROs = true
+				break
+			}
+		}
+	}
 	for _, pkg := range c.extraPackages {
-		if pkg.requiredByServices {
-			pkg.used = c.hasServices
+		if pkg.used {
+			continue
+		}
+		for _, namedFeature := range pkg.usedIf {
+			if namedFeature == "services" && c.hasServices {
+				pkg.used = true
+				break
+			}
+			if namedFeature == "lro" && hasLROs {
+				pkg.used = true
+				break
+			}
 		}
 	}
 }

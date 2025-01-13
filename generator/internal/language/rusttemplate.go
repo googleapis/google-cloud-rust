@@ -148,6 +148,7 @@ type RustEnumValue struct {
 // [Template.Services] field.
 func newRustTemplateData(model *api.API, c *rustCodec) *RustTemplateData {
 	c.loadWellKnownTypes(model.State)
+	c.resolveUsedPackages(model)
 	data := &RustTemplateData{
 		Name:           model.Name,
 		Title:          model.Title,
