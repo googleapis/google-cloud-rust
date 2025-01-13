@@ -77,3 +77,127 @@ impl JwsHeader<'_> {
         Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use base64::Engine;
+    use serde_json::Value;
+
+    #[test]
+    fn test_jws_claims_encode_defaults() {
+        let claims = JwsClaimsBuilder::default()
+            .iss("test_iss")
+            .aud("test_aud")
+            .build()
+            .unwrap();
+
+        let encoded = claims.encode().unwrap();
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(encoded)
+                .unwrap(),
+        )
+        .unwrap();
+
+        let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
+        let expected_iat = now.unix_timestamp();
+        let expected_exp = (now + Duration::from_secs(3600)).unix_timestamp();
+
+        let v: Value = serde_json::from_str(&decoded).unwrap();
+        assert_eq!(v["iss"], "test_iss");
+        assert_eq!(v.get("scope"), None);
+        assert_eq!(v["aud"], "test_aud");
+        assert_eq!(v["iat"], expected_iat);
+        assert_eq!(v["exp"], expected_exp);
+        assert_eq!(v.get("typ"), None);
+        assert_eq!(v.get("sub"), None);
+    }
+
+    #[test]
+    fn test_jws_claims_encode_custom() {
+        let iat_custom = OffsetDateTime::now_utc() - Duration::from_secs(3600);
+        let exp_custom = OffsetDateTime::now_utc() + Duration::from_secs(3600);
+
+        let claims = JwsClaimsBuilder::default()
+            .iss("test_iss")
+            .aud("test_aud")
+            .iat(iat_custom)
+            .exp(exp_custom)
+            .typ("test_typ")
+            .sub("test_sub")
+            .scope("test_scope")
+            .build()
+            .unwrap();
+
+        let encoded = claims.encode().unwrap();
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(encoded)
+                .unwrap(),
+        )
+        .unwrap();
+        let v: Value = serde_json::from_str(&decoded).unwrap();
+
+        assert_eq!(v["iss"], "test_iss");
+        assert_eq!(v["scope"], "test_scope");
+        assert_eq!(v["aud"], "test_aud");
+
+        assert_eq!(v["iat"], iat_custom.unix_timestamp());
+        assert_eq!(v["exp"], exp_custom.unix_timestamp());
+        assert_eq!(v["typ"], "test_typ");
+        assert_eq!(v["sub"], "test_sub");
+    }
+
+    #[test]
+    fn test_jws_claims_encode_error() {
+        let claims = JwsClaimsBuilder::default()
+            .iss("test_iss")
+            .exp(OffsetDateTime::now_utc() - Duration::from_secs(3600))
+            .build()
+            .unwrap();
+        assert!(claims.encode().is_err());
+    }
+
+    #[test]
+    fn test_jws_header_encode() {
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: Some("some_key_id"),
+        };
+        let encoded = header.encode().unwrap();
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(encoded)
+                .unwrap(),
+        )
+        .unwrap();
+        let v: Value = serde_json::from_str(&decoded).unwrap();
+
+        assert_eq!(v["alg"], "RS256");
+        assert_eq!(v["typ"], "JWT");
+        assert_eq!(v["kid"], "some_key_id");
+    }
+
+    #[test]
+    fn test_jws_header_encode_no_kid() {
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: None,
+        };
+        let encoded = header.encode().unwrap();
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(encoded)
+                .unwrap(),
+        )
+        .unwrap();
+        let v: Value = serde_json::from_str(&decoded).unwrap();
+
+        assert_eq!(v["alg"], "RS256");
+        assert_eq!(v["typ"], "JWT");
+        assert_eq!(v.get("kid"), None);
+    }
+}
