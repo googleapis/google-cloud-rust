@@ -235,7 +235,11 @@ mod test {
         assert!(matches!(op.metadata(), Some(_)));
         assert!(matches!(op.response(), None));
         assert!(matches!(op.error(), None));
-        let got = op.metadata().unwrap().try_into_message::<wkt::Timestamp>().map_err(Error::other)?;
+        let got = op
+            .metadata()
+            .unwrap()
+            .try_into_message::<wkt::Timestamp>()
+            .map_err(Error::other)?;
         assert_eq!(got, wkt::Timestamp::clamp(123, 0));
 
         Ok(())
@@ -254,7 +258,11 @@ mod test {
         assert!(matches!(op.metadata(), None));
         assert!(matches!(op.response(), Some(_)));
         assert!(matches!(op.error(), None));
-        let got = op.response().unwrap().try_into_message::<wkt::Duration>().map_err(Error::other)?;
+        let got = op
+            .response()
+            .unwrap()
+            .try_into_message::<wkt::Duration>()
+            .map_err(Error::other)?;
         assert_eq!(got, wkt::Duration::clamp(23, 0));
 
         Ok(())
@@ -262,7 +270,9 @@ mod test {
 
     #[test]
     fn typed_operation_with_error() -> Result<()> {
-        let rpc = rpc::model::Status::default().set_message("test only").set_code(16);
+        let rpc = rpc::model::Status::default()
+            .set_message("test only")
+            .set_code(16);
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
             .set_result(longrunning::model::operation::Result::Error(rpc.clone()));
