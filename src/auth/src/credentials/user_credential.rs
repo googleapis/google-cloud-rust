@@ -143,10 +143,6 @@ where
         }
         Ok(headers)
     }
-
-    async fn get_universe_domain(&self) -> Option<String> {
-        Some("googleapis.com".to_string())
-    }
 }
 
 #[derive(Debug, PartialEq, serde::Deserialize)]
