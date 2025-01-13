@@ -109,7 +109,7 @@ impl ServiceAccountTokenProvider {
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
             other => {
                 return Err(CredentialError::non_retryable(format!(
-                    "expected key to be in form of RSA or PKCS8, found {:?}",
+                    "expected key to be in form of PKCS1 or PKCS8, found {:?}",
                     other
                 )))
             }
@@ -142,6 +142,8 @@ where
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
+    use openssl::pkey::PKey;
+    use openssl::rsa::Rsa;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
@@ -295,6 +297,38 @@ mod test {
             service_account_info,
         };
         assert!(token_provider.get_token().await.is_ok());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_token_invalid_key_failure() -> TestResult {
+        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
+        let mut service_account_info = get_mock_service_account();
+        let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAgEBBDN56iWqFj/ftfGZ9gD0BQ2onA7Fj5MUmloABZxIwnTXtZCV2XhQ4Lq8W9BQ==\n-----END PRIVATE KEY-----";
+        service_account_info.private_key = pem_data.to_string();
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info,
+        };
+        let token = token_provider.get_token().await;
+        let expected_error_message = "InvalidTrailingPadding";
+        assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_service_account_token_unsupported_key_failure() -> TestResult {
+        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
+        let mut service_account_info = get_mock_service_account();
+        let rsa = Rsa::generate(2048).unwrap();
+        let private_key = PKey::from_rsa(rsa).unwrap();
+        let pem_data = private_key.private_key_to_der().unwrap();
+        service_account_info.private_key = unsafe { String::from_utf8_unchecked(pem_data) };
+        let token_provider = ServiceAccountTokenProvider {
+            service_account_info,
+        };
+        let token = token_provider.get_token().await;
+        let expected_error_message = "unable to parse service account key";
+        assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
 

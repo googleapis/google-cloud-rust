@@ -49,3 +49,4 @@ tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test
 tokio-test  = "0.4.4"
 rsa         = { version = "0.9.7", features = ["pem"] }
 rand        = "0.8.5"
+openssl     = "0.10.68"
