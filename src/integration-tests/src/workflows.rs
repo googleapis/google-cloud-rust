@@ -1,0 +1,255 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use crate::Result;
+use gax::error::Error;
+use lro::Poller;
+use rand::{distributions::Alphanumeric, Rng};
+use std::time::Duration;
+
+pub const WORKFLOW_ID_LENGTH: usize = 64;
+
+pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let project_id = crate::project_id()?;
+    let location_id = crate::region_id();
+
+    // We could simplify the code, but we want to test both ::new_with_config()
+    // and ::new().
+    let client = if let Some(config) = config {
+        wf::client::Workflows::new_with_config(config).await?
+    } else {
+        wf::client::Workflows::new().await?
+    };
+    cleanup_stale_workflows(&client, &project_id, &location_id).await?;
+
+    let source_contents = r###"# Test only workflow
+main:
+    steps:
+        - sayHello:
+            return: Hello World
+"###;
+    let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
+
+    let workflow_id: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(WORKFLOW_ID_LENGTH - 4)
+        .map(char::from)
+        .collect();
+    // Workflow ids must start with a letter.
+    let workflow_id = format!("wf-{workflow_id}");
+
+    println!("\n\nStart create_workflow() LRO and poll it to completion");
+    let mut create = client
+        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .set_workflow_id(&workflow_id)
+        .set_workflow(
+            wf::model::Workflow::default()
+                .set_labels(
+                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
+                )
+                .set_call_log_level(
+                    wf::model::workflow::CallLogLevel::default()
+                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
+                )
+                .set_state(
+                    wf::model::workflow::State::default()
+                        .set_value(wf::model::workflow::state::UNAVAILABLE),
+                )
+                .set_source_code(source_code),
+        )
+        .poller();
+    while let Some(status) = create.poll().await {
+        match status {
+            lro::PollingResult::PollingError(e) => {
+                println!("    error polling create LRO, continuing {e}");
+            }
+            lro::PollingResult::InProgress(m) => {
+                println!("    create LRO still in progress, metadata={m:?}");
+            }
+            lro::PollingResult::Completed(r) => match r {
+                Err(e) => {
+                    println!("    create LRO finished with error={e}\n\n");
+                    return Err(e);
+                }
+                Ok(m) => {
+                    println!("    create LRO finished with success={m:?}\n\n");
+                }
+            },
+        }
+        tokio::time::sleep(Duration::from_secs(1)).await;
+    }
+
+    println!("\n\nStart delete_workflow() LRO and poll it to completion");
+    let mut delete = client
+        .delete_workflow(format!(
+            "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
+        ))
+        .poller();
+    while let Some(status) = delete.poll().await {
+        match status {
+            lro::PollingResult::PollingError(e) => {
+                println!("    error polling delete LRO, continuing {e:?}");
+            }
+            lro::PollingResult::InProgress(m) => {
+                println!("    delete LRO still in progress, metadata={m:?}");
+            }
+            lro::PollingResult::Completed(r) => {
+                println!("    delete LRO finished, result={r:?}");
+                let _ = r?;
+            }
+        }
+        tokio::time::sleep(Duration::from_secs(1)).await;
+    }
+
+    Ok(())
+}
+
+async fn cleanup_stale_workflows(
+    client: &wf::client::Workflows,
+    project_id: &str,
+    location_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_err(Error::other)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut stream = client
+        .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
+        .stream()
+        .await
+        .items();
+    let mut stale_workflows = Vec::new();
+    while let Some(workflow) = stream.next().await {
+        let item = workflow?;
+        if let Some("true") = item.labels.get("integration-test").map(String::as_str) {
+            if let Some(true) = item.create_time.map(|v| v < stale_deadline) {
+                stale_workflows.push(item.name);
+            }
+        }
+    }
+    let pending = stale_workflows
+        .into_iter()
+        .map(|name| client.delete_workflow(name).poller())
+        .collect::<Vec<_>>();
+    for mut poller in pending.into_iter() {
+        while let Some(status) = poller.poll().await {
+            match status {
+                lro::PollingResult::Completed(_) => {
+                    // Ignore any errors trying to delete the workflow. The
+                    // next time we run the workflow it should work.
+                }
+                lro::PollingResult::InProgress(_) | lro::PollingResult::PollingError(_) => {}
+            }
+        }
+    }
+
+    Ok(())
+}
+
+pub async fn manual(
+    project_id: String,
+    region_id: String,
+    workflow_id: String,
+    workflow: wf::model::Workflow,
+) -> Result<()> {
+    let client = wf::client::Workflows::new().await?;
+
+    println!("\n\nStart create_workflow() LRO and poll it to completion");
+    let create = client
+        .create_workflow(format!("projects/{project_id}/locations/{region_id}"))
+        .set_workflow_id(&workflow_id)
+        .set_workflow(workflow)
+        .send()
+        .await?;
+    if create.done {
+        use longrunning::model::operation::Result as LR;
+        let result = create
+            .result
+            .ok_or("service error: done with missing result ")
+            .map_err(Error::other)?;
+        match result {
+            LR::Error(status) => {
+                println!("LRO completed with error {status:?}");
+                let err = gax::error::ServiceError::from(status);
+                return Err(Error::rpc(err));
+            }
+            LR::Response(any) => {
+                println!("LRO completed successfully {any:?}");
+                let response = any
+                    .try_into_message::<wf::model::Workflow>()
+                    .map_err(Error::other);
+                println!("LRO completed response={response:?}");
+                return Ok(());
+            }
+            _ => panic!("unexpected branch"),
+        }
+    }
+    let name = create.name;
+    loop {
+        let operation = client.get_operation(name.clone()).send().await?;
+        if !operation.done {
+            println!("operation is pending {operation:?}");
+            if let Some(any) = operation.metadata {
+                match any.try_into_message::<wf::model::OperationMetadata>() {
+                    Err(_) => {
+                        println!("    cannot extract expected metadata from {any:?}");
+                    }
+                    Ok(metadata) => {
+                        println!("    metadata={metadata:?}");
+                    }
+                }
+            }
+            tokio::time::sleep(Duration::from_secs(1)).await;
+            continue;
+        }
+        use longrunning::model::operation::Result as LR;
+        let result = create
+            .result
+            .ok_or("service error: done with missing result ")
+            .map_err(Error::other)?;
+        match result {
+            LR::Error(status) => {
+                println!("LRO completed with error {status:?}");
+                let err = gax::error::ServiceError::from(status);
+                return Err(Error::rpc(err));
+            }
+            LR::Response(any) => {
+                println!("LRO completed successfully {any:?}");
+                let response = any
+                    .try_into_message::<wf::model::Workflow>()
+                    .map_err(Error::other);
+                println!("LRO completed response={response:?}");
+                return Ok(());
+            }
+            _ => panic!("unexpected branch"),
+        }
+    }
+}

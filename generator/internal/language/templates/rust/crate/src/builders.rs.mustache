@@ -86,6 +86,35 @@ impl {{NameToPascal}} {
         gax::paginator::Paginator::new(token, execute)
     }
     {{/IsPageable}}
+    {{#OperationInfo}}
+
+    /// Creates a [Poller][lro::Poller] to work with `{{NameToSnake}}`.
+    pub fn poller(
+        self
+    ) -> impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
+    {
+        type Operation = lro::Operation<{{ResponseType}}, {{MetadataType}}>;
+
+        let stub = self.0.stub.clone();
+        let query = move |name| {
+            let stub = stub.clone();
+            async {
+                let op = crate::builders::GetOperation::new(stub)
+                    .set_name(name)
+                    .send()
+                    .await?;
+                Ok(Operation::new(op))
+            }
+        };
+
+        let start = move || async {
+            let op = self.send().await?;
+            Ok(Operation::new(op))
+        };
+
+        lro::new_poller(start, query)
+    }
+    {{/OperationInfo}}
     {{#InputType.BasicFields}}
 
     /// Sets the value of `{{NameToSnake}}`.
