@@ -173,16 +173,14 @@ where
         O::MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
     {
         use futures::stream::unfold;
-        let poller = self;
-        let stream = unfold(Some(poller), move |state| async move {
+        unfold(Some(self), move |state| async move {
             if let Some(mut poller) = state {
                 if let Some(pr) = poller.poll().await {
                     return Some((pr, Some(poller)));
                 }
             };
             None
-        });
-        return stream;
+        })
     }
 }
 
