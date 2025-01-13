@@ -49,28 +49,14 @@ pub enum PollingResult<R, M> {
     PollingError(Error),
 }
 
-/// The result of starting and polling a long-running operation.
-///
-/// In most cases this is backed by [Operation][longrunning::model::Operation].
-pub trait Operation {
-    type ResponseType;
-    type MetadataType;
-
-    fn name(&self) -> String;
-    fn done(&self) -> bool;
-    fn metadata(&self) -> Option<&wkt::Any>;
-    fn response(&self) -> Option<&wkt::Any>;
-    fn error(&self) -> Option<&rpc::model::Status>;
-}
-
-/// Implements [Operation] using [longrunning::model::Operation].
-pub struct TypedOperation<R, M> {
+/// A wrapper around [longrunning::model::Operation] with typed responses.
+pub struct Operation<R, M> {
     inner: longrunning::model::Operation,
     response: std::marker::PhantomData<R>,
     metadata: std::marker::PhantomData<M>,
 }
 
-impl<R, M> TypedOperation<R, M> {
+impl<R, M> Operation<R, M> {
     pub fn new(inner: longrunning::model::Operation) -> Self {
         Self {
             inner,
@@ -78,11 +64,6 @@ impl<R, M> TypedOperation<R, M> {
             metadata: PhantomData,
         }
     }
-}
-
-impl<R, M> Operation for TypedOperation<R, M> {
-    type ResponseType = R;
-    type MetadataType = M;
 
     fn name(&self) -> String {
         self.inner.name.clone()
@@ -112,8 +93,39 @@ impl<R, M> Operation for TypedOperation<R, M> {
 }
 
 /// The trait implemented by LRO helpers.
+///
+/// # Parameters
+/// * `R` - the response type, that is, the type of response included when the
+///   long-running operation completes successfully.
+/// * `M` - the metadata type, that is, the type returned by the service when
+///   the long-running operation is still in progress.
 pub trait Poller<R, M> {
+    /// Query the current status of the long-running operation.
     fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>>;
+
+    /// Convert a poller to a [futures::Stream].
+    #[cfg(feature = "unstable-stream")]
+    fn to_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
+}
+
+#[doc(hidden)]
+pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
+    start: S,
+    query: Q,
+) -> impl Poller<ResponseType, MetadataType>
+where
+    ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
+    MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+    S: FnOnce() -> SF + Send + Sync,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
+    Q: Fn(String) -> QF + Send + Sync + Clone,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
+{
+    PollerImpl::new(start, query)
 }
 
 /// An implementation of `Poller` based on closures.
@@ -125,36 +137,44 @@ pub trait Poller<R, M> {
 /// only public so the generated code can use it.
 ///
 /// # Parameters
-/// - `O` - the operation type. Typically this is a `TypedOperation<R, M>`, so
-///   it encodes the types of the response and metadata.
-/// - `S` - the start closure. Starts a LRO. This implementation expects that
+/// * `ResponseType` - the response type. Typically this is a message
+///   representing the final disposition of the long-running operation.
+/// * `MetadataType` - the metadata type. The data included with partially
+///   completed instances of this long-running operations.
+/// * `S` - the start closure. Starts a LRO. This implementation expects that
 ///   all necessary parameters, and request options, including retry options
 ///   are captured by this function.
-/// - `SF` - the type of future returned by `S`.
-/// - `Q` - the query closure. Queries the status of the LRO created by `start`.
+/// * `SF` - the type of future returned by `S`.
+/// * `Q` - the query closure. Queries the status of the LRO created by `start`.
 ///   It receives the name of the operation as its only input parameter. It
 ///   should have captured any stubs and request options.
-/// - `QF` - the type of future returned by `Q`.
-pub struct PollerImpl<O, S, SF, Q, QF>
+/// * `QF` - the type of future returned by `Q`.
+struct PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
 where
-    O: Operation,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<O>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<O>> + Send + 'static,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
 {
     start: Option<S>,
     query: Q,
     operation: Option<String>,
 }
 
-impl<O, S, SF, Q, QF> PollerImpl<O, S, SF, Q, QF>
+impl<ResponseType, MetadataType, S, SF, Q, QF> PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
 where
-    O: Operation,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<O>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
     Q: Fn(String) -> QF + Send + Sync + Clone,
-    QF: std::future::Future<Output = Result<O>> + Send + 'static,
+    QF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
 {
     pub fn new(start: S, query: Q) -> Self {
         Self {
@@ -163,38 +183,23 @@ where
             operation: None,
         }
     }
-
-    #[cfg(feature = "unstable-stream")]
-    pub fn to_stream(
-        self,
-    ) -> impl futures::Stream<Item = PollingResult<O::ResponseType, O::MetadataType>>
-    where
-        O::ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
-        O::MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
-    {
-        use futures::stream::unfold;
-        unfold(Some(self), move |state| async move {
-            if let Some(mut poller) = state {
-                if let Some(pr) = poller.poll().await {
-                    return Some((pr, Some(poller)));
-                }
-            };
-            None
-        })
-    }
 }
 
-impl<O, S, SF, P, PF> Poller<O::ResponseType, O::MetadataType> for PollerImpl<O, S, SF, P, PF>
+impl<ResponseType, MetadataType, S, SF, P, PF> Poller<ResponseType, MetadataType>
+    for PollerImpl<ResponseType, MetadataType, S, SF, P, PF>
 where
-    O: Operation,
-    O::ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
-    O::MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+    ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
+    MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
     S: FnOnce() -> SF + Send + Sync,
-    SF: std::future::Future<Output = Result<O>> + Send + 'static,
+    SF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
     P: Fn(String) -> PF + Send + Sync + Clone,
-    PF: std::future::Future<Output = Result<O>> + Send + 'static,
+    PF: std::future::Future<Output = Result<Operation<ResponseType, MetadataType>>>
+        + Send
+        + 'static,
 {
-    async fn poll(&mut self) -> Option<PollingResult<O::ResponseType, O::MetadataType>> {
+    async fn poll(&mut self) -> Option<PollingResult<ResponseType, MetadataType>> {
         if let Some(start) = self.start.take() {
             let result = start().await;
             let (op, poll) = details::handle_start(result);
@@ -210,6 +215,23 @@ where
         }
         None
     }
+
+    #[cfg(feature = "unstable-stream")]
+    fn to_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>
+    where
+        ResponseType: wkt::message::Message + serde::de::DeserializeOwned,
+        MetadataType: wkt::message::Message + serde::de::DeserializeOwned,
+    {
+        use futures::stream::unfold;
+        unfold(Some(self), move |state| async move {
+            if let Some(mut poller) = state {
+                if let Some(pr) = poller.poll().await {
+                    return Some((pr, Some(poller)));
+                }
+            };
+            None
+        })
+    }
 }
 
 mod details;
@@ -220,7 +242,7 @@ mod test {
 
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
-    type TestOperation = TypedOperation<ResponseType, MetadataType>;
+    type TestOperation = Operation<ResponseType, MetadataType>;
 
     #[test]
     fn typed_operation_with_metadata() -> Result<()> {

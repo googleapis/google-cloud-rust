@@ -63,7 +63,7 @@ impl CreateResource {
         self,
     ) -> impl gcp_sdk_lro::Poller<super::model::Resource, super::model::CreateResourceMetadata>
     {
-        type Operation = gcp_sdk_lro::TypedOperation<
+        type Operation = gcp_sdk_lro::Operation<
             super::model::Resource,
             super::model::CreateResourceMetadata,
         >;
@@ -89,7 +89,7 @@ impl CreateResource {
             let op = self.send().await?;
             Ok(Operation::new(op))
         };
-        gcp_sdk_lro::PollerImpl::new(start, query)
+        gcp_sdk_lro::new_poller(start, query)
     }
 
     pub async fn until_done(self) -> Result<super::model::Resource> {

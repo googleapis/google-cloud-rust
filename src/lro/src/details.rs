@@ -16,9 +16,8 @@
 
 use super::*;
 
-pub(crate) fn handle_start<O, R, M>(result: Result<O>) -> (Option<String>, PollingResult<R, M>)
+pub(crate) fn handle_start<R, M>(result: Result<Operation<R, M>>) -> (Option<String>, PollingResult<R, M>)
 where
-    O: super::Operation<ResponseType = R, MetadataType = M>,
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
@@ -28,9 +27,8 @@ where
     }
 }
 
-pub(crate) fn handle_poll<O, R, M>(result: Result<O>) -> (Option<String>, PollingResult<R, M>)
+pub(crate) fn handle_poll<R, M>(result: Result<Operation<R, M>>) -> (Option<String>, PollingResult<R, M>)
 where
-    O: super::Operation<ResponseType = R, MetadataType = M>,
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
@@ -40,9 +38,8 @@ where
     }
 }
 
-fn handle_common<O, R, M>(op: O) -> (Option<String>, PollingResult<R, M>)
+fn handle_common<R, M>(op: Operation<R, M>) -> (Option<String>, PollingResult<R, M>)
 where
-    O: super::Operation<ResponseType = R, MetadataType = M>,
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
@@ -55,9 +52,8 @@ where
     (Some(name), PollingResult::InProgress(metadata))
 }
 
-fn as_result<O, R, M>(op: O) -> Result<R>
+fn as_result<R, M>(op: Operation<R, M>) -> Result<R>
 where
-    O: super::Operation<ResponseType = R, MetadataType = M>,
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
@@ -70,9 +66,8 @@ where
     Err(Error::other("missing result in completed operation"))
 }
 
-fn as_metadata<O, R, M>(op: O) -> Option<M>
+fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
 where
-    O: super::Operation<ResponseType = R, MetadataType = M>,
     R: wkt::message::Message + serde::de::DeserializeOwned,
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
@@ -91,11 +86,11 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
-        let op = TypedOperation::new(op);
+        let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_start(result);
         assert_eq!(name.as_deref(), Some("test-only-name"));
@@ -112,7 +107,7 @@ mod test {
     fn start_error() {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = Operation<R, M>;
         let result = Err::<O, Error>(Error::other("test-only-error"));
         let (name, poll) = handle_start(result);
         assert_eq!(name, None);
@@ -130,11 +125,11 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
-        let op = TypedOperation::new(op);
+        let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
         let (name, poll) = handle_poll(result);
         assert_eq!(name.as_deref(), Some("test-only-name"));
@@ -151,7 +146,7 @@ mod test {
     fn poll_error() {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let result = Err::<O, Error>(Error::other("test-only-error"));
         let (name, poll) = handle_poll(result);
         assert_eq!(name, None);
@@ -168,7 +163,7 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
             .set_done(true)
@@ -194,7 +189,7 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default()
             .set_name("test-only-name")
             .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
@@ -215,7 +210,7 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Response(Any::try_from(
             &wkt::Duration::clamp(123, 0),
         )?));
@@ -231,7 +226,7 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Error(
             rpc::model::Status::default().set_message("test only"),
         ));
@@ -248,7 +243,7 @@ mod test {
         use longrunning::model::*;
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Response(Any::try_from(
             &wkt::Timestamp::clamp(123, 0),
         )?));
@@ -267,7 +262,7 @@ mod test {
     fn extract_result_not_set() -> TestResult {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = Operation<R, M>;
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
@@ -281,7 +276,7 @@ mod test {
     fn extract_metadata() -> TestResult {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = Operation<R, M>;
         let op = longrunning::model::Operation::default()
             .set_metadata(Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
 
@@ -297,7 +292,7 @@ mod test {
     fn extract_metadata_bad_type() -> TestResult {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = Operation<R, M>;
         let op = longrunning::model::Operation::default()
             .set_metadata(Any::try_from(&wkt::Duration::clamp(123, 0))?);
         let op = O::new(op);
@@ -311,7 +306,7 @@ mod test {
     fn extract_metadata_not_set() -> TestResult {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
-        type O = TypedOperation<R, M>;
+        type O = Operation<R, M>;
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let metadata = as_metadata(op);
