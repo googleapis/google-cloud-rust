@@ -50,6 +50,10 @@ pub enum PollingResult<R, M> {
 }
 
 /// A wrapper around [longrunning::model::Operation] with typed responses.
+///
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to create or use this struct.
+#[doc(hidden)]
 pub struct Operation<R, M> {
     inner: longrunning::model::Operation,
     response: std::marker::PhantomData<R>,
@@ -108,6 +112,10 @@ pub trait Poller<R, M> {
     fn to_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
 }
 
+/// Creates a new `impl Poller<R, M>` from the closures created by the generator.
+/// 
+/// This is intended as an implementation detail of the generated clients.
+/// Applications should have no need to create or use this struct.
 #[doc(hidden)]
 pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
     start: S,
