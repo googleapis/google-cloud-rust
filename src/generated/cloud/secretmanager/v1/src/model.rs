@@ -157,7 +157,7 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub expiration: Option<crate::model::secret::Expiration>,
 }
 
@@ -246,6 +246,12 @@ impl Secret {
     ) -> Self {
         self.expiration = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Secret {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Secret"
     }
 }
 
@@ -438,6 +444,12 @@ impl SecretVersion {
     }
 }
 
+impl wkt::message::Message for SecretVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.SecretVersion"
+    }
+}
+
 /// Defines additional types related to SecretVersion
 pub mod secret_version {
 
@@ -500,7 +512,7 @@ pub mod secret_version {
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub replication: Option<crate::model::replication::Replication>,
 }
 
@@ -512,6 +524,12 @@ impl Replication {
     ) -> Self {
         self.replication = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Replication {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Replication"
     }
 }
 
@@ -557,6 +575,12 @@ pub mod replication {
         }
     }
 
+    impl wkt::message::Message for Automatic {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.Replication.Automatic"
+        }
+    }
+
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
     /// specified in [Secret.replication.user_managed.replicas][]
@@ -585,6 +609,12 @@ pub mod replication {
         ) -> Self {
             self.replicas = v.into();
             self
+        }
+    }
+
+    impl wkt::message::Message for UserManaged {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged"
         }
     }
 
@@ -637,6 +667,12 @@ pub mod replication {
             ) -> Self {
                 self.customer_managed_encryption = v.into();
                 self
+            }
+        }
+
+        impl wkt::message::Message for Replica {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.secretmanager.v1.Replication.UserManaged.Replica"
             }
         }
     }
@@ -694,6 +730,12 @@ impl CustomerManagedEncryption {
     }
 }
 
+impl wkt::message::Message for CustomerManagedEncryption {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CustomerManagedEncryption"
+    }
+}
+
 /// The replication status of a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
 ///
@@ -707,7 +749,7 @@ pub struct ReplicationStatus {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten)]
+    #[serde(flatten, skip_serializing_if = "Option::is_none")]
     pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
 }
 
@@ -721,6 +763,12 @@ impl ReplicationStatus {
     ) -> Self {
         self.replication_status = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ReplicationStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus"
     }
 }
 
@@ -763,6 +811,12 @@ pub mod replication_status {
         }
     }
 
+    impl wkt::message::Message for AutomaticStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.AutomaticStatus"
+        }
+    }
+
     /// The replication status of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
     /// user-managed replication.
@@ -795,6 +849,12 @@ pub mod replication_status {
         ) -> Self {
             self.replicas = v.into();
             self
+        }
+    }
+
+    impl wkt::message::Message for UserManagedStatus {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus"
         }
     }
 
@@ -840,6 +900,12 @@ pub mod replication_status {
             ) -> Self {
                 self.customer_managed_encryption = v.into();
                 self
+            }
+        }
+
+        impl wkt::message::Message for ReplicaStatus {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.secretmanager.v1.ReplicationStatus.UserManagedStatus.ReplicaStatus"
             }
         }
     }
@@ -898,6 +964,12 @@ impl CustomerManagedEncryptionStatus {
     }
 }
 
+impl wkt::message::Message for CustomerManagedEncryptionStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CustomerManagedEncryptionStatus"
+    }
+}
+
 /// A Pub/Sub topic which Secret Manager will publish to when control plane
 /// events occur on this secret.
 #[serde_with::serde_as]
@@ -919,6 +991,12 @@ impl Topic {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for Topic {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Topic"
     }
 }
 
@@ -983,6 +1061,12 @@ impl Rotation {
     }
 }
 
+impl wkt::message::Message for Rotation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.Rotation"
+    }
+}
+
 /// A secret payload resource in the Secret Manager API. This contains the
 /// sensitive secret payload that is associated with a
 /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -1036,6 +1120,12 @@ impl SecretPayload {
     pub fn set_data_crc32c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
         self.data_crc32c = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for SecretPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.SecretPayload"
     }
 }
 
@@ -1103,6 +1193,12 @@ impl ListSecretsRequest {
     }
 }
 
+impl wkt::message::Message for ListSecretsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretsRequest"
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
@@ -1154,6 +1250,12 @@ impl ListSecretsResponse {
     pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for ListSecretsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretsResponse"
     }
 }
 
@@ -1223,6 +1325,12 @@ impl CreateSecretRequest {
     }
 }
 
+impl wkt::message::Message for CreateSecretRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CreateSecretRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 ///
@@ -1264,6 +1372,12 @@ impl AddSecretVersionRequest {
     }
 }
 
+impl wkt::message::Message for AddSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AddSecretVersionRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 ///
@@ -1287,6 +1401,12 @@ impl GetSecretRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for GetSecretRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.GetSecretRequest"
     }
 }
 
@@ -1354,6 +1474,12 @@ impl ListSecretVersionsRequest {
     }
 }
 
+impl wkt::message::Message for ListSecretVersionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretVersionsRequest"
+    }
+}
+
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 ///
@@ -1409,6 +1535,12 @@ impl ListSecretVersionsResponse {
     }
 }
 
+impl wkt::message::Message for ListSecretVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.ListSecretVersionsResponse"
+    }
+}
+
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
@@ -1454,6 +1586,12 @@ impl GetSecretVersionRequest {
     }
 }
 
+impl wkt::message::Message for GetSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.GetSecretVersionRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 ///
@@ -1489,6 +1627,12 @@ impl UpdateSecretRequest {
     }
 }
 
+impl wkt::message::Message for UpdateSecretRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.UpdateSecretRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 ///
@@ -1518,6 +1662,12 @@ impl AccessSecretVersionRequest {
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for AccessSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AccessSecretVersionRequest"
     }
 }
 
@@ -1558,6 +1708,12 @@ impl AccessSecretVersionResponse {
     }
 }
 
+impl wkt::message::Message for AccessSecretVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.AccessSecretVersionResponse"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 ///
@@ -1595,6 +1751,12 @@ impl DeleteSecretRequest {
     pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for DeleteSecretRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.DeleteSecretRequest"
     }
 }
 
@@ -1640,6 +1802,12 @@ impl DisableSecretVersionRequest {
     }
 }
 
+impl wkt::message::Message for DisableSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.DisableSecretVersionRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 ///
@@ -1682,6 +1850,12 @@ impl EnableSecretVersionRequest {
     }
 }
 
+impl wkt::message::Message for EnableSecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.EnableSecretVersionRequest"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 ///
@@ -1721,5 +1895,11 @@ impl DestroySecretVersionRequest {
     pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
+    }
+}
+
+impl wkt::message::Message for DestroySecretVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.DestroySecretVersionRequest"
     }
 }

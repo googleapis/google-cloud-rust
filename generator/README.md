@@ -20,11 +20,11 @@ go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest generat
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \
   -parser-option googleapis-root=generator/testdata/googleapis \
   -language rust \
-  -output generator/testdata/rust/gclient/golden/secretmanager \
-  -codec-option package-name-override=secretmanager-golden-gclient \
+  -output generator/testdata/rust/protobuf/golden/secretmanager \
+  -codec-option package-name-override=secretmanager-golden-protobuf \
   -codec-option package:wkt=package=types,path=types,source=google.protobuf \
   -codec-option package:gax=package=gax,path=gax,feature=unstable-sdk-client \
-  -codec-option package:iam=package=iam-v1-golden-gclient,path=generator/testdata/rust/gclient/golden/iam/v1,source=google.iam.v1
+  -codec-option package:iam=package=iam-v1-golden-protobuf,path=generator/testdata/rust/protobuf/golden/iam/v1,source=google.iam.v1
 ```
 
 ## Example Run with OpenAPI

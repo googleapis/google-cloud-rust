@@ -16,7 +16,7 @@
 
 [package]
 name                 = "gcp-sdk-rpc"
-version              = "0.1.0-rc2"
+version              = "0.1.0"
 description          = "Google Cloud Client Libraries for Rust - Google RPC Types"
 edition.workspace    = true
 authors.workspace    = true
@@ -27,6 +27,6 @@ categories.workspace = true
 
 [dependencies]
 bytes      = { version = "1.8.0", features = ["serde"] }
-serde      = { version = "1.0.214", features = ["serde_derive"] }
-serde_with = { version = "3.11.0", default-features = false, features = ["base64", "macros", "std"] }
-wkt        = { version = "0.1.0-rc2", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
+serde      = { version = "1.0.216", features = ["serde_derive"] }
+serde_with = { version = "3.12.0", default-features = false, features = ["base64", "macros", "std"] }
+wkt        = { version = "0.1.0", path = "../../../src/wkt", package = "gcp-sdk-wkt" }

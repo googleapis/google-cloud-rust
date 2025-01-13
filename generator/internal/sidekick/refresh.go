@@ -53,42 +53,20 @@ func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
 		return fmt.Errorf("must provide general.specification-source")
 	}
 
-	var a *api.API
+	var model *api.API
 	switch config.General.SpecificationFormat {
 	case "openapi":
-		a, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+		model, err = parser.ParseOpenAPI(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	case "protobuf":
-		a, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
+		model, err = parser.ParseProtobuf(config.General.SpecificationSource, config.General.ServiceConfig, config.Source)
 	default:
 		return fmt.Errorf("unknown parser %q", config.General.SpecificationFormat)
 	}
 	if err != nil {
 		return err
 	}
-
-	var codec language.Codec
-	switch config.General.Language {
-	case "rust":
-		codec, err = language.NewRustCodec(output, config.Codec)
-	case "go":
-		codec, err = language.NewGoCodec(config.Codec)
-	default:
-		return fmt.Errorf("unknown language: %s", config.General.Language)
-	}
-	if err != nil {
-		return err
-	}
-	if err := codec.Validate(a); err != nil {
-		return err
-	}
-
-	request := &generateClientRequest{
-		API:    a,
-		Codec:  codec,
-		OutDir: output,
-	}
 	if cmdLine.DryRun {
 		return nil
 	}
-	return generateClient(request)
+	return language.GenerateClient(model, config.General.Language, output, config.Codec)
 }

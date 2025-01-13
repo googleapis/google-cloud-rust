@@ -60,11 +60,11 @@ pub struct IAMPolicy {
 impl IAMPolicy {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
-        Self::new_with_config(crate::ConfigBuilder::default()).await
+        Self::new_with_config(gax::options::ClientConfig::default()).await
     }
 
     /// Creates a new client with the specified configuration.
-    pub async fn new_with_config(conf: crate::ConfigBuilder) -> Result<Self> {
+    pub async fn new_with_config(conf: gax::options::ClientConfig) -> Result<Self> {
         let inner = Self::build_inner(conf).await?;
         Ok(Self { inner })
     }
@@ -83,7 +83,7 @@ impl IAMPolicy {
     }
 
     async fn build_inner(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<Arc<dyn crate::traits::dyntraits::IAMPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
@@ -91,41 +91,46 @@ impl IAMPolicy {
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: crate::ConfigBuilder) -> Result<impl crate::traits::IAMPolicy> {
+    async fn build_transport(
+        conf: gax::options::ClientConfig,
+    ) -> Result<impl crate::traits::IAMPolicy> {
         crate::transport::IAMPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
-        conf: crate::ConfigBuilder,
+        conf: gax::options::ClientConfig,
     ) -> Result<impl crate::traits::IAMPolicy> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::IAMPolicy::new)
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
+    /// Sets the access control policy on the specified resource. Replaces any
+    /// existing policy.
     ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
-    pub fn set_iam_policy(&self) -> crate::builders::SetIamPolicy {
-        crate::builders::SetIamPolicy::new(self.inner.clone())
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    pub fn set_iam_policy(&self, resource: impl Into<String>) -> crate::builders::SetIamPolicy {
+        crate::builders::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(&self) -> crate::builders::GetIamPolicy {
-        crate::builders::GetIamPolicy::new(self.inner.clone())
+    /// Gets the access control policy for a resource.
+    /// Returns an empty policy if the resource exists and does not have a policy
+    /// set.
+    pub fn get_iam_policy(&self, resource: impl Into<String>) -> crate::builders::GetIamPolicy {
+        crate::builders::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
+    /// Returns permissions that a caller has on the specified resource.
+    /// If the resource does not exist, this will return an empty set of
     /// permissions, not a `NOT_FOUND` error.
     ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(&self) -> crate::builders::TestIamPermissions {
-        crate::builders::TestIamPermissions::new(self.inner.clone())
+    /// Note: This operation is designed to be used for building permission-aware
+    /// UIs and command-line tools, not for authorization checking. This operation
+    /// may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+        resource: impl Into<String>,
+    ) -> crate::builders::TestIamPermissions {
+        crate::builders::TestIamPermissions::new(self.inner.clone()).set_resource(resource.into())
     }
 }

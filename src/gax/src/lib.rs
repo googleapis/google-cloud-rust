@@ -14,6 +14,11 @@
 
 //! Google APIs helpers.
 //!
+//! **WARNING:** this crate is under active development. We expect multiple
+//! breaking changes in the upcoming releases. Testing is also incomplete, we do
+//! **not** recommend that you use this crate in production. We welcome feedback
+//! about the APIs, documentation, missing features, bugs, etc.
+//!
 //! This crate contains a number of types and functions used in the
 //! implementation of the Google Cloud Client Libraries for Rust.
 //!
@@ -28,7 +33,7 @@
 /// An alias of [std::result::Result] where the error is always [crate::error::Error].
 ///
 /// This is the result type used by all functions wrapping RPCs.
-type Result<T> = std::result::Result<T, crate::error::Error>;
+pub type Result<T> = std::result::Result<T, crate::error::Error>;
 
 #[cfg(feature = "unstable-sdk-client")]
 #[doc(hidden)]
@@ -76,4 +81,7 @@ pub mod paginator;
 #[doc(hidden)]
 pub mod http_client;
 
+pub mod backoff_policy;
 pub mod options;
+pub mod retry_policy;
+pub mod retry_throttler;

@@ -734,34 +734,13 @@ impl gax::options::RequestBuilder for TestIamPermissions {
     }
 }
 
-/// Common implementation for [crate::client::Locations] request builders.
+/// The request builder for a SecretManagerService::list_locations call.
 #[derive(Clone, Debug)]
-pub struct LocationsRequestBuilder<R: std::default::Default> {
-    stub: Arc<dyn crate::traits::dyntraits::Locations>,
-    request: R,
-    options: gax::options::RequestOptions,
-}
-
-impl<R> LocationsRequestBuilder<R>
-where
-    R: std::default::Default,
-{
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self {
-            stub,
-            request: R::default(),
-            options: gax::options::RequestOptions::default(),
-        }
-    }
-}
-
-/// The request builder for a Locations::list_locations call.
-#[derive(Clone, Debug)]
-pub struct ListLocations(LocationsRequestBuilder<location::model::ListLocationsRequest>);
+pub struct ListLocations(SecretManagerServiceRequestBuilder<location::model::ListLocationsRequest>);
 
 impl ListLocations {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(LocationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.
@@ -823,13 +802,13 @@ impl gax::options::RequestBuilder for ListLocations {
     }
 }
 
-/// The request builder for a Locations::get_location call.
+/// The request builder for a SecretManagerService::get_location call.
 #[derive(Clone, Debug)]
-pub struct GetLocation(LocationsRequestBuilder<location::model::GetLocationRequest>);
+pub struct GetLocation(SecretManagerServiceRequestBuilder<location::model::GetLocationRequest>);
 
 impl GetLocation {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Locations>) -> Self {
-        Self(LocationsRequestBuilder::new(stub))
+    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
     /// Set the full request.

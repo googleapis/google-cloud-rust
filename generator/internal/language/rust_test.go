@@ -16,6 +16,7 @@ package language
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 	"testing"
 
@@ -24,17 +25,17 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func createRustCodec() *RustCodec {
-	wkt := &RustPackage{
-		Name:    "gax_wkt",
-		Package: "types",
-		Path:    "../../types",
+func createRustCodec() *rustCodec {
+	wkt := &rustPackage{
+		name:        "gax_wkt",
+		packageName: "types",
+		path:        "../../types",
 	}
 
-	return &RustCodec{
-		ModulePath:    "model",
-		ExtraPackages: []*RustPackage{wkt},
-		PackageMapping: map[string]*RustPackage{
+	return &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{wkt},
+		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 		},
 	}
@@ -50,52 +51,58 @@ func TestRust_ParseOptions(t *testing.T) {
 		"package:gax":           "package=gax,path=src/gax,feature=unstable-sdk-client",
 		"package:serde_with":    "package=serde_with,version=2.3.4,default-features=false",
 	}
-	codec, err := NewRustCodec("", options)
+	got, err := newRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
-	gp := &RustPackage{
-		Name:            "wkt",
-		Package:         "types",
-		Path:            "src/wkt",
-		DefaultFeatures: true,
+	gp := &rustPackage{
+		name:            "wkt",
+		packageName:     "types",
+		path:            "src/wkt",
+		defaultFeatures: true,
 	}
-	want := &RustCodec{
-		Version:                  "1.2.3",
-		PackageNameOverride:      "test-only",
-		GenerationYear:           "2035",
-		ModulePath:               "alternative::generated",
-		DeserializeWithdDefaults: true,
-		ExtraPackages: []*RustPackage{
+	want := &rustCodec{
+		version:                  "1.2.3",
+		packageNameOverride:      "test-only",
+		generationYear:           "2035",
+		modulePath:               "alternative::generated",
+		deserializeWithdDefaults: true,
+		extraPackages: []*rustPackage{
 			gp,
 			{
-				Name:    "gax",
-				Package: "gax",
-				Path:    "src/gax",
-				Features: []string{
+				name:        "gax",
+				packageName: "gax",
+				path:        "src/gax",
+				features: []string{
 					"unstable-sdk-client",
 				},
-				DefaultFeatures: true,
+				defaultFeatures: true,
 			},
 			{
-				Name:            "serde_with",
-				Package:         "serde_with",
-				Version:         "2.3.4",
-				DefaultFeatures: false,
+				name:            "serde_with",
+				packageName:     "serde_with",
+				version:         "2.3.4",
+				defaultFeatures: false,
 			},
 		},
-		PackageMapping: map[string]*RustPackage{
+		packageMapping: map[string]*rustPackage{
 			"google.protobuf": gp,
 			"test-only":       gp,
 		},
 	}
-	if diff := cmp.Diff(want, codec, cmpopts.IgnoreFields(RustCodec{}, "ExtraPackages", "PackageMapping")); diff != "" {
+	sort.Slice(want.extraPackages, func(i, j int) bool {
+		return want.extraPackages[i].name < want.extraPackages[j].name
+	})
+	sort.Slice(got.extraPackages, func(i, j int) bool {
+		return got.extraPackages[i].name < got.extraPackages[j].name
+	})
+	if diff := cmp.Diff(want, got, cmp.AllowUnexported(rustCodec{}, rustPackage{})); diff != "" {
 		t.Errorf("codec mismatch (-want, +got):\n%s", diff)
 	}
-	if want.PackageNameOverride != codec.PackageNameOverride {
-		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.PackageNameOverride, codec.PackageNameOverride)
+	if want.packageNameOverride != got.packageNameOverride {
+		t.Errorf("mismatched in packageNameOverride, want=%s, got=%s", want.packageNameOverride, got.packageNameOverride)
 	}
-	checkRustPackages(t, codec, want)
+	checkRustPackages(t, got, want)
 }
 
 func TestRust_RequiredPackages(t *testing.T) {
@@ -106,11 +113,11 @@ func TestRust_RequiredPackages(t *testing.T) {
 		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
 		"package:auth":        "ignore=true",
 	}
-	codec, err := NewRustCodec(outdir, options)
+	codec, err := newRustCodec(outdir, options)
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := codec.RequiredPackages()
+	got := codec.requiredPackages()
 	want := []string{
 		"async-trait = { version = \"0.1.83\" }",
 		"gax        = { version = \"1.2.3\", path = \"../../../src/gax\", package = \"gcp-sdk-gax\" }",
@@ -127,11 +134,11 @@ func TestRust_RequiredPackagesLocal(t *testing.T) {
 	options := map[string]string{
 		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only,force-used=true",
 	}
-	codec, err := NewRustCodec("", options)
+	codec, err := newRustCodec("", options)
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := codec.RequiredPackages()
+	got := codec.requiredPackages()
 	want := []string{
 		"gtype      = { path = \"src/generated/type\", package = \"types\" }",
 	}
@@ -160,21 +167,21 @@ func TestRust_PackageName(t *testing.T) {
 
 func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api *api.API) {
 	t.Helper()
-	codec, err := NewRustCodec("", opts)
+	codec, err := newRustCodec("", opts)
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := codec.PackageName(api)
+	got := codec.packageName(api)
 	if want != got {
 		t.Errorf("mismatch in package name, want=%s, got=%s", want, got)
 	}
 
 }
 
-func checkRustPackages(t *testing.T, got *RustCodec, want *RustCodec) {
+func checkRustPackages(t *testing.T, got *rustCodec, want *rustCodec) {
 	t.Helper()
-	less := func(a, b *RustPackage) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.ExtraPackages, got.ExtraPackages, cmpopts.SortSlices(less)); diff != "" {
+	less := func(a, b *rustPackage) bool { return a.name < b.name }
+	if diff := cmp.Diff(want.extraPackages, got.extraPackages, cmp.AllowUnexported(rustPackage{}), cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("package mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -184,12 +191,12 @@ func TestRust_Validate(t *testing.T) {
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &RustCodec{}
-	if err := c.Validate(api); err != nil {
+	c := &rustCodec{}
+	if err := c.validate(api); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
 	}
-	if c.SourceSpecificationPackageName != "p1" {
-		t.Errorf("mismatched source package name, want=p1, got=%s", c.SourceSpecificationPackageName)
+	if c.sourceSpecificationPackageName != "p1" {
+		t.Errorf("mismatched source package name, want=p1, got=%s", c.sourceSpecificationPackageName)
 	}
 }
 
@@ -198,34 +205,34 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &RustCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	c := &rustCodec{}
+	if err := c.validate(test); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
 	test = newTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c = &RustCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	c = &rustCodec{}
+	if err := c.validate(test); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
 	test = newTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &RustCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	c = &rustCodec{}
+	if err := c.validate(test); err == nil {
+		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 }
 
 func TestWellKnownTypesExist(t *testing.T) {
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &RustCodec{}
-	c.LoadWellKnownTypes(api.State)
+	c := &rustCodec{}
+	c.loadWellKnownTypes(api.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := api.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
 			t.Errorf("cannot find well-known message %s in API", name)
@@ -236,10 +243,10 @@ func TestWellKnownTypesExist(t *testing.T) {
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 
 	want := "gax_wkt::Empty"
-	got := c.MethodInOutTypeName(".google.protobuf.Empty", api.State)
+	got := c.methodInOutTypeName(".google.protobuf.Empty", api.State)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -257,16 +264,16 @@ func TestRust_MethodInOut(t *testing.T) {
 	}
 	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 
 	want := "crate::model::Target"
-	got := c.MethodInOutTypeName("..Target", api.State)
+	got := c.methodInOutTypeName("..Target", api.State)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
 
 	want = "crate::model::target::Nested"
-	got = c.MethodInOutTypeName("..Target.Nested", api.State)
+	got = c.methodInOutTypeName("..Target.Nested", api.State)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
 	}
@@ -360,13 +367,13 @@ func TestRust_FieldAttributes(t *testing.T) {
 		"f_string_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		got := strings.Join(c.fieldAttributes(field, api.State), "\n")
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -488,13 +495,13 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		got := strings.Join(c.fieldAttributes(field, api.State), "\n")
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -562,13 +569,13 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 		"f_any":          `#[serde(skip_serializing_if = "Option::is_none")]`,
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		got := strings.Join(c.fieldAttributes(field, api.State), "\n")
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -605,13 +612,13 @@ func TestRust_FieldLossyName(t *testing.T) {
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		got := strings.Join(c.fieldAttributes(field, api.State), "\n")
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -654,13 +661,13 @@ func TestRust_SyntheticField(t *testing.T) {
 		"data_crc32c": `#[serde(skip)]`,
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := strings.Join(c.FieldAttributes(field, api.State), "\n")
+		got := strings.Join(c.fieldAttributes(field, api.State), "\n")
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -745,13 +752,13 @@ func TestRust_FieldType(t *testing.T) {
 		"f_timestamp_repeated": "gax_wkt::Timestamp",
 	}
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 	for _, field := range message.Fields {
 		want, ok := expectedTypes[field.Name]
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got := c.FieldType(field, api.State)
+		got := c.fieldType(field, api.State, false)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
@@ -760,72 +767,10 @@ func TestRust_FieldType(t *testing.T) {
 		if !ok {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
-		got = c.PrimitiveFieldType(field, api.State)
+		got = c.fieldType(field, api.State, true)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}
-	}
-}
-
-func TestRust_QueryParams(t *testing.T) {
-	options := &api.Message{
-		Name:   "Options",
-		ID:     "..Options",
-		Fields: []*api.Field{},
-	}
-	optionsField := &api.Field{
-		Name:     "options_field",
-		JSONName: "optionsField",
-		Typez:    api.MESSAGE_TYPE,
-		TypezID:  options.ID,
-	}
-	anotherField := &api.Field{
-		Name:     "another_field",
-		JSONName: "anotherField",
-		Typez:    api.STRING_TYPE,
-		TypezID:  options.ID,
-	}
-	request := &api.Message{
-		Name: "TestRequest",
-		ID:   "..TestRequest",
-		Fields: []*api.Field{
-			optionsField, anotherField,
-			{
-				Name: "unused",
-			},
-		},
-	}
-	method := &api.Method{
-		Name:         "Test",
-		ID:           "..TestService.Test",
-		InputTypeID:  request.ID,
-		OutputTypeID: ".google.protobuf.Empty",
-		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			QueryParameters: map[string]bool{
-				"options_field": true,
-				"another_field": true,
-			},
-		},
-	}
-	test := newTestAPI(
-		[]*api.Message{options, request},
-		[]*api.Enum{},
-		[]*api.Service{
-			{
-				Name:    "TestService",
-				ID:      "..TestService",
-				Methods: []*api.Method{method},
-			},
-		})
-	c := createRustCodec()
-	c.LoadWellKnownTypes(test.State)
-
-	got := c.QueryParams(method, test.State)
-	want := []*api.Field{optionsField, anotherField}
-	less := func(a, b *api.Field) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}
 }
 
@@ -857,16 +802,16 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		[]*api.Enum{},
 		[]*api.Service{})
 	c := createRustCodec()
-	c.LoadWellKnownTypes(api.State)
+	c.loadWellKnownTypes(api.State)
 
 	want := "&serde_json::to_value(&req.options_field).map_err(Error::serde)?"
-	got := c.AsQueryParameter(optionsField, api.State)
+	got := c.asQueryParameter(optionsField)
 	if want != got {
 		t.Errorf("mismatched as query parameter for options_field, want=%s, got=%s", want, got)
 	}
 
 	want = "&req.another_field"
-	got = c.AsQueryParameter(anotherField, api.State)
+	got = c.asQueryParameter(anotherField)
 	if want != got {
 		t.Errorf("mismatched as query parameter for another_field, want=%s, got=%s", want, got)
 	}
@@ -879,7 +824,7 @@ type rustCaseConvertTest struct {
 }
 
 func TestRust_ToSnake(t *testing.T) {
-	c := &RustCodec{}
+	c := &rustCodec{}
 	var snakeConvertTests = []rustCaseConvertTest{
 		{"FooBar", "foo_bar"},
 		{"foo_bar", "foo_bar"},
@@ -892,14 +837,14 @@ func TestRust_ToSnake(t *testing.T) {
 		{"yield", "r#yield"},
 	}
 	for _, test := range snakeConvertTests {
-		if output := c.ToSnake(test.Input); output != test.Expected {
+		if output := c.toSnake(test.Input); output != test.Expected {
 			t.Errorf("Output %q not equal to expected %q, input=%s", output, test.Expected, test.Input)
 		}
 	}
 }
 
 func TestRust_ToPascal(t *testing.T) {
-	c := &RustCodec{}
+	c := &rustCodec{}
 	var pascalConvertTests = []rustCaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -911,7 +856,7 @@ func TestRust_ToPascal(t *testing.T) {
 		{"IAMPolicyRequest", "IAMPolicyRequest"},
 	}
 	for _, test := range pascalConvertTests {
-		if output := c.ToPascal(test.Input); output != test.Expected {
+		if output := c.toPascal(test.Input); output != test.Expected {
 			t.Errorf("Output %q not equal to expected %q", output, test.Expected)
 		}
 	}
@@ -957,8 +902,8 @@ Maybe they wanted to show some JSON:
 	}
 
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &RustCodec{}
-	got := c.FormatDocComments(input, api.State)
+	c := &rustCodec{}
+	got := c.formatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -984,7 +929,7 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	got := c.FormatDocComments(input, api.State)
+	got := c.formatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1066,8 +1011,8 @@ block:
 	}
 
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &RustCodec{}
-	got := c.FormatDocComments(input, api.State)
+	c := &rustCodec{}
+	got := c.formatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1087,8 +1032,8 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 	}
 
 	api := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &RustCodec{}
-	got := c.FormatDocComments(input, api.State)
+	c := &rustCodec{}
+	got := c.formatDocComments(input, api.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1137,20 +1082,20 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
 	}
 
-	wkt := &RustPackage{
-		Name:    "wkt",
-		Package: "gcp-sdk-wkt",
-		Path:    "src/wkt",
+	wkt := &rustPackage{
+		name:        "wkt",
+		packageName: "gcp-sdk-wkt",
+		path:        "src/wkt",
 	}
-	iam := &RustPackage{
-		Name:    "iam_v1",
-		Package: "gcp-sdk-iam-v1",
-		Path:    "src/generated/iam/v1",
+	iam := &rustPackage{
+		name:        "iam_v1",
+		packageName: "gcp-sdk-iam-v1",
+		path:        "src/generated/iam/v1",
 	}
-	c := &RustCodec{
-		ModulePath:    "model",
-		ExtraPackages: []*RustPackage{wkt, iam},
-		PackageMapping: map[string]*RustPackage{
+	c := &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{wkt, iam},
+		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
@@ -1159,9 +1104,9 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	// To test the mappings we need a fairly complex api.API instance. Create it
 	// in a separate function to make this more readable.
 	apiz := makeApiForRustFormatDocCommentsCrossLinks()
-	c.LoadWellKnownTypes(apiz.State)
+	c.loadWellKnownTypes(apiz.State)
 
-	got := c.FormatDocComments(input, apiz.State)
+	got := c.formatDocComments(input, apiz.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1265,20 +1210,20 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>.",
 	}
 
-	wkt := &RustPackage{
-		Name:    "wkt",
-		Package: "gcp-sdk-wkt",
-		Path:    "src/wkt",
+	wkt := &rustPackage{
+		name:        "wkt",
+		packageName: "gcp-sdk-wkt",
+		path:        "src/wkt",
 	}
-	iam := &RustPackage{
-		Name:    "iam_v1",
-		Package: "gcp-sdk-iam-v1",
-		Path:    "src/generated/iam/v1",
+	iam := &rustPackage{
+		name:        "iam_v1",
+		packageName: "gcp-sdk-iam-v1",
+		path:        "src/generated/iam/v1",
 	}
-	c := &RustCodec{
-		ModulePath:    "model",
-		ExtraPackages: []*RustPackage{wkt, iam},
-		PackageMapping: map[string]*RustPackage{
+	c := &rustCodec{
+		modulePath:    "model",
+		extraPackages: []*rustPackage{wkt, iam},
+		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
@@ -1287,9 +1232,9 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 	// To test the mappings we need a fairly complex api.API instance. Create it
 	// in a separate function to make this more readable.
 	apiz := makeApiForRustFormatDocCommentsCrossLinks()
-	c.LoadWellKnownTypes(apiz.State)
+	c.loadWellKnownTypes(apiz.State)
 
-	got := c.FormatDocComments(input, apiz.State)
+	got := c.formatDocComments(input, apiz.State)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1321,20 +1266,20 @@ func TestRust_MessageNames(t *testing.T) {
 	api.PackageName = "test"
 
 	c := createRustCodec()
-	if err := c.Validate(api); err != nil {
+	if err := c.validate(api); err != nil {
 		t.Fatal(err)
 	}
-	if got := c.MessageName(message, api.State); got != "Replication" {
+	if got := c.messageName(message); got != "Replication" {
 		t.Errorf("mismatched message name, got=%s, want=Replication", got)
 	}
-	if got := c.FQMessageName(message, api.State); got != "crate::model::Replication" {
+	if got := c.fqMessageName(message, api.State); got != "crate::model::Replication" {
 		t.Errorf("mismatched message name, got=%s, want=crate::model::Replication", got)
 	}
 
-	if got := c.MessageName(nested, api.State); got != "Automatic" {
+	if got := c.messageName(nested); got != "Automatic" {
 		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
-	if got := c.FQMessageName(nested, api.State); got != "crate::model::replication::Automatic" {
+	if got := c.fqMessageName(nested, api.State); got != "crate::model::replication::Automatic" {
 		t.Errorf("mismatched message name, got=%s, want=crate::model::replication::Automatic", got)
 	}
 }
@@ -1370,16 +1315,16 @@ func TestRust_EnumNames(t *testing.T) {
 	api.PackageName = "test"
 
 	c := createRustCodec()
-	if err := c.Validate(api); err != nil {
+	if err := c.validate(api); err != nil {
 		t.Fatal(err)
 	}
-	if got := c.EnumName(nested, api.State); got != "State" {
+	if got := c.enumName(nested); got != "State" {
 		t.Errorf("mismatched enum name, got=%s, want=Automatic", got)
 	}
-	if got := c.FQEnumName(nested, api.State); got != "crate::model::secret_version::State" {
+	if got := c.fqEnumName(nested); got != "crate::model::secret_version::State" {
 		t.Errorf("mismatched enum name, got=%s, want=crate::model::secret_version::State", got)
 	}
-	if got := c.FQEnumName(non_nested, api.State); got != "crate::model::Code" {
+	if got := c.fqEnumName(non_nested); got != "crate::model::Code" {
 		t.Errorf("mismatched enum name, got=%s, want=%s", got, "crate::model::Code")
 	}
 }

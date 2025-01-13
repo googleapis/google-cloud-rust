@@ -79,7 +79,9 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	if serviceConfig != nil {
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 		result.Title = serviceConfig.Title
-		result.Description = serviceConfig.Documentation.Summary
+		if serviceConfig.Documentation != nil {
+			result.Description = serviceConfig.Documentation.Summary
+		}
 	}
 
 	// OpenAPI does not define a service name. The service config may provide

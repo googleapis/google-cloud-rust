@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use gax::error::*;
+    use gax::options::ClientConfig as Config;
     use test_case::test_case;
 
     fn report(e: Error) -> Error {
@@ -22,29 +23,42 @@ mod driver {
         Error::other("test failed")
     }
 
-    #[test_case(true; "with tracing enabled")]
-    #[test_case(false; "with tracing disabled")]
+    fn retry_policy() -> impl gax::retry_policy::RetryPolicy {
+        use gax::retry_policy::RetryPolicyExt;
+        use std::time::Duration;
+        gax::retry_policy::AlwaysRetry
+            .with_time_limit(Duration::from_secs(15))
+            .with_attempt_limit(5)
+    }
+
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_protobuf(tracing: bool) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::protobuf::run(tracing)
+    async fn run_secretmanager_protobuf(config: Option<Config>) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::protobuf::run(config)
             .await
             .map_err(report)
     }
 
-    #[test_case(true; "with tracing enabled")]
-    #[test_case(false; "with tracing disabled")]
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi(tracing: bool) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi::run(tracing)
+    async fn run_secretmanager_openapi(config: Option<Config>) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi::run(config)
             .await
             .map_err(report)
     }
 
-    #[test_case(true; "with tracing enabled")]
-    #[test_case(false; "with tracing disabled")]
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational(tracing: bool) -> integration_tests::Result<()> {
-        integration_tests::secret_manager::openapi_locational::run(tracing)
+    async fn run_secretmanager_openapi_locational(
+        config: Option<Config>,
+    ) -> integration_tests::Result<()> {
+        integration_tests::secret_manager::openapi_locational::run(config)
             .await
             .map_err(report)
     }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::{Error, HttpError};
+use crate::error::Error;
 use serde::{Deserialize, Serialize};
 
 /// The [Status] type defines a logical error model that is suitable for
@@ -219,6 +219,31 @@ impl Default for Code {
     }
 }
 
+impl std::convert::From<i32> for Code {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Code::Ok,
+            1 => Code::Canceled,
+            2 => Code::Unknown,
+            3 => Code::InvalidArgument,
+            4 => Code::DeadlineExceeded,
+            5 => Code::NotFound,
+            6 => Code::AlreadyExists,
+            7 => Code::PermissionDenied,
+            8 => Code::ResourceExhausted,
+            9 => Code::FailedPrecondition,
+            10 => Code::Aborted,
+            11 => Code::OutOfRange,
+            12 => Code::Unimplemented,
+            13 => Code::Internal,
+            14 => Code::Unavailable,
+            15 => Code::DataLoss,
+            16 => Code::Unauthenticated,
+            _ => Code::default(),
+        }
+    }
+}
+
 impl std::convert::From<Code> for String {
     fn from(value: Code) -> String {
         match value {
@@ -284,26 +309,7 @@ impl<'de> Deserialize<'de> for Code {
     where
         D: serde::Deserializer<'de>,
     {
-        match i32::deserialize(deserializer)? {
-            0 => Ok(Code::Ok),
-            1 => Ok(Code::Canceled),
-            2 => Ok(Code::Unknown),
-            3 => Ok(Code::InvalidArgument),
-            4 => Ok(Code::DeadlineExceeded),
-            5 => Ok(Code::NotFound),
-            6 => Ok(Code::AlreadyExists),
-            7 => Ok(Code::PermissionDenied),
-            8 => Ok(Code::ResourceExhausted),
-            9 => Ok(Code::FailedPrecondition),
-            10 => Ok(Code::Aborted),
-            11 => Ok(Code::OutOfRange),
-            12 => Ok(Code::Unimplemented),
-            13 => Ok(Code::Internal),
-            14 => Ok(Code::Unavailable),
-            15 => Ok(Code::DataLoss),
-            16 => Ok(Code::Unauthenticated),
-            _ => Ok(Code::default()),
-        }
+        i32::deserialize(deserializer).map(Code::from)
     }
 }
 
@@ -313,15 +319,6 @@ struct ErrorWrapper {
     error: Status,
 }
 
-impl TryFrom<&HttpError> for Status {
-    type Error = Error;
-
-    fn try_from(value: &HttpError) -> Result<Self, Self::Error> {
-        let payload = value.payload().ok_or_else(|| Error::other("no payload"))?;
-        Status::try_from(payload)
-    }
-}
-
 impl TryFrom<&bytes::Bytes> for Status {
     type Error = Error;
 
@@ -329,6 +326,17 @@ impl TryFrom<&bytes::Bytes> for Status {
         serde_json::from_slice::<ErrorWrapper>(value)
             .map(|w| w.error)
             .map_err(Error::serde)
+    }
+}
+
+impl From<rpc::model::Status> for Status {
+    fn from(value: rpc::model::Status) -> Self {
+        Self {
+            code: value.code,
+            message: value.message,
+            status: Some(String::from(Code::from(value.code))),
+            details: value.details.into_iter().map(StatusDetails::from).collect(),
+        }
     }
 }
 
@@ -364,9 +372,31 @@ pub enum StatusDetails {
     Other(wkt::Any),
 }
 
-impl Default for StatusDetails {
-    fn default() -> Self {
-        Self::Other(wkt::Any::default())
+impl From<wkt::Any> for StatusDetails {
+    fn from(value: wkt::Any) -> Self {
+        use rpc::model::*;
+        if let Ok(v) = value.try_into_message::<BadRequest>() {
+            return StatusDetails::BadRequest(v);
+        } else if let Ok(v) = value.try_into_message::<DebugInfo>() {
+            return StatusDetails::DebugInfo(v);
+        } else if let Ok(v) = value.try_into_message::<ErrorInfo>() {
+            return StatusDetails::ErrorInfo(v);
+        } else if let Ok(v) = value.try_into_message::<Help>() {
+            return StatusDetails::Help(v);
+        } else if let Ok(v) = value.try_into_message::<LocalizedMessage>() {
+            return StatusDetails::LocalizedMessage(v);
+        } else if let Ok(v) = value.try_into_message::<PreconditionFailure>() {
+            return StatusDetails::PreconditionFailure(v);
+        } else if let Ok(v) = value.try_into_message::<QuotaFailure>() {
+            return StatusDetails::QuotaFailure(v);
+        } else if let Ok(v) = value.try_into_message::<RequestInfo>() {
+            return StatusDetails::RequestInfo(v);
+        } else if let Ok(v) = value.try_into_message::<ResourceInfo>() {
+            return StatusDetails::ResourceInfo(v);
+        } else if let Ok(v) = value.try_into_message::<RetryInfo>() {
+            return StatusDetails::RetryInfo(v);
+        }
+        StatusDetails::Other(value)
     }
 }
 
@@ -558,6 +588,80 @@ mod test {
         assert_eq!(got, want);
     }
 
+    #[test]
+    fn status_from_rpc_no_details() {
+        let input = rpc::model::Status::default()
+            .set_code(Code::Unavailable as i32)
+            .set_message("try-again");
+        let got = Status::from(input);
+        assert_eq!(got.code, Code::Unavailable as i32);
+        assert_eq!(got.message, "try-again");
+        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
+    }
+
+    #[test_case(
+        BadRequest::default(),
+        StatusDetails::BadRequest(BadRequest::default())
+    )]
+    #[test_case(DebugInfo::default(), StatusDetails::DebugInfo(DebugInfo::default()))]
+    #[test_case(ErrorInfo::default(), StatusDetails::ErrorInfo(ErrorInfo::default()))]
+    #[test_case(Help::default(), StatusDetails::Help(Help::default()))]
+    #[test_case(
+        LocalizedMessage::default(),
+        StatusDetails::LocalizedMessage(LocalizedMessage::default())
+    )]
+    #[test_case(
+        PreconditionFailure::default(),
+        StatusDetails::PreconditionFailure(PreconditionFailure::default())
+    )]
+    #[test_case(
+        QuotaFailure::default(),
+        StatusDetails::QuotaFailure(QuotaFailure::default())
+    )]
+    #[test_case(
+        RequestInfo::default(),
+        StatusDetails::RequestInfo(RequestInfo::default())
+    )]
+    #[test_case(
+        ResourceInfo::default(),
+        StatusDetails::ResourceInfo(ResourceInfo::default())
+    )]
+    #[test_case(RetryInfo::default(), StatusDetails::RetryInfo(RetryInfo::default()))]
+    fn status_from_rpc_status_known_detail_type<T>(detail: T, want: StatusDetails)
+    where
+        T: wkt::message::Message + serde::ser::Serialize,
+    {
+        let input = rpc::model::Status::default()
+            .set_code(Code::Unavailable as i32)
+            .set_message("try-again")
+            .set_details(vec![wkt::Any::try_from(&detail).unwrap()]);
+
+        let status = Status::from(input);
+        assert_eq!(status.code, Code::Unavailable as i32);
+        assert_eq!(status.message, "try-again");
+        assert_eq!(status.status.as_deref(), Some("UNAVAILABLE"));
+
+        let got = status.details.get(0);
+        assert_eq!(got, Some(&want));
+    }
+
+    #[test]
+    fn status_from_rpc_unknown_details() {
+        let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 0)).unwrap();
+        let input = rpc::model::Status::default()
+            .set_code(Code::Unavailable as i32)
+            .set_message("try-again")
+            .set_details(vec![any.clone()]);
+        let got = Status::from(input);
+        assert_eq!(got.code, Code::Unavailable as i32);
+        assert_eq!(got.message, "try-again");
+        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
+
+        let got = got.details.get(0);
+        let want = StatusDetails::Other(any);
+        assert_eq!(got, Some(&want));
+    }
+
     // This is a sample string received from production. It is useful to
     // validate the serialization helpers.
     const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
@@ -571,14 +675,6 @@ mod test {
                 .into(),
             details: [].into(),
         }
-    }
-
-    fn sample_http_error() -> HttpError {
-        HttpError::new(
-            400,
-            HashMap::new(),
-            Some(bytes::Bytes::from_static(SAMPLE_PAYLOAD)),
-        )
     }
 
     #[test]
@@ -612,21 +708,6 @@ mod test {
         assert!(got.is_err());
         let err = got.err().unwrap();
         assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
-        Ok(())
-    }
-
-    #[test]
-    fn status_try_from_http_error() -> Result {
-        let error = sample_http_error();
-        let got = Status::try_from(&error)?;
-        let want = sample_status();
-        assert_eq!(got, want);
-
-        let error = HttpError::new(400, HashMap::new(), None);
-        let got = Status::try_from(&error);
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Other);
         Ok(())
     }
 

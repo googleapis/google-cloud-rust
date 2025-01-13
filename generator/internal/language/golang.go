@@ -18,9 +18,7 @@ import (
 	"embed"
 	"fmt"
 	"log/slog"
-	"strconv"
 	"strings"
-	"time"
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -30,68 +28,12 @@ import (
 //go:embed templates/go
 var goTemplates embed.FS
 
-func NewGoCodec(options map[string]string) (*GoCodec, error) {
-	year, _, _ := time.Now().Date()
-	codec := &GoCodec{
-		GenerationYear: fmt.Sprintf("%04d", year),
-		ImportMap:      map[string]*GoImport{},
-	}
-	for key, definition := range options {
-		switch {
-		case key == "package-name-override":
-			codec.PackageNameOverride = definition
-		case key == "go-package-name":
-			codec.GoPackageName = definition
-		case key == "copyright-year":
-			codec.GenerationYear = definition
-		case key == "not-for-publication":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `not-for-publication` value %q to boolean: %w", definition, err)
-			}
-			codec.DoNotPublish = value
-		case strings.HasPrefix(key, "import-mapping"):
-			keys := strings.Split(key, ":")
-			if len(keys) != 2 {
-				return nil, fmt.Errorf("key should be in the format import-mapping:proto.path, got=%q", key)
-			}
-			defs := strings.Split(definition, ";")
-			if len(defs) != 2 {
-				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
-			}
-			codec.ImportMap[keys[1]] = &GoImport{
-				Path: defs[0],
-				Name: defs[1],
-			}
-		}
-	}
-	return codec, nil
+type goImport struct {
+	path string
+	name string
 }
 
-type GoCodec struct {
-	// The source package name (e.g. google.iam.v1 in Protobuf). The codec can
-	// generate code for one source package at a time.
-	SourceSpecificationPackageName string
-	// The year when the files were first generated.
-	GenerationYear string
-	// Package name override. If not empty, overrides the default package name.
-	PackageNameOverride string
-	// The package name to generate code into
-	GoPackageName string
-	// A map containing package id to import path information
-	ImportMap map[string]*GoImport
-	// Some packages are not intended for publication. For example, they may be
-	// intended only for testing the generator or the SDK, or the service may
-	// not be GA.
-	DoNotPublish bool
-}
-
-type GoImport struct {
-	Path string
-	Name string
-}
-
-func (c *GoCodec) LoadWellKnownTypes(s *api.APIState) {
+func goLoadWellKnownTypes(s *api.APIState) {
 	timestamp := &api.Message{
 		ID:      ".google.protobuf.Timestamp",
 		Name:    "Time",
@@ -106,11 +48,7 @@ func (c *GoCodec) LoadWellKnownTypes(s *api.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
-func (*GoCodec) FieldAttributes(*api.Field, *api.APIState) []string {
-	return []string{}
-}
-
-func (c *GoCodec) FieldType(f *api.Field, state *api.APIState) string {
+func goFieldType(f *api.Field, state *api.APIState, importMap map[string]*goImport) string {
 	var out string
 	switch f.Typez {
 	case api.STRING_TYPE:
@@ -130,34 +68,30 @@ func (c *GoCodec) FieldType(f *api.Field, state *api.APIState) string {
 			return ""
 		}
 		if m.IsMap {
-			key := c.FieldType(m.Fields[0], state)
-			val := c.FieldType(m.Fields[1], state)
+			key := goFieldType(m.Fields[0], state, importMap)
+			val := goFieldType(m.Fields[1], state, importMap)
 			out = "map[" + key + "]" + val
 			break
 		}
-		out = "*" + c.MessageName(m, state)
+		out = "*" + goMessageName(m, importMap)
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		out = c.EnumName(e, state)
+		out = goEnumName(e, importMap)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
 	return out
 }
 
-func (c *GoCodec) PrimitiveFieldType(f *api.Field, state *api.APIState) string {
-	return c.FieldType(f, state)
+func goAsQueryParameter(f *api.Field) string {
+	return fmt.Sprintf("req.%s.to_str()", strcase.ToLowerCamel(f.Name))
 }
 
-func (c *GoCodec) AsQueryParameter(f *api.Field, state *api.APIState) string {
-	return fmt.Sprintf("req.%s.to_str()", c.ToCamel(f.Name))
-}
-
-func (c *GoCodec) TemplatesProvider() TemplateProvider {
+func goTemplatesProvider() templateProvider {
 	return func(name string) (string, error) {
 		contents, err := goTemplates.ReadFile(name)
 		if err != nil {
@@ -167,11 +101,7 @@ func (c *GoCodec) TemplatesProvider() TemplateProvider {
 	}
 }
 
-func (c *GoCodec) GeneratedFiles() []GeneratedFile {
-	return walkTemplatesDir(goTemplates, "templates/go")
-}
-
-func (c *GoCodec) MethodInOutTypeName(id string, s *api.APIState) string {
+func goMethodInOutTypeName(id string, s *api.APIState) string {
 	if id == "" {
 		return ""
 	}
@@ -183,51 +113,31 @@ func (c *GoCodec) MethodInOutTypeName(id string, s *api.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
-func (*GoCodec) MessageAttributes(*api.Message, *api.APIState) []string {
-	return []string{}
-}
-
-func (c *GoCodec) MessageName(m *api.Message, state *api.APIState) string {
+func goMessageName(m *api.Message, importMap map[string]*goImport) string {
 	if m.Parent != nil {
-		return c.MessageName(m.Parent, state) + "_" + strcase.ToCamel(m.Name)
+		return goMessageName(m.Parent, importMap) + "_" + strcase.ToCamel(m.Name)
 	}
-	if imp, ok := c.ImportMap[m.Package]; ok {
-		return imp.Name + "." + c.ToPascal(m.Name)
+	if imp, ok := importMap[m.Package]; ok {
+		return imp.name + "." + goToPascal(m.Name)
 	}
-	return c.ToPascal(m.Name)
+	return goToPascal(m.Name)
 }
 
-func (c *GoCodec) FQMessageName(m *api.Message, state *api.APIState) string {
-	return c.MessageName(m, state)
-}
-
-func (c *GoCodec) EnumName(e *api.Enum, state *api.APIState) string {
+func goEnumName(e *api.Enum, importMap map[string]*goImport) string {
 	if e.Parent != nil {
-		return c.MessageName(e.Parent, state) + "_" + strcase.ToCamel(e.Name)
+		return goMessageName(e.Parent, importMap) + "_" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }
 
-func (c *GoCodec) FQEnumName(e *api.Enum, state *api.APIState) string {
-	return c.EnumName(e, state)
-}
-
-func (c *GoCodec) EnumValueName(e *api.EnumValue, state *api.APIState) string {
+func goEnumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
 	if e.Parent.Parent != nil {
-		return c.MessageName(e.Parent.Parent, state) + "_" + strings.ToUpper(e.Name)
+		return goMessageName(e.Parent.Parent, importMap) + "_" + strings.ToUpper(e.Name)
 	}
 	return strings.ToUpper(e.Name)
 }
 
-func (c *GoCodec) FQEnumValueName(v *api.EnumValue, state *api.APIState) string {
-	return c.EnumValueName(v, state)
-}
-
-func (c *GoCodec) OneOfType(o *api.OneOf, _ *api.APIState) string {
-	panic("not needed for Go")
-}
-
-func (c *GoCodec) BodyAccessor(m *api.Method, state *api.APIState) string {
+func goBodyAccessor(m *api.Method) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
@@ -235,7 +145,7 @@ func (c *GoCodec) BodyAccessor(m *api.Method, state *api.APIState) string {
 	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
 }
 
-func (c *GoCodec) HTTPPathFmt(m *api.PathInfo, state *api.APIState) string {
+func goHTTPPathFmt(m *api.PathInfo) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
@@ -249,7 +159,7 @@ func (c *GoCodec) HTTPPathFmt(m *api.PathInfo, state *api.APIState) string {
 	return fmt
 }
 
-func (c *GoCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string {
+func goHTTPPathArgs(h *api.PathInfo) []string {
 	var args []string
 	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
 	for _, segment := range h.PathTemplate {
@@ -261,43 +171,11 @@ func (c *GoCodec) HTTPPathArgs(h *api.PathInfo, state *api.APIState) []string {
 	return args
 }
 
-func (c *GoCodec) QueryParams(m *api.Method, state *api.APIState) []*api.Field {
-	msg, ok := state.MessageByID[m.InputTypeID]
-	if !ok {
-		slog.Error("unable to lookup type", "id", m.InputTypeID)
-		return nil
-	}
-
-	var queryParams []*api.Field
-	for _, field := range msg.Fields {
-		if !m.PathInfo.QueryParameters[field.JSONName] {
-			continue
-		}
-		queryParams = append(queryParams, field)
-	}
-	return queryParams
-}
-
-func (c *GoCodec) ToSnake(symbol string) string {
-	return goEscapeKeyword(c.ToSnakeNoMangling(symbol))
-}
-
-func (*GoCodec) ToSnakeNoMangling(symbol string) string {
-	if strings.ToLower(symbol) == symbol {
-		return goEscapeKeyword(symbol)
-	}
-	return goEscapeKeyword(strcase.ToSnake(symbol))
-}
-
-func (*GoCodec) ToPascal(symbol string) string {
+func goToPascal(symbol string) string {
 	return goEscapeKeyword(strcase.ToCamel(symbol))
 }
 
-func (*GoCodec) ToCamel(symbol string) string {
-	return strcase.ToLowerCamel(symbol)
-}
-
-func (*GoCodec) FormatDocComments(documentation string, _ *api.APIState) []string {
+func goFormatDocComments(documentation string, _ *api.APIState) []string {
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
 		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
@@ -305,28 +183,15 @@ func (*GoCodec) FormatDocComments(documentation string, _ *api.APIState) []strin
 	return ss
 }
 
-func (*GoCodec) RequiredPackages() []string {
-	return []string{}
-}
-
-func (c *GoCodec) CopyrightYear() string {
-	return c.GenerationYear
-}
-
-func (c *GoCodec) PackageName(api *api.API) string {
-	if len(c.PackageNameOverride) > 0 {
-		return c.PackageNameOverride
+func goPackageName(api *api.API, packageNameOverride string) string {
+	if len(packageNameOverride) > 0 {
+		return packageNameOverride
 	}
 	return api.Name
 }
 
-func (c *GoCodec) PackageVersion() string {
-	// Go does not need package versions in any generated file.
-	return ""
-}
-
-func (c *GoCodec) validatePackageName(newPackage, elementName string) error {
-	if c.SourceSpecificationPackageName == newPackage {
+func goValidatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
+	if sourceSpecificationPackageName == newPackage {
 		return nil
 	}
 	// Special exceptions for mixin services
@@ -335,63 +200,49 @@ func (c *GoCodec) validatePackageName(newPackage, elementName string) error {
 		newPackage == "google.longrunning" {
 		return nil
 	}
-	if c.SourceSpecificationPackageName == newPackage {
+	if sourceSpecificationPackageName == newPackage {
 		return nil
 	}
 	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
-		c.SourceSpecificationPackageName, newPackage, elementName)
+		sourceSpecificationPackageName, newPackage, elementName)
 }
 
-func (c *GoCodec) Validate(api *api.API) error {
+func goValidate(api *api.API, sourceSpecificationPackageName string) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixes will register those after the
 	// source package.
 	if len(api.Services) > 0 {
-		c.SourceSpecificationPackageName = api.Services[0].Package
+		sourceSpecificationPackageName = api.Services[0].Package
 	} else if len(api.Messages) > 0 {
-		c.SourceSpecificationPackageName = api.Messages[0].Package
+		sourceSpecificationPackageName = api.Messages[0].Package
 	}
 	for _, s := range api.Services {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Messages {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Enums {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-type GoContext struct {
-	GoPackage string
-}
-
-func (c *GoCodec) AdditionalContext(*api.API) any {
-	return GoContext{
-		GoPackage: c.GoPackageName,
-	}
-}
-
-func (c *GoCodec) Imports() []string {
+func goImports(importMap map[string]*goImport) []string {
 	var imports []string
-	for _, imp := range c.ImportMap {
-		imports = append(imports, fmt.Sprintf("%q", imp.Path))
+	for _, imp := range importMap {
+		imports = append(imports, fmt.Sprintf("%q", imp.path))
 	}
 	return imports
 }
 
-func (c *GoCodec) NotForPublication() bool {
-	return c.DoNotPublish
-}
-
-func (c *GoCodec) GenerateMethod(m *api.Method) bool {
+func goGenerateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to

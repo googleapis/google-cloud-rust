@@ -16,17 +16,21 @@ name: Rust SDK
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        rust-version: ['1.83', '1.70']
+        os: ['macos-14', 'ubuntu-24.04', 'windows-2022']
+        rust-version: ['1.83']
+        include:
+          - os: 'ubuntu-24.04'
+            rust-version: '1.70'
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo
-          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock') }}
       - name: Setup Rust ${{ matrix.rust-version }}
         run: rustup toolchain install ${{ matrix.rust-version }}
       - name: Display Cargo version

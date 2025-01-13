@@ -26,24 +26,7 @@ type goCaseConvertTest struct {
 	Expected string
 }
 
-func TestGo_ToSnake(t *testing.T) {
-	c := &GoCodec{}
-	var snakeConvertTests = []goCaseConvertTest{
-		{"FooBar", "foo_bar"},
-		{"foo_bar", "foo_bar"},
-		{"data_crc32c", "data_crc32c"},
-		{"Map", "map_"},
-		{"switch", "switch_"},
-	}
-	for _, test := range snakeConvertTests {
-		if output := c.ToSnake(test.Input); output != test.Expected {
-			t.Errorf("Output %s not equal to expected %s, input=%s", output, test.Expected, test.Input)
-		}
-	}
-}
-
 func TestGo_ToPascal(t *testing.T) {
-	c := &GoCodec{}
 	var pascalConvertTests = []goCaseConvertTest{
 		{"foo_bar", "FooBar"},
 		{"FooBar", "FooBar"},
@@ -51,14 +34,14 @@ func TestGo_ToPascal(t *testing.T) {
 		{"return", "Return"},
 	}
 	for _, test := range pascalConvertTests {
-		if output := c.ToPascal(test.Input); output != test.Expected {
+		if output := goToPascal(test.Input); output != test.Expected {
 			t.Errorf("Output %s not equal to expected %s, input=%s", output, test.Expected, test.Input)
 		}
 	}
 }
 
 func TestGo_MessageNames(t *testing.T) {
-	message := &api.Message{
+	replication := &api.Message{
 		Name: "Replication",
 		ID:   "..Replication",
 		Fields: []*api.Field{
@@ -71,26 +54,24 @@ func TestGo_MessageNames(t *testing.T) {
 			},
 		},
 	}
-	nested := &api.Message{
-		Name: "Automatic",
-		ID:   "..Replication.Automatic",
+	automatic := &api.Message{
+		Parent: replication,
+		Name:   "Automatic",
+		ID:     "..Replication.Automatic",
 	}
 
-	api := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
-
-	c := &GoCodec{}
-	if got := c.MessageName(message, api.State); got != "Replication" {
-		t.Errorf("mismatched message name, want=Replication, got=%s", got)
-	}
-	if got := c.FQMessageName(message, api.State); got != "Replication" {
-		t.Errorf("mismatched message name, want=Replication, got=%s", got)
-	}
-
-	if got := c.MessageName(nested, api.State); got != "Replication_Automatic" {
-		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
-	}
-	if got := c.FQMessageName(nested, api.State); got != "Replication_Automatic" {
-		t.Errorf("mismatched message name, want=Replication_Automatic, got=%s", got)
+	for _, test := range []struct {
+		message *api.Message
+		want    string
+	}{
+		{replication, "Replication"},
+		{automatic, "Replication_Automatic"},
+	} {
+		t.Run(test.want, func(t *testing.T) {
+			if got := goMessageName(test.message, nil); got != test.want {
+				t.Errorf("goMessageName = %q, want = %q", got, test.want)
+			}
+		})
 	}
 }
 
@@ -113,14 +94,9 @@ func TestGo_EnumNames(t *testing.T) {
 		ID:   "..SecretVersion.State",
 	}
 
-	api := newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
-
-	c := &GoCodec{}
-	if got := c.EnumName(nested, api.State); got != "SecretVersion_State" {
+	_ = newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
+	if got := goEnumName(nested, nil); got != "SecretVersion_State" {
 		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
-	}
-	if got := c.FQEnumName(nested, api.State); got != "SecretVersion_State" {
-		t.Errorf("mismatched message name, want=SecretVersion_State, got=%s", got)
 	}
 }
 
@@ -163,8 +139,7 @@ Maybe they wanted to show some JSON:
 		"```",
 	}
 	state := &api.APIState{}
-	c := &GoCodec{}
-	got := c.FormatDocComments(input, state)
+	got := goFormatDocComments(input, state)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -175,40 +150,34 @@ func TestGo_Validate(t *testing.T) {
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &GoCodec{}
-	if err := c.Validate(api); err != nil {
+	if err := goValidate(api, "p1"); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
-	}
-	if c.SourceSpecificationPackageName != "p1" {
-		t.Errorf("mismatched source package name, want=p1, got=%s", c.SourceSpecificationPackageName)
 	}
 }
 
 func TestGo_ValidateMessageMismatch(t *testing.T) {
+	const sourceSpecificationPackageName = "p1"
 	test := newTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &GoCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	if err := goValidate(test, "p1"); err == nil {
+		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
 	test = newTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c = &GoCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	if err := goValidate(test, "p1"); err == nil {
+		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
 	test = newTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
-	c = &GoCodec{}
-	if err := c.Validate(test); err == nil {
-		t.Errorf("expected an error in API validation got=%s", c.SourceSpecificationPackageName)
+	if err := goValidate(test, "p1"); err == nil {
+		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 }

@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-auth"
-version              = "0.1.0-rc2"
+version              = "0.1.0"
 description          = "Google Cloud Client Libraries for Rust - Authentication"
 edition.workspace    = true
 authors.workspace    = true
@@ -24,16 +24,20 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-async-trait = "0.1.83"
+async-trait = "0.1.84"
 http        = "1.2.0"
-reqwest     = { version = "0.12.9", features = ["json"] }
-serde       = { version = "1.0.214", features = ["derive"] }
+reqwest     = { version = "0.12.11", features = ["json"] }
+serde       = { version = "1.0.216", features = ["derive"] }
 serde_json  = "1.0.134"
 thiserror   = "2"
 time        = "0.3.37"
 
 [dev-dependencies]
-axum      = "0.7.9"
-mockall   = "0.13.1"
-test-case = "3.3.1"
-tokio     = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
+axum        = "0.8.1"
+mockall     = "0.13.1"
+scoped-env  = "2.1.0"
+serial_test = "3.2.0"
+tempfile    = "3.14.0"
+test-case   = "3.3.1"
+tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
+tokio-test  = "0.4.4"

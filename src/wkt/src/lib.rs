@@ -14,6 +14,11 @@
 
 //! Well-known-types for Google Cloud APIs.
 //!
+//! **WARNING:** this crate is under active development. We expect multiple
+//! breaking changes in the upcoming releases. Testing is also incomplete, we do
+//! **not** recommend that you use this crate in production. We welcome feedback
+//! about the APIs, documentation, missing features, bugs, etc.
+//!
 //! Google Cloud APIs use a number of well-known types. These typically have
 //! custom JSON encoding, and may provide conversion functions to and from
 //! native or commonly used Rust types.
@@ -30,3 +35,4 @@ mod timestamp;
 pub use crate::timestamp::*;
 mod wrappers;
 pub use crate::wrappers::*;
+pub mod message;

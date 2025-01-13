@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::http_client::*;
+use gax::http_client::ReqwestClient;
 use gax::options::*;
 use gcp_sdk_gax as gax;
 use serde_json::json;
@@ -23,7 +23,8 @@ type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 #[tokio::test(start_paused = true)]
 async fn test_no_timeout() -> Result<()> {
     let (endpoint, server) = echo_server::start().await?;
-    let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+    let config =
+        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
     let client = ReqwestClient::new(config, &endpoint).await?;
 
     let delay = Duration::from_millis(200);
@@ -60,7 +61,8 @@ async fn test_no_timeout() -> Result<()> {
 #[tokio::test(start_paused = true)]
 async fn test_timeout_does_not_expire() -> Result<()> {
     let (endpoint, server) = echo_server::start().await?;
-    let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+    let config =
+        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
     let client = ReqwestClient::new(config, &endpoint).await?;
 
     let delay = Duration::from_millis(200);
@@ -98,7 +100,8 @@ async fn test_timeout_does_not_expire() -> Result<()> {
 #[tokio::test(start_paused = true)]
 async fn test_timeout_expires() -> Result<()> {
     let (endpoint, server) = echo_server::start().await?;
-    let config = ClientConfig::default().set_credential(auth::Credential::test_credentials());
+    let config =
+        ClientConfig::default().set_credential(auth::credentials::testing::test_credentials());
     let client = ReqwestClient::new(config, &endpoint).await?;
 
     let delay = Duration::from_millis(200);

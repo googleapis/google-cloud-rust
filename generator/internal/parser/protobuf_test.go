@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
@@ -44,6 +45,23 @@ func TestProtobuf_Info(t *testing.T) {
 	}
 	if diff := cmp.Diff(test.Description, serviceConfig.Documentation.Summary); diff != "" {
 		t.Errorf("description mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestProtobuf_PartialInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "secretmanager.googleapis.com",
+		Title: "Secret Manager API",
+	}
+
+	got := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	want := &api.API{
+		Name:        "secretmanager",
+		Title:       "Secret Manager API",
+		Description: "",
+	}
+	if diff := cmp.Diff(got, want, cmpopts.IgnoreFields(api.API{}, "Services", "Messages", "Enums", "State")); diff != "" {
+		t.Errorf("mismatched API attributes (-want, +got):\n%s", diff)
 	}
 }
 
@@ -496,7 +514,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 						Documentation: "A string choice",
 						Name:          "field_one",
 						ID:            ".test.Fake.field_one",
-						Typez:         9,
+						Typez:         api.STRING_TYPE,
 						JSONName:      "fieldOne",
 						IsOneOf:       true,
 					},
@@ -504,7 +522,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 						Documentation: "An int choice",
 						Name:          "field_two",
 						ID:            ".test.Fake.field_two",
-						Typez:         3,
+						Typez:         api.INT64_TYPE,
 						JSONName:      "fieldTwo",
 						IsOneOf:       true,
 					},
@@ -887,32 +905,32 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 		},
 	}
 	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
-	service, ok := test.State.ServiceByID[".google.cloud.location.Locations"]
-	if !ok {
-		t.Fatalf("Cannot find service %s in API State", ".google.cloud.location.Locations")
+	for _, service := range test.Services {
+		if service.ID == ".google.cloud.location.Locations" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
 	}
-	checkService(t, service, &api.Service{
-		Documentation: "Manages location-related information with an API service.",
-		DefaultHost:   "cloud.googleapis.com",
-		Name:          "Locations",
-		ID:            ".google.cloud.location.Locations",
-		Package:       "google.cloud.location",
-		Methods: []*api.Method{
-			{
-				Documentation: "GetLocation is an RPC method of Locations.",
-				Name:          "GetLocation",
-				ID:            ".google.cloud.location.Locations.GetLocation",
-				InputTypeID:   ".google.cloud.location.GetLocationRequest",
-				OutputTypeID:  ".google.cloud.location.Location",
-				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
-					},
-					QueryParameters: map[string]bool{},
-				},
+	service, ok := test.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	if _, ok := test.State.MethodByID[".test.TestService.GetLocation"]; !ok {
+		t.Fatal("Cannot find .test.TestService.GetLocation")
+	}
+
+	checkMethod(t, service, "GetLocation", &api.Method{
+		Documentation: "Provides the [Locations][google.cloud.location.Locations] service functionality in this service.",
+		Name:          "GetLocation",
+		ID:            ".test.TestService.GetLocation",
+		InputTypeID:   ".google.cloud.location.GetLocationRequest",
+		OutputTypeID:  ".google.cloud.location.Location",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewFieldPathPathSegment("name"),
 			},
+			QueryParameters: map[string]bool{},
 		},
 	})
 }
@@ -946,34 +964,34 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 		},
 	}
 	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
-	service, ok := test.State.ServiceByID[".google.iam.v1.IAMPolicy"]
-	if !ok {
-		t.Fatalf("Cannot find service %s in API State", ".google.iam.v1.IAMPolicy")
+	for _, service := range test.Services {
+		if service.ID == ".google.iam.v1.IAMPolicy" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
 	}
-	checkService(t, service, &api.Service{
-		Documentation: "Manages Identity and Access Management (IAM) policies with an API service.",
-		DefaultHost:   "iam-meta-api.googleapis.com",
-		Name:          "IAMPolicy",
-		ID:            ".google.iam.v1.IAMPolicy",
-		Package:       "google.iam.v1",
-		Methods: []*api.Method{
-			{
-				Documentation: "GetIamPolicy is an RPC method of IAMPolicy.",
-				Name:          "GetIamPolicy",
-				ID:            ".google.iam.v1.IAMPolicy.GetIamPolicy",
-				InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
-				OutputTypeID:  ".google.iam.v1.Policy",
-				PathInfo: &api.PathInfo{
-					Verb: "POST",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("resource"),
-						api.NewVerbPathSegment("getIamPolicy"),
-					},
-					QueryParameters: map[string]bool{},
-					BodyFieldPath:   "*",
-				},
+
+	service, ok := test.State.ServiceByID[".test.TestService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	if _, ok := test.State.MethodByID[".test.TestService.GetIamPolicy"]; !ok {
+		t.Fatal("Cannot find .test.TestService.GetIamPolicy")
+	}
+	checkMethod(t, service, "GetIamPolicy", &api.Method{
+		Documentation: "Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.",
+		Name:          "GetIamPolicy",
+		ID:            ".test.TestService.GetIamPolicy",
+		InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
+		OutputTypeID:  ".google.iam.v1.Policy",
+		PathInfo: &api.PathInfo{
+			Verb: "POST",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v1"),
+				api.NewFieldPathPathSegment("resource"),
+				api.NewVerbPathSegment("getIamPolicy"),
 			},
+			QueryParameters: map[string]bool{},
+			BodyFieldPath:   "*",
 		},
 	})
 }
@@ -1147,21 +1165,129 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 		},
 	}
 	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
-	service, ok := test.State.ServiceByID[".google.longrunning.Operations"]
+	for _, service := range test.Services {
+		if service.ID == ".google.longrunning.Operations" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
+	}
+	service, ok := test.State.ServiceByID[".test.TestService"]
 	if !ok {
-		t.Fatalf("Cannot find service %s in API State", ".google.longrunning.Operations")
+		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
+	}
+	if _, ok := test.State.MethodByID[".test.TestService.GetOperation"]; !ok {
+		t.Fatal("Cannot find .test.TestService.GetOperation")
+	}
+
+	checkMethod(t, service, "GetOperation", &api.Method{
+		Documentation: "Custom docs.",
+		Name:          "GetOperation",
+		ID:            ".test.TestService.GetOperation",
+		InputTypeID:   ".google.longrunning.GetOperationRequest",
+		OutputTypeID:  ".google.longrunning.Operation",
+		PathInfo: &api.PathInfo{
+			Verb: "GET",
+			PathTemplate: []api.PathSegment{
+				api.NewLiteralPathSegment("v2"),
+				api.NewFieldPathPathSegment("name"),
+			},
+			QueryParameters: map[string]bool{},
+			BodyFieldPath:   "*",
+		},
+	})
+}
+
+func TestProtobuf_OperationInfo(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+			Rules: []*serviceconfig.DocumentationRule{
+				{
+					Selector:    "google.longrunning.Operations.GetOperation",
+					Description: "Custom docs.",
+				},
+			},
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "google.longrunning.Operations",
+			},
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Http: &annotations.Http{
+			Rules: []*annotations.HttpRule{
+				{
+					Selector: "google.longrunning.Operations.GetOperation",
+					Pattern: &annotations.HttpRule_Get{
+						Get: "/v2/{name=operations/*}",
+					},
+					Body: "*",
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_operation_info.proto"))
+	service, ok := test.State.ServiceByID[".test.LroService"]
+	if !ok {
+		t.Fatalf("Cannot find service %s in API State", ".test.LroService")
 	}
 	checkService(t, service, &api.Service{
-		Documentation: "Manages long-running operations with an API service.",
-		DefaultHost:   "longrunning.googleapis.com",
-		Name:          "Operations",
-		ID:            ".google.longrunning.Operations",
-		Package:       "google.longrunning",
+		Documentation: "A service to unit test the protobuf translator.",
+		DefaultHost:   "test.googleapis.com",
+		Name:          "LroService",
+		ID:            ".test.LroService",
+		Package:       "test",
 		Methods: []*api.Method{
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFoo",
+				ID:            ".test.LroService.CreateFoo",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".google.protobuf.Empty",
+					ResponseTypeID: ".test.Foo",
+				},
+			},
+			{
+				Documentation: "Creates a new Foo resource.",
+				Name:          "CreateFooWithProgress",
+				ID:            ".test.LroService.CreateFooWithProgress",
+				InputTypeID:   ".test.CreateFooRequest",
+				OutputTypeID:  ".google.longrunning.Operation",
+				PathInfo: &api.PathInfo{
+					Verb: "POST",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("v1"),
+						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("foos"),
+					},
+					QueryParameters: map[string]bool{},
+					BodyFieldPath:   "foo",
+				},
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.CreateMetadata",
+					ResponseTypeID: ".test.Foo",
+				},
+			},
 			{
 				Documentation: "Custom docs.",
 				Name:          "GetOperation",
-				ID:            ".google.longrunning.Operations.GetOperation",
+				ID:            ".test.LroService.GetOperation",
 				InputTypeID:   ".google.longrunning.GetOperationRequest",
 				OutputTypeID:  ".google.longrunning.Operation",
 				PathInfo: &api.PathInfo{
