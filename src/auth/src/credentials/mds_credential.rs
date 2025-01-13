@@ -62,7 +62,6 @@ where
         value.set_sensitive(true);
         Ok(vec![(AUTHORIZATION, value)])
     }
-
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
