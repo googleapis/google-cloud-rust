@@ -32,6 +32,7 @@ gax        = { version = "0.1.0", path = "../../../../../src/gax", package = "gc
 lazy_static = { version = "1.5.0" }
 location   = { version = "0.1.0", path = "../../../../../src/generated/cloud/location", package = "gcp-sdk-location" }
 longrunning = { version = "0.1.0", path = "../../../../../src/generated/longrunning", package = "gcp-sdk-longrunning" }
+lro        = { version = "0.0.0", path = "../../../../../src/lro", package = "gcp-sdk-lro" }
 reqwest    = { version = "0.12.12", features = ["json"] }
 serde      = { version = "1.0.216", features = ["serde_derive"] }
 serde_json = { version = "1.0.134" }

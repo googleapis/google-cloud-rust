@@ -39,6 +39,8 @@ version = "0.1.0"
 'package:serde_json'  = 'used-if=services,package=serde_json,version=1.0.134'
 'package:tracing'     = 'used-if=services,package=tracing,version=0.1.41'
 'package:gax'         = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.1.0'
+# Only used if LROs are present
+'package:lro' = 'used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.0.0'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
 'package:gtype'       = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1.0'
