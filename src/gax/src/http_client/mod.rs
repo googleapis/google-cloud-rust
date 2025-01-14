@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use crate::backoff_policy::BackoffPolicy;
-use crate::backoff_policy::ExponentialBackoff;
 use crate::error::Error;
 use crate::error::HttpError;
 use crate::error::ServiceError;
+use crate::exponential_backoff::ExponentialBackoff;
 use crate::options;
 use crate::retry_policy::{RetryFlow, RetryPolicy};
 use crate::retry_throttler::RetryThrottlerWrapped;

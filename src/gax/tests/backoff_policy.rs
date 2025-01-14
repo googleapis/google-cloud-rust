@@ -17,6 +17,7 @@
 #[cfg(test)]
 mod tests {
     use gcp_sdk_gax::backoff_policy::*;
+    use gcp_sdk_gax::exponential_backoff::*;
     use std::time::Duration;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 

@@ -283,7 +283,7 @@ impl std::default::Default for ClientConfig {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::backoff_policy::ExponentialBackoffBuilder;
+    use crate::exponential_backoff::ExponentialBackoffBuilder;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
     use std::time::Duration;
