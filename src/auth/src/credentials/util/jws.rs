@@ -27,7 +27,7 @@ const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 pub struct JwsClaims<'a> {
     pub iss: &'a str,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope: Option<&'a str>,
+    pub scope: Option<Vec<&'a str>>,
     pub aud: Option<&'a str>,
     #[serde(with = "time::serde::timestamp::option")]
     pub exp: Option<OffsetDateTime>,
@@ -56,6 +56,14 @@ impl JwsClaims<'_> {
                 exp, iat
             )));
         }
+
+        if self.aud.is_some() && self.scope.is_some() {
+            return Err(CredentialError::non_retryable(format!(
+                "Found {:?} for audience and {:?} for scope, however expecting only 1 of them to be set.",
+                self.aud, self.scope
+            )));
+        }
+
         let updated_jws_claim = JwsClaims {
             iat: Some(iat),
             exp: Some(exp),
@@ -128,12 +136,11 @@ mod tests {
 
         let claims = JwsClaimsBuilder::default()
             .iss("test_iss")
-            .aud("test_aud")
             .iat(iat_custom)
             .exp(exp_custom)
             .typ("test_typ")
             .sub("test_sub")
-            .scope("test_scope")
+            .scope(vec!["scope1", "scope2"])
             .build()
             .unwrap();
 
@@ -147,7 +154,7 @@ mod tests {
         let v: Value = serde_json::from_str(&decoded).unwrap();
 
         assert_eq!(v["iss"], "test_iss");
-        assert_eq!(v["scope"], "test_scope");
+        assert_eq!(v["scope"], serde_json::json!(["scope1", "scope2"]));
         assert_eq!(v["aud"], "test_aud");
 
         assert_eq!(v["iat"], iat_custom.unix_timestamp());
@@ -157,13 +164,26 @@ mod tests {
     }
 
     #[test]
-    fn test_jws_claims_encode_error() {
+    fn test_jws_claims_encode_error_exp_before_iat() {
         let claims = JwsClaimsBuilder::default()
             .iss("test_iss")
             .exp(OffsetDateTime::now_utc() - DEFAULT_TOKEN_TIMEOUT)
             .build()
             .unwrap();
-        assert!(claims.encode().is_err());
+        let expected_error_message = "must be later than issued time";
+        assert!(claims.encode().is_err_and(|e| e.to_string().contains(expected_error_message)));
+    }
+
+    #[test]
+    fn test_jws_claims_encode_error_set_scope_and_aud() {
+        let claims = JwsClaimsBuilder::default()
+            .iss("test_iss")
+            .scope(vec!["scope1", "scope2"])
+            .aud("test_aud")
+            .build()
+            .unwrap();
+        let expected_error_message = "expecting only 1 of them to be set";
+        assert!(claims.encode().is_err_and(|e| e.to_string().contains(expected_error_message)));
     }
 
     #[test]

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod jws;
+pub(crate) mod util;
 pub(crate) mod mds_credential;
 pub(crate) mod service_account_credential;
 pub(crate) mod user_credential;

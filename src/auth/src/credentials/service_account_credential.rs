@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::jws::{JwsClaimsBuilder, JwsHeader};
+use crate::credentials::util::jws::{JwsClaimsBuilder, JwsHeader};
 use crate::credentials::Result;
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
@@ -32,6 +32,8 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
     typ: "JWT",
     kid: None,
 };
+
+const DEFAULT_SCOPES: [&str;1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
@@ -70,18 +72,18 @@ impl TokenProvider for ServiceAccountTokenProvider {
 
         let claims = JwsClaimsBuilder::default()
             .iss(self.service_account_info.client_email.as_str())
-            .aud(self.service_account_info.token_uri.as_str())
+            .scope(DEFAULT_SCOPES)
             .build()
             .map_err(CredentialError::non_retryable)?;
 
         let header = DEFAULT_HEADER;
 
-        let ss = format!("{}.{}", header.encode()?, claims.encode()?);
+        let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
-            .sign(ss.as_bytes())
+            .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let token = format!("{}.{}", ss, &BASE64_URL_SAFE_NO_PAD.encode(sig));
+        let token = format!("{}.{}", encoded_header_claims, &BASE64_URL_SAFE_NO_PAD.encode(sig));
 
         let token = Token {
             token,
@@ -316,7 +318,7 @@ mod test {
             service_account_info,
         };
         let token = token_provider.get_token().await;
-        let expected_error_message = "failed to parse private key as";
+        let expected_error_message = "failed to parse private key";
         assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
