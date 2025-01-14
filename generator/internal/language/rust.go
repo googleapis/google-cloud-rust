@@ -239,36 +239,36 @@ type rustPackage struct {
 	defaultFeatures bool
 }
 
-func (c *rustCodec) loadWellKnownTypes(s *api.APIState) {
-	// TODO(#77) - replace these placeholders with real types
-	wellKnown := []*api.Message{
-		{
-			ID:      ".google.protobuf.Any",
-			Name:    "Any",
-			Package: "google.protobuf",
-		},
-		{
-			ID:      ".google.protobuf.Empty",
-			Name:    "Empty",
-			Package: "google.protobuf",
-		},
-		{
-			ID:      ".google.protobuf.FieldMask",
-			Name:    "FieldMask",
-			Package: "google.protobuf",
-		},
-		{
-			ID:      ".google.protobuf.Duration",
-			Name:    "Duration",
-			Package: "google.protobuf",
-		},
-		{
-			ID:      ".google.protobuf.Timestamp",
-			Name:    "Timestamp",
-			Package: "google.protobuf",
-		},
-	}
-	for _, message := range wellKnown {
+var rustWellKnownMessages = []*api.Message{
+	{
+		ID:      ".google.protobuf.Any",
+		Name:    "Any",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.Empty",
+		Name:    "Empty",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.FieldMask",
+		Name:    "FieldMask",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.Duration",
+		Name:    "Duration",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.Timestamp",
+		Name:    "Timestamp",
+		Package: "google.protobuf",
+	},
+}
+
+func rustLoadWellKnownTypes(s *api.APIState) {
+	for _, message := range rustWellKnownMessages {
 		s.MessageByID[message.ID] = message
 	}
 }
