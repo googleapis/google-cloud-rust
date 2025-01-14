@@ -78,24 +78,24 @@ impl TokenProvider for UserTokenProvider {
             .request(Method::POST, self.endpoint.as_str())
             .header(CONTENT_TYPE, header)
             .json(&req);
-        let resp = builder
-            .send()
-            .await
-            .map_err(CredentialError::non_retryable)?;
+        let resp = builder.send().await.map_err(CredentialError::retryable)?;
 
         // Process the response
         if !resp.status().is_success() {
             let status = resp.status();
-            let body = resp.text().await.map_err(CredentialError::non_retryable)?;
+            let body = resp
+                .text()
+                .await
+                .map_err(|e| CredentialError::new(is_retryable(status), e.into()))?;
             return Err(CredentialError::new(
                 is_retryable(status),
                 Box::from(format!("Failed to fetch token. {body}")),
             ));
         }
-        let response = resp
-            .json::<Oauth2RefreshResponse>()
-            .await
-            .map_err(CredentialError::non_retryable)?;
+        let response = resp.json::<Oauth2RefreshResponse>().await.map_err(|e| {
+            let retryable = !e.is_decode();
+            CredentialError::new(retryable, e.into())
+        })?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -622,6 +622,27 @@ mod test {
         let e = uc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
+        let (endpoint, _server) = start(StatusCode::OK, "bad json".to_string()).await;
+        println!("endpoint = {endpoint}");
+
+        let token_provider = UserTokenProvider {
+            client_id: "test-client-id".to_string(),
+            client_secret: "test-client-secret".to_string(),
+            refresh_token: "test-refresh-token".to_string(),
+            endpoint: endpoint,
+        };
+        let uc = UserCredential {
+            token_provider,
+            quota_project_id: None,
+        };
+        let e = uc.get_token().await.err().unwrap();
+        assert!(!e.is_retryable());
 
         Ok(())
     }

@@ -148,10 +148,10 @@ impl TokenProvider for MDSAccessTokenProvider {
                 Box::from(format!("Failed to fetch token. {body}")),
             ));
         }
-        let response = response
-            .json::<MDSTokenResponse>()
-            .await
-            .map_err(CredentialError::retryable)?;
+        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+            let retryable = !e.is_decode();
+            CredentialError::new(retryable, e.into())
+        })?;
         let token = Token {
             token: response.access_token,
             token_type: response.token_type,
@@ -438,6 +438,24 @@ mod test {
         let e = mdsc.get_token().await.err().unwrap();
         assert!(!e.is_retryable());
         assert!(e.source().unwrap().to_string().contains("epic fail"));
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
+        let path = "/instance/service-accounts/default/token";
+        let (endpoint, _server) = start(
+            StatusCode::OK,
+            serde_json::to_value("bad json".to_string())?,
+            path.to_string(),
+        )
+        .await;
+
+        let tp = MDSAccessTokenProvider { endpoint: endpoint };
+        let mdsc = MDSCredential { token_provider: tp };
+        let e = mdsc.get_token().await.err().unwrap();
+        assert!(!e.is_retryable());
 
         Ok(())
     }
