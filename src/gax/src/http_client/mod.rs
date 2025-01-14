@@ -17,8 +17,9 @@ use crate::error::Error;
 use crate::error::HttpError;
 use crate::error::ServiceError;
 use crate::exponential_backoff::ExponentialBackoff;
+use crate::loop_state::LoopState;
 use crate::options;
-use crate::retry_policy::{RetryFlow, RetryPolicy};
+use crate::retry_policy::RetryPolicy;
 use crate::retry_throttler::RetryThrottlerWrapped;
 use crate::Result;
 use auth::credentials::{create_access_token_credential, Credential};
@@ -152,14 +153,14 @@ impl ReqwestClient {
 
     async fn on_error(
         &self,
-        retry_flow: crate::retry_policy::RetryFlow,
+        retry_flow: LoopState,
         backoff_delay: std::time::Duration,
     ) -> Result<()> {
         match retry_flow {
-            RetryFlow::Permanent(e) | RetryFlow::Exhausted(e) => {
+            LoopState::Permanent(e) | LoopState::Exhausted(e) => {
                 return Err(e);
             }
-            RetryFlow::Continue(_e) => {
+            LoopState::Continue(_e) => {
                 tokio::time::sleep(backoff_delay).await;
             }
         }

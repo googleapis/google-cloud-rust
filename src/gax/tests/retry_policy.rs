@@ -17,6 +17,7 @@
 #[cfg(test)]
 mod tests {
     use gcp_sdk_gax::error::Error;
+    use gcp_sdk_gax::loop_state::LoopState;
     use gcp_sdk_gax::retry_policy::*;
     use std::time::Duration;
 
@@ -29,11 +30,11 @@ mod tests {
             _attempt_count: u32,
             idempotent: bool,
             error: Error,
-        ) -> RetryFlow {
+        ) -> LoopState {
             if idempotent {
-                RetryFlow::Continue(error)
+                LoopState::Continue(error)
             } else {
-                RetryFlow::Permanent(error)
+                LoopState::Permanent(error)
             }
         }
 
