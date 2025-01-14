@@ -26,11 +26,11 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "gcp-sdk-workflows-v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newRustCodec(t.TempDir(), map[string]string{})
+	codec, err := newRustCodec(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := newRustTemplateData(model, codec)
+	got := newRustTemplateData(model, codec, "")
 	want := "gcp_sdk_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
