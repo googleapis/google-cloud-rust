@@ -42,3 +42,6 @@ wkt        = { version = "0.1.0", path = "../../../../../src/wkt", package = "gc
 
 [features]
 unstable-stream = ["gax/unstable-stream", "location/unstable-stream", "longrunning/unstable-stream"]
+
+[dev-dependencies]
+tokio = { version = "1", features = ["time"] }

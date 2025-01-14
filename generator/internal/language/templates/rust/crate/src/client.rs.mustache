@@ -102,11 +102,12 @@ impl {{NameToPascal}} {
     ///
     /// Using the result of [poller()] follows a common pattern:
     ///
-    /// ```ignore
-    /// # use gax::Result
+    /// ```
+    /// # use gax::Result;
+    /// # use {{PackageNamespace}}::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
-    /// ) -> Result<{{ResponseType}}> {
+    ///     mut poller: impl lro::Poller<{{ResponseTypeInDocs}}, {{MetadataTypeInDocs}}>
+    /// ) -> Result<{{ResponseTypeInDocs}}> {
     ///     while let Some(p) = poller.poll().await {
     ///         match p {
     ///             lro::PollingResult::Completed(r) => { return r; },
