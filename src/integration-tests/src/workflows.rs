@@ -37,6 +37,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
 
     let project_id = crate::project_id()?;
     let location_id = crate::region_id();
+    let workflows_runner = crate::workflows_runner()?;
 
     // We could simplify the code, but we want to test both ::new_with_config()
     // and ::new().
@@ -81,6 +82,7 @@ main:
                     wf::model::workflow::State::default()
                         .set_value(wf::model::workflow::state::UNAVAILABLE),
                 )
+                .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
         .poller();
