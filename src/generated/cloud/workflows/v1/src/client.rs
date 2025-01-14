@@ -101,30 +101,70 @@ impl Workflows {
     ///
     /// # Long running operations
     ///
-    /// Calling `send()` on the resulting builder starts a longrunning operation.
-    /// Long running operations run in the background, and the application may
-    /// poll them periodically to find out their completion status.
+    /// Calling [poller()] on the resulting builder returns an implementation of
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
-    /// To poll the operation use the [get_operation] method. Use the [name]
-    /// field in the [Operation] returned from [send()]. When the operation
-    /// completes successfully, the [result] field will contain a
-    /// [crate::model::Workflow]. If the operation completes with an error it will
-    /// contain a `Status` with the error information.
+    /// Calling [send()] on the resulting builder starts a LRO (long-Running
+    /// Operation). LROs run in the background, and the application may poll
+    /// them periodically to find out if they have succeeded, or failed. See
+    /// below for instructions on how to manually use the resulting [Operation].
+    /// We recommend `poller()` in favor of `send()`.
     ///
-    /// If the operation is still pending, the [metadata] field will contain a
-    /// [crate::model::OperationMetadata]. In many services this provides an indication of
-    /// progress.
+    /// ## Polling with detailed metadata updates
+    ///
+    /// Using the result of [poller()] follows a common pattern:
+    ///
+    /// ```ignore
+    /// # use gax::Result
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata>
+    /// ) -> Result<crate::model::Workflow> {
+    ///     while let Some(p) = poller.poll().await {
+    ///         match p {
+    ///             lro::PollingResult::Completed(r) => { return r; },
+    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
+    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
+    ///         }
+    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    ///     }
+    ///     Err(gax::error::Error::other("LRO never completed"))
+    /// }
+    /// ```
+    ///
+    /// ## Manually polling long-running operations
+    ///
+    /// If you call [send()], you need to examine the contents of the resulting
+    /// [Operation][longrunning::model::Operation] to determine the result of
+    /// the operation.
+    ///
+    /// If the `done` field is `true`, the operation has completed. The `result`
+    /// field contains the final response, this will be a [crate::model::Workflow] (as
+    /// an [Any]), or the error (as a `Status`).
+    ///
+    /// If the `done` field is `false`, the operation has not completed.  The
+    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
+    /// field. This value would also be encoded as an [Any]. The metadata may
+    /// include information about how much progress the LRO has made.
+    ///
+    /// To find out if the operation has completed, use the [get_operation]
+    /// method and repeat the steps outlined above.
     ///
     /// Note that most errors on [get_operation] do not indicate that the
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::CreateWorkflow::send
+    /// [poller()]: crate::builders::CreateWorkflow::poller
+    /// [Poller::poll()]: lro::Poller::poll
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
     /// [result]: longrunning::model::Operation::result
+    /// [Any]: wkt::Any
     pub fn create_workflow(&self, parent: impl Into<String>) -> crate::builders::CreateWorkflow {
         crate::builders::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
     }
@@ -135,30 +175,70 @@ impl Workflows {
     ///
     /// # Long running operations
     ///
-    /// Calling `send()` on the resulting builder starts a longrunning operation.
-    /// Long running operations run in the background, and the application may
-    /// poll them periodically to find out their completion status.
+    /// Calling [poller()] on the resulting builder returns an implementation of
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
-    /// To poll the operation use the [get_operation] method. Use the [name]
-    /// field in the [Operation] returned from [send()]. When the operation
-    /// completes successfully, the [result] field will contain a
-    /// [wkt::Empty]. If the operation completes with an error it will
-    /// contain a `Status` with the error information.
+    /// Calling [send()] on the resulting builder starts a LRO (long-Running
+    /// Operation). LROs run in the background, and the application may poll
+    /// them periodically to find out if they have succeeded, or failed. See
+    /// below for instructions on how to manually use the resulting [Operation].
+    /// We recommend `poller()` in favor of `send()`.
     ///
-    /// If the operation is still pending, the [metadata] field will contain a
-    /// [crate::model::OperationMetadata]. In many services this provides an indication of
-    /// progress.
+    /// ## Polling with detailed metadata updates
+    ///
+    /// Using the result of [poller()] follows a common pattern:
+    ///
+    /// ```ignore
+    /// # use gax::Result
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<wkt::Empty, crate::model::OperationMetadata>
+    /// ) -> Result<wkt::Empty> {
+    ///     while let Some(p) = poller.poll().await {
+    ///         match p {
+    ///             lro::PollingResult::Completed(r) => { return r; },
+    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
+    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
+    ///         }
+    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    ///     }
+    ///     Err(gax::error::Error::other("LRO never completed"))
+    /// }
+    /// ```
+    ///
+    /// ## Manually polling long-running operations
+    ///
+    /// If you call [send()], you need to examine the contents of the resulting
+    /// [Operation][longrunning::model::Operation] to determine the result of
+    /// the operation.
+    ///
+    /// If the `done` field is `true`, the operation has completed. The `result`
+    /// field contains the final response, this will be a [wkt::Empty] (as
+    /// an [Any]), or the error (as a `Status`).
+    ///
+    /// If the `done` field is `false`, the operation has not completed.  The
+    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
+    /// field. This value would also be encoded as an [Any]. The metadata may
+    /// include information about how much progress the LRO has made.
+    ///
+    /// To find out if the operation has completed, use the [get_operation]
+    /// method and repeat the steps outlined above.
     ///
     /// Note that most errors on [get_operation] do not indicate that the
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::DeleteWorkflow::send
+    /// [poller()]: crate::builders::DeleteWorkflow::poller
+    /// [Poller::poll()]: lro::Poller::poll
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
     /// [result]: longrunning::model::Operation::result
+    /// [Any]: wkt::Any
     pub fn delete_workflow(&self, name: impl Into<String>) -> crate::builders::DeleteWorkflow {
         crate::builders::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
     }
@@ -171,30 +251,70 @@ impl Workflows {
     ///
     /// # Long running operations
     ///
-    /// Calling `send()` on the resulting builder starts a longrunning operation.
-    /// Long running operations run in the background, and the application may
-    /// poll them periodically to find out their completion status.
+    /// Calling [poller()] on the resulting builder returns an implementation of
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
-    /// To poll the operation use the [get_operation] method. Use the [name]
-    /// field in the [Operation] returned from [send()]. When the operation
-    /// completes successfully, the [result] field will contain a
-    /// [crate::model::Workflow]. If the operation completes with an error it will
-    /// contain a `Status` with the error information.
+    /// Calling [send()] on the resulting builder starts a LRO (long-Running
+    /// Operation). LROs run in the background, and the application may poll
+    /// them periodically to find out if they have succeeded, or failed. See
+    /// below for instructions on how to manually use the resulting [Operation].
+    /// We recommend `poller()` in favor of `send()`.
     ///
-    /// If the operation is still pending, the [metadata] field will contain a
-    /// [crate::model::OperationMetadata]. In many services this provides an indication of
-    /// progress.
+    /// ## Polling with detailed metadata updates
+    ///
+    /// Using the result of [poller()] follows a common pattern:
+    ///
+    /// ```ignore
+    /// # use gax::Result
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata>
+    /// ) -> Result<crate::model::Workflow> {
+    ///     while let Some(p) = poller.poll().await {
+    ///         match p {
+    ///             lro::PollingResult::Completed(r) => { return r; },
+    ///             lro::PollingResult::InProgress(m) => { println!("in progress {m:?}"); },
+    ///             lro::PollingResult::PollingError(_) => { /* ignored */ },
+    ///         }
+    ///         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    ///     }
+    ///     Err(gax::error::Error::other("LRO never completed"))
+    /// }
+    /// ```
+    ///
+    /// ## Manually polling long-running operations
+    ///
+    /// If you call [send()], you need to examine the contents of the resulting
+    /// [Operation][longrunning::model::Operation] to determine the result of
+    /// the operation.
+    ///
+    /// If the `done` field is `true`, the operation has completed. The `result`
+    /// field contains the final response, this will be a [crate::model::Workflow] (as
+    /// an [Any]), or the error (as a `Status`).
+    ///
+    /// If the `done` field is `false`, the operation has not completed.  The
+    /// operation may also include a [crate::model::OperationMetadata] value in the `metadata`
+    /// field. This value would also be encoded as an [Any]. The metadata may
+    /// include information about how much progress the LRO has made.
+    ///
+    /// To find out if the operation has completed, use the [get_operation]
+    /// method and repeat the steps outlined above.
     ///
     /// Note that most errors on [get_operation] do not indicate that the
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
     /// [send()]: crate::builders::UpdateWorkflow::send
+    /// [poller()]: crate::builders::UpdateWorkflow::poller
+    /// [Poller::poll()]: lro::Poller::poll
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
     /// [Operation]: longrunning::model::Operation
     /// [result]: longrunning::model::Operation::result
+    /// [Any]: wkt::Any
     pub fn update_workflow(
         &self,
         workflow: impl Into<crate::model::Workflow>,

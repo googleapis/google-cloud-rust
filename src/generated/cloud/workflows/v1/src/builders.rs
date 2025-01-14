@@ -182,6 +182,32 @@ impl CreateWorkflow {
             .await
     }
 
+    /// Creates a [Poller][lro::Poller] to work with `create_workflow`.
+    pub fn poller(
+        self,
+    ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
+        type Operation = lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+
+        let stub = self.0.stub.clone();
+        let query = move |name| {
+            let stub = stub.clone();
+            async {
+                let op = crate::builders::GetOperation::new(stub)
+                    .set_name(name)
+                    .send()
+                    .await?;
+                Ok(Operation::new(op))
+            }
+        };
+
+        let start = move || async {
+            let op = self.send().await?;
+            Ok(Operation::new(op))
+        };
+
+        lro::new_poller(start, query)
+    }
+
     /// Sets the value of `parent`.
     pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.parent = v.into();
@@ -235,6 +261,30 @@ impl DeleteWorkflow {
             .await
     }
 
+    /// Creates a [Poller][lro::Poller] to work with `delete_workflow`.
+    pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
+        type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+
+        let stub = self.0.stub.clone();
+        let query = move |name| {
+            let stub = stub.clone();
+            async {
+                let op = crate::builders::GetOperation::new(stub)
+                    .set_name(name)
+                    .send()
+                    .await?;
+                Ok(Operation::new(op))
+            }
+        };
+
+        let start = move || async {
+            let op = self.send().await?;
+            Ok(Operation::new(op))
+        };
+
+        lro::new_poller(start, query)
+    }
+
     /// Sets the value of `name`.
     pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
         self.0.request.name = v.into();
@@ -274,6 +324,32 @@ impl UpdateWorkflow {
             .stub
             .update_workflow(self.0.request, self.0.options)
             .await
+    }
+
+    /// Creates a [Poller][lro::Poller] to work with `update_workflow`.
+    pub fn poller(
+        self,
+    ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
+        type Operation = lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+
+        let stub = self.0.stub.clone();
+        let query = move |name| {
+            let stub = stub.clone();
+            async {
+                let op = crate::builders::GetOperation::new(stub)
+                    .set_name(name)
+                    .send()
+                    .await?;
+                Ok(Operation::new(op))
+            }
+        };
+
+        let start = move || async {
+            let op = self.send().await?;
+            Ok(Operation::new(op))
+        };
+
+        lro::new_poller(start, query)
     }
 
     /// Sets the value of `workflow`.

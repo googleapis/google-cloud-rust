@@ -31,6 +31,20 @@ resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
   member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
+# This service account is created externally. It is used to create test
+# workflows. The integration tests runner needs permissions to act as this
+# account.
+data "google_service_account" "test-workflow-runner" {
+  account_id = "test-workflow-runner"
+}
+
+# The service account will need to read tarballs uploaded by `gcloud submit`.
+resource "google_service_account_iam_member" "sa-can-use-test-workflows-sa" {
+  service_account_id = data.google_service_account.test-workflow-runner.id
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
 output "runner" {
   value = data.google_service_account.integration-test-runner.id
 }
