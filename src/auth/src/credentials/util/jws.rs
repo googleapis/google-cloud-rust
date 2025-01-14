@@ -19,7 +19,7 @@ use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
 
-const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
+pub(crate) const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 
 /// JSON Web Signature for a token.
 #[derive(Clone, Serialize, Default, Builder)]

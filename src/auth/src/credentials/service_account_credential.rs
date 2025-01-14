@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::util::jws::{JwsClaimsBuilder, JwsHeader};
+use crate::credentials::util::jws::{JwsClaimsBuilder, JwsHeader, DEFAULT_TOKEN_TIMEOUT};
 use crate::credentials::Result;
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
@@ -23,10 +23,8 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
-use std::time::Duration;
 use time::OffsetDateTime;
 
-const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 const DEFAULT_HEADER: JwsHeader = JwsHeader {
     alg: "RS256",
     typ: "JWT",
@@ -76,9 +74,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
             .build()
             .map_err(CredentialError::non_retryable)?;
 
-        let header = DEFAULT_HEADER;
-
-        let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
+        let encoded_header_claims = format!("{}.{}", DEFAULT_HEADER.encode()?, claims.encode()?);
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
