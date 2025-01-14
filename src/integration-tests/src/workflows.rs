@@ -54,14 +54,15 @@ main:
             return: Hello World
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
-
+    let prefix = "wf-";
     let workflow_id: String = rand::thread_rng()
         .sample_iter(&Alphanumeric)
-        .take(WORKFLOW_ID_LENGTH - 4)
+        // Workflow ids must start with a letter, we use `wf-` as a prefix to
+        // this requirement (see below).
+        .take(WORKFLOW_ID_LENGTH - prefix.length())
         .map(char::from)
         .collect();
-    // Workflow ids must start with a letter.
-    let workflow_id = format!("wf-{workflow_id}");
+    let workflow_id = format!("{prefix}{workflow_id}");
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let mut create = client

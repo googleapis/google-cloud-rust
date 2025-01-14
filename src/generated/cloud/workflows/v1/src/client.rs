@@ -102,7 +102,10 @@ impl Workflows {
     /// # Long running operations
     ///
     /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You can use this impl
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
     /// Calling [send()] on the resulting builder starts a LRO (long-Running
     /// Operation). LROs run in the background, and the application may poll
@@ -173,7 +176,10 @@ impl Workflows {
     /// # Long running operations
     ///
     /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You can use this impl
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
     /// Calling [send()] on the resulting builder starts a LRO (long-Running
     /// Operation). LROs run in the background, and the application may poll
@@ -246,7 +252,10 @@ impl Workflows {
     /// # Long running operations
     ///
     /// Calling [poller()] on the resulting builder returns an implementation of
-    /// the [lro::Poller] trait. You can use this impl
+    /// the [lro::Poller] trait. You need to call `Poller::poll` on this
+    /// `Poller` at least once to start the LRO. You may periodically poll this
+    /// object to find the status of the operation. The poller automatically
+    /// extract the final response value and any intermediate metadata values.
     ///
     /// Calling [send()] on the resulting builder starts a LRO (long-Running
     /// Operation). LROs run in the background, and the application may poll
