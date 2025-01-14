@@ -15,7 +15,7 @@ zones, regions, and countries.
 
 The main types to work with this crate are the clients:
 
-* [Locations](https://docs.rs/location-golden-protobuf/latest/location-golden-protobuf/client/struct.Locations.html)
+* [Locations](https://docs.rs/location-golden-protobuf/latest/location_golden_protobuf/client/struct.Locations.html)
 
 ## More Information
 

@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [SecretManagerService](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager-golden-protobuf/client/struct.SecretManagerService.html)
+//! * [SecretManagerService](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager_golden_protobuf/client/struct.SecretManagerService.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

@@ -15,7 +15,7 @@ zones, regions, and countries.
 
 The main types to work with this crate are the clients:
 
-* [Locations](https://docs.rs/gcp-sdk-location/latest/gcp-sdk-location/client/struct.Locations.html)
+* [Locations](https://docs.rs/gcp-sdk-location/latest/gcp_sdk_location/client/struct.Locations.html)
 
 ## More Information
 

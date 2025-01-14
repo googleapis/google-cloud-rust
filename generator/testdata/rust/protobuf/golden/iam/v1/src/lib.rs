@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [IAMPolicy](https://docs.rs/iam-v1-golden-protobuf/latest/iam-v1-golden-protobuf/client/struct.IAMPolicy.html)
+//! * [IAMPolicy](https://docs.rs/iam-v1-golden-protobuf/latest/iam_v1_golden_protobuf/client/struct.IAMPolicy.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

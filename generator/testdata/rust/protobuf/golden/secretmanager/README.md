@@ -14,7 +14,7 @@ Provides convenience while improving security.
 
 The main types to work with this crate are the clients:
 
-* [SecretManagerService](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager-golden-protobuf/client/struct.SecretManagerService.html)
+* [SecretManagerService](https://docs.rs/secretmanager-golden-protobuf/latest/secretmanager_golden_protobuf/client/struct.SecretManagerService.html)
 
 ## More Information
 

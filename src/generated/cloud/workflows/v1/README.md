@@ -14,7 +14,7 @@ see the Workflows Executions API.
 
 The main types to work with this crate are the clients:
 
-* [Workflows](https://docs.rs/gcp-sdk-workflows-v1/latest/gcp-sdk-workflows-v1/client/struct.Workflows.html)
+* [Workflows](https://docs.rs/gcp-sdk-workflows-v1/latest/gcp_sdk_workflows_v1/client/struct.Workflows.html)
 
 ## More Information
 

@@ -13,7 +13,7 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [Operations](https://docs.rs/gcp-sdk-longrunning/latest/gcp-sdk-longrunning/client/struct.Operations.html)
+* [Operations](https://docs.rs/gcp-sdk-longrunning/latest/gcp_sdk_longrunning/client/struct.Operations.html)
 
 ## More Information
 

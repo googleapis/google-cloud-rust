@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [Locations](https://docs.rs/location-golden-protobuf/latest/location-golden-protobuf/client/struct.Locations.html)
+//! * [Locations](https://docs.rs/location-golden-protobuf/latest/location_golden_protobuf/client/struct.Locations.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

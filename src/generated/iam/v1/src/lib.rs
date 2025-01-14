@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [IAMPolicy](https://docs.rs/gcp-sdk-iam-v1/latest/gcp-sdk-iam-v1/client/struct.IAMPolicy.html)
+//! * [IAMPolicy](https://docs.rs/gcp-sdk-iam-v1/latest/gcp_sdk_iam_v1/client/struct.IAMPolicy.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

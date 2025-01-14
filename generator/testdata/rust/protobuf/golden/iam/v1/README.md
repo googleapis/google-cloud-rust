@@ -13,7 +13,7 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [IAMPolicy](https://docs.rs/iam-v1-golden-protobuf/latest/iam-v1-golden-protobuf/client/struct.IAMPolicy.html)
+* [IAMPolicy](https://docs.rs/iam-v1-golden-protobuf/latest/iam_v1_golden_protobuf/client/struct.IAMPolicy.html)
 
 ## More Information
 

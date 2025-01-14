@@ -14,7 +14,7 @@ Provides convenience while improving security.
 
 The main types to work with this crate are the clients:
 
-* [SecretManagerService](https://docs.rs/secretmanager-golden-openapi/latest/secretmanager-golden-openapi/client/struct.SecretManagerService.html)
+* [SecretManagerService](https://docs.rs/secretmanager-golden-openapi/latest/secretmanager_golden_openapi/client/struct.SecretManagerService.html)
 
 ## More Information
 
