@@ -252,7 +252,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 		t.Fatal(err)
 	}
 	rustLoadWellKnownTypes(model.State)
-	c.resolveUsedPackages(model)
+	rustResolveUsedPackages(model, c.extraPackages)
 	want := []*rustPackage{
 		{
 			name:            "location",
@@ -286,7 +286,7 @@ func TestUsedByServicesNoServices(t *testing.T) {
 		t.Fatal(err)
 	}
 	rustLoadWellKnownTypes(model.State)
-	c.resolveUsedPackages(model)
+	rustResolveUsedPackages(model, c.extraPackages)
 	want := []*rustPackage{
 		{
 			name:            "location",
@@ -328,7 +328,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 		t.Fatal(err)
 	}
 	rustLoadWellKnownTypes(model.State)
-	c.resolveUsedPackages(model)
+	rustResolveUsedPackages(model, c.extraPackages)
 	want := []*rustPackage{
 		{
 			name:            "location",
@@ -371,7 +371,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		t.Fatal(err)
 	}
 	rustLoadWellKnownTypes(model.State)
-	c.resolveUsedPackages(model)
+	rustResolveUsedPackages(model, c.extraPackages)
 	want := []*rustPackage{
 		{
 			name:            "location",
