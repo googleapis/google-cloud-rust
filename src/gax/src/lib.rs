@@ -83,6 +83,7 @@ pub mod http_client;
 
 pub mod backoff_policy;
 pub mod exponential_backoff;
+pub mod loop_state;
 pub mod options;
 pub mod polling_backoff_policy;
 pub mod retry_policy;

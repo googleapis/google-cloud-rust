@@ -37,7 +37,7 @@
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
 use crate::Result;
-use crate::{error::Error, retry_policy::RetryFlow};
+use crate::{error::Error, loop_state::LoopState};
 use std::sync::{Arc, Mutex};
 
 /// Implementations of this trait prevent a client from sending too many retries.
@@ -61,7 +61,7 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
     fn throttle_retry_attempt(&self) -> bool;
 
     /// Called by the retry loop after a retry failure.
-    fn on_retry_failure(&mut self, flow: &crate::retry_policy::RetryFlow);
+    fn on_retry_failure(&mut self, flow: &LoopState);
 
     /// Called by the retry loop when a RPC succeeds.
     fn on_success(&mut self);
@@ -214,11 +214,11 @@ impl RetryThrottler for AdaptiveThrottler {
         self.throttle(&mut rand::thread_rng())
     }
 
-    fn on_retry_failure(&mut self, flow: &crate::retry_policy::RetryFlow) {
+    fn on_retry_failure(&mut self, flow: &LoopState) {
         self.request_count += 1.0;
         match flow {
-            RetryFlow::Continue(_) | RetryFlow::Exhausted(_) => {}
-            RetryFlow::Permanent(_) => {
+            LoopState::Continue(_) | LoopState::Exhausted(_) => {}
+            LoopState::Permanent(_) => {
                 self.accept_count += 1.0;
             }
         };
@@ -342,12 +342,12 @@ impl RetryThrottler for CircuitBreaker {
         self.cur_tokens <= self.min_tokens
     }
 
-    fn on_retry_failure(&mut self, flow: &crate::retry_policy::RetryFlow) {
+    fn on_retry_failure(&mut self, flow: &LoopState) {
         match flow {
-            RetryFlow::Continue(_) | RetryFlow::Exhausted(_) => {
+            LoopState::Continue(_) | LoopState::Exhausted(_) => {
                 self.cur_tokens = self.cur_tokens.saturating_sub(self.error_cost);
             }
-            RetryFlow::Permanent(_) => {
+            LoopState::Permanent(_) => {
                 self.on_success();
             }
         };
@@ -397,11 +397,11 @@ mod tests {
 
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
         assert_eq!(throttler.request_count, 1.0);
         assert_eq!(throttler.accept_count, 0.0);
 
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
         assert_eq!(throttler.request_count, 2.0);
         assert_eq!(throttler.accept_count, 0.0);
 
@@ -409,12 +409,12 @@ mod tests {
         assert_eq!(throttler.request_count, 3.0);
         assert_eq!(throttler.accept_count, 1.0);
 
-        throttler.on_retry_failure(&RetryFlow::Permanent(test_error()));
+        throttler.on_retry_failure(&LoopState::Permanent(test_error()));
         assert_eq!(throttler.request_count, 4.0);
         assert_eq!(throttler.accept_count, 2.0);
 
         let mut throttler = AdaptiveThrottler::default();
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
 
         // StepRng::new(x, 0) always produces the same value. We pick the values
         // to trigger the desired behavior.
@@ -450,12 +450,12 @@ mod tests {
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         for _ in 0..4 {
-            throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+            throttler.on_retry_failure(&LoopState::Continue(test_error()));
             assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
         }
         // This crosses the threshold:
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
         assert!(throttler.throttle_retry_attempt(), "{throttler:?}");
 
         // With the default settings, we will need about 10x successful calls
@@ -468,12 +468,12 @@ mod tests {
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         // Permanent errors also open back the throttle.
-        throttler.on_retry_failure(&RetryFlow::Continue(test_error()));
+        throttler.on_retry_failure(&LoopState::Continue(test_error()));
         for _ in 0..9 {
-            throttler.on_retry_failure(&&RetryFlow::Permanent(test_error()));
+            throttler.on_retry_failure(&&LoopState::Permanent(test_error()));
             assert!(throttler.throttle_retry_attempt(), "{throttler:?}");
         }
-        throttler.on_retry_failure(&&RetryFlow::Permanent(test_error()));
+        throttler.on_retry_failure(&&LoopState::Permanent(test_error()));
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
     }
 }

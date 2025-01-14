@@ -29,8 +29,9 @@ mod test {
     use gax::error::Error;
     use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::http_client::ReqwestClient;
+    use gax::loop_state::LoopState;
     use gax::options::*;
-    use gax::retry_policy::{LimitedAttemptCount, RetryFlow, RetryPolicy};
+    use gax::retry_policy::{LimitedAttemptCount, RetryPolicy};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottler};
     use gcp_sdk_gax as gax;
     use serde_json::json;
@@ -172,7 +173,7 @@ mod test {
             .withf(move |s, a, _, e| expect(&state, 1, *s, *a) && is_transient(e))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| LoopState::Continue(e));
         let state = expected_loop_start.clone();
         backoff_policy
             .expect_on_failure()
@@ -206,7 +207,7 @@ mod test {
             .withf(move |s, a, _, e| expect(&state, 2, *s, *a) && is_transient(e))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| LoopState::Continue(e));
         let state = expected_loop_start.clone();
         backoff_policy
             .expect_on_failure()
@@ -276,7 +277,7 @@ mod test {
                 .withf(move |_, _, idempotent, _| idempotent == &expected)
                 .once()
                 .in_sequence(&mut seq)
-                .returning(|_, _, _, e| RetryFlow::Continue(e));
+                .returning(|_, _, _, e| LoopState::Continue(e));
         }
         retry_policy
             .expect_remaining_time()
@@ -341,7 +342,7 @@ mod test {
                 .withf(|_, _, _, error| is_transient(error))
                 .once()
                 .in_sequence(&mut seq)
-                .returning(|_, _, _, e| RetryFlow::Continue(e));
+                .returning(|_, _, _, e| LoopState::Continue(e));
         }
         retry_policy
             .expect_remaining_time()
@@ -353,7 +354,7 @@ mod test {
             .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
+            .returning(|_, _, _, e| LoopState::Exhausted(e));
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -394,7 +395,7 @@ mod test {
             .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| LoopState::Continue(e));
         retry_policy
             .expect_remaining_time()
             .once()
@@ -405,7 +406,7 @@ mod test {
             .withf(|_, _, _, error| !is_transient(error))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Exhausted(e));
+            .returning(|_, _, _, e| LoopState::Exhausted(e));
 
         let client = ReqwestClient::new(test_config(), &endpoint).await?;
         let builder = client.builder(reqwest::Method::GET, "/retry".into());
@@ -445,7 +446,7 @@ mod test {
             .withf(|_, _, _, error| is_transient(error))
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _, _, e| RetryFlow::Continue(e));
+            .returning(|_, _, _, e| LoopState::Continue(e));
 
         for _ in 0..4 {
             retry_policy
@@ -578,7 +579,7 @@ mod test {
                 .returning(move |_, _, _, e| {
                     rtx.send("--marker--").unwrap();
                     rtx.send("retry::on_error").unwrap();
-                    RetryFlow::Continue(e)
+                    LoopState::Continue(e)
                 });
         }
         retry_policy
@@ -733,7 +734,7 @@ mod test {
             .returning(move |_, _, _, e| {
                 rtx.send("--marker--").unwrap();
                 rtx.send("retry::on_error").unwrap();
-                RetryFlow::Continue(e)
+                LoopState::Continue(e)
             });
         // The next request is throttled.
         retry_policy
@@ -845,7 +846,7 @@ mod test {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryFlow;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
@@ -867,7 +868,7 @@ mod test {
         Throttler {}
         impl RetryThrottler for Throttler {
             fn throttle_retry_attempt(&self) -> bool;
-            fn on_retry_failure(&mut self, error: &RetryFlow);
+            fn on_retry_failure(&mut self, error: &LoopState);
             fn on_success(&mut self);
         }
     }
