@@ -16,7 +16,7 @@
 //!
 //! This module provides an implementation of truncated [exponential backoff].
 //! It implements the [BackoffPolicy] trait.
-//! 
+//!
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 
 use crate::error::Error;
