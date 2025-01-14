@@ -117,11 +117,12 @@ impl Workflows {
     ///
     /// Using the result of [poller()] follows a common pattern:
     ///
-    /// ```ignore
-    /// # use gax::Result
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata>
-    /// ) -> Result<crate::model::Workflow> {
+    ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
+    /// ) -> Result<model::Workflow> {
     ///     while let Some(p) = poller.poll().await {
     ///         match p {
     ///             lro::PollingResult::Completed(r) => { return r; },
@@ -191,10 +192,11 @@ impl Workflows {
     ///
     /// Using the result of [poller()] follows a common pattern:
     ///
-    /// ```ignore
-    /// # use gax::Result
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<wkt::Empty, crate::model::OperationMetadata>
+    ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
     ///     while let Some(p) = poller.poll().await {
     ///         match p {
@@ -267,11 +269,12 @@ impl Workflows {
     ///
     /// Using the result of [poller()] follows a common pattern:
     ///
-    /// ```ignore
-    /// # use gax::Result
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata>
-    /// ) -> Result<crate::model::Workflow> {
+    ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
+    /// ) -> Result<model::Workflow> {
     ///     while let Some(p) = poller.poll().await {
     ///         match p {
     ///             lro::PollingResult::Completed(r) => { return r; },

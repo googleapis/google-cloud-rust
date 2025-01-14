@@ -31,6 +31,7 @@ type RustTemplateData struct {
 	PackageNamespace  string
 	RequiredPackages  []string
 	HasServices       bool
+	HasLROs           bool
 	CopyrightYear     string
 	BoilerPlate       []string
 	Imports           []string
@@ -103,8 +104,11 @@ type RustMethod struct {
 }
 
 type RustOperationInfo struct {
-	MetadataType string
-	ResponseType string
+	MetadataType       string
+	ResponseType       string
+	MetadataTypeInDocs string
+	ResponseTypeInDocs string
+	PackageNamespace   string
 }
 
 type RustOneOf struct {
@@ -150,14 +154,29 @@ type RustEnumValue struct {
 func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTemplateData {
 	rustLoadWellKnownTypes(model.State)
 	c.resolveUsedPackages(model)
+	packageName := rustPackageName(model, c.packageNameOverride)
+	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
+	hasLROs := false
+	for _, s := range model.Services {
+		for _, m := range s.Methods {
+			if m.OperationInfo != nil {
+				hasLROs = true
+				break
+			}
+		}
+		if hasLROs {
+			break
+		}
+	}
 	data := &RustTemplateData{
 		Name:             model.Name,
 		Title:            model.Title,
 		Description:      model.Description,
-		PackageName:      rustPackageName(model, c.packageNameOverride),
-		PackageNamespace: strings.ReplaceAll(rustPackageName(model, c.packageNameOverride), "-", "_"),
+		PackageName:      packageName,
+		PackageNamespace: packageNamespace,
 		PackageVersion:   c.version,
 		HasServices:      len(model.Services) > 0,
+		HasLROs:          hasLROs,
 		CopyrightYear:    c.generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
 			"",
@@ -169,7 +188,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTempl
 			return ""
 		}(),
 		Services: mapSlice(model.Services, func(s *api.Service) *RustService {
-			return newRustService(s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+			return newRustService(s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
 		}),
 		Messages: mapSlice(model.Messages, func(m *api.Message) *RustMessage {
 			return newRustMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
@@ -201,14 +220,14 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTempl
 	return data
 }
 
-func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustService {
+func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustService {
 	// Some codecs skip some methods.
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
 		return rustGenerateMethod(m)
 	})
 	return &RustService{
 		Methods: mapSlice(methods, func(m *api.Method) *RustMethod {
-			return newRustMethod(m, state, modulePath, sourceSpecificationPackageName, packageMapping)
+			return newRustMethod(m, state, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
 		}),
 		NameToSnake:         rustToSnake(s.Name),
 		NameToPascal:        rustToPascal(s.Name),
@@ -274,7 +293,7 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 	}
 }
 
-func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustMethod {
+func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustMethod {
 	method := &RustMethod{
 		BodyAccessor:      rustBodyAccessor(m),
 		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
@@ -301,9 +320,14 @@ func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecifi
 		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
+		metadataType := rustMethodInOutTypeName(m.OperationInfo.MetadataTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		responseType := rustMethodInOutTypeName(m.OperationInfo.ResponseTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		method.OperationInfo = &RustOperationInfo{
-			MetadataType: rustMethodInOutTypeName(m.OperationInfo.MetadataTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
-			ResponseType: rustMethodInOutTypeName(m.OperationInfo.ResponseTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
+			MetadataType:       metadataType,
+			ResponseType:       responseType,
+			MetadataTypeInDocs: strings.TrimPrefix(metadataType, "crate::"),
+			ResponseTypeInDocs: strings.TrimPrefix(responseType, "crate::"),
+			PackageNamespace:   packageNamespace,
 		}
 	}
 	return method

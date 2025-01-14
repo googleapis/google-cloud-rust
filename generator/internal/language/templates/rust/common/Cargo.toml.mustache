@@ -43,3 +43,8 @@ publish              = false
 {{{.}}}
 {{/Features}}
 {{/HasFeatures}}
+{{#HasLROs}}
+
+[dev-dependencies]
+tokio = { version = "1", features = ["time"] }
+{{/HasLROs}}
