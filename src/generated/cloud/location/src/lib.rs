@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [Locations](https://docs.rs/gcp-sdk-location/latest/gcp-sdk-location/client/struct.Locations.html)
+//! * [Locations](https://docs.rs/gcp-sdk-location/latest/gcp_sdk_location/client/struct.Locations.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;
