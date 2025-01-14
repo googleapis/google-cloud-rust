@@ -115,7 +115,7 @@ impl Workflows {
     ///
     /// ## Polling with detailed metadata updates
     ///
-    /// Using the result of `poller()` follows a common pattern:
+    /// Using the result of [poller()] follows a common pattern:
     ///
     /// ```ignore
     /// # use gax::Result
@@ -136,7 +136,7 @@ impl Workflows {
     ///
     /// ## Manually polling long-running operations
     ///
-    /// If you call `send()`, you need to examine the contents of the resulting
+    /// If you call [send()], you need to examine the contents of the resulting
     /// [Operation][longrunning::model::Operation] to determine the result of
     /// the operation.
     ///
@@ -189,7 +189,7 @@ impl Workflows {
     ///
     /// ## Polling with detailed metadata updates
     ///
-    /// Using the result of `poller()` follows a common pattern:
+    /// Using the result of [poller()] follows a common pattern:
     ///
     /// ```ignore
     /// # use gax::Result
@@ -210,7 +210,7 @@ impl Workflows {
     ///
     /// ## Manually polling long-running operations
     ///
-    /// If you call `send()`, you need to examine the contents of the resulting
+    /// If you call [send()], you need to examine the contents of the resulting
     /// [Operation][longrunning::model::Operation] to determine the result of
     /// the operation.
     ///
@@ -265,7 +265,7 @@ impl Workflows {
     ///
     /// ## Polling with detailed metadata updates
     ///
-    /// Using the result of `poller()` follows a common pattern:
+    /// Using the result of [poller()] follows a common pattern:
     ///
     /// ```ignore
     /// # use gax::Result
@@ -286,7 +286,7 @@ impl Workflows {
     ///
     /// ## Manually polling long-running operations
     ///
-    /// If you call `send()`, you need to examine the contents of the resulting
+    /// If you call [send()], you need to examine the contents of the resulting
     /// [Operation][longrunning::model::Operation] to determine the result of
     /// the operation.
     ///
