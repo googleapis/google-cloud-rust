@@ -25,8 +25,9 @@
 mod test {
     use axum::extract::State;
     use axum::http::StatusCode;
-    use gax::backoff_policy::{BackoffPolicy, ExponentialBackoffBuilder};
+    use gax::backoff_policy::BackoffPolicy;
     use gax::error::Error;
+    use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::http_client::ReqwestClient;
     use gax::options::*;
     use gax::retry_policy::{LimitedAttemptCount, RetryFlow, RetryPolicy};
