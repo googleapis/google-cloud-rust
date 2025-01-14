@@ -15,9 +15,10 @@
 //! Common implements for exponential backoff.
 //!
 //! This module provides an implementation of truncated [exponential backoff].
-//! It implements the [BackoffPolicy] trait.
+//! It implements the [BackoffPolicy] and [PollingBackoffPolicy] traits.
 //!
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
+//! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
 use crate::error::Error;
 use crate::Result;
@@ -47,6 +48,22 @@ impl ExponentialBackoffBuilder {
     ///         .with_scaling(4.0)
     ///         .build()?;
     ///     Ok(config.set_backoff_policy(policy))
+    /// }
+    /// ```
+    ///
+    /// # Example
+    /// ```
+    /// # use gcp_sdk_gax::*;
+    /// # use exponential_backoff::*;
+    /// use std::time::Duration;
+    ///
+    /// fn configure_polling(config: options::ClientConfig) -> Result<options::ClientConfig> {
+    ///     let policy = ExponentialBackoffBuilder::new()
+    ///         .with_initial_delay(Duration::from_millis(100))
+    ///         .with_maximum_delay(Duration::from_secs(5))
+    ///         .with_scaling(4.0)
+    ///         .build()?;
+    ///     Ok(config.set_polling_backoff_policy(policy))
     /// }
     /// ```
     pub fn new() -> Self {
@@ -220,6 +237,16 @@ impl std::default::Default for ExponentialBackoff {
     }
 }
 
+impl crate::polling_backoff_policy::PollingBackoffPolicy for ExponentialBackoff {
+    fn wait_period(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+    ) -> std::time::Duration {
+        self.delay(loop_start, attempt_count)
+    }
+}
+
 impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
     fn on_failure(
         &self,
@@ -359,6 +386,24 @@ mod tests {
         assert_eq!(b.delay(now, 2), Duration::from_secs(2));
         assert_eq!(b.delay(now, 3), Duration::from_secs(4));
         assert_eq!(b.delay(now, 4), Duration::from_secs(4));
+
+        Ok(())
+    }
+
+    #[test]
+    fn wait_period() -> TestResult {
+        use crate::polling_backoff_policy::PollingBackoffPolicy;
+        let b = ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_secs(1))
+            .with_maximum_delay(Duration::from_secs(4))
+            .with_scaling(2.0)
+            .build()?;
+
+        let now = std::time::Instant::now();
+        assert_eq!(b.wait_period(now, 1), Duration::from_secs(1));
+        assert_eq!(b.wait_period(now, 2), Duration::from_secs(2));
+        assert_eq!(b.wait_period(now, 3), Duration::from_secs(4));
+        assert_eq!(b.wait_period(now, 4), Duration::from_secs(4));
 
         Ok(())
     }
