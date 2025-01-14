@@ -26,6 +26,7 @@
 //! [RequestOptionsBuilder] trait where applications can override some defaults.
 
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
+use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, RetryThrottlerWrapped};
 use auth::credentials::Credential;
@@ -46,6 +47,7 @@ pub struct RequestOptions {
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
     pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     pub(crate) retry_throttler: Option<RetryThrottlerWrapped>,
+    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 impl RequestOptions {
@@ -111,6 +113,11 @@ impl RequestOptions {
     pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(&mut self, v: V) {
         self.retry_throttler = Some(v.into().0);
     }
+
+    /// Sets the backoff policy configuration.
+    pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
+        self.polling_backoff_policy = Some(v.into().0);
+    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -140,6 +147,9 @@ pub trait RequestOptionsBuilder {
 
     /// Sets the retry throttler configuration.
     fn with_retry_throttler<V: Into<RetryThrottlerArg>>(self, v: V) -> Self;
+
+    /// Sets the polling backoff policy configuration.
+    fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
 }
 
 /// Simplify implementation of the [RequestOptionsBuilder] trait in generated
@@ -182,9 +192,13 @@ where
         self
     }
 
-    /// Sets the retry throttler configuration.
     fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.request_options().set_retry_throttler(v);
+        self
+    }
+
+    fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_polling_backoff_policy(v);
         self
     }
 }
@@ -203,6 +217,7 @@ pub struct ClientConfig {
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
     pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     pub(crate) retry_throttler: RetryThrottlerWrapped,
+    pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
@@ -263,6 +278,12 @@ impl ClientConfig {
         self.retry_throttler = v.into().0;
         self
     }
+
+    /// Configure the polling backoff policy.
+    pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.polling_backoff_policy = Some(v.into().0);
+        self
+    }
 }
 
 impl std::default::Default for ClientConfig {
@@ -276,6 +297,7 @@ impl std::default::Default for ClientConfig {
             retry_policy: None,
             backoff_policy: None,
             retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+            polling_backoff_policy: None,
         }
     }
 }
@@ -326,6 +348,9 @@ mod test {
 
         opts.set_retry_throttler(AdaptiveThrottler::default());
         assert!(opts.retry_throttler.is_some(), "{opts:?}");
+
+        opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(opts.polling_backoff_policy.is_some(), "{opts:?}");
     }
 
     #[test]
@@ -380,6 +405,13 @@ mod test {
         let mut builder = TestBuilder::default().with_retry_throttler(AdaptiveThrottler::default());
         assert!(
             builder.request_options().retry_throttler.is_some(),
+            "{builder:?}"
+        );
+
+        let mut builder = TestBuilder::default()
+            .with_polling_backoff_policy(ExponentialBackoffBuilder::new().build()?);
+        assert!(
+            builder.request_options().polling_backoff_policy.is_some(),
             "{builder:?}"
         );
 
@@ -465,5 +497,12 @@ mod test {
         assert!(!throttler.throttle_retry_attempt());
 
         Ok(())
+    }
+
+    #[test]
+    fn config_polling_backoff() {
+        let config = ClientConfig::new()
+            .set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
+        assert!(config.polling_backoff_policy.is_some());
     }
 }
