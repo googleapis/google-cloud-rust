@@ -33,7 +33,7 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
     kid: None,
 };
 
-const DEFAULT_SCOPES: [&str;1] = ["https://www.googleapis.com/auth/cloud-platform"];
+const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
@@ -83,7 +83,11 @@ impl TokenProvider for ServiceAccountTokenProvider {
             .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
-        let token = format!("{}.{}", encoded_header_claims, &BASE64_URL_SAFE_NO_PAD.encode(sig));
+        let token = format!(
+            "{}.{}",
+            encoded_header_claims,
+            &BASE64_URL_SAFE_NO_PAD.encode(sig)
+        );
 
         let token = Token {
             token,

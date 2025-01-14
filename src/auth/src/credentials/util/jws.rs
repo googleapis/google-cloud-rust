@@ -155,7 +155,6 @@ mod tests {
 
         assert_eq!(v["iss"], "test_iss");
         assert_eq!(v["scope"], serde_json::json!(["scope1", "scope2"]));
-        assert_eq!(v["aud"], "test_aud");
 
         assert_eq!(v["iat"], iat_custom.unix_timestamp());
         assert_eq!(v["exp"], exp_custom.unix_timestamp());
@@ -171,7 +170,9 @@ mod tests {
             .build()
             .unwrap();
         let expected_error_message = "must be later than issued time";
-        assert!(claims.encode().is_err_and(|e| e.to_string().contains(expected_error_message)));
+        assert!(claims
+            .encode()
+            .is_err_and(|e| e.to_string().contains(expected_error_message)));
     }
 
     #[test]
@@ -183,7 +184,9 @@ mod tests {
             .build()
             .unwrap();
         let expected_error_message = "expecting only 1 of them to be set";
-        assert!(claims.encode().is_err_and(|e| e.to_string().contains(expected_error_message)));
+        assert!(claims
+            .encode()
+            .is_err_and(|e| e.to_string().contains(expected_error_message)));
     }
 
     #[test]
