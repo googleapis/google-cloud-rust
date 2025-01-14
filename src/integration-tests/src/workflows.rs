@@ -59,7 +59,7 @@ main:
         .sample_iter(&Alphanumeric)
         // Workflow ids must start with a letter, we use `wf-` as a prefix to
         // this requirement (see below).
-        .take(WORKFLOW_ID_LENGTH - prefix.length())
+        .take(WORKFLOW_ID_LENGTH - prefix.len())
         .map(char::from)
         .collect();
     let workflow_id = format!("{prefix}{workflow_id}");

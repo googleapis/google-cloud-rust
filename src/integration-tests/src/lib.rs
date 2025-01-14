@@ -15,6 +15,7 @@
 use gax::error::Error;
 pub type Result<T> = std::result::Result<T, gax::error::Error>;
 pub mod secret_manager;
+pub mod workflows;
 
 pub const SECRET_ID_LENGTH: usize = 64;
 
@@ -28,4 +29,11 @@ pub fn project_id() -> Result<String> {
 pub fn service_account_for_iam_tests() -> Result<String> {
     let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT").map_err(Error::other)?;
     Ok(value)
+}
+
+/// Returns the preferred regionproject id used for the integration tests.
+pub fn region_id() -> String {
+    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+        .ok()
+        .unwrap_or("us-central1".to_string())
 }

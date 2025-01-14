@@ -62,4 +62,16 @@ mod driver {
             .await
             .map_err(report)
     }
+
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_workflows(
+        config: Option<Config>,
+    ) -> integration_tests::Result<()> {
+        integration_tests::workflows::run(config)
+            .await
+            .map_err(report)
+    }
 }
