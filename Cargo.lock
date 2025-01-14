@@ -680,7 +680,6 @@ dependencies = [
  "derive_builder",
  "http",
  "mockall",
- "openssl",
  "rand",
  "reqwest",
  "rsa",

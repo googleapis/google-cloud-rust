@@ -19,6 +19,8 @@ use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
 
+const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
+
 /// JSON Web Signature for a token.
 #[derive(Clone, Serialize, Default, Builder)]
 #[builder(setter(into, strip_option), default)]
@@ -46,18 +48,17 @@ impl JwsClaims<'_> {
         // Create the assertion with a 10 second margin to avoid most clock
         // skew problems.
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
-        let iat = self.iat.or(Some(now));
-        let exp = self.exp.or(Some(now + Duration::from_secs(3600)));
-        if exp.unwrap() < iat.unwrap() {
+        let iat = self.iat.unwrap_or(now);
+        let exp = self.exp.unwrap_or_else(|| now + DEFAULT_TOKEN_TIMEOUT);
+        if exp < iat {
             return Err(CredentialError::non_retryable(format!(
                 "expiration time {:?}, must be later than issued time {:?}",
-                self.exp, self.iat
+                exp, iat
             )));
         }
-
         let updated_jws_claim = JwsClaims {
-            iat,
-            exp,
+            iat: Some(iat),
+            exp: Some(exp),
             ..self.clone()
         };
         use base64::prelude::{Engine as _, BASE64_URL_SAFE_NO_PAD};
@@ -108,7 +109,7 @@ mod tests {
 
         let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
         let expected_iat = now.unix_timestamp();
-        let expected_exp = (now + Duration::from_secs(3600)).unix_timestamp();
+        let expected_exp = (now + DEFAULT_TOKEN_TIMEOUT).unix_timestamp();
 
         let v: Value = serde_json::from_str(&decoded).unwrap();
         assert_eq!(v["iss"], "test_iss");
@@ -122,8 +123,8 @@ mod tests {
 
     #[test]
     fn test_jws_claims_encode_custom() {
-        let iat_custom = OffsetDateTime::now_utc() - Duration::from_secs(3600);
-        let exp_custom = OffsetDateTime::now_utc() + Duration::from_secs(3600);
+        let iat_custom = OffsetDateTime::now_utc() - DEFAULT_TOKEN_TIMEOUT;
+        let exp_custom = OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT;
 
         let claims = JwsClaimsBuilder::default()
             .iss("test_iss")
@@ -159,7 +160,7 @@ mod tests {
     fn test_jws_claims_encode_error() {
         let claims = JwsClaimsBuilder::default()
             .iss("test_iss")
-            .exp(OffsetDateTime::now_utc() - Duration::from_secs(3600))
+            .exp(OffsetDateTime::now_utc() - DEFAULT_TOKEN_TIMEOUT)
             .build()
             .unwrap();
         assert!(claims.encode().is_err());

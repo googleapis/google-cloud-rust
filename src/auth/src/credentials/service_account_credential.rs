@@ -85,7 +85,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
 
         let token = Token {
             token,
-            token_type: "JWT".to_string(),
+            token_type: "Bearer".to_string(),
             expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
             metadata: None,
         };
@@ -101,22 +101,29 @@ impl ServiceAccountTokenProvider {
 
         let key_provider = crypto_provider.key_provider;
 
-        let pk = rustls_pemfile::read_one(&mut private_key.as_bytes())
+        let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
             .map_err(CredentialError::non_retryable)?
-            .ok_or_else(|| CredentialError::non_retryable("unable to parse service account key"))?;
-        let pk = match pk {
+            .ok_or_else(|| {
+                CredentialError::non_retryable("missing PEM section in service account key")
+            })?;
+        let pk = match private_key {
             Item::Pkcs1Key(item) => key_provider.load_private_key(item.into()),
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
             other => {
-                return Err(CredentialError::non_retryable(format!(
-                    "expected key to be in form of PKCS1 or PKCS8, found {:?}",
-                    other
-                )))
+                return Err(Self::unexpected_private_key_error(other));
             }
         };
         let sk = pk.map_err(CredentialError::non_retryable)?;
+        //TODO(#679) add support for ECDSA
         sk.choose_scheme(&[rustls::SignatureScheme::RSA_PKCS1_SHA256])
             .ok_or_else(|| CredentialError::non_retryable("Unable to choose RSA_PKCS1_SHA256 signing scheme as it is not supported by current signer"))
+    }
+
+    fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
+        CredentialError::non_retryable(format!(
+            "expected key to be in form of PKCS1 or PKCS8, found {:?}",
+            private_key_format
+        ))
     }
 }
 
@@ -142,12 +149,11 @@ where
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
-    use openssl::pkey::PKey;
-    use openssl::rsa::Rsa;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
     use rsa::RsaPrivateKey;
+    use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -304,30 +310,13 @@ mod test {
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
-        let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAgEBBDN56iWqFj/ftfGZ9gD0BQ2onA7Fj5MUmloABZxIwnTXtZCV2XhQ4Lq8W9BQ==\n-----END PRIVATE KEY-----";
+        let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
         service_account_info.private_key = pem_data.to_string();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
         let token = token_provider.get_token().await;
-        let expected_error_message = "InvalidTrailingPadding";
-        assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn get_service_account_token_unsupported_key_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
-        let mut service_account_info = get_mock_service_account();
-        let rsa = Rsa::generate(2048).unwrap();
-        let private_key = PKey::from_rsa(rsa).unwrap();
-        let pem_data = private_key.private_key_to_der().unwrap();
-        service_account_info.private_key = unsafe { String::from_utf8_unchecked(pem_data) };
-        let token_provider = ServiceAccountTokenProvider {
-            service_account_info,
-        };
-        let token = token_provider.get_token().await;
-        let expected_error_message = "unable to parse service account key";
+        let expected_error_message = "failed to parse private key as";
         assert!(token.is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
@@ -339,8 +328,21 @@ mod test {
             service_account_info: get_mock_service_account(),
         };
         let signer = tp.signer(&tp.service_account_info.private_key);
-        let expected_error_message = "unable to parse service account key";
+        let expected_error_message = "missing PEM section in service account key";
         assert!(signer.is_err_and(|e| e.to_string().contains(expected_error_message)));
+        Ok(())
+    }
+
+    #[test]
+    fn unexpected_private_key_error_message() -> TestResult {
+        let expected_message = format!(
+            "expected key to be in form of PKCS1 or PKCS8, found {:?}",
+            Item::Crl(Vec::new().into()) // Example unsupported key type
+        );
+
+        let error =
+            ServiceAccountTokenProvider::unexpected_private_key_error(Item::Crl(Vec::new().into()));
+        assert!(error.to_string().contains(&expected_message));
         Ok(())
     }
 }
