@@ -230,8 +230,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 
 func TestWellKnownTypesExist(t *testing.T) {
 	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &rustCodec{}
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := model.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
 			t.Errorf("cannot find well-known message %s in API", name)
@@ -252,7 +251,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	c.resolveUsedPackages(model)
 	want := []*rustPackage{
 		{
@@ -286,7 +285,7 @@ func TestUsedByServicesNoServices(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	c.resolveUsedPackages(model)
 	want := []*rustPackage{
 		{
@@ -328,7 +327,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	c.resolveUsedPackages(model)
 	want := []*rustPackage{
 		{
@@ -371,7 +370,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	c.resolveUsedPackages(model)
 	want := []*rustPackage{
 		{
@@ -406,7 +405,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 	model := newTestAPI([]*api.Message{
 		{Name: "CreateResource", IsPageableResponse: false},
 	}, []*api.Enum{}, []*api.Service{})
-	codec.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	data := &RustTemplateData{}
 	codec.addStreamingFeature(data, model)
 	if data.HasFeatures {
@@ -475,7 +474,7 @@ func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 	model := newTestAPI([]*api.Message{
 		{Name: "ListResources", IsPageableResponse: true},
 	}, []*api.Enum{}, []*api.Service{})
-	codec.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	data := &RustTemplateData{}
 	codec.addStreamingFeature(data, model)
 	want := []string{wantFeatures}
@@ -491,7 +490,7 @@ func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 
 	want := "gax_wkt::Empty"
 	got := rustMethodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
@@ -512,7 +511,7 @@ func TestRust_MethodInOut(t *testing.T) {
 	}
 	model := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 
 	want := "crate::model::Target"
 	got := rustMethodInOutTypeName("..Target", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
@@ -614,8 +613,7 @@ func TestRust_FieldAttributes(t *testing.T) {
 		"f_string_optional": `#[serde(skip_serializing_if = "Option::is_none")]`,
 		"f_string_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
 	}
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
@@ -742,8 +740,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
 		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
 	}
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
@@ -816,8 +813,7 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 		"f_repeated_any": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
 		"f_any":          `#[serde(skip_serializing_if = "Option::is_none")]`,
 	}
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
@@ -859,8 +855,7 @@ func TestRust_FieldLossyName(t *testing.T) {
 		"data":       `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
 	}
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
@@ -908,8 +903,7 @@ func TestRust_SyntheticField(t *testing.T) {
 		"project":     `#[serde(skip)]`,
 		"data_crc32c": `#[serde(skip)]`,
 	}
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedAttributes[field.Name]
 		if !ok {
@@ -1000,7 +994,7 @@ func TestRust_FieldType(t *testing.T) {
 		"f_timestamp_repeated": "gax_wkt::Timestamp",
 	}
 	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
 		want, ok := expectedTypes[field.Name]
 		if !ok {
@@ -1049,8 +1043,7 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		[]*api.Message{options, request},
 		[]*api.Enum{},
 		[]*api.Service{})
-	c := createRustCodec()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 
 	want := "&serde_json::to_value(&req.options_field).map_err(Error::serde)?"
 	got := rustAsQueryParameter(optionsField)
@@ -1350,7 +1343,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	// To test the mappings we need a fairly complex model.API instance. Create it
 	// in a separate function to make this more readable.
 	model := makeApiForRustFormatDocCommentsCrossLinks()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1478,7 +1471,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 	// To test the mappings we need a fairly complex model.API instance. Create it
 	// in a separate function to make this more readable.
 	model := makeApiForRustFormatDocCommentsCrossLinks()
-	c.loadWellKnownTypes(model.State)
+	rustLoadWellKnownTypes(model.State)
 
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
