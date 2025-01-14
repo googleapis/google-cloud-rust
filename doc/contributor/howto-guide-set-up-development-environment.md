@@ -88,8 +88,14 @@ gcloud secrets list
 
 It is fine if the list is empty, you just don't want an error.
 
-The integration tests perform some IAM operations, you will need a service
-account. For a test project, just create the SA using the CLI:
+The integration tests need a service account in your project. This service
+account is used to:
+
+- Run test that perform IAM operations, temporarily granting this service
+  account some permissions.
+- Configure the service account used for test workflows.
+
+For a test project, just create the SA using the CLI:
 
 ```bash
 gcloud iam service-accounts create rust-sdk-test \
@@ -113,6 +119,7 @@ running the integration tests. The default is to only run unit tests:
 GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
 env \
     GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
+    GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
   cargo test --features run-integration-tests --package integration-tests
 ```
