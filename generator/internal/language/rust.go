@@ -798,18 +798,6 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				results = append(results, "```")
 				results = append(results, "\n")
 			}
-		case ast.KindBlockquote:
-			if entering {
-				fencedCode := node.(*ast.Blockquote)
-				results = append(results, "```norust")
-				for i := 0; i < fencedCode.Lines().Len(); i++ {
-					line := fencedCode.Lines().At(i)
-					results = append(results, string(line.Value(documentationBytes)))
-				}
-			} else {
-				results = append(results, "```")
-				results = append(results, "\n")
-			}
 		case ast.KindFencedCodeBlock:
 			if entering {
 				fencedCode := node.(*ast.FencedCodeBlock)
