@@ -45,10 +45,10 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		if err != nil {
 			return err
 		}
-		if err := codec.validate(model); err != nil {
+		data, err = newRustTemplateData(model, codec, outdir)
+		if err != nil {
 			return err
 		}
-		data = newRustTemplateData(model, codec, outdir)
 		provider = rustTemplatesProvider()
 		generatedFiles = codec.generatedFiles()
 	case "go":

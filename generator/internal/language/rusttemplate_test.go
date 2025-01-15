@@ -30,7 +30,10 @@ func TestPackageNames(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got := newRustTemplateData(model, codec, "")
+	got, err := newRustTemplateData(model, codec, "")
+	if err != nil {
+		t.Fatal(err)
+	}
 	want := "gcp_sdk_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)

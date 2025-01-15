@@ -151,8 +151,20 @@ type RustEnumValue struct {
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTemplateData {
+func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemplateData, error) {
 	c.hasServices = len(model.State.ServiceByID) > 0
+
+	// Set the source package. We should always take the first service registered
+	// as the source package. Services with mixins will register those after the
+	// source package.
+	if len(model.Services) > 0 {
+		c.sourceSpecificationPackageName = model.Services[0].Package
+	} else if len(model.Messages) > 0 {
+		c.sourceSpecificationPackageName = model.Messages[0].Package
+	}
+	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
+		return nil, err
+	}
 	rustLoadWellKnownTypes(model.State)
 	rustResolveUsedPackages(model, c.extraPackages)
 	packageName := rustPackageName(model, c.packageNameOverride)
@@ -218,7 +230,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTempl
 			}
 		}
 	}
-	return data
+	return data, nil
 }
 
 func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustService {
