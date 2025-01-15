@@ -27,6 +27,7 @@
 
 use crate::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use crate::polling_backoff_policy::{PollingBackoffPolicy, PollingBackoffPolicyArg};
+use crate::polling_policy::{PollingPolicy, PollingPolicyArg};
 use crate::retry_policy::{RetryPolicy, RetryPolicyArg};
 use crate::retry_throttler::{RetryThrottlerArg, RetryThrottlerWrapped};
 use auth::credentials::Credential;
@@ -47,6 +48,7 @@ pub struct RequestOptions {
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
     pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     pub(crate) retry_throttler: Option<RetryThrottlerWrapped>,
+    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
     pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
@@ -114,6 +116,11 @@ impl RequestOptions {
         self.retry_throttler = Some(v.into().0);
     }
 
+    /// Sets the polling policy configuration.
+    pub fn set_polling_policy<V: Into<PollingPolicyArg>>(&mut self, v: V) {
+        self.polling_policy = Some(v.into().0);
+    }
+
     /// Sets the backoff policy configuration.
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
@@ -147,6 +154,9 @@ pub trait RequestOptionsBuilder {
 
     /// Sets the retry throttler configuration.
     fn with_retry_throttler<V: Into<RetryThrottlerArg>>(self, v: V) -> Self;
+
+    /// Sets the polling policy configuration.
+    fn with_polling_policy<V: Into<PollingPolicyArg>>(self, v: V) -> Self;
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
@@ -197,6 +207,11 @@ where
         self
     }
 
+    fn with_polling_policy<V: Into<PollingPolicyArg>>(mut self, v: V) -> Self {
+        self.request_options().set_polling_policy(v);
+        self
+    }
+
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.request_options().set_polling_backoff_policy(v);
         self
@@ -217,6 +232,7 @@ pub struct ClientConfig {
     pub(crate) retry_policy: Option<Arc<dyn RetryPolicy>>,
     pub(crate) backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     pub(crate) retry_throttler: RetryThrottlerWrapped,
+    pub(crate) polling_policy: Option<Arc<dyn PollingPolicy>>,
     pub(crate) polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
@@ -280,6 +296,12 @@ impl ClientConfig {
     }
 
     /// Configure the polling backoff policy.
+    pub fn set_polling_policy<V: Into<PollingPolicyArg>>(mut self, v: V) -> Self {
+        self.polling_policy = Some(v.into().0);
+        self
+    }
+
+    /// Configure the polling backoff policy.
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(mut self, v: V) -> Self {
         self.polling_backoff_policy = Some(v.into().0);
         self
@@ -297,6 +319,7 @@ impl std::default::Default for ClientConfig {
             retry_policy: None,
             backoff_policy: None,
             retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+            polling_policy: None,
             polling_backoff_policy: None,
         }
     }
@@ -306,6 +329,7 @@ impl std::default::Default for ClientConfig {
 mod test {
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;
+    use crate::polling_policy;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
     use std::time::Duration;
@@ -348,6 +372,9 @@ mod test {
 
         opts.set_retry_throttler(AdaptiveThrottler::default());
         assert!(opts.retry_throttler.is_some(), "{opts:?}");
+
+        opts.set_polling_policy(polling_policy::Aip194Strict);
+        assert!(opts.polling_policy.is_some(), "{opts:?}");
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy.is_some(), "{opts:?}");
@@ -405,6 +432,12 @@ mod test {
         let mut builder = TestBuilder::default().with_retry_throttler(AdaptiveThrottler::default());
         assert!(
             builder.request_options().retry_throttler.is_some(),
+            "{builder:?}"
+        );
+
+        let mut builder = TestBuilder::default().with_polling_policy(polling_policy::Aip194Strict);
+        assert!(
+            builder.request_options().polling_policy.is_some(),
             "{builder:?}"
         );
 
@@ -497,6 +530,12 @@ mod test {
         assert!(!throttler.throttle_retry_attempt());
 
         Ok(())
+    }
+
+    #[test]
+    fn config_polling() {
+        let config = ClientConfig::new().set_polling_policy(polling_policy::AlwaysContinue);
+        assert!(config.polling_policy.is_some());
     }
 
     #[test]
