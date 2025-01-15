@@ -12,6 +12,7 @@ require (
 	github.com/pb33f/libopenapi v0.20.0
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/walle/targz v0.0.0-20140417120357-57fe4206da5a
+	github.com/yuin/goldmark v1.7.8
 	google.golang.org/genproto v0.0.0-20241219192143-6b3ec007d9bb
 	google.golang.org/genproto/googleapis/api v0.0.0-20241219192143-6b3ec007d9bb
 	google.golang.org/protobuf v1.36.2
