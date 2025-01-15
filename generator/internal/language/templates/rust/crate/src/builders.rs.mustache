@@ -94,6 +94,8 @@ impl {{NameToPascal}} {
     ) -> impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
     {
         type Operation = lro::Operation<{{ResponseType}}, {{MetadataType}}>;
+        let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+        let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
         let query = move |name| {
@@ -112,7 +114,7 @@ impl {{NameToPascal}} {
             Ok(Operation::new(op))
         };
 
-        lro::new_poller(start, query)
+        lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
     {{/OperationInfo}}
     {{#InputType.BasicFields}}

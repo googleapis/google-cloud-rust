@@ -160,4 +160,16 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<wkt::Empty>> + Send {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
+
+    /// Returns the polling policy.
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+
+    /// Returns the polling backoff policy.
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }

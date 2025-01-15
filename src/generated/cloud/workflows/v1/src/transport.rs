@@ -273,4 +273,18 @@ impl crate::traits::Workflows for Workflows {
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
     }
+
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
+        self.inner.get_polling_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
 }

@@ -49,6 +49,22 @@ where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     }
 
     {{/Methods}}
+    {{#HasLROs}}
+
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy> {
+        self.inner.get_polling_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+    {{/HasLROs}}
 }
 
 {{/Services}}

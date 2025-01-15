@@ -66,6 +66,8 @@ impl CreateResource {
         type Operation =
             gcp_sdk_lro::Operation<super::model::Resource, super::model::CreateResourceMetadata>;
 
+        let polling_policy = self.stub.get_polling_policy(&self.options);
+        let polling_backoff_policy = self.stub.get_polling_backoff_policy(&self.options);
         let stub = self.stub.clone();
         let options = self.options.clone()
             // TODO(684) - use NoRetries policy here.
@@ -87,7 +89,7 @@ impl CreateResource {
             let op = self.send().await?;
             Ok(Operation::new(op))
         };
-        gcp_sdk_lro::new_poller(start, query)
+        gcp_sdk_lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
 
     pub async fn until_done(self) -> Result<super::model::Resource> {

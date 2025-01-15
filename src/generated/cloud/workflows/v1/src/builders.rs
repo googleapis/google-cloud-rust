@@ -187,6 +187,8 @@ impl CreateWorkflow {
         self,
     ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
         type Operation = lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+        let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+        let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
         let query = move |name| {
@@ -205,7 +207,7 @@ impl CreateWorkflow {
             Ok(Operation::new(op))
         };
 
-        lro::new_poller(start, query)
+        lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
 
     /// Sets the value of `parent`.
@@ -264,6 +266,8 @@ impl DeleteWorkflow {
     /// Creates a [Poller][lro::Poller] to work with `delete_workflow`.
     pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
         type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+        let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
         let query = move |name| {
@@ -282,7 +286,7 @@ impl DeleteWorkflow {
             Ok(Operation::new(op))
         };
 
-        lro::new_poller(start, query)
+        lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
 
     /// Sets the value of `name`.
@@ -331,6 +335,8 @@ impl UpdateWorkflow {
         self,
     ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
         type Operation = lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+        let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+        let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
         let query = move |name| {
@@ -349,7 +355,7 @@ impl UpdateWorkflow {
             Ok(Operation::new(op))
         };
 
-        lro::new_poller(start, query)
+        lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
 
     /// Sets the value of `workflow`.
