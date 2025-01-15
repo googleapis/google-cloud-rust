@@ -42,8 +42,6 @@ pub(crate) struct ServiceAccountInfo {
     client_email: String,
     private_key_id: String,
     private_key: String,
-    auth_uri: String,
-    token_uri: String,
     project_id: String,
     universe_domain: String,
 }
@@ -109,7 +107,6 @@ impl ServiceAccountTokenProvider {
                 CredentialError::non_retryable("missing PEM section in service account key")
             })?;
         let pk = match private_key {
-            Item::Pkcs1Key(item) => key_provider.load_private_key(item.into()),
             Item::Pkcs8Key(item) => key_provider.load_private_key(item.into()),
             other => {
                 return Err(Self::unexpected_private_key_error(other));
@@ -123,7 +120,7 @@ impl ServiceAccountTokenProvider {
 
     fn unexpected_private_key_error(private_key_format: Item) -> CredentialError {
         CredentialError::non_retryable(format!(
-            "expected key to be in form of PKCS1 or PKCS8, found {:?}",
+            "expected key to be in form of PKCS8, found {:?}",
             private_key_format
         ))
     }
@@ -256,8 +253,6 @@ mod test {
             .client_email("")
             .private_key_id("")
             .private_key("")
-            .auth_uri("")
-            .token_uri("")
             .project_id("")
             .universe_domain("")
             .build()
@@ -275,14 +270,18 @@ mod test {
     }
 
     #[tokio::test]
-    async fn get_service_account_token_pkcs1_key_success() -> TestResult {
+    async fn get_service_account_token_pkcs1_key_failure() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         service_account_info.private_key = generate_pkcs1_key();
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
-        assert!(token_provider.get_token().await.is_ok());
+        let expected_error_message = "expected key to be in form of PKCS8, found Pkcs1Key";
+        assert!(token_provider
+            .get_token()
+            .await
+            .is_err_and(|e| e.to_string().contains(expected_error_message)));
         Ok(())
     }
 
@@ -338,7 +337,7 @@ mod test {
     #[test]
     fn unexpected_private_key_error_message() -> TestResult {
         let expected_message = format!(
-            "expected key to be in form of PKCS1 or PKCS8, found {:?}",
+            "expected key to be in form of PKCS8, found {:?}",
             Item::Crl(Vec::new().into()) // Example unsupported key type
         );
 
