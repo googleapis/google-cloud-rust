@@ -19,6 +19,9 @@ use crate::error::ServiceError;
 use crate::exponential_backoff::ExponentialBackoff;
 use crate::loop_state::LoopState;
 use crate::options;
+use crate::polling_backoff_policy::PollingBackoffPolicy;
+use crate::polling_policy::Aip194Strict;
+use crate::polling_policy::PollingPolicy;
 use crate::retry_policy::RetryPolicy;
 use crate::retry_throttler::RetryThrottlerWrapped;
 use crate::Result;
@@ -33,6 +36,8 @@ pub struct ReqwestClient {
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
     retry_throttler: RetryThrottlerWrapped,
+    polling_policy: Option<Arc<dyn PollingPolicy>>,
+    polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
 }
 
 impl ReqwestClient {
@@ -55,6 +60,8 @@ impl ReqwestClient {
             retry_policy: config.retry_policy,
             backoff_policy: config.backoff_policy,
             retry_throttler: config.retry_throttler,
+            polling_policy: config.polling_policy,
+            polling_backoff_policy: config.polling_backoff_policy,
         })
     }
 
@@ -243,6 +250,28 @@ impl ReqwestClient {
             .retry_throttler
             .clone()
             .unwrap_or_else(|| self.retry_throttler.clone())
+    }
+
+    pub fn get_polling_policy(
+        &self,
+        options: &options::RequestOptions,
+    ) -> Arc<dyn crate::polling_policy::PollingPolicy> {
+        options
+            .polling_policy
+            .clone()
+            .or_else(|| self.polling_policy.clone())
+            .unwrap_or_else(|| Arc::new(Aip194Strict))
+    }
+
+    pub fn get_polling_backoff_policy(
+        &self,
+        options: &options::RequestOptions,
+    ) -> Arc<dyn crate::polling_backoff_policy::PollingBackoffPolicy> {
+        options
+            .polling_backoff_policy
+            .clone()
+            .or_else(|| self.polling_backoff_policy.clone())
+            .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
     }
 }
 
