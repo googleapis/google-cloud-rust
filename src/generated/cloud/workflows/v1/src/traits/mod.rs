@@ -57,7 +57,6 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
     /// Creates a new workflow. If a workflow with the specified name already
     /// exists in the specified project and location, the long running operation
     /// returns a [ALREADY_EXISTS][google.rpc.Code.ALREADY_EXISTS] error.
-    ///
     fn create_workflow(
         &self,
         _req: crate::model::CreateWorkflowRequest,

@@ -891,7 +891,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 	}
 	sort.Strings(sortedLinks)
 	for _, link := range sortedLinks {
-		rusty := c.rustdocLink(link, state)
+		rusty := rustDocLink(link, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		if rusty == "" {
 			continue
 		}
@@ -905,6 +905,42 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 		results[i] = strings.TrimRightFunc(fmt.Sprintf("/// %s", line), unicode.IsSpace)
 	}
 	return results
+}
+
+func extractProtoLinks(line string, links map[string]bool) {
+	for _, match := range commentLinkRegex.FindAllString(line, -1) {
+		match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
+		links[match] = true
+	}
+}
+
+// Encloses standalone URLs with angled brackets .
+func escapeUrls(line string) string {
+	var escapedLine strings.Builder
+	lastIndex := 0
+
+	for _, match := range commentUrlRegex.FindAllStringIndex(line, -1) {
+		if isLinkDestination(line, match[0], match[1]) {
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
+			continue
+		}
+		url := line[match[0]:match[1]]
+		escapedLine.WriteString(line[lastIndex:match[0]])
+		if strings.HasSuffix(url, ".") {
+			escapedLine.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(url, ".")))
+		} else {
+			escapedLine.WriteString(fmt.Sprintf("<%s>", url))
+		}
+		lastIndex = match[1]
+	}
+	escapedLine.WriteString(line[lastIndex:])
+	return escapedLine.String()
+}
+
+// Verifies whether the url is part of a link destination.
+func isLinkDestination(line string, matchStart, matchEnd int) bool {
+	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
 }
 
 func rustDocLink(link string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
