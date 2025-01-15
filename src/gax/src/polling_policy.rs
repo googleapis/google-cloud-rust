@@ -400,6 +400,7 @@ where
 mod tests {
     use super::*;
     use crate::error::{rpc::Status, ServiceError};
+    use std::time::{Duration, Instant};
 
     // Verify `PollingPolicyArg` can be converted from the desired types.
     #[test]
@@ -456,15 +457,50 @@ mod tests {
         assert!(p.on_error(now, 0, error).is_continue());
     }
 
+    #[test]
+    fn with_time_limit() {
+        let policy = AlwaysContinue.with_time_limit(Duration::from_secs(10));
+        assert!(
+            policy
+                .on_error(
+                    Instant::now() - Duration::from_secs(1),
+                    1,
+                    permission_denied()
+                )
+                .is_continue(),
+            "{policy:?}"
+        );
+        assert!(
+            policy
+                .on_error(
+                    Instant::now() - Duration::from_secs(20),
+                    1,
+                    permission_denied()
+                )
+                .is_exhausted(),
+            "{policy:?}"
+        );
+    }
+
+    #[test]
+    fn with_attempt_limit() {
+        let policy = AlwaysContinue.with_attempt_limit(3);
+        assert!(
+            policy
+                .on_error(Instant::now(), 1, permission_denied())
+                .is_continue(),
+            "{policy:?}"
+        );
+        assert!(
+            policy
+                .on_error(Instant::now(), 5, permission_denied())
+                .is_exhausted(),
+            "{policy:?}"
+        );
+    }
+
     fn from_status(status: Status) -> Error {
-        use std::collections::HashMap;
-        let payload = serde_json::to_value(&status)
-            .ok()
-            .map(|v| serde_json::json!({"error": v}));
-        let payload = payload.map(|v| v.to_string());
-        let payload = payload.map(bytes::Bytes::from_owner);
-        let http = crate::error::HttpError::new(status.code as u16, HashMap::new(), payload);
-        Error::rpc(http)
+        Error::rpc(crate::error::ServiceError::from(status))
     }
 
     fn http_unavailable() -> Error {
@@ -499,6 +535,23 @@ mod tests {
         Error::rpc(ServiceError::from(status))
     }
 
+    #[test]
+    fn test_limited_elapsed_time() {
+        let policy = LimitedElapsedTime::new(Duration::from_secs(20));
+        assert!(
+            policy
+                .on_error(Instant::now() - Duration::from_secs(10), 1, unavailable())
+                .is_continue(),
+            "{policy:?}"
+        );
+        assert!(
+            policy
+                .on_error(Instant::now() - Duration::from_secs(30), 1, unavailable())
+                .is_exhausted(),
+            "{policy:?}"
+        );
+    }
+
     mockall::mock! {
         #[derive(Debug)]
         Policy {}
@@ -506,8 +559,6 @@ mod tests {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> LoopState;
         }
     }
-
-    use std::time::Duration;
 
     #[test]
     fn test_limited_time_forwards() {
