@@ -29,6 +29,7 @@ longrunning = { version = "0.1.0", path = "../generated/longrunning", package = 
 rpc         = { version = "0.1.0", path = "../generated/rpc", package = "gcp-sdk-rpc" }
 wkt         = { version = "0.1.0", path = "../wkt", package = "gcp-sdk-wkt" }
 serde       = "1.0.216"
+tokio       = { version = "1.42", features = ["time"] }
 futures     = { version = "0.3.31", optional = true }
 pin-project = { version = "1.1.8", optional = true }
 

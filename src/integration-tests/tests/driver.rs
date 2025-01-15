@@ -67,8 +67,28 @@ mod driver {
     #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
     #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_workflows(config: Option<Config>) -> integration_tests::Result<()> {
-        integration_tests::workflows::run(config)
+    async fn workflows_until_done(config: Option<Config>) -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done(config)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn workflows_explicit(config: Option<Config>) -> integration_tests::Result<()> {
+        integration_tests::workflows::explicit_loop(config)
+            .await
+            .map_err(report)
+    }
+
+    #[test_case(None; "default")]
+    #[test_case(Some(Config::new().enable_tracing()); "with tracing enabled")]
+    #[test_case(Some(Config::new().set_retry_policy(retry_policy())); "with retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn workflows_manual(config: Option<Config>) -> integration_tests::Result<()> {
+        integration_tests::workflows::until_done(config)
             .await
             .map_err(report)
     }
