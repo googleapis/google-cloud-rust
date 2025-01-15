@@ -273,8 +273,8 @@ func rustLoadWellKnownTypes(s *api.APIState) {
 	}
 }
 
-func (c *rustCodec) resolveUsedPackages(model *api.API) {
-	c.hasServices = len(model.State.ServiceByID) > 0
+func rustResolveUsedPackages(model *api.API, extraPackages []*rustPackage) {
+	hasServices := len(model.State.ServiceByID) > 0
 	hasLROs := false
 	for _, s := range model.Services {
 		if hasLROs {
@@ -287,12 +287,12 @@ func (c *rustCodec) resolveUsedPackages(model *api.API) {
 			}
 		}
 	}
-	for _, pkg := range c.extraPackages {
+	for _, pkg := range extraPackages {
 		if pkg.used {
 			continue
 		}
 		for _, namedFeature := range pkg.usedIf {
-			if namedFeature == "services" && c.hasServices {
+			if namedFeature == "services" && hasServices {
 				pkg.used = true
 				break
 			}

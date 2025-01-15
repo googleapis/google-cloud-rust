@@ -152,8 +152,9 @@ type RustEnumValue struct {
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
 func newRustTemplateData(model *api.API, c *rustCodec, outdir string) *RustTemplateData {
+	c.hasServices = len(model.State.ServiceByID) > 0
 	rustLoadWellKnownTypes(model.State)
-	c.resolveUsedPackages(model)
+	rustResolveUsedPackages(model, c.extraPackages)
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	hasLROs := false
