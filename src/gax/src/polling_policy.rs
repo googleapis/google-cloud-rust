@@ -500,7 +500,14 @@ mod tests {
     }
 
     fn from_status(status: Status) -> Error {
-        Error::rpc(crate::error::ServiceError::from(status))
+        use std::collections::HashMap;
+        let payload = serde_json::to_value(&status)
+            .ok()
+            .map(|v| serde_json::json!({"error": v}));
+        let payload = payload.map(|v| v.to_string());
+        let payload = payload.map(bytes::Bytes::from_owner);
+        let http = crate::error::HttpError::new(status.code as u16, HashMap::new(), payload);
+        Error::rpc(http)
     }
 
     fn http_unavailable() -> Error {
