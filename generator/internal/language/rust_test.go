@@ -190,12 +190,8 @@ func TestRust_Validate(t *testing.T) {
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
-	c := &rustCodec{}
-	if err := c.validate(model); err != nil {
+	if err := rustValidate(model, "p1"); err != nil {
 		t.Errorf("unexpected error in API validation %q", err)
-	}
-	if c.sourceSpecificationPackageName != "p1" {
-		t.Errorf("mismatched source package name, want=p1, got=%s", c.sourceSpecificationPackageName)
 	}
 }
 
@@ -205,7 +201,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c := &rustCodec{}
-	if err := c.validate(test); err == nil {
+	if err := rustValidate(test, c.sourceSpecificationPackageName); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
@@ -214,7 +210,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
 	c = &rustCodec{}
-	if err := c.validate(test); err == nil {
+	if err := rustValidate(test, c.sourceSpecificationPackageName); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
@@ -223,7 +219,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
 	c = &rustCodec{}
-	if err := c.validate(test); err == nil {
+	if err := rustValidate(test, c.sourceSpecificationPackageName); err == nil {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 }
@@ -1505,7 +1501,8 @@ func TestRust_MessageNames(t *testing.T) {
 	model.PackageName = "test"
 
 	c := createRustCodec()
-	if err := c.validate(model); err != nil {
+	c.sourceSpecificationPackageName = model.Messages[0].Package
+	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		t.Fatal(err)
 	}
 	if got := rustMessageName(message); got != "Replication" {
@@ -1553,7 +1550,8 @@ func TestRust_EnumNames(t *testing.T) {
 	model := newTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
 	model.PackageName = "test"
 	c := createRustCodec()
-	if err := c.validate(model); err != nil {
+	c.sourceSpecificationPackageName = model.Messages[0].Package
+	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		t.Fatal(err)
 	}
 	for _, test := range []struct {

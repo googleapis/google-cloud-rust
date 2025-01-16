@@ -1052,41 +1052,33 @@ func rustPackageName(api *api.API, packageNameOverride string) string {
 	return "gcp-sdk-" + name
 }
 
-func (c *rustCodec) validatePackageName(newPackage, elementName string) error {
-	if c.sourceSpecificationPackageName == newPackage {
-		return nil
+func rustValidate(api *api.API, sourceSpecificationPackageName string) error {
+	validatePkg := func(newPackage, elementName string) error {
+		if sourceSpecificationPackageName == newPackage {
+			return nil
+		}
+		// Special exceptions for mixin services
+		if newPackage == "google.cloud.location" ||
+			newPackage == "google.iam.v1" ||
+			newPackage == "google.longrunning" {
+			return nil
+		}
+		return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+			sourceSpecificationPackageName, newPackage, elementName)
 	}
-	// Special exceptions for mixin services
-	if newPackage == "google.cloud.location" ||
-		newPackage == "google.iam.v1" ||
-		newPackage == "google.longrunning" {
-		return nil
-	}
-	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
-		c.sourceSpecificationPackageName, newPackage, elementName)
-}
 
-func (c *rustCodec) validate(api *api.API) error {
-	// Set the source package. We should always take the first service registered
-	// as the source package. Services with mixins will register those after the
-	// source package.
-	if len(api.Services) > 0 {
-		c.sourceSpecificationPackageName = api.Services[0].Package
-	} else if len(api.Messages) > 0 {
-		c.sourceSpecificationPackageName = api.Messages[0].Package
-	}
 	for _, s := range api.Services {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := validatePkg(s.Package, s.ID); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Messages {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := validatePkg(s.Package, s.ID); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Enums {
-		if err := c.validatePackageName(s.Package, s.ID); err != nil {
+		if err := validatePkg(s.Package, s.ID); err != nil {
 			return err
 		}
 	}
