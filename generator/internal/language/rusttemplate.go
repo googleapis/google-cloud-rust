@@ -215,7 +215,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
 	data.RequiredPackages = rustRequiredPackages(outdir, c.extraPackages)
-	c.addStreamingFeature(data, model)
+	rustAddStreamingFeature(data, model, c.extraPackages)
 
 	messagesByID := map[string]*RustMessage{}
 	for _, m := range data.Messages {
