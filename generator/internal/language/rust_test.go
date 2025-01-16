@@ -1126,6 +1126,7 @@ Maybe they wanted to show some JSON:
 		"/// The next line has some extra trailing whitespace:",
 		"///",
 		"/// We want to respect whitespace at the beginning, because it important in Markdown:",
+		"///",
 		"/// - A thing",
 		"///   - A nested thing",
 		"/// - The next thing",

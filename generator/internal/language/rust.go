@@ -804,8 +804,12 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 			}
 		case ast.KindList:
 			if entering {
-				formattedOutput := processListItems(node, links, documentationBytes)
+				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
+					return ast.WalkContinue, nil
+				}
+				formattedOutput := processList(node.(*ast.List), 0, documentationBytes, links)
 				results = append(results, formattedOutput...)
+				results = append(results, "\n")
 			}
 		case ast.KindParagraph:
 			if entering {
@@ -889,35 +893,48 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
 }
 
-func processListItems(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
+func processList(list *ast.List, indentLevel int, documentationBytes []byte, links map[string]bool) []string {
 	var results []string
-	listMarker := string(node.(*ast.List).Marker)
-	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
+	listMarker := string(list.Marker)
+	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
-			textNode := child.FirstChild()
-			if textNode != nil {
-				if textNode.Kind() == ast.KindParagraph || textNode.Kind() == ast.KindTextBlock {
-					firstLine := textNode.Lines().At(0)
-					firstLineString := string(firstLine.Value(documentationBytes))
-					extractProtoLinks(firstLineString, links)
-					escapedFirstLine := escapeUrls(firstLineString)
-					results = append(results, fmt.Sprintf("%s %s\n", listMarker, escapedFirstLine))
-					for i := 1; i < textNode.Lines().Len(); i++ {
-						line := textNode.Lines().At(i)
-						lineString := string(line.Value(documentationBytes))
-						extractProtoLinks(lineString, links)
-						escapedLine := escapeUrls(lineString)
-						results = append(results, fmt.Sprintf("  %s", escapedLine))
-					}
-				}
-				if textNode.Kind() == ast.KindParagraph {
-					results = append(results, "\n")
-				}
+			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, links)
+			results = append(results, listItems...)
+		}
+	}
+	return results
+}
+
+func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, links map[string]bool) []string {
+	var results []string
+	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindList {
+			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, links)
+			results = append(results, nestedListItems...)
+			break
+		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+			firstLine := child.Lines().At(0)
+			firstLineString := string(firstLine.Value(documentationBytes))
+			extractProtoLinks(firstLineString, links)
+			escapedFirstLine := escapeUrls(firstLineString)
+			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, escapedFirstLine))
+			for i := 1; i < child.Lines().Len(); i++ {
+				line := child.Lines().At(i)
+				lineString := string(line.Value(documentationBytes))
+				extractProtoLinks(lineString, links)
+				escapedLine := escapeUrls(lineString)
+				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), escapedLine))
+			}
+			if child.Kind() == ast.KindParagraph {
+				results = append(results, "\n")
 			}
 		}
 	}
-	results = append(results, "\n")
 	return results
+}
+
+func indent(level int) string {
+	return fmt.Sprintf("%*s", level*2, "")
 }
 
 func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
