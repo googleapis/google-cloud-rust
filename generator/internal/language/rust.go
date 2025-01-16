@@ -819,7 +819,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 			if entering {
 				heading := node.(*ast.Heading)
 				headingPrefix := strings.Repeat("#", heading.Level)
-				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.Text(documentationBytes))))
+				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.BaseBlock.Lines().Value(documentationBytes))))
 				results = append(results, "\n")
 
 			}
