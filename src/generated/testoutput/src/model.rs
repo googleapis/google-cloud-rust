@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -152,6 +152,7 @@
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Color {
+
     /// The amount of red in the color as a value in the interval [0, 1].
     pub red: f32,
 
@@ -177,6 +178,7 @@ pub struct Color {
 }
 
 impl Color {
+
     /// Sets the value of `red`.
     pub fn set_red<T: Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
@@ -228,6 +230,7 @@ impl wkt::message::Message for Color {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Date {
+
     /// Year of the date. Must be from 1 to 9999, or 0 to specify a date without
     /// a year.
     pub year: i32,
@@ -243,6 +246,7 @@ pub struct Date {
 }
 
 impl Date {
+
     /// Sets the value of `year`.
     pub fn set_year<T: Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
@@ -297,6 +301,7 @@ impl wkt::message::Message for Date {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DateTime {
+
     /// Optional. Year of date. Must be from 1 to 9999, or 0 if specifying a
     /// datetime without a year.
     pub year: i32,
@@ -334,6 +339,7 @@ pub struct DateTime {
 }
 
 impl DateTime {
+
     /// Sets the value of `year`.
     pub fn set_year<T: Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
@@ -377,10 +383,7 @@ impl DateTime {
     }
 
     /// Sets the value of `time_offset`.
-    pub fn set_time_offset<T: Into<Option<crate::model::date_time::TimeOffset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
+    pub fn set_time_offset<T: Into<Option<crate::model::date_time::TimeOffset>>>(mut self, v: T) ->Self {
         self.time_offset = v.into();
         self
     }
@@ -420,6 +423,7 @@ pub mod date_time {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TimeZone {
+
     /// IANA Time Zone Database time zone, e.g. "America/New_York".
     #[serde(skip_serializing_if = "String::is_empty")]
     pub id: String,
@@ -430,6 +434,7 @@ pub struct TimeZone {
 }
 
 impl TimeZone {
+
     /// Sets the value of `id`.
     pub fn set_id<T: Into<String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -462,6 +467,7 @@ impl wkt::message::Message for TimeZone {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Decimal {
+
     /// The decimal value, as a string.
     ///
     /// The string representation consists of an optional sign, `+` (`U+002B`)
@@ -529,6 +535,7 @@ pub struct Decimal {
 }
 
 impl Decimal {
+
     /// Sets the value of `value`.
     pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
         self.value = v.into();
@@ -586,6 +593,7 @@ impl wkt::message::Message for Decimal {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Expr {
+
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -609,6 +617,7 @@ pub struct Expr {
 }
 
 impl Expr {
+
     /// Sets the value of `expression`.
     pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
         self.expression = v.into();
@@ -646,6 +655,7 @@ impl wkt::message::Message for Expr {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Fraction {
+
     /// The numerator in the fraction, e.g. 2 in 2/3.
     #[serde_as(as = "serde_with::DisplayFromStr")]
     pub numerator: i64,
@@ -657,6 +667,7 @@ pub struct Fraction {
 }
 
 impl Fraction {
+
     /// Sets the value of `numerator`.
     pub fn set_numerator<T: Into<i64>>(mut self, v: T) -> Self {
         self.numerator = v.into();
@@ -687,6 +698,7 @@ impl wkt::message::Message for Fraction {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Interval {
+
     /// Optional. Inclusive start of the interval.
     ///
     /// If specified, a Timestamp matching this interval will have to be the same
@@ -703,6 +715,7 @@ pub struct Interval {
 }
 
 impl Interval {
+
     /// Sets the value of `start_time`.
     pub fn set_start_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.start_time = v.into();
@@ -732,6 +745,7 @@ impl wkt::message::Message for Interval {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LatLng {
+
     /// The latitude in degrees. It must be in the range [-90.0, +90.0].
     pub latitude: f64,
 
@@ -740,6 +754,7 @@ pub struct LatLng {
 }
 
 impl LatLng {
+
     /// Sets the value of `latitude`.
     pub fn set_latitude<T: Into<f64>>(mut self, v: T) -> Self {
         self.latitude = v.into();
@@ -765,6 +780,7 @@ impl wkt::message::Message for LatLng {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LocalizedText {
+
     /// Localized string in the language corresponding to `language_code' below.
     #[serde(skip_serializing_if = "String::is_empty")]
     pub text: String,
@@ -778,6 +794,7 @@ pub struct LocalizedText {
 }
 
 impl LocalizedText {
+
     /// Sets the value of `text`.
     pub fn set_text<T: Into<String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -803,6 +820,7 @@ impl wkt::message::Message for LocalizedText {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Money {
+
     /// The three-letter currency code defined in ISO 4217.
     #[serde(skip_serializing_if = "String::is_empty")]
     pub currency_code: String,
@@ -822,6 +840,7 @@ pub struct Money {
 }
 
 impl Money {
+
     /// Sets the value of `currency_code`.
     pub fn set_currency_code<T: Into<String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
@@ -881,6 +900,7 @@ impl wkt::message::Message for Money {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PhoneNumber {
+
     /// The phone number's extension. The extension is not standardized in ITU
     /// recommendations, except for being defined as a series of numbers with a
     /// maximum length of 40 digits. Other than digits, some other dialing
@@ -901,6 +921,7 @@ pub struct PhoneNumber {
 }
 
 impl PhoneNumber {
+
     /// Sets the value of `extension`.
     pub fn set_extension<T: Into<String>>(mut self, v: T) -> Self {
         self.extension = v.into();
@@ -908,7 +929,7 @@ impl PhoneNumber {
     }
 
     /// Sets the value of `kind`.
-    pub fn set_kind<T: Into<Option<crate::model::phone_number::Kind>>>(mut self, v: T) -> Self {
+    pub fn set_kind<T: Into<Option<crate::model::phone_number::Kind>>>(mut self, v: T) ->Self {
         self.kind = v.into();
         self
     }
@@ -937,6 +958,7 @@ pub mod phone_number {
     #[serde(default, rename_all = "camelCase")]
     #[non_exhaustive]
     pub struct ShortCode {
+
         /// Required. The BCP-47 region code of the location where calls to this
         /// short code can be made, such as "US" and "BB".
         ///
@@ -953,6 +975,7 @@ pub mod phone_number {
     }
 
     impl ShortCode {
+
         /// Sets the value of `region_code`.
         pub fn set_region_code<T: Into<String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
@@ -1029,6 +1052,7 @@ pub mod phone_number {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct PostalAddress {
+
     /// The schema revision of the `PostalAddress`. This must be set to 0, which is
     /// the latest revision.
     ///
@@ -1132,6 +1156,7 @@ pub struct PostalAddress {
 }
 
 impl PostalAddress {
+
     /// Sets the value of `revision`.
     pub fn set_revision<T: Into<i32>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -1269,6 +1294,7 @@ impl wkt::message::Message for PostalAddress {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Quaternion {
+
     /// The x component.
     pub x: f64,
 
@@ -1283,6 +1309,7 @@ pub struct Quaternion {
 }
 
 impl Quaternion {
+
     /// Sets the value of `x`.
     pub fn set_x<T: Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -1325,6 +1352,7 @@ impl wkt::message::Message for Quaternion {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TimeOfDay {
+
     /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
     /// to allow the value "24:00:00" for scenarios like business closing time.
     pub hours: i32,
@@ -1341,6 +1369,7 @@ pub struct TimeOfDay {
 }
 
 impl TimeOfDay {
+
     /// Sets the value of `hours`.
     pub fn set_hours<T: Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
