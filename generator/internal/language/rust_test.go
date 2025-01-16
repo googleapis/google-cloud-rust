@@ -403,7 +403,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
 	data := &RustTemplateData{}
-	codec.addStreamingFeature(data, model)
+	rustAddStreamingFeature(data, model, codec.extraPackages)
 	if data.HasFeatures {
 		t.Errorf("mismatch in data.HasFeatures, expected `HasFeatures: false`, got=%v", data)
 	}
@@ -472,7 +472,7 @@ func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
 	data := &RustTemplateData{}
-	codec.addStreamingFeature(data, model)
+	rustAddStreamingFeature(data, model, codec.extraPackages)
 	want := []string{wantFeatures}
 	if !data.HasFeatures {
 		t.Errorf("mismatch in data.HasFeatures, expected `HasFeatures: true`, got=%v", data)

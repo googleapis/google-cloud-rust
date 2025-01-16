@@ -1085,7 +1085,7 @@ func rustValidate(api *api.API, sourceSpecificationPackageName string) error {
 	return nil
 }
 
-func (c *rustCodec) addStreamingFeature(data *RustTemplateData, api *api.API) {
+func rustAddStreamingFeature(data *RustTemplateData, api *api.API, extraPackages []*rustPackage) {
 	var hasStreamingRPC bool
 	for _, m := range api.Messages {
 		if m.IsPageableResponse {
@@ -1102,7 +1102,7 @@ func (c *rustCodec) addStreamingFeature(data *RustTemplateData, api *api.API) {
 		return fmt.Sprintf(`"%s/unstable-stream"`, name)
 	}
 	deps := []string{feature("gax")}
-	for _, p := range c.extraPackages {
+	for _, p := range extraPackages {
 		if p.ignore || !p.used {
 			continue
 		}
