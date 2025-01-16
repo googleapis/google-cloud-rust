@@ -15,3 +15,37 @@
 variable "project" {
   type = string
 }
+
+# Create a bucket to cache build artifacts.
+resource "google_storage_bucket" "build-cache" {
+  name          = "${var.project}-build-cache"
+  force_destroy = false
+  # This prevents Terraform from deleting the bucket. Any plan to do so is
+  # rejected. If we really need to delete the bucket we must take additional
+  # steps.
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  # The bucket configuration.
+  location                    = "US-CENTRAL1"
+  storage_class               = "STANDARD"
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = false
+  }
+  # Remove objects older than 90d. It is unlikely that any build artifact is
+  # usefull after that long, and we can always rebuild them if needed.
+  lifecycle_rule {
+    condition {
+      age = 90
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
+output "build-cache" {
+  value = resource.google_storage_bucket.build-cache.id
+}

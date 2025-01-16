@@ -20,11 +20,23 @@ options:
     - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
     - GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=set-iam-test-only@${PROJECT_ID}.iam.gserviceaccount.com
     - GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=test-workflow-runner@${PROJECT_ID}.iam.gserviceaccount.com
+    - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
+    - SCCACHE_GCS_RW_MODE=READ_WRITE
+    - SCCACHE_GCS_KEY_PREFIX=sccache/integration
+    - RUSTC_WRAPPER=/workspace/.bin/sccache
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'rust:1.82-bookworm'
-    args: ['cargo', 'build']
-  - name: 'rust:1.82-bookworm'
-    args: ['cargo', 'test', '--tests', '--bins', '--lib']
-  - name: 'rust:1.82-bookworm'
-    args: ['cargo', 'test', '--package', 'integration-tests', '--features', 'run-integration-tests']
+  - name: 'gcr.io/cloud-builders/curl'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      mkdir -p .bin
+      curl -fsSL https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
+        tar -C /workspace/.bin -zxf - --strip-components=1
+      chmod 755 /workspace/.bin/sccache
+  - name: 'rust:1.84-bookworm'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      cargo build
+      cargo test --package integration-tests --features run-integration-tests

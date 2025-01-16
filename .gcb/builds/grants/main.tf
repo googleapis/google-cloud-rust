@@ -16,6 +16,10 @@ variable "project" {
   type = string
 }
 
+variable "build_cache" {
+  type = string
+}
+
 data "google_project" "project" {
 }
 
@@ -28,6 +32,13 @@ data "google_service_account" "integration-test-runner" {
 resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
   bucket = "${var.project}_cloudbuild"
   role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The service account will need to read and write into the build cache.
+resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
+  bucket = var.build_cache
+  role   = "roles/storage.admin"
   member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
