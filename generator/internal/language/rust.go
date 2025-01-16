@@ -788,56 +788,24 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 		switch node.Kind() {
 		case ast.KindCodeBlock:
 			if entering {
-				fencedCode := node.(*ast.CodeBlock)
-				results = append(results, "```norust")
-				for i := 0; i < fencedCode.Lines().Len(); i++ {
-					line := fencedCode.Lines().At(i)
-					results = append(results, string(line.Value(documentationBytes)))
-				}
+				formattedOutput := annotateCodeBlock(node, documentationBytes)
+				results = append(results, formattedOutput...)
 			} else {
 				results = append(results, "```")
 				results = append(results, "\n")
 			}
 		case ast.KindFencedCodeBlock:
 			if entering {
-				fencedCode := node.(*ast.FencedCodeBlock)
-				results = append(results, "```norust")
-				for i := 0; i < fencedCode.Lines().Len(); i++ {
-					line := fencedCode.Lines().At(i)
-					results = append(results, string(line.Value(documentationBytes)))
-				}
+				formattedOutput := annotateFencedCodeBlock(node, documentationBytes)
+				results = append(results, formattedOutput...)
 			} else {
 				results = append(results, "```")
 				results = append(results, "\n")
 			}
 		case ast.KindList:
 			if entering {
-				listMarker := string(node.(*ast.List).Marker)
-				for child := node.FirstChild(); child != nil; child = child.NextSibling() {
-					if child.Kind() == ast.KindListItem {
-						textNode := child.FirstChild()
-						if textNode != nil {
-							if textNode.Kind() == ast.KindParagraph || textNode.Kind() == ast.KindTextBlock {
-								firstLine := textNode.Lines().At(0)
-								firstLineString := string(firstLine.Value(documentationBytes))
-								extractProtoLinks(firstLineString, links)
-								escapedFirstLine := escapeUrls(firstLineString)
-								results = append(results, fmt.Sprintf("%s %s\n", listMarker, escapedFirstLine))
-								for i := 1; i < textNode.Lines().Len(); i++ {
-									line := textNode.Lines().At(i)
-									lineString := string(line.Value(documentationBytes))
-									extractProtoLinks(lineString, links)
-									escapedLine := escapeUrls(lineString)
-									results = append(results, fmt.Sprintf("  %s", escapedLine))
-								}
-							}
-							if textNode.Kind() == ast.KindParagraph {
-								results = append(results, "\n")
-							}
-						}
-					}
-				}
-				results = append(results, "\n")
+				formattedOutput := processListItems(node, links, documentationBytes)
+				results = append(results, formattedOutput...)
 			}
 		case ast.KindParagraph:
 			if entering {
@@ -845,18 +813,8 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
 					return ast.WalkContinue, nil
 				}
-
-				lines := node.Lines()
-				for i := 0; i < lines.Len(); i++ {
-					line := lines.At(i)
-					lineString := string(line.Value(documentationBytes))
-					extractProtoLinks(lineString, links)
-					escapedLine := escapeUrls(lineString)
-					results = append(results, escapedLine)
-				}
-				results = append(results, "\n")
-				return ast.WalkSkipChildren, nil
-
+				formattedOutput := processParagraph(node, links, documentationBytes)
+				results = append(results, formattedOutput...)
 			}
 		case ast.KindHeading:
 			if entering {
@@ -929,6 +887,109 @@ func escapeUrls(line string) string {
 // Verifies whether the url is part of a link destination.
 func isLinkDestination(line string, matchStart, matchEnd int) bool {
 	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
+}
+
+func processListItems(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
+	var results []string
+	listMarker := string(node.(*ast.List).Marker)
+	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindListItem {
+			textNode := child.FirstChild()
+			if textNode != nil {
+				if textNode.Kind() == ast.KindParagraph || textNode.Kind() == ast.KindTextBlock {
+					firstLine := textNode.Lines().At(0)
+					firstLineString := string(firstLine.Value(documentationBytes))
+					extractProtoLinks(firstLineString, links)
+					escapedFirstLine := escapeUrls(firstLineString)
+					results = append(results, fmt.Sprintf("%s %s\n", listMarker, escapedFirstLine))
+					for i := 1; i < textNode.Lines().Len(); i++ {
+						line := textNode.Lines().At(i)
+						lineString := string(line.Value(documentationBytes))
+						extractProtoLinks(lineString, links)
+						escapedLine := escapeUrls(lineString)
+						results = append(results, fmt.Sprintf("  %s", escapedLine))
+					}
+				}
+				if textNode.Kind() == ast.KindParagraph {
+					results = append(results, "\n")
+				}
+			}
+		}
+	}
+	results = append(results, "\n")
+	return results
+}
+
+func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
+	codeBlock := node.(*ast.CodeBlock)
+	var results []string
+	results = append(results, "```norust")
+	for i := 0; i < codeBlock.Lines().Len(); i++ {
+		line := codeBlock.Lines().At(i)
+		results = append(results, string(line.Value(documentationBytes)))
+	}
+	return results
+}
+
+func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string {
+	var results []string
+	fencedCode := node.(*ast.FencedCodeBlock)
+	results = append(results, "```norust")
+	for i := 0; i < fencedCode.Lines().Len(); i++ {
+		line := fencedCode.Lines().At(i)
+		results = append(results, string(line.Value(documentationBytes)))
+	}
+	return results
+}
+
+func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
+	var results []string
+	var allLinkDefinitions []string
+	for i := 0; i < node.Lines().Len(); i++ {
+		line := node.Lines().At(i)
+		lineString := string(line.Value(documentationBytes))
+		extractProtoLinks(lineString, links)
+		results = append(results, escapeUrls(lineString))
+		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
+		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
+	}
+	if len(allLinkDefinitions) > 0 {
+		results = append(results, "\n")
+		results = append(results, allLinkDefinitions...)
+	}
+	results = append(results, "\n")
+	return results
+}
+
+func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte) []string {
+	var linkDefinitions []string
+	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
+		if c.Kind() == ast.KindLink {
+			link := c.(*ast.Link)
+			var linkText strings.Builder
+			for l := link.FirstChild(); l != nil; l = l.NextSibling() {
+				if l.Kind() == ast.KindText {
+					linkText.WriteString(string(l.(*ast.Text).Text(documentationBytes)))
+					linkText.WriteString(" ")
+				}
+			}
+
+			// Only fetch links for lines that contain [text][].
+			// This avoids the links from being added twice as
+			// regular links get added through paragraph processing.
+			trimmedLinkText := strings.TrimSuffix(linkText.String(), " ")
+			re := regexp.MustCompile(`\[(.*?)\]\[\]`)
+			match := re.FindStringSubmatch(line)
+			if len(match) > 1 {
+				text := match[1]
+				if text == trimmedLinkText {
+					linkDefinitions = append(linkDefinitions, fmt.Sprintf("[%s]:", trimmedLinkText))
+					linkDefinitions = append(linkDefinitions, fmt.Sprintf(" <%s>", string(link.Destination)))
+				}
+			}
+		}
+	}
+	return linkDefinitions
 }
 
 func rustDocLink(link string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
