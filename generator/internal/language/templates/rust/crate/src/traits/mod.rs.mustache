@@ -50,6 +50,20 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
     }
     {{/Methods}}
+    {{#HasLROs}}
+
+    /// Returns the polling policy.
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+
+    /// Returns the polling backoff policy.
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+    {{/HasLROs}}
 }
 
 {{/Services}}

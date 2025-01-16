@@ -15,9 +15,12 @@
 //! Types and functions to make LROs easier to use and to require less boilerplate.
 
 use gax::error::Error;
+use gax::polling_backoff_policy::PollingBackoffPolicy;
+use gax::polling_policy::PollingPolicy;
 use gax::Result;
 use std::future::Future;
 use std::marker::PhantomData;
+use std::sync::Arc;
 
 /// The result of polling a Long-Running Operation (LRO).
 ///
@@ -118,6 +121,8 @@ pub trait Poller<R, M> {
 /// Applications should have no need to create or use this struct.
 #[doc(hidden)]
 pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
+    _polling_policy: Arc<dyn PollingPolicy>,
+    _polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: S,
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>

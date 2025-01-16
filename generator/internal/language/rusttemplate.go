@@ -54,6 +54,8 @@ type RustService struct {
 	ServiceName         string
 	DocLines            []string
 	DefaultHost         string
+	// If true, this service includes methods that return long-running operations.
+	HasLROs bool
 }
 
 type RustMessage struct {
@@ -169,18 +171,6 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	rustResolveUsedPackages(model, c.extraPackages)
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
-	hasLROs := false
-	for _, s := range model.Services {
-		for _, m := range s.Methods {
-			if m.OperationInfo != nil {
-				hasLROs = true
-				break
-			}
-		}
-		if hasLROs {
-			break
-		}
-	}
 	data := &RustTemplateData{
 		Name:             model.Name,
 		Title:            model.Title,
@@ -189,7 +179,6 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		PackageNamespace: packageNamespace,
 		PackageVersion:   c.version,
 		HasServices:      len(model.Services) > 0,
-		HasLROs:          hasLROs,
 		CopyrightYear:    c.generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
 			"",
@@ -212,6 +201,14 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
 	}
+	// Determine if any service has an LRO.
+	for _, s := range data.Services {
+		if s.HasLROs {
+			data.HasLROs = true
+			break
+		}
+	}
+
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
 	data.RequiredPackages = rustRequiredPackages(outdir, c.extraPackages)
@@ -238,6 +235,13 @@ func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpeci
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
 		return rustGenerateMethod(m)
 	})
+	hasLROs := false
+	for _, m := range s.Methods {
+		if m.OperationInfo != nil {
+			hasLROs = true
+			break
+		}
+	}
 	return &RustService{
 		Methods: mapSlice(methods, func(m *api.Method) *RustMethod {
 			return newRustMethod(m, state, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
@@ -249,6 +253,7 @@ func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpeci
 		ServiceName:         s.Name,
 		DocLines:            rustFormatDocComments(s.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		DefaultHost:         s.DefaultHost,
+		HasLROs:             hasLROs,
 	}
 }
 

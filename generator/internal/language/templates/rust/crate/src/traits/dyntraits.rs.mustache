@@ -17,6 +17,10 @@ limitations under the License.
 {{#BoilerPlate}}
 //{{{.}}}
 {{/BoilerPlate}}
+{{#HasLROs}}
+
+use std::sync::Arc;
+{{/HasLROs}}
 {{#Services}}
 
 /// A dyn-compatible, crate-private version of `{{NameToPascal}}`.
@@ -30,6 +34,17 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     ) -> crate::Result<{{OutputTypeName}}>;
 
     {{/Methods}}
+    {{#HasLROs}}
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+    {{/HasLROs}}
 }
 
 /// All implementations of [crate::traits::{{NameToPascal}}] also implement [{{NameToPascal}}].
@@ -46,5 +61,20 @@ impl<T: crate::traits::{{NameToPascal}}> {{NameToPascal}} for T {
     }
 
     {{/Methods}}
+    {{#HasLROs}}
+    fn get_polling_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        T::get_polling_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+    {{/HasLROs}}
 }
 {{/Services}}
