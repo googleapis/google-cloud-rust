@@ -544,12 +544,12 @@ func rustTemplatesProvider() templateProvider {
 	}
 }
 
-func (c *rustCodec) generatedFiles() []GeneratedFile {
+func rustGeneratedFiles(generateModule, hasServices bool) []GeneratedFile {
 	var root string
 	switch {
-	case c.generateModule:
+	case generateModule:
 		root = "templates/rust/mod"
-	case !c.hasServices:
+	case !hasServices:
 		root = "templates/rust/nosvc"
 	default:
 		root = "templates/rust/crate"

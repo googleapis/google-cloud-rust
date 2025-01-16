@@ -50,7 +50,8 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 			return err
 		}
 		provider = rustTemplatesProvider()
-		generatedFiles = codec.generatedFiles()
+		hasServices := len(model.State.ServiceByID) > 0
+		generatedFiles = rustGeneratedFiles(codec.generateModule, hasServices)
 	case "go":
 		var err error
 		data, err = newGoTemplateData(model, options)
