@@ -818,10 +818,8 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 		case ast.KindHeading:
 			if entering {
 				heading := node.(*ast.Heading)
-				if heading.FirstChild() != nil && heading.FirstChild().Kind() == ast.KindText {
-					headingPrefix := strings.Repeat("#", heading.Level)
-					results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.FirstChild().Text(documentationBytes))))
-				}
+				headingPrefix := strings.Repeat("#", heading.Level)
+				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.Text(documentationBytes))))
 				results = append(results, "\n")
 
 			}
@@ -993,7 +991,7 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 			var linkText strings.Builder
 			for l := link.FirstChild(); l != nil; l = l.NextSibling() {
 				if l.Kind() == ast.KindText {
-					linkText.WriteString(string(l.(*ast.Text).Text(documentationBytes)))
+					linkText.WriteString(string(l.(*ast.Text).Value(documentationBytes)))
 					linkText.WriteString(" ")
 				}
 			}
