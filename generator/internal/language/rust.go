@@ -790,17 +790,11 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 			if entering {
 				formattedOutput := annotateCodeBlock(node, documentationBytes)
 				results = append(results, formattedOutput...)
-			} else {
-				results = append(results, "```")
-				results = append(results, "\n")
 			}
 		case ast.KindFencedCodeBlock:
 			if entering {
 				formattedOutput := annotateFencedCodeBlock(node, documentationBytes)
 				results = append(results, formattedOutput...)
-			} else {
-				results = append(results, "```")
-				results = append(results, "\n")
 			}
 		case ast.KindList:
 			if entering {
@@ -811,6 +805,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				results = append(results, formattedOutput...)
 				results = append(results, "\n")
 			}
+
 		case ast.KindParagraph:
 			if entering {
 				// Skip adding list items as they are being taken care of separately.
@@ -876,12 +871,20 @@ func escapeUrls(line string) string {
 			continue
 		}
 		url := line[match[0]:match[1]]
-		escapedLine.WriteString(line[lastIndex:match[0]])
-		if strings.HasSuffix(url, ".") {
-			escapedLine.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(url, ".")))
+
+		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
+		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
+			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
+			escapedLine.WriteString(line[lastIndex:match[1]])
 		} else {
-			escapedLine.WriteString(fmt.Sprintf("<%s>", url))
+			escapedLine.WriteString(line[lastIndex:match[0]])
+			if strings.HasSuffix(url, ".") {
+				escapedLine.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(url, ".")))
+			} else {
+				escapedLine.WriteString(fmt.Sprintf("<%s>", url))
+			}
 		}
+
 		lastIndex = match[1]
 	}
 	escapedLine.WriteString(line[lastIndex:])
@@ -945,6 +948,8 @@ func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
 		line := codeBlock.Lines().At(i)
 		results = append(results, string(line.Value(documentationBytes)))
 	}
+	results = append(results, "```")
+	results = append(results, "\n")
 	return results
 }
 
@@ -956,6 +961,8 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 		line := fencedCode.Lines().At(i)
 		results = append(results, string(line.Value(documentationBytes)))
 	}
+	results = append(results, "```")
+	results = append(results, "\n")
 	return results
 }
 
@@ -991,9 +998,7 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 				}
 			}
 
-			// Only fetch links for lines that contain [text][].
-			// This avoids the links from being added twice as
-			// regular links get added through paragraph processing.
+			// Add link definitions for collapsed reference links.
 			trimmedLinkText := strings.TrimSuffix(linkText.String(), " ")
 			re := regexp.MustCompile(`\[(.*?)\]\[\]`)
 			match := re.FindStringSubmatch(line)

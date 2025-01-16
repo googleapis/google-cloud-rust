@@ -1107,6 +1107,7 @@ func TestRust_FormatDocComments(t *testing.T) {
 The next line has some extra trailing whitespace:` + "   " + `
 
 We want to respect whitespace at the beginning, because it important in Markdown:
+
 - A thing
   - A nested thing
 - The next thing
@@ -1246,8 +1247,6 @@ block:
 		"/// > Continues 2 - with arrow",
 		"/// Continues 3 - with arrow",
 		"/// ```",
-		"///",
-		"///",
 	}
 
 	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
@@ -1294,7 +1293,6 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [SomeService.CreateBar][test.v1.SomeService.CreateBar]
 `
 	want := []string{
-		"///",
 		"/// [Any][google.protobuf.Any]",
 		"/// [Message][test.v1.SomeMessage]",
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
@@ -1306,7 +1304,6 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
-		"///",
 		"///",
 		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
@@ -1436,7 +1433,6 @@ http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
 https://cloud.google.com/apis/design/design_patterns#integer_types.`
 	want := []string{
-		"///",
 		"/// blah blah <https://cloud.google.com> foo bar",
 		"/// [link](https://example1.com)",
 		"/// <https://example2.com>",
