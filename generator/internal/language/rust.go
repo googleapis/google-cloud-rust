@@ -984,7 +984,7 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 				text := match[1]
 				if text == trimmedLinkText {
 					linkDefinitions = append(linkDefinitions, fmt.Sprintf("[%s]:", trimmedLinkText))
-					linkDefinitions = append(linkDefinitions, fmt.Sprintf(" <%s>", string(link.Destination)))
+					linkDefinitions = append(linkDefinitions, fmt.Sprintf(" %s", string(link.Destination)))
 				}
 			}
 		}
