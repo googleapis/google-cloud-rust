@@ -21,6 +21,7 @@ use gax::Result;
 use std::future::Future;
 use std::marker::PhantomData;
 use std::sync::Arc;
+use std::time::Instant;
 
 /// The result of polling a Long-Running Operation (LRO).
 ///
@@ -121,8 +122,8 @@ pub trait Poller<R, M> {
 /// Applications should have no need to create or use this struct.
 #[doc(hidden)]
 pub fn new_poller<ResponseType, MetadataType, S, SF, Q, QF>(
-    _polling_policy: Arc<dyn PollingPolicy>,
-    _polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    polling_policy: Arc<dyn PollingPolicy>,
+    polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: S,
     query: Q,
 ) -> impl Poller<ResponseType, MetadataType>
@@ -138,7 +139,7 @@ where
         + Send
         + 'static,
 {
-    PollerImpl::new(start, query)
+    PollerImpl::new(polling_policy, polling_backoff_policy, start, query)
 }
 
 /// An implementation of `Poller` based on closures.
@@ -173,9 +174,13 @@ where
         + Send
         + 'static,
 {
+    polling_policy: Arc<dyn PollingPolicy>,
+    _backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: Option<S>,
     query: Q,
     operation: Option<String>,
+    loop_start: Instant,
+    attempt_count: u32,
 }
 
 impl<ResponseType, MetadataType, S, SF, Q, QF> PollerImpl<ResponseType, MetadataType, S, SF, Q, QF>
@@ -189,11 +194,20 @@ where
         + Send
         + 'static,
 {
-    pub fn new(start: S, query: Q) -> Self {
+    pub fn new(
+        polling_policy: Arc<dyn PollingPolicy>,
+        backoff_policy: Arc<dyn PollingBackoffPolicy>,
+        start: S,
+        query: Q,
+    ) -> Self {
         Self {
+            polling_policy,
+            _backoff_policy: backoff_policy,
             start: Some(start),
             query,
             operation: None,
+            loop_start: Instant::now(),
+            attempt_count: 0,
         }
     }
 }
@@ -220,9 +234,15 @@ where
             return Some(poll);
         }
         if let Some(name) = self.operation.take() {
-            let query = self.query.clone();
-            let result = query(name).await;
-            let (op, poll) = details::handle_poll(result);
+            self.attempt_count += 1;
+            let result = (self.query)(name.clone()).await;
+            let (op, poll) = details::handle_poll(
+                self.polling_policy.clone(),
+                self.loop_start,
+                self.attempt_count,
+                name,
+                result,
+            );
             self.operation = op;
             return Some(poll);
         }
@@ -252,6 +272,8 @@ mod details;
 #[cfg(test)]
 mod test {
     use super::*;
+    use gax::exponential_backoff::ExponentialBackoff;
+    use gax::polling_policy::*;
 
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
@@ -347,7 +369,12 @@ mod test {
             Ok::<TestOperation, Error>(op)
         };
 
-        let mut poller = PollerImpl::new(start, query);
+        let mut poller = PollerImpl::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        );
         let p0 = poller.poll().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
@@ -398,7 +425,13 @@ mod test {
         };
 
         use futures::StreamExt;
-        let mut stream = PollerImpl::new(start, query).to_stream();
+        let mut stream = new_poller(
+            Arc::new(AlwaysContinue),
+            Arc::new(ExponentialBackoff::default()),
+            start,
+            query,
+        )
+        .to_stream();
         let mut stream = std::pin::pin!(stream);
         let p0 = stream.next().await;
         match p0.unwrap() {
