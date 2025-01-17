@@ -49,7 +49,20 @@ where
             let state = polling_policy.on_error(loop_start, attempt_count, e);
             handle_polling_error(state, operation_name)
         }
-        Ok(op) => handle_common(op),
+        Ok(op) => {
+            let (name, result) = handle_common(op);
+            match &result {
+                PollingResult::Completed(_) => (name, result),
+                PollingResult::InProgress(_) => {
+                    match polling_policy.on_in_progress(loop_start, attempt_count, &operation_name)
+                    {
+                        None => (name, result),
+                        Some(e) => (None, PollingResult::Completed(Err(e))),
+                    }
+                }
+                PollingResult::PollingError(_) => panic!(),
+            }
+        }
     }
 }
 
@@ -174,6 +187,35 @@ mod test {
         match poll {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(wkt::Timestamp::clamp(123, 0)));
+            }
+            _ => assert!(false, "{poll:?}"),
+        };
+        Ok(())
+    }
+
+    #[test]
+    fn poll_success_exhausted() -> TestResult {
+        use longrunning::model::*;
+        type R = wkt::Duration;
+        type M = wkt::Timestamp;
+        type O = super::Operation<R, M>;
+        let op = Operation::default()
+            .set_name("test-only-name")
+            .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
+        let op = super::Operation::new(op);
+        let result = Ok::<O, Error>(op);
+        let (name, poll) = handle_poll(
+            Arc::new(AlwaysContinue.with_attempt_limit(3)),
+            Instant::now(),
+            5,
+            String::from("test-123"),
+            result,
+        );
+        assert_eq!(name, None);
+        match poll {
+            PollingResult::Completed(r) => {
+                let error = r.err().unwrap();
+                assert!(format!("{error}").contains("exhausted"), "{error}");
             }
             _ => assert!(false, "{poll:?}"),
         };
