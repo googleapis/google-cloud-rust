@@ -494,7 +494,7 @@ impl std::error::Error for Exhausted {}
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{rpc::Status, ServiceError};
+    use crate::error::{rpc::Status, Error, ServiceError};
     use std::time::{Duration, Instant};
 
     mockall::mock! {
@@ -709,6 +709,18 @@ mod tests {
     }
 
     #[test]
+    fn test_limited_time_in_progress_returns_inner() {
+        let mut mock = MockPolicy::new();
+        mock.expect_on_in_progress()
+            .times(1)
+            .returning(|_, _, _| Some(Error::other("inner-error")));
+
+        let now = std::time::Instant::now();
+        let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_some());
+    }
+
+    #[test]
     fn test_limited_time_inner_continues() {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
@@ -843,6 +855,18 @@ mod tests {
         assert!(policy.on_in_progress(now, 1, "test-op-name").is_none());
         assert!(policy.on_in_progress(now, 2, "test-op-name").is_none());
         assert!(policy.on_in_progress(now, 3, "test-op-name").is_none());
+    }
+
+    #[test]
+    fn test_limited_attempt_count_in_progress_returns_inner() {
+        let mut mock = MockPolicy::new();
+        mock.expect_on_in_progress()
+            .times(1)
+            .returning(|_, _, _| Some(Error::other("inner-error")));
+
+        let now = std::time::Instant::now();
+        let policy = LimitedAttemptCount::custom(mock, 5);
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_some());
     }
 
     #[test]
