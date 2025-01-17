@@ -112,6 +112,25 @@ impl Workflows {
     /// below for instructions on how to manually use the resulting [Operation].
     /// We recommend `poller()` in favor of `send()`.
     ///
+    /// ## Polling until completion
+    ///
+    /// Applications that do not care about intermediate results in a
+    /// long-running operation may use the [until_done()] function:
+    ///
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
+    /// ) -> Result<model::Workflow> {
+    ///     poller.until_done().await
+    /// }
+    /// ```
+    ///
+    /// This will wait until the LRO completes (successfully or with an error).
+    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
+    /// control for how long the function runs.
+    ///
     /// ## Polling with detailed metadata updates
     ///
     /// Using the result of [poller()] follows a common pattern:
@@ -158,7 +177,9 @@ impl Workflows {
     ///
     /// [send()]: crate::builders::CreateWorkflow::send
     /// [poller()]: crate::builders::CreateWorkflow::poller
-    /// [Poller::poll()]: lro::Poller::poll
+    /// [until_done()]: lro::Poller::until_done
+    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
+    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
@@ -186,6 +207,25 @@ impl Workflows {
     /// them periodically to find out if they have succeeded, or failed. See
     /// below for instructions on how to manually use the resulting [Operation].
     /// We recommend `poller()` in favor of `send()`.
+    ///
+    /// ## Polling until completion
+    ///
+    /// Applications that do not care about intermediate results in a
+    /// long-running operation may use the [until_done()] function:
+    ///
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
+    /// ) -> Result<wkt::Empty> {
+    ///     poller.until_done().await
+    /// }
+    /// ```
+    ///
+    /// This will wait until the LRO completes (successfully or with an error).
+    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
+    /// control for how long the function runs.
     ///
     /// ## Polling with detailed metadata updates
     ///
@@ -233,7 +273,9 @@ impl Workflows {
     ///
     /// [send()]: crate::builders::DeleteWorkflow::send
     /// [poller()]: crate::builders::DeleteWorkflow::poller
-    /// [Poller::poll()]: lro::Poller::poll
+    /// [until_done()]: lro::Poller::until_done
+    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
+    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
@@ -263,6 +305,25 @@ impl Workflows {
     /// them periodically to find out if they have succeeded, or failed. See
     /// below for instructions on how to manually use the resulting [Operation].
     /// We recommend `poller()` in favor of `send()`.
+    ///
+    /// ## Polling until completion
+    ///
+    /// Applications that do not care about intermediate results in a
+    /// long-running operation may use the [until_done()] function:
+    ///
+    /// ```
+    /// # use gax::Result;
+    /// # use gcp_sdk_workflows_v1::model;
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
+    /// ) -> Result<model::Workflow> {
+    ///     poller.until_done().await
+    /// }
+    /// ```
+    ///
+    /// This will wait until the LRO completes (successfully or with an error).
+    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
+    /// control for how long the function runs.
     ///
     /// ## Polling with detailed metadata updates
     ///
@@ -310,7 +371,9 @@ impl Workflows {
     ///
     /// [send()]: crate::builders::UpdateWorkflow::send
     /// [poller()]: crate::builders::UpdateWorkflow::poller
-    /// [Poller::poll()]: lro::Poller::poll
+    /// [until_done()]: lro::Poller::until_done
+    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
+    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
