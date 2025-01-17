@@ -1344,6 +1344,33 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	}
 }
 
+func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
+	input := `Link definitions should be added when collapsed links are used. 
+	For example, [google][].
+	Second [example][].
+	[Third] example.
+	[google]: https://www.google.com
+	[example]: https://www.example.com
+	[Third]: https://www.third.com`
+
+	want := []string{
+		"/// Link definitions should be added when collapsed links are used.",
+		"/// For example, [google][].",
+		"/// Second [example][].",
+		"/// [Third] example.",
+		"/// [google]: https://www.google.com",
+		"/// [example]: https://www.example.com",
+		"/// [Third]: https://www.third.com",
+	}
+
+	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := &rustCodec{}
+	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	enumValue := &api.EnumValue{
 		Name: "ENUM_VALUE",

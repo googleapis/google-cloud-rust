@@ -805,7 +805,6 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				results = append(results, formattedOutput...)
 				results = append(results, "\n")
 			}
-
 		case ast.KindParagraph:
 			if entering {
 				// Skip adding list items as they are being taken care of separately.
@@ -857,7 +856,7 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
-// Encloses standalone URLs with angled brackets .
+// Encloses standalone URLs with angled brackets.
 func escapeUrls(line string) string {
 	var escapedLine strings.Builder
 	lastIndex := 0
