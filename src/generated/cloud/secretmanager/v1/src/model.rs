@@ -128,8 +128,8 @@ pub struct Secret {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version_destroy_ttl: Option<wkt::Duration>,
 
-    /// Optional. The customer-managed encryption configuration of the Regionalised
-    /// Secrets. If no configuration is provided, Google-managed default encryption
+    /// Optional. The customer-managed encryption configuration of the regionalized
+    /// secrets. If no configuration is provided, Google-managed default encryption
     /// is used.
     ///
     /// Updates to the [Secret][google.cloud.secretmanager.v1.Secret] encryption
@@ -363,16 +363,15 @@ pub struct SecretVersion {
     /// Optional. Output only. Scheduled destroy time for secret version.
     /// This is a part of the Delayed secret version destroy feature. For a
     /// Secret with a valid version destroy TTL, when a secert version is
-    /// destroyed, the version is moved to disabled state and it is scheduled for
-    /// destruction. The version is destroyed only after the
-    /// `scheduled_destroy_time`.
+    /// destroyed, version is moved to disabled state and it is scheduled for
+    /// destruction Version is destroyed only after the scheduled_destroy_time.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scheduled_destroy_time: Option<wkt::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
     /// populated if customer-managed encryption is used and
-    /// [Secret][google.cloud.secretmanager.v1.Secret] is a Regionalised Secret.
+    /// [Secret][google.cloud.secretmanager.v1.Secret] is a regionalized secret.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
@@ -583,8 +582,10 @@ pub mod replication {
 
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload into the locations
-    /// specified in [Secret.replication.user_managed.replicas][]
+    /// specified in
+    /// [Replication.UserManaged.replicas][google.cloud.secretmanager.v1.Replication.UserManaged.replicas]
     ///
+    /// [google.cloud.secretmanager.v1.Replication.UserManaged.replicas]: crate::model::replication::UserManaged::replicas
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -977,10 +978,10 @@ impl wkt::message::Message for CustomerManagedEncryptionStatus {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Topic {
-    /// Required. The resource name of the Pub/Sub topic that will be published to,
-    /// in the following format: `projects/*/topics/*`. For publication to succeed,
-    /// the Secret Manager service agent must have the `pubsub.topic.publish`
-    /// permission on the topic. The Pub/Sub Publisher role
+    /// Identifier. The resource name of the Pub/Sub topic that will be published
+    /// to, in the following format: `projects/*/topics/*`. For publication to
+    /// succeed, the Secret Manager service agent must have the
+    /// `pubsub.topic.publish` permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
     #[serde(skip_serializing_if = "String::is_empty")]
     pub name: String,
