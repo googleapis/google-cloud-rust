@@ -273,7 +273,7 @@ where
         // We can only get here if `poll()` returns `None`, but it only returns
         // `None` after it returned `Polling::Completed` and therefore this is
         // never reached.
-        panic!();
+        unreachable!("loop should exit via the `Completed` branch vs. this line");
     }
 
     #[cfg(feature = "unstable-stream")]
