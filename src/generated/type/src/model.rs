@@ -39,26 +39,20 @@
 ///
 /// ```norust
 ///  import com.google.type.Color;
-/// ```
 ///
-/// ```norust
 ///  // ...
 ///  public static java.awt.Color fromProto(Color protocolor) {
 ///    float alpha = protocolor.hasAlpha()
 ///        ? protocolor.getAlpha().getValue()
 ///        : 1.0;
-/// ```
 ///
-/// ```norust
 ///    return new java.awt.Color(
 ///        protocolor.getRed(),
 ///        protocolor.getGreen(),
 ///        protocolor.getBlue(),
 ///        alpha);
 ///  }
-/// ```
 ///
-/// ```norust
 ///  public static Color toProto(java.awt.Color color) {
 ///    float red = (float) color.getRed();
 ///    float green = (float) color.getGreen();
@@ -98,9 +92,7 @@
 ///     }
 ///     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 ///  }
-/// ```
 ///
-/// ```norust
 ///  static Color* toProto(UIColor* color) {
 ///      CGFloat red, green, blue, alpha;
 ///      if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) {
@@ -119,13 +111,11 @@
 /// // ...
 /// ```
 ///
-///  Example (JavaScript):
+/// Example (JavaScript):
 ///
 /// ```norust
 /// // ...
-/// ```
 ///
-/// ```norust
 /// var protoToCssColor = function(rgb_color) {
 ///    var redFrac = rgb_color.red || 0.0;
 ///    var greenFrac = rgb_color.green || 0.0;
@@ -133,22 +123,16 @@
 ///    var red = Math.floor(redFrac * 255);
 ///    var green = Math.floor(greenFrac * 255);
 ///    var blue = Math.floor(blueFrac * 255);
-/// ```
 ///
-/// ```norust
 ///    if (!('alpha' in rgb_color)) {
 ///       return rgbToCssColor(red, green, blue);
 ///    }
-/// ```
 ///
-/// ```norust
 ///    var alphaFrac = rgb_color.alpha.value || 0.0;
 ///    var rgbParams = [red, green, blue].join(',');
 ///    return ['rgba(', rgbParams, ',', alphaFrac, ')'].join('');
 /// };
-/// ```
 ///
-/// ```norust
 /// var rgbToCssColor = function(red, green, blue) {
 ///   var rgbNumber = new Number((red << 16) | (green << 8) | blue);
 ///   var hexString = rgbNumber.toString(16);
@@ -160,9 +144,7 @@
 ///   resultBuilder.push(hexString);
 ///   return resultBuilder.join('');
 /// };
-/// ```
 ///
-/// ```norust
 /// // ...
 /// ```
 #[serde_with::serde_as]
@@ -182,7 +164,7 @@ pub struct Color {
     /// The fraction of this color that should be applied to the pixel. That is,
     /// the final pixel color is defined by the equation:
     ///
-    ///   `pixel color = alpha * (this color) + (1.0 - alpha) * (background color)`
+    /// `pixel color = alpha * (this color) + (1.0 - alpha) * (background color)`
     ///
     /// This means that a value of 1.0 corresponds to a solid color, whereas
     /// a value of 0.0 corresponds to a completely transparent color. This
@@ -235,7 +217,7 @@ impl wkt::message::Message for Color {
 /// * A month and day value, with a zero year, such as an anniversary
 /// * A year on its own, with zero month and day values
 /// * A year and month value, with a zero day, such as a credit card expiration
-/// date
+///   date
 ///
 /// Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and
 /// `google.protobuf.Timestamp`.
@@ -290,12 +272,12 @@ impl wkt::message::Message for Date {
 ///
 /// This type can represent a civil time in one of a few possible ways:
 ///
-///  * When utc_offset is set and time_zone is unset: a civil time on a calendar
-///    day with a particular offset from UTC.
-///  * When time_zone is set and utc_offset is unset: a civil time on a calendar
-///    day in a particular time zone.
-///  * When neither time_zone nor utc_offset is set: a civil time on a calendar
-///    day in local time.
+/// * When utc_offset is set and time_zone is unset: a civil time on a calendar
+///   day with a particular offset from UTC.
+/// * When time_zone is set and utc_offset is unset: a civil time on a calendar
+///   day in a particular time zone.
+/// * When neither time_zone nor utc_offset is set: a civil time on a calendar
+///   day in local time.
 ///
 /// The date is relative to the Proleptic Gregorian Calendar.
 ///
@@ -472,8 +454,9 @@ impl wkt::message::Message for TimeZone {
 /// Python's [decimal.Decimal][].
 ///
 /// [BigDecimal]:
-/// <https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html>
-/// [decimal.Decimal]: https://docs.python.org/3/library/decimal.html
+///  https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html
+/// [decimal.Decimal]:
+///  https://docs.python.org/3/library/decimal.html
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -496,10 +479,10 @@ pub struct Decimal {
     ///
     /// Services **should** normalize decimal values before storing them by:
     ///
-    ///   - Removing an explicitly-provided `+` sign (`+2.5` -> `2.5`).
-    ///   - Replacing a zero-length integer value with `0` (`.5` -> `0.5`).
-    ///   - Coercing the exponent character to lower-case (`2.5E8` -> `2.5e8`).
-    ///   - Removing an explicitly-provided zero exponent (`2.5e0` -> `2.5`).
+    /// - Removing an explicitly-provided `+` sign (`+2.5` -> `2.5`).
+    /// - Replacing a zero-length integer value with `0` (`.5` -> `0.5`).
+    /// - Coercing the exponent character to lower-case (`2.5E8` -> `2.5e8`).
+    /// - Removing an explicitly-provided zero exponent (`2.5e0` -> `2.5`).
     ///
     /// Services **may** perform additional normalization based on its own needs
     /// and the internal decimal implementation selected, such as shifting the
@@ -517,22 +500,14 @@ pub struct Decimal {
     /// ```norust
     /// DecimalString =
     ///   [Sign] Significand [Exponent];
-    /// ```
     ///
-    /// ```norust
     /// Sign = '+' | '-';
-    /// ```
     ///
-    /// ```norust
     /// Significand =
     ///   Digits ['.'] [Digits] | [Digits] '.' Digits;
-    /// ```
     ///
-    /// ```norust
     /// Exponent = ('e' | 'E') [Sign] Digits;
-    /// ```
     ///
-    /// ```norust
     /// Digits = { '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' };
     /// ```
     ///
@@ -876,34 +851,31 @@ impl wkt::message::Message for Money {
 ///
 /// This representation:
 ///
-///  - should not be used for locale-specific formatting of a phone number, such
-///    as "+1 (650) 253-0000 ext. 123"
+/// - should not be used for locale-specific formatting of a phone number, such
+///   as "+1 (650) 253-0000 ext. 123"
 ///
-///  - is not designed for efficient storage
-///  - may not be suitable for dialing - specialized libraries (see references)
-///    should be used to parse the number for that purpose
+/// - is not designed for efficient storage
+///
+/// - may not be suitable for dialing - specialized libraries (see references)
+///   should be used to parse the number for that purpose
+///
 ///
 /// To do something meaningful with this number, such as format it for various
 /// use-cases, convert it to an `i18n.phonenumbers.PhoneNumber` object first.
 ///
 /// For instance, in Java this would be:
 ///
-///    com.google.type.PhoneNumber wireProto =
-/// ```norust
-///    com.google.type.PhoneNumber.newBuilder().build();
-/// ```
-///    com.google.i18n.phonenumbers.Phonenumber.PhoneNumber phoneNumber =
-/// ```norust
-///    PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
-/// ```
-///    if (!wireProto.getExtension().isEmpty()) {
-/// ```norust
-///  phoneNumber.setExtension(wireProto.getExtension());
-/// ```
-///    }
+/// com.google.type.PhoneNumber wireProto =
+/// com.google.type.PhoneNumber.newBuilder().build();
+/// com.google.i18n.phonenumbers.Phonenumber.PhoneNumber phoneNumber =
+/// PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
+/// if (!wireProto.getExtension().isEmpty()) {
+/// phoneNumber.setExtension(wireProto.getExtension());
+/// }
 ///
-///  Reference(s):
-///   - <https://github.com/google/libphonenumber>
+/// Reference(s):
+///
+/// - <https://github.com/google/libphonenumber>
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -969,7 +941,8 @@ pub mod phone_number {
         /// short code can be made, such as "US" and "BB".
         ///
         /// Reference(s):
-        ///  - <http://www.unicode.org/reports/tr35/#unicode_region_subtag>
+        ///
+        /// - <http://www.unicode.org/reports/tr35/#unicode_region_subtag>
         #[serde(skip_serializing_if = "String::is_empty")]
         pub region_code: String,
 
@@ -1010,22 +983,25 @@ pub mod phone_number {
         /// phone number that uses a relaxed ITU E.164 format consisting of the
         /// country calling code (1 to 3 digits) and the subscriber number, with no
         /// additional spaces or formatting, e.g.:
-        ///  - correct: "+15552220123"
-        ///  - incorrect: "+1 (555) 222-01234 x123".
+        ///
+        /// - correct: "+15552220123"
+        /// - incorrect: "+1 (555) 222-01234 x123".
         ///
         /// The ITU E.164 format limits the latter to 12 digits, but in practice not
         /// all countries respect that, so we relax that restriction here.
         /// National-only numbers are not allowed.
         ///
         /// References:
-        ///  - <https://www.itu.int/rec/T-REC-E.164-201011-I>
-        ///  - <https://en.wikipedia.org/wiki/E.164>.
-        ///  - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
+        ///
+        /// - <https://www.itu.int/rec/T-REC-E.164-201011-I>
+        /// - <https://en.wikipedia.org/wiki/E.164>.
+        /// - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
         E164Number(String),
         /// A short code.
         ///
         /// Reference(s):
-        ///  - <https://en.wikipedia.org/wiki/Short_code>
+        ///
+        /// - <https://en.wikipedia.org/wiki/Short_code>
         ShortCode(crate::model::phone_number::ShortCode),
     }
 }
@@ -1040,8 +1016,9 @@ pub mod phone_number {
 /// existing data, depending on the type of process.
 ///
 /// Advice on address input / editing:
-///  - Use an i18n-ready address widget such as
-///    <https://github.com/google/libaddressinput>)
+///
+/// - Use an i18n-ready address widget such as
+///   <https://github.com/google/libaddressinput>)
 /// - Users should not be presented with UI elements for input or editing of
 ///   fields outside countries where that field is used.
 ///
@@ -1270,11 +1247,11 @@ impl wkt::message::Message for PostalAddress {
 ///
 /// Definitions:
 ///
-///   - Quaternion norm (or magnitude): `sqrt(x^2 + y^2 + z^2 + w^2)`.
-///   - Unit (or normalized) quaternion: a quaternion whose norm is 1.
-///   - Pure quaternion: a quaternion whose scalar component (`w`) is 0.
-///   - Rotation quaternion: a unit quaternion used to represent rotation.
-///   - Orientation quaternion: a unit quaternion used to represent orientation.
+/// - Quaternion norm (or magnitude): `sqrt(x^2 + y^2 + z^2 + w^2)`.
+/// - Unit (or normalized) quaternion: a quaternion whose norm is 1.
+/// - Pure quaternion: a quaternion whose scalar component (`w`) is 0.
+/// - Rotation quaternion: a unit quaternion used to represent rotation.
+/// - Orientation quaternion: a unit quaternion used to represent orientation.
 ///
 /// A quaternion can be normalized by dividing it by its norm. The resulting
 /// quaternion maintains the same direction, but has a norm of 1, i.e. it moves
@@ -1287,7 +1264,6 @@ impl wkt::message::Message for PostalAddress {
 /// it would produce a unique representation. It is thus recommended that `w` be
 /// kept positive, which can be achieved by changing all the signs when `w` is
 /// negative.
-///
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

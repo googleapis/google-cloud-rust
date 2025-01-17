@@ -28,6 +28,10 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/iancoleman/strcase"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/ast"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/text"
 )
 
 //go:embed templates/rust
@@ -769,102 +773,60 @@ func rustToCamel(symbol string) string {
 //
 // [spec]: https://spec.commonmark.org/0.13/#block-quotes
 func rustFormatDocComments(documentation string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) []string {
-	inBlockquote := false
-	blockquotePrefix := ""
-
-	links := map[string]bool{}
 	var results []string
-	for _, line := range strings.Split(documentation, "\n") {
-		if inBlockquote {
-			switch {
-			case line == "```":
-				inBlockquote = false
-				results = append(results, "```")
-			case strings.HasPrefix(line, blockquotePrefix):
-				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
-			default:
-				inBlockquote = false
-				results = append(results, "```")
-				results = append(results, line)
+	links := map[string]bool{}
+	md := goldmark.New(
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),
+		),
+		goldmark.WithExtensions(),
+	)
+
+	documentationBytes := []byte(documentation)
+	doc := md.Parser().Parse(text.NewReader(documentationBytes))
+	ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+		switch node.Kind() {
+		case ast.KindCodeBlock:
+			if entering {
+				formattedOutput := annotateCodeBlock(node, documentationBytes)
+				results = append(results, formattedOutput...)
 			}
-		} else {
-			for _, match := range commentLinkRegex.FindAllString(line, -1) {
-				match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
-				links[match] = true
+		case ast.KindFencedCodeBlock:
+			if entering {
+				formattedOutput := annotateFencedCodeBlock(node, documentationBytes)
+				results = append(results, formattedOutput...)
 			}
-			switch {
-			case line == "```":
-				results = append(results, "```norust")
-				inBlockquote = true
-			case strings.HasPrefix(line, "    "):
-				inBlockquote = true
-				blockquotePrefix = "    "
-				results = append(results, "```norust")
-				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
-			case strings.HasPrefix(line, "   > "):
-				inBlockquote = true
-				blockquotePrefix = "   > "
-				results = append(results, "```norust")
-				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
-			case strings.HasPrefix(line, "> "):
-				inBlockquote = true
-				blockquotePrefix = "> "
-				results = append(results, "```norust")
-				results = append(results, strings.TrimPrefix(line, blockquotePrefix))
-			default:
-				var sb strings.Builder
-				lastMatch := 0
-				for _, pair := range commentUrlRegex.FindAllStringIndex(line, -1) {
-					sb.WriteString(line[lastMatch:pair[0]])
-					lastMatch = pair[1]
-					prior := ""
-					if pair[0] != 0 {
-						prior = line[pair[0]-1 : pair[0]]
-					}
-					next := ""
-					if pair[1] != len(line) {
-						next = line[pair[1] : pair[1]+1]
-					}
-					match := line[pair[0]:pair[1]]
-					switch {
-					case strings.HasSuffix(line[0:pair[0]], "]: "):
-						// Looks like a markdown link definition [1], no
-						// replacement needed.
-						// [1]: https://spec.commonmark.org/0.31.2/#link-reference-definitions
-						sb.WriteString(match)
-					case strings.HasSuffix(line[0:pair[0]], "](") && next == ")":
-						// This looks like a link destination [1], no
-						// replacement needed.
-						// [1]: https://spec.commonmark.org/0.31.2/#links
-						sb.WriteString(match)
-					case prior == "<" && next == ">":
-						// URLs already surrounded by `<...>` need no replacement
-						sb.WriteString(match)
-					case strings.HasSuffix(match, ".") && pair[1] == len(line):
-						// Many comments end with a URL and then a period. In
-						// most cases (all cases I could find), the period is punctuation,
-						// and not part of the URL.
-						sb.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(match, ".")))
-					default:
-						sb.WriteString(fmt.Sprintf("<%s>", match))
-					}
+		case ast.KindList:
+			if entering {
+				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
+					return ast.WalkContinue, nil
 				}
-				sb.WriteString(line[lastMatch:])
-				line = sb.String()
-				results = append(results, line)
+				formattedOutput := processList(node.(*ast.List), 0, documentationBytes, links)
+				results = append(results, formattedOutput...)
+				results = append(results, "\n")
+			}
+		case ast.KindParagraph:
+			if entering {
+				// Skip adding list items as they are being taken care of separately.
+				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
+					return ast.WalkContinue, nil
+				}
+				formattedOutput := processParagraph(node, links, documentationBytes)
+				results = append(results, formattedOutput...)
+			}
+		case ast.KindHeading:
+			if entering {
+				heading := node.(*ast.Heading)
+				headingPrefix := strings.Repeat("#", heading.Level)
+				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.BaseBlock.Lines().Value(documentationBytes))))
+				results = append(results, "\n")
+
 			}
 		}
-	}
-	if inBlockquote {
-		results = append(results, "```")
-	}
-	for i, line := range results {
-		results[i] = strings.TrimRightFunc(fmt.Sprintf("/// %s", line), unicode.IsSpace)
-	}
-	if len(links) != 0 {
-		results = append(results, "///")
-	}
-	// Sort the links to get stable results.
+		return ast.WalkContinue, nil
+	})
+
+	// Convert protobuf links to rusty links.
 	var sortedLinks []string
 	for link := range links {
 		sortedLinks = append(sortedLinks, link)
@@ -875,9 +837,178 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 		if rusty == "" {
 			continue
 		}
-		results = append(results, fmt.Sprintf("/// [%s]: %s", link, rusty))
+		results = append(results, fmt.Sprintf("[%s]: %s", link, rusty))
+	}
+
+	if len(results) > 0 && results[len(results)-1] == "\n" {
+		results = results[:len(results)-1]
+	}
+	for i, line := range results {
+		results[i] = strings.TrimRightFunc(fmt.Sprintf("/// %s", line), unicode.IsSpace)
 	}
 	return results
+}
+
+func extractProtoLinks(line string, links map[string]bool) {
+	for _, match := range commentLinkRegex.FindAllString(line, -1) {
+		match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
+		links[match] = true
+	}
+}
+
+// Encloses standalone URLs with angled brackets.
+func escapeUrls(line string) string {
+	var escapedLine strings.Builder
+	lastIndex := 0
+
+	for _, match := range commentUrlRegex.FindAllStringIndex(line, -1) {
+		if isLinkDestination(line, match[0], match[1]) {
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
+			continue
+		}
+		url := line[match[0]:match[1]]
+
+		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
+		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
+			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
+			escapedLine.WriteString(line[lastIndex:match[1]])
+		} else {
+			escapedLine.WriteString(line[lastIndex:match[0]])
+			if strings.HasSuffix(url, ".") {
+				escapedLine.WriteString(fmt.Sprintf("<%s>.", strings.TrimSuffix(url, ".")))
+			} else {
+				escapedLine.WriteString(fmt.Sprintf("<%s>", url))
+			}
+		}
+
+		lastIndex = match[1]
+	}
+	escapedLine.WriteString(line[lastIndex:])
+	return escapedLine.String()
+}
+
+// Verifies whether the url is part of a link destination.
+func isLinkDestination(line string, matchStart, matchEnd int) bool {
+	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
+}
+
+func processList(list *ast.List, indentLevel int, documentationBytes []byte, links map[string]bool) []string {
+	var results []string
+	listMarker := string(list.Marker)
+	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindListItem {
+			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, links)
+			results = append(results, listItems...)
+		}
+	}
+	return results
+}
+
+func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, links map[string]bool) []string {
+	var results []string
+	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindList {
+			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, links)
+			results = append(results, nestedListItems...)
+			break
+		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+			firstLine := child.Lines().At(0)
+			firstLineString := string(firstLine.Value(documentationBytes))
+			extractProtoLinks(firstLineString, links)
+			escapedFirstLine := escapeUrls(firstLineString)
+			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, escapedFirstLine))
+			for i := 1; i < child.Lines().Len(); i++ {
+				line := child.Lines().At(i)
+				lineString := string(line.Value(documentationBytes))
+				extractProtoLinks(lineString, links)
+				escapedLine := escapeUrls(lineString)
+				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), escapedLine))
+			}
+			if child.Kind() == ast.KindParagraph {
+				results = append(results, "\n")
+			}
+		}
+	}
+	return results
+}
+
+func indent(level int) string {
+	return fmt.Sprintf("%*s", level*2, "")
+}
+
+func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
+	codeBlock := node.(*ast.CodeBlock)
+	var results []string
+	results = append(results, "```norust")
+	for i := 0; i < codeBlock.Lines().Len(); i++ {
+		line := codeBlock.Lines().At(i)
+		results = append(results, string(line.Value(documentationBytes)))
+	}
+	results = append(results, "```")
+	results = append(results, "\n")
+	return results
+}
+
+func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string {
+	var results []string
+	fencedCode := node.(*ast.FencedCodeBlock)
+	results = append(results, "```norust")
+	for i := 0; i < fencedCode.Lines().Len(); i++ {
+		line := fencedCode.Lines().At(i)
+		results = append(results, string(line.Value(documentationBytes)))
+	}
+	results = append(results, "```")
+	results = append(results, "\n")
+	return results
+}
+
+func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
+	var results []string
+	var allLinkDefinitions []string
+	for i := 0; i < node.Lines().Len(); i++ {
+		line := node.Lines().At(i)
+		lineString := string(line.Value(documentationBytes))
+		extractProtoLinks(lineString, links)
+		results = append(results, escapeUrls(lineString))
+		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
+		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
+	}
+	if len(allLinkDefinitions) > 0 {
+		results = append(results, "\n")
+		results = append(results, allLinkDefinitions...)
+	}
+	results = append(results, "\n")
+	return results
+}
+
+func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte) []string {
+	var linkDefinitions []string
+	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
+		if c.Kind() == ast.KindLink {
+			link := c.(*ast.Link)
+			var linkText strings.Builder
+			for l := link.FirstChild(); l != nil; l = l.NextSibling() {
+				if l.Kind() == ast.KindText {
+					linkText.WriteString(string(l.(*ast.Text).Value(documentationBytes)))
+					linkText.WriteString(" ")
+				}
+			}
+
+			// Add link definitions for collapsed reference links.
+			trimmedLinkText := strings.TrimSuffix(linkText.String(), " ")
+			re := regexp.MustCompile(`\[(.*?)\]\[\]`)
+			match := re.FindStringSubmatch(line)
+			if len(match) > 1 {
+				text := match[1]
+				if text == trimmedLinkText {
+					linkDefinitions = append(linkDefinitions, fmt.Sprintf("[%s]:", trimmedLinkText))
+					linkDefinitions = append(linkDefinitions, fmt.Sprintf(" %s", string(link.Destination)))
+				}
+			}
+		}
+	}
+	return linkDefinitions
 }
 
 func rustDocLink(link string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {

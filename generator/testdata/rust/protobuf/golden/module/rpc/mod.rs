@@ -412,15 +412,11 @@ pub mod bad_request {
         ///       HOME = 1;
         ///       WORK = 2;
         ///     }
-        /// ```
         ///
-        /// ```norust
         ///     optional string email = 1;
         ///     repeated EmailType type = 2;
         ///   }
-        /// ```
         ///
-        /// ```norust
         ///   string full_name = 1;
         ///   repeated EmailAddress email_addresses = 2;
         /// }
@@ -754,7 +750,6 @@ impl wkt::message::Message for Status {
 
 /// The canonical error codes for gRPC APIs.
 ///
-///
 /// Sometimes multiple error codes may apply.  Services should return
 /// the most specific error code that applies.  For example, prefer
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
@@ -862,19 +857,15 @@ pub mod code {
     ///
     /// Service implementors can use the following guidelines to decide
     /// between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`:
-    ///  (a) Use `UNAVAILABLE` if the client can retry just the failing call.
-    ///  (b) Use `ABORTED` if the client should retry at a higher level. For
-    /// ```norust
-    ///  example, when a client-specified test-and-set fails, indicating the
-    ///  client should restart a read-modify-write sequence.
-    /// ```
-    ///  (c) Use `FAILED_PRECONDITION` if the client should not retry until
-    /// ```norust
-    ///  the system state has been explicitly fixed. For example, if an "rmdir"
-    ///  fails because the directory is non-empty, `FAILED_PRECONDITION`
-    ///  should be returned since the client should not retry unless
-    ///  the files are deleted from the directory.
-    /// ```
+    /// (a) Use `UNAVAILABLE` if the client can retry just the failing call.
+    /// (b) Use `ABORTED` if the client should retry at a higher level. For
+    /// example, when a client-specified test-and-set fails, indicating the
+    /// client should restart a read-modify-write sequence.
+    /// (c) Use `FAILED_PRECONDITION` if the client should not retry until
+    /// the system state has been explicitly fixed. For example, if an "rmdir"
+    /// fails because the directory is non-empty, `FAILED_PRECONDITION`
+    /// should be returned since the client should not retry unless
+    /// the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
     pub const FAILED_PRECONDITION: &str = "FAILED_PRECONDITION";

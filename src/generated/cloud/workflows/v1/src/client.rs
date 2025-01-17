@@ -98,7 +98,6 @@ impl Workflows {
     /// exists in the specified project and location, the long running operation
     /// returns a [ALREADY_EXISTS][google.rpc.Code.ALREADY_EXISTS] error.
     ///
-    ///
     /// # Long running operations
     ///
     /// Calling [poller()] on the resulting builder returns an implementation of

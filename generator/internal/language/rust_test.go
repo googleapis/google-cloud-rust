@@ -1103,6 +1103,7 @@ func TestRust_FormatDocComments(t *testing.T) {
 The next line has some extra trailing whitespace:` + "   " + `
 
 We want to respect whitespace at the beginning, because it important in Markdown:
+
 - A thing
   - A nested thing
 - The next thing
@@ -1122,6 +1123,7 @@ Maybe they wanted to show some JSON:
 		"/// The next line has some extra trailing whitespace:",
 		"///",
 		"/// We want to respect whitespace at the beginning, because it important in Markdown:",
+		"///",
 		"/// - A thing",
 		"///   - A nested thing",
 		"/// - The next thing",
@@ -1204,24 +1206,19 @@ block:
 `
 
 	want := []string{
-		"///",
 		"/// Blockquotes come in many forms. They can start with a leading '> ', as in:",
 		"///",
-		"/// ```norust",
 		"/// Block quote style 1",
 		"/// Continues 1 - style 1",
 		"/// Continues 2 - style 1",
 		"/// Continues 3 - style 1",
-		"/// ```",
 		"///",
 		"/// They can start with 3 spaces and then '> ', as in:",
 		"///",
-		"/// ```norust",
 		"/// Block quote style 2",
 		"/// Continues 1 - style 2",
 		"/// Continues 2 - style 2",
 		"/// Continues 3 - style 2",
-		"/// ```",
 		"///",
 		"/// Or they can start with just 4 spaces:",
 		"///",
@@ -1241,8 +1238,6 @@ block:
 		"/// > Continues 2 - with arrow",
 		"/// Continues 3 - with arrow",
 		"/// ```",
-		"///",
-		"///",
 	}
 
 	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
@@ -1289,7 +1284,6 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [SomeService.CreateBar][test.v1.SomeService.CreateBar]
 `
 	want := []string{
-		"///",
 		"/// [Any][google.protobuf.Any]",
 		"/// [Message][test.v1.SomeMessage]",
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
@@ -1301,7 +1295,6 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
-		"///",
 		"///",
 		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
@@ -1341,6 +1334,33 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	rustLoadWellKnownTypes(model.State)
 
+	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
+	input := `Link definitions should be added when collapsed links are used. 
+	For example, [google][].
+	Second [example][].
+	[Third] example.
+	[google]: https://www.google.com
+	[example]: https://www.example.com
+	[Third]: https://www.third.com`
+
+	want := []string{
+		"/// Link definitions should be added when collapsed links are used.",
+		"/// For example, [google][].",
+		"/// Second [example][].",
+		"/// [Third] example.",
+		"/// [google]: https://www.google.com",
+		"/// [example]: https://www.example.com",
+		"/// [Third]: https://www.third.com",
+	}
+
+	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
@@ -1431,7 +1451,6 @@ http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
 https://cloud.google.com/apis/design/design_patterns#integer_types.`
 	want := []string{
-		"///",
 		"/// blah blah <https://cloud.google.com> foo bar",
 		"/// [link](https://example1.com)",
 		"/// <https://example2.com>",

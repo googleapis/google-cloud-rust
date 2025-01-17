@@ -301,7 +301,6 @@ impl wkt::message::Message for DeleteOperationRequest {
 
 /// The request message for
 /// [Operations.WaitOperation][google.longrunning.Operations.WaitOperation].
-///
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

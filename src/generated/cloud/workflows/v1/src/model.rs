@@ -42,7 +42,7 @@ pub struct Workflow {
     ///
     /// - [Service account][google.cloud.workflows.v1.Workflow.service_account]
     /// - [Workflow code to be
-    /// executed][google.cloud.workflows.v1.Workflow.source_contents]
+    ///   executed][google.cloud.workflows.v1.Workflow.source_contents]
     ///
     /// The format is "000001-a4d", where the first six characters define
     /// the zero-padded revision ordinal number. They are followed by a hyphen and
