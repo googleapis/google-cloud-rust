@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package sidekick
+package config
 
 import (
 	"bytes"
@@ -44,7 +44,7 @@ func TestLoadRootConfigOnlyGeneral(t *testing.T) {
 	if err := tempFile.Close(); err != nil {
 		t.Fatal(err)
 	}
-	got, err := loadRootConfig(tempFile.Name())
+	got, err := LoadRootConfig(tempFile.Name())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +87,7 @@ func TestLoadRootConfig(t *testing.T) {
 	if err := tempFile.Close(); err != nil {
 		t.Fatal(err)
 	}
-	got, err := loadRootConfig(tempFile.Name())
+	got, err := LoadRootConfig(tempFile.Name())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -268,5 +268,5 @@ func mergeTestConfigs(t *testing.T, root, local *Config) (*Config, error) {
 		return nil, err
 	}
 	tempFile.Close()
-	return mergeConfigAndFile(root, tempFile.Name())
+	return MergeConfigAndFile(root, tempFile.Name())
 }

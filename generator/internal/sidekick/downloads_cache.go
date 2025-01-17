@@ -25,10 +25,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/walle/targz"
 )
 
-func makeSourceRoot(rootConfig *Config, configPrefix string) (string, error) {
+func makeSourceRoot(rootConfig *config.Config, configPrefix string) (string, error) {
 	sourceRoot, ok := rootConfig.Source[fmt.Sprintf("%s-root", configPrefix)]
 	if !ok {
 		return "", nil
@@ -69,7 +70,7 @@ func makeSourceRoot(rootConfig *Config, configPrefix string) (string, error) {
 	return target, nil
 }
 
-func extractedName(rootConfig *Config, googleapisRoot, configPrefix string) string {
+func extractedName(rootConfig *config.Config, googleapisRoot, configPrefix string) string {
 	name, ok := rootConfig.Source[fmt.Sprintf("%s-extracted-name", configPrefix)]
 	if ok {
 		return name
@@ -156,7 +157,7 @@ func isDirectory(name string) bool {
 	return true
 }
 
-func getCacheDir(rootConfig *Config) (string, error) {
+func getCacheDir(rootConfig *config.Config) (string, error) {
 	cacheDir, ok := rootConfig.Source["cachedir"]
 	if !ok {
 		var err error

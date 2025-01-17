@@ -25,6 +25,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/walle/targz"
 )
 
@@ -34,7 +35,7 @@ func TestExistingDirectory(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer os.RemoveAll(tmp)
-	rootConfig := Config{
+	rootConfig := config.Config{
 		Source: map[string]string{
 			"googleapis-root": tmp,
 		},
@@ -49,7 +50,7 @@ func TestExistingDirectory(t *testing.T) {
 }
 
 func TestValidateConfig(t *testing.T) {
-	rootConfig := Config{
+	rootConfig := config.Config{
 		Source: map[string]string{
 			"googleapis-root": "https://unused",
 		},
@@ -85,7 +86,7 @@ func TestWithDownload(t *testing.T) {
 	}))
 	defer server.Close()
 
-	rootConfig := &Config{
+	rootConfig := &config.Config{
 		Source: map[string]string{
 			"googleapis-root":   server.URL + simulatedPath,
 			"googleapis-sha256": tarball.Sha256,
@@ -115,7 +116,7 @@ func TestTargetExists(t *testing.T) {
 	defer os.RemoveAll(testDir)
 
 	sha256 := "eb853d49313f20a096607fea87dfc10bd6a1b917ad17ad5db8a205b457a940e1"
-	rootConfig := &Config{
+	rootConfig := &config.Config{
 		Source: map[string]string{
 			"googleapis-root":   "https://unused/path",
 			"googleapis-sha256": sha256,
@@ -258,7 +259,7 @@ func makeTestTarball(t *testing.T, tempDir, subdir string) (*contents, error) {
 }
 
 func TestExtractedName(t *testing.T) {
-	var rootConfig Config
+	var rootConfig config.Config
 	got := extractedName(&rootConfig, "https://github.com/googleapis/googleapis/archive/2d08f07eab9bbe8300cd20b871d0811bbb693fab.tar.gz", "googleapis")
 	want := "googleapis-2d08f07eab9bbe8300cd20b871d0811bbb693fab"
 	if got != want {
@@ -268,7 +269,7 @@ func TestExtractedName(t *testing.T) {
 
 func TestExtractedNameOverride(t *testing.T) {
 	want := "override"
-	rootConfig := Config{
+	rootConfig := config.Config{
 		Source: map[string]string{
 			"googleapis-extracted-name": want,
 		},
@@ -280,7 +281,7 @@ func TestExtractedNameOverride(t *testing.T) {
 }
 
 func TestDownloadsCacheDir(t *testing.T) {
-	dir, err := getCacheDir(&Config{Source: map[string]string{"cachedir": "test-only"}})
+	dir, err := getCacheDir(&config.Config{Source: map[string]string{"cachedir": "test-only"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -290,7 +291,7 @@ func TestDownloadsCacheDir(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	dir, err = getCacheDir(&Config{Source: map[string]string{}})
+	dir, err = getCacheDir(&config.Config{Source: map[string]string{}})
 	if err != nil {
 		t.Fatal(err)
 	}

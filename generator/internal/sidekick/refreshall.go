@@ -23,6 +23,8 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 )
 
 func init() {
@@ -39,7 +41,7 @@ Reruns the generator for all client libraries, using the configuration parameter
 		addAltName("refreshAll")
 }
 
-func overrideSources(rootConfig *Config) (*Config, error) {
+func overrideSources(rootConfig *config.Config) (*config.Config, error) {
 	override := *rootConfig
 	override.Codec = maps.Clone(rootConfig.Codec)
 	override.Source = maps.Clone(rootConfig.Source)
@@ -57,12 +59,12 @@ func overrideSources(rootConfig *Config) (*Config, error) {
 	return &override, nil
 }
 
-func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
+func refreshAll(rootConfig *config.Config, cmdLine *CommandLine) error {
 	override, err := overrideSources(rootConfig)
 	if err != nil {
 		return err
 	}
-	directories, err := findAllDirectories(rootConfig)
+	directories, err := findAllDirectories()
 	if err != nil {
 		return err
 	}
@@ -98,7 +100,7 @@ func refreshAll(rootConfig *Config, cmdLine *CommandLine) error {
 	return errors.Join(failures...)
 }
 
-func findAllDirectories(_ *Config) ([]string, error) {
+func findAllDirectories() ([]string, error) {
 	var result []string
 	err := fs.WalkDir(os.DirFS("."), ".", func(path string, d fs.DirEntry, _ error) error {
 		if d.IsDir() {

@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 )
 
 var cmdSidekick = newCommand(
@@ -114,7 +116,7 @@ func runCommand(cmd *command, cmdLine *CommandLine) error {
 			return fmt.Errorf("could not change to project root [%s]: %w", cmdLine.ProjectRoot, err)
 		}
 	}
-	config, err := loadConfig(cmdLine)
+	config, err := config.LoadConfig(cmdLine.Language, cmdLine.Source, cmdLine.Codec)
 	if err != nil {
 		return fmt.Errorf("could not load configuration: %w", err)
 	}
