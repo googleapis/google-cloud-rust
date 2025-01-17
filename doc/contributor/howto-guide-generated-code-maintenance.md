@@ -76,7 +76,7 @@ Run:
 go -C generator test ./...
 ```
 
-After updating the golden files, make sure to run `git diff generator/testdata` 
+After updating the golden files, make sure to run `git diff generator/testdata`
 to verify the changes before committing them.
 
 ## The Glorious Future
