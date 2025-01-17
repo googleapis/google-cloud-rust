@@ -13,14 +13,99 @@
 // limitations under the License.
 
 use crate::Result;
-use gax::error::Error;
+use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use gax::{error::Error, options::RequestOptionsBuilder};
 use lro::Poller;
 use rand::{distributions::Alphanumeric, Rng};
 use std::time::Duration;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
-pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
+pub async fn until_done(config: Option<gax::options::ClientConfig>) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    let project_id = crate::project_id()?;
+    let location_id = crate::region_id();
+    let workflows_runner = crate::workflows_runner()?;
+
+    // We could simplify the code, but we want to test both ::new_with_config()
+    // and ::new().
+    let client = if let Some(config) = config {
+        wf::client::Workflows::new_with_config(config).await?
+    } else {
+        wf::client::Workflows::new().await?
+    };
+    cleanup_stale_workflows(&client, &project_id, &location_id).await?;
+
+    let source_contents = r###"# Test only workflow
+main:
+    steps:
+        - sayHello:
+            return: Hello World
+"###;
+    let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
+    let prefix = "wf-";
+    let workflow_id: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        // Workflow ids must start with a letter, we use `wf-` as a prefix to
+        // this requirement (see below).
+        .take(WORKFLOW_ID_LENGTH - prefix.len())
+        .map(char::from)
+        .collect();
+    let workflow_id = format!("{prefix}{workflow_id}");
+
+    println!("\n\nStart create_workflow() LRO and poll it to completion");
+    let response = client
+        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .set_workflow_id(&workflow_id)
+        .set_workflow(
+            wf::model::Workflow::default()
+                .set_labels(
+                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
+                )
+                .set_call_log_level(
+                    wf::model::workflow::CallLogLevel::default()
+                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
+                )
+                .set_state(
+                    wf::model::workflow::State::default()
+                        .set_value(wf::model::workflow::state::UNAVAILABLE),
+                )
+                .set_service_account(&workflows_runner)
+                .set_source_code(source_code),
+        )
+        .with_polling_backoff_policy(test_backoff()?)
+        .poller()
+        .until_done()
+        .await?;
+    println!("    create LRO finished, response={response:?}");
+
+    println!("\n\nStart delete_workflow() LRO and poll it to completion");
+    let delete = client
+        .delete_workflow(format!(
+            "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
+        ))
+        .poller()
+        .until_done()
+        .await?;
+    println!("    delete LRO finished, response={delete:?}");
+
+    Ok(())
+}
+
+pub async fn explicit_loop(config: Option<gax::options::ClientConfig>) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
     // verify tracing is doing something.
     #[cfg(feature = "log-integration-tests")]
@@ -86,6 +171,7 @@ main:
                 .set_source_code(source_code),
         )
         .poller();
+    let mut backoff = Duration::from_millis(100);
     while let Some(status) = create.poll().await {
         match status {
             lro::PollingResult::PollingError(e) => {
@@ -104,7 +190,8 @@ main:
                 }
             },
         }
-        tokio::time::sleep(Duration::from_secs(1)).await;
+        tokio::time::sleep(backoff).await;
+        backoff = backoff.saturating_mul(2);
     }
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
@@ -113,6 +200,7 @@ main:
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller();
+    let mut backoff = Duration::from_millis(100);
     while let Some(status) = delete.poll().await {
         match status {
             lro::PollingResult::PollingError(e) => {
@@ -126,10 +214,18 @@ main:
                 let _ = r?;
             }
         }
-        tokio::time::sleep(Duration::from_secs(1)).await;
+        tokio::time::sleep(backoff).await;
+        backoff = backoff.saturating_mul(2);
     }
 
     Ok(())
+}
+
+fn test_backoff() -> Result<ExponentialBackoff> {
+    ExponentialBackoffBuilder::new()
+        .with_initial_delay(Duration::from_millis(100))
+        .with_maximum_delay(Duration::from_secs(1))
+        .build()
 }
 
 async fn cleanup_stale_workflows(
@@ -159,20 +255,15 @@ async fn cleanup_stale_workflows(
         }
     }
     let pending = stale_workflows
-        .into_iter()
-        .map(|name| client.delete_workflow(name).poller())
+        .iter()
+        .map(|name| client.delete_workflow(name).poller().until_done())
         .collect::<Vec<_>>();
-    for mut poller in pending.into_iter() {
-        while let Some(status) = poller.poll().await {
-            match status {
-                lro::PollingResult::Completed(_) => {
-                    // Ignore any errors trying to delete the workflow. The
-                    // next time we run the workflow it should work.
-                }
-                lro::PollingResult::InProgress(_) | lro::PollingResult::PollingError(_) => {}
-            }
-        }
-    }
+
+    futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .zip(stale_workflows)
+        .for_each(|(r, name)| println!("{name} = {r:?}"));
 
     Ok(())
 }

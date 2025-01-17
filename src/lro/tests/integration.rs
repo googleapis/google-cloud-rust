@@ -43,6 +43,7 @@ mod test {
         let client = client::Client::new(endpoint).await?;
         let response = client
             .create_resource("test-p", "r-001")
+            .poller()
             .until_done()
             .await?;
         assert_eq!(
@@ -66,7 +67,11 @@ mod test {
         .await?;
 
         let client = client::Client::new(endpoint).await?;
-        let result = client.create_resource("test-p", "r-001").until_done().await;
+        let result = client
+            .create_resource("test-p", "r-001")
+            .poller()
+            .until_done()
+            .await;
         let error = result.err().unwrap();
         assert_eq!(error.kind(), gax::error::ErrorKind::Other);
 
@@ -89,6 +94,7 @@ mod test {
         let client = client::Client::new(endpoint).await?;
         let response = client
             .create_resource("test-p", "r-001")
+            .poller()
             .until_done()
             .await?;
         assert_eq!(
@@ -115,7 +121,11 @@ mod test {
         .await?;
 
         let client = client::Client::new(endpoint).await?;
-        let result = client.create_resource("test-p", "r-001").until_done().await;
+        let result = client
+            .create_resource("test-p", "r-001")
+            .poller()
+            .until_done()
+            .await;
         let error = result.err().unwrap();
         assert_eq!(error.kind(), gax::error::ErrorKind::Other);
 

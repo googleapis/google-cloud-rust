@@ -90,40 +90,6 @@ impl CreateResource {
         };
         gcp_sdk_lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
-
-    pub async fn until_done(self) -> Result<super::model::Resource> {
-        use gcp_sdk_lro::Poller;
-        use gcp_sdk_lro::PollingResult;
-        use std::time::Duration;
-        let duration = Duration::from_secs(1);
-        let mut poller = self.poller();
-        while let Some(p) = poller.poll().await {
-            match p {
-                PollingResult::Completed(result) => {
-                    return result;
-                }
-                PollingResult::PollingError(e) => {
-                    // TODO: use policy...
-                    if let Some(svc) = e.as_inner::<gax::error::ServiceError>() {
-                        if svc.status().code == gax::error::rpc::Code::Unavailable as i32 {
-                            continue;
-                        }
-                    }
-                    return Err(e);
-                }
-                PollingResult::InProgress(_) => {}
-            }
-
-            // TODO: use policy
-            let duration = if duration > Duration::from_secs(60) {
-                duration
-            } else {
-                duration.saturating_mul(2)
-            };
-            tokio::time::sleep(duration).await;
-        }
-        return Err(gax::error::Error::other("no response"));
-    }
 }
 
 pub struct GetOperation {

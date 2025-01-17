@@ -111,6 +111,9 @@ pub trait Poller<R, M> {
     /// Query the current status of the long-running operation.
     fn poll(&mut self) -> impl Future<Output = Option<PollingResult<R, M>>>;
 
+    /// Poll the long-running operation until it completes.
+    fn until_done(self) -> impl Future<Output = Result<R>>;
+
     /// Convert a poller to a [futures::Stream].
     #[cfg(feature = "unstable-stream")]
     fn to_stream(self) -> impl futures::Stream<Item = PollingResult<R, M>>;
@@ -175,7 +178,7 @@ where
         + 'static,
 {
     polling_policy: Arc<dyn PollingPolicy>,
-    _backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    backoff_policy: Arc<dyn PollingBackoffPolicy>,
     start: Option<S>,
     query: Q,
     operation: Option<String>,
@@ -202,7 +205,7 @@ where
     ) -> Self {
         Self {
             polling_policy,
-            _backoff_policy: backoff_policy,
+            backoff_policy,
             start: Some(start),
             query,
             operation: None,
@@ -249,6 +252,30 @@ where
         None
     }
 
+    async fn until_done(mut self) -> Result<ResponseType> {
+        let loop_start = std::time::Instant::now();
+        let mut attempt_count = 0;
+        while let Some(p) = self.poll().await {
+            match p {
+                // Return, the operation completed or the polling policy is
+                // exhausted.
+                PollingResult::Completed(r) => return r,
+                // Continue, the operation was successfully polled and the
+                // polling policy was queried.
+                PollingResult::InProgress(_) => (),
+                // Continue, the polling policy was queried and decided the
+                // error is recoverable.
+                PollingResult::PollingError(_) => (),
+            }
+            attempt_count += 1;
+            tokio::time::sleep(self.backoff_policy.wait_period(loop_start, attempt_count)).await;
+        }
+        // We can only get here if `poll()` returns `None`, but it only returns
+        // `None` after it returned `Polling::Completed` and therefore this is
+        // never reached.
+        unreachable!("loop should exit via the `Completed` branch vs. this line");
+    }
+
     #[cfg(feature = "unstable-stream")]
     fn to_stream(self) -> impl futures::Stream<Item = PollingResult<ResponseType, MetadataType>>
     where
@@ -273,7 +300,9 @@ mod details;
 mod test {
     use super::*;
     use gax::exponential_backoff::ExponentialBackoff;
+    use gax::exponential_backoff::ExponentialBackoffBuilder;
     use gax::polling_policy::*;
+    use std::time::Duration;
 
     type ResponseType = wkt::Duration;
     type MetadataType = wkt::Timestamp;
@@ -456,5 +485,133 @@ mod test {
 
         let p2 = stream.next().await;
         assert!(p2.is_none(), "{p2:?}");
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn until_done_basic_flow() -> Result<()> {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let query = |_: String| async move {
+            let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let result = longrunning::model::operation::Result::Response(any);
+            let op = longrunning::model::Operation::default()
+                .set_done(true)
+                .set_result(result);
+            let op = TestOperation::new(op);
+
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let poller = PollerImpl::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        let response = poller.until_done().await?;
+        assert_eq!(response, wkt::Duration::clamp(234, 0));
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn until_done_with_recoverable_polling_error() -> Result<()> {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let count = Arc::new(std::sync::Mutex::new(0_u32));
+        let query = move |_: String| {
+            let mut guard = count.lock().unwrap();
+            let c = *guard;
+            *guard = c + 1;
+            drop(guard);
+            async move {
+                if c == 0 {
+                    return Err::<TestOperation, Error>(Error::other(
+                        "recoverable (see policy below)",
+                    ));
+                }
+                let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
+                    .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+                let result = longrunning::model::operation::Result::Response(any);
+                let op = longrunning::model::Operation::default()
+                    .set_done(true)
+                    .set_result(result);
+                let op = TestOperation::new(op);
+
+                Ok::<TestOperation, Error>(op)
+            }
+        };
+
+        let poller = PollerImpl::new(
+            Arc::new(AlwaysContinue),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        let response = poller.until_done().await?;
+        assert_eq!(response, wkt::Duration::clamp(234, 0));
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn until_done_with_unrecoverable_polling_error() -> Result<()> {
+        let start = || async move {
+            let any = wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))
+                .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
+            let op = longrunning::model::Operation::default()
+                .set_name("test-only-name")
+                .set_metadata(any);
+            let op = TestOperation::new(op);
+            Ok::<TestOperation, Error>(op)
+        };
+
+        let query = move |_: String| async move {
+            return Err::<TestOperation, Error>(Error::other("unrecoverable (see policy below)"));
+        };
+
+        let poller = PollerImpl::new(
+            Arc::new(Aip194Strict),
+            Arc::new(
+                ExponentialBackoffBuilder::new()
+                    .with_initial_delay(Duration::from_millis(1))
+                    .clamp(),
+            ),
+            start,
+            query,
+        );
+        let response = poller.until_done().await;
+        assert!(response.is_err());
+        assert!(
+            format!("{response:?}").contains("unrecoverable"),
+            "{response:?}"
+        );
+
+        Ok(())
     }
 }
