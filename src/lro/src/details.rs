@@ -60,7 +60,9 @@ where
                         Some(e) => (None, PollingResult::Completed(Err(e))),
                     }
                 }
-                PollingResult::PollingError(_) => panic!(),
+                PollingResult::PollingError(_) => {
+                    unreachable!("handle_common never returns PollingResult::PollingError")
+                }
             }
         }
     }
