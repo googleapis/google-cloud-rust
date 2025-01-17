@@ -69,9 +69,8 @@ impl CreateResource {
         let polling_policy = self.stub.get_polling_policy(&self.options);
         let polling_backoff_policy = self.stub.get_polling_backoff_policy(&self.options);
         let stub = self.stub.clone();
-        let options = self.options.clone()
-            // TODO(684) - use NoRetries policy here.
-            ;
+        let mut options = self.options.clone();
+        options.set_retry_policy(gax::retry_policy::NeverRetry);
         let query = move |name| {
             let stub = stub.clone();
             let options = options.clone();
