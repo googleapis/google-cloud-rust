@@ -98,6 +98,25 @@ impl {{NameToPascal}} {
     /// below for instructions on how to manually use the resulting [Operation].
     /// We recommend `poller()` in favor of `send()`.
     ///
+    /// ## Polling until completion
+    ///
+    /// Applications that do not care about intermediate results in a
+    /// long-running operation may use the [until_done()] function:
+    ///
+    /// ```
+    /// # use gax::Result;
+    /// # use {{PackageNamespace}}::model;
+    /// async fn wait(
+    ///     mut poller: impl lro::Poller<{{ResponseTypeInDocs}}, {{MetadataTypeInDocs}}>
+    /// ) -> Result<{{ResponseTypeInDocs}}> {
+    ///     poller.until_done().await
+    /// }
+    /// ```
+    ///
+    /// This will wait until the LRO completes (successfully or with an error).
+    /// Applications can set the [PollingPolicy] and [PollingBackoffPolicy] to
+    /// control for how long the function runs.
+    ///
     /// ## Polling with detailed metadata updates
     ///
     /// Using the result of [poller()] follows a common pattern:
@@ -144,7 +163,9 @@ impl {{NameToPascal}} {
     ///
     /// [send()]: crate::builders::{{NameToPascal}}::send
     /// [poller()]: crate::builders::{{NameToPascal}}::poller
-    /// [Poller::poll()]: lro::Poller::poll
+    /// [until_done()]: lro::Poller::until_done
+    /// [PollingPolicy]: gax::polling_policy::PollingPolicy
+    /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
     /// [get_operation]: Self::get_operation
     /// [metadata]: longrunning::model::Operation::result
     /// [name]: longrunning::model::Operation::name
