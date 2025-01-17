@@ -76,6 +76,9 @@ Run:
 go -C generator test ./...
 ```
 
+After updating the golden files, make sure to run `git diff generator/testdata` 
+to verify the changes before committing them.
+
 ## The Glorious Future
 
 Someday `sidekick` will be stable enough that (a) it will not be part of the
