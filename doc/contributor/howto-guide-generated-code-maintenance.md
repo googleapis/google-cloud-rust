@@ -66,6 +66,16 @@ go -C generator/ run ./cmd/sidekick refreshall -project-root .. && cargo fmt
 
 Then run the unit tests and send a PR with whatever changed.
 
+## Update golden files
+
+The golden files live under `generator/testdata`.
+
+Run:
+
+```bash
+go -C generator test ./...
+```
+
 ## The Glorious Future
 
 Someday `sidekick` will be stable enough that (a) it will not be part of the
