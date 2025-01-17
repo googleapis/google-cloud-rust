@@ -17,12 +17,9 @@ package sidekick
 import (
 	"fmt"
 	"maps"
-	"os"
-	"path"
 	"time"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/license"
-	toml "github.com/pelletier/go-toml/v2"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 )
 
 func init() {
@@ -41,9 +38,9 @@ Uses the configuration provided in the command line arguments, and saves it in a
 
 // generate takes some state and applies it to a template to create a client
 // library.
-func generate(rootConfig *Config, cmdLine *CommandLine) error {
-	local := Config{
-		General: GeneralConfig{
+func generate(rootConfig *config.Config, cmdLine *CommandLine) error {
+	local := config.Config{
+		General: config.GeneralConfig{
 			Language:            cmdLine.Language,
 			SpecificationFormat: cmdLine.SpecificationFormat,
 			SpecificationSource: cmdLine.SpecificationSource,
@@ -57,7 +54,7 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 		local.Codec["copyright-year"] = fmt.Sprintf("%04d", generation_year)
 	}
 
-	if err := writeSidekickToml(cmdLine.Output, &local); err != nil {
+	if err := config.WriteSidekickToml(cmdLine.Output, &local); err != nil {
 		return err
 	}
 
@@ -68,31 +65,4 @@ func generate(rootConfig *Config, cmdLine *CommandLine) error {
 
 	// Load the .sidekick.toml file and refresh the code.
 	return refresh(override, cmdLine)
-}
-
-func writeSidekickToml(outDir string, config *Config) error {
-	if err := os.MkdirAll(outDir, 0777); err != nil {
-		return err
-	}
-	f, err := os.Create(path.Join(outDir, ".sidekick.toml"))
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	year := config.Codec["copyright-year"]
-	for _, line := range license.LicenseHeader(year) {
-		if line == "" {
-			fmt.Fprintln(f, "#")
-		} else {
-			fmt.Fprintf(f, "#%s\n", line)
-		}
-	}
-	fmt.Fprintln(f, "")
-
-	t := toml.NewEncoder(f)
-	if err := t.Encode(config); err != nil {
-		return err
-	}
-	return f.Close()
 }

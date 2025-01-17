@@ -23,6 +23,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	toml "github.com/pelletier/go-toml/v2"
 )
 
@@ -67,8 +68,8 @@ func TestUpdateRootConfig(t *testing.T) {
 	}))
 	defer server.Close()
 
-	rootConfig := &Config{
-		General: GeneralConfig{
+	rootConfig := &config.Config{
+		General: config.GeneralConfig{
 			Language:            "rust",
 			SpecificationFormat: "protobuf",
 		},
@@ -80,15 +81,15 @@ func TestUpdateRootConfig(t *testing.T) {
 		},
 		Codec: map[string]string{},
 	}
-	if err := writeSidekickToml(".", rootConfig); err != nil {
+	if err := config.WriteSidekickToml(".", rootConfig); err != nil {
 		t.Fatal(err)
 	}
 
-	if err := updateRootConfig(rootConfig); err != nil {
+	if err := config.UpdateRootConfig(rootConfig); err != nil {
 		t.Fatal(err)
 	}
 
-	got := &Config{}
+	got := &config.Config{}
 	contents, err := os.ReadFile(path.Join(tempDir, ".sidekick.toml"))
 	if err != nil {
 		t.Fatal(err)
@@ -96,7 +97,7 @@ func TestUpdateRootConfig(t *testing.T) {
 	if err := toml.Unmarshal(contents, got); err != nil {
 		t.Fatal("error reading top-level configuration: %w", err)
 	}
-	want := &Config{
+	want := &config.Config{
 		General: rootConfig.General,
 		Source: map[string]string{
 			"github-api":        server.URL,

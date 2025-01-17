@@ -19,6 +19,7 @@ import (
 	"path"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
@@ -37,12 +38,12 @@ Reruns the generator for a single client library, using the configuration parame
 
 // refresh reruns the generator in one directory, using the configuration
 // parameters saved in its `.sidekick.toml` file.
-func refresh(rootConfig *Config, cmdLine *CommandLine) error {
+func refresh(rootConfig *config.Config, cmdLine *CommandLine) error {
 	return refreshDir(rootConfig, cmdLine, cmdLine.Output)
 }
 
-func refreshDir(rootConfig *Config, cmdLine *CommandLine, output string) error {
-	config, err := mergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
+func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) error {
+	config, err := config.MergeConfigAndFile(rootConfig, path.Join(output, ".sidekick.toml"))
 	if err != nil {
 		return err
 	}
