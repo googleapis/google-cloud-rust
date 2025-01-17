@@ -1484,7 +1484,6 @@ impl SetIamPolicyRequest {
 /// An Identity and Access Management (IAM) policy, which specifies access
 /// controls for Google Cloud resources.
 ///
-///
 /// A `Policy` is a collection of `bindings`. A `binding` binds one or more
 /// `members`, or principals, to a single `role`. Principals can be user
 /// accounts, service accounts, Google groups, and domains (such as G Suite). A
@@ -1673,36 +1672,31 @@ pub struct Binding {
     /// `members` can have the following values:
     ///
     /// * `allUsers`: A special identifier that represents anyone who is
-    ///    on the internet; with or without a Google account.
+    ///   on the internet; with or without a Google account.
     ///
     /// * `allAuthenticatedUsers`: A special identifier that represents anyone
-    ///    who is authenticated with a Google account or a service account.
-    ///    Does not include identities that come from external identity providers
-    ///    (IdPs) through identity federation.
+    ///   who is authenticated with a Google account or a service account.
+    ///   Does not include identities that come from external identity providers
+    ///   (IdPs) through identity federation.
     ///
     /// * `user:{emailid}`: An email address that represents a specific Google
-    ///    account. For example, `alice@example.com` .
-    ///
+    ///   account. For example, `alice@example.com` .
     ///
     /// * `serviceAccount:{emailid}`: An email address that represents a Google
-    ///    service account. For example,
-    ///    `my-other-app@appspot.gserviceaccount.com`.
+    ///   service account. For example,
+    ///   `my-other-app@appspot.gserviceaccount.com`.
     ///
     /// * `serviceAccount:{projectid}.svc.id.goog[{namespace}/{kubernetes-sa}]`: An
-    ///    identifier for a
-    ///    [Kubernetes service
-    ///    account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts).
-    ///    For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`.
+    ///   identifier for a
+    ///   [Kubernetes service
+    ///   account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts).
+    ///   For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`.
     ///
     /// * `group:{emailid}`: An email address that represents a Google group.
-    ///    For example, `admins@example.com`.
-    ///
+    ///   For example, `admins@example.com`.
     ///
     /// * `domain:{domain}`: The G Suite domain (primary) that represents all the
-    ///    users of that domain. For example, `google.com` or `example.com`.
-    ///
-    ///
-    ///
+    ///   users of that domain. For example, `google.com` or `example.com`.
     ///
     /// * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`:
     ///   A single identity in a workforce identity pool.
@@ -1729,28 +1723,29 @@ pub struct Binding {
     ///   All identities in a workload identity pool.
     ///
     /// * `deleted:user:{emailid}?uid={uniqueid}`: An email address (plus unique
-    ///    identifier) representing a user that has been recently deleted. For
-    ///    example, `alice@example.com?uid=123456789012345678901`. If the user is
-    ///    recovered, this value reverts to `user:{emailid}` and the recovered user
-    ///    retains the role in the binding.
+    ///   identifier) representing a user that has been recently deleted. For
+    ///   example, `alice@example.com?uid=123456789012345678901`. If the user is
+    ///   recovered, this value reverts to `user:{emailid}` and the recovered user
+    ///   retains the role in the binding.
     ///
     /// * `deleted:serviceAccount:{emailid}?uid={uniqueid}`: An email address (plus
-    ///    unique identifier) representing a service account that has been recently
-    ///    deleted. For example,
-    ///    `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`.
-    ///    If the service account is undeleted, this value reverts to
-    ///    `serviceAccount:{emailid}` and the undeleted service account retains the
-    ///    role in the binding.
+    ///   unique identifier) representing a service account that has been recently
+    ///   deleted. For example,
+    ///   `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`.
+    ///   If the service account is undeleted, this value reverts to
+    ///   `serviceAccount:{emailid}` and the undeleted service account retains the
+    ///   role in the binding.
     ///
     /// * `deleted:group:{emailid}?uid={uniqueid}`: An email address (plus unique
-    ///    identifier) representing a Google group that has been recently
-    ///    deleted. For example, `admins@example.com?uid=123456789012345678901`. If
-    ///    the group is recovered, this value reverts to `group:{emailid}` and the
-    ///    recovered group retains the role in the binding.
+    ///   identifier) representing a Google group that has been recently
+    ///   deleted. For example, `admins@example.com?uid=123456789012345678901`. If
+    ///   the group is recovered, this value reverts to `group:{emailid}` and the
+    ///   recovered group retains the role in the binding.
     ///
     /// * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id}/subject/{subject_attribute_value}`:
     ///   Deleted single identity in a workforce identity pool. For example,
     ///   `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
+    ///
     #[serde(skip_serializing_if = "Vec::is_empty")]
     pub members: Vec<String>,
 
