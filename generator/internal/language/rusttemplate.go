@@ -132,7 +132,7 @@ type RustField struct {
 	FieldType             string
 	PrimitiveFieldType    string
 	JSONName              string
-	AsQueryParameter      string
+	AddQueryParameter     string
 }
 
 type RustEnum struct {
@@ -378,7 +378,7 @@ func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpeci
 		FieldType:             rustFieldType(field, state, false, modulePath, sourceSpecificationPackageName, packageMapping),
 		PrimitiveFieldType:    rustFieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
 		JSONName:              field.JSONName,
-		AsQueryParameter:      rustAsQueryParameter(field),
+		AddQueryParameter:     rustAddQueryParameter(field),
 	}
 }
 

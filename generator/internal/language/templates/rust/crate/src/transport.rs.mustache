@@ -64,7 +64,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         {{#QueryParams}}
-        let builder = gax::query_parameter::add(builder, "{{JSONName}}", {{{AsQueryParameter}}}).map_err(Error::other)?;
+        {{{AddQueryParameter}}}
         {{/QueryParams}}
         self.inner.execute(
             builder,

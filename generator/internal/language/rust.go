@@ -526,16 +526,29 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 
 }
 
-func rustAsQueryParameter(f *api.Field) string {
-	if f.Typez == api.MESSAGE_TYPE {
+func rustAddQueryParameter(f *api.Field) string {
+	switch f.Typez {
+	case api.ENUM_TYPE:
+		if f.Optional || f.Repeated {
+			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, rustToSnake(f.Name), f.JSONName)
+		}
+		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s.value())]);`, f.JSONName, rustToSnake(f.Name))
+	case api.MESSAGE_TYPE:
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
-		return fmt.Sprintf("&serde_json::to_value(&req.%s).map_err(Error::serde)?", rustToSnake(f.Name))
+		if f.Optional || f.Repeated {
+			return fmt.Sprintf(`let builder = req.%s.iter().try_fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; serde_json::to_value(p).map_err(Error::serde)?.add(builder, "%s").map_err(Error::other) })?;`, rustToSnake(f.Name), f.JSONName)
+		}
+		return fmt.Sprintf(`let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s").map_err(Error::other)? };`, rustToSnake(f.Name), f.JSONName)
+	default:
+		if f.Optional || f.Repeated {
+			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, rustToSnake(f.Name), f.JSONName)
+		}
+		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, rustToSnake(f.Name))
 	}
-	return fmt.Sprintf("&req.%s", rustToSnake(f.Name))
 }
 
 func rustTemplatesProvider() templateProvider {
