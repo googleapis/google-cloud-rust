@@ -15,6 +15,10 @@
 //! Simplifies the implementation of `PollerImpl`
 
 use super::*;
+use gax::loop_state::LoopState;
+use gax::polling_policy::PollingPolicy;
+use std::sync::Arc;
+use std::time::Instant;
 
 pub(crate) fn handle_start<R, M>(
     result: Result<Operation<R, M>>,
@@ -30,6 +34,10 @@ where
 }
 
 pub(crate) fn handle_poll<R, M>(
+    polling_policy: Arc<dyn PollingPolicy>,
+    loop_start: Instant,
+    attempt_count: u32,
+    operation_name: String,
     result: Result<Operation<R, M>>,
 ) -> (Option<String>, PollingResult<R, M>)
 where
@@ -37,8 +45,27 @@ where
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
     match result {
-        Err(e) => (None, PollingResult::PollingError(e)),
+        Err(e) => {
+            let state = polling_policy.on_error(loop_start, attempt_count, e);
+            handle_polling_error(state, operation_name)
+        }
         Ok(op) => handle_common(op),
+    }
+}
+
+fn handle_polling_error<R, M>(
+    state: gax::loop_state::LoopState,
+    operation_name: String,
+) -> (Option<String>, PollingResult<R, M>)
+where
+    R: wkt::message::Message + serde::de::DeserializeOwned,
+    M: wkt::message::Message + serde::de::DeserializeOwned,
+{
+    match state {
+        LoopState::Continue(e) => (Some(operation_name), PollingResult::PollingError(e)),
+        LoopState::Exhausted(e) | LoopState::Permanent(e) => {
+            (None, PollingResult::Completed(Err(e)))
+        }
     }
 }
 
@@ -81,6 +108,7 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use gax::polling_policy::*;
     use wkt::Any;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -135,7 +163,13 @@ mod test {
             .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?);
         let op = super::Operation::new(op);
         let result = Ok::<O, Error>(op);
-        let (name, poll) = handle_poll(result);
+        let (name, poll) = handle_poll(
+            Arc::new(AlwaysContinue),
+            Instant::now(),
+            0,
+            "test-123".to_string(),
+            result,
+        );
         assert_eq!(name.as_deref(), Some("test-only-name"));
         match poll {
             PollingResult::InProgress(m) => {
@@ -147,15 +181,45 @@ mod test {
     }
 
     #[test]
-    fn poll_error() {
+    fn poll_error_continue() {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
         let result = Err::<O, Error>(Error::other("test-only-error"));
-        let (name, poll) = handle_poll(result);
-        assert_eq!(name, None);
+        let (name, poll) = handle_poll(
+            Arc::new(AlwaysContinue),
+            Instant::now(),
+            0,
+            String::from("test-123"),
+            result,
+        );
+        assert_eq!(name.as_deref(), Some("test-123"));
         match poll {
             PollingResult::PollingError(e) => {
+                assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
+            }
+            _ => assert!(false, "{poll:?}"),
+        };
+    }
+
+    #[test]
+    fn poll_error_finishes() {
+        type R = wkt::Duration;
+        type M = wkt::Timestamp;
+        type O = super::Operation<R, M>;
+        let result = Err::<O, Error>(Error::other("test-only-error"));
+        let (name, poll) = handle_poll(
+            Arc::new(Aip194Strict),
+            Instant::now(),
+            0,
+            String::from("test-123"),
+            result,
+        );
+        assert_eq!(name, None);
+        match poll {
+            PollingResult::Completed(r) => {
+                assert!(r.is_err(), "{r:?}");
+                let e = r.err().unwrap();
                 assert_eq!(e.kind(), gax::error::ErrorKind::Other, "{e}")
             }
             _ => assert!(false, "{poll:?}"),
