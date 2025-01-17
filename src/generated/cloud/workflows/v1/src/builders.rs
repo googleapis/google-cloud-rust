@@ -47,9 +47,15 @@ impl ListWorkflows {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListWorkflowsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -121,9 +127,15 @@ impl GetWorkflow {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetWorkflowRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -163,9 +175,15 @@ impl CreateWorkflow {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::CreateWorkflowRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -244,9 +262,15 @@ impl DeleteWorkflow {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DeleteWorkflowRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -311,9 +335,15 @@ impl UpdateWorkflow {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::UpdateWorkflowRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -386,9 +416,15 @@ impl ListLocations {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<location::model::ListLocationsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -454,9 +490,15 @@ impl GetLocation {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<location::model::GetLocationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -490,12 +532,18 @@ impl ListOperations {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<longrunning::model::ListOperationsRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -562,9 +610,15 @@ impl GetOperation {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<longrunning::model::GetOperationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -598,12 +652,18 @@ impl DeleteOperation {
         Self(WorkflowsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<longrunning::model::DeleteOperationRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 

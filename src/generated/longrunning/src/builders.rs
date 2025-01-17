@@ -47,9 +47,15 @@ impl ListOperations {
         Self(OperationsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListOperationsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -115,9 +121,15 @@ impl GetOperation {
         Self(OperationsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetOperationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -151,9 +163,15 @@ impl DeleteOperation {
         Self(OperationsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DeleteOperationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -187,9 +205,15 @@ impl CancelOperation {
         Self(OperationsRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::CancelOperationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 

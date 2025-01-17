@@ -47,9 +47,15 @@ impl ListLocations {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListLocationsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -115,9 +121,15 @@ impl GetLocation {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetLocationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -157,9 +169,15 @@ impl ListSecrets {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListSecretsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -225,9 +243,15 @@ impl CreateSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::CreateSecretRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -275,12 +299,18 @@ impl ListSecretsByProjectAndLocation {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListSecretsByProjectAndLocationRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -354,12 +384,18 @@ impl CreateSecretByProjectAndLocation {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::CreateSecretByProjectAndLocationRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -413,9 +449,15 @@ impl AddSecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::AddSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -469,9 +511,15 @@ impl AddSecretVersionByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::AddSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -523,9 +571,15 @@ impl GetSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetSecretRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -562,9 +616,15 @@ impl DeleteSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DeleteSecretRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -610,9 +670,15 @@ impl UpdateSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::UpdateSecretRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -666,12 +732,18 @@ impl GetSecretByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetSecretByProjectAndLocationAndSecretRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -721,12 +793,18 @@ impl DeleteSecretByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -782,12 +860,18 @@ impl UpdateSecretByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -847,9 +931,15 @@ impl ListSecretVersions {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListSecretVersionsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -926,7 +1016,7 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<
         V: Into<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>,
     >(
@@ -934,6 +1024,12 @@ impl ListSecretVersionsByProjectAndLocationAndSecret {
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1014,9 +1110,15 @@ impl GetSecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1066,7 +1168,7 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<
         V: Into<crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
     >(
@@ -1074,6 +1176,12 @@ impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1130,9 +1238,15 @@ impl AccessSecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::AccessSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1182,7 +1296,7 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<
         V: Into<crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest>,
     >(
@@ -1190,6 +1304,12 @@ impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1246,12 +1366,18 @@ impl DisableSecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1311,12 +1437,18 @@ impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DisableSecretVersionRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1379,9 +1511,15 @@ impl EnableSecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::EnableSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1441,9 +1579,15 @@ impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::EnableSecretVersionRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1506,12 +1650,18 @@ impl DestroySecretVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1571,12 +1721,18 @@ impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::DestroySecretVersionRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1637,9 +1793,15 @@ impl SetIamPolicy {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1699,9 +1861,15 @@ impl SetIamPolicyByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1759,9 +1927,15 @@ impl GetIamPolicy {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1811,12 +1985,18 @@ impl GetIamPolicyByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>>(
         mut self,
         v: V,
     ) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1870,9 +2050,15 @@ impl TestIamPermissions {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -1926,9 +2112,15 @@ impl TestIamPermissionsByProjectAndLocationAndSecret {
         Self(SecretManagerServiceRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 

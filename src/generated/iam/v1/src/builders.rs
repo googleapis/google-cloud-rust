@@ -47,9 +47,15 @@ impl SetIamPolicy {
         Self(IAMPolicyRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::SetIamPolicyRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -95,9 +101,15 @@ impl GetIamPolicy {
         Self(IAMPolicyRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetIamPolicyRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -137,9 +149,15 @@ impl TestIamPermissions {
         Self(IAMPolicyRequestBuilder::new(stub))
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::TestIamPermissionsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 

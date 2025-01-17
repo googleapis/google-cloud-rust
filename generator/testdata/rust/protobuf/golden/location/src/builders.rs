@@ -47,9 +47,15 @@ impl ListLocations {
         )
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::ListLocationsRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
@@ -112,9 +118,15 @@ impl GetLocation {
         )
     }
 
-    /// Set the full request.
+    /// Sets the full request, replacing any prior values.
     pub fn with_request<V: Into<crate::model::GetLocationRequest>>(mut self, v: V) -> Self {
         self.0.request = v.into();
+        self
+    }
+
+    /// Sets all the options, replacing any prior values.
+    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+        self.0.options = v.into();
         self
     }
 
