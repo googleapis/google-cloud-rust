@@ -19,6 +19,13 @@ use serde::Serialize;
 use std::time::Duration;
 use time::OffsetDateTime;
 
+// Services reject assertions with `iat` in the future. Unfortunately all
+// machines have some amount of clock skew, and it is possible that
+// the machine creating this assertion has a clock a few milliseconds
+// or seconds ahead of the machines receiving the assertion.
+// Create the assertion with a 10 second margin to avoid most clock
+// skew problems.
+pub(crate) const CLOCK_SKEW_FUDGE: Duration = Duration::from_secs(10);
 pub(crate) const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 
 /// JSON Web Signature for a token.
@@ -41,13 +48,7 @@ pub struct JwsClaims<'a> {
 
 impl JwsClaims<'_> {
     pub fn encode(&self) -> Result<String> {
-        // Services reject assertions with `iat` in the future. Unfortunately all
-        // machines have some amount of clock skew, and it is possible that
-        // the machine creating this assertion has a clock a few milliseconds
-        // or seconds ahead of the machines receiving the assertion.
-        // Create the assertion with a 10 second margin to avoid most clock
-        // skew problems.
-        let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
+        let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
         let iat = self.iat.unwrap_or(now);
         let exp = self.exp.unwrap_or_else(|| now + DEFAULT_TOKEN_TIMEOUT);
         if exp < iat {
@@ -115,16 +116,26 @@ mod tests {
         )
         .unwrap();
 
-        let now = OffsetDateTime::now_utc() - Duration::from_secs(10);
+        // 5 seconds is like 640KiB, good enough for everybody
+        const TOLERANCE: i64 = 5;
+        let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
         let expected_iat = now.unix_timestamp();
+        let expected_iat = (expected_iat - TOLERANCE)..=(expected_iat + TOLERANCE);
         let expected_exp = (now + DEFAULT_TOKEN_TIMEOUT).unix_timestamp();
+        let expected_exp = (expected_exp - TOLERANCE)..=(expected_exp + TOLERANCE);
 
         let v: Value = serde_json::from_str(&decoded).unwrap();
         assert_eq!(v["iss"], "test_iss");
         assert_eq!(v.get("scope"), None);
         assert_eq!(v["aud"], "test_aud");
-        assert_eq!(v["iat"], expected_iat);
-        assert_eq!(v["exp"], expected_exp);
+        assert!(
+            expected_iat.contains(&v["iat"].as_i64().unwrap()),
+            "The iat field in {v:?} should be in the {expected_iat:?} range"
+        );
+        assert!(
+            expected_exp.contains(&v["exp"].as_i64().unwrap()),
+            "The exp field in {v:?} should be in the {expected_exp:?} range"
+        );
         assert_eq!(v.get("typ"), None);
         assert_eq!(v.get("sub"), None);
     }
