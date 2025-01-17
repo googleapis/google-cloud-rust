@@ -209,11 +209,15 @@ impl CreateWorkflow {
         let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
+        let mut options = self.0.options.clone();
+        options.set_retry_policy(gax::retry_policy::NeverRetry);
         let query = move |name| {
             let stub = stub.clone();
+            let options = options.clone();
             async {
                 let op = crate::builders::GetOperation::new(stub)
                     .set_name(name)
+                    .with_options(options)
                     .send()
                     .await?;
                 Ok(Operation::new(op))
@@ -294,11 +298,15 @@ impl DeleteWorkflow {
         let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
+        let mut options = self.0.options.clone();
+        options.set_retry_policy(gax::retry_policy::NeverRetry);
         let query = move |name| {
             let stub = stub.clone();
+            let options = options.clone();
             async {
                 let op = crate::builders::GetOperation::new(stub)
                     .set_name(name)
+                    .with_options(options)
                     .send()
                     .await?;
                 Ok(Operation::new(op))
@@ -369,11 +377,15 @@ impl UpdateWorkflow {
         let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
         let stub = self.0.stub.clone();
+        let mut options = self.0.options.clone();
+        options.set_retry_policy(gax::retry_policy::NeverRetry);
         let query = move |name| {
             let stub = stub.clone();
+            let options = options.clone();
             async {
                 let op = crate::builders::GetOperation::new(stub)
                     .set_name(name)
+                    .with_options(options)
                     .send()
                     .await?;
                 Ok(Operation::new(op))
