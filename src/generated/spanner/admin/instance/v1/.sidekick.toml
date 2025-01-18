@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,22 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[files]
-extend-exclude = [
-  # The test data have typos, or at least uncommon spelling. We do not care
-  # about them as they are not customer visible.
-  "generator/**/testdata/**",
-  "testdata/**",
-]
+[general]
+language = 'rust'
+specification-source = 'google/spanner/admin/instance/v1'
+service-config = 'google/spanner/admin/instance/v1/spanner.yaml'
 
-[type.mustache]
-extend-glob = ["*.mustache"]
-
-[type.mustache.extend-words]
-ser = "ser"
-
-[type.rust.extend-words]
-# The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
-requestor = "requestor"
-# Spanner has a typo, needs to be fixed upstream.
-timzeone = "timzeone"
+[codec]
+copyright-year = '2025'

@@ -832,6 +832,47 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-spanner-admin-database-v1"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-iam-v1",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "gcp-sdk-spanner-admin-instance-v1"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-iam-v1",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-type"
 version = "0.1.0"
 dependencies = [
