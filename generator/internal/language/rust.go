@@ -1229,14 +1229,28 @@ func rustValidate(api *api.API, sourceSpecificationPackageName string) error {
 	return nil
 }
 
-func rustAddStreamingFeature(data *RustTemplateData, api *api.API, extraPackages []*rustPackage) {
-	var hasStreamingRPC bool
-	for _, m := range api.Messages {
+func rustHasStreamingRPC(model *api.API) bool {
+	for _, m := range model.Messages {
 		if m.IsPageableResponse {
-			hasStreamingRPC = true
-			break
+			return true
 		}
 	}
+	// Sometimes the method with a pageable message is using an imported message
+	// or is part of a mixin.
+	for _, s := range model.Services {
+		for _, m := range s.Methods {
+			if output, ok := model.State.MessageByID[m.OutputTypeID]; ok {
+				if output.IsPageableResponse {
+					return true
+				}
+			}
+		}
+	}
+	return false
+}
+
+func rustAddStreamingFeature(data *RustTemplateData, api *api.API, extraPackages []*rustPackage) {
+	hasStreamingRPC := rustHasStreamingRPC(api)
 	if !hasStreamingRPC {
 		return
 	}
