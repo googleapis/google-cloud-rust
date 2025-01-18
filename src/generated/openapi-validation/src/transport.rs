@@ -332,7 +332,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")
-                .map_err(Error::other)?
         };
         self.inner
             .execute(builder, Some(req.request_body), options)
@@ -418,7 +417,6 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             serde_json::to_value(&req.update_mask)
                 .map_err(Error::serde)?
                 .add(builder, "updateMask")
-                .map_err(Error::other)?
         };
         self.inner
             .execute(builder, Some(req.request_body), options)

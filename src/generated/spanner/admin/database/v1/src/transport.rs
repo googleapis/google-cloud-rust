@@ -125,13 +125,16 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = req.update_mask.iter().try_fold(builder, |builder, p| {
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(p)
-                .map_err(Error::serde)?
-                .add(builder, "updateMask")
-                .map_err(Error::other)
-        })?;
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.database), options)
             .await
@@ -269,14 +272,14 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
         let builder = builder.query(&[("backupId", &req.backup_id)]);
         let builder = req
             .encryption_config
-            .iter()
-            .try_fold(builder, |builder, p| {
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
                 use gax::query_parameter::QueryParameter;
-                serde_json::to_value(p)
-                    .map_err(Error::serde)?
-                    .add(builder, "encryptionConfig")
-                    .map_err(Error::other)
-            })?;
+                v.add(builder, "encryptionConfig")
+            });
         self.inner.execute(builder, Some(req.backup), options).await
     }
 
@@ -341,13 +344,16 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = req.update_mask.iter().try_fold(builder, |builder, p| {
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(p)
-                .map_err(Error::serde)?
-                .add(builder, "updateMask")
-                .map_err(Error::other)
-        })?;
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner.execute(builder, Some(req.backup), options).await
     }
 
@@ -553,13 +559,16 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = req.update_mask.iter().try_fold(builder, |builder, p| {
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(p)
-                .map_err(Error::serde)?
-                .add(builder, "updateMask")
-                .map_err(Error::other)
-        })?;
+        let builder = req
+            .update_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "updateMask")
+            });
         self.inner
             .execute(builder, Some(req.backup_schedule), options)
             .await

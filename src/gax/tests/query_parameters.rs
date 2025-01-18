@@ -118,6 +118,7 @@ mod test {
 
     // A new version of the generator will generate code as follows for query parameters.
     fn add_query_parameters(request: &FakeRequest) -> Result<reqwest::RequestBuilder> {
+        use gax::error::Error;
         let client = reqwest::Client::builder().build()?;
         let builder = client.get("https://test.googleapis.com/v1/unused");
 
@@ -164,52 +165,53 @@ mod test {
                 builder.query(&[("repeatedEnumValue", &p.value())])
             });
 
-        let builder = request.duration.iter().try_fold(builder, |builder, p| {
-            use gax::error::Error;
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(&p)
-                .map_err(Error::serde)?
-                .add(builder, "optionalDuration")
-                .map_err(Error::other)
-        })?;
-
-        let builder = request.field_mask.iter().try_fold(builder, |builder, p| {
-            use gax::error::Error;
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(&p)
-                .map_err(Error::serde)?
-                .add(builder, "fieldMask")
-                .map_err(Error::other)
-        })?;
+        let builder = request
+            .duration
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "optionalDuration")
+            });
+        let builder = request
+            .field_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "fieldMask")
+            });
         let builder = {
-            use gax::error::Error;
             use gax::query_parameter::QueryParameter;
             serde_json::to_value(&request.required_field_mask)
                 .map_err(Error::serde)?
                 .add(builder, "requiredFieldMask")
-                .map_err(Error::other)?
         };
 
-        let builder = request.timestamp.iter().try_fold(builder, |builder, p| {
-            use gax::error::Error;
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(&p)
-                .map_err(Error::serde)?
-                .add(builder, "expiration")
-                .map_err(Error::other)
-        })?;
-
+        let builder = request
+            .timestamp
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "expiration")
+            });
         let builder = request
             .optional_nested
-            .iter()
-            .try_fold(builder, |builder, p| {
-                use gax::error::Error;
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
                 use gax::query_parameter::QueryParameter;
-                serde_json::to_value(&p)
-                    .map_err(Error::serde)?
-                    .add(builder, "optionalNested")
-                    .map_err(Error::other)
-            })?;
+                v.add(builder, "optionalNested")
+            });
 
         Ok(builder)
     }

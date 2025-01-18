@@ -199,14 +199,14 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("filter", &req.filter)]);
         let builder = req
             .instance_deadline
-            .iter()
-            .try_fold(builder, |builder, p| {
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
                 use gax::query_parameter::QueryParameter;
-                serde_json::to_value(p)
-                    .map_err(Error::serde)?
-                    .add(builder, "instanceDeadline")
-                    .map_err(Error::other)
-            })?;
+                v.add(builder, "instanceDeadline")
+            });
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
@@ -233,14 +233,14 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = req
             .instance_partition_deadline
-            .iter()
-            .try_fold(builder, |builder, p| {
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
                 use gax::query_parameter::QueryParameter;
-                serde_json::to_value(p)
-                    .map_err(Error::serde)?
-                    .add(builder, "instancePartitionDeadline")
-                    .map_err(Error::other)
-            })?;
+                v.add(builder, "instancePartitionDeadline")
+            });
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
@@ -260,13 +260,16 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = req.field_mask.iter().try_fold(builder, |builder, p| {
-            use gax::query_parameter::QueryParameter;
-            serde_json::to_value(p)
-                .map_err(Error::serde)?
-                .add(builder, "fieldMask")
-                .map_err(Error::other)
-        })?;
+        let builder = req
+            .field_mask
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
+                use gax::query_parameter::QueryParameter;
+                v.add(builder, "fieldMask")
+            });
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await
@@ -505,14 +508,14 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         let builder = req
             .instance_partition_deadline
-            .iter()
-            .try_fold(builder, |builder, p| {
+            .as_ref()
+            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .transpose()?
+            .into_iter()
+            .fold(builder, |builder, v| {
                 use gax::query_parameter::QueryParameter;
-                serde_json::to_value(p)
-                    .map_err(Error::serde)?
-                    .add(builder, "instancePartitionDeadline")
-                    .map_err(Error::other)
-            })?;
+                v.add(builder, "instancePartitionDeadline")
+            });
         self.inner
             .execute(builder, None::<gax::http_client::NoBody>, options)
             .await

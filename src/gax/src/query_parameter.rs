@@ -29,29 +29,21 @@
 //! public because we will generate many crates (roughly one per service), and
 //! most of these crates will use these helpers.
 
-type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
-
 /// [QueryParameter] is a trait representing types that can be used as a query
 /// parameter.
 pub trait QueryParameter {
-    // TODO(#610) - remove the add() method.
-    fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder>;
-    fn append(&self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder;
+    fn add(self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder;
 }
 
 impl QueryParameter for serde_json::Value {
-    fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder> {
-        Ok(self.append(builder, name))
-    }
-
-    fn append(&self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder {
-        match &self {
-            Self::Object(object) => object.iter().fold(builder, |builder, (k, v)| {
-                v.append(builder, format!("{name}.{k}").as_str())
+    fn add(self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder {
+        match self {
+            Self::Object(object) => object.into_iter().fold(builder, |builder, (k, v)| {
+                v.add(builder, format!("{name}.{k}").as_str())
             }),
             Self::Array(array) => array
-                .iter()
-                .fold(builder, |builder, v| v.append(builder, name)),
+                .into_iter()
+                .fold(builder, |builder, v| v.add(builder, name)),
             Self::Null => builder,
             Self::String(s) => builder.query(&[(name, s)]),
             Self::Number(n) => builder.query(&[(name, format!("{n}"))]),
@@ -93,7 +85,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(
             split_query(&request),
@@ -118,7 +110,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(
             split_query(&request),
@@ -133,7 +125,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(split_query(&request), Vec::<&str>::new());
         Ok(())
@@ -145,7 +137,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(split_query(&request), vec!["name=abc123"]);
         Ok(())
@@ -157,7 +149,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(split_query(&request), vec!["name=7.5"]);
         Ok(())
@@ -169,7 +161,7 @@ mod tests {
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = value.add(builder, "name")?;
+        let builder = value.add(builder, "name");
         let request = builder.build()?;
         assert_eq!(split_query(&request), vec!["name=true"]);
         Ok(())
