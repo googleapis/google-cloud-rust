@@ -122,7 +122,7 @@ func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, 
 	}
 	for _, s := range pathTemplate {
 		if s.FieldPath != nil {
-			delete(params, *s.FieldPath)
+			delete(params, s.FieldPath.String())
 		}
 	}
 	if body != "" {

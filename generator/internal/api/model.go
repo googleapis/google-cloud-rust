@@ -14,6 +14,8 @@
 
 package api
 
+import "strings"
+
 // Typez represent different field types that may be found in messages.
 type Typez int
 
@@ -144,6 +146,8 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
+
+	Codec any
 }
 
 // Normalized long running operation info
@@ -180,16 +184,44 @@ type OperationInfo struct {
 // The Codec interpret these elements as needed.
 type PathSegment struct {
 	Literal   *string
-	FieldPath *string
+	FieldPath *FieldPath
 	Verb      *string
+}
+
+type FieldPath struct {
+	Components []FieldPathComponent
+}
+
+func (f *FieldPath) String() string {
+	components := make([]string, len(f.Components))
+	for i, c := range f.Components {
+		components[i] = *c.Identifier
+	}
+	return strings.Join(components, ".")
+}
+
+type FieldPathComponent struct {
+	Identifier *string
+	Reference  *FieldPathReference
+}
+
+type FieldPathReference struct {
+	Message *Message
+	Field   *Field
+	Enum    *Enum
+	OneOf   *OneOf
 }
 
 func NewLiteralPathSegment(s string) PathSegment {
 	return PathSegment{Literal: &s}
 }
 
-func NewFieldPathPathSegment(s string) PathSegment {
-	return PathSegment{FieldPath: &s}
+func NewFieldPathPathSegment(s ...string) PathSegment {
+	components := make([]FieldPathComponent, len(s))
+	for i, v := range s {
+		components[i] = FieldPathComponent{Identifier: &v}
+	}
+	return PathSegment{FieldPath: &FieldPath{Components: components}}
 }
 
 func NewVerbPathSegment(s string) PathSegment {

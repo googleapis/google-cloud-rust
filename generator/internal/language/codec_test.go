@@ -122,7 +122,7 @@ func TestPathParams(t *testing.T) {
 			Verb: "PATCH",
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("secret.name"),
+				api.NewFieldPathPathSegment("secret", "name"),
 			},
 			QueryParameters: map[string]bool{
 				"field_mask": true,

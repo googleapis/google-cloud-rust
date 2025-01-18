@@ -165,7 +165,7 @@ func goHTTPPathArgs(h *api.PathInfo) []string {
 	for _, segment := range h.PathTemplate {
 		if segment.FieldPath != nil {
 			// TODO(#34) - handle nested path params
-			args = append(args, fmt.Sprintf(", req.%s", strcase.ToCamel(*segment.FieldPath)))
+			args = append(args, fmt.Sprintf(", req.%s", strcase.ToCamel(segment.FieldPath.String())))
 		}
 	}
 	return args

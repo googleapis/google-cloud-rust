@@ -15,10 +15,8 @@
 package language
 
 import (
-	"log/slog"
-	"strings"
-
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"log/slog"
 )
 
 // This represents an input template and its corresponding output file.
@@ -45,8 +43,14 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	pathNames := []string{}
 	for _, arg := range m.PathInfo.PathTemplate {
 		if arg.FieldPath != nil {
-			components := strings.Split(*arg.FieldPath, ".")
-			pathNames = append(pathNames, components[0])
+			components := make([]string, len(arg.FieldPath.Components))
+			for i, f := range arg.FieldPath.Components {
+				components[i] = *f.Identifier
+			}
+			pathNames = append(
+				pathNames,
+				components[0],
+			)
 		}
 	}
 

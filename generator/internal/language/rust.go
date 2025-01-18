@@ -714,7 +714,7 @@ func rustHTTPPathArgs(h *api.PathInfo) []string {
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, rustDerefFieldPath(*arg.FieldPath))
+			args = append(args, rustDerefFieldPath(arg.FieldPath.String()))
 		}
 	}
 	return args
