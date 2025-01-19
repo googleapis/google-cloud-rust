@@ -198,6 +198,49 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 	}
 }
 
+func TestRustBootstrapWkt(t *testing.T) {
+	type TestConfig struct {
+		Source        string
+		ServiceConfig string
+		Name          string
+		ExtraOptions  map[string]string
+	}
+	configs := []TestConfig{
+		{
+			Source: "google/protobuf/source_context.proto",
+			Name:   "wkt",
+			ExtraOptions: map[string]string{
+				"module-path": "crate",
+			},
+		},
+	}
+
+	for _, config := range configs {
+		cmdLine := &CommandLine{
+			Command:             []string{},
+			ProjectRoot:         projectRoot,
+			SpecificationFormat: "protobuf",
+			SpecificationSource: config.Source,
+			Source: map[string]string{
+				"googleapis-root": testdataDir,
+			},
+			Language: "rust",
+			Output:   path.Join(testdataDir, "rust/protobuf/golden/wkt/generated", config.Name),
+			Codec: map[string]string{
+				"copyright-year":  "2025",
+				"generate-module": "true",
+			},
+		}
+		for k, v := range config.ExtraOptions {
+			cmdLine.Codec[k] = v
+		}
+		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+		if err := runCommand(cmdGenerate, cmdLine); err != nil {
+			t.Fatal(err)
+		}
+	}
+}
+
 func TestGoFromProtobuf(t *testing.T) {
 	var outDir = fmt.Sprintf("%s/go/protobuf/golden", testdataDir)
 	type TestConfig struct {
