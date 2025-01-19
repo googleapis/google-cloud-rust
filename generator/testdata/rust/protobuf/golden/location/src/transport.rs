@@ -49,10 +49,7 @@ impl crate::traits::Locations for Locations {
         let builder = self.inner.builder(
             reqwest::Method::GET,
             format!("/v1/{}"
-            ,
-                req
-                            .name
-            
+                 , req.name
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
@@ -75,10 +72,7 @@ impl crate::traits::Locations for Locations {
         let builder = self.inner.builder(
             reqwest::Method::GET,
             format!("/v1/{}"
-            ,
-                req
-                            .name
-            
+                 , req.name
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));

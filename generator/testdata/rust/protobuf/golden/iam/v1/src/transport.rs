@@ -49,10 +49,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         let builder = self.inner.builder(
             reqwest::Method::POST,
             format!("/v1/{}:setIamPolicy"
-            ,
-                req
-                            .resource
-            
+                 , req.resource
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
@@ -72,10 +69,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         let builder = self.inner.builder(
             reqwest::Method::POST,
             format!("/v1/{}:getIamPolicy"
-            ,
-                req
-                            .resource
-            
+                 , req.resource
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
@@ -95,10 +89,7 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         let builder = self.inner.builder(
             reqwest::Method::POST,
             format!("/v1/{}:testIamPermissions"
-            ,
-                req
-                            .resource
-            
+                 , req.resource
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
