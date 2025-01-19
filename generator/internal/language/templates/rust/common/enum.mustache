@@ -18,11 +18,11 @@ limitations under the License.
 {{{.}}}
 {{/DocLines}}
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct {{Name}}(String);
+pub struct {{Name}}(std::string::String);
 
 impl {{Name}} {
     /// Sets the enum value.
-    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.0 = v.into();
         self
     }

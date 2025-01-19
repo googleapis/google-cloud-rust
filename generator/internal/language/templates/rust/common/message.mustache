@@ -40,8 +40,8 @@ pub struct {{Name}} {
     {{#FieldAttributes}}
     {{{.}}}
     {{/FieldAttributes}}
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub {{NameToSnake}}: Option<{{{FieldType}}}>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub {{NameToSnake}}: std::option::Option<{{{FieldType}}}>,
     {{/ExplicitOneOfs}}
 }
 
@@ -49,7 +49,7 @@ impl {{Name}} {
     {{#BasicFields}}
 
     /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
+    pub fn set_{{NameToSnakeNoMangling}}<T: std::convert::Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
         self.{{NameToSnake}} = v.into();
         self
     }
@@ -57,7 +57,7 @@ impl {{Name}} {
     {{#ExplicitOneOfs}}
 
     /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
+    pub fn set_{{NameToSnakeNoMangling}}<T: std::convert::Into<std::option::Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
         self.{{NameToSnake}} = v.into();
         self
     }
@@ -78,12 +78,12 @@ impl gax::paginator::PageableResponse for {{Name}} {
     {{#PageableItem}}
     type PageItem = {{{PrimitiveFieldType}}};
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.{{{NameToSnake}}}
     }
 
     {{/PageableItem}}
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -92,6 +92,10 @@ impl gax::paginator::PageableResponse for {{Name}} {
 
 /// Defines additional types related to {{Name}}
 pub mod {{NameSnakeCase}} {
+    {{! Very rarely, this is unused. It is easier to always disable the warning. }}
+    #[allow(unused_imports)]
+    use super::*;
+
 {{/HasNestedTypes}}
     {{#NestedMessages}}
     {{> message}}

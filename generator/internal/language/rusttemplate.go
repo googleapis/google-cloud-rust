@@ -30,6 +30,7 @@ type RustTemplateData struct {
 	PackageVersion    string
 	PackageNamespace  string
 	RequiredPackages  []string
+	ExternPackages    []string
 	HasServices       bool
 	HasLROs           bool
 	CopyrightYear     string
@@ -212,6 +213,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
 	data.RequiredPackages = rustRequiredPackages(outdir, c.extraPackages)
+	data.ExternPackages = rustExternPackages(c.extraPackages)
 	rustAddStreamingFeature(data, model, c.extraPackages)
 
 	messagesByID := map[string]*RustMessage{}

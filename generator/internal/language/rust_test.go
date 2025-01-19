@@ -598,16 +598,16 @@ func TestRust_FieldAttributes(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
 
 		"f_bytes":          `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"f_bytes_optional": `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]` + "\n" + `#[serde_as(as = "Vec<serde_with::base64::Base64>")]`,
+		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
 
-		"f_string":          `#[serde(skip_serializing_if = "String::is_empty")]`,
-		"f_string_optional": `#[serde(skip_serializing_if = "Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
+		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
 	}
 	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -730,7 +730,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 	model := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"target":      `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
 		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
 		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
@@ -802,12 +802,12 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64":       `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
-		"f_bytes":        `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::base64::Base64>")]`,
-		"f_string":       `#[serde(skip_serializing_if = "Option::is_none")]`,
-		"f_repeated_any": `#[serde(skip_serializing_if = "Vec::is_empty")]`,
-		"f_any":          `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"f_int64":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_bytes":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
+		"f_string":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_repeated_any": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_any":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 	}
 	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -848,8 +848,11 @@ func TestRust_FieldLossyName(t *testing.T) {
 	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"data":       `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" + `#[serde(skip_serializing_if = "Option::is_none")]` + "\n" + `#[serde_as(as = "Option<serde_with::DisplayFromStr>")]`,
+		"data": `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" +
+			`#[serde_as(as = "serde_with::base64::Base64")]`,
+		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
+			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +
+			`#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
 	}
 	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -895,7 +898,7 @@ func TestRust_SyntheticField(t *testing.T) {
 	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"updateMask":  `#[serde(skip_serializing_if = "Option::is_none")]`,
+		"updateMask":  `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
 		"project":     `#[serde(skip)]`,
 		"data_crc32c": `#[serde(skip)]`,
 	}
@@ -940,6 +943,24 @@ func TestRust_FieldType(t *testing.T) {
 				Repeated: true,
 			},
 			{
+				Name:     "f_string",
+				Typez:    api.STRING_TYPE,
+				Optional: false,
+				Repeated: false,
+			},
+			{
+				Name:     "f_string_optional",
+				Typez:    api.STRING_TYPE,
+				Optional: true,
+				Repeated: false,
+			},
+			{
+				Name:     "f_string_repeated",
+				Typez:    api.STRING_TYPE,
+				Optional: false,
+				Repeated: true,
+			},
+			{
 				Name:     "f_msg",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  "..Target",
@@ -973,17 +994,23 @@ func TestRust_FieldType(t *testing.T) {
 
 	expectedTypes := map[string]string{
 		"f_int32":              "i32",
-		"f_int32_optional":     "Option<i32>",
-		"f_int32_repeated":     "Vec<i32>",
-		"f_msg":                "Option<crate::model::Target>",
-		"f_msg_repeated":       "Vec<crate::model::Target>",
-		"f_timestamp":          "Option<gax_wkt::Timestamp>",
-		"f_timestamp_repeated": "Vec<gax_wkt::Timestamp>",
+		"f_int32_optional":     "std::option::Option<i32>",
+		"f_int32_repeated":     "std::vec::Vec<i32>",
+		"f_string":             "std::string::String",
+		"f_string_optional":    "std::option::Option<std::string::String>",
+		"f_string_repeated":    "std::vec::Vec<std::string::String>",
+		"f_msg":                "std::option::Option<crate::model::Target>",
+		"f_msg_repeated":       "std::vec::Vec<crate::model::Target>",
+		"f_timestamp":          "std::option::Option<gax_wkt::Timestamp>",
+		"f_timestamp_repeated": "std::vec::Vec<gax_wkt::Timestamp>",
 	}
 	expectedPrimitiveTypes := map[string]string{
 		"f_int32":              "i32",
 		"f_int32_optional":     "i32",
 		"f_int32_repeated":     "i32",
+		"f_string":             "std::string::String",
+		"f_string_optional":    "std::string::String",
+		"f_string_repeated":    "std::string::String",
 		"f_msg":                "crate::model::Target",
 		"f_msg_repeated":       "crate::model::Target",
 		"f_timestamp":          "gax_wkt::Timestamp",

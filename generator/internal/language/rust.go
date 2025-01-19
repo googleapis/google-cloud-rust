@@ -328,7 +328,7 @@ func scalarFieldType(f *api.Field) string {
 	case api.BOOL_TYPE:
 		out = "bool"
 	case api.STRING_TYPE:
-		out = "String"
+		out = "std::string::String"
 	case api.BYTES_TYPE:
 		out = "bytes::Bytes"
 	case api.UINT32_TYPE:
@@ -367,7 +367,7 @@ func rustFieldFormatter(typez api.Typez) string {
 func rustFieldSkipAttributes(f *api.Field) []string {
 	switch f.Typez {
 	case api.STRING_TYPE:
-		return []string{`#[serde(skip_serializing_if = "String::is_empty")]`}
+		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
 	case api.BYTES_TYPE:
 		return []string{`#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]`}
 	default:
@@ -385,10 +385,10 @@ func rustFieldBaseAttributes(f *api.Field) []string {
 func rustWrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	// Message fields could be `Vec<..>`, and are always optional:
 	if f.Optional {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 	}
 	if f.Repeated {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 	}
 	var formatter string
 	switch f.TypezID {
@@ -405,7 +405,7 @@ func rustWrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	// the default handler.
 	return append(
 		attributes,
-		fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
+		fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
 }
 
 func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
@@ -426,10 +426,10 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.ENUM_TYPE,
 		api.GROUP_TYPE:
 		if f.Optional {
-			return append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
+			return append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
 		}
 		if f.Repeated {
-			return append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
+			return append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
 		}
 		return append(attributes, rustFieldSkipAttributes(f)...)
 
@@ -441,12 +441,12 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 		api.BYTES_TYPE:
 		formatter := rustFieldFormatter(f.Typez)
 		if f.Optional {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "Option::is_none")]`)
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Option<%s>")]`, formatter))
+			attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
 		}
 		if f.Repeated {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "Vec::is_empty")]`)
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "Vec<%s>")]`, formatter))
+			attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
+			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
 		}
 		attributes = append(attributes, rustFieldSkipAttributes(f)...)
 		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
@@ -489,10 +489,10 @@ func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath
 		return fmt.Sprintf("(%s)", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
 	}
 	if !primitive && f.Repeated {
-		return fmt.Sprintf("Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+		return fmt.Sprintf("std::vec::Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
 	}
 	if !primitive && f.Optional {
-		return fmt.Sprintf("Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+		return fmt.Sprintf("std::option::Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
 	}
 	return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 }
@@ -1181,6 +1181,18 @@ func rustRequiredPackages(outdir string, extraPackages []*rustPackage) []string 
 	}
 	sort.Strings(lines)
 	return lines
+}
+
+func rustExternPackages(extraPackages []*rustPackage) []string {
+	names := []string{}
+	for _, pkg := range extraPackages {
+		if pkg.ignore || !pkg.used {
+			continue
+		}
+		names = append(names, strings.ReplaceAll(pkg.name, "-", "_"))
+	}
+	sort.Strings(names)
+	return names
 }
 
 func rustPackageName(api *api.API, packageNameOverride string) string {
