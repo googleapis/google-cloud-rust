@@ -39,8 +39,6 @@ impl Locations {
     }
 }
 
-
-
 impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,

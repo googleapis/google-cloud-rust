@@ -39,8 +39,6 @@ impl SecretManagerService {
     }
 }
 
-
-
 impl crate::traits::SecretManagerService for SecretManagerService {
     async fn list_locations(
         &self,

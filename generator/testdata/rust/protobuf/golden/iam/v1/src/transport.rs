@@ -39,8 +39,6 @@ impl IAMPolicy {
     }
 }
 
-
-
 impl crate::traits::IAMPolicy for IAMPolicy {
     async fn set_iam_policy(
         &self,
