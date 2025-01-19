@@ -47,34 +47,6 @@ impl {{NameToPascal}} {
     }
 }
 
-{{!
-//func rustUnwrapFieldPath(components []string, requestAccess string) (string, string) {
-//	if len(components) == 1 {
-//		return requestAccess + "." + rustToSnake(components[0]), components[0]
-//	}
-//	unwrap, name := rustUnwrapFieldPath(components[0:len(components)-1], "&req")
-//	last := components[len(components)-1]
-//	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\").map_err(Error::other)?.%s", unwrap, name, last), ""
-//}
-
-//func rustDerefFieldPath(fieldPath string) string {
-//	components := strings.Split(fieldPath, ".")
-//	unwrap, _ := rustUnwrapFieldPath(components, "req")
-//	return unwrap
-//}
-
-//func rustHTTPPathArgs(h *api.PathInfo) []string {
-//	var args []string
-//	for _, arg := range h.PathTemplate {
-//		if arg.FieldPath != nil {
-//			args = append(args, rustDerefFieldPath(arg.FieldPath.String()))
-//		}
-//	}
-//	return args
-//}
- }}
-
-
 impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
     {{#Methods}}
     async fn {{NameToSnake}}(
