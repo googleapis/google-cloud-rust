@@ -224,8 +224,6 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 				PathInfo:      pathInfo,
 			}
 			a.State.MethodByID[m.ID] = m
-			//TODO this would be better done in a single place
-			m.PathInfo.Method = m
 			methods = append(methods, m)
 		}
 	}
