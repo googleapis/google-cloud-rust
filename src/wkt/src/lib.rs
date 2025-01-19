@@ -33,6 +33,8 @@ mod field_mask;
 pub use crate::field_mask::*;
 mod timestamp;
 pub use crate::timestamp::*;
+mod rstruct;
+pub use crate::rstruct::*;
 mod wrappers;
 pub use crate::wrappers::*;
 pub mod message;
