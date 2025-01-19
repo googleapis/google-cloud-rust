@@ -85,13 +85,16 @@ impl Workflows {
 
     /// Lists workflows in a given project and location.
     /// The default order is not specified.
-    pub fn list_workflows(&self, parent: impl Into<String>) -> crate::builders::ListWorkflows {
-        crate::builders::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_workflows(
+        &self,
+        parent: impl Into<String>,
+    ) -> crate::builders::workflows::ListWorkflows {
+        crate::builders::workflows::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single workflow.
-    pub fn get_workflow(&self, name: impl Into<String>) -> crate::builders::GetWorkflow {
-        crate::builders::GetWorkflow::new(self.inner.clone()).set_name(name.into())
+    pub fn get_workflow(&self, name: impl Into<String>) -> crate::builders::workflows::GetWorkflow {
+        crate::builders::workflows::GetWorkflow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Creates a new workflow. If a workflow with the specified name already
@@ -175,8 +178,8 @@ impl Workflows {
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
-    /// [send()]: crate::builders::CreateWorkflow::send
-    /// [poller()]: crate::builders::CreateWorkflow::poller
+    /// [send()]: crate::builders::workflows::CreateWorkflow::send
+    /// [poller()]: crate::builders::workflows::CreateWorkflow::poller
     /// [until_done()]: lro::Poller::until_done
     /// [PollingPolicy]: gax::polling_policy::PollingPolicy
     /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
@@ -186,8 +189,12 @@ impl Workflows {
     /// [Operation]: longrunning::model::Operation
     /// [result]: longrunning::model::Operation::result
     /// [Any]: wkt::Any
-    pub fn create_workflow(&self, parent: impl Into<String>) -> crate::builders::CreateWorkflow {
-        crate::builders::CreateWorkflow::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_workflow(
+        &self,
+        parent: impl Into<String>,
+    ) -> crate::builders::workflows::CreateWorkflow {
+        crate::builders::workflows::CreateWorkflow::new(self.inner.clone())
+            .set_parent(parent.into())
     }
 
     /// Deletes a workflow with the specified name.
@@ -271,8 +278,8 @@ impl Workflows {
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
-    /// [send()]: crate::builders::DeleteWorkflow::send
-    /// [poller()]: crate::builders::DeleteWorkflow::poller
+    /// [send()]: crate::builders::workflows::DeleteWorkflow::send
+    /// [poller()]: crate::builders::workflows::DeleteWorkflow::poller
     /// [until_done()]: lro::Poller::until_done
     /// [PollingPolicy]: gax::polling_policy::PollingPolicy
     /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
@@ -282,8 +289,11 @@ impl Workflows {
     /// [Operation]: longrunning::model::Operation
     /// [result]: longrunning::model::Operation::result
     /// [Any]: wkt::Any
-    pub fn delete_workflow(&self, name: impl Into<String>) -> crate::builders::DeleteWorkflow {
-        crate::builders::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_workflow(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::workflows::DeleteWorkflow {
+        crate::builders::workflows::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Updates an existing workflow.
@@ -369,8 +379,8 @@ impl Workflows {
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
-    /// [send()]: crate::builders::UpdateWorkflow::send
-    /// [poller()]: crate::builders::UpdateWorkflow::poller
+    /// [send()]: crate::builders::workflows::UpdateWorkflow::send
+    /// [poller()]: crate::builders::workflows::UpdateWorkflow::poller
     /// [until_done()]: lro::Poller::until_done
     /// [PollingPolicy]: gax::polling_policy::PollingPolicy
     /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
@@ -383,38 +393,51 @@ impl Workflows {
     pub fn update_workflow(
         &self,
         workflow: impl Into<crate::model::Workflow>,
-    ) -> crate::builders::UpdateWorkflow {
-        crate::builders::UpdateWorkflow::new(self.inner.clone()).set_workflow(workflow.into())
+    ) -> crate::builders::workflows::UpdateWorkflow {
+        crate::builders::workflows::UpdateWorkflow::new(self.inner.clone())
+            .set_workflow(workflow.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(&self, name: impl Into<String>) -> crate::builders::ListLocations {
-        crate::builders::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::workflows::ListLocations {
+        crate::builders::workflows::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self, name: impl Into<String>) -> crate::builders::GetLocation {
-        crate::builders::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self, name: impl Into<String>) -> crate::builders::workflows::GetLocation {
+        crate::builders::workflows::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::traits::Operations
-    pub fn list_operations(&self, name: impl Into<String>) -> crate::builders::ListOperations {
-        crate::builders::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::workflows::ListOperations {
+        crate::builders::workflows::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::traits::Operations
-    pub fn get_operation(&self, name: impl Into<String>) -> crate::builders::GetOperation {
-        crate::builders::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::workflows::GetOperation {
+        crate::builders::workflows::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::traits::Operations
-    pub fn delete_operation(&self, name: impl Into<String>) -> crate::builders::DeleteOperation {
-        crate::builders::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(
+        &self,
+        name: impl Into<String>,
+    ) -> crate::builders::workflows::DeleteOperation {
+        crate::builders::workflows::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
 }

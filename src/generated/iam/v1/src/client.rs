@@ -109,15 +109,23 @@ impl IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    pub fn set_iam_policy(&self, resource: impl Into<String>) -> crate::builders::SetIamPolicy {
-        crate::builders::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(
+        &self,
+        resource: impl Into<String>,
+    ) -> crate::builders::iam_policy::SetIamPolicy {
+        crate::builders::iam_policy::SetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
-    pub fn get_iam_policy(&self, resource: impl Into<String>) -> crate::builders::GetIamPolicy {
-        crate::builders::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(
+        &self,
+        resource: impl Into<String>,
+    ) -> crate::builders::iam_policy::GetIamPolicy {
+        crate::builders::iam_policy::GetIamPolicy::new(self.inner.clone())
+            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -130,7 +138,8 @@ impl IAMPolicy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<String>,
-    ) -> crate::builders::TestIamPermissions {
-        crate::builders::TestIamPermissions::new(self.inner.clone()).set_resource(resource.into())
+    ) -> crate::builders::iam_policy::TestIamPermissions {
+        crate::builders::iam_policy::TestIamPermissions::new(self.inner.clone())
+            .set_resource(resource.into())
     }
 }
