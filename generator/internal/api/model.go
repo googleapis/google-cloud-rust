@@ -14,7 +14,10 @@
 
 package api
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // Typez represent different field types that may be found in messages.
 type Typez int
@@ -43,6 +46,56 @@ const (
 	SINT64_TYPE                 // 18
 )
 
+type Element interface {
+	Accept(v *Visitor) error
+}
+
+type Visitor interface {
+	VisitAPI(a *API) error
+	VisitMessage(m *Message) error
+	VisitService(s *Service) error
+	VisitMethod(m *Method) error
+	VisitMessageElement(m *MessageElement) error
+	VisitPathInfo(p *PathInfo) error
+	VisitPathSegment(s *PathSegment) error
+}
+
+// NoOpVisitor is a default Visitor implementation with no behavior.
+type NoOpVisitor struct{}
+
+func (n NoOpVisitor) VisitAPI(a *API) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitMessage(m *Message) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitService(s *Service) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitMethod(m *Method) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitMessageElement(m *MessageElement) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitPathInfo(p *PathInfo) error {
+	return nil
+}
+
+func (n NoOpVisitor) VisitPathSegment(s *PathSegment) error {
+	return nil
+}
+
+// InitializationVisitor is a Visitor used to initialize the API elements.
+type InitializationVisitor struct {
+	NoOpVisitor
+}
+
 // API represents and API surface.
 type API struct {
 	// Name of the API (e.g. secretmanager).
@@ -65,6 +118,29 @@ type API struct {
 	// State contains helpful information that can be used when generating
 	// clients.
 	State *APIState
+}
+
+func (a *API) Accept(v Visitor) error {
+	err := v.VisitAPI(a)
+	if err != nil {
+		return err
+	}
+
+	for _, m := range a.State.MessageByID {
+		m.API = a
+		err = m.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	for _, s := range a.State.ServiceByID {
+		s.API = a
+		err = s.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // APIState contains helpful information that can be used when generating
@@ -94,6 +170,24 @@ type Service struct {
 	DefaultHost string
 	// The Protobuf package this service belongs to.
 	Package string
+
+	// The API that this service belongs to.
+	API *API
+}
+
+func (s *Service) Accept(v Visitor) error {
+	err := v.VisitService(s)
+	if err != nil {
+		return err
+	}
+	for _, m := range s.Methods {
+		m.Parent = s
+		err = m.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Method defines a RPC belonging to a Service.
@@ -104,10 +198,18 @@ type Method struct {
 	Name string
 	// ID is a unique identifier.
 	ID string
-	// InputType is the input to the Method
+	// InputTypeID is the ID of the input to the Method, to be used with the API state to retrieve the message.
 	InputTypeID string
-	// OutputType is the output of the Method
+
+	//InputType is the input to the Method, it is only present after the Method struct has been initialized.
+	InputType *Message
+
+	// OutputTypeID is the output of the Method, to be used with the API state to retrieve the message.
 	OutputTypeID string
+
+	//OutputType is the output to the Method, it is only present after the Method struct has been initialized.
+	OutputType *Message
+
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 	// IsPageable is true if the method conforms to standard defined by
@@ -121,6 +223,34 @@ type Method struct {
 	ServerSideStreaming bool
 	// For methods returning long-running operations
 	OperationInfo *OperationInfo
+}
+
+func (m *Method) Accept(v Visitor) error {
+	err := v.VisitMethod(m)
+	if err != nil {
+		return err
+	}
+	if m.PathInfo != nil {
+		m.PathInfo.Method = m
+		err = m.PathInfo.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (i InitializationVisitor) VisitMethod(m *Method) error {
+	var ok bool
+	m.InputType, ok = m.Parent.API.State.MessageByID[m.InputTypeID]
+	if !ok {
+		return fmt.Errorf("unable to lookup input type %s", m.InputTypeID)
+	}
+	m.OutputType, ok = m.Parent.API.State.MessageByID[m.OutputTypeID]
+	if !ok {
+		return fmt.Errorf("unable to lookup output type %s", m.OutputTypeID)
+	}
+	return nil
 }
 
 // Normalized request path information.
@@ -147,7 +277,46 @@ type PathInfo struct {
 	// If this is empty then the body is not used.
 	BodyFieldPath string
 
-	Codec any
+	// The method that this path info is associated with.
+	Method *Method
+}
+
+func (p *PathInfo) Accept(v Visitor) error {
+	err := v.VisitPathInfo(p)
+	if err != nil {
+		return err
+	}
+	for _, s := range p.PathTemplate {
+		s.Parent = p
+		err = s.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (i InitializationVisitor) VisitPathInfo(p *PathInfo) error {
+	for _, segment := range p.PathTemplate {
+		if segment.FieldPath != nil {
+			// Every FieldPath starts pointing to the root input type Message
+			ref := &MessageElement{
+				Message: p.Method.InputType,
+			}
+			for _, component := range segment.FieldPath.Components {
+				if ref.Message == nil {
+					return fmt.Errorf("could not initialize FieldPath (%s), as the component (%s) does not map to any field in the enclosing type: %v", segment.FieldPath.String(), component.Identifier, ref)
+				}
+				enclosingType := ref.Message
+				ref = enclosingType.Elements[component.Identifier]
+				if ref == nil {
+					return fmt.Errorf("could not find field \"%s\" in message %s", component.Identifier, enclosingType.Name)
+				}
+				component.Reference = ref
+			}
+		}
+	}
+	return nil
 }
 
 // Normalized long running operation info
@@ -183,49 +352,57 @@ type OperationInfo struct {
 //
 // The Codec interpret these elements as needed.
 type PathSegment struct {
-	Literal   *string
+	Literal   *Literal
 	FieldPath *FieldPath
-	Verb      *string
+	Verb      *PathTemplateVerb
+
+	// Parent is the PathInfo that this segment is associated with.
+	Parent *PathInfo
+}
+
+func (s *PathSegment) Accept(v Visitor) error {
+	return v.VisitPathSegment(s)
+}
+
+type Literal struct {
+	Value string
+}
+
+type PathTemplateVerb struct {
+	Value string
 }
 
 type FieldPath struct {
-	Components []FieldPathComponent
+	Components []*FieldPathComponent
 }
 
 func (f *FieldPath) String() string {
 	components := make([]string, len(f.Components))
 	for i, c := range f.Components {
-		components[i] = *c.Identifier
+		components[i] = c.Identifier
 	}
 	return strings.Join(components, ".")
 }
 
 type FieldPathComponent struct {
-	Identifier *string
-	Reference  *FieldPathReference
-}
-
-type FieldPathReference struct {
-	Message *Message
-	Field   *Field
-	Enum    *Enum
-	OneOf   *OneOf
+	Identifier string
+	Reference  *MessageElement
 }
 
 func NewLiteralPathSegment(s string) PathSegment {
-	return PathSegment{Literal: &s}
+	return PathSegment{Literal: &Literal{s}}
 }
 
-func NewFieldPathPathSegment(s ...string) PathSegment {
-	components := make([]FieldPathComponent, len(s))
-	for i, v := range s {
-		components[i] = FieldPathComponent{Identifier: &v}
-	}
-	return PathSegment{FieldPath: &FieldPath{Components: components}}
+func NewFieldPathPathSegment(c ...*FieldPathComponent) PathSegment {
+	return PathSegment{FieldPath: &FieldPath{Components: c}}
+}
+
+func NewFieldPathPathSegmentComponent(identifier string, reference *MessageElement) *FieldPathComponent {
+	return &FieldPathComponent{Identifier: identifier, Reference: reference}
 }
 
 func NewVerbPathSegment(s string) PathSegment {
-	return PathSegment{Verb: &s}
+	return PathSegment{Verb: &PathTemplateVerb{s}}
 }
 
 // Message defines a message used in request/response handling.
@@ -258,6 +435,101 @@ type Message struct {
 	IsPageableResponse bool
 	// PageableItem is the field to be paginated over.
 	PageableItem *Field
+
+	// The API that this message belongs to.
+	API *API
+
+	// Elements is a map of all the elements in the message, keyed by their name.
+	// This field is only available after the message is initialized.
+	Elements map[string]*MessageElement
+}
+
+func (m *Message) Accept(v Visitor) error {
+	err := v.VisitMessage(m)
+	if err != nil {
+		return err
+	}
+	for _, f := range m.Elements {
+		err = f.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (i InitializationVisitor) VisitMessage(m *Message) error {
+	m.Elements = make(map[string]*MessageElement)
+	for _, f := range m.Fields {
+		if f.Typez == MESSAGE_TYPE {
+			m.Elements[f.Name] = &MessageElement{Message: m.API.State.MessageByID[f.TypezID]}
+		} else {
+			m.Elements[f.Name] = &MessageElement{Field: f}
+		}
+	}
+	for _, e := range m.Enums {
+		m.Elements[e.Name] = &MessageElement{Enum: e}
+	}
+	for _, msg := range m.Messages {
+		m.Elements[msg.Name] = &MessageElement{Message: msg}
+	}
+	for _, o := range m.OneOfs {
+		m.Elements[o.Name] = &MessageElement{OneOf: o}
+	}
+	return nil
+}
+
+// MessageElement wraps around the possible element types that may be contained within a message
+type MessageElement struct {
+	Message *Message
+	Field   *Field
+	Enum    *Enum
+	OneOf   *OneOf
+
+	Codec any
+}
+
+func (m *MessageElement) Name() string {
+	if m.Message != nil {
+		return m.Message.Name
+	}
+	if m.Field != nil {
+		return m.Field.Name
+	}
+	if m.Enum != nil {
+		return m.Enum.Name
+	}
+	if m.OneOf != nil {
+		return m.OneOf.Name
+	}
+	return "Unknown"
+}
+
+func (m *MessageElement) String() string {
+	if m.Message != nil {
+		return fmt.Sprintf("Message(%s)", m.Message.ID)
+	}
+	if m.Field != nil {
+		return fmt.Sprintf("Field(%s)", m.Field.ID)
+	}
+	if m.Enum != nil {
+		return fmt.Sprintf("Enum(%s)", m.Enum.ID)
+	}
+	if m.OneOf != nil {
+		return fmt.Sprintf("OneOf(%s)", m.OneOf.ID)
+	}
+	return "Unknown"
+}
+
+func (m *MessageElement) Optional() bool {
+	if m.Field != nil {
+		return m.Field.Optional
+	}
+	return true
+}
+
+func (m *MessageElement) Accept(v Visitor) error {
+	return v.VisitMessageElement(m)
 }
 
 // Enum defines a message used in request/response handling.

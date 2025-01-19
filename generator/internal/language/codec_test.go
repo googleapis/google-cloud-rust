@@ -122,7 +122,10 @@ func TestPathParams(t *testing.T) {
 			Verb: "PATCH",
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("secret", "name"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("secret", nil),
+					api.NewFieldPathPathSegmentComponent("name", nil),
+				),
 			},
 			QueryParameters: map[string]bool{
 				"field_mask": true,
@@ -154,9 +157,13 @@ func TestPathParams(t *testing.T) {
 			Verb: "POST",
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("parent"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("parent", nil),
+				),
 				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret_id"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("secret_id", nil),
+				),
 			},
 			QueryParameters: map[string]bool{},
 		},

@@ -39,6 +39,8 @@ impl Locations {
     }
 }
 
+
+
 impl crate::traits::Locations for Locations {
     async fn list_locations(
         &self,
@@ -47,8 +49,12 @@ impl crate::traits::Locations for Locations {
     ) -> Result<crate::model::ListLocationsResponse> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
-            reqwest::Method::GET, format!("/v1/{}"
-               , req.name
+            reqwest::Method::GET,
+            format!("/v1/{}"
+            ,
+                req
+                            .name
+            
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
@@ -69,8 +75,12 @@ impl crate::traits::Locations for Locations {
     ) -> Result<crate::model::Location> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
         let builder = self.inner.builder(
-            reqwest::Method::GET, format!("/v1/{}"
-               , req.name
+            reqwest::Method::GET,
+            format!("/v1/{}"
+            ,
+                req
+                            .name
+            
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));

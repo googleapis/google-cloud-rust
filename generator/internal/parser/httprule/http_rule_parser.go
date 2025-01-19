@@ -99,11 +99,11 @@ func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
 		segment := api.PathSegment{}
 		if s.Literal != nil {
 			literal := string(*s.Literal)
-			segment.Literal = &literal
+			segment.Literal = &api.Literal{Value: literal}
 		} else if s.Variable != nil {
-			ids := make([]api.FieldPathComponent, len(s.Variable.FieldPath))
+			ids := make([]*api.FieldPathComponent, len(s.Variable.FieldPath))
 			for i, id := range s.Variable.FieldPath {
-				ids[i] = api.FieldPathComponent{Identifier: (*string)(id)}
+				ids[i] = &api.FieldPathComponent{Identifier: string(*id)}
 			}
 			segment.FieldPath = &api.FieldPath{Components: ids}
 		}
@@ -113,7 +113,7 @@ func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
 	if path.Verb != nil {
 		verb := string(*path.Verb)
 		segments = append(segments, api.PathSegment{
-			Verb: &verb,
+			Verb: &api.PathTemplateVerb{Value: verb},
 		})
 	}
 	return segments, nil

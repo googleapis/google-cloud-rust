@@ -90,8 +90,7 @@ type RustMethod struct {
 	OutputTypeName      string
 	HTTPMethod          string
 	HTTPMethodToLower   string
-	HTTPPathFmt         string
-	HTTPPathArgs        []string
+	HTTPPathInfo        *api.PathInfo
 	PathParams          []*RustField
 	QueryParams         []*RustField
 	HasBody             bool
@@ -149,6 +148,21 @@ type RustEnumValue struct {
 	EnumType string
 }
 
+type RustCodecVisitor struct {
+	api.NoOpVisitor
+}
+
+type RustMessageElementAnnotations struct {
+	FieldName string
+}
+
+func (v *RustCodecVisitor) VisitMessageElement(m *api.MessageElement) error {
+	m.Codec = &RustMessageElementAnnotations{
+		FieldName: rustToSnake(m.Name()),
+	}
+	return nil
+}
+
 // newRustTemplateData creates a struct used as input for Mustache templates.
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
@@ -169,6 +183,11 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	}
 	rustLoadWellKnownTypes(model.State)
 	rustResolveUsedPackages(model, c.extraPackages)
+
+	if err := model.Accept(&RustCodecVisitor{}); err != nil {
+		return nil, err
+	}
+
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	data := &RustTemplateData{
@@ -317,8 +336,7 @@ func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecifi
 		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		HTTPMethod:        m.PathInfo.Verb,
 		HTTPMethodToLower: strings.ToLower(m.PathInfo.Verb),
-		HTTPPathArgs:      rustHTTPPathArgs(m.PathInfo),
-		HTTPPathFmt:       rustHTTPPathFmt(m.PathInfo),
+		HTTPPathInfo:      m.PathInfo,
 		HasBody:           m.PathInfo.BodyFieldPath != "",
 		InputTypeName:     rustMethodInOutTypeName(m.InputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		NameToCamel:       strcase.ToCamel(m.Name),

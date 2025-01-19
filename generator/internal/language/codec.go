@@ -45,7 +45,7 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		if arg.FieldPath != nil {
 			components := make([]string, len(arg.FieldPath.Components))
 			for i, f := range arg.FieldPath.Components {
-				components[i] = *f.Identifier
+				components[i] = f.Identifier
 			}
 			pathNames = append(
 				pathNames,

@@ -149,11 +149,11 @@ func goHTTPPathFmt(m *api.PathInfo) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
-			fmt = fmt + "/" + *segment.Literal
+			fmt = fmt + "/" + segment.Literal.Value
 		} else if segment.FieldPath != nil {
 			fmt = fmt + "/%s"
 		} else if segment.Verb != nil {
-			fmt = fmt + ":" + *segment.Verb
+			fmt = fmt + ":" + segment.Verb.Value
 		}
 	}
 	return fmt

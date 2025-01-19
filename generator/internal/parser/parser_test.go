@@ -25,7 +25,7 @@ import (
 func checkMessage(t *testing.T, got api.Message, want api.Message) {
 	t.Helper()
 	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Parent", "Messages", "API", "Elements")); diff != "" {
 		t.Errorf("message attributes mismatch (-want +got):\n%s", diff)
 	}
 	less := func(a, b *api.Field) bool { return a.Name < b.Name }
@@ -51,7 +51,7 @@ func checkEnum(t *testing.T, got api.Enum, want api.Enum) {
 
 func checkService(t *testing.T, got *api.Service, want *api.Service) {
 	t.Helper()
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Service{}, "Methods")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Service{}, "Methods", "API")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 	for _, m := range got.Methods {
@@ -60,7 +60,7 @@ func checkService(t *testing.T, got *api.Service, want *api.Service) {
 		}
 	}
 	less := func(a, b *api.Method) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.Method{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.Method{}, "Parent", "InputType", "OutputType"), cmpopts.IgnoreFields(api.PathInfo{}, "Method")); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -79,7 +79,7 @@ func checkMethod(t *testing.T, service *api.Service, name string, want *api.Meth
 	if !ok {
 		t.Errorf("missing method %s", name)
 	}
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Method{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Method{}, "Parent", "InputType", "OutputType"), cmpopts.IgnoreFields(api.PathInfo{}, "Method")); diff != "" {
 		t.Errorf("mismatched data for method %s (-want, +got):\n%s", name, diff)
 	}
 }

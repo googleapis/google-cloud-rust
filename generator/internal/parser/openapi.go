@@ -125,7 +125,8 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 		return nil, err
 	}
 	updateMethodPagination(result)
-	return result, nil
+
+	return result, result.Accept(&api.InitializationVisitor{})
 }
 
 func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {
@@ -223,6 +224,8 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 				PathInfo:      pathInfo,
 			}
 			a.State.MethodByID[m.ID] = m
+			//TODO this would be better done in a single place
+			m.PathInfo.Method = m
 			methods = append(methods, m)
 		}
 	}
@@ -233,7 +236,7 @@ func makePathTemplate(template string) []api.PathSegment {
 	segments := []api.PathSegment{}
 	for idx, component := range strings.Split(template, ":") {
 		if idx != 0 {
-			segments = append(segments, api.PathSegment{Verb: &component})
+			segments = append(segments, api.PathSegment{Verb: &api.PathTemplateVerb{Value: component}})
 			continue
 		}
 		for _, element := range strings.Split(component, "/") {
@@ -242,10 +245,10 @@ func makePathTemplate(template string) []api.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &api.FieldPath{Components: []api.FieldPathComponent{{Identifier: &element}}}})
+				segments = append(segments, api.PathSegment{FieldPath: &api.FieldPath{Components: []*api.FieldPathComponent{{Identifier: element}}}})
 				continue
 			}
-			segments = append(segments, api.PathSegment{Literal: &element})
+			segments = append(segments, api.PathSegment{Literal: &api.Literal{Value: element}})
 		}
 	}
 	return segments

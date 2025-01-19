@@ -725,7 +725,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		Documentation: "Stores sensitive data such as API keys, passwords, and certificates. Provides convenience while improving security.",
 		DefaultHost:   "secretmanager.googleapis.com",
 	}
-	if diff := cmp.Diff(wantService, service, cmpopts.IgnoreFields(api.Service{}, "Methods")); diff != "" {
+	if diff := cmp.Diff(wantService, service, cmpopts.IgnoreFields(api.Service{}, "Methods", "API")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
 
@@ -740,7 +740,9 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListLocationsRequest"].Elements["project"]),
+				),
 				api.NewLiteralPathSegment("locations"),
 			},
 			QueryParameters: map[string]bool{
@@ -764,7 +766,9 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..CreateSecretRequest"].Elements["project"]),
+				),
 				api.NewLiteralPathSegment("secrets"),
 			},
 			QueryParameters: map[string]bool{
@@ -785,9 +789,13 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..AddSecretVersionRequest"].Elements["project"]),
+				),
 				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret"),
+				api.NewFieldPathPathSegment(
+					api.NewFieldPathPathSegmentComponent("secret", test.State.MessageByID["..AddSecretVersionRequest"].Elements["secret"]),
+				),
 				api.NewVerbPathSegment("addVersion"),
 			},
 			QueryParameters: map[string]bool{},
@@ -975,7 +983,9 @@ func TestOpenAPI_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
+						api.NewFieldPathPathSegment(
+							api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListFoosRequest"].Elements["project"]),
+						),
 						api.NewLiteralPathSegment("foos"),
 					},
 					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},

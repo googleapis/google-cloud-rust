@@ -46,7 +46,7 @@ func ParseProtobuf(source, serviceConfigFile string, options map[string]string) 
 		}
 		serviceConfig = cfg
 	}
-	return makeAPIForProtobuf(serviceConfig, request), nil
+	return makeAPIForProtobuf(serviceConfig, request)
 }
 
 func newCodeGeneratorRequest(source string, options map[string]string) (_ *pluginpb.CodeGeneratorRequest, err error) {
@@ -208,7 +208,7 @@ const (
 	enumDescriptorValue = 2
 )
 
-func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) *api.API {
+func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.CodeGeneratorRequest) (*api.API, error) {
 	var (
 		mixinFileDesc       []*descriptorpb.FileDescriptorProto
 		enabledMixinMethods mixinMethods = make(map[string]bool)
@@ -354,7 +354,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
 	updateMethodPagination(result)
-	return result
+	return result, result.Accept(&api.InitializationVisitor{})
 }
 
 var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
