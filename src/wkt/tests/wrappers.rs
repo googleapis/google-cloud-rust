@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_wkt::*;
+use gcp_sdk_wkt as wkt;
 use serde_json::json;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -22,18 +22,18 @@ type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Helper {
-    pub field_double: Option<DoubleValue>,
-    pub field_float: Option<FloatValue>,
+    pub field_double: Option<wkt::DoubleValue>,
+    pub field_float: Option<wkt::FloatValue>,
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
-    pub field_int64: Option<Int64Value>,
+    pub field_int64: Option<wkt::Int64Value>,
     #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
-    pub field_uint64: Option<UInt64Value>,
-    pub field_int32: Option<Int32Value>,
-    pub field_uint32: Option<UInt32Value>,
-    pub field_bool: Option<BoolValue>,
-    pub field_string: Option<StringValue>,
+    pub field_uint64: Option<wkt::UInt64Value>,
+    pub field_int32: Option<wkt::Int32Value>,
+    pub field_uint32: Option<wkt::UInt32Value>,
+    pub field_bool: Option<wkt::BoolValue>,
+    pub field_string: Option<wkt::StringValue>,
     #[serde_as(as = "Option<serde_with::base64::Base64>")]
-    pub field_bytes: Option<BytesValue>,
+    pub field_bytes: Option<wkt::BytesValue>,
 }
 
 #[test]

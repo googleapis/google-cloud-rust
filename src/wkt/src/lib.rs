@@ -31,6 +31,8 @@ mod empty;
 pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
+pub mod generated;
+pub use crate::generated::*;
 mod timestamp;
 pub use crate::timestamp::*;
 mod rstruct;
