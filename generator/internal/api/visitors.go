@@ -317,7 +317,24 @@ func (v CrossReferencingVisitor) VisitMessage(m *Message) error {
 	return nil
 }
 
+// VisitPathInfo cross-references the FieldPath components of the given PathInfo with the actual fields in the
+// `Method.InputType` of its enclosing Method.
+//
+// This method has the following assumptions:
+//   - The enclosing Method has already been visited (by any visitor), so the given PathInfo needs to have a valid
+//     Method reference.
+//   - The CrossReferencingVisitor.API has a valid reference to the API being traversed.
+//   - Every Message in the CrossReferencingVisitor.API has already been visited by a CrossReferencingVisitor.
+//
+// The way to satisfy these assumptions is by calling the Traverse method of the CrossReferencingVisitor and not
+// this VisitPathInfo method directly.
 func (v CrossReferencingVisitor) VisitPathInfo(p *PathInfo) error {
+	if p.Method == nil {
+		return fmt.Errorf("PathInfo has no Method reference")
+	}
+	if v.API == nil {
+		return fmt.Errorf("CrossReferencingVisitor has no API reference")
+	}
 	for _, segment := range p.PathTemplate {
 		if segment.FieldPath != nil {
 			// Every FieldPath starts pointing to the root input type Message
