@@ -46,57 +46,27 @@ const (
 	SINT64_TYPE                 // 18
 )
 
-type Element interface {
-	Accept(v *Visitor) error
-}
-
-type Visitor interface {
-	VisitAPI(a *API) error
-	VisitMessage(m *Message) error
-	VisitService(s *Service) error
-	VisitMethod(m *Method) error
-	VisitMessageElement(m *MessageElement) error
-	VisitPathInfo(p *PathInfo) error
-	VisitPathSegment(s *PathSegment) error
-}
-
-// NoOpVisitor is a default Visitor implementation with no behavior.
-type NoOpVisitor struct{}
-
-func (n NoOpVisitor) VisitAPI(a *API) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitMessage(m *Message) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitService(s *Service) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitMethod(m *Method) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitMessageElement(m *MessageElement) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitPathInfo(p *PathInfo) error {
-	return nil
-}
-
-func (n NoOpVisitor) VisitPathSegment(s *PathSegment) error {
-	return nil
-}
-
-// InitializationVisitor is a Visitor used to initialize the API elements.
-type InitializationVisitor struct {
-	NoOpVisitor
-}
-
-// API represents and API surface.
+// API represents an API surface to be generated. Aside from the general API information and its optional list of services,
+// it also contains the types required for code generation.
+// The type hierarchy is defined by Named vs Nested and Local vs Mixin types, explained as following:
+//
+//   - Named types are reusable Enum and Message types, defined at the top level of an API.
+//     Named types have their respective Enum.Parent and Message.Parent fields set to nil.
+//   - Nested types are Enum and Message types defined inline within an enclosing Message.
+//     Nested types have their respective Enum.Parent and Message.Parent fields set to the enclosing Message.
+//   - Local types are Enum and Message types defined within the API being evaluated.
+//     Local types have their respective Enum.API and Message.API fields set to the API instance.
+//   - Mixin types are Enum and Message types defined outside the API, but referenced by it.
+//     Mixin types have their respective Enum.API and Message.API fields set to nil.
+//
+// The structure of the API represents the hierarchy of its types as follows:
+//
+//   - API.Messages contains only local, named messages. These are reusable message types defined in the API.
+//   - API.Enums contains only local, named enums. These are reusable enum types defined in the API.
+//   - Message.Messages contains only nested messages declared inline within the enclosing message.
+//   - Message.Enums contains only nested enums declared inline within the enclosing message.
+//   - All Message and Enum instances, regardless of whether they are named or nested, local or mixin are available in
+//     the respective APIState.MessageByID and APIState.EnumByID.
 type API struct {
 	// Name of the API (e.g. secretmanager).
 	Name string
@@ -118,29 +88,6 @@ type API struct {
 	// State contains helpful information that can be used when generating
 	// clients.
 	State *APIState
-}
-
-func (a *API) Accept(v Visitor) error {
-	err := v.VisitAPI(a)
-	if err != nil {
-		return err
-	}
-
-	for _, m := range a.State.MessageByID {
-		m.API = a
-		err = m.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	for _, s := range a.State.ServiceByID {
-		s.API = a
-		err = s.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 // APIState contains helpful information that can be used when generating
@@ -173,21 +120,6 @@ type Service struct {
 
 	// The API that this service belongs to.
 	API *API
-}
-
-func (s *Service) Accept(v Visitor) error {
-	err := v.VisitService(s)
-	if err != nil {
-		return err
-	}
-	for _, m := range s.Methods {
-		m.Parent = s
-		err = m.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 // Method defines a RPC belonging to a Service.
@@ -225,34 +157,6 @@ type Method struct {
 	OperationInfo *OperationInfo
 }
 
-func (m *Method) Accept(v Visitor) error {
-	err := v.VisitMethod(m)
-	if err != nil {
-		return err
-	}
-	if m.PathInfo != nil {
-		m.PathInfo.Method = m
-		err = m.PathInfo.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (i InitializationVisitor) VisitMethod(m *Method) error {
-	var ok bool
-	m.InputType, ok = m.Parent.API.State.MessageByID[m.InputTypeID]
-	if !ok {
-		return fmt.Errorf("unable to lookup input type %s", m.InputTypeID)
-	}
-	m.OutputType, ok = m.Parent.API.State.MessageByID[m.OutputTypeID]
-	if !ok {
-		return fmt.Errorf("unable to lookup output type %s", m.OutputTypeID)
-	}
-	return nil
-}
-
 // Normalized request path information.
 type PathInfo struct {
 	// HTTP Verb.
@@ -279,44 +183,6 @@ type PathInfo struct {
 
 	// The method that this path info is associated with.
 	Method *Method
-}
-
-func (p *PathInfo) Accept(v Visitor) error {
-	err := v.VisitPathInfo(p)
-	if err != nil {
-		return err
-	}
-	for _, s := range p.PathTemplate {
-		s.Parent = p
-		err = s.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (i InitializationVisitor) VisitPathInfo(p *PathInfo) error {
-	for _, segment := range p.PathTemplate {
-		if segment.FieldPath != nil {
-			// Every FieldPath starts pointing to the root input type Message
-			ref := &MessageElement{
-				Message: p.Method.InputType,
-			}
-			for _, component := range segment.FieldPath.Components {
-				if ref.Message == nil {
-					return fmt.Errorf("could not initialize FieldPath (%s), as the component (%s) does not map to any field in the enclosing type: %v", segment.FieldPath.String(), component.Identifier, ref)
-				}
-				enclosingType := ref.Message
-				ref = enclosingType.Elements[component.Identifier]
-				if ref == nil {
-					return fmt.Errorf("could not find field \"%s\" in message %s", component.Identifier, enclosingType.Name)
-				}
-				component.Reference = ref
-			}
-		}
-	}
-	return nil
 }
 
 // Normalized long running operation info
@@ -358,10 +224,6 @@ type PathSegment struct {
 
 	// Parent is the PathInfo that this segment is associated with.
 	Parent *PathInfo
-}
-
-func (s *PathSegment) Accept(v Visitor) error {
-	return v.VisitPathSegment(s)
 }
 
 type Literal struct {
@@ -444,41 +306,6 @@ type Message struct {
 	Elements map[string]*MessageElement
 }
 
-func (m *Message) Accept(v Visitor) error {
-	err := v.VisitMessage(m)
-	if err != nil {
-		return err
-	}
-	for _, f := range m.Elements {
-		err = f.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (i InitializationVisitor) VisitMessage(m *Message) error {
-	m.Elements = make(map[string]*MessageElement)
-	for _, f := range m.Fields {
-		if f.Typez == MESSAGE_TYPE {
-			m.Elements[f.Name] = &MessageElement{Message: m.API.State.MessageByID[f.TypezID]}
-		} else {
-			m.Elements[f.Name] = &MessageElement{Field: f}
-		}
-	}
-	for _, e := range m.Enums {
-		m.Elements[e.Name] = &MessageElement{Enum: e}
-	}
-	for _, msg := range m.Messages {
-		m.Elements[msg.Name] = &MessageElement{Message: msg}
-	}
-	for _, o := range m.OneOfs {
-		m.Elements[o.Name] = &MessageElement{OneOf: o}
-	}
-	return nil
-}
-
 // MessageElement wraps around the possible element types that may be contained within a message
 type MessageElement struct {
 	Message *Message
@@ -486,7 +313,9 @@ type MessageElement struct {
 	Enum    *Enum
 	OneOf   *OneOf
 
-	Codec any
+	// Parent is the message containing this element.
+	Parent *Message
+	Codec  any
 }
 
 func (m *MessageElement) Name() string {
@@ -528,10 +357,6 @@ func (m *MessageElement) Optional() bool {
 	return true
 }
 
-func (m *MessageElement) Accept(v Visitor) error {
-	return v.VisitMessageElement(m)
-}
-
 // Enum defines a message used in request/response handling.
 type Enum struct {
 	// Documentation for the message.
@@ -544,6 +369,9 @@ type Enum struct {
 	Values []*EnumValue
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
+
+	// API references the API where this enum is defined
+	API *API
 	// The Protobuf package this enum belongs to.
 	Package string
 }
@@ -589,6 +417,9 @@ type Field struct {
 	// some helper fields. These need to be marked so they can be excluded
 	// from serialized messages and in other places.
 	Synthetic bool
+
+	// Parent returns the message that this field is associated with.
+	Parent *Message
 }
 
 // Pair is a key-value pair.

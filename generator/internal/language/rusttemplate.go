@@ -156,9 +156,11 @@ type RustMessageElementAnnotations struct {
 	FieldName string
 }
 
-func (v *RustCodecVisitor) VisitMessageElement(m *api.MessageElement) error {
-	m.Codec = &RustMessageElementAnnotations{
-		FieldName: rustToSnake(m.Name()),
+func (v *RustCodecVisitor) VisitMessage(msg *api.Message) error {
+	for _, m := range msg.Elements {
+		m.Codec = &RustMessageElementAnnotations{
+			FieldName: rustToSnake(m.Name()),
+		}
 	}
 	return nil
 }
