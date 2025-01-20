@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2025 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,31 +42,24 @@ type Visitor interface {
 	VisitPathSegment(s *PathSegment) error
 }
 
+// Accept is the entry point for traversing an API with a visitor.
+// The traversal order is the following:
+//
+//	1 - API
+//	2 - local Enums
+//	3 - mixin Enums
+//	4 - local Messages
+//	5 - mixin Messages
+//	6 - local Services
+//	7 - mixin Services
 func (a *API) Accept(v Visitor) error {
 	err := v.VisitAPI(a)
 	if err != nil {
 		return err
 	}
 
-	// First we visit the local types, as they are direct children of the API being visited.
-	for _, m := range a.Messages {
-		m.API = a
-		err = m.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-	// Then we visit the mixin types, as the easiest way to distinguish
-	// them from the local types is that their API field should remain nil.
-	for _, m := range a.State.MessageByID {
-		if m.API == nil {
-			err = m.Accept(v)
-			if err != nil {
-				return err
-			}
-		}
-	}
-
+	// First we visit the local types, as they are direct children of the API being visited,
+	// and we know we can assign the API field to them.
 	for _, e := range a.Enums {
 		e.API = a
 		err = e.Accept(v)
@@ -74,12 +67,34 @@ func (a *API) Accept(v Visitor) error {
 			return err
 		}
 	}
+
+	// Then we visit the mixin types, as the easiest way to distinguish
+	// them from the local types is that their API field should remain nil.
 	for _, e := range a.State.EnumByID {
-		if e.API == nil {
-			err = e.Accept(v)
-			if err != nil {
-				return err
-			}
+		if e.API != nil {
+			continue // Skip local types
+		}
+		err = e.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+
+	for _, m := range a.Messages {
+		m.API = a
+		err = m.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+
+	for _, m := range a.State.MessageByID {
+		if m.API != nil {
+			continue // Skip local types
+		}
+		err = m.Accept(v)
+		if err != nil {
+			return err
 		}
 	}
 
@@ -91,36 +106,29 @@ func (a *API) Accept(v Visitor) error {
 		}
 	}
 	for _, s := range a.State.ServiceByID {
-		if s.API == nil {
-			err = s.Accept(v)
-			if err != nil {
-				return err
-			}
+		if s.API != nil {
+			continue // Skip local types
+		}
+		err = s.Accept(v)
+		if err != nil {
+			return err
 		}
 	}
 	return nil
 }
 
+// Accept is the entry point for traversing a Message with a visitor.
+// The traversal order is the following:
+//
+//	1 - Message
+//	2 - nested Enums
+//	3 - nested Messages
+//	4 - Fields
+//	5 - OneOfs
 func (m *Message) Accept(v Visitor) error {
 	err := v.VisitMessage(m)
 	if err != nil {
 		return err
-	}
-
-	for _, f := range m.Fields {
-		f.Parent = m
-		err = f.Accept(v)
-		if err != nil {
-			return err
-		}
-	}
-
-	for _, o := range m.OneOfs {
-		o.Parent = m
-		err = o.Accept(v)
-		if err != nil {
-			return err
-		}
 	}
 
 	for _, nestedEnum := range m.Enums {
@@ -140,6 +148,23 @@ func (m *Message) Accept(v Visitor) error {
 			return err
 		}
 	}
+
+	for _, f := range m.Fields {
+		f.Parent = m
+		err = f.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+
+	for _, o := range m.OneOfs {
+		o.Parent = m
+		err = o.Accept(v)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
