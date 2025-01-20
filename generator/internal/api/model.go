@@ -178,6 +178,8 @@ type PathInfo struct {
 	BodyFieldPath string
 	// The method that this path info is associated with.
 	Method *Method
+	// Codec is an optional language-specific struct that helps convert PathInfo values into language-specific code.
+	Codec any
 }
 
 // OperationInfo is a normalized long-running operation info

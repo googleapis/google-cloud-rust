@@ -165,6 +165,27 @@ func (v *RustCodecVisitor) VisitMessage(msg *api.Message) error {
 	return nil
 }
 
+type RustPathInfoAnnotations struct {
+	HTTPPathFmt string
+}
+
+func (v *RustCodecVisitor) VisitPathInfo(p *api.PathInfo) error {
+	fmt := ""
+	for _, segment := range p.PathTemplate {
+		if segment.Literal != nil {
+			fmt = fmt + "/" + segment.Literal.Value
+		} else if segment.FieldPath != nil {
+			fmt = fmt + "/{}"
+		} else if segment.Verb != nil {
+			fmt = fmt + ":" + segment.Verb.Value
+		}
+	}
+	p.Codec = &RustPathInfoAnnotations{
+		HTTPPathFmt: fmt,
+	}
+	return nil
+}
+
 // newRustTemplateData creates a struct used as input for Mustache templates.
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the

@@ -57,7 +57,7 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         let options = options.set_default_idempotency(reqwest::Method::{{HTTPMethod}}.is_idempotent());
         let builder = self.inner.builder(
             reqwest::Method::{{HTTPMethod}},
-            format!("{{#HTTPPathInfo.PathTemplate}}{{#Literal}}/{{Value}}{{/Literal}}{{#FieldPath}}/{}{{/FieldPath}}{{#Verb}}:{{Value}}{{/Verb}}{{/HTTPPathInfo.PathTemplate}}"{{#HTTPPathInfo.PathTemplate}}{{#FieldPath}}
+            format!("{{HTTPPathInfo.Codec.HTTPPathFmt}}"{{#HTTPPathInfo.PathTemplate}}{{#FieldPath}}
                  , req{{#Components}}{{#Reference}}.{{Codec.FieldName}}{{#Optional}}
                     .as_ref().ok_or_else(|| gax::path_parameter::errors::missing("{{Codec.FieldName}}"))?{{/Optional}}{{/Reference}}{{/Components}}{{/FieldPath}}{{/HTTPPathInfo.PathTemplate}}
             ))
