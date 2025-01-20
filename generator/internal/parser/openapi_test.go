@@ -741,7 +741,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListLocationsRequest"].Elements["project"]),
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListLocationsRequest"].ElementsByName["project"]),
 				),
 				api.NewLiteralPathSegment("locations"),
 			},
@@ -767,7 +767,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..CreateSecretRequest"].Elements["project"]),
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..CreateSecretRequest"].ElementsByName["project"]),
 				),
 				api.NewLiteralPathSegment("secrets"),
 			},
@@ -790,11 +790,11 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 				api.NewLiteralPathSegment("v1"),
 				api.NewLiteralPathSegment("projects"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..AddSecretVersionRequest"].Elements["project"]),
+					api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..AddSecretVersionRequest"].ElementsByName["project"]),
 				),
 				api.NewLiteralPathSegment("secrets"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("secret", test.State.MessageByID["..AddSecretVersionRequest"].Elements["secret"]),
+					api.NewFieldPathPathSegmentComponent("secret", test.State.MessageByID["..AddSecretVersionRequest"].ElementsByName["secret"]),
 				),
 				api.NewVerbPathSegment("addVersion"),
 			},
@@ -984,7 +984,7 @@ func TestOpenAPI_Pagination(t *testing.T) {
 						api.NewLiteralPathSegment("v1"),
 						api.NewLiteralPathSegment("projects"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListFoosRequest"].Elements["project"]),
+							api.NewFieldPathPathSegmentComponent("project", test.State.MessageByID["..ListFoosRequest"].ElementsByName["project"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},

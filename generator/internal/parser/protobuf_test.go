@@ -451,7 +451,7 @@ func TestProtobuf_Comments(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.Request"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.Request"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -707,7 +707,7 @@ func TestProtobuf_Service(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".test.GetFooRequest"].Elements["name"]),
+							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".test.GetFooRequest"].ElementsByName["name"]),
 						),
 					},
 					QueryParameters: map[string]bool{},
@@ -725,7 +725,7 @@ func TestProtobuf_Service(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -758,7 +758,7 @@ func TestProtobuf_Service(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".test.GetFooRequest"].Elements["name"]),
+							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".test.GetFooRequest"].ElementsByName["name"]),
 						),
 						api.NewVerbPathSegment("Download"),
 					},
@@ -810,7 +810,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -829,7 +829,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.AddBarRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.AddBarRequest"].ElementsByName["parent"]),
 						),
 						api.NewVerbPathSegment("addFoo"),
 					},
@@ -941,7 +941,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.cloud.location.GetLocationRequest"].Elements["name"]),
+					api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.cloud.location.GetLocationRequest"].ElementsByName["name"]),
 				),
 			},
 			QueryParameters: map[string]bool{},
@@ -1002,7 +1002,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v1"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("resource", test.State.MessageByID[".google.iam.v1.GetIamPolicyRequest"].Elements["resource"]),
+					api.NewFieldPathPathSegmentComponent("resource", test.State.MessageByID[".google.iam.v1.GetIamPolicyRequest"].ElementsByName["resource"]),
 				),
 				api.NewVerbPathSegment("getIamPolicy"),
 			},
@@ -1034,7 +1034,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1052,7 +1052,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1069,7 +1069,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooMissingPageSizeRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooMissingPageSizeRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1086,7 +1086,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooMissingPageTokenRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooMissingPageTokenRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1103,7 +1103,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.ListFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1215,7 +1215,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 			PathTemplate: []api.PathSegment{
 				api.NewLiteralPathSegment("v2"),
 				api.NewFieldPathPathSegment(
-					api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.longrunning.GetOperationRequest"].Elements["name"]),
+					api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.longrunning.GetOperationRequest"].ElementsByName["name"]),
 				),
 			},
 			QueryParameters: map[string]bool{},
@@ -1281,7 +1281,7 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1304,7 +1304,7 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].Elements["parent"]),
+							api.NewFieldPathPathSegmentComponent("parent", test.State.MessageByID[".test.CreateFooRequest"].ElementsByName["parent"]),
 						),
 						api.NewLiteralPathSegment("foos"),
 					},
@@ -1327,7 +1327,7 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					PathTemplate: []api.PathSegment{
 						api.NewLiteralPathSegment("v2"),
 						api.NewFieldPathPathSegment(
-							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.longrunning.GetOperationRequest"].Elements["name"]),
+							api.NewFieldPathPathSegmentComponent("name", test.State.MessageByID[".google.longrunning.GetOperationRequest"].ElementsByName["name"]),
 						),
 					},
 					QueryParameters: map[string]bool{},

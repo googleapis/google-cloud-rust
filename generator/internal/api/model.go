@@ -294,9 +294,9 @@ type Message struct {
 	PageableItem *Field
 	// The API that this message belongs to.
 	API *API
-	// Elements is a map of all the elements in the message, keyed by their name.
+	// ElementsByName is a map of all the elements in the message, keyed by their name.
 	// This field is only available after the message has been visited by the CrossReferencingVisitor.
-	Elements map[string]*MessageElement
+	ElementsByName map[string]*MessageElement
 }
 
 // MessageElement wraps around the possible element types that may be contained within a message

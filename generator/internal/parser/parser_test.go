@@ -100,7 +100,7 @@ func compareMethods(t *testing.T, want []*api.Method, got []*api.Method) {
 }
 
 func messageIgnores() cmp.Option {
-	return cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Enums", "Messages", "Parent", "API", "Elements")
+	return cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Enums", "Messages", "Parent", "API", "ElementsByName")
 }
 
 func methodIgnores() cmp.Option {

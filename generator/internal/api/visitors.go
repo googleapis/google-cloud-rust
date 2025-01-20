@@ -295,24 +295,24 @@ func (v CrossReferencingVisitor) VisitMethod(m *Method) error {
 }
 
 func (v CrossReferencingVisitor) VisitMessage(m *Message) error {
-	m.Elements = make(map[string]*MessageElement)
+	m.ElementsByName = make(map[string]*MessageElement)
 	for _, f := range m.Fields {
 		if f.Typez == MESSAGE_TYPE {
-			m.Elements[f.Name] = &MessageElement{Message: v.API.State.MessageByID[f.TypezID], Parent: m}
+			m.ElementsByName[f.Name] = &MessageElement{Message: v.API.State.MessageByID[f.TypezID], Parent: m}
 		} else if f.Typez == ENUM_TYPE {
-			m.Elements[f.Name] = &MessageElement{Enum: v.API.State.EnumByID[f.TypezID], Parent: m}
+			m.ElementsByName[f.Name] = &MessageElement{Enum: v.API.State.EnumByID[f.TypezID], Parent: m}
 		} else {
-			m.Elements[f.Name] = &MessageElement{Field: f, Parent: m}
+			m.ElementsByName[f.Name] = &MessageElement{Field: f, Parent: m}
 		}
 	}
 	for _, e := range m.Enums {
-		m.Elements[e.Name] = &MessageElement{Enum: e, Parent: m}
+		m.ElementsByName[e.Name] = &MessageElement{Enum: e, Parent: m}
 	}
 	for _, msg := range m.Messages {
-		m.Elements[msg.Name] = &MessageElement{Message: msg, Parent: m}
+		m.ElementsByName[msg.Name] = &MessageElement{Message: msg, Parent: m}
 	}
 	for _, o := range m.OneOfs {
-		m.Elements[o.Name] = &MessageElement{OneOf: o, Parent: m}
+		m.ElementsByName[o.Name] = &MessageElement{OneOf: o, Parent: m}
 	}
 	return nil
 }
@@ -346,7 +346,7 @@ func (v CrossReferencingVisitor) VisitPathInfo(p *PathInfo) error {
 					return fmt.Errorf("could not initialize FieldPath (%s), as the component (%s) does not map to any field in the enclosing type: %v", segment.FieldPath.String(), component.Identifier, ref)
 				}
 				enclosingType := ref.Message
-				ref = enclosingType.Elements[component.Identifier]
+				ref = enclosingType.ElementsByName[component.Identifier]
 				if ref == nil {
 					return fmt.Errorf("could not find field \"%s\" in message %s", component.Identifier, enclosingType.Name)
 				}
