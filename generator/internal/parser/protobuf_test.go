@@ -36,7 +36,7 @@ func TestProtobuf_Info(t *testing.T) {
 		},
 	}
 
-	test, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	if test.Name != "secretmanager" {
 		t.Errorf("want = %q; got = %q", "secretmanager", test.Name)
 	}
@@ -54,7 +54,7 @@ func TestProtobuf_PartialInfo(t *testing.T) {
 		Title: "Secret Manager API",
 	}
 
-	got, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	got := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	want := &api.API{
 		Name:        "secretmanager",
 		Title:       "Secret Manager API",
@@ -66,7 +66,7 @@ func TestProtobuf_PartialInfo(t *testing.T) {
 }
 
 func TestProtobuf_Scalar(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
@@ -187,7 +187,7 @@ func TestProtobuf_Scalar(t *testing.T) {
 }
 
 func TestProtobuf_ScalarArray(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar_array.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar_array.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
@@ -235,7 +235,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 }
 
 func TestProtobuf_ScalarOptional(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar_optional.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "scalar_optional.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API", "Fake")
@@ -283,7 +283,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 }
 
 func TestProtobuf_SkipExternalMessages(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 	// Both `ImportedMessage` and `LocalMessage` should be in the index:
 	_, ok := test.State.MessageByID[".away.ImportedMessage"]
 	if !ok {
@@ -328,7 +328,7 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 }
 
 func TestProtobuf_SkipExternaEnums(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "with_import.proto"))
 	// Both `ImportedEnum` and `LocalEnum` should be in the index:
 	_, ok := test.State.EnumByID[".away.ImportedEnum"]
 	if !ok {
@@ -366,7 +366,7 @@ func TestProtobuf_SkipExternaEnums(t *testing.T) {
 }
 
 func TestProtobuf_Comments(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "comments.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "comments.proto"))
 	message, ok := test.State.MessageByID[".test.Request"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -464,7 +464,7 @@ func TestProtobuf_Comments(t *testing.T) {
 }
 
 func TestProtobuf_OneOfs(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "oneofs.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
@@ -535,7 +535,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 }
 
 func TestProtobuf_ObjectFields(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "object_fields.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "object_fields.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
@@ -568,7 +568,7 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 }
 
 func TestProtobuf_WellKnownTypeFields(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "wkt_fields.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "wkt_fields.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
@@ -631,7 +631,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 }
 
 func TestProtobuf_MapFields(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
@@ -684,7 +684,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 }
 
 func TestProtobuf_Service(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	service, ok := test.State.ServiceByID[".test.TestService"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
@@ -787,7 +787,7 @@ func TestProtobuf_Service(t *testing.T) {
 }
 
 func TestProtobuf_QueryParameters(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "query_parameters.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "query_parameters.proto"))
 	service, ok := test.State.ServiceByID[".test.TestService"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
@@ -842,7 +842,7 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 }
 
 func TestProtobuf_Enum(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "enum.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "enum.proto"))
 	e, ok := test.State.EnumByID[".test.Code"]
 	if !ok {
 		t.Fatalf("Cannot find enum %s in API State", ".test.Code")
@@ -916,7 +916,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 			},
 		},
 	}
-	test, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	for _, service := range test.Services {
 		if service.ID == ".google.cloud.location.Locations" {
 			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
@@ -977,7 +977,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 			},
 		},
 	}
-	test, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	for _, service := range test.Services {
 		if service.ID == ".google.iam.v1.IAMPolicy" {
 			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
@@ -1013,7 +1013,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 }
 
 func TestProtobuf_Pagination(t *testing.T) {
-	test, _ := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "pagination.proto"))
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "pagination.proto"))
 	service, ok := test.State.ServiceByID[".test.TestService"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.TestService")
@@ -1190,7 +1190,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 			},
 		},
 	}
-	test, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_service.proto"))
 	for _, service := range test.Services {
 		if service.ID == ".google.longrunning.Operations" {
 			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
@@ -1258,7 +1258,7 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 			},
 		},
 	}
-	test, _ := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_operation_info.proto"))
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "test_operation_info.proto"))
 	service, ok := test.State.ServiceByID[".test.LroService"]
 	if !ok {
 		t.Fatalf("Cannot find service %s in API State", ".test.LroService")
