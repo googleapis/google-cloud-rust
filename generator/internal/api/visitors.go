@@ -258,11 +258,11 @@ func (v CrossReferencingVisitor) Traverse(a *API) error {
 
 func (v CrossReferencingVisitor) VisitMethod(m *Method) error {
 	var ok bool
-	m.InputType, ok = m.Parent.API.State.MessageByID[m.InputTypeID]
+	m.InputType, ok = v.API.State.MessageByID[m.InputTypeID]
 	if !ok {
 		return fmt.Errorf("unable to lookup input type %s", m.InputTypeID)
 	}
-	m.OutputType, ok = m.Parent.API.State.MessageByID[m.OutputTypeID]
+	m.OutputType, ok = v.API.State.MessageByID[m.OutputTypeID]
 	if !ok {
 		return fmt.Errorf("unable to lookup output type %s", m.OutputTypeID)
 	}
