@@ -269,7 +269,7 @@ func (n NoOpVisitor) VisitPathSegment(s *PathSegment) error {
 	return nil
 }
 
-// CrossReferencingVisitor is a Visitor used cross-reference API elements.
+// CrossReferencingVisitor populates the cross-references between API elements.
 // This visitor needs to be invoked through the Traverse method, as it needs to keep track of the API being visited.
 type CrossReferencingVisitor struct {
 	NoOpVisitor
