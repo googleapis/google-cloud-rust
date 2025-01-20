@@ -134,7 +134,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             reqwest::Method::PATCH,
             format!("/v1/{}"
                  , req.secret
-                    .as_ref().ok_or_else(|| gax::error::Error::other("field \"secret\" is required in a request, but was missing"))?.name
+                    .as_ref().ok_or_else(|| gax::path_parameter::errors::missing("secret"))?.name
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));

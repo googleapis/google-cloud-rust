@@ -137,9 +137,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                     "/v1/{}",
                     req.secret
                         .as_ref()
-                        .ok_or_else(|| gax::error::Error::other(
-                            "field \"secret\" is required in a request, but was missing"
-                        ))?
+                        .ok_or_else(|| gax::path_parameter::errors::missing("secret"))?
                         .name
                 ),
             )

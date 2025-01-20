@@ -148,9 +148,7 @@ impl crate::traits::Workflows for Workflows {
                     "/v1/{}",
                     req.workflow
                         .as_ref()
-                        .ok_or_else(|| gax::error::Error::other(
-                            "field \"workflow\" is required in a request, but was missing"
-                        ))?
+                        .ok_or_else(|| gax::path_parameter::errors::missing("workflow"))?
                         .name
                 ),
             )

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::error::Error;
+
 pub trait PathParameter {
     type P: Sized;
     fn required<'a>(&'a self, name: &str) -> std::result::Result<&'a Self::P, Error>;
@@ -20,8 +22,7 @@ pub trait PathParameter {
 impl<T> PathParameter for Option<T> {
     type P = T;
     fn required<'a>(&'a self, name: &str) -> std::result::Result<&'a Self::P, Error> {
-        self.as_ref()
-            .ok_or_else(|| Error::MissingRequiredParameter(name.into()))
+        self.as_ref().ok_or_else(|| errors::missing(name))
     }
 }
 
@@ -35,10 +36,15 @@ where
     }
 }
 
-#[derive(thiserror::Error, Debug)]
-pub enum Error {
-    #[error("missing required parameter {0}")]
-    MissingRequiredParameter(String),
+pub mod errors {
+    use crate::error::Error;
+
+    pub fn missing(name: &str) -> Error {
+        Error::other(format!(
+            "field {} is a required path parameter, but is missing",
+            name
+        ))
+    }
 }
 
 #[cfg(test)]
