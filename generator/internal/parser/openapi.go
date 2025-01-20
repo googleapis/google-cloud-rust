@@ -242,7 +242,13 @@ func makePathTemplate(template string) []api.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &api.FieldPath{Components: []*api.FieldPathComponent{{Identifier: element}}}})
+				segments = append(segments, api.PathSegment{
+					FieldPath: &api.FieldPath{
+						Components: []*api.FieldPathComponent{
+							{Identifier: element},
+						},
+					},
+				})
 				continue
 			}
 			segments = append(segments, api.PathSegment{Literal: &api.Literal{Value: element}})
