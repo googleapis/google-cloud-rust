@@ -332,26 +332,30 @@ func (v CrossReferencingVisitor) VisitPathInfo(p *PathInfo) error {
 	if p.Method == nil {
 		return fmt.Errorf("PathInfo has no Method reference")
 	}
+	if p.Method.InputType == nil {
+		return fmt.Errorf("PathInfo.Method has no InputType reference")
+	}
 	if v.API == nil {
 		return fmt.Errorf("CrossReferencingVisitor has no API reference")
 	}
 	for _, segment := range p.PathTemplate {
-		if segment.FieldPath != nil {
-			// Every FieldPath starts pointing to the root input type Message
-			ref := &MessageElement{
-				Message: p.Method.InputType,
+		if segment.FieldPath == nil {
+			continue // We are only interested in FieldPath segments
+		}
+		// Every FieldPath starts pointing to the root input type Message
+		ref := &MessageElement{
+			Message: p.Method.InputType,
+		}
+		for _, component := range segment.FieldPath.Components {
+			if ref.Message == nil {
+				return fmt.Errorf("could not initialize FieldPath (%s), as the component (%s) does not map to any field in the enclosing type: %v", segment.FieldPath.String(), component.Identifier, ref)
 			}
-			for _, component := range segment.FieldPath.Components {
-				if ref.Message == nil {
-					return fmt.Errorf("could not initialize FieldPath (%s), as the component (%s) does not map to any field in the enclosing type: %v", segment.FieldPath.String(), component.Identifier, ref)
-				}
-				enclosingType := ref.Message
-				ref = enclosingType.ElementsByName[component.Identifier]
-				if ref == nil {
-					return fmt.Errorf("could not find field \"%s\" in message %s", component.Identifier, enclosingType.Name)
-				}
-				component.Reference = ref
+			enclosingType := ref.Message
+			ref = enclosingType.ElementsByName[component.Identifier]
+			if ref == nil {
+				return fmt.Errorf("could not find field \"%s\" in message %s", component.Identifier, enclosingType.Name)
 			}
+			component.Reference = ref
 		}
 	}
 	return nil
