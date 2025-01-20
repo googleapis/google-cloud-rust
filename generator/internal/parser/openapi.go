@@ -126,7 +126,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 	}
 	updateMethodPagination(result)
 
-	return result, api.InitializationVisitor{}.Traverse(result)
+	return result, api.CrossReferencingVisitor{}.Traverse(result)
 }
 
 func makeServices(a *api.API, model *libopenapi.DocumentModel[v3.Document], packageName, serviceName string) error {

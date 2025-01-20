@@ -244,18 +244,19 @@ func (n NoOpVisitor) VisitPathSegment(s *PathSegment) error {
 	return nil
 }
 
-// InitializationVisitor is a Visitor used to initialize the API elements.
-type InitializationVisitor struct {
+// CrossReferencingVisitor is a Visitor used cross-reference API elements.
+// This visitor needs to be invoked through the Traverse method, as it needs to keep track of the API being visited.
+type CrossReferencingVisitor struct {
 	NoOpVisitor
 	API *API
 }
 
-func (v InitializationVisitor) Traverse(a *API) error {
+func (v CrossReferencingVisitor) Traverse(a *API) error {
 	v.API = a
 	return a.Accept(v)
 }
 
-func (v InitializationVisitor) VisitMethod(m *Method) error {
+func (v CrossReferencingVisitor) VisitMethod(m *Method) error {
 	var ok bool
 	m.InputType, ok = m.Parent.API.State.MessageByID[m.InputTypeID]
 	if !ok {
@@ -268,7 +269,7 @@ func (v InitializationVisitor) VisitMethod(m *Method) error {
 	return nil
 }
 
-func (v InitializationVisitor) VisitMessage(m *Message) error {
+func (v CrossReferencingVisitor) VisitMessage(m *Message) error {
 	m.Elements = make(map[string]*MessageElement)
 	for _, f := range m.Fields {
 		if f.Typez == MESSAGE_TYPE {
@@ -291,7 +292,7 @@ func (v InitializationVisitor) VisitMessage(m *Message) error {
 	return nil
 }
 
-func (v InitializationVisitor) VisitPathInfo(p *PathInfo) error {
+func (v CrossReferencingVisitor) VisitPathInfo(p *PathInfo) error {
 	for _, segment := range p.PathTemplate {
 		if segment.FieldPath != nil {
 			// Every FieldPath starts pointing to the root input type Message

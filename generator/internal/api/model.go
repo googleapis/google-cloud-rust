@@ -133,13 +133,13 @@ type Method struct {
 	// InputTypeID is the ID of the input to the Method, to be used with the API state to retrieve the message.
 	InputTypeID string
 
-	//InputType is the input to the Method, it is only present after the Method struct has been initialized.
+	//InputType is the input to the Method, it is only present after the Method struct has been visited by the CrossReferencingVisitor.
 	InputType *Message
 
 	// OutputTypeID is the output of the Method, to be used with the API state to retrieve the message.
 	OutputTypeID string
 
-	//OutputType is the output to the Method, it is only present after the Method struct has been initialized.
+	//OutputType is the output to the Method, it is only present after the Method struct has been visited by the CrossReferencingVisitor.
 	OutputType *Message
 
 	// PathInfo information about the HTTP request
@@ -302,7 +302,7 @@ type Message struct {
 	API *API
 
 	// Elements is a map of all the elements in the message, keyed by their name.
-	// This field is only available after the message is initialized.
+	// This field is only available after the message has been visited by the CrossReferencingVisitor.
 	Elements map[string]*MessageElement
 }
 
