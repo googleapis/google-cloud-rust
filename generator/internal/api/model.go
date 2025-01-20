@@ -46,12 +46,12 @@ const (
 	SINT64_TYPE                 // 18
 )
 
-// API represents an API surface to be generated. Aside from the general API information and its optional list of services,
-// it also contains the types required for code generation.
-// The type hierarchy is defined by Named vs Nested and Local vs Mixin types, explained as following:
+// API represents an API surface to be generated. Aside from the general API information and its optional list of
+// services, it also contains the types required for code generation.
+// The type hierarchy is defined by Non-nested vs Nested and Local vs Mixin types, explained as following:
 //
-//   - Named types are reusable Enum and Message types, defined at the top level of an API.
-//     Named types have their respective Enum.Parent and Message.Parent fields set to nil.
+//   - Non-nested types are Enum and Message types, defined at the top level of an API.
+//     Non-nested types have their respective Enum.Parent and Message.Parent fields set to nil.
 //   - Nested types are Enum and Message types defined inline within an enclosing Message.
 //     Nested types have their respective Enum.Parent and Message.Parent fields set to the enclosing Message.
 //   - Local types are Enum and Message types defined within the API being evaluated.
@@ -61,12 +61,12 @@ const (
 //
 // The structure of the API represents the hierarchy of its types as follows:
 //
-//   - API.Messages contains only local, named messages. These are reusable message types defined in the API.
-//   - API.Enums contains only local, named enums. These are reusable enum types defined in the API.
+//   - API.Messages contains only local, non-nested messages. These are reusable message types defined in the API.
+//   - API.Enums contains only local, non-nested enums. These are reusable enum types defined in the API.
 //   - Message.Messages contains only nested messages declared inline within the enclosing message.
 //   - Message.Enums contains only nested enums declared inline within the enclosing message.
-//   - All Message and Enum instances, regardless of whether they are named or nested, local or mixin are available in
-//     the respective APIState.MessageByID and APIState.EnumByID.
+//   - All Message and Enum instances, regardless of whether they are non-nested or nested, local or mixin are available
+//     in the respective APIState.MessageByID and APIState.EnumByID.
 type API struct {
 	// Name of the API (e.g. secretmanager).
 	Name string
@@ -84,7 +84,6 @@ type API struct {
 	Messages []*Message
 	// Enums
 	Enums []*Enum
-
 	// State contains helpful information that can be used when generating
 	// clients.
 	State *APIState
@@ -117,7 +116,6 @@ type Service struct {
 	DefaultHost string
 	// The Protobuf package this service belongs to.
 	Package string
-
 	// The API that this service belongs to.
 	API *API
 }
@@ -132,16 +130,14 @@ type Method struct {
 	ID string
 	// InputTypeID is the ID of the input to the Method, to be used with the API state to retrieve the message.
 	InputTypeID string
-
-	//InputType is the input to the Method, it is only present after the Method struct has been visited by the CrossReferencingVisitor.
+	// InputType is the input to the Method, it is only present after the Method struct has been
+	// visited by the CrossReferencingVisitor.
 	InputType *Message
-
 	// OutputTypeID is the output of the Method, to be used with the API state to retrieve the message.
 	OutputTypeID string
-
-	//OutputType is the output to the Method, it is only present after the Method struct has been visited by the CrossReferencingVisitor.
+	// OutputType is the output to the Method, it is only present after the Method struct has been
+	// visited by the CrossReferencingVisitor.
 	OutputType *Message
-
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 	// IsPageable is true if the method conforms to standard defined by
@@ -157,7 +153,7 @@ type Method struct {
 	OperationInfo *OperationInfo
 }
 
-// Normalized request path information.
+// PathInfo is a normalized request path information.
 type PathInfo struct {
 	// HTTP Verb.
 	//
@@ -180,22 +176,21 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
-
 	// The method that this path info is associated with.
 	Method *Method
 }
 
-// Normalized long running operation info
+// OperationInfo is a normalized long-running operation info
 type OperationInfo struct {
 	// The metadata type. If there is no metadata, this is set to
 	// `.google.protobuf.Empty`.
 	MetadataTypeID string
-	// The result type. This is the expected type when the long running
+	// The result type. This is the expected type when the long-running
 	// operation completes successfully.
 	ResponseTypeID string
 }
 
-// A path segment is either a string literal (such as "projects") or a field
+// PathSegment is either a string literal (such as "projects") or a field
 // path (such as "options.version").
 //
 // For OpenAPI these are formed by breaking the path string. Something like
@@ -297,10 +292,8 @@ type Message struct {
 	IsPageableResponse bool
 	// PageableItem is the field to be paginated over.
 	PageableItem *Field
-
 	// The API that this message belongs to.
 	API *API
-
 	// Elements is a map of all the elements in the message, keyed by their name.
 	// This field is only available after the message has been visited by the CrossReferencingVisitor.
 	Elements map[string]*MessageElement
@@ -312,7 +305,6 @@ type MessageElement struct {
 	Field   *Field
 	Enum    *Enum
 	OneOf   *OneOf
-
 	// Parent is the message containing this element.
 	Parent *Message
 	Codec  any
@@ -369,7 +361,6 @@ type Enum struct {
 	Values []*EnumValue
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
-
 	// API references the API where this enum is defined
 	API *API
 	// The Protobuf package this enum belongs to.
@@ -417,7 +408,6 @@ type Field struct {
 	// some helper fields. These need to be marked so they can be excluded
 	// from serialized messages and in other places.
 	Synthetic bool
-
 	// Parent returns the message that this field is associated with.
 	Parent *Message
 }
@@ -430,7 +420,7 @@ type Pair struct {
 	Value string
 }
 
-// A group of fields that are mutually exclusive. Notably, proto3 optional
+// OneOf is a group of fields that are mutually exclusive. Notably, proto3 optional
 // fields are all their own one-of.
 type OneOf struct {
 	// Name of the attribute.
