@@ -163,6 +163,11 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 	goValidate(model, sourceSpecificationPackageName)
 
 	goLoadWellKnownTypes(model.State)
+	err := api.CrossReferencingVisitor{}.Traverse(model)
+	if err != nil {
+		return nil, err
+	}
+
 	data := &GoTemplateData{
 		Name:              model.Name,
 		Title:             model.Title,

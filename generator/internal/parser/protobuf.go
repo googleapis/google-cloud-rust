@@ -354,7 +354,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Name = strings.TrimSuffix(serviceConfig.Name, ".googleapis.com")
 	}
 	updateMethodPagination(result)
-	return result, api.CrossReferencingVisitor{}.Traverse(result)
+	return result, nil
 }
 
 var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{

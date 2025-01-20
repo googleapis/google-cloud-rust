@@ -32,11 +32,6 @@ func checkMessage(t *testing.T, got api.Message, want api.Message) {
 	if diff := cmp.Diff(want.Fields, got.Fields, cmpopts.SortSlices(less), fieldIgnores()); diff != "" {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
-	for _, f := range got.Fields {
-		if f.Parent.ID != want.ID {
-			t.Errorf("field parent mismatch want=%v, got=%v", &want, f.Parent)
-		}
-	}
 
 	lessOneOf := func(a, b *api.OneOf) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(lessOneOf), oneOfIgnores(), fieldIgnores()); diff != "" {

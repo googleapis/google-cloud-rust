@@ -184,6 +184,10 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		return nil, err
 	}
 	rustLoadWellKnownTypes(model.State)
+	err := api.CrossReferencingVisitor{}.Traverse(model)
+	if err != nil {
+		return nil, err
+	}
 	rustResolveUsedPackages(model, c.extraPackages)
 
 	if err := model.Accept(&RustCodecVisitor{}); err != nil {
