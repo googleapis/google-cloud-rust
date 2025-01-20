@@ -653,6 +653,20 @@ func rustBodyAccessor(m *api.Method) string {
 	return "." + rustToSnake(m.PathInfo.BodyFieldPath)
 }
 
+func rustHTTPPathFmt(p *api.PathInfo) string {
+	fmt := ""
+	for _, segment := range p.PathTemplate {
+		if segment.Literal != nil {
+			fmt = fmt + "/" + segment.Literal.Value
+		} else if segment.FieldPath != nil {
+			fmt = fmt + "/{}"
+		} else if segment.Verb != nil {
+			fmt = fmt + ":" + segment.Verb.Value
+		}
+	}
+	return fmt
+}
+
 // Convert a name to `snake_case`. The Rust naming conventions use this style
 // for modules, fields, and functions.
 //

@@ -166,22 +166,23 @@ func (v *RustCodecVisitor) VisitMessage(msg *api.Message) error {
 }
 
 type RustPathInfoAnnotations struct {
-	HTTPPathFmt string
+	Fmt string
+	// Fields is a filtered list the path segments in the path template that represent fields in the input message.
+	// This is used to simplify the mustache template by skipping unused segment types.
+	Fields []*api.FieldPath
 }
 
 func (v *RustCodecVisitor) VisitPathInfo(p *api.PathInfo) error {
-	fmt := ""
-	for _, segment := range p.PathTemplate {
-		if segment.Literal != nil {
-			fmt = fmt + "/" + segment.Literal.Value
-		} else if segment.FieldPath != nil {
-			fmt = fmt + "/{}"
-		} else if segment.Verb != nil {
-			fmt = fmt + ":" + segment.Verb.Value
+	var fields []*api.FieldPath
+	for _, t := range p.PathTemplate {
+		if t.FieldPath != nil {
+			fields = append(fields, t.FieldPath)
 		}
 	}
+
 	p.Codec = &RustPathInfoAnnotations{
-		HTTPPathFmt: fmt,
+		Fmt:    rustHTTPPathFmt(p),
+		Fields: fields,
 	}
 	return nil
 }
