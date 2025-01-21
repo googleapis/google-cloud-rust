@@ -31,196 +31,147 @@
 
 type Result<T> = std::result::Result<T, crate::request_parameter::Error>;
 
-/// Adds a query parameter to a builder.
-///
-/// Google APIs use [gRPC Transcoding](https://google.aip.dev/127). Some request
-/// fields are sent as query parameters and may need special formatting:
-/// - Simple scalars are formatted as usual.
-/// - Fields of well-known types are formatted as strings. These include
-///   [Duration](wkt::Duration), [FieldMask](wkt::FieldMask), and
-///   [Timestamp](wkt::Timestamp).
-/// - [Option] fields that do not contain a value are not included in the HTTP
-///   query.
-/// - Repeated fields are formatted as repeated query parameters.
-/// - Object fields use `field.subfield` format, and may (but rarely do)
-///   recurse.
-///
-/// This function is called from the generated code. It is not intended for
-/// general use. The goal  
-pub fn add<T>(
-    builder: reqwest::RequestBuilder,
-    name: &str,
-    parameter: &T,
-) -> Result<reqwest::RequestBuilder>
-where
-    T: QueryParameter,
-{
-    QueryParameter::add(parameter, builder, name)
-}
-
 /// [QueryParameter] is a trait representing types that can be used as a query
 /// parameter.
 pub trait QueryParameter {
+    // TODO(#610) - remove the add() method.
     fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder>;
-}
-
-impl<T: QueryParameter> QueryParameter for Option<T> {
-    fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder> {
-        match &self {
-            None => Ok(builder),
-            Some(t) => t.add(builder, name),
-        }
-    }
-}
-
-impl<T: QueryParameter> QueryParameter for Vec<T> {
-    fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder> {
-        let mut builder = builder;
-        for e in self.iter() {
-            builder = e.add(builder, name)?;
-        }
-        Ok(builder)
-    }
-}
-
-impl<T: crate::request_parameter::RequestParameter> QueryParameter for T {
-    fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder> {
-        let s = self.format()?;
-        Ok(builder.query(&[(name, s)]))
-    }
+    fn append(&self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder;
 }
 
 impl QueryParameter for serde_json::Value {
     fn add(&self, builder: reqwest::RequestBuilder, name: &str) -> Result<reqwest::RequestBuilder> {
-        let mut builder = builder;
+        Ok(self.append(builder, name))
+    }
+
+    fn append(&self, builder: reqwest::RequestBuilder, name: &str) -> reqwest::RequestBuilder {
         match &self {
-            Self::Object(object) => {
-                for (k, v) in object {
-                    builder = v.add(builder, format!("{name}.{k}").as_str())?;
-                }
-            }
-            Self::Array(array) => {
-                for v in array {
-                    builder = v.add(builder, name)?;
-                }
-            }
-            Self::Null => {}
-            Self::String(s) => {
-                builder = builder.query(&[(name, s)]);
-            }
-            Self::Number(n) => {
-                builder = builder.query(&[(name, format!("{n}"))]);
-            }
-            Self::Bool(b) => {
-                builder = builder.query(&[(name, b)]);
-            }
-        };
-        Ok(builder)
+            Self::Object(object) => object.iter().fold(builder, |builder, (k, v)| {
+                v.append(builder, format!("{name}.{k}").as_str())
+            }),
+            Self::Array(array) => array
+                .iter()
+                .fold(builder, |builder, v| v.append(builder, name)),
+            Self::Null => builder,
+            Self::String(s) => builder.query(&[(name, s)]),
+            Self::Number(n) => builder.query(&[(name, format!("{n}"))]),
+            Self::Bool(b) => builder.query(&[(name, b)]),
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use serde_json::json;
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
-    #[test]
-    fn none() -> Result {
-        let builder = reqwest::Client::builder()
-            .build()?
-            .get("https://test.googleapis.com/v1/unused");
-        let builder = QueryParameter::add(&None::<i32>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<i64>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<u32>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<u64>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<f32>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<f64>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<String>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<bool>, builder, "test")?;
-        let builder = QueryParameter::add(&None::<bytes::Bytes>, builder, "test")?;
-        let r = builder.build()?;
-        assert_eq!(None, r.url().query());
-
-        Ok(())
+    fn split_query(r: &reqwest::Request) -> Vec<&str> {
+        r.url()
+            .query()
+            .unwrap_or_default()
+            .split("&")
+            .filter(|p| *p != "")
+            .collect()
     }
 
     #[test]
-    fn with_value() -> Result {
+    fn object() -> TestResult {
+        let value = json!({
+            "a": 123,
+            "b": [123, 456, 789],
+            "c": "123",
+            "d": true,
+            "e": {
+                "f": "abc",
+                "g": false,
+                "h": {
+                    "i": 42,
+                }
+            }
+        });
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = QueryParameter::add(&Some(42_i32), builder, "i32")?;
-        let builder = QueryParameter::add(&Some(42_i64), builder, "i64")?;
-        let builder = QueryParameter::add(&Some(42_u32), builder, "u32")?;
-        let builder = QueryParameter::add(&Some(42_u64), builder, "u64")?;
-        let builder = QueryParameter::add(&Some(42_f32), builder, "f32")?;
-        let builder = QueryParameter::add(&Some(42_f64), builder, "f64")?;
-        let builder = QueryParameter::add(&Some("42".to_string()), builder, "string")?;
-        let builder = QueryParameter::add(&Some(true), builder, "bool")?;
-        let builder = QueryParameter::add(
-            &Some(bytes::Bytes::from(
-                "the quick brown fox jumps over the lazy dog",
-            )),
-            builder,
-            "bytes",
-        )?;
-        let r = builder.build()?;
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
         assert_eq!(
-            Some(
-                [
-                    "i32=42",
-                    "i64=42",
-                    "u32=42",
-                    "u64=42",
-                    "f32=42",
-                    "f64=42",
-                    "string=42",
-                    "bool=true",
-                    "bytes=dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw",
-                ]
-                .join("&")
-                .as_str()
-            ),
-            r.url().query()
+            split_query(&request),
+            vec![
+                "name.a=123",
+                "name.b=123",
+                "name.b=456",
+                "name.b=789",
+                "name.c=123",
+                "name.d=true",
+                "name.e.f=abc",
+                "name.e.g=false",
+                "name.e.h.i=42",
+            ]
         );
         Ok(())
     }
 
     #[test]
-    fn duration() -> Result {
-        let d = wkt::Duration::new(12, 345_678_900)?;
+    fn array() -> TestResult {
+        let value = json!([1, 3, 5, 7]);
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = QueryParameter::add(&d, builder, "duration")?;
-        let r = builder.build()?;
-        assert_eq!(Some("duration=12.345678900s"), r.url().query());
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
+        assert_eq!(
+            split_query(&request),
+            vec!["name=1", "name=3", "name=5", "name=7"]
+        );
         Ok(())
     }
 
     #[test]
-    fn field_mask() -> Result {
-        let fm = wkt::FieldMask::default().set_paths(["a", "b"].map(str::to_string).to_vec());
+    fn null() -> TestResult {
+        let value = json!(null);
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = QueryParameter::add(&fm, builder, "fieldMask")?;
-        let r = builder.build()?;
-        // %2C is the URL encoding for `,`
-        assert_eq!(Some("fieldMask=a%2Cb"), r.url().query());
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
+        assert_eq!(split_query(&request), Vec::<&str>::new());
         Ok(())
     }
 
     #[test]
-    fn timestamp() -> Result {
-        let ts = wkt::Timestamp::default();
+    fn string() -> TestResult {
+        let value = json!("abc123");
         let builder = reqwest::Client::builder()
             .build()?
             .get("https://test.googleapis.com/v1/unused");
-        let builder = QueryParameter::add(&ts, builder, "timestamp")?;
-        let r = builder.build()?;
-        // %3A is the URL encoding for `:`
-        assert_eq!(Some("timestamp=1970-01-01T00%3A00%3A00Z"), r.url().query());
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
+        assert_eq!(split_query(&request), vec!["name=abc123"]);
+        Ok(())
+    }
+
+    #[test]
+    fn number() -> TestResult {
+        let value = json!(7.5);
+        let builder = reqwest::Client::builder()
+            .build()?
+            .get("https://test.googleapis.com/v1/unused");
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
+        assert_eq!(split_query(&request), vec!["name=7.5"]);
+        Ok(())
+    }
+
+    #[test]
+    fn boolean() -> TestResult {
+        let value = json!(true);
+        let builder = reqwest::Client::builder()
+            .build()?
+            .get("https://test.googleapis.com/v1/unused");
+        let builder = value.add(builder, "name")?;
+        let request = builder.build()?;
+        assert_eq!(split_query(&request), vec!["name=true"]);
         Ok(())
     }
 }
