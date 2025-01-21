@@ -62,8 +62,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListWorkflowsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_workflows(self.0.request, self.0.options)
                 .await
         }
@@ -143,8 +142,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Workflow> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_workflow(self.0.request, self.0.options)
                 .await
         }
@@ -196,8 +194,7 @@ pub mod workflows {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_workflow][crate::client::Workflows::create_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_workflow(self.0.request, self.0.options)
                 .await
         }
@@ -291,8 +288,7 @@ pub mod workflows {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [delete_workflow][crate::client::Workflows::delete_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_workflow(self.0.request, self.0.options)
                 .await
         }
@@ -368,8 +364,7 @@ pub mod workflows {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_workflow][crate::client::Workflows::update_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_workflow(self.0.request, self.0.options)
                 .await
         }
@@ -458,8 +453,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
         }
@@ -533,8 +527,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
         }
@@ -578,8 +571,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
         }
@@ -656,8 +648,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
         }
@@ -701,8 +692,7 @@ pub mod workflows {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
         }

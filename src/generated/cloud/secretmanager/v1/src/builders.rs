@@ -62,8 +62,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_secrets(self.0.request, self.0.options)
                 .await
         }
@@ -137,8 +136,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_secret(self.0.request, self.0.options)
                 .await
         }
@@ -197,8 +195,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .add_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -248,7 +245,9 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            self.0.stub.get_secret(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_secret(self.0.request, self.0.options)
+                .await
         }
 
         /// Sets the value of `name`.
@@ -287,8 +286,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Secret> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_secret(self.0.request, self.0.options)
                 .await
         }
@@ -341,8 +339,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_secret(self.0.request, self.0.options)
                 .await
         }
@@ -392,8 +389,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListSecretVersionsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_secret_versions(self.0.request, self.0.options)
                 .await
         }
@@ -470,8 +466,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -515,8 +510,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::AccessSecretVersionResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .access_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -560,8 +554,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .disable_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -611,8 +604,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .enable_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -662,8 +654,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SecretVersion> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .destroy_secret_version(self.0.request, self.0.options)
                 .await
         }
@@ -710,8 +701,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -770,8 +760,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -824,8 +813,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
         }
@@ -878,8 +866,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::ListLocationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_locations(self.0.request, self.0.options)
                 .await
         }
@@ -953,8 +940,7 @@ pub mod secret_manager_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<location::model::Location> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_location(self.0.request, self.0.options)
                 .await
         }
