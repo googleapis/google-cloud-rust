@@ -250,6 +250,21 @@ var rustWellKnownMessages = []*api.Message{
 		Package: "google.protobuf",
 	},
 	{
+		ID:      ".google.protobuf.Struct",
+		Name:    "Struct",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.Value",
+		Name:    "Value",
+		Package: "google.protobuf",
+	},
+	{
+		ID:      ".google.protobuf.ListValue",
+		Name:    "ListValue",
+		Package: "google.protobuf",
+	},
+	{
 		ID:      ".google.protobuf.Empty",
 		Name:    "Empty",
 		Package: "google.protobuf",
