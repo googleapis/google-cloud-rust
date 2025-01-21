@@ -78,7 +78,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
@@ -90,13 +90,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -137,19 +137,19 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of `secret_id`.
-        pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_secret_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.secret_id = v.into();
             self
         }
 
         /// Sets the value of `secret`.
-        pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
@@ -190,13 +190,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of `payload`.
-        pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+        pub fn set_payload<T: Into<std::option::Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self
         }
@@ -237,7 +237,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -278,13 +278,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `secret`.
-        pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
             self.0.request.secret = v.into();
             self
         }
 
         /// Sets the value of `update_mask`.
-        pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
         }
@@ -325,13 +325,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `etag`.
-        pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -384,7 +384,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
@@ -396,13 +396,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -443,7 +443,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -484,7 +484,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -525,13 +525,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `etag`.
-        pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -572,13 +572,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `etag`.
-        pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -619,13 +619,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `etag`.
-        pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
@@ -666,19 +666,19 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `policy`.
-        pub fn set_policy<T: Into<Option<iam::model::Policy>>>(mut self, v: T) -> Self {
+        pub fn set_policy<T: Into<std::option::Option<iam::model::Policy>>>(mut self, v: T) -> Self {
             self.0.request.policy = v.into();
             self
         }
 
         /// Sets the value of `update_mask`.
-        pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
         }
@@ -719,13 +719,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `options`.
-        pub fn set_options<T: Into<Option<iam::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
+        pub fn set_options<T: Into<std::option::Option<iam::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
             self.0.request.options = v.into();
             self
         }
@@ -766,13 +766,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
             self.0.request.permissions = v.into();
             self
         }
@@ -825,13 +825,13 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -843,7 +843,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
@@ -884,7 +884,7 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }

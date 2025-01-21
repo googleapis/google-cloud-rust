@@ -84,7 +84,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
@@ -96,19 +96,19 @@ pub mod workflows {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
         /// Sets the value of `order_by`.
-        pub fn set_order_by<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
         }
@@ -150,13 +150,13 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `revision_id`.
-        pub fn set_revision_id<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_revision_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.revision_id = v.into();
             self
         }
@@ -236,19 +236,22 @@ pub mod workflows {
         }
 
         /// Sets the value of `parent`.
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
         /// Sets the value of `workflow`.
-        pub fn set_workflow<T: Into<Option<crate::model::Workflow>>>(mut self, v: T) -> Self {
+        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.workflow = v.into();
             self
         }
 
         /// Sets the value of `workflow_id`.
-        pub fn set_workflow_id<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_workflow_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workflow_id = v.into();
             self
         }
@@ -325,7 +328,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -405,13 +408,19 @@ pub mod workflows {
         }
 
         /// Sets the value of `workflow`.
-        pub fn set_workflow<T: Into<Option<crate::model::Workflow>>>(mut self, v: T) -> Self {
+        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.workflow = v.into();
             self
         }
 
         /// Sets the value of `update_mask`.
-        pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.update_mask = v.into();
             self
         }
@@ -471,13 +480,13 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -489,7 +498,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
@@ -531,7 +540,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -591,13 +600,13 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -609,7 +618,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
@@ -654,7 +663,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -699,7 +708,7 @@ pub mod workflows {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }

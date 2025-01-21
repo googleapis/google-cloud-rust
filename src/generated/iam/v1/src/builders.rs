@@ -69,19 +69,25 @@ pub mod iam_policy {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `policy`.
-        pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
+        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.policy = v.into();
             self
         }
 
         /// Sets the value of `update_mask`.
-        pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.update_mask = v.into();
             self
         }
@@ -123,13 +129,13 @@ pub mod iam_policy {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `options`.
-        pub fn set_options<T: Into<Option<crate::model::GetPolicyOptions>>>(
+        pub fn set_options<T: Into<std::option::Option<crate::model::GetPolicyOptions>>>(
             mut self,
             v: T,
         ) -> Self {
@@ -177,13 +183,16 @@ pub mod iam_policy {
         }
 
         /// Sets the value of `resource`.
-        pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
         /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.permissions = v.into();
             self
         }

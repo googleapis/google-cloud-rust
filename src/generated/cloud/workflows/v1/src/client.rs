@@ -87,13 +87,16 @@ impl Workflows {
     /// The default order is not specified.
     pub fn list_workflows(
         &self,
-        parent: impl Into<String>,
+        parent: impl Into<std::string::String>,
     ) -> crate::builders::workflows::ListWorkflows {
         crate::builders::workflows::ListWorkflows::new(self.inner.clone()).set_parent(parent.into())
     }
 
     /// Gets details of a single workflow.
-    pub fn get_workflow(&self, name: impl Into<String>) -> crate::builders::workflows::GetWorkflow {
+    pub fn get_workflow(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> crate::builders::workflows::GetWorkflow {
         crate::builders::workflows::GetWorkflow::new(self.inner.clone()).set_name(name.into())
     }
 
@@ -191,7 +194,7 @@ impl Workflows {
     /// [Any]: wkt::Any
     pub fn create_workflow(
         &self,
-        parent: impl Into<String>,
+        parent: impl Into<std::string::String>,
     ) -> crate::builders::workflows::CreateWorkflow {
         crate::builders::workflows::CreateWorkflow::new(self.inner.clone())
             .set_parent(parent.into())
@@ -291,7 +294,7 @@ impl Workflows {
     /// [Any]: wkt::Any
     pub fn delete_workflow(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::workflows::DeleteWorkflow {
         crate::builders::workflows::DeleteWorkflow::new(self.inner.clone()).set_name(name.into())
     }
@@ -401,13 +404,16 @@ impl Workflows {
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::workflows::ListLocations {
         crate::builders::workflows::ListLocations::new(self.inner.clone()).set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(&self, name: impl Into<String>) -> crate::builders::workflows::GetLocation {
+    pub fn get_location(
+        &self,
+        name: impl Into<std::string::String>,
+    ) -> crate::builders::workflows::GetLocation {
         crate::builders::workflows::GetLocation::new(self.inner.clone()).set_name(name.into())
     }
 
@@ -416,7 +422,7 @@ impl Workflows {
     /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::workflows::ListOperations {
         crate::builders::workflows::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
@@ -426,7 +432,7 @@ impl Workflows {
     /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::workflows::GetOperation {
         crate::builders::workflows::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
@@ -436,7 +442,7 @@ impl Workflows {
     /// [google.longrunning.Operations]: longrunning::traits::Operations
     pub fn delete_operation(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::workflows::DeleteOperation {
         crate::builders::workflows::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }

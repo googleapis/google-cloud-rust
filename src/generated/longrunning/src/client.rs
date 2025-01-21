@@ -95,7 +95,7 @@ impl Operations {
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
     pub fn list_operations(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::operations::ListOperations {
         crate::builders::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
     }
@@ -105,7 +105,7 @@ impl Operations {
     /// service.
     pub fn get_operation(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::operations::GetOperation {
         crate::builders::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
     }
@@ -116,7 +116,7 @@ impl Operations {
     /// `google.rpc.Code.UNIMPLEMENTED`.
     pub fn delete_operation(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::operations::DeleteOperation {
         crate::builders::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
     }
@@ -138,7 +138,7 @@ impl Operations {
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub fn cancel_operation(
         &self,
-        name: impl Into<String>,
+        name: impl Into<std::string::String>,
     ) -> crate::builders::operations::CancelOperation {
         crate::builders::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
     }

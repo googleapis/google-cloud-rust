@@ -16,6 +16,19 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gax;
+extern crate lazy_static;
+extern crate reqwest;
+extern crate rpc;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 /// This resource represents a long-running operation that is the result of a
 /// network API call.
@@ -27,15 +40,15 @@ pub struct Operation {
     /// The server-assigned name, which is only unique within the same service that
     /// originally returns it. If you use the default HTTP mapping, the
     /// `name` should be a resource name ending with `operations/{unique_id}`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Service-specific metadata associated with the operation.  It typically
     /// contains progress information and common metadata such as create time.
     /// Some services might not provide such metadata.  Any method that returns a
     /// long-running operation should document the metadata type, if any.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<wkt::Any>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub metadata: std::option::Option<wkt::Any>,
 
     /// If the value is `false`, it means the operation is still in progress.
     /// If `true`, the operation is completed, and either `error` or `response` is
@@ -46,31 +59,39 @@ pub struct Operation {
     /// If `done` == `false`, neither `error` nor `response` is set.
     /// If `done` == `true`, exactly one of `error` or `response` can be set.
     /// Some services might not provide the result.
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub result: Option<crate::model::operation::Result>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub result: std::option::Option<crate::model::operation::Result>,
 }
 
 impl Operation {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `metadata`.
-    pub fn set_metadata<T: Into<Option<wkt::Any>>>(mut self, v: T) -> Self {
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.metadata = v.into();
         self
     }
 
     /// Sets the value of `done`.
-    pub fn set_done<T: Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.done = v.into();
         self
     }
 
     /// Sets the value of `result`.
-    pub fn set_result<T: Into<Option<crate::model::operation::Result>>>(mut self, v: T) -> Self {
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::operation::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.result = v.into();
         self
     }
@@ -84,6 +105,8 @@ impl wkt::message::Message for Operation {
 
 /// Defines additional types related to Operation
 pub mod operation {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The operation result, which can be either an `error` or a valid `response`.
     /// If `done` == `false`, neither `error` nor `response` is set.
@@ -117,13 +140,13 @@ pub mod operation {
 #[non_exhaustive]
 pub struct GetOperationRequest {
     /// The name of the operation resource.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl GetOperationRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -145,42 +168,42 @@ impl wkt::message::Message for GetOperationRequest {
 #[non_exhaustive]
 pub struct ListOperationsRequest {
     /// The name of the operation's parent resource.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// The standard list filter.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub filter: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
 
     /// The standard list page size.
     pub page_size: i32,
 
     /// The standard list page token.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
 }
 
 impl ListOperationsRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
@@ -202,23 +225,26 @@ impl wkt::message::Message for ListOperationsRequest {
 #[non_exhaustive]
 pub struct ListOperationsResponse {
     /// A list of operations that matches the specified filter in the request.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub operations: Vec<crate::model::Operation>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub operations: std::vec::Vec<crate::model::Operation>,
 
     /// The standard List next-page token.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub next_page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
 }
 
 impl ListOperationsResponse {
     /// Sets the value of `operations`.
-    pub fn set_operations<T: Into<Vec<crate::model::Operation>>>(mut self, v: T) -> Self {
+    pub fn set_operations<T: std::convert::Into<std::vec::Vec<crate::model::Operation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.operations = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
@@ -234,11 +260,11 @@ impl wkt::message::Message for ListOperationsResponse {
 impl gax::paginator::PageableResponse for ListOperationsResponse {
     type PageItem = crate::model::Operation;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.operations
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -253,13 +279,13 @@ impl gax::paginator::PageableResponse for ListOperationsResponse {
 #[non_exhaustive]
 pub struct CancelOperationRequest {
     /// The name of the operation resource to be cancelled.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl CancelOperationRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -281,13 +307,13 @@ impl wkt::message::Message for CancelOperationRequest {
 #[non_exhaustive]
 pub struct DeleteOperationRequest {
     /// The name of the operation resource to be deleted.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl DeleteOperationRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -307,25 +333,28 @@ impl wkt::message::Message for DeleteOperationRequest {
 #[non_exhaustive]
 pub struct WaitOperationRequest {
     /// The name of the operation resource to wait on.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// The maximum duration to wait before timing out. If left blank, the wait
     /// will be at most the time permitted by the underlying HTTP/RPC protocol.
     /// If RPC context deadline is also specified, the shorter one will be used.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub timeout: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub timeout: std::option::Option<wkt::Duration>,
 }
 
 impl WaitOperationRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `timeout`.
-    pub fn set_timeout<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.timeout = v.into();
         self
     }
@@ -362,8 +391,8 @@ pub struct OperationInfo {
     /// message name must be used (e.g. `google.protobuf.Struct`).
     ///
     /// Note: Altering this value constitutes a breaking change.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub response_type: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub response_type: std::string::String,
 
     /// Required. The message name of the metadata type for this long-running
     /// operation.
@@ -372,19 +401,19 @@ pub struct OperationInfo {
     /// message name must be used (e.g. `google.protobuf.Struct`).
     ///
     /// Note: Altering this value constitutes a breaking change.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub metadata_type: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub metadata_type: std::string::String,
 }
 
 impl OperationInfo {
     /// Sets the value of `response_type`.
-    pub fn set_response_type<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_response_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_type = v.into();
         self
     }
 
     /// Sets the value of `metadata_type`.
-    pub fn set_metadata_type<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_metadata_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata_type = v.into();
         self
     }

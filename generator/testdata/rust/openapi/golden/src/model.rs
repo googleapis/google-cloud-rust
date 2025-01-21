@@ -16,6 +16,9 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate std;
+extern crate wkt;
 
 /// The response message for Locations.ListLocations.
 #[serde_with::serde_as]
@@ -25,24 +28,24 @@
 pub struct ListLocationsResponse {
 
     /// A list of locations that matches the specified filter in the request.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub locations: Vec<crate::model::Location>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub locations: std::vec::Vec<crate::model::Location>,
 
     /// The standard List next-page token.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub next_page_token: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub next_page_token: std::option::Option<std::string::String>,
 }
 
 impl ListLocationsResponse {
 
     /// Sets the value of `locations`.
-    pub fn set_locations<T: Into<Vec<crate::model::Location>>>(mut self, v: T) -> Self {
+    pub fn set_locations<T: std::convert::Into<std::vec::Vec<crate::model::Location>>>(mut self, v: T) -> Self {
         self.locations = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
@@ -58,11 +61,11 @@ impl wkt::message::Message for ListLocationsResponse {
 impl gax::paginator::PageableResponse for ListLocationsResponse {
     type PageItem = crate::model::Location;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.locations
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -76,17 +79,17 @@ pub struct Location {
 
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub name: std::option::Option<std::string::String>,
 
     /// The canonical id for this location. For example: `"us-east1"`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub location_id: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location_id: std::option::Option<std::string::String>,
 
     /// The friendly name for this location, typically a nearby city name.
     /// For example, "Tokyo".
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub display_name: std::option::Option<std::string::String>,
 
     /// Cross-service attributes for the location. For example
     ///
@@ -94,42 +97,42 @@ pub struct Location {
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String,String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<wkt::Any>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub metadata: std::option::Option<wkt::Any>,
 }
 
 impl Location {
 
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `location_id`.
-    pub fn set_location_id<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_location_id<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of `display_name`.
-    pub fn set_display_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_display_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<T: std::convert::Into<std::collections::HashMap<std::string::String,std::string::String>>>(mut self, v: T) -> Self {
         self.labels = v.into();
         self
     }
 
     /// Sets the value of `metadata`.
-    pub fn set_metadata<T: Into<Option<wkt::Any>>>(mut self, v: T) -> Self {
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
         self.metadata = v.into();
         self
     }
@@ -150,36 +153,36 @@ pub struct ListSecretsResponse {
 
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub secrets: Vec<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub secrets: std::vec::Vec<crate::model::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretsRequest.page_token to retrieve the next page.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub next_page_token: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// The total number of Secrets but 0 when the
     /// ListSecretsRequest.filter field is set.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub total_size: Option<i32>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub total_size: std::option::Option<i32>,
 }
 
 impl ListSecretsResponse {
 
     /// Sets the value of `secrets`.
-    pub fn set_secrets<T: Into<Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_secrets<T: std::convert::Into<std::vec::Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.secrets = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of `total_size`.
-    pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
@@ -195,11 +198,11 @@ impl wkt::message::Message for ListSecretsResponse {
 impl gax::paginator::PageableResponse for ListSecretsResponse {
     type PageItem = crate::model::Secret;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.secrets
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -216,18 +219,18 @@ impl gax::paginator::PageableResponse for ListSecretsResponse {
 pub struct Secret {
 
     /// Output only. The resource name of the Secret in the format `projects/_*_/secrets/*`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub name: std::option::Option<std::string::String>,
 
     /// Optional. Immutable. The replication policy of the secret data attached to the Secret.
     ///
     /// The replication policy cannot be changed after the Secret has been created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub replication: Option<crate::model::Replication>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication: std::option::Option<crate::model::Replication>,
 
     /// Output only. The time at which the Secret was created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The labels assigned to this Secret.
     ///
@@ -241,30 +244,30 @@ pub struct Secret {
     ///
     /// No more than 64 labels can be assigned to a given resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String,String>,
+    pub labels: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub topics: Vec<crate::model::Topic>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub topics: std::vec::Vec<crate::model::Topic>,
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
     /// always provided on output, regardless of what was sent on input.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expire_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expire_time: std::option::Option<wkt::Timestamp>,
 
     /// Input only. The TTL for the Secret.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub ttl: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub ttl: std::option::Option<wkt::Duration>,
 
     /// Optional. Etag of the currently stored Secret.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub etag: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
 
     /// Optional. Rotation policy attached to the Secret. May be excluded if there is no
     /// rotation policy.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rotation: Option<crate::model::Rotation>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rotation: std::option::Option<crate::model::Rotation>,
 
     /// Optional. Mapping from version alias to version name.
     ///
@@ -279,7 +282,7 @@ pub struct Secret {
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
-    pub version_aliases: std::collections::HashMap<String,i64>,
+    pub version_aliases: std::collections::HashMap<std::string::String,i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -294,7 +297,7 @@ pub struct Secret {
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub annotations: std::collections::HashMap<String,String>,
+    pub annotations: std::collections::HashMap<std::string::String,std::string::String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -302,8 +305,8 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub version_destroy_ttl: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub version_destroy_ttl: std::option::Option<wkt::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the Regionalised Secrets.
     /// If no configuration is provided, Google-managed default encryption is used.
@@ -311,86 +314,86 @@ pub struct Secret {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 }
 
 impl Secret {
 
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `replication`.
-    pub fn set_replication<T: Into<Option<crate::model::Replication>>>(mut self, v: T) -> Self {
+    pub fn set_replication<T: std::convert::Into<std::option::Option<crate::model::Replication>>>(mut self, v: T) -> Self {
         self.replication = v.into();
         self
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<T: std::convert::Into<std::collections::HashMap<std::string::String,std::string::String>>>(mut self, v: T) -> Self {
         self.labels = v.into();
         self
     }
 
     /// Sets the value of `topics`.
-    pub fn set_topics<T: Into<Vec<crate::model::Topic>>>(mut self, v: T) -> Self {
+    pub fn set_topics<T: std::convert::Into<std::vec::Vec<crate::model::Topic>>>(mut self, v: T) -> Self {
         self.topics = v.into();
         self
     }
 
     /// Sets the value of `expire_time`.
-    pub fn set_expire_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.expire_time = v.into();
         self
     }
 
     /// Sets the value of `ttl`.
-    pub fn set_ttl<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.ttl = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `rotation`.
-    pub fn set_rotation<T: Into<Option<crate::model::Rotation>>>(mut self, v: T) -> Self {
+    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(mut self, v: T) -> Self {
         self.rotation = v.into();
         self
     }
 
     /// Sets the value of `version_aliases`.
-    pub fn set_version_aliases<T: Into<std::collections::HashMap<String,i64>>>(mut self, v: T) -> Self {
+    pub fn set_version_aliases<T: std::convert::Into<std::collections::HashMap<std::string::String,i64>>>(mut self, v: T) -> Self {
         self.version_aliases = v.into();
         self
     }
 
     /// Sets the value of `annotations`.
-    pub fn set_annotations<T: Into<std::collections::HashMap<String,String>>>(mut self, v: T) -> Self {
+    pub fn set_annotations<T: std::convert::Into<std::collections::HashMap<std::string::String,std::string::String>>>(mut self, v: T) -> Self {
         self.annotations = v.into();
         self
     }
 
     /// Sets the value of `version_destroy_ttl`.
-    pub fn set_version_destroy_ttl<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.version_destroy_ttl = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -410,24 +413,24 @@ impl wkt::message::Message for Secret {
 pub struct Replication {
 
     /// The Secret will automatically be replicated without any restrictions.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub automatic: Option<crate::model::Automatic>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub automatic: std::option::Option<crate::model::Automatic>,
 
     /// The Secret will only be replicated into the locations specified.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_managed: Option<crate::model::UserManaged>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub user_managed: std::option::Option<crate::model::UserManaged>,
 }
 
 impl Replication {
 
     /// Sets the value of `automatic`.
-    pub fn set_automatic<T: Into<Option<crate::model::Automatic>>>(mut self, v: T) -> Self {
+    pub fn set_automatic<T: std::convert::Into<std::option::Option<crate::model::Automatic>>>(mut self, v: T) -> Self {
         self.automatic = v.into();
         self
     }
 
     /// Sets the value of `user_managed`.
-    pub fn set_user_managed<T: Into<Option<crate::model::UserManaged>>>(mut self, v: T) -> Self {
+    pub fn set_user_managed<T: std::convert::Into<std::option::Option<crate::model::UserManaged>>>(mut self, v: T) -> Self {
         self.user_managed = v.into();
         self
     }
@@ -453,14 +456,14 @@ pub struct Automatic {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 }
 
 impl Automatic {
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -491,14 +494,14 @@ pub struct CustomerManagedEncryption {
     /// type, Cloud KMS CryptoKeys must reside in `global`.
     ///
     /// The expected format is `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/*`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub kms_key_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kms_key_name: std::string::String,
 }
 
 impl CustomerManagedEncryption {
 
     /// Sets the value of `kms_key_name`.
-    pub fn set_kms_key_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
@@ -521,14 +524,14 @@ pub struct UserManaged {
     /// Required. The list of Replicas for this Secret.
     ///
     /// Cannot be empty.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub replicas: Vec<crate::model::Replica>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub replicas: std::vec::Vec<crate::model::Replica>,
 }
 
 impl UserManaged {
 
     /// Sets the value of `replicas`.
-    pub fn set_replicas<T: Into<Vec<crate::model::Replica>>>(mut self, v: T) -> Self {
+    pub fn set_replicas<T: std::convert::Into<std::vec::Vec<crate::model::Replica>>>(mut self, v: T) -> Self {
         self.replicas = v.into();
         self
     }
@@ -549,8 +552,8 @@ pub struct Replica {
 
     /// The canonical IDs of the location to replicate data.
     /// For example: `"us-east1"`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<std::string::String>,
 
     /// Optional. The customer-managed encryption configuration of the User-Managed
     /// Replica. If no configuration is
@@ -559,20 +562,20 @@ pub struct Replica {
     /// Updates to the Secret encryption configuration only apply to
     /// SecretVersions added afterwards. They do not apply
     /// retroactively to existing SecretVersions.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 }
 
 impl Replica {
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -597,14 +600,14 @@ pub struct Topic {
     /// Secret Manager service agent must have the `pubsub.topic.publish`
     /// permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl Topic {
 
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -630,8 +633,8 @@ pub struct Rotation {
     /// years).
     ///
     /// next_rotation_time MUST  be set if rotation_period is set.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub next_rotation_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub next_rotation_time: std::option::Option<wkt::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -639,20 +642,20 @@ pub struct Rotation {
     /// If rotation_period is set, next_rotation_time must be set.
     /// next_rotation_time will be advanced by this period when the service
     /// automatically sends rotation notifications.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rotation_period: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rotation_period: std::option::Option<wkt::Duration>,
 }
 
 impl Rotation {
 
     /// Sets the value of `next_rotation_time`.
-    pub fn set_next_rotation_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.next_rotation_time = v.into();
         self
     }
 
     /// Sets the value of `rotation_period`.
-    pub fn set_rotation_period<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_rotation_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.rotation_period = v.into();
         self
     }
@@ -672,50 +675,50 @@ impl wkt::message::Message for Rotation {
 pub struct AddSecretVersionRequest {
 
     /// Required. The secret payload of the SecretVersion.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub payload: Option<crate::model::SecretPayload>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub payload: std::option::Option<crate::model::SecretPayload>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:addVersion`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:addVersion`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl AddSecretVersionRequest {
 
     /// Sets the value of `payload`.
-    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -730,9 +733,9 @@ impl AddSecretVersionRequest {
 pub struct SecretPayload {
 
     /// The secret data. Must be no larger than 64KiB.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde_as(as = "Option<serde_with::base64::Base64>")]
-    pub data: Option<bytes::Bytes>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
+    pub data: std::option::Option<bytes::Bytes>,
 
     /// Optional. If specified, SecretManagerService will verify the integrity of the
     /// received data on SecretManagerService.AddSecretVersion calls using
@@ -745,21 +748,21 @@ pub struct SecretPayload {
     /// safely downconverted to uint32 in languages that support this type.
     /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     #[serde(rename = "dataCrc32c")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
-    pub data_crc_32_c: Option<i64>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub data_crc_32_c: std::option::Option<i64>,
 }
 
 impl SecretPayload {
 
     /// Sets the value of `data`.
-    pub fn set_data<T: Into<Option<bytes::Bytes>>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of `data_crc_32_c`.
-    pub fn set_data_crc_32_c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
+    pub fn set_data_crc_32_c<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
         self.data_crc_32_c = v.into();
         self
     }
@@ -783,104 +786,104 @@ pub struct SecretVersion {
     ///
     /// SecretVersion IDs in a Secret start at 1 and
     /// are incremented for each subsequent version of the secret.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub name: std::option::Option<std::string::String>,
 
     /// Output only. The time at which the SecretVersion was created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The time this SecretVersion was destroyed.
     /// Only present if state is
     /// DESTROYED.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub destroy_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destroy_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the SecretVersion.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub state: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub state: std::option::Option<std::string::String>,
 
     /// The replication status of the SecretVersion.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub replication_status: Option<crate::model::ReplicationStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication_status: std::option::Option<crate::model::ReplicationStatus>,
 
     /// Output only. Etag of the currently stored SecretVersion.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub etag: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
 
     /// Output only. True if payload checksum specified in SecretPayload object has been
     /// received by SecretManagerService on
     /// SecretManagerService.AddSecretVersion.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub client_specified_payload_checksum: Option<bool>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub client_specified_payload_checksum: std::option::Option<bool>,
 
     /// Optional. Output only. Scheduled destroy time for secret version.
     /// This is a part of the Delayed secret version destroy feature. For a
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheduled_destroy_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub scheduled_destroy_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used and Secret is
     /// a Regionalised Secret.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
 impl SecretVersion {
 
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `destroy_time`.
-    pub fn set_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.destroy_time = v.into();
         self
     }
 
     /// Sets the value of `state`.
-    pub fn set_state<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of `replication_status`.
-    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(mut self, v: T) -> Self {
+    pub fn set_replication_status<T: std::convert::Into<std::option::Option<crate::model::ReplicationStatus>>>(mut self, v: T) -> Self {
         self.replication_status = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `client_specified_payload_checksum`.
-    pub fn set_client_specified_payload_checksum<T: Into<Option<bool>>>(mut self, v: T) -> Self {
+    pub fn set_client_specified_payload_checksum<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
         self.client_specified_payload_checksum = v.into();
         self
     }
 
     /// Sets the value of `scheduled_destroy_time`.
-    pub fn set_scheduled_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_scheduled_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
         self.scheduled_destroy_time = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -904,28 +907,28 @@ pub struct ReplicationStatus {
     ///
     /// Only populated if the parent Secret has an automatic replication
     /// policy.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub automatic: Option<crate::model::AutomaticStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub automatic: std::option::Option<crate::model::AutomaticStatus>,
 
     /// Describes the replication status of a SecretVersion with
     /// user-managed replication.
     ///
     /// Only populated if the parent Secret has a user-managed replication
     /// policy.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub user_managed: Option<crate::model::UserManagedStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub user_managed: std::option::Option<crate::model::UserManagedStatus>,
 }
 
 impl ReplicationStatus {
 
     /// Sets the value of `automatic`.
-    pub fn set_automatic<T: Into<Option<crate::model::AutomaticStatus>>>(mut self, v: T) -> Self {
+    pub fn set_automatic<T: std::convert::Into<std::option::Option<crate::model::AutomaticStatus>>>(mut self, v: T) -> Self {
         self.automatic = v.into();
         self
     }
 
     /// Sets the value of `user_managed`.
-    pub fn set_user_managed<T: Into<Option<crate::model::UserManagedStatus>>>(mut self, v: T) -> Self {
+    pub fn set_user_managed<T: std::convert::Into<std::option::Option<crate::model::UserManagedStatus>>>(mut self, v: T) -> Self {
         self.user_managed = v.into();
         self
     }
@@ -949,14 +952,14 @@ pub struct AutomaticStatus {
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
 impl AutomaticStatus {
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -978,14 +981,14 @@ pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to encrypt the
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub kms_key_version_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kms_key_version_name: std::string::String,
 }
 
 impl CustomerManagedEncryptionStatus {
 
     /// Sets the value of `kms_key_version_name`.
-    pub fn set_kms_key_version_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -1009,14 +1012,14 @@ impl wkt::message::Message for CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
 
     /// Output only. The list of replica statuses for the SecretVersion.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub replicas: Vec<crate::model::ReplicaStatus>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub replicas: std::vec::Vec<crate::model::ReplicaStatus>,
 }
 
 impl UserManagedStatus {
 
     /// Sets the value of `replicas`.
-    pub fn set_replicas<T: Into<Vec<crate::model::ReplicaStatus>>>(mut self, v: T) -> Self {
+    pub fn set_replicas<T: std::convert::Into<std::vec::Vec<crate::model::ReplicaStatus>>>(mut self, v: T) -> Self {
         self.replicas = v.into();
         self
     }
@@ -1037,25 +1040,25 @@ pub struct ReplicaStatus {
 
     /// Output only. The canonical ID of the replica location.
     /// For example: `"us-east1"`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<std::string::String>,
 
     /// Output only. The customer-managed encryption status of the SecretVersion. Only
     /// populated if customer-managed encryption is used.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
 impl ReplicaStatus {
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
-    pub fn set_customer_managed_encryption<T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
+    pub fn set_customer_managed_encryption<T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>>(mut self, v: T) -> Self {
         self.customer_managed_encryption = v.into();
         self
     }
@@ -1101,36 +1104,36 @@ pub struct ListSecretVersionsResponse {
 
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub versions: Vec<crate::model::SecretVersion>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub versions: std::vec::Vec<crate::model::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// ListSecretVersionsRequest.page_token to retrieve the next page.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub next_page_token: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub next_page_token: std::option::Option<std::string::String>,
 
     /// The total number of SecretVersions but 0 when the
     /// ListSecretsRequest.filter field is set.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub total_size: Option<i32>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub total_size: std::option::Option<i32>,
 }
 
 impl ListSecretVersionsResponse {
 
     /// Sets the value of `versions`.
-    pub fn set_versions<T: Into<Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
+    pub fn set_versions<T: std::convert::Into<std::vec::Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
         self.versions = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of `total_size`.
-    pub fn set_total_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
@@ -1146,11 +1149,11 @@ impl wkt::message::Message for ListSecretVersionsResponse {
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.versions
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -1165,24 +1168,24 @@ pub struct AccessSecretVersionResponse {
     /// The resource name of the SecretVersion in the format
     /// `projects/_*_/secrets/_*_/versions/*` or
     /// `projects/_*_/locations/_*_/secrets/_*_/versions/*`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub name: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub name: std::option::Option<std::string::String>,
 
     /// Secret payload
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub payload: Option<crate::model::SecretPayload>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub payload: std::option::Option<crate::model::SecretPayload>,
 }
 
 impl AccessSecretVersionResponse {
 
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `payload`.
-    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
@@ -1204,62 +1207,62 @@ pub struct DisableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub etag: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:disable`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:disable`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl DisableSecretVersionRequest {
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -1275,62 +1278,62 @@ pub struct EnableSecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub etag: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:enable`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:enable`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl EnableSecretVersionRequest {
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -1346,62 +1349,62 @@ pub struct DestroySecretVersionRequest {
     /// Optional. Etag of the SecretVersion. The request succeeds if it matches
     /// the etag of the currently stored secret version object. If the etag is
     /// omitted, the request succeeds.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub etag: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub etag: std::option::Option<std::string::String>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:destroy`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl DestroySecretVersionRequest {
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -1418,64 +1421,64 @@ pub struct SetIamPolicyRequest {
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Google Cloud services (such as Projects)
     /// might reject them.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy: Option<crate::model::Policy>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub policy: std::option::Option<crate::model::Policy>,
 
     /// OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
     /// the fields in the mask will be modified. If no mask is provided, the
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_mask: Option<wkt::FieldMask>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:setIamPolicy`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:setIamPolicy`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl SetIamPolicyRequest {
 
     /// Sets the value of `policy`.
-    pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
+    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(mut self, v: T) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -1581,8 +1584,8 @@ pub struct Policy {
     ///
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub version: Option<i32>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub version: std::option::Option<i32>,
 
     /// Associates a list of `members`, or principals, with a `role`. Optionally,
     /// may specify a `condition` that determines how and when the `bindings` are
@@ -1594,12 +1597,12 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub bindings: Vec<crate::model::Binding>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub audit_configs: Vec<crate::model::AuditConfig>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub audit_configs: std::vec::Vec<crate::model::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -1613,33 +1616,33 @@ pub struct Policy {
     /// whenever you call `setIamPolicy`. If you omit this field, then IAM allows
     /// you to overwrite a version `3` policy with a version `1` policy, and all of
     /// the conditions in the version `3` policy are lost.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde_as(as = "Option<serde_with::base64::Base64>")]
-    pub etag: Option<bytes::Bytes>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
+    pub etag: std::option::Option<bytes::Bytes>,
 }
 
 impl Policy {
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of `bindings`.
-    pub fn set_bindings<T: Into<Vec<crate::model::Binding>>>(mut self, v: T) -> Self {
+    pub fn set_bindings<T: std::convert::Into<std::vec::Vec<crate::model::Binding>>>(mut self, v: T) -> Self {
         self.bindings = v.into();
         self
     }
 
     /// Sets the value of `audit_configs`.
-    pub fn set_audit_configs<T: Into<Vec<crate::model::AuditConfig>>>(mut self, v: T) -> Self {
+    pub fn set_audit_configs<T: std::convert::Into<std::vec::Vec<crate::model::AuditConfig>>>(mut self, v: T) -> Self {
         self.audit_configs = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<bytes::Bytes>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -1665,8 +1668,8 @@ pub struct Binding {
     /// [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For
     /// a list of the available pre-defined roles, see
     /// [here](https://cloud.google.com/iam/docs/understanding-roles).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub role: std::option::Option<std::string::String>,
 
     /// Specifies the principals requesting access for a Google Cloud resource.
     /// `members` can have the following values:
@@ -1746,8 +1749,8 @@ pub struct Binding {
     ///   Deleted single identity in a workforce identity pool. For example,
     ///   `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
     ///
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub members: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub members: std::vec::Vec<std::string::String>,
 
     /// The condition that is associated with this binding.
     ///
@@ -1761,26 +1764,26 @@ pub struct Binding {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub condition: Option<crate::model::Expr>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub condition: std::option::Option<crate::model::Expr>,
 }
 
 impl Binding {
 
     /// Sets the value of `role`.
-    pub fn set_role<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_role<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of `members`.
-    pub fn set_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
         self.members = v.into();
         self
     }
 
     /// Sets the value of `condition`.
-    pub fn set_condition<T: Into<Option<crate::model::Expr>>>(mut self, v: T) -> Self {
+    pub fn set_condition<T: std::convert::Into<std::option::Option<crate::model::Expr>>>(mut self, v: T) -> Self {
         self.condition = v.into();
         self
     }
@@ -1839,48 +1842,48 @@ pub struct Expr {
 
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub expression: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expression: std::option::Option<std::string::String>,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub title: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub title: std::option::Option<std::string::String>,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub description: std::option::Option<std::string::String>,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub location: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub location: std::option::Option<std::string::String>,
 }
 
 impl Expr {
 
     /// Sets the value of `expression`.
-    pub fn set_expression<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_expression<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
     /// Sets the value of `title`.
-    pub fn set_title<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_title<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of `description`.
-    pub fn set_description<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_description<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -1954,24 +1957,24 @@ pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub service: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service: std::option::Option<std::string::String>,
 
     /// The configuration for logging of each type of permission.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 }
 
 impl AuditConfig {
 
     /// Sets the value of `service`.
-    pub fn set_service<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_service<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of `audit_log_configs`.
-    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(mut self, v: T) -> Self {
+    pub fn set_audit_log_configs<T: std::convert::Into<std::vec::Vec<crate::model::AuditLogConfig>>>(mut self, v: T) -> Self {
         self.audit_log_configs = v.into();
         self
     }
@@ -2011,26 +2014,26 @@ impl wkt::message::Message for AuditConfig {
 pub struct AuditLogConfig {
 
     /// The log type that this config enables.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub log_type: Option<String>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub log_type: std::option::Option<std::string::String>,
 
     /// Specifies the identities that do not cause logging for this type of
     /// permission.
     /// Follows the same format of Binding.members.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub exempted_members: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub exempted_members: std::vec::Vec<std::string::String>,
 }
 
 impl AuditLogConfig {
 
     /// Sets the value of `log_type`.
-    pub fn set_log_type<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_log_type<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
     }
 
     /// Sets the value of `exempted_members`.
-    pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_exempted_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
         self.exempted_members = v.into();
         self
     }
@@ -2053,50 +2056,50 @@ pub struct TestIamPermissionsRequest {
     /// wildcards (such as `*` or `storage.*`) are not allowed. For more
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub permissions: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub permissions: std::vec::Vec<std::string::String>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:testIamPermissions`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:testIamPermissions`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl TestIamPermissionsRequest {
 
     /// Sets the value of `permissions`.
-    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
         self.permissions = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -2111,14 +2114,14 @@ pub struct TestIamPermissionsResponse {
 
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub permissions: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub permissions: std::vec::Vec<std::string::String>,
 }
 
 impl TestIamPermissionsResponse {
 
     /// Sets the value of `permissions`.
-    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
         self.permissions = v.into();
         self
     }
@@ -2141,47 +2144,47 @@ pub struct ListLocationsRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// A filter to narrow down results to a preferred subset.
     /// The filtering language accepts strings like `"displayName=tokyo"`, and
     /// is documented in more detail in [AIP-160](https://google.aip.dev/160).
     #[serde(skip)]
-    pub filter: Option<String>,
+    pub filter: std::option::Option<std::string::String>,
 
     /// The maximum number of results to return.
     /// If not set, the service selects a default.
     #[serde(skip)]
-    pub page_size: Option<i32>,
+    pub page_size: std::option::Option<i32>,
 
     /// A page token received from the `next_page_token` field in the response.
     /// Send that page token to receive the subsequent page.
     #[serde(skip)]
-    pub page_token: Option<String>,
+    pub page_token: std::option::Option<std::string::String>,
 }
 
 impl ListLocationsRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
@@ -2198,25 +2201,25 @@ pub struct GetLocationRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 }
 
 impl GetLocationRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -2233,18 +2236,18 @@ pub struct ListSecretsRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip)]
-    pub page_size: Option<i32>,
+    pub page_size: std::option::Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretsResponse.next_page_token.
     #[serde(skip)]
-    pub page_token: Option<String>,
+    pub page_token: std::option::Option<std::string::String>,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
@@ -2252,31 +2255,31 @@ pub struct ListSecretsRequest {
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
     #[serde(skip)]
-    pub filter: Option<String>,
+    pub filter: std::option::Option<std::string::String>,
 }
 
 impl ListSecretsRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -2290,14 +2293,14 @@ impl ListSecretsRequest {
 pub struct CreateSecretRequest {
 
     /// The request body.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_body: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub request_body: std::option::Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// Required. This must be unique within the project.
     ///
@@ -2305,25 +2308,25 @@ pub struct CreateSecretRequest {
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
     #[serde(skip)]
-    pub secret_id: String,
+    pub secret_id: std::string::String,
 }
 
 impl CreateSecretRequest {
 
     /// Sets the value of `request_body`.
-    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.request_body = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret_id`.
-    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
@@ -2340,24 +2343,24 @@ pub struct ListSecretsByProjectAndLocationRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip)]
-    pub page_size: Option<i32>,
+    pub page_size: std::option::Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretsResponse.next_page_token.
     #[serde(skip)]
-    pub page_token: Option<String>,
+    pub page_token: std::option::Option<std::string::String>,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
@@ -2365,37 +2368,37 @@ pub struct ListSecretsByProjectAndLocationRequest {
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
     #[serde(skip)]
-    pub filter: Option<String>,
+    pub filter: std::option::Option<std::string::String>,
 }
 
 impl ListSecretsByProjectAndLocationRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -2409,20 +2412,20 @@ impl ListSecretsByProjectAndLocationRequest {
 pub struct CreateSecretByProjectAndLocationRequest {
 
     /// The request body.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_body: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub request_body: std::option::Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// Required. This must be unique within the project.
     ///
@@ -2430,31 +2433,31 @@ pub struct CreateSecretByProjectAndLocationRequest {
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
     #[serde(skip)]
-    pub secret_id: String,
+    pub secret_id: std::string::String,
 }
 
 impl CreateSecretByProjectAndLocationRequest {
 
     /// Sets the value of `request_body`.
-    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.request_body = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret_id`.
-    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
@@ -2471,25 +2474,25 @@ pub struct GetSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 }
 
 impl GetSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
@@ -2506,37 +2509,37 @@ pub struct DeleteSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
     /// the etag of the currently stored secret object. If the etag is omitted,
     /// the request succeeds.
     #[serde(skip)]
-    pub etag: Option<String>,
+    pub etag: std::option::Option<std::string::String>,
 }
 
 impl DeleteSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2550,20 +2553,20 @@ impl DeleteSecretRequest {
 pub struct UpdateSecretRequest {
 
     /// The request body.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_body: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub request_body: std::option::Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Required. Specifies the fields to be updated.
     #[serde(skip)]
@@ -2573,25 +2576,25 @@ pub struct UpdateSecretRequest {
 impl UpdateSecretRequest {
 
     /// Sets the value of `request_body`.
-    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.request_body = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -2608,37 +2611,37 @@ pub struct GetSecretByProjectAndLocationAndSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 }
 
 impl GetSecretByProjectAndLocationAndSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
@@ -2655,49 +2658,49 @@ pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. Etag of the Secret. The request succeeds if it matches
     /// the etag of the currently stored secret object. If the etag is omitted,
     /// the request succeeds.
     #[serde(skip)]
-    pub etag: Option<String>,
+    pub etag: std::option::Option<std::string::String>,
 }
 
 impl DeleteSecretByProjectAndLocationAndSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -2711,26 +2714,26 @@ impl DeleteSecretByProjectAndLocationAndSecretRequest {
 pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
 
     /// The request body.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub request_body: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub request_body: std::option::Option<crate::model::Secret>,
 
     /// The `{project}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Required. Specifies the fields to be updated.
     #[serde(skip)]
@@ -2740,31 +2743,31 @@ pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
 impl UpdateSecretByProjectAndLocationAndSecretRequest {
 
     /// Sets the value of `request_body`.
-    pub fn set_request_body<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(mut self, v: T) -> Self {
         self.request_body = v.into();
         self
     }
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<wkt::FieldMask>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -2781,24 +2784,24 @@ pub struct ListSecretVersionsRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip)]
-    pub page_size: Option<i32>,
+    pub page_size: std::option::Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
     #[serde(skip)]
-    pub page_token: Option<String>,
+    pub page_token: std::option::Option<std::string::String>,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
@@ -2806,37 +2809,37 @@ pub struct ListSecretVersionsRequest {
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
     #[serde(skip)]
-    pub filter: Option<String>,
+    pub filter: std::option::Option<std::string::String>,
 }
 
 impl ListSecretVersionsRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -2853,30 +2856,30 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip)]
-    pub page_size: Option<i32>,
+    pub page_size: std::option::Option<i32>,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
     #[serde(skip)]
-    pub page_token: Option<String>,
+    pub page_token: std::option::Option<std::string::String>,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
@@ -2884,43 +2887,43 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
     #[serde(skip)]
-    pub filter: Option<String>,
+    pub filter: std::option::Option<std::string::String>,
 }
 
 impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<Option<String>>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -2937,37 +2940,37 @@ pub struct GetSecretVersionRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 }
 
 impl GetSecretVersionRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -2984,49 +2987,49 @@ pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 }
 
 impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -3043,37 +3046,37 @@ pub struct AccessSecretVersionRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 }
 
 impl AccessSecretVersionRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -3090,49 +3093,49 @@ pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// The `{version}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}/versions/{version}:access`.
     #[serde(skip)]
-    pub version: String,
+    pub version: std::string::String,
 }
 
 impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -3149,13 +3152,13 @@ pub struct GetIamPolicyRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/secrets/{secret}:getIamPolicy`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. The maximum policy version that will be used to format the
     /// policy.
@@ -3176,25 +3179,25 @@ pub struct GetIamPolicyRequest {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip)]
-    pub options_requested_policy_version: Option<i32>,
+    pub options_requested_policy_version: std::option::Option<i32>,
 }
 
 impl GetIamPolicyRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `options_requested_policy_version`.
-    pub fn set_options_requested_policy_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_options_requested_policy_version<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.options_requested_policy_version = v.into();
         self
     }
@@ -3211,19 +3214,19 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     #[serde(skip)]
-    pub project: String,
+    pub project: std::string::String,
 
     /// The `{location}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     #[serde(skip)]
-    pub location: String,
+    pub location: std::string::String,
 
     /// The `{secret}` component of the target path.
     ///
     /// The full target path will be in the form `/v1/projects/{project}/locations/{location}/secrets/{secret}:getIamPolicy`.
     #[serde(skip)]
-    pub secret: String,
+    pub secret: std::string::String,
 
     /// Optional. The maximum policy version that will be used to format the
     /// policy.
@@ -3244,31 +3247,31 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
     #[serde(skip)]
-    pub options_requested_policy_version: Option<i32>,
+    pub options_requested_policy_version: std::option::Option<i32>,
 }
 
 impl GetIamPolicyByProjectAndLocationAndSecretRequest {
 
     /// Sets the value of `project`.
-    pub fn set_project<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `options_requested_policy_version`.
-    pub fn set_options_requested_policy_version<T: Into<Option<i32>>>(mut self, v: T) -> Self {
+    pub fn set_options_requested_policy_version<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.options_requested_policy_version = v.into();
         self
     }

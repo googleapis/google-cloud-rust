@@ -84,13 +84,13 @@ pub mod operations {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
         /// Sets the value of `filter`.
-        pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
@@ -102,7 +102,7 @@ pub mod operations {
         }
 
         /// Sets the value of `page_token`.
-        pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
@@ -144,7 +144,7 @@ pub mod operations {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -186,7 +186,7 @@ pub mod operations {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
@@ -228,7 +228,7 @@ pub mod operations {
         }
 
         /// Sets the value of `name`.
-        pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
