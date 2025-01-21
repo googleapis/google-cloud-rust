@@ -27,5 +27,8 @@ extend-glob = ["*.mustache"]
 ser = "ser"
 
 [type.rust.extend-words]
+# from google/api:
+advices = "advices" # In the code, too late to fix.
+readablity = "readablity"
 # The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
