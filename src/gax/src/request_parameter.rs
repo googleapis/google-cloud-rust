@@ -14,12 +14,6 @@
 
 pub(crate) trait RequestParameter {}
 
-#[derive(thiserror::Error, Debug)]
-pub enum Error {
-    #[error("cannot format as request parameter {0:?}")]
-    Format(Box<dyn std::error::Error + Send + Sync>),
-}
-
 impl RequestParameter for i32 {}
 impl RequestParameter for i64 {}
 impl RequestParameter for u32 {}

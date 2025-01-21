@@ -263,7 +263,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask").map_err(Error::other)? };
+        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
         self.inner.execute(
             builder,
             Some(req.request_body),
@@ -328,7 +328,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask").map_err(Error::other)? };
+        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask") };
         self.inner.execute(
             builder,
             Some(req.request_body),

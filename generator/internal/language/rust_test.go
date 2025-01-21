@@ -1121,15 +1121,15 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field.iter().try_fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; serde_json::to_value(p).map_err(Error::serde)?.add(builder, "optionsField").map_err(Error::other) })?;`},
+		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
 		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
 		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field.value())]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p.value())]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
-		{requiredFieldMaskField, `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask").map_err(Error::other)? };`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.iter().try_fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; serde_json::to_value(p).map_err(Error::serde)?.add(builder, "optionalFieldMask").map_err(Error::other) })?;`},
+		{requiredFieldMaskField, `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
 	} {
 		got := rustAddQueryParameter(test.field)
 		if test.want != got {
