@@ -75,7 +75,13 @@ pub mod {{NameToSnake}} {
         /// on [{{NameToSnake}}][crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
         {{/OperationInfo}}
         pub async fn send(self) -> Result<{{OutputTypeName}}> {
-            self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
+            {{!
+                In rare cases `self.0.stub.foo` is ambiguous: we are calling
+                via `Arc<dyn T>` which implements `T` but also implements other
+                traits (e.g. `std::clone::Clone`) making the call ambiguous.
+                Using `*self.0.stub` makes the call not-ambiguous.
+            }}
+            (*self.0.stub).{{NameToSnake}}(self.0.request, self.0.options).await
         }
         {{#IsPageable}}
 
