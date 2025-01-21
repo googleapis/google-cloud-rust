@@ -16,6 +16,19 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gax;
+extern crate gtype;
+extern crate lazy_static;
+extern crate reqwest;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 /// Request message for `SetIamPolicy` method.
 #[serde_with::serde_as]
@@ -25,40 +38,46 @@
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being specified.
     /// See the operation documentation for the appropriate value for this field.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub resource: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub resource: std::string::String,
 
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Cloud Platform services (such as Projects)
     /// might reject them.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub policy: Option<crate::model::Policy>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub policy: std::option::Option<crate::model::Policy>,
 
     /// OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
     /// the fields in the mask will be modified. If no mask is provided, the
     /// following default mask is used:
     ///
     /// `paths: "bindings, etag"`
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_mask: Option<wkt::FieldMask>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
 }
 
 impl SetIamPolicyRequest {
     /// Sets the value of `resource`.
-    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of `policy`.
-    pub fn set_policy<T: Into<Option<crate::model::Policy>>>(mut self, v: T) -> Self {
+    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.policy = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -78,24 +97,29 @@ impl wkt::message::Message for SetIamPolicyRequest {
 pub struct GetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being requested.
     /// See the operation documentation for the appropriate value for this field.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub resource: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub resource: std::string::String,
 
     /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
     /// `GetIamPolicy`.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub options: Option<crate::model::GetPolicyOptions>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub options: std::option::Option<crate::model::GetPolicyOptions>,
 }
 
 impl GetIamPolicyRequest {
     /// Sets the value of `resource`.
-    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of `options`.
-    pub fn set_options<T: Into<Option<crate::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
+    pub fn set_options<
+        T: std::convert::Into<std::option::Option<crate::model::GetPolicyOptions>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.options = v.into();
         self
     }
@@ -115,26 +139,29 @@ impl wkt::message::Message for GetIamPolicyRequest {
 pub struct TestIamPermissionsRequest {
     /// REQUIRED: The resource for which the policy detail is being requested.
     /// See the operation documentation for the appropriate value for this field.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub resource: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub resource: std::string::String,
 
     /// The set of permissions to check for the `resource`. Permissions with
     /// wildcards (such as '*' or 'storage.*') are not allowed. For more
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub permissions: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub permissions: std::vec::Vec<std::string::String>,
 }
 
 impl TestIamPermissionsRequest {
     /// Sets the value of `resource`.
-    pub fn set_resource<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of `permissions`.
-    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.permissions = v.into();
         self
     }
@@ -154,13 +181,16 @@ impl wkt::message::Message for TestIamPermissionsRequest {
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub permissions: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub permissions: std::vec::Vec<std::string::String>,
 }
 
 impl TestIamPermissionsResponse {
     /// Sets the value of `permissions`.
-    pub fn set_permissions<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.permissions = v.into();
         self
     }
@@ -201,7 +231,7 @@ pub struct GetPolicyOptions {
 
 impl GetPolicyOptions {
     /// Sets the value of `requested_policy_version`.
-    pub fn set_requested_policy_version<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_requested_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
         self
     }
@@ -327,12 +357,12 @@ pub struct Policy {
     /// different roles to `user:alice@example.com`, and not to any other
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub bindings: Vec<crate::model::Binding>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub audit_configs: Vec<crate::model::AuditConfig>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub audit_configs: std::vec::Vec<crate::model::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -353,25 +383,31 @@ pub struct Policy {
 
 impl Policy {
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of `bindings`.
-    pub fn set_bindings<T: Into<Vec<crate::model::Binding>>>(mut self, v: T) -> Self {
+    pub fn set_bindings<T: std::convert::Into<std::vec::Vec<crate::model::Binding>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.bindings = v.into();
         self
     }
 
     /// Sets the value of `audit_configs`.
-    pub fn set_audit_configs<T: Into<Vec<crate::model::AuditConfig>>>(mut self, v: T) -> Self {
+    pub fn set_audit_configs<T: std::convert::Into<std::vec::Vec<crate::model::AuditConfig>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.audit_configs = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -391,8 +427,8 @@ impl wkt::message::Message for Policy {
 pub struct Binding {
     /// Role that is assigned to the list of `members`, or principals.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub role: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub role: std::string::String,
 
     /// Specifies the principals requesting access for a Google Cloud resource.
     /// `members` can have the following values:
@@ -435,8 +471,8 @@ pub struct Binding {
     /// * `domain:{domain}`: The G Suite domain (primary) that represents all the
     ///   users of that domain. For example, `google.com` or `example.com`.
     ///
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub members: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub members: std::vec::Vec<std::string::String>,
 
     /// The condition that is associated with this binding.
     ///
@@ -450,25 +486,31 @@ pub struct Binding {
     /// To learn which resources support conditions in their IAM policies, see the
     /// [IAM
     /// documentation](https://cloud.google.com/iam/help/conditions/resource-policies).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub condition: Option<gtype::model::Expr>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub condition: std::option::Option<gtype::model::Expr>,
 }
 
 impl Binding {
     /// Sets the value of `role`.
-    pub fn set_role<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of `members`.
-    pub fn set_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.members = v.into();
         self
     }
 
     /// Sets the value of `condition`.
-    pub fn set_condition<T: Into<Option<gtype::model::Expr>>>(mut self, v: T) -> Self {
+    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition = v.into();
         self
     }
@@ -541,23 +583,25 @@ pub struct AuditConfig {
     /// Specifies a service that will be enabled for audit logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub service: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service: std::string::String,
 
     /// The configuration for logging of each type of permission.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub audit_log_configs: Vec<crate::model::AuditLogConfig>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 }
 
 impl AuditConfig {
     /// Sets the value of `service`.
-    pub fn set_service<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of `audit_log_configs`.
-    pub fn set_audit_log_configs<T: Into<Vec<crate::model::AuditLogConfig>>>(
+    pub fn set_audit_log_configs<
+        T: std::convert::Into<std::vec::Vec<crate::model::AuditLogConfig>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -607,19 +651,25 @@ pub struct AuditLogConfig {
     /// [Binding.members][google.iam.v1.Binding.members].
     ///
     /// [google.iam.v1.Binding.members]: crate::model::Binding::members
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub exempted_members: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub exempted_members: std::vec::Vec<std::string::String>,
 }
 
 impl AuditLogConfig {
     /// Sets the value of `log_type`.
-    pub fn set_log_type<T: Into<crate::model::audit_log_config::LogType>>(mut self, v: T) -> Self {
+    pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.log_type = v.into();
         self
     }
 
     /// Sets the value of `exempted_members`.
-    pub fn set_exempted_members<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_exempted_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.exempted_members = v.into();
         self
     }
@@ -633,15 +683,17 @@ impl wkt::message::Message for AuditLogConfig {
 
 /// Defines additional types related to AuditLogConfig
 pub mod audit_log_config {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The list of valid permission types for which logging can be configured.
     /// Admin writes are always logged, and are not configurable.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LogType(String);
+    pub struct LogType(std::string::String);
 
     impl LogType {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -676,23 +728,28 @@ pub mod audit_log_config {
 #[non_exhaustive]
 pub struct PolicyDelta {
     /// The delta for Bindings between two policies.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub binding_deltas: Vec<crate::model::BindingDelta>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub binding_deltas: std::vec::Vec<crate::model::BindingDelta>,
 
     /// The delta for AuditConfigs between two policies.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub audit_config_deltas: Vec<crate::model::AuditConfigDelta>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub audit_config_deltas: std::vec::Vec<crate::model::AuditConfigDelta>,
 }
 
 impl PolicyDelta {
     /// Sets the value of `binding_deltas`.
-    pub fn set_binding_deltas<T: Into<Vec<crate::model::BindingDelta>>>(mut self, v: T) -> Self {
+    pub fn set_binding_deltas<T: std::convert::Into<std::vec::Vec<crate::model::BindingDelta>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.binding_deltas = v.into();
         self
     }
 
     /// Sets the value of `audit_config_deltas`.
-    pub fn set_audit_config_deltas<T: Into<Vec<crate::model::AuditConfigDelta>>>(
+    pub fn set_audit_config_deltas<
+        T: std::convert::Into<std::vec::Vec<crate::model::AuditConfigDelta>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -721,41 +778,47 @@ pub struct BindingDelta {
     /// Role that is assigned to `members`.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     /// Required
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub role: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub role: std::string::String,
 
     /// A single identity requesting access for a Google Cloud resource.
     /// Follows the same format of Binding.members.
     /// Required
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub member: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub member: std::string::String,
 
     /// The condition that is associated with this binding.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub condition: Option<gtype::model::Expr>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub condition: std::option::Option<gtype::model::Expr>,
 }
 
 impl BindingDelta {
     /// Sets the value of `action`.
-    pub fn set_action<T: Into<crate::model::binding_delta::Action>>(mut self, v: T) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of `role`.
-    pub fn set_role<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
     /// Sets the value of `member`.
-    pub fn set_member<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.member = v.into();
         self
     }
 
     /// Sets the value of `condition`.
-    pub fn set_condition<T: Into<Option<gtype::model::Expr>>>(mut self, v: T) -> Self {
+    pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.condition = v.into();
         self
     }
@@ -769,14 +832,16 @@ impl wkt::message::Message for BindingDelta {
 
 /// Defines additional types related to BindingDelta
 pub mod binding_delta {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The type of action performed on a Binding in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(String);
+    pub struct Action(std::string::String);
 
     impl Action {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -816,43 +881,46 @@ pub struct AuditConfigDelta {
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
     /// Required
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub service: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service: std::string::String,
 
     /// A single identity that is exempted from "data access" audit
     /// logging for the `service` specified above.
     /// Follows the same format of Binding.members.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub exempted_member: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub exempted_member: std::string::String,
 
     /// Specifies the log_type that was be enabled. ADMIN_ACTIVITY is always
     /// enabled, and cannot be configured.
     /// Required
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub log_type: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub log_type: std::string::String,
 }
 
 impl AuditConfigDelta {
     /// Sets the value of `action`.
-    pub fn set_action<T: Into<crate::model::audit_config_delta::Action>>(mut self, v: T) -> Self {
+    pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of `service`.
-    pub fn set_service<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of `exempted_member`.
-    pub fn set_exempted_member<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_exempted_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.exempted_member = v.into();
         self
     }
 
     /// Sets the value of `log_type`.
-    pub fn set_log_type<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
     }
@@ -866,14 +934,16 @@ impl wkt::message::Message for AuditConfigDelta {
 
 /// Defines additional types related to AuditConfigDelta
 pub mod audit_config_delta {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The type of action performed on an audit configuration in a policy.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(String);
+    pub struct Action(std::string::String);
 
     impl Action {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -912,8 +982,8 @@ pub struct ResourcePolicyMember {
     ///
     /// Example:
     /// `principal://parametermanager.googleapis.com/projects/12345/name/locations/us-central1-a/parameters/my-parameter`
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub iam_policy_name_principal: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub iam_policy_name_principal: std::string::String,
 
     /// IAM policy binding member referring to a Google Cloud resource by
     /// system-assigned unique identifier (<https://google.aip.dev/148#uid>). If a
@@ -922,19 +992,25 @@ pub struct ResourcePolicyMember {
     ///
     /// Example:
     /// `principal://parametermanager.googleapis.com/projects/12345/uid/locations/us-central1-a/parameters/a918fed5`
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub iam_policy_uid_principal: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub iam_policy_uid_principal: std::string::String,
 }
 
 impl ResourcePolicyMember {
     /// Sets the value of `iam_policy_name_principal`.
-    pub fn set_iam_policy_name_principal<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.iam_policy_name_principal = v.into();
         self
     }
 
     /// Sets the value of `iam_policy_uid_principal`.
-    pub fn set_iam_policy_uid_principal<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_iam_policy_uid_principal<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.iam_policy_uid_principal = v.into();
         self
     }

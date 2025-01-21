@@ -16,6 +16,21 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gax;
+extern crate lazy_static;
+extern crate location;
+extern crate longrunning;
+extern crate lro;
+extern crate reqwest;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 /// Workflow program to be executed by Workflows.
 #[serde_with::serde_as]
@@ -25,13 +40,13 @@
 pub struct Workflow {
     /// The resource name of the workflow.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Description of the workflow provided by the user.
     /// Must be at most 1000 unicode characters long.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub description: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
 
     /// Output only. State of the workflow deployment.
     pub state: crate::model::workflow::State,
@@ -50,21 +65,21 @@ pub struct Workflow {
     ///
     /// [google.cloud.workflows.v1.Workflow.service_account]: crate::model::Workflow::service_account
     /// [google.cloud.workflows.v1.Workflow.source_contents]: crate::model::Workflow::source_code
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub revision_id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub revision_id: std::string::String,
 
     /// Output only. The timestamp for when the workflow was created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The timestamp for when the workflow was last updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The timestamp for the latest revision of the workflow's
     /// creation.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub revision_create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub revision_create_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels associated with this workflow.
     /// Labels can contain at most 64 entries. Keys and values can be no longer
@@ -72,7 +87,7 @@ pub struct Workflow {
     /// characters, underscores, and dashes. Label keys must start with a letter.
     /// International characters are allowed.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String, String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The service account associated with the latest workflow version.
     /// This service account represents the identity of the workflow and determines
@@ -86,8 +101,8 @@ pub struct Workflow {
     /// If not provided, workflow will use the project's default service account.
     /// Modifying this field for an existing workflow results in a new workflow
     /// revision.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub service_account: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub service_account: std::string::String,
 
     /// Optional. The resource name of a KMS crypto key used to encrypt or decrypt
     /// the data associated with the workflow.
@@ -100,14 +115,14 @@ pub struct Workflow {
     ///
     /// If not provided, data associated with the workflow will not be
     /// CMEK-encrypted.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub crypto_key_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub crypto_key_name: std::string::String,
 
     /// Output only. Error regarding the state of the workflow. For example, this
     /// field will have error details if the execution data is unavailable due to
     /// revoked KMS key permissions.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub state_error: Option<crate::model::workflow::StateError>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub state_error: std::option::Option<crate::model::workflow::StateError>,
 
     /// Optional. Describes the level of platform logging to apply to calls and
     /// call responses during executions of this workflow. If both the workflow and
@@ -120,78 +135,94 @@ pub struct Workflow {
     /// 40KiB. Keys cannot be empty strings and cannot start with “GOOGLE” or
     /// “WORKFLOWS".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub user_env_vars: std::collections::HashMap<String, String>,
+    pub user_env_vars: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Location of the workflow source code.
     /// Modifying this field for an existing workflow results in a new workflow
     /// revision.
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub source_code: Option<crate::model::workflow::SourceCode>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source_code: std::option::Option<crate::model::workflow::SourceCode>,
 }
 
 impl Workflow {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `description`.
-    pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of `state`.
-    pub fn set_state<T: Into<crate::model::workflow::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::workflow::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of `revision_id`.
-    pub fn set_revision_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `update_time`.
-    pub fn set_update_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_time = v.into();
         self
     }
 
     /// Sets the value of `revision_create_time`.
-    pub fn set_revision_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_revision_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.revision_create_time = v.into();
         self
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.labels = v.into();
         self
     }
 
     /// Sets the value of `service_account`.
-    pub fn set_service_account<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of `crypto_key_name`.
-    pub fn set_crypto_key_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
     /// Sets the value of `state_error`.
-    pub fn set_state_error<T: Into<Option<crate::model::workflow::StateError>>>(
+    pub fn set_state_error<
+        T: std::convert::Into<std::option::Option<crate::model::workflow::StateError>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -200,7 +231,7 @@ impl Workflow {
     }
 
     /// Sets the value of `call_log_level`.
-    pub fn set_call_log_level<T: Into<crate::model::workflow::CallLogLevel>>(
+    pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(
         mut self,
         v: T,
     ) -> Self {
@@ -209,7 +240,9 @@ impl Workflow {
     }
 
     /// Sets the value of `user_env_vars`.
-    pub fn set_user_env_vars<T: Into<std::collections::HashMap<String, String>>>(
+    pub fn set_user_env_vars<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -218,7 +251,9 @@ impl Workflow {
     }
 
     /// Sets the value of `source_code`.
-    pub fn set_source_code<T: Into<Option<crate::model::workflow::SourceCode>>>(
+    pub fn set_source_code<
+        T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -235,6 +270,8 @@ impl wkt::message::Message for Workflow {
 
 /// Defines additional types related to Workflow
 pub mod workflow {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// Describes an error related to the current state of the workflow.
     #[serde_with::serde_as]
@@ -243,8 +280,8 @@ pub mod workflow {
     #[non_exhaustive]
     pub struct StateError {
         /// Provides specifics about the error.
-        #[serde(skip_serializing_if = "String::is_empty")]
-        pub details: String,
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub details: std::string::String,
 
         /// The type of this state error.
         #[serde(rename = "type")]
@@ -253,13 +290,13 @@ pub mod workflow {
 
     impl StateError {
         /// Sets the value of `details`.
-        pub fn set_details<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
             self
         }
 
         /// Sets the value of `r#type`.
-        pub fn set_type<T: Into<crate::model::workflow::state_error::Type>>(
+        pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(
             mut self,
             v: T,
         ) -> Self {
@@ -276,14 +313,16 @@ pub mod workflow {
 
     /// Defines additional types related to StateError
     pub mod state_error {
+        #[allow(unused_imports)]
+        use super::*;
 
         /// Describes the possibled types of a state error.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(String);
+        pub struct Type(std::string::String);
 
         impl Type {
             /// Sets the enum value.
-            pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.0 = v.into();
                 self
             }
@@ -307,11 +346,11 @@ pub mod workflow {
 
     /// Describes the current state of workflow deployment.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(String);
+    pub struct State(std::string::String);
 
     impl State {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -338,11 +377,11 @@ pub mod workflow {
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallLogLevel(String);
+    pub struct CallLogLevel(std::string::String);
 
     impl CallLogLevel {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -378,7 +417,7 @@ pub mod workflow {
     #[non_exhaustive]
     pub enum SourceCode {
         /// Workflow code to be executed. The size limit is 128KB.
-        SourceContents(String),
+        SourceContents(std::string::String),
     }
 }
 
@@ -394,8 +433,8 @@ pub mod workflow {
 pub struct ListWorkflowsRequest {
     /// Required. Project and location from which the workflows should be listed.
     /// Format: projects/{project}/locations/{location}
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Maximum number of workflows to return per call. The service might return
     /// fewer than this value even if not at the end of the collection. If a value
@@ -408,48 +447,48 @@ pub struct ListWorkflowsRequest {
     ///
     /// When paginating, all other parameters provided to `ListWorkflows` must
     /// match the call that provided the page token.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
 
     /// Filter to restrict results to specific workflows.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub filter: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
 
     /// Comma-separated list of fields that specify the order of the results.
     /// Default sorting order for a field is ascending. To specify descending order
     /// for a field, append a "desc" suffix.
     /// If not specified, the results are returned in an unspecified order.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub order_by: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub order_by: std::string::String,
 }
 
 impl ListWorkflowsRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of `order_by`.
-    pub fn set_order_by<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
@@ -472,34 +511,40 @@ impl wkt::message::Message for ListWorkflowsRequest {
 #[non_exhaustive]
 pub struct ListWorkflowsResponse {
     /// The workflows that match the request.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub workflows: Vec<crate::model::Workflow>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub workflows: std::vec::Vec<crate::model::Workflow>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub next_page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
 
     /// Unreachable resources.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub unreachable: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub unreachable: std::vec::Vec<std::string::String>,
 }
 
 impl ListWorkflowsResponse {
     /// Sets the value of `workflows`.
-    pub fn set_workflows<T: Into<Vec<crate::model::Workflow>>>(mut self, v: T) -> Self {
+    pub fn set_workflows<T: std::convert::Into<std::vec::Vec<crate::model::Workflow>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.workflows = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of `unreachable`.
-    pub fn set_unreachable<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_unreachable<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.unreachable = v.into();
         self
     }
@@ -515,11 +560,11 @@ impl wkt::message::Message for ListWorkflowsResponse {
 impl gax::paginator::PageableResponse for ListWorkflowsResponse {
     type PageItem = crate::model::Workflow;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.workflows
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -535,27 +580,27 @@ impl gax::paginator::PageableResponse for ListWorkflowsResponse {
 pub struct GetWorkflowRequest {
     /// Required. Name of the workflow for which information should be retrieved.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. The revision of the workflow to retrieve. If the revision_id is
     /// empty, the latest revision is retrieved.
     /// The format is "000001-a4d", where the first six characters define
     /// the zero-padded decimal revision number. They are followed by a hyphen and
     /// three hexadecimal characters.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub revision_id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub revision_id: std::string::String,
 }
 
 impl GetWorkflowRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `revision_id`.
-    pub fn set_revision_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
@@ -579,12 +624,12 @@ impl wkt::message::Message for GetWorkflowRequest {
 pub struct CreateWorkflowRequest {
     /// Required. Project and location in which the workflow should be created.
     /// Format:  projects/{project}/locations/{location}
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Required. Workflow to be created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub workflow: Option<crate::model::Workflow>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub workflow: std::option::Option<crate::model::Workflow>,
 
     /// Required. The ID of the workflow to be created. It has to fulfill the
     /// following requirements:
@@ -594,25 +639,28 @@ pub struct CreateWorkflowRequest {
     /// * Must be between 1-64 characters.
     /// * Must end with a number or a letter.
     /// * Must be unique within the customer project and location.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub workflow_id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub workflow_id: std::string::String,
 }
 
 impl CreateWorkflowRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `workflow`.
-    pub fn set_workflow<T: Into<Option<crate::model::Workflow>>>(mut self, v: T) -> Self {
+    pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.workflow = v.into();
         self
     }
 
     /// Sets the value of `workflow_id`.
-    pub fn set_workflow_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_workflow_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workflow_id = v.into();
         self
     }
@@ -636,13 +684,13 @@ impl wkt::message::Message for CreateWorkflowRequest {
 pub struct DeleteWorkflowRequest {
     /// Required. Name of the workflow to be deleted.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl DeleteWorkflowRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -665,24 +713,30 @@ impl wkt::message::Message for DeleteWorkflowRequest {
 #[non_exhaustive]
 pub struct UpdateWorkflowRequest {
     /// Required. Workflow to be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub workflow: Option<crate::model::Workflow>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub workflow: std::option::Option<crate::model::Workflow>,
 
     /// List of fields to be updated. If not present, the entire workflow
     /// will be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_mask: Option<wkt::FieldMask>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
 }
 
 impl UpdateWorkflowRequest {
     /// Sets the value of `workflow`.
-    pub fn set_workflow<T: Into<Option<crate::model::Workflow>>>(mut self, v: T) -> Self {
+    pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.workflow = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -701,53 +755,59 @@ impl wkt::message::Message for UpdateWorkflowRequest {
 #[non_exhaustive]
 pub struct OperationMetadata {
     /// The time the operation was created.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The time the operation finished running.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// Server-defined resource path for the target of the operation.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub target: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub target: std::string::String,
 
     /// Name of the verb executed by the operation.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub verb: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub verb: std::string::String,
 
     /// API version used to start the operation.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub api_version: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub api_version: std::string::String,
 }
 
 impl OperationMetadata {
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `end_time`.
-    pub fn set_end_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.end_time = v.into();
         self
     }
 
     /// Sets the value of `target`.
-    pub fn set_target<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of `verb`.
-    pub fn set_verb<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of `api_version`.
-    pub fn set_api_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }

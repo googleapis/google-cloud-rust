@@ -16,6 +16,18 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gax;
+extern crate lazy_static;
+extern crate reqwest;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 /// The request message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
@@ -26,42 +38,42 @@
 #[non_exhaustive]
 pub struct ListLocationsRequest {
     /// The resource that owns the locations collection, if applicable.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// The standard list filter.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub filter: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
 
     /// The standard list page size.
     pub page_size: i32,
 
     /// The standard list page token.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
 }
 
 impl ListLocationsRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
@@ -82,23 +94,26 @@ impl wkt::message::Message for ListLocationsRequest {
 #[non_exhaustive]
 pub struct ListLocationsResponse {
     /// A list of locations that matches the specified filter in the request.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub locations: Vec<crate::model::Location>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub locations: std::vec::Vec<crate::model::Location>,
 
     /// The standard List next-page token.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub next_page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
 }
 
 impl ListLocationsResponse {
     /// Sets the value of `locations`.
-    pub fn set_locations<T: Into<Vec<crate::model::Location>>>(mut self, v: T) -> Self {
+    pub fn set_locations<T: std::convert::Into<std::vec::Vec<crate::model::Location>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.locations = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
@@ -114,11 +129,11 @@ impl wkt::message::Message for ListLocationsResponse {
 impl gax::paginator::PageableResponse for ListLocationsResponse {
     type PageItem = crate::model::Location;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.locations
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -132,13 +147,13 @@ impl gax::paginator::PageableResponse for ListLocationsResponse {
 #[non_exhaustive]
 pub struct GetLocationRequest {
     /// Resource name for the location.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl GetLocationRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -158,17 +173,17 @@ impl wkt::message::Message for GetLocationRequest {
 pub struct Location {
     /// Resource name for the location, which may vary between implementations.
     /// For example: `"projects/example-project/locations/us-east1"`
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// The canonical id for this location. For example: `"us-east1"`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub location_id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location_id: std::string::String,
 
     /// The friendly name for this location, typically a nearby city name.
     /// For example, "Tokyo".
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub display_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub display_name: std::string::String,
 
     /// Cross-service attributes for the location. For example
     ///
@@ -176,41 +191,49 @@ pub struct Location {
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String, String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Service-specific metadata. For example the available capacity at the given
     /// location.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<wkt::Any>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub metadata: std::option::Option<wkt::Any>,
 }
 
 impl Location {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `location_id`.
-    pub fn set_location_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
     /// Sets the value of `display_name`.
-    pub fn set_display_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.labels = v.into();
         self
     }
 
     /// Sets the value of `metadata`.
-    pub fn set_metadata<T: Into<Option<wkt::Any>>>(mut self, v: T) -> Self {
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.metadata = v.into();
         self
     }

@@ -16,6 +16,8 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate std;
 
 /// Represents a textual expression in the Common Expression Language (CEL)
 /// syntax. CEL is a C-like expression language. The syntax and semantics of CEL
@@ -64,48 +66,48 @@ pub struct Expr {
 
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub expression: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub expression: std::string::String,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub title: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub title: std::string::String,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub description: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub location: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
 }
 
 impl Expr {
 
     /// Sets the value of `expression`.
-    pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
     /// Sets the value of `title`.
-    pub fn set_title<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of `description`.
-    pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }

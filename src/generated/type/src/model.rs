@@ -16,6 +16,12 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate bytes;
+extern crate serde;
+extern crate serde_with;
+extern crate std;
+extern crate wkt;
 
 /// Represents a color in the RGBA color space. This representation is designed
 /// for simplicity of conversion to/from color representations in various
@@ -172,31 +178,34 @@ pub struct Color {
     /// possible to distinguish between a default value and the value being unset.
     /// If omitted, this color object is rendered as a solid color
     /// (as if the alpha value had been explicitly given a value of 1.0).
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub alpha: Option<wkt::FloatValue>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub alpha: std::option::Option<wkt::FloatValue>,
 }
 
 impl Color {
     /// Sets the value of `red`.
-    pub fn set_red<T: Into<f32>>(mut self, v: T) -> Self {
+    pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
         self
     }
 
     /// Sets the value of `green`.
-    pub fn set_green<T: Into<f32>>(mut self, v: T) -> Self {
+    pub fn set_green<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.green = v.into();
         self
     }
 
     /// Sets the value of `blue`.
-    pub fn set_blue<T: Into<f32>>(mut self, v: T) -> Self {
+    pub fn set_blue<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.blue = v.into();
         self
     }
 
     /// Sets the value of `alpha`.
-    pub fn set_alpha<T: Into<Option<wkt::FloatValue>>>(mut self, v: T) -> Self {
+    pub fn set_alpha<T: std::convert::Into<std::option::Option<wkt::FloatValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.alpha = v.into();
         self
     }
@@ -244,19 +253,19 @@ pub struct Date {
 
 impl Date {
     /// Sets the value of `year`.
-    pub fn set_year<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
     /// Sets the value of `month`.
-    pub fn set_month<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
     /// Sets the value of `day`.
-    pub fn set_day<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
@@ -329,55 +338,57 @@ pub struct DateTime {
     /// in the future (for example, a country modifies their DST start/end dates,
     /// and future DateTimes in the affected range had already been stored).
     /// If omitted, the DateTime is considered to be in local time.
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub time_offset: Option<crate::model::date_time::TimeOffset>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub time_offset: std::option::Option<crate::model::date_time::TimeOffset>,
 }
 
 impl DateTime {
     /// Sets the value of `year`.
-    pub fn set_year<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
     /// Sets the value of `month`.
-    pub fn set_month<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
     /// Sets the value of `day`.
-    pub fn set_day<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
 
     /// Sets the value of `hours`.
-    pub fn set_hours<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
     /// Sets the value of `minutes`.
-    pub fn set_minutes<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
     /// Sets the value of `seconds`.
-    pub fn set_seconds<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
     /// Sets the value of `nanos`.
-    pub fn set_nanos<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
     }
 
     /// Sets the value of `time_offset`.
-    pub fn set_time_offset<T: Into<Option<crate::model::date_time::TimeOffset>>>(
+    pub fn set_time_offset<
+        T: std::convert::Into<std::option::Option<crate::model::date_time::TimeOffset>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -394,6 +405,8 @@ impl wkt::message::Message for DateTime {
 
 /// Defines additional types related to DateTime
 pub mod date_time {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
     /// Choose carefully between them, considering that time zone data may change
@@ -421,23 +434,23 @@ pub mod date_time {
 #[non_exhaustive]
 pub struct TimeZone {
     /// IANA Time Zone Database time zone, e.g. "America/New_York".
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub id: std::string::String,
 
     /// Optional. IANA Time Zone Database version number, e.g. "2019a".
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub version: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub version: std::string::String,
 }
 
 impl TimeZone {
     /// Sets the value of `id`.
-    pub fn set_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of `version`.
-    pub fn set_version<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
@@ -524,13 +537,13 @@ pub struct Decimal {
     ///
     /// Services **should** error with `400 Bad Request` (`INVALID_ARGUMENT` in
     /// gRPC) if the service receives a value outside of the supported range.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub value: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub value: std::string::String,
 }
 
 impl Decimal {
     /// Sets the value of `value`.
-    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
@@ -588,47 +601,47 @@ impl wkt::message::Message for Decimal {
 pub struct Expr {
     /// Textual representation of an expression in Common Expression Language
     /// syntax.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub expression: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub expression: std::string::String,
 
     /// Optional. Title for the expression, i.e. a short string describing
     /// its purpose. This can be used e.g. in UIs which allow to enter the
     /// expression.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub title: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub title: std::string::String,
 
     /// Optional. Description of the expression. This is a longer text which
     /// describes the expression, e.g. when hovered over it in a UI.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub description: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub description: std::string::String,
 
     /// Optional. String indicating the location of the expression for error
     /// reporting, e.g. a file name and a position in the file.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub location: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub location: std::string::String,
 }
 
 impl Expr {
     /// Sets the value of `expression`.
-    pub fn set_expression<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
     /// Sets the value of `title`.
-    pub fn set_title<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of `description`.
-    pub fn set_description<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of `location`.
-    pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
@@ -658,13 +671,13 @@ pub struct Fraction {
 
 impl Fraction {
     /// Sets the value of `numerator`.
-    pub fn set_numerator<T: Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_numerator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.numerator = v.into();
         self
     }
 
     /// Sets the value of `denominator`.
-    pub fn set_denominator<T: Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_denominator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.denominator = v.into();
         self
     }
@@ -691,26 +704,32 @@ pub struct Interval {
     ///
     /// If specified, a Timestamp matching this interval will have to be the same
     /// or after the start.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub start_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// Optional. Exclusive end of the interval.
     ///
     /// If specified, a Timestamp matching this interval will have to be before the
     /// end.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub end_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
 }
 
 impl Interval {
     /// Sets the value of `start_time`.
-    pub fn set_start_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.start_time = v.into();
         self
     }
 
     /// Sets the value of `end_time`.
-    pub fn set_end_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.end_time = v.into();
         self
     }
@@ -741,13 +760,13 @@ pub struct LatLng {
 
 impl LatLng {
     /// Sets the value of `latitude`.
-    pub fn set_latitude<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_latitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.latitude = v.into();
         self
     }
 
     /// Sets the value of `longitude`.
-    pub fn set_longitude<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_longitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.longitude = v.into();
         self
     }
@@ -766,26 +785,26 @@ impl wkt::message::Message for LatLng {
 #[non_exhaustive]
 pub struct LocalizedText {
     /// Localized string in the language corresponding to `language_code' below.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub text: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub text: std::string::String,
 
     /// The text's BCP-47 language code, such as "en-US" or "sr-Latn".
     ///
     /// For more information, see
     /// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub language_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub language_code: std::string::String,
 }
 
 impl LocalizedText {
     /// Sets the value of `text`.
-    pub fn set_text<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
     /// Sets the value of `language_code`.
-    pub fn set_language_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
@@ -804,8 +823,8 @@ impl wkt::message::Message for LocalizedText {
 #[non_exhaustive]
 pub struct Money {
     /// The three-letter currency code defined in ISO 4217.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub currency_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub currency_code: std::string::String,
 
     /// The whole units of the amount.
     /// For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
@@ -823,19 +842,19 @@ pub struct Money {
 
 impl Money {
     /// Sets the value of `currency_code`.
-    pub fn set_currency_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
     /// Sets the value of `units`.
-    pub fn set_units<T: Into<i64>>(mut self, v: T) -> Self {
+    pub fn set_units<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.units = v.into();
         self
     }
 
     /// Sets the value of `nanos`.
-    pub fn set_nanos<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
     }
@@ -890,25 +909,30 @@ pub struct PhoneNumber {
     /// field is normally only set in conjunction with an E.164 number. It is held
     /// separately from the E.164 number to allow for short code extensions in the
     /// future.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub extension: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub extension: std::string::String,
 
     /// Required.  Either a regular number, or a short code.  New fields may be
     /// added to the oneof below in the future, so clients should ignore phone
     /// numbers for which none of the fields they coded against are set.
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub kind: Option<crate::model::phone_number::Kind>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub kind: std::option::Option<crate::model::phone_number::Kind>,
 }
 
 impl PhoneNumber {
     /// Sets the value of `extension`.
-    pub fn set_extension<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extension = v.into();
         self
     }
 
     /// Sets the value of `kind`.
-    pub fn set_kind<T: Into<Option<crate::model::phone_number::Kind>>>(mut self, v: T) -> Self {
+    pub fn set_kind<
+        T: std::convert::Into<std::option::Option<crate::model::phone_number::Kind>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kind = v.into();
         self
     }
@@ -922,6 +946,8 @@ impl wkt::message::Message for PhoneNumber {
 
 /// Defines additional types related to PhoneNumber
 pub mod phone_number {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// An object representing a short code, which is a phone number that is
     /// typically much shorter than regular phone numbers and can be used to
@@ -943,24 +969,24 @@ pub mod phone_number {
         /// Reference(s):
         ///
         /// - <http://www.unicode.org/reports/tr35/#unicode_region_subtag>
-        #[serde(skip_serializing_if = "String::is_empty")]
-        pub region_code: String,
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub region_code: std::string::String,
 
         /// Required. The short code digits, without a leading plus ('+') or country
         /// calling code, e.g. "611".
-        #[serde(skip_serializing_if = "String::is_empty")]
-        pub number: String,
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        pub number: std::string::String,
     }
 
     impl ShortCode {
         /// Sets the value of `region_code`.
-        pub fn set_region_code<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
         /// Sets the value of `number`.
-        pub fn set_number<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.number = v.into();
             self
         }
@@ -996,7 +1022,7 @@ pub mod phone_number {
         /// - <https://www.itu.int/rec/T-REC-E.164-201011-I>
         /// - <https://en.wikipedia.org/wiki/E.164>.
         /// - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
-        E164Number(String),
+        E164Number(std::string::String),
         /// A short code.
         ///
         /// Reference(s):
@@ -1040,8 +1066,8 @@ pub struct PostalAddress {
     /// correct. See <http://cldr.unicode.org/> and
     /// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>
     /// for details. Example: "CH" for Switzerland.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub region_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub region_code: std::string::String,
 
     /// Optional. BCP-47 language code of the contents of this address (if
     /// known). This is often the UI language of the input form or is expected
@@ -1055,23 +1081,23 @@ pub struct PostalAddress {
     /// possibly incorrect default).
     ///
     /// Examples: "zh-Hant", "ja", "ja-Latn", "en".
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub language_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub language_code: std::string::String,
 
     /// Optional. Postal code of the address. Not all countries use or require
     /// postal codes to be present, but where they are used, they may trigger
     /// additional validation with other parts of the address (e.g. state/zip
     /// validation in the U.S.A.).
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub postal_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub postal_code: std::string::String,
 
     /// Optional. Additional, country-specific, sorting code. This is not used
     /// in most regions. Where it is used, the value is either a string like
     /// "CEDEX", optionally followed by a number (e.g. "CEDEX 7"), or just a number
     /// alone, representing the "sector code" (Jamaica), "delivery area indicator"
     /// (Malawi) or "post office indicator" (e.g. Côte d'Ivoire).
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub sorting_code: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub sorting_code: std::string::String,
 
     /// Optional. Highest administrative subdivision which is used for postal
     /// addresses of a country or region.
@@ -1080,20 +1106,20 @@ pub struct PostalAddress {
     /// community (e.g. "Barcelona" and not "Catalonia").
     /// Many countries don't use an administrative area in postal addresses. E.g.
     /// in Switzerland this should be left unpopulated.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub administrative_area: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub administrative_area: std::string::String,
 
     /// Optional. Generally refers to the city/town portion of the address.
     /// Examples: US city, IT comune, UK post town.
     /// In regions of the world where localities are not well defined or do not fit
     /// into this structure well, leave locality empty and use address_lines.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub locality: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub locality: std::string::String,
 
     /// Optional. Sublocality of the address.
     /// For example, this can be neighborhoods, boroughs, districts.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub sublocality: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub sublocality: std::string::String,
 
     /// Unstructured address lines describing the lower levels of an address.
     ///
@@ -1117,83 +1143,92 @@ pub struct PostalAddress {
     /// then geocoding is the recommended way to handle completely unstructured
     /// addresses (as opposed to guessing which parts of the address should be
     /// localities or administrative areas).
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub address_lines: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub address_lines: std::vec::Vec<std::string::String>,
 
     /// Optional. The recipient at the address.
     /// This field may, under certain circumstances, contain multiline information.
     /// For example, it might contain "care of" information.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub recipients: Vec<String>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub recipients: std::vec::Vec<std::string::String>,
 
     /// Optional. The name of the organization at the address.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub organization: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub organization: std::string::String,
 }
 
 impl PostalAddress {
     /// Sets the value of `revision`.
-    pub fn set_revision<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of `region_code`.
-    pub fn set_region_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
     }
 
     /// Sets the value of `language_code`.
-    pub fn set_language_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
     /// Sets the value of `postal_code`.
-    pub fn set_postal_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.postal_code = v.into();
         self
     }
 
     /// Sets the value of `sorting_code`.
-    pub fn set_sorting_code<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_sorting_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sorting_code = v.into();
         self
     }
 
     /// Sets the value of `administrative_area`.
-    pub fn set_administrative_area<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.administrative_area = v.into();
         self
     }
 
     /// Sets the value of `locality`.
-    pub fn set_locality<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locality = v.into();
         self
     }
 
     /// Sets the value of `sublocality`.
-    pub fn set_sublocality<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_sublocality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sublocality = v.into();
         self
     }
 
     /// Sets the value of `address_lines`.
-    pub fn set_address_lines<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_address_lines<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.address_lines = v.into();
         self
     }
 
     /// Sets the value of `recipients`.
-    pub fn set_recipients<T: Into<Vec<String>>>(mut self, v: T) -> Self {
+    pub fn set_recipients<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.recipients = v.into();
         self
     }
 
     /// Sets the value of `organization`.
-    pub fn set_organization<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
@@ -1284,25 +1319,25 @@ pub struct Quaternion {
 
 impl Quaternion {
     /// Sets the value of `x`.
-    pub fn set_x<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
     /// Sets the value of `y`.
-    pub fn set_y<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_y<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
     }
 
     /// Sets the value of `z`.
-    pub fn set_z<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_z<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.z = v.into();
         self
     }
 
     /// Sets the value of `w`.
-    pub fn set_w<T: Into<f64>>(mut self, v: T) -> Self {
+    pub fn set_w<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.w = v.into();
         self
     }
@@ -1342,25 +1377,25 @@ pub struct TimeOfDay {
 
 impl TimeOfDay {
     /// Sets the value of `hours`.
-    pub fn set_hours<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
     /// Sets the value of `minutes`.
-    pub fn set_minutes<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
     /// Sets the value of `seconds`.
-    pub fn set_seconds<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
     /// Sets the value of `nanos`.
-    pub fn set_nanos<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
     }
@@ -1376,11 +1411,11 @@ impl wkt::message::Message for TimeOfDay {
 /// a canonical start. Grammatically, "the start of the current
 /// `CalendarPeriod`." All calendar times begin at midnight UTC.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CalendarPeriod(String);
+pub struct CalendarPeriod(std::string::String);
 
 impl CalendarPeriod {
     /// Sets the enum value.
-    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.0 = v.into();
         self
     }
@@ -1425,11 +1460,11 @@ pub mod calendar_period {
 
 /// Represents a day of the week.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DayOfWeek(String);
+pub struct DayOfWeek(std::string::String);
 
 impl DayOfWeek {
     /// Sets the enum value.
-    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.0 = v.into();
         self
     }
@@ -1470,11 +1505,11 @@ pub mod day_of_week {
 
 /// Represents a month in the Gregorian calendar.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Month(String);
+pub struct Month(std::string::String);
 
 impl Month {
     /// Sets the enum value.
-    pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.0 = v.into();
         self
     }

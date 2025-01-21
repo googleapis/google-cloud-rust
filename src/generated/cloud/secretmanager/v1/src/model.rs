@@ -16,6 +16,20 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![no_implicit_prelude]
+extern crate async_trait;
+extern crate bytes;
+extern crate gax;
+extern crate iam_v1;
+extern crate lazy_static;
+extern crate location;
+extern crate reqwest;
+extern crate serde;
+extern crate serde_json;
+extern crate serde_with;
+extern crate std;
+extern crate tracing;
+extern crate wkt;
 
 /// A [Secret][google.cloud.secretmanager.v1.Secret] is a logical secret whose
 /// value and versions can be accessed.
@@ -36,8 +50,8 @@ pub struct Secret {
     /// `projects/*/secrets/*`.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. Immutable. The replication policy of the secret data attached to
     /// the [Secret][google.cloud.secretmanager.v1.Secret].
@@ -45,15 +59,15 @@ pub struct Secret {
     /// The replication policy cannot be changed after the Secret has been created.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub replication: Option<crate::model::Replication>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication: std::option::Option<crate::model::Replication>,
 
     /// Output only. The time at which the
     /// [Secret][google.cloud.secretmanager.v1.Secret] was created.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The labels assigned to this Secret.
     ///
@@ -67,27 +81,27 @@ pub struct Secret {
     ///
     /// No more than 64 labels can be assigned to a given resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub labels: std::collections::HashMap<String, String>,
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub topics: Vec<crate::model::Topic>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub topics: std::vec::Vec<crate::model::Topic>,
 
     /// Optional. Etag of the currently stored
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 
     /// Optional. Rotation policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. May be excluded if there is
     /// no rotation policy.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rotation: Option<crate::model::Rotation>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rotation: std::option::Option<crate::model::Rotation>,
 
     /// Optional. Mapping from version alias to version name.
     ///
@@ -102,7 +116,7 @@ pub struct Secret {
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
-    pub version_aliases: std::collections::HashMap<String, i64>,
+    pub version_aliases: std::collections::HashMap<std::string::String, i64>,
 
     /// Optional. Custom metadata about the secret.
     ///
@@ -117,7 +131,7 @@ pub struct Secret {
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub annotations: std::collections::HashMap<String, String>,
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Secret Version TTL after destruction request
     ///
@@ -125,8 +139,8 @@ pub struct Secret {
     /// For secret with TTL>0, version destruction doesn't happen immediately
     /// on calling destroy instead the version goes to a disabled state and
     /// destruction happens after the TTL expires.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub version_destroy_ttl: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub version_destroy_ttl: std::option::Option<wkt::Duration>,
 
     /// Optional. The customer-managed encryption configuration of the regionalized
     /// secrets. If no configuration is provided, Google-managed default encryption
@@ -140,8 +154,8 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -157,55 +171,76 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub expiration: Option<crate::model::secret::Expiration>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub expiration: std::option::Option<crate::model::secret::Expiration>,
 }
 
 impl Secret {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `replication`.
-    pub fn set_replication<T: Into<Option<crate::model::Replication>>>(mut self, v: T) -> Self {
+    pub fn set_replication<
+        T: std::convert::Into<std::option::Option<crate::model::Replication>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.replication = v.into();
         self
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `labels`.
-    pub fn set_labels<T: Into<std::collections::HashMap<String, String>>>(mut self, v: T) -> Self {
+    pub fn set_labels<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.labels = v.into();
         self
     }
 
     /// Sets the value of `topics`.
-    pub fn set_topics<T: Into<Vec<crate::model::Topic>>>(mut self, v: T) -> Self {
+    pub fn set_topics<T: std::convert::Into<std::vec::Vec<crate::model::Topic>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.topics = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `rotation`.
-    pub fn set_rotation<T: Into<Option<crate::model::Rotation>>>(mut self, v: T) -> Self {
+    pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.rotation = v.into();
         self
     }
 
     /// Sets the value of `version_aliases`.
-    pub fn set_version_aliases<T: Into<std::collections::HashMap<String, i64>>>(
+    pub fn set_version_aliases<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, i64>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -214,7 +249,9 @@ impl Secret {
     }
 
     /// Sets the value of `annotations`.
-    pub fn set_annotations<T: Into<std::collections::HashMap<String, String>>>(
+    pub fn set_annotations<
+        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -223,14 +260,17 @@ impl Secret {
     }
 
     /// Sets the value of `version_destroy_ttl`.
-    pub fn set_version_destroy_ttl<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.version_destroy_ttl = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
     pub fn set_customer_managed_encryption<
-        T: Into<Option<crate::model::CustomerManagedEncryption>>,
+        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
     >(
         mut self,
         v: T,
@@ -240,7 +280,9 @@ impl Secret {
     }
 
     /// Sets the value of `expiration`.
-    pub fn set_expiration<T: Into<Option<crate::model::secret::Expiration>>>(
+    pub fn set_expiration<
+        T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -257,6 +299,8 @@ impl wkt::message::Message for Secret {
 
 /// Defines additional types related to Secret
 pub mod secret {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
@@ -306,15 +350,15 @@ pub struct SecretVersion {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Output only. The time at which the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was created.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub create_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The time this
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] was destroyed.
@@ -325,8 +369,8 @@ pub struct SecretVersion {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub destroy_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub destroy_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The current state of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -338,15 +382,15 @@ pub struct SecretVersion {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub replication_status: Option<crate::model::ReplicationStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub replication_status: std::option::Option<crate::model::ReplicationStatus>,
 
     /// Output only. Etag of the currently stored
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 
     /// Output only. True if payload checksum specified in
     /// [SecretPayload][google.cloud.secretmanager.v1.SecretPayload] object has
@@ -365,8 +409,8 @@ pub struct SecretVersion {
     /// Secret with a valid version destroy TTL, when a secert version is
     /// destroyed, version is moved to disabled state and it is scheduled for
     /// destruction Version is destroyed only after the scheduled_destroy_time.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub scheduled_destroy_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub scheduled_destroy_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The customer-managed encryption status of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
@@ -375,37 +419,49 @@ pub struct SecretVersion {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub customer_managed_encryption:
+        std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
 }
 
 impl SecretVersion {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `create_time`.
-    pub fn set_create_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.create_time = v.into();
         self
     }
 
     /// Sets the value of `destroy_time`.
-    pub fn set_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.destroy_time = v.into();
         self
     }
 
     /// Sets the value of `state`.
-    pub fn set_state<T: Into<crate::model::secret_version::State>>(mut self, v: T) -> Self {
+    pub fn set_state<T: std::convert::Into<crate::model::secret_version::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of `replication_status`.
-    pub fn set_replication_status<T: Into<Option<crate::model::ReplicationStatus>>>(
+    pub fn set_replication_status<
+        T: std::convert::Into<std::option::Option<crate::model::ReplicationStatus>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -414,26 +470,34 @@ impl SecretVersion {
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of `client_specified_payload_checksum`.
-    pub fn set_client_specified_payload_checksum<T: Into<bool>>(mut self, v: T) -> Self {
+    pub fn set_client_specified_payload_checksum<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.client_specified_payload_checksum = v.into();
         self
     }
 
     /// Sets the value of `scheduled_destroy_time`.
-    pub fn set_scheduled_destroy_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_scheduled_destroy_time<
+        T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
         self.scheduled_destroy_time = v.into();
         self
     }
 
     /// Sets the value of `customer_managed_encryption`.
     pub fn set_customer_managed_encryption<
-        T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+        T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
     >(
         mut self,
         v: T,
@@ -451,6 +515,8 @@ impl wkt::message::Message for SecretVersion {
 
 /// Defines additional types related to SecretVersion
 pub mod secret_version {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The state of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion], indicating if
@@ -458,11 +524,11 @@ pub mod secret_version {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(String);
+    pub struct State(std::string::String);
 
     impl State {
         /// Sets the enum value.
-        pub fn set_value<T: Into<String>>(mut self, v: T) -> Self {
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.0 = v.into();
             self
         }
@@ -511,13 +577,15 @@ pub mod secret_version {
 #[non_exhaustive]
 pub struct Replication {
     /// The replication policy for this secret.
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub replication: Option<crate::model::replication::Replication>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub replication: std::option::Option<crate::model::replication::Replication>,
 }
 
 impl Replication {
     /// Sets the value of `replication`.
-    pub fn set_replication<T: Into<Option<crate::model::replication::Replication>>>(
+    pub fn set_replication<
+        T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
+    >(
         mut self,
         v: T,
     ) -> Self {
@@ -534,6 +602,8 @@ impl wkt::message::Message for Replication {
 
 /// Defines additional types related to Replication
 pub mod replication {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// A replication policy that replicates the
     /// [Secret][google.cloud.secretmanager.v1.Secret] payload without any
@@ -557,14 +627,15 @@ pub mod replication {
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub customer_managed_encryption:
+            std::option::Option<crate::model::CustomerManagedEncryption>,
     }
 
     impl Automatic {
         /// Sets the value of `customer_managed_encryption`.
         pub fn set_customer_managed_encryption<
-            T: Into<Option<crate::model::CustomerManagedEncryption>>,
+            T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
         >(
             mut self,
             v: T,
@@ -598,13 +669,15 @@ pub mod replication {
         /// Cannot be empty.
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        pub replicas: Vec<crate::model::replication::user_managed::Replica>,
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub replicas: std::vec::Vec<crate::model::replication::user_managed::Replica>,
     }
 
     impl UserManaged {
         /// Sets the value of `replicas`.
-        pub fn set_replicas<T: Into<Vec<crate::model::replication::user_managed::Replica>>>(
+        pub fn set_replicas<
+            T: std::convert::Into<std::vec::Vec<crate::model::replication::user_managed::Replica>>,
+        >(
             mut self,
             v: T,
         ) -> Self {
@@ -621,6 +694,8 @@ pub mod replication {
 
     /// Defines additional types related to UserManaged
     pub mod user_managed {
+        #[allow(unused_imports)]
+        use super::*;
 
         /// Represents a Replica for this
         /// [Secret][google.cloud.secretmanager.v1.Secret].
@@ -633,8 +708,8 @@ pub mod replication {
         pub struct Replica {
             /// The canonical IDs of the location to replicate data.
             /// For example: `"us-east1"`.
-            #[serde(skip_serializing_if = "String::is_empty")]
-            pub location: String,
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub location: std::string::String,
 
             /// Optional. The customer-managed encryption configuration of the
             /// [User-Managed Replica][Replication.UserManaged.Replica]. If no
@@ -648,20 +723,24 @@ pub mod replication {
             ///
             /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
             /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-            #[serde(skip_serializing_if = "Option::is_none")]
-            pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryption>,
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub customer_managed_encryption:
+                std::option::Option<crate::model::CustomerManagedEncryption>,
         }
 
         impl Replica {
             /// Sets the value of `location`.
-            pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+            pub fn set_location<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.location = v.into();
                 self
             }
 
             /// Sets the value of `customer_managed_encryption`.
             pub fn set_customer_managed_encryption<
-                T: Into<Option<crate::model::CustomerManagedEncryption>>,
+                T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
             >(
                 mut self,
                 v: T,
@@ -719,13 +798,13 @@ pub struct CustomerManagedEncryption {
     ///
     /// [google.cloud.secretmanager.v1.Replication.Automatic]: crate::model::replication::Automatic
     /// [google.cloud.secretmanager.v1.Replication.UserManaged]: crate::model::replication::UserManaged
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub kms_key_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kms_key_name: std::string::String,
 }
 
 impl CustomerManagedEncryption {
     /// Sets the value of `kms_key_name`.
-    pub fn set_kms_key_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
@@ -750,14 +829,17 @@ pub struct ReplicationStatus {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(flatten, skip_serializing_if = "Option::is_none")]
-    pub replication_status: Option<crate::model::replication_status::ReplicationStatus>,
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub replication_status:
+        std::option::Option<crate::model::replication_status::ReplicationStatus>,
 }
 
 impl ReplicationStatus {
     /// Sets the value of `replication_status`.
     pub fn set_replication_status<
-        T: Into<Option<crate::model::replication_status::ReplicationStatus>>,
+        T: std::convert::Into<
+            std::option::Option<crate::model::replication_status::ReplicationStatus>,
+        >,
     >(
         mut self,
         v: T,
@@ -775,6 +857,8 @@ impl wkt::message::Message for ReplicationStatus {
 
 /// Defines additional types related to ReplicationStatus
 pub mod replication_status {
+    #[allow(unused_imports)]
+    use super::*;
 
     /// The replication status of a
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] using
@@ -795,14 +879,15 @@ pub mod replication_status {
         /// populated if customer-managed encryption is used.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        #[serde(skip_serializing_if = "Option::is_none")]
-        pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub customer_managed_encryption:
+            std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
     }
 
     impl AutomaticStatus {
         /// Sets the value of `customer_managed_encryption`.
         pub fn set_customer_managed_encryption<
-            T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+            T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
         >(
             mut self,
             v: T,
@@ -836,14 +921,17 @@ pub mod replication_status {
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        pub replicas: Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        pub replicas:
+            std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
     }
 
     impl UserManagedStatus {
         /// Sets the value of `replicas`.
         pub fn set_replicas<
-            T: Into<Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>>,
+            T: std::convert::Into<
+                std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
+            >,
         >(
             mut self,
             v: T,
@@ -861,6 +949,8 @@ pub mod replication_status {
 
     /// Defines additional types related to UserManagedStatus
     pub mod user_managed_status {
+        #[allow(unused_imports)]
+        use super::*;
 
         /// Describes the status of a user-managed replica for the
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
@@ -873,28 +963,34 @@ pub mod replication_status {
         pub struct ReplicaStatus {
             /// Output only. The canonical ID of the replica location.
             /// For example: `"us-east1"`.
-            #[serde(skip_serializing_if = "String::is_empty")]
-            pub location: String,
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            pub location: std::string::String,
 
             /// Output only. The customer-managed encryption status of the
             /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. Only
             /// populated if customer-managed encryption is used.
             ///
             /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-            #[serde(skip_serializing_if = "Option::is_none")]
-            pub customer_managed_encryption: Option<crate::model::CustomerManagedEncryptionStatus>,
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub customer_managed_encryption:
+                std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
         }
 
         impl ReplicaStatus {
             /// Sets the value of `location`.
-            pub fn set_location<T: Into<String>>(mut self, v: T) -> Self {
+            pub fn set_location<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
                 self.location = v.into();
                 self
             }
 
             /// Sets the value of `customer_managed_encryption`.
             pub fn set_customer_managed_encryption<
-                T: Into<Option<crate::model::CustomerManagedEncryptionStatus>>,
+                T: std::convert::Into<
+                    std::option::Option<crate::model::CustomerManagedEncryptionStatus>,
+                >,
             >(
                 mut self,
                 v: T,
@@ -953,13 +1049,16 @@ pub struct CustomerManagedEncryptionStatus {
     /// Required. The resource name of the Cloud KMS CryptoKeyVersion used to
     /// encrypt the secret payload, in the following format:
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub kms_key_version_name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub kms_key_version_name: std::string::String,
 }
 
 impl CustomerManagedEncryptionStatus {
     /// Sets the value of `kms_key_version_name`.
-    pub fn set_kms_key_version_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.kms_key_version_name = v.into();
         self
     }
@@ -983,13 +1082,13 @@ pub struct Topic {
     /// succeed, the Secret Manager service agent must have the
     /// `pubsub.topic.publish` permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl Topic {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -1027,8 +1126,8 @@ pub struct Rotation {
     /// [google.cloud.secretmanager.v1.Rotation.next_rotation_time]: crate::model::Rotation::next_rotation_time
     /// [google.cloud.secretmanager.v1.Rotation.rotation_period]: crate::model::Rotation::rotation_period
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub next_rotation_time: Option<wkt::Timestamp>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub next_rotation_time: std::option::Option<wkt::Timestamp>,
 
     /// Input only. The Duration between rotation notifications. Must be in seconds
     /// and at least 3600s (1h) and at most 3153600000s (100 years).
@@ -1044,19 +1143,25 @@ pub struct Rotation {
     ///
     /// [google.cloud.secretmanager.v1.Rotation.next_rotation_time]: crate::model::Rotation::next_rotation_time
     /// [google.cloud.secretmanager.v1.Rotation.rotation_period]: crate::model::Rotation::rotation_period
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub rotation_period: Option<wkt::Duration>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub rotation_period: std::option::Option<wkt::Duration>,
 }
 
 impl Rotation {
     /// Sets the value of `next_rotation_time`.
-    pub fn set_next_rotation_time<T: Into<Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
+    pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.next_rotation_time = v.into();
         self
     }
 
     /// Sets the value of `rotation_period`.
-    pub fn set_rotation_period<T: Into<Option<wkt::Duration>>>(mut self, v: T) -> Self {
+    pub fn set_rotation_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.rotation_period = v.into();
         self
     }
@@ -1105,20 +1210,23 @@ pub struct SecretPayload {
     /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::traits::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload.data]: crate::model::SecretPayload::data
     #[serde(rename = "dataCrc32c")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde_as(as = "Option<serde_with::DisplayFromStr>")]
-    pub data_crc32c: Option<i64>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    pub data_crc32c: std::option::Option<i64>,
 }
 
 impl SecretPayload {
     /// Sets the value of `data`.
-    pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
+    pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of `data_crc32c`.
-    pub fn set_data_crc32c<T: Into<Option<i64>>>(mut self, v: T) -> Self {
+    pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<i64>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.data_crc32c = v.into();
         self
     }
@@ -1144,8 +1252,8 @@ pub struct ListSecretsRequest {
     /// or `projects/*/locations/*`
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
@@ -1156,39 +1264,39 @@ pub struct ListSecretsRequest {
     /// [ListSecretsResponse.next_page_token][google.cloud.secretmanager.v1.ListSecretsResponse.next_page_token].
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsResponse.next_page_token]: crate::model::ListSecretsResponse::next_page_token
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub filter: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
 }
 
 impl ListSecretsRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -1213,16 +1321,16 @@ pub struct ListSecretsResponse {
     /// reverse by create_time (newest first).
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub secrets: Vec<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub secrets: std::vec::Vec<crate::model::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// [ListSecretsRequest.page_token][google.cloud.secretmanager.v1.ListSecretsRequest.page_token]
     /// to retrieve the next page.
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.page_token]: crate::model::ListSecretsRequest::page_token
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub next_page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
 
     /// The total number of [Secrets][google.cloud.secretmanager.v1.Secret] but 0
     /// when the
@@ -1236,19 +1344,22 @@ pub struct ListSecretsResponse {
 
 impl ListSecretsResponse {
     /// Sets the value of `secrets`.
-    pub fn set_secrets<T: Into<Vec<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_secrets<T: std::convert::Into<std::vec::Vec<crate::model::Secret>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secrets = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of `total_size`.
-    pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
@@ -1264,11 +1375,11 @@ impl wkt::message::Message for ListSecretsResponse {
 impl gax::paginator::PageableResponse for ListSecretsResponse {
     type PageItem = crate::model::Secret;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.secrets
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -1287,40 +1398,43 @@ pub struct CreateSecretRequest {
     /// or `projects/*/locations/*`.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Required. This must be unique within the project.
     ///
     /// A secret ID is a string with a maximum length of 255 characters and can
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub secret_id: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub secret_id: std::string::String,
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
     /// field values.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub secret: std::option::Option<crate::model::Secret>,
 }
 
 impl CreateSecretRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `secret_id`.
-    pub fn set_secret_id<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
     }
 
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret = v.into();
         self
     }
@@ -1348,26 +1462,29 @@ pub struct AddSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Required. The secret payload of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub payload: Option<crate::model::SecretPayload>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub payload: std::option::Option<crate::model::SecretPayload>,
 }
 
 impl AddSecretVersionRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `payload`.
-    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.payload = v.into();
         self
     }
@@ -1393,13 +1510,13 @@ pub struct GetSecretRequest {
     /// `projects/*/secrets/*` or `projects/*/locations/*/secrets/*`.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl GetSecretRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -1427,8 +1544,8 @@ pub struct ListSecretVersionsRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub parent: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub parent: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
@@ -1437,39 +1554,39 @@ pub struct ListSecretVersionsRequest {
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub page_token: std::string::String,
 
     /// Optional. Filter string, adhering to the rules in
     /// [List-operation
     /// filtering](https://cloud.google.com/secret-manager/docs/filtering). List
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub filter: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub filter: std::string::String,
 }
 
 impl ListSecretVersionsRequest {
     /// Sets the value of `parent`.
-    pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of `page_size`.
-    pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of `page_token`.
-    pub fn set_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of `filter`.
-    pub fn set_filter<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
@@ -1494,16 +1611,16 @@ pub struct ListSecretVersionsResponse {
     /// sorted in reverse by create_time (newest first).
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub versions: Vec<crate::model::SecretVersion>,
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub versions: std::vec::Vec<crate::model::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
     /// [ListSecretVersionsRequest.page_token][google.cloud.secretmanager.v1.ListSecretVersionsRequest.page_token]
     /// to retrieve the next page.
     ///
     /// [google.cloud.secretmanager.v1.ListSecretVersionsRequest.page_token]: crate::model::ListSecretVersionsRequest::page_token
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub next_page_token: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub next_page_token: std::string::String,
 
     /// The total number of
     /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] but 0 when
@@ -1518,19 +1635,22 @@ pub struct ListSecretVersionsResponse {
 
 impl ListSecretVersionsResponse {
     /// Sets the value of `versions`.
-    pub fn set_versions<T: Into<Vec<crate::model::SecretVersion>>>(mut self, v: T) -> Self {
+    pub fn set_versions<T: std::convert::Into<std::vec::Vec<crate::model::SecretVersion>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.versions = v.into();
         self
     }
 
     /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of `total_size`.
-    pub fn set_total_size<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
     }
@@ -1546,11 +1666,11 @@ impl wkt::message::Message for ListSecretVersionsResponse {
 impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
     type PageItem = crate::model::SecretVersion;
 
-    fn items(self) -> Vec<Self::PageItem> {
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.versions
     }
 
-    fn next_page_token(&self) -> String {
+    fn next_page_token(&self) -> std::string::String {
         gax::paginator::extract_token(&self.next_page_token)
     }
 }
@@ -1575,13 +1695,13 @@ pub struct GetSecretVersionRequest {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl GetSecretVersionRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -1606,23 +1726,29 @@ pub struct UpdateSecretRequest {
     /// values.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub secret: Option<crate::model::Secret>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub secret: std::option::Option<crate::model::Secret>,
 
     /// Required. Specifies the fields to be updated.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub update_mask: Option<wkt::FieldMask>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
 }
 
 impl UpdateSecretRequest {
     /// Sets the value of `secret`.
-    pub fn set_secret<T: Into<Option<crate::model::Secret>>>(mut self, v: T) -> Self {
+    pub fn set_secret<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of `update_mask`.
-    pub fn set_update_mask<T: Into<Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
+    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.update_mask = v.into();
         self
     }
@@ -1654,13 +1780,13 @@ pub struct AccessSecretVersionRequest {
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 }
 
 impl AccessSecretVersionRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
@@ -1687,23 +1813,26 @@ pub struct AccessSecretVersionResponse {
     /// `projects/*/locations/*/secrets/*/versions/*`.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Secret payload
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub payload: Option<crate::model::SecretPayload>,
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub payload: std::option::Option<crate::model::SecretPayload>,
 }
 
 impl AccessSecretVersionResponse {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `payload`.
-    pub fn set_payload<T: Into<Option<crate::model::SecretPayload>>>(mut self, v: T) -> Self {
+    pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
+        mut self,
+        v: T,
+    ) -> Self {
         self.payload = v.into();
         self
     }
@@ -1729,27 +1858,27 @@ pub struct DeleteSecretRequest {
     /// `projects/*/secrets/*`.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. Etag of the [Secret][google.cloud.secretmanager.v1.Secret]. The
     /// request succeeds if it matches the etag of the currently stored secret
     /// object. If the etag is omitted, the request succeeds.
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 }
 
 impl DeleteSecretRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -1776,8 +1905,8 @@ pub struct DisableSecretVersionRequest {
     /// `projects/*/locations/*/secrets/*/versions/*`.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. Etag of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1785,19 +1914,19 @@ pub struct DisableSecretVersionRequest {
     /// object. If the etag is omitted, the request succeeds.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 }
 
 impl DisableSecretVersionRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -1824,8 +1953,8 @@ pub struct EnableSecretVersionRequest {
     /// `projects/*/locations/*/secrets/*/versions/*`.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. Etag of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1833,19 +1962,19 @@ pub struct EnableSecretVersionRequest {
     /// object. If the etag is omitted, the request succeeds.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 }
 
 impl EnableSecretVersionRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
@@ -1872,8 +2001,8 @@ pub struct DestroySecretVersionRequest {
     /// `projects/*/locations/*/secrets/*/versions/*`.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub name: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub name: std::string::String,
 
     /// Optional. Etag of the
     /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]. The request
@@ -1881,19 +2010,19 @@ pub struct DestroySecretVersionRequest {
     /// object. If the etag is omitted, the request succeeds.
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub etag: String,
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub etag: std::string::String,
 }
 
 impl DestroySecretVersionRequest {
     /// Sets the value of `name`.
-    pub fn set_name<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of `etag`.
-    pub fn set_etag<T: Into<String>>(mut self, v: T) -> Self {
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }

@@ -111,7 +111,7 @@ impl IAMPolicy {
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
     pub fn set_iam_policy(
         &self,
-        resource: impl Into<String>,
+        resource: impl Into<std::string::String>,
     ) -> crate::builders::iam_policy::SetIamPolicy {
         crate::builders::iam_policy::SetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
@@ -122,7 +122,7 @@ impl IAMPolicy {
     /// set.
     pub fn get_iam_policy(
         &self,
-        resource: impl Into<String>,
+        resource: impl Into<std::string::String>,
     ) -> crate::builders::iam_policy::GetIamPolicy {
         crate::builders::iam_policy::GetIamPolicy::new(self.inner.clone())
             .set_resource(resource.into())
@@ -137,7 +137,7 @@ impl IAMPolicy {
     /// may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<String>,
+        resource: impl Into<std::string::String>,
     ) -> crate::builders::iam_policy::TestIamPermissions {
         crate::builders::iam_policy::TestIamPermissions::new(self.inner.clone())
             .set_resource(resource.into())
