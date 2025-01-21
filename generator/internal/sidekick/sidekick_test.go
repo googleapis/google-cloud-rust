@@ -159,7 +159,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			ServiceConfig: "google/rpc/rpc_publish.yaml",
 			Name:          "rpc",
 			ExtraOptions: map[string]string{
-				"module-path":               "error::rpc::generated",
+				"module-path":               "crate::error::rpc::generated",
 				"deserialize-with-defaults": "false",
 				"package:wkt":               "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
 			},

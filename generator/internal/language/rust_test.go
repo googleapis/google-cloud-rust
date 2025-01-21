@@ -33,7 +33,7 @@ func createRustCodec() *rustCodec {
 	}
 
 	return &rustCodec{
-		modulePath:    "model",
+		modulePath:    "crate::model",
 		extraPackages: []*rustPackage{wkt},
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
@@ -1404,7 +1404,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		path:        "src/generated/iam/v1",
 	}
 	c := &rustCodec{
-		modulePath:    "model",
+		modulePath:    "crate::model",
 		extraPackages: []*rustPackage{wkt, iam},
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,

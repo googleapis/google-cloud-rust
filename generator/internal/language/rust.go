@@ -73,7 +73,7 @@ func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &rustCodec{
 		generationYear:           fmt.Sprintf("%04d", year),
-		modulePath:               "model",
+		modulePath:               "crate::model",
 		deserializeWithdDefaults: true,
 		extraPackages:            []*rustPackage{},
 		packageMapping:           map[string]*rustPackage{},
@@ -606,7 +606,7 @@ func rustMessageName(m *api.Message) string {
 func rustMessageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
 	rustPkg := func(packageName string) string {
 		if packageName == sourceSpecificationPackageName {
-			return "crate::" + modulePath
+			return modulePath
 		}
 		mapped, ok := rustMapPackage(packageName, packageMapping)
 		if !ok {
