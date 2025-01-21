@@ -52,9 +52,9 @@ impl crate::traits::Locations for Locations {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = builder.query(&[("filter", &req.filter)]);
+        let builder = builder.query(&[("pageSize", &req.page_size)]);
+        let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,

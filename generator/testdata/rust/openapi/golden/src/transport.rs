@@ -52,9 +52,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
+        let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
+        let builder = req.page_size.iter().fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+        let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -94,9 +94,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder = req.page_size.iter().fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+        let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+        let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -116,7 +116,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
+        let builder = builder.query(&[("secretId", &req.secret_id)]);
         self.inner.execute(
             builder,
             Some(req.request_body),
@@ -137,9 +137,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder = req.page_size.iter().fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+        let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+        let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -160,7 +160,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "secretId", &req.secret_id).map_err(Error::other)?;
+        let builder = builder.query(&[("secretId", &req.secret_id)]);
         self.inner.execute(
             builder,
             Some(req.request_body),
@@ -242,7 +242,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
+        let builder = req.etag.iter().fold(builder, |builder, p| builder.query(&[("etag", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -263,7 +263,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "updateMask", &serde_json::to_value(&req.update_mask).map_err(Error::serde)?).map_err(Error::other)?;
+        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask").map_err(Error::other)? };
         self.inner.execute(
             builder,
             Some(req.request_body),
@@ -306,7 +306,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "etag", &req.etag).map_err(Error::other)?;
+        let builder = req.etag.iter().fold(builder, |builder, p| builder.query(&[("etag", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -328,7 +328,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "updateMask", &serde_json::to_value(&req.update_mask).map_err(Error::serde)?).map_err(Error::other)?;
+        let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.update_mask).map_err(Error::serde)?.add(builder, "updateMask").map_err(Error::other)? };
         self.inner.execute(
             builder,
             Some(req.request_body),
@@ -349,9 +349,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder = req.page_size.iter().fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+        let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+        let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -373,9 +373,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "pageSize", &req.page_size).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "pageToken", &req.page_token).map_err(Error::other)?;
-        let builder = gax::query_parameter::add(builder, "filter", &req.filter).map_err(Error::other)?;
+        let builder = req.page_size.iter().fold(builder, |builder, p| builder.query(&[("pageSize", p)]));
+        let builder = req.page_token.iter().fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
+        let builder = req.filter.iter().fold(builder, |builder, p| builder.query(&[("filter", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -652,7 +652,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "options.requestedPolicyVersion", &req.options_requested_policy_version).map_err(Error::other)?;
+        let builder = req.options_requested_policy_version.iter().fold(builder, |builder, p| builder.query(&[("options.requestedPolicyVersion", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,
@@ -674,7 +674,7 @@ impl crate::traits::SecretManagerService for SecretManagerService {
             ))
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        let builder = gax::query_parameter::add(builder, "options.requestedPolicyVersion", &req.options_requested_policy_version).map_err(Error::other)?;
+        let builder = req.options_requested_policy_version.iter().fold(builder, |builder, p| builder.query(&[("options.requestedPolicyVersion", p)]));
         self.inner.execute(
             builder,
             None::<gax::http_client::NoBody>,

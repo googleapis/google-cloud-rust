@@ -1023,17 +1023,66 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		JSONName: "optionsField",
 		Typez:    api.MESSAGE_TYPE,
 		TypezID:  options.ID,
+		Optional: true,
 	}
-	anotherField := &api.Field{
-		Name:     "another_field",
-		JSONName: "anotherField",
+	requiredField := &api.Field{
+		Name:     "required_field",
+		JSONName: "requiredField",
 		Typez:    api.STRING_TYPE,
-		TypezID:  options.ID,
+	}
+	optionalField := &api.Field{
+		Name:     "optional_field",
+		JSONName: "optionalField",
+		Typez:    api.STRING_TYPE,
+		Optional: true,
+	}
+	repeatedField := &api.Field{
+		Name:     "repeated_field",
+		JSONName: "repeatedField",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+	}
+
+	requiredEnumField := &api.Field{
+		Name:     "required_enum_field",
+		JSONName: "requiredEnumField",
+		Typez:    api.ENUM_TYPE,
+	}
+	optionalEnumField := &api.Field{
+		Name:     "optional_enum_field",
+		JSONName: "optionalEnumField",
+		Typez:    api.ENUM_TYPE,
+		Optional: true,
+	}
+	repeatedEnumField := &api.Field{
+		Name:     "repeated_enum_field",
+		JSONName: "repeatedEnumField",
+		Typez:    api.ENUM_TYPE,
+		Repeated: true,
+	}
+
+	requiredFieldMaskField := &api.Field{
+		Name:     "required_field_mask",
+		JSONName: "requiredFieldMask",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".google.protobuf.FieldMask",
+	}
+	optionalFieldMaskField := &api.Field{
+		Name:     "optional_field_mask",
+		JSONName: "optionalFieldMask",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".google.protobuf.FieldMask",
+		Optional: true,
 	}
 	request := &api.Message{
-		Name:   "TestRequest",
-		ID:     "..TestRequest",
-		Fields: []*api.Field{optionsField, anotherField},
+		Name: "TestRequest",
+		ID:   "..TestRequest",
+		Fields: []*api.Field{
+			optionsField,
+			requiredField, optionalField, repeatedField,
+			requiredEnumField, optionalEnumField, repeatedEnumField,
+			requiredFieldMaskField, optionalFieldMaskField,
+		},
 	}
 	model := newTestAPI(
 		[]*api.Message{options, request},
@@ -1041,18 +1090,25 @@ func TestRust_AsQueryParameter(t *testing.T) {
 		[]*api.Service{})
 	rustLoadWellKnownTypes(model.State)
 
-	want := "&serde_json::to_value(&req.options_field).map_err(Error::serde)?"
-	got := rustAsQueryParameter(optionsField)
-	if want != got {
-		t.Errorf("mismatched as query parameter for options_field, want=%s, got=%s", want, got)
+	for _, test := range []struct {
+		field *api.Field
+		want  string
+	}{
+		{optionsField, `let builder = req.options_field.iter().try_fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; serde_json::to_value(p).map_err(Error::serde)?.add(builder, "optionsField").map_err(Error::other) })?;`},
+		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
+		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
+		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
+		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field.value())]);`},
+		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p.value())]));`},
+		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{requiredFieldMaskField, `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask").map_err(Error::other)? };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.iter().try_fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; serde_json::to_value(p).map_err(Error::serde)?.add(builder, "optionalFieldMask").map_err(Error::other) })?;`},
+	} {
+		got := rustAddQueryParameter(test.field)
+		if test.want != got {
+			t.Errorf("mismatched as query parameter for %s\nwant=%s\n got=%s", test.field.Name, test.want, got)
+		}
 	}
-
-	want = "&req.another_field"
-	got = rustAsQueryParameter(anotherField)
-	if want != got {
-		t.Errorf("mismatched as query parameter for another_field, want=%s, got=%s", want, got)
-	}
-
 }
 
 type rustCaseConvertTest struct {
