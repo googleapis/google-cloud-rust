@@ -394,9 +394,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 
 func TestRust_NoStreamingFeature(t *testing.T) {
 	codec := &rustCodec{
-		modulePath:     "model",
-		extraPackages:  []*rustPackage{},
-		packageMapping: map[string]*rustPackage{},
+		extraPackages: []*rustPackage{},
 	}
 	model := newTestAPI([]*api.Message{
 		{Name: "CreateResource", IsPageableResponse: false},
@@ -1404,8 +1402,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		path:        "src/generated/iam/v1",
 	}
 	c := &rustCodec{
-		modulePath:    "crate::model",
-		extraPackages: []*rustPackage{wkt, iam},
+		modulePath: "crate::model",
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
@@ -1425,12 +1422,12 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 
 func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
 	input := `Link definitions should be added when collapsed links are used. 
-	For example, [google][].
-	Second [example][].
-	[Third] example.
-	[google]: https://www.google.com
-	[example]: https://www.example.com
-	[Third]: https://www.third.com`
+For example, [google][].
+Second [example][].
+[Third] example.
+[google]: https://www.google.com
+[example]: https://www.example.com
+[Third]: https://www.third.com`
 
 	want := []string{
 		"/// Link definitions should be added when collapsed links are used.",
@@ -1529,6 +1526,9 @@ blah blah https://cloud.google.com foo bar
 https://example4.com.
 https://example5.com https://cloud.google.com something else.
 [link definition]: https://example6.com/
+not a definition: https://example7.com/
+Quoted URL: "https://example8.com"
+Trailing Slash https://example9.com/
 http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html
 http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
@@ -1541,6 +1541,9 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		"/// <https://example4.com>.",
 		"/// <https://example5.com> <https://cloud.google.com> something else.",
 		"/// [link definition]: https://example6.com/",
+		"/// not a definition: <https://example7.com/>",
+		"/// Quoted URL: `https://example8.com`",
+		"/// Trailing Slash <https://example9.com/>",
 		"/// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>",
 		"/// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>",
@@ -1558,8 +1561,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		path:        "src/generated/iam/v1",
 	}
 	c := &rustCodec{
-		modulePath:    "model",
-		extraPackages: []*rustPackage{wkt, iam},
+		modulePath: "model",
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,

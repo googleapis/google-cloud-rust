@@ -744,7 +744,7 @@ impl wkt::message::Message for Interval {
 /// An object that represents a latitude/longitude pair. This is expressed as a
 /// pair of doubles to represent degrees latitude and degrees longitude. Unless
 /// specified otherwise, this must conform to the
-/// <a href="<http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf>">WGS84
+/// <a href=`http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf`>WGS84
 /// standard</a>. Values must be within normalized ranges.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
