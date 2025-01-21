@@ -44,6 +44,9 @@ type RustTemplateData struct {
 	NotForPublication bool
 	HasFeatures       bool
 	Features          []string
+	// When bootstrapping the well-known types crate the templates add some
+	// ad-hoc code.
+	IsWktCrate bool
 }
 
 type RustService struct {
@@ -201,6 +204,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		}),
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
+		IsWktCrate:        c.sourceSpecificationPackageName == "google.protobuf",
 	}
 	// Determine if any service has an LRO.
 	for _, s := range data.Services {
