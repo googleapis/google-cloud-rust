@@ -77,9 +77,9 @@ impl Locations {
     pub fn list_locations(
         &self,
         name: impl Into<String>,
-    ) -> crate::builders::ListLocations
+    ) -> crate::builders::locations::ListLocations
     {
-        crate::builders::ListLocations::new(self.inner.clone())
+        crate::builders::locations::ListLocations::new(self.inner.clone())
             .set_name ( name.into() )
     }
 
@@ -87,9 +87,9 @@ impl Locations {
     pub fn get_location(
         &self,
         name: impl Into<String>,
-    ) -> crate::builders::GetLocation
+    ) -> crate::builders::locations::GetLocation
     {
-        crate::builders::GetLocation::new(self.inner.clone())
+        crate::builders::locations::GetLocation::new(self.inner.clone())
             .set_name ( name.into() )
     }
 

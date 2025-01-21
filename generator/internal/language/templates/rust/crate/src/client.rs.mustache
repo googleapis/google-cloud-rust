@@ -161,8 +161,8 @@ impl {{NameToPascal}} {
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
-    /// [send()]: crate::builders::{{NameToPascal}}::send
-    /// [poller()]: crate::builders::{{NameToPascal}}::poller
+    /// [send()]: crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::send
+    /// [poller()]: crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::poller
     /// [until_done()]: lro::Poller::until_done
     /// [PollingPolicy]: gax::polling_policy::PollingPolicy
     /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
@@ -178,9 +178,9 @@ impl {{NameToPascal}} {
         {{#PathParams}}
         {{{NameToSnake}}}: impl Into<{{{PrimitiveFieldType}}}>,
         {{/PathParams}}
-    ) -> crate::builders::{{NameToPascal}}
+    ) -> crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}
     {
-        crate::builders::{{NameToPascal}}::new(self.inner.clone())
+        crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::new(self.inner.clone())
         {{#PathParams}}
             .set_{{NameToSnakeNoMangling}} ( {{NameToSnake}}.into() )
         {{/PathParams}}

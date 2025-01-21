@@ -100,9 +100,9 @@ impl IAMPolicy {
     pub fn set_iam_policy(
         &self,
         resource: impl Into<String>,
-    ) -> crate::builders::SetIamPolicy
+    ) -> crate::builders::iam_policy::SetIamPolicy
     {
-        crate::builders::SetIamPolicy::new(self.inner.clone())
+        crate::builders::iam_policy::SetIamPolicy::new(self.inner.clone())
             .set_resource ( resource.into() )
     }
 
@@ -112,9 +112,9 @@ impl IAMPolicy {
     pub fn get_iam_policy(
         &self,
         resource: impl Into<String>,
-    ) -> crate::builders::GetIamPolicy
+    ) -> crate::builders::iam_policy::GetIamPolicy
     {
-        crate::builders::GetIamPolicy::new(self.inner.clone())
+        crate::builders::iam_policy::GetIamPolicy::new(self.inner.clone())
             .set_resource ( resource.into() )
     }
 
@@ -128,9 +128,9 @@ impl IAMPolicy {
     pub fn test_iam_permissions(
         &self,
         resource: impl Into<String>,
-    ) -> crate::builders::TestIamPermissions
+    ) -> crate::builders::iam_policy::TestIamPermissions
     {
-        crate::builders::TestIamPermissions::new(self.inner.clone())
+        crate::builders::iam_policy::TestIamPermissions::new(self.inner.clone())
             .set_resource ( resource.into() )
     }
 

@@ -17,139 +17,139 @@ limitations under the License.
 {{#BoilerPlate}}
 //{{{.}}}
 {{/BoilerPlate}}
-{{#HasServices}}
-
-use crate::Result;
-use std::sync::Arc;
-{{/HasServices}}
 {{#Services}}
 
-/// Common implementation for [crate::client::{{NameToPascal}}] request builders.
-#[derive(Clone, Debug)]
-pub struct {{NameToPascal}}RequestBuilder<R: std::default::Default> {
-    stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
-    request: R,
-    options: gax::options::RequestOptions,
-}
+pub mod {{NameToSnake}} {
+    use crate::Result;
+    use std::sync::Arc;
 
-impl<R> {{NameToPascal}}RequestBuilder<R>
-where R: std::default::Default {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>) -> Self {
-        Self {
-            stub,
-            request: R::default(),
-            options: gax::options::RequestOptions::default(),
+    /// Common implementation for [crate::client::{{NameToPascal}}] request builders.
+    #[derive(Clone, Debug)]
+    pub struct RequestBuilder<R: std::default::Default> {
+        stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where R: std::default::Default {
+        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
         }
     }
-}
 
-{{#Methods}}
-/// The request builder for a {{ServiceNameToPascal}}::{{NameToSnake}} call.
-#[derive(Clone, Debug)]
-pub struct {{NameToPascal}}({{ServiceNameToPascal}}RequestBuilder<{{InputTypeName}}>);
+    {{#Methods}}
+    /// The request builder for a {{ServiceNameToPascal}}::{{NameToSnake}} call.
+    #[derive(Clone, Debug)]
+    pub struct {{NameToPascal}}(RequestBuilder<{{InputTypeName}}>);
 
-impl {{NameToPascal}} {
-    pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{ServiceNameToPascal}}>) -> Self {
-        Self(
-            {{ServiceNameToPascal}}RequestBuilder::new(stub)
-        )
-    }
+    impl {{NameToPascal}} {
+        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{ServiceNameToPascal}}>) -> Self {
+            Self(
+                RequestBuilder::new(stub)
+            )
+        }
 
-    /// Sets the full request, replacing any prior values.
-    pub fn with_request<V: Into<{{InputTypeName}}>>(mut self, v: V) -> Self {
-        self.0.request = v.into();
-        self
-    }
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<{{InputTypeName}}>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
 
-    /// Sets all the options, replacing any prior values.
-    pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
-        self.0.options = v.into();
-        self
-    }
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
 
-    /// Sends the request.
-    {{#OperationInfo}}
-    ///
-    /// # Long running operations
-    ///
-    /// This starts, but does not poll, a longrunning operation. More information
-    /// on [{{NameToSnake}}][crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
-    {{/OperationInfo}}
-    pub async fn send(self) -> Result<{{OutputTypeName}}> {
-        self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
-    }
-    {{#IsPageable}}
+        /// Sends the request.
+        {{#OperationInfo}}
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [{{NameToSnake}}][crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
+        {{/OperationInfo}}
+        pub async fn send(self) -> Result<{{OutputTypeName}}> {
+            self.0.stub.{{NameToSnake}}(self.0.request, self.0.options).await
+        }
+        {{#IsPageable}}
 
-    /// Streams the responses back.
-    #[cfg(feature = "unstable-stream")]
-    pub async fn stream(self) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
-        let token = gax::paginator::extract_token(&self.0.request.page_token);
-        let execute = move |token: String| {
-            let builder = self.clone();
-            builder.0.request.clone().set_page_token(token);
-            builder.send()
-        };
-        gax::paginator::Paginator::new(token, execute)
-    }
-    {{/IsPageable}}
-    {{#OperationInfo}}
+        /// Streams the responses back.
+        #[cfg(feature = "unstable-stream")]
+        pub async fn stream(self) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
+            let token = gax::paginator::extract_token(&self.0.request.page_token);
+            let execute = move |token: String| {
+                let builder = self.clone();
+                builder.0.request.clone().set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::Paginator::new(token, execute)
+        }
+        {{/IsPageable}}
+        {{#OperationInfo}}
 
-    /// Creates a [Poller][lro::Poller] to work with `{{NameToSnake}}`.
-    pub fn poller(
-        self
-    ) -> impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
-    {
-        type Operation = lro::Operation<{{ResponseType}}, {{MetadataType}}>;
-        let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
-        let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+        /// Creates a [Poller][lro::Poller] to work with `{{NameToSnake}}`.
+        pub fn poller(
+            self
+        ) -> impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
+        {
+            type Operation = lro::Operation<{{ResponseType}}, {{MetadataType}}>;
+            let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
-        let stub = self.0.stub.clone();
-        let mut options = self.0.options.clone();
-        options.set_retry_policy(gax::retry_policy::NeverRetry);
-        let query = move |name| {
-            let stub = stub.clone();
-            let options = options.clone();
-            async {
-                let op = crate::builders::GetOperation::new(stub)
-                    .set_name(name)
-                    .with_options(options)
-                    .send()
-                    .await?;
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
                 Ok(Operation::new(op))
-            }
-        };
+            };
 
-        let start = move || async {
-            let op = self.send().await?;
-            Ok(Operation::new(op))
-        };
+            lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        }
+        {{/OperationInfo}}
+        {{#InputType.BasicFields}}
 
-        lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        /// Sets the value of `{{NameToSnake}}`.
+        pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
+            self.0.request.{{NameToSnake}} = v.into();
+            self
+        }
+        {{/InputType.BasicFields}}
+        {{#InputType.ExplicitOneOfs}}
+
+        /// Sets the value of `{{NameToSnake}}`.
+        pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
+            self.0.request.{{NameToSnake}} = v.into();
+            self
+        }
+        {{/InputType.ExplicitOneOfs}}
     }
-    {{/OperationInfo}}
-    {{#InputType.BasicFields}}
 
-    /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
-        self.0.request.{{NameToSnake}} = v.into();
-        self
+    impl gax::options::RequestBuilder for {{NameToPascal}} {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
     }
-    {{/InputType.BasicFields}}
-    {{#InputType.ExplicitOneOfs}}
 
-    /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
-        self.0.request.{{NameToSnake}} = v.into();
-        self
-    }
-    {{/InputType.ExplicitOneOfs}}
+    {{/Methods}}
 }
-
-impl gax::options::RequestBuilder for {{NameToPascal}} {
-    fn request_options(&mut self) -> &mut gax::options::RequestOptions {
-        &mut self.0.options
-    }
-}
-
-{{/Methods}}
 {{/Services}}
