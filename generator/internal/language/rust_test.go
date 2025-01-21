@@ -1160,6 +1160,20 @@ func TestRust_ToSnake(t *testing.T) {
 	}
 }
 
+func TestRust_ToScreamingSnake(t *testing.T) {
+	var snakeConvertTests = []rustCaseConvertTest{
+		{"FooBar", "FOO_BAR"},
+		{"FOO_BAR", "FOO_BAR"},
+		{"week5", "WEEK_5"},
+		{"TYPE_INT64", "TYPE_INT64"},
+	}
+	for _, test := range snakeConvertTests {
+		if output := rustToScreamingSnake(test.Input); output != test.Expected {
+			t.Errorf("Output %q not equal to expected %q, input=%s", output, test.Expected, test.Input)
+		}
+	}
+}
+
 func TestRust_ToPascal(t *testing.T) {
 	var pascalConvertTests = []rustCaseConvertTest{
 		{"foo_bar", "FooBar"},

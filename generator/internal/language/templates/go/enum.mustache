@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 
-type {{Name}} int32
+type {{Codec.Name}} int32
 
 const (
     {{#Values}}
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     // {{{.}}}
-    {{/DocLines}}
-    {{Name}} {{EnumType}} = {{Number}}
+    {{/Codec.DocLines}}
+    {{Codec.Name}} {{Codec.EnumType}} = {{Number}}
     {{/Values}}
 )

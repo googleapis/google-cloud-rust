@@ -14,13 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 
-{{#DocLines}}
+{{#Codec.DocLines}}
 {{{.}}}
-{{/DocLines}}
+{{/Codec.DocLines}}
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct {{Name}}(std::string::String);
+pub struct {{Codec.Name}}(std::string::String);
 
-impl {{Name}} {
+impl {{Codec.Name}} {
     /// Sets the enum value.
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.0 = v.into();
@@ -33,13 +33,13 @@ impl {{Name}} {
     }
 }
 
-/// Useful constants to work with [{{Name}}]({{Name}})
-pub mod {{NameSnakeCase}} {
+/// Useful constants to work with [{{Codec.Name}}]({{Codec.Name}})
+pub mod {{Codec.ModuleName}} {
     {{#Values}}
 
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     {{{.}}}
-    {{/DocLines}}
-    pub const {{Name}}: &str = "{{Name}}";
+    {{/Codec.DocLines}}
+    pub const {{Codec.Name}}: &str = "{{Name}}";
     {{/Values}}
 }
