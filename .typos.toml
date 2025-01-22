@@ -32,3 +32,5 @@ advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
 # The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
+# src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
+corresponsing = "corresponsing"
