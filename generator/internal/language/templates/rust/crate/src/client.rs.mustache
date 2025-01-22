@@ -176,13 +176,13 @@ impl {{NameToPascal}} {
     pub fn {{NameToSnake}}(
         &self,
         {{#PathParams}}
-        {{{NameToSnake}}}: impl Into<{{{PrimitiveFieldType}}}>,
+        {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
         {{/PathParams}}
     ) -> crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}
     {
         crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::new(self.inner.clone())
         {{#PathParams}}
-            .set_{{NameToSnakeNoMangling}} ( {{NameToSnake}}.into() )
+            .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
         {{/PathParams}}
     }
 

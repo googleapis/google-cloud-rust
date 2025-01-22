@@ -128,17 +128,17 @@ pub mod {{NameToSnake}} {
         {{/OperationInfo}}
         {{#InputType.BasicFields}}
 
-        /// Sets the value of `{{NameToSnake}}`.
-        pub fn set_{{NameToSnakeNoMangling}}<T: Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
-            self.0.request.{{NameToSnake}} = v.into();
+        /// Sets the value of `{{Codec.FieldName}}`.
+        pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
+            self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
         {{/InputType.BasicFields}}
         {{#InputType.ExplicitOneOfs}}
 
-        /// Sets the value of `{{NameToSnake}}`.
-        pub fn set_{{NameToSnakeNoMangling}}<T: Into<Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
-            self.0.request.{{NameToSnake}} = v.into();
+        /// Sets the value of `{{Codec.FieldName}}`.
+        pub fn set_{{Codec.SetterName}}<T: Into<Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
+            self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
         {{/InputType.ExplicitOneOfs}}

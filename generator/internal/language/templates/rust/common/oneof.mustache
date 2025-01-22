@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 
-{{#DocLines}}
+{{#Codec.DocLines}}
 {{{.}}}
-{{/DocLines}}
+{{/Codec.DocLines}}
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
-pub enum {{NameToPascal}} {
+pub enum {{Codec.EnumName}} {
     {{#Fields}}
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     {{{.}}}
-    {{/DocLines}}
-    {{NameToPascal}}{{{FieldType}}},
+    {{/Codec.DocLines}}
+    {{Codec.BranchName}}{{{Codec.FieldType}}},
     {{/Fields}}
 }
