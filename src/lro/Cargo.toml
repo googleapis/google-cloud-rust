@@ -41,5 +41,5 @@ auth       = { path = "../auth", package = "gcp-sdk-auth" }
 lro        = { path = ".", package = "gcp-sdk-lro", features = ["unstable-stream"] }
 axum       = "0.8.1"
 tokio      = { version = "1.42", features = ["test-util"] }
-serde_json = "1.0.134"
+serde_json = "1"
 reqwest    = "0.12.11"
