@@ -219,6 +219,12 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		NotForPublication: c.doNotPublish,
 		IsWktCrate:        c.sourceSpecificationPackageName == "google.protobuf",
 	}
+	// Services without methods create a lot of warnings in Rust. The dead code
+	// analysis is extremely good, and can determine that several types and
+	// member variables are going unused.
+	data.Services = filterSlice(data.Services, func(s *RustService) bool {
+		return len(s.Methods) > 0
+	})
 	// Determine if any service has an LRO.
 	for _, s := range data.Services {
 		if s.HasLROs {
