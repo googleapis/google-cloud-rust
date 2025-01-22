@@ -28,6 +28,7 @@ members = [
   "src/generated/cloud/translate/v3",
   "src/generated/cloud/webrisk/v1",
   "src/generated/cloud/workflows/v1",
+  "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/iam/v1",
   "src/generated/longrunning",
