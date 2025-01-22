@@ -186,7 +186,7 @@ func checkRustPackages(t *testing.T, got *rustCodec, want *rustCodec) {
 }
 
 func TestRust_Validate(t *testing.T) {
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -196,7 +196,7 @@ func TestRust_Validate(t *testing.T) {
 }
 
 func TestRust_ValidateMessageMismatch(t *testing.T) {
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -205,7 +205,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -214,7 +214,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
@@ -225,7 +225,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 }
 
 func TestWellKnownTypesExist(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := model.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
@@ -239,7 +239,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 		Name: "TestService",
 		ID:   ".test.Service",
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
@@ -273,7 +273,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 }
 
 func TestUsedByServicesNoServices(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c, err := newRustCodec(map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
@@ -315,7 +315,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
@@ -358,7 +358,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
@@ -396,7 +396,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 	codec := &rustCodec{
 		extraPackages: []*rustPackage{},
 	}
-	model := newTestAPI([]*api.Message{
+	model := api.NewTestAPI([]*api.Message{
 		{Name: "CreateResource", IsPageableResponse: false},
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
@@ -465,7 +465,7 @@ func TestRust_StreamingFeature(t *testing.T) {
 func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 	t.Helper()
 
-	model := newTestAPI([]*api.Message{
+	model := api.NewTestAPI([]*api.Message{
 		{Name: "ListResources", IsPageableResponse: true},
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
@@ -482,7 +482,7 @@ func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 }
 
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
 
@@ -503,7 +503,7 @@ func TestRust_MethodInOut(t *testing.T) {
 		ID:     "..Target.Nested",
 		Parent: message,
 	}
-	model := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
 
@@ -592,7 +592,7 @@ func TestRust_FieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -725,7 +725,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -797,7 +797,7 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
@@ -843,7 +843,7 @@ func TestRust_FieldLossyName(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"data": `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" +
@@ -893,7 +893,7 @@ func TestRust_SyntheticField(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"updateMask":  `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -988,7 +988,7 @@ func TestRust_FieldType(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedTypes := map[string]string{
 		"f_int32":              "i32",
@@ -1109,7 +1109,7 @@ func TestRust_AsQueryParameter(t *testing.T) {
 			requiredFieldMaskField, optionalFieldMaskField,
 		},
 	}
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{options, request},
 		[]*api.Enum{},
 		[]*api.Service{})
@@ -1233,7 +1233,7 @@ Maybe they wanted to show some JSON:
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1259,7 +1259,7 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1335,7 +1335,7 @@ block:
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1356,7 +1356,7 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1453,7 +1453,7 @@ Second [example][].
 		"/// [Third]: https://www.third.com",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1513,7 +1513,7 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
 		},
 	}
-	a := newTestAPI(
+	a := api.NewTestAPI(
 		[]*api.Message{someMessage},
 		[]*api.Enum{someEnum},
 		[]*api.Service{someService})
@@ -1615,7 +1615,7 @@ func TestRust_MessageNames(t *testing.T) {
 		Package: "test",
 	}
 
-	model := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	model.PackageName = "test"
 
 	c := createRustCodec()
@@ -1665,7 +1665,7 @@ func TestRust_EnumNames(t *testing.T) {
 		Package: "test",
 	}
 
-	model := newTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
 	model.PackageName = "test"
 	c := createRustCodec()
 	c.sourceSpecificationPackageName = model.Messages[0].Package
@@ -1766,7 +1766,7 @@ func Test_RustPathArgs(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
 
 	for _, test := range []struct {
 		want     []string
