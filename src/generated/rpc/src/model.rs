@@ -248,8 +248,8 @@ pub mod quota_failure {
     #[non_exhaustive]
     pub struct Violation {
         /// The subject on which the quota check failed.
-        /// For example, "clientip:<ip address of client>" or "project:<Google
-        /// developer project id>".
+        /// For example, "clientip:&lt;ip address of client&gt;" or "project:&lt;Google
+        /// developer project id&gt;".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub subject: std::string::String,
 
@@ -579,8 +579,8 @@ pub struct ResourceInfo {
     pub resource_name: std::string::String,
 
     /// The owner of the resource (optional).
-    /// For example, "user:<owner email>" or "project:<Google developer project
-    /// id>".
+    /// For example, "user:&lt;owner email&gt;" or "project:&lt;Google developer project
+    /// id&gt;".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub owner: std::string::String,
 

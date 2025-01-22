@@ -45,6 +45,8 @@
 ///   }
 /// }
 /// ```
+///
+/// clientip:<ip address of client> foo:<bar>
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(rename_all = "camelCase")]

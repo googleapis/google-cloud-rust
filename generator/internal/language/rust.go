@@ -17,6 +17,7 @@ package language
 import (
 	"embed"
 	"fmt"
+	"html"
 	"log/slog"
 	"path"
 	"regexp"
@@ -848,7 +849,6 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				headingPrefix := strings.Repeat("#", heading.Level)
 				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.BaseBlock.Lines().Value(documentationBytes))))
 				results = append(results, "\n")
-
 			}
 		}
 		return ast.WalkContinue, nil
@@ -884,6 +884,40 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
+// func handleHTMLTags(line string) string {
+// Regex to match <...> patterns excluding URLs and HTML tags
+// re := regexp.MustCompile(`(?i)<\/?[a-z][^>]*>`)
+// re := regexp.MustCompile(`(?s)(?m)(<?[^>]+>?)`)
+
+// // Function to filter matches and escape angle brackets
+// replaceFunc := func(match string) string {
+// 	// Check if the match is a valid HTML tag or URL
+// 	if strings.HasPrefix(match, "<http") ||
+// 		strings.HasPrefix(match, "<a ") ||
+// 		strings.HasPrefix(match, "</a>") ||
+// 		strings.HasPrefix(match, "<p>") ||
+// 		strings.HasPrefix(match, "</p>") {
+// 		return match // Keep valid HTML tags and URLs unchanged
+// 	}
+// 	if match == "<" || match == ">" {
+// 		return match
+// 	}
+
+// return html.EscapeString(match)
+
+// Escape angle brackets for other matches
+// return regexp.MustCompile(`<`).ReplaceAllString(
+// 	regexp.MustCompile(`>`).ReplaceAllString(match, "&gt;"),
+// 	"&lt;",
+// )
+// }
+
+// Apply the replacement
+// result := re.ReplaceAllStringFunc(line, replaceFunc)
+
+// return result
+// }
+
 // Encloses standalone URLs with angled brackets.
 func escapeUrls(line string) string {
 	var escapedLine strings.Builder
@@ -900,6 +934,7 @@ func escapeUrls(line string) string {
 		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
 		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
 			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
+			fmt.Println(escapedLine)
 			escapedLine.WriteString(line[lastIndex:match[1]])
 		} else {
 			escapedLine.WriteString(line[lastIndex:match[0]])
@@ -994,20 +1029,46 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
+	escapedHTMLTags := fetchHTMLTags(node, documentationBytes)
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
-		results = append(results, escapeUrls(lineString))
+
+		results = append(results, escapeUrls(escapeHTMLTags(escapedHTMLTags, lineString)))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
+
 	if len(allLinkDefinitions) > 0 {
 		results = append(results, "\n")
 		results = append(results, allLinkDefinitions...)
 	}
 	results = append(results, "\n")
 	return results
+}
+
+func fetchHTMLTags(node ast.Node, documentationBytes []byte) map[string]string {
+	htmlMapping := make(map[string]string)
+	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
+		if c.Kind() == ast.KindRawHTML {
+			rawHTML := c.(*ast.RawHTML)
+			for i := 0; i < rawHTML.Segments.Len(); i++ {
+				segment := rawHTML.Segments.At(i)
+				original := string(segment.Value(documentationBytes))
+				htmlMapping[original] = html.EscapeString(original)
+			}
+		}
+	}
+	return htmlMapping
+}
+
+func escapeHTMLTags(htmlTags map[string]string, line string) string {
+	processed := line
+	for tag := range htmlTags {
+		processed = strings.ReplaceAll(processed, tag, htmlTags[tag])
+	}
+	return processed
 }
 
 func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte) []string {
@@ -1035,6 +1096,7 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 				}
 			}
 		}
+
 	}
 	return linkDefinitions
 }
