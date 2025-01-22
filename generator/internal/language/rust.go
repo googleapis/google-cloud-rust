@@ -994,13 +994,13 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
-	escapedHTMLTags := fetchHTMLTags(node, documentationBytes)
+	htmlTags := fetchHTMLTags(node, documentationBytes)
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
 
-		results = append(results, escapeUrls(escapeHTMLTags(escapedHTMLTags, lineString)))
+		results = append(results, escapeUrls(escapeHTMLTags(htmlTags, lineString)))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
