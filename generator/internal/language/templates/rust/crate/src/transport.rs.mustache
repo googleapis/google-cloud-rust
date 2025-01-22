@@ -54,13 +54,23 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         req: {{InputTypeName}},
         options: gax::options::RequestOptions,
     ) -> Result<{{OutputTypeName}}> {
-        let options = options.set_default_idempotency(reqwest::Method::{{HTTPMethod}}.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::{{HTTPMethod}}, format!("{{HTTPPathFmt}}"
-               {{#HTTPPathArgs}}
-               , {{{.}}}
-               {{/HTTPPathArgs}}
-            ))
+        let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::{{PathInfo.Codec.Method}},
+                {{^PathInfo.Codec.HasPathArgs}}
+                {{! Sometimes there are no path args and `format!()` produces warnings }}
+                "{{PathInfo.Codec.PathFmt}}".to_string()
+                {{/PathInfo.Codec.HasPathArgs}}
+                {{#PathInfo.Codec.HasPathArgs}}
+                format!("{{PathInfo.Codec.PathFmt}}"
+                    {{#PathInfo.Codec.PathArgs}}
+                        , req{{{.}}}
+                    {{/PathInfo.Codec.PathArgs}}
+                )
+                {{/PathInfo.Codec.HasPathArgs}}
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         {{#QueryParams}}
@@ -68,7 +78,8 @@ impl crate::traits::{{NameToPascal}} for {{NameToPascal}} {
         {{/QueryParams}}
         self.inner.execute(
             builder,
-            {{#HasBody}}Some(req{{BodyAccessor}}){{/HasBody}}{{^HasBody}}None::<gax::http_client::NoBody>{{/HasBody}},
+            {{#PathInfo.Codec.HasBody}}Some(req{{BodyAccessor}}){{/PathInfo.Codec.HasBody}}
+            {{^PathInfo.Codec.HasBody}}None::<gax::http_client::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await
     }

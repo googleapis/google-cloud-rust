@@ -115,8 +115,9 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(&req.database, "database")
-                        .map_err(Error::other)?
+                    req.database
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("database"))?
                         .name
                 ),
             )
@@ -334,8 +335,9 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(&req.backup, "backup")
-                        .map_err(Error::other)?
+                    req.backup
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("backup"))?
                         .name
                 ),
             )
@@ -546,12 +548,10 @@ impl crate::traits::DatabaseAdmin for DatabaseAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(
-                        &req.backup_schedule,
-                        "backup_schedule"
-                    )
-                    .map_err(Error::other)?
-                    .name
+                    req.backup_schedule
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("backup_schedule"))?
+                        .name
                 ),
             )
             .query(&[("alt", "json")])
