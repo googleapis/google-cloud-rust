@@ -36,4 +36,4 @@ requestor = "requestor"
 corresponsing = "corresponsing"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
-revison = "revison"
+revison     = "revison"
