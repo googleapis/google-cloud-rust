@@ -35,7 +35,7 @@ longrunning = { version = "0.1.0", path = "../../../../../src/generated/longrunn
 lro        = { version = "0.0.0", path = "../../../../../src/lro", package = "gcp-sdk-lro" }
 reqwest    = { version = "0.12.12", features = ["json"] }
 serde      = { version = "1.0.216", features = ["serde_derive"] }
-serde_json = { version = "1.0.134" }
+serde_json = { version = "1" }
 serde_with = { version = "3.12.0", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1.41" }
 wkt        = { version = "0.1.0", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
