@@ -706,6 +706,23 @@ name = "gcp-sdk-common"
 version = "0.0.0"
 
 [[package]]
+name = "gcp-sdk-devtools-cloudtrace-v2"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-gax"
 version = "0.1.0"
 dependencies = [
