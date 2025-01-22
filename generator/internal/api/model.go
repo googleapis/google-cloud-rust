@@ -144,6 +144,8 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized long running operation info

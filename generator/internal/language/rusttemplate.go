@@ -92,13 +92,9 @@ type RustMethod struct {
 	DocLines            []string
 	InputTypeName       string
 	OutputTypeName      string
-	HTTPMethod          string
-	HTTPMethodToLower   string
-	HTTPPathFmt         string
-	HTTPPathArgs        []string
+	PathInfo            *api.PathInfo
 	PathParams          []*api.Field
 	QueryParams         []*api.Field
-	HasBody             bool
 	BodyAccessor        string
 	IsPageable          bool
 	ServiceNameToPascal string
@@ -107,6 +103,15 @@ type RustMethod struct {
 	InputTypeID         string
 	InputType           *RustMessage
 	OperationInfo       *RustOperationInfo
+}
+
+type rustPathInfoAnnotation struct {
+	Method        string
+	MethodToLower string
+	PathFmt       string
+	PathArgs      []string
+	HasPathArgs   bool
+	HasBody       bool
 }
 
 type RustOperationInfo struct {
@@ -333,14 +338,20 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 }
 
 func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustMethod {
+	pathInfoAnnotation := &rustPathInfoAnnotation{
+		Method:        m.PathInfo.Verb,
+		MethodToLower: strings.ToLower(m.PathInfo.Verb),
+		PathFmt:       rustHTTPPathFmt(m.PathInfo),
+		PathArgs:      rustHTTPPathArgs(m.PathInfo, m, state),
+		HasBody:       m.PathInfo.BodyFieldPath != "",
+	}
+	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
+
+	m.PathInfo.Codec = pathInfoAnnotation
 	method := &RustMethod{
 		BodyAccessor:        rustBodyAccessor(m),
 		DocLines:            rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		HTTPMethod:          m.PathInfo.Verb,
-		HTTPMethodToLower:   strings.ToLower(m.PathInfo.Verb),
-		HTTPPathArgs:        rustHTTPPathArgs(m.PathInfo),
-		HTTPPathFmt:         rustHTTPPathFmt(m.PathInfo),
-		HasBody:             m.PathInfo.BodyFieldPath != "",
+		PathInfo:            m.PathInfo,
 		InputTypeName:       rustMethodInOutTypeName(m.InputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		NameToCamel:         strcase.ToCamel(m.Name),
 		NameToPascal:        rustToPascal(m.Name),

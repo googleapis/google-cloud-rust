@@ -695,54 +695,62 @@ func rustHTTPPathFmt(m *api.PathInfo) string {
 	return fmt
 }
 
-// Returns a Rust expression to access (and if needed validatre) each path parameter.
-//
-// In most cases the parameter is a simple string in the form `name`. In those
-// cases the field *must* be a thing that can be formatted to a string, and
-// a simple "req.name" expression will work file.
-//
-// In some cases the parameter is a sequence of `.` separated fields, in the
-// form: `field0.field1 ... .fieldN`. In that case each field from `field0` to
-// `fieldN-1` must be optional (they are all messages), and each must be
-// validated.
-//
-// We use the `gax::path_parameter::PathParameter::required()` helper to perform
-// this validation. This function recursively creates an expression, the
-// recursion starts with
-//
-// ```rust
-// use gax::path_parameter::PathParameter as PP;
-// PP::required(&req.field0)?.field1
-// ```
-//
-// And then builds up:
-//
-// ```rust
-// use gax::path_parameter::PathParameter as PP;
-// PP::required(PP::required(&req.field0)?.field1)?.field2
-// ```
-//
-// and so on.
-func rustUnwrapFieldPath(components []string, requestAccess string) (string, string) {
-	if len(components) == 1 {
-		return requestAccess + "." + rustToSnake(components[0]), components[0]
+func rustDerefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
+	const (
+		optionalFmt = `.%s.as_ref().ok_or_else(|| gax::path_parameter::missing("%s"))?`
+	)
+	if optional {
+		return fmt.Sprintf(optionalFmt, name, name), nextMessage
 	}
-	unwrap, name := rustUnwrapFieldPath(components[0:len(components)-1], "&req")
-	last := components[len(components)-1]
-	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\").map_err(Error::other)?.%s", unwrap, name, last), ""
+	return fmt.Sprintf(`.%s`, name), nextMessage
 }
 
-func rustDerefFieldPath(fieldPath string) string {
+func rustDerefFieldSingle(name string, message *api.Message, state *api.APIState) (string, *api.Message) {
+	for _, field := range message.Fields {
+		if name != field.Name {
+			continue
+		}
+		if field.Typez == api.MESSAGE_TYPE {
+			if nextMessage, ok := state.MessageByID[field.TypezID]; ok {
+				return rustDerefFieldExpr(name, field.Optional, nextMessage)
+			}
+			slog.Error("cannot find next message for field", "currentMessage", message, "fieldName", name)
+			return rustDerefFieldExpr(name, field.Optional, nil)
+		}
+		if field.Typez == api.ENUM_TYPE {
+			expr, nextMessage := rustDerefFieldExpr(name, field.Optional, nil)
+			return expr + ".value()", nextMessage
+		}
+		return rustDerefFieldExpr(name, field.Optional, nil)
+	}
+	return "", nil
+}
+
+func rustDerefFieldPath(fieldPath string, message *api.Message, state *api.APIState) string {
+	var expression strings.Builder
 	components := strings.Split(fieldPath, ".")
-	unwrap, _ := rustUnwrapFieldPath(components, "req")
-	return unwrap
+	msg := message
+	for _, name := range components {
+		if msg == nil {
+			slog.Error("cannot build full expression", "fieldPath", fieldPath, "message", msg)
+		}
+		expr, nextMessage := rustDerefFieldSingle(name, msg, state)
+		expression.WriteString(expr)
+		msg = nextMessage
+	}
+	return expression.String()
 }
 
-func rustHTTPPathArgs(h *api.PathInfo) []string {
+func rustHTTPPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []string {
+	message, ok := state.MessageByID[method.InputTypeID]
+	if !ok {
+		slog.Error("cannot find input message for", "method", method)
+		return []string{}
+	}
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, rustDerefFieldPath(*arg.FieldPath))
+			args = append(args, rustDerefFieldPath(*arg.FieldPath, message, state))
 		}
 	}
 	return args

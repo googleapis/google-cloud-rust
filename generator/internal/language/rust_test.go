@@ -1673,3 +1673,190 @@ func TestRust_EnumNames(t *testing.T) {
 		}
 	}
 }
+
+func Test_RustPathFmt(t *testing.T) {
+	for _, test := range []struct {
+		want     string
+		pathInfo *api.PathInfo
+	}{
+		{
+			"/v1/fixed",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")},
+			},
+		},
+		{
+			"/v1/{}",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")},
+			},
+		},
+		{
+			"/v1/{}:action",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")},
+			},
+		},
+		{
+			"/v1/projects/{}/locations/{}/secrets/{}:action",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewLiteralPathSegment("projects"),
+					api.NewFieldPathPathSegment("project"),
+					api.NewLiteralPathSegment("locations"),
+					api.NewFieldPathPathSegment("location"),
+					api.NewLiteralPathSegment("secrets"),
+					api.NewFieldPathPathSegment("secret"),
+					api.NewVerbPathSegment("action"),
+				},
+			},
+		},
+	} {
+		got := rustHTTPPathFmt(test.pathInfo)
+		if test.want != got {
+			t.Errorf("mismatched path info fmt for %v\nwant=%s\n got=%s", test.pathInfo, test.want, got)
+		}
+	}
+
+}
+
+func Test_RustPathArgs(t *testing.T) {
+	subMessage := &api.Message{
+		Name: "Body",
+		ID:   ".test.Body",
+		Fields: []*api.Field{
+			{Name: "a", Typez: api.STRING_TYPE},
+			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "c", Typez: api.ENUM_TYPE},
+			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
+		},
+	}
+	message := &api.Message{
+		Name: "CreateResourceRequest",
+		ID:   ".test.CreateResourceRequest",
+		Fields: []*api.Field{
+			{Name: "a", Typez: api.STRING_TYPE},
+			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "c", Typez: api.ENUM_TYPE},
+			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
+			{Name: "e", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
+		},
+	}
+	method := &api.Method{
+		Name:        "CreateResource",
+		InputTypeID: ".test.CreateResourceRequest",
+	}
+	service := &api.Service{
+		Name:    "TestService",
+		ID:      ".test.Service",
+		Methods: []*api.Method{method},
+	}
+	model := newTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
+
+	for _, test := range []struct {
+		want     []string
+		pathInfo *api.PathInfo
+	}{
+		{
+			nil,
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+				},
+			},
+		},
+		{
+			[]string{".a"},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("a")},
+			},
+		},
+		{
+			[]string{`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("b"),
+				},
+			},
+		},
+		{
+			[]string{`.c.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("c"),
+				},
+			},
+		},
+		{
+			[]string{`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("d"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?.a`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.a"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.b"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.c.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.c"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?` +
+				`.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.d"),
+				},
+			},
+		},
+		{
+			[]string{".a", `.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("a"),
+					api.NewFieldPathPathSegment("b"),
+				},
+			},
+		},
+	} {
+		// Modify the method to match the test case.
+		method.PathInfo = test.pathInfo
+		got := rustHTTPPathArgs(test.pathInfo, method, model.State)
+		if diff := cmp.Diff(test.want, got); diff != "" {
+			t.Errorf("mismatched path info args (-want, +got):\n%s", diff)
+		}
+	}
+}
