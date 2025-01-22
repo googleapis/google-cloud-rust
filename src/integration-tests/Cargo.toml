@@ -34,7 +34,7 @@ bytes              = "1.8.0"
 crc32c             = "0.6.8"
 futures            = "0.3.31"
 rand               = "0.8.5"
-serde_json         = "1.0.134"
+serde_json         = "1.0.137"
 tokio              = { version = "1.42", features = ["full", "macros"] }
 tracing            = "0.1.41"
 tracing-subscriber = "0.3.19"
