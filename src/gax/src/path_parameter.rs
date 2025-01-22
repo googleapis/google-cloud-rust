@@ -41,6 +41,10 @@ pub enum Error {
     MissingRequiredParameter(String),
 }
 
+pub fn missing(name: &str) -> crate::error::Error {
+    crate::error::Error::other(Error::MissingRequiredParameter(name.to_string()))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
