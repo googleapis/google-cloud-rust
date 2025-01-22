@@ -660,9 +660,9 @@ func rustFQEnumName(e *api.Enum, modulePath, sourceSpecificationPackageName stri
 }
 
 func rustEnumValueName(e *api.EnumValue) string {
-	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, we do not
-	// need to change anything for Rust
-	return rustEscapeKeyword(e.Name)
+	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, but
+	// sometimes it is not followed.
+	return rustEscapeKeyword(rustToScreamingSnake(e.Name))
 }
 
 func rustFQEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
@@ -793,6 +793,15 @@ func rustToPascal(symbol string) string {
 
 func rustToCamel(symbol string) string {
 	return rustEscapeKeyword(strcase.ToLowerCamel(symbol))
+}
+
+// Convert a name to `SCREAMING_SNAKE_CASE`. The Rust naming conventions use
+// this style for constants.
+func rustToScreamingSnake(symbol string) string {
+	if strings.ToUpper(symbol) == symbol {
+		return symbol
+	}
+	return strcase.ToScreamingSnake(symbol)
 }
 
 // Blockquotes require special treatment for Rust. By default, Rust assumes

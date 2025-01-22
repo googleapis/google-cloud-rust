@@ -244,6 +244,8 @@ type Enum struct {
 	Parent *Message
 	// The Protobuf package this enum belongs to.
 	Package string
+	// Language specific annotations.
+	Codec any
 }
 
 // EnumValue defines a value in an Enum.
@@ -258,6 +260,8 @@ type EnumValue struct {
 	Number int32
 	// Parent returns the ancestor of this node, if any.
 	Parent *Enum
+	// Language specific annotations.
+	Codec any
 }
 
 // Field defines a field in a Message.

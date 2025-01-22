@@ -53,6 +53,9 @@ func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Serv
 			e.Parent = parent
 			parent.Enums = append(parent.Enums, e)
 		}
+		for _, ev := range e.Values {
+			ev.Parent = e
+		}
 	}
 
 	return &api.API{

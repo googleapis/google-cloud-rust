@@ -131,10 +131,16 @@ func goEnumName(e *api.Enum, importMap map[string]*goImport) string {
 }
 
 func goEnumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
-	if e.Parent.Parent != nil {
-		return goMessageName(e.Parent.Parent, importMap) + "_" + strings.ToUpper(e.Name)
+	var name string
+	if strings.ToUpper(e.Name) == e.Name {
+		name = e.Name
+	} else {
+		name = strcase.ToScreamingSnake(e.Name)
 	}
-	return strings.ToUpper(e.Name)
+	if e.Parent.Parent != nil {
+		return goMessageName(e.Parent.Parent, importMap) + "_" + name
+	}
+	return name
 }
 
 func goBodyAccessor(m *api.Method) string {

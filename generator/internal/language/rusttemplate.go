@@ -39,7 +39,7 @@ type RustTemplateData struct {
 	DefaultHost       string
 	Services          []*RustService
 	Messages          []*RustMessage
-	Enums             []*RustEnum
+	Enums             []*api.Enum
 	NameToLower       string
 	NotForPublication bool
 	HasFeatures       bool
@@ -67,7 +67,7 @@ type RustMessage struct {
 	BasicFields        []*api.Field
 	ExplicitOneOfs     []*api.OneOf
 	NestedMessages     []*RustMessage
-	Enums              []*RustEnum
+	Enums              []*api.Enum
 	MessageAttributes  []string
 	Name               string
 	QualifiedName      string
@@ -157,18 +157,16 @@ type RustFieldAnnotations struct {
 	AddQueryParameter  string
 }
 
-type RustEnum struct {
-	Name          string
-	NameSnakeCase string
-	DocLines      []string
-	Values        []*RustEnumValue
+type rustEnumAnnotation struct {
+	Name       string
+	ModuleName string
+	DocLines   []string
 }
 
-type RustEnumValue struct {
-	DocLines []string
+type rustEnumValueAnnotation struct {
 	Name     string
-	Number   int32
 	EnumType string
+	DocLines []string
 }
 
 // newRustTemplateData creates a struct used as input for Mustache templates.
@@ -189,8 +187,12 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		return nil, err
 	}
+
 	rustLoadWellKnownTypes(model.State)
 	rustResolveUsedPackages(model, c.extraPackages)
+	for _, e := range model.State.EnumByID {
+		rustAnnotateEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	}
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	data := &RustTemplateData{
@@ -217,9 +219,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		Messages: mapSlice(model.Messages, func(m *api.Message) *RustMessage {
 			return newRustMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 		}),
-		Enums: mapSlice(model.Enums, func(e *api.Enum) *RustEnum {
-			return newRustEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-		}),
+		Enums:             model.Enums,
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
 		IsWktCrate:        c.sourceSpecificationPackageName == "google.protobuf",
@@ -309,9 +309,7 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *RustMessage {
 			return newRustMessage(s, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 		}),
-		Enums: mapSlice(m.Enums, func(s *api.Enum) *RustEnum {
-			return newRustEnum(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
+		Enums:             m.Enums,
 		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
 		Name:              rustToPascal(m.Name),
 		QualifiedName:     rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
@@ -407,22 +405,21 @@ func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpeci
 	return field
 }
 
-func newRustEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustEnum {
-	return &RustEnum{
-		Name:          rustToPascal(e.Name),
-		NameSnakeCase: rustToSnake(rustEnumName(e)),
-		DocLines:      rustFormatDocComments(e.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		Values: mapSlice(e.Values, func(s *api.EnumValue) *RustEnumValue {
-			return newRustEnumValue(s, e, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
+func rustAnnotateEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	for _, ev := range e.Values {
+		rustAnnotateEnumValue(ev, e, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	}
+	e.Codec = &rustEnumAnnotation{
+		Name:       rustEnumName(e),
+		ModuleName: rustToSnake(rustEnumName(e)),
+		DocLines:   rustFormatDocComments(e.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 	}
 }
 
-func newRustEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustEnumValue {
-	return &RustEnumValue{
+func rustAnnotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	ev.Codec = &rustEnumValueAnnotation{
 		DocLines: rustFormatDocComments(ev.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		Name:     rustEnumValueName(ev),
-		Number:   ev.Number,
 		EnumType: rustEnumName(e),
 	}
 }
