@@ -65,9 +65,9 @@ var commentLinkRegex = regexp.MustCompile(
 var commentUrlRegex = regexp.MustCompile(
 	`` + // `go fmt` is annoying
 		`https?://` + // Accept either https or http.
-		`([A-Za-z0-9\.]+\.)+` + // Be generous in accepting most of the authority (hostname)
+		`([A-Za-z0-9\.\-]+\.)+` + // Be generous in accepting most of the authority (hostname)
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
-		`([-a-zA-Z0-9@:%_\+.~#?&/=]+)?`) // Accept just about anything on the query and URL fragments
+		`(/[-a-zA-Z0-9@:%_\+.~#?&/=]*)?`) // Accept just about anything on the query and URL fragments
 
 func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -787,9 +787,6 @@ func rustToCamel(symbol string) string {
 	return rustEscapeKeyword(strcase.ToLowerCamel(symbol))
 }
 
-// TODO(#92) - protect all quotes with `norust`
-// TODO(#30) - convert protobuf links to Rusty links.
-//
 // Blockquotes require special treatment for Rust. By default, Rust assumes
 // blockquotes contain compilable Rust code samples. To override the default
 // the blockquote must be marked with "```norust". The proto comments have
@@ -896,11 +893,22 @@ func escapeUrls(line string) string {
 			continue
 		}
 		url := line[match[0]:match[1]]
+		prefix := line[:match[0]]
+		suffix := line[match[1]:]
 
-		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
-		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
-			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
+		if strings.HasSuffix(prefix, "<") && strings.HasPrefix(suffix, ">") {
+			// Skip adding <> if the url is already surrounded by angled brackets.
 			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
+		} else if strings.HasSuffix(line[lastIndex:match[0]], `"`) && strings.HasPrefix(line[match[1]:], `"`) {
+			// The URL is in quotes `"`, escape it to appear as verbatim text.
+			escapedLine.WriteString(line[lastIndex : match[0]-1])
+			escapedLine.WriteString(fmt.Sprintf("`%s`", url))
+			lastIndex = match[1] + 1
+		} else if strings.HasSuffix(prefix, "]: ") && (suffix == "\n" || suffix == "") {
+			// Looks line a link definition, just leave it as-is
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
 		} else {
 			escapedLine.WriteString(line[lastIndex:match[0]])
 			if strings.HasSuffix(url, ".") {
@@ -908,9 +916,9 @@ func escapeUrls(line string) string {
 			} else {
 				escapedLine.WriteString(fmt.Sprintf("<%s>", url))
 			}
+			lastIndex = match[1]
 		}
 
-		lastIndex = match[1]
 	}
 	escapedLine.WriteString(line[lastIndex:])
 	return escapedLine.String()
