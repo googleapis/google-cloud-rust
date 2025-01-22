@@ -48,7 +48,6 @@ option objc_class_prefix = "RPC";
 //         "availableRegions": "us-central1,us-east2"
 //       }
 //     }
-//  clientip:<ip address of client> foo:<bar>
 message ErrorInfo {
   // The reason of the error. This is a constant value that identifies the
   // proximate cause of the error. Error reasons are unique within a particular

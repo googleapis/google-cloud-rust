@@ -884,40 +884,6 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
-// func handleHTMLTags(line string) string {
-// Regex to match <...> patterns excluding URLs and HTML tags
-// re := regexp.MustCompile(`(?i)<\/?[a-z][^>]*>`)
-// re := regexp.MustCompile(`(?s)(?m)(<?[^>]+>?)`)
-
-// // Function to filter matches and escape angle brackets
-// replaceFunc := func(match string) string {
-// 	// Check if the match is a valid HTML tag or URL
-// 	if strings.HasPrefix(match, "<http") ||
-// 		strings.HasPrefix(match, "<a ") ||
-// 		strings.HasPrefix(match, "</a>") ||
-// 		strings.HasPrefix(match, "<p>") ||
-// 		strings.HasPrefix(match, "</p>") {
-// 		return match // Keep valid HTML tags and URLs unchanged
-// 	}
-// 	if match == "<" || match == ">" {
-// 		return match
-// 	}
-
-// return html.EscapeString(match)
-
-// Escape angle brackets for other matches
-// return regexp.MustCompile(`<`).ReplaceAllString(
-// 	regexp.MustCompile(`>`).ReplaceAllString(match, "&gt;"),
-// 	"&lt;",
-// )
-// }
-
-// Apply the replacement
-// result := re.ReplaceAllStringFunc(line, replaceFunc)
-
-// return result
-// }
-
 // Encloses standalone URLs with angled brackets.
 func escapeUrls(line string) string {
 	var escapedLine strings.Builder
