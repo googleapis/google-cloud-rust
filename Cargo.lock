@@ -668,7 +668,13 @@ version = "0.0.0"
 
 [[package]]
 name = "gcp-sdk-api"
-version = "0.0.0"
+version = "0.1.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-wkt",
+ "serde",
+ "serde_with",
+]
 
 [[package]]
 name = "gcp-sdk-auth"
