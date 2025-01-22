@@ -900,7 +900,6 @@ func escapeUrls(line string) string {
 		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
 		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
 			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
-			fmt.Println(escapedLine)
 			escapedLine.WriteString(line[lastIndex:match[1]])
 		} else {
 			escapedLine.WriteString(line[lastIndex:match[0]])
