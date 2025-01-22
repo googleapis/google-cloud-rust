@@ -78,7 +78,7 @@ func TestGo_EnumNames(t *testing.T) {
 		ID:   "..SecretVersion.State",
 	}
 
-	_ = newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
+	_ = api.NewTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
 	if got := goEnumName(nested, nil); got != "SecretVersion_State" {
 		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
 	}
@@ -130,7 +130,7 @@ Maybe they wanted to show some JSON:
 }
 
 func TestGo_Validate(t *testing.T) {
-	api := newTestAPI(
+	api := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -141,7 +141,7 @@ func TestGo_Validate(t *testing.T) {
 
 func TestGo_ValidateMessageMismatch(t *testing.T) {
 	const sourceSpecificationPackageName = "p1"
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -149,7 +149,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -157,7 +157,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})

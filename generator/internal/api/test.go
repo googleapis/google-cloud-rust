@@ -12,20 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package language
+package api
 
-import (
-	"strings"
+import "strings"
 
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
-)
-
-func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Service) *api.API {
-	state := &api.APIState{
-		MessageByID: make(map[string]*api.Message),
-		MethodByID:  make(map[string]*api.Method),
-		EnumByID:    make(map[string]*api.Enum),
-		ServiceByID: make(map[string]*api.Service),
+func NewTestAPI(messages []*Message, enums []*Enum, services []*Service) *API {
+	state := &APIState{
+		MessageByID: make(map[string]*Message),
+		MethodByID:  make(map[string]*Method),
+		EnumByID:    make(map[string]*Enum),
+		ServiceByID: make(map[string]*Service),
 	}
 	for _, m := range messages {
 		state.MessageByID[m.ID] = m
@@ -58,7 +54,7 @@ func newTestAPI(messages []*api.Message, enums []*api.Enum, services []*api.Serv
 		}
 	}
 
-	return &api.API{
+	return &API{
 		Name:     "Test",
 		Messages: messages,
 		Enums:    enums,

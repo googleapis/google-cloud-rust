@@ -597,10 +597,8 @@ pub struct BackendRule {
 
     /// The map between request protocol and the backend address.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub overrides_by_request_protocol: std::collections::HashMap<
-        std::string::String,
-        std::option::Option<crate::model::BackendRule>,
-    >,
+    pub overrides_by_request_protocol:
+        std::collections::HashMap<std::string::String, crate::model::BackendRule>,
 
     /// Authentication settings used by the backend.
     ///
@@ -671,10 +669,7 @@ impl BackendRule {
     /// Sets the value of `overrides_by_request_protocol`.
     pub fn set_overrides_by_request_protocol<
         T: std::convert::Into<
-            std::collections::HashMap<
-                std::string::String,
-                std::option::Option<crate::model::BackendRule>,
-            >,
+            std::collections::HashMap<std::string::String, crate::model::BackendRule>,
         >,
     >(
         mut self,

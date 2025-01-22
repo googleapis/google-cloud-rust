@@ -4669,10 +4669,8 @@ pub struct BatchTranslateTextRequest {
     /// Optional. Glossaries to be applied for translation.
     /// It's keyed by target language code.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub glossaries: std::collections::HashMap<
-        std::string::String,
-        std::option::Option<crate::model::TranslateTextGlossaryConfig>,
-    >,
+    pub glossaries:
+        std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
 
     /// Optional. The labels with user-defined metadata for the request.
     ///
@@ -4748,7 +4746,7 @@ impl BatchTranslateTextRequest {
         T: std::convert::Into<
             std::collections::HashMap<
                 std::string::String,
-                std::option::Option<crate::model::TranslateTextGlossaryConfig>,
+                crate::model::TranslateTextGlossaryConfig,
             >,
         >,
     >(
@@ -6141,10 +6139,8 @@ pub struct BatchTranslateDocumentRequest {
 
     /// Optional. Glossaries to be applied. It's keyed by target language code.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    pub glossaries: std::collections::HashMap<
-        std::string::String,
-        std::option::Option<crate::model::TranslateTextGlossaryConfig>,
-    >,
+    pub glossaries:
+        std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
 
     /// Optional. The file format conversion map that is applied to all input
     /// files. The map key is the original mime_type. The map value is the target
@@ -6240,7 +6236,7 @@ impl BatchTranslateDocumentRequest {
         T: std::convert::Into<
             std::collections::HashMap<
                 std::string::String,
-                std::option::Option<crate::model::TranslateTextGlossaryConfig>,
+                crate::model::TranslateTextGlossaryConfig,
             >,
         >,
     >(

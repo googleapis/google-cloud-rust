@@ -289,6 +289,10 @@ type Field struct {
 	// some helper fields. These need to be marked so they can be excluded
 	// from serialized messages and in other places.
 	Synthetic bool
+	// Some fields have a type that refers (sometimes indirectly) to the
+	// containing message. That triggers slightly different code generation for
+	// some languages.
+	Recursive bool
 	// A placeholder to put language specific annotations.
 	Codec any
 }
