@@ -29,5 +29,3 @@ ser = "ser"
 [type.rust.extend-words]
 # The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
-# Spanner has a typo, needs to be fixed upstream.
-timzeone = "timzeone"
