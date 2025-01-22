@@ -65,8 +65,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstanceConfigsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_instance_configs(self.0.request, self.0.options)
                 .await
         }
@@ -137,8 +136,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstanceConfig> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_instance_config(self.0.request, self.0.options)
                 .await
         }
@@ -187,8 +185,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance_config][crate::client::InstanceAdmin::create_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_instance_config(self.0.request, self.0.options)
                 .await
         }
@@ -294,8 +291,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance_config][crate::client::InstanceAdmin::update_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_instance_config(self.0.request, self.0.options)
                 .await
         }
@@ -393,8 +389,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_instance_config(self.0.request, self.0.options)
                 .await
         }
@@ -452,8 +447,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstanceConfigOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_instance_config_operations(self.0.request, self.0.options)
                 .await
         }
@@ -529,8 +523,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancesResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_instances(self.0.request, self.0.options)
                 .await
         }
@@ -616,8 +609,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancePartitionsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_instance_partitions(self.0.request, self.0.options)
                 .await
         }
@@ -696,8 +688,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Instance> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_instance(self.0.request, self.0.options)
                 .await
         }
@@ -752,8 +743,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance][crate::client::InstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
                 .await
         }
@@ -848,8 +838,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance][crate::client::InstanceAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
                 .await
         }
@@ -936,8 +925,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
                 .await
         }
@@ -978,8 +966,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -1038,8 +1025,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -1092,8 +1078,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
         }
@@ -1146,8 +1131,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstancePartition> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_instance_partition(self.0.request, self.0.options)
                 .await
         }
@@ -1198,8 +1182,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_instance_partition][crate::client::InstanceAdmin::create_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_instance_partition(self.0.request, self.0.options)
                 .await
         }
@@ -1300,8 +1283,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_instance_partition(self.0.request, self.0.options)
                 .await
         }
@@ -1358,8 +1340,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_instance_partition][crate::client::InstanceAdmin::update_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_instance_partition(self.0.request, self.0.options)
                 .await
         }
@@ -1457,8 +1438,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListInstancePartitionOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_instance_partition_operations(self.0.request, self.0.options)
                 .await
         }
@@ -1548,8 +1528,7 @@ pub mod instance_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [move_instance][crate::client::InstanceAdmin::move_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .move_instance(self.0.request, self.0.options)
                 .await
         }
@@ -1635,8 +1614,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
         }
@@ -1713,8 +1691,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
         }
@@ -1758,8 +1735,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
         }
@@ -1803,8 +1779,7 @@ pub mod instance_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
         }
