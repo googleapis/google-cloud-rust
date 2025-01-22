@@ -884,8 +884,8 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
-// Encloses standalone URLs with angled brackets.
-func escapeUrls(line string) string {
+// Encloses standalone URLs with angled brackets and escape placeholders.
+func escapeUrlsAndPlaceholders(placeholders map[string]string, line string) string {
 	var escapedLine strings.Builder
 	lastIndex := 0
 
@@ -913,7 +913,7 @@ func escapeUrls(line string) string {
 		lastIndex = match[1]
 	}
 	escapedLine.WriteString(line[lastIndex:])
-	return escapedLine.String()
+	return escapeHTMLTags(placeholders, escapedLine.String())
 }
 
 // Verifies whether the url is part of a link destination.
@@ -941,16 +941,17 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			results = append(results, nestedListItems...)
 			break
 		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+			placeholders := fetchPlaceholders(child, documentationBytes)
 			firstLine := child.Lines().At(0)
 			firstLineString := string(firstLine.Value(documentationBytes))
 			extractProtoLinks(firstLineString, links)
-			escapedFirstLine := escapeUrls(firstLineString)
+			escapedFirstLine := escapeUrlsAndPlaceholders(placeholders, firstLineString)
 			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, escapedFirstLine))
 			for i := 1; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
 				lineString := string(line.Value(documentationBytes))
 				extractProtoLinks(lineString, links)
-				escapedLine := escapeUrls(lineString)
+				escapedLine := escapeUrlsAndPlaceholders(placeholders, lineString)
 				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), escapedLine))
 			}
 			if child.Kind() == ast.KindParagraph {
@@ -994,13 +995,12 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
-	htmlTags := fetchHTMLTags(node, documentationBytes)
+	placeholders := fetchPlaceholders(node, documentationBytes)
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
-
-		results = append(results, escapeUrls(escapeHTMLTags(htmlTags, lineString)))
+		results = append(results, escapeUrlsAndPlaceholders(placeholders, lineString))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
@@ -1013,7 +1013,7 @@ func processParagraph(node ast.Node, links map[string]bool, documentationBytes [
 	return results
 }
 
-func fetchHTMLTags(node ast.Node, documentationBytes []byte) map[string]string {
+func fetchPlaceholders(node ast.Node, documentationBytes []byte) map[string]string {
 	htmlMapping := make(map[string]string)
 	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
 		if c.Kind() == ast.KindRawHTML {
@@ -1021,7 +1021,11 @@ func fetchHTMLTags(node ast.Node, documentationBytes []byte) map[string]string {
 			for i := 0; i < rawHTML.Segments.Len(); i++ {
 				segment := rawHTML.Segments.At(i)
 				original := string(segment.Value(documentationBytes))
-				htmlMapping[original] = html.EscapeString(original)
+
+				// Exclude urls and hyperlinks.
+				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a") && !strings.HasPrefix(original, "</a>") {
+					htmlMapping[original] = html.EscapeString(original)
+				}
 			}
 		}
 	}
