@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [WebRiskService](https://docs.rs/gcp-sdk-webrisk-v1/latest/gcp_sdk_webrisk_v1/client/struct.WebRiskService.html)
+//! * [WebRiskService](client/struct.WebRiskService.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

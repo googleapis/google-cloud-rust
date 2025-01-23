@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [TraceService](https://docs.rs/gcp-sdk-devtools-cloudtrace-v2/latest/gcp_sdk_devtools_cloudtrace_v2/client/struct.TraceService.html)
+//! * [TraceService](client/struct.TraceService.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;
