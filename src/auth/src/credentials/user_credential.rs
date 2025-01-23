@@ -543,9 +543,14 @@ mod test {
         let token = uc.get_token().await?;
         assert_eq!(token.token, "test-access-token");
         assert_eq!(token.token_type, "test-token-type");
-        assert!(token
-            .expires_at
-            .is_some_and(|d| d >= now + Duration::from_secs(3600)));
+        assert!(
+            token
+                .expires_at
+                .is_some_and(|d| d >= now + Duration::from_secs(3600)),
+            "now: {:?}, expires_at: {:?}",
+            now,
+            token.expires_at
+        );
 
         Ok(())
     }
@@ -598,8 +603,8 @@ mod test {
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
-        assert!(e.is_retryable());
-        assert!(e.source().unwrap().to_string().contains("try again"));
+        assert!(e.is_retryable(), "{e}");
+        assert!(e.source().unwrap().to_string().contains("try again"), "{e}");
 
         Ok(())
     }
@@ -620,8 +625,8 @@ mod test {
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
-        assert!(!e.is_retryable());
-        assert!(e.source().unwrap().to_string().contains("epic fail"));
+        assert!(!e.is_retryable(), "{e}");
+        assert!(e.source().unwrap().to_string().contains("epic fail"), "{e}");
 
         Ok(())
     }
@@ -642,7 +647,7 @@ mod test {
             quota_project_id: None,
         };
         let e = uc.get_token().await.err().unwrap();
-        assert!(!e.is_retryable());
+        assert!(!e.is_retryable(), "{e}");
 
         Ok(())
     }
