@@ -12,28 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub trait PathParameter {
-    type P: Sized;
-    fn required<'a>(&'a self, name: &str) -> std::result::Result<&'a Self::P, Error>;
-}
-
-impl<T> PathParameter for Option<T> {
-    type P = T;
-    fn required<'a>(&'a self, name: &str) -> std::result::Result<&'a Self::P, Error> {
-        self.as_ref()
-            .ok_or_else(|| Error::MissingRequiredParameter(name.into()))
-    }
-}
-
-impl<T> PathParameter for T
-where
-    T: crate::request_parameter::RequestParameter,
-{
-    type P = T;
-    fn required<'a>(&'a self, _: &str) -> std::result::Result<&'a Self::P, Error> {
-        Ok(self)
-    }
-}
+//! Handling of missing path parameters.
+//!
+//! Parameters used to build the request path (aka 'path parameters') are
+//! required. But for complicated reasons they may appear in optional fields.
+//! The generator needs to return an error when the parameter is missing, and
+//! a small helper function makes the generated code easier to read.
 
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
@@ -48,31 +32,6 @@ pub fn missing(name: &str) -> crate::error::Error {
 #[cfg(test)]
 mod tests {
     use super::*;
-    type Result = std::result::Result<(), Error>;
-
-    #[test]
-    fn optional_with_value() -> Result {
-        let v = Some("abc".to_string());
-        let got = PathParameter::required(&v, "name")?;
-        assert_eq!("abc", got);
-        Ok(())
-    }
-
-    #[test]
-    fn optional_without_value() -> Result {
-        let v = None::<String>;
-        let got = PathParameter::required(&v, "name");
-        assert!(got.is_err(), "expected error {:?}", got);
-        Ok(())
-    }
-
-    #[test]
-    fn required() -> Result {
-        let v = "value".to_string();
-        let got = PathParameter::required(&v, "name")?;
-        assert_eq!("value", got);
-        Ok(())
-    }
 
     #[test]
     fn missing() {
