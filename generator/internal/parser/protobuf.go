@@ -289,7 +289,6 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			for _, m := range s.Method {
 				mFQN := sFQN + "." + m.GetName()
 				if method := processMethod(state, m, mFQN, f.GetPackage()); method != nil {
-					method.Parent = service
 					service.Methods = append(service.Methods, method)
 				}
 			}
@@ -341,7 +340,6 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 						continue
 					}
 					if method := processMethod(state, m, mFQN, service.Package); method != nil {
-						method.Parent = service
 						applyServiceConfigMethodOverrides(method, originalFQN, serviceConfig, result, mixin)
 						service.Methods = append(service.Methods, method)
 					}
