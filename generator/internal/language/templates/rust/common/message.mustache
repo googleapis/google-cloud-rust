@@ -24,41 +24,38 @@ limitations under the License.
 pub struct {{Name}} {
     {{#BasicFields}}
 
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     {{{.}}}
-    {{/DocLines}}
-    {{#FieldAttributes}}
+    {{/Codec.DocLines}}
+    {{#Codec.Attributes}}
     {{{.}}}
-    {{/FieldAttributes}}
-    pub {{NameToSnake}}: {{{FieldType}}},
+    {{/Codec.Attributes}}
+    pub {{Codec.FieldName}}: {{{Codec.FieldType}}},
     {{/BasicFields}}
     {{#ExplicitOneOfs}}
 
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     {{{.}}}
-    {{/DocLines}}
-    {{#FieldAttributes}}
-    {{{.}}}
-    {{/FieldAttributes}}
+    {{/Codec.DocLines}}
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    pub {{NameToSnake}}: std::option::Option<{{{FieldType}}}>,
+    pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
     {{/ExplicitOneOfs}}
 }
 
 impl {{Name}} {
     {{#BasicFields}}
 
-    /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: std::convert::Into<{{{FieldType}}}>>(mut self, v: T) -> Self {
-        self.{{NameToSnake}} = v.into();
+    /// Sets the value of `{{Codec.FieldName}}`.
+    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
+        self.{{Codec.FieldName}} = v.into();
         self
     }
     {{/BasicFields}}
     {{#ExplicitOneOfs}}
 
-    /// Sets the value of `{{NameToSnake}}`.
-    pub fn set_{{NameToSnakeNoMangling}}<T: std::convert::Into<std::option::Option<{{{FieldType}}}>>>(mut self, v: T) ->Self {
-        self.{{NameToSnake}} = v.into();
+    /// Sets the value of `{{Codec.FieldName}}`.
+    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<std::option::Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
+        self.{{Codec.FieldName}} = v.into();
         self
     }
     {{/ExplicitOneOfs}}
@@ -76,10 +73,10 @@ impl wkt::message::Message for {{Name}} {
 #[cfg(feature = "unstable-stream")]
 impl gax::paginator::PageableResponse for {{Name}} {
     {{#PageableItem}}
-    type PageItem = {{{PrimitiveFieldType}}};
+    type PageItem = {{{Codec.PrimitiveFieldType}}};
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
-        self.{{{NameToSnake}}}
+        self.{{{Codec.FieldName}}}
     }
 
     {{/PageableItem}}

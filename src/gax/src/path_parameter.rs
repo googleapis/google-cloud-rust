@@ -41,6 +41,10 @@ pub enum Error {
     MissingRequiredParameter(String),
 }
 
+pub fn missing(name: &str) -> crate::error::Error {
+    crate::error::Error::other(Error::MissingRequiredParameter(name.to_string()))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -68,5 +72,18 @@ mod tests {
         let got = PathParameter::required(&v, "name")?;
         assert_eq!("value", got);
         Ok(())
+    }
+
+    #[test]
+    fn missing() {
+        let e = super::missing("abc123");
+        let fmt = format!("{e}");
+        assert!(fmt.contains("abc123"), "{e:?}");
+        let inner = e.as_inner::<super::Error>().unwrap();
+        match inner {
+            Error::MissingRequiredParameter(s) => {
+                assert_eq!(s.as_str(), "abc123");
+            }
+        }
     }
 }

@@ -27,7 +27,15 @@ extend-glob = ["*.mustache"]
 ser = "ser"
 
 [type.rust.extend-words]
-# The upstream comments for src/generated/type say "Requestor", `typos` recommends `Requester`.
+# from google/api:
+advices    = "advices"    # In the code, too late to fix.
+readablity = "readablity"
+# src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
+permamently = "permamently"
+revison     = "revison"
+# src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
+corresponsing = "corresponsing"
+# src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
+maching = "maching"
+# src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
-# Spanner has a typo, needs to be fixed upstream.
-timzeone = "timzeone"

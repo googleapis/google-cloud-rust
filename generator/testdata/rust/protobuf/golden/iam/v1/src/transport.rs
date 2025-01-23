@@ -46,15 +46,20 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::POST, format!("/v1/{}:setIamPolicy"
-               , req.resource
-            ))
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:setIamPolicy"
+                        , req.resource
+                )
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
-            Some(req),
+            Some(req)
+            ,
             options,
         ).await
     }
@@ -65,15 +70,20 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Policy> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::POST, format!("/v1/{}:getIamPolicy"
-               , req.resource
-            ))
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:getIamPolicy"
+                        , req.resource
+                )
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
-            Some(req),
+            Some(req)
+            ,
             options,
         ).await
     }
@@ -84,15 +94,20 @@ impl crate::traits::IAMPolicy for IAMPolicy {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::TestIamPermissionsResponse> {
         let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::POST, format!("/v1/{}:testIamPermissions"
-               , req.resource
-            ))
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:testIamPermissions"
+                        , req.resource
+                )
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
-            Some(req),
+            Some(req)
+            ,
             options,
         ).await
     }

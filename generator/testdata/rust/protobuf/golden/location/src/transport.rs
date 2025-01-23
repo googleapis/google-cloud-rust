@@ -46,10 +46,14 @@ impl crate::traits::Locations for Locations {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::ListLocationsResponse> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::GET, format!("/v1/{}"
-               , req.name
-            ))
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}"
+                        , req.name
+                )
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         let builder = builder.query(&[("filter", &req.filter)]);
@@ -57,6 +61,7 @@ impl crate::traits::Locations for Locations {
         let builder = builder.query(&[("pageToken", &req.page_token)]);
         self.inner.execute(
             builder,
+            
             None::<gax::http_client::NoBody>,
             options,
         ).await
@@ -68,14 +73,19 @@ impl crate::traits::Locations for Locations {
         options: gax::options::RequestOptions,
     ) -> Result<crate::model::Location> {
         let options = options.set_default_idempotency(reqwest::Method::GET.is_idempotent());
-        let builder = self.inner.builder(
-            reqwest::Method::GET, format!("/v1/{}"
-               , req.name
-            ))
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::GET,
+                format!("/v1/{}"
+                        , req.name
+                )
+            )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
+            
             None::<gax::http_client::NoBody>,
             options,
         ).await

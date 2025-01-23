@@ -131,8 +131,9 @@ impl crate::traits::SecretManagerService for SecretManagerService {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(&req.secret, "secret")
-                        .map_err(Error::other)?
+                    req.secret
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("secret"))?
                         .name
                 ),
             )

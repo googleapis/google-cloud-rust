@@ -115,12 +115,10 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(
-                        &req.instance_config,
-                        "instance_config"
-                    )
-                    .map_err(Error::other)?
-                    .name
+                    req.instance_config
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("instance_config"))?
+                        .name
                 ),
             )
             .query(&[("alt", "json")])
@@ -307,8 +305,9 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(&req.instance, "instance")
-                        .map_err(Error::other)?
+                    req.instance
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("instance"))?
                         .name
                 ),
             )
@@ -470,12 +469,10 @@ impl crate::traits::InstanceAdmin for InstanceAdmin {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(
-                        &req.instance_partition,
-                        "instance_partition"
-                    )
-                    .map_err(Error::other)?
-                    .name
+                    req.instance_partition
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("instance_partition"))?
+                        .name
                 ),
             )
             .query(&[("alt", "json")])

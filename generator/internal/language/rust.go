@@ -66,9 +66,9 @@ var commentLinkRegex = regexp.MustCompile(
 var commentUrlRegex = regexp.MustCompile(
 	`` + // `go fmt` is annoying
 		`https?://` + // Accept either https or http.
-		`([A-Za-z0-9\.]+\.)+` + // Be generous in accepting most of the authority (hostname)
+		`([A-Za-z0-9\.\-]+\.)+` + // Be generous in accepting most of the authority (hostname)
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
-		`([-a-zA-Z0-9@:%_\+.~#?&/=]+)?`) // Accept just about anything on the query and URL fragments
+		`(/[-a-zA-Z0-9@:%_\+.~#?&/=]*)?`) // Accept just about anything on the query and URL fragments
 
 func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -661,9 +661,9 @@ func rustFQEnumName(e *api.Enum, modulePath, sourceSpecificationPackageName stri
 }
 
 func rustEnumValueName(e *api.EnumValue) string {
-	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, we do not
-	// need to change anything for Rust
-	return rustEscapeKeyword(e.Name)
+	// The Protobuf naming convention is to use SCREAMING_SNAKE_CASE, but
+	// sometimes it is not followed.
+	return rustEscapeKeyword(rustToScreamingSnake(e.Name))
 }
 
 func rustFQEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
@@ -696,54 +696,62 @@ func rustHTTPPathFmt(m *api.PathInfo) string {
 	return fmt
 }
 
-// Returns a Rust expression to access (and if needed validatre) each path parameter.
-//
-// In most cases the parameter is a simple string in the form `name`. In those
-// cases the field *must* be a thing that can be formatted to a string, and
-// a simple "req.name" expression will work file.
-//
-// In some cases the parameter is a sequence of `.` separated fields, in the
-// form: `field0.field1 ... .fieldN`. In that case each field from `field0` to
-// `fieldN-1` must be optional (they are all messages), and each must be
-// validated.
-//
-// We use the `gax::path_parameter::PathParameter::required()` helper to perform
-// this validation. This function recursively creates an expression, the
-// recursion starts with
-//
-// ```rust
-// use gax::path_parameter::PathParameter as PP;
-// PP::required(&req.field0)?.field1
-// ```
-//
-// And then builds up:
-//
-// ```rust
-// use gax::path_parameter::PathParameter as PP;
-// PP::required(PP::required(&req.field0)?.field1)?.field2
-// ```
-//
-// and so on.
-func rustUnwrapFieldPath(components []string, requestAccess string) (string, string) {
-	if len(components) == 1 {
-		return requestAccess + "." + rustToSnake(components[0]), components[0]
+func rustDerefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
+	const (
+		optionalFmt = `.%s.as_ref().ok_or_else(|| gax::path_parameter::missing("%s"))?`
+	)
+	if optional {
+		return fmt.Sprintf(optionalFmt, name, name), nextMessage
 	}
-	unwrap, name := rustUnwrapFieldPath(components[0:len(components)-1], "&req")
-	last := components[len(components)-1]
-	return fmt.Sprintf("gax::path_parameter::PathParameter::required(%s, \"%s\").map_err(Error::other)?.%s", unwrap, name, last), ""
+	return fmt.Sprintf(`.%s`, name), nextMessage
 }
 
-func rustDerefFieldPath(fieldPath string) string {
+func rustDerefFieldSingle(name string, message *api.Message, state *api.APIState) (string, *api.Message) {
+	for _, field := range message.Fields {
+		if name != field.Name {
+			continue
+		}
+		if field.Typez == api.MESSAGE_TYPE {
+			if nextMessage, ok := state.MessageByID[field.TypezID]; ok {
+				return rustDerefFieldExpr(name, field.Optional, nextMessage)
+			}
+			slog.Error("cannot find next message for field", "currentMessage", message, "fieldName", name)
+			return rustDerefFieldExpr(name, field.Optional, nil)
+		}
+		if field.Typez == api.ENUM_TYPE {
+			expr, nextMessage := rustDerefFieldExpr(name, field.Optional, nil)
+			return expr + ".value()", nextMessage
+		}
+		return rustDerefFieldExpr(name, field.Optional, nil)
+	}
+	return "", nil
+}
+
+func rustDerefFieldPath(fieldPath string, message *api.Message, state *api.APIState) string {
+	var expression strings.Builder
 	components := strings.Split(fieldPath, ".")
-	unwrap, _ := rustUnwrapFieldPath(components, "req")
-	return unwrap
+	msg := message
+	for _, name := range components {
+		if msg == nil {
+			slog.Error("cannot build full expression", "fieldPath", fieldPath, "message", msg)
+		}
+		expr, nextMessage := rustDerefFieldSingle(name, msg, state)
+		expression.WriteString(expr)
+		msg = nextMessage
+	}
+	return expression.String()
 }
 
-func rustHTTPPathArgs(h *api.PathInfo) []string {
+func rustHTTPPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []string {
+	message, ok := state.MessageByID[method.InputTypeID]
+	if !ok {
+		slog.Error("cannot find input message for", "method", method)
+		return []string{}
+	}
 	var args []string
 	for _, arg := range h.PathTemplate {
 		if arg.FieldPath != nil {
-			args = append(args, rustDerefFieldPath(*arg.FieldPath))
+			args = append(args, rustDerefFieldPath(*arg.FieldPath, message, state))
 		}
 	}
 	return args
@@ -788,9 +796,15 @@ func rustToCamel(symbol string) string {
 	return rustEscapeKeyword(strcase.ToLowerCamel(symbol))
 }
 
-// TODO(#92) - protect all quotes with `norust`
-// TODO(#30) - convert protobuf links to Rusty links.
-//
+// Convert a name to `SCREAMING_SNAKE_CASE`. The Rust naming conventions use
+// this style for constants.
+func rustToScreamingSnake(symbol string) string {
+	if strings.ToUpper(symbol) == symbol {
+		return symbol
+	}
+	return strcase.ToScreamingSnake(symbol)
+}
+
 // Blockquotes require special treatment for Rust. By default, Rust assumes
 // blockquotes contain compilable Rust code samples. To override the default
 // the blockquote must be marked with "```norust". The proto comments have
@@ -896,11 +910,22 @@ func escapeUrlsAndPlaceholders(placeholders map[string]string, line string) stri
 			continue
 		}
 		url := line[match[0]:match[1]]
+		prefix := line[:match[0]]
+		suffix := line[match[1]:]
 
-		// Skip adding <> if the url is already surrounded by angled brackets or is formatted as [text]: url
-		if (match[0] > 0 && line[match[0]-1] == '<' && match[1] < len(line) && line[match[1]] == '>') ||
-			(match[0] > 2 && line[match[0]-2] == ':' && line[match[0]-1] == ' ') {
+		if strings.HasSuffix(prefix, "<") && strings.HasPrefix(suffix, ">") {
+			// Skip adding <> if the url is already surrounded by angled brackets.
 			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
+		} else if strings.HasSuffix(line[lastIndex:match[0]], `"`) && strings.HasPrefix(line[match[1]:], `"`) {
+			// The URL is in quotes `"`, escape it to appear as verbatim text.
+			escapedLine.WriteString(line[lastIndex : match[0]-1])
+			escapedLine.WriteString(fmt.Sprintf("`%s`", url))
+			lastIndex = match[1] + 1
+		} else if strings.HasSuffix(prefix, "]: ") && (suffix == "\n" || suffix == "") {
+			// Looks line a link definition, just leave it as-is
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
 		} else {
 			escapedLine.WriteString(line[lastIndex:match[0]])
 			if strings.HasSuffix(url, ".") {
@@ -908,9 +933,9 @@ func escapeUrlsAndPlaceholders(placeholders map[string]string, line string) stri
 			} else {
 				escapedLine.WriteString(fmt.Sprintf("<%s>", url))
 			}
+			lastIndex = match[1]
 		}
 
-		lastIndex = match[1]
 	}
 	escapedLine.WriteString(line[lastIndex:])
 	return escapeHTMLTags(placeholders, escapedLine.String())

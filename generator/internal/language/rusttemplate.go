@@ -39,7 +39,7 @@ type RustTemplateData struct {
 	DefaultHost       string
 	Services          []*RustService
 	Messages          []*RustMessage
-	Enums             []*RustEnum
+	Enums             []*api.Enum
 	NameToLower       string
 	NotForPublication bool
 	HasFeatures       bool
@@ -63,11 +63,11 @@ type RustService struct {
 }
 
 type RustMessage struct {
-	Fields             []*RustField
-	BasicFields        []*RustField
-	ExplicitOneOfs     []*RustOneOf
+	Fields             []*api.Field
+	BasicFields        []*api.Field
+	ExplicitOneOfs     []*api.OneOf
 	NestedMessages     []*RustMessage
-	Enums              []*RustEnum
+	Enums              []*api.Enum
 	MessageAttributes  []string
 	Name               string
 	QualifiedName      string
@@ -76,7 +76,7 @@ type RustMessage struct {
 	DocLines           []string
 	IsMap              bool
 	IsPageableResponse bool
-	PageableItem       *RustField
+	PageableItem       *api.Field
 	ID                 string
 	// The FQN is the source specification
 	SourceFQN string
@@ -92,13 +92,9 @@ type RustMethod struct {
 	DocLines            []string
 	InputTypeName       string
 	OutputTypeName      string
-	HTTPMethod          string
-	HTTPMethodToLower   string
-	HTTPPathFmt         string
-	HTTPPathArgs        []string
-	PathParams          []*RustField
-	QueryParams         []*RustField
-	HasBody             bool
+	PathInfo            *api.PathInfo
+	PathParams          []*api.Field
+	QueryParams         []*api.Field
 	BodyAccessor        string
 	IsPageable          bool
 	ServiceNameToPascal string
@@ -109,6 +105,15 @@ type RustMethod struct {
 	OperationInfo       *RustOperationInfo
 }
 
+type rustPathInfoAnnotation struct {
+	Method        string
+	MethodToLower string
+	PathFmt       string
+	PathArgs      []string
+	HasPathArgs   bool
+	HasBody       bool
+}
+
 type RustOperationInfo struct {
 	MetadataType       string
 	ResponseType       string
@@ -117,40 +122,51 @@ type RustOperationInfo struct {
 	PackageNamespace   string
 }
 
-type RustOneOf struct {
+type RustOneOfAnnotation struct {
+	// In Rust, `oneof` fields are fields inside a struct. These must be
+	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
+	// word.
+	FieldName string
+	// In Rust, each field gets a `set_{{FieldName}}` setter. These must be
+	// `snake_case`, but are never mangled with a `r#` prefix.
+	SetterName string
+	// The `oneof` is represented by a Rust `enum`, these need to be `PascalCase`.
+	EnumName              string
 	NameToPascal          string
 	NameToSnake           string
 	NameToSnakeNoMangling string
 	FieldType             string
 	DocLines              []string
-	Fields                []*RustField
 }
 
-type RustField struct {
-	NameToSnake           string
-	NameToSnakeNoMangling string
-	NameToCamel           string
-	NameToPascal          string
-	DocLines              []string
-	FieldAttributes       []string
-	FieldType             string
-	PrimitiveFieldType    string
-	JSONName              string
-	AddQueryParameter     string
+type RustFieldAnnotations struct {
+	// In Rust, message fields are fields inside a struct. These must be
+	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
+	// word.
+	FieldName string
+	// In Rust, each fields gets a `set_{{FieldName}}` setter. These must be
+	// `snake_case`, but are never mangled with a `r#` prefix.
+	SetterName string
+	// In Rust, fields that appear in a OneOf also appear as a enum branch.
+	// These must be in `PascalCase`.
+	BranchName         string
+	DocLines           []string
+	Attributes         []string
+	FieldType          string
+	PrimitiveFieldType string
+	AddQueryParameter  string
 }
 
-type RustEnum struct {
-	Name          string
-	NameSnakeCase string
-	DocLines      []string
-	Values        []*RustEnumValue
+type rustEnumAnnotation struct {
+	Name       string
+	ModuleName string
+	DocLines   []string
 }
 
-type RustEnumValue struct {
-	DocLines []string
+type rustEnumValueAnnotation struct {
 	Name     string
-	Number   int32
 	EnumType string
+	DocLines []string
 }
 
 // newRustTemplateData creates a struct used as input for Mustache templates.
@@ -171,8 +187,12 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		return nil, err
 	}
+
 	rustLoadWellKnownTypes(model.State)
 	rustResolveUsedPackages(model, c.extraPackages)
+	for _, e := range model.State.EnumByID {
+		rustAnnotateEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	}
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	data := &RustTemplateData{
@@ -199,13 +219,17 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		Messages: mapSlice(model.Messages, func(m *api.Message) *RustMessage {
 			return newRustMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 		}),
-		Enums: mapSlice(model.Enums, func(e *api.Enum) *RustEnum {
-			return newRustEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-		}),
+		Enums:             model.Enums,
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
 		IsWktCrate:        c.sourceSpecificationPackageName == "google.protobuf",
 	}
+	// Services without methods create a lot of warnings in Rust. The dead code
+	// analysis is extremely good, and can determine that several types and
+	// member variables are going unused.
+	data.Services = filterSlice(data.Services, func(s *RustService) bool {
+		return len(s.Methods) > 0
+	})
 	// Determine if any service has an LRO.
 	for _, s := range data.Services {
 		if s.HasLROs {
@@ -271,27 +295,21 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 			break
 		}
 	}
+	fields := mapSlice(m.Fields, func(s *api.Field) *api.Field {
+		return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	})
 	return &RustMessage{
-		Fields: mapSlice(m.Fields, func(s *api.Field) *RustField {
-			return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		Fields: fields,
+		BasicFields: filterSlice(fields, func(s *api.Field) bool {
+			return !s.IsOneOf
 		}),
-		BasicFields: func() []*RustField {
-			filtered := filterSlice(m.Fields, func(s *api.Field) bool {
-				return !s.IsOneOf
-			})
-			return mapSlice(filtered, func(s *api.Field) *RustField {
-				return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-			})
-		}(),
-		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *RustOneOf {
+		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
 			return newRustOneOf(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		}),
 		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *RustMessage {
 			return newRustMessage(s, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 		}),
-		Enums: mapSlice(m.Enums, func(s *api.Enum) *RustEnum {
-			return newRustEnum(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
+		Enums:             m.Enums,
 		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
 		Name:              rustToPascal(m.Name),
 		QualifiedName:     rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
@@ -318,25 +336,27 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 }
 
 func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustMethod {
+	pathInfoAnnotation := &rustPathInfoAnnotation{
+		Method:        m.PathInfo.Verb,
+		MethodToLower: strings.ToLower(m.PathInfo.Verb),
+		PathFmt:       rustHTTPPathFmt(m.PathInfo),
+		PathArgs:      rustHTTPPathArgs(m.PathInfo, m, state),
+		HasBody:       m.PathInfo.BodyFieldPath != "",
+	}
+	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
+
+	m.PathInfo.Codec = pathInfoAnnotation
 	method := &RustMethod{
-		BodyAccessor:      rustBodyAccessor(m),
-		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		HTTPMethod:        m.PathInfo.Verb,
-		HTTPMethodToLower: strings.ToLower(m.PathInfo.Verb),
-		HTTPPathArgs:      rustHTTPPathArgs(m.PathInfo),
-		HTTPPathFmt:       rustHTTPPathFmt(m.PathInfo),
-		HasBody:           m.PathInfo.BodyFieldPath != "",
-		InputTypeName:     rustMethodInOutTypeName(m.InputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		NameToCamel:       strcase.ToCamel(m.Name),
-		NameToPascal:      rustToPascal(m.Name),
-		NameToSnake:       strcase.ToSnake(m.Name),
-		OutputTypeName:    rustMethodInOutTypeName(m.OutputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		PathParams: mapSlice(PathParams(m, state), func(s *api.Field) *RustField {
-			return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
-		QueryParams: mapSlice(QueryParams(m, state), func(s *api.Field) *RustField {
-			return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
+		BodyAccessor:        rustBodyAccessor(m),
+		DocLines:            rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		PathInfo:            m.PathInfo,
+		InputTypeName:       rustMethodInOutTypeName(m.InputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		NameToCamel:         strcase.ToCamel(m.Name),
+		NameToPascal:        rustToPascal(m.Name),
+		NameToSnake:         strcase.ToSnake(m.Name),
+		OutputTypeName:      rustMethodInOutTypeName(m.OutputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		PathParams:          PathParams(m, state),
+		QueryParams:         QueryParams(m, state),
 		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: rustToPascal(m.Parent.Name),
 		ServiceNameToCamel:  rustToCamel(m.Parent.Name),
@@ -357,53 +377,49 @@ func newRustMethod(m *api.Method, state *api.APIState, modulePath, sourceSpecifi
 	return method
 }
 
-func newRustOneOf(oneOf *api.OneOf, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustOneOf {
-	return &RustOneOf{
-		NameToPascal:          rustToPascal(oneOf.Name),
-		NameToSnake:           rustToSnake(oneOf.Name),
-		NameToSnakeNoMangling: rustToSnakeNoMangling(oneOf.Name),
-		FieldType:             rustOneOfType(oneOf, modulePath, sourceSpecificationPackageName, packageMapping),
-		DocLines:              rustFormatDocComments(oneOf.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *RustField {
-			return newRustField(field, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
+func newRustOneOf(oneOf *api.OneOf, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *api.OneOf {
+	oneOf.Codec = &RustOneOfAnnotation{
+		FieldName:  rustToSnake(oneOf.Name),
+		SetterName: rustToSnakeNoMangling(oneOf.Name),
+		EnumName:   rustToPascal(oneOf.Name),
+		FieldType:  rustOneOfType(oneOf, modulePath, sourceSpecificationPackageName, packageMapping),
+		DocLines:   rustFormatDocComments(oneOf.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 	}
+	return oneOf
 }
 
-func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustField {
+func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *api.Field {
 	if field == nil {
 		return nil
 	}
-	return &RustField{
-		NameToSnake:           rustToSnake(field.Name),
-		NameToSnakeNoMangling: rustToSnakeNoMangling(field.Name),
-		NameToCamel:           rustToCamel(field.Name),
-		NameToPascal:          rustToPascal(field.Name),
-		DocLines:              rustFormatDocComments(field.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		FieldAttributes:       rustFieldAttributes(field, state),
-		FieldType:             rustFieldType(field, state, false, modulePath, sourceSpecificationPackageName, packageMapping),
-		PrimitiveFieldType:    rustFieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
-		JSONName:              field.JSONName,
-		AddQueryParameter:     rustAddQueryParameter(field),
+	field.Codec = &RustFieldAnnotations{
+		FieldName:          rustToSnake(field.Name),
+		SetterName:         rustToSnakeNoMangling(field.Name),
+		BranchName:         rustToPascal(field.Name),
+		DocLines:           rustFormatDocComments(field.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		Attributes:         rustFieldAttributes(field, state),
+		FieldType:          rustFieldType(field, state, false, modulePath, sourceSpecificationPackageName, packageMapping),
+		PrimitiveFieldType: rustFieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
+		AddQueryParameter:  rustAddQueryParameter(field),
+	}
+	return field
+}
+
+func rustAnnotateEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	for _, ev := range e.Values {
+		rustAnnotateEnumValue(ev, e, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	}
+	e.Codec = &rustEnumAnnotation{
+		Name:       rustEnumName(e),
+		ModuleName: rustToSnake(rustEnumName(e)),
+		DocLines:   rustFormatDocComments(e.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 	}
 }
 
-func newRustEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustEnum {
-	return &RustEnum{
-		Name:          rustToPascal(e.Name),
-		NameSnakeCase: rustToSnake(rustEnumName(e)),
-		DocLines:      rustFormatDocComments(e.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		Values: mapSlice(e.Values, func(s *api.EnumValue) *RustEnumValue {
-			return newRustEnumValue(s, e, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
-	}
-}
-
-func newRustEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustEnumValue {
-	return &RustEnumValue{
+func rustAnnotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	ev.Codec = &rustEnumValueAnnotation{
 		DocLines: rustFormatDocComments(ev.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		Name:     rustEnumValueName(ev),
-		Number:   ev.Number,
 		EnumType: rustEnumName(e),
 	}
 }

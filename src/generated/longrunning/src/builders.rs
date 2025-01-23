@@ -62,8 +62,7 @@ pub mod operations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
         }
@@ -137,8 +136,7 @@ pub mod operations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
         }
@@ -179,8 +177,7 @@ pub mod operations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
         }
@@ -221,8 +218,7 @@ pub mod operations {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
         }

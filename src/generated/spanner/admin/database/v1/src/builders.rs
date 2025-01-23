@@ -62,8 +62,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabasesResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_databases(self.0.request, self.0.options)
                 .await
         }
@@ -136,8 +135,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_database][crate::client::DatabaseAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
                 .await
         }
@@ -253,8 +251,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_database(self.0.request, self.0.options)
                 .await
         }
@@ -300,8 +297,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_database][crate::client::DatabaseAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
                 .await
         }
@@ -396,8 +392,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_database_ddl(self.0.request, self.0.options)
                 .await
         }
@@ -488,8 +483,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .drop_database(self.0.request, self.0.options)
                 .await
         }
@@ -530,8 +524,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GetDatabaseDdlResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_database_ddl(self.0.request, self.0.options)
                 .await
         }
@@ -572,8 +565,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .set_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -632,8 +624,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::Policy> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_iam_policy(self.0.request, self.0.options)
                 .await
         }
@@ -686,8 +677,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<iam_v1::model::TestIamPermissionsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .test_iam_permissions(self.0.request, self.0.options)
                 .await
         }
@@ -742,8 +732,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [create_backup][crate::client::DatabaseAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
                 .await
         }
@@ -848,8 +837,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [copy_backup][crate::client::DatabaseAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
                 .await
         }
@@ -954,7 +942,9 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            self.0.stub.get_backup(self.0.request, self.0.options).await
+            (*self.0.stub)
+                .get_backup(self.0.request, self.0.options)
+                .await
         }
 
         /// Sets the value of `name`.
@@ -993,8 +983,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Backup> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
                 .await
         }
@@ -1047,8 +1036,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
                 .await
         }
@@ -1089,8 +1077,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_backups(self.0.request, self.0.options)
                 .await
         }
@@ -1169,8 +1156,7 @@ pub mod database_admin {
         /// This starts, but does not poll, a longrunning operation. More information
         /// on [restore_database][crate::client::DatabaseAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
                 .await
         }
@@ -1274,8 +1260,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabaseOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_database_operations(self.0.request, self.0.options)
                 .await
         }
@@ -1354,8 +1339,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_backup_operations(self.0.request, self.0.options)
                 .await
         }
@@ -1432,8 +1416,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListDatabaseRolesResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_database_roles(self.0.request, self.0.options)
                 .await
         }
@@ -1504,8 +1487,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .create_backup_schedule(self.0.request, self.0.options)
                 .await
         }
@@ -1564,8 +1546,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_backup_schedule(self.0.request, self.0.options)
                 .await
         }
@@ -1609,8 +1590,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupSchedule> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .update_backup_schedule(self.0.request, self.0.options)
                 .await
         }
@@ -1666,8 +1646,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_backup_schedule(self.0.request, self.0.options)
                 .await
         }
@@ -1711,8 +1690,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ListBackupSchedulesResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_backup_schedules(self.0.request, self.0.options)
                 .await
         }
@@ -1783,8 +1761,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::ListOperationsResponse> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .list_operations(self.0.request, self.0.options)
                 .await
         }
@@ -1861,8 +1838,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<longrunning::model::Operation> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .get_operation(self.0.request, self.0.options)
                 .await
         }
@@ -1906,8 +1882,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .delete_operation(self.0.request, self.0.options)
                 .await
         }
@@ -1951,8 +1926,7 @@ pub mod database_admin {
 
         /// Sends the request.
         pub async fn send(self) -> Result<wkt::Empty> {
-            self.0
-                .stub
+            (*self.0.stub)
                 .cancel_operation(self.0.request, self.0.options)
                 .await
         }

@@ -144,6 +144,8 @@ type PathInfo struct {
 	//
 	// If this is empty then the body is not used.
 	BodyFieldPath string
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized long running operation info
@@ -242,6 +244,8 @@ type Enum struct {
 	Parent *Message
 	// The Protobuf package this enum belongs to.
 	Package string
+	// Language specific annotations.
+	Codec any
 }
 
 // EnumValue defines a value in an Enum.
@@ -256,6 +260,8 @@ type EnumValue struct {
 	Number int32
 	// Parent returns the ancestor of this node, if any.
 	Parent *Enum
+	// Language specific annotations.
+	Codec any
 }
 
 // Field defines a field in a Message.
@@ -285,6 +291,8 @@ type Field struct {
 	// some helper fields. These need to be marked so they can be excluded
 	// from serialized messages and in other places.
 	Synthetic bool
+	// A placeholder to put language specific annotations.
+	Codec any
 }
 
 // Pair is a key-value pair.
@@ -308,4 +316,6 @@ type OneOf struct {
 	Fields []*Field
 	// Parent returns the ancestor of this node, if any.
 	Parent *Message
+	// A placeholder to put language specific annotations.
+	Codec any
 }

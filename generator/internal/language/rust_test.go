@@ -394,9 +394,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 
 func TestRust_NoStreamingFeature(t *testing.T) {
 	codec := &rustCodec{
-		modulePath:     "model",
-		extraPackages:  []*rustPackage{},
-		packageMapping: map[string]*rustPackage{},
+		extraPackages: []*rustPackage{},
 	}
 	model := newTestAPI([]*api.Message{
 		{Name: "CreateResource", IsPageableResponse: false},
@@ -1162,6 +1160,20 @@ func TestRust_ToSnake(t *testing.T) {
 	}
 }
 
+func TestRust_ToScreamingSnake(t *testing.T) {
+	var snakeConvertTests = []rustCaseConvertTest{
+		{"FooBar", "FOO_BAR"},
+		{"FOO_BAR", "FOO_BAR"},
+		{"week5", "WEEK_5"},
+		{"TYPE_INT64", "TYPE_INT64"},
+	}
+	for _, test := range snakeConvertTests {
+		if output := rustToScreamingSnake(test.Input); output != test.Expected {
+			t.Errorf("Output %q not equal to expected %q, input=%s", output, test.Expected, test.Input)
+		}
+	}
+}
+
 func TestRust_ToPascal(t *testing.T) {
 	var pascalConvertTests = []rustCaseConvertTest{
 		{"foo_bar", "FooBar"},
@@ -1404,8 +1416,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		path:        "src/generated/iam/v1",
 	}
 	c := &rustCodec{
-		modulePath:    "crate::model",
-		extraPackages: []*rustPackage{wkt, iam},
+		modulePath: "crate::model",
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
@@ -1425,12 +1436,12 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 
 func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
 	input := `Link definitions should be added when collapsed links are used. 
-	For example, [google][].
-	Second [example][].
-	[Third] example.
-	[google]: https://www.google.com
-	[example]: https://www.example.com
-	[Third]: https://www.third.com`
+For example, [google][].
+Second [example][].
+[Third] example.
+[google]: https://www.google.com
+[example]: https://www.example.com
+[Third]: https://www.third.com`
 
 	want := []string{
 		"/// Link definitions should be added when collapsed links are used.",
@@ -1554,6 +1565,9 @@ blah blah https://cloud.google.com foo bar
 https://example4.com.
 https://example5.com https://cloud.google.com something else.
 [link definition]: https://example6.com/
+not a definition: https://example7.com/
+Quoted URL: "https://example8.com"
+Trailing Slash https://example9.com/
 http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html
 http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
@@ -1566,6 +1580,9 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		"/// <https://example4.com>.",
 		"/// <https://example5.com> <https://cloud.google.com> something else.",
 		"/// [link definition]: https://example6.com/",
+		"/// not a definition: <https://example7.com/>",
+		"/// Quoted URL: `https://example8.com`",
+		"/// Trailing Slash <https://example9.com/>",
 		"/// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>",
 		"/// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>",
@@ -1583,8 +1600,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		path:        "src/generated/iam/v1",
 	}
 	c := &rustCodec{
-		modulePath:    "model",
-		extraPackages: []*rustPackage{wkt, iam},
+		modulePath: "model",
 		packageMapping: map[string]*rustPackage{
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
@@ -1693,6 +1709,193 @@ func TestRust_EnumNames(t *testing.T) {
 		}
 		if got := rustFQEnumName(test.enum, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != test.wantFQEnum {
 			t.Errorf("c.fqEnumName(%q) = %q; want = %s", test.enum.Name, got, test.wantFQEnum)
+		}
+	}
+}
+
+func Test_RustPathFmt(t *testing.T) {
+	for _, test := range []struct {
+		want     string
+		pathInfo *api.PathInfo
+	}{
+		{
+			"/v1/fixed",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")},
+			},
+		},
+		{
+			"/v1/{}",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")},
+			},
+		},
+		{
+			"/v1/{}:action",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")},
+			},
+		},
+		{
+			"/v1/projects/{}/locations/{}/secrets/{}:action",
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewLiteralPathSegment("projects"),
+					api.NewFieldPathPathSegment("project"),
+					api.NewLiteralPathSegment("locations"),
+					api.NewFieldPathPathSegment("location"),
+					api.NewLiteralPathSegment("secrets"),
+					api.NewFieldPathPathSegment("secret"),
+					api.NewVerbPathSegment("action"),
+				},
+			},
+		},
+	} {
+		got := rustHTTPPathFmt(test.pathInfo)
+		if test.want != got {
+			t.Errorf("mismatched path info fmt for %v\nwant=%s\n got=%s", test.pathInfo, test.want, got)
+		}
+	}
+
+}
+
+func Test_RustPathArgs(t *testing.T) {
+	subMessage := &api.Message{
+		Name: "Body",
+		ID:   ".test.Body",
+		Fields: []*api.Field{
+			{Name: "a", Typez: api.STRING_TYPE},
+			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "c", Typez: api.ENUM_TYPE},
+			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
+		},
+	}
+	message := &api.Message{
+		Name: "CreateResourceRequest",
+		ID:   ".test.CreateResourceRequest",
+		Fields: []*api.Field{
+			{Name: "a", Typez: api.STRING_TYPE},
+			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
+			{Name: "c", Typez: api.ENUM_TYPE},
+			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
+			{Name: "e", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
+		},
+	}
+	method := &api.Method{
+		Name:        "CreateResource",
+		InputTypeID: ".test.CreateResourceRequest",
+	}
+	service := &api.Service{
+		Name:    "TestService",
+		ID:      ".test.Service",
+		Methods: []*api.Method{method},
+	}
+	model := newTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
+
+	for _, test := range []struct {
+		want     []string
+		pathInfo *api.PathInfo
+	}{
+		{
+			nil,
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+				},
+			},
+		},
+		{
+			[]string{".a"},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("a")},
+			},
+		},
+		{
+			[]string{`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("b"),
+				},
+			},
+		},
+		{
+			[]string{`.c.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("c"),
+				},
+			},
+		},
+		{
+			[]string{`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("d"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?.a`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.a"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.b"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.c.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.c"),
+				},
+			},
+		},
+		{
+			[]string{`.e.as_ref().ok_or_else(|| gax::path_parameter::missing("e"))?` +
+				`.d.as_ref().ok_or_else(|| gax::path_parameter::missing("d"))?` +
+				`.value()`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("e.d"),
+				},
+			},
+		},
+		{
+			[]string{".a", `.b.as_ref().ok_or_else(|| gax::path_parameter::missing("b"))?`},
+			&api.PathInfo{
+				PathTemplate: []api.PathSegment{
+					api.NewLiteralPathSegment("v1"),
+					api.NewFieldPathPathSegment("a"),
+					api.NewFieldPathPathSegment("b"),
+				},
+			},
+		},
+	} {
+		// Modify the method to match the test case.
+		method.PathInfo = test.pathInfo
+		got := rustHTTPPathArgs(test.pathInfo, method, model.State)
+		if diff := cmp.Diff(test.want, got); diff != "" {
+			t.Errorf("mismatched path info args (-want, +got):\n%s", diff)
 		}
 	}
 }

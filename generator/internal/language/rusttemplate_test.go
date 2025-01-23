@@ -17,6 +17,7 @@ package language
 import (
 	"testing"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
@@ -37,5 +38,73 @@ func TestPackageNames(t *testing.T) {
 	want := "gcp_sdk_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
+	}
+}
+
+func Test_RustEnumAnnotations(t *testing.T) {
+	// Verify we can handle values that are not in SCREAMING_SNAKE_CASE style.
+	v0 := &api.EnumValue{
+		Name:          "week5",
+		ID:            ".test.v1.TestEnum.week5",
+		Documentation: "week5 is also documented.",
+	}
+	v1 := &api.EnumValue{
+		Name:          "MULTI_WORD_VALUE",
+		ID:            ".test.v1.TestEnum.MULTI_WORD_VALUES",
+		Documentation: "MULTI_WORD_VALUE is also documented.",
+	}
+	v2 := &api.EnumValue{
+		Name:          "VALUE",
+		ID:            ".test.v1.TestEnum.VALUE",
+		Documentation: "VALUE is also documented.",
+	}
+	enum := &api.Enum{
+		Name:          "TestEnum",
+		ID:            ".test.v1.TestEnum",
+		Documentation: "The enum is documented.",
+		Values:        []*api.EnumValue{v0, v1, v2},
+	}
+
+	model := newTestAPI(
+		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
+	codec, err := newRustCodec(map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = newRustTemplateData(model, codec, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(&rustEnumAnnotation{
+		Name:       "TestEnum",
+		ModuleName: "test_enum",
+		DocLines:   []string{"/// The enum is documented."},
+	}, enum.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustEnumValueAnnotation{
+		Name:     "WEEK_5",
+		EnumType: "TestEnum",
+		DocLines: []string{"/// week5 is also documented."},
+	}, v0.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustEnumValueAnnotation{
+		Name:     "MULTI_WORD_VALUE",
+		EnumType: "TestEnum",
+		DocLines: []string{"/// MULTI_WORD_VALUE is also documented."},
+	}, v1.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustEnumValueAnnotation{
+		Name:     "VALUE",
+		EnumType: "TestEnum",
+		DocLines: []string{"/// VALUE is also documented."},
+	}, v2.Codec); diff != "" {
+		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 }

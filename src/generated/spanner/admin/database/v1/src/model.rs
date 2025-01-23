@@ -16,6 +16,7 @@
 
 #![allow(rustdoc::invalid_html_tags)]
 #![allow(rustdoc::redundant_explicit_links)]
+#![allow(rustdoc::broken_intra_doc_links)]
 #![no_implicit_prelude]
 extern crate async_trait;
 extern crate bytes;
@@ -1764,7 +1765,7 @@ pub mod backup_schedule {
 pub struct CrontabSpec {
     /// Required. Textual representation of the crontab. User can customize the
     /// backup frequency and the backup version time using the cron
-    /// expression. The version time must be in UTC timzeone.
+    /// expression. The version time must be in UTC timezone.
     ///
     /// The backup will contain an externally consistent copy of the
     /// database at the version time. Allowed frequencies are 12 hour, 1 day,

@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::util::jws::{JwsClaimsBuilder, JwsHeader, DEFAULT_TOKEN_TIMEOUT};
+use crate::credentials::util::jws::{
+    JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
+};
 use crate::credentials::Result;
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
@@ -66,11 +68,17 @@ impl TokenProvider for ServiceAccountTokenProvider {
     async fn get_token(&self) -> Result<Token> {
         let signer = self.signer(&self.service_account_info.private_key)?;
 
-        let claims = JwsClaimsBuilder::default()
-            .iss(self.service_account_info.client_email.as_str())
-            .scope(DEFAULT_SCOPES)
-            .build()
-            .map_err(CredentialError::non_retryable)?;
+        let now = OffsetDateTime::now_utc() - CLOCK_SKEW_FUDGE;
+        let exp = now + DEFAULT_TOKEN_TIMEOUT;
+        let claims = JwsClaims {
+            iss: self.service_account_info.client_email.clone(),
+            scope: Some(DEFAULT_SCOPES.map(|s| s.to_string()).to_vec()),
+            aud: None,
+            exp,
+            iat: now,
+            typ: None,
+            sub: None,
+        };
 
         let encoded_header_claims = format!("{}.{}", DEFAULT_HEADER.encode()?, claims.encode()?);
         let sig = signer
@@ -86,7 +94,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let token = Token {
             token,
             token_type: "Bearer".to_string(),
-            expires_at: Some(OffsetDateTime::now_utc() + DEFAULT_TOKEN_TIMEOUT),
+            expires_at: Some(exp),
             metadata: None,
         };
         Ok(token)

@@ -140,8 +140,9 @@ impl crate::traits::Workflows for Workflows {
                 reqwest::Method::PATCH,
                 format!(
                     "/v1/{}",
-                    gax::path_parameter::PathParameter::required(&req.workflow, "workflow")
-                        .map_err(Error::other)?
+                    req.workflow
+                        .as_ref()
+                        .ok_or_else(|| gax::path_parameter::missing("workflow"))?
                         .name
                 ),
             )

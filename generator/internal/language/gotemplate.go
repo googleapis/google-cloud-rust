@@ -36,7 +36,7 @@ type GoTemplateData struct {
 	DefaultHost       string
 	Services          []*GoService
 	Messages          []*GoMessage
-	Enums             []*GoEnum
+	Enums             []*api.Enum
 	GoPackage         string
 }
 
@@ -55,7 +55,7 @@ type GoMessage struct {
 	BasicFields        []*GoField
 	ExplicitOneOfs     []*GoOneOf
 	NestedMessages     []*GoMessage
-	Enums              []*GoEnum
+	Enums              []*api.Enum
 	Name               string
 	QualifiedName      string
 	HasNestedTypes     bool
@@ -111,16 +111,14 @@ type GoField struct {
 	AsQueryParameter   string
 }
 
-type GoEnum struct {
+type goEnumAnnotation struct {
 	Name     string
 	DocLines []string
-	Values   []*GoEnumValue
 }
 
-type GoEnumValue struct {
+type goEnumValueAnnotation struct {
 	DocLines []string
 	Name     string
-	Number   int32
 	EnumType string
 }
 
@@ -163,6 +161,9 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 	goValidate(model, sourceSpecificationPackageName)
 
 	goLoadWellKnownTypes(model.State)
+	for _, e := range model.State.EnumByID {
+		goAnnotateEnum(e, model.State, importMap)
+	}
 	data := &GoTemplateData{
 		Name:              model.Name,
 		Title:             model.Title,
@@ -187,9 +188,7 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 		Messages: mapSlice(model.Messages, func(m *api.Message) *GoMessage {
 			return newGoMessage(m, model.State, importMap)
 		}),
-		Enums: mapSlice(model.Enums, func(e *api.Enum) *GoEnum {
-			return newGoEnum(e, model.State, importMap)
-		}),
+		Enums:     model.Enums,
 		GoPackage: packageName,
 	}
 
@@ -246,9 +245,7 @@ func newGoMessage(m *api.Message, state *api.APIState, importMap map[string]*goI
 		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *GoMessage {
 			return newGoMessage(s, state, importMap)
 		}),
-		Enums: mapSlice(m.Enums, func(s *api.Enum) *GoEnum {
-			return newGoEnum(s, state, importMap)
-		}),
+		Enums:         m.Enums,
 		Name:          goMessageName(m, importMap),
 		QualifiedName: goMessageName(m, importMap),
 		HasNestedTypes: func() bool {
@@ -328,21 +325,20 @@ func newGoField(field *api.Field, state *api.APIState, importMap map[string]*goI
 	}
 }
 
-func newGoEnum(e *api.Enum, state *api.APIState, importMap map[string]*goImport) *GoEnum {
-	return &GoEnum{
+func goAnnotateEnum(e *api.Enum, state *api.APIState, importMap map[string]*goImport) {
+	for _, ev := range e.Values {
+		goAnnotateEnumValue(ev, e, state, importMap)
+	}
+	e.Codec = &goEnumAnnotation{
 		Name:     goEnumName(e, importMap),
 		DocLines: goFormatDocComments(e.Documentation, state),
-		Values: mapSlice(e.Values, func(s *api.EnumValue) *GoEnumValue {
-			return newGoEnumValue(s, e, state, importMap)
-		}),
 	}
 }
 
-func newGoEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, importMap map[string]*goImport) *GoEnumValue {
-	return &GoEnumValue{
+func goAnnotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.APIState, importMap map[string]*goImport) {
+	ev.Codec = &goEnumValueAnnotation{
 		DocLines: goFormatDocComments(ev.Documentation, state),
 		Name:     goEnumValueName(ev, importMap),
-		Number:   ev.Number,
 		EnumType: goEnumName(e, importMap),
 	}
 }
