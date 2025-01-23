@@ -1069,10 +1069,10 @@ func fetchHtmlSubstitutions(node ast.Node, documentationBytes []byte) map[string
 	return htmlMapping
 }
 
-func escapeHTMLTags(htmlTags map[string]string, line string) string {
+func escapeHTMLTags(htmlSubstitutions map[string]string, line string) string {
 	processed := line
-	for tag := range htmlTags {
-		processed = strings.ReplaceAll(processed, tag, htmlTags[tag])
+	for tag := range htmlSubstitutions {
+		processed = strings.ReplaceAll(processed, tag, htmlSubstitutions[tag])
 	}
 	return processed
 }
