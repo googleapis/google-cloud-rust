@@ -1023,7 +1023,7 @@ func fetchPlaceholders(node ast.Node, documentationBytes []byte) map[string]stri
 				original := string(segment.Value(documentationBytes))
 
 				// Exclude urls and hyperlinks.
-				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a") && !strings.HasPrefix(original, "</a>") {
+				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a href=") && !strings.HasPrefix(original, "</a>") {
 					htmlMapping[original] = html.EscapeString(original)
 				}
 			}
