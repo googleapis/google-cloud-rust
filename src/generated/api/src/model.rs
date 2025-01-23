@@ -3103,8 +3103,8 @@ pub struct Page {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    /// The Markdown content of the page. You can use <code>&#40;== include {path}
-    /// ==&#41;</code> to include content from a Markdown file. The content can be
+    /// The Markdown content of the page. You can use &lt;code&gt;&#40;== include {path}
+    /// ==&#41;&lt;/code&gt; to include content from a Markdown file. The content can be
     /// used to produce the documentation page such as HTML format page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub content: std::string::String,
@@ -7157,7 +7157,7 @@ impl wkt::message::Message for SystemParameter {
 #[non_exhaustive]
 pub struct Usage {
     /// Requirements that must be satisfied before a consumer project can use the
-    /// service. Each requirement is of the form <service.name>/<requirement-id>;
+    /// service. Each requirement is of the form <service.name>/&lt;requirement-id&gt;;
     /// for example 'serviceusage.googleapis.com/billing-enabled'.
     ///
     /// For Google APIs, a Terms of Service requirement must be included here.

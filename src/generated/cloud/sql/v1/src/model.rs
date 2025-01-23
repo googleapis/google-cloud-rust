@@ -6655,16 +6655,16 @@ pub struct ExportContext {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub uri: std::string::String,
 
-    /// Databases to be exported. <br /> `MySQL instances:` If
+    /// Databases to be exported. &lt;br /&gt; `MySQL instances:` If
     /// `fileType` is `SQL` and no database is specified, all
     /// databases are exported, except for the `mysql` system database.
     /// If `fileType` is `CSV`, you can specify one database,
     /// either by using this property or by using the
     /// `csvExportOptions.selectQuery` property, which takes precedence
-    /// over this property. <br /> `PostgreSQL instances:` You must specify
+    /// over this property. &lt;br /&gt; `PostgreSQL instances:` You must specify
     /// one database to be exported. If `fileType` is `CSV`,
     /// this database must match the one specified in the
-    /// `csvExportOptions.selectQuery` property. <br /> `SQL Server
+    /// `csvExportOptions.selectQuery` property. &lt;br /&gt; `SQL Server
     /// instances:` You must specify one database to be exported, and the
     /// `fileType` must be `BAK`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
@@ -6949,7 +6949,7 @@ pub mod export_context {
         #[non_exhaustive]
         pub struct PostgresExportOptions {
 
-            /// Optional. Use this option to include DROP <object> SQL statements.
+            /// Optional. Use this option to include DROP &lt;object&gt; SQL statements.
             /// These statements are used to delete database objects before running the
             /// import operation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
