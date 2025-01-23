@@ -25,12 +25,12 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [Builds](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Builds.html)
-//! * [Executions](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Executions.html)
-//! * [Jobs](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Jobs.html)
-//! * [Revisions](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Revisions.html)
-//! * [Services](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Services.html)
-//! * [Tasks](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Tasks.html)
+//! * [Builds](client/struct.Builds.html)
+//! * [Executions](client/struct.Executions.html)
+//! * [Jobs](client/struct.Jobs.html)
+//! * [Revisions](client/struct.Revisions.html)
+//! * [Services](client/struct.Services.html)
+//! * [Tasks](client/struct.Tasks.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

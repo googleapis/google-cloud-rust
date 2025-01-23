@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [DatabaseAdmin](https://docs.rs/gcp-sdk-spanner-admin-database-v1/latest/gcp_sdk_spanner_admin_database_v1/client/struct.DatabaseAdmin.html)
+//! * [DatabaseAdmin](client/struct.DatabaseAdmin.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;
