@@ -614,10 +614,6 @@ func rustMessageAttributes(deserializeWithdDefaults bool) []string {
 	}
 }
 
-func rustMessageName(m *api.Message) string {
-	return rustToPascal(m.Name)
-}
-
 func rustMessageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
 	rustPkg := func(packageName string) string {
 		if packageName == sourceSpecificationPackageName {

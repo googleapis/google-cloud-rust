@@ -1435,7 +1435,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 }
 
 func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
-	input := `Link definitions should be added when collapsed links are used. 
+	input := `Link definitions should be added when collapsed links are used.
 For example, [google][].
 Second [example][].
 [Third] example.
@@ -1623,15 +1623,8 @@ func TestRust_MessageNames(t *testing.T) {
 	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		t.Fatal(err)
 	}
-	if got := rustMessageName(message); got != "Replication" {
-		t.Errorf("mismatched message name, got=%s, want=Replication", got)
-	}
 	if got := rustFQMessageName(message, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != "crate::model::Replication" {
 		t.Errorf("mismatched message name, got=%s, want=crate::model::Replication", got)
-	}
-
-	if got := rustMessageName(nested); got != "Automatic" {
-		t.Errorf("mismatched message name, got=%s, want=Automatic", got)
 	}
 	if got := rustFQMessageName(nested, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != "crate::model::replication::Automatic" {
 		t.Errorf("mismatched message name, got=%s, want=crate::model::replication::Automatic", got)
