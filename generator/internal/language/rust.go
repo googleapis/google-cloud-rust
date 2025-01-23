@@ -898,8 +898,14 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
+func processCommentLine(htmlSubstitutions map[string]string, line string) string {
+	line = escapeUrls(line)
+	line = escapeHTMLTags(htmlSubstitutions, line)
+	return line
+}
+
 // Encloses standalone URLs with angled brackets and escape placeholders.
-func escapeUrlsAndPlaceholders(placeholders map[string]string, line string) string {
+func escapeUrls(line string) string {
 	var escapedLine strings.Builder
 	lastIndex := 0
 
@@ -938,7 +944,7 @@ func escapeUrlsAndPlaceholders(placeholders map[string]string, line string) stri
 
 	}
 	escapedLine.WriteString(line[lastIndex:])
-	return escapeHTMLTags(placeholders, escapedLine.String())
+	return escapedLine.String()
 }
 
 // Verifies whether the url is part of a link destination.
@@ -966,18 +972,16 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			results = append(results, nestedListItems...)
 			break
 		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
-			placeholders := fetchPlaceholders(child, documentationBytes)
+			htmlSubstitutions := fetchHtmlSubstitutions(child, documentationBytes)
 			firstLine := child.Lines().At(0)
 			firstLineString := string(firstLine.Value(documentationBytes))
 			extractProtoLinks(firstLineString, links)
-			escapedFirstLine := escapeUrlsAndPlaceholders(placeholders, firstLineString)
-			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, escapedFirstLine))
+			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(htmlSubstitutions, firstLineString)))
 			for i := 1; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
 				lineString := string(line.Value(documentationBytes))
 				extractProtoLinks(lineString, links)
-				escapedLine := escapeUrlsAndPlaceholders(placeholders, lineString)
-				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), escapedLine))
+				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(htmlSubstitutions, lineString)))
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1020,12 +1024,12 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
-	placeholders := fetchPlaceholders(node, documentationBytes)
+	htmlSubstitutions := fetchHtmlSubstitutions(node, documentationBytes)
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
-		results = append(results, escapeUrlsAndPlaceholders(placeholders, lineString))
+		results = append(results, processCommentLine(htmlSubstitutions, lineString))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
@@ -1038,17 +1042,25 @@ func processParagraph(node ast.Node, links map[string]bool, documentationBytes [
 	return results
 }
 
-func fetchPlaceholders(node ast.Node, documentationBytes []byte) map[string]string {
+func fetchHtmlSubstitutions(node ast.Node, documentationBytes []byte) map[string]string {
 	htmlMapping := make(map[string]string)
 	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
-		if c.Kind() == ast.KindRawHTML {
+
+		// Skip escaping the contents in code spans.
+		if c.Kind() == ast.KindCodeSpan {
+			codespan := c.(*ast.CodeSpan)
+			codespanContent := string(codespan.Text(documentationBytes))
+			if strings.Contains(codespanContent, "<") || strings.Contains(codespanContent, ">") {
+				continue
+			}
+		} else if c.Kind() == ast.KindRawHTML {
 			rawHTML := c.(*ast.RawHTML)
 			for i := 0; i < rawHTML.Segments.Len(); i++ {
 				segment := rawHTML.Segments.At(i)
 				original := string(segment.Value(documentationBytes))
 
-				// Exclude urls and hyperlinks.
-				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a href=") && !strings.HasPrefix(original, "</a>") {
+				// Skip escaping urls, hyperlinks and line breaks.
+				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a href=") && !strings.HasPrefix(original, "</a>") && !strings.HasPrefix(original, "<br />") {
 					htmlMapping[original] = html.EscapeString(original)
 				}
 			}
