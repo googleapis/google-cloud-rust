@@ -324,6 +324,28 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Services = append(result.Services, fileServices...)
 	}
 
+	needsLongrunningMixin := func() bool {
+		for _, service := range result.Services {
+			for _, method := range service.Methods {
+				if method.OperationInfo == nil {
+					continue
+				}
+				// This service has an LRO, it needs to implement `GetOperation`.
+				target := service.ID + ".GetOperation"
+				if _, ok := result.State.MethodByID[target]; ok {
+					// The method already exists, nothing to do.
+					continue
+				}
+				return true
+			}
+		}
+		return false
+	}()
+
+	if needsLongrunningMixin {
+		enabledMixinMethods, mixinFileDesc = appendLongrunningMixin(enabledMixinMethods, mixinFileDesc)
+	}
+
 	// Add the mixing methods to the existing services.
 	for _, service := range result.Services {
 		for _, f := range mixinFileDesc {

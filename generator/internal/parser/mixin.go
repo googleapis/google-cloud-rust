@@ -76,6 +76,24 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 	return enabledMixinMethods
 }
 
+// appendLongrunningMixin appends the longrunning mixin. Many services have
+// LROs, which need the mixin to be usable, but do not include the mixin in the
+// service config YAML file.
+func appendLongrunningMixin(methods mixinMethods, files []*descriptorpb.FileDescriptorProto) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
+	desc := protodesc.ToFileDescriptorProto(longrunningpb.File_google_longrunning_operations_proto)
+	for _, f := range files {
+		if f.GetName() == desc.GetName() {
+			return methods, files
+		}
+	}
+	files = append(files, desc)
+	methods[".google.protobuf.Operations.ListOperations"] = true
+	methods[".google.protobuf.Operations.GetOperation"] = true
+	methods[".google.protobuf.Operations.DeleteOperation"] = true
+	methods[".google.protobuf.Operations.CancelOperation"] = true
+	return methods, files
+}
+
 // Apply `serviceConfig` overrides to `targetMethod`.
 //
 // The service config file may include overrides to mixin method definitions.
