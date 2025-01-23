@@ -54,13 +54,8 @@ func checkService(t *testing.T, got *api.Service, want *api.Service) {
 	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Service{}, "Methods")); diff != "" {
 		t.Errorf("mismatched service attributes (-want, +got):\n%s", diff)
 	}
-	for _, m := range got.Methods {
-		if m.Parent != got {
-			t.Errorf("mismatched method parent want=%v, got=%v", got, m.Parent)
-		}
-	}
 	less := func(a, b *api.Method) bool { return a.Name < b.Name }
-	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.Method{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want.Methods, got.Methods, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("method mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -79,7 +74,7 @@ func checkMethod(t *testing.T, service *api.Service, name string, want *api.Meth
 	if !ok {
 		t.Errorf("missing method %s", name)
 	}
-	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Method{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatched data for method %s (-want, +got):\n%s", name, diff)
 	}
 }

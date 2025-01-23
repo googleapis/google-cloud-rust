@@ -215,7 +215,7 @@ func newGoService(s *api.Service, state *api.APIState, importMap map[string]*goI
 	})
 	return &GoService{
 		Methods: mapSlice(methods, func(m *api.Method) *GoMethod {
-			return newGoMethod(m, state, importMap)
+			return newGoMethod(m, s, state, importMap)
 		}),
 		NameToPascal:        goToPascal(s.Name),
 		ServiceNameToPascal: goToPascal(s.Name), // Alias for clarity
@@ -268,7 +268,7 @@ func newGoMessage(m *api.Message, state *api.APIState, importMap map[string]*goI
 	}
 }
 
-func newGoMethod(m *api.Method, state *api.APIState, importMap map[string]*goImport) *GoMethod {
+func newGoMethod(m *api.Method, s *api.Service, state *api.APIState, importMap map[string]*goImport) *GoMethod {
 	method := &GoMethod{
 		BodyAccessor:      goBodyAccessor(m),
 		DocLines:          goFormatDocComments(m.Documentation, state),
@@ -288,7 +288,7 @@ func newGoMethod(m *api.Method, state *api.APIState, importMap map[string]*goImp
 			return newGoField(s, state, importMap)
 		}),
 		IsPageable:          m.IsPageable,
-		ServiceNameToPascal: goToPascal(m.Parent.Name),
+		ServiceNameToPascal: goToPascal(s.Name),
 		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
