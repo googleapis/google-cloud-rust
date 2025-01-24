@@ -1203,9 +1203,9 @@ func rustMethodRustdocLink(m *api.Method, state *api.APIState, packageMapping ma
 func rustServiceRustdocLink(s *api.Service, packageMapping map[string]*rustPackage) string {
 	mapped, ok := rustMapPackage(s.Package, packageMapping)
 	if ok {
-		return fmt.Sprintf("%s::traits::%s", mapped.name, s.Name)
+		return fmt.Sprintf("%s::client::%s", mapped.name, rustToPascal(s.Name))
 	}
-	return fmt.Sprintf("crate::traits::%s", s.Name)
+	return fmt.Sprintf("crate::client::%s", rustToPascal(s.Name))
 }
 
 func rustProjectRoot(outdir string) string {

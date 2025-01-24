@@ -301,7 +301,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -315,7 +315,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -329,7 +329,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -340,7 +340,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -783,7 +783,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -797,7 +797,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -811,7 +811,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -822,7 +822,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,

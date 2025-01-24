@@ -134,7 +134,7 @@ impl Operations {
     /// `Code.CANCELLED`.
     ///
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
-    /// [google.longrunning.Operations.GetOperation]: crate::traits::Operations::get_operation
+    /// [google.longrunning.Operations.GetOperation]: crate::client::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
     pub fn cancel_operation(
         &self,

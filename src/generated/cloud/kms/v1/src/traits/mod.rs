@@ -37,8 +37,8 @@ pub(crate) mod dyntraits;
 /// a resource project's ancestor folder, see
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::traits::AutokeyAdmin::show_effective_autokey_config
-/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::traits::AutokeyAdmin::update_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
 ///
@@ -168,7 +168,7 @@ pub trait Autokey: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -330,7 +330,7 @@ pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -531,7 +531,7 @@ pub trait EkmService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -833,8 +833,8 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::traits::KeyManagementService::destroy_crypto_key_version
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
     fn update_crypto_key_version(
         &self,
         _req: crate::model::UpdateCryptoKeyVersionRequest,
@@ -855,7 +855,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     fn update_crypto_key_primary_version(
         &self,
         _req: crate::model::UpdateCryptoKeyPrimaryVersionRequest,
@@ -894,7 +894,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
     fn destroy_crypto_key_version(
         &self,
         _req: crate::model::DestroyCryptoKeyVersionRequest,
@@ -939,7 +939,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
     fn encrypt(
         &self,
         _req: crate::model::EncryptRequest,
@@ -958,7 +958,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     fn decrypt(
         &self,
         _req: crate::model::DecryptRequest,
@@ -979,8 +979,8 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     fn raw_encrypt(
         &self,
         _req: crate::model::RawEncryptRequest,
@@ -1018,7 +1018,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
     fn asymmetric_sign(
         &self,
         _req: crate::model::AsymmetricSignRequest,
@@ -1038,7 +1038,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
     fn asymmetric_decrypt(
         &self,
         _req: crate::model::AsymmetricDecryptRequest,
@@ -1168,7 +1168,7 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

@@ -210,7 +210,7 @@ impl Policies {
     ///
     /// This pattern helps prevent conflicts between concurrent updates.
     ///
-    /// [google.iam.v2.Policies.GetPolicy]: crate::traits::Policies::get_policy
+    /// [google.iam.v2.Policies.GetPolicy]: crate::client::Policies::get_policy
     ///
     /// # Long running operations
     ///
@@ -406,7 +406,7 @@ impl Policies {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,

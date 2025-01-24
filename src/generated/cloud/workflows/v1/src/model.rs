@@ -426,7 +426,7 @@ pub mod workflow {
 /// [ListWorkflows][google.cloud.workflows.v1.Workflows.ListWorkflows]
 /// method.
 ///
-/// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::traits::Workflows::list_workflows
+/// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::client::Workflows::list_workflows
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -505,7 +505,7 @@ impl wkt::message::Message for ListWorkflowsRequest {
 /// [ListWorkflows][google.cloud.workflows.v1.Workflows.ListWorkflows]
 /// method.
 ///
-/// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::traits::Workflows::list_workflows
+/// [google.cloud.workflows.v1.Workflows.ListWorkflows]: crate::client::Workflows::list_workflows
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -573,7 +573,7 @@ impl gax::paginator::PageableResponse for ListWorkflowsResponse {
 /// Request for the
 /// [GetWorkflow][google.cloud.workflows.v1.Workflows.GetWorkflow] method.
 ///
-/// [google.cloud.workflows.v1.Workflows.GetWorkflow]: crate::traits::Workflows::get_workflow
+/// [google.cloud.workflows.v1.Workflows.GetWorkflow]: crate::client::Workflows::get_workflow
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -617,7 +617,7 @@ impl wkt::message::Message for GetWorkflowRequest {
 /// [CreateWorkflow][google.cloud.workflows.v1.Workflows.CreateWorkflow]
 /// method.
 ///
-/// [google.cloud.workflows.v1.Workflows.CreateWorkflow]: crate::traits::Workflows::create_workflow
+/// [google.cloud.workflows.v1.Workflows.CreateWorkflow]: crate::client::Workflows::create_workflow
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -677,7 +677,7 @@ impl wkt::message::Message for CreateWorkflowRequest {
 /// [DeleteWorkflow][google.cloud.workflows.v1.Workflows.DeleteWorkflow]
 /// method.
 ///
-/// [google.cloud.workflows.v1.Workflows.DeleteWorkflow]: crate::traits::Workflows::delete_workflow
+/// [google.cloud.workflows.v1.Workflows.DeleteWorkflow]: crate::client::Workflows::delete_workflow
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -707,7 +707,7 @@ impl wkt::message::Message for DeleteWorkflowRequest {
 /// [UpdateWorkflow][google.cloud.workflows.v1.Workflows.UpdateWorkflow]
 /// method.
 ///
-/// [google.cloud.workflows.v1.Workflows.UpdateWorkflow]: crate::traits::Workflows::update_workflow
+/// [google.cloud.workflows.v1.Workflows.UpdateWorkflow]: crate::client::Workflows::update_workflow
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

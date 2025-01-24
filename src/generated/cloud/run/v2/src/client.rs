@@ -91,7 +91,7 @@ impl Builds {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -101,7 +101,7 @@ impl Builds {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -111,7 +111,7 @@ impl Builds {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -121,7 +121,7 @@ impl Builds {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -408,7 +408,7 @@ impl Executions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -418,7 +418,7 @@ impl Executions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -428,7 +428,7 @@ impl Executions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -438,7 +438,7 @@ impl Executions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -938,7 +938,7 @@ impl Jobs {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -948,7 +948,7 @@ impl Jobs {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -958,7 +958,7 @@ impl Jobs {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -968,7 +968,7 @@ impl Jobs {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1157,7 +1157,7 @@ impl Revisions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -1167,7 +1167,7 @@ impl Revisions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1177,7 +1177,7 @@ impl Revisions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1187,7 +1187,7 @@ impl Revisions {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1603,7 +1603,7 @@ impl Services {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -1613,7 +1613,7 @@ impl Services {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1623,7 +1623,7 @@ impl Services {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1633,7 +1633,7 @@ impl Services {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1724,7 +1724,7 @@ impl Tasks {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
         name: impl Into<std::string::String>,
@@ -1734,7 +1734,7 @@ impl Tasks {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1744,7 +1744,7 @@ impl Tasks {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -1754,7 +1754,7 @@ impl Tasks {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn wait_operation(
         &self,
         name: impl Into<std::string::String>,

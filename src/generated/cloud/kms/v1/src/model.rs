@@ -37,7 +37,7 @@ extern crate wkt;
 /// Request message for
 /// [Autokey.CreateKeyHandle][google.cloud.kms.v1.Autokey.CreateKeyHandle].
 ///
-/// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::traits::Autokey::create_key_handle
+/// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::client::Autokey::create_key_handle
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -97,7 +97,7 @@ impl wkt::message::Message for CreateKeyHandleRequest {
 
 /// Request message for [GetKeyHandle][google.cloud.kms.v1.Autokey.GetKeyHandle].
 ///
-/// [google.cloud.kms.v1.Autokey.GetKeyHandle]: crate::traits::Autokey::get_key_handle
+/// [google.cloud.kms.v1.Autokey.GetKeyHandle]: crate::client::Autokey::get_key_handle
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -204,7 +204,7 @@ impl wkt::message::Message for KeyHandle {
 /// [CreateKeyHandle][google.cloud.kms.v1.Autokey.CreateKeyHandle] long-running
 /// operation response.
 ///
-/// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::traits::Autokey::create_key_handle
+/// [google.cloud.kms.v1.Autokey.CreateKeyHandle]: crate::client::Autokey::create_key_handle
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -222,7 +222,7 @@ impl wkt::message::Message for CreateKeyHandleMetadata {
 /// Request message for
 /// [Autokey.ListKeyHandles][google.cloud.kms.v1.Autokey.ListKeyHandles].
 ///
-/// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::traits::Autokey::list_key_handles
+/// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::client::Autokey::list_key_handles
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -300,7 +300,7 @@ impl wkt::message::Message for ListKeyHandlesRequest {
 /// Response message for
 /// [Autokey.ListKeyHandles][google.cloud.kms.v1.Autokey.ListKeyHandles].
 ///
-/// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::traits::Autokey::list_key_handles
+/// [google.cloud.kms.v1.Autokey.ListKeyHandles]: crate::client::Autokey::list_key_handles
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -360,7 +360,7 @@ impl gax::paginator::PageableResponse for ListKeyHandlesResponse {
 /// Request message for
 /// [UpdateAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::traits::AutokeyAdmin::update_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -413,7 +413,7 @@ impl wkt::message::Message for UpdateAutokeyConfigRequest {
 /// Request message for
 /// [GetAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.GetAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.GetAutokeyConfig]: crate::traits::AutokeyAdmin::get_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.GetAutokeyConfig]: crate::client::AutokeyAdmin::get_autokey_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -466,7 +466,7 @@ pub struct AutokeyConfig {
     /// `cloudkms.admin` role (or pertinent permissions). A request with an empty
     /// key project field will clear the configuration.
     ///
-    /// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::traits::AutokeyAdmin::update_autokey_config
+    /// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -549,7 +549,7 @@ pub mod autokey_config {
 /// Request message for
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::traits::AutokeyAdmin::show_effective_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -579,7 +579,7 @@ impl wkt::message::Message for ShowEffectiveAutokeyConfigRequest {
 /// Response message for
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::traits::AutokeyAdmin::show_effective_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -608,7 +608,7 @@ impl wkt::message::Message for ShowEffectiveAutokeyConfigResponse {
 /// Request message for
 /// [EkmService.ListEkmConnections][google.cloud.kms.v1.EkmService.ListEkmConnections].
 ///
-/// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::traits::EkmService::list_ekm_connections
+/// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::client::EkmService::list_ekm_connections
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -697,7 +697,7 @@ impl wkt::message::Message for ListEkmConnectionsRequest {
 /// Response message for
 /// [EkmService.ListEkmConnections][google.cloud.kms.v1.EkmService.ListEkmConnections].
 ///
-/// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::traits::EkmService::list_ekm_connections
+/// [google.cloud.kms.v1.EkmService.ListEkmConnections]: crate::client::EkmService::list_ekm_connections
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -771,7 +771,7 @@ impl gax::paginator::PageableResponse for ListEkmConnectionsResponse {
 /// Request message for
 /// [EkmService.GetEkmConnection][google.cloud.kms.v1.EkmService.GetEkmConnection].
 ///
-/// [google.cloud.kms.v1.EkmService.GetEkmConnection]: crate::traits::EkmService::get_ekm_connection
+/// [google.cloud.kms.v1.EkmService.GetEkmConnection]: crate::client::EkmService::get_ekm_connection
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -803,7 +803,7 @@ impl wkt::message::Message for GetEkmConnectionRequest {
 /// Request message for
 /// [EkmService.CreateEkmConnection][google.cloud.kms.v1.EkmService.CreateEkmConnection].
 ///
-/// [google.cloud.kms.v1.EkmService.CreateEkmConnection]: crate::traits::EkmService::create_ekm_connection
+/// [google.cloud.kms.v1.EkmService.CreateEkmConnection]: crate::client::EkmService::create_ekm_connection
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -867,7 +867,7 @@ impl wkt::message::Message for CreateEkmConnectionRequest {
 /// Request message for
 /// [EkmService.UpdateEkmConnection][google.cloud.kms.v1.EkmService.UpdateEkmConnection].
 ///
-/// [google.cloud.kms.v1.EkmService.UpdateEkmConnection]: crate::traits::EkmService::update_ekm_connection
+/// [google.cloud.kms.v1.EkmService.UpdateEkmConnection]: crate::client::EkmService::update_ekm_connection
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -916,7 +916,7 @@ impl wkt::message::Message for UpdateEkmConnectionRequest {
 /// Request message for
 /// [EkmService.GetEkmConfig][google.cloud.kms.v1.EkmService.GetEkmConfig].
 ///
-/// [google.cloud.kms.v1.EkmService.GetEkmConfig]: crate::traits::EkmService::get_ekm_config
+/// [google.cloud.kms.v1.EkmService.GetEkmConfig]: crate::client::EkmService::get_ekm_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -948,7 +948,7 @@ impl wkt::message::Message for GetEkmConfigRequest {
 /// Request message for
 /// [EkmService.UpdateEkmConfig][google.cloud.kms.v1.EkmService.UpdateEkmConfig].
 ///
-/// [google.cloud.kms.v1.EkmService.UpdateEkmConfig]: crate::traits::EkmService::update_ekm_config
+/// [google.cloud.kms.v1.EkmService.UpdateEkmConfig]: crate::client::EkmService::update_ekm_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1420,7 +1420,7 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-        /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::traits::KeyManagementService::destroy_crypto_key_version
+        /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
         pub const CLOUD_KMS: &str = "CLOUD_KMS";
     }
 }
@@ -1486,7 +1486,7 @@ impl wkt::message::Message for EkmConfig {
 /// Request message for
 /// [EkmService.VerifyConnectivity][google.cloud.kms.v1.EkmService.VerifyConnectivity].
 ///
-/// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::traits::EkmService::verify_connectivity
+/// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::client::EkmService::verify_connectivity
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1518,7 +1518,7 @@ impl wkt::message::Message for VerifyConnectivityRequest {
 /// Response message for
 /// [EkmService.VerifyConnectivity][google.cloud.kms.v1.EkmService.VerifyConnectivity].
 ///
-/// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::traits::EkmService::verify_connectivity
+/// [google.cloud.kms.v1.EkmService.VerifyConnectivity]: crate::client::EkmService::verify_connectivity
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1623,8 +1623,8 @@ pub struct CryptoKey {
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.EncryptRequest.name]: crate::model::EncryptRequest::name
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
-    /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::traits::KeyManagementService::update_crypto_key_primary_version
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::client::KeyManagementService::update_crypto_key_primary_version
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub primary: std::option::Option<crate::model::CryptoKeyVersion>,
 
@@ -1662,8 +1662,8 @@ pub struct CryptoKey {
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.next_rotation_time]: crate::model::CryptoKey::next_rotation_time
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
-    /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::traits::KeyManagementService::update_crypto_key_primary_version
+    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::client::KeyManagementService::update_crypto_key_primary_version
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub next_rotation_time: std::option::Option<wkt::Timestamp>,
 
@@ -1675,7 +1675,7 @@ pub struct CryptoKey {
     /// or auto-rotation are controlled by this template.
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub version_template: std::option::Option<crate::model::CryptoKeyVersionTemplate>,
 
@@ -1895,8 +1895,8 @@ pub mod crypto_key {
         /// [Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-        /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
-        /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+        /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
+        /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
         pub const ENCRYPT_DECRYPT: &str = "ENCRYPT_DECRYPT";
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
@@ -1906,8 +1906,8 @@ pub mod crypto_key {
         /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-        /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::traits::KeyManagementService::asymmetric_sign
-        /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+        /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
+        /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
         pub const ASYMMETRIC_SIGN: &str = "ASYMMETRIC_SIGN";
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
@@ -1917,8 +1917,8 @@ pub mod crypto_key {
         /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-        /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::traits::KeyManagementService::asymmetric_decrypt
-        /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+        /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
+        /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
         pub const ASYMMETRIC_DECRYPT: &str = "ASYMMETRIC_DECRYPT";
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
@@ -1928,15 +1928,15 @@ pub mod crypto_key {
         /// encryption and does not support automatic CryptoKey rotation.
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-        /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::traits::KeyManagementService::raw_decrypt
-        /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::traits::KeyManagementService::raw_encrypt
+        /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
+        /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
         pub const RAW_ENCRYPT_DECRYPT: &str = "RAW_ENCRYPT_DECRYPT";
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
-        /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::traits::KeyManagementService::mac_sign
+        /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
         pub const MAC: &str = "MAC";
     }
 
@@ -1975,7 +1975,7 @@ pub mod crypto_key {
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
 /// [google.cloud.kms.v1.CryptoKeyVersionTemplate]: crate::model::CryptoKeyVersionTemplate
-/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2766,7 +2766,7 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
         /// [google.cloud.kms.v1.CryptoKeyVersion.reimport_eligible]: crate::model::CryptoKeyVersion::reimport_eligible
-        /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::traits::KeyManagementService::import_crypto_key_version
+        /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
         pub const DESTROYED: &str = "DESTROYED";
 
         /// This version is scheduled for destruction, and will be destroyed soon.
@@ -2777,7 +2777,7 @@ pub mod crypto_key_version {
         /// state.
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
-        /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+        /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
         pub const DESTROY_SCHEDULED: &str = "DESTROY_SCHEDULED";
 
         /// This version is still being imported. It may not be used, enabled,
@@ -2827,8 +2827,8 @@ pub mod crypto_key_version {
     /// [KeyManagementService.ListCryptoKeys][google.cloud.kms.v1.KeyManagementService.ListCryptoKeys].
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::traits::KeyManagementService::list_crypto_key_versions
-    /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::traits::KeyManagementService::list_crypto_keys
+    /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
+    /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CryptoKeyVersionView(std::string::String);
 
@@ -2872,7 +2872,7 @@ pub mod crypto_key_version {
 /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
 ///
 /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-/// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+/// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3023,7 +3023,7 @@ impl wkt::message::Message for PublicKey {
 /// [google.cloud.kms.v1.ImportJob.import_method]: crate::model::ImportJob::import_method
 /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
 /// [google.cloud.kms.v1.ImportJob.state]: crate::model::ImportJob::state
-/// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::traits::KeyManagementService::import_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3364,8 +3364,8 @@ pub mod import_job {
         /// [CreateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]
         /// requests.
         ///
-        /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::traits::KeyManagementService::create_crypto_key
-        /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
+        /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::client::KeyManagementService::create_crypto_key
+        /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
         pub const ACTIVE: &str = "ACTIVE";
 
         /// This job can no longer be used and may not leave this state once entered.
@@ -3478,7 +3478,7 @@ impl wkt::message::Message for KeyAccessJustificationsPolicy {
 /// Request message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::traits::KeyManagementService::list_key_rings
+/// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::client::KeyManagementService::list_key_rings
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3567,7 +3567,7 @@ impl wkt::message::Message for ListKeyRingsRequest {
 /// Request message for
 /// [KeyManagementService.ListCryptoKeys][google.cloud.kms.v1.KeyManagementService.ListCryptoKeys].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::traits::KeyManagementService::list_crypto_keys
+/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3669,7 +3669,7 @@ impl wkt::message::Message for ListCryptoKeysRequest {
 /// Request message for
 /// [KeyManagementService.ListCryptoKeyVersions][google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::traits::KeyManagementService::list_crypto_key_versions
+/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3772,7 +3772,7 @@ impl wkt::message::Message for ListCryptoKeyVersionsRequest {
 /// Request message for
 /// [KeyManagementService.ListImportJobs][google.cloud.kms.v1.KeyManagementService.ListImportJobs].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::traits::KeyManagementService::list_import_jobs
+/// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::client::KeyManagementService::list_import_jobs
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3860,7 +3860,7 @@ impl wkt::message::Message for ListImportJobsRequest {
 /// Response message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::traits::KeyManagementService::list_key_rings
+/// [google.cloud.kms.v1.KeyManagementService.ListKeyRings]: crate::client::KeyManagementService::list_key_rings
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3932,7 +3932,7 @@ impl gax::paginator::PageableResponse for ListKeyRingsResponse {
 /// Response message for
 /// [KeyManagementService.ListCryptoKeys][google.cloud.kms.v1.KeyManagementService.ListCryptoKeys].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::traits::KeyManagementService::list_crypto_keys
+/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4004,7 +4004,7 @@ impl gax::paginator::PageableResponse for ListCryptoKeysResponse {
 /// Response message for
 /// [KeyManagementService.ListCryptoKeyVersions][google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::traits::KeyManagementService::list_crypto_key_versions
+/// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4079,7 +4079,7 @@ impl gax::paginator::PageableResponse for ListCryptoKeyVersionsResponse {
 /// Response message for
 /// [KeyManagementService.ListImportJobs][google.cloud.kms.v1.KeyManagementService.ListImportJobs].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::traits::KeyManagementService::list_import_jobs
+/// [google.cloud.kms.v1.KeyManagementService.ListImportJobs]: crate::client::KeyManagementService::list_import_jobs
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4151,7 +4151,7 @@ impl gax::paginator::PageableResponse for ListImportJobsResponse {
 /// Request message for
 /// [KeyManagementService.GetKeyRing][google.cloud.kms.v1.KeyManagementService.GetKeyRing].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GetKeyRing]: crate::traits::KeyManagementService::get_key_ring
+/// [google.cloud.kms.v1.KeyManagementService.GetKeyRing]: crate::client::KeyManagementService::get_key_ring
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4183,7 +4183,7 @@ impl wkt::message::Message for GetKeyRingRequest {
 /// Request message for
 /// [KeyManagementService.GetCryptoKey][google.cloud.kms.v1.KeyManagementService.GetCryptoKey].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GetCryptoKey]: crate::traits::KeyManagementService::get_crypto_key
+/// [google.cloud.kms.v1.KeyManagementService.GetCryptoKey]: crate::client::KeyManagementService::get_crypto_key
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4215,7 +4215,7 @@ impl wkt::message::Message for GetCryptoKeyRequest {
 /// Request message for
 /// [KeyManagementService.GetCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.GetCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GetCryptoKeyVersion]: crate::traits::KeyManagementService::get_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.GetCryptoKeyVersion]: crate::client::KeyManagementService::get_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4247,7 +4247,7 @@ impl wkt::message::Message for GetCryptoKeyVersionRequest {
 /// Request message for
 /// [KeyManagementService.GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+/// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4279,7 +4279,7 @@ impl wkt::message::Message for GetPublicKeyRequest {
 /// Request message for
 /// [KeyManagementService.GetImportJob][google.cloud.kms.v1.KeyManagementService.GetImportJob].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::traits::KeyManagementService::get_import_job
+/// [google.cloud.kms.v1.KeyManagementService.GetImportJob]: crate::client::KeyManagementService::get_import_job
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4311,7 +4311,7 @@ impl wkt::message::Message for GetImportJobRequest {
 /// Request message for
 /// [KeyManagementService.CreateKeyRing][google.cloud.kms.v1.KeyManagementService.CreateKeyRing].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.CreateKeyRing]: crate::traits::KeyManagementService::create_key_ring
+/// [google.cloud.kms.v1.KeyManagementService.CreateKeyRing]: crate::client::KeyManagementService::create_key_ring
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4370,7 +4370,7 @@ impl wkt::message::Message for CreateKeyRingRequest {
 /// Request message for
 /// [KeyManagementService.CreateCryptoKey][google.cloud.kms.v1.KeyManagementService.CreateCryptoKey].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::traits::KeyManagementService::create_crypto_key
+/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::client::KeyManagementService::create_crypto_key
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4407,8 +4407,8 @@ pub struct CreateCryptoKeyRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
-    /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::traits::KeyManagementService::import_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     pub skip_initial_version_creation: bool,
 }
 
@@ -4450,7 +4450,7 @@ impl wkt::message::Message for CreateCryptoKeyRequest {
 /// Request message for
 /// [KeyManagementService.CreateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::traits::KeyManagementService::create_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4502,7 +4502,7 @@ impl wkt::message::Message for CreateCryptoKeyVersionRequest {
 /// Request message for
 /// [KeyManagementService.ImportCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::traits::KeyManagementService::import_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4548,7 +4548,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::crypto_key_version_state::IMPORT_FAILED
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.parent]: crate::model::ImportCryptoKeyVersionRequest::parent
-    /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::traits::KeyManagementService::import_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub crypto_key_version: std::string::String,
 
@@ -4711,7 +4711,7 @@ pub mod import_crypto_key_version_request {
 /// Request message for
 /// [KeyManagementService.CreateImportJob][google.cloud.kms.v1.KeyManagementService.CreateImportJob].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.CreateImportJob]: crate::traits::KeyManagementService::create_import_job
+/// [google.cloud.kms.v1.KeyManagementService.CreateImportJob]: crate::client::KeyManagementService::create_import_job
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4772,7 +4772,7 @@ impl wkt::message::Message for CreateImportJobRequest {
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKey][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey]: crate::traits::KeyManagementService::update_crypto_key
+/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKey]: crate::client::KeyManagementService::update_crypto_key
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4818,7 +4818,7 @@ impl wkt::message::Message for UpdateCryptoKeyRequest {
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion]: crate::traits::KeyManagementService::update_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyVersion]: crate::client::KeyManagementService::update_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4867,7 +4867,7 @@ impl wkt::message::Message for UpdateCryptoKeyVersionRequest {
 /// Request message for
 /// [KeyManagementService.UpdateCryptoKeyPrimaryVersion][google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::traits::KeyManagementService::update_crypto_key_primary_version
+/// [google.cloud.kms.v1.KeyManagementService.UpdateCryptoKeyPrimaryVersion]: crate::client::KeyManagementService::update_crypto_key_primary_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4914,7 +4914,7 @@ impl wkt::message::Message for UpdateCryptoKeyPrimaryVersionRequest {
 /// Request message for
 /// [KeyManagementService.DestroyCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::traits::KeyManagementService::destroy_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4945,7 +4945,7 @@ impl wkt::message::Message for DestroyCryptoKeyVersionRequest {
 /// Request message for
 /// [KeyManagementService.RestoreCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+/// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4976,7 +4976,7 @@ impl wkt::message::Message for RestoreCryptoKeyVersionRequest {
 /// Request message for
 /// [KeyManagementService.Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+/// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5063,7 +5063,7 @@ pub struct EncryptRequest {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.plaintext]: crate::model::EncryptRequest::plaintext
     /// [google.cloud.kms.v1.EncryptRequest.plaintext_crc32c]: crate::model::EncryptRequest::plaintext_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5091,7 +5091,7 @@ pub struct EncryptRequest {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data]: crate::model::EncryptRequest::additional_authenticated_data
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data_crc32c]: crate::model::EncryptRequest::additional_authenticated_data_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5150,7 +5150,7 @@ impl wkt::message::Message for EncryptRequest {
 /// Request message for
 /// [KeyManagementService.Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
+/// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5202,7 +5202,7 @@ pub struct DecryptRequest {
     ///
     /// [google.cloud.kms.v1.DecryptRequest.ciphertext]: crate::model::DecryptRequest::ciphertext
     /// [google.cloud.kms.v1.DecryptRequest.ciphertext_crc32c]: crate::model::DecryptRequest::ciphertext_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5230,7 +5230,7 @@ pub struct DecryptRequest {
     ///
     /// [google.cloud.kms.v1.DecryptRequest.additional_authenticated_data]: crate::model::DecryptRequest::additional_authenticated_data
     /// [google.cloud.kms.v1.DecryptRequest.additional_authenticated_data_crc32c]: crate::model::DecryptRequest::additional_authenticated_data_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5289,7 +5289,7 @@ impl wkt::message::Message for DecryptRequest {
 /// Request message for
 /// [KeyManagementService.RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::traits::KeyManagementService::raw_encrypt
+/// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5360,7 +5360,7 @@ pub struct RawEncryptRequest {
     /// will never exceed 2^32-1, and can be safely downconverted to uint32 in
     /// languages that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext]: crate::model::RawEncryptRequest::plaintext
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5385,7 +5385,7 @@ pub struct RawEncryptRequest {
     /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
     /// that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data]: crate::model::RawEncryptRequest::additional_authenticated_data
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5419,7 +5419,7 @@ pub struct RawEncryptRequest {
     /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
     /// that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector]: crate::model::RawEncryptRequest::initialization_vector
     #[serde(rename = "initializationVectorCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5496,7 +5496,7 @@ impl wkt::message::Message for RawEncryptRequest {
 /// Request message for
 /// [KeyManagementService.RawDecrypt][google.cloud.kms.v1.KeyManagementService.RawDecrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::traits::KeyManagementService::raw_decrypt
+/// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5555,7 +5555,7 @@ pub struct RawDecryptRequest {
     /// will never exceed 2^32-1, and can be safely downconverted to uint32 in
     /// languages that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext]: crate::model::RawDecryptRequest::ciphertext
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5580,7 +5580,7 @@ pub struct RawDecryptRequest {
     /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
     /// that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data]: crate::model::RawDecryptRequest::additional_authenticated_data
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5603,7 +5603,7 @@ pub struct RawDecryptRequest {
     /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
     /// that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector]: crate::model::RawDecryptRequest::initialization_vector
     #[serde(rename = "initializationVectorCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -5686,7 +5686,7 @@ impl wkt::message::Message for RawDecryptRequest {
 /// Request message for
 /// [KeyManagementService.AsymmetricSign][google.cloud.kms.v1.KeyManagementService.AsymmetricSign].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::traits::KeyManagementService::asymmetric_sign
+/// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5735,7 +5735,7 @@ pub struct AsymmetricSignRequest {
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest]: crate::model::AsymmetricSignRequest::digest
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest_crc32c]: crate::model::AsymmetricSignRequest::digest_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "digestCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5773,7 +5773,7 @@ pub struct AsymmetricSignRequest {
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data]: crate::model::AsymmetricSignRequest::data
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data_crc32c]: crate::model::AsymmetricSignRequest::data_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5830,7 +5830,7 @@ impl wkt::message::Message for AsymmetricSignRequest {
 /// Request message for
 /// [KeyManagementService.AsymmetricDecrypt][google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::traits::KeyManagementService::asymmetric_decrypt
+/// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5875,7 +5875,7 @@ pub struct AsymmetricDecryptRequest {
     ///
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext]: crate::model::AsymmetricDecryptRequest::ciphertext
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext_crc32c]: crate::model::AsymmetricDecryptRequest::ciphertext_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -5914,7 +5914,7 @@ impl wkt::message::Message for AsymmetricDecryptRequest {
 /// Request message for
 /// [KeyManagementService.MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::traits::KeyManagementService::mac_sign
+/// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5952,7 +5952,7 @@ pub struct MacSignRequest {
     /// 2^32-1, and can be safely downconverted to uint32 in languages that support
     /// this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "dataCrc32c")]
@@ -5993,7 +5993,7 @@ impl wkt::message::Message for MacSignRequest {
 /// Request message for
 /// [KeyManagementService.MacVerify][google.cloud.kms.v1.KeyManagementService.MacVerify].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::traits::KeyManagementService::mac_verify
+/// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::client::KeyManagementService::mac_verify
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6035,7 +6035,7 @@ pub struct MacVerifyRequest {
     /// 2^32-1, and can be safely downconverted to uint32 in languages that support
     /// this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "dataCrc32c")]
@@ -6066,7 +6066,7 @@ pub struct MacVerifyRequest {
     /// 2^32-1, and can be safely downconverted to uint32 in languages that support
     /// this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "macCrc32c")]
@@ -6122,7 +6122,7 @@ impl wkt::message::Message for MacVerifyRequest {
 /// Request message for
 /// [KeyManagementService.GenerateRandomBytes][google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::traits::KeyManagementService::generate_random_bytes
+/// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::client::KeyManagementService::generate_random_bytes
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6179,7 +6179,7 @@ impl wkt::message::Message for GenerateRandomBytesRequest {
 /// Response message for
 /// [KeyManagementService.Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+/// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6236,7 +6236,7 @@ pub struct EncryptResponse {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.plaintext]: crate::model::EncryptRequest::plaintext
     /// [google.cloud.kms.v1.EncryptRequest.plaintext_crc32c]: crate::model::EncryptRequest::plaintext_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedPlaintextCrc32c")]
     pub verified_plaintext_crc32c: bool,
 
@@ -6257,7 +6257,7 @@ pub struct EncryptResponse {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data]: crate::model::EncryptRequest::additional_authenticated_data
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data_crc32c]: crate::model::EncryptRequest::additional_authenticated_data_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
@@ -6326,7 +6326,7 @@ impl wkt::message::Message for EncryptResponse {
 /// Response message for
 /// [KeyManagementService.Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
+/// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6360,7 +6360,7 @@ pub struct DecryptResponse {
     ///
     /// [google.cloud.kms.v1.DecryptRequest.ciphertext]: crate::model::DecryptRequest::ciphertext
     /// [google.cloud.kms.v1.DecryptResponse.plaintext]: crate::model::DecryptResponse::plaintext
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
@@ -6419,7 +6419,7 @@ impl wkt::message::Message for DecryptResponse {
 /// Response message for
 /// [KeyManagementService.RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::traits::KeyManagementService::raw_encrypt
+/// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6496,7 +6496,7 @@ pub struct RawEncryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext_crc32c]: crate::model::RawEncryptRequest::plaintext_crc32c
     #[serde(rename = "verifiedPlaintextCrc32c")]
     pub verified_plaintext_crc32c: bool,
@@ -6515,7 +6515,7 @@ pub struct RawEncryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data_crc32c]: crate::model::RawEncryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     pub verified_additional_authenticated_data_crc32c: bool,
@@ -6534,7 +6534,7 @@ pub struct RawEncryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector_crc32c]: crate::model::RawEncryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
     pub verified_initialization_vector_crc32c: bool,
@@ -6645,7 +6645,7 @@ impl wkt::message::Message for RawEncryptResponse {
 /// Response message for
 /// [KeyManagementService.RawDecrypt][google.cloud.kms.v1.KeyManagementService.RawDecrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::traits::KeyManagementService::raw_decrypt
+/// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6672,7 +6672,7 @@ pub struct RawDecryptResponse {
     /// never exceed 2^32-1, and can be safely downconverted to uint32 in languages
     /// that support this type.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext]: crate::model::RawDecryptRequest::ciphertext
     /// [google.cloud.kms.v1.RawDecryptResponse.plaintext]: crate::model::RawDecryptResponse::plaintext
     #[serde(rename = "plaintextCrc32c")]
@@ -6702,7 +6702,7 @@ pub struct RawDecryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext_crc32c]: crate::model::RawDecryptRequest::ciphertext_crc32c
     #[serde(rename = "verifiedCiphertextCrc32c")]
     pub verified_ciphertext_crc32c: bool,
@@ -6721,7 +6721,7 @@ pub struct RawDecryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data_crc32c]: crate::model::RawDecryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     pub verified_additional_authenticated_data_crc32c: bool,
@@ -6740,7 +6740,7 @@ pub struct RawDecryptResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector_crc32c]: crate::model::RawDecryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
     pub verified_initialization_vector_crc32c: bool,
@@ -6805,7 +6805,7 @@ impl wkt::message::Message for RawDecryptResponse {
 /// Response message for
 /// [KeyManagementService.AsymmetricSign][google.cloud.kms.v1.KeyManagementService.AsymmetricSign].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::traits::KeyManagementService::asymmetric_sign
+/// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6853,7 +6853,7 @@ pub struct AsymmetricSignResponse {
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest]: crate::model::AsymmetricSignRequest::digest
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest_crc32c]: crate::model::AsymmetricSignRequest::digest_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDigestCrc32c")]
     pub verified_digest_crc32c: bool,
 
@@ -6882,7 +6882,7 @@ pub struct AsymmetricSignResponse {
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data]: crate::model::AsymmetricSignRequest::data
     /// [google.cloud.kms.v1.AsymmetricSignRequest.data_crc32c]: crate::model::AsymmetricSignRequest::data_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDataCrc32c")]
     pub verified_data_crc32c: bool,
 
@@ -6947,7 +6947,7 @@ impl wkt::message::Message for AsymmetricSignResponse {
 /// Response message for
 /// [KeyManagementService.AsymmetricDecrypt][google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::traits::KeyManagementService::asymmetric_decrypt
+/// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6995,7 +6995,7 @@ pub struct AsymmetricDecryptResponse {
     ///
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext]: crate::model::AsymmetricDecryptRequest::ciphertext
     /// [google.cloud.kms.v1.AsymmetricDecryptRequest.ciphertext_crc32c]: crate::model::AsymmetricDecryptRequest::ciphertext_crc32c
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedCiphertextCrc32c")]
     pub verified_ciphertext_crc32c: bool,
 
@@ -7049,7 +7049,7 @@ impl wkt::message::Message for AsymmetricDecryptResponse {
 /// Response message for
 /// [KeyManagementService.MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::traits::KeyManagementService::mac_sign
+/// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7103,7 +7103,7 @@ pub struct MacSignResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
@@ -7164,7 +7164,7 @@ impl wkt::message::Message for MacSignResponse {
 /// Response message for
 /// [KeyManagementService.MacVerify][google.cloud.kms.v1.KeyManagementService.MacVerify].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::traits::KeyManagementService::mac_verify
+/// [google.cloud.kms.v1.KeyManagementService.MacVerify]: crate::client::KeyManagementService::mac_verify
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7203,7 +7203,7 @@ pub struct MacVerifyResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
@@ -7224,7 +7224,7 @@ pub struct MacVerifyResponse {
     /// but this field is still false, discard the response and perform a limited
     /// number of retries.
     ///
-    /// [google.cloud.kms.v1.KeyManagementService]: crate::traits::KeyManagementService
+    /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "verifiedMacCrc32c")]
@@ -7295,7 +7295,7 @@ impl wkt::message::Message for MacVerifyResponse {
 /// Response message for
 /// [KeyManagementService.GenerateRandomBytes][google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes].
 ///
-/// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::traits::KeyManagementService::generate_random_bytes
+/// [google.cloud.kms.v1.KeyManagementService.GenerateRandomBytes]: crate::client::KeyManagementService::generate_random_bytes
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
