@@ -1531,6 +1531,8 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]
 [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]
 [SomeService.CreateBar][test.v1.SomeService.CreateBar]
+[a method][test.v1.YELL.CreateThing]
+[the service name][test.v1.YELL]
 `
 	want := []string{
 		"/// [Any][google.protobuf.Any]",
@@ -1544,8 +1546,10 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [ENUM_VALUE][test.v1.SomeMessage.SomeEnum.ENUM_VALUE]",
 		"/// [SomeService.CreateFoo][test.v1.SomeService.CreateFoo]",
 		"/// [SomeService.CreateBar][test.v1.SomeService.CreateBar]",
+		"/// [a method][test.v1.YELL.CreateThing]",
+		"/// [the service name][test.v1.YELL]",
 		"///",
-		"/// [google.iam.v1.Iampolicy]: iam_v1::traits::Iampolicy",
+		"/// [google.iam.v1.Iampolicy]: iam_v1::client::Iampolicy",
 		"/// [google.iam.v1.SetIamPolicyRequest]: iam_v1::model::SetIamPolicyRequest",
 		"/// [google.protobuf.Any]: wkt::Any",
 		"/// [test.v1.SomeMessage]: crate::model::SomeMessage",
@@ -1553,10 +1557,13 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
-		"/// [test.v1.SomeService]: crate::traits::SomeService",
+		"/// [test.v1.SomeService]: crate::client::SomeService",
 		// Skipped because the method is skipped
-		// "/// [test.v1.SomeService.CreateBar]: crate::traits::SomeService::create_bar",
-		"/// [test.v1.SomeService.CreateFoo]: crate::traits::SomeService::create_foo",
+		// "/// [test.v1.SomeService.CreateBar]: crate::client::SomeService::create_bar",
+		"/// [test.v1.SomeService.CreateFoo]: crate::client::SomeService::create_foo",
+		// Services named with all uppercase have a different mapping.
+		"/// [test.v1.YELL]: crate::client::Yell",
+		"/// [test.v1.YELL.CreateThing]: crate::client::Yell::create_thing",
 	}
 
 	wkt := &rustPackage{
@@ -1667,10 +1674,26 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
 		},
 	}
+	yellyService := &api.Service{
+		Name: "YELL",
+		ID:   ".test.v1.YELL",
+		Methods: []*api.Method{
+			{
+				Name: "CreateThing",
+				ID:   ".test.v1.YELL.CreateThing",
+				PathInfo: &api.PathInfo{
+					Verb: "GET",
+					PathTemplate: []api.PathSegment{
+						api.NewLiteralPathSegment("/v1/thing"),
+					},
+				},
+			},
+		},
+	}
 	a := api.NewTestAPI(
 		[]*api.Message{someMessage},
 		[]*api.Enum{someEnum},
-		[]*api.Service{someService})
+		[]*api.Service{someService, yellyService})
 	a.PackageName = "test.v1"
 	a.State.MessageByID[".google.iam.v1.SetIamPolicyRequest"] = &api.Message{
 		Name:    "SetIamPolicyRequest",

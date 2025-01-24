@@ -79,7 +79,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
     ///
     /// This pattern helps prevent conflicts between concurrent updates.
     ///
-    /// [google.iam.v2.Policies.GetPolicy]: crate::traits::Policies::get_policy
+    /// [google.iam.v2.Policies.GetPolicy]: crate::client::Policies::get_policy
     fn update_policy(
         &self,
         _req: crate::model::UpdatePolicyRequest,
@@ -105,7 +105,7 @@ pub trait Policies: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,

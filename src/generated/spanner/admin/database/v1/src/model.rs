@@ -46,7 +46,7 @@ pub struct Backup {
     /// needs to be in the same instance as the backup. Values are of the form
     /// `projects/<project>/instances/<instance>/databases/<database>`.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub database: std::string::String,
 
@@ -65,7 +65,7 @@ pub struct Backup {
     /// has passed, the backup is eligible to be automatically deleted by Cloud
     /// Spanner to free the resources used by the backup.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expire_time: std::option::Option<wkt::Timestamp>,
 
@@ -86,8 +86,8 @@ pub struct Backup {
     /// by the prefix of the backup name of the form
     /// `projects/<project>/instances/<instance>`.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::traits::DatabaseAdmin::update_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::client::DatabaseAdmin::update_backup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -96,7 +96,7 @@ pub struct Backup {
     /// request is received. If the request does not specify `version_time`, the
     /// `version_time` of the backup will be equivalent to the `create_time`.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -397,7 +397,7 @@ pub mod backup {
 /// The request for
 /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -476,7 +476,7 @@ impl wkt::message::Message for CreateBackupRequest {
 /// Metadata type for the operation returned by
 /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -494,7 +494,7 @@ pub struct CreateBackupMetadata {
     /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]
     /// operation.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -560,7 +560,7 @@ impl wkt::message::Message for CreateBackupMetadata {
 /// The request for
 /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::traits::DatabaseAdmin::copy_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -654,7 +654,7 @@ impl wkt::message::Message for CopyBackupRequest {
 /// Metadata type for the operation returned by
 /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::traits::DatabaseAdmin::copy_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -676,7 +676,7 @@ pub struct CopyBackupMetadata {
     /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]
     /// operation.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::traits::DatabaseAdmin::copy_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -742,7 +742,7 @@ impl wkt::message::Message for CopyBackupMetadata {
 /// The request for
 /// [UpdateBackup][google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::traits::DatabaseAdmin::update_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup]: crate::client::DatabaseAdmin::update_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -794,7 +794,7 @@ impl wkt::message::Message for UpdateBackupRequest {
 /// The request for
 /// [GetBackup][google.spanner.admin.database.v1.DatabaseAdmin.GetBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackup]: crate::traits::DatabaseAdmin::get_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackup]: crate::client::DatabaseAdmin::get_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -824,7 +824,7 @@ impl wkt::message::Message for GetBackupRequest {
 /// The request for
 /// [DeleteBackup][google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup]: crate::traits::DatabaseAdmin::delete_backup
+/// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup]: crate::client::DatabaseAdmin::delete_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -854,7 +854,7 @@ impl wkt::message::Message for DeleteBackupRequest {
 /// The request for
 /// [ListBackups][google.spanner.admin.database.v1.DatabaseAdmin.ListBackups].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::traits::DatabaseAdmin::list_backups
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -961,7 +961,7 @@ impl wkt::message::Message for ListBackupsRequest {
 /// The response for
 /// [ListBackups][google.spanner.admin.database.v1.DatabaseAdmin.ListBackups].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::traits::DatabaseAdmin::list_backups
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -976,7 +976,7 @@ pub struct ListBackupsResponse {
     /// [ListBackups][google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]
     /// call to fetch more of the matching backups.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::traits::DatabaseAdmin::list_backups
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackups]: crate::client::DatabaseAdmin::list_backups
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -1020,7 +1020,7 @@ impl gax::paginator::PageableResponse for ListBackupsResponse {
 /// The request for
 /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::traits::DatabaseAdmin::list_backup_operations
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1159,7 +1159,7 @@ impl wkt::message::Message for ListBackupOperationsRequest {
 /// The response for
 /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::traits::DatabaseAdmin::list_backup_operations
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1184,7 +1184,7 @@ pub struct ListBackupOperationsResponse {
     /// [ListBackupOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]
     /// call to fetch more of the matching metadata.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::traits::DatabaseAdmin::list_backup_operations
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations]: crate::client::DatabaseAdmin::list_backup_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -1241,7 +1241,7 @@ pub struct BackupInfo {
     /// request did not specify `version_time`, the `version_time` of the backup is
     /// equivalent to the `create_time`.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub version_time: std::option::Option<wkt::Timestamp>,
 
@@ -1249,7 +1249,7 @@ pub struct BackupInfo {
     /// [CreateBackup][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]
     /// request was received.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::traits::DatabaseAdmin::create_backup
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup]: crate::client::DatabaseAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
@@ -1527,7 +1527,7 @@ pub mod copy_backup_encryption_config {
         /// KMS key as the source backup.
         ///
         /// [google.spanner.admin.database.v1.CopyBackupEncryptionConfig]: crate::model::CopyBackupEncryptionConfig
-        /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::traits::DatabaseAdmin::copy_backup
+        /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
         pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: &str =
             "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION";
 
@@ -1640,7 +1640,7 @@ pub struct BackupSchedule {
     /// The final segment of the name must be between 2 and 60 characters in
     /// length.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::traits::DatabaseAdmin::update_backup_schedule
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::client::DatabaseAdmin::update_backup_schedule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
@@ -1827,7 +1827,7 @@ impl wkt::message::Message for CrontabSpec {
 /// The request for
 /// [CreateBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule]: crate::traits::DatabaseAdmin::create_backup_schedule
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule]: crate::client::DatabaseAdmin::create_backup_schedule
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1885,7 +1885,7 @@ impl wkt::message::Message for CreateBackupScheduleRequest {
 /// The request for
 /// [GetBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule]: crate::traits::DatabaseAdmin::get_backup_schedule
+/// [google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule]: crate::client::DatabaseAdmin::get_backup_schedule
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1915,7 +1915,7 @@ impl wkt::message::Message for GetBackupScheduleRequest {
 /// The request for
 /// [DeleteBackupSchedule][google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule]: crate::traits::DatabaseAdmin::delete_backup_schedule
+/// [google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule]: crate::client::DatabaseAdmin::delete_backup_schedule
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1945,7 +1945,7 @@ impl wkt::message::Message for DeleteBackupScheduleRequest {
 /// The request for
 /// [ListBackupSchedules][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::traits::DatabaseAdmin::list_backup_schedules
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2002,7 +2002,7 @@ impl wkt::message::Message for ListBackupSchedulesRequest {
 /// The response for
 /// [ListBackupSchedules][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::traits::DatabaseAdmin::list_backup_schedules
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2016,7 +2016,7 @@ pub struct ListBackupSchedulesResponse {
     /// [ListBackupSchedules][google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]
     /// call to fetch more of the schedules.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::traits::DatabaseAdmin::list_backup_schedules
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules]: crate::client::DatabaseAdmin::list_backup_schedules
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -2062,7 +2062,7 @@ impl gax::paginator::PageableResponse for ListBackupSchedulesResponse {
 /// The request for
 /// [UpdateBackupScheduleRequest][google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::traits::DatabaseAdmin::update_backup_schedule
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule]: crate::client::DatabaseAdmin::update_backup_schedule
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2422,7 +2422,7 @@ pub struct Database {
     /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl].
     /// Defaults to 1 hour, if not set.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::traits::DatabaseAdmin::update_database_ddl
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version_retention_period: std::string::String,
 
@@ -2614,7 +2614,7 @@ pub mod database {
 /// The request for
 /// [ListDatabases][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::traits::DatabaseAdmin::list_databases
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2669,7 +2669,7 @@ impl wkt::message::Message for ListDatabasesRequest {
 /// The response for
 /// [ListDatabases][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::traits::DatabaseAdmin::list_databases
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2683,7 +2683,7 @@ pub struct ListDatabasesResponse {
     /// [ListDatabases][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]
     /// call to fetch more of the matching databases.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::traits::DatabaseAdmin::list_databases
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases]: crate::client::DatabaseAdmin::list_databases
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -2727,7 +2727,7 @@ impl gax::paginator::PageableResponse for ListDatabasesResponse {
 /// The request for
 /// [CreateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::traits::DatabaseAdmin::create_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::client::DatabaseAdmin::create_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2845,7 +2845,7 @@ impl wkt::message::Message for CreateDatabaseRequest {
 /// Metadata type for the operation returned by
 /// [CreateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::traits::DatabaseAdmin::create_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase]: crate::client::DatabaseAdmin::create_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2873,7 +2873,7 @@ impl wkt::message::Message for CreateDatabaseMetadata {
 /// The request for
 /// [GetDatabase][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase]: crate::traits::DatabaseAdmin::get_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase]: crate::client::DatabaseAdmin::get_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2902,7 +2902,7 @@ impl wkt::message::Message for GetDatabaseRequest {
 /// The request for
 /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::traits::DatabaseAdmin::update_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2949,7 +2949,7 @@ impl wkt::message::Message for UpdateDatabaseRequest {
 /// Metadata type for the operation returned by
 /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::traits::DatabaseAdmin::update_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2958,7 +2958,7 @@ pub struct UpdateDatabaseMetadata {
     /// The request for
     /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase].
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::traits::DatabaseAdmin::update_database
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub request: std::option::Option<crate::model::UpdateDatabaseRequest>,
 
@@ -2966,7 +2966,7 @@ pub struct UpdateDatabaseMetadata {
     /// [UpdateDatabase][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]
     /// operation.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::traits::DatabaseAdmin::update_database
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase]: crate::client::DatabaseAdmin::update_database
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -3032,7 +3032,7 @@ impl wkt::message::Message for UpdateDatabaseMetadata {
 /// [operation_id][google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.operation_id]
 /// field for more details.
 ///
-/// [google.longrunning.Operations]: longrunning::traits::Operations
+/// [google.longrunning.Operations]: longrunning::client::Operations
 /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.operation_id]: crate::model::UpdateDatabaseDdlRequest::operation_id
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -3071,7 +3071,7 @@ pub struct UpdateDatabaseDdlRequest {
     ///
     /// [google.longrunning.Operation]: longrunning::model::Operation
     /// [google.longrunning.Operation.name]: longrunning::model::Operation::name
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::traits::DatabaseAdmin::update_database_ddl
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     /// [google.spanner.admin.database.v1.UpdateDatabaseDdlRequest.database]: crate::model::UpdateDatabaseDdlRequest::database
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub operation_id: std::string::String,
@@ -3136,7 +3136,7 @@ impl wkt::message::Message for UpdateDatabaseDdlRequest {
 /// display the brief info of the DDL statement for the operation
 /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::traits::DatabaseAdmin::update_database_ddl
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3195,7 +3195,7 @@ impl wkt::message::Message for DdlStatementActionInfo {
 /// Metadata type for the operation returned by
 /// [UpdateDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::traits::DatabaseAdmin::update_database_ddl
+/// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3229,7 +3229,7 @@ pub struct UpdateDatabaseDdlMetadata {
     /// timestamp of operation, as well as a progress of 100% once the operation
     /// has completed.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::traits::DatabaseAdmin::update_database_ddl
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl]: crate::client::DatabaseAdmin::update_database_ddl
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub progress: std::vec::Vec<crate::model::OperationProgress>,
 
@@ -3300,7 +3300,7 @@ impl wkt::message::Message for UpdateDatabaseDdlMetadata {
 /// The request for
 /// [DropDatabase][google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase]: crate::traits::DatabaseAdmin::drop_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase]: crate::client::DatabaseAdmin::drop_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3328,7 +3328,7 @@ impl wkt::message::Message for DropDatabaseRequest {
 /// The request for
 /// [GetDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::traits::DatabaseAdmin::get_database_ddl
+/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::client::DatabaseAdmin::get_database_ddl
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3358,7 +3358,7 @@ impl wkt::message::Message for GetDatabaseDdlRequest {
 /// The response for
 /// [GetDatabaseDdl][google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::traits::DatabaseAdmin::get_database_ddl
+/// [google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl]: crate::client::DatabaseAdmin::get_database_ddl
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3405,7 +3405,7 @@ impl wkt::message::Message for GetDatabaseDdlResponse {
 /// The request for
 /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::traits::DatabaseAdmin::list_database_operations
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3518,7 +3518,7 @@ impl wkt::message::Message for ListDatabaseOperationsRequest {
 /// The response for
 /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::traits::DatabaseAdmin::list_database_operations
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3539,7 +3539,7 @@ pub struct ListDatabaseOperationsResponse {
     /// [ListDatabaseOperations][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]
     /// call to fetch more of the matching metadata.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::traits::DatabaseAdmin::list_database_operations
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations]: crate::client::DatabaseAdmin::list_database_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -3583,7 +3583,7 @@ impl gax::paginator::PageableResponse for ListDatabaseOperationsResponse {
 /// The request for
 /// [RestoreDatabase][google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::traits::DatabaseAdmin::restore_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::client::DatabaseAdmin::restore_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3799,7 +3799,7 @@ pub mod restore_database_encryption_config {
 /// Metadata type for the long-running operation returned by
 /// [RestoreDatabase][google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::traits::DatabaseAdmin::restore_database
+/// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::client::DatabaseAdmin::restore_database
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3816,7 +3816,7 @@ pub struct RestoreDatabaseMetadata {
     /// [RestoreDatabase][google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]
     /// operation.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::traits::DatabaseAdmin::restore_database
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase]: crate::client::DatabaseAdmin::restore_database
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -4020,7 +4020,7 @@ impl wkt::message::Message for DatabaseRole {
 /// The request for
 /// [ListDatabaseRoles][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::traits::DatabaseAdmin::list_database_roles
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4076,7 +4076,7 @@ impl wkt::message::Message for ListDatabaseRolesRequest {
 /// The response for
 /// [ListDatabaseRoles][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles].
 ///
-/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::traits::DatabaseAdmin::list_database_roles
+/// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4090,7 +4090,7 @@ pub struct ListDatabaseRolesResponse {
     /// [ListDatabaseRoles][google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]
     /// call to fetch more of the matching roles.
     ///
-    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::traits::DatabaseAdmin::list_database_roles
+    /// [google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles]: crate::client::DatabaseAdmin::list_database_roles
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }

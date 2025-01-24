@@ -1398,7 +1398,7 @@ impl gax::paginator::PageableResponse for ListHotTabletsResponse {
 /// The request for
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::traits::BigtableTableAdmin::restore_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::client::BigtableTableAdmin::restore_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1471,7 +1471,7 @@ pub mod restore_table_request {
 /// Metadata type for the long-running operation returned by
 /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::traits::BigtableTableAdmin::restore_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::client::BigtableTableAdmin::restore_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1502,7 +1502,7 @@ pub struct RestoreTableMetadata {
     /// [RestoreTable][google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]
     /// operation.
     ///
-    /// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::traits::BigtableTableAdmin::restore_table
+    /// [google.bigtable.admin.v2.BigtableTableAdmin.RestoreTable]: crate::client::BigtableTableAdmin::restore_table
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -1633,7 +1633,7 @@ impl wkt::message::Message for OptimizeRestoredTableMetadata {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTable][google.bigtable.admin.v2.BigtableTableAdmin.CreateTable]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTable]: crate::traits::BigtableTableAdmin::create_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTable]: crate::client::BigtableTableAdmin::create_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1754,7 +1754,7 @@ pub mod create_table_request {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTableFromSnapshot]: crate::traits::BigtableTableAdmin::create_table_from_snapshot
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateTableFromSnapshot]: crate::client::BigtableTableAdmin::create_table_from_snapshot
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1807,7 +1807,7 @@ impl wkt::message::Message for CreateTableFromSnapshotRequest {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange][google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange]: crate::traits::BigtableTableAdmin::drop_row_range
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DropRowRange]: crate::client::BigtableTableAdmin::drop_row_range
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1870,7 +1870,7 @@ pub mod drop_row_range_request {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables][google.bigtable.admin.v2.BigtableTableAdmin.ListTables]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::traits::BigtableTableAdmin::list_tables
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::client::BigtableTableAdmin::list_tables
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1936,7 +1936,7 @@ impl wkt::message::Message for ListTablesRequest {
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables][google.bigtable.admin.v2.BigtableTableAdmin.ListTables]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::traits::BigtableTableAdmin::list_tables
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListTables]: crate::client::BigtableTableAdmin::list_tables
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1992,7 +1992,7 @@ impl gax::paginator::PageableResponse for ListTablesResponse {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetTable][google.bigtable.admin.v2.BigtableTableAdmin.GetTable]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GetTable]: crate::traits::BigtableTableAdmin::get_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GetTable]: crate::client::BigtableTableAdmin::get_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2032,7 +2032,7 @@ impl wkt::message::Message for GetTableRequest {
 /// The request for
 /// [UpdateTable][google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::traits::BigtableTableAdmin::update_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::client::BigtableTableAdmin::update_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2088,7 +2088,7 @@ impl wkt::message::Message for UpdateTableRequest {
 /// Metadata type for the operation returned by
 /// [UpdateTable][google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::traits::BigtableTableAdmin::update_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateTable]: crate::client::BigtableTableAdmin::update_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2142,7 +2142,7 @@ impl wkt::message::Message for UpdateTableMetadata {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable]: crate::traits::BigtableTableAdmin::delete_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteTable]: crate::client::BigtableTableAdmin::delete_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2172,7 +2172,7 @@ impl wkt::message::Message for DeleteTableRequest {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::traits::BigtableTableAdmin::undelete_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::client::BigtableTableAdmin::undelete_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2202,7 +2202,7 @@ impl wkt::message::Message for UndeleteTableRequest {
 /// Metadata type for the operation returned by
 /// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable][google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::traits::BigtableTableAdmin::undelete_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UndeleteTable]: crate::client::BigtableTableAdmin::undelete_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2256,7 +2256,7 @@ impl wkt::message::Message for UndeleteTableMetadata {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies][google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies]: crate::traits::BigtableTableAdmin::modify_column_families
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies]: crate::client::BigtableTableAdmin::modify_column_families
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2403,7 +2403,7 @@ pub mod modify_column_families_request {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken][google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::traits::BigtableTableAdmin::generate_consistency_token
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::client::BigtableTableAdmin::generate_consistency_token
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2433,7 +2433,7 @@ impl wkt::message::Message for GenerateConsistencyTokenRequest {
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken][google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::traits::BigtableTableAdmin::generate_consistency_token
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GenerateConsistencyToken]: crate::client::BigtableTableAdmin::generate_consistency_token
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2464,7 +2464,7 @@ impl wkt::message::Message for GenerateConsistencyTokenResponse {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency][google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::traits::BigtableTableAdmin::check_consistency
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::client::BigtableTableAdmin::check_consistency
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2577,7 +2577,7 @@ impl wkt::message::Message for DataBoostReadLocalWrites {
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency][google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::traits::BigtableTableAdmin::check_consistency
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CheckConsistency]: crate::client::BigtableTableAdmin::check_consistency
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2610,7 +2610,7 @@ impl wkt::message::Message for CheckConsistencyResponse {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.SnapshotTable]: crate::traits::BigtableTableAdmin::snapshot_table
+/// [google.bigtable.admin.v2.BigtableTableAdmin.SnapshotTable]: crate::client::BigtableTableAdmin::snapshot_table
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2696,7 +2696,7 @@ impl wkt::message::Message for SnapshotTableRequest {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GetSnapshot]: crate::traits::BigtableTableAdmin::get_snapshot
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GetSnapshot]: crate::client::BigtableTableAdmin::get_snapshot
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2731,7 +2731,7 @@ impl wkt::message::Message for GetSnapshotRequest {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::traits::BigtableTableAdmin::list_snapshots
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::client::BigtableTableAdmin::list_snapshots
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2788,7 +2788,7 @@ impl wkt::message::Message for ListSnapshotsRequest {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::traits::BigtableTableAdmin::list_snapshots
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSnapshots]: crate::client::BigtableTableAdmin::list_snapshots
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2849,7 +2849,7 @@ impl gax::paginator::PageableResponse for ListSnapshotsResponse {
 /// feature might be changed in backward-incompatible ways and is not recommended
 /// for production use. It is not subject to any SLA or deprecation policy.
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSnapshot]: crate::traits::BigtableTableAdmin::delete_snapshot
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSnapshot]: crate::client::BigtableTableAdmin::delete_snapshot
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3002,7 +3002,7 @@ impl wkt::message::Message for CreateTableFromSnapshotMetadata {
 /// The request for
 /// [CreateBackup][google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::traits::BigtableTableAdmin::create_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::client::BigtableTableAdmin::create_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3060,7 +3060,7 @@ impl wkt::message::Message for CreateBackupRequest {
 /// Metadata type for the operation returned by
 /// [CreateBackup][google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::traits::BigtableTableAdmin::create_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::client::BigtableTableAdmin::create_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3124,7 +3124,7 @@ impl wkt::message::Message for CreateBackupMetadata {
 /// The request for
 /// [UpdateBackup][google.bigtable.admin.v2.BigtableTableAdmin.UpdateBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateBackup]: crate::traits::BigtableTableAdmin::update_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateBackup]: crate::client::BigtableTableAdmin::update_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3176,7 +3176,7 @@ impl wkt::message::Message for UpdateBackupRequest {
 /// The request for
 /// [GetBackup][google.bigtable.admin.v2.BigtableTableAdmin.GetBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GetBackup]: crate::traits::BigtableTableAdmin::get_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GetBackup]: crate::client::BigtableTableAdmin::get_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3206,7 +3206,7 @@ impl wkt::message::Message for GetBackupRequest {
 /// The request for
 /// [DeleteBackup][google.bigtable.admin.v2.BigtableTableAdmin.DeleteBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteBackup]: crate::traits::BigtableTableAdmin::delete_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteBackup]: crate::client::BigtableTableAdmin::delete_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3236,7 +3236,7 @@ impl wkt::message::Message for DeleteBackupRequest {
 /// The request for
 /// [ListBackups][google.bigtable.admin.v2.BigtableTableAdmin.ListBackups].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::traits::BigtableTableAdmin::list_backups
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::client::BigtableTableAdmin::list_backups
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3369,7 +3369,7 @@ impl wkt::message::Message for ListBackupsRequest {
 /// The response for
 /// [ListBackups][google.bigtable.admin.v2.BigtableTableAdmin.ListBackups].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::traits::BigtableTableAdmin::list_backups
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::client::BigtableTableAdmin::list_backups
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3383,7 +3383,7 @@ pub struct ListBackupsResponse {
     /// [ListBackups][google.bigtable.admin.v2.BigtableTableAdmin.ListBackups] call
     /// to fetch more of the matching backups.
     ///
-    /// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::traits::BigtableTableAdmin::list_backups
+    /// [google.bigtable.admin.v2.BigtableTableAdmin.ListBackups]: crate::client::BigtableTableAdmin::list_backups
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -3427,7 +3427,7 @@ impl gax::paginator::PageableResponse for ListBackupsResponse {
 /// The request for
 /// [CopyBackup][google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::traits::BigtableTableAdmin::copy_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::client::BigtableTableAdmin::copy_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3505,7 +3505,7 @@ impl wkt::message::Message for CopyBackupRequest {
 /// Metadata type for the google.longrunning.Operation returned by
 /// [CopyBackup][google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::traits::BigtableTableAdmin::copy_backup
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::client::BigtableTableAdmin::copy_backup
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3525,7 +3525,7 @@ pub struct CopyBackupMetadata {
     /// [CopyBackup][google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]
     /// operation.
     ///
-    /// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::traits::BigtableTableAdmin::copy_backup
+    /// [google.bigtable.admin.v2.BigtableTableAdmin.CopyBackup]: crate::client::BigtableTableAdmin::copy_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 }
@@ -3569,7 +3569,7 @@ impl wkt::message::Message for CopyBackupMetadata {
 /// The request for
 /// [CreateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.CreateAuthorizedView]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateAuthorizedView]: crate::traits::BigtableTableAdmin::create_authorized_view
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateAuthorizedView]: crate::client::BigtableTableAdmin::create_authorized_view
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3686,7 +3686,7 @@ impl wkt::message::Message for CreateAuthorizedViewMetadata {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews][google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::traits::BigtableTableAdmin::list_authorized_views
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::client::BigtableTableAdmin::list_authorized_views
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3756,7 +3756,7 @@ impl wkt::message::Message for ListAuthorizedViewsRequest {
 /// Response message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews][google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::traits::BigtableTableAdmin::list_authorized_views
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListAuthorizedViews]: crate::client::BigtableTableAdmin::list_authorized_views
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3814,7 +3814,7 @@ impl gax::paginator::PageableResponse for ListAuthorizedViewsResponse {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView]: crate::traits::BigtableTableAdmin::get_authorized_view
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GetAuthorizedView]: crate::client::BigtableTableAdmin::get_authorized_view
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3857,7 +3857,7 @@ impl wkt::message::Message for GetAuthorizedViewRequest {
 /// The request for
 /// [UpdateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::traits::BigtableTableAdmin::update_authorized_view
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::client::BigtableTableAdmin::update_authorized_view
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3922,7 +3922,7 @@ impl wkt::message::Message for UpdateAuthorizedViewRequest {
 /// Metadata for the google.longrunning.Operation returned by
 /// [UpdateAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView].
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::traits::BigtableTableAdmin::update_authorized_view
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateAuthorizedView]: crate::client::BigtableTableAdmin::update_authorized_view
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3982,7 +3982,7 @@ impl wkt::message::Message for UpdateAuthorizedViewMetadata {
 /// Request message for
 /// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView][google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView]
 ///
-/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView]: crate::traits::BigtableTableAdmin::delete_authorized_view
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteAuthorizedView]: crate::client::BigtableTableAdmin::delete_authorized_view
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6310,7 +6310,7 @@ pub struct Backup {
     /// request is received).  The row data in this backup will be no older than
     /// this timestamp.
     ///
-    /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::traits::BigtableTableAdmin::create_backup
+    /// [google.bigtable.admin.v2.BigtableTableAdmin.CreateBackup]: crate::client::BigtableTableAdmin::create_backup
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 

@@ -1022,7 +1022,7 @@ pub struct Instance {
     /// also [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig] and
     /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::traits::InstanceAdmin::list_instance_configs
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     /// [google.spanner.admin.instance.v1.InstanceConfig]: crate::model::InstanceConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub config: std::string::String,
@@ -1086,8 +1086,8 @@ pub struct Instance {
     /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance],
     /// the state must be either omitted or set to `READY`.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::traits::InstanceAdmin::create_instance
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::traits::InstanceAdmin::update_instance
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
     pub state: crate::model::instance::State,
 
     /// Cloud Labels are a flexible and lightweight mechanism for organizing cloud
@@ -1443,7 +1443,7 @@ pub mod instance {
 /// The request for
 /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::traits::InstanceAdmin::list_instance_configs
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1499,7 +1499,7 @@ impl wkt::message::Message for ListInstanceConfigsRequest {
 /// The response for
 /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::traits::InstanceAdmin::list_instance_configs
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1513,7 +1513,7 @@ pub struct ListInstanceConfigsResponse {
     /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]
     /// call to fetch more of the matching instance configurations.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::traits::InstanceAdmin::list_instance_configs
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -1559,7 +1559,7 @@ impl gax::paginator::PageableResponse for ListInstanceConfigsResponse {
 /// The request for
 /// [GetInstanceConfigRequest][google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig]: crate::traits::InstanceAdmin::get_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig]: crate::client::InstanceAdmin::get_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1588,7 +1588,7 @@ impl wkt::message::Message for GetInstanceConfigRequest {
 /// The request for
 /// [CreateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::traits::InstanceAdmin::create_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::client::InstanceAdmin::create_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1662,7 +1662,7 @@ impl wkt::message::Message for CreateInstanceConfigRequest {
 /// The request for
 /// [UpdateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::traits::InstanceAdmin::update_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::client::InstanceAdmin::update_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1734,7 +1734,7 @@ impl wkt::message::Message for UpdateInstanceConfigRequest {
 /// The request for
 /// [DeleteInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig]: crate::traits::InstanceAdmin::delete_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig]: crate::client::InstanceAdmin::delete_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1790,7 +1790,7 @@ impl wkt::message::Message for DeleteInstanceConfigRequest {
 /// The request for
 /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::traits::InstanceAdmin::list_instance_config_operations
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1899,7 +1899,7 @@ impl wkt::message::Message for ListInstanceConfigOperationsRequest {
 /// The response for
 /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::traits::InstanceAdmin::list_instance_config_operations
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1917,7 +1917,7 @@ pub struct ListInstanceConfigOperationsResponse {
     /// [ListInstanceConfigOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]
     /// call to fetch more of the matching metadata.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::traits::InstanceAdmin::list_instance_config_operations
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 }
@@ -1961,7 +1961,7 @@ impl gax::paginator::PageableResponse for ListInstanceConfigOperationsResponse {
 /// The request for
 /// [GetInstance][google.spanner.admin.instance.v1.InstanceAdmin.GetInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstance]: crate::traits::InstanceAdmin::get_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstance]: crate::client::InstanceAdmin::get_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2008,7 +2008,7 @@ impl wkt::message::Message for GetInstanceRequest {
 /// The request for
 /// [CreateInstance][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::traits::InstanceAdmin::create_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2063,7 +2063,7 @@ impl wkt::message::Message for CreateInstanceRequest {
 /// The request for
 /// [ListInstances][google.spanner.admin.instance.v1.InstanceAdmin.ListInstances].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::traits::InstanceAdmin::list_instances
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2167,7 +2167,7 @@ impl wkt::message::Message for ListInstancesRequest {
 /// The response for
 /// [ListInstances][google.spanner.admin.instance.v1.InstanceAdmin.ListInstances].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::traits::InstanceAdmin::list_instances
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2181,7 +2181,7 @@ pub struct ListInstancesResponse {
     /// [ListInstances][google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]
     /// call to fetch more of the matching instances.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::traits::InstanceAdmin::list_instances
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -2243,7 +2243,7 @@ impl gax::paginator::PageableResponse for ListInstancesResponse {
 /// The request for
 /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::traits::InstanceAdmin::update_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2298,7 +2298,7 @@ impl wkt::message::Message for UpdateInstanceRequest {
 /// The request for
 /// [DeleteInstance][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance]: crate::traits::InstanceAdmin::delete_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance]: crate::client::InstanceAdmin::delete_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2327,7 +2327,7 @@ impl wkt::message::Message for DeleteInstanceRequest {
 /// Metadata type for the operation returned by
 /// [CreateInstance][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::traits::InstanceAdmin::create_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2341,7 +2341,7 @@ pub struct CreateInstanceMetadata {
     /// [CreateInstance][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]
     /// request was received.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::traits::InstanceAdmin::create_instance
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -2417,7 +2417,7 @@ impl wkt::message::Message for CreateInstanceMetadata {
 /// Metadata type for the operation returned by
 /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::traits::InstanceAdmin::update_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2431,7 +2431,7 @@ pub struct UpdateInstanceMetadata {
     /// [UpdateInstance][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]
     /// request was received.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::traits::InstanceAdmin::update_instance
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -2607,7 +2607,7 @@ pub mod free_instance_metadata {
 /// Metadata type for the operation returned by
 /// [CreateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::traits::InstanceAdmin::create_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::client::InstanceAdmin::create_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2621,7 +2621,7 @@ pub struct CreateInstanceConfigMetadata {
     /// [CreateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]
     /// operation.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::traits::InstanceAdmin::create_instance_config
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig]: crate::client::InstanceAdmin::create_instance_config
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -2672,7 +2672,7 @@ impl wkt::message::Message for CreateInstanceConfigMetadata {
 /// Metadata type for the operation returned by
 /// [UpdateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::traits::InstanceAdmin::update_instance_config
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::client::InstanceAdmin::update_instance_config
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2686,7 +2686,7 @@ pub struct UpdateInstanceConfigMetadata {
     /// [UpdateInstanceConfig][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]
     /// operation.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::traits::InstanceAdmin::update_instance_config
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig]: crate::client::InstanceAdmin::update_instance_config
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
 
@@ -2755,7 +2755,7 @@ pub struct InstancePartition {
     /// [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig] and
     /// [ListInstanceConfigs][google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs].
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::traits::InstanceAdmin::list_instance_configs
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     /// [google.spanner.admin.instance.v1.InstanceConfig]: crate::model::InstanceConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub config: std::string::String,
@@ -2973,7 +2973,7 @@ pub mod instance_partition {
 /// Metadata type for the operation returned by
 /// [CreateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::traits::InstanceAdmin::create_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::client::InstanceAdmin::create_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2987,7 +2987,7 @@ pub struct CreateInstancePartitionMetadata {
     /// [CreateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]
     /// request was received.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::traits::InstanceAdmin::create_instance_partition
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::client::InstanceAdmin::create_instance_partition
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -3051,7 +3051,7 @@ impl wkt::message::Message for CreateInstancePartitionMetadata {
 /// The request for
 /// [CreateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::traits::InstanceAdmin::create_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition]: crate::client::InstanceAdmin::create_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3113,7 +3113,7 @@ impl wkt::message::Message for CreateInstancePartitionRequest {
 /// The request for
 /// [DeleteInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition]: crate::traits::InstanceAdmin::delete_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition]: crate::client::InstanceAdmin::delete_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3156,7 +3156,7 @@ impl wkt::message::Message for DeleteInstancePartitionRequest {
 /// The request for
 /// [GetInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition]: crate::traits::InstanceAdmin::get_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition]: crate::client::InstanceAdmin::get_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3186,7 +3186,7 @@ impl wkt::message::Message for GetInstancePartitionRequest {
 /// The request for
 /// [UpdateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::traits::InstanceAdmin::update_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::client::InstanceAdmin::update_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3244,7 +3244,7 @@ impl wkt::message::Message for UpdateInstancePartitionRequest {
 /// Metadata type for the operation returned by
 /// [UpdateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::traits::InstanceAdmin::update_instance_partition
+/// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::client::InstanceAdmin::update_instance_partition
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3258,7 +3258,7 @@ pub struct UpdateInstancePartitionMetadata {
     /// [UpdateInstancePartition][google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]
     /// request was received.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::traits::InstanceAdmin::update_instance_partition
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition]: crate::client::InstanceAdmin::update_instance_partition
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
@@ -3322,7 +3322,7 @@ impl wkt::message::Message for UpdateInstancePartitionMetadata {
 /// The request for
 /// [ListInstancePartitions][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::traits::InstanceAdmin::list_instance_partitions
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3402,7 +3402,7 @@ impl wkt::message::Message for ListInstancePartitionsRequest {
 /// The response for
 /// [ListInstancePartitions][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::traits::InstanceAdmin::list_instance_partitions
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3416,7 +3416,7 @@ pub struct ListInstancePartitionsResponse {
     /// [ListInstancePartitions][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]
     /// call to fetch more of the matching instance partitions.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::traits::InstanceAdmin::list_instance_partitions
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -3480,7 +3480,7 @@ impl gax::paginator::PageableResponse for ListInstancePartitionsResponse {
 /// The request for
 /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::traits::InstanceAdmin::list_instance_partition_operations
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3612,7 +3612,7 @@ impl wkt::message::Message for ListInstancePartitionOperationsRequest {
 /// The response for
 /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::traits::InstanceAdmin::list_instance_partition_operations
+/// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3630,7 +3630,7 @@ pub struct ListInstancePartitionOperationsResponse {
     /// [ListInstancePartitionOperations][google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]
     /// call to fetch more of the matching metadata.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::traits::InstanceAdmin::list_instance_partition_operations
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
@@ -3694,7 +3694,7 @@ impl gax::paginator::PageableResponse for ListInstancePartitionOperationsRespons
 /// The request for
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::traits::InstanceAdmin::move_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3734,7 +3734,7 @@ impl wkt::message::Message for MoveInstanceRequest {
 /// The response for
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::traits::InstanceAdmin::move_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3752,7 +3752,7 @@ impl wkt::message::Message for MoveInstanceResponse {
 /// Metadata type for the operation returned by
 /// [MoveInstance][google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance].
 ///
-/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::traits::InstanceAdmin::move_instance
+/// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3769,7 +3769,7 @@ pub struct MoveInstanceMetadata {
     /// [progress_percent][google.spanner.admin.instance.v1.OperationProgress.progress_percent]
     /// is reset when cancellation is requested.
     ///
-    /// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::traits::InstanceAdmin::move_instance
+    /// [google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance]: crate::client::InstanceAdmin::move_instance
     /// [google.spanner.admin.instance.v1.OperationProgress.progress_percent]: crate::model::OperationProgress::progress_percent
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub progress: std::option::Option<crate::model::OperationProgress>,
