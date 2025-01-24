@@ -414,7 +414,6 @@ mod test {
     use rpc::model::ResourceInfo;
     use rpc::model::RetryInfo;
     use serde_json::json;
-    use std::collections::HashMap;
     use test_case::test_case;
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
@@ -440,7 +439,7 @@ mod test {
                         ErrorInfo::default()
                             .set_reason("reason")
                             .set_domain("domain")
-                            .set_metadata(HashMap::new()),
+                            .set_metadata([("", "")].into_iter().take(0)),
                     ),
                     StatusDetails::Help(Help::default().set_links(
                         vec![rpc::model::help::Link::default()

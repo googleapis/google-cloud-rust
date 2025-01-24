@@ -60,9 +60,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
                     smo::model::Replication::default()
                         .set_automatic(smo::model::Automatic::default()),
                 )
-                .set_labels(
-                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
-                ),
+                .set_labels([("integration-test", "true")]),
         )
         .send()
         .await?;

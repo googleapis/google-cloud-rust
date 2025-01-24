@@ -132,14 +132,40 @@ pub mod {{NameToSnake}} {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
         {{/OperationInfo}}
-        {{#InputType.Codec.BasicFields}}
+        {{#InputType.Codec.SingularFields}}
 
-        /// Sets the value of `{{Codec.FieldName}}`.
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{/InputType.Codec.BasicFields}}
+        {{/InputType.Codec.SingularFields}}
+        {{#InputType.Codec.RepeatedFields}}
+
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+        {
+            use std::iter::Iterator;
+            self.0.request.{{Codec.FieldName}} = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+        {{/InputType.Codec.RepeatedFields}}
+        {{#InputType.Codec.MapFields}}
+
+        /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+        pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<{{{Codec.KeyType}}}>,
+            V: std::convert::Into<{{{Codec.ValueType}}}>,
+        {
+            self.0.request.{{Codec.FieldName}} = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+        {{/InputType.Codec.MapFields}}
         {{#InputType.OneOfs}}
 
         /// Sets the value of `{{Codec.FieldName}}`.

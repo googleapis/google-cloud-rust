@@ -43,14 +43,41 @@ pub struct {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
-    {{#Codec.BasicFields}}
+    {{#Codec.SingularFields}}
 
-    /// Sets the value of `{{Codec.FieldName}}`.
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Codec.FieldName}} = v.into();
         self
     }
-    {{/Codec.BasicFields}}
+    {{/Codec.SingularFields}}
+    {{#Codec.RepeatedFields}}
+
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        use std::iter::Iterator;
+        self.{{Codec.FieldName}} = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+    {{/Codec.RepeatedFields}}
+    {{#Codec.MapFields}}
+
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<{{{Codec.KeyType}}}>,
+        V: std::convert::Into<{{{Codec.ValueType}}}>,
+    {
+        use std::iter::Iterator;
+        self.{{Codec.FieldName}} = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+    {{/Codec.MapFields}}
     {{#OneOfs}}
 
     /// Sets the value of `{{Codec.FieldName}}`.
