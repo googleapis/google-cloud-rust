@@ -132,22 +132,22 @@ pub mod {{NameToSnake}} {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
         {{/OperationInfo}}
-        {{#InputType.BasicFields}}
+        {{#InputType.Codec.BasicFields}}
 
         /// Sets the value of `{{Codec.FieldName}}`.
         pub fn set_{{Codec.SetterName}}<T: Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{/InputType.BasicFields}}
-        {{#InputType.ExplicitOneOfs}}
+        {{/InputType.Codec.BasicFields}}
+        {{#InputType.OneOfs}}
 
         /// Sets the value of `{{Codec.FieldName}}`.
         pub fn set_{{Codec.SetterName}}<T: Into<Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
             self.0.request.{{Codec.FieldName}} = v.into();
             self
         }
-        {{/InputType.ExplicitOneOfs}}
+        {{/InputType.OneOfs}}
     }
 
     impl gax::options::RequestBuilder for {{NameToPascal}} {

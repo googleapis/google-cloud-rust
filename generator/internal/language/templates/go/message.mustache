@@ -15,10 +15,10 @@ limitations under the License.
 }}
 {{^IsMap}}
 
-{{#DocLines}}
+{{#Codec.DocLines}}
 // {{{.}}}
-{{/DocLines}}
-type {{Name}} struct {
+{{/Codec.DocLines}}
+type {{Codec.Name}} struct {
     {{#Fields}}
 
     {{#Codec.DocLines}}

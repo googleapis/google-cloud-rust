@@ -15,14 +15,14 @@ limitations under the License.
 }}
 {{^IsMap}}
 
-{{#DocLines}}
+{{#Codec.DocLines}}
 {{{.}}}
-{{/DocLines}}
-{{#MessageAttributes}}
+{{/Codec.DocLines}}
+{{#Codec.MessageAttributes}}
 {{{.}}}
-{{/MessageAttributes}}
-pub struct {{Name}} {
-    {{#BasicFields}}
+{{/Codec.MessageAttributes}}
+pub struct {{Codec.Name}} {
+    {{#Codec.BasicFields}}
 
     {{#Codec.DocLines}}
     {{{.}}}
@@ -31,43 +31,43 @@ pub struct {{Name}} {
     {{{.}}}
     {{/Codec.Attributes}}
     pub {{Codec.FieldName}}: {{{Codec.FieldType}}},
-    {{/BasicFields}}
-    {{#ExplicitOneOfs}}
+    {{/Codec.BasicFields}}
+    {{#OneOfs}}
 
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
-    {{/ExplicitOneOfs}}
+    {{/OneOfs}}
 }
 
-impl {{Name}} {
-    {{#BasicFields}}
+impl {{Codec.Name}} {
+    {{#Codec.BasicFields}}
 
     /// Sets the value of `{{Codec.FieldName}}`.
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
         self.{{Codec.FieldName}} = v.into();
         self
     }
-    {{/BasicFields}}
-    {{#ExplicitOneOfs}}
+    {{/Codec.BasicFields}}
+    {{#OneOfs}}
 
     /// Sets the value of `{{Codec.FieldName}}`.
     pub fn set_{{Codec.SetterName}}<T: std::convert::Into<std::option::Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
         self.{{Codec.FieldName}} = v.into();
         self
     }
-    {{/ExplicitOneOfs}}
+    {{/OneOfs}}
 }
-{{^HasSyntheticFields}}
+{{^Codec.HasSyntheticFields}}
 
 impl wkt::message::Message for {{Name}} {
     fn typename() -> &'static str {
-        "type.googleapis.com/{{SourceFQN}}"
+        "type.googleapis.com/{{Codec.SourceFQN}}"
     }
 }
-{{/HasSyntheticFields}}
+{{/Codec.HasSyntheticFields}}
 {{#IsPageableResponse}}
 
 #[cfg(feature = "unstable-stream")]
@@ -85,25 +85,25 @@ impl gax::paginator::PageableResponse for {{Name}} {
     }
 }
 {{/IsPageableResponse}}
-{{#HasNestedTypes}}
+{{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to {{Name}}
-pub mod {{NameSnakeCase}} {
+pub mod {{Codec.ModuleName}} {
     {{! Very rarely, this is unused. It is easier to always disable the warning. }}
     #[allow(unused_imports)]
     use super::*;
 
-{{/HasNestedTypes}}
-    {{#NestedMessages}}
+{{/Codec.HasNestedTypes}}
+    {{#Messages}}
     {{> message}}
-    {{/NestedMessages}}
+    {{/Messages}}
     {{#Enums}}
     {{> enum}}
     {{/Enums}}
-    {{#ExplicitOneOfs}}
+    {{#OneOfs}}
     {{> oneof}}
-    {{/ExplicitOneOfs}}
-{{#HasNestedTypes}}
+    {{/OneOfs}}
+{{#Codec.HasNestedTypes}}
 }
-{{/HasNestedTypes}}
+{{/Codec.HasNestedTypes}}
 {{/IsMap}}

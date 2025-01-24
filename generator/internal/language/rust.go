@@ -529,7 +529,7 @@ func rustMapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificat
 	case api.MESSAGE_TYPE:
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -537,7 +537,7 @@ func rustMapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificat
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		return rustFQEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -551,7 +551,7 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 	if f.Typez == api.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		if m.IsMap {
@@ -563,7 +563,7 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 	} else if f.Typez == api.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		return rustFQEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
