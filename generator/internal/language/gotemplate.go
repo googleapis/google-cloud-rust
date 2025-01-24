@@ -51,9 +51,9 @@ type GoService struct {
 }
 
 type GoMessage struct {
-	Fields             []*GoField
-	BasicFields        []*GoField
-	ExplicitOneOfs     []*GoOneOf
+	Fields             []*api.Field
+	BasicFields        []*api.Field
+	ExplicitOneOfs     []*api.OneOf
 	NestedMessages     []*GoMessage
 	Enums              []*api.Enum
 	Name               string
@@ -62,7 +62,7 @@ type GoMessage struct {
 	DocLines           []string
 	IsMap              bool
 	IsPageableResponse bool
-	PageableItem       *GoField
+	PageableItem       *api.Field
 	ID                 string
 	// The FQN is the source specification
 	SourceFQN string
@@ -74,13 +74,9 @@ type GoMethod struct {
 	DocLines            []string
 	InputTypeName       string
 	OutputTypeName      string
-	HTTPMethod          string
-	HTTPMethodToLower   string
-	HTTPPathFmt         string
-	HTTPPathArgs        []string
-	PathParams          []*GoField
-	QueryParams         []*GoField
-	HasBody             bool
+	PathInfo            *api.PathInfo
+	PathParams          []*api.Field
+	QueryParams         []*api.Field
 	BodyAccessor        string
 	IsPageable          bool
 	ServiceNameToPascal string
@@ -90,25 +86,29 @@ type GoMethod struct {
 	OperationInfo       *GoOperationInfo
 }
 
+type goPathInfoAnnotation struct {
+	Method      string
+	PathFmt     string
+	PathArgs    []string
+	HasPathArgs bool
+	HasBody     bool
+}
+
 type GoOperationInfo struct {
 	MetadataType string
 	ResponseType string
 }
 
-type GoOneOf struct {
+type goOneOfAnnotation struct {
 	NameToPascal string
 	DocLines     []string
-	Fields       []*GoField
 }
 
-type GoField struct {
-	NameToCamel        string
-	NameToPascal       string
-	DocLines           []string
-	FieldType          string
-	PrimitiveFieldType string
-	JSONName           string
-	AsQueryParameter   string
+type goFieldAnnotation struct {
+	Name             string
+	DocLines         []string
+	FieldType        string
+	AsQueryParameter string
 }
 
 type goEnumAnnotation struct {
@@ -183,7 +183,7 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 			return ""
 		}(),
 		Services: mapSlice(model.Services, func(s *api.Service) *GoService {
-			return newGoService(s, model.State, importMap)
+			return newGoService(s, model.State)
 		}),
 		Messages: mapSlice(model.Messages, func(m *api.Message) *GoMessage {
 			return newGoMessage(m, model.State, importMap)
@@ -208,14 +208,14 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 	return data, nil
 }
 
-func newGoService(s *api.Service, state *api.APIState, importMap map[string]*goImport) *GoService {
+func newGoService(s *api.Service, state *api.APIState) *GoService {
 	// Some codecs skip some methods.
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
 		return goGenerateMethod(m)
 	})
 	return &GoService{
 		Methods: mapSlice(methods, func(m *api.Method) *GoMethod {
-			return newGoMethod(m, s, state, importMap)
+			return newGoMethod(m, s, state)
 		}),
 		NameToPascal:        goToPascal(s.Name),
 		ServiceNameToPascal: goToPascal(s.Name), // Alias for clarity
@@ -227,20 +227,20 @@ func newGoService(s *api.Service, state *api.APIState, importMap map[string]*goI
 }
 
 func newGoMessage(m *api.Message, state *api.APIState, importMap map[string]*goImport) *GoMessage {
+	fields := mapSlice(m.Fields, func(s *api.Field) *api.Field {
+		return newGoField(s, state, importMap)
+	})
 	return &GoMessage{
-		Fields: mapSlice(m.Fields, func(s *api.Field) *GoField {
-			return newGoField(s, state, importMap)
+		Fields: fields,
+		BasicFields: filterSlice(m.Fields, func(s *api.Field) bool {
+			return !s.IsOneOf
 		}),
-		BasicFields: func() []*GoField {
-			filtered := filterSlice(m.Fields, func(s *api.Field) bool {
-				return !s.IsOneOf
-			})
-			return mapSlice(filtered, func(s *api.Field) *GoField {
-				return newGoField(s, state, importMap)
-			})
-		}(),
-		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *GoOneOf {
-			return newGoOneOf(s, state, importMap)
+		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
+			s.Codec = &goOneOfAnnotation{
+				NameToPascal: goToPascal(s.Name),
+				DocLines:     goFormatDocComments(s.Documentation, state),
+			}
+			return s
 		}),
 		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *GoMessage {
 			return newGoMessage(s, state, importMap)
@@ -268,25 +268,24 @@ func newGoMessage(m *api.Message, state *api.APIState, importMap map[string]*goI
 	}
 }
 
-func newGoMethod(m *api.Method, s *api.Service, state *api.APIState, importMap map[string]*goImport) *GoMethod {
+func newGoMethod(m *api.Method, s *api.Service, state *api.APIState) *GoMethod {
+	pathInfoAnnotation := &goPathInfoAnnotation{
+		Method:   m.PathInfo.Verb,
+		PathFmt:  goHTTPPathFmt(m.PathInfo),
+		PathArgs: goHTTPPathArgs(m.PathInfo),
+		HasBody:  m.PathInfo.BodyFieldPath != "",
+	}
+	m.PathInfo.Codec = pathInfoAnnotation
 	method := &GoMethod{
-		BodyAccessor:      goBodyAccessor(m),
-		DocLines:          goFormatDocComments(m.Documentation, state),
-		HTTPMethod:        m.PathInfo.Verb,
-		HTTPMethodToLower: strings.ToLower(m.PathInfo.Verb),
-		HTTPPathArgs:      goHTTPPathArgs(m.PathInfo),
-		HTTPPathFmt:       goHTTPPathFmt(m.PathInfo),
-		HasBody:           m.PathInfo.BodyFieldPath != "",
-		InputTypeName:     goMethodInOutTypeName(m.InputTypeID, state),
-		NameToCamel:       strcase.ToCamel(m.Name),
-		NameToPascal:      goToPascal(m.Name),
-		OutputTypeName:    goMethodInOutTypeName(m.OutputTypeID, state),
-		PathParams: mapSlice(PathParams(m, state), func(s *api.Field) *GoField {
-			return newGoField(s, state, importMap)
-		}),
-		QueryParams: mapSlice(QueryParams(m, state), func(s *api.Field) *GoField {
-			return newGoField(s, state, importMap)
-		}),
+		BodyAccessor:        goBodyAccessor(m),
+		DocLines:            goFormatDocComments(m.Documentation, state),
+		PathInfo:            m.PathInfo,
+		InputTypeName:       goMethodInOutTypeName(m.InputTypeID, state),
+		NameToCamel:         strcase.ToCamel(m.Name),
+		NameToPascal:        goToPascal(m.Name),
+		OutputTypeName:      goMethodInOutTypeName(m.OutputTypeID, state),
+		PathParams:          PathParams(m, state),
+		QueryParams:         QueryParams(m, state),
 		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: goToPascal(s.Name),
 		InputTypeID:         m.InputTypeID,
@@ -300,29 +299,17 @@ func newGoMethod(m *api.Method, s *api.Service, state *api.APIState, importMap m
 	return method
 }
 
-func newGoOneOf(oneOf *api.OneOf, state *api.APIState, importMap map[string]*goImport) *GoOneOf {
-	return &GoOneOf{
-		NameToPascal: goToPascal(oneOf.Name),
-		DocLines:     goFormatDocComments(oneOf.Documentation, state),
-		Fields: mapSlice(oneOf.Fields, func(field *api.Field) *GoField {
-			return newGoField(field, state, importMap)
-		}),
-	}
-}
-
-func newGoField(field *api.Field, state *api.APIState, importMap map[string]*goImport) *GoField {
+func newGoField(field *api.Field, state *api.APIState, importMap map[string]*goImport) *api.Field {
 	if field == nil {
 		return nil
 	}
-	return &GoField{
-		NameToCamel:        strcase.ToLowerCamel(field.Name),
-		NameToPascal:       goToPascal(field.Name),
-		DocLines:           goFormatDocComments(field.Documentation, state),
-		FieldType:          goFieldType(field, state, importMap),
-		PrimitiveFieldType: goFieldType(field, state, importMap),
-		JSONName:           field.JSONName,
-		AsQueryParameter:   goAsQueryParameter(field),
+	field.Codec = &goFieldAnnotation{
+		Name:             goToPascal(field.Name),
+		DocLines:         goFormatDocComments(field.Documentation, state),
+		FieldType:        goFieldType(field, state, importMap),
+		AsQueryParameter: goAsQueryParameter(field),
 	}
+	return field
 }
 
 func goAnnotateEnum(e *api.Enum, state *api.APIState, importMap map[string]*goImport) {

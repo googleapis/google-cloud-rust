@@ -97,24 +97,24 @@ func (c *Client) {{ServiceName}}() *{{ServiceName}}{
 {{/DocLines}}
 func (s *{{ServiceName}}) {{NameToCamel}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputTypeName}}, error) {
     out := new({{OutputTypeName}})
-    {{#HasBody}}
+    {{#PathInfo.Codec.HasBody}}
     reqBody, err := json.Marshal(req{{BodyAccessor}})
     if err != nil {
         return nil, err
     }
-    {{/HasBody}}
+    {{/PathInfo.Codec.HasBody}}
     baseURL, err := url.Parse(s.baseURL)
     if err != nil {
 		return nil, err
 	}
-    baseURL.Path += fmt.Sprintf("{{HTTPPathFmt}}"{{#HTTPPathArgs}}{{.}}{{/HTTPPathArgs}})
+    baseURL.Path += fmt.Sprintf("{{PathInfo.Codec.PathFmt}}"{{#PathInfo.Codec.PathArgs}}{{.}}{{/PathInfo.Codec.PathArgs}})
     params := url.Values{}
     params.Add("$alt", "json")
     {{#QueryParams}}
-    params.Add("{{JSONName}}", fmt.Sprintf("%v", {{AsQueryParameter}}))
+    params.Add("{{JSONName}}", fmt.Sprintf("%v", {{Codec.AsQueryParameter}}))
     {{/QueryParams}}
     baseURL.RawQuery = params.Encode()
-    httpReq, err := http.NewRequestWithContext(ctx, "{{HTTPMethod}}", baseURL.String(), {{#HasBody}}bytes.NewReader(reqBody){{/HasBody}}{{^HasBody}}nil{{/HasBody}})
+    httpReq, err := http.NewRequestWithContext(ctx, "{{PathInfo.Codec.Method}}", baseURL.String(), {{#PathInfo.Codec.HasBody}}bytes.NewReader(reqBody){{/PathInfo.Codec.HasBody}}{{^PathInfo.Codec.HasBody}}nil{{/PathInfo.Codec.HasBody}})
     if err != nil {
         return nil, err
     }

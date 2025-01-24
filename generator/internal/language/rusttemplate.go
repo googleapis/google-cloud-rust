@@ -123,7 +123,7 @@ type RustOperationInfo struct {
 	PackageNamespace   string
 }
 
-type RustOneOfAnnotation struct {
+type rustOneOfAnnotation struct {
 	// In Rust, `oneof` fields are fields inside a struct. These must be
 	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
 	// word.
@@ -140,7 +140,7 @@ type RustOneOfAnnotation struct {
 	DocLines              []string
 }
 
-type RustFieldAnnotations struct {
+type rustFieldAnnotations struct {
 	// In Rust, message fields are fields inside a struct. These must be
 	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
 	// word.
@@ -306,7 +306,7 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 		}),
 		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
 			messageName := rustMessageScopeName(m, "", modulePath, sourceSpecificationPackageName, packageMapping)
-			s.Codec = &RustOneOfAnnotation{
+			s.Codec = &rustOneOfAnnotation{
 				FieldName:  rustToSnake(s.Name),
 				SetterName: rustToSnakeNoMangling(s.Name),
 				EnumName:   rustToPascal(s.Name),
@@ -390,7 +390,7 @@ func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpeci
 	if field == nil {
 		return nil
 	}
-	field.Codec = &RustFieldAnnotations{
+	field.Codec = &rustFieldAnnotations{
 		FieldName:          rustToSnake(field.Name),
 		SetterName:         rustToSnakeNoMangling(field.Name),
 		BranchName:         rustToPascal(field.Name),
