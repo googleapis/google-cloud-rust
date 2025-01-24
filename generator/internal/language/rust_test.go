@@ -28,7 +28,7 @@ import (
 
 func createRustCodec() *rustCodec {
 	wkt := &rustPackage{
-		name:        "gax_wkt",
+		name:        "wkt",
 		packageName: "types",
 		path:        "../../types",
 	}
@@ -187,7 +187,7 @@ func checkRustPackages(t *testing.T, got *rustCodec, want *rustCodec) {
 }
 
 func TestRust_Validate(t *testing.T) {
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -197,7 +197,7 @@ func TestRust_Validate(t *testing.T) {
 }
 
 func TestRust_ValidateMessageMismatch(t *testing.T) {
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -206,7 +206,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -215,7 +215,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", c.sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
@@ -226,7 +226,7 @@ func TestRust_ValidateMessageMismatch(t *testing.T) {
 }
 
 func TestWellKnownTypesExist(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
 	for _, name := range []string{"Any", "Duration", "Empty", "FieldMask", "Timestamp"} {
 		if _, ok := model.State.MessageByID[fmt.Sprintf(".google.protobuf.%s", name)]; !ok {
@@ -240,7 +240,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 		Name: "TestService",
 		ID:   ".test.Service",
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
@@ -274,7 +274,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 }
 
 func TestUsedByServicesNoServices(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c, err := newRustCodec(map[string]string{
 		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
@@ -316,7 +316,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
@@ -359,7 +359,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newRustCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
 		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
@@ -397,7 +397,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 	codec := &rustCodec{
 		extraPackages: []*rustPackage{},
 	}
-	model := newTestAPI([]*api.Message{
+	model := api.NewTestAPI([]*api.Message{
 		{Name: "CreateResource", IsPageableResponse: false},
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
@@ -466,7 +466,7 @@ func TestRust_StreamingFeature(t *testing.T) {
 func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 	t.Helper()
 
-	model := newTestAPI([]*api.Message{
+	model := api.NewTestAPI([]*api.Message{
 		{Name: "ListResources", IsPageableResponse: true},
 	}, []*api.Enum{}, []*api.Service{})
 	rustLoadWellKnownTypes(model.State)
@@ -483,11 +483,11 @@ func checkRustContext(t *testing.T, codec *rustCodec, wantFeatures string) {
 }
 
 func TestRust_WellKnownTypesAsMethod(t *testing.T) {
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
 
-	want := "gax_wkt::Empty"
+	want := "wkt::Empty"
 	got := rustMethodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
@@ -504,7 +504,7 @@ func TestRust_MethodInOut(t *testing.T) {
 		ID:     "..Target.Nested",
 		Parent: message,
 	}
-	model := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
 
@@ -593,7 +593,7 @@ func TestRust_FieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":          `#[serde_as(as = "serde_with::DisplayFromStr")]`,
@@ -726,7 +726,7 @@ func TestRust_MapFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -798,7 +798,7 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"f_int64":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
@@ -844,7 +844,7 @@ func TestRust_FieldLossyName(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"data": `#[serde(skip_serializing_if = "bytes::Bytes::is_empty")]` + "\n" +
@@ -894,7 +894,7 @@ func TestRust_SyntheticField(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
 		"updateMask":  `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
@@ -974,6 +974,22 @@ func TestRust_FieldType(t *testing.T) {
 				Repeated: true,
 			},
 			{
+				Name:      "f_msg_recursive",
+				Typez:     api.MESSAGE_TYPE,
+				TypezID:   "..Fake",
+				Optional:  true,
+				Repeated:  false,
+				Recursive: true,
+			},
+			{
+				Name:      "f_msg_recursive_repeated",
+				Typez:     api.MESSAGE_TYPE,
+				TypezID:   "..Fake",
+				Optional:  false,
+				Repeated:  true,
+				Recursive: true,
+			},
+			{
 				Name:     "f_timestamp",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.Timestamp",
@@ -989,31 +1005,35 @@ func TestRust_FieldType(t *testing.T) {
 			},
 		},
 	}
-	model := newTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
 
 	expectedTypes := map[string]string{
-		"f_int32":              "i32",
-		"f_int32_optional":     "std::option::Option<i32>",
-		"f_int32_repeated":     "std::vec::Vec<i32>",
-		"f_string":             "std::string::String",
-		"f_string_optional":    "std::option::Option<std::string::String>",
-		"f_string_repeated":    "std::vec::Vec<std::string::String>",
-		"f_msg":                "std::option::Option<crate::model::Target>",
-		"f_msg_repeated":       "std::vec::Vec<crate::model::Target>",
-		"f_timestamp":          "std::option::Option<gax_wkt::Timestamp>",
-		"f_timestamp_repeated": "std::vec::Vec<gax_wkt::Timestamp>",
+		"f_int32":                  "i32",
+		"f_int32_optional":         "std::option::Option<i32>",
+		"f_int32_repeated":         "std::vec::Vec<i32>",
+		"f_string":                 "std::string::String",
+		"f_string_optional":        "std::option::Option<std::string::String>",
+		"f_string_repeated":        "std::vec::Vec<std::string::String>",
+		"f_msg":                    "std::option::Option<crate::model::Target>",
+		"f_msg_repeated":           "std::vec::Vec<crate::model::Target>",
+		"f_msg_recursive":          "std::option::Option<std::boxed::Box<crate::model::Fake>>",
+		"f_msg_recursive_repeated": "std::vec::Vec<crate::model::Fake>",
+		"f_timestamp":              "std::option::Option<wkt::Timestamp>",
+		"f_timestamp_repeated":     "std::vec::Vec<wkt::Timestamp>",
 	}
 	expectedPrimitiveTypes := map[string]string{
-		"f_int32":              "i32",
-		"f_int32_optional":     "i32",
-		"f_int32_repeated":     "i32",
-		"f_string":             "std::string::String",
-		"f_string_optional":    "std::string::String",
-		"f_string_repeated":    "std::string::String",
-		"f_msg":                "crate::model::Target",
-		"f_msg_repeated":       "crate::model::Target",
-		"f_timestamp":          "gax_wkt::Timestamp",
-		"f_timestamp_repeated": "gax_wkt::Timestamp",
+		"f_int32":                  "i32",
+		"f_int32_optional":         "i32",
+		"f_int32_repeated":         "i32",
+		"f_string":                 "std::string::String",
+		"f_string_optional":        "std::string::String",
+		"f_string_repeated":        "std::string::String",
+		"f_msg":                    "crate::model::Target",
+		"f_msg_repeated":           "crate::model::Target",
+		"f_msg_recursive":          "crate::model::Fake",
+		"f_msg_recursive_repeated": "crate::model::Fake",
+		"f_timestamp":              "wkt::Timestamp",
+		"f_timestamp_repeated":     "wkt::Timestamp",
 	}
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
@@ -1034,6 +1054,138 @@ func TestRust_FieldType(t *testing.T) {
 		got = rustFieldType(field, model.State, true, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
+// Verify rustBaseFieldType works for map types with different value fields.
+func TestRust_FieldMapTypeValues(t *testing.T) {
+	for _, test := range []struct {
+		want  string
+		value *api.Field
+	}{
+		{
+			"std::collections::HashMap<i32,std::string::String>",
+			&api.Field{Typez: api.STRING_TYPE},
+		},
+		{
+			"std::collections::HashMap<i32,i64>",
+			&api.Field{Typez: api.INT64_TYPE},
+		},
+		{
+			"std::collections::HashMap<i32,wkt::Any>",
+			&api.Field{Typez: api.MESSAGE_TYPE, TypezID: ".google.protobuf.Any"},
+		},
+		{
+			"std::collections::HashMap<i32,crate::model::OtherMessage>",
+			&api.Field{Typez: api.MESSAGE_TYPE, TypezID: ".test.OtherMessage"},
+		},
+		{
+			"std::collections::HashMap<i32,crate::model::Message>",
+			&api.Field{Typez: api.MESSAGE_TYPE, TypezID: ".test.Message"},
+		},
+	} {
+		field := &api.Field{
+			Name:    "indexed",
+			ID:      ".test.Message.indexed",
+			Typez:   api.MESSAGE_TYPE,
+			TypezID: ".test.$MapThing",
+		}
+		other_message := &api.Message{
+			Name:   "OtherMessage",
+			ID:     ".test.OtherMessage",
+			IsMap:  true,
+			Fields: []*api.Field{},
+		}
+		message := &api.Message{
+			Name:   "Message",
+			ID:     ".test.Message",
+			IsMap:  true,
+			Fields: []*api.Field{field},
+		}
+		// Complete the value field
+		value := test.value
+		value.Name = "value"
+		value.ID = ".test.$MapThing.value"
+		key := &api.Field{
+			Name:  "key",
+			ID:    ".test.$MapThing.key",
+			Typez: api.INT32_TYPE,
+		}
+		map_thing := &api.Message{
+			Name:   "$MapThing",
+			ID:     ".test.$MapThing",
+			IsMap:  true,
+			Fields: []*api.Field{key, value},
+		}
+		model := api.NewTestAPI([]*api.Message{message, other_message, map_thing}, []*api.Enum{}, []*api.Service{})
+		api.LabelRecursiveFields(model)
+		c := createRustCodec()
+		rustLoadWellKnownTypes(model.State)
+		got := rustFieldType(field, model.State, false, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		if got != test.want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, test.want)
+		}
+	}
+}
+
+// Verify rustBaseFieldType works for map types with different key fields.
+func TestRust_FieldMapTypeKey(t *testing.T) {
+	for _, test := range []struct {
+		want string
+		key  *api.Field
+	}{
+		{
+			"std::collections::HashMap<i32,i64>",
+			&api.Field{Typez: api.INT32_TYPE},
+		},
+		{
+			"std::collections::HashMap<std::string::String,i64>",
+			&api.Field{Typez: api.STRING_TYPE},
+		},
+		{
+			"std::collections::HashMap<crate::model::EnumType,i64>",
+			&api.Field{Typez: api.ENUM_TYPE, TypezID: ".test.EnumType"},
+		},
+	} {
+		field := &api.Field{
+			Name:    "indexed",
+			ID:      ".test.Message.indexed",
+			Typez:   api.MESSAGE_TYPE,
+			TypezID: ".test.$MapThing",
+		}
+		message := &api.Message{
+			Name:   "Message",
+			ID:     ".test.Message",
+			IsMap:  true,
+			Fields: []*api.Field{field},
+		}
+		// Complete the value field
+		key := test.key
+		key.Name = "key"
+		key.ID = ".test.$MapThing.key"
+		value := &api.Field{
+			Name:  "value",
+			ID:    ".test.$MapThing.value",
+			Typez: api.INT64_TYPE,
+		}
+		map_thing := &api.Message{
+			Name:   "$MapThing",
+			ID:     ".test.$MapThing",
+			IsMap:  true,
+			Fields: []*api.Field{key, value},
+		}
+		enum := &api.Enum{
+			Name: "EnumType",
+			ID:   ".test.EnumType",
+		}
+		model := api.NewTestAPI([]*api.Message{message, map_thing}, []*api.Enum{enum}, []*api.Service{})
+		api.LabelRecursiveFields(model)
+		c := createRustCodec()
+		rustLoadWellKnownTypes(model.State)
+		got := rustFieldType(field, model.State, false, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		if got != test.want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, test.want)
 		}
 	}
 }
@@ -1110,7 +1262,7 @@ func TestRust_AsQueryParameter(t *testing.T) {
 			requiredFieldMaskField, optionalFieldMaskField,
 		},
 	}
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{options, request},
 		[]*api.Enum{},
 		[]*api.Service{})
@@ -1234,7 +1386,7 @@ Maybe they wanted to show some JSON:
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1260,7 +1412,7 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 		"///   value in the third email_addresses message.)",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1336,7 +1488,7 @@ block:
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1357,7 +1509,7 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 		"/// ```",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1454,7 +1606,7 @@ Second [example][].
 		"/// [Third]: https://www.third.com",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
@@ -1514,7 +1666,7 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{Name: "CreateBar", ID: ".test.v1.SomeService.CreateBar"},
 		},
 	}
-	a := newTestAPI(
+	a := api.NewTestAPI(
 		[]*api.Message{someMessage},
 		[]*api.Enum{someEnum},
 		[]*api.Service{someService})
@@ -1597,7 +1749,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 func TestRust_MessageNames(t *testing.T) {
 	r := sample.Replication()
 	a := sample.Automatic()
-	model := newTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
 	model.PackageName = "test"
 
 	c := createRustCodec()
@@ -1653,7 +1805,7 @@ func TestRust_EnumNames(t *testing.T) {
 		Package: "test",
 	}
 
-	model := newTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{parent}, []*api.Enum{nested, non_nested}, []*api.Service{})
 	model.PackageName = "test"
 	c := createRustCodec()
 	c.sourceSpecificationPackageName = model.Messages[0].Package
@@ -1754,7 +1906,7 @@ func Test_RustPathArgs(t *testing.T) {
 		ID:      ".test.Service",
 		Methods: []*api.Method{method},
 	}
-	model := newTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
+	model := api.NewTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
 
 	for _, test := range []struct {
 		want     []string

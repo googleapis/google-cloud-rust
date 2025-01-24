@@ -64,7 +64,7 @@ func TestQueryParams(t *testing.T) {
 			},
 		},
 	}
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{options, request},
 		[]*api.Enum{},
 		[]*api.Service{
@@ -84,7 +84,7 @@ func TestQueryParams(t *testing.T) {
 }
 
 func TestPathParams(t *testing.T) {
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{sample.Secret(), sample.UpdateRequest(), sample.CreateRequest()},
 		[]*api.Enum{},
 		[]*api.Service{sample.Service()},

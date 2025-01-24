@@ -22,7 +22,7 @@ import (
 )
 
 func TestPackageNames(t *testing.T) {
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{},
 		[]*api.Service{{Name: "Workflows", Package: "gcp-sdk-workflows-v1"}})
 	// Override the default name for test APIs ("Test").
@@ -65,7 +65,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		Values:        []*api.EnumValue{v0, v1, v2},
 	}
 
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
 	codec, err := newRustCodec(map[string]string{})
 	if err != nil {

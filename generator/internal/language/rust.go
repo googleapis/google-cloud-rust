@@ -500,16 +500,50 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 }
 
 func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
-	if !primitive && f.IsOneOf {
+	switch {
+	case primitive:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	case f.IsOneOf:
 		return fmt.Sprintf("(%s)", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Repeated {
+	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Optional {
+	case f.Recursive:
+		base := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		if f.Optional {
+			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", base)
+		}
+		if _, ok := state.MessageByID[f.TypezID]; ok && f.Typez == api.MESSAGE_TYPE {
+			// Maps are never boxed.
+			return base
+		}
+		return fmt.Sprintf("std::boxed::Box<%s>", base)
+	case f.Optional:
 		return fmt.Sprintf("std::option::Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+	default:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
-	return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+}
+
+func rustMapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
+	switch f.Typez {
+	case api.MESSAGE_TYPE:
+		m, ok := state.MessageByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID)
+			return ""
+		}
+		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
+
+	case api.ENUM_TYPE:
+		e, ok := state.EnumByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID)
+			return ""
+		}
+		return rustFQEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
+	default:
+		return scalarFieldType(f)
+	}
 }
 
 // Returns the field type, ignoring any repeated or optional attributes.
@@ -521,8 +555,8 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 			return ""
 		}
 		if m.IsMap {
-			key := rustFieldType(m.Fields[0], state, false, modulePath, sourceSpecificationPackageName, packageMapping)
-			val := rustFieldType(m.Fields[1], state, false, modulePath, sourceSpecificationPackageName, packageMapping)
+			key := rustMapType(m.Fields[0], state, modulePath, sourceSpecificationPackageName, packageMapping)
+			val := rustMapType(m.Fields[1], state, modulePath, sourceSpecificationPackageName, packageMapping)
 			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
 		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -538,7 +572,6 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 		return ""
 	}
 	return scalarFieldType(f)
-
 }
 
 func rustAddQueryParameter(f *api.Field) string {
