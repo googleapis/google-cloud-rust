@@ -39,7 +39,7 @@ type RustTemplateData struct {
 	Imports           []string
 	DefaultHost       string
 	Services          []*RustService
-	Messages          []*RustMessage
+	Messages          []*api.Message
 	Enums             []*api.Enum
 	NameToLower       string
 	NotForPublication bool
@@ -63,24 +63,16 @@ type RustService struct {
 	HasLROs bool
 }
 
-type RustMessage struct {
-	Fields             []*api.Field
-	BasicFields        []*api.Field
-	ExplicitOneOfs     []*api.OneOf
-	NestedMessages     []*RustMessage
-	Enums              []*api.Enum
-	MessageAttributes  []string
-	Name               string
-	QualifiedName      string
-	NameSnakeCase      string
-	HasNestedTypes     bool
-	DocLines           []string
-	IsMap              bool
-	IsPageableResponse bool
-	PageableItem       *api.Field
-	ID                 string
+type rustMessageAnnotation struct {
+	Name          string
+	ModuleName    string
+	QualifiedName string
 	// The FQN is the source specification
-	SourceFQN string
+	SourceFQN         string
+	MessageAttributes []string
+	DocLines          []string
+	HasNestedTypes    bool
+	BasicFields       []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
@@ -102,7 +94,7 @@ type RustMethod struct {
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
 	InputTypeID         string
-	InputType           *RustMessage
+	InputType           *api.Message
 	OperationInfo       *RustOperationInfo
 }
 
@@ -191,11 +183,17 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 
 	rustLoadWellKnownTypes(model.State)
 	rustResolveUsedPackages(model, c.extraPackages)
-	for _, e := range model.State.EnumByID {
-		rustAnnotateEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-	}
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
+	// Only annotate enums and messages that we intend to generate. In the
+	// process we discover the external dependencies and trim the list of
+	// packages used by this API.
+	for _, e := range model.Enums {
+		rustAnnotateEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	}
+	for _, m := range model.Messages {
+		rustAnnotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	}
 	data := &RustTemplateData{
 		Name:             model.Name,
 		Title:            model.Title,
@@ -217,9 +215,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 		Services: mapSlice(model.Services, func(s *api.Service) *RustService {
 			return newRustService(s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
 		}),
-		Messages: mapSlice(model.Messages, func(m *api.Message) *RustMessage {
-			return newRustMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-		}),
+		Messages:          model.Messages,
 		Enums:             model.Enums,
 		NameToLower:       strings.ToLower(model.Name),
 		NotForPublication: c.doNotPublish,
@@ -245,16 +241,11 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	data.ExternPackages = rustExternPackages(c.extraPackages)
 	rustAddStreamingFeature(data, model, c.extraPackages)
 
-	messagesByID := map[string]*RustMessage{}
-	for _, m := range data.Messages {
-		messagesByID[m.ID] = m
-	}
 	for _, s := range data.Services {
 		for _, method := range s.Methods {
-			if msg, ok := messagesByID[method.InputTypeID]; ok {
-				method.InputType = msg
-			} else if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
-				method.InputType = newRustMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+			if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
+				rustAnnotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+				method.InputType = m
 			}
 		}
 	}
@@ -288,58 +279,34 @@ func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpeci
 	}
 }
 
-func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *RustMessage {
+func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
 		if f.Synthetic {
 			hasSyntheticFields = true
-			break
 		}
+		rustAnnotateField(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
-	fields := mapSlice(m.Fields, func(s *api.Field) *api.Field {
-		return newRustField(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
-	})
-	return &RustMessage{
-		Fields: fields,
-		BasicFields: filterSlice(fields, func(s *api.Field) bool {
+	for _, f := range m.OneOfs {
+		rustAnnotateOneOf(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	}
+	for _, e := range m.Enums {
+		rustAnnotateEnum(e, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	}
+	for _, child := range m.Messages {
+		rustAnnotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
+	}
+	m.Codec = &rustMessageAnnotation{
+		Name:              rustToPascal(m.Name),
+		ModuleName:        rustToSnake(m.Name),
+		QualifiedName:     rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
+		SourceFQN:         strings.TrimPrefix(m.ID, "."),
+		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
+		HasNestedTypes:    hasNestedTypes(m),
+		BasicFields: filterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
-		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
-			messageName := rustMessageScopeName(m, "", modulePath, sourceSpecificationPackageName, packageMapping)
-			s.Codec = &rustOneOfAnnotation{
-				FieldName:  rustToSnake(s.Name),
-				SetterName: rustToSnakeNoMangling(s.Name),
-				EnumName:   rustToPascal(s.Name),
-				FieldType:  fmt.Sprintf("%s::%s", messageName, rustToPascal(s.Name)),
-				DocLines:   rustFormatDocComments(s.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-			}
-			return s
-		}),
-		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *RustMessage {
-			return newRustMessage(s, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
-		}),
-		Enums:             m.Enums,
-		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
-		Name:              rustToPascal(m.Name),
-		QualifiedName:     rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
-		NameSnakeCase:     rustToSnake(m.Name),
-		HasNestedTypes: func() bool {
-			if len(m.Enums) > 0 || len(m.OneOfs) > 0 {
-				return true
-			}
-			for _, child := range m.Messages {
-				if !child.IsMap {
-					return true
-				}
-			}
-			return false
-		}(),
-		DocLines:           rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		IsMap:              m.IsMap,
-		IsPageableResponse: m.IsPageableResponse,
-		PageableItem:       newRustField(m.PageableItem, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		ID:                 m.ID,
-		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
@@ -386,9 +353,20 @@ func newRustMethod(m *api.Method, s *api.Service, state *api.APIState, modulePat
 	return method
 }
 
-func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *api.Field {
+func rustAnnotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	scope := rustMessageScopeName(message, "", modulePath, sourceSpecificationPackageName, packageMapping)
+	oneof.Codec = &rustOneOfAnnotation{
+		FieldName:  rustToSnake(oneof.Name),
+		SetterName: rustToSnakeNoMangling(oneof.Name),
+		EnumName:   rustToPascal(oneof.Name),
+		FieldType:  fmt.Sprintf("%s::%s", scope, rustToPascal(oneof.Name)),
+		DocLines:   rustFormatDocComments(oneof.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+	}
+}
+
+func rustAnnotateField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
 	if field == nil {
-		return nil
+		return
 	}
 	field.Codec = &rustFieldAnnotations{
 		FieldName:          rustToSnake(field.Name),
@@ -400,7 +378,6 @@ func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpeci
 		PrimitiveFieldType: rustFieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
 		AddQueryParameter:  rustAddQueryParameter(field),
 	}
-	return field
 }
 
 func rustAnnotateEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {

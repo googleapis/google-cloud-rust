@@ -88,3 +88,15 @@ func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	}
 	return result
 }
+
+func hasNestedTypes(m *api.Message) bool {
+	if len(m.Enums) > 0 || len(m.OneOfs) > 0 {
+		return true
+	}
+	for _, child := range m.Messages {
+		if !child.IsMap {
+			return true
+		}
+	}
+	return false
+}

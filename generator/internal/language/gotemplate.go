@@ -35,7 +35,7 @@ type GoTemplateData struct {
 	Imports           []string
 	DefaultHost       string
 	Services          []*GoService
-	Messages          []*GoMessage
+	Messages          []*api.Message
 	Enums             []*api.Enum
 	GoPackage         string
 }
@@ -50,22 +50,14 @@ type GoService struct {
 	DefaultHost         string
 }
 
-type GoMessage struct {
-	Fields             []*api.Field
-	BasicFields        []*api.Field
-	ExplicitOneOfs     []*api.OneOf
-	NestedMessages     []*GoMessage
-	Enums              []*api.Enum
-	Name               string
-	QualifiedName      string
-	HasNestedTypes     bool
-	DocLines           []string
-	IsMap              bool
-	IsPageableResponse bool
-	PageableItem       *api.Field
-	ID                 string
+type goMessageAnnotation struct {
+	Name           string
+	QualifiedName  string
+	HasNestedTypes bool
+	DocLines       []string
 	// The FQN is the source specification
-	SourceFQN string
+	SourceFQN   string
+	BasicFields []*api.Field
 }
 
 type GoMethod struct {
@@ -82,8 +74,8 @@ type GoMethod struct {
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
 	InputTypeID         string
-	InputType           *GoMessage
-	OperationInfo       *GoOperationInfo
+	InputType           *api.Message
+	OperationInfo       *goOperationInfo
 }
 
 type goPathInfoAnnotation struct {
@@ -94,14 +86,14 @@ type goPathInfoAnnotation struct {
 	HasBody     bool
 }
 
-type GoOperationInfo struct {
+type goOperationInfo struct {
 	MetadataType string
 	ResponseType string
 }
 
 type goOneOfAnnotation struct {
-	NameToPascal string
-	DocLines     []string
+	Name     string
+	DocLines []string
 }
 
 type goFieldAnnotation struct {
@@ -164,6 +156,9 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 	for _, e := range model.State.EnumByID {
 		goAnnotateEnum(e, model.State, importMap)
 	}
+	for _, m := range model.State.MessageByID {
+		goAnnotateMessage(m, model.State, importMap)
+	}
 	data := &GoTemplateData{
 		Name:              model.Name,
 		Title:             model.Title,
@@ -185,23 +180,15 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 		Services: mapSlice(model.Services, func(s *api.Service) *GoService {
 			return newGoService(s, model.State)
 		}),
-		Messages: mapSlice(model.Messages, func(m *api.Message) *GoMessage {
-			return newGoMessage(m, model.State, importMap)
-		}),
+		Messages:  model.Messages,
 		Enums:     model.Enums,
 		GoPackage: packageName,
 	}
 
-	messagesByID := map[string]*GoMessage{}
-	for _, m := range data.Messages {
-		messagesByID[m.ID] = m
-	}
 	for _, s := range data.Services {
 		for _, method := range s.Methods {
-			if msg, ok := messagesByID[method.InputTypeID]; ok {
-				method.InputType = msg
-			} else if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
-				method.InputType = newGoMessage(m, model.State, importMap)
+			if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
+				method.InputType = m
 			}
 		}
 	}
@@ -226,45 +213,22 @@ func newGoService(s *api.Service, state *api.APIState) *GoService {
 	}
 }
 
-func newGoMessage(m *api.Message, state *api.APIState, importMap map[string]*goImport) *GoMessage {
-	fields := mapSlice(m.Fields, func(s *api.Field) *api.Field {
-		return newGoField(s, state, importMap)
-	})
-	return &GoMessage{
-		Fields: fields,
+func goAnnotateMessage(m *api.Message, state *api.APIState, importMap map[string]*goImport) {
+	for _, f := range m.Fields {
+		goAnnotateField(f, state, importMap)
+	}
+	for _, f := range m.OneOfs {
+		goAnnotateOneOf(f, state)
+	}
+	m.Codec = &goMessageAnnotation{
+		Name:           goMessageName(m, importMap),
+		QualifiedName:  goMessageName(m, importMap),
+		HasNestedTypes: hasNestedTypes(m),
+		DocLines:       goFormatDocComments(m.Documentation, state),
+		SourceFQN:      strings.TrimPrefix(m.ID, "."),
 		BasicFields: filterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
-		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
-			s.Codec = &goOneOfAnnotation{
-				NameToPascal: goToPascal(s.Name),
-				DocLines:     goFormatDocComments(s.Documentation, state),
-			}
-			return s
-		}),
-		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *GoMessage {
-			return newGoMessage(s, state, importMap)
-		}),
-		Enums:         m.Enums,
-		Name:          goMessageName(m, importMap),
-		QualifiedName: goMessageName(m, importMap),
-		HasNestedTypes: func() bool {
-			if len(m.Enums) > 0 || len(m.OneOfs) > 0 {
-				return true
-			}
-			for _, child := range m.Messages {
-				if !child.IsMap {
-					return true
-				}
-			}
-			return false
-		}(),
-		DocLines:           goFormatDocComments(m.Documentation, state),
-		IsMap:              m.IsMap,
-		IsPageableResponse: m.IsPageableResponse,
-		PageableItem:       newGoField(m.PageableItem, state, importMap),
-		ID:                 m.ID,
-		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 	}
 }
 
@@ -291,7 +255,7 @@ func newGoMethod(m *api.Method, s *api.Service, state *api.APIState) *GoMethod {
 		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
-		method.OperationInfo = &GoOperationInfo{
+		method.OperationInfo = &goOperationInfo{
 			MetadataType: goMethodInOutTypeName(m.OperationInfo.MetadataTypeID, state),
 			ResponseType: goMethodInOutTypeName(m.OperationInfo.ResponseTypeID, state),
 		}
@@ -299,17 +263,20 @@ func newGoMethod(m *api.Method, s *api.Service, state *api.APIState) *GoMethod {
 	return method
 }
 
-func newGoField(field *api.Field, state *api.APIState, importMap map[string]*goImport) *api.Field {
-	if field == nil {
-		return nil
+func goAnnotateOneOf(field *api.OneOf, state *api.APIState) {
+	field.Codec = &goOneOfAnnotation{
+		Name:     goToPascal(field.Name),
+		DocLines: goFormatDocComments(field.Documentation, state),
 	}
+}
+
+func goAnnotateField(field *api.Field, state *api.APIState, importMap map[string]*goImport) {
 	field.Codec = &goFieldAnnotation{
 		Name:             goToPascal(field.Name),
 		DocLines:         goFormatDocComments(field.Documentation, state),
 		FieldType:        goFieldType(field, state, importMap),
 		AsQueryParameter: goAsQueryParameter(field),
 	}
-	return field
 }
 
 func goAnnotateEnum(e *api.Enum, state *api.APIState, importMap map[string]*goImport) {

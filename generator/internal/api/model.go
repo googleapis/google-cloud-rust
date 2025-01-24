@@ -226,6 +226,8 @@ type Message struct {
 	IsPageableResponse bool
 	// PageableItem is the field to be paginated over.
 	PageableItem *Field
+	// Language specific annotations.
+	Codec any
 }
 
 // Enum defines a message used in request/response handling.
