@@ -31,6 +31,7 @@ members = [
   "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudtrace/v2",
   "src/generated/iam/v1",
+  "src/generated/iam/v2",
   "src/generated/longrunning",
   "src/generated/openapi-validation",
   "src/generated/rpc",
