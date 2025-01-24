@@ -20,6 +20,7 @@ members = [
   "src/base",
   "src/gax",
   "src/generated/api",
+  "src/generated/bigtableadmin/v2",
   "src/generated/cloud/common",
   "src/generated/cloud/functions/v2",
   "src/generated/cloud/kms/v1",

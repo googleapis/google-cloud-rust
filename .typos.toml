@@ -30,6 +30,9 @@ ser = "ser"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/bigtableadmin/v2, this may be a typo or not, but in any case,
+# it cannot be changed: it is the name of an IAM role.
+encrypter = "encrypter"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
