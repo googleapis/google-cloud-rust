@@ -32,6 +32,7 @@ members = [
   "src/generated/cloud/workflows/v1",
   "src/generated/devtools/cloudbuild/v2",
   "src/generated/devtools/cloudtrace/v2",
+  "src/generated/iam/admin/v1",
   "src/generated/iam/credentials/v1",
   "src/generated/iam/v1",
   "src/generated/iam/v2",
