@@ -22,6 +22,6 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      # TODO(806) - For now, we just build the code. Eventually we will run real
-      # integration tests.
+      # TODO(#806) - For now, we just build the code. Eventually we will run
+      # real integration tests.
       cargo build -p gcp-sdk-auth
