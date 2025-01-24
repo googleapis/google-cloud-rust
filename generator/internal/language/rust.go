@@ -500,13 +500,14 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 }
 
 func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
-	if !primitive && f.IsOneOf {
+	switch {
+	case primitive:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	case f.IsOneOf:
 		return fmt.Sprintf("(%s)", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Repeated {
+	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Recursive {
+	case f.Recursive:
 		base := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		if f.Optional {
 			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", base)
@@ -516,11 +517,11 @@ func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath
 			return base
 		}
 		return fmt.Sprintf("std::boxed::Box<%s>", base)
-	}
-	if !primitive && f.Optional {
+	case f.Optional:
 		return fmt.Sprintf("std::option::Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+	default:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
-	return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 }
 
 func rustMapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
