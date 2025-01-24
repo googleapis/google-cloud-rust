@@ -31,7 +31,7 @@ func TestReadServiceConfig(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if diff := cmp.Diff(sample.ServiceConfig, got,
+	if diff := cmp.Diff(sample.ServiceConfig(), got,
 		cmpopts.IgnoreFields(serviceconfig.Service{}, "ConfigVersion", "Publishing", "Authentication"),
 		cmpopts.IgnoreUnexported(annotations.HttpRule{}),
 		cmpopts.IgnoreUnexported(annotations.Http{}),

@@ -22,7 +22,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
-func checkMessage(t *testing.T, got api.Message, want api.Message) {
+func checkMessage(t *testing.T, got *api.Message, want *api.Message) {
 	t.Helper()
 	// Checking Parent, Messages, Fields, and OneOfs requires special handling.
 	if diff := cmp.Diff(want, got, cmpopts.IgnoreFields(api.Message{}, "Fields", "OneOfs", "Parent", "Messages")); diff != "" {
