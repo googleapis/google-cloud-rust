@@ -185,6 +185,9 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	rustResolveUsedPackages(model, c.extraPackages)
 	packageName := rustPackageName(model, c.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
+	// Only annotate enums and messages that we intend to generate. In the
+	// process we discover the external dependencies and trim the list of
+	// packages used by this API.
 	for _, e := range model.Enums {
 		rustAnnotateEnum(e, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	}
