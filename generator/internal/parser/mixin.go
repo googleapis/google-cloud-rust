@@ -44,10 +44,16 @@ func loadMixins(serviceConfig *serviceconfig.Service, withLongrunning bool) (mix
 	var files []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
 	var apiNames []string
+	hasLongrunning := false
 	for _, api := range serviceConfig.GetApis() {
+		// Only insert the service if needed. We want to preserve the order
+		// to make the generated code reproducible, so we cannot use a map.
+		if api.GetName() == longrunningService {
+			hasLongrunning = true
+		}
 		apiNames = append(apiNames, api.GetName())
 	}
-	if withLongrunning {
+	if withLongrunning && !hasLongrunning {
 		apiNames = append(apiNames, longrunningService)
 	}
 	if len(apiNames) < 2 {
