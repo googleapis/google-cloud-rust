@@ -40,15 +40,21 @@ const (
 type mixinMethods map[string]bool
 
 // loadMixins loads file descriptors for configured mixins.
-func loadMixins(serviceConfig *serviceconfig.Service) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
+func loadMixins(serviceConfig *serviceconfig.Service, withLongrunning bool) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
 	var files []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
-	apis := serviceConfig.GetApis()
-	if len(apis) < 2 {
+	var apiNames []string
+	for _, api := range serviceConfig.GetApis() {
+		apiNames = append(apiNames, api.GetName())
+	}
+	if withLongrunning {
+		apiNames = append(apiNames, longrunningService)
+	}
+	if len(apiNames) < 2 {
 		return enabledMixinMethods, files
 	}
-	for _, api := range apis {
-		switch api.GetName() {
+	for _, apiName := range apiNames {
+		switch apiName {
 		case locationService:
 			files = append(files, protodesc.ToFileDescriptorProto(location.File_google_cloud_location_locations_proto))
 		case iamService:
@@ -74,24 +80,6 @@ func loadMixinMethods(serviceConfig *serviceconfig.Service) mixinMethods {
 		enabledMixinMethods[selector] = true
 	}
 	return enabledMixinMethods
-}
-
-// appendLongrunningMixin appends the longrunning mixin. Many services have
-// LROs, which need the mixin to be usable, but do not include the mixin in the
-// service config YAML file.
-func appendLongrunningMixin(methods mixinMethods, files []*descriptorpb.FileDescriptorProto) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
-	desc := protodesc.ToFileDescriptorProto(longrunningpb.File_google_longrunning_operations_proto)
-	for _, f := range files {
-		if f.GetName() == desc.GetName() {
-			return methods, files
-		}
-	}
-	files = append(files, desc)
-	methods[".google.protobuf.Operations.ListOperations"] = true
-	methods[".google.protobuf.Operations.GetOperation"] = true
-	methods[".google.protobuf.Operations.DeleteOperation"] = true
-	methods[".google.protobuf.Operations.CancelOperation"] = true
-	return methods, files
 }
 
 // Apply `serviceConfig` overrides to `targetMethod`.
