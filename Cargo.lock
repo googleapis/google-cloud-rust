@@ -708,6 +708,27 @@ name = "gcp-sdk-base"
 version = "0.0.0"
 
 [[package]]
+name = "gcp-sdk-bigtable-admin-v2"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-iam-v1",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-common"
 version = "0.0.0"
 
