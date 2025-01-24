@@ -20,6 +20,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 func TestQueryParams(t *testing.T) {
@@ -83,105 +84,22 @@ func TestQueryParams(t *testing.T) {
 }
 
 func TestPathParams(t *testing.T) {
-	secret := &api.Message{
-		Name: "Secret",
-		ID:   "..Secret",
-		Fields: []*api.Field{
-			{
-				Name:     "name",
-				JSONName: "name",
-				Typez:    api.STRING_TYPE,
-			},
-		},
-	}
-	updateRequest := &api.Message{
-		Name: "UpdateRequest",
-		ID:   "..UpdateRequest",
-		Fields: []*api.Field{
-			{
-				Name:     "secret",
-				JSONName: "secret",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  "..Secret",
-			},
-			{
-				Name:     "field_mask",
-				JSONName: "fieldMask",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.FieldMask",
-				Optional: true,
-			},
-		},
-	}
-	updateMethod := &api.Method{
-		Name:         "UpdateSecret",
-		ID:           "..TestService.Test",
-		InputTypeID:  updateRequest.ID,
-		OutputTypeID: ".google.protobuf.Empty",
-		PathInfo: &api.PathInfo{
-			Verb: "PATCH",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("secret.name"),
-			},
-			QueryParameters: map[string]bool{
-				"field_mask": true,
-			},
-		},
-	}
-	createRequest := &api.Message{
-		Name: "CreateRequest",
-		ID:   "..CreateRequest",
-		Fields: []*api.Field{
-			{
-				Name:     "parent",
-				JSONName: "parent",
-				Typez:    api.STRING_TYPE,
-			},
-			{
-				Name:     "secret_id",
-				JSONName: "secret_id",
-				Typez:    api.STRING_TYPE,
-			},
-		},
-	}
-	createMethod := &api.Method{
-		Name:         "CreateSecret",
-		ID:           "..TestService.CreateSecret",
-		InputTypeID:  createRequest.ID,
-		OutputTypeID: ".google.protobuf.Empty",
-		PathInfo: &api.PathInfo{
-			Verb: "POST",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("parent"),
-				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret_id"),
-			},
-			QueryParameters: map[string]bool{},
-		},
-	}
 	test := newTestAPI(
-		[]*api.Message{secret, updateRequest, createRequest},
+		[]*api.Message{sample.Secret(), sample.UpdateRequest(), sample.CreateRequest()},
 		[]*api.Enum{},
-		[]*api.Service{
-			{
-				Name:    "TestService",
-				ID:      "..TestService",
-				Methods: []*api.Method{updateMethod, createMethod},
-			},
-		})
+		[]*api.Service{sample.Service()},
+	)
 
 	less := func(a, b *api.Field) bool { return a.Name < b.Name }
 
-	got := PathParams(createMethod, test.State)
-	want := createRequest.Fields
+	got := PathParams(sample.MethodCreate(), test.State)
+	want := sample.CreateRequest().Fields
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}
 
-	got = PathParams(updateMethod, test.State)
-	want = []*api.Field{updateRequest.Fields[0]}
+	got = PathParams(sample.MethodUpdate(), test.State)
+	want = []*api.Field{sample.UpdateRequest().Fields[0]}
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}

@@ -20,6 +20,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/genproto/googleapis/api/serviceconfig"
 	"google.golang.org/protobuf/types/known/apipb"
@@ -27,23 +28,15 @@ import (
 )
 
 func TestProtobuf_Info(t *testing.T) {
-	var serviceConfig = &serviceconfig.Service{
-		Name:  "secretmanager.googleapis.com",
-		Title: "Secret Manager API",
-		Documentation: &serviceconfig.Documentation{
-			Summary:  "Stores sensitive data such as API keys, passwords, and certificates.\nProvides convenience while improving security.",
-			Overview: "Secret Manager Overview",
-		},
+	sc := sample.ServiceConfig()
+	got := makeAPIForProtobuf(sc, newTestCodeGeneratorRequest(t, "scalar.proto"))
+	if got.Name != "secretmanager" {
+		t.Errorf("want = %q; got = %q", "secretmanager", got.Name)
 	}
-
-	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "scalar.proto"))
-	if test.Name != "secretmanager" {
-		t.Errorf("want = %q; got = %q", "secretmanager", test.Name)
+	if got.Title != sc.Title {
+		t.Errorf("want = %q; got = %q", sc.Title, got.Title)
 	}
-	if test.Title != serviceConfig.Title {
-		t.Errorf("want = %q; got = %q", serviceConfig.Title, test.Name)
-	}
-	if diff := cmp.Diff(test.Description, serviceConfig.Documentation.Summary); diff != "" {
+	if diff := cmp.Diff(got.Description, sc.Documentation.Summary); diff != "" {
 		t.Errorf("description mismatch (-want, +got):\n%s", diff)
 	}
 }
@@ -71,7 +64,7 @@ func TestProtobuf_Scalar(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -192,7 +185,7 @@ func TestProtobuf_ScalarArray(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -240,7 +233,7 @@ func TestProtobuf_ScalarOptional(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API", "Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -293,7 +286,7 @@ func TestProtobuf_SkipExternalMessages(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.LocalMessage")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "LocalMessage",
 		Package:       "test",
 		ID:            ".test.LocalMessage",
@@ -371,7 +364,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Request",
 		Package:       "test",
 		ID:            ".test.Request",
@@ -391,7 +384,7 @@ func TestProtobuf_Comments(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Response.nested")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Nested",
 		Package:       "test",
 		ID:            ".test.Response.Nested",
@@ -467,7 +460,7 @@ func TestProtobuf_OneOfs(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Request")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:          "Fake",
 		Package:       "test",
 		ID:            ".test.Fake",
@@ -538,7 +531,7 @@ func TestProtobuf_ObjectFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -571,7 +564,7 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -634,7 +627,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:    "Fake",
 		Package: "test",
 		ID:      ".test.Fake",
@@ -655,7 +648,7 @@ func TestProtobuf_MapFields(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.Fake")
 	}
-	checkMessage(t, *message, api.Message{
+	checkMessage(t, message, &api.Message{
 		Name:    "SingularMapEntry",
 		Package: "test",
 		ID:      ".test.Fake.SingularMapEntry",
@@ -1092,7 +1085,7 @@ func TestProtobuf_Pagination(t *testing.T) {
 		t.Errorf("missing message (ListFooResponse) in MessageByID index")
 		return
 	}
-	checkMessage(t, *resp, api.Message{
+	checkMessage(t, resp, &api.Message{
 		Name:               "ListFooResponse",
 		ID:                 ".test.ListFooResponse",
 		Package:            "test",

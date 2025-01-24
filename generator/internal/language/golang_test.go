@@ -19,6 +19,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 type goCaseConvertTest struct {
@@ -41,25 +42,8 @@ func TestGo_ToPascal(t *testing.T) {
 }
 
 func TestGo_MessageNames(t *testing.T) {
-	replication := &api.Message{
-		Name: "Replication",
-		ID:   "..Replication",
-		Fields: []*api.Field{
-			{
-				Name:     "automatic",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  "..Automatic",
-				Optional: true,
-				Repeated: false,
-			},
-		},
-	}
-	automatic := &api.Message{
-		Parent: replication,
-		Name:   "Automatic",
-		ID:     "..Replication.Automatic",
-	}
-
+	replication := sample.Replication()
+	automatic := sample.Automatic()
 	for _, test := range []struct {
 		message *api.Message
 		want    string

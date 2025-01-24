@@ -23,6 +23,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 func createRustCodec() *rustCodec {
@@ -1594,28 +1595,9 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 }
 
 func TestRust_MessageNames(t *testing.T) {
-	message := &api.Message{
-		Name:    "Replication",
-		ID:      ".test.Replication",
-		Package: "test",
-		Fields: []*api.Field{
-			{
-				Name:     "automatic",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".test.Automatic",
-				Optional: true,
-				Repeated: false,
-			},
-		},
-	}
-	nested := &api.Message{
-		Name:    "Automatic",
-		ID:      ".test.Replication.Automatic",
-		Parent:  message,
-		Package: "test",
-	}
-
-	model := newTestAPI([]*api.Message{message, nested}, []*api.Enum{}, []*api.Service{})
+	r := sample.Replication()
+	a := sample.Automatic()
+	model := newTestAPI([]*api.Message{r, a}, []*api.Enum{}, []*api.Service{})
 	model.PackageName = "test"
 
 	c := createRustCodec()
@@ -1623,11 +1605,24 @@ func TestRust_MessageNames(t *testing.T) {
 	if err := rustValidate(model, c.sourceSpecificationPackageName); err != nil {
 		t.Fatal(err)
 	}
-	if got := rustFQMessageName(message, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != "crate::model::Replication" {
-		t.Errorf("mismatched message name, got=%s, want=crate::model::Replication", got)
-	}
-	if got := rustFQMessageName(nested, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != "crate::model::replication::Automatic" {
-		t.Errorf("mismatched message name, got=%s, want=crate::model::replication::Automatic", got)
+	for _, test := range []struct {
+		m    *api.Message
+		want string
+	}{
+		{
+			m:    r,
+			want: "crate::model::Replication",
+		},
+		{
+			m:    a,
+			want: "crate::model::replication::Automatic",
+		},
+	} {
+		t.Run(test.want, func(t *testing.T) {
+			if got := rustFQMessageName(test.m, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping); got != test.want {
+				t.Errorf("mismatched message name, got=%q, want=%q", got, test.want)
+			}
+		})
 	}
 }
 
