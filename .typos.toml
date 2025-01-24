@@ -30,6 +30,8 @@ ser = "ser"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/flouc/functions/v1 has some typos, they need to fixed upstream.
+preferrably = "preferrably"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 revison     = "revison"

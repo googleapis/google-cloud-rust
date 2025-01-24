@@ -21,6 +21,7 @@ members = [
   "src/gax",
   "src/generated/api",
   "src/generated/cloud/common",
+  "src/generated/cloud/functions/v1",
   "src/generated/cloud/kms/v1",
   "src/generated/cloud/location",
   "src/generated/cloud/run/v2",
