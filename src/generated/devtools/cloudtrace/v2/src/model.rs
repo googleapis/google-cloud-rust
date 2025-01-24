@@ -131,25 +131,25 @@ pub struct Span {
 }
 
 impl Span {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Span::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `span_id`.
+    /// Sets the value of [span_id][crate::model::Span::span_id].
     pub fn set_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.span_id = v.into();
         self
     }
 
-    /// Sets the value of `parent_span_id`.
+    /// Sets the value of [parent_span_id][crate::model::Span::parent_span_id].
     pub fn set_parent_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_span_id = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Span::display_name].
     pub fn set_display_name<
         T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
     >(
@@ -160,7 +160,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::Span::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -169,7 +169,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::Span::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -178,7 +178,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `attributes`.
+    /// Sets the value of [attributes][crate::model::Span::attributes].
     pub fn set_attributes<
         T: std::convert::Into<std::option::Option<crate::model::span::Attributes>>,
     >(
@@ -189,7 +189,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `stack_trace`.
+    /// Sets the value of [stack_trace][crate::model::Span::stack_trace].
     pub fn set_stack_trace<T: std::convert::Into<std::option::Option<crate::model::StackTrace>>>(
         mut self,
         v: T,
@@ -198,7 +198,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `time_events`.
+    /// Sets the value of [time_events][crate::model::Span::time_events].
     pub fn set_time_events<
         T: std::convert::Into<std::option::Option<crate::model::span::TimeEvents>>,
     >(
@@ -209,7 +209,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `links`.
+    /// Sets the value of [links][crate::model::Span::links].
     pub fn set_links<T: std::convert::Into<std::option::Option<crate::model::span::Links>>>(
         mut self,
         v: T,
@@ -218,7 +218,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `status`.
+    /// Sets the value of [status][crate::model::Span::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -227,7 +227,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `same_process_as_parent_span`.
+    /// Sets the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
     pub fn set_same_process_as_parent_span<
         T: std::convert::Into<std::option::Option<wkt::BoolValue>>,
     >(
@@ -238,7 +238,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `child_span_count`.
+    /// Sets the value of [child_span_count][crate::model::Span::child_span_count].
     pub fn set_child_span_count<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(
         mut self,
         v: T,
@@ -247,7 +247,7 @@ impl Span {
         self
     }
 
-    /// Sets the value of `span_kind`.
+    /// Sets the value of [span_kind][crate::model::Span::span_kind].
     pub fn set_span_kind<T: std::convert::Into<crate::model::span::SpanKind>>(
         mut self,
         v: T,
@@ -294,22 +294,21 @@ pub mod span {
     }
 
     impl Attributes {
-        /// Sets the value of `attribute_map`.
-        pub fn set_attribute_map<
-            T: std::convert::Into<
-                std::collections::HashMap<std::string::String, crate::model::AttributeValue>,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.attribute_map = v.into();
+        /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
+        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_attributes_count = v.into();
             self
         }
 
-        /// Sets the value of `dropped_attributes_count`.
-        pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_attributes_count = v.into();
+        /// Sets the value of [attribute_map][crate::model::span::Attributes::attribute_map].
+        pub fn set_attribute_map<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::AttributeValue>,
+        {
+            use std::iter::Iterator;
+            self.attribute_map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -337,7 +336,7 @@ pub mod span {
     }
 
     impl TimeEvent {
-        /// Sets the value of `time`.
+        /// Sets the value of [time][crate::model::span::TimeEvent::time].
         pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -387,7 +386,7 @@ pub mod span {
         }
 
         impl Annotation {
-            /// Sets the value of `description`.
+            /// Sets the value of [description][crate::model::span::time_event::Annotation::description].
             pub fn set_description<
                 T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
             >(
@@ -398,7 +397,7 @@ pub mod span {
                 self
             }
 
-            /// Sets the value of `attributes`.
+            /// Sets the value of [attributes][crate::model::span::time_event::Annotation::attributes].
             pub fn set_attributes<
                 T: std::convert::Into<std::option::Option<crate::model::span::Attributes>>,
             >(
@@ -444,7 +443,7 @@ pub mod span {
         }
 
         impl MessageEvent {
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::span::time_event::MessageEvent::type].
             pub fn set_type<
                 T: std::convert::Into<crate::model::span::time_event::message_event::Type>,
             >(
@@ -455,19 +454,19 @@ pub mod span {
                 self
             }
 
-            /// Sets the value of `id`.
+            /// Sets the value of [id][crate::model::span::time_event::MessageEvent::id].
             pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.id = v.into();
                 self
             }
 
-            /// Sets the value of `uncompressed_size_bytes`.
+            /// Sets the value of [uncompressed_size_bytes][crate::model::span::time_event::MessageEvent::uncompressed_size_bytes].
             pub fn set_uncompressed_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.uncompressed_size_bytes = v.into();
                 self
             }
 
-            /// Sets the value of `compressed_size_bytes`.
+            /// Sets the value of [compressed_size_bytes][crate::model::span::time_event::MessageEvent::compressed_size_bytes].
             pub fn set_compressed_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.compressed_size_bytes = v.into();
                 self
@@ -554,29 +553,29 @@ pub mod span {
     }
 
     impl TimeEvents {
-        /// Sets the value of `time_event`.
-        pub fn set_time_event<
-            T: std::convert::Into<std::vec::Vec<crate::model::span::TimeEvent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.time_event = v.into();
-            self
-        }
-
-        /// Sets the value of `dropped_annotations_count`.
+        /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
         pub fn set_dropped_annotations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_annotations_count = v.into();
             self
         }
 
-        /// Sets the value of `dropped_message_events_count`.
+        /// Sets the value of [dropped_message_events_count][crate::model::span::TimeEvents::dropped_message_events_count].
         pub fn set_dropped_message_events_count<T: std::convert::Into<i32>>(
             mut self,
             v: T,
         ) -> Self {
             self.dropped_message_events_count = v.into();
+            self
+        }
+
+        /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
+        pub fn set_time_event<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::span::TimeEvent>,
+        {
+            use std::iter::Iterator;
+            self.time_event = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -615,19 +614,19 @@ pub mod span {
     }
 
     impl Link {
-        /// Sets the value of `trace_id`.
+        /// Sets the value of [trace_id][crate::model::span::Link::trace_id].
         pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trace_id = v.into();
             self
         }
 
-        /// Sets the value of `span_id`.
+        /// Sets the value of [span_id][crate::model::span::Link::span_id].
         pub fn set_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.span_id = v.into();
             self
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::span::Link::type].
         pub fn set_type<T: std::convert::Into<crate::model::span::link::Type>>(
             mut self,
             v: T,
@@ -636,7 +635,7 @@ pub mod span {
             self
         }
 
-        /// Sets the value of `attributes`.
+        /// Sets the value of [attributes][crate::model::span::Link::attributes].
         pub fn set_attributes<
             T: std::convert::Into<std::option::Option<crate::model::span::Attributes>>,
         >(
@@ -708,18 +707,20 @@ pub mod span {
     }
 
     impl Links {
-        /// Sets the value of `link`.
-        pub fn set_link<T: std::convert::Into<std::vec::Vec<crate::model::span::Link>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.link = v.into();
+        /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
+        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_links_count = v.into();
             self
         }
 
-        /// Sets the value of `dropped_links_count`.
-        pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_links_count = v.into();
+        /// Sets the value of [link][crate::model::span::Links::link].
+        pub fn set_link<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::span::Link>,
+        {
+            use std::iter::Iterator;
+            self.link = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -853,7 +854,7 @@ pub struct StackTrace {
 }
 
 impl StackTrace {
-    /// Sets the value of `stack_frames`.
+    /// Sets the value of [stack_frames][crate::model::StackTrace::stack_frames].
     pub fn set_stack_frames<
         T: std::convert::Into<std::option::Option<crate::model::stack_trace::StackFrames>>,
     >(
@@ -864,7 +865,7 @@ impl StackTrace {
         self
     }
 
-    /// Sets the value of `stack_trace_hash_id`.
+    /// Sets the value of [stack_trace_hash_id][crate::model::StackTrace::stack_trace_hash_id].
     pub fn set_stack_trace_hash_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.stack_trace_hash_id = v.into();
         self
@@ -924,7 +925,7 @@ pub mod stack_trace {
     }
 
     impl StackFrame {
-        /// Sets the value of `function_name`.
+        /// Sets the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
         pub fn set_function_name<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
         >(
@@ -935,7 +936,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets the value of `original_function_name`.
+        /// Sets the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
         pub fn set_original_function_name<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
         >(
@@ -946,7 +947,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets the value of `file_name`.
+        /// Sets the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
         pub fn set_file_name<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
         >(
@@ -957,19 +958,19 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets the value of `line_number`.
+        /// Sets the value of [line_number][crate::model::stack_trace::StackFrame::line_number].
         pub fn set_line_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.line_number = v.into();
             self
         }
 
-        /// Sets the value of `column_number`.
+        /// Sets the value of [column_number][crate::model::stack_trace::StackFrame::column_number].
         pub fn set_column_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.column_number = v.into();
             self
         }
 
-        /// Sets the value of `load_module`.
+        /// Sets the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
         pub fn set_load_module<T: std::convert::Into<std::option::Option<crate::model::Module>>>(
             mut self,
             v: T,
@@ -978,7 +979,7 @@ pub mod stack_trace {
             self
         }
 
-        /// Sets the value of `source_version`.
+        /// Sets the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
         pub fn set_source_version<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
         >(
@@ -1013,20 +1014,20 @@ pub mod stack_trace {
     }
 
     impl StackFrames {
-        /// Sets the value of `frame`.
-        pub fn set_frame<
-            T: std::convert::Into<std::vec::Vec<crate::model::stack_trace::StackFrame>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.frame = v.into();
+        /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
+        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.dropped_frames_count = v.into();
             self
         }
 
-        /// Sets the value of `dropped_frames_count`.
-        pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
-            self.dropped_frames_count = v.into();
+        /// Sets the value of [frame][crate::model::stack_trace::StackFrames::frame].
+        pub fn set_frame<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::stack_trace::StackFrame>,
+        {
+            use std::iter::Iterator;
+            self.frame = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1056,7 +1057,7 @@ pub struct Module {
 }
 
 impl Module {
-    /// Sets the value of `module`.
+    /// Sets the value of [module][crate::model::Module::module].
     pub fn set_module<
         T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
     >(
@@ -1067,7 +1068,7 @@ impl Module {
         self
     }
 
-    /// Sets the value of `build_id`.
+    /// Sets the value of [build_id][crate::model::Module::build_id].
     pub fn set_build_id<
         T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
     >(
@@ -1107,13 +1108,13 @@ pub struct TruncatableString {
 }
 
 impl TruncatableString {
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::TruncatableString::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
-    /// Sets the value of `truncated_byte_count`.
+    /// Sets the value of [truncated_byte_count][crate::model::TruncatableString::truncated_byte_count].
     pub fn set_truncated_byte_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.truncated_byte_count = v.into();
         self
@@ -1144,18 +1145,20 @@ pub struct BatchWriteSpansRequest {
 }
 
 impl BatchWriteSpansRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `spans`.
-    pub fn set_spans<T: std::convert::Into<std::vec::Vec<crate::model::Span>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spans = v.into();
+    /// Sets the value of [spans][crate::model::BatchWriteSpansRequest::spans].
+    pub fn set_spans<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Span>,
+    {
+        use std::iter::Iterator;
+        self.spans = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

@@ -46,21 +46,23 @@ pub struct ListLocationsResponse {
 }
 
 impl ListLocationsResponse {
-    /// Sets the value of `locations`.
-    pub fn set_locations<T: std::convert::Into<std::vec::Vec<crate::model::Location>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.locations = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
     ) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Location>,
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -119,7 +121,7 @@ pub struct Location {
 }
 
 impl Location {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Location::name].
     pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -128,7 +130,7 @@ impl Location {
         self
     }
 
-    /// Sets the value of `location_id`.
+    /// Sets the value of [location_id][crate::model::Location::location_id].
     pub fn set_location_id<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -137,7 +139,7 @@ impl Location {
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Location::display_name].
     pub fn set_display_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -146,23 +148,24 @@ impl Location {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::Location::metadata].
     pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
         mut self,
         v: T,
     ) -> Self {
         self.metadata = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Location::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -196,16 +199,7 @@ pub struct ListSecretsResponse {
 }
 
 impl ListSecretsResponse {
-    /// Sets the value of `secrets`.
-    pub fn set_secrets<T: std::convert::Into<std::vec::Vec<crate::model::Secret>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.secrets = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -214,9 +208,20 @@ impl ListSecretsResponse {
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
+    pub fn set_secrets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Secret>,
+    {
+        use std::iter::Iterator;
+        self.secrets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -351,7 +356,7 @@ pub struct Secret {
 }
 
 impl Secret {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Secret::name].
     pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -360,7 +365,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `replication`.
+    /// Sets the value of [replication][crate::model::Secret::replication].
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::Replication>>,
     >(
@@ -371,7 +376,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Secret::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -380,27 +385,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `topics`.
-    pub fn set_topics<T: std::convert::Into<std::vec::Vec<crate::model::Topic>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.topics = v.into();
-        self
-    }
-
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::Secret::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -409,7 +394,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `ttl`.
+    /// Sets the value of [ttl][crate::model::Secret::ttl].
     pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -418,7 +403,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::Secret::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -427,7 +412,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `rotation`.
+    /// Sets the value of [rotation][crate::model::Secret::rotation].
     pub fn set_rotation<T: std::convert::Into<std::option::Option<crate::model::Rotation>>>(
         mut self,
         v: T,
@@ -436,29 +421,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `version_aliases`.
-    pub fn set_version_aliases<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, i64>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.version_aliases = v.into();
-        self
-    }
-
-    /// Sets the value of `annotations`.
-    pub fn set_annotations<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.annotations = v.into();
-        self
-    }
-
-    /// Sets the value of `version_destroy_ttl`.
+    /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
     pub fn set_version_destroy_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -467,7 +430,7 @@ impl Secret {
         self
     }
 
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
     >(
@@ -475,6 +438,53 @@ impl Secret {
         v: T,
     ) -> Self {
         self.customer_managed_encryption = v.into();
+        self
+    }
+
+    /// Sets the value of [topics][crate::model::Secret::topics].
+    pub fn set_topics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Topic>,
+    {
+        use std::iter::Iterator;
+        self.topics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Secret::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [version_aliases][crate::model::Secret::version_aliases].
+    pub fn set_version_aliases<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.version_aliases = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::Secret::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -501,7 +511,7 @@ pub struct Replication {
 }
 
 impl Replication {
-    /// Sets the value of `automatic`.
+    /// Sets the value of [automatic][crate::model::Replication::automatic].
     pub fn set_automatic<T: std::convert::Into<std::option::Option<crate::model::Automatic>>>(
         mut self,
         v: T,
@@ -510,7 +520,7 @@ impl Replication {
         self
     }
 
-    /// Sets the value of `user_managed`.
+    /// Sets the value of [user_managed][crate::model::Replication::user_managed].
     pub fn set_user_managed<
         T: std::convert::Into<std::option::Option<crate::model::UserManaged>>,
     >(
@@ -546,7 +556,7 @@ pub struct Automatic {
 }
 
 impl Automatic {
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::Automatic::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
     >(
@@ -587,7 +597,7 @@ pub struct CustomerManagedEncryption {
 }
 
 impl CustomerManagedEncryption {
-    /// Sets the value of `kms_key_name`.
+    /// Sets the value of [kms_key_name][crate::model::CustomerManagedEncryption::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
@@ -615,12 +625,14 @@ pub struct UserManaged {
 }
 
 impl UserManaged {
-    /// Sets the value of `replicas`.
-    pub fn set_replicas<T: std::convert::Into<std::vec::Vec<crate::model::Replica>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replicas = v.into();
+    /// Sets the value of [replicas][crate::model::UserManaged::replicas].
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Replica>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -654,7 +666,7 @@ pub struct Replica {
 }
 
 impl Replica {
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::Replica::location].
     pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -663,7 +675,7 @@ impl Replica {
         self
     }
 
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::Replica::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryption>>,
     >(
@@ -698,7 +710,7 @@ pub struct Topic {
 }
 
 impl Topic {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Topic::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -738,7 +750,7 @@ pub struct Rotation {
 }
 
 impl Rotation {
-    /// Sets the value of `next_rotation_time`.
+    /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
     pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -747,7 +759,7 @@ impl Rotation {
         self
     }
 
-    /// Sets the value of `rotation_period`.
+    /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
     pub fn set_rotation_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -793,7 +805,7 @@ pub struct AddSecretVersionRequest {
 }
 
 impl AddSecretVersionRequest {
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
     pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
         mut self,
         v: T,
@@ -802,19 +814,19 @@ impl AddSecretVersionRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::AddSecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::AddSecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::AddSecretVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -850,7 +862,7 @@ pub struct SecretPayload {
 }
 
 impl SecretPayload {
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::SecretPayload::data].
     pub fn set_data<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(
         mut self,
         v: T,
@@ -859,7 +871,7 @@ impl SecretPayload {
         self
     }
 
-    /// Sets the value of `data_crc_32_c`.
+    /// Sets the value of [data_crc_32_c][crate::model::SecretPayload::data_crc_32_c].
     pub fn set_data_crc_32_c<T: std::convert::Into<std::option::Option<i64>>>(
         mut self,
         v: T,
@@ -934,7 +946,7 @@ pub struct SecretVersion {
 }
 
 impl SecretVersion {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::SecretVersion::name].
     pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -943,7 +955,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -952,7 +964,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `destroy_time`.
+    /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
     pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -961,7 +973,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::SecretVersion::state].
     pub fn set_state<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -970,7 +982,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `replication_status`.
+    /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
     pub fn set_replication_status<
         T: std::convert::Into<std::option::Option<crate::model::ReplicationStatus>>,
     >(
@@ -981,7 +993,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::SecretVersion::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -990,7 +1002,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `client_specified_payload_checksum`.
+    /// Sets the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
     pub fn set_client_specified_payload_checksum<
         T: std::convert::Into<std::option::Option<bool>>,
     >(
@@ -1001,7 +1013,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `scheduled_destroy_time`.
+    /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
     pub fn set_scheduled_destroy_time<
         T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
     >(
@@ -1012,7 +1024,7 @@ impl SecretVersion {
         self
     }
 
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
     >(
@@ -1054,7 +1066,7 @@ pub struct ReplicationStatus {
 }
 
 impl ReplicationStatus {
-    /// Sets the value of `automatic`.
+    /// Sets the value of [automatic][crate::model::ReplicationStatus::automatic].
     pub fn set_automatic<
         T: std::convert::Into<std::option::Option<crate::model::AutomaticStatus>>,
     >(
@@ -1065,7 +1077,7 @@ impl ReplicationStatus {
         self
     }
 
-    /// Sets the value of `user_managed`.
+    /// Sets the value of [user_managed][crate::model::ReplicationStatus::user_managed].
     pub fn set_user_managed<
         T: std::convert::Into<std::option::Option<crate::model::UserManagedStatus>>,
     >(
@@ -1100,7 +1112,7 @@ pub struct AutomaticStatus {
 }
 
 impl AutomaticStatus {
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::AutomaticStatus::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
     >(
@@ -1132,7 +1144,7 @@ pub struct CustomerManagedEncryptionStatus {
 }
 
 impl CustomerManagedEncryptionStatus {
-    /// Sets the value of `kms_key_version_name`.
+    /// Sets the value of [kms_key_version_name][crate::model::CustomerManagedEncryptionStatus::kms_key_version_name].
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1164,12 +1176,14 @@ pub struct UserManagedStatus {
 }
 
 impl UserManagedStatus {
-    /// Sets the value of `replicas`.
-    pub fn set_replicas<T: std::convert::Into<std::vec::Vec<crate::model::ReplicaStatus>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.replicas = v.into();
+    /// Sets the value of [replicas][crate::model::UserManagedStatus::replicas].
+    pub fn set_replicas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ReplicaStatus>,
+    {
+        use std::iter::Iterator;
+        self.replicas = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1199,7 +1213,7 @@ pub struct ReplicaStatus {
 }
 
 impl ReplicaStatus {
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::ReplicaStatus::location].
     pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1208,7 +1222,7 @@ impl ReplicaStatus {
         self
     }
 
-    /// Sets the value of `customer_managed_encryption`.
+    /// Sets the value of [customer_managed_encryption][crate::model::ReplicaStatus::customer_managed_encryption].
     pub fn set_customer_managed_encryption<
         T: std::convert::Into<std::option::Option<crate::model::CustomerManagedEncryptionStatus>>,
     >(
@@ -1272,16 +1286,7 @@ pub struct ListSecretVersionsResponse {
 }
 
 impl ListSecretVersionsResponse {
-    /// Sets the value of `versions`.
-    pub fn set_versions<T: std::convert::Into<std::vec::Vec<crate::model::SecretVersion>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.versions = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1290,9 +1295,20 @@ impl ListSecretVersionsResponse {
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
+    pub fn set_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SecretVersion>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1334,7 +1350,7 @@ pub struct AccessSecretVersionResponse {
 }
 
 impl AccessSecretVersionResponse {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AccessSecretVersionResponse::name].
     pub fn set_name<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1343,7 +1359,7 @@ impl AccessSecretVersionResponse {
         self
     }
 
-    /// Sets the value of `payload`.
+    /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
     pub fn set_payload<T: std::convert::Into<std::option::Option<crate::model::SecretPayload>>>(
         mut self,
         v: T,
@@ -1397,7 +1413,7 @@ pub struct DisableSecretVersionRequest {
 }
 
 impl DisableSecretVersionRequest {
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1406,25 +1422,25 @@ impl DisableSecretVersionRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::DisableSecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::DisableSecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::DisableSecretVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::DisableSecretVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -1469,7 +1485,7 @@ pub struct EnableSecretVersionRequest {
 }
 
 impl EnableSecretVersionRequest {
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1478,25 +1494,25 @@ impl EnableSecretVersionRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::EnableSecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::EnableSecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::EnableSecretVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::EnableSecretVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -1541,7 +1557,7 @@ pub struct DestroySecretVersionRequest {
 }
 
 impl DestroySecretVersionRequest {
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1550,25 +1566,25 @@ impl DestroySecretVersionRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::DestroySecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::DestroySecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::DestroySecretVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::DestroySecretVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -1616,7 +1632,7 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
-    /// Sets the value of `policy`.
+    /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
     pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
         mut self,
         v: T,
@@ -1625,7 +1641,7 @@ impl SetIamPolicyRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -1634,19 +1650,19 @@ impl SetIamPolicyRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::SetIamPolicyRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::SetIamPolicyRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::SetIamPolicyRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -1790,36 +1806,40 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::Policy::version].
     pub fn set_version<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `bindings`.
-    pub fn set_bindings<T: std::convert::Into<std::vec::Vec<crate::model::Binding>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bindings = v.into();
-        self
-    }
-
-    /// Sets the value of `audit_configs`.
-    pub fn set_audit_configs<T: std::convert::Into<std::vec::Vec<crate::model::AuditConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_configs = v.into();
-        self
-    }
-
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::Policy::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<bytes::Bytes>>>(
         mut self,
         v: T,
     ) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [bindings][crate::model::Policy::bindings].
+    pub fn set_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Binding>,
+    {
+        use std::iter::Iterator;
+        self.bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [audit_configs][crate::model::Policy::audit_configs].
+    pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1944,7 +1964,7 @@ pub struct Binding {
 }
 
 impl Binding {
-    /// Sets the value of `role`.
+    /// Sets the value of [role][crate::model::Binding::role].
     pub fn set_role<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -1953,21 +1973,23 @@ impl Binding {
         self
     }
 
-    /// Sets the value of `members`.
-    pub fn set_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.members = v.into();
-        self
-    }
-
-    /// Sets the value of `condition`.
+    /// Sets the value of [condition][crate::model::Binding::condition].
     pub fn set_condition<T: std::convert::Into<std::option::Option<crate::model::Expr>>>(
         mut self,
         v: T,
     ) -> Self {
         self.condition = v.into();
+        self
+    }
+
+    /// Sets the value of [members][crate::model::Binding::members].
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2045,7 +2067,7 @@ pub struct Expr {
 }
 
 impl Expr {
-    /// Sets the value of `expression`.
+    /// Sets the value of [expression][crate::model::Expr::expression].
     pub fn set_expression<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2054,7 +2076,7 @@ impl Expr {
         self
     }
 
-    /// Sets the value of `title`.
+    /// Sets the value of [title][crate::model::Expr::title].
     pub fn set_title<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2063,7 +2085,7 @@ impl Expr {
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Expr::description].
     pub fn set_description<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2072,7 +2094,7 @@ impl Expr {
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::Expr::location].
     pub fn set_location<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2158,7 +2180,7 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
-    /// Sets the value of `service`.
+    /// Sets the value of [service][crate::model::AuditConfig::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2167,14 +2189,14 @@ impl AuditConfig {
         self
     }
 
-    /// Sets the value of `audit_log_configs`.
-    pub fn set_audit_log_configs<
-        T: std::convert::Into<std::vec::Vec<crate::model::AuditLogConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_log_configs = v.into();
+    /// Sets the value of [audit_log_configs][crate::model::AuditConfig::audit_log_configs].
+    pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditLogConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_log_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2223,7 +2245,7 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
-    /// Sets the value of `log_type`.
+    /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
     pub fn set_log_type<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2232,12 +2254,14 @@ impl AuditLogConfig {
         self
     }
 
-    /// Sets the value of `exempted_members`.
-    pub fn set_exempted_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.exempted_members = v.into();
+    /// Sets the value of [exempted_members][crate::model::AuditLogConfig::exempted_members].
+    pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exempted_members = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2281,30 +2305,32 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
-    /// Sets the value of `permissions`.
-    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.permissions = v.into();
-        self
-    }
-
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::TestIamPermissionsRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::TestIamPermissionsRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2322,12 +2348,14 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
-    /// Sets the value of `permissions`.
-    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.permissions = v.into();
+    /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2368,13 +2396,13 @@ pub struct ListLocationsRequest {
 }
 
 impl ListLocationsRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::ListLocationsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListLocationsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2383,13 +2411,13 @@ impl ListLocationsRequest {
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListLocationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListLocationsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2419,13 +2447,13 @@ pub struct GetLocationRequest {
 }
 
 impl GetLocationRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetLocationRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::GetLocationRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -2465,19 +2493,19 @@ pub struct ListSecretsRequest {
 }
 
 impl ListSecretsRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::ListSecretsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2486,7 +2514,7 @@ impl ListSecretsRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2522,7 +2550,7 @@ pub struct CreateSecretRequest {
 }
 
 impl CreateSecretRequest {
-    /// Sets the value of `request_body`.
+    /// Sets the value of [request_body][crate::model::CreateSecretRequest::request_body].
     pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
         mut self,
         v: T,
@@ -2531,13 +2559,13 @@ impl CreateSecretRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::CreateSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret_id`.
+    /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
@@ -2583,25 +2611,25 @@ pub struct ListSecretsByProjectAndLocationRequest {
 }
 
 impl ListSecretsByProjectAndLocationRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::ListSecretsByProjectAndLocationRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2610,7 +2638,7 @@ impl ListSecretsByProjectAndLocationRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2652,7 +2680,7 @@ pub struct CreateSecretByProjectAndLocationRequest {
 }
 
 impl CreateSecretByProjectAndLocationRequest {
-    /// Sets the value of `request_body`.
+    /// Sets the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
     pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
         mut self,
         v: T,
@@ -2661,19 +2689,19 @@ impl CreateSecretByProjectAndLocationRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::CreateSecretByProjectAndLocationRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::CreateSecretByProjectAndLocationRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret_id`.
+    /// Sets the value of [secret_id][crate::model::CreateSecretByProjectAndLocationRequest::secret_id].
     pub fn set_secret_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret_id = v.into();
         self
@@ -2700,13 +2728,13 @@ pub struct GetSecretRequest {
 }
 
 impl GetSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
@@ -2739,19 +2767,19 @@ pub struct DeleteSecretRequest {
 }
 
 impl DeleteSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::DeleteSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::DeleteSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2789,7 +2817,7 @@ pub struct UpdateSecretRequest {
 }
 
 impl UpdateSecretRequest {
-    /// Sets the value of `request_body`.
+    /// Sets the value of [request_body][crate::model::UpdateSecretRequest::request_body].
     pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
         mut self,
         v: T,
@@ -2798,19 +2826,19 @@ impl UpdateSecretRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::UpdateSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
@@ -2843,19 +2871,19 @@ pub struct GetSecretByProjectAndLocationAndSecretRequest {
 }
 
 impl GetSecretByProjectAndLocationAndSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetSecretByProjectAndLocationAndSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::GetSecretByProjectAndLocationAndSecretRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetSecretByProjectAndLocationAndSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
@@ -2894,25 +2922,25 @@ pub struct DeleteSecretByProjectAndLocationAndSecretRequest {
 }
 
 impl DeleteSecretByProjectAndLocationAndSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -2956,7 +2984,7 @@ pub struct UpdateSecretByProjectAndLocationAndSecretRequest {
 }
 
 impl UpdateSecretByProjectAndLocationAndSecretRequest {
-    /// Sets the value of `request_body`.
+    /// Sets the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
     pub fn set_request_body<T: std::convert::Into<std::option::Option<crate::model::Secret>>>(
         mut self,
         v: T,
@@ -2965,25 +2993,25 @@ impl UpdateSecretByProjectAndLocationAndSecretRequest {
         self
     }
 
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<wkt::FieldMask>>(mut self, v: T) -> Self {
         self.update_mask = v.into();
         self
@@ -3029,25 +3057,25 @@ pub struct ListSecretVersionsRequest {
 }
 
 impl ListSecretVersionsRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::ListSecretVersionsRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -3056,7 +3084,7 @@ impl ListSecretVersionsRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -3111,31 +3139,31 @@ pub struct ListSecretVersionsByProjectAndLocationAndSecretRequest {
 }
 
 impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -3144,7 +3172,7 @@ impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
         v: T,
@@ -3180,19 +3208,19 @@ pub struct GetSecretVersionRequest {
 }
 
 impl GetSecretVersionRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetSecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetSecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::GetSecretVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3231,25 +3259,25 @@ pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 }
 
 impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3282,19 +3310,19 @@ pub struct AccessSecretVersionRequest {
 }
 
 impl AccessSecretVersionRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::AccessSecretVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::AccessSecretVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::AccessSecretVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3333,25 +3361,25 @@ pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
 }
 
 impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -3399,19 +3427,19 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetIamPolicyRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetIamPolicyRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `options_requested_policy_version`.
+    /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
     pub fn set_options_requested_policy_version<T: std::convert::Into<std::option::Option<i32>>>(
         mut self,
         v: T,
@@ -3468,25 +3496,25 @@ pub struct GetIamPolicyByProjectAndLocationAndSecretRequest {
 }
 
 impl GetIamPolicyByProjectAndLocationAndSecretRequest {
-    /// Sets the value of `project`.
+    /// Sets the value of [project][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `secret`.
+    /// Sets the value of [secret][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
-    /// Sets the value of `options_requested_policy_version`.
+    /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
     pub fn set_options_requested_policy_version<T: std::convert::Into<std::option::Option<i32>>>(
         mut self,
         v: T,

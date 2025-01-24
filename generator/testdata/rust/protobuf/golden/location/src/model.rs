@@ -48,25 +48,25 @@ pub struct ListLocationsRequest {
 
 impl ListLocationsRequest {
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::ListLocationsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListLocationsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListLocationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListLocationsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -99,15 +99,20 @@ pub struct ListLocationsResponse {
 
 impl ListLocationsResponse {
 
-    /// Sets the value of `locations`.
-    pub fn set_locations<T: std::convert::Into<std::vec::Vec<crate::model::Location>>>(mut self, v: T) -> Self {
-        self.locations = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListLocationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [locations][crate::model::ListLocationsResponse::locations].
+    pub fn set_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Location>
+    {
+        use std::iter::Iterator;
+        self.locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -147,7 +152,7 @@ pub struct GetLocationRequest {
 
 impl GetLocationRequest {
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetLocationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -197,33 +202,39 @@ pub struct Location {
 
 impl Location {
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Location::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `location_id`.
+    /// Sets the value of [location_id][crate::model::Location::location_id].
     pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_id = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Location::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<T: std::convert::Into<std::collections::HashMap<std::string::String,std::string::String>>>(mut self, v: T) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [metadata][crate::model::Location::metadata].
+    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
+        self.metadata = v.into();
         self
     }
 
-    /// Sets the value of `metadata`.
-    pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [labels][crate::model::Location::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

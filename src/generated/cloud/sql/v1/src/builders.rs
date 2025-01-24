@@ -65,19 +65,19 @@ pub mod sql_backup_runs_service {
             (*self.0.stub).delete(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `id`.
+        /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
         pub fn set_id<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.id = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlBackupRunsDeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlBackupRunsDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -118,19 +118,19 @@ pub mod sql_backup_runs_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `id`.
+        /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
         pub fn set_id<T: Into<i64>>(mut self, v: T) -> Self {
             self.0.request.id = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlBackupRunsGetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlBackupRunsGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -171,19 +171,19 @@ pub mod sql_backup_runs_service {
             (*self.0.stub).insert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlBackupRunsInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::BackupRun>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -224,25 +224,25 @@ pub mod sql_backup_runs_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `max_results`.
+        /// Sets the value of [max_results][crate::model::SqlBackupRunsListRequest::max_results].
         pub fn set_max_results<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.max_results = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::SqlBackupRunsListRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlBackupRunsListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -308,19 +308,19 @@ pub mod sql_connect_service {
             (*self.0.stub).get_connect_settings(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::GetConnectSettingsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `read_time`.
+        /// Sets the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
         pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.read_time = v.into();
             self
@@ -361,37 +361,37 @@ pub mod sql_connect_service {
             (*self.0.stub).generate_ephemeral_cert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::GenerateEphemeralCertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `public_key`.
+        /// Sets the value of [public_key][crate::model::GenerateEphemeralCertRequest::public_key].
         pub fn set_public_key<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.public_key = v.into();
             self
         }
 
-        /// Sets the value of `access_token`.
+        /// Sets the value of [access_token][crate::model::GenerateEphemeralCertRequest::access_token].
         pub fn set_access_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.access_token = v.into();
             self
         }
 
-        /// Sets the value of `read_time`.
+        /// Sets the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
         pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.read_time = v.into();
             self
         }
 
-        /// Sets the value of `valid_duration`.
+        /// Sets the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
         pub fn set_valid_duration<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.valid_duration = v.into();
             self
@@ -457,19 +457,19 @@ pub mod sql_databases_service {
             (*self.0.stub).delete(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesDeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -510,19 +510,19 @@ pub mod sql_databases_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesGetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -563,19 +563,19 @@ pub mod sql_databases_service {
             (*self.0.stub).insert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlDatabasesInsertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -616,13 +616,13 @@ pub mod sql_databases_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -663,25 +663,25 @@ pub mod sql_databases_service {
             (*self.0.stub).patch(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesUpdateRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesUpdateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -722,25 +722,25 @@ pub mod sql_databases_service {
             (*self.0.stub).update(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlDatabasesUpdateRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlDatabasesUpdateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -806,7 +806,7 @@ pub mod sql_flags_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `database_version`.
+        /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
         pub fn set_database_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database_version = v.into();
             self
@@ -872,13 +872,13 @@ pub mod sql_instances_service {
             (*self.0.stub).add_server_ca(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesAddServerCaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -919,19 +919,19 @@ pub mod sql_instances_service {
             (*self.0.stub).clone(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesCloneRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesCloneRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesCloneRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -972,13 +972,13 @@ pub mod sql_instances_service {
             (*self.0.stub).delete(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1019,19 +1019,19 @@ pub mod sql_instances_service {
             (*self.0.stub).demote_master(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesDemoteMasterRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesDemoteMasterRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1072,19 +1072,19 @@ pub mod sql_instances_service {
             (*self.0.stub).demote(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesDemoteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesDemoteRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesDemoteRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1125,19 +1125,19 @@ pub mod sql_instances_service {
             (*self.0.stub).export(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesExportRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesExportRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesExportRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1178,19 +1178,19 @@ pub mod sql_instances_service {
             (*self.0.stub).failover(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesFailoverRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesFailoverRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesFailoverRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1231,19 +1231,19 @@ pub mod sql_instances_service {
             (*self.0.stub).reencrypt(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesReencryptRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesReencryptRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesReencryptRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1284,13 +1284,13 @@ pub mod sql_instances_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1331,19 +1331,19 @@ pub mod sql_instances_service {
             (*self.0.stub).import(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesImportRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesImportRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesImportRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1384,13 +1384,13 @@ pub mod sql_instances_service {
             (*self.0.stub).insert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesInsertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1431,25 +1431,25 @@ pub mod sql_instances_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `max_results`.
+        /// Sets the value of [max_results][crate::model::SqlInstancesListRequest::max_results].
         pub fn set_max_results<T: Into<u32>>(mut self, v: T) -> Self {
             self.0.request.max_results = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::SqlInstancesListRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1490,13 +1490,13 @@ pub mod sql_instances_service {
             (*self.0.stub).list_server_cas(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesListServerCasRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1537,19 +1537,19 @@ pub mod sql_instances_service {
             (*self.0.stub).patch(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesPatchRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesPatchRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1590,19 +1590,19 @@ pub mod sql_instances_service {
             (*self.0.stub).promote_replica(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesPromoteReplicaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `failover`.
+        /// Sets the value of [failover][crate::model::SqlInstancesPromoteReplicaRequest::failover].
         pub fn set_failover<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.failover = v.into();
             self
@@ -1643,19 +1643,19 @@ pub mod sql_instances_service {
             (*self.0.stub).switchover(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesSwitchoverRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `db_timeout`.
+        /// Sets the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
         pub fn set_db_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.db_timeout = v.into();
             self
@@ -1696,13 +1696,13 @@ pub mod sql_instances_service {
             (*self.0.stub).reset_ssl_config(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesResetSslConfigRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1743,13 +1743,13 @@ pub mod sql_instances_service {
             (*self.0.stub).restart(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesRestartRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1790,19 +1790,19 @@ pub mod sql_instances_service {
             (*self.0.stub).restore_backup(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesRestoreBackupRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesRestoreBackupRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1843,19 +1843,19 @@ pub mod sql_instances_service {
             (*self.0.stub).rotate_server_ca(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesRotateServerCaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesRotateServerCaRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -1896,13 +1896,13 @@ pub mod sql_instances_service {
             (*self.0.stub).start_replica(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesStartReplicaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1943,13 +1943,13 @@ pub mod sql_instances_service {
             (*self.0.stub).stop_replica(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesStopReplicaRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -1990,19 +1990,19 @@ pub mod sql_instances_service {
             (*self.0.stub).truncate_log(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesTruncateLogRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesTruncateLogRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2043,19 +2043,19 @@ pub mod sql_instances_service {
             (*self.0.stub).update(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesUpdateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesUpdateRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2096,19 +2096,19 @@ pub mod sql_instances_service {
             (*self.0.stub).create_ephemeral(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesCreateEphemeralCertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::SslCertsCreateEphemeralRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2149,19 +2149,19 @@ pub mod sql_instances_service {
             (*self.0.stub).reschedule_maintenance(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesRescheduleMaintenanceRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2202,43 +2202,43 @@ pub mod sql_instances_service {
             (*self.0.stub).verify_external_sync_settings(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `verify_connection_only`.
+        /// Sets the value of [verify_connection_only][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::verify_connection_only].
         pub fn set_verify_connection_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.verify_connection_only = v.into();
             self
         }
 
-        /// Sets the value of `sync_mode`.
+        /// Sets the value of [sync_mode][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_mode].
         pub fn set_sync_mode<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
             self.0.request.sync_mode = v.into();
             self
         }
 
-        /// Sets the value of `verify_replication_only`.
+        /// Sets the value of [verify_replication_only][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::verify_replication_only].
         pub fn set_verify_replication_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.verify_replication_only = v.into();
             self
         }
 
-        /// Sets the value of `migration_type`.
+        /// Sets the value of [migration_type][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::migration_type].
         pub fn set_migration_type<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
             self.0.request.migration_type = v.into();
             self
         }
 
-        /// Sets the value of `sync_parallel_level`.
+        /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_parallel_level].
         pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
             self.0.request.sync_parallel_level = v.into();
             self
@@ -2285,37 +2285,37 @@ pub mod sql_instances_service {
             (*self.0.stub).start_external_sync(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesStartExternalSyncRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `sync_mode`.
+        /// Sets the value of [sync_mode][crate::model::SqlInstancesStartExternalSyncRequest::sync_mode].
         pub fn set_sync_mode<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
             self.0.request.sync_mode = v.into();
             self
         }
 
-        /// Sets the value of `skip_verification`.
+        /// Sets the value of [skip_verification][crate::model::SqlInstancesStartExternalSyncRequest::skip_verification].
         pub fn set_skip_verification<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.skip_verification = v.into();
             self
         }
 
-        /// Sets the value of `sync_parallel_level`.
+        /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesStartExternalSyncRequest::sync_parallel_level].
         pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
             self.0.request.sync_parallel_level = v.into();
             self
         }
 
-        /// Sets the value of `migration_type`.
+        /// Sets the value of [migration_type][crate::model::SqlInstancesStartExternalSyncRequest::migration_type].
         pub fn set_migration_type<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
             self.0.request.migration_type = v.into();
             self
@@ -2362,19 +2362,19 @@ pub mod sql_instances_service {
             (*self.0.stub).perform_disk_shrink(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesPerformDiskShrinkRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::PerformDiskShrinkContext>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2415,13 +2415,13 @@ pub mod sql_instances_service {
             (*self.0.stub).get_disk_shrink_config(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesGetDiskShrinkConfigRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2462,13 +2462,13 @@ pub mod sql_instances_service {
             (*self.0.stub).reset_replica_size(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesResetReplicaSizeRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2509,13 +2509,13 @@ pub mod sql_instances_service {
             (*self.0.stub).get_latest_recovery_time(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2556,19 +2556,19 @@ pub mod sql_instances_service {
             (*self.0.stub).acquire_ssrs_lease(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesAcquireSsrsLeaseRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::InstancesAcquireSsrsLeaseRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -2609,13 +2609,13 @@ pub mod sql_instances_service {
             (*self.0.stub).release_ssrs_lease(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlInstancesReleaseSsrsLeaseRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2681,13 +2681,13 @@ pub mod sql_operations_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `operation`.
+        /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlOperationsGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2728,25 +2728,25 @@ pub mod sql_operations_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `max_results`.
+        /// Sets the value of [max_results][crate::model::SqlOperationsListRequest::max_results].
         pub fn set_max_results<T: Into<u32>>(mut self, v: T) -> Self {
             self.0.request.max_results = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::SqlOperationsListRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlOperationsListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2787,13 +2787,13 @@ pub mod sql_operations_service {
             (*self.0.stub).cancel(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `operation`.
+        /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlOperationsCancelRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2859,19 +2859,19 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub).delete(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlSslCertsDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `sha1_fingerprint`.
+        /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsDeleteRequest::sha1_fingerprint].
         pub fn set_sha1_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sha1_fingerprint = v.into();
             self
@@ -2912,19 +2912,19 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlSslCertsGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `sha1_fingerprint`.
+        /// Sets the value of [sha1_fingerprint][crate::model::SqlSslCertsGetRequest::sha1_fingerprint].
         pub fn set_sha1_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.sha1_fingerprint = v.into();
             self
@@ -2965,19 +2965,19 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub).insert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlSslCertsInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlSslCertsInsertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::SslCertsInsertRequest>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -3018,13 +3018,13 @@ pub mod sql_ssl_certs_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlSslCertsListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -3090,7 +3090,7 @@ pub mod sql_tiers_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -3156,25 +3156,25 @@ pub mod sql_users_service {
             (*self.0.stub).delete(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `host`.
+        /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
         pub fn set_host<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.host = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlUsersDeleteRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SqlUsersDeleteRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlUsersDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -3215,25 +3215,25 @@ pub mod sql_users_service {
             (*self.0.stub).get(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SqlUsersGetRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlUsersGetRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `host`.
+        /// Sets the value of [host][crate::model::SqlUsersGetRequest::host].
         pub fn set_host<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.host = v.into();
             self
@@ -3274,19 +3274,19 @@ pub mod sql_users_service {
             (*self.0.stub).insert(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlUsersInsertRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlUsersInsertRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self
@@ -3327,13 +3327,13 @@ pub mod sql_users_service {
             (*self.0.stub).list(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlUsersListRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -3374,31 +3374,31 @@ pub mod sql_users_service {
             (*self.0.stub).update(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `host`.
+        /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
         pub fn set_host<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.host = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::SqlUsersUpdateRequest::instance].
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SqlUsersUpdateRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `project`.
+        /// Sets the value of [project][crate::model::SqlUsersUpdateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
-        /// Sets the value of `body`.
+        /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
         pub fn set_body<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
             self.0.request.body = v.into();
             self

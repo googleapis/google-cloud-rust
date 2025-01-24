@@ -59,13 +59,13 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
-    /// Sets the value of `policy`.
+    /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
     pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
         mut self,
         v: T,
@@ -74,7 +74,7 @@ impl SetIamPolicyRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -108,13 +108,13 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
-    /// Sets the value of `options`.
+    /// Sets the value of [options][crate::model::GetIamPolicyRequest::options].
     pub fn set_options<
         T: std::convert::Into<std::option::Option<crate::model::GetPolicyOptions>>,
     >(
@@ -152,18 +152,20 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
-    /// Sets the value of `resource`.
+    /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
-    /// Sets the value of `permissions`.
-    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.permissions = v.into();
+    /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -187,12 +189,14 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
-    /// Sets the value of `permissions`.
-    pub fn set_permissions<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.permissions = v.into();
+    /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
+    pub fn set_permissions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.permissions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -231,7 +235,7 @@ pub struct GetPolicyOptions {
 }
 
 impl GetPolicyOptions {
-    /// Sets the value of `requested_policy_version`.
+    /// Sets the value of [requested_policy_version][crate::model::GetPolicyOptions::requested_policy_version].
     pub fn set_requested_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.requested_policy_version = v.into();
         self
@@ -383,33 +387,37 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::Policy::version].
     pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `bindings`.
-    pub fn set_bindings<T: std::convert::Into<std::vec::Vec<crate::model::Binding>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.bindings = v.into();
-        self
-    }
-
-    /// Sets the value of `audit_configs`.
-    pub fn set_audit_configs<T: std::convert::Into<std::vec::Vec<crate::model::AuditConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_configs = v.into();
-        self
-    }
-
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::Policy::etag].
     pub fn set_etag<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [bindings][crate::model::Policy::bindings].
+    pub fn set_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Binding>,
+    {
+        use std::iter::Iterator;
+        self.bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [audit_configs][crate::model::Policy::audit_configs].
+    pub fn set_audit_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -492,27 +500,29 @@ pub struct Binding {
 }
 
 impl Binding {
-    /// Sets the value of `role`.
+    /// Sets the value of [role][crate::model::Binding::role].
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
-    /// Sets the value of `members`.
-    pub fn set_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.members = v.into();
-        self
-    }
-
-    /// Sets the value of `condition`.
+    /// Sets the value of [condition][crate::model::Binding::condition].
     pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
         mut self,
         v: T,
     ) -> Self {
         self.condition = v.into();
+        self
+    }
+
+    /// Sets the value of [members][crate::model::Binding::members].
+    pub fn set_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.members = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -593,20 +603,20 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
-    /// Sets the value of `service`.
+    /// Sets the value of [service][crate::model::AuditConfig::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
-    /// Sets the value of `audit_log_configs`.
-    pub fn set_audit_log_configs<
-        T: std::convert::Into<std::vec::Vec<crate::model::AuditLogConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_log_configs = v.into();
+    /// Sets the value of [audit_log_configs][crate::model::AuditConfig::audit_log_configs].
+    pub fn set_audit_log_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditLogConfig>,
+    {
+        use std::iter::Iterator;
+        self.audit_log_configs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -657,7 +667,7 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
-    /// Sets the value of `log_type`.
+    /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
     pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(
         mut self,
         v: T,
@@ -666,12 +676,14 @@ impl AuditLogConfig {
         self
     }
 
-    /// Sets the value of `exempted_members`.
-    pub fn set_exempted_members<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.exempted_members = v.into();
+    /// Sets the value of [exempted_members][crate::model::AuditLogConfig::exempted_members].
+    pub fn set_exempted_members<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exempted_members = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -738,23 +750,25 @@ pub struct PolicyDelta {
 }
 
 impl PolicyDelta {
-    /// Sets the value of `binding_deltas`.
-    pub fn set_binding_deltas<T: std::convert::Into<std::vec::Vec<crate::model::BindingDelta>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.binding_deltas = v.into();
+    /// Sets the value of [binding_deltas][crate::model::PolicyDelta::binding_deltas].
+    pub fn set_binding_deltas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BindingDelta>,
+    {
+        use std::iter::Iterator;
+        self.binding_deltas = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `audit_config_deltas`.
-    pub fn set_audit_config_deltas<
-        T: std::convert::Into<std::vec::Vec<crate::model::AuditConfigDelta>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audit_config_deltas = v.into();
+    /// Sets the value of [audit_config_deltas][crate::model::PolicyDelta::audit_config_deltas].
+    pub fn set_audit_config_deltas<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuditConfigDelta>,
+    {
+        use std::iter::Iterator;
+        self.audit_config_deltas = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -794,7 +808,7 @@ pub struct BindingDelta {
 }
 
 impl BindingDelta {
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::BindingDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(
         mut self,
         v: T,
@@ -803,19 +817,19 @@ impl BindingDelta {
         self
     }
 
-    /// Sets the value of `role`.
+    /// Sets the value of [role][crate::model::BindingDelta::role].
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.role = v.into();
         self
     }
 
-    /// Sets the value of `member`.
+    /// Sets the value of [member][crate::model::BindingDelta::member].
     pub fn set_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.member = v.into();
         self
     }
 
-    /// Sets the value of `condition`.
+    /// Sets the value of [condition][crate::model::BindingDelta::condition].
     pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
         mut self,
         v: T,
@@ -899,7 +913,7 @@ pub struct AuditConfigDelta {
 }
 
 impl AuditConfigDelta {
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::AuditConfigDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(
         mut self,
         v: T,
@@ -908,19 +922,19 @@ impl AuditConfigDelta {
         self
     }
 
-    /// Sets the value of `service`.
+    /// Sets the value of [service][crate::model::AuditConfigDelta::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
-    /// Sets the value of `exempted_member`.
+    /// Sets the value of [exempted_member][crate::model::AuditConfigDelta::exempted_member].
     pub fn set_exempted_member<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.exempted_member = v.into();
         self
     }
 
-    /// Sets the value of `log_type`.
+    /// Sets the value of [log_type][crate::model::AuditConfigDelta::log_type].
     pub fn set_log_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_type = v.into();
         self
@@ -998,7 +1012,7 @@ pub struct ResourcePolicyMember {
 }
 
 impl ResourcePolicyMember {
-    /// Sets the value of `iam_policy_name_principal`.
+    /// Sets the value of [iam_policy_name_principal][crate::model::ResourcePolicyMember::iam_policy_name_principal].
     pub fn set_iam_policy_name_principal<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1007,7 +1021,7 @@ impl ResourcePolicyMember {
         self
     }
 
-    /// Sets the value of `iam_policy_uid_principal`.
+    /// Sets the value of [iam_policy_uid_principal][crate::model::ResourcePolicyMember::iam_policy_uid_principal].
     pub fn set_iam_policy_uid_principal<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

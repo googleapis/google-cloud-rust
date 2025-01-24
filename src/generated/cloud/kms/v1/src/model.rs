@@ -67,19 +67,19 @@ pub struct CreateKeyHandleRequest {
 }
 
 impl CreateKeyHandleRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `key_handle_id`.
+    /// Sets the value of [key_handle_id][crate::model::CreateKeyHandleRequest::key_handle_id].
     pub fn set_key_handle_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_handle_id = v.into();
         self
     }
 
-    /// Sets the value of `key_handle`.
+    /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
     pub fn set_key_handle<T: std::convert::Into<std::option::Option<crate::model::KeyHandle>>>(
         mut self,
         v: T,
@@ -113,7 +113,7 @@ pub struct GetKeyHandleRequest {
 }
 
 impl GetKeyHandleRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -172,19 +172,19 @@ pub struct KeyHandle {
 }
 
 impl KeyHandle {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::KeyHandle::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `kms_key`.
+    /// Sets the value of [kms_key][crate::model::KeyHandle::kms_key].
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
-    /// Sets the value of `resource_type_selector`.
+    /// Sets the value of [resource_type_selector][crate::model::KeyHandle::resource_type_selector].
     pub fn set_resource_type_selector<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -266,25 +266,25 @@ pub struct ListKeyHandlesRequest {
 }
 
 impl ListKeyHandlesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListKeyHandlesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListKeyHandlesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListKeyHandlesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListKeyHandlesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -322,18 +322,20 @@ pub struct ListKeyHandlesResponse {
 }
 
 impl ListKeyHandlesResponse {
-    /// Sets the value of `key_handles`.
-    pub fn set_key_handles<T: std::convert::Into<std::vec::Vec<crate::model::KeyHandle>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_handles = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [key_handles][crate::model::ListKeyHandlesResponse::key_handles].
+    pub fn set_key_handles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyHandle>,
+    {
+        use std::iter::Iterator;
+        self.key_handles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -383,7 +385,7 @@ pub struct UpdateAutokeyConfigRequest {
 }
 
 impl UpdateAutokeyConfigRequest {
-    /// Sets the value of `autokey_config`.
+    /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
     pub fn set_autokey_config<
         T: std::convert::Into<std::option::Option<crate::model::AutokeyConfig>>,
     >(
@@ -394,7 +396,7 @@ impl UpdateAutokeyConfigRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -428,7 +430,7 @@ pub struct GetAutokeyConfigRequest {
 }
 
 impl GetAutokeyConfigRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -477,19 +479,19 @@ pub struct AutokeyConfig {
 }
 
 impl AutokeyConfig {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AutokeyConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `key_project`.
+    /// Sets the value of [key_project][crate::model::AutokeyConfig::key_project].
     pub fn set_key_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_project = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::AutokeyConfig::state].
     pub fn set_state<T: std::convert::Into<crate::model::autokey_config::State>>(
         mut self,
         v: T,
@@ -563,7 +565,7 @@ pub struct ShowEffectiveAutokeyConfigRequest {
 }
 
 impl ShowEffectiveAutokeyConfigRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -592,7 +594,7 @@ pub struct ShowEffectiveAutokeyConfigResponse {
 }
 
 impl ShowEffectiveAutokeyConfigResponse {
-    /// Sets the value of `key_project`.
+    /// Sets the value of [key_project][crate::model::ShowEffectiveAutokeyConfigResponse::key_project].
     pub fn set_key_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_project = v.into();
         self
@@ -657,31 +659,31 @@ pub struct ListEkmConnectionsRequest {
 }
 
 impl ListEkmConnectionsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListEkmConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListEkmConnectionsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListEkmConnectionsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListEkmConnectionsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListEkmConnectionsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -725,26 +727,26 @@ pub struct ListEkmConnectionsResponse {
 }
 
 impl ListEkmConnectionsResponse {
-    /// Sets the value of `ekm_connections`.
-    pub fn set_ekm_connections<
-        T: std::convert::Into<std::vec::Vec<crate::model::EkmConnection>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ekm_connections = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListEkmConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListEkmConnectionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
+    pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EkmConnection>,
+    {
+        use std::iter::Iterator;
+        self.ekm_connections = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -787,7 +789,7 @@ pub struct GetEkmConnectionRequest {
 }
 
 impl GetEkmConnectionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -831,13 +833,13 @@ pub struct CreateEkmConnectionRequest {
 }
 
 impl CreateEkmConnectionRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `ekm_connection_id`.
+    /// Sets the value of [ekm_connection_id][crate::model::CreateEkmConnectionRequest::ekm_connection_id].
     pub fn set_ekm_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -846,7 +848,7 @@ impl CreateEkmConnectionRequest {
         self
     }
 
-    /// Sets the value of `ekm_connection`.
+    /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
     pub fn set_ekm_connection<
         T: std::convert::Into<std::option::Option<crate::model::EkmConnection>>,
     >(
@@ -886,7 +888,7 @@ pub struct UpdateEkmConnectionRequest {
 }
 
 impl UpdateEkmConnectionRequest {
-    /// Sets the value of `ekm_connection`.
+    /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
     pub fn set_ekm_connection<
         T: std::convert::Into<std::option::Option<crate::model::EkmConnection>>,
     >(
@@ -897,7 +899,7 @@ impl UpdateEkmConnectionRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -932,7 +934,7 @@ pub struct GetEkmConfigRequest {
 }
 
 impl GetEkmConfigRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -966,7 +968,7 @@ pub struct UpdateEkmConfigRequest {
 }
 
 impl UpdateEkmConfigRequest {
-    /// Sets the value of `ekm_config`.
+    /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
     pub fn set_ekm_config<T: std::convert::Into<std::option::Option<crate::model::EkmConfig>>>(
         mut self,
         v: T,
@@ -975,7 +977,7 @@ impl UpdateEkmConfigRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -1059,42 +1061,31 @@ pub struct Certificate {
 }
 
 impl Certificate {
-    /// Sets the value of `raw_der`.
+    /// Sets the value of [raw_der][crate::model::Certificate::raw_der].
     pub fn set_raw_der<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_der = v.into();
         self
     }
 
-    /// Sets the value of `parsed`.
+    /// Sets the value of [parsed][crate::model::Certificate::parsed].
     pub fn set_parsed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.parsed = v.into();
         self
     }
 
-    /// Sets the value of `issuer`.
+    /// Sets the value of [issuer][crate::model::Certificate::issuer].
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
-    /// Sets the value of `subject`.
+    /// Sets the value of [subject][crate::model::Certificate::subject].
     pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subject = v.into();
         self
     }
 
-    /// Sets the value of `subject_alternative_dns_names`.
-    pub fn set_subject_alternative_dns_names<
-        T: std::convert::Into<std::vec::Vec<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subject_alternative_dns_names = v.into();
-        self
-    }
-
-    /// Sets the value of `not_before_time`.
+    /// Sets the value of [not_before_time][crate::model::Certificate::not_before_time].
     pub fn set_not_before_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1103,7 +1094,7 @@ impl Certificate {
         self
     }
 
-    /// Sets the value of `not_after_time`.
+    /// Sets the value of [not_after_time][crate::model::Certificate::not_after_time].
     pub fn set_not_after_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1112,18 +1103,29 @@ impl Certificate {
         self
     }
 
-    /// Sets the value of `serial_number`.
+    /// Sets the value of [serial_number][crate::model::Certificate::serial_number].
     pub fn set_serial_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serial_number = v.into();
         self
     }
 
-    /// Sets the value of `sha256_fingerprint`.
+    /// Sets the value of [sha256_fingerprint][crate::model::Certificate::sha256_fingerprint].
     pub fn set_sha256_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.sha256_fingerprint = v.into();
+        self
+    }
+
+    /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
+    pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.subject_alternative_dns_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1207,13 +1209,13 @@ pub struct EkmConnection {
 }
 
 impl EkmConnection {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::EkmConnection::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::EkmConnection::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1222,24 +1224,13 @@ impl EkmConnection {
         self
     }
 
-    /// Sets the value of `service_resolvers`.
-    pub fn set_service_resolvers<
-        T: std::convert::Into<std::vec::Vec<crate::model::ekm_connection::ServiceResolver>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_resolvers = v.into();
-        self
-    }
-
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::EkmConnection::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `key_management_mode`.
+    /// Sets the value of [key_management_mode][crate::model::EkmConnection::key_management_mode].
     pub fn set_key_management_mode<
         T: std::convert::Into<crate::model::ekm_connection::KeyManagementMode>,
     >(
@@ -1250,12 +1241,23 @@ impl EkmConnection {
         self
     }
 
-    /// Sets the value of `crypto_space_path`.
+    /// Sets the value of [crypto_space_path][crate::model::EkmConnection::crypto_space_path].
     pub fn set_crypto_space_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.crypto_space_path = v.into();
+        self
+    }
+
+    /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
+    pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ekm_connection::ServiceResolver>,
+    {
+        use std::iter::Iterator;
+        self.service_resolvers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1311,7 +1313,7 @@ pub mod ekm_connection {
     }
 
     impl ServiceResolver {
-        /// Sets the value of `service_directory_service`.
+        /// Sets the value of [service_directory_service][crate::model::ekm_connection::ServiceResolver::service_directory_service].
         pub fn set_service_directory_service<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1320,7 +1322,7 @@ pub mod ekm_connection {
             self
         }
 
-        /// Sets the value of `endpoint_filter`.
+        /// Sets the value of [endpoint_filter][crate::model::ekm_connection::ServiceResolver::endpoint_filter].
         pub fn set_endpoint_filter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1329,20 +1331,20 @@ pub mod ekm_connection {
             self
         }
 
-        /// Sets the value of `hostname`.
+        /// Sets the value of [hostname][crate::model::ekm_connection::ServiceResolver::hostname].
         pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.hostname = v.into();
             self
         }
 
-        /// Sets the value of `server_certificates`.
-        pub fn set_server_certificates<
-            T: std::convert::Into<std::vec::Vec<crate::model::Certificate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.server_certificates = v.into();
+        /// Sets the value of [server_certificates][crate::model::ekm_connection::ServiceResolver::server_certificates].
+        pub fn set_server_certificates<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Certificate>,
+        {
+            use std::iter::Iterator;
+            self.server_certificates = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1461,13 +1463,13 @@ pub struct EkmConfig {
 }
 
 impl EkmConfig {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::EkmConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `default_ekm_connection`.
+    /// Sets the value of [default_ekm_connection][crate::model::EkmConfig::default_ekm_connection].
     pub fn set_default_ekm_connection<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1502,7 +1504,7 @@ pub struct VerifyConnectivityRequest {
 }
 
 impl VerifyConnectivityRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1560,13 +1562,13 @@ pub struct KeyRing {
 }
 
 impl KeyRing {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::KeyRing::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::KeyRing::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1734,13 +1736,13 @@ pub struct CryptoKey {
 }
 
 impl CryptoKey {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CryptoKey::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `primary`.
+    /// Sets the value of [primary][crate::model::CryptoKey::primary].
     pub fn set_primary<
         T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
     >(
@@ -1751,7 +1753,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `purpose`.
+    /// Sets the value of [purpose][crate::model::CryptoKey::purpose].
     pub fn set_purpose<T: std::convert::Into<crate::model::crypto_key::CryptoKeyPurpose>>(
         mut self,
         v: T,
@@ -1760,7 +1762,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::CryptoKey::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1769,7 +1771,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `next_rotation_time`.
+    /// Sets the value of [next_rotation_time][crate::model::CryptoKey::next_rotation_time].
     pub fn set_next_rotation_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1778,7 +1780,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `version_template`.
+    /// Sets the value of [version_template][crate::model::CryptoKey::version_template].
     pub fn set_version_template<
         T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersionTemplate>>,
     >(
@@ -1789,24 +1791,13 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `import_only`.
+    /// Sets the value of [import_only][crate::model::CryptoKey::import_only].
     pub fn set_import_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.import_only = v.into();
         self
     }
 
-    /// Sets the value of `destroy_scheduled_duration`.
+    /// Sets the value of [destroy_scheduled_duration][crate::model::CryptoKey::destroy_scheduled_duration].
     pub fn set_destroy_scheduled_duration<
         T: std::convert::Into<std::option::Option<wkt::Duration>>,
     >(
@@ -1817,7 +1808,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `crypto_key_backend`.
+    /// Sets the value of [crypto_key_backend][crate::model::CryptoKey::crypto_key_backend].
     pub fn set_crypto_key_backend<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1826,7 +1817,7 @@ impl CryptoKey {
         self
     }
 
-    /// Sets the value of `key_access_justifications_policy`.
+    /// Sets the value of [key_access_justifications_policy][crate::model::CryptoKey::key_access_justifications_policy].
     pub fn set_key_access_justifications_policy<
         T: std::convert::Into<std::option::Option<crate::model::KeyAccessJustificationsPolicy>>,
     >(
@@ -1834,6 +1825,18 @@ impl CryptoKey {
         v: T,
     ) -> Self {
         self.key_access_justifications_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::CryptoKey::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -2010,7 +2013,7 @@ pub struct CryptoKeyVersionTemplate {
 }
 
 impl CryptoKeyVersionTemplate {
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::CryptoKeyVersionTemplate::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -2019,7 +2022,7 @@ impl CryptoKeyVersionTemplate {
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::CryptoKeyVersionTemplate::algorithm].
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -2061,7 +2064,7 @@ pub struct KeyOperationAttestation {
 }
 
 impl KeyOperationAttestation {
-    /// Sets the value of `format`.
+    /// Sets the value of [format][crate::model::KeyOperationAttestation::format].
     pub fn set_format<
         T: std::convert::Into<crate::model::key_operation_attestation::AttestationFormat>,
     >(
@@ -2072,13 +2075,13 @@ impl KeyOperationAttestation {
         self
     }
 
-    /// Sets the value of `content`.
+    /// Sets the value of [content][crate::model::KeyOperationAttestation::content].
     pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
-    /// Sets the value of `cert_chains`.
+    /// Sets the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
     pub fn set_cert_chains<
         T: std::convert::Into<
             std::option::Option<crate::model::key_operation_attestation::CertificateChains>,
@@ -2125,32 +2128,36 @@ pub mod key_operation_attestation {
     }
 
     impl CertificateChains {
-        /// Sets the value of `cavium_certs`.
-        pub fn set_cavium_certs<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cavium_certs = v.into();
+        /// Sets the value of [cavium_certs][crate::model::key_operation_attestation::CertificateChains::cavium_certs].
+        pub fn set_cavium_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.cavium_certs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `google_card_certs`.
-        pub fn set_google_card_certs<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.google_card_certs = v.into();
+        /// Sets the value of [google_card_certs][crate::model::key_operation_attestation::CertificateChains::google_card_certs].
+        pub fn set_google_card_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.google_card_certs = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `google_partition_certs`.
-        pub fn set_google_partition_certs<
-            T: std::convert::Into<std::vec::Vec<std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.google_partition_certs = v.into();
+        /// Sets the value of [google_partition_certs][crate::model::key_operation_attestation::CertificateChains::google_partition_certs].
+        pub fn set_google_partition_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.google_partition_certs = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2364,13 +2371,13 @@ pub struct CryptoKeyVersion {
 }
 
 impl CryptoKeyVersion {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CryptoKeyVersion::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::CryptoKeyVersion::state].
     pub fn set_state<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionState>,
     >(
@@ -2381,7 +2388,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::CryptoKeyVersion::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -2390,7 +2397,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::CryptoKeyVersion::algorithm].
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -2401,7 +2408,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `attestation`.
+    /// Sets the value of [attestation][crate::model::CryptoKeyVersion::attestation].
     pub fn set_attestation<
         T: std::convert::Into<std::option::Option<crate::model::KeyOperationAttestation>>,
     >(
@@ -2412,7 +2419,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::CryptoKeyVersion::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2421,7 +2428,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `generate_time`.
+    /// Sets the value of [generate_time][crate::model::CryptoKeyVersion::generate_time].
     pub fn set_generate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2430,7 +2437,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `destroy_time`.
+    /// Sets the value of [destroy_time][crate::model::CryptoKeyVersion::destroy_time].
     pub fn set_destroy_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2439,7 +2446,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `destroy_event_time`.
+    /// Sets the value of [destroy_event_time][crate::model::CryptoKeyVersion::destroy_event_time].
     pub fn set_destroy_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2448,13 +2455,13 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `import_job`.
+    /// Sets the value of [import_job][crate::model::CryptoKeyVersion::import_job].
     pub fn set_import_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job = v.into();
         self
     }
 
-    /// Sets the value of `import_time`.
+    /// Sets the value of [import_time][crate::model::CryptoKeyVersion::import_time].
     pub fn set_import_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2463,7 +2470,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `import_failure_reason`.
+    /// Sets the value of [import_failure_reason][crate::model::CryptoKeyVersion::import_failure_reason].
     pub fn set_import_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2472,7 +2479,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `generation_failure_reason`.
+    /// Sets the value of [generation_failure_reason][crate::model::CryptoKeyVersion::generation_failure_reason].
     pub fn set_generation_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2481,7 +2488,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `external_destruction_failure_reason`.
+    /// Sets the value of [external_destruction_failure_reason][crate::model::CryptoKeyVersion::external_destruction_failure_reason].
     pub fn set_external_destruction_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2490,7 +2497,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `external_protection_level_options`.
+    /// Sets the value of [external_protection_level_options][crate::model::CryptoKeyVersion::external_protection_level_options].
     pub fn set_external_protection_level_options<
         T: std::convert::Into<std::option::Option<crate::model::ExternalProtectionLevelOptions>>,
     >(
@@ -2501,7 +2508,7 @@ impl CryptoKeyVersion {
         self
     }
 
-    /// Sets the value of `reimport_eligible`.
+    /// Sets the value of [reimport_eligible][crate::model::CryptoKeyVersion::reimport_eligible].
     pub fn set_reimport_eligible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reimport_eligible = v.into();
         self
@@ -2934,13 +2941,13 @@ pub struct PublicKey {
 }
 
 impl PublicKey {
-    /// Sets the value of `pem`.
+    /// Sets the value of [pem][crate::model::PublicKey::pem].
     pub fn set_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem = v.into();
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::PublicKey::algorithm].
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -2951,7 +2958,7 @@ impl PublicKey {
         self
     }
 
-    /// Sets the value of `pem_crc32c`.
+    /// Sets the value of [pem_crc32c][crate::model::PublicKey::pem_crc32c].
     pub fn set_pem_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -2960,13 +2967,13 @@ impl PublicKey {
         self
     }
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::PublicKey::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::PublicKey::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -3115,13 +3122,13 @@ pub struct ImportJob {
 }
 
 impl ImportJob {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::ImportJob::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `import_method`.
+    /// Sets the value of [import_method][crate::model::ImportJob::import_method].
     pub fn set_import_method<T: std::convert::Into<crate::model::import_job::ImportMethod>>(
         mut self,
         v: T,
@@ -3130,7 +3137,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::ImportJob::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -3139,7 +3146,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::ImportJob::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3148,7 +3155,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `generate_time`.
+    /// Sets the value of [generate_time][crate::model::ImportJob::generate_time].
     pub fn set_generate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3157,7 +3164,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::ImportJob::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3166,7 +3173,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `expire_event_time`.
+    /// Sets the value of [expire_event_time][crate::model::ImportJob::expire_event_time].
     pub fn set_expire_event_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3175,7 +3182,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::ImportJob::state].
     pub fn set_state<T: std::convert::Into<crate::model::import_job::ImportJobState>>(
         mut self,
         v: T,
@@ -3184,7 +3191,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `public_key`.
+    /// Sets the value of [public_key][crate::model::ImportJob::public_key].
     pub fn set_public_key<
         T: std::convert::Into<std::option::Option<crate::model::import_job::WrappingPublicKey>>,
     >(
@@ -3195,7 +3202,7 @@ impl ImportJob {
         self
     }
 
-    /// Sets the value of `attestation`.
+    /// Sets the value of [attestation][crate::model::ImportJob::attestation].
     pub fn set_attestation<
         T: std::convert::Into<std::option::Option<crate::model::KeyOperationAttestation>>,
     >(
@@ -3238,7 +3245,7 @@ pub mod import_job {
     }
 
     impl WrappingPublicKey {
-        /// Sets the value of `pem`.
+        /// Sets the value of [pem][crate::model::import_job::WrappingPublicKey::pem].
         pub fn set_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pem = v.into();
             self
@@ -3406,7 +3413,7 @@ pub struct ExternalProtectionLevelOptions {
 }
 
 impl ExternalProtectionLevelOptions {
-    /// Sets the value of `external_key_uri`.
+    /// Sets the value of [external_key_uri][crate::model::ExternalProtectionLevelOptions::external_key_uri].
     pub fn set_external_key_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3415,7 +3422,7 @@ impl ExternalProtectionLevelOptions {
         self
     }
 
-    /// Sets the value of `ekm_connection_key_path`.
+    /// Sets the value of [ekm_connection_key_path][crate::model::ExternalProtectionLevelOptions::ekm_connection_key_path].
     pub fn set_ekm_connection_key_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3457,14 +3464,14 @@ pub struct KeyAccessJustificationsPolicy {
 }
 
 impl KeyAccessJustificationsPolicy {
-    /// Sets the value of `allowed_access_reasons`.
-    pub fn set_allowed_access_reasons<
-        T: std::convert::Into<std::vec::Vec<crate::model::AccessReason>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allowed_access_reasons = v.into();
+    /// Sets the value of [allowed_access_reasons][crate::model::KeyAccessJustificationsPolicy::allowed_access_reasons].
+    pub fn set_allowed_access_reasons<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AccessReason>,
+    {
+        use std::iter::Iterator;
+        self.allowed_access_reasons = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3527,31 +3534,31 @@ pub struct ListKeyRingsRequest {
 }
 
 impl ListKeyRingsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListKeyRingsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListKeyRingsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListKeyRingsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListKeyRingsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListKeyRingsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3618,25 +3625,25 @@ pub struct ListCryptoKeysRequest {
 }
 
 impl ListCryptoKeysRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListCryptoKeysRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListCryptoKeysRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `version_view`.
+    /// Sets the value of [version_view][crate::model::ListCryptoKeysRequest::version_view].
     pub fn set_version_view<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
     >(
@@ -3647,13 +3654,13 @@ impl ListCryptoKeysRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListCryptoKeysRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListCryptoKeysRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3721,25 +3728,25 @@ pub struct ListCryptoKeyVersionsRequest {
 }
 
 impl ListCryptoKeyVersionsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListCryptoKeyVersionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListCryptoKeyVersionsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListCryptoKeyVersionsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `view`.
+    /// Sets the value of [view][crate::model::ListCryptoKeyVersionsRequest::view].
     pub fn set_view<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
     >(
@@ -3750,13 +3757,13 @@ impl ListCryptoKeyVersionsRequest {
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListCryptoKeyVersionsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListCryptoKeyVersionsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3820,31 +3827,31 @@ pub struct ListImportJobsRequest {
 }
 
 impl ListImportJobsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListImportJobsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListImportJobsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListImportJobsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListImportJobsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -3888,24 +3895,26 @@ pub struct ListKeyRingsResponse {
 }
 
 impl ListKeyRingsResponse {
-    /// Sets the value of `key_rings`.
-    pub fn set_key_rings<T: std::convert::Into<std::vec::Vec<crate::model::KeyRing>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.key_rings = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListKeyRingsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListKeyRingsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
+    pub fn set_key_rings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyRing>,
+    {
+        use std::iter::Iterator;
+        self.key_rings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3960,24 +3969,26 @@ pub struct ListCryptoKeysResponse {
 }
 
 impl ListCryptoKeysResponse {
-    /// Sets the value of `crypto_keys`.
-    pub fn set_crypto_keys<T: std::convert::Into<std::vec::Vec<crate::model::CryptoKey>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_keys = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListCryptoKeysResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
+    pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKey>,
+    {
+        use std::iter::Iterator;
+        self.crypto_keys = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4033,26 +4044,26 @@ pub struct ListCryptoKeyVersionsResponse {
 }
 
 impl ListCryptoKeyVersionsResponse {
-    /// Sets the value of `crypto_key_versions`.
-    pub fn set_crypto_key_versions<
-        T: std::convert::Into<std::vec::Vec<crate::model::CryptoKeyVersion>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.crypto_key_versions = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListCryptoKeyVersionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListCryptoKeyVersionsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
+    pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CryptoKeyVersion>,
+    {
+        use std::iter::Iterator;
+        self.crypto_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4107,24 +4118,26 @@ pub struct ListImportJobsResponse {
 }
 
 impl ListImportJobsResponse {
-    /// Sets the value of `import_jobs`.
-    pub fn set_import_jobs<T: std::convert::Into<std::vec::Vec<crate::model::ImportJob>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.import_jobs = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListImportJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `total_size`.
+    /// Sets the value of [total_size][crate::model::ListImportJobsResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
+    pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ImportJob>,
+    {
+        use std::iter::Iterator;
+        self.import_jobs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4167,7 +4180,7 @@ pub struct GetKeyRingRequest {
 }
 
 impl GetKeyRingRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4199,7 +4212,7 @@ pub struct GetCryptoKeyRequest {
 }
 
 impl GetCryptoKeyRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4231,7 +4244,7 @@ pub struct GetCryptoKeyVersionRequest {
 }
 
 impl GetCryptoKeyVersionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4263,7 +4276,7 @@ pub struct GetPublicKeyRequest {
 }
 
 impl GetPublicKeyRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4295,7 +4308,7 @@ pub struct GetImportJobRequest {
 }
 
 impl GetImportJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetImportJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4339,19 +4352,19 @@ pub struct CreateKeyRingRequest {
 }
 
 impl CreateKeyRingRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `key_ring_id`.
+    /// Sets the value of [key_ring_id][crate::model::CreateKeyRingRequest::key_ring_id].
     pub fn set_key_ring_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_ring_id = v.into();
         self
     }
 
-    /// Sets the value of `key_ring`.
+    /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
     pub fn set_key_ring<T: std::convert::Into<std::option::Option<crate::model::KeyRing>>>(
         mut self,
         v: T,
@@ -4413,19 +4426,19 @@ pub struct CreateCryptoKeyRequest {
 }
 
 impl CreateCryptoKeyRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key_id`.
+    /// Sets the value of [crypto_key_id][crate::model::CreateCryptoKeyRequest::crypto_key_id].
     pub fn set_crypto_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_id = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key`.
+    /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
     pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
         mut self,
         v: T,
@@ -4434,7 +4447,7 @@ impl CreateCryptoKeyRequest {
         self
     }
 
-    /// Sets the value of `skip_initial_version_creation`.
+    /// Sets the value of [skip_initial_version_creation][crate::model::CreateCryptoKeyRequest::skip_initial_version_creation].
     pub fn set_skip_initial_version_creation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_initial_version_creation = v.into();
         self
@@ -4475,13 +4488,13 @@ pub struct CreateCryptoKeyVersionRequest {
 }
 
 impl CreateCryptoKeyVersionRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key_version`.
+    /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
     pub fn set_crypto_key_version<
         T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
     >(
@@ -4624,13 +4637,13 @@ pub struct ImportCryptoKeyVersionRequest {
 }
 
 impl ImportCryptoKeyVersionRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key_version`.
+    /// Sets the value of [crypto_key_version][crate::model::ImportCryptoKeyVersionRequest::crypto_key_version].
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4639,7 +4652,7 @@ impl ImportCryptoKeyVersionRequest {
         self
     }
 
-    /// Sets the value of `algorithm`.
+    /// Sets the value of [algorithm][crate::model::ImportCryptoKeyVersionRequest::algorithm].
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -4650,13 +4663,13 @@ impl ImportCryptoKeyVersionRequest {
         self
     }
 
-    /// Sets the value of `import_job`.
+    /// Sets the value of [import_job][crate::model::ImportCryptoKeyVersionRequest::import_job].
     pub fn set_import_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job = v.into();
         self
     }
 
-    /// Sets the value of `wrapped_key`.
+    /// Sets the value of [wrapped_key][crate::model::ImportCryptoKeyVersionRequest::wrapped_key].
     pub fn set_wrapped_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
         self
@@ -4741,19 +4754,19 @@ pub struct CreateImportJobRequest {
 }
 
 impl CreateImportJobRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `import_job_id`.
+    /// Sets the value of [import_job_id][crate::model::CreateImportJobRequest::import_job_id].
     pub fn set_import_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job_id = v.into();
         self
     }
 
-    /// Sets the value of `import_job`.
+    /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
     pub fn set_import_job<T: std::convert::Into<std::option::Option<crate::model::ImportJob>>>(
         mut self,
         v: T,
@@ -4790,7 +4803,7 @@ pub struct UpdateCryptoKeyRequest {
 }
 
 impl UpdateCryptoKeyRequest {
-    /// Sets the value of `crypto_key`.
+    /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
     pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
         mut self,
         v: T,
@@ -4799,7 +4812,7 @@ impl UpdateCryptoKeyRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -4837,7 +4850,7 @@ pub struct UpdateCryptoKeyVersionRequest {
 }
 
 impl UpdateCryptoKeyVersionRequest {
-    /// Sets the value of `crypto_key_version`.
+    /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
     pub fn set_crypto_key_version<
         T: std::convert::Into<std::option::Option<crate::model::CryptoKeyVersion>>,
     >(
@@ -4848,7 +4861,7 @@ impl UpdateCryptoKeyVersionRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -4889,13 +4902,13 @@ pub struct UpdateCryptoKeyPrimaryVersionRequest {
 }
 
 impl UpdateCryptoKeyPrimaryVersionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key_version_id`.
+    /// Sets the value of [crypto_key_version_id][crate::model::UpdateCryptoKeyPrimaryVersionRequest::crypto_key_version_id].
     pub fn set_crypto_key_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4929,7 +4942,7 @@ pub struct DestroyCryptoKeyVersionRequest {
 }
 
 impl DestroyCryptoKeyVersionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4960,7 +4973,7 @@ pub struct RestoreCryptoKeyVersionRequest {
 }
 
 impl RestoreCryptoKeyVersionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5099,19 +5112,19 @@ pub struct EncryptRequest {
 }
 
 impl EncryptRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::EncryptRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `plaintext`.
+    /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
     pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
-    /// Sets the value of `additional_authenticated_data`.
+    /// Sets the value of [additional_authenticated_data][crate::model::EncryptRequest::additional_authenticated_data].
     pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
         mut self,
         v: T,
@@ -5120,7 +5133,7 @@ impl EncryptRequest {
         self
     }
 
-    /// Sets the value of `plaintext_crc32c`.
+    /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
     pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5129,7 +5142,7 @@ impl EncryptRequest {
         self
     }
 
-    /// Sets the value of `additional_authenticated_data_crc32c`.
+    /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
     pub fn set_additional_authenticated_data_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5238,19 +5251,19 @@ pub struct DecryptRequest {
 }
 
 impl DecryptRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DecryptRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext`.
+    /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
     pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
-    /// Sets the value of `additional_authenticated_data`.
+    /// Sets the value of [additional_authenticated_data][crate::model::DecryptRequest::additional_authenticated_data].
     pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
         mut self,
         v: T,
@@ -5259,7 +5272,7 @@ impl DecryptRequest {
         self
     }
 
-    /// Sets the value of `ciphertext_crc32c`.
+    /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
     pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5268,7 +5281,7 @@ impl DecryptRequest {
         self
     }
 
-    /// Sets the value of `additional_authenticated_data_crc32c`.
+    /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
     pub fn set_additional_authenticated_data_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5428,19 +5441,19 @@ pub struct RawEncryptRequest {
 }
 
 impl RawEncryptRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RawEncryptRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `plaintext`.
+    /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
     pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
-    /// Sets the value of `additional_authenticated_data`.
+    /// Sets the value of [additional_authenticated_data][crate::model::RawEncryptRequest::additional_authenticated_data].
     pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
         mut self,
         v: T,
@@ -5449,7 +5462,7 @@ impl RawEncryptRequest {
         self
     }
 
-    /// Sets the value of `plaintext_crc32c`.
+    /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
     pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5458,7 +5471,7 @@ impl RawEncryptRequest {
         self
     }
 
-    /// Sets the value of `additional_authenticated_data_crc32c`.
+    /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
     pub fn set_additional_authenticated_data_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5469,13 +5482,13 @@ impl RawEncryptRequest {
         self
     }
 
-    /// Sets the value of `initialization_vector`.
+    /// Sets the value of [initialization_vector][crate::model::RawEncryptRequest::initialization_vector].
     pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
 
-    /// Sets the value of `initialization_vector_crc32c`.
+    /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
     pub fn set_initialization_vector_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5612,19 +5625,19 @@ pub struct RawDecryptRequest {
 }
 
 impl RawDecryptRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RawDecryptRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext`.
+    /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
     pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
-    /// Sets the value of `additional_authenticated_data`.
+    /// Sets the value of [additional_authenticated_data][crate::model::RawDecryptRequest::additional_authenticated_data].
     pub fn set_additional_authenticated_data<T: std::convert::Into<bytes::Bytes>>(
         mut self,
         v: T,
@@ -5633,19 +5646,19 @@ impl RawDecryptRequest {
         self
     }
 
-    /// Sets the value of `initialization_vector`.
+    /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
     pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
 
-    /// Sets the value of `tag_length`.
+    /// Sets the value of [tag_length][crate::model::RawDecryptRequest::tag_length].
     pub fn set_tag_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.tag_length = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext_crc32c`.
+    /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
     pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5654,7 +5667,7 @@ impl RawDecryptRequest {
         self
     }
 
-    /// Sets the value of `additional_authenticated_data_crc32c`.
+    /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
     pub fn set_additional_authenticated_data_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5665,7 +5678,7 @@ impl RawDecryptRequest {
         self
     }
 
-    /// Sets the value of `initialization_vector_crc32c`.
+    /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
     pub fn set_initialization_vector_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -5781,13 +5794,13 @@ pub struct AsymmetricSignRequest {
 }
 
 impl AsymmetricSignRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `digest`.
+    /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
     pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::Digest>>>(
         mut self,
         v: T,
@@ -5796,7 +5809,7 @@ impl AsymmetricSignRequest {
         self
     }
 
-    /// Sets the value of `digest_crc32c`.
+    /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
     pub fn set_digest_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5805,13 +5818,13 @@ impl AsymmetricSignRequest {
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::AsymmetricSignRequest::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `data_crc32c`.
+    /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
     pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5883,19 +5896,19 @@ pub struct AsymmetricDecryptRequest {
 }
 
 impl AsymmetricDecryptRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext`.
+    /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
     pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext_crc32c`.
+    /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
     pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -5962,19 +5975,19 @@ pub struct MacSignRequest {
 }
 
 impl MacSignRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MacSignRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::MacSignRequest::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `data_crc32c`.
+    /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
     pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6076,19 +6089,19 @@ pub struct MacVerifyRequest {
 }
 
 impl MacVerifyRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MacVerifyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::MacVerifyRequest::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `data_crc32c`.
+    /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
     pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6097,13 +6110,13 @@ impl MacVerifyRequest {
         self
     }
 
-    /// Sets the value of `mac`.
+    /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
     pub fn set_mac<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
 
-    /// Sets the value of `mac_crc32c`.
+    /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
     pub fn set_mac_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6148,19 +6161,19 @@ pub struct GenerateRandomBytesRequest {
 }
 
 impl GenerateRandomBytesRequest {
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::GenerateRandomBytesRequest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `length_bytes`.
+    /// Sets the value of [length_bytes][crate::model::GenerateRandomBytesRequest::length_bytes].
     pub fn set_length_bytes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length_bytes = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::GenerateRandomBytesRequest::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -6271,19 +6284,19 @@ pub struct EncryptResponse {
 }
 
 impl EncryptResponse {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::EncryptResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext`.
+    /// Sets the value of [ciphertext][crate::model::EncryptResponse::ciphertext].
     pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext_crc32c`.
+    /// Sets the value of [ciphertext_crc32c][crate::model::EncryptResponse::ciphertext_crc32c].
     pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6292,13 +6305,13 @@ impl EncryptResponse {
         self
     }
 
-    /// Sets the value of `verified_plaintext_crc32c`.
+    /// Sets the value of [verified_plaintext_crc32c][crate::model::EncryptResponse::verified_plaintext_crc32c].
     pub fn set_verified_plaintext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_plaintext_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `verified_additional_authenticated_data_crc32c`.
+    /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::EncryptResponse::verified_additional_authenticated_data_crc32c].
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6307,7 +6320,7 @@ impl EncryptResponse {
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::EncryptResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -6379,13 +6392,13 @@ pub struct DecryptResponse {
 }
 
 impl DecryptResponse {
-    /// Sets the value of `plaintext`.
+    /// Sets the value of [plaintext][crate::model::DecryptResponse::plaintext].
     pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
-    /// Sets the value of `plaintext_crc32c`.
+    /// Sets the value of [plaintext_crc32c][crate::model::DecryptResponse::plaintext_crc32c].
     pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6394,13 +6407,13 @@ impl DecryptResponse {
         self
     }
 
-    /// Sets the value of `used_primary`.
+    /// Sets the value of [used_primary][crate::model::DecryptResponse::used_primary].
     pub fn set_used_primary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.used_primary = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::DecryptResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -6558,25 +6571,25 @@ pub struct RawEncryptResponse {
 }
 
 impl RawEncryptResponse {
-    /// Sets the value of `ciphertext`.
+    /// Sets the value of [ciphertext][crate::model::RawEncryptResponse::ciphertext].
     pub fn set_ciphertext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
-    /// Sets the value of `initialization_vector`.
+    /// Sets the value of [initialization_vector][crate::model::RawEncryptResponse::initialization_vector].
     pub fn set_initialization_vector<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.initialization_vector = v.into();
         self
     }
 
-    /// Sets the value of `tag_length`.
+    /// Sets the value of [tag_length][crate::model::RawEncryptResponse::tag_length].
     pub fn set_tag_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.tag_length = v.into();
         self
     }
 
-    /// Sets the value of `ciphertext_crc32c`.
+    /// Sets the value of [ciphertext_crc32c][crate::model::RawEncryptResponse::ciphertext_crc32c].
     pub fn set_ciphertext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6585,7 +6598,7 @@ impl RawEncryptResponse {
         self
     }
 
-    /// Sets the value of `initialization_vector_crc32c`.
+    /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptResponse::initialization_vector_crc32c].
     pub fn set_initialization_vector_crc32c<
         T: std::convert::Into<std::option::Option<wkt::Int64Value>>,
     >(
@@ -6596,13 +6609,13 @@ impl RawEncryptResponse {
         self
     }
 
-    /// Sets the value of `verified_plaintext_crc32c`.
+    /// Sets the value of [verified_plaintext_crc32c][crate::model::RawEncryptResponse::verified_plaintext_crc32c].
     pub fn set_verified_plaintext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_plaintext_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `verified_additional_authenticated_data_crc32c`.
+    /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::RawEncryptResponse::verified_additional_authenticated_data_crc32c].
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6611,7 +6624,7 @@ impl RawEncryptResponse {
         self
     }
 
-    /// Sets the value of `verified_initialization_vector_crc32c`.
+    /// Sets the value of [verified_initialization_vector_crc32c][crate::model::RawEncryptResponse::verified_initialization_vector_crc32c].
     pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6620,13 +6633,13 @@ impl RawEncryptResponse {
         self
     }
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RawEncryptResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::RawEncryptResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -6747,13 +6760,13 @@ pub struct RawDecryptResponse {
 }
 
 impl RawDecryptResponse {
-    /// Sets the value of `plaintext`.
+    /// Sets the value of [plaintext][crate::model::RawDecryptResponse::plaintext].
     pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
-    /// Sets the value of `plaintext_crc32c`.
+    /// Sets the value of [plaintext_crc32c][crate::model::RawDecryptResponse::plaintext_crc32c].
     pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6762,7 +6775,7 @@ impl RawDecryptResponse {
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::RawDecryptResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -6771,13 +6784,13 @@ impl RawDecryptResponse {
         self
     }
 
-    /// Sets the value of `verified_ciphertext_crc32c`.
+    /// Sets the value of [verified_ciphertext_crc32c][crate::model::RawDecryptResponse::verified_ciphertext_crc32c].
     pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_ciphertext_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `verified_additional_authenticated_data_crc32c`.
+    /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::RawDecryptResponse::verified_additional_authenticated_data_crc32c].
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6786,7 +6799,7 @@ impl RawDecryptResponse {
         self
     }
 
-    /// Sets the value of `verified_initialization_vector_crc32c`.
+    /// Sets the value of [verified_initialization_vector_crc32c][crate::model::RawDecryptResponse::verified_initialization_vector_crc32c].
     pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6895,13 +6908,13 @@ pub struct AsymmetricSignResponse {
 }
 
 impl AsymmetricSignResponse {
-    /// Sets the value of `signature`.
+    /// Sets the value of [signature][crate::model::AsymmetricSignResponse::signature].
     pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
 
-    /// Sets the value of `signature_crc32c`.
+    /// Sets the value of [signature_crc32c][crate::model::AsymmetricSignResponse::signature_crc32c].
     pub fn set_signature_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -6910,25 +6923,25 @@ impl AsymmetricSignResponse {
         self
     }
 
-    /// Sets the value of `verified_digest_crc32c`.
+    /// Sets the value of [verified_digest_crc32c][crate::model::AsymmetricSignResponse::verified_digest_crc32c].
     pub fn set_verified_digest_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_digest_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AsymmetricSignResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `verified_data_crc32c`.
+    /// Sets the value of [verified_data_crc32c][crate::model::AsymmetricSignResponse::verified_data_crc32c].
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::AsymmetricSignResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -7009,13 +7022,13 @@ pub struct AsymmetricDecryptResponse {
 }
 
 impl AsymmetricDecryptResponse {
-    /// Sets the value of `plaintext`.
+    /// Sets the value of [plaintext][crate::model::AsymmetricDecryptResponse::plaintext].
     pub fn set_plaintext<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
-    /// Sets the value of `plaintext_crc32c`.
+    /// Sets the value of [plaintext_crc32c][crate::model::AsymmetricDecryptResponse::plaintext_crc32c].
     pub fn set_plaintext_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -7024,13 +7037,13 @@ impl AsymmetricDecryptResponse {
         self
     }
 
-    /// Sets the value of `verified_ciphertext_crc32c`.
+    /// Sets the value of [verified_ciphertext_crc32c][crate::model::AsymmetricDecryptResponse::verified_ciphertext_crc32c].
     pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_ciphertext_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::AsymmetricDecryptResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -7118,19 +7131,19 @@ pub struct MacSignResponse {
 }
 
 impl MacSignResponse {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MacSignResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `mac`.
+    /// Sets the value of [mac][crate::model::MacSignResponse::mac].
     pub fn set_mac<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
 
-    /// Sets the value of `mac_crc32c`.
+    /// Sets the value of [mac_crc32c][crate::model::MacSignResponse::mac_crc32c].
     pub fn set_mac_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -7139,13 +7152,13 @@ impl MacSignResponse {
         self
     }
 
-    /// Sets the value of `verified_data_crc32c`.
+    /// Sets the value of [verified_data_crc32c][crate::model::MacSignResponse::verified_data_crc32c].
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::MacSignResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -7246,37 +7259,37 @@ pub struct MacVerifyResponse {
 }
 
 impl MacVerifyResponse {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MacVerifyResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `success`.
+    /// Sets the value of [success][crate::model::MacVerifyResponse::success].
     pub fn set_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.success = v.into();
         self
     }
 
-    /// Sets the value of `verified_data_crc32c`.
+    /// Sets the value of [verified_data_crc32c][crate::model::MacVerifyResponse::verified_data_crc32c].
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `verified_mac_crc32c`.
+    /// Sets the value of [verified_mac_crc32c][crate::model::MacVerifyResponse::verified_mac_crc32c].
     pub fn set_verified_mac_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_mac_crc32c = v.into();
         self
     }
 
-    /// Sets the value of `verified_success_integrity`.
+    /// Sets the value of [verified_success_integrity][crate::model::MacVerifyResponse::verified_success_integrity].
     pub fn set_verified_success_integrity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_success_integrity = v.into();
         self
     }
 
-    /// Sets the value of `protection_level`.
+    /// Sets the value of [protection_level][crate::model::MacVerifyResponse::protection_level].
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -7328,13 +7341,13 @@ pub struct GenerateRandomBytesResponse {
 }
 
 impl GenerateRandomBytesResponse {
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::GenerateRandomBytesResponse::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `data_crc32c`.
+    /// Sets the value of [data_crc32c][crate::model::GenerateRandomBytesResponse::data_crc32c].
     pub fn set_data_crc32c<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(
         mut self,
         v: T,
@@ -7430,13 +7443,13 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Sets the value of `hsm_available`.
+    /// Sets the value of [hsm_available][crate::model::LocationMetadata::hsm_available].
     pub fn set_hsm_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hsm_available = v.into();
         self
     }
 
-    /// Sets the value of `ekm_available`.
+    /// Sets the value of [ekm_available][crate::model::LocationMetadata::ekm_available].
     pub fn set_ekm_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ekm_available = v.into();
         self

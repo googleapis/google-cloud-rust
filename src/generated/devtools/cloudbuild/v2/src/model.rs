@@ -76,7 +76,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -85,7 +85,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -94,31 +94,31 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::OperationMetadata::target].
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
-    /// Sets the value of `verb`.
+    /// Sets the value of [verb][crate::model::OperationMetadata::verb].
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
-    /// Sets the value of `status_message`.
+    /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
-    /// Sets the value of `requested_cancellation`.
+    /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
-    /// Sets the value of `api_version`.
+    /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -172,7 +172,7 @@ pub struct RunWorkflowCustomOperationMetadata {
 }
 
 impl RunWorkflowCustomOperationMetadata {
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::RunWorkflowCustomOperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -181,7 +181,7 @@ impl RunWorkflowCustomOperationMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::RunWorkflowCustomOperationMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -190,31 +190,31 @@ impl RunWorkflowCustomOperationMetadata {
         self
     }
 
-    /// Sets the value of `verb`.
+    /// Sets the value of [verb][crate::model::RunWorkflowCustomOperationMetadata::verb].
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
-    /// Sets the value of `requested_cancellation`.
+    /// Sets the value of [requested_cancellation][crate::model::RunWorkflowCustomOperationMetadata::requested_cancellation].
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
-    /// Sets the value of `api_version`.
+    /// Sets the value of [api_version][crate::model::RunWorkflowCustomOperationMetadata::api_version].
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::RunWorkflowCustomOperationMetadata::target].
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
-    /// Sets the value of `pipeline_run_id`.
+    /// Sets the value of [pipeline_run_id][crate::model::RunWorkflowCustomOperationMetadata::pipeline_run_id].
     pub fn set_pipeline_run_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pipeline_run_id = v.into();
         self
@@ -276,13 +276,13 @@ pub struct Connection {
 }
 
 impl Connection {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Connection::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Connection::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -291,7 +291,7 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::Connection::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -300,7 +300,7 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `installation_state`.
+    /// Sets the value of [installation_state][crate::model::Connection::installation_state].
     pub fn set_installation_state<
         T: std::convert::Into<std::option::Option<crate::model::InstallationState>>,
     >(
@@ -311,32 +311,33 @@ impl Connection {
         self
     }
 
-    /// Sets the value of `disabled`.
+    /// Sets the value of [disabled][crate::model::Connection::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
     }
 
-    /// Sets the value of `reconciling`.
+    /// Sets the value of [reconciling][crate::model::Connection::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
-    /// Sets the value of `annotations`.
-    pub fn set_annotations<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.annotations = v.into();
+    /// Sets the value of [etag][crate::model::Connection::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
+    /// Sets the value of [annotations][crate::model::Connection::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -405,7 +406,7 @@ pub struct InstallationState {
 }
 
 impl InstallationState {
-    /// Sets the value of `stage`.
+    /// Sets the value of [stage][crate::model::InstallationState::stage].
     pub fn set_stage<T: std::convert::Into<crate::model::installation_state::Stage>>(
         mut self,
         v: T,
@@ -414,13 +415,13 @@ impl InstallationState {
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::model::InstallationState::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
-    /// Sets the value of `action_uri`.
+    /// Sets the value of [action_uri][crate::model::InstallationState::action_uri].
     pub fn set_action_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_uri = v.into();
         self
@@ -496,19 +497,19 @@ pub struct FetchLinkableRepositoriesRequest {
 }
 
 impl FetchLinkableRepositoriesRequest {
-    /// Sets the value of `connection`.
+    /// Sets the value of [connection][crate::model::FetchLinkableRepositoriesRequest::connection].
     pub fn set_connection<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::FetchLinkableRepositoriesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::FetchLinkableRepositoriesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -537,18 +538,20 @@ pub struct FetchLinkableRepositoriesResponse {
 }
 
 impl FetchLinkableRepositoriesResponse {
-    /// Sets the value of `repositories`.
-    pub fn set_repositories<T: std::convert::Into<std::vec::Vec<crate::model::Repository>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repositories = v.into();
+    /// Sets the value of [next_page_token][crate::model::FetchLinkableRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [repositories][crate::model::FetchLinkableRepositoriesResponse::repositories].
+    pub fn set_repositories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Repository>,
+    {
+        use std::iter::Iterator;
+        self.repositories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -590,7 +593,7 @@ pub struct GitHubConfig {
 }
 
 impl GitHubConfig {
-    /// Sets the value of `authorizer_credential`.
+    /// Sets the value of [authorizer_credential][crate::model::GitHubConfig::authorizer_credential].
     pub fn set_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::OAuthCredential>>,
     >(
@@ -601,7 +604,7 @@ impl GitHubConfig {
         self
     }
 
-    /// Sets the value of `app_installation_id`.
+    /// Sets the value of [app_installation_id][crate::model::GitHubConfig::app_installation_id].
     pub fn set_app_installation_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.app_installation_id = v.into();
         self
@@ -668,31 +671,31 @@ pub struct GitHubEnterpriseConfig {
 }
 
 impl GitHubEnterpriseConfig {
-    /// Sets the value of `host_uri`.
+    /// Sets the value of [host_uri][crate::model::GitHubEnterpriseConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
         self
     }
 
-    /// Sets the value of `api_key`.
+    /// Sets the value of [api_key][crate::model::GitHubEnterpriseConfig::api_key].
     pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_key = v.into();
         self
     }
 
-    /// Sets the value of `app_id`.
+    /// Sets the value of [app_id][crate::model::GitHubEnterpriseConfig::app_id].
     pub fn set_app_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.app_id = v.into();
         self
     }
 
-    /// Sets the value of `app_slug`.
+    /// Sets the value of [app_slug][crate::model::GitHubEnterpriseConfig::app_slug].
     pub fn set_app_slug<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_slug = v.into();
         self
     }
 
-    /// Sets the value of `private_key_secret_version`.
+    /// Sets the value of [private_key_secret_version][crate::model::GitHubEnterpriseConfig::private_key_secret_version].
     pub fn set_private_key_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -701,7 +704,7 @@ impl GitHubEnterpriseConfig {
         self
     }
 
-    /// Sets the value of `webhook_secret_secret_version`.
+    /// Sets the value of [webhook_secret_secret_version][crate::model::GitHubEnterpriseConfig::webhook_secret_secret_version].
     pub fn set_webhook_secret_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -710,13 +713,13 @@ impl GitHubEnterpriseConfig {
         self
     }
 
-    /// Sets the value of `app_installation_id`.
+    /// Sets the value of [app_installation_id][crate::model::GitHubEnterpriseConfig::app_installation_id].
     pub fn set_app_installation_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.app_installation_id = v.into();
         self
     }
 
-    /// Sets the value of `service_directory_config`.
+    /// Sets the value of [service_directory_config][crate::model::GitHubEnterpriseConfig::service_directory_config].
     pub fn set_service_directory_config<
         T: std::convert::Into<std::option::Option<crate::model::ServiceDirectoryConfig>>,
     >(
@@ -727,13 +730,13 @@ impl GitHubEnterpriseConfig {
         self
     }
 
-    /// Sets the value of `ssl_ca`.
+    /// Sets the value of [ssl_ca][crate::model::GitHubEnterpriseConfig::ssl_ca].
     pub fn set_ssl_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssl_ca = v.into();
         self
     }
 
-    /// Sets the value of `server_version`.
+    /// Sets the value of [server_version][crate::model::GitHubEnterpriseConfig::server_version].
     pub fn set_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_version = v.into();
         self
@@ -792,13 +795,13 @@ pub struct GitLabConfig {
 }
 
 impl GitLabConfig {
-    /// Sets the value of `host_uri`.
+    /// Sets the value of [host_uri][crate::model::GitLabConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
         self
     }
 
-    /// Sets the value of `webhook_secret_secret_version`.
+    /// Sets the value of [webhook_secret_secret_version][crate::model::GitLabConfig::webhook_secret_secret_version].
     pub fn set_webhook_secret_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -807,7 +810,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets the value of `read_authorizer_credential`.
+    /// Sets the value of [read_authorizer_credential][crate::model::GitLabConfig::read_authorizer_credential].
     pub fn set_read_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -818,7 +821,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets the value of `authorizer_credential`.
+    /// Sets the value of [authorizer_credential][crate::model::GitLabConfig::authorizer_credential].
     pub fn set_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -829,7 +832,7 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets the value of `service_directory_config`.
+    /// Sets the value of [service_directory_config][crate::model::GitLabConfig::service_directory_config].
     pub fn set_service_directory_config<
         T: std::convert::Into<std::option::Option<crate::model::ServiceDirectoryConfig>>,
     >(
@@ -840,13 +843,13 @@ impl GitLabConfig {
         self
     }
 
-    /// Sets the value of `ssl_ca`.
+    /// Sets the value of [ssl_ca][crate::model::GitLabConfig::ssl_ca].
     pub fn set_ssl_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssl_ca = v.into();
         self
     }
 
-    /// Sets the value of `server_version`.
+    /// Sets the value of [server_version][crate::model::GitLabConfig::server_version].
     pub fn set_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_version = v.into();
         self
@@ -903,13 +906,13 @@ pub struct BitbucketDataCenterConfig {
 }
 
 impl BitbucketDataCenterConfig {
-    /// Sets the value of `host_uri`.
+    /// Sets the value of [host_uri][crate::model::BitbucketDataCenterConfig::host_uri].
     pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host_uri = v.into();
         self
     }
 
-    /// Sets the value of `webhook_secret_secret_version`.
+    /// Sets the value of [webhook_secret_secret_version][crate::model::BitbucketDataCenterConfig::webhook_secret_secret_version].
     pub fn set_webhook_secret_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -918,7 +921,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets the value of `read_authorizer_credential`.
+    /// Sets the value of [read_authorizer_credential][crate::model::BitbucketDataCenterConfig::read_authorizer_credential].
     pub fn set_read_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -929,7 +932,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets the value of `authorizer_credential`.
+    /// Sets the value of [authorizer_credential][crate::model::BitbucketDataCenterConfig::authorizer_credential].
     pub fn set_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -940,7 +943,7 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets the value of `service_directory_config`.
+    /// Sets the value of [service_directory_config][crate::model::BitbucketDataCenterConfig::service_directory_config].
     pub fn set_service_directory_config<
         T: std::convert::Into<std::option::Option<crate::model::ServiceDirectoryConfig>>,
     >(
@@ -951,13 +954,13 @@ impl BitbucketDataCenterConfig {
         self
     }
 
-    /// Sets the value of `ssl_ca`.
+    /// Sets the value of [ssl_ca][crate::model::BitbucketDataCenterConfig::ssl_ca].
     pub fn set_ssl_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssl_ca = v.into();
         self
     }
 
-    /// Sets the value of `server_version`.
+    /// Sets the value of [server_version][crate::model::BitbucketDataCenterConfig::server_version].
     pub fn set_server_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_version = v.into();
         self
@@ -1001,13 +1004,13 @@ pub struct BitbucketCloudConfig {
 }
 
 impl BitbucketCloudConfig {
-    /// Sets the value of `workspace`.
+    /// Sets the value of [workspace][crate::model::BitbucketCloudConfig::workspace].
     pub fn set_workspace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workspace = v.into();
         self
     }
 
-    /// Sets the value of `webhook_secret_secret_version`.
+    /// Sets the value of [webhook_secret_secret_version][crate::model::BitbucketCloudConfig::webhook_secret_secret_version].
     pub fn set_webhook_secret_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1016,7 +1019,7 @@ impl BitbucketCloudConfig {
         self
     }
 
-    /// Sets the value of `read_authorizer_credential`.
+    /// Sets the value of [read_authorizer_credential][crate::model::BitbucketCloudConfig::read_authorizer_credential].
     pub fn set_read_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -1027,7 +1030,7 @@ impl BitbucketCloudConfig {
         self
     }
 
-    /// Sets the value of `authorizer_credential`.
+    /// Sets the value of [authorizer_credential][crate::model::BitbucketCloudConfig::authorizer_credential].
     pub fn set_authorizer_credential<
         T: std::convert::Into<std::option::Option<crate::model::UserCredential>>,
     >(
@@ -1060,7 +1063,7 @@ pub struct ServiceDirectoryConfig {
 }
 
 impl ServiceDirectoryConfig {
-    /// Sets the value of `service`.
+    /// Sets the value of [service][crate::model::ServiceDirectoryConfig::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
@@ -1112,19 +1115,19 @@ pub struct Repository {
 }
 
 impl Repository {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Repository::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `remote_uri`.
+    /// Sets the value of [remote_uri][crate::model::Repository::remote_uri].
     pub fn set_remote_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_uri = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Repository::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1133,7 +1136,7 @@ impl Repository {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::Repository::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1142,26 +1145,27 @@ impl Repository {
         self
     }
 
-    /// Sets the value of `annotations`.
-    pub fn set_annotations<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.annotations = v.into();
-        self
-    }
-
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::Repository::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `webhook_id`.
+    /// Sets the value of [webhook_id][crate::model::Repository::webhook_id].
     pub fn set_webhook_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook_id = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::Repository::annotations].
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1190,7 +1194,7 @@ pub struct OAuthCredential {
 }
 
 impl OAuthCredential {
-    /// Sets the value of `oauth_token_secret_version`.
+    /// Sets the value of [oauth_token_secret_version][crate::model::OAuthCredential::oauth_token_secret_version].
     pub fn set_oauth_token_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1199,7 +1203,7 @@ impl OAuthCredential {
         self
     }
 
-    /// Sets the value of `username`.
+    /// Sets the value of [username][crate::model::OAuthCredential::username].
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -1231,7 +1235,7 @@ pub struct UserCredential {
 }
 
 impl UserCredential {
-    /// Sets the value of `user_token_secret_version`.
+    /// Sets the value of [user_token_secret_version][crate::model::UserCredential::user_token_secret_version].
     pub fn set_user_token_secret_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1240,7 +1244,7 @@ impl UserCredential {
         self
     }
 
-    /// Sets the value of `username`.
+    /// Sets the value of [username][crate::model::UserCredential::username].
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
@@ -1277,13 +1281,13 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `connection`.
+    /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
     pub fn set_connection<T: std::convert::Into<std::option::Option<crate::model::Connection>>>(
         mut self,
         v: T,
@@ -1292,7 +1296,7 @@ impl CreateConnectionRequest {
         self
     }
 
-    /// Sets the value of `connection_id`.
+    /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
     pub fn set_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_id = v.into();
         self
@@ -1318,7 +1322,7 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1351,19 +1355,19 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1392,18 +1396,20 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
-    /// Sets the value of `connections`.
-    pub fn set_connections<T: std::convert::Into<std::vec::Vec<crate::model::Connection>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.connections = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
+    pub fn set_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Connection>,
+    {
+        use std::iter::Iterator;
+        self.connections = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1456,7 +1462,7 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
-    /// Sets the value of `connection`.
+    /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
     pub fn set_connection<T: std::convert::Into<std::option::Option<crate::model::Connection>>>(
         mut self,
         v: T,
@@ -1465,7 +1471,7 @@ impl UpdateConnectionRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -1474,13 +1480,13 @@ impl UpdateConnectionRequest {
         self
     }
 
-    /// Sets the value of `allow_missing`.
+    /// Sets the value of [allow_missing][crate::model::UpdateConnectionRequest::allow_missing].
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::UpdateConnectionRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1515,19 +1521,19 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DeleteConnectionRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `validate_only`.
+    /// Sets the value of [validate_only][crate::model::DeleteConnectionRequest::validate_only].
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1565,13 +1571,13 @@ pub struct CreateRepositoryRequest {
 }
 
 impl CreateRepositoryRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `repository`.
+    /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::option::Option<crate::model::Repository>>>(
         mut self,
         v: T,
@@ -1580,7 +1586,7 @@ impl CreateRepositoryRequest {
         self
     }
 
-    /// Sets the value of `repository_id`.
+    /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
     pub fn set_repository_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository_id = v.into();
         self
@@ -1612,20 +1618,20 @@ pub struct BatchCreateRepositoriesRequest {
 }
 
 impl BatchCreateRepositoriesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `requests`.
-    pub fn set_requests<
-        T: std::convert::Into<std::vec::Vec<crate::model::CreateRepositoryRequest>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requests = v.into();
+    /// Sets the value of [requests][crate::model::BatchCreateRepositoriesRequest::requests].
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CreateRepositoryRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1648,12 +1654,14 @@ pub struct BatchCreateRepositoriesResponse {
 }
 
 impl BatchCreateRepositoriesResponse {
-    /// Sets the value of `repositories`.
-    pub fn set_repositories<T: std::convert::Into<std::vec::Vec<crate::model::Repository>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repositories = v.into();
+    /// Sets the value of [repositories][crate::model::BatchCreateRepositoriesResponse::repositories].
+    pub fn set_repositories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Repository>,
+    {
+        use std::iter::Iterator;
+        self.repositories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1677,7 +1685,7 @@ pub struct GetRepositoryRequest {
 }
 
 impl GetRepositoryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1717,25 +1725,25 @@ pub struct ListRepositoriesRequest {
 }
 
 impl ListRepositoriesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListRepositoriesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListRepositoriesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListRepositoriesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1764,18 +1772,20 @@ pub struct ListRepositoriesResponse {
 }
 
 impl ListRepositoriesResponse {
-    /// Sets the value of `repositories`.
-    pub fn set_repositories<T: std::convert::Into<std::vec::Vec<crate::model::Repository>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.repositories = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListRepositoriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [repositories][crate::model::ListRepositoriesResponse::repositories].
+    pub fn set_repositories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Repository>,
+    {
+        use std::iter::Iterator;
+        self.repositories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1821,19 +1831,19 @@ pub struct DeleteRepositoryRequest {
 }
 
 impl DeleteRepositoryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DeleteRepositoryRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `validate_only`.
+    /// Sets the value of [validate_only][crate::model::DeleteRepositoryRequest::validate_only].
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -1859,7 +1869,7 @@ pub struct FetchReadWriteTokenRequest {
 }
 
 impl FetchReadWriteTokenRequest {
-    /// Sets the value of `repository`.
+    /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
@@ -1885,7 +1895,7 @@ pub struct FetchReadTokenRequest {
 }
 
 impl FetchReadTokenRequest {
-    /// Sets the value of `repository`.
+    /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
@@ -1914,13 +1924,13 @@ pub struct FetchReadTokenResponse {
 }
 
 impl FetchReadTokenResponse {
-    /// Sets the value of `token`.
+    /// Sets the value of [token][crate::model::FetchReadTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
         self
     }
 
-    /// Sets the value of `expiration_time`.
+    /// Sets the value of [expiration_time][crate::model::FetchReadTokenResponse::expiration_time].
     pub fn set_expiration_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1952,13 +1962,13 @@ pub struct FetchReadWriteTokenResponse {
 }
 
 impl FetchReadWriteTokenResponse {
-    /// Sets the value of `token`.
+    /// Sets the value of [token][crate::model::FetchReadWriteTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
         self
     }
 
-    /// Sets the value of `expiration_time`.
+    /// Sets the value of [expiration_time][crate::model::FetchReadWriteTokenResponse::expiration_time].
     pub fn set_expiration_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1996,13 +2006,13 @@ pub struct ProcessWebhookRequest {
 }
 
 impl ProcessWebhookRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ProcessWebhookRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `body`.
+    /// Sets the value of [body][crate::model::ProcessWebhookRequest::body].
     pub fn set_body<T: std::convert::Into<std::option::Option<api::model::HttpBody>>>(
         mut self,
         v: T,
@@ -2011,7 +2021,7 @@ impl ProcessWebhookRequest {
         self
     }
 
-    /// Sets the value of `webhook_key`.
+    /// Sets the value of [webhook_key][crate::model::ProcessWebhookRequest::webhook_key].
     pub fn set_webhook_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.webhook_key = v.into();
         self
@@ -2040,13 +2050,13 @@ pub struct FetchGitRefsRequest {
 }
 
 impl FetchGitRefsRequest {
-    /// Sets the value of `repository`.
+    /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
-    /// Sets the value of `ref_type`.
+    /// Sets the value of [ref_type][crate::model::FetchGitRefsRequest::ref_type].
     pub fn set_ref_type<T: std::convert::Into<crate::model::fetch_git_refs_request::RefType>>(
         mut self,
         v: T,
@@ -2110,12 +2120,14 @@ pub struct FetchGitRefsResponse {
 }
 
 impl FetchGitRefsResponse {
-    /// Sets the value of `ref_names`.
-    pub fn set_ref_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ref_names = v.into();
+    /// Sets the value of [ref_names][crate::model::FetchGitRefsResponse::ref_names].
+    pub fn set_ref_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ref_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

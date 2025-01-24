@@ -72,19 +72,19 @@ pub struct AdaptiveMtDataset {
 }
 
 impl AdaptiveMtDataset {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AdaptiveMtDataset::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::AdaptiveMtDataset::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::AdaptiveMtDataset::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -93,7 +93,7 @@ impl AdaptiveMtDataset {
         self
     }
 
-    /// Sets the value of `target_language_code`.
+    /// Sets the value of [target_language_code][crate::model::AdaptiveMtDataset::target_language_code].
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -102,13 +102,13 @@ impl AdaptiveMtDataset {
         self
     }
 
-    /// Sets the value of `example_count`.
+    /// Sets the value of [example_count][crate::model::AdaptiveMtDataset::example_count].
     pub fn set_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.example_count = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::AdaptiveMtDataset::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -117,7 +117,7 @@ impl AdaptiveMtDataset {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::AdaptiveMtDataset::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -150,13 +150,13 @@ pub struct CreateAdaptiveMtDatasetRequest {
 }
 
 impl CreateAdaptiveMtDatasetRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `adaptive_mt_dataset`.
+    /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
     pub fn set_adaptive_mt_dataset<
         T: std::convert::Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
     >(
@@ -187,7 +187,7 @@ pub struct DeleteAdaptiveMtDatasetRequest {
 }
 
 impl DeleteAdaptiveMtDatasetRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -213,7 +213,7 @@ pub struct GetAdaptiveMtDatasetRequest {
 }
 
 impl GetAdaptiveMtDatasetRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -257,25 +257,25 @@ pub struct ListAdaptiveMtDatasetsRequest {
 }
 
 impl ListAdaptiveMtDatasetsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListAdaptiveMtDatasetsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListAdaptiveMtDatasetsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListAdaptiveMtDatasetsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListAdaptiveMtDatasetsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -306,20 +306,20 @@ pub struct ListAdaptiveMtDatasetsResponse {
 }
 
 impl ListAdaptiveMtDatasetsResponse {
-    /// Sets the value of `adaptive_mt_datasets`.
-    pub fn set_adaptive_mt_datasets<
-        T: std::convert::Into<std::vec::Vec<crate::model::AdaptiveMtDataset>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptive_mt_datasets = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [adaptive_mt_datasets][crate::model::ListAdaptiveMtDatasetsResponse::adaptive_mt_datasets].
+    pub fn set_adaptive_mt_datasets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptiveMtDataset>,
+    {
+        use std::iter::Iterator;
+        self.adaptive_mt_datasets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -378,28 +378,19 @@ pub struct AdaptiveMtTranslateRequest {
 }
 
 impl AdaptiveMtTranslateRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `dataset`.
+    /// Sets the value of [dataset][crate::model::AdaptiveMtTranslateRequest::dataset].
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
-    /// Sets the value of `content`.
-    pub fn set_content<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.content = v.into();
-        self
-    }
-
-    /// Sets the value of `reference_sentence_config`.
+    /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
     pub fn set_reference_sentence_config<
         T: std::convert::Into<
             std::option::Option<
@@ -414,7 +405,7 @@ impl AdaptiveMtTranslateRequest {
         self
     }
 
-    /// Sets the value of `glossary_config`.
+    /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<
             std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>,
@@ -424,6 +415,17 @@ impl AdaptiveMtTranslateRequest {
         v: T,
     ) -> Self {
         self.glossary_config = v.into();
+        self
+    }
+
+    /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+    pub fn set_content<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.content = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -455,7 +457,7 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentencePair {
-        /// Sets the value of `source_sentence`.
+        /// Sets the value of [source_sentence][crate::model::adaptive_mt_translate_request::ReferenceSentencePair::source_sentence].
         pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -464,7 +466,7 @@ pub mod adaptive_mt_translate_request {
             self
         }
 
-        /// Sets the value of `target_sentence`.
+        /// Sets the value of [target_sentence][crate::model::adaptive_mt_translate_request::ReferenceSentencePair::target_sentence].
         pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -493,16 +495,16 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentencePairList {
-        /// Sets the value of `reference_sentence_pairs`.
-        pub fn set_reference_sentence_pairs<
-            T: std::convert::Into<
-                std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePair>,
+        /// Sets the value of [reference_sentence_pairs][crate::model::adaptive_mt_translate_request::ReferenceSentencePairList::reference_sentence_pairs].
+        pub fn set_reference_sentence_pairs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                crate::model::adaptive_mt_translate_request::ReferenceSentencePair,
             >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.reference_sentence_pairs = v.into();
+        {
+            use std::iter::Iterator;
+            self.reference_sentence_pairs = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -537,22 +539,7 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentenceConfig {
-        /// Sets the value of `reference_sentence_pair_lists`.
-        pub fn set_reference_sentence_pair_lists<
-            T: std::convert::Into<
-                std::vec::Vec<
-                    crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.reference_sentence_pair_lists = v.into();
-            self
-        }
-
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::source_language_code].
         pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -561,12 +548,25 @@ pub mod adaptive_mt_translate_request {
             self
         }
 
-        /// Sets the value of `target_language_code`.
+        /// Sets the value of [target_language_code][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::target_language_code].
         pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
         ) -> Self {
             self.target_language_code = v.into();
+            self
+        }
+
+        /// Sets the value of [reference_sentence_pair_lists][crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig::reference_sentence_pair_lists].
+        pub fn set_reference_sentence_pair_lists<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                crate::model::adaptive_mt_translate_request::ReferenceSentencePairList,
+            >,
+        {
+            use std::iter::Iterator;
+            self.reference_sentence_pair_lists = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -604,19 +604,19 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl GlossaryConfig {
-        /// Sets the value of `glossary`.
+        /// Sets the value of [glossary][crate::model::adaptive_mt_translate_request::GlossaryConfig::glossary].
         pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.glossary = v.into();
             self
         }
 
-        /// Sets the value of `ignore_case`.
+        /// Sets the value of [ignore_case][crate::model::adaptive_mt_translate_request::GlossaryConfig::ignore_case].
         pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.ignore_case = v.into();
             self
         }
 
-        /// Sets the value of `contextual_translation_enabled`.
+        /// Sets the value of [contextual_translation_enabled][crate::model::adaptive_mt_translate_request::GlossaryConfig::contextual_translation_enabled].
         pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -645,7 +645,7 @@ pub struct AdaptiveMtTranslation {
 }
 
 impl AdaptiveMtTranslation {
-    /// Sets the value of `translated_text`.
+    /// Sets the value of [translated_text][crate::model::AdaptiveMtTranslation::translated_text].
     pub fn set_translated_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.translated_text = v.into();
         self
@@ -679,31 +679,31 @@ pub struct AdaptiveMtTranslateResponse {
 }
 
 impl AdaptiveMtTranslateResponse {
-    /// Sets the value of `translations`.
-    pub fn set_translations<
-        T: std::convert::Into<std::vec::Vec<crate::model::AdaptiveMtTranslation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.translations = v.into();
-        self
-    }
-
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::AdaptiveMtTranslateResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
-    /// Sets the value of `glossary_translations`.
-    pub fn set_glossary_translations<
-        T: std::convert::Into<std::vec::Vec<crate::model::AdaptiveMtTranslation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_translations = v.into();
+    /// Sets the value of [translations][crate::model::AdaptiveMtTranslateResponse::translations].
+    pub fn set_translations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptiveMtTranslation>,
+    {
+        use std::iter::Iterator;
+        self.translations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [glossary_translations][crate::model::AdaptiveMtTranslateResponse::glossary_translations].
+    pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptiveMtTranslation>,
+    {
+        use std::iter::Iterator;
+        self.glossary_translations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -742,25 +742,25 @@ pub struct AdaptiveMtFile {
 }
 
 impl AdaptiveMtFile {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AdaptiveMtFile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::AdaptiveMtFile::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `entry_count`.
+    /// Sets the value of [entry_count][crate::model::AdaptiveMtFile::entry_count].
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::AdaptiveMtFile::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -769,7 +769,7 @@ impl AdaptiveMtFile {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::AdaptiveMtFile::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -798,7 +798,7 @@ pub struct GetAdaptiveMtFileRequest {
 }
 
 impl GetAdaptiveMtFileRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -824,7 +824,7 @@ pub struct DeleteAdaptiveMtFileRequest {
 }
 
 impl DeleteAdaptiveMtFileRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -854,7 +854,7 @@ pub struct ImportAdaptiveMtFileRequest {
 }
 
 impl ImportAdaptiveMtFileRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -909,7 +909,7 @@ pub struct ImportAdaptiveMtFileResponse {
 }
 
 impl ImportAdaptiveMtFileResponse {
-    /// Sets the value of `adaptive_mt_file`.
+    /// Sets the value of [adaptive_mt_file][crate::model::ImportAdaptiveMtFileResponse::adaptive_mt_file].
     pub fn set_adaptive_mt_file<
         T: std::convert::Into<std::option::Option<crate::model::AdaptiveMtFile>>,
     >(
@@ -952,19 +952,19 @@ pub struct ListAdaptiveMtFilesRequest {
 }
 
 impl ListAdaptiveMtFilesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListAdaptiveMtFilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListAdaptiveMtFilesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListAdaptiveMtFilesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -995,20 +995,20 @@ pub struct ListAdaptiveMtFilesResponse {
 }
 
 impl ListAdaptiveMtFilesResponse {
-    /// Sets the value of `adaptive_mt_files`.
-    pub fn set_adaptive_mt_files<
-        T: std::convert::Into<std::vec::Vec<crate::model::AdaptiveMtFile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptive_mt_files = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtFilesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [adaptive_mt_files][crate::model::ListAdaptiveMtFilesResponse::adaptive_mt_files].
+    pub fn set_adaptive_mt_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptiveMtFile>,
+    {
+        use std::iter::Iterator;
+        self.adaptive_mt_files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1061,25 +1061,25 @@ pub struct AdaptiveMtSentence {
 }
 
 impl AdaptiveMtSentence {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AdaptiveMtSentence::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_sentence`.
+    /// Sets the value of [source_sentence][crate::model::AdaptiveMtSentence::source_sentence].
     pub fn set_source_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_sentence = v.into();
         self
     }
 
-    /// Sets the value of `target_sentence`.
+    /// Sets the value of [target_sentence][crate::model::AdaptiveMtSentence::target_sentence].
     pub fn set_target_sentence<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_sentence = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::AdaptiveMtSentence::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1088,7 +1088,7 @@ impl AdaptiveMtSentence {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::AdaptiveMtSentence::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1130,19 +1130,19 @@ pub struct ListAdaptiveMtSentencesRequest {
 }
 
 impl ListAdaptiveMtSentencesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListAdaptiveMtSentencesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListAdaptiveMtSentencesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListAdaptiveMtSentencesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1171,20 +1171,20 @@ pub struct ListAdaptiveMtSentencesResponse {
 }
 
 impl ListAdaptiveMtSentencesResponse {
-    /// Sets the value of `adaptive_mt_sentences`.
-    pub fn set_adaptive_mt_sentences<
-        T: std::convert::Into<std::vec::Vec<crate::model::AdaptiveMtSentence>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.adaptive_mt_sentences = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListAdaptiveMtSentencesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [adaptive_mt_sentences][crate::model::ListAdaptiveMtSentencesResponse::adaptive_mt_sentences].
+    pub fn set_adaptive_mt_sentences<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AdaptiveMtSentence>,
+    {
+        use std::iter::Iterator;
+        self.adaptive_mt_sentences = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1225,13 +1225,13 @@ pub struct ImportDataRequest {
 }
 
 impl ImportDataRequest {
-    /// Sets the value of `dataset`.
+    /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
-    /// Sets the value of `input_config`.
+    /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
     pub fn set_input_config<
         T: std::convert::Into<std::option::Option<crate::model::DatasetInputConfig>>,
     >(
@@ -1261,14 +1261,14 @@ pub struct DatasetInputConfig {
 }
 
 impl DatasetInputConfig {
-    /// Sets the value of `input_files`.
-    pub fn set_input_files<
-        T: std::convert::Into<std::vec::Vec<crate::model::dataset_input_config::InputFile>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_files = v.into();
+    /// Sets the value of [input_files][crate::model::DatasetInputConfig::input_files].
+    pub fn set_input_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::dataset_input_config::InputFile>,
+    {
+        use std::iter::Iterator;
+        self.input_files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1303,7 +1303,7 @@ pub mod dataset_input_config {
     }
 
     impl InputFile {
-        /// Sets the value of `usage`.
+        /// Sets the value of [usage][crate::model::dataset_input_config::InputFile::usage].
         pub fn set_usage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.usage = v.into();
             self
@@ -1370,13 +1370,13 @@ pub struct ImportDataMetadata {
 }
 
 impl ImportDataMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::ImportDataMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::ImportDataMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1385,7 +1385,7 @@ impl ImportDataMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::ImportDataMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1394,7 +1394,7 @@ impl ImportDataMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::ImportDataMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -1427,13 +1427,13 @@ pub struct ExportDataRequest {
 }
 
 impl ExportDataRequest {
-    /// Sets the value of `dataset`.
+    /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
-    /// Sets the value of `output_config`.
+    /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::DatasetOutputConfig>>,
     >(
@@ -1519,13 +1519,13 @@ pub struct ExportDataMetadata {
 }
 
 impl ExportDataMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::ExportDataMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::ExportDataMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1534,7 +1534,7 @@ impl ExportDataMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::ExportDataMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1543,7 +1543,7 @@ impl ExportDataMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::ExportDataMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -1571,7 +1571,7 @@ pub struct DeleteDatasetRequest {
 }
 
 impl DeleteDatasetRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1607,13 +1607,13 @@ pub struct DeleteDatasetMetadata {
 }
 
 impl DeleteDatasetMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::DeleteDatasetMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::DeleteDatasetMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1622,7 +1622,7 @@ impl DeleteDatasetMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::DeleteDatasetMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1631,7 +1631,7 @@ impl DeleteDatasetMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::DeleteDatasetMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -1659,7 +1659,7 @@ pub struct GetDatasetRequest {
 }
 
 impl GetDatasetRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetDatasetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1695,19 +1695,19 @@ pub struct ListDatasetsRequest {
 }
 
 impl ListDatasetsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListDatasetsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListDatasetsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1738,18 +1738,20 @@ pub struct ListDatasetsResponse {
 }
 
 impl ListDatasetsResponse {
-    /// Sets the value of `datasets`.
-    pub fn set_datasets<T: std::convert::Into<std::vec::Vec<crate::model::Dataset>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.datasets = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListDatasetsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [datasets][crate::model::ListDatasetsResponse::datasets].
+    pub fn set_datasets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Dataset>,
+    {
+        use std::iter::Iterator;
+        self.datasets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1789,13 +1791,13 @@ pub struct CreateDatasetRequest {
 }
 
 impl CreateDatasetRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `dataset`.
+    /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
     pub fn set_dataset<T: std::convert::Into<std::option::Option<crate::model::Dataset>>>(
         mut self,
         v: T,
@@ -1834,13 +1836,13 @@ pub struct CreateDatasetMetadata {
 }
 
 impl CreateDatasetMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::CreateDatasetMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::CreateDatasetMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1849,7 +1851,7 @@ impl CreateDatasetMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::CreateDatasetMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1858,7 +1860,7 @@ impl CreateDatasetMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::CreateDatasetMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -1904,25 +1906,25 @@ pub struct ListExamplesRequest {
 }
 
 impl ListExamplesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListExamplesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListExamplesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListExamplesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1953,18 +1955,20 @@ pub struct ListExamplesResponse {
 }
 
 impl ListExamplesResponse {
-    /// Sets the value of `examples`.
-    pub fn set_examples<T: std::convert::Into<std::vec::Vec<crate::model::Example>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.examples = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListExamplesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [examples][crate::model::ListExamplesResponse::examples].
+    pub fn set_examples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Example>,
+    {
+        use std::iter::Iterator;
+        self.examples = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2013,25 +2017,25 @@ pub struct Example {
 }
 
 impl Example {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Example::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_text`.
+    /// Sets the value of [source_text][crate::model::Example::source_text].
     pub fn set_source_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_text = v.into();
         self
     }
 
-    /// Sets the value of `target_text`.
+    /// Sets the value of [target_text][crate::model::Example::target_text].
     pub fn set_target_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target_text = v.into();
         self
     }
 
-    /// Sets the value of `usage`.
+    /// Sets the value of [usage][crate::model::Example::usage].
     pub fn set_usage<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.usage = v.into();
         self
@@ -2057,18 +2061,16 @@ pub struct BatchTransferResourcesResponse {
 }
 
 impl BatchTransferResourcesResponse {
-    /// Sets the value of `responses`.
-    pub fn set_responses<
-        T: std::convert::Into<
-            std::vec::Vec<
-                crate::model::batch_transfer_resources_response::TransferResourceResponse,
-            >,
+    /// Sets the value of [responses][crate::model::BatchTransferResourcesResponse::responses].
+    pub fn set_responses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<
+            crate::model::batch_transfer_resources_response::TransferResourceResponse,
         >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.responses = v.into();
+    {
+        use std::iter::Iterator;
+        self.responses = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2105,19 +2107,19 @@ pub mod batch_transfer_resources_response {
     }
 
     impl TransferResourceResponse {
-        /// Sets the value of `source`.
+        /// Sets the value of [source][crate::model::batch_transfer_resources_response::TransferResourceResponse::source].
         pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source = v.into();
             self
         }
 
-        /// Sets the value of `target`.
+        /// Sets the value of [target][crate::model::batch_transfer_resources_response::TransferResourceResponse::target].
         pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target = v.into();
             self
         }
 
-        /// Sets the value of `error`.
+        /// Sets the value of [error][crate::model::batch_transfer_resources_response::TransferResourceResponse::error].
         pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -2182,19 +2184,19 @@ pub struct Dataset {
 }
 
 impl Dataset {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Dataset::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Dataset::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::Dataset::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2203,7 +2205,7 @@ impl Dataset {
         self
     }
 
-    /// Sets the value of `target_language_code`.
+    /// Sets the value of [target_language_code][crate::model::Dataset::target_language_code].
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2212,31 +2214,31 @@ impl Dataset {
         self
     }
 
-    /// Sets the value of `example_count`.
+    /// Sets the value of [example_count][crate::model::Dataset::example_count].
     pub fn set_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.example_count = v.into();
         self
     }
 
-    /// Sets the value of `train_example_count`.
+    /// Sets the value of [train_example_count][crate::model::Dataset::train_example_count].
     pub fn set_train_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.train_example_count = v.into();
         self
     }
 
-    /// Sets the value of `validate_example_count`.
+    /// Sets the value of [validate_example_count][crate::model::Dataset::validate_example_count].
     pub fn set_validate_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.validate_example_count = v.into();
         self
     }
 
-    /// Sets the value of `test_example_count`.
+    /// Sets the value of [test_example_count][crate::model::Dataset::test_example_count].
     pub fn set_test_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.test_example_count = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Dataset::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2245,7 +2247,7 @@ impl Dataset {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::Dataset::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2278,13 +2280,13 @@ pub struct CreateModelRequest {
 }
 
 impl CreateModelRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::CreateModelRequest::model].
     pub fn set_model<T: std::convert::Into<std::option::Option<crate::model::Model>>>(
         mut self,
         v: T,
@@ -2323,13 +2325,13 @@ pub struct CreateModelMetadata {
 }
 
 impl CreateModelMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::CreateModelMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::CreateModelMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2338,7 +2340,7 @@ impl CreateModelMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::CreateModelMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2347,7 +2349,7 @@ impl CreateModelMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::CreateModelMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2392,25 +2394,25 @@ pub struct ListModelsRequest {
 }
 
 impl ListModelsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListModelsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListModelsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListModelsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2441,18 +2443,20 @@ pub struct ListModelsResponse {
 }
 
 impl ListModelsResponse {
-    /// Sets the value of `models`.
-    pub fn set_models<T: std::convert::Into<std::vec::Vec<crate::model::Model>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.models = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListModelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [models][crate::model::ListModelsResponse::models].
+    pub fn set_models<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Model>,
+    {
+        use std::iter::Iterator;
+        self.models = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2488,7 +2492,7 @@ pub struct GetModelRequest {
 }
 
 impl GetModelRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetModelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2513,7 +2517,7 @@ pub struct DeleteModelRequest {
 }
 
 impl DeleteModelRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteModelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2549,13 +2553,13 @@ pub struct DeleteModelMetadata {
 }
 
 impl DeleteModelMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::DeleteModelMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::OperationState>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::DeleteModelMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2564,7 +2568,7 @@ impl DeleteModelMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::DeleteModelMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2573,7 +2577,7 @@ impl DeleteModelMetadata {
         self
     }
 
-    /// Sets the value of `error`.
+    /// Sets the value of [error][crate::model::DeleteModelMetadata::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2640,25 +2644,25 @@ pub struct Model {
 }
 
 impl Model {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Model::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Model::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `dataset`.
+    /// Sets the value of [dataset][crate::model::Model::dataset].
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::Model::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2667,7 +2671,7 @@ impl Model {
         self
     }
 
-    /// Sets the value of `target_language_code`.
+    /// Sets the value of [target_language_code][crate::model::Model::target_language_code].
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2676,25 +2680,25 @@ impl Model {
         self
     }
 
-    /// Sets the value of `train_example_count`.
+    /// Sets the value of [train_example_count][crate::model::Model::train_example_count].
     pub fn set_train_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.train_example_count = v.into();
         self
     }
 
-    /// Sets the value of `validate_example_count`.
+    /// Sets the value of [validate_example_count][crate::model::Model::validate_example_count].
     pub fn set_validate_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.validate_example_count = v.into();
         self
     }
 
-    /// Sets the value of `test_example_count`.
+    /// Sets the value of [test_example_count][crate::model::Model::test_example_count].
     pub fn set_test_example_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.test_example_count = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Model::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2703,7 +2707,7 @@ impl Model {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::Model::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2731,7 +2735,7 @@ pub struct GcsInputSource {
 }
 
 impl GcsInputSource {
-    /// Sets the value of `input_uri`.
+    /// Sets the value of [input_uri][crate::model::GcsInputSource::input_uri].
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
@@ -2765,19 +2769,19 @@ pub struct FileInputSource {
 }
 
 impl FileInputSource {
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::FileInputSource::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
-    /// Sets the value of `content`.
+    /// Sets the value of [content][crate::model::FileInputSource::content].
     pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::FileInputSource::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -2804,7 +2808,7 @@ pub struct GcsOutputDestination {
 }
 
 impl GcsOutputDestination {
-    /// Sets the value of `output_uri_prefix`.
+    /// Sets the value of [output_uri_prefix][crate::model::GcsOutputDestination::output_uri_prefix].
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2843,13 +2847,13 @@ pub struct GlossaryEntry {
 }
 
 impl GlossaryEntry {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GlossaryEntry::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::GlossaryEntry::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2894,7 +2898,7 @@ pub mod glossary_entry {
     }
 
     impl GlossaryTermsPair {
-        /// Sets the value of `source_term`.
+        /// Sets the value of [source_term][crate::model::glossary_entry::GlossaryTermsPair::source_term].
         pub fn set_source_term<
             T: std::convert::Into<std::option::Option<crate::model::GlossaryTerm>>,
         >(
@@ -2905,7 +2909,7 @@ pub mod glossary_entry {
             self
         }
 
-        /// Sets the value of `target_term`.
+        /// Sets the value of [target_term][crate::model::glossary_entry::GlossaryTermsPair::target_term].
         pub fn set_target_term<
             T: std::convert::Into<std::option::Option<crate::model::GlossaryTerm>>,
         >(
@@ -2938,12 +2942,14 @@ pub mod glossary_entry {
     }
 
     impl GlossaryTermsSet {
-        /// Sets the value of `terms`.
-        pub fn set_terms<T: std::convert::Into<std::vec::Vec<crate::model::GlossaryTerm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.terms = v.into();
+        /// Sets the value of [terms][crate::model::glossary_entry::GlossaryTermsSet::terms].
+        pub fn set_terms<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GlossaryTerm>,
+        {
+            use std::iter::Iterator;
+            self.terms = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2983,13 +2989,13 @@ pub struct GlossaryTerm {
 }
 
 impl GlossaryTerm {
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::GlossaryTerm::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
-    /// Sets the value of `text`.
+    /// Sets the value of [text][crate::model::GlossaryTerm::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
@@ -3014,7 +3020,7 @@ pub struct TransliterationConfig {
 }
 
 impl TransliterationConfig {
-    /// Sets the value of `enable_transliteration`.
+    /// Sets the value of [enable_transliteration][crate::model::TransliterationConfig::enable_transliteration].
     pub fn set_enable_transliteration<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_transliteration = v.into();
         self
@@ -3120,22 +3126,13 @@ pub struct TranslateTextRequest {
 }
 
 impl TranslateTextRequest {
-    /// Sets the value of `contents`.
-    pub fn set_contents<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents = v.into();
-        self
-    }
-
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::TranslateTextRequest::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3144,7 +3141,7 @@ impl TranslateTextRequest {
         self
     }
 
-    /// Sets the value of `target_language_code`.
+    /// Sets the value of [target_language_code][crate::model::TranslateTextRequest::target_language_code].
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3153,19 +3150,19 @@ impl TranslateTextRequest {
         self
     }
 
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::TranslateTextRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::TranslateTextRequest::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
-    /// Sets the value of `glossary_config`.
+    /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
     >(
@@ -3176,7 +3173,7 @@ impl TranslateTextRequest {
         self
     }
 
-    /// Sets the value of `transliteration_config`.
+    /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
     pub fn set_transliteration_config<
         T: std::convert::Into<std::option::Option<crate::model::TransliterationConfig>>,
     >(
@@ -3187,14 +3184,26 @@ impl TranslateTextRequest {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+    pub fn set_contents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.contents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::TranslateTextRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -3231,23 +3240,25 @@ pub struct TranslateTextResponse {
 }
 
 impl TranslateTextResponse {
-    /// Sets the value of `translations`.
-    pub fn set_translations<T: std::convert::Into<std::vec::Vec<crate::model::Translation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.translations = v.into();
+    /// Sets the value of [translations][crate::model::TranslateTextResponse::translations].
+    pub fn set_translations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Translation>,
+    {
+        use std::iter::Iterator;
+        self.translations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `glossary_translations`.
-    pub fn set_glossary_translations<
-        T: std::convert::Into<std::vec::Vec<crate::model::Translation>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_translations = v.into();
+    /// Sets the value of [glossary_translations][crate::model::TranslateTextResponse::glossary_translations].
+    pub fn set_glossary_translations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Translation>,
+    {
+        use std::iter::Iterator;
+        self.glossary_translations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3294,19 +3305,19 @@ pub struct Translation {
 }
 
 impl Translation {
-    /// Sets the value of `translated_text`.
+    /// Sets the value of [translated_text][crate::model::Translation::translated_text].
     pub fn set_translated_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.translated_text = v.into();
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::Translation::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
-    /// Sets the value of `detected_language_code`.
+    /// Sets the value of [detected_language_code][crate::model::Translation::detected_language_code].
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3315,7 +3326,7 @@ impl Translation {
         self
     }
 
-    /// Sets the value of `glossary_config`.
+    /// Sets the value of [glossary_config][crate::model::Translation::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
     >(
@@ -3363,27 +3374,29 @@ pub struct RomanizeTextRequest {
 }
 
 impl RomanizeTextRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `contents`.
-    pub fn set_contents<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.contents = v.into();
-        self
-    }
-
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.source_language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
+    pub fn set_contents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.contents = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3415,13 +3428,13 @@ pub struct Romanization {
 }
 
 impl Romanization {
-    /// Sets the value of `romanized_text`.
+    /// Sets the value of [romanized_text][crate::model::Romanization::romanized_text].
     pub fn set_romanized_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.romanized_text = v.into();
         self
     }
 
-    /// Sets the value of `detected_language_code`.
+    /// Sets the value of [detected_language_code][crate::model::Romanization::detected_language_code].
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3453,12 +3466,14 @@ pub struct RomanizeTextResponse {
 }
 
 impl RomanizeTextResponse {
-    /// Sets the value of `romanizations`.
-    pub fn set_romanizations<T: std::convert::Into<std::vec::Vec<crate::model::Romanization>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.romanizations = v.into();
+    /// Sets the value of [romanizations][crate::model::RomanizeTextResponse::romanizations].
+    pub fn set_romanizations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Romanization>,
+    {
+        use std::iter::Iterator;
+        self.romanizations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3524,32 +3539,33 @@ pub struct DetectLanguageRequest {
 }
 
 impl DetectLanguageRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::DetectLanguageRequest::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::DetectLanguageRequest::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [labels][crate::model::DetectLanguageRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -3602,13 +3618,13 @@ pub struct DetectedLanguage {
 }
 
 impl DetectedLanguage {
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::DetectedLanguage::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
-    /// Sets the value of `confidence`.
+    /// Sets the value of [confidence][crate::model::DetectedLanguage::confidence].
     pub fn set_confidence<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence = v.into();
         self
@@ -3634,12 +3650,14 @@ pub struct DetectLanguageResponse {
 }
 
 impl DetectLanguageResponse {
-    /// Sets the value of `languages`.
-    pub fn set_languages<T: std::convert::Into<std::vec::Vec<crate::model::DetectedLanguage>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages = v.into();
+    /// Sets the value of [languages][crate::model::DetectLanguageResponse::languages].
+    pub fn set_languages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DetectedLanguage>,
+    {
+        use std::iter::Iterator;
+        self.languages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3696,13 +3714,13 @@ pub struct GetSupportedLanguagesRequest {
 }
 
 impl GetSupportedLanguagesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `display_language_code`.
+    /// Sets the value of [display_language_code][crate::model::GetSupportedLanguagesRequest::display_language_code].
     pub fn set_display_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3711,7 +3729,7 @@ impl GetSupportedLanguagesRequest {
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::GetSupportedLanguagesRequest::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
@@ -3737,12 +3755,14 @@ pub struct SupportedLanguages {
 }
 
 impl SupportedLanguages {
-    /// Sets the value of `languages`.
-    pub fn set_languages<T: std::convert::Into<std::vec::Vec<crate::model::SupportedLanguage>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.languages = v.into();
+    /// Sets the value of [languages][crate::model::SupportedLanguages::languages].
+    pub fn set_languages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SupportedLanguage>,
+    {
+        use std::iter::Iterator;
+        self.languages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3780,25 +3800,25 @@ pub struct SupportedLanguage {
 }
 
 impl SupportedLanguage {
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::SupportedLanguage::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::SupportedLanguage::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `support_source`.
+    /// Sets the value of [support_source][crate::model::SupportedLanguage::support_source].
     pub fn set_support_source<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.support_source = v.into();
         self
     }
 
-    /// Sets the value of `support_target`.
+    /// Sets the value of [support_target][crate::model::SupportedLanguage::support_target].
     pub fn set_support_target<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.support_target = v.into();
         self
@@ -3823,7 +3843,7 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
-    /// Sets the value of `input_uri`.
+    /// Sets the value of [input_uri][crate::model::GcsSource::input_uri].
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
         self
@@ -3855,7 +3875,7 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::InputConfig::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -3927,7 +3947,7 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
-    /// Sets the value of `output_uri_prefix`.
+    /// Sets the value of [output_uri_prefix][crate::model::GcsDestination::output_uri_prefix].
     pub fn set_output_uri_prefix<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4091,7 +4111,7 @@ pub struct DocumentInputConfig {
 }
 
 impl DocumentInputConfig {
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::DocumentInputConfig::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -4170,7 +4190,7 @@ pub struct DocumentOutputConfig {
 }
 
 impl DocumentOutputConfig {
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::DocumentOutputConfig::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -4361,13 +4381,13 @@ pub struct TranslateDocumentRequest {
 }
 
 impl TranslateDocumentRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::TranslateDocumentRequest::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4376,7 +4396,7 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `target_language_code`.
+    /// Sets the value of [target_language_code][crate::model::TranslateDocumentRequest::target_language_code].
     pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4385,7 +4405,7 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `document_input_config`.
+    /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
     pub fn set_document_input_config<
         T: std::convert::Into<std::option::Option<crate::model::DocumentInputConfig>>,
     >(
@@ -4396,7 +4416,7 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `document_output_config`.
+    /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
     pub fn set_document_output_config<
         T: std::convert::Into<std::option::Option<crate::model::DocumentOutputConfig>>,
     >(
@@ -4407,13 +4427,13 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::TranslateDocumentRequest::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
-    /// Sets the value of `glossary_config`.
+    /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
     >(
@@ -4424,18 +4444,7 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `customized_attribution`.
+    /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
     pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4444,13 +4453,13 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `is_translate_native_pdf_only`.
+    /// Sets the value of [is_translate_native_pdf_only][crate::model::TranslateDocumentRequest::is_translate_native_pdf_only].
     pub fn set_is_translate_native_pdf_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_translate_native_pdf_only = v.into();
         self
     }
 
-    /// Sets the value of `enable_shadow_removal_native_pdf`.
+    /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::TranslateDocumentRequest::enable_shadow_removal_native_pdf].
     pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -4459,9 +4468,21 @@ impl TranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `enable_rotation_correction`.
+    /// Sets the value of [enable_rotation_correction][crate::model::TranslateDocumentRequest::enable_rotation_correction].
     pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rotation_correction = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4499,27 +4520,29 @@ pub struct DocumentTranslation {
 }
 
 impl DocumentTranslation {
-    /// Sets the value of `byte_stream_outputs`.
-    pub fn set_byte_stream_outputs<T: std::convert::Into<std::vec::Vec<bytes::Bytes>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.byte_stream_outputs = v.into();
-        self
-    }
-
-    /// Sets the value of `mime_type`.
+    /// Sets the value of [mime_type][crate::model::DocumentTranslation::mime_type].
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
-    /// Sets the value of `detected_language_code`.
+    /// Sets the value of [detected_language_code][crate::model::DocumentTranslation::detected_language_code].
     pub fn set_detected_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.detected_language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [byte_stream_outputs][crate::model::DocumentTranslation::byte_stream_outputs].
+    pub fn set_byte_stream_outputs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<bytes::Bytes>,
+    {
+        use std::iter::Iterator;
+        self.byte_stream_outputs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4563,7 +4586,7 @@ pub struct TranslateDocumentResponse {
 }
 
 impl TranslateDocumentResponse {
-    /// Sets the value of `document_translation`.
+    /// Sets the value of [document_translation][crate::model::TranslateDocumentResponse::document_translation].
     pub fn set_document_translation<
         T: std::convert::Into<std::option::Option<crate::model::DocumentTranslation>>,
     >(
@@ -4574,7 +4597,7 @@ impl TranslateDocumentResponse {
         self
     }
 
-    /// Sets the value of `glossary_document_translation`.
+    /// Sets the value of [glossary_document_translation][crate::model::TranslateDocumentResponse::glossary_document_translation].
     pub fn set_glossary_document_translation<
         T: std::convert::Into<std::option::Option<crate::model::DocumentTranslation>>,
     >(
@@ -4585,13 +4608,13 @@ impl TranslateDocumentResponse {
         self
     }
 
-    /// Sets the value of `model`.
+    /// Sets the value of [model][crate::model::TranslateDocumentResponse::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
         self
     }
 
-    /// Sets the value of `glossary_config`.
+    /// Sets the value of [glossary_config][crate::model::TranslateDocumentResponse::glossary_config].
     pub fn set_glossary_config<
         T: std::convert::Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
     >(
@@ -4686,13 +4709,13 @@ pub struct BatchTranslateTextRequest {
 }
 
 impl BatchTranslateTextRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::BatchTranslateTextRequest::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4701,36 +4724,7 @@ impl BatchTranslateTextRequest {
         self
     }
 
-    /// Sets the value of `target_language_codes`.
-    pub fn set_target_language_codes<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_language_codes = v.into();
-        self
-    }
-
-    /// Sets the value of `models`.
-    pub fn set_models<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.models = v.into();
-        self
-    }
-
-    /// Sets the value of `input_configs`.
-    pub fn set_input_configs<T: std::convert::Into<std::vec::Vec<crate::model::InputConfig>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_configs = v.into();
-        self
-    }
-
-    /// Sets the value of `output_config`.
+    /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
     >(
@@ -4741,30 +4735,61 @@ impl BatchTranslateTextRequest {
         self
     }
 
-    /// Sets the value of `glossaries`.
-    pub fn set_glossaries<
-        T: std::convert::Into<
-            std::collections::HashMap<
-                std::string::String,
-                crate::model::TranslateTextGlossaryConfig,
-            >,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossaries = v.into();
+    /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
+    pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_language_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
+    pub fn set_input_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InputConfig>,
+    {
+        use std::iter::Iterator;
+        self.input_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
+    pub fn set_models<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [glossaries][crate::model::BatchTranslateTextRequest::glossaries].
+    pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        use std::iter::Iterator;
+        self.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::BatchTranslateTextRequest::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4805,7 +4830,7 @@ pub struct BatchTranslateMetadata {
 }
 
 impl BatchTranslateMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::BatchTranslateMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::batch_translate_metadata::State>>(
         mut self,
         v: T,
@@ -4814,25 +4839,25 @@ impl BatchTranslateMetadata {
         self
     }
 
-    /// Sets the value of `translated_characters`.
+    /// Sets the value of [translated_characters][crate::model::BatchTranslateMetadata::translated_characters].
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
-    /// Sets the value of `failed_characters`.
+    /// Sets the value of [failed_characters][crate::model::BatchTranslateMetadata::failed_characters].
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
-    /// Sets the value of `total_characters`.
+    /// Sets the value of [total_characters][crate::model::BatchTranslateMetadata::total_characters].
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::BatchTranslateMetadata::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4934,25 +4959,25 @@ pub struct BatchTranslateResponse {
 }
 
 impl BatchTranslateResponse {
-    /// Sets the value of `total_characters`.
+    /// Sets the value of [total_characters][crate::model::BatchTranslateResponse::total_characters].
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
-    /// Sets the value of `translated_characters`.
+    /// Sets the value of [translated_characters][crate::model::BatchTranslateResponse::translated_characters].
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
-    /// Sets the value of `failed_characters`.
+    /// Sets the value of [failed_characters][crate::model::BatchTranslateResponse::failed_characters].
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::BatchTranslateResponse::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4961,7 +4986,7 @@ impl BatchTranslateResponse {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::BatchTranslateResponse::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5080,13 +5105,13 @@ pub struct Glossary {
 }
 
 impl Glossary {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Glossary::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `input_config`.
+    /// Sets the value of [input_config][crate::model::Glossary::input_config].
     pub fn set_input_config<
         T: std::convert::Into<std::option::Option<crate::model::GlossaryInputConfig>>,
     >(
@@ -5097,13 +5122,13 @@ impl Glossary {
         self
     }
 
-    /// Sets the value of `entry_count`.
+    /// Sets the value of [entry_count][crate::model::Glossary::entry_count].
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::Glossary::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5112,7 +5137,7 @@ impl Glossary {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::Glossary::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5121,7 +5146,7 @@ impl Glossary {
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Glossary::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -5168,7 +5193,7 @@ pub mod glossary {
     }
 
     impl LanguageCodePair {
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::glossary::LanguageCodePair::source_language_code].
         pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5177,7 +5202,7 @@ pub mod glossary {
             self
         }
 
-        /// Sets the value of `target_language_code`.
+        /// Sets the value of [target_language_code][crate::model::glossary::LanguageCodePair::target_language_code].
         pub fn set_target_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5207,12 +5232,14 @@ pub mod glossary {
     }
 
     impl LanguageCodesSet {
-        /// Sets the value of `language_codes`.
-        pub fn set_language_codes<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.language_codes = v.into();
+        /// Sets the value of [language_codes][crate::model::glossary::LanguageCodesSet::language_codes].
+        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.language_codes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5251,13 +5278,13 @@ pub struct CreateGlossaryRequest {
 }
 
 impl CreateGlossaryRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `glossary`.
+    /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
     pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
         mut self,
         v: T,
@@ -5290,7 +5317,7 @@ pub struct UpdateGlossaryRequest {
 }
 
 impl UpdateGlossaryRequest {
-    /// Sets the value of `glossary`.
+    /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
     pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
         mut self,
         v: T,
@@ -5299,7 +5326,7 @@ impl UpdateGlossaryRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -5327,7 +5354,7 @@ pub struct GetGlossaryRequest {
 }
 
 impl GetGlossaryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5352,7 +5379,7 @@ pub struct DeleteGlossaryRequest {
 }
 
 impl DeleteGlossaryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5407,25 +5434,25 @@ pub struct ListGlossariesRequest {
 }
 
 impl ListGlossariesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListGlossariesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListGlossariesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListGlossariesRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -5456,18 +5483,20 @@ pub struct ListGlossariesResponse {
 }
 
 impl ListGlossariesResponse {
-    /// Sets the value of `glossaries`.
-    pub fn set_glossaries<T: std::convert::Into<std::vec::Vec<crate::model::Glossary>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossaries = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListGlossariesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [glossaries][crate::model::ListGlossariesResponse::glossaries].
+    pub fn set_glossaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Glossary>,
+    {
+        use std::iter::Iterator;
+        self.glossaries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5503,7 +5532,7 @@ pub struct GetGlossaryEntryRequest {
 }
 
 impl GetGlossaryEntryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5528,7 +5557,7 @@ pub struct DeleteGlossaryEntryRequest {
 }
 
 impl DeleteGlossaryEntryRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5565,19 +5594,19 @@ pub struct ListGlossaryEntriesRequest {
 }
 
 impl ListGlossaryEntriesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListGlossaryEntriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListGlossaryEntriesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListGlossaryEntriesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5607,20 +5636,20 @@ pub struct ListGlossaryEntriesResponse {
 }
 
 impl ListGlossaryEntriesResponse {
-    /// Sets the value of `glossary_entries`.
-    pub fn set_glossary_entries<
-        T: std::convert::Into<std::vec::Vec<crate::model::GlossaryEntry>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossary_entries = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListGlossaryEntriesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [glossary_entries][crate::model::ListGlossaryEntriesResponse::glossary_entries].
+    pub fn set_glossary_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GlossaryEntry>,
+    {
+        use std::iter::Iterator;
+        self.glossary_entries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5660,13 +5689,13 @@ pub struct CreateGlossaryEntryRequest {
 }
 
 impl CreateGlossaryEntryRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `glossary_entry`.
+    /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
     pub fn set_glossary_entry<
         T: std::convert::Into<std::option::Option<crate::model::GlossaryEntry>>,
     >(
@@ -5696,7 +5725,7 @@ pub struct UpdateGlossaryEntryRequest {
 }
 
 impl UpdateGlossaryEntryRequest {
-    /// Sets the value of `glossary_entry`.
+    /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
     pub fn set_glossary_entry<
         T: std::convert::Into<std::option::Option<crate::model::GlossaryEntry>>,
     >(
@@ -5737,13 +5766,13 @@ pub struct CreateGlossaryMetadata {
 }
 
 impl CreateGlossaryMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CreateGlossaryMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::CreateGlossaryMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::create_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -5752,7 +5781,7 @@ impl CreateGlossaryMetadata {
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::CreateGlossaryMetadata::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5838,7 +5867,7 @@ pub struct UpdateGlossaryMetadata {
 }
 
 impl UpdateGlossaryMetadata {
-    /// Sets the value of `glossary`.
+    /// Sets the value of [glossary][crate::model::UpdateGlossaryMetadata::glossary].
     pub fn set_glossary<T: std::convert::Into<std::option::Option<crate::model::Glossary>>>(
         mut self,
         v: T,
@@ -5847,7 +5876,7 @@ impl UpdateGlossaryMetadata {
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::UpdateGlossaryMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::update_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -5856,7 +5885,7 @@ impl UpdateGlossaryMetadata {
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::UpdateGlossaryMetadata::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5941,13 +5970,13 @@ pub struct DeleteGlossaryMetadata {
 }
 
 impl DeleteGlossaryMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteGlossaryMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::DeleteGlossaryMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::delete_glossary_metadata::State>>(
         mut self,
         v: T,
@@ -5956,7 +5985,7 @@ impl DeleteGlossaryMetadata {
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::DeleteGlossaryMetadata::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6046,13 +6075,13 @@ pub struct DeleteGlossaryResponse {
 }
 
 impl DeleteGlossaryResponse {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteGlossaryResponse::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::DeleteGlossaryResponse::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6061,7 +6090,7 @@ impl DeleteGlossaryResponse {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::DeleteGlossaryResponse::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6174,13 +6203,13 @@ pub struct BatchTranslateDocumentRequest {
 }
 
 impl BatchTranslateDocumentRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `source_language_code`.
+    /// Sets the value of [source_language_code][crate::model::BatchTranslateDocumentRequest::source_language_code].
     pub fn set_source_language_code<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6189,27 +6218,7 @@ impl BatchTranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `target_language_codes`.
-    pub fn set_target_language_codes<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.target_language_codes = v.into();
-        self
-    }
-
-    /// Sets the value of `input_configs`.
-    pub fn set_input_configs<
-        T: std::convert::Into<std::vec::Vec<crate::model::BatchDocumentInputConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input_configs = v.into();
-        self
-    }
-
-    /// Sets the value of `output_config`.
+    /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
     >(
@@ -6220,45 +6229,7 @@ impl BatchTranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `models`.
-    pub fn set_models<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.models = v.into();
-        self
-    }
-
-    /// Sets the value of `glossaries`.
-    pub fn set_glossaries<
-        T: std::convert::Into<
-            std::collections::HashMap<
-                std::string::String,
-                crate::model::TranslateTextGlossaryConfig,
-            >,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.glossaries = v.into();
-        self
-    }
-
-    /// Sets the value of `format_conversions`.
-    pub fn set_format_conversions<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.format_conversions = v.into();
-        self
-    }
-
-    /// Sets the value of `customized_attribution`.
+    /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
     pub fn set_customized_attribution<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6267,7 +6238,7 @@ impl BatchTranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `enable_shadow_removal_native_pdf`.
+    /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
     pub fn set_enable_shadow_removal_native_pdf<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -6276,9 +6247,67 @@ impl BatchTranslateDocumentRequest {
         self
     }
 
-    /// Sets the value of `enable_rotation_correction`.
+    /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
     pub fn set_enable_rotation_correction<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_rotation_correction = v.into();
+        self
+    }
+
+    /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
+    pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [input_configs][crate::model::BatchTranslateDocumentRequest::input_configs].
+    pub fn set_input_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BatchDocumentInputConfig>,
+    {
+        use std::iter::Iterator;
+        self.input_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [models][crate::model::BatchTranslateDocumentRequest::models].
+    pub fn set_models<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [glossaries][crate::model::BatchTranslateDocumentRequest::glossaries].
+    pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+    {
+        use std::iter::Iterator;
+        self.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [format_conversions][crate::model::BatchTranslateDocumentRequest::format_conversions].
+    pub fn set_format_conversions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.format_conversions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -6510,55 +6539,55 @@ pub struct BatchTranslateDocumentResponse {
 }
 
 impl BatchTranslateDocumentResponse {
-    /// Sets the value of `total_pages`.
+    /// Sets the value of [total_pages][crate::model::BatchTranslateDocumentResponse::total_pages].
     pub fn set_total_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
         self
     }
 
-    /// Sets the value of `translated_pages`.
+    /// Sets the value of [translated_pages][crate::model::BatchTranslateDocumentResponse::translated_pages].
     pub fn set_translated_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_pages = v.into();
         self
     }
 
-    /// Sets the value of `failed_pages`.
+    /// Sets the value of [failed_pages][crate::model::BatchTranslateDocumentResponse::failed_pages].
     pub fn set_failed_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_pages = v.into();
         self
     }
 
-    /// Sets the value of `total_billable_pages`.
+    /// Sets the value of [total_billable_pages][crate::model::BatchTranslateDocumentResponse::total_billable_pages].
     pub fn set_total_billable_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_pages = v.into();
         self
     }
 
-    /// Sets the value of `total_characters`.
+    /// Sets the value of [total_characters][crate::model::BatchTranslateDocumentResponse::total_characters].
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
-    /// Sets the value of `translated_characters`.
+    /// Sets the value of [translated_characters][crate::model::BatchTranslateDocumentResponse::translated_characters].
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
-    /// Sets the value of `failed_characters`.
+    /// Sets the value of [failed_characters][crate::model::BatchTranslateDocumentResponse::failed_characters].
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
-    /// Sets the value of `total_billable_characters`.
+    /// Sets the value of [total_billable_characters][crate::model::BatchTranslateDocumentResponse::total_billable_characters].
     pub fn set_total_billable_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_characters = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentResponse::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6567,7 +6596,7 @@ impl BatchTranslateDocumentResponse {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::BatchTranslateDocumentResponse::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6637,7 +6666,7 @@ pub struct BatchTranslateDocumentMetadata {
 }
 
 impl BatchTranslateDocumentMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::BatchTranslateDocumentMetadata::state].
     pub fn set_state<
         T: std::convert::Into<crate::model::batch_translate_document_metadata::State>,
     >(
@@ -6648,55 +6677,55 @@ impl BatchTranslateDocumentMetadata {
         self
     }
 
-    /// Sets the value of `total_pages`.
+    /// Sets the value of [total_pages][crate::model::BatchTranslateDocumentMetadata::total_pages].
     pub fn set_total_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_pages = v.into();
         self
     }
 
-    /// Sets the value of `translated_pages`.
+    /// Sets the value of [translated_pages][crate::model::BatchTranslateDocumentMetadata::translated_pages].
     pub fn set_translated_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_pages = v.into();
         self
     }
 
-    /// Sets the value of `failed_pages`.
+    /// Sets the value of [failed_pages][crate::model::BatchTranslateDocumentMetadata::failed_pages].
     pub fn set_failed_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_pages = v.into();
         self
     }
 
-    /// Sets the value of `total_billable_pages`.
+    /// Sets the value of [total_billable_pages][crate::model::BatchTranslateDocumentMetadata::total_billable_pages].
     pub fn set_total_billable_pages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_pages = v.into();
         self
     }
 
-    /// Sets the value of `total_characters`.
+    /// Sets the value of [total_characters][crate::model::BatchTranslateDocumentMetadata::total_characters].
     pub fn set_total_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_characters = v.into();
         self
     }
 
-    /// Sets the value of `translated_characters`.
+    /// Sets the value of [translated_characters][crate::model::BatchTranslateDocumentMetadata::translated_characters].
     pub fn set_translated_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.translated_characters = v.into();
         self
     }
 
-    /// Sets the value of `failed_characters`.
+    /// Sets the value of [failed_characters][crate::model::BatchTranslateDocumentMetadata::failed_characters].
     pub fn set_failed_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.failed_characters = v.into();
         self
     }
 
-    /// Sets the value of `total_billable_characters`.
+    /// Sets the value of [total_billable_characters][crate::model::BatchTranslateDocumentMetadata::total_billable_characters].
     pub fn set_total_billable_characters<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_billable_characters = v.into();
         self
     }
 
-    /// Sets the value of `submit_time`.
+    /// Sets the value of [submit_time][crate::model::BatchTranslateDocumentMetadata::submit_time].
     pub fn set_submit_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6786,19 +6815,19 @@ pub struct TranslateTextGlossaryConfig {
 }
 
 impl TranslateTextGlossaryConfig {
-    /// Sets the value of `glossary`.
+    /// Sets the value of [glossary][crate::model::TranslateTextGlossaryConfig::glossary].
     pub fn set_glossary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.glossary = v.into();
         self
     }
 
-    /// Sets the value of `ignore_case`.
+    /// Sets the value of [ignore_case][crate::model::TranslateTextGlossaryConfig::ignore_case].
     pub fn set_ignore_case<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_case = v.into();
         self
     }
 
-    /// Sets the value of `contextual_translation_enabled`.
+    /// Sets the value of [contextual_translation_enabled][crate::model::TranslateTextGlossaryConfig::contextual_translation_enabled].
     pub fn set_contextual_translation_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.contextual_translation_enabled = v.into();
         self

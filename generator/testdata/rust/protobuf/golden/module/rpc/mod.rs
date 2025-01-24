@@ -82,21 +82,27 @@ pub struct ErrorInfo {
 
 impl ErrorInfo {
 
-    /// Sets the value of `reason`.
+    /// Sets the value of [reason][crate::error::rpc::generated::ErrorInfo::reason].
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
     }
 
-    /// Sets the value of `domain`.
+    /// Sets the value of [domain][crate::error::rpc::generated::ErrorInfo::domain].
     pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain = v.into();
         self
     }
 
-    /// Sets the value of `metadata`.
-    pub fn set_metadata<T: std::convert::Into<std::collections::HashMap<std::string::String,std::string::String>>>(mut self, v: T) -> Self {
-        self.metadata = v.into();
+    /// Sets the value of [metadata][crate::error::rpc::generated::ErrorInfo::metadata].
+    pub fn set_metadata<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -133,7 +139,7 @@ pub struct RetryInfo {
 
 impl RetryInfo {
 
-    /// Sets the value of `retry_delay`.
+    /// Sets the value of [retry_delay][crate::error::rpc::generated::RetryInfo::retry_delay].
     pub fn set_retry_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
         self.retry_delay = v.into();
         self
@@ -164,15 +170,20 @@ pub struct DebugInfo {
 
 impl DebugInfo {
 
-    /// Sets the value of `stack_entries`.
-    pub fn set_stack_entries<T: std::convert::Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-        self.stack_entries = v.into();
+    /// Sets the value of [detail][crate::error::rpc::generated::DebugInfo::detail].
+    pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.detail = v.into();
         self
     }
 
-    /// Sets the value of `detail`.
-    pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.detail = v.into();
+    /// Sets the value of [stack_entries][crate::error::rpc::generated::DebugInfo::stack_entries].
+    pub fn set_stack_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>
+    {
+        use std::iter::Iterator;
+        self.stack_entries = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -207,9 +218,14 @@ pub struct QuotaFailure {
 
 impl QuotaFailure {
 
-    /// Sets the value of `violations`.
-    pub fn set_violations<T: std::convert::Into<std::vec::Vec<crate::error::rpc::generated::quota_failure::Violation>>>(mut self, v: T) -> Self {
-        self.violations = v.into();
+    /// Sets the value of [violations][crate::error::rpc::generated::QuotaFailure::violations].
+    pub fn set_violations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::error::rpc::generated::quota_failure::Violation>
+    {
+        use std::iter::Iterator;
+        self.violations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -253,13 +269,13 @@ pub mod quota_failure {
 
     impl Violation {
 
-        /// Sets the value of `subject`.
+        /// Sets the value of [subject][crate::error::rpc::generated::quota_failure::Violation::subject].
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::error::rpc::generated::quota_failure::Violation::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -291,9 +307,14 @@ pub struct PreconditionFailure {
 
 impl PreconditionFailure {
 
-    /// Sets the value of `violations`.
-    pub fn set_violations<T: std::convert::Into<std::vec::Vec<crate::error::rpc::generated::precondition_failure::Violation>>>(mut self, v: T) -> Self {
-        self.violations = v.into();
+    /// Sets the value of [violations][crate::error::rpc::generated::PreconditionFailure::violations].
+    pub fn set_violations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::error::rpc::generated::precondition_failure::Violation>
+    {
+        use std::iter::Iterator;
+        self.violations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -340,19 +361,19 @@ pub mod precondition_failure {
 
     impl Violation {
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::error::rpc::generated::precondition_failure::Violation::type].
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
         }
 
-        /// Sets the value of `subject`.
+        /// Sets the value of [subject][crate::error::rpc::generated::precondition_failure::Violation::subject].
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
             self
         }
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::error::rpc::generated::precondition_failure::Violation::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -381,9 +402,14 @@ pub struct BadRequest {
 
 impl BadRequest {
 
-    /// Sets the value of `field_violations`.
-    pub fn set_field_violations<T: std::convert::Into<std::vec::Vec<crate::error::rpc::generated::bad_request::FieldViolation>>>(mut self, v: T) -> Self {
-        self.field_violations = v.into();
+    /// Sets the value of [field_violations][crate::error::rpc::generated::BadRequest::field_violations].
+    pub fn set_field_violations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::error::rpc::generated::bad_request::FieldViolation>
+    {
+        use std::iter::Iterator;
+        self.field_violations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -456,13 +482,13 @@ pub mod bad_request {
 
     impl FieldViolation {
 
-        /// Sets the value of `field`.
+        /// Sets the value of [field][crate::error::rpc::generated::bad_request::FieldViolation::field].
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
             self
         }
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::error::rpc::generated::bad_request::FieldViolation::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -497,13 +523,13 @@ pub struct RequestInfo {
 
 impl RequestInfo {
 
-    /// Sets the value of `request_id`.
+    /// Sets the value of [request_id][crate::error::rpc::generated::RequestInfo::request_id].
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
     }
 
-    /// Sets the value of `serving_data`.
+    /// Sets the value of [serving_data][crate::error::rpc::generated::RequestInfo::serving_data].
     pub fn set_serving_data<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serving_data = v.into();
         self
@@ -553,25 +579,25 @@ pub struct ResourceInfo {
 
 impl ResourceInfo {
 
-    /// Sets the value of `resource_type`.
+    /// Sets the value of [resource_type][crate::error::rpc::generated::ResourceInfo::resource_type].
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
-    /// Sets the value of `resource_name`.
+    /// Sets the value of [resource_name][crate::error::rpc::generated::ResourceInfo::resource_name].
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
-    /// Sets the value of `owner`.
+    /// Sets the value of [owner][crate::error::rpc::generated::ResourceInfo::owner].
     pub fn set_owner<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.owner = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::error::rpc::generated::ResourceInfo::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -602,9 +628,14 @@ pub struct Help {
 
 impl Help {
 
-    /// Sets the value of `links`.
-    pub fn set_links<T: std::convert::Into<std::vec::Vec<crate::error::rpc::generated::help::Link>>>(mut self, v: T) -> Self {
-        self.links = v.into();
+    /// Sets the value of [links][crate::error::rpc::generated::Help::links].
+    pub fn set_links<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::error::rpc::generated::help::Link>
+    {
+        use std::iter::Iterator;
+        self.links = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -639,13 +670,13 @@ pub mod help {
 
     impl Link {
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::error::rpc::generated::help::Link::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
-        /// Sets the value of `url`.
+        /// Sets the value of [url][crate::error::rpc::generated::help::Link::url].
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
             self
@@ -680,13 +711,13 @@ pub struct LocalizedMessage {
 
 impl LocalizedMessage {
 
-    /// Sets the value of `locale`.
+    /// Sets the value of [locale][crate::error::rpc::generated::LocalizedMessage::locale].
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locale = v.into();
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::error::rpc::generated::LocalizedMessage::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
@@ -735,21 +766,26 @@ pub struct Status {
 
 impl Status {
 
-    /// Sets the value of `code`.
+    /// Sets the value of [code][crate::error::rpc::generated::Status::code].
     pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
-    /// Sets the value of `message`.
+    /// Sets the value of [message][crate::error::rpc::generated::Status::message].
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
-    /// Sets the value of `details`.
-    pub fn set_details<T: std::convert::Into<std::vec::Vec<wkt::Any>>>(mut self, v: T) -> Self {
-        self.details = v.into();
+    /// Sets the value of [details][crate::error::rpc::generated::Status::details].
+    pub fn set_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>
+    {
+        use std::iter::Iterator;
+        self.details = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

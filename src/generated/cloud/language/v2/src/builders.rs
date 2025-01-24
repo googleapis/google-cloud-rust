@@ -70,7 +70,7 @@ pub mod language_service {
                 .await
         }
 
-        /// Sets the value of `document`.
+        /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -79,7 +79,7 @@ pub mod language_service {
             self
         }
 
-        /// Sets the value of `encoding_type`.
+        /// Sets the value of [encoding_type][crate::model::AnalyzeSentimentRequest::encoding_type].
         pub fn set_encoding_type<T: Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
             self.0.request.encoding_type = v.into();
             self
@@ -120,7 +120,7 @@ pub mod language_service {
                 .await
         }
 
-        /// Sets the value of `document`.
+        /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -129,7 +129,7 @@ pub mod language_service {
             self
         }
 
-        /// Sets the value of `encoding_type`.
+        /// Sets the value of [encoding_type][crate::model::AnalyzeEntitiesRequest::encoding_type].
         pub fn set_encoding_type<T: Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
             self.0.request.encoding_type = v.into();
             self
@@ -170,7 +170,7 @@ pub mod language_service {
                 .await
         }
 
-        /// Sets the value of `document`.
+        /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -214,7 +214,7 @@ pub mod language_service {
                 .await
         }
 
-        /// Sets the value of `document`.
+        /// Sets the value of [document][crate::model::ModerateTextRequest::document].
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -223,7 +223,7 @@ pub mod language_service {
             self
         }
 
-        /// Sets the value of `model_version`.
+        /// Sets the value of [model_version][crate::model::ModerateTextRequest::model_version].
         pub fn set_model_version<T: Into<crate::model::moderate_text_request::ModelVersion>>(
             mut self,
             v: T,
@@ -267,7 +267,7 @@ pub mod language_service {
                 .await
         }
 
-        /// Sets the value of `document`.
+        /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
         pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
             mut self,
             v: T,
@@ -276,7 +276,7 @@ pub mod language_service {
             self
         }
 
-        /// Sets the value of `features`.
+        /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
         pub fn set_features<
             T: Into<std::option::Option<crate::model::annotate_text_request::Features>>,
         >(
@@ -287,7 +287,7 @@ pub mod language_service {
             self
         }
 
-        /// Sets the value of `encoding_type`.
+        /// Sets the value of [encoding_type][crate::model::AnnotateTextRequest::encoding_type].
         pub fn set_encoding_type<T: Into<crate::model::EncodingType>>(mut self, v: T) -> Self {
             self.0.request.encoding_type = v.into();
             self
