@@ -40,15 +40,27 @@ const (
 type mixinMethods map[string]bool
 
 // loadMixins loads file descriptors for configured mixins.
-func loadMixins(serviceConfig *serviceconfig.Service) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
+func loadMixins(serviceConfig *serviceconfig.Service, withLongrunning bool) (mixinMethods, []*descriptorpb.FileDescriptorProto) {
 	var files []*descriptorpb.FileDescriptorProto
 	var enabledMixinMethods mixinMethods = make(map[string]bool)
-	apis := serviceConfig.GetApis()
-	if len(apis) < 2 {
+	var apiNames []string
+	hasLongrunning := false
+	for _, api := range serviceConfig.GetApis() {
+		// Only insert the service if needed. We want to preserve the order
+		// to make the generated code reproducible, so we cannot use a map.
+		if api.GetName() == longrunningService {
+			hasLongrunning = true
+		}
+		apiNames = append(apiNames, api.GetName())
+	}
+	if withLongrunning && !hasLongrunning {
+		apiNames = append(apiNames, longrunningService)
+	}
+	if len(apiNames) < 2 {
 		return enabledMixinMethods, files
 	}
-	for _, api := range apis {
-		switch api.GetName() {
+	for _, apiName := range apiNames {
+		switch apiName {
 		case locationService:
 			files = append(files, protodesc.ToFileDescriptorProto(location.File_google_cloud_location_locations_proto))
 		case iamService:
