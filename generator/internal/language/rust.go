@@ -798,7 +798,7 @@ func rustToSnakeNoMangling(symbol string) string {
 	return strcase.ToSnake(symbol)
 }
 
-// Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this
+// Convert a name to `PascalCase`.  Strangely, the `strcase` package calls this
 // `ToCamel` while usually `camelCase` starts with a lowercase letter. The
 // Rust naming conventions use this style for structs, enums and traits.
 //
@@ -809,6 +809,17 @@ func rustToPascal(symbol string) string {
 	if symbol == "" {
 		return ""
 	}
+	// The Rust style guide frowns on all upppercase for struct names, even if
+	// they are acronyms (consider `IAM`). In such cases we must use the normal
+	// mapping.
+	if strings.ToUpper(symbol) == symbol {
+		return rustEscapeKeyword(strcase.ToCamel(symbol))
+	}
+	// Symbols that are already `PascalCase` should need no mapping. This works
+	// better than calling `strcase.ToCamel()` in cases like `IAMPolicy`, which
+	// would be converted to `IamPolicy`. We are trusting that the original
+	// name in Protobuf (or whatever source specification we are using) chose
+	// to keep the acronym for a reason.
 	runes := []rune(symbol)
 	if unicode.IsUpper(runes[0]) && !strings.ContainsRune(symbol, '_') {
 		return rustEscapeKeyword(symbol)
