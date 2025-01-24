@@ -1337,6 +1337,7 @@ func TestRust_ToPascal(t *testing.T) {
 		{"yield", "Yield"},
 		{"IAMPolicy", "IAMPolicy"},
 		{"IAMPolicyRequest", "IAMPolicyRequest"},
+		{"IAM", "Iam"},
 	}
 	for _, test := range pascalConvertTests {
 		if output := rustToPascal(test.Input); output != test.Expected {
