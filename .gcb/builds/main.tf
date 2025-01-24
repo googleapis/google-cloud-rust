@@ -27,7 +27,7 @@ provider "google" {
   zone    = var.zone
 }
 
-# Enable Cloud Build and create triggers.
+# Enable services used by the integration tests.
 module "services" {
   source  = "./services"
   project = var.project
