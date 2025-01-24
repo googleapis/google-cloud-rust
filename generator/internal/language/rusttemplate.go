@@ -15,6 +15,7 @@
 package language
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -304,7 +305,15 @@ func newRustMessage(m *api.Message, state *api.APIState, deserializeWithDefaults
 			return !s.IsOneOf
 		}),
 		ExplicitOneOfs: mapSlice(m.OneOfs, func(s *api.OneOf) *api.OneOf {
-			return newRustOneOf(s, state, modulePath, sourceSpecificationPackageName, packageMapping)
+			messageName := rustMessageScopeName(m, "", modulePath, sourceSpecificationPackageName, packageMapping)
+			s.Codec = &RustOneOfAnnotation{
+				FieldName:  rustToSnake(s.Name),
+				SetterName: rustToSnakeNoMangling(s.Name),
+				EnumName:   rustToPascal(s.Name),
+				FieldType:  fmt.Sprintf("%s::%s", messageName, rustToPascal(s.Name)),
+				DocLines:   rustFormatDocComments(s.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+			}
+			return s
 		}),
 		NestedMessages: mapSlice(m.Messages, func(s *api.Message) *RustMessage {
 			return newRustMessage(s, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -375,17 +384,6 @@ func newRustMethod(m *api.Method, s *api.Service, state *api.APIState, modulePat
 		}
 	}
 	return method
-}
-
-func newRustOneOf(oneOf *api.OneOf, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *api.OneOf {
-	oneOf.Codec = &RustOneOfAnnotation{
-		FieldName:  rustToSnake(oneOf.Name),
-		SetterName: rustToSnakeNoMangling(oneOf.Name),
-		EnumName:   rustToPascal(oneOf.Name),
-		FieldType:  rustOneOfType(oneOf, modulePath, sourceSpecificationPackageName, packageMapping),
-		DocLines:   rustFormatDocComments(oneOf.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-	}
-	return oneOf
 }
 
 func newRustField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) *api.Field {

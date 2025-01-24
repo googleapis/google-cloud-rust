@@ -33,7 +33,7 @@ func checkMessage(t *testing.T, got api.Message, want api.Message) {
 		t.Errorf("field mismatch (-want, +got):\n%s", diff)
 	}
 	// Ignore parent because types are cyclic
-	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less), cmpopts.IgnoreFields(api.OneOf{}, "Parent")); diff != "" {
+	if diff := cmp.Diff(want.OneOfs, got.OneOfs, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("oneofs mismatch (-want, +got):\n%s", diff)
 	}
 }

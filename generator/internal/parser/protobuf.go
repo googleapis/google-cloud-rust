@@ -484,9 +484,8 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 	}
 	for _, oneof := range m.OneofDecl {
 		oneOfs := &api.OneOf{
-			Name:   oneof.GetName(),
-			ID:     mFQN + "." + oneof.GetName(),
-			Parent: message,
+			Name: oneof.GetName(),
+			ID:   mFQN + "." + oneof.GetName(),
 		}
 		message.OneOfs = append(message.OneOfs, oneOfs)
 	}

@@ -312,8 +312,6 @@ type OneOf struct {
 	Documentation string
 	// Fields associated with the one-of.
 	Fields []*Field
-	// Parent returns the ancestor of this node, if any.
-	Parent *Message
 	// A placeholder to put language specific annotations.
 	Codec any
 }

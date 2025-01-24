@@ -665,10 +665,6 @@ func rustFQEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackag
 	return fmt.Sprintf("%s::%s::%s", rustEnumScopeName(v.Parent, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(v.Parent.Name), rustEnumValueName(v))
 }
 
-func rustOneOfType(o *api.OneOf, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
-	return rustMessageScopeName(o.Parent, "", modulePath, sourceSpecificationPackageName, packageMapping) + "::" + rustToPascal(o.Name)
-}
-
 func rustBodyAccessor(m *api.Method) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
