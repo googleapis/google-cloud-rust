@@ -14,7 +14,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "${var.project}-terraform"
+    bucket = "rust-sdk-testing-terraform"
     prefix = "gcb"
   }
 }
