@@ -21,10 +21,10 @@ limitations under the License.
 type {{Name}} struct {
     {{#Fields}}
 
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     // {{{.}}}
-    {{/DocLines}}
-    {{NameToPascal}} {{FieldType}} `json:"{{JSONName}},omitempty"`
+    {{/Codec.DocLines}}
+    {{Codec.Name}} {{Codec.FieldType}} `json:"{{JSONName}},omitempty"`
     {{/Fields}}
 }
 {{#NestedMessages}}
