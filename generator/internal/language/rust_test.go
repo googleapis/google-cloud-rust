@@ -1518,6 +1518,33 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 	}
 }
 
+func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
+	input := `Link definitions should be added when collapsed links are used.
+For example, [google][].
+Second [example][].
+[Third] example.
+[google]: https://www.google.com
+[example]: https://www.example.com
+[Third]: https://www.third.com`
+
+	want := []string{
+		"/// Link definitions should be added when collapsed links are used.",
+		"/// For example, [google][].",
+		"/// Second [example][].",
+		"/// [Third] example.",
+		"/// [google]: https://www.google.com",
+		"/// [example]: https://www.example.com",
+		"/// [Third]: https://www.third.com",
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := &rustCodec{}
+	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	input := `
 [Any][google.protobuf.Any]
@@ -1582,6 +1609,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
+		sourceSpecificationPackageName: "test.v1",
 	}
 
 	// To test the mappings we need a fairly complex model.API instance. Create it
@@ -1595,27 +1623,114 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	}
 }
 
-func TestRust_FormatDocCommentsLinkDefinitions(t *testing.T) {
-	input := `Link definitions should be added when collapsed links are used.
-For example, [google][].
-Second [example][].
-[Third] example.
-[google]: https://www.google.com
-[example]: https://www.example.com
-[Third]: https://www.third.com`
-
+func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
+	input := `
+[relative link to service][SomeService]
+[relative link to method][SomeService.CreateFoo]
+[relative link to message][SomeMessage]
+[relative link to message field][SomeMessage.field]
+[relative link to message oneof field][SomeMessage.error]
+[relative link to enum][SomeMessage.SomeEnum]
+[relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]
+`
 	want := []string{
-		"/// Link definitions should be added when collapsed links are used.",
-		"/// For example, [google][].",
-		"/// Second [example][].",
-		"/// [Third] example.",
-		"/// [google]: https://www.google.com",
-		"/// [example]: https://www.example.com",
-		"/// [Third]: https://www.third.com",
+		"/// [relative link to service][SomeService]",
+		"/// [relative link to method][SomeService.CreateFoo]",
+		"/// [relative link to message][SomeMessage]",
+		"/// [relative link to message field][SomeMessage.field]",
+		"/// [relative link to message oneof field][SomeMessage.error]",
+		"/// [relative link to enum][SomeMessage.SomeEnum]",
+		"/// [relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]",
+		"///",
+		"/// [SomeMessage]: crate::model::SomeMessage",
+		"/// [SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
+		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeService]: crate::client::SomeService",
+		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
+	}
+	wkt := &rustPackage{
+		name:        "wkt",
+		packageName: "gcp-sdk-wkt",
+		path:        "src/wkt",
+	}
+	iam := &rustPackage{
+		name:        "iam_v1",
+		packageName: "gcp-sdk-iam-v1",
+		path:        "src/generated/iam/v1",
+	}
+	c := &rustCodec{
+		modulePath: "crate::model",
+		packageMapping: map[string]*rustPackage{
+			"google.protobuf": wkt,
+			"google.iam.v1":   iam,
+		},
+		sourceSpecificationPackageName: "test.v1",
 	}
 
-	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
-	c := &rustCodec{}
+	// To test the mappings we need a fairly complex model.API instance. Create it
+	// in a separate function to make this more readable.
+	model := makeApiForRustFormatDocCommentsCrossLinks()
+	rustLoadWellKnownTypes(model.State)
+
+	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestRust_FormatDocCommentsImpliedCrossLinks(t *testing.T) {
+	input := `
+implied service reference [SomeService][]
+implied method reference [SomeService.CreateFoo][]
+implied message reference [SomeMessage][]
+implied message field reference [SomeMessage.field][]
+implied message oneof field reference [SomeMessage.error][]
+implied enum reference [SomeMessage.SomeEnum][]
+implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
+`
+	want := []string{
+		"/// implied service reference [SomeService][]",
+		"/// implied method reference [SomeService.CreateFoo][]",
+		"/// implied message reference [SomeMessage][]",
+		"/// implied message field reference [SomeMessage.field][]",
+		"/// implied message oneof field reference [SomeMessage.error][]",
+		"/// implied enum reference [SomeMessage.SomeEnum][]",
+		"/// implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]",
+		"///",
+		"/// [SomeMessage]: crate::model::SomeMessage",
+		"/// [SomeMessage.SomeEnum]: crate::model::some_message::SomeEnum",
+		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
+		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeService]: crate::client::SomeService",
+		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
+	}
+	wkt := &rustPackage{
+		name:        "wkt",
+		packageName: "gcp-sdk-wkt",
+		path:        "src/wkt",
+	}
+	iam := &rustPackage{
+		name:        "iam_v1",
+		packageName: "gcp-sdk-iam-v1",
+		path:        "src/generated/iam/v1",
+	}
+	c := &rustCodec{
+		modulePath: "crate::model",
+		packageMapping: map[string]*rustPackage{
+			"google.protobuf": wkt,
+			"google.iam.v1":   iam,
+		},
+		sourceSpecificationPackageName: "test.v1",
+	}
+
+	// To test the mappings we need a fairly complex model.API instance. Create it
+	// in a separate function to make this more readable.
+	model := makeApiForRustFormatDocCommentsCrossLinks()
+	rustLoadWellKnownTypes(model.State)
+
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
@@ -1655,9 +1770,10 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		ID:   ".test.v1.SomeMessage.SomeEnum.ENUM_VALUE",
 	}
 	someEnum := &api.Enum{
-		Name:   "SomeEnum",
-		ID:     ".test.v1.SomeMessage.SomeEnum",
-		Values: []*api.EnumValue{enumValue},
+		Name:    "SomeEnum",
+		ID:      ".test.v1.SomeMessage.SomeEnum",
+		Values:  []*api.EnumValue{enumValue},
+		Package: "test.v1",
 	}
 	enumValue.Parent = someEnum
 	response := &api.Field{
@@ -1671,9 +1787,10 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		IsOneOf: true,
 	}
 	someMessage := &api.Message{
-		Name:  "SomeMessage",
-		ID:    ".test.v1.SomeMessage",
-		Enums: []*api.Enum{someEnum},
+		Name:    "SomeMessage",
+		ID:      ".test.v1.SomeMessage",
+		Package: "test.v1",
+		Enums:   []*api.Enum{someEnum},
 		Fields: []*api.Field{
 			{Name: "unused"}, {Name: "field"}, response, errorz,
 		},
@@ -1686,8 +1803,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		},
 	}
 	someService := &api.Service{
-		Name: "SomeService",
-		ID:   ".test.v1.SomeService",
+		Name:    "SomeService",
+		ID:      ".test.v1.SomeService",
+		Package: "test.v1",
 		Methods: []*api.Method{
 			{
 				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
@@ -1702,8 +1820,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		},
 	}
 	yellyService := &api.Service{
-		Name: "YELL",
-		ID:   ".test.v1.YELL",
+		Name:    "YELL",
+		ID:      ".test.v1.YELL",
+		Package: "test.v1",
 		Methods: []*api.Method{
 			{
 				Name: "CreateThing",

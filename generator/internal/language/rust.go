@@ -15,6 +15,7 @@
 package language
 
 import (
+	"bytes"
 	"embed"
 	"fmt"
 	"log/slog"
@@ -36,21 +37,6 @@ import (
 
 //go:embed templates/rust
 var rustTemplates embed.FS
-
-// A regular expression to find code links in comments.
-//
-// The Google API documentation (typically in protos) include links to code
-// elements in the form `[Thing][google.package.blah.v1.Thing.SubThing]`.
-// This regular expression captures the `][...]` part. There is a lot of scaping
-// because the brackets are metacharacters in regex.
-var commentLinkRegex = regexp.MustCompile(
-	`` + // `go fmt` is annoying
-		`\]` + // The closing bracket for the `[Thing]`
-		`\[` + // The opening bracket for the code element.
-		`[a-z_]+` + // Must start with an all lowercase name like `google` or `grafeas`.
-		`\.` + // Separated by a dot
-		`[a-zA-Z0-9_\.]+` + // We don't try to parse these with a regex, alphanum, underscores and dots are all accepted in any order
-		`\]`) // The closing bracket
 
 // A regular expression to find https links in comments.
 //
@@ -852,7 +838,6 @@ func rustToScreamingSnake(symbol string) string {
 // [spec]: https://spec.commonmark.org/0.13/#block-quotes
 func rustFormatDocComments(documentation string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) []string {
 	var results []string
-	links := map[string]bool{}
 	md := goldmark.New(
 		goldmark.WithParserOptions(
 			parser.WithAutoHeadingID(),
@@ -879,7 +864,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
 					return ast.WalkContinue, nil
 				}
-				formattedOutput := processList(node.(*ast.List), 0, documentationBytes, links)
+				formattedOutput := processList(node.(*ast.List), 0, documentationBytes)
 				results = append(results, formattedOutput...)
 				results = append(results, "\n")
 			}
@@ -889,7 +874,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				if node.Parent() != nil && node.Parent().Kind() == ast.KindListItem {
 					return ast.WalkContinue, nil
 				}
-				formattedOutput := processParagraph(node, links, documentationBytes)
+				formattedOutput := processParagraph(node, documentationBytes)
 				results = append(results, formattedOutput...)
 			}
 		case ast.KindHeading:
@@ -903,13 +888,7 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 		return ast.WalkContinue, nil
 	})
 
-	// Convert protobuf links to rusty links.
-	var sortedLinks []string
-	for link := range links {
-		sortedLinks = append(sortedLinks, link)
-	}
-	sort.Strings(sortedLinks)
-	for _, link := range sortedLinks {
+	for _, link := range protobufLinkMapping(doc, documentationBytes) {
 		rusty := rustDocLink(link, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		if rusty == "" {
 			continue
@@ -926,10 +905,74 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 	return results
 }
 
-func extractProtoLinks(line string, links map[string]bool) {
-	for _, match := range commentLinkRegex.FindAllString(line, -1) {
-		match = strings.TrimSuffix(strings.TrimPrefix(match, "]["), "]")
-		links[match] = true
+// protobufLinks() returns additional comment lines to map protobuf links to
+// Rustdoc links.
+//
+// Protobuf comments include links in the form `[Title][Definition]` where
+// `Title` is the text that should appear in the documentation and `Definition`
+// is the name of a Protobuf entity, e.g., `google.longrunning.Operation`.
+//
+// We need to map these references from Protobuf names to the corresponding
+// entity in the generated code. We do this by appending a number of link
+// definitions to the comments, e.g.
+//
+//	//// [google.longrunning.Operation]: lro::model::Operation
+func protobufLinkMapping(doc ast.Node, source []byte) []string {
+	protobufLinks := map[string]bool{}
+	ast.Walk(doc, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
+		switch node.Kind() {
+		case ast.KindParagraph:
+			text := node.Lines().Value(source)
+			extractProtoLinks(text, protobufLinks)
+			return ast.WalkContinue, nil
+		case ast.KindTextBlock:
+			text := node.Lines().Value(source)
+			extractProtoLinks(text, protobufLinks)
+			return ast.WalkContinue, nil
+		default:
+			return ast.WalkContinue, nil
+		}
+	})
+	var sortedLinks []string
+	for link := range protobufLinks {
+		sortedLinks = append(sortedLinks, link)
+	}
+	sort.Strings(sortedLinks)
+	return sortedLinks
+}
+
+// A regular expression to find cross links in comments.
+//
+// The Google API documentation (typically in protos) include links to code
+// elements in the form `[Thing][google.package.blah.v1.Thing.SubThing]`.
+// This regular expression captures the `][...]` part. There is a lot of scaping
+// because the brackets are metacharacters in regex.
+var commentCrossReferenceLink = regexp.MustCompile(
+	`` + // `go fmt` is annoying
+		`\]` + // The closing bracket for the `[Thing]`
+		`\[` + // The opening bracket for the code element.
+		`[A-Za-z][A-Za-z0-9_]*` + // A thing that looks like a Protobuf identifier
+		`(\.` + // Followed by (maybe a dot)
+		`[A-Za-z][A-Za-z0-9_]*` + // A thing that looks like a Protobuf identifier
+		`)*` + // zero or more times
+		`\]`) // The closing bracket
+
+// A regular expression to find implied cross reference links.
+var commentImpliedCrossReferenceLink = regexp.MustCompile(
+	`` + // `go fmt` is annoying
+		`\[` +
+		`[A-Z-a-z][A-Za-z0-9_]*` + // A thing that looks like a Protobuf identifier
+		`(\.[A-Za-z][A-Za-z0-9_]*)*` + // Followed by more identifiers
+		`\]\[\]`) // The closing bracket followed by an empty link label
+
+func extractProtoLinks(paragraph []byte, links map[string]bool) {
+	for _, match := range commentCrossReferenceLink.FindAll(paragraph, -1) {
+		match = bytes.TrimSuffix(bytes.TrimPrefix(match, []byte("][")), []byte("]"))
+		links[string(match)] = true
+	}
+	for _, match := range commentImpliedCrossReferenceLink.FindAll(paragraph, -1) {
+		match = bytes.TrimSuffix(bytes.TrimPrefix(match, []byte("[")), []byte("][]"))
+		links[string(match)] = true
 	}
 }
 
@@ -1026,34 +1069,30 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 	return strings.HasSuffix(line[:matchStart], "](") && line[matchEnd] == ')'
 }
 
-func processList(list *ast.List, indentLevel int, documentationBytes []byte, links map[string]bool) []string {
+func processList(list *ast.List, indentLevel int, documentationBytes []byte) []string {
 	var results []string
 	listMarker := string(list.Marker)
 	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
-			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, links)
+			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes)
 			results = append(results, listItems...)
 		}
 	}
 	return results
 }
 
-func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, links map[string]bool) []string {
+func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte) []string {
 	var results []string
 	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindList {
-			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, links)
+			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes)
 			results = append(results, nestedListItems...)
 			break
 		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
 			firstLine := child.Lines().At(0)
-			firstLineString := string(firstLine.Value(documentationBytes))
-			extractProtoLinks(firstLineString, links)
 			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, firstLine, documentationBytes)))
 			for i := 1; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
-				lineString := string(line.Value(documentationBytes))
-				extractProtoLinks(lineString, links)
 				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
 			}
 			if child.Kind() == ast.KindParagraph {
@@ -1094,13 +1133,12 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 	return results
 }
 
-func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
+func processParagraph(node ast.Node, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
-		extractProtoLinks(lineString, links)
 		results = append(results, processCommentLine(node, line, documentationBytes))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
@@ -1144,7 +1182,21 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 }
 
 func rustDocLink(link string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
+	// Sometimes the documentation uses relative links, so instead of saying:
+	//     [google.package.v1.Message]
+	// they just say
+	//     [Message]
+	// we need to lookup the local symbols first.
+	localId := fmt.Sprintf(".%s.%s", sourceSpecificationPackageName, link)
+	result := tryRustDocLinkWithId(localId, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	if result != "" {
+		return result
+	}
 	id := fmt.Sprintf(".%s", link)
+	return tryRustDocLinkWithId(id, state, modulePath, sourceSpecificationPackageName, packageMapping)
+}
+
+func tryRustDocLinkWithId(id string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
 	m, ok := state.MessageByID[id]
 	if ok {
 		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)

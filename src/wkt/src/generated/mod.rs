@@ -73,6 +73,8 @@ pub struct Api {
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// Included interfaces. See [Mixin][].
+    ///
+    /// [Mixin]: crate::Mixin
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub mixins: std::vec::Vec<crate::Mixin>,
 
@@ -330,6 +332,8 @@ impl wkt::message::Message for Method {
 ///   ...
 /// }
 /// ```
+///
+/// [Mixin.root]: crate::Mixin::root
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
