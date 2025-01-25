@@ -1000,6 +1000,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-scheduler-v1"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-location",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-secretmanager-v1"
 version = "0.1.0"
 dependencies = [
