@@ -1461,21 +1461,23 @@ Second [example][].
 	}
 }
 
-func TestRust_FormatDocCommentsPlaceholders(t *testing.T) {
+func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 	input := `Placeholders placed between angled brackets should be escaped.
 	For example, example:<ip address> and another example:<second
 	placeholder>.
 	Third example: projects/<project>/secrets/<secret>
 	Urls remain unchanged <https://www.example.com>
-	Hyperlinks remain unchanged except for escaped the url <a href=https://www.hyperlink.com>hyperlined content</a>`
+	Hyperlinks remain unchanged except for escaped the url <a href=https://www.hyperlink.com>hyperlined content</a>` + `
+	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
 
 	want := []string{
 		"/// Placeholders placed between angled brackets should be escaped.",
-		"/// For example, example:&lt;ip address&gt; and another example:&lt;second",
-		"/// placeholder&gt;.",
-		"/// Third example: projects/&lt;project&gt;/secrets/&lt;secret&gt;",
+		"/// For example, example:\\<ip address\\> and another example:\\<second",
+		"/// placeholder\\>.",
+		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
 		"/// Urls remain unchanged <https://www.example.com>",
 		"/// Hyperlinks remain unchanged except for escaped the url <a href=<https://www.hyperlink.com>>hyperlined content</a>",
+		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
 	}
 
 	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
