@@ -1953,7 +1953,7 @@ impl wkt::message::Message for DeleteBackupScheduleRequest {
 pub struct ListBackupSchedulesRequest {
     /// Required. Database is the parent resource whose backup schedules should be
     /// listed. Values are of the form
-    /// projects/&lt;project&gt;/instances/&lt;instance&gt;/databases/&lt;database&gt;
+    /// projects/\<project\>/instances/\<instance\>/databases/\<database\>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
@@ -3842,8 +3842,8 @@ pub struct RestoreDatabaseMetadata {
     /// track the post-restore optimization process to optimize the performance of
     /// the restored database, and remove the dependency on the restore source.
     /// The name is of the form
-    /// `projects/<project>/instances/<instance>/databases/&lt;database&gt;/operations/<operation>`
-    /// where the &lt;database&gt; is the name of database being created and restored to.
+    /// `projects/<project>/instances/<instance>/databases/<database>/operations/<operation>`
+    /// where the \<database\> is the name of database being created and restored to.
     /// The metadata type of the  long-running operation is
     /// [OptimizeRestoredDatabaseMetadata][google.spanner.admin.database.v1.OptimizeRestoredDatabaseMetadata].
     /// This long-running operation will be automatically created by the system

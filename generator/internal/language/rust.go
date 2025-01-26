@@ -17,7 +17,6 @@ package language
 import (
 	"embed"
 	"fmt"
-	"html"
 	"log/slog"
 	"path"
 	"regexp"
@@ -898,10 +897,47 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
-func processCommentLine(htmlSubstitutions map[string]string, line string) string {
-	line = escapeUrls(line)
-	line = escapeHTMLTags(htmlSubstitutions, line)
-	return line
+func processCommentLine(node ast.Node, line text.Segment, documentationBytes []byte) string {
+	lineString := escapeHTMLTags(node, line, documentationBytes)
+	lineString = escapeUrls(lineString)
+	return lineString
+}
+
+func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte) string {
+	lineContent := line.Value(documentationBytes)
+	escapedString := string(lineContent)
+
+	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindRawHTML {
+			rawHTML := child.(*ast.RawHTML)
+			if !isWithinCodeSpan(node) {
+				for i := 0; i < rawHTML.Segments.Len(); i++ {
+					segment := rawHTML.Segments.At(i)
+					segmentContent := string(segment.Value(documentationBytes))
+					if segment.Start >= line.Start && (segment.Start < line.Stop) {
+						if !strings.HasPrefix(segmentContent, "<br />") && !strings.HasPrefix(segmentContent, "<a href=") && !strings.HasSuffix(segmentContent, "</a>") {
+							start := int(segment.Start) - line.Start
+							end := int(segment.Stop) - line.Start
+							escapedHTML := strings.Replace(segmentContent, "<", "\\<", 1)
+							escapedHTML = strings.Replace(escapedHTML, ">", "\\>", 1)
+							escapedString = strings.ReplaceAll(escapedString, string(lineContent[start:end]), escapedHTML)
+						}
+
+					}
+				}
+			}
+		}
+	}
+	return escapedString
+}
+
+func isWithinCodeSpan(node ast.Node) bool {
+	for parent := node.Parent(); parent != nil; parent = parent.Parent() {
+		if parent.Kind() == ast.KindCodeSpan {
+			return true
+		}
+	}
+	return false
 }
 
 // Encloses standalone URLs with angled brackets and escape placeholders.
@@ -972,16 +1008,15 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			results = append(results, nestedListItems...)
 			break
 		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
-			htmlSubstitutions := fetchHtmlSubstitutions(child, documentationBytes)
 			firstLine := child.Lines().At(0)
 			firstLineString := string(firstLine.Value(documentationBytes))
 			extractProtoLinks(firstLineString, links)
-			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(htmlSubstitutions, firstLineString)))
+			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, firstLine, documentationBytes)))
 			for i := 1; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
 				lineString := string(line.Value(documentationBytes))
 				extractProtoLinks(lineString, links)
-				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(htmlSubstitutions, lineString)))
+				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1024,12 +1059,11 @@ func annotateFencedCodeBlock(node ast.Node, documentationBytes []byte) []string 
 func processParagraph(node ast.Node, links map[string]bool, documentationBytes []byte) []string {
 	var results []string
 	var allLinkDefinitions []string
-	htmlSubstitutions := fetchHtmlSubstitutions(node, documentationBytes)
 	for i := 0; i < node.Lines().Len(); i++ {
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
-		results = append(results, processCommentLine(htmlSubstitutions, lineString))
+		results = append(results, processCommentLine(node, line, documentationBytes))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
@@ -1040,41 +1074,6 @@ func processParagraph(node ast.Node, links map[string]bool, documentationBytes [
 	}
 	results = append(results, "\n")
 	return results
-}
-
-func fetchHtmlSubstitutions(node ast.Node, documentationBytes []byte) map[string]string {
-	htmlMapping := make(map[string]string)
-	for c := node.FirstChild(); c != nil; c = c.NextSibling() {
-
-		// Skip escaping the contents in code spans.
-		if c.Kind() == ast.KindCodeSpan {
-			codespan := c.(*ast.CodeSpan)
-			codespanContent := string(codespan.Text(documentationBytes))
-			if strings.Contains(codespanContent, "<") || strings.Contains(codespanContent, ">") {
-				continue
-			}
-		} else if c.Kind() == ast.KindRawHTML {
-			rawHTML := c.(*ast.RawHTML)
-			for i := 0; i < rawHTML.Segments.Len(); i++ {
-				segment := rawHTML.Segments.At(i)
-				original := string(segment.Value(documentationBytes))
-
-				// Skip escaping urls, hyperlinks and line breaks.
-				if !commentUrlRegex.MatchString(original) && !strings.HasPrefix(original, "<a href=") && !strings.HasPrefix(original, "</a>") && !strings.HasPrefix(original, "<br />") {
-					htmlMapping[original] = html.EscapeString(original)
-				}
-			}
-		}
-	}
-	return htmlMapping
-}
-
-func escapeHTMLTags(htmlSubstitutions map[string]string, line string) string {
-	processed := line
-	for tag := range htmlSubstitutions {
-		processed = strings.ReplaceAll(processed, tag, htmlSubstitutions[tag])
-	}
-	return processed
 }
 
 func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte) []string {
@@ -1102,7 +1101,6 @@ func fetchLinkDefinitions(node ast.Node, line string, documentationBytes []byte)
 				}
 			}
 		}
-
 	}
 	return linkDefinitions
 }

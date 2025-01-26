@@ -1608,9 +1608,9 @@ pub struct CreateInstanceConfigRequest {
 
     /// Required. The `InstanceConfig` proto of the configuration to create.
     /// `instance_config.name` must be
-    /// `&lt;parent&gt;/instanceConfigs/<instance_config_id>`.
+    /// `<parent>/instanceConfigs/<instance_config_id>`.
     /// `instance_config.base_config` must be a Google-managed configuration name,
-    /// e.g. &lt;parent&gt;/instanceConfigs/us-east1, &lt;parent&gt;/instanceConfigs/nam3.
+    /// e.g. \<parent\>/instanceConfigs/us-east1, \<parent\>/instanceConfigs/nam3.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_config: std::option::Option<crate::model::InstanceConfig>,
 
