@@ -46,8 +46,8 @@ use std::sync::Arc;
 /// a resource project's ancestor folder, see
 /// [ShowEffectiveAutokeyConfig][google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig].
 ///
-/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::traits::AutokeyAdmin::show_effective_autokey_config
-/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::traits::AutokeyAdmin::update_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.ShowEffectiveAutokeyConfig]: crate::client::AutokeyAdmin::show_effective_autokey_config
+/// [google.cloud.kms.v1.AutokeyAdmin.UpdateAutokeyConfig]: crate::client::AutokeyAdmin::update_autokey_config
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
 #[derive(Clone, Debug)]
@@ -285,7 +285,7 @@ impl Autokey {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -463,7 +463,7 @@ impl AutokeyAdmin {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -683,7 +683,7 @@ impl EkmService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,
@@ -998,8 +998,8 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::traits::KeyManagementService::destroy_crypto_key_version
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
     pub fn update_crypto_key_version(
         &self,
         crypto_key_version: impl Into<crate::model::CryptoKeyVersion>,
@@ -1017,7 +1017,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     pub fn update_crypto_key_primary_version(
         &self,
         name: impl Into<std::string::String>,
@@ -1056,7 +1056,7 @@ impl KeyManagementService {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]: crate::model::crypto_key_version::crypto_key_version_state::DESTROY_SCHEDULED
     /// [google.cloud.kms.v1.CryptoKeyVersion.destroy_time]: crate::model::CryptoKeyVersion::destroy_time
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
-    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::traits::KeyManagementService::restore_crypto_key_version
+    /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
     pub fn destroy_crypto_key_version(
         &self,
         name: impl Into<std::string::String>,
@@ -1095,7 +1095,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
     pub fn encrypt(
         &self,
         name: impl Into<std::string::String>,
@@ -1111,7 +1111,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     pub fn decrypt(
         &self,
         name: impl Into<std::string::String>,
@@ -1129,8 +1129,8 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.RAW_ENCRYPT_DECRYPT]: crate::model::crypto_key::crypto_key_purpose::RAW_ENCRYPT_DECRYPT
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
-    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::traits::KeyManagementService::decrypt
-    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::traits::KeyManagementService::encrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
+    /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
     pub fn raw_encrypt(
         &self,
         name: impl Into<std::string::String>,
@@ -1162,7 +1162,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
     pub fn asymmetric_sign(
         &self,
         name: impl Into<std::string::String>,
@@ -1179,7 +1179,7 @@ impl KeyManagementService {
     ///
     /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
-    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::traits::KeyManagementService::get_public_key
+    /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
     pub fn asymmetric_decrypt(
         &self,
         name: impl Into<std::string::String>,
@@ -1285,7 +1285,7 @@ impl KeyManagementService {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
         name: impl Into<std::string::String>,

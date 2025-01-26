@@ -284,10 +284,8 @@ pub mod span {
         /// "abc.com/myattribute": { "bool_value": false }
         /// ```
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        pub attribute_map: std::collections::HashMap<
-            std::string::String,
-            std::option::Option<crate::model::AttributeValue>,
-        >,
+        pub attribute_map:
+            std::collections::HashMap<std::string::String, crate::model::AttributeValue>,
 
         /// The number of attributes that were discarded. Attributes can be discarded
         /// because their keys are too long or because there are too many attributes.
@@ -299,10 +297,7 @@ pub mod span {
         /// Sets the value of `attribute_map`.
         pub fn set_attribute_map<
             T: std::convert::Into<
-                std::collections::HashMap<
-                    std::string::String,
-                    std::option::Option<crate::model::AttributeValue>,
-                >,
+                std::collections::HashMap<std::string::String, crate::model::AttributeValue>,
             >,
         >(
             mut self,

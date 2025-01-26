@@ -582,7 +582,7 @@ pub mod translation_service {
             T: Into<
                 std::collections::HashMap<
                     std::string::String,
-                    std::option::Option<crate::model::TranslateTextGlossaryConfig>,
+                    crate::model::TranslateTextGlossaryConfig,
                 >,
             >,
         >(
@@ -742,7 +742,7 @@ pub mod translation_service {
             T: Into<
                 std::collections::HashMap<
                     std::string::String,
-                    std::option::Option<crate::model::TranslateTextGlossaryConfig>,
+                    crate::model::TranslateTextGlossaryConfig,
                 >,
             >,
         >(

@@ -45,7 +45,7 @@ func Test_GoEnumAnnotations(t *testing.T) {
 		Values:        []*api.EnumValue{v0, v1, v2},
 	}
 
-	model := newTestAPI(
+	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
 	_, err := newGoTemplateData(model, map[string]string{})
 	if err != nil {

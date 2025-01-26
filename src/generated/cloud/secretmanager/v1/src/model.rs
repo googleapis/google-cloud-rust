@@ -400,8 +400,8 @@ pub struct SecretVersion {
     /// on
     /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
     ///
-    /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::traits::SecretManagerService
-    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::traits::SecretManagerService::add_secret_version
+    /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::client::SecretManagerService
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload]: crate::model::SecretPayload
     pub client_specified_payload_checksum: bool,
 
@@ -1206,9 +1206,9 @@ pub struct SecretPayload {
     /// safely downconverted to uint32 in languages that support this type.
     /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     ///
-    /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::traits::SecretManagerService
-    /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::traits::SecretManagerService::access_secret_version
-    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::traits::SecretManagerService::add_secret_version
+    /// [google.cloud.secretmanager.v1.SecretManagerService]: crate::client::SecretManagerService
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
+    /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload.data]: crate::model::SecretPayload::data
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -1242,7 +1242,7 @@ impl wkt::message::Message for SecretPayload {
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::traits::SecretManagerService::list_secrets
+/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::client::SecretManagerService::list_secrets
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1312,7 +1312,7 @@ impl wkt::message::Message for ListSecretsRequest {
 /// Response message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::traits::SecretManagerService::list_secrets
+/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecrets]: crate::client::SecretManagerService::list_secrets
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1388,7 +1388,7 @@ impl gax::paginator::PageableResponse for ListSecretsResponse {
 /// Request message for
 /// [SecretManagerService.CreateSecret][google.cloud.secretmanager.v1.SecretManagerService.CreateSecret].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.CreateSecret]: crate::traits::SecretManagerService::create_secret
+/// [google.cloud.secretmanager.v1.SecretManagerService.CreateSecret]: crate::client::SecretManagerService::create_secret
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1450,7 +1450,7 @@ impl wkt::message::Message for CreateSecretRequest {
 /// Request message for
 /// [SecretManagerService.AddSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::traits::SecretManagerService::add_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1500,7 +1500,7 @@ impl wkt::message::Message for AddSecretVersionRequest {
 /// Request message for
 /// [SecretManagerService.GetSecret][google.cloud.secretmanager.v1.SecretManagerService.GetSecret].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.GetSecret]: crate::traits::SecretManagerService::get_secret
+/// [google.cloud.secretmanager.v1.SecretManagerService.GetSecret]: crate::client::SecretManagerService::get_secret
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1532,7 +1532,7 @@ impl wkt::message::Message for GetSecretRequest {
 /// Request message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::traits::SecretManagerService::list_secret_versions
+/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::client::SecretManagerService::list_secret_versions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1602,7 +1602,7 @@ impl wkt::message::Message for ListSecretVersionsRequest {
 /// Response message for
 /// [SecretManagerService.ListSecretVersions][google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::traits::SecretManagerService::list_secret_versions
+/// [google.cloud.secretmanager.v1.SecretManagerService.ListSecretVersions]: crate::client::SecretManagerService::list_secret_versions
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1679,7 +1679,7 @@ impl gax::paginator::PageableResponse for ListSecretVersionsResponse {
 /// Request message for
 /// [SecretManagerService.GetSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion]: crate::traits::SecretManagerService::get_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.GetSecretVersion]: crate::client::SecretManagerService::get_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1717,7 +1717,7 @@ impl wkt::message::Message for GetSecretVersionRequest {
 /// Request message for
 /// [SecretManagerService.UpdateSecret][google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret]: crate::traits::SecretManagerService::update_secret
+/// [google.cloud.secretmanager.v1.SecretManagerService.UpdateSecret]: crate::client::SecretManagerService::update_secret
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1764,7 +1764,7 @@ impl wkt::message::Message for UpdateSecretRequest {
 /// Request message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::traits::SecretManagerService::access_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1802,7 +1802,7 @@ impl wkt::message::Message for AccessSecretVersionRequest {
 /// Response message for
 /// [SecretManagerService.AccessSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::traits::SecretManagerService::access_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.AccessSecretVersion]: crate::client::SecretManagerService::access_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1848,7 +1848,7 @@ impl wkt::message::Message for AccessSecretVersionResponse {
 /// Request message for
 /// [SecretManagerService.DeleteSecret][google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret]: crate::traits::SecretManagerService::delete_secret
+/// [google.cloud.secretmanager.v1.SecretManagerService.DeleteSecret]: crate::client::SecretManagerService::delete_secret
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1894,7 +1894,7 @@ impl wkt::message::Message for DeleteSecretRequest {
 /// Request message for
 /// [SecretManagerService.DisableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion]: crate::traits::SecretManagerService::disable_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.DisableSecretVersion]: crate::client::SecretManagerService::disable_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1942,7 +1942,7 @@ impl wkt::message::Message for DisableSecretVersionRequest {
 /// Request message for
 /// [SecretManagerService.EnableSecretVersion][google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion]: crate::traits::SecretManagerService::enable_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.EnableSecretVersion]: crate::client::SecretManagerService::enable_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1990,7 +1990,7 @@ impl wkt::message::Message for EnableSecretVersionRequest {
 /// Request message for
 /// [SecretManagerService.DestroySecretVersion][google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion].
 ///
-/// [google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion]: crate::traits::SecretManagerService::destroy_secret_version
+/// [google.cloud.secretmanager.v1.SecretManagerService.DestroySecretVersion]: crate::client::SecretManagerService::destroy_secret_version
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

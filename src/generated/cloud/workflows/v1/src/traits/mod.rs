@@ -123,7 +123,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -137,7 +137,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -151,7 +151,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,

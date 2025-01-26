@@ -25,10 +25,10 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [Autokey](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.Autokey.html)
-//! * [AutokeyAdmin](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.AutokeyAdmin.html)
-//! * [EkmService](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.EkmService.html)
-//! * [KeyManagementService](https://docs.rs/gcp-sdk-kms-v1/latest/gcp_sdk_kms_v1/client/struct.KeyManagementService.html)
+//! * [Autokey](client/struct.Autokey.html)
+//! * [AutokeyAdmin](client/struct.AutokeyAdmin.html)
+//! * [EkmService](client/struct.EkmService.html)
+//! * [KeyManagementService](client/struct.KeyManagementService.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

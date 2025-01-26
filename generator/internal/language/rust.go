@@ -500,16 +500,50 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 }
 
 func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
-	if !primitive && f.IsOneOf {
+	switch {
+	case primitive:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	case f.IsOneOf:
 		return fmt.Sprintf("(%s)", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Repeated {
+	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
-	}
-	if !primitive && f.Optional {
+	case f.Recursive:
+		base := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		if f.Optional {
+			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", base)
+		}
+		if _, ok := state.MessageByID[f.TypezID]; ok && f.Typez == api.MESSAGE_TYPE {
+			// Maps are never boxed.
+			return base
+		}
+		return fmt.Sprintf("std::boxed::Box<%s>", base)
+	case f.Optional:
 		return fmt.Sprintf("std::option::Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+	default:
+		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
-	return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+}
+
+func rustMapType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
+	switch f.Typez {
+	case api.MESSAGE_TYPE:
+		m, ok := state.MessageByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
+			return ""
+		}
+		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
+
+	case api.ENUM_TYPE:
+		e, ok := state.EnumByID[f.TypezID]
+		if !ok {
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
+			return ""
+		}
+		return rustFQEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
+	default:
+		return scalarFieldType(f)
+	}
 }
 
 // Returns the field type, ignoring any repeated or optional attributes.
@@ -517,19 +551,19 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 	if f.Typez == api.MESSAGE_TYPE {
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		if m.IsMap {
-			key := rustFieldType(m.Fields[0], state, false, modulePath, sourceSpecificationPackageName, packageMapping)
-			val := rustFieldType(m.Fields[1], state, false, modulePath, sourceSpecificationPackageName, packageMapping)
+			key := rustMapType(m.Fields[0], state, modulePath, sourceSpecificationPackageName, packageMapping)
+			val := rustMapType(m.Fields[1], state, modulePath, sourceSpecificationPackageName, packageMapping)
 			return "std::collections::HashMap<" + key + "," + val + ">"
 		}
 		return rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping)
 	} else if f.Typez == api.ENUM_TYPE {
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
-			slog.Error("unable to lookup type", "id", f.TypezID)
+			slog.Error("unable to lookup type", "id", f.TypezID, "field", f.ID)
 			return ""
 		}
 		return rustFQEnumName(e, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -538,7 +572,6 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 		return ""
 	}
 	return scalarFieldType(f)
-
 }
 
 func rustAddQueryParameter(f *api.Field) string {
@@ -614,10 +647,6 @@ func rustMessageAttributes(deserializeWithdDefaults bool) []string {
 	}
 }
 
-func rustMessageName(m *api.Message) string {
-	return rustToPascal(m.Name)
-}
-
 func rustMessageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
 	rustPkg := func(packageName string) string {
 		if packageName == sourceSpecificationPackageName {
@@ -667,10 +696,6 @@ func rustEnumValueName(e *api.EnumValue) string {
 
 func rustFQEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
 	return fmt.Sprintf("%s::%s::%s", rustEnumScopeName(v.Parent, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(v.Parent.Name), rustEnumValueName(v))
-}
-
-func rustOneOfType(o *api.OneOf, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
-	return rustMessageScopeName(o.Parent, "", modulePath, sourceSpecificationPackageName, packageMapping) + "::" + rustToPascal(o.Name)
 }
 
 func rustBodyAccessor(m *api.Method) string {
@@ -773,7 +798,7 @@ func rustToSnakeNoMangling(symbol string) string {
 	return strcase.ToSnake(symbol)
 }
 
-// Convert a name to `PascalCase`.  Strangley, the `strcase` package calls this
+// Convert a name to `PascalCase`.  Strangely, the `strcase` package calls this
 // `ToCamel` while usually `camelCase` starts with a lowercase letter. The
 // Rust naming conventions use this style for structs, enums and traits.
 //
@@ -784,6 +809,17 @@ func rustToPascal(symbol string) string {
 	if symbol == "" {
 		return ""
 	}
+	// The Rust style guide frowns on all upppercase for struct names, even if
+	// they are acronyms (consider `IAM`). In such cases we must use the normal
+	// mapping.
+	if strings.ToUpper(symbol) == symbol {
+		return rustEscapeKeyword(strcase.ToCamel(symbol))
+	}
+	// Symbols that are already `PascalCase` should need no mapping. This works
+	// better than calling `strcase.ToCamel()` in cases like `IAMPolicy`, which
+	// would be converted to `IamPolicy`. We are trusting that the original
+	// name in Protobuf (or whatever source specification we are using) chose
+	// to keep the acronym for a reason.
 	runes := []rune(symbol)
 	if unicode.IsUpper(runes[0]) && !strings.ContainsRune(symbol, '_') {
 		return rustEscapeKeyword(symbol)
@@ -1208,9 +1244,9 @@ func rustMethodRustdocLink(m *api.Method, state *api.APIState, packageMapping ma
 func rustServiceRustdocLink(s *api.Service, packageMapping map[string]*rustPackage) string {
 	mapped, ok := rustMapPackage(s.Package, packageMapping)
 	if ok {
-		return fmt.Sprintf("%s::traits::%s", mapped.name, s.Name)
+		return fmt.Sprintf("%s::client::%s", mapped.name, rustToPascal(s.Name))
 	}
-	return fmt.Sprintf("crate::traits::%s", s.Name)
+	return fmt.Sprintf("crate::client::%s", rustToPascal(s.Name))
 }
 
 func rustProjectRoot(outdir string) string {
@@ -1300,7 +1336,7 @@ func rustValidate(api *api.API, sourceSpecificationPackageName string) error {
 			newPackage == "google.longrunning" {
 			return nil
 		}
-		return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+		return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%q, got=%q for %q",
 			sourceSpecificationPackageName, newPackage, elementName)
 	}
 
@@ -1309,13 +1345,13 @@ func rustValidate(api *api.API, sourceSpecificationPackageName string) error {
 			return err
 		}
 	}
-	for _, s := range api.Messages {
-		if err := validatePkg(s.Package, s.ID); err != nil {
+	for _, m := range api.Messages {
+		if err := validatePkg(m.Package, m.ID); err != nil {
 			return err
 		}
 	}
-	for _, s := range api.Enums {
-		if err := validatePkg(s.Package, s.ID); err != nil {
+	for _, e := range api.Enums {
+		if err := validatePkg(e.Package, e.ID); err != nil {
 			return err
 		}
 	}

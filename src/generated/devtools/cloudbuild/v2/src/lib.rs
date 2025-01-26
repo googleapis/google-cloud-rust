@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [RepositoryManager](https://docs.rs/gcp-sdk-devtools-cloudbuild-v2/latest/gcp_sdk_devtools_cloudbuild_v2/client/struct.RepositoryManager.html)
+//! * [RepositoryManager](client/struct.RepositoryManager.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

@@ -512,7 +512,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -526,7 +526,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -540,7 +540,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -551,7 +551,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -562,7 +562,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
-    /// [google.longrunning.Operations]: longrunning::traits::Operations
+    /// [google.longrunning.Operations]: longrunning::client::Operations
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,

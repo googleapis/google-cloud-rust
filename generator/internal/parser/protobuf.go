@@ -227,7 +227,8 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		if serviceConfig.Documentation != nil {
 			result.Description = serviceConfig.Documentation.Summary
 		}
-		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig)
+		withLongrunning := requiresLongrunningMixin(req)
+		enabledMixinMethods, mixinFileDesc = loadMixins(serviceConfig, withLongrunning)
 		packageName := ""
 		for _, api := range serviceConfig.Apis {
 			packageName, _ = splitApiName(api.Name)
@@ -289,7 +290,6 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 			for _, m := range s.Method {
 				mFQN := sFQN + "." + m.GetName()
 				if method := processMethod(state, m, mFQN, f.GetPackage()); method != nil {
-					method.Parent = service
 					service.Methods = append(service.Methods, method)
 				}
 			}
@@ -341,7 +341,6 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 						continue
 					}
 					if method := processMethod(state, m, mFQN, service.Package); method != nil {
-						method.Parent = service
 						applyServiceConfigMethodOverrides(method, originalFQN, serviceConfig, result, mixin)
 						service.Methods = append(service.Methods, method)
 					}
@@ -355,6 +354,24 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 	}
 	updateMethodPagination(result)
 	return result
+}
+
+// requiresLongrunningMixin finds out if any method returns a LRO. This is used
+// to forcibly load the longrunning mixin. It needs to happen before the proto
+// descriptors are converted to the `api.*`, as that conversion requires the
+// mixin.
+func requiresLongrunningMixin(req *pluginpb.CodeGeneratorRequest) bool {
+	for _, f := range req.GetSourceFileDescriptors() {
+		for _, s := range f.Service {
+			for _, m := range s.Method {
+				info := parseOperationInfo(f.GetPackage(), m)
+				if info != nil && m.GetOutputType() == ".google.longrunning.Operation" {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
 
 var descriptorpbToTypez = map[descriptorpb.FieldDescriptorProto_Type]api.Typez{
@@ -486,9 +503,8 @@ func processMessage(state *api.APIState, m *descriptorpb.DescriptorProto, mFQN, 
 	}
 	for _, oneof := range m.OneofDecl {
 		oneOfs := &api.OneOf{
-			Name:   oneof.GetName(),
-			ID:     mFQN + "." + oneof.GetName(),
-			Parent: message,
+			Name: oneof.GetName(),
+			ID:   mFQN + "." + oneof.GetName(),
 		}
 		message.OneOfs = append(message.OneOfs, oneOfs)
 	}

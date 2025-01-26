@@ -25,7 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-//! * [TranslationService](https://docs.rs/gcp-sdk-translation-v3/latest/gcp_sdk_translation_v3/client/struct.TranslationService.html)
+//! * [TranslationService](client/struct.TranslationService.html)
 
 /// The messages and enums that are part of this client library.
 pub mod model;

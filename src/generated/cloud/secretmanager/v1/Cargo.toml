@@ -26,18 +26,18 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-async-trait = { version = "0.1.84" }
-bytes      = { version = "1.8.0", features = ["serde"] }
-gax        = { version = "0.1.0", path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
-iam_v1     = { version = "0.1.0", path = "../../../../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
-lazy_static = { version = "1.5.0" }
-location   = { version = "0.1.0", path = "../../../../../src/generated/cloud/location", package = "gcp-sdk-location" }
-reqwest    = { version = "0.12.12", features = ["json"] }
-serde      = { version = "1.0.216", features = ["serde_derive"] }
+async-trait = { version = "0.1" }
+bytes      = { version = "1", features = ["serde"] }
+gax        = { version = "0.1", path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
+iam_v1     = { version = "0.1", path = "../../../../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
+lazy_static = { version = "1" }
+location   = { version = "0.1", path = "../../../../../src/generated/cloud/location", package = "gcp-sdk-location" }
+reqwest    = { version = "0.12", features = ["json"] }
+serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
-serde_with = { version = "3.12.0", default-features = false, features = ["base64", "macros", "std"] }
-tracing    = { version = "0.1.41" }
-wkt        = { version = "0.1.0", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
+serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
+tracing    = { version = "0.1" }
+wkt        = { version = "0.1", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream", "location/unstable-stream"]

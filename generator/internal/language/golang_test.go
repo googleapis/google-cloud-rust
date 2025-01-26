@@ -19,6 +19,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
 type goCaseConvertTest struct {
@@ -41,25 +42,8 @@ func TestGo_ToPascal(t *testing.T) {
 }
 
 func TestGo_MessageNames(t *testing.T) {
-	replication := &api.Message{
-		Name: "Replication",
-		ID:   "..Replication",
-		Fields: []*api.Field{
-			{
-				Name:     "automatic",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  "..Automatic",
-				Optional: true,
-				Repeated: false,
-			},
-		},
-	}
-	automatic := &api.Message{
-		Parent: replication,
-		Name:   "Automatic",
-		ID:     "..Replication.Automatic",
-	}
-
+	replication := sample.Replication()
+	automatic := sample.Automatic()
 	for _, test := range []struct {
 		message *api.Message
 		want    string
@@ -94,7 +78,7 @@ func TestGo_EnumNames(t *testing.T) {
 		ID:   "..SecretVersion.State",
 	}
 
-	_ = newTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
+	_ = api.NewTestAPI([]*api.Message{message}, []*api.Enum{nested}, []*api.Service{})
 	if got := goEnumName(nested, nil); got != "SecretVersion_State" {
 		t.Errorf("mismatched message name, want=SecretVersion_Automatic, got=%s", got)
 	}
@@ -146,7 +130,7 @@ Maybe they wanted to show some JSON:
 }
 
 func TestGo_Validate(t *testing.T) {
-	api := newTestAPI(
+	api := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -157,7 +141,7 @@ func TestGo_Validate(t *testing.T) {
 
 func TestGo_ValidateMessageMismatch(t *testing.T) {
 	const sourceSpecificationPackageName = "p1"
-	test := newTestAPI(
+	test := api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}, {Name: "m2", Package: "p2"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -165,7 +149,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}, {Name: "e2", Package: "p2"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}})
@@ -173,7 +157,7 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
 	}
 
-	test = newTestAPI(
+	test = api.NewTestAPI(
 		[]*api.Message{{Name: "m1", Package: "p1"}},
 		[]*api.Enum{{Name: "e1", Package: "p1"}},
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})

@@ -111,8 +111,6 @@ type Method struct {
 	// IsPageable is true if the method conforms to standard defined by
 	// [AIP-4233](https://google.aip.dev/client-libraries/4233).
 	IsPageable bool
-	// The service that contains this method.
-	Parent *Service
 	// The streaming attributes of the method. Bidi streaming methods have both
 	// set to true.
 	ClientSideStreaming bool
@@ -228,6 +226,8 @@ type Message struct {
 	IsPageableResponse bool
 	// PageableItem is the field to be paginated over.
 	PageableItem *Field
+	// Language specific annotations.
+	Codec any
 }
 
 // Enum defines a message used in request/response handling.
@@ -291,6 +291,10 @@ type Field struct {
 	// some helper fields. These need to be marked so they can be excluded
 	// from serialized messages and in other places.
 	Synthetic bool
+	// Some fields have a type that refers (sometimes indirectly) to the
+	// containing message. That triggers slightly different code generation for
+	// some languages.
+	Recursive bool
 	// A placeholder to put language specific annotations.
 	Codec any
 }
@@ -314,8 +318,6 @@ type OneOf struct {
 	Documentation string
 	// Fields associated with the one-of.
 	Fields []*Field
-	// Parent returns the ancestor of this node, if any.
-	Parent *Message
 	// A placeholder to put language specific annotations.
 	Codec any
 }

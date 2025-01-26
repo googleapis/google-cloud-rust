@@ -23,7 +23,7 @@ extern crate wkt;
 
 /// The request message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
-/// [google.cloud.location.Locations.ListLocations]: crate::traits::Locations::list_locations
+/// [google.cloud.location.Locations.ListLocations]: crate::client::Locations::list_locations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -81,7 +81,7 @@ impl wkt::message::Message for ListLocationsRequest {
 
 /// The response message for [Locations.ListLocations][google.cloud.location.Locations.ListLocations].
 ///
-/// [google.cloud.location.Locations.ListLocations]: crate::traits::Locations::list_locations
+/// [google.cloud.location.Locations.ListLocations]: crate::client::Locations::list_locations
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -133,7 +133,7 @@ impl gax::paginator::PageableResponse for ListLocationsResponse {
 
 /// The request message for [Locations.GetLocation][google.cloud.location.Locations.GetLocation].
 ///
-/// [google.cloud.location.Locations.GetLocation]: crate::traits::Locations::get_location
+/// [google.cloud.location.Locations.GetLocation]: crate::client::Locations::get_location
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
