@@ -72,6 +72,12 @@ func loadMixins(serviceConfig *serviceconfig.Service, withLongrunning bool) (mix
 		}
 	}
 	enabledMixinMethods = loadMixinMethods(serviceConfig)
+	if withLongrunning {
+		// We prefer using the `http.rules` section from the service config, but
+		// if we must implement the longrunning mixin, we must also implement
+		// the GetOperation method.
+		enabledMixinMethods[".google.longrunning.Operations.GetOperation"] = true
+	}
 	return enabledMixinMethods, files
 }
 
