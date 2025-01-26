@@ -3866,7 +3866,7 @@ pub struct UpdateAuthorizedViewRequest {
     /// Required. The AuthorizedView to update. The `name` in `authorized_view` is
     /// used to identify the AuthorizedView. AuthorizedView name must in this
     /// format
-    /// projects/<project>/instances/<instance>/tables/<table>/authorizedViews/<authorized_view>
+    /// projects/\<project\>/instances/\<instance\>/tables/\<table\>/authorizedViews/<authorized_view>
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub authorized_view: std::option::Option<crate::model::AuthorizedView>,
 
@@ -6289,7 +6289,7 @@ pub struct Backup {
     /// Output only. Name of the backup from which this backup was copied. If a
     /// backup is not created by copying a backup, this field will be empty. Values
     /// are of the form:
-    /// projects/<project>/instances/<instance>/clusters/<cluster>/backups/<backup>
+    /// projects/\<project\>/instances/\<instance\>/clusters/\<cluster\>/backups/\<backup\>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source_backup: std::string::String,
 
@@ -6539,7 +6539,7 @@ pub struct BackupInfo {
     /// Output only. Name of the backup from which this backup was copied. If a
     /// backup is not created by copying a backup, this field will be empty. Values
     /// are of the form:
-    /// projects/<project>/instances/<instance>/clusters/<cluster>/backups/<backup>
+    /// projects/\<project\>/instances/\<instance\>/clusters/\<cluster\>/backups/\<backup\>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub source_backup: std::string::String,
 }
