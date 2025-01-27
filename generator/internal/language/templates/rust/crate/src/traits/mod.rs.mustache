@@ -18,6 +18,8 @@ limitations under the License.
 //{{{.}}}
 {{/BoilerPlate}}
 {{#HasServices}}
+{{! TODO(#742) - remove this workaround once the bug is fixed }}
+#![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
 
