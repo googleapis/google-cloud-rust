@@ -898,7 +898,6 @@ func rustFormatDocComments(documentation string, state *api.APIState, modulePath
 				headingPrefix := strings.Repeat("#", heading.Level)
 				results = append(results, fmt.Sprintf("%s %s", headingPrefix, string(heading.BaseBlock.Lines().Value(documentationBytes))))
 				results = append(results, "\n")
-
 			}
 		}
 		return ast.WalkContinue, nil
@@ -934,7 +933,52 @@ func extractProtoLinks(line string, links map[string]bool) {
 	}
 }
 
-// Encloses standalone URLs with angled brackets.
+func processCommentLine(node ast.Node, line text.Segment, documentationBytes []byte) string {
+	lineString := escapeHTMLTags(node, line, documentationBytes)
+	lineString = escapeUrls(lineString)
+	return lineString
+}
+
+func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte) string {
+	lineContent := line.Value(documentationBytes)
+	escapedString := string(lineContent)
+
+	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindRawHTML {
+			rawHTML := child.(*ast.RawHTML)
+			if !isWithinCodeSpan(node) {
+				for i := 0; i < rawHTML.Segments.Len(); i++ {
+					segment := rawHTML.Segments.At(i)
+					segmentContent := string(segment.Value(documentationBytes))
+					if segment.Start < line.Start || (segment.Start >= line.Stop) {
+						continue
+					}
+					if strings.HasPrefix(segmentContent, "<br />") || strings.HasPrefix(segmentContent, "<a href=") || strings.HasSuffix(segmentContent, "</a>") {
+						continue
+					}
+					start := int(segment.Start) - line.Start
+					end := int(segment.Stop) - line.Start
+					escapedHTML := strings.Replace(segmentContent, "<", "\\<", 1)
+					escapedHTML = strings.Replace(escapedHTML, ">", "\\>", 1)
+					escapedString = strings.ReplaceAll(escapedString, string(lineContent[start:end]), escapedHTML)
+
+				}
+			}
+		}
+	}
+	return escapedString
+}
+
+func isWithinCodeSpan(node ast.Node) bool {
+	for parent := node.Parent(); parent != nil; parent = parent.Parent() {
+		if parent.Kind() == ast.KindCodeSpan {
+			return true
+		}
+	}
+	return false
+}
+
+// Encloses standalone URLs with angled brackets and escape placeholders.
 func escapeUrls(line string) string {
 	var escapedLine strings.Builder
 	lastIndex := 0
@@ -1005,14 +1049,12 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			firstLine := child.Lines().At(0)
 			firstLineString := string(firstLine.Value(documentationBytes))
 			extractProtoLinks(firstLineString, links)
-			escapedFirstLine := escapeUrls(firstLineString)
-			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, escapedFirstLine))
+			results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, firstLine, documentationBytes)))
 			for i := 1; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
 				lineString := string(line.Value(documentationBytes))
 				extractProtoLinks(lineString, links)
-				escapedLine := escapeUrls(lineString)
-				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), escapedLine))
+				results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1059,10 +1101,11 @@ func processParagraph(node ast.Node, links map[string]bool, documentationBytes [
 		line := node.Lines().At(i)
 		lineString := string(line.Value(documentationBytes))
 		extractProtoLinks(lineString, links)
-		results = append(results, escapeUrls(lineString))
+		results = append(results, processCommentLine(node, line, documentationBytes))
 		linkDefinitions := fetchLinkDefinitions(node, lineString, documentationBytes)
 		allLinkDefinitions = append(allLinkDefinitions, linkDefinitions...)
 	}
+
 	if len(allLinkDefinitions) > 0 {
 		results = append(results, "\n")
 		results = append(results, allLinkDefinitions...)

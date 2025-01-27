@@ -43,7 +43,7 @@ pub struct Document {
 
     /// Optional. The language of the document (if not specified, the language is
     /// automatically detected). Both ISO and BCP-47 language codes are
-    /// accepted.<br>
+    /// accepted.\<br\>
     /// [Language
     /// Support](https://cloud.google.com/natural-language/docs/languages) lists
     /// currently supported languages for each API method. If the language (either

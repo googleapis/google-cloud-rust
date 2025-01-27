@@ -1616,7 +1616,7 @@ pub struct CreateInstanceConfigRequest {
     /// `instance_config.name` must be
     /// `<parent>/instanceConfigs/<instance_config_id>`.
     /// `instance_config.base_config` must be a Google-managed configuration name,
-    /// e.g. <parent>/instanceConfigs/us-east1, <parent>/instanceConfigs/nam3.
+    /// e.g. \<parent\>/instanceConfigs/us-east1, \<parent\>/instanceConfigs/nam3.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub instance_config: std::option::Option<crate::model::InstanceConfig>,
 

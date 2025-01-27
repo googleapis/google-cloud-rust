@@ -581,7 +581,7 @@ pub mod source {
         RepoSource(crate::model::RepoSource),
         /// If provided, get the source from GitHub repository. This option is valid
         /// only for GCF 1st Gen function.
-        /// Example: <https://github.com/><user>/<repo>/blob/<commit>/<path-to-code>
+        /// Example: <https://github.com/>\<user\>/\<repo\>/blob/\<commit\>/\<path-to-code\>
         GitUri(std::string::String),
     }
 }

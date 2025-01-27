@@ -7059,7 +7059,7 @@ pub mod export_context {
         #[non_exhaustive]
         pub struct PostgresExportOptions {
 
-            /// Optional. Use this option to include DROP <object> SQL statements.
+            /// Optional. Use this option to include DROP \<object\> SQL statements.
             /// These statements are used to delete database objects before running the
             /// import operation.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]

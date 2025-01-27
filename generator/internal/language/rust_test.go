@@ -1622,6 +1622,33 @@ Second [example][].
 	}
 }
 
+func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
+	input := `Placeholders placed between angled brackets should be escaped.
+	For example, example:<ip address> and another example:<second
+	placeholder>.
+	Third example: projects/<project>/secrets/<secret>
+	Urls remain unchanged <https://www.example.com>
+	Hyperlinks remain unchanged <a href=https://www.hyperlink.com>hyperlined content</a>` + `
+	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
+
+	want := []string{
+		"/// Placeholders placed between angled brackets should be escaped.",
+		"/// For example, example:\\<ip address\\> and another example:\\<second",
+		"/// placeholder\\>.",
+		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
+		"/// Urls remain unchanged <https://www.example.com>",
+		"/// Hyperlinks remain unchanged <a href=<https://www.hyperlink.com>>hyperlined content</a>",
+		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := &rustCodec{}
+	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 	enumValue := &api.EnumValue{
 		Name: "ENUM_VALUE",

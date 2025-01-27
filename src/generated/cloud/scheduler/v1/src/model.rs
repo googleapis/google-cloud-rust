@@ -1300,17 +1300,17 @@ pub struct AppEngineRouting {
     ///
     /// The host is constructed as:
     ///
-    /// * `host = [application_domain_name]`</br>
-    ///   `| [service] + '.' + [application_domain_name]`</br>
-    ///   `| [version] + '.' + [application_domain_name]`</br>
-    ///   `| [version_dot_service]+ '.' + [application_domain_name]`</br>
-    ///   `| [instance] + '.' + [application_domain_name]`</br>
-    ///   `| [instance_dot_service] + '.' + [application_domain_name]`</br>
-    ///   `| [instance_dot_version] + '.' + [application_domain_name]`</br>
+    /// * `host = [application_domain_name]`\</br\>
+    ///   `| [service] + '.' + [application_domain_name]`\</br\>
+    ///   `| [version] + '.' + [application_domain_name]`\</br\>
+    ///   `| [version_dot_service]+ '.' + [application_domain_name]`\</br\>
+    ///   `| [instance] + '.' + [application_domain_name]`\</br\>
+    ///   `| [instance_dot_service] + '.' + [application_domain_name]`\</br\>
+    ///   `| [instance_dot_version] + '.' + [application_domain_name]`\</br\>
     ///   `| [instance_dot_version_dot_service] + '.' + [application_domain_name]`
     ///
     /// * `application_domain_name` = The domain name of the app, for
-    ///   example <app-id>.appspot.com, which is associated with the
+    ///   example \<app-id\>.appspot.com, which is associated with the
     ///   job's project ID.
     ///
     /// * `service =` [service][google.cloud.scheduler.v1.AppEngineRouting.service]
