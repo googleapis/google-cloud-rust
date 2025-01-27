@@ -31,6 +31,6 @@ resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
   member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
-output "runner" {
-  value = data.google_service_account.integration-test-runner.id
+output "test_runner" {
+  value = data.google_service_account.integration-test-runner
 }

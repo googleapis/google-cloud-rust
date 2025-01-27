@@ -25,3 +25,15 @@ resource "google_project_service" "cloudbuild" {
 
   disable_dependent_services = true
 }
+
+resource "google_project_service" "secretmanager" {
+  project = var.project
+  service = "secretmanager.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}

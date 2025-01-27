@@ -46,11 +46,19 @@ module "grants" {
   project     = var.project
 }
 
+# Set up for the service account integration test.
+module "service_account_test" {
+  depends_on  = [module.grants]
+  source      = "./service_account_test"
+  project     = var.project
+  test_runner = module.grants.test_runner
+}
+
 # Create the GCB triggers.
 module "triggers" {
-  depends_on      = [module.services, module.resources, module.grants]
-  source          = "./triggers"
-  project         = var.project
-  region          = var.region
-  service_account = module.grants.runner
+  depends_on  = [module.services, module.resources, module.grants]
+  source      = "./triggers"
+  project     = var.project
+  region      = var.region
+  test_runner = module.grants.test_runner
 }
