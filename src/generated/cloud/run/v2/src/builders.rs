@@ -67,33 +67,38 @@ pub mod builds {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::SubmitBuildRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `image_uri`.
+        /// Sets the value of [image_uri][crate::model::SubmitBuildRequest::image_uri].
         pub fn set_image_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.image_uri = v.into();
             self
         }
 
-        /// Sets the value of `service_account`.
+        /// Sets the value of [service_account][crate::model::SubmitBuildRequest::service_account].
         pub fn set_service_account<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_account = v.into();
             self
         }
 
-        /// Sets the value of `worker_pool`.
+        /// Sets the value of [worker_pool][crate::model::SubmitBuildRequest::worker_pool].
         pub fn set_worker_pool<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.worker_pool = v.into();
             self
         }
 
-        /// Sets the value of `tags`.
-        pub fn set_tags<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.tags = v.into();
+        /// Sets the value of [tags][crate::model::SubmitBuildRequest::tags].
+        pub fn set_tags<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.tags = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -168,25 +173,25 @@ pub mod builds {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -230,7 +235,7 @@ pub mod builds {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -274,7 +279,7 @@ pub mod builds {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -318,13 +323,13 @@ pub mod builds {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self
@@ -391,7 +396,7 @@ pub mod executions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetExecutionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -447,25 +452,25 @@ pub mod executions {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListExecutionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListExecutionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListExecutionsRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -541,19 +546,19 @@ pub mod executions {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteExecutionRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteExecutionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -629,19 +634,19 @@ pub mod executions {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::CancelExecutionRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::CancelExecutionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -700,25 +705,25 @@ pub mod executions {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -762,7 +767,7 @@ pub mod executions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -806,7 +811,7 @@ pub mod executions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -850,13 +855,13 @@ pub mod executions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self
@@ -958,25 +963,25 @@ pub mod jobs {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `job`.
+        /// Sets the value of [job][crate::model::CreateJobRequest::job].
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
         }
 
-        /// Sets the value of `job_id`.
+        /// Sets the value of [job_id][crate::model::CreateJobRequest::job_id].
         pub fn set_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.job_id = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::CreateJobRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -1015,7 +1020,7 @@ pub mod jobs {
             (*self.0.stub).get_job(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetJobRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1070,25 +1075,25 @@ pub mod jobs {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListJobsRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -1164,19 +1169,19 @@ pub mod jobs {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `job`.
+        /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
             self.0.request.job = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::UpdateJobRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `allow_missing`.
+        /// Sets the value of [allow_missing][crate::model::UpdateJobRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
             self
@@ -1252,19 +1257,19 @@ pub mod jobs {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteJobRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteJobRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteJobRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -1338,25 +1343,25 @@ pub mod jobs {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::RunJobRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::RunJobRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::RunJobRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
 
-        /// Sets the value of `overrides`.
+        /// Sets the value of [overrides][crate::model::RunJobRequest::overrides].
         pub fn set_overrides<
             T: Into<std::option::Option<crate::model::run_job_request::Overrides>>,
         >(
@@ -1402,13 +1407,13 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1452,13 +1457,13 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1467,7 +1472,7 @@ pub mod jobs {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1514,18 +1519,20 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1582,25 +1589,25 @@ pub mod jobs {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1644,7 +1651,7 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1688,7 +1695,7 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1732,13 +1739,13 @@ pub mod jobs {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self
@@ -1805,7 +1812,7 @@ pub mod revisions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetRevisionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1861,25 +1868,25 @@ pub mod revisions {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListRevisionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListRevisionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListRevisionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListRevisionsRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -1955,19 +1962,19 @@ pub mod revisions {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteRevisionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteRevisionRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteRevisionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -2026,25 +2033,25 @@ pub mod revisions {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2088,7 +2095,7 @@ pub mod revisions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2132,7 +2139,7 @@ pub mod revisions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2176,13 +2183,13 @@ pub mod revisions {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self
@@ -2284,13 +2291,13 @@ pub mod services {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `service`.
+        /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -2299,13 +2306,13 @@ pub mod services {
             self
         }
 
-        /// Sets the value of `service_id`.
+        /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
         pub fn set_service_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.service_id = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::CreateServiceRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -2346,7 +2353,7 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetServiceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2402,25 +2409,25 @@ pub mod services {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListServicesRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -2496,7 +2503,7 @@ pub mod services {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2505,7 +2512,7 @@ pub mod services {
             self
         }
 
-        /// Sets the value of `service`.
+        /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
             mut self,
             v: T,
@@ -2514,13 +2521,13 @@ pub mod services {
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::UpdateServiceRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `allow_missing`.
+        /// Sets the value of [allow_missing][crate::model::UpdateServiceRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
             self
@@ -2596,19 +2603,19 @@ pub mod services {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteServiceRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteServiceRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -2649,13 +2656,13 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -2699,13 +2706,13 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -2714,7 +2721,7 @@ pub mod services {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2761,18 +2768,20 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2829,25 +2838,25 @@ pub mod services {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2891,7 +2900,7 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2935,7 +2944,7 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2979,13 +2988,13 @@ pub mod services {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self
@@ -3052,7 +3061,7 @@ pub mod tasks {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetTaskRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3107,25 +3116,25 @@ pub mod tasks {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListTasksRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListTasksRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListTasksRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -3184,25 +3193,25 @@ pub mod tasks {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3246,7 +3255,7 @@ pub mod tasks {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3290,7 +3299,7 @@ pub mod tasks {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3334,13 +3343,13 @@ pub mod tasks {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self

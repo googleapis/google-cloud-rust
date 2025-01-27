@@ -82,31 +82,31 @@ pub mod workflows {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListWorkflowsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListWorkflowsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListWorkflowsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListWorkflowsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -147,13 +147,13 @@ pub mod workflows {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `revision_id`.
+        /// Sets the value of [revision_id][crate::model::GetWorkflowRequest::revision_id].
         pub fn set_revision_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.revision_id = v.into();
             self
@@ -232,13 +232,13 @@ pub mod workflows {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `workflow`.
+        /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -247,7 +247,7 @@ pub mod workflows {
             self
         }
 
-        /// Sets the value of `workflow_id`.
+        /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
         pub fn set_workflow_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.workflow_id = v.into();
             self
@@ -323,7 +323,7 @@ pub mod workflows {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -402,7 +402,7 @@ pub mod workflows {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `workflow`.
+        /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
             mut self,
             v: T,
@@ -411,7 +411,7 @@ pub mod workflows {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -473,25 +473,25 @@ pub mod workflows {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -532,7 +532,7 @@ pub mod workflows {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -591,25 +591,25 @@ pub mod workflows {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -653,7 +653,7 @@ pub mod workflows {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -697,7 +697,7 @@ pub mod workflows {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

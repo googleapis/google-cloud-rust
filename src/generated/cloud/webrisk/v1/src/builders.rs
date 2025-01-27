@@ -70,19 +70,19 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `threat_type`.
+        /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
         pub fn set_threat_type<T: Into<crate::model::ThreatType>>(mut self, v: T) -> Self {
             self.0.request.threat_type = v.into();
             self
         }
 
-        /// Sets the value of `version_token`.
+        /// Sets the value of [version_token][crate::model::ComputeThreatListDiffRequest::version_token].
         pub fn set_version_token<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.version_token = v.into();
             self
         }
 
-        /// Sets the value of `constraints`.
+        /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
         pub fn set_constraints<
             T: Into<std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>>,
         >(
@@ -128,18 +128,20 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `uri`.
+        /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
         pub fn set_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.uri = v.into();
             self
         }
 
-        /// Sets the value of `threat_types`.
-        pub fn set_threat_types<T: Into<std::vec::Vec<crate::model::ThreatType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_types = v.into();
+        /// Sets the value of [threat_types][crate::model::SearchUrisRequest::threat_types].
+        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ThreatType>,
+        {
+            use std::iter::Iterator;
+            self.0.request.threat_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -178,18 +180,20 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `hash_prefix`.
+        /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
         pub fn set_hash_prefix<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.hash_prefix = v.into();
             self
         }
 
-        /// Sets the value of `threat_types`.
-        pub fn set_threat_types<T: Into<std::vec::Vec<crate::model::ThreatType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_types = v.into();
+        /// Sets the value of [threat_types][crate::model::SearchHashesRequest::threat_types].
+        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ThreatType>,
+        {
+            use std::iter::Iterator;
+            self.0.request.threat_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -231,13 +235,13 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `submission`.
+        /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,
@@ -319,13 +323,13 @@ pub mod web_risk_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `submission`.
+        /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
         pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
             mut self,
             v: T,
@@ -334,7 +338,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets the value of `threat_info`.
+        /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
         pub fn set_threat_info<T: Into<std::option::Option<crate::model::ThreatInfo>>>(
             mut self,
             v: T,
@@ -343,7 +347,7 @@ pub mod web_risk_service {
             self
         }
 
-        /// Sets the value of `threat_discovery`.
+        /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
         pub fn set_threat_discovery<T: Into<std::option::Option<crate::model::ThreatDiscovery>>>(
             mut self,
             v: T,
@@ -405,25 +409,25 @@ pub mod web_risk_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -467,7 +471,7 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -511,7 +515,7 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -555,7 +559,7 @@ pub mod web_risk_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

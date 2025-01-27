@@ -82,19 +82,19 @@ pub mod policies {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListPoliciesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListPoliciesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -135,7 +135,7 @@ pub mod policies {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetPolicyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -214,13 +214,13 @@ pub mod policies {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -229,7 +229,7 @@ pub mod policies {
             self
         }
 
-        /// Sets the value of `policy_id`.
+        /// Sets the value of [policy_id][crate::model::CreatePolicyRequest::policy_id].
         pub fn set_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.policy_id = v.into();
             self
@@ -308,7 +308,7 @@ pub mod policies {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
             mut self,
             v: T,
@@ -390,13 +390,13 @@ pub mod policies {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeletePolicyRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -440,7 +440,7 @@ pub mod policies {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

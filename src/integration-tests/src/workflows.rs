@@ -72,9 +72,7 @@ main:
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::default()
-                .set_labels(
-                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
-                )
+                .set_labels([("integration-test", "true")])
                 .set_call_log_level(
                     wf::model::workflow::CallLogLevel::default()
                         .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
@@ -156,9 +154,7 @@ main:
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::default()
-                .set_labels(
-                    [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
-                )
+                .set_labels([("integration-test", "true")])
                 .set_call_log_level(
                     wf::model::workflow::CallLogLevel::default()
                         .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),

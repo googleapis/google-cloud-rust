@@ -106,19 +106,19 @@ pub mod autokey {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `key_handle_id`.
+        /// Sets the value of [key_handle_id][crate::model::CreateKeyHandleRequest::key_handle_id].
         pub fn set_key_handle_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key_handle_id = v.into();
             self
         }
 
-        /// Sets the value of `key_handle`.
+        /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
         pub fn set_key_handle<T: Into<std::option::Option<crate::model::KeyHandle>>>(
             mut self,
             v: T,
@@ -162,7 +162,7 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -218,25 +218,25 @@ pub mod autokey {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListKeyHandlesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListKeyHandlesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListKeyHandlesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListKeyHandlesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -295,25 +295,25 @@ pub mod autokey {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -354,7 +354,7 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -395,13 +395,13 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -410,7 +410,7 @@ pub mod autokey {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -454,13 +454,13 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -507,18 +507,20 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -560,7 +562,7 @@ pub mod autokey {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -630,7 +632,7 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `autokey_config`.
+        /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
         pub fn set_autokey_config<T: Into<std::option::Option<crate::model::AutokeyConfig>>>(
             mut self,
             v: T,
@@ -639,7 +641,7 @@ pub mod autokey_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -686,7 +688,7 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -732,7 +734,7 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -791,25 +793,25 @@ pub mod autokey_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -850,7 +852,7 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -891,13 +893,13 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -906,7 +908,7 @@ pub mod autokey_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -950,13 +952,13 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1003,18 +1005,20 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1056,7 +1060,7 @@ pub mod autokey_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1141,31 +1145,31 @@ pub mod ekm_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListEkmConnectionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListEkmConnectionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListEkmConnectionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListEkmConnectionsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListEkmConnectionsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -1209,7 +1213,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1253,19 +1257,19 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `ekm_connection_id`.
+        /// Sets the value of [ekm_connection_id][crate::model::CreateEkmConnectionRequest::ekm_connection_id].
         pub fn set_ekm_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.ekm_connection_id = v.into();
             self
         }
 
-        /// Sets the value of `ekm_connection`.
+        /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
         pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
             mut self,
             v: T,
@@ -1312,7 +1316,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `ekm_connection`.
+        /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
         pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
             mut self,
             v: T,
@@ -1321,7 +1325,7 @@ pub mod ekm_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1365,7 +1369,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1406,7 +1410,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `ekm_config`.
+        /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
         pub fn set_ekm_config<T: Into<std::option::Option<crate::model::EkmConfig>>>(
             mut self,
             v: T,
@@ -1415,7 +1419,7 @@ pub mod ekm_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1462,7 +1466,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1521,25 +1525,25 @@ pub mod ekm_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1580,7 +1584,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1621,13 +1625,13 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1636,7 +1640,7 @@ pub mod ekm_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1680,13 +1684,13 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1733,18 +1737,20 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1786,7 +1792,7 @@ pub mod ekm_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1868,31 +1874,31 @@ pub mod key_management_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListKeyRingsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListKeyRingsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListKeyRingsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListKeyRingsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListKeyRingsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -1948,25 +1954,25 @@ pub mod key_management_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListCryptoKeysRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListCryptoKeysRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `version_view`.
+        /// Sets the value of [version_view][crate::model::ListCryptoKeysRequest::version_view].
         pub fn set_version_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(
             mut self,
             v: T,
@@ -1975,13 +1981,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListCryptoKeysRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListCryptoKeysRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -2040,25 +2046,25 @@ pub mod key_management_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListCryptoKeyVersionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListCryptoKeyVersionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListCryptoKeyVersionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::ListCryptoKeyVersionsRequest::view].
         pub fn set_view<T: Into<crate::model::crypto_key_version::CryptoKeyVersionView>>(
             mut self,
             v: T,
@@ -2067,13 +2073,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListCryptoKeyVersionsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListCryptoKeyVersionsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -2129,31 +2135,31 @@ pub mod key_management_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListImportJobsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListImportJobsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListImportJobsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListImportJobsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
@@ -2194,7 +2200,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2235,7 +2241,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2279,7 +2285,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2320,7 +2326,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2361,7 +2367,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetImportJobRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2402,19 +2408,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `key_ring_id`.
+        /// Sets the value of [key_ring_id][crate::model::CreateKeyRingRequest::key_ring_id].
         pub fn set_key_ring_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.key_ring_id = v.into();
             self
         }
 
-        /// Sets the value of `key_ring`.
+        /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
         pub fn set_key_ring<T: Into<std::option::Option<crate::model::KeyRing>>>(
             mut self,
             v: T,
@@ -2458,19 +2464,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `crypto_key_id`.
+        /// Sets the value of [crypto_key_id][crate::model::CreateCryptoKeyRequest::crypto_key_id].
         pub fn set_crypto_key_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key_id = v.into();
             self
         }
 
-        /// Sets the value of `crypto_key`.
+        /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
         pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
             mut self,
             v: T,
@@ -2479,7 +2485,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `skip_initial_version_creation`.
+        /// Sets the value of [skip_initial_version_creation][crate::model::CreateCryptoKeyRequest::skip_initial_version_creation].
         pub fn set_skip_initial_version_creation<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.skip_initial_version_creation = v.into();
             self
@@ -2523,13 +2529,13 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `crypto_key_version`.
+        /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
         pub fn set_crypto_key_version<
             T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
         >(
@@ -2578,19 +2584,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `crypto_key_version`.
+        /// Sets the value of [crypto_key_version][crate::model::ImportCryptoKeyVersionRequest::crypto_key_version].
         pub fn set_crypto_key_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key_version = v.into();
             self
         }
 
-        /// Sets the value of `algorithm`.
+        /// Sets the value of [algorithm][crate::model::ImportCryptoKeyVersionRequest::algorithm].
         pub fn set_algorithm<
             T: Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
         >(
@@ -2601,13 +2607,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `import_job`.
+        /// Sets the value of [import_job][crate::model::ImportCryptoKeyVersionRequest::import_job].
         pub fn set_import_job<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_job = v.into();
             self
         }
 
-        /// Sets the value of `wrapped_key`.
+        /// Sets the value of [wrapped_key][crate::model::ImportCryptoKeyVersionRequest::wrapped_key].
         pub fn set_wrapped_key<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.wrapped_key = v.into();
             self
@@ -2659,19 +2665,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `import_job_id`.
+        /// Sets the value of [import_job_id][crate::model::CreateImportJobRequest::import_job_id].
         pub fn set_import_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.import_job_id = v.into();
             self
         }
 
-        /// Sets the value of `import_job`.
+        /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
             mut self,
             v: T,
@@ -2715,7 +2721,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `crypto_key`.
+        /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
         pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
             mut self,
             v: T,
@@ -2724,7 +2730,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2771,7 +2777,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `crypto_key_version`.
+        /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
         pub fn set_crypto_key_version<
             T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
         >(
@@ -2782,7 +2788,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2831,13 +2837,13 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `crypto_key_version_id`.
+        /// Sets the value of [crypto_key_version_id][crate::model::UpdateCryptoKeyPrimaryVersionRequest::crypto_key_version_id].
         pub fn set_crypto_key_version_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.crypto_key_version_id = v.into();
             self
@@ -2883,7 +2889,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2929,7 +2935,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2968,25 +2974,25 @@ pub mod key_management_service {
             (*self.0.stub).encrypt(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::EncryptRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `plaintext`.
+        /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
         pub fn set_plaintext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
         }
 
-        /// Sets the value of `additional_authenticated_data`.
+        /// Sets the value of [additional_authenticated_data][crate::model::EncryptRequest::additional_authenticated_data].
         pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
 
-        /// Sets the value of `plaintext_crc32c`.
+        /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
         pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -2995,7 +3001,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `additional_authenticated_data_crc32c`.
+        /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<
             T: Into<std::option::Option<wkt::Int64Value>>,
         >(
@@ -3039,25 +3045,25 @@ pub mod key_management_service {
             (*self.0.stub).decrypt(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DecryptRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext`.
+        /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
         pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
 
-        /// Sets the value of `additional_authenticated_data`.
+        /// Sets the value of [additional_authenticated_data][crate::model::DecryptRequest::additional_authenticated_data].
         pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext_crc32c`.
+        /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3066,7 +3072,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `additional_authenticated_data_crc32c`.
+        /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<
             T: Into<std::option::Option<wkt::Int64Value>>,
         >(
@@ -3112,25 +3118,25 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::RawEncryptRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `plaintext`.
+        /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
         pub fn set_plaintext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.plaintext = v.into();
             self
         }
 
-        /// Sets the value of `additional_authenticated_data`.
+        /// Sets the value of [additional_authenticated_data][crate::model::RawEncryptRequest::additional_authenticated_data].
         pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
 
-        /// Sets the value of `plaintext_crc32c`.
+        /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
         pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3139,7 +3145,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `additional_authenticated_data_crc32c`.
+        /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<
             T: Into<std::option::Option<wkt::Int64Value>>,
         >(
@@ -3150,13 +3156,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `initialization_vector`.
+        /// Sets the value of [initialization_vector][crate::model::RawEncryptRequest::initialization_vector].
         pub fn set_initialization_vector<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.initialization_vector = v.into();
             self
         }
 
-        /// Sets the value of `initialization_vector_crc32c`.
+        /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
         pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3200,37 +3206,37 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::RawDecryptRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext`.
+        /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
         pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
 
-        /// Sets the value of `additional_authenticated_data`.
+        /// Sets the value of [additional_authenticated_data][crate::model::RawDecryptRequest::additional_authenticated_data].
         pub fn set_additional_authenticated_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.additional_authenticated_data = v.into();
             self
         }
 
-        /// Sets the value of `initialization_vector`.
+        /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
         pub fn set_initialization_vector<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.initialization_vector = v.into();
             self
         }
 
-        /// Sets the value of `tag_length`.
+        /// Sets the value of [tag_length][crate::model::RawDecryptRequest::tag_length].
         pub fn set_tag_length<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.tag_length = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext_crc32c`.
+        /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3239,7 +3245,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `additional_authenticated_data_crc32c`.
+        /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
         pub fn set_additional_authenticated_data_crc32c<
             T: Into<std::option::Option<wkt::Int64Value>>,
         >(
@@ -3250,7 +3256,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `initialization_vector_crc32c`.
+        /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
         pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3294,13 +3300,13 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `digest`.
+        /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
         pub fn set_digest<T: Into<std::option::Option<crate::model::Digest>>>(
             mut self,
             v: T,
@@ -3309,7 +3315,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `digest_crc32c`.
+        /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
         pub fn set_digest_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3318,13 +3324,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `data`.
+        /// Sets the value of [data][crate::model::AsymmetricSignRequest::data].
         pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
 
-        /// Sets the value of `data_crc32c`.
+        /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
         pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3371,19 +3377,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext`.
+        /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
         pub fn set_ciphertext<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.ciphertext = v.into();
             self
         }
 
-        /// Sets the value of `ciphertext_crc32c`.
+        /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
         pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3427,19 +3433,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::MacSignRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `data`.
+        /// Sets the value of [data][crate::model::MacSignRequest::data].
         pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
 
-        /// Sets the value of `data_crc32c`.
+        /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
         pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3483,19 +3489,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::MacVerifyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `data`.
+        /// Sets the value of [data][crate::model::MacVerifyRequest::data].
         pub fn set_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.data = v.into();
             self
         }
 
-        /// Sets the value of `data_crc32c`.
+        /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
         pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3504,13 +3510,13 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `mac`.
+        /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
         pub fn set_mac<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.mac = v.into();
             self
         }
 
-        /// Sets the value of `mac_crc32c`.
+        /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
         pub fn set_mac_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
             mut self,
             v: T,
@@ -3557,19 +3563,19 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `location`.
+        /// Sets the value of [location][crate::model::GenerateRandomBytesRequest::location].
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
-        /// Sets the value of `length_bytes`.
+        /// Sets the value of [length_bytes][crate::model::GenerateRandomBytesRequest::length_bytes].
         pub fn set_length_bytes<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.length_bytes = v.into();
             self
         }
 
-        /// Sets the value of `protection_level`.
+        /// Sets the value of [protection_level][crate::model::GenerateRandomBytesRequest::protection_level].
         pub fn set_protection_level<T: Into<crate::model::ProtectionLevel>>(
             mut self,
             v: T,
@@ -3631,25 +3637,25 @@ pub mod key_management_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3690,7 +3696,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3731,13 +3737,13 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3746,7 +3752,7 @@ pub mod key_management_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3790,13 +3796,13 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -3843,18 +3849,20 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3896,7 +3904,7 @@ pub mod key_management_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

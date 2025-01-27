@@ -85,19 +85,19 @@ pub mod iam {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::ListServiceAccountsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListServiceAccountsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListServiceAccountsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -141,7 +141,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -185,19 +185,19 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::CreateServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `account_id`.
+        /// Sets the value of [account_id][crate::model::CreateServiceAccountRequest::account_id].
         pub fn set_account_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.account_id = v.into();
             self
         }
 
-        /// Sets the value of `service_account`.
+        /// Sets the value of [service_account][crate::model::CreateServiceAccountRequest::service_account].
         pub fn set_service_account<T: Into<std::option::Option<crate::model::ServiceAccount>>>(
             mut self,
             v: T,
@@ -241,55 +241,55 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::ServiceAccount::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `project_id`.
+        /// Sets the value of [project_id][crate::model::ServiceAccount::project_id].
         pub fn set_project_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project_id = v.into();
             self
         }
 
-        /// Sets the value of `unique_id`.
+        /// Sets the value of [unique_id][crate::model::ServiceAccount::unique_id].
         pub fn set_unique_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.unique_id = v.into();
             self
         }
 
-        /// Sets the value of `email`.
+        /// Sets the value of [email][crate::model::ServiceAccount::email].
         pub fn set_email<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.email = v.into();
             self
         }
 
-        /// Sets the value of `display_name`.
+        /// Sets the value of [display_name][crate::model::ServiceAccount::display_name].
         pub fn set_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::ServiceAccount::etag].
         pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::model::ServiceAccount::description].
         pub fn set_description<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.description = v.into();
             self
         }
 
-        /// Sets the value of `oauth2_client_id`.
+        /// Sets the value of [oauth2_client_id][crate::model::ServiceAccount::oauth2_client_id].
         pub fn set_oauth2_client_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.oauth2_client_id = v.into();
             self
         }
 
-        /// Sets the value of `disabled`.
+        /// Sets the value of [disabled][crate::model::ServiceAccount::disabled].
         pub fn set_disabled<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.disabled = v.into();
             self
@@ -333,7 +333,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `service_account`.
+        /// Sets the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
         pub fn set_service_account<T: Into<std::option::Option<crate::model::ServiceAccount>>>(
             mut self,
             v: T,
@@ -342,7 +342,7 @@ pub mod iam {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::PatchServiceAccountRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -389,7 +389,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -433,7 +433,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UndeleteServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -477,7 +477,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::EnableServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -521,7 +521,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DisableServiceAccountRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -565,20 +565,20 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::ListServiceAccountKeysRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `key_types`.
-        pub fn set_key_types<
-            T: Into<std::vec::Vec<crate::model::list_service_account_keys_request::KeyType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.key_types = v.into();
+        /// Sets the value of [key_types][crate::model::ListServiceAccountKeysRequest::key_types].
+        pub fn set_key_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::list_service_account_keys_request::KeyType>,
+        {
+            use std::iter::Iterator;
+            self.0.request.key_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -620,13 +620,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `public_key_type`.
+        /// Sets the value of [public_key_type][crate::model::GetServiceAccountKeyRequest::public_key_type].
         pub fn set_public_key_type<T: Into<crate::model::ServiceAccountPublicKeyType>>(
             mut self,
             v: T,
@@ -675,13 +675,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::CreateServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `private_key_type`.
+        /// Sets the value of [private_key_type][crate::model::CreateServiceAccountKeyRequest::private_key_type].
         pub fn set_private_key_type<T: Into<crate::model::ServiceAccountPrivateKeyType>>(
             mut self,
             v: T,
@@ -690,7 +690,7 @@ pub mod iam {
             self
         }
 
-        /// Sets the value of `key_algorithm`.
+        /// Sets the value of [key_algorithm][crate::model::CreateServiceAccountKeyRequest::key_algorithm].
         pub fn set_key_algorithm<T: Into<crate::model::ServiceAccountKeyAlgorithm>>(
             mut self,
             v: T,
@@ -739,13 +739,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UploadServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `public_key_data`.
+        /// Sets the value of [public_key_data][crate::model::UploadServiceAccountKeyRequest::public_key_data].
         pub fn set_public_key_data<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.public_key_data = v.into();
             self
@@ -791,7 +791,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -837,7 +837,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DisableServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -883,7 +883,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::EnableServiceAccountKeyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -924,13 +924,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SignBlobRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `bytes_to_sign`.
+        /// Sets the value of [bytes_to_sign][crate::model::SignBlobRequest::bytes_to_sign].
         pub fn set_bytes_to_sign<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.bytes_to_sign = v.into();
             self
@@ -971,13 +971,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SignJwtRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `payload`.
+        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
         pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.payload = v.into();
             self
@@ -1018,13 +1018,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1068,13 +1068,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1083,7 +1083,7 @@ pub mod iam {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1130,18 +1130,20 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1198,25 +1200,25 @@ pub mod iam {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `full_resource_name`.
+        /// Sets the value of [full_resource_name][crate::model::QueryGrantableRolesRequest::full_resource_name].
         pub fn set_full_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.full_resource_name = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::QueryGrantableRolesRequest::view].
         pub fn set_view<T: Into<crate::model::RoleView>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::QueryGrantableRolesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::QueryGrantableRolesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1271,31 +1273,31 @@ pub mod iam {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListRolesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListRolesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListRolesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::ListRolesRequest::view].
         pub fn set_view<T: Into<crate::model::RoleView>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
 
-        /// Sets the value of `show_deleted`.
+        /// Sets the value of [show_deleted][crate::model::ListRolesRequest::show_deleted].
         pub fn set_show_deleted<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.show_deleted = v.into();
             self
@@ -1336,7 +1338,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetRoleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1377,19 +1379,19 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateRoleRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `role_id`.
+        /// Sets the value of [role_id][crate::model::CreateRoleRequest::role_id].
         pub fn set_role_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.role_id = v.into();
             self
         }
 
-        /// Sets the value of `role`.
+        /// Sets the value of [role][crate::model::CreateRoleRequest::role].
         pub fn set_role<T: Into<std::option::Option<crate::model::Role>>>(mut self, v: T) -> Self {
             self.0.request.role = v.into();
             self
@@ -1430,19 +1432,19 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UpdateRoleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `role`.
+        /// Sets the value of [role][crate::model::UpdateRoleRequest::role].
         pub fn set_role<T: Into<std::option::Option<crate::model::Role>>>(mut self, v: T) -> Self {
             self.0.request.role = v.into();
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateRoleRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1486,13 +1488,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteRoleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteRoleRequest::etag].
         pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -1533,13 +1535,13 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UndeleteRoleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::UndeleteRoleRequest::etag].
         pub fn set_etag<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -1602,19 +1604,19 @@ pub mod iam {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `full_resource_name`.
+        /// Sets the value of [full_resource_name][crate::model::QueryTestablePermissionsRequest::full_resource_name].
         pub fn set_full_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.full_resource_name = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::QueryTestablePermissionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::QueryTestablePermissionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1658,7 +1660,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `full_resource_name`.
+        /// Sets the value of [full_resource_name][crate::model::QueryAuditableServicesRequest::full_resource_name].
         pub fn set_full_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.full_resource_name = v.into();
             self
@@ -1699,7 +1701,7 @@ pub mod iam {
                 .await
         }
 
-        /// Sets the value of `full_resource_name`.
+        /// Sets the value of [full_resource_name][crate::model::LintPolicyRequest::full_resource_name].
         pub fn set_full_resource_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.full_resource_name = v.into();
             self

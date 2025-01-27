@@ -108,13 +108,13 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `connection`.
+        /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -123,7 +123,7 @@ pub mod repository_manager {
             self
         }
 
-        /// Sets the value of `connection_id`.
+        /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
         pub fn set_connection_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection_id = v.into();
             self
@@ -164,7 +164,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetConnectionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -220,19 +220,19 @@ pub mod repository_manager {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -314,7 +314,7 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `connection`.
+        /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
             mut self,
             v: T,
@@ -323,7 +323,7 @@ pub mod repository_manager {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -332,13 +332,13 @@ pub mod repository_manager {
             self
         }
 
-        /// Sets the value of `allow_missing`.
+        /// Sets the value of [allow_missing][crate::model::UpdateConnectionRequest::allow_missing].
         pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.allow_missing = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::UpdateConnectionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -417,19 +417,19 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteConnectionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteConnectionRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -511,13 +511,13 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `repository`.
+        /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
         pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
             mut self,
             v: T,
@@ -526,7 +526,7 @@ pub mod repository_manager {
             self
         }
 
-        /// Sets the value of `repository_id`.
+        /// Sets the value of [repository_id][crate::model::CreateRepositoryRequest::repository_id].
         pub fn set_repository_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository_id = v.into();
             self
@@ -615,18 +615,20 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `requests`.
-        pub fn set_requests<T: Into<std::vec::Vec<crate::model::CreateRepositoryRequest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.requests = v.into();
+        /// Sets the value of [requests][crate::model::BatchCreateRepositoriesRequest::requests].
+        pub fn set_requests<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CreateRepositoryRequest>,
+        {
+            use std::iter::Iterator;
+            self.0.request.requests = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -665,7 +667,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetRepositoryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -724,25 +726,25 @@ pub mod repository_manager {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListRepositoriesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListRepositoriesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListRepositoriesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -821,19 +823,19 @@ pub mod repository_manager {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteRepositoryRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteRepositoryRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -877,7 +879,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `repository`.
+        /// Sets the value of [repository][crate::model::FetchReadWriteTokenRequest::repository].
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
@@ -918,7 +920,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `repository`.
+        /// Sets the value of [repository][crate::model::FetchReadTokenRequest::repository].
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
@@ -981,19 +983,19 @@ pub mod repository_manager {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `connection`.
+        /// Sets the value of [connection][crate::model::FetchLinkableRepositoriesRequest::connection].
         pub fn set_connection<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.connection = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::FetchLinkableRepositoriesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::FetchLinkableRepositoriesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1034,13 +1036,13 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `repository`.
+        /// Sets the value of [repository][crate::model::FetchGitRefsRequest::repository].
         pub fn set_repository<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.repository = v.into();
             self
         }
 
-        /// Sets the value of `ref_type`.
+        /// Sets the value of [ref_type][crate::model::FetchGitRefsRequest::ref_type].
         pub fn set_ref_type<T: Into<crate::model::fetch_git_refs_request::RefType>>(
             mut self,
             v: T,
@@ -1084,13 +1086,13 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1099,7 +1101,7 @@ pub mod repository_manager {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1143,13 +1145,13 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1196,18 +1198,20 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1249,7 +1253,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1293,7 +1297,7 @@ pub mod repository_manager {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

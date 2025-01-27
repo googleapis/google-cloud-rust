@@ -72,7 +72,14 @@ type rustMessageAnnotation struct {
 	MessageAttributes []string
 	DocLines          []string
 	HasNestedTypes    bool
-	BasicFields       []*api.Field
+	// All the fields except OneOfs.
+	BasicFields []*api.Field
+	// The subset of `BasicFields` that are neither maps, nor repeated.
+	SingularFields []*api.Field
+	// The subset of `BasicFields` that are repeated (`Vec<T>` in Rust).
+	RepeatedFields []*api.Field
+	// The subset of `BasicFields` that are maps (`HashMap<K, V>` in Rust).
+	MapFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
@@ -142,12 +149,18 @@ type rustFieldAnnotations struct {
 	SetterName string
 	// In Rust, fields that appear in a OneOf also appear as a enum branch.
 	// These must be in `PascalCase`.
-	BranchName         string
+	BranchName string
+	// The fully qualified name of the containing message.
+	FQMessageName      string
 	DocLines           []string
 	Attributes         []string
 	FieldType          string
 	PrimitiveFieldType string
 	AddQueryParameter  string
+	// For fields that are maps, these are the type of the key and value,
+	// respectively.
+	KeyType   string
+	ValueType string
 }
 
 type rustEnumAnnotation struct {
@@ -285,7 +298,7 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 		if f.Synthetic {
 			hasSyntheticFields = true
 		}
-		rustAnnotateField(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		rustAnnotateField(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
 	for _, f := range m.OneOfs {
 		rustAnnotateOneOf(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
@@ -296,6 +309,23 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 	for _, child := range m.Messages {
 		rustAnnotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
+
+	isMap := func(f *api.Field) bool {
+		if f.Typez != api.MESSAGE_TYPE {
+			return false
+		}
+		if m, ok := state.MessageByID[f.TypezID]; ok {
+			return m.IsMap
+		}
+		return false
+	}
+	isRepeated := func(f *api.Field) bool {
+		return f.Repeated && !isMap(f)
+	}
+
+	basicFields := filterSlice(m.Fields, func(f *api.Field) bool {
+		return !f.IsOneOf
+	})
 	m.Codec = &rustMessageAnnotation{
 		Name:              rustToPascal(m.Name),
 		ModuleName:        rustToSnake(m.Name),
@@ -304,8 +334,15 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
 		HasNestedTypes:    hasNestedTypes(m),
-		BasicFields: filterSlice(m.Fields, func(s *api.Field) bool {
-			return !s.IsOneOf
+		BasicFields:       basicFields,
+		SingularFields: filterSlice(basicFields, func(f *api.Field) bool {
+			return !isRepeated(f) && !isMap(f)
+		}),
+		RepeatedFields: filterSlice(m.Fields, func(f *api.Field) bool {
+			return isRepeated(f)
+		}),
+		MapFields: filterSlice(m.Fields, func(f *api.Field) bool {
+			return isMap(f)
 		}),
 		HasSyntheticFields: hasSyntheticFields,
 	}
@@ -364,13 +401,11 @@ func rustAnnotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APISta
 	}
 }
 
-func rustAnnotateField(field *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
-	if field == nil {
-		return
-	}
-	field.Codec = &rustFieldAnnotations{
+func rustAnnotateField(field *api.Field, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	ann := &rustFieldAnnotations{
 		FieldName:          rustToSnake(field.Name),
 		SetterName:         rustToSnakeNoMangling(field.Name),
+		FQMessageName:      rustFQMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping),
 		BranchName:         rustToPascal(field.Name),
 		DocLines:           rustFormatDocComments(field.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		Attributes:         rustFieldAttributes(field, state),
@@ -378,6 +413,16 @@ func rustAnnotateField(field *api.Field, state *api.APIState, modulePath, source
 		PrimitiveFieldType: rustFieldType(field, state, true, modulePath, sourceSpecificationPackageName, packageMapping),
 		AddQueryParameter:  rustAddQueryParameter(field),
 	}
+	field.Codec = ann
+	if field.Typez != api.MESSAGE_TYPE {
+		return
+	}
+	mapMessage, ok := state.MessageByID[field.TypezID]
+	if !ok || !mapMessage.IsMap {
+		return
+	}
+	ann.KeyType = rustMapType(mapMessage.Fields[0], state, modulePath, sourceSpecificationPackageName, packageMapping)
+	ann.ValueType = rustMapType(mapMessage.Fields[1], state, modulePath, sourceSpecificationPackageName, packageMapping)
 }
 
 func rustAnnotateEnum(e *api.Enum, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {

@@ -65,13 +65,13 @@ pub struct Operation {
 }
 
 impl Operation {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Operation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::Operation::metadata].
     pub fn set_metadata<T: std::convert::Into<std::option::Option<wkt::Any>>>(
         mut self,
         v: T,
@@ -80,7 +80,7 @@ impl Operation {
         self
     }
 
-    /// Sets the value of `done`.
+    /// Sets the value of [done][crate::model::Operation::done].
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.done = v.into();
         self
@@ -146,7 +146,7 @@ pub struct GetOperationRequest {
 }
 
 impl GetOperationRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -185,25 +185,25 @@ pub struct ListOperationsRequest {
 }
 
 impl ListOperationsRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::ListOperationsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListOperationsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListOperationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListOperationsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -235,18 +235,20 @@ pub struct ListOperationsResponse {
 }
 
 impl ListOperationsResponse {
-    /// Sets the value of `operations`.
-    pub fn set_operations<T: std::convert::Into<std::vec::Vec<crate::model::Operation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operations = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [operations][crate::model::ListOperationsResponse::operations].
+    pub fn set_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Operation>,
+    {
+        use std::iter::Iterator;
+        self.operations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -285,7 +287,7 @@ pub struct CancelOperationRequest {
 }
 
 impl CancelOperationRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CancelOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -313,7 +315,7 @@ pub struct DeleteOperationRequest {
 }
 
 impl DeleteOperationRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -345,13 +347,13 @@ pub struct WaitOperationRequest {
 }
 
 impl WaitOperationRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::WaitOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `timeout`.
+    /// Sets the value of [timeout][crate::model::WaitOperationRequest::timeout].
     pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -407,13 +409,13 @@ pub struct OperationInfo {
 }
 
 impl OperationInfo {
-    /// Sets the value of `response_type`.
+    /// Sets the value of [response_type][crate::model::OperationInfo::response_type].
     pub fn set_response_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_type = v.into();
         self
     }
 
-    /// Sets the value of `metadata_type`.
+    /// Sets the value of [metadata_type][crate::model::OperationInfo::metadata_type].
     pub fn set_metadata_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata_type = v.into();
         self

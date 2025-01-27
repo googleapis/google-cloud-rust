@@ -68,19 +68,19 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -122,18 +122,20 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
-    /// Sets the value of `jobs`.
-    pub fn set_jobs<T: std::convert::Into<std::vec::Vec<crate::model::Job>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jobs = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    pub fn set_jobs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Job>,
+    {
+        use std::iter::Iterator;
+        self.jobs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -173,7 +175,7 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -213,13 +215,13 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `job`.
+    /// Sets the value of [job][crate::model::CreateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
         v: T,
@@ -260,7 +262,7 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
-    /// Sets the value of `job`.
+    /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
         v: T,
@@ -269,7 +271,7 @@ impl UpdateJobRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -301,7 +303,7 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -330,7 +332,7 @@ pub struct PauseJobRequest {
 }
 
 impl PauseJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::PauseJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -359,7 +361,7 @@ pub struct ResumeJobRequest {
 }
 
 impl ResumeJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::ResumeJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -388,7 +390,7 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RunJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -556,31 +558,31 @@ pub struct Job {
 }
 
 impl Job {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Job::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Job::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `schedule`.
+    /// Sets the value of [schedule][crate::model::Job::schedule].
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
         self
     }
 
-    /// Sets the value of `time_zone`.
+    /// Sets the value of [time_zone][crate::model::Job::time_zone].
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
-    /// Sets the value of `user_update_time`.
+    /// Sets the value of [user_update_time][crate::model::Job::user_update_time].
     pub fn set_user_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -589,13 +591,13 @@ impl Job {
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Job::state].
     pub fn set_state<T: std::convert::Into<crate::model::job::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `status`.
+    /// Sets the value of [status][crate::model::Job::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -604,7 +606,7 @@ impl Job {
         self
     }
 
-    /// Sets the value of `schedule_time`.
+    /// Sets the value of [schedule_time][crate::model::Job::schedule_time].
     pub fn set_schedule_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -613,7 +615,7 @@ impl Job {
         self
     }
 
-    /// Sets the value of `last_attempt_time`.
+    /// Sets the value of [last_attempt_time][crate::model::Job::last_attempt_time].
     pub fn set_last_attempt_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -622,7 +624,7 @@ impl Job {
         self
     }
 
-    /// Sets the value of `retry_config`.
+    /// Sets the value of [retry_config][crate::model::Job::retry_config].
     pub fn set_retry_config<
         T: std::convert::Into<std::option::Option<crate::model::RetryConfig>>,
     >(
@@ -633,7 +635,7 @@ impl Job {
         self
     }
 
-    /// Sets the value of `attempt_deadline`.
+    /// Sets the value of [attempt_deadline][crate::model::Job::attempt_deadline].
     pub fn set_attempt_deadline<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -818,13 +820,13 @@ pub struct RetryConfig {
 }
 
 impl RetryConfig {
-    /// Sets the value of `retry_count`.
+    /// Sets the value of [retry_count][crate::model::RetryConfig::retry_count].
     pub fn set_retry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retry_count = v.into();
         self
     }
 
-    /// Sets the value of `max_retry_duration`.
+    /// Sets the value of [max_retry_duration][crate::model::RetryConfig::max_retry_duration].
     pub fn set_max_retry_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -833,7 +835,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets the value of `min_backoff_duration`.
+    /// Sets the value of [min_backoff_duration][crate::model::RetryConfig::min_backoff_duration].
     pub fn set_min_backoff_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -842,7 +844,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets the value of `max_backoff_duration`.
+    /// Sets the value of [max_backoff_duration][crate::model::RetryConfig::max_backoff_duration].
     pub fn set_max_backoff_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -851,7 +853,7 @@ impl RetryConfig {
         self
     }
 
-    /// Sets the value of `max_doublings`.
+    /// Sets the value of [max_doublings][crate::model::RetryConfig::max_doublings].
     pub fn set_max_doublings<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_doublings = v.into();
         self
@@ -954,13 +956,13 @@ pub struct HttpTarget {
 }
 
 impl HttpTarget {
-    /// Sets the value of `uri`.
+    /// Sets the value of [uri][crate::model::HttpTarget::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
-    /// Sets the value of `http_method`.
+    /// Sets the value of [http_method][crate::model::HttpTarget::http_method].
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -969,20 +971,21 @@ impl HttpTarget {
         self
     }
 
-    /// Sets the value of `headers`.
-    pub fn set_headers<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.headers = v.into();
+    /// Sets the value of [body][crate::model::HttpTarget::body].
+    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 
-    /// Sets the value of `body`.
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
+    /// Sets the value of [headers][crate::model::HttpTarget::headers].
+    pub fn set_headers<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1128,7 +1131,7 @@ pub struct AppEngineHttpTarget {
 }
 
 impl AppEngineHttpTarget {
-    /// Sets the value of `http_method`.
+    /// Sets the value of [http_method][crate::model::AppEngineHttpTarget::http_method].
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
         v: T,
@@ -1137,7 +1140,7 @@ impl AppEngineHttpTarget {
         self
     }
 
-    /// Sets the value of `app_engine_routing`.
+    /// Sets the value of [app_engine_routing][crate::model::AppEngineHttpTarget::app_engine_routing].
     pub fn set_app_engine_routing<
         T: std::convert::Into<std::option::Option<crate::model::AppEngineRouting>>,
     >(
@@ -1148,26 +1151,27 @@ impl AppEngineHttpTarget {
         self
     }
 
-    /// Sets the value of `relative_uri`.
+    /// Sets the value of [relative_uri][crate::model::AppEngineHttpTarget::relative_uri].
     pub fn set_relative_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.relative_uri = v.into();
         self
     }
 
-    /// Sets the value of `headers`.
-    pub fn set_headers<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.headers = v.into();
+    /// Sets the value of [body][crate::model::AppEngineHttpTarget::body].
+    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.body = v.into();
         self
     }
 
-    /// Sets the value of `body`.
-    pub fn set_body<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.body = v.into();
+    /// Sets the value of [headers][crate::model::AppEngineHttpTarget::headers].
+    pub fn set_headers<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1212,26 +1216,27 @@ pub struct PubsubTarget {
 }
 
 impl PubsubTarget {
-    /// Sets the value of `topic_name`.
+    /// Sets the value of [topic_name][crate::model::PubsubTarget::topic_name].
     pub fn set_topic_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic_name = v.into();
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::PubsubTarget::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `attributes`.
-    pub fn set_attributes<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.attributes = v.into();
+    /// Sets the value of [attributes][crate::model::PubsubTarget::attributes].
+    pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1359,25 +1364,25 @@ pub struct AppEngineRouting {
 }
 
 impl AppEngineRouting {
-    /// Sets the value of `service`.
+    /// Sets the value of [service][crate::model::AppEngineRouting::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::AppEngineRouting::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::AppEngineRouting::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
-    /// Sets the value of `host`.
+    /// Sets the value of [host][crate::model::AppEngineRouting::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self
@@ -1414,7 +1419,7 @@ pub struct OAuthToken {
 }
 
 impl OAuthToken {
-    /// Sets the value of `service_account_email`.
+    /// Sets the value of [service_account_email][crate::model::OAuthToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1423,7 +1428,7 @@ impl OAuthToken {
         self
     }
 
-    /// Sets the value of `scope`.
+    /// Sets the value of [scope][crate::model::OAuthToken::scope].
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
@@ -1461,7 +1466,7 @@ pub struct OidcToken {
 }
 
 impl OidcToken {
-    /// Sets the value of `service_account_email`.
+    /// Sets the value of [service_account_email][crate::model::OidcToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1470,7 +1475,7 @@ impl OidcToken {
         self
     }
 
-    /// Sets the value of `audience`.
+    /// Sets the value of [audience][crate::model::OidcToken::audience].
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self

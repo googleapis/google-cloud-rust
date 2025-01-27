@@ -85,19 +85,19 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstanceConfigsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListInstanceConfigsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstanceConfigsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -141,7 +141,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetInstanceConfigRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -226,19 +226,19 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `instance_config_id`.
+        /// Sets the value of [instance_config_id][crate::model::CreateInstanceConfigRequest::instance_config_id].
         pub fn set_instance_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_config_id = v.into();
             self
         }
 
-        /// Sets the value of `instance_config`.
+        /// Sets the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
         pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
             mut self,
             v: T,
@@ -247,7 +247,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::CreateInstanceConfigRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -332,7 +332,7 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `instance_config`.
+        /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
         pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
             mut self,
             v: T,
@@ -341,7 +341,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -350,7 +350,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::UpdateInstanceConfigRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -394,19 +394,19 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteInstanceConfigRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteInstanceConfigRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
         }
 
-        /// Sets the value of `validate_only`.
+        /// Sets the value of [validate_only][crate::model::DeleteInstanceConfigRequest::validate_only].
         pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.validate_only = v.into();
             self
@@ -469,25 +469,25 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstanceConfigOperationsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListInstanceConfigOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListInstanceConfigOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstanceConfigOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -543,31 +543,31 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `instance_deadline`.
+        /// Sets the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
         pub fn set_instance_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -631,25 +631,25 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstancePartitionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListInstancePartitionsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstancePartitionsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `instance_partition_deadline`.
+        /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
         pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -693,13 +693,13 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetInstanceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `field_mask`.
+        /// Sets the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -782,19 +782,19 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `instance_id`.
+        /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -877,7 +877,7 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -886,7 +886,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `field_mask`.
+        /// Sets the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -930,7 +930,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -971,13 +971,13 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -986,7 +986,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1030,13 +1030,13 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1083,18 +1083,20 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1136,7 +1138,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetInstancePartitionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1225,19 +1227,19 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `instance_partition_id`.
+        /// Sets the value of [instance_partition_id][crate::model::CreateInstancePartitionRequest::instance_partition_id].
         pub fn set_instance_partition_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_partition_id = v.into();
             self
         }
 
-        /// Sets the value of `instance_partition`.
+        /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
         pub fn set_instance_partition<
             T: Into<std::option::Option<crate::model::InstancePartition>>,
         >(
@@ -1288,13 +1290,13 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteInstancePartitionRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteInstancePartitionRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -1383,7 +1385,7 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `instance_partition`.
+        /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
         pub fn set_instance_partition<
             T: Into<std::option::Option<crate::model::InstancePartition>>,
         >(
@@ -1394,7 +1396,7 @@ pub mod instance_admin {
             self
         }
 
-        /// Sets the value of `field_mask`.
+        /// Sets the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
         pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1460,31 +1462,31 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstancePartitionOperationsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListInstancePartitionOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListInstancePartitionOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstancePartitionOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `instance_partition_deadline`.
+        /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
         pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -1569,13 +1571,13 @@ pub mod instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::MoveInstanceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `target_config`.
+        /// Sets the value of [target_config][crate::model::MoveInstanceRequest::target_config].
         pub fn set_target_config<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_config = v.into();
             self
@@ -1634,25 +1636,25 @@ pub mod instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1696,7 +1698,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1740,7 +1742,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1784,7 +1786,7 @@ pub mod instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

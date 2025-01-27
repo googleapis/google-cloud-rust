@@ -106,19 +106,19 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `instance_id`.
+        /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
         pub fn set_instance_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance_id = v.into();
             self
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -127,14 +127,14 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `clusters`.
-        pub fn set_clusters<
-            T: Into<std::collections::HashMap<std::string::String, crate::model::Cluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.clusters = v.into();
+        /// Sets the value of [clusters][crate::model::CreateInstanceRequest::clusters].
+        pub fn set_clusters<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.clusters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -173,7 +173,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetInstanceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -214,13 +214,13 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -261,42 +261,31 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::Instance::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `display_name`.
+        /// Sets the value of [display_name][crate::model::Instance::display_name].
         pub fn set_display_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_name = v.into();
             self
         }
 
-        /// Sets the value of `state`.
+        /// Sets the value of [state][crate::model::Instance::state].
         pub fn set_state<T: Into<crate::model::instance::State>>(mut self, v: T) -> Self {
             self.0.request.state = v.into();
             self
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::Instance::type].
         pub fn set_type<T: Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
             self.0.request.r#type = v.into();
             self
         }
 
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
-            self
-        }
-
-        /// Sets the value of `create_time`.
+        /// Sets the value of [create_time][crate::model::Instance::create_time].
         pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -305,9 +294,20 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `satisfies_pzs`.
+        /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
         pub fn set_satisfies_pzs<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
             self.0.request.satisfies_pzs = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::Instance::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -388,7 +388,7 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `instance`.
+        /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
         pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
             mut self,
             v: T,
@@ -397,7 +397,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -441,7 +441,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -520,19 +520,19 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `cluster_id`.
+        /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
         pub fn set_cluster_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster_id = v.into();
             self
         }
 
-        /// Sets the value of `cluster`.
+        /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -576,7 +576,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetClusterRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -617,13 +617,13 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -702,31 +702,31 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::Cluster::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `location`.
+        /// Sets the value of [location][crate::model::Cluster::location].
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
             self
         }
 
-        /// Sets the value of `state`.
+        /// Sets the value of [state][crate::model::Cluster::state].
         pub fn set_state<T: Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
             self.0.request.state = v.into();
             self
         }
 
-        /// Sets the value of `serve_nodes`.
+        /// Sets the value of [serve_nodes][crate::model::Cluster::serve_nodes].
         pub fn set_serve_nodes<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.serve_nodes = v.into();
             self
         }
 
-        /// Sets the value of `node_scaling_factor`.
+        /// Sets the value of [node_scaling_factor][crate::model::Cluster::node_scaling_factor].
         pub fn set_node_scaling_factor<T: Into<crate::model::cluster::NodeScalingFactor>>(
             mut self,
             v: T,
@@ -735,7 +735,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `default_storage_type`.
+        /// Sets the value of [default_storage_type][crate::model::Cluster::default_storage_type].
         pub fn set_default_storage_type<T: Into<crate::model::StorageType>>(
             mut self,
             v: T,
@@ -744,7 +744,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `encryption_config`.
+        /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::cluster::EncryptionConfig>>,
         >(
@@ -838,7 +838,7 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `cluster`.
+        /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
         pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
             mut self,
             v: T,
@@ -847,7 +847,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -891,7 +891,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -935,19 +935,19 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `app_profile_id`.
+        /// Sets the value of [app_profile_id][crate::model::CreateAppProfileRequest::app_profile_id].
         pub fn set_app_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.app_profile_id = v.into();
             self
         }
 
-        /// Sets the value of `app_profile`.
+        /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -956,7 +956,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `ignore_warnings`.
+        /// Sets the value of [ignore_warnings][crate::model::CreateAppProfileRequest::ignore_warnings].
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -997,7 +997,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1053,19 +1053,19 @@ pub mod bigtable_instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListAppProfilesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListAppProfilesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1148,7 +1148,7 @@ pub mod bigtable_instance_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `app_profile`.
+        /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
         pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
             mut self,
             v: T,
@@ -1157,7 +1157,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1166,7 +1166,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `ignore_warnings`.
+        /// Sets the value of [ignore_warnings][crate::model::UpdateAppProfileRequest::ignore_warnings].
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -1210,13 +1210,13 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `ignore_warnings`.
+        /// Sets the value of [ignore_warnings][crate::model::DeleteAppProfileRequest::ignore_warnings].
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -1257,13 +1257,13 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -1307,13 +1307,13 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -1322,7 +1322,7 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1369,18 +1369,20 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1434,13 +1436,13 @@ pub mod bigtable_instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `start_time`.
+        /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -1449,19 +1451,19 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of `end_time`.
+        /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListHotTabletsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListHotTabletsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1520,25 +1522,25 @@ pub mod bigtable_instance_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1582,7 +1584,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1626,7 +1628,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1670,7 +1672,7 @@ pub mod bigtable_instance_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1737,19 +1739,19 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `table_id`.
+        /// Sets the value of [table_id][crate::model::CreateTableRequest::table_id].
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
-        /// Sets the value of `table`.
+        /// Sets the value of [table][crate::model::CreateTableRequest::table].
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -1758,14 +1760,14 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `initial_splits`.
-        pub fn set_initial_splits<
-            T: Into<std::vec::Vec<crate::model::create_table_request::Split>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.initial_splits = v.into();
+        /// Sets the value of [initial_splits][crate::model::CreateTableRequest::initial_splits].
+        pub fn set_initial_splits<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::create_table_request::Split>,
+        {
+            use std::iter::Iterator;
+            self.0.request.initial_splits = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1848,19 +1850,19 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `table_id`.
+        /// Sets the value of [table_id][crate::model::CreateTableFromSnapshotRequest::table_id].
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
         }
 
-        /// Sets the value of `source_snapshot`.
+        /// Sets the value of [source_snapshot][crate::model::CreateTableFromSnapshotRequest::source_snapshot].
         pub fn set_source_snapshot<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_snapshot = v.into();
             self
@@ -1916,25 +1918,25 @@ pub mod bigtable_table_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::ListTablesRequest::view].
         pub fn set_view<T: Into<crate::model::table::View>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListTablesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListTablesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1975,13 +1977,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetTableRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::GetTableRequest::view].
         pub fn set_view<T: Into<crate::model::table::View>>(mut self, v: T) -> Self {
             self.0.request.view = v.into();
             self
@@ -2059,7 +2061,7 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `table`.
+        /// Sets the value of [table][crate::model::UpdateTableRequest::table].
         pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
             mut self,
             v: T,
@@ -2068,7 +2070,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2112,7 +2114,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteTableRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2191,7 +2193,7 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2276,19 +2278,19 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `authorized_view_id`.
+        /// Sets the value of [authorized_view_id][crate::model::CreateAuthorizedViewRequest::authorized_view_id].
         pub fn set_authorized_view_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.authorized_view_id = v.into();
             self
         }
 
-        /// Sets the value of `authorized_view`.
+        /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -2350,25 +2352,25 @@ pub mod bigtable_table_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListAuthorizedViewsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListAuthorizedViewsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::ListAuthorizedViewsRequest::view].
         pub fn set_view<T: Into<crate::model::authorized_view::ResponseView>>(
             mut self,
             v: T,
@@ -2415,13 +2417,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `view`.
+        /// Sets the value of [view][crate::model::GetAuthorizedViewRequest::view].
         pub fn set_view<T: Into<crate::model::authorized_view::ResponseView>>(
             mut self,
             v: T,
@@ -2509,7 +2511,7 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `authorized_view`.
+        /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
         pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
             mut self,
             v: T,
@@ -2518,7 +2520,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2527,7 +2529,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `ignore_warnings`.
+        /// Sets the value of [ignore_warnings][crate::model::UpdateAuthorizedViewRequest::ignore_warnings].
         pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.ignore_warnings = v.into();
             self
@@ -2571,13 +2573,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `etag`.
+        /// Sets the value of [etag][crate::model::DeleteAuthorizedViewRequest::etag].
         pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.etag = v.into();
             self
@@ -2621,26 +2623,26 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `modifications`.
-        pub fn set_modifications<
-            T: Into<std::vec::Vec<crate::model::modify_column_families_request::Modification>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.modifications = v.into();
+        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
             self
         }
 
-        /// Sets the value of `ignore_warnings`.
-        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_warnings = v.into();
+        /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
+        pub fn set_modifications<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::modify_column_families_request::Modification>,
+        {
+            use std::iter::Iterator;
+            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2679,7 +2681,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2734,7 +2736,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2778,13 +2780,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `consistency_token`.
+        /// Sets the value of [consistency_token][crate::model::CheckConsistencyRequest::consistency_token].
         pub fn set_consistency_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.consistency_token = v.into();
             self
@@ -2872,31 +2874,31 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `cluster`.
+        /// Sets the value of [cluster][crate::model::SnapshotTableRequest::cluster].
         pub fn set_cluster<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.cluster = v.into();
             self
         }
 
-        /// Sets the value of `snapshot_id`.
+        /// Sets the value of [snapshot_id][crate::model::SnapshotTableRequest::snapshot_id].
         pub fn set_snapshot_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.snapshot_id = v.into();
             self
         }
 
-        /// Sets the value of `ttl`.
+        /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
         pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.ttl = v.into();
             self
         }
 
-        /// Sets the value of `description`.
+        /// Sets the value of [description][crate::model::SnapshotTableRequest::description].
         pub fn set_description<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.description = v.into();
             self
@@ -2937,7 +2939,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2993,19 +2995,19 @@ pub mod bigtable_table_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3046,7 +3048,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3125,19 +3127,19 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `backup_id`.
+        /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
-        /// Sets the value of `backup`.
+        /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -3181,7 +3183,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetBackupRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3222,7 +3224,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `backup`.
+        /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -3231,7 +3233,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3275,7 +3277,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3331,31 +3333,31 @@ pub mod bigtable_table_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `order_by`.
+        /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
         pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.order_by = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3434,13 +3436,13 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `table_id`.
+        /// Sets the value of [table_id][crate::model::RestoreTableRequest::table_id].
         pub fn set_table_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.table_id = v.into();
             self
@@ -3527,25 +3529,25 @@ pub mod bigtable_table_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `backup_id`.
+        /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
-        /// Sets the value of `source_backup`.
+        /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
         pub fn set_source_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_backup = v.into();
             self
         }
 
-        /// Sets the value of `expire_time`.
+        /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -3589,13 +3591,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -3639,13 +3641,13 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -3654,7 +3656,7 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -3701,18 +3703,20 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -3769,25 +3773,25 @@ pub mod bigtable_table_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3831,7 +3835,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3875,7 +3879,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3919,7 +3923,7 @@ pub mod bigtable_table_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

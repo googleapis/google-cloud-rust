@@ -86,25 +86,25 @@ pub struct Expr {
 
 impl Expr {
 
-    /// Sets the value of `expression`.
+    /// Sets the value of [expression][crate::model::Expr::expression].
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
-    /// Sets the value of `title`.
+    /// Sets the value of [title][crate::model::Expr::title].
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Expr::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::Expr::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
