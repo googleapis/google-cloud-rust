@@ -81,10 +81,76 @@ impl {{Codec.Name}} {
     {{#OneOfs}}
 
     /// Sets the value of `{{Codec.FieldName}}`.
-    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<std::option::Option<{{{Codec.FieldType}}}>>>(mut self, v: T) ->Self {
+    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<std::option::Option<{{{Codec.FieldType}}}>>>(mut self, v: T) -> Self
+    {
         self.{{Codec.FieldName}} = v.into();
         self
     }
+    {{#Fields}}
+
+    /// The value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
+    /// if it holds a `{{Codec.BranchName}}`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_{{Codec.SetterName}}(&self) -> std::option::Option<&{{{Codec.FieldType}}}> {
+        {{! Rarely, oneofs have a single branch and then the `_` case is never matched. }}
+        #[allow(unreachable_patterns)]
+        self.{{Group.Codec.FieldName}}.as_ref().and_then(|v| match v {
+            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+    {{/Fields}}
+    {{#Codec.SingularFields}}
+
+    /// Sets the value of [{{Group.Codec.FieldName}}][{{Codec.FQMessageName}}::{{Group.Codec.FieldName}}]
+    /// to hold a `{{Codec.BranchName}}`.
+    ///
+    /// Note that all the setters affecting `{{Group.Codec.FieldName}}` are
+    /// mutually exclusive.
+    pub fn set_{{Codec.SetterName}}<T: std::convert::Into<{{{Codec.FieldType}}}>>(mut self, v: T) -> Self {
+        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
+            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+                v.into()
+            )
+        );
+        self
+    }
+    {{/Codec.SingularFields}}
+    {{#Codec.RepeatedFields}}
+
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    pub fn set_{{Codec.SetterName}}<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<{{{Codec.PrimitiveFieldType}}}>
+    {
+        use std::iter::Iterator;
+        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
+            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+                v.into_iter().map(|i| i.into()).collect()
+            )
+        );
+        self
+    }
+    {{/Codec.RepeatedFields}}
+    {{#Codec.MapFields}}
+
+    /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].
+    pub fn set_{{Codec.SetterName}}<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<{{{Codec.KeyType}}}>,
+        V: std::convert::Into<{{{Codec.ValueType}}}>,
+    {
+        use std::iter::Iterator;
+        self.{{Group.Codec.FieldName}} = std::option::Option::Some(
+            {{Group.Codec.FQEnumName}}::{{Codec.BranchName}}(
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect()
+            )
+        );
+        self
+    }
+    {{/Codec.MapFields}}
     {{/OneOfs}}
 }
 {{^Codec.HasSyntheticFields}}

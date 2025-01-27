@@ -956,6 +956,63 @@ pub mod threat_info {
             self.value = v.into();
             self
         }
+
+        /// The value of [value][crate::model::threat_info::Confidence::value]
+        /// if it holds a `Score`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_score(&self) -> std::option::Option<&f32> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::threat_info::confidence::Value::Score(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// The value of [value][crate::model::threat_info::Confidence::value]
+        /// if it holds a `Level`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn get_level(
+            &self,
+        ) -> std::option::Option<&crate::model::threat_info::confidence::ConfidenceLevel> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::threat_info::confidence::Value::Level(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
+        /// to hold a `Score`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::threat_info::confidence::Value::Score(v.into()),
+            );
+            self
+        }
+
+        /// Sets the value of [value][crate::model::threat_info::Confidence::value]
+        /// to hold a `Level`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        pub fn set_level<
+            T: std::convert::Into<crate::model::threat_info::confidence::ConfidenceLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::threat_info::confidence::Value::Level(v.into()),
+            );
+            self
+        }
     }
 
     impl wkt::message::Message for Confidence {

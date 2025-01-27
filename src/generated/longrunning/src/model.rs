@@ -95,6 +95,52 @@ impl Operation {
         self.result = v.into();
         self
     }
+
+    /// The value of [result][crate::model::Operation::result]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_error(&self) -> std::option::Option<&std::boxed::Box<rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::operation::Result::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [result][crate::model::Operation::result]
+    /// if it holds a `Response`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_response(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::operation::Result::Response(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::Operation::result]
+    /// to hold a `Error`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(crate::model::operation::Result::Error(v.into()));
+        self
+    }
+
+    /// Sets the value of [result][crate::model::Operation::result]
+    /// to hold a `Response`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    pub fn set_response<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(mut self, v: T) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::operation::Result::Response(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Operation {

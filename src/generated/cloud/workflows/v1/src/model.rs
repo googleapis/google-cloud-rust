@@ -262,6 +262,28 @@ impl Workflow {
         self.source_code = v.into();
         self
     }
+
+    /// The value of [source_code][crate::model::Workflow::source_code]
+    /// if it holds a `SourceContents`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_source_contents(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source_code.as_ref().and_then(|v| match v {
+            crate::model::workflow::SourceCode::SourceContents(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_code][crate::model::Workflow::source_code]
+    /// to hold a `SourceContents`.
+    ///
+    /// Note that all the setters affecting `source_code` are
+    /// mutually exclusive.
+    pub fn set_source_contents<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_code =
+            std::option::Option::Some(crate::model::workflow::SourceCode::SourceContents(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Workflow {

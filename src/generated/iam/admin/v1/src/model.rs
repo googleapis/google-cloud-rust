@@ -2523,6 +2523,34 @@ impl LintPolicyRequest {
         self.lint_object = v.into();
         self
     }
+
+    /// The value of [lint_object][crate::model::LintPolicyRequest::lint_object]
+    /// if it holds a `Condition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_condition(&self) -> std::option::Option<&std::boxed::Box<gtype::model::Expr>> {
+        #[allow(unreachable_patterns)]
+        self.lint_object.as_ref().and_then(|v| match v {
+            crate::model::lint_policy_request::LintObject::Condition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [lint_object][crate::model::LintPolicyRequest::lint_object]
+    /// to hold a `Condition`.
+    ///
+    /// Note that all the setters affecting `lint_object` are
+    /// mutually exclusive.
+    pub fn set_condition<T: std::convert::Into<std::boxed::Box<gtype::model::Expr>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.lint_object = std::option::Option::Some(
+            crate::model::lint_policy_request::LintObject::Condition(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for LintPolicyRequest {
