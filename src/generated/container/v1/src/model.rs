@@ -7233,6 +7233,8 @@ pub mod operation {
         ///
         /// In the event of the operation failing, the cluster will enter the [ERROR
         /// state][Cluster.Status.ERROR] and eventually be deleted.
+        ///
+        /// [Cluster.Status.ERROR]: crate::model::cluster::status::ERROR
         pub const CREATE_CLUSTER: &str = "CREATE_CLUSTER";
 
         /// The cluster is being deleted. The cluster should be assumed to be
@@ -7241,6 +7243,8 @@ pub mod operation {
         /// In the event of the operation failing, the cluster will enter the [ERROR
         /// state][Cluster.Status.ERROR] and the deletion will be automatically
         /// retried until completed.
+        ///
+        /// [Cluster.Status.ERROR]: crate::model::cluster::status::ERROR
         pub const DELETE_CLUSTER: &str = "DELETE_CLUSTER";
 
         /// The [cluster

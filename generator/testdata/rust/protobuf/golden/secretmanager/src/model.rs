@@ -669,6 +669,7 @@ pub mod replication {
             /// afterwards. They do not apply retroactively to existing
             /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
             ///
+            /// [Replication.UserManaged.Replica]: crate::model::replication::user_managed::Replica
             /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
             /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
