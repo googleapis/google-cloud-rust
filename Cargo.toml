@@ -40,6 +40,7 @@ members = [
   "src/generated/iam/v1",
   "src/generated/iam/v2",
   "src/generated/longrunning",
+  "src/generated/monitoring/metricsscope/v1",
   "src/generated/openapi-validation",
   "src/generated/rpc",
   "src/generated/spanner/admin/database/v1",
