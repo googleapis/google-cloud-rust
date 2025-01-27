@@ -914,14 +914,23 @@ func TestRust_SyntheticField(t *testing.T) {
 	}
 }
 
-func TestRust_FieldType(t *testing.T) {
+func rustFieldTypesCases() *api.API {
 	target := &api.Message{
 		Name: "Target",
 		ID:   "..Target",
 	}
+	mapMessage := &api.Message{
+		Name:  "$MapMessage",
+		ID:    "..$MapMessage",
+		IsMap: true,
+		Fields: []*api.Field{
+			{Name: "key", ID: "..$Message.key", Typez: api.INT32_TYPE},
+			{Name: "value", ID: "..$Message.value", Typez: api.INT32_TYPE},
+		},
+	}
 	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
+		Name: "Message",
+		ID:   "..Message",
 		Fields: []*api.Field{
 			{
 				Name:     "f_int32",
@@ -976,7 +985,7 @@ func TestRust_FieldType(t *testing.T) {
 			{
 				Name:      "f_msg_recursive",
 				Typez:     api.MESSAGE_TYPE,
-				TypezID:   "..Fake",
+				TypezID:   "..Message",
 				Optional:  true,
 				Repeated:  false,
 				Recursive: true,
@@ -984,7 +993,7 @@ func TestRust_FieldType(t *testing.T) {
 			{
 				Name:      "f_msg_recursive_repeated",
 				Typez:     api.MESSAGE_TYPE,
-				TypezID:   "..Fake",
+				TypezID:   "..Message",
 				Optional:  false,
 				Repeated:  true,
 				Recursive: true,
@@ -1003,10 +1012,25 @@ func TestRust_FieldType(t *testing.T) {
 				Optional: false,
 				Repeated: true,
 			},
+			{
+				Name:     "f_map",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  "..$MapMessage",
+				Optional: false,
+				Repeated: false,
+			},
 		},
 	}
-	model := api.NewTestAPI([]*api.Message{target, message}, []*api.Enum{}, []*api.Service{})
+	return api.NewTestAPI([]*api.Message{target, mapMessage, message}, []*api.Enum{}, []*api.Service{})
 
+}
+
+func TestRust_FieldType(t *testing.T) {
+	model := rustFieldTypesCases()
+	message, ok := model.State.MessageByID["..Message"]
+	if !ok {
+		t.Fatalf("cannot find message `..Message`")
+	}
 	expectedTypes := map[string]string{
 		"f_int32":                  "i32",
 		"f_int32_optional":         "std::option::Option<i32>",
@@ -1016,10 +1040,11 @@ func TestRust_FieldType(t *testing.T) {
 		"f_string_repeated":        "std::vec::Vec<std::string::String>",
 		"f_msg":                    "std::option::Option<crate::model::Target>",
 		"f_msg_repeated":           "std::vec::Vec<crate::model::Target>",
-		"f_msg_recursive":          "std::option::Option<std::boxed::Box<crate::model::Fake>>",
-		"f_msg_recursive_repeated": "std::vec::Vec<crate::model::Fake>",
+		"f_msg_recursive":          "std::option::Option<std::boxed::Box<crate::model::Message>>",
+		"f_msg_recursive_repeated": "std::vec::Vec<crate::model::Message>",
 		"f_timestamp":              "std::option::Option<wkt::Timestamp>",
 		"f_timestamp_repeated":     "std::vec::Vec<wkt::Timestamp>",
+		"f_map":                    "std::collections::HashMap<i32,i32>",
 	}
 	expectedPrimitiveTypes := map[string]string{
 		"f_int32":                  "i32",
@@ -1030,10 +1055,11 @@ func TestRust_FieldType(t *testing.T) {
 		"f_string_repeated":        "std::string::String",
 		"f_msg":                    "crate::model::Target",
 		"f_msg_repeated":           "crate::model::Target",
-		"f_msg_recursive":          "crate::model::Fake",
-		"f_msg_recursive_repeated": "crate::model::Fake",
+		"f_msg_recursive":          "crate::model::Message",
+		"f_msg_recursive_repeated": "crate::model::Message",
 		"f_timestamp":              "wkt::Timestamp",
 		"f_timestamp_repeated":     "wkt::Timestamp",
+		"f_map":                    "std::collections::HashMap<i32,i32>",
 	}
 	c := createRustCodec()
 	rustLoadWellKnownTypes(model.State)
@@ -1052,6 +1078,42 @@ func TestRust_FieldType(t *testing.T) {
 			t.Fatalf("missing expected value for %s", field.Name)
 		}
 		got = rustFieldType(field, model.State, true, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+		if got != want {
+			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
+		}
+	}
+}
+
+func TestRust_OneOfFieldType(t *testing.T) {
+	model := rustFieldTypesCases()
+	message, ok := model.State.MessageByID["..Message"]
+	if !ok {
+		t.Fatalf("cannot find message `..Message`")
+	}
+
+	expectedTypes := map[string]string{
+		"f_int32":                  "i32",
+		"f_int32_optional":         "std::option::Option<i32>",
+		"f_int32_repeated":         "std::vec::Vec<i32>",
+		"f_string":                 "std::string::String",
+		"f_string_optional":        "std::option::Option<std::string::String>",
+		"f_string_repeated":        "std::vec::Vec<std::string::String>",
+		"f_msg":                    "std::boxed::Box<crate::model::Target>",
+		"f_msg_repeated":           "std::vec::Vec<crate::model::Target>",
+		"f_msg_recursive":          "std::boxed::Box<crate::model::Message>",
+		"f_msg_recursive_repeated": "std::vec::Vec<crate::model::Message>",
+		"f_timestamp":              "std::boxed::Box<wkt::Timestamp>",
+		"f_timestamp_repeated":     "std::vec::Vec<wkt::Timestamp>",
+		"f_map":                    "std::collections::HashMap<i32,i32>",
+	}
+	c := createRustCodec()
+	rustLoadWellKnownTypes(model.State)
+	for _, field := range message.Fields {
+		want, ok := expectedTypes[field.Name]
+		if !ok {
+			t.Fatalf("missing expected value for %s", field.Name)
+		}
+		got := rustOneOfFieldType(field, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 		if got != want {
 			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
 		}

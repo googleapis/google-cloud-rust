@@ -25,6 +25,6 @@ pub enum {{Codec.EnumName}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    {{Codec.BranchName}}{{{Codec.FieldType}}},
+    {{Codec.BranchName}}({{{Codec.FieldType}}}),
     {{/Fields}}
 }

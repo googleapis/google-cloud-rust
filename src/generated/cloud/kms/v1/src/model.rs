@@ -1965,7 +1965,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey.next_rotation_time]: crate::model::CryptoKey::next_rotation_time
         /// [google.cloud.kms.v1.CryptoKey.purpose]: crate::model::CryptoKey::purpose
         /// [google.cloud.kms.v1.CryptoKey.rotation_period]: crate::model::CryptoKey::rotation_schedule
-        RotationPeriod(wkt::Duration),
+        RotationPeriod(std::boxed::Box<wkt::Duration>),
     }
 }
 

@@ -25,7 +25,8 @@ pub fn success(
     };
     let metadata = model::CreateResourceMetadata { percent: 100 };
     let metadata = wkt::Any::try_from(&metadata)?;
-    let result = longrunning::model::operation::Result::Response(wkt::Any::try_from(&resource)?);
+    let result =
+        longrunning::model::operation::Result::Response(wkt::Any::try_from(&resource)?.into());
     let operation = longrunning::model::Operation::default()
         .set_name(name)
         .set_metadata(metadata)
@@ -49,7 +50,8 @@ pub fn operation_error(name: impl Into<String>) -> Result<(StatusCode, String)> 
     let error = rpc::model::Status::default()
         .set_code(gax::error::rpc::Code::AlreadyExists as i32)
         .set_message(format!("The resource  already exists"));
-    let result = longrunning::model::operation::Result::Response(wkt::Any::try_from(&error)?);
+    let result =
+        longrunning::model::operation::Result::Response(wkt::Any::try_from(&error)?.into());
     let operation = longrunning::model::Operation::default()
         .set_name(name)
         .set_done(true)

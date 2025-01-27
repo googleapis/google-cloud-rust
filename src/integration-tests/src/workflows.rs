@@ -288,7 +288,7 @@ pub async fn manual(
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(status);
+                let err = gax::error::ServiceError::from(*status);
                 return Err(Error::rpc(err));
             }
             LR::Response(any) => {
@@ -328,7 +328,7 @@ pub async fn manual(
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(status);
+                let err = gax::error::ServiceError::from(*status);
                 return Err(Error::rpc(err));
             }
             LR::Response(any) => {

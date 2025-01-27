@@ -86,14 +86,14 @@ impl<R, M> Operation<R, M> {
         use longrunning::model::operation::Result;
         self.inner.result.as_ref().and_then(|r| match r {
             Result::Error(_) => None,
-            Result::Response(r) => Some(r),
+            Result::Response(r) => Some(r.as_ref()),
             _ => None,
         })
     }
     fn error(&self) -> Option<&rpc::model::Status> {
         use longrunning::model::operation::Result;
         self.inner.result.as_ref().and_then(|r| match r {
-            Result::Error(rpc) => Some(rpc),
+            Result::Error(rpc) => Some(rpc.as_ref()),
             Result::Response(_) => None,
             _ => None,
         })
@@ -337,7 +337,7 @@ mod test {
             .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Response(any));
+            .set_result(longrunning::model::operation::Result::Response(any.into()));
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
@@ -361,7 +361,9 @@ mod test {
             .set_code(16);
         let op = longrunning::model::Operation::default()
             .set_name("test-only-name")
-            .set_result(longrunning::model::operation::Result::Error(rpc.clone()));
+            .set_result(longrunning::model::operation::Result::Error(
+                rpc.clone().into(),
+            ));
         let op = TestOperation::new(op);
         assert_eq!(op.name(), "test-only-name");
         assert!(!op.done());
@@ -389,7 +391,7 @@ mod test {
         let query = |_: String| async move {
             let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-            let result = longrunning::model::operation::Result::Response(any);
+            let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
                 .set_result(result);
@@ -444,7 +446,7 @@ mod test {
         let query = |_: String| async move {
             let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-            let result = longrunning::model::operation::Result::Response(any);
+            let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
                 .set_result(result);
@@ -502,7 +504,7 @@ mod test {
         let query = |_: String| async move {
             let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
                 .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-            let result = longrunning::model::operation::Result::Response(any);
+            let result = longrunning::model::operation::Result::Response(any.into());
             let op = longrunning::model::Operation::default()
                 .set_done(true)
                 .set_result(result);
@@ -553,7 +555,7 @@ mod test {
                 }
                 let any = wkt::Any::try_from(&wkt::Duration::clamp(234, 0))
                     .map_err(|e| Error::other(format!("unexpected error in Any::try_from {e}")))?;
-                let result = longrunning::model::operation::Result::Response(any);
+                let result = longrunning::model::operation::Result::Response(any.into());
                 let op = longrunning::model::Operation::default()
                     .set_done(true)
                     .set_result(result);

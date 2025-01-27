@@ -891,9 +891,9 @@ pub mod import_adaptive_mt_file_request {
     #[non_exhaustive]
     pub enum Source {
         /// Inline file source.
-        FileInputSource(crate::model::FileInputSource),
+        FileInputSource(std::boxed::Box<crate::model::FileInputSource>),
         /// Google Cloud Storage file source.
-        GcsInputSource(crate::model::GcsInputSource),
+        GcsInputSource(std::boxed::Box<crate::model::GcsInputSource>),
     }
 }
 
@@ -1342,7 +1342,7 @@ pub mod dataset_input_config {
         #[non_exhaustive]
         pub enum Source {
             /// Google Cloud Storage file source.
-            GcsSource(crate::model::GcsInputSource),
+            GcsSource(std::boxed::Box<crate::model::GcsInputSource>),
         }
     }
 }
@@ -1492,7 +1492,7 @@ pub mod dataset_output_config {
     #[non_exhaustive]
     pub enum Destination {
         /// Google Cloud Storage destination to write the output.
-        GcsDestination(crate::model::GcsOutputDestination),
+        GcsDestination(std::boxed::Box<crate::model::GcsOutputDestination>),
     }
 }
 
@@ -2967,9 +2967,9 @@ pub mod glossary_entry {
     #[non_exhaustive]
     pub enum Data {
         /// Used for an unidirectional glossary.
-        TermsPair(crate::model::glossary_entry::GlossaryTermsPair),
+        TermsPair(std::boxed::Box<crate::model::glossary_entry::GlossaryTermsPair>),
         /// Used for an equivalent term sets glossary.
-        TermsSet(crate::model::glossary_entry::GlossaryTermsSet),
+        TermsSet(std::boxed::Box<crate::model::glossary_entry::GlossaryTermsSet>),
     }
 }
 
@@ -3927,7 +3927,7 @@ pub mod input_config {
         ///
         /// The other supported file extensions are `.txt` or `.html`, which is
         /// treated as a single large chunk of text.
-        GcsSource(crate::model::GcsSource),
+        GcsSource(std::boxed::Box<crate::model::GcsSource>),
     }
 }
 
@@ -4074,7 +4074,7 @@ pub mod output_config {
         /// If the input file extension is txt or html, glossary_error_file will be
         /// generated that contains error details. glossary_error_file has format of
         /// `gs://translation_test/a_b_c_'trg'_glossary_errors.[extension]`
-        GcsDestination(crate::model::GcsDestination),
+        GcsDestination(std::boxed::Box<crate::model::GcsDestination>),
     }
 }
 
@@ -4156,7 +4156,7 @@ pub mod document_input_config {
         Content(bytes::Bytes),
         /// Google Cloud Storage location. This must be a single file.
         /// For example: gs://example_bucket/example_file.pdf
-        GcsSource(crate::model::GcsSource),
+        GcsSource(std::boxed::Box<crate::model::GcsSource>),
     }
 }
 
@@ -4273,7 +4273,7 @@ pub mod document_output_config {
         /// Callers should expect no partial outputs. If there is any error during
         /// document translation, no output will be stored in the Cloud Storage
         /// bucket.
-        GcsDestination(crate::model::GcsDestination),
+        GcsDestination(std::boxed::Box<crate::model::GcsDestination>),
     }
 }
 
@@ -5064,7 +5064,7 @@ pub mod glossary_input_config {
         /// - CSV (`.csv`): Multi-column CSV file defining equivalent glossary terms
         ///   in multiple languages. See documentation for more information -
         ///   [glossaries](https://cloud.google.com/translate/docs/advanced/glossary).
-        GcsSource(crate::model::GcsSource),
+        GcsSource(std::boxed::Box<crate::model::GcsSource>),
     }
 }
 
@@ -5256,9 +5256,9 @@ pub mod glossary {
     #[non_exhaustive]
     pub enum Languages {
         /// Used with unidirectional glossaries.
-        LanguagePair(crate::model::glossary::LanguageCodePair),
+        LanguagePair(std::boxed::Box<crate::model::glossary::LanguageCodePair>),
         /// Used with equivalent term set glossaries.
-        LanguageCodesSet(crate::model::glossary::LanguageCodesSet),
+        LanguageCodesSet(std::boxed::Box<crate::model::glossary::LanguageCodesSet>),
     }
 }
 
@@ -6378,7 +6378,7 @@ pub mod batch_document_input_config {
         /// The max file size to support for `.pdf` is 1GB and the max page limit is
         /// 1000 pages.
         /// The max file size to support for all input documents is 1GB.
-        GcsSource(crate::model::GcsSource),
+        GcsSource(std::boxed::Box<crate::model::GcsSource>),
     }
 }
 
@@ -6471,7 +6471,7 @@ pub mod batch_document_output_config {
         /// `glossary_error_output`:
         /// `gs://translation_test/a_b_c_[trg]_glossary_translation.txt`. The error
         /// output is a txt file containing error details.
-        GcsDestination(crate::model::GcsDestination),
+        GcsDestination(std::boxed::Box<crate::model::GcsDestination>),
     }
 }
 

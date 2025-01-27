@@ -485,28 +485,48 @@ func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
 	}
 }
 
+func rustOneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
+	baseType := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	switch {
+	case f.Repeated:
+		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
+	case f.Typez == api.MESSAGE_TYPE:
+		if fieldIsMap(f, state) {
+			return baseType
+		}
+		if f.Optional {
+			return fmt.Sprintf("std::boxed::Box<%s>", baseType)
+		}
+		return fmt.Sprintf("std::boxed::Box<%s>", baseType)
+	case f.Optional:
+		return fmt.Sprintf("std::option::Option<%s>", baseType)
+	default:
+		return baseType
+	}
+}
+
 func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
+	baseType := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	switch {
 	case primitive:
-		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		return baseType
 	case f.IsOneOf:
-		return fmt.Sprintf("(%s)", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+		return rustOneOfFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	case f.Repeated:
-		return fmt.Sprintf("std::vec::Vec<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
 	case f.Recursive:
-		base := rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		if f.Optional {
-			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", base)
+			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", baseType)
 		}
-		if _, ok := state.MessageByID[f.TypezID]; ok && f.Typez == api.MESSAGE_TYPE {
+		if fieldIsMap(f, state) {
 			// Maps are never boxed.
-			return base
+			return baseType
 		}
-		return fmt.Sprintf("std::boxed::Box<%s>", base)
+		return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 	case f.Optional:
-		return fmt.Sprintf("std::option::Option<%s>", rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping))
+		return fmt.Sprintf("std::option::Option<%s>", baseType)
 	default:
-		return rustBaseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+		return baseType
 	}
 }
 

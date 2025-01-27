@@ -421,9 +421,9 @@ pub mod date_time {
         /// UTC offset. Must be whole seconds, between -18 hours and +18 hours.
         /// For example, a UTC offset of -4:00 would be represented as
         /// { seconds: -14400 }.
-        UtcOffset(wkt::Duration),
+        UtcOffset(std::boxed::Box<wkt::Duration>),
         /// Time zone.
-        TimeZone(crate::model::TimeZone),
+        TimeZone(std::boxed::Box<crate::model::TimeZone>),
     }
 }
 
@@ -1029,7 +1029,7 @@ pub mod phone_number {
         /// Reference(s):
         ///
         /// - <https://en.wikipedia.org/wiki/Short_code>
-        ShortCode(crate::model::phone_number::ShortCode),
+        ShortCode(std::boxed::Box<crate::model::phone_number::ShortCode>),
     }
 }
 

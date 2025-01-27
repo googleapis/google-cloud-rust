@@ -525,9 +525,9 @@ pub mod span {
         #[non_exhaustive]
         pub enum Value {
             /// Text annotation with a set of attributes.
-            Annotation(crate::model::span::time_event::Annotation),
+            Annotation(std::boxed::Box<crate::model::span::time_event::Annotation>),
             /// An event describing a message sent/received between Spans.
-            MessageEvent(crate::model::span::time_event::MessageEvent),
+            MessageEvent(std::boxed::Box<crate::model::span::time_event::MessageEvent>),
         }
     }
 
@@ -822,7 +822,7 @@ pub mod attribute_value {
     #[non_exhaustive]
     pub enum Value {
         /// A string up to 256 bytes long.
-        StringValue(crate::model::TruncatableString),
+        StringValue(std::boxed::Box<crate::model::TruncatableString>),
         /// A 64-bit signed integer.
         IntValue(i64),
         /// A Boolean value represented by `true` or `false`.

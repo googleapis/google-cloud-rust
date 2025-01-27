@@ -1632,7 +1632,7 @@ pub mod backup_schedule_spec {
     #[non_exhaustive]
     pub enum ScheduleSpec {
         /// Cron style schedule specification.
-        CronSpec(crate::model::CrontabSpec),
+        CronSpec(std::boxed::Box<crate::model::CrontabSpec>),
     }
 }
 
@@ -1764,9 +1764,9 @@ pub mod backup_schedule {
     #[non_exhaustive]
     pub enum BackupTypeSpec {
         /// The schedule creates only full backups.
-        FullBackupSpec(crate::model::FullBackupSpec),
+        FullBackupSpec(std::boxed::Box<crate::model::FullBackupSpec>),
         /// The schedule creates incremental backup chains.
-        IncrementalBackupSpec(crate::model::IncrementalBackupSpec),
+        IncrementalBackupSpec(std::boxed::Box<crate::model::IncrementalBackupSpec>),
     }
 }
 
@@ -2382,7 +2382,7 @@ pub mod restore_info {
     pub enum SourceInfo {
         /// Information about the backup used to restore the database. The backup
         /// may no longer exist.
-        BackupInfo(crate::model::BackupInfo),
+        BackupInfo(std::boxed::Box<crate::model::BackupInfo>),
     }
 }
 
@@ -3979,7 +3979,7 @@ pub mod restore_database_metadata {
     #[non_exhaustive]
     pub enum SourceInfo {
         /// Information about the backup used to restore the database.
-        BackupInfo(crate::model::BackupInfo),
+        BackupInfo(std::boxed::Box<crate::model::BackupInfo>),
     }
 }
 

@@ -63,7 +63,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
             sm::model::Secret::default()
                 .set_replication(sm::model::Replication::default().set_replication(
                     sm::model::replication::Replication::Automatic(
-                        sm::model::replication::Automatic::default(),
+                        sm::model::replication::Automatic::default().into(),
                     ),
                 ))
                 .set_labels([("integration-test", "true")]),
