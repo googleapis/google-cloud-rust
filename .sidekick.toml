@@ -17,8 +17,8 @@ language             = 'rust'
 specification-format = 'protobuf'
 
 [source]
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/318818b22ec2bd44ebe43fe662418b7dff032abf.tar.gz'
-googleapis-sha256           = 'c5428093a005df7899007d6809d0cc3223589154c78d9526a137063d802e9d31'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/8798ceff3f6fbcdce3186b67ce9339df337569d5.tar.gz'
+googleapis-sha256           = 'ff1b7db16d228cfee7c61c3ceb52af01c8126c24b40e6cf59203ee61ff236a8a'
 extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.35.5.tar.gz'
 extra-protos-sha256         = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
 extra-protos-extracted-name = 'gapic-showcase-0.35.5'

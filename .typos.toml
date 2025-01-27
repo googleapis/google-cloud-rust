@@ -39,8 +39,6 @@ Regsitry = "Regsitry"
 # src/generated/cloud/run/v2 has some typos, they need to be fixed upstream.
 permamently = "permamently"
 revison     = "revison"
-# src/generated/cloud/scheduler/v1 has a type, needs to be fixed upstream.
-explictly = "explictly"
 # src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
 corresponsing = "corresponsing"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
