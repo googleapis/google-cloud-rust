@@ -1628,7 +1628,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 	placeholder>.
 	Third example: projects/<project>/secrets/<secret>
 	Urls remain unchanged <https://www.example.com>
-	Hyperlinks remain unchanged except for escaped the url <a href=https://www.hyperlink.com>hyperlined content</a>` + `
+	Hyperlinks are also escaped <a href=https://www.hyperlink.com>hyperlined content</a>` + `
 	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
 
 	want := []string{
@@ -1637,11 +1637,11 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 		"/// placeholder\\>.",
 		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
 		"/// Urls remain unchanged <https://www.example.com>",
-		"/// Hyperlinks remain unchanged except for escaped the url <a href=<https://www.hyperlink.com>>hyperlined content</a>",
+		"/// Hyperlinks are also escaped \\<a href=<https://www.hyperlink.com>>hyperlined content\\</a\\>",
 		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
 	}
 
-	model := newTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &rustCodec{}
 	got := rustFormatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {

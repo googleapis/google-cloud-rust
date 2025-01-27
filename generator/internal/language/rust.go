@@ -953,7 +953,7 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 					if segment.Start < line.Start || (segment.Start >= line.Stop) {
 						continue
 					}
-					if strings.HasPrefix(segmentContent, "<br />") || strings.HasPrefix(segmentContent, "<a href=") || strings.HasSuffix(segmentContent, "</a>") {
+					if strings.HasPrefix(segmentContent, "<br />") {
 						continue
 					}
 					start := int(segment.Start) - line.Start
