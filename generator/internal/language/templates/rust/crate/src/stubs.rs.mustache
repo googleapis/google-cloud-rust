@@ -22,37 +22,38 @@ limitations under the License.
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 {{! TODO(#742) - remove this workaround once the bug is fixed }}
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+{{#HasLROs}}
+use std::sync::Arc;
+{{/HasLROs}}
 
 pub(crate) mod dynamic;
 
 {{/HasServices}}
 {{#Services}}
-{{#DocLines}}
-{{{.}}}
-{{/DocLines}}
+/// Defines the trait used to implement [crate::client::{{NameToPascal}}].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the {{Name}} clients.
+/// Application developers may need to implement this trait to mock
+/// `client::{{NameToPascal}}`.  In other use-cases, application developers only
+/// use `client::{{NameToPascal}}` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{#Methods}}
 
-    {{#DocLines}}
-    {{{.}}}
-    {{/DocLines}}
+    /// Implements [crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
     fn {{NameToSnake}}(
         &self,
         _req: {{InputTypeName}},
@@ -64,16 +65,26 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{#HasLROs}}
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
     {{/HasLROs}}
 }
 
