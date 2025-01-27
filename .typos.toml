@@ -33,6 +33,12 @@ readablity = "readablity"
 # src/generated/bigtable/admin/v2, this may be a typo or not, but in any case,
 # it cannot be changed: it is the name of an IAM role.
 encrypter = "encrypter"
+# src/generated/container/v1 has some typos, they need to be fixed upstream.
+accessbile    = "accessbile"
+attahced      = "attahced"
+documnetation = "documnetation"
+specififed    = "specififed"
+wilcards      = "wilcards"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
