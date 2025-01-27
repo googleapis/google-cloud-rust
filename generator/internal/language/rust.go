@@ -950,16 +950,18 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 				for i := 0; i < rawHTML.Segments.Len(); i++ {
 					segment := rawHTML.Segments.At(i)
 					segmentContent := string(segment.Value(documentationBytes))
-					if segment.Start >= line.Start && (segment.Start < line.Stop) {
-						if !strings.HasPrefix(segmentContent, "<br />") && !strings.HasPrefix(segmentContent, "<a href=") && !strings.HasSuffix(segmentContent, "</a>") {
-							start := int(segment.Start) - line.Start
-							end := int(segment.Stop) - line.Start
-							escapedHTML := strings.Replace(segmentContent, "<", "\\<", 1)
-							escapedHTML = strings.Replace(escapedHTML, ">", "\\>", 1)
-							escapedString = strings.ReplaceAll(escapedString, string(lineContent[start:end]), escapedHTML)
-						}
-
+					if segment.Start < line.Start || (segment.Start >= line.Stop) {
+						continue
 					}
+					if strings.HasPrefix(segmentContent, "<br />") || strings.HasPrefix(segmentContent, "<a href=") || strings.HasSuffix(segmentContent, "</a>") {
+						continue
+					}
+					start := int(segment.Start) - line.Start
+					end := int(segment.Stop) - line.Start
+					escapedHTML := strings.Replace(segmentContent, "<", "\\<", 1)
+					escapedHTML = strings.Replace(escapedHTML, ">", "\\>", 1)
+					escapedString = strings.ReplaceAll(escapedString, string(lineContent[start:end]), escapedHTML)
+
 				}
 			}
 		}
