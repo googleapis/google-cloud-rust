@@ -65,19 +65,19 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `instance_id`.
+    /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::option::Option<crate::model::Instance>>>(
         mut self,
         v: T,
@@ -86,14 +86,15 @@ impl CreateInstanceRequest {
         self
     }
 
-    /// Sets the value of `clusters`.
-    pub fn set_clusters<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, crate::model::Cluster>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.clusters = v.into();
+    /// Sets the value of [clusters][crate::model::CreateInstanceRequest::clusters].
+    pub fn set_clusters<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Cluster>,
+    {
+        use std::iter::Iterator;
+        self.clusters = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -117,7 +118,7 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetInstanceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -147,13 +148,13 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -191,27 +192,31 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Sets the value of `instances`.
-    pub fn set_instances<T: std::convert::Into<std::vec::Vec<crate::model::Instance>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.instances = v.into();
-        self
-    }
-
-    /// Sets the value of `failed_locations`.
-    pub fn set_failed_locations<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.failed_locations = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    pub fn set_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Instance>,
+    {
+        use std::iter::Iterator;
+        self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [failed_locations][crate::model::ListInstancesResponse::failed_locations].
+    pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.failed_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -239,7 +244,7 @@ pub struct PartialUpdateInstanceRequest {
 }
 
 impl PartialUpdateInstanceRequest {
-    /// Sets the value of `instance`.
+    /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::option::Option<crate::model::Instance>>>(
         mut self,
         v: T,
@@ -248,7 +253,7 @@ impl PartialUpdateInstanceRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -277,7 +282,7 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -314,19 +319,19 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `cluster_id`.
+    /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
-    /// Sets the value of `cluster`.
+    /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
     pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
         mut self,
         v: T,
@@ -355,7 +360,7 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetClusterRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -388,13 +393,13 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -431,27 +436,31 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
-    /// Sets the value of `clusters`.
-    pub fn set_clusters<T: std::convert::Into<std::vec::Vec<crate::model::Cluster>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.clusters = v.into();
-        self
-    }
-
-    /// Sets the value of `failed_locations`.
-    pub fn set_failed_locations<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.failed_locations = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
+    pub fn set_clusters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Cluster>,
+    {
+        use std::iter::Iterator;
+        self.clusters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [failed_locations][crate::model::ListClustersResponse::failed_locations].
+    pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.failed_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -475,7 +484,7 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -508,7 +517,7 @@ pub struct CreateInstanceMetadata {
 }
 
 impl CreateInstanceMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::CreateInstanceMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateInstanceRequest>>,
     >(
@@ -519,7 +528,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::CreateInstanceMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -528,7 +537,7 @@ impl CreateInstanceMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::CreateInstanceMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -564,7 +573,7 @@ pub struct UpdateInstanceMetadata {
 }
 
 impl UpdateInstanceMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::UpdateInstanceMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::PartialUpdateInstanceRequest>>,
     >(
@@ -575,7 +584,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::UpdateInstanceMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -584,7 +593,7 @@ impl UpdateInstanceMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::UpdateInstanceMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -634,7 +643,7 @@ pub struct CreateClusterMetadata {
 }
 
 impl CreateClusterMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::CreateClusterMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateClusterRequest>>,
     >(
@@ -645,7 +654,7 @@ impl CreateClusterMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::CreateClusterMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -654,7 +663,7 @@ impl CreateClusterMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::CreateClusterMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -663,19 +672,15 @@ impl CreateClusterMetadata {
         self
     }
 
-    /// Sets the value of `tables`.
-    pub fn set_tables<
-        T: std::convert::Into<
-            std::collections::HashMap<
-                std::string::String,
-                crate::model::create_cluster_metadata::TableProgress,
-            >,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tables = v.into();
+    /// Sets the value of [tables][crate::model::CreateClusterMetadata::tables].
+    pub fn set_tables<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::create_cluster_metadata::TableProgress>,
+    {
+        use std::iter::Iterator;
+        self.tables = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -711,19 +716,19 @@ pub mod create_cluster_metadata {
     }
 
     impl TableProgress {
-        /// Sets the value of `estimated_size_bytes`.
+        /// Sets the value of [estimated_size_bytes][crate::model::create_cluster_metadata::TableProgress::estimated_size_bytes].
         pub fn set_estimated_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.estimated_size_bytes = v.into();
             self
         }
 
-        /// Sets the value of `estimated_copied_bytes`.
+        /// Sets the value of [estimated_copied_bytes][crate::model::create_cluster_metadata::TableProgress::estimated_copied_bytes].
         pub fn set_estimated_copied_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.estimated_copied_bytes = v.into();
             self
         }
 
-        /// Sets the value of `state`.
+        /// Sets the value of [state][crate::model::create_cluster_metadata::TableProgress::state].
         pub fn set_state<
             T: std::convert::Into<crate::model::create_cluster_metadata::table_progress::State>,
         >(
@@ -804,7 +809,7 @@ pub struct UpdateClusterMetadata {
 }
 
 impl UpdateClusterMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::UpdateClusterMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::Cluster>>,
     >(
@@ -815,7 +820,7 @@ impl UpdateClusterMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::UpdateClusterMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -824,7 +829,7 @@ impl UpdateClusterMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::UpdateClusterMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -860,7 +865,7 @@ pub struct PartialUpdateClusterMetadata {
 }
 
 impl PartialUpdateClusterMetadata {
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::PartialUpdateClusterMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -869,7 +874,7 @@ impl PartialUpdateClusterMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::PartialUpdateClusterMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -878,7 +883,7 @@ impl PartialUpdateClusterMetadata {
         self
     }
 
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::PartialUpdateClusterMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::PartialUpdateClusterRequest>>,
     >(
@@ -913,7 +918,7 @@ pub struct PartialUpdateClusterRequest {
 }
 
 impl PartialUpdateClusterRequest {
-    /// Sets the value of `cluster`.
+    /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
     pub fn set_cluster<T: std::convert::Into<std::option::Option<crate::model::Cluster>>>(
         mut self,
         v: T,
@@ -922,7 +927,7 @@ impl PartialUpdateClusterRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -965,19 +970,19 @@ pub struct CreateAppProfileRequest {
 }
 
 impl CreateAppProfileRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateAppProfileRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `app_profile_id`.
+    /// Sets the value of [app_profile_id][crate::model::CreateAppProfileRequest::app_profile_id].
     pub fn set_app_profile_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.app_profile_id = v.into();
         self
     }
 
-    /// Sets the value of `app_profile`.
+    /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
     pub fn set_app_profile<T: std::convert::Into<std::option::Option<crate::model::AppProfile>>>(
         mut self,
         v: T,
@@ -986,7 +991,7 @@ impl CreateAppProfileRequest {
         self
     }
 
-    /// Sets the value of `ignore_warnings`.
+    /// Sets the value of [ignore_warnings][crate::model::CreateAppProfileRequest::ignore_warnings].
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -1012,7 +1017,7 @@ pub struct GetAppProfileRequest {
 }
 
 impl GetAppProfileRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetAppProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1056,19 +1061,19 @@ pub struct ListAppProfilesRequest {
 }
 
 impl ListAppProfilesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListAppProfilesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListAppProfilesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1106,27 +1111,31 @@ pub struct ListAppProfilesResponse {
 }
 
 impl ListAppProfilesResponse {
-    /// Sets the value of `app_profiles`.
-    pub fn set_app_profiles<T: std::convert::Into<std::vec::Vec<crate::model::AppProfile>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.app_profiles = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListAppProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `failed_locations`.
-    pub fn set_failed_locations<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.failed_locations = v.into();
+    /// Sets the value of [app_profiles][crate::model::ListAppProfilesResponse::app_profiles].
+    pub fn set_app_profiles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AppProfile>,
+    {
+        use std::iter::Iterator;
+        self.app_profiles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [failed_locations][crate::model::ListAppProfilesResponse::failed_locations].
+    pub fn set_failed_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.failed_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1170,7 +1179,7 @@ pub struct UpdateAppProfileRequest {
 }
 
 impl UpdateAppProfileRequest {
-    /// Sets the value of `app_profile`.
+    /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
     pub fn set_app_profile<T: std::convert::Into<std::option::Option<crate::model::AppProfile>>>(
         mut self,
         v: T,
@@ -1179,7 +1188,7 @@ impl UpdateAppProfileRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -1188,7 +1197,7 @@ impl UpdateAppProfileRequest {
         self
     }
 
-    /// Sets the value of `ignore_warnings`.
+    /// Sets the value of [ignore_warnings][crate::model::UpdateAppProfileRequest::ignore_warnings].
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -1218,13 +1227,13 @@ pub struct DeleteAppProfileRequest {
 }
 
 impl DeleteAppProfileRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteAppProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `ignore_warnings`.
+    /// Sets the value of [ignore_warnings][crate::model::DeleteAppProfileRequest::ignore_warnings].
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -1294,13 +1303,13 @@ pub struct ListHotTabletsRequest {
 }
 
 impl ListHotTabletsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1309,7 +1318,7 @@ impl ListHotTabletsRequest {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1318,13 +1327,13 @@ impl ListHotTabletsRequest {
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListHotTabletsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListHotTabletsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1359,18 +1368,20 @@ pub struct ListHotTabletsResponse {
 }
 
 impl ListHotTabletsResponse {
-    /// Sets the value of `hot_tablets`.
-    pub fn set_hot_tablets<T: std::convert::Into<std::vec::Vec<crate::model::HotTablet>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.hot_tablets = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListHotTabletsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [hot_tablets][crate::model::ListHotTabletsResponse::hot_tablets].
+    pub fn set_hot_tablets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HotTablet>,
+    {
+        use std::iter::Iterator;
+        self.hot_tablets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1421,13 +1432,13 @@ pub struct RestoreTableRequest {
 }
 
 impl RestoreTableRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `table_id`.
+    /// Sets the value of [table_id][crate::model::RestoreTableRequest::table_id].
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
@@ -1515,13 +1526,13 @@ pub struct RestoreTableMetadata {
 }
 
 impl RestoreTableMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RestoreTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_type`.
+    /// Sets the value of [source_type][crate::model::RestoreTableMetadata::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -1530,7 +1541,7 @@ impl RestoreTableMetadata {
         self
     }
 
-    /// Sets the value of `optimize_table_operation_name`.
+    /// Sets the value of [optimize_table_operation_name][crate::model::RestoreTableMetadata::optimize_table_operation_name].
     pub fn set_optimize_table_operation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1539,7 +1550,7 @@ impl RestoreTableMetadata {
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::RestoreTableMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -1605,13 +1616,13 @@ pub struct OptimizeRestoredTableMetadata {
 }
 
 impl OptimizeRestoredTableMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::OptimizeRestoredTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::OptimizeRestoredTableMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -1674,19 +1685,19 @@ pub struct CreateTableRequest {
 }
 
 impl CreateTableRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateTableRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `table_id`.
+    /// Sets the value of [table_id][crate::model::CreateTableRequest::table_id].
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
-    /// Sets the value of `table`.
+    /// Sets the value of [table][crate::model::CreateTableRequest::table].
     pub fn set_table<T: std::convert::Into<std::option::Option<crate::model::Table>>>(
         mut self,
         v: T,
@@ -1695,14 +1706,14 @@ impl CreateTableRequest {
         self
     }
 
-    /// Sets the value of `initial_splits`.
-    pub fn set_initial_splits<
-        T: std::convert::Into<std::vec::Vec<crate::model::create_table_request::Split>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.initial_splits = v.into();
+    /// Sets the value of [initial_splits][crate::model::CreateTableRequest::initial_splits].
+    pub fn set_initial_splits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::create_table_request::Split>,
+    {
+        use std::iter::Iterator;
+        self.initial_splits = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1731,7 +1742,7 @@ pub mod create_table_request {
     }
 
     impl Split {
-        /// Sets the value of `key`.
+        /// Sets the value of [key][crate::model::create_table_request::Split::key].
         pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.key = v.into();
             self
@@ -1778,19 +1789,19 @@ pub struct CreateTableFromSnapshotRequest {
 }
 
 impl CreateTableFromSnapshotRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `table_id`.
+    /// Sets the value of [table_id][crate::model::CreateTableFromSnapshotRequest::table_id].
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
     }
 
-    /// Sets the value of `source_snapshot`.
+    /// Sets the value of [source_snapshot][crate::model::CreateTableFromSnapshotRequest::source_snapshot].
     pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_snapshot = v.into();
         self
@@ -1824,7 +1835,7 @@ pub struct DropRowRangeRequest {
 }
 
 impl DropRowRangeRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DropRowRangeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1901,25 +1912,25 @@ pub struct ListTablesRequest {
 }
 
 impl ListTablesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `view`.
+    /// Sets the value of [view][crate::model::ListTablesRequest::view].
     pub fn set_view<T: std::convert::Into<crate::model::table::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListTablesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListTablesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1953,18 +1964,20 @@ pub struct ListTablesResponse {
 }
 
 impl ListTablesResponse {
-    /// Sets the value of `tables`.
-    pub fn set_tables<T: std::convert::Into<std::vec::Vec<crate::model::Table>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.tables = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListTablesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [tables][crate::model::ListTablesResponse::tables].
+    pub fn set_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Table>,
+    {
+        use std::iter::Iterator;
+        self.tables = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2009,13 +2022,13 @@ pub struct GetTableRequest {
 }
 
 impl GetTableRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `view`.
+    /// Sets the value of [view][crate::model::GetTableRequest::view].
     pub fn set_view<T: std::convert::Into<crate::model::table::View>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -2059,7 +2072,7 @@ pub struct UpdateTableRequest {
 }
 
 impl UpdateTableRequest {
-    /// Sets the value of `table`.
+    /// Sets the value of [table][crate::model::UpdateTableRequest::table].
     pub fn set_table<T: std::convert::Into<std::option::Option<crate::model::Table>>>(
         mut self,
         v: T,
@@ -2068,7 +2081,7 @@ impl UpdateTableRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -2107,13 +2120,13 @@ pub struct UpdateTableMetadata {
 }
 
 impl UpdateTableMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::UpdateTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::UpdateTableMetadata::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2122,7 +2135,7 @@ impl UpdateTableMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::UpdateTableMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2155,7 +2168,7 @@ pub struct DeleteTableRequest {
 }
 
 impl DeleteTableRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2185,7 +2198,7 @@ pub struct UndeleteTableRequest {
 }
 
 impl UndeleteTableRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2221,13 +2234,13 @@ pub struct UndeleteTableMetadata {
 }
 
 impl UndeleteTableMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::UndeleteTableMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::UndeleteTableMetadata::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2236,7 +2249,7 @@ impl UndeleteTableMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::UndeleteTableMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2279,28 +2292,26 @@ pub struct ModifyColumnFamiliesRequest {
 }
 
 impl ModifyColumnFamiliesRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::ModifyColumnFamiliesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `modifications`.
-    pub fn set_modifications<
-        T: std::convert::Into<
-            std::vec::Vec<crate::model::modify_column_families_request::Modification>,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.modifications = v.into();
+    /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_warnings = v.into();
         self
     }
 
-    /// Sets the value of `ignore_warnings`.
-    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.ignore_warnings = v.into();
+    /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
+    pub fn set_modifications<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::modify_column_families_request::Modification>,
+    {
+        use std::iter::Iterator;
+        self.modifications = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2339,13 +2350,13 @@ pub mod modify_column_families_request {
     }
 
     impl Modification {
-        /// Sets the value of `id`.
+        /// Sets the value of [id][crate::model::modify_column_families_request::Modification::id].
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::modify_column_families_request::Modification::update_mask].
         pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -2416,7 +2427,7 @@ pub struct GenerateConsistencyTokenRequest {
 }
 
 impl GenerateConsistencyTokenRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GenerateConsistencyTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2444,7 +2455,7 @@ pub struct GenerateConsistencyTokenResponse {
 }
 
 impl GenerateConsistencyTokenResponse {
-    /// Sets the value of `consistency_token`.
+    /// Sets the value of [consistency_token][crate::model::GenerateConsistencyTokenResponse::consistency_token].
     pub fn set_consistency_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2486,13 +2497,13 @@ pub struct CheckConsistencyRequest {
 }
 
 impl CheckConsistencyRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CheckConsistencyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `consistency_token`.
+    /// Sets the value of [consistency_token][crate::model::CheckConsistencyRequest::consistency_token].
     pub fn set_consistency_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2588,7 +2599,7 @@ pub struct CheckConsistencyResponse {
 }
 
 impl CheckConsistencyResponse {
-    /// Sets the value of `consistent`.
+    /// Sets the value of [consistent][crate::model::CheckConsistencyResponse::consistent].
     pub fn set_consistent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.consistent = v.into();
         self
@@ -2647,25 +2658,25 @@ pub struct SnapshotTableRequest {
 }
 
 impl SnapshotTableRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `cluster`.
+    /// Sets the value of [cluster][crate::model::SnapshotTableRequest::cluster].
     pub fn set_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster = v.into();
         self
     }
 
-    /// Sets the value of `snapshot_id`.
+    /// Sets the value of [snapshot_id][crate::model::SnapshotTableRequest::snapshot_id].
     pub fn set_snapshot_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot_id = v.into();
         self
     }
 
-    /// Sets the value of `ttl`.
+    /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
     pub fn set_ttl<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -2674,7 +2685,7 @@ impl SnapshotTableRequest {
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::SnapshotTableRequest::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2709,7 +2720,7 @@ pub struct GetSnapshotRequest {
 }
 
 impl GetSnapshotRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetSnapshotRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2754,19 +2765,19 @@ pub struct ListSnapshotsRequest {
 }
 
 impl ListSnapshotsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2805,18 +2816,20 @@ pub struct ListSnapshotsResponse {
 }
 
 impl ListSnapshotsResponse {
-    /// Sets the value of `snapshots`.
-    pub fn set_snapshots<T: std::convert::Into<std::vec::Vec<crate::model::Snapshot>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.snapshots = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
+    pub fn set_snapshots<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Snapshot>,
+    {
+        use std::iter::Iterator;
+        self.snapshots = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2862,7 +2875,7 @@ pub struct DeleteSnapshotRequest {
 }
 
 impl DeleteSnapshotRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2900,7 +2913,7 @@ pub struct SnapshotTableMetadata {
 }
 
 impl SnapshotTableMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::SnapshotTableMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::SnapshotTableRequest>>,
     >(
@@ -2911,7 +2924,7 @@ impl SnapshotTableMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::SnapshotTableMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2920,7 +2933,7 @@ impl SnapshotTableMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::SnapshotTableMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2962,7 +2975,7 @@ pub struct CreateTableFromSnapshotMetadata {
 }
 
 impl CreateTableFromSnapshotMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::CreateTableFromSnapshotMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateTableFromSnapshotRequest>>,
     >(
@@ -2973,7 +2986,7 @@ impl CreateTableFromSnapshotMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::CreateTableFromSnapshotMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2982,7 +2995,7 @@ impl CreateTableFromSnapshotMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::CreateTableFromSnapshotMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3028,19 +3041,19 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `backup_id`.
+    /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
         v: T,
@@ -3083,19 +3096,19 @@ pub struct CreateBackupMetadata {
 }
 
 impl CreateBackupMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_table`.
+    /// Sets the value of [source_table][crate::model::CreateBackupMetadata::source_table].
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::CreateBackupMetadata::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3104,7 +3117,7 @@ impl CreateBackupMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::CreateBackupMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3147,7 +3160,7 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
         v: T,
@@ -3156,7 +3169,7 @@ impl UpdateBackupRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -3189,7 +3202,7 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3219,7 +3232,7 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3328,31 +3341,31 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListBackupsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3388,18 +3401,20 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
-    /// Sets the value of `backups`.
-    pub fn set_backups<T: std::convert::Into<std::vec::Vec<crate::model::Backup>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backups = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    pub fn set_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Backup>,
+    {
+        use std::iter::Iterator;
+        self.backups = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3467,25 +3482,25 @@ pub struct CopyBackupRequest {
 }
 
 impl CopyBackupRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `backup_id`.
+    /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
-    /// Sets the value of `source_backup`.
+    /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3530,13 +3545,13 @@ pub struct CopyBackupMetadata {
 }
 
 impl CopyBackupMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_backup_info`.
+    /// Sets the value of [source_backup_info][crate::model::CopyBackupMetadata::source_backup_info].
     pub fn set_source_backup_info<
         T: std::convert::Into<std::option::Option<crate::model::BackupInfo>>,
     >(
@@ -3547,7 +3562,7 @@ impl CopyBackupMetadata {
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::CopyBackupMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -3593,13 +3608,13 @@ pub struct CreateAuthorizedViewRequest {
 }
 
 impl CreateAuthorizedViewRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `authorized_view_id`.
+    /// Sets the value of [authorized_view_id][crate::model::CreateAuthorizedViewRequest::authorized_view_id].
     pub fn set_authorized_view_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3608,7 +3623,7 @@ impl CreateAuthorizedViewRequest {
         self
     }
 
-    /// Sets the value of `authorized_view`.
+    /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::AuthorizedView>>,
     >(
@@ -3646,7 +3661,7 @@ pub struct CreateAuthorizedViewMetadata {
 }
 
 impl CreateAuthorizedViewMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::CreateAuthorizedViewMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::CreateAuthorizedViewRequest>>,
     >(
@@ -3657,7 +3672,7 @@ impl CreateAuthorizedViewMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::CreateAuthorizedViewMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3666,7 +3681,7 @@ impl CreateAuthorizedViewMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::CreateAuthorizedViewMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3718,25 +3733,25 @@ pub struct ListAuthorizedViewsRequest {
 }
 
 impl ListAuthorizedViewsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListAuthorizedViewsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListAuthorizedViewsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `view`.
+    /// Sets the value of [view][crate::model::ListAuthorizedViewsRequest::view].
     pub fn set_view<T: std::convert::Into<crate::model::authorized_view::ResponseView>>(
         mut self,
         v: T,
@@ -3773,20 +3788,20 @@ pub struct ListAuthorizedViewsResponse {
 }
 
 impl ListAuthorizedViewsResponse {
-    /// Sets the value of `authorized_views`.
-    pub fn set_authorized_views<
-        T: std::convert::Into<std::vec::Vec<crate::model::AuthorizedView>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.authorized_views = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListAuthorizedViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [authorized_views][crate::model::ListAuthorizedViewsResponse::authorized_views].
+    pub fn set_authorized_views<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthorizedView>,
+    {
+        use std::iter::Iterator;
+        self.authorized_views = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3831,13 +3846,13 @@ pub struct GetAuthorizedViewRequest {
 }
 
 impl GetAuthorizedViewRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetAuthorizedViewRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `view`.
+    /// Sets the value of [view][crate::model::GetAuthorizedViewRequest::view].
     pub fn set_view<T: std::convert::Into<crate::model::authorized_view::ResponseView>>(
         mut self,
         v: T,
@@ -3885,7 +3900,7 @@ pub struct UpdateAuthorizedViewRequest {
 }
 
 impl UpdateAuthorizedViewRequest {
-    /// Sets the value of `authorized_view`.
+    /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
     pub fn set_authorized_view<
         T: std::convert::Into<std::option::Option<crate::model::AuthorizedView>>,
     >(
@@ -3896,7 +3911,7 @@ impl UpdateAuthorizedViewRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -3905,7 +3920,7 @@ impl UpdateAuthorizedViewRequest {
         self
     }
 
-    /// Sets the value of `ignore_warnings`.
+    /// Sets the value of [ignore_warnings][crate::model::UpdateAuthorizedViewRequest::ignore_warnings].
     pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_warnings = v.into();
         self
@@ -3942,7 +3957,7 @@ pub struct UpdateAuthorizedViewMetadata {
 }
 
 impl UpdateAuthorizedViewMetadata {
-    /// Sets the value of `original_request`.
+    /// Sets the value of [original_request][crate::model::UpdateAuthorizedViewMetadata::original_request].
     pub fn set_original_request<
         T: std::convert::Into<std::option::Option<crate::model::UpdateAuthorizedViewRequest>>,
     >(
@@ -3953,7 +3968,7 @@ impl UpdateAuthorizedViewMetadata {
         self
     }
 
-    /// Sets the value of `request_time`.
+    /// Sets the value of [request_time][crate::model::UpdateAuthorizedViewMetadata::request_time].
     pub fn set_request_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3962,7 +3977,7 @@ impl UpdateAuthorizedViewMetadata {
         self
     }
 
-    /// Sets the value of `finish_time`.
+    /// Sets the value of [finish_time][crate::model::UpdateAuthorizedViewMetadata::finish_time].
     pub fn set_finish_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4002,13 +4017,13 @@ pub struct DeleteAuthorizedViewRequest {
 }
 
 impl DeleteAuthorizedViewRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteAuthorizedViewRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::DeleteAuthorizedViewRequest::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -4043,13 +4058,13 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
-    /// Sets the value of `progress_percent`.
+    /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4058,7 +4073,7 @@ impl OperationProgress {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4131,42 +4146,31 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Instance::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::Instance::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Instance::state].
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Instance::type].
     pub fn set_type<T: std::convert::Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Instance::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4175,12 +4179,24 @@ impl Instance {
         self
     }
 
-    /// Sets the value of `satisfies_pzs`.
+    /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
     pub fn set_satisfies_pzs<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
         v: T,
     ) -> Self {
         self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4285,13 +4301,13 @@ pub struct AutoscalingTargets {
 }
 
 impl AutoscalingTargets {
-    /// Sets the value of `cpu_utilization_percent`.
+    /// Sets the value of [cpu_utilization_percent][crate::model::AutoscalingTargets::cpu_utilization_percent].
     pub fn set_cpu_utilization_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cpu_utilization_percent = v.into();
         self
     }
 
-    /// Sets the value of `storage_utilization_gib_per_node`.
+    /// Sets the value of [storage_utilization_gib_per_node][crate::model::AutoscalingTargets::storage_utilization_gib_per_node].
     pub fn set_storage_utilization_gib_per_node<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -4321,13 +4337,13 @@ pub struct AutoscalingLimits {
 }
 
 impl AutoscalingLimits {
-    /// Sets the value of `min_serve_nodes`.
+    /// Sets the value of [min_serve_nodes][crate::model::AutoscalingLimits::min_serve_nodes].
     pub fn set_min_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_serve_nodes = v.into();
         self
     }
 
-    /// Sets the value of `max_serve_nodes`.
+    /// Sets the value of [max_serve_nodes][crate::model::AutoscalingLimits::max_serve_nodes].
     pub fn set_max_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_serve_nodes = v.into();
         self
@@ -4386,31 +4402,31 @@ pub struct Cluster {
 }
 
 impl Cluster {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Cluster::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::Cluster::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Cluster::state].
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `serve_nodes`.
+    /// Sets the value of [serve_nodes][crate::model::Cluster::serve_nodes].
     pub fn set_serve_nodes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.serve_nodes = v.into();
         self
     }
 
-    /// Sets the value of `node_scaling_factor`.
+    /// Sets the value of [node_scaling_factor][crate::model::Cluster::node_scaling_factor].
     pub fn set_node_scaling_factor<
         T: std::convert::Into<crate::model::cluster::NodeScalingFactor>,
     >(
@@ -4421,7 +4437,7 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `default_storage_type`.
+    /// Sets the value of [default_storage_type][crate::model::Cluster::default_storage_type].
     pub fn set_default_storage_type<T: std::convert::Into<crate::model::StorageType>>(
         mut self,
         v: T,
@@ -4430,7 +4446,7 @@ impl Cluster {
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::cluster::EncryptionConfig>>,
     >(
@@ -4478,7 +4494,7 @@ pub mod cluster {
     }
 
     impl ClusterAutoscalingConfig {
-        /// Sets the value of `autoscaling_limits`.
+        /// Sets the value of [autoscaling_limits][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_limits].
         pub fn set_autoscaling_limits<
             T: std::convert::Into<std::option::Option<crate::model::AutoscalingLimits>>,
         >(
@@ -4489,7 +4505,7 @@ pub mod cluster {
             self
         }
 
-        /// Sets the value of `autoscaling_targets`.
+        /// Sets the value of [autoscaling_targets][crate::model::cluster::ClusterAutoscalingConfig::autoscaling_targets].
         pub fn set_autoscaling_targets<
             T: std::convert::Into<std::option::Option<crate::model::AutoscalingTargets>>,
         >(
@@ -4520,7 +4536,7 @@ pub mod cluster {
     }
 
     impl ClusterConfig {
-        /// Sets the value of `cluster_autoscaling_config`.
+        /// Sets the value of [cluster_autoscaling_config][crate::model::cluster::ClusterConfig::cluster_autoscaling_config].
         pub fn set_cluster_autoscaling_config<
             T: std::convert::Into<
                 std::option::Option<crate::model::cluster::ClusterAutoscalingConfig>,
@@ -4563,7 +4579,7 @@ pub mod cluster {
     }
 
     impl EncryptionConfig {
-        /// Sets the value of `kms_key_name`.
+        /// Sets the value of [kms_key_name][crate::model::cluster::EncryptionConfig::kms_key_name].
         pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4702,19 +4718,19 @@ pub struct AppProfile {
 }
 
 impl AppProfile {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AppProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::AppProfile::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::AppProfile::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -4783,12 +4799,14 @@ pub mod app_profile {
     }
 
     impl MultiClusterRoutingUseAny {
-        /// Sets the value of `cluster_ids`.
-        pub fn set_cluster_ids<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.cluster_ids = v.into();
+        /// Sets the value of [cluster_ids][crate::model::app_profile::MultiClusterRoutingUseAny::cluster_ids].
+        pub fn set_cluster_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.cluster_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -4879,13 +4897,13 @@ pub mod app_profile {
     }
 
     impl SingleClusterRouting {
-        /// Sets the value of `cluster_id`.
+        /// Sets the value of [cluster_id][crate::model::app_profile::SingleClusterRouting::cluster_id].
         pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_id = v.into();
             self
         }
 
-        /// Sets the value of `allow_transactional_writes`.
+        /// Sets the value of [allow_transactional_writes][crate::model::app_profile::SingleClusterRouting::allow_transactional_writes].
         pub fn set_allow_transactional_writes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_transactional_writes = v.into();
             self
@@ -4910,7 +4928,7 @@ pub mod app_profile {
     }
 
     impl StandardIsolation {
-        /// Sets the value of `priority`.
+        /// Sets the value of [priority][crate::model::app_profile::StandardIsolation::priority].
         pub fn set_priority<T: std::convert::Into<crate::model::app_profile::Priority>>(
             mut self,
             v: T,
@@ -4951,7 +4969,7 @@ pub mod app_profile {
     }
 
     impl DataBoostIsolationReadOnly {
-        /// Sets the value of `compute_billing_owner`.
+        /// Sets the value of [compute_billing_owner][crate::model::app_profile::DataBoostIsolationReadOnly::compute_billing_owner].
         pub fn set_compute_billing_owner<
             T: std::convert::Into<
                 std::option::Option<
@@ -5116,19 +5134,19 @@ pub struct HotTablet {
 }
 
 impl HotTablet {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::HotTablet::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `table_name`.
+    /// Sets the value of [table_name][crate::model::HotTablet::table_name].
     pub fn set_table_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_name = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::HotTablet::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5137,7 +5155,7 @@ impl HotTablet {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::HotTablet::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5146,19 +5164,19 @@ impl HotTablet {
         self
     }
 
-    /// Sets the value of `start_key`.
+    /// Sets the value of [start_key][crate::model::HotTablet::start_key].
     pub fn set_start_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_key = v.into();
         self
     }
 
-    /// Sets the value of `end_key`.
+    /// Sets the value of [end_key][crate::model::HotTablet::end_key].
     pub fn set_end_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.end_key = v.into();
         self
     }
 
-    /// Sets the value of `node_cpu_usage_percent`.
+    /// Sets the value of [node_cpu_usage_percent][crate::model::HotTablet::node_cpu_usage_percent].
     pub fn set_node_cpu_usage_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.node_cpu_usage_percent = v.into();
         self
@@ -5186,7 +5204,7 @@ pub struct RestoreInfo {
 }
 
 impl RestoreInfo {
-    /// Sets the value of `source_type`.
+    /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -5245,7 +5263,7 @@ pub struct ChangeStreamConfig {
 }
 
 impl ChangeStreamConfig {
-    /// Sets the value of `retention_period`.
+    /// Sets the value of [retention_period][crate::model::ChangeStreamConfig::retention_period].
     pub fn set_retention_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -5320,39 +5338,13 @@ pub struct Table {
 }
 
 impl Table {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Table::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `cluster_states`.
-    pub fn set_cluster_states<
-        T: std::convert::Into<
-            std::collections::HashMap<std::string::String, crate::model::table::ClusterState>,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.cluster_states = v.into();
-        self
-    }
-
-    /// Sets the value of `column_families`.
-    pub fn set_column_families<
-        T: std::convert::Into<
-            std::collections::HashMap<std::string::String, crate::model::ColumnFamily>,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.column_families = v.into();
-        self
-    }
-
-    /// Sets the value of `granularity`.
+    /// Sets the value of [granularity][crate::model::Table::granularity].
     pub fn set_granularity<T: std::convert::Into<crate::model::table::TimestampGranularity>>(
         mut self,
         v: T,
@@ -5361,7 +5353,7 @@ impl Table {
         self
     }
 
-    /// Sets the value of `restore_info`.
+    /// Sets the value of [restore_info][crate::model::Table::restore_info].
     pub fn set_restore_info<
         T: std::convert::Into<std::option::Option<crate::model::RestoreInfo>>,
     >(
@@ -5372,7 +5364,7 @@ impl Table {
         self
     }
 
-    /// Sets the value of `change_stream_config`.
+    /// Sets the value of [change_stream_config][crate::model::Table::change_stream_config].
     pub fn set_change_stream_config<
         T: std::convert::Into<std::option::Option<crate::model::ChangeStreamConfig>>,
     >(
@@ -5383,9 +5375,33 @@ impl Table {
         self
     }
 
-    /// Sets the value of `deletion_protection`.
+    /// Sets the value of [deletion_protection][crate::model::Table::deletion_protection].
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
+        self
+    }
+
+    /// Sets the value of [cluster_states][crate::model::Table::cluster_states].
+    pub fn set_cluster_states<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::table::ClusterState>,
+    {
+        use std::iter::Iterator;
+        self.cluster_states = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [column_families][crate::model::Table::column_families].
+    pub fn set_column_families<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ColumnFamily>,
+    {
+        use std::iter::Iterator;
+        self.column_families = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -5431,7 +5447,7 @@ pub mod table {
     }
 
     impl ClusterState {
-        /// Sets the value of `replication_state`.
+        /// Sets the value of [replication_state][crate::model::table::ClusterState::replication_state].
         pub fn set_replication_state<
             T: std::convert::Into<crate::model::table::cluster_state::ReplicationState>,
         >(
@@ -5442,14 +5458,14 @@ pub mod table {
             self
         }
 
-        /// Sets the value of `encryption_info`.
-        pub fn set_encryption_info<
-            T: std::convert::Into<std::vec::Vec<crate::model::EncryptionInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.encryption_info = v.into();
+        /// Sets the value of [encryption_info][crate::model::table::ClusterState::encryption_info].
+        pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::EncryptionInfo>,
+        {
+            use std::iter::Iterator;
+            self.encryption_info = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5531,7 +5547,7 @@ pub mod table {
     }
 
     impl AutomatedBackupPolicy {
-        /// Sets the value of `retention_period`.
+        /// Sets the value of [retention_period][crate::model::table::AutomatedBackupPolicy::retention_period].
         pub fn set_retention_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -5540,7 +5556,7 @@ pub mod table {
             self
         }
 
-        /// Sets the value of `frequency`.
+        /// Sets the value of [frequency][crate::model::table::AutomatedBackupPolicy::frequency].
         pub fn set_frequency<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -5666,19 +5682,19 @@ pub struct AuthorizedView {
 }
 
 impl AuthorizedView {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::AuthorizedView::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `etag`.
+    /// Sets the value of [etag][crate::model::AuthorizedView::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
-    /// Sets the value of `deletion_protection`.
+    /// Sets the value of [deletion_protection][crate::model::AuthorizedView::deletion_protection].
     pub fn set_deletion_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deletion_protection = v.into();
         self
@@ -5729,21 +5745,25 @@ pub mod authorized_view {
     }
 
     impl FamilySubsets {
-        /// Sets the value of `qualifiers`.
-        pub fn set_qualifiers<T: std::convert::Into<std::vec::Vec<bytes::Bytes>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.qualifiers = v.into();
+        /// Sets the value of [qualifiers][crate::model::authorized_view::FamilySubsets::qualifiers].
+        pub fn set_qualifiers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<bytes::Bytes>,
+        {
+            use std::iter::Iterator;
+            self.qualifiers = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `qualifier_prefixes`.
-        pub fn set_qualifier_prefixes<T: std::convert::Into<std::vec::Vec<bytes::Bytes>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.qualifier_prefixes = v.into();
+        /// Sets the value of [qualifier_prefixes][crate::model::authorized_view::FamilySubsets::qualifier_prefixes].
+        pub fn set_qualifier_prefixes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<bytes::Bytes>,
+        {
+            use std::iter::Iterator;
+            self.qualifier_prefixes = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5776,28 +5796,26 @@ pub mod authorized_view {
     }
 
     impl SubsetView {
-        /// Sets the value of `row_prefixes`.
-        pub fn set_row_prefixes<T: std::convert::Into<std::vec::Vec<bytes::Bytes>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.row_prefixes = v.into();
+        /// Sets the value of [row_prefixes][crate::model::authorized_view::SubsetView::row_prefixes].
+        pub fn set_row_prefixes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<bytes::Bytes>,
+        {
+            use std::iter::Iterator;
+            self.row_prefixes = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `family_subsets`.
-        pub fn set_family_subsets<
-            T: std::convert::Into<
-                std::collections::HashMap<
-                    std::string::String,
-                    crate::model::authorized_view::FamilySubsets,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.family_subsets = v.into();
+        /// Sets the value of [family_subsets][crate::model::authorized_view::SubsetView::family_subsets].
+        pub fn set_family_subsets<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::authorized_view::FamilySubsets>,
+        {
+            use std::iter::Iterator;
+            self.family_subsets = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -5882,7 +5900,7 @@ pub struct ColumnFamily {
 }
 
 impl ColumnFamily {
-    /// Sets the value of `gc_rule`.
+    /// Sets the value of [gc_rule][crate::model::ColumnFamily::gc_rule].
     pub fn set_gc_rule<T: std::convert::Into<std::option::Option<crate::model::GcRule>>>(
         mut self,
         v: T,
@@ -5891,7 +5909,7 @@ impl ColumnFamily {
         self
     }
 
-    /// Sets the value of `value_type`.
+    /// Sets the value of [value_type][crate::model::ColumnFamily::value_type].
     pub fn set_value_type<T: std::convert::Into<std::option::Option<crate::model::Type>>>(
         mut self,
         v: T,
@@ -5952,12 +5970,14 @@ pub mod gc_rule {
     }
 
     impl Intersection {
-        /// Sets the value of `rules`.
-        pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::GcRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.rules = v.into();
+        /// Sets the value of [rules][crate::model::gc_rule::Intersection::rules].
+        pub fn set_rules<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GcRule>,
+        {
+            use std::iter::Iterator;
+            self.rules = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5980,12 +6000,14 @@ pub mod gc_rule {
     }
 
     impl Union {
-        /// Sets the value of `rules`.
-        pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::GcRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.rules = v.into();
+        /// Sets the value of [rules][crate::model::gc_rule::Union::rules].
+        pub fn set_rules<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::GcRule>,
+        {
+            use std::iter::Iterator;
+            self.rules = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -6039,7 +6061,7 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
-    /// Sets the value of `encryption_type`.
+    /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::encryption_info::EncryptionType>,
     >(
@@ -6050,7 +6072,7 @@ impl EncryptionInfo {
         self
     }
 
-    /// Sets the value of `encryption_status`.
+    /// Sets the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
     pub fn set_encryption_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -6059,7 +6081,7 @@ impl EncryptionInfo {
         self
     }
 
-    /// Sets the value of `kms_key_version`.
+    /// Sets the value of [kms_key_version][crate::model::EncryptionInfo::kms_key_version].
     pub fn set_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version = v.into();
         self
@@ -6164,13 +6186,13 @@ pub struct Snapshot {
 }
 
 impl Snapshot {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Snapshot::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_table`.
+    /// Sets the value of [source_table][crate::model::Snapshot::source_table].
     pub fn set_source_table<T: std::convert::Into<std::option::Option<crate::model::Table>>>(
         mut self,
         v: T,
@@ -6179,13 +6201,13 @@ impl Snapshot {
         self
     }
 
-    /// Sets the value of `data_size_bytes`.
+    /// Sets the value of [data_size_bytes][crate::model::Snapshot::data_size_bytes].
     pub fn set_data_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.data_size_bytes = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Snapshot::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6194,7 +6216,7 @@ impl Snapshot {
         self
     }
 
-    /// Sets the value of `delete_time`.
+    /// Sets the value of [delete_time][crate::model::Snapshot::delete_time].
     pub fn set_delete_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6203,13 +6225,13 @@ impl Snapshot {
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Snapshot::state].
     pub fn set_state<T: std::convert::Into<crate::model::snapshot::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Snapshot::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -6346,25 +6368,25 @@ pub struct Backup {
 }
 
 impl Backup {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Backup::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_table`.
+    /// Sets the value of [source_table][crate::model::Backup::source_table].
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
-    /// Sets the value of `source_backup`.
+    /// Sets the value of [source_backup][crate::model::Backup::source_backup].
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::Backup::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6373,7 +6395,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::Backup::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6382,7 +6404,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::Backup::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6391,19 +6413,19 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `size_bytes`.
+    /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Backup::state].
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `encryption_info`.
+    /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
     pub fn set_encryption_info<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
     >(
@@ -6414,7 +6436,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `backup_type`.
+    /// Sets the value of [backup_type][crate::model::Backup::backup_type].
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
         mut self,
         v: T,
@@ -6423,7 +6445,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `hot_to_standard_time`.
+    /// Sets the value of [hot_to_standard_time][crate::model::Backup::hot_to_standard_time].
     pub fn set_hot_to_standard_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6544,13 +6566,13 @@ pub struct BackupInfo {
 }
 
 impl BackupInfo {
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::BackupInfo::backup].
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::BackupInfo::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6559,7 +6581,7 @@ impl BackupInfo {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::BackupInfo::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -6568,13 +6590,13 @@ impl BackupInfo {
         self
     }
 
-    /// Sets the value of `source_table`.
+    /// Sets the value of [source_table][crate::model::BackupInfo::source_table].
     pub fn set_source_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_table = v.into();
         self
     }
 
-    /// Sets the value of `source_backup`.
+    /// Sets the value of [source_backup][crate::model::BackupInfo::source_backup].
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
@@ -6656,7 +6678,7 @@ pub mod r#type {
     }
 
     impl Bytes {
-        /// Sets the value of `encoding`.
+        /// Sets the value of [encoding][crate::model::r#type::Bytes::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::bytes::Encoding>>,
         >(
@@ -6759,7 +6781,7 @@ pub mod r#type {
     }
 
     impl String {
-        /// Sets the value of `encoding`.
+        /// Sets the value of [encoding][crate::model::r#type::String::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::string::Encoding>>,
         >(
@@ -6882,7 +6904,7 @@ pub mod r#type {
     }
 
     impl Int64 {
-        /// Sets the value of `encoding`.
+        /// Sets the value of [encoding][crate::model::r#type::Int64::encoding].
         pub fn set_encoding<
             T: std::convert::Into<std::option::Option<crate::model::r#type::int_64::Encoding>>,
         >(
@@ -6962,7 +6984,7 @@ pub mod r#type {
             }
 
             impl BigEndianBytes {
-                /// Sets the value of `bytes_type`.
+                /// Sets the value of [bytes_type][crate::model::r#type::int_64::encoding::BigEndianBytes::bytes_type].
                 pub fn set_bytes_type<
                     T: std::convert::Into<std::option::Option<crate::model::r#type::Bytes>>,
                 >(
@@ -7086,14 +7108,14 @@ pub mod r#type {
     }
 
     impl Struct {
-        /// Sets the value of `fields`.
-        pub fn set_fields<
-            T: std::convert::Into<std::vec::Vec<crate::model::r#type::r#struct::Field>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.fields = v.into();
+        /// Sets the value of [fields][crate::model::r#type::Struct::fields].
+        pub fn set_fields<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::r#type::r#struct::Field>,
+        {
+            use std::iter::Iterator;
+            self.fields = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -7127,7 +7149,7 @@ pub mod r#type {
         }
 
         impl Field {
-            /// Sets the value of `field_name`.
+            /// Sets the value of [field_name][crate::model::r#type::r#struct::Field::field_name].
             pub fn set_field_name<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -7136,7 +7158,7 @@ pub mod r#type {
                 self
             }
 
-            /// Sets the value of `r#type`.
+            /// Sets the value of [r#type][crate::model::r#type::r#struct::Field::type].
             pub fn set_type<
                 T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
             >(
@@ -7168,7 +7190,7 @@ pub mod r#type {
     }
 
     impl Array {
-        /// Sets the value of `element_type`.
+        /// Sets the value of [element_type][crate::model::r#type::Array::element_type].
         pub fn set_element_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
         >(
@@ -7209,7 +7231,7 @@ pub mod r#type {
     }
 
     impl Map {
-        /// Sets the value of `key_type`.
+        /// Sets the value of [key_type][crate::model::r#type::Map::key_type].
         pub fn set_key_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
         >(
@@ -7220,7 +7242,7 @@ pub mod r#type {
             self
         }
 
-        /// Sets the value of `value_type`.
+        /// Sets the value of [value_type][crate::model::r#type::Map::value_type].
         pub fn set_value_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
         >(
@@ -7266,7 +7288,7 @@ pub mod r#type {
     }
 
     impl Aggregate {
-        /// Sets the value of `input_type`.
+        /// Sets the value of [input_type][crate::model::r#type::Aggregate::input_type].
         pub fn set_input_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
         >(
@@ -7277,7 +7299,7 @@ pub mod r#type {
             self
         }
 
-        /// Sets the value of `state_type`.
+        /// Sets the value of [state_type][crate::model::r#type::Aggregate::state_type].
         pub fn set_state_type<
             T: std::convert::Into<std::option::Option<std::boxed::Box<crate::model::Type>>>,
         >(

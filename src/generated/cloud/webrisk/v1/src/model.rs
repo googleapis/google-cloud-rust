@@ -58,7 +58,7 @@ pub struct ComputeThreatListDiffRequest {
 }
 
 impl ComputeThreatListDiffRequest {
-    /// Sets the value of `threat_type`.
+    /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
     pub fn set_threat_type<T: std::convert::Into<crate::model::ThreatType>>(
         mut self,
         v: T,
@@ -67,13 +67,13 @@ impl ComputeThreatListDiffRequest {
         self
     }
 
-    /// Sets the value of `version_token`.
+    /// Sets the value of [version_token][crate::model::ComputeThreatListDiffRequest::version_token].
     pub fn set_version_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.version_token = v.into();
         self
     }
 
-    /// Sets the value of `constraints`.
+    /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
     pub fn set_constraints<
         T: std::convert::Into<
             std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
@@ -120,26 +120,26 @@ pub mod compute_threat_list_diff_request {
     }
 
     impl Constraints {
-        /// Sets the value of `max_diff_entries`.
+        /// Sets the value of [max_diff_entries][crate::model::compute_threat_list_diff_request::Constraints::max_diff_entries].
         pub fn set_max_diff_entries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_diff_entries = v.into();
             self
         }
 
-        /// Sets the value of `max_database_entries`.
+        /// Sets the value of [max_database_entries][crate::model::compute_threat_list_diff_request::Constraints::max_database_entries].
         pub fn set_max_database_entries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_database_entries = v.into();
             self
         }
 
-        /// Sets the value of `supported_compressions`.
-        pub fn set_supported_compressions<
-            T: std::convert::Into<std::vec::Vec<crate::model::CompressionType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.supported_compressions = v.into();
+        /// Sets the value of [supported_compressions][crate::model::compute_threat_list_diff_request::Constraints::supported_compressions].
+        pub fn set_supported_compressions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::CompressionType>,
+        {
+            use std::iter::Iterator;
+            self.supported_compressions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -192,7 +192,7 @@ pub struct ComputeThreatListDiffResponse {
 }
 
 impl ComputeThreatListDiffResponse {
-    /// Sets the value of `response_type`.
+    /// Sets the value of [response_type][crate::model::ComputeThreatListDiffResponse::response_type].
     pub fn set_response_type<
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::ResponseType>,
     >(
@@ -203,7 +203,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets the value of `additions`.
+    /// Sets the value of [additions][crate::model::ComputeThreatListDiffResponse::additions].
     pub fn set_additions<
         T: std::convert::Into<std::option::Option<crate::model::ThreatEntryAdditions>>,
     >(
@@ -214,7 +214,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets the value of `removals`.
+    /// Sets the value of [removals][crate::model::ComputeThreatListDiffResponse::removals].
     pub fn set_removals<
         T: std::convert::Into<std::option::Option<crate::model::ThreatEntryRemovals>>,
     >(
@@ -225,13 +225,13 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets the value of `new_version_token`.
+    /// Sets the value of [new_version_token][crate::model::ComputeThreatListDiffResponse::new_version_token].
     pub fn set_new_version_token<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.new_version_token = v.into();
         self
     }
 
-    /// Sets the value of `checksum`.
+    /// Sets the value of [checksum][crate::model::ComputeThreatListDiffResponse::checksum].
     pub fn set_checksum<
         T: std::convert::Into<
             std::option::Option<crate::model::compute_threat_list_diff_response::Checksum>,
@@ -244,7 +244,7 @@ impl ComputeThreatListDiffResponse {
         self
     }
 
-    /// Sets the value of `recommended_next_diff`.
+    /// Sets the value of [recommended_next_diff][crate::model::ComputeThreatListDiffResponse::recommended_next_diff].
     pub fn set_recommended_next_diff<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -279,7 +279,7 @@ pub mod compute_threat_list_diff_response {
     }
 
     impl Checksum {
-        /// Sets the value of `sha256`.
+        /// Sets the value of [sha256][crate::model::compute_threat_list_diff_response::Checksum::sha256].
         pub fn set_sha256<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.sha256 = v.into();
             self
@@ -342,18 +342,20 @@ pub struct SearchUrisRequest {
 }
 
 impl SearchUrisRequest {
-    /// Sets the value of `uri`.
+    /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
-    /// Sets the value of `threat_types`.
-    pub fn set_threat_types<T: std::convert::Into<std::vec::Vec<crate::model::ThreatType>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threat_types = v.into();
+    /// Sets the value of [threat_types][crate::model::SearchUrisRequest::threat_types].
+    pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ThreatType>,
+    {
+        use std::iter::Iterator;
+        self.threat_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -375,7 +377,7 @@ pub struct SearchUrisResponse {
 }
 
 impl SearchUrisResponse {
-    /// Sets the value of `threat`.
+    /// Sets the value of [threat][crate::model::SearchUrisResponse::threat].
     pub fn set_threat<
         T: std::convert::Into<std::option::Option<crate::model::search_uris_response::ThreatUri>>,
     >(
@@ -415,21 +417,23 @@ pub mod search_uris_response {
     }
 
     impl ThreatUri {
-        /// Sets the value of `threat_types`.
-        pub fn set_threat_types<T: std::convert::Into<std::vec::Vec<crate::model::ThreatType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.threat_types = v.into();
-            self
-        }
-
-        /// Sets the value of `expire_time`.
+        /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
         pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
         ) -> Self {
             self.expire_time = v.into();
+            self
+        }
+
+        /// Sets the value of [threat_types][crate::model::search_uris_response::ThreatUri::threat_types].
+        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ThreatType>,
+        {
+            use std::iter::Iterator;
+            self.threat_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -462,18 +466,20 @@ pub struct SearchHashesRequest {
 }
 
 impl SearchHashesRequest {
-    /// Sets the value of `hash_prefix`.
+    /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
     pub fn set_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.hash_prefix = v.into();
         self
     }
 
-    /// Sets the value of `threat_types`.
-    pub fn set_threat_types<T: std::convert::Into<std::vec::Vec<crate::model::ThreatType>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threat_types = v.into();
+    /// Sets the value of [threat_types][crate::model::SearchHashesRequest::threat_types].
+    pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ThreatType>,
+    {
+        use std::iter::Iterator;
+        self.threat_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -501,23 +507,23 @@ pub struct SearchHashesResponse {
 }
 
 impl SearchHashesResponse {
-    /// Sets the value of `threats`.
-    pub fn set_threats<
-        T: std::convert::Into<std::vec::Vec<crate::model::search_hashes_response::ThreatHash>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threats = v.into();
-        self
-    }
-
-    /// Sets the value of `negative_expire_time`.
+    /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
     pub fn set_negative_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
     ) -> Self {
         self.negative_expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [threats][crate::model::SearchHashesResponse::threats].
+    pub fn set_threats<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::search_hashes_response::ThreatHash>,
+    {
+        use std::iter::Iterator;
+        self.threats = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -557,27 +563,29 @@ pub mod search_hashes_response {
     }
 
     impl ThreatHash {
-        /// Sets the value of `threat_types`.
-        pub fn set_threat_types<T: std::convert::Into<std::vec::Vec<crate::model::ThreatType>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.threat_types = v.into();
-            self
-        }
-
-        /// Sets the value of `hash`.
+        /// Sets the value of [hash][crate::model::search_hashes_response::ThreatHash::hash].
         pub fn set_hash<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.hash = v.into();
             self
         }
 
-        /// Sets the value of `expire_time`.
+        /// Sets the value of [expire_time][crate::model::search_hashes_response::ThreatHash::expire_time].
         pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
         ) -> Self {
             self.expire_time = v.into();
+            self
+        }
+
+        /// Sets the value of [threat_types][crate::model::search_hashes_response::ThreatHash::threat_types].
+        pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ThreatType>,
+        {
+            use std::iter::Iterator;
+            self.threat_types = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -609,16 +617,7 @@ pub struct ThreatEntryAdditions {
 }
 
 impl ThreatEntryAdditions {
-    /// Sets the value of `raw_hashes`.
-    pub fn set_raw_hashes<T: std::convert::Into<std::vec::Vec<crate::model::RawHashes>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.raw_hashes = v.into();
-        self
-    }
-
-    /// Sets the value of `rice_hashes`.
+    /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
     pub fn set_rice_hashes<
         T: std::convert::Into<std::option::Option<crate::model::RiceDeltaEncoding>>,
     >(
@@ -626,6 +625,17 @@ impl ThreatEntryAdditions {
         v: T,
     ) -> Self {
         self.rice_hashes = v.into();
+        self
+    }
+
+    /// Sets the value of [raw_hashes][crate::model::ThreatEntryAdditions::raw_hashes].
+    pub fn set_raw_hashes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RawHashes>,
+    {
+        use std::iter::Iterator;
+        self.raw_hashes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -655,7 +665,7 @@ pub struct ThreatEntryRemovals {
 }
 
 impl ThreatEntryRemovals {
-    /// Sets the value of `raw_indices`.
+    /// Sets the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
     pub fn set_raw_indices<T: std::convert::Into<std::option::Option<crate::model::RawIndices>>>(
         mut self,
         v: T,
@@ -664,7 +674,7 @@ impl ThreatEntryRemovals {
         self
     }
 
-    /// Sets the value of `rice_indices`.
+    /// Sets the value of [rice_indices][crate::model::ThreatEntryRemovals::rice_indices].
     pub fn set_rice_indices<
         T: std::convert::Into<std::option::Option<crate::model::RiceDeltaEncoding>>,
     >(
@@ -694,9 +704,14 @@ pub struct RawIndices {
 }
 
 impl RawIndices {
-    /// Sets the value of `indices`.
-    pub fn set_indices<T: std::convert::Into<std::vec::Vec<i32>>>(mut self, v: T) -> Self {
-        self.indices = v.into();
+    /// Sets the value of [indices][crate::model::RawIndices::indices].
+    pub fn set_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.indices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -734,13 +749,13 @@ pub struct RawHashes {
 }
 
 impl RawHashes {
-    /// Sets the value of `prefix_size`.
+    /// Sets the value of [prefix_size][crate::model::RawHashes::prefix_size].
     pub fn set_prefix_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.prefix_size = v.into();
         self
     }
 
-    /// Sets the value of `raw_hashes`.
+    /// Sets the value of [raw_hashes][crate::model::RawHashes::raw_hashes].
     pub fn set_raw_hashes<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_hashes = v.into();
         self
@@ -782,25 +797,25 @@ pub struct RiceDeltaEncoding {
 }
 
 impl RiceDeltaEncoding {
-    /// Sets the value of `first_value`.
+    /// Sets the value of [first_value][crate::model::RiceDeltaEncoding::first_value].
     pub fn set_first_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.first_value = v.into();
         self
     }
 
-    /// Sets the value of `rice_parameter`.
+    /// Sets the value of [rice_parameter][crate::model::RiceDeltaEncoding::rice_parameter].
     pub fn set_rice_parameter<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.rice_parameter = v.into();
         self
     }
 
-    /// Sets the value of `entry_count`.
+    /// Sets the value of [entry_count][crate::model::RiceDeltaEncoding::entry_count].
     pub fn set_entry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.entry_count = v.into();
         self
     }
 
-    /// Sets the value of `encoded_data`.
+    /// Sets the value of [encoded_data][crate::model::RiceDeltaEncoding::encoded_data].
     pub fn set_encoded_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.encoded_data = v.into();
         self
@@ -832,18 +847,20 @@ pub struct Submission {
 }
 
 impl Submission {
-    /// Sets the value of `uri`.
+    /// Sets the value of [uri][crate::model::Submission::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
-    /// Sets the value of `threat_types`.
-    pub fn set_threat_types<T: std::convert::Into<std::vec::Vec<crate::model::ThreatType>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.threat_types = v.into();
+    /// Sets the value of [threat_types][crate::model::Submission::threat_types].
+    pub fn set_threat_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ThreatType>,
+    {
+        use std::iter::Iterator;
+        self.threat_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -875,7 +892,7 @@ pub struct ThreatInfo {
 }
 
 impl ThreatInfo {
-    /// Sets the value of `abuse_type`.
+    /// Sets the value of [abuse_type][crate::model::ThreatInfo::abuse_type].
     pub fn set_abuse_type<T: std::convert::Into<crate::model::threat_info::AbuseType>>(
         mut self,
         v: T,
@@ -884,7 +901,7 @@ impl ThreatInfo {
         self
     }
 
-    /// Sets the value of `threat_confidence`.
+    /// Sets the value of [threat_confidence][crate::model::ThreatInfo::threat_confidence].
     pub fn set_threat_confidence<
         T: std::convert::Into<std::option::Option<crate::model::threat_info::Confidence>>,
     >(
@@ -895,7 +912,7 @@ impl ThreatInfo {
         self
     }
 
-    /// Sets the value of `threat_justification`.
+    /// Sets the value of [threat_justification][crate::model::ThreatInfo::threat_justification].
     pub fn set_threat_justification<
         T: std::convert::Into<std::option::Option<crate::model::threat_info::ThreatJustification>>,
     >(
@@ -1015,25 +1032,27 @@ pub mod threat_info {
     }
 
     impl ThreatJustification {
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: std::convert::Into<
-                std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>,
+        /// Sets the value of [labels][crate::model::threat_info::ThreatJustification::labels].
+        pub fn set_labels<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                crate::model::threat_info::threat_justification::JustificationLabel,
             >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.labels = v.into();
+        {
+            use std::iter::Iterator;
+            self.labels = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `comments`.
-        pub fn set_comments<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.comments = v.into();
+        /// Sets the value of [comments][crate::model::threat_info::ThreatJustification::comments].
+        pub fn set_comments<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.comments = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -1133,7 +1152,7 @@ pub struct ThreatDiscovery {
 }
 
 impl ThreatDiscovery {
-    /// Sets the value of `platform`.
+    /// Sets the value of [platform][crate::model::ThreatDiscovery::platform].
     pub fn set_platform<T: std::convert::Into<crate::model::threat_discovery::Platform>>(
         mut self,
         v: T,
@@ -1142,12 +1161,14 @@ impl ThreatDiscovery {
         self
     }
 
-    /// Sets the value of `region_codes`.
-    pub fn set_region_codes<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.region_codes = v.into();
+    /// Sets the value of [region_codes][crate::model::ThreatDiscovery::region_codes].
+    pub fn set_region_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.region_codes = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1217,13 +1238,13 @@ pub struct CreateSubmissionRequest {
 }
 
 impl CreateSubmissionRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `submission`.
+    /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
     pub fn set_submission<T: std::convert::Into<std::option::Option<crate::model::Submission>>>(
         mut self,
         v: T,
@@ -1264,13 +1285,13 @@ pub struct SubmitUriRequest {
 }
 
 impl SubmitUriRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `submission`.
+    /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
     pub fn set_submission<T: std::convert::Into<std::option::Option<crate::model::Submission>>>(
         mut self,
         v: T,
@@ -1279,7 +1300,7 @@ impl SubmitUriRequest {
         self
     }
 
-    /// Sets the value of `threat_info`.
+    /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
     pub fn set_threat_info<T: std::convert::Into<std::option::Option<crate::model::ThreatInfo>>>(
         mut self,
         v: T,
@@ -1288,7 +1309,7 @@ impl SubmitUriRequest {
         self
     }
 
-    /// Sets the value of `threat_discovery`.
+    /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
     pub fn set_threat_discovery<
         T: std::convert::Into<std::option::Option<crate::model::ThreatDiscovery>>,
     >(
@@ -1326,7 +1347,7 @@ pub struct SubmitUriMetadata {
 }
 
 impl SubmitUriMetadata {
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::SubmitUriMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::submit_uri_metadata::State>>(
         mut self,
         v: T,
@@ -1335,7 +1356,7 @@ impl SubmitUriMetadata {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::SubmitUriMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1344,7 +1365,7 @@ impl SubmitUriMetadata {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::SubmitUriMetadata::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,

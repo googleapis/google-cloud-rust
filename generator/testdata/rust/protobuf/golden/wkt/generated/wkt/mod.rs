@@ -34,7 +34,7 @@ pub struct SourceContext {
 
 impl SourceContext {
 
-    /// Sets the value of `file_name`.
+    /// Sets the value of [file_name][crate::SourceContext::file_name].
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self

@@ -81,37 +81,19 @@ pub struct Api {
 }
 
 impl Api {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Api::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `methods`.
-    pub fn set_methods<T: std::convert::Into<std::vec::Vec<crate::Method>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.methods = v.into();
-        self
-    }
-
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::Api::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `source_context`.
+    /// Sets the value of [source_context][crate::Api::source_context].
     pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
         mut self,
         v: T,
@@ -120,15 +102,42 @@ impl Api {
         self
     }
 
-    /// Sets the value of `mixins`.
-    pub fn set_mixins<T: std::convert::Into<std::vec::Vec<crate::Mixin>>>(mut self, v: T) -> Self {
-        self.mixins = v.into();
+    /// Sets the value of [syntax][crate::Api::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
         self
     }
 
-    /// Sets the value of `syntax`.
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
+    /// Sets the value of [methods][crate::Api::methods].
+    pub fn set_methods<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Method>,
+    {
+        use std::iter::Iterator;
+        self.methods = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::Api::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mixins][crate::Api::mixins].
+    pub fn set_mixins<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Mixin>,
+    {
+        use std::iter::Iterator;
+        self.mixins = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -172,13 +181,13 @@ pub struct Method {
 }
 
 impl Method {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Method::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `request_type_url`.
+    /// Sets the value of [request_type_url][crate::Method::request_type_url].
     pub fn set_request_type_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -187,13 +196,13 @@ impl Method {
         self
     }
 
-    /// Sets the value of `request_streaming`.
+    /// Sets the value of [request_streaming][crate::Method::request_streaming].
     pub fn set_request_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.request_streaming = v.into();
         self
     }
 
-    /// Sets the value of `response_type_url`.
+    /// Sets the value of [response_type_url][crate::Method::response_type_url].
     pub fn set_response_type_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -202,24 +211,26 @@ impl Method {
         self
     }
 
-    /// Sets the value of `response_streaming`.
+    /// Sets the value of [response_streaming][crate::Method::response_streaming].
     pub fn set_response_streaming<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.response_streaming = v.into();
         self
     }
 
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    /// Sets the value of [syntax][crate::Method::syntax].
+    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
+        self.syntax = v.into();
         self
     }
 
-    /// Sets the value of `syntax`.
-    pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
-        self.syntax = v.into();
+    /// Sets the value of [options][crate::Method::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -335,13 +346,13 @@ pub struct Mixin {
 }
 
 impl Mixin {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Mixin::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `root`.
+    /// Sets the value of [root][crate::Mixin::root].
     pub fn set_root<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root = v.into();
         self
@@ -368,7 +379,7 @@ pub struct SourceContext {
 }
 
 impl SourceContext {
-    /// Sets the value of `file_name`.
+    /// Sets the value of [file_name][crate::SourceContext::file_name].
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
@@ -416,37 +427,13 @@ pub struct Type {
 }
 
 impl Type {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Type::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `fields`.
-    pub fn set_fields<T: std::convert::Into<std::vec::Vec<crate::Field>>>(mut self, v: T) -> Self {
-        self.fields = v.into();
-        self
-    }
-
-    /// Sets the value of `oneofs`.
-    pub fn set_oneofs<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.oneofs = v.into();
-        self
-    }
-
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
-    /// Sets the value of `source_context`.
+    /// Sets the value of [source_context][crate::Type::source_context].
     pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
         mut self,
         v: T,
@@ -455,15 +442,48 @@ impl Type {
         self
     }
 
-    /// Sets the value of `syntax`.
+    /// Sets the value of [syntax][crate::Type::syntax].
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
     }
 
-    /// Sets the value of `edition`.
+    /// Sets the value of [edition][crate::Type::edition].
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edition = v.into();
+        self
+    }
+
+    /// Sets the value of [fields][crate::Type::fields].
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Field>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [oneofs][crate::Type::oneofs].
+    pub fn set_oneofs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.oneofs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::Type::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -519,13 +539,13 @@ pub struct Field {
 }
 
 impl Field {
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::Field::kind].
     pub fn set_kind<T: std::convert::Into<crate::field::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
-    /// Sets the value of `cardinality`.
+    /// Sets the value of [cardinality][crate::Field::cardinality].
     pub fn set_cardinality<T: std::convert::Into<crate::field::Cardinality>>(
         mut self,
         v: T,
@@ -534,54 +554,56 @@ impl Field {
         self
     }
 
-    /// Sets the value of `number`.
+    /// Sets the value of [number][crate::Field::number].
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Field::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `type_url`.
+    /// Sets the value of [type_url][crate::Field::type_url].
     pub fn set_type_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_url = v.into();
         self
     }
 
-    /// Sets the value of `oneof_index`.
+    /// Sets the value of [oneof_index][crate::Field::oneof_index].
     pub fn set_oneof_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.oneof_index = v.into();
         self
     }
 
-    /// Sets the value of `packed`.
+    /// Sets the value of [packed][crate::Field::packed].
     pub fn set_packed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.packed = v.into();
         self
     }
 
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
-    /// Sets the value of `json_name`.
+    /// Sets the value of [json_name][crate::Field::json_name].
     pub fn set_json_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.json_name = v.into();
         self
     }
 
-    /// Sets the value of `default_value`.
+    /// Sets the value of [default_value][crate::Field::default_value].
     pub fn set_default_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_value = v.into();
+        self
+    }
+
+    /// Sets the value of [options][crate::Field::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -740,31 +762,13 @@ pub struct Enum {
 }
 
 impl Enum {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Enum::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `enumvalue`.
-    pub fn set_enumvalue<T: std::convert::Into<std::vec::Vec<crate::EnumValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enumvalue = v.into();
-        self
-    }
-
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
-        self
-    }
-
-    /// Sets the value of `source_context`.
+    /// Sets the value of [source_context][crate::Enum::source_context].
     pub fn set_source_context<T: std::convert::Into<std::option::Option<crate::SourceContext>>>(
         mut self,
         v: T,
@@ -773,15 +777,37 @@ impl Enum {
         self
     }
 
-    /// Sets the value of `syntax`.
+    /// Sets the value of [syntax][crate::Enum::syntax].
     pub fn set_syntax<T: std::convert::Into<crate::Syntax>>(mut self, v: T) -> Self {
         self.syntax = v.into();
         self
     }
 
-    /// Sets the value of `edition`.
+    /// Sets the value of [edition][crate::Enum::edition].
     pub fn set_edition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edition = v.into();
+        self
+    }
+
+    /// Sets the value of [enumvalue][crate::Enum::enumvalue].
+    pub fn set_enumvalue<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::EnumValue>,
+    {
+        use std::iter::Iterator;
+        self.enumvalue = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::Enum::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -811,24 +837,26 @@ pub struct EnumValue {
 }
 
 impl EnumValue {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::EnumValue::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `number`.
+    /// Sets the value of [number][crate::EnumValue::number].
     pub fn set_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.number = v.into();
         self
     }
 
-    /// Sets the value of `options`.
-    pub fn set_options<T: std::convert::Into<std::vec::Vec<crate::Option>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.options = v.into();
+    /// Sets the value of [options][crate::EnumValue::options].
+    pub fn set_options<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::Option>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -862,13 +890,13 @@ pub struct Option {
 }
 
 impl Option {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::Option::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::Option::value].
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::Any>>>(
         mut self,
         v: T,

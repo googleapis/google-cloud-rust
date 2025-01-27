@@ -67,43 +67,37 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `contents`.
-        pub fn set_contents<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.contents = v.into();
-            self
-        }
-
-        /// Sets the value of `mime_type`.
+        /// Sets the value of [mime_type][crate::model::TranslateTextRequest::mime_type].
         pub fn set_mime_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mime_type = v.into();
             self
         }
 
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::TranslateTextRequest::source_language_code].
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of `target_language_code`.
+        /// Sets the value of [target_language_code][crate::model::TranslateTextRequest::target_language_code].
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::TranslateTextRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `model`.
+        /// Sets the value of [model][crate::model::TranslateTextRequest::model].
         pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model = v.into();
             self
         }
 
-        /// Sets the value of `glossary_config`.
+        /// Sets the value of [glossary_config][crate::model::TranslateTextRequest::glossary_config].
         pub fn set_glossary_config<
             T: Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
         >(
@@ -114,7 +108,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `transliteration_config`.
+        /// Sets the value of [transliteration_config][crate::model::TranslateTextRequest::transliteration_config].
         pub fn set_transliteration_config<
             T: Into<std::option::Option<crate::model::TransliterationConfig>>,
         >(
@@ -125,14 +119,25 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
+        /// Sets the value of [contents][crate::model::TranslateTextRequest::contents].
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::TranslateTextRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -171,21 +176,26 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::RomanizeTextRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `contents`.
-        pub fn set_contents<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.contents = v.into();
+        /// Sets the value of [source_language_code][crate::model::RomanizeTextRequest::source_language_code].
+        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of `source_language_code`.
-        pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.source_language_code = v.into();
+        /// Sets the value of [contents][crate::model::RomanizeTextRequest::contents].
+        pub fn set_contents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contents = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -224,32 +234,32 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::DetectLanguageRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `model`.
+        /// Sets the value of [model][crate::model::DetectLanguageRequest::model].
         pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model = v.into();
             self
         }
 
-        /// Sets the value of `mime_type`.
+        /// Sets the value of [mime_type][crate::model::DetectLanguageRequest::mime_type].
         pub fn set_mime_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.mime_type = v.into();
             self
         }
 
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
+        /// Sets the value of [labels][crate::model::DetectLanguageRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -300,19 +310,19 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::GetSupportedLanguagesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `display_language_code`.
+        /// Sets the value of [display_language_code][crate::model::GetSupportedLanguagesRequest::display_language_code].
         pub fn set_display_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.display_language_code = v.into();
             self
         }
 
-        /// Sets the value of `model`.
+        /// Sets the value of [model][crate::model::GetSupportedLanguagesRequest::model].
         pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model = v.into();
             self
@@ -356,25 +366,25 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::TranslateDocumentRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::TranslateDocumentRequest::source_language_code].
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of `target_language_code`.
+        /// Sets the value of [target_language_code][crate::model::TranslateDocumentRequest::target_language_code].
         pub fn set_target_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.target_language_code = v.into();
             self
         }
 
-        /// Sets the value of `document_input_config`.
+        /// Sets the value of [document_input_config][crate::model::TranslateDocumentRequest::document_input_config].
         pub fn set_document_input_config<
             T: Into<std::option::Option<crate::model::DocumentInputConfig>>,
         >(
@@ -385,7 +395,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `document_output_config`.
+        /// Sets the value of [document_output_config][crate::model::TranslateDocumentRequest::document_output_config].
         pub fn set_document_output_config<
             T: Into<std::option::Option<crate::model::DocumentOutputConfig>>,
         >(
@@ -396,13 +406,13 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `model`.
+        /// Sets the value of [model][crate::model::TranslateDocumentRequest::model].
         pub fn set_model<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.model = v.into();
             self
         }
 
-        /// Sets the value of `glossary_config`.
+        /// Sets the value of [glossary_config][crate::model::TranslateDocumentRequest::glossary_config].
         pub fn set_glossary_config<
             T: Into<std::option::Option<crate::model::TranslateTextGlossaryConfig>>,
         >(
@@ -413,38 +423,38 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
-            self
-        }
-
-        /// Sets the value of `customized_attribution`.
+        /// Sets the value of [customized_attribution][crate::model::TranslateDocumentRequest::customized_attribution].
         pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.customized_attribution = v.into();
             self
         }
 
-        /// Sets the value of `is_translate_native_pdf_only`.
+        /// Sets the value of [is_translate_native_pdf_only][crate::model::TranslateDocumentRequest::is_translate_native_pdf_only].
         pub fn set_is_translate_native_pdf_only<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.is_translate_native_pdf_only = v.into();
             self
         }
 
-        /// Sets the value of `enable_shadow_removal_native_pdf`.
+        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::TranslateDocumentRequest::enable_shadow_removal_native_pdf].
         pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_shadow_removal_native_pdf = v.into();
             self
         }
 
-        /// Sets the value of `enable_rotation_correction`.
+        /// Sets the value of [enable_rotation_correction][crate::model::TranslateDocumentRequest::enable_rotation_correction].
         pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_rotation_correction = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::TranslateDocumentRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -527,48 +537,19 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::BatchTranslateTextRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::BatchTranslateTextRequest::source_language_code].
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of `target_language_codes`.
-        pub fn set_target_language_codes<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_language_codes = v.into();
-            self
-        }
-
-        /// Sets the value of `models`.
-        pub fn set_models<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.models = v.into();
-            self
-        }
-
-        /// Sets the value of `input_configs`.
-        pub fn set_input_configs<T: Into<std::vec::Vec<crate::model::InputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_configs = v.into();
-            self
-        }
-
-        /// Sets the value of `output_config`.
+        /// Sets the value of [output_config][crate::model::BatchTranslateTextRequest::output_config].
         pub fn set_output_config<T: Into<std::option::Option<crate::model::OutputConfig>>>(
             mut self,
             v: T,
@@ -577,30 +558,58 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `glossaries`.
-        pub fn set_glossaries<
-            T: Into<
-                std::collections::HashMap<
-                    std::string::String,
-                    crate::model::TranslateTextGlossaryConfig,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossaries = v.into();
+        /// Sets the value of [target_language_codes][crate::model::BatchTranslateTextRequest::target_language_codes].
+        pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
-        /// Sets the value of `labels`.
-        pub fn set_labels<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
+        /// Sets the value of [input_configs][crate::model::BatchTranslateTextRequest::input_configs].
+        pub fn set_input_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::InputConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [models][crate::model::BatchTranslateTextRequest::models].
+        pub fn set_models<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [glossaries][crate::model::BatchTranslateTextRequest::glossaries].
+        pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::BatchTranslateTextRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -685,37 +694,19 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::BatchTranslateDocumentRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `source_language_code`.
+        /// Sets the value of [source_language_code][crate::model::BatchTranslateDocumentRequest::source_language_code].
         pub fn set_source_language_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_language_code = v.into();
             self
         }
 
-        /// Sets the value of `target_language_codes`.
-        pub fn set_target_language_codes<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_language_codes = v.into();
-            self
-        }
-
-        /// Sets the value of `input_configs`.
-        pub fn set_input_configs<T: Into<std::vec::Vec<crate::model::BatchDocumentInputConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_configs = v.into();
-            self
-        }
-
-        /// Sets the value of `output_config`.
+        /// Sets the value of [output_config][crate::model::BatchTranslateDocumentRequest::output_config].
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::BatchDocumentOutputConfig>>,
         >(
@@ -726,59 +717,77 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `models`.
-        pub fn set_models<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.models = v.into();
-            self
-        }
-
-        /// Sets the value of `glossaries`.
-        pub fn set_glossaries<
-            T: Into<
-                std::collections::HashMap<
-                    std::string::String,
-                    crate::model::TranslateTextGlossaryConfig,
-                >,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.glossaries = v.into();
-            self
-        }
-
-        /// Sets the value of `format_conversions`.
-        pub fn set_format_conversions<
-            T: Into<std::collections::HashMap<std::string::String, std::string::String>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.format_conversions = v.into();
-            self
-        }
-
-        /// Sets the value of `customized_attribution`.
+        /// Sets the value of [customized_attribution][crate::model::BatchTranslateDocumentRequest::customized_attribution].
         pub fn set_customized_attribution<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.customized_attribution = v.into();
             self
         }
 
-        /// Sets the value of `enable_shadow_removal_native_pdf`.
+        /// Sets the value of [enable_shadow_removal_native_pdf][crate::model::BatchTranslateDocumentRequest::enable_shadow_removal_native_pdf].
         pub fn set_enable_shadow_removal_native_pdf<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_shadow_removal_native_pdf = v.into();
             self
         }
 
-        /// Sets the value of `enable_rotation_correction`.
+        /// Sets the value of [enable_rotation_correction][crate::model::BatchTranslateDocumentRequest::enable_rotation_correction].
         pub fn set_enable_rotation_correction<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_rotation_correction = v.into();
+            self
+        }
+
+        /// Sets the value of [target_language_codes][crate::model::BatchTranslateDocumentRequest::target_language_codes].
+        pub fn set_target_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.target_language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [input_configs][crate::model::BatchTranslateDocumentRequest::input_configs].
+        pub fn set_input_configs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::BatchDocumentInputConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.input_configs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [models][crate::model::BatchTranslateDocumentRequest::models].
+        pub fn set_models<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.models = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [glossaries][crate::model::BatchTranslateDocumentRequest::glossaries].
+        pub fn set_glossaries<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::TranslateTextGlossaryConfig>,
+        {
+            self.0.request.glossaries = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [format_conversions][crate::model::BatchTranslateDocumentRequest::format_conversions].
+        pub fn set_format_conversions<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.format_conversions =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
     }
@@ -856,13 +865,13 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateGlossaryRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `glossary`.
+        /// Sets the value of [glossary][crate::model::CreateGlossaryRequest::glossary].
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -945,7 +954,7 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `glossary`.
+        /// Sets the value of [glossary][crate::model::UpdateGlossaryRequest::glossary].
         pub fn set_glossary<T: Into<std::option::Option<crate::model::Glossary>>>(
             mut self,
             v: T,
@@ -954,7 +963,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateGlossaryRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1013,25 +1022,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListGlossariesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListGlossariesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListGlossariesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListGlossariesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -1072,7 +1081,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetGlossaryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1154,7 +1163,7 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteGlossaryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1198,7 +1207,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetGlossaryEntryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1257,19 +1266,19 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListGlossaryEntriesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListGlossaryEntriesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListGlossaryEntriesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1313,13 +1322,13 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateGlossaryEntryRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `glossary_entry`.
+        /// Sets the value of [glossary_entry][crate::model::CreateGlossaryEntryRequest::glossary_entry].
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1366,7 +1375,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `glossary_entry`.
+        /// Sets the value of [glossary_entry][crate::model::UpdateGlossaryEntryRequest::glossary_entry].
         pub fn set_glossary_entry<T: Into<std::option::Option<crate::model::GlossaryEntry>>>(
             mut self,
             v: T,
@@ -1413,7 +1422,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteGlossaryEntryRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1492,13 +1501,13 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `dataset`.
+        /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
             mut self,
             v: T,
@@ -1542,7 +1551,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetDatasetRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1598,19 +1607,19 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListDatasetsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListDatasetsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1686,7 +1695,7 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1732,13 +1741,13 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateAdaptiveMtDatasetRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `adaptive_mt_dataset`.
+        /// Sets the value of [adaptive_mt_dataset][crate::model::CreateAdaptiveMtDatasetRequest::adaptive_mt_dataset].
         pub fn set_adaptive_mt_dataset<
             T: Into<std::option::Option<crate::model::AdaptiveMtDataset>>,
         >(
@@ -1789,7 +1798,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteAdaptiveMtDatasetRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1833,7 +1842,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetAdaptiveMtDatasetRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1894,25 +1903,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListAdaptiveMtDatasetsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListAdaptiveMtDatasetsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListAdaptiveMtDatasetsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListAdaptiveMtDatasetsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
@@ -1956,25 +1965,19 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::AdaptiveMtTranslateRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `dataset`.
+        /// Sets the value of [dataset][crate::model::AdaptiveMtTranslateRequest::dataset].
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
         }
 
-        /// Sets the value of `content`.
-        pub fn set_content<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.content = v.into();
-            self
-        }
-
-        /// Sets the value of `reference_sentence_config`.
+        /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
         pub fn set_reference_sentence_config<
             T: Into<
                 std::option::Option<
@@ -1989,7 +1992,7 @@ pub mod translation_service {
             self
         }
 
-        /// Sets the value of `glossary_config`.
+        /// Sets the value of [glossary_config][crate::model::AdaptiveMtTranslateRequest::glossary_config].
         pub fn set_glossary_config<
             T: Into<std::option::Option<crate::model::adaptive_mt_translate_request::GlossaryConfig>>,
         >(
@@ -1997,6 +2000,17 @@ pub mod translation_service {
             v: T,
         ) -> Self {
             self.0.request.glossary_config = v.into();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::AdaptiveMtTranslateRequest::content].
+        pub fn set_content<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.content = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2038,7 +2052,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetAdaptiveMtFileRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2082,7 +2096,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteAdaptiveMtFileRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2126,7 +2140,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ImportAdaptiveMtFileRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
@@ -2196,19 +2210,19 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListAdaptiveMtFilesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListAdaptiveMtFilesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListAdaptiveMtFilesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2271,19 +2285,19 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListAdaptiveMtSentencesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListAdaptiveMtSentencesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListAdaptiveMtSentencesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2359,13 +2373,13 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `dataset`.
+        /// Sets the value of [dataset][crate::model::ImportDataRequest::dataset].
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
         }
 
-        /// Sets the value of `input_config`.
+        /// Sets the value of [input_config][crate::model::ImportDataRequest::input_config].
         pub fn set_input_config<T: Into<std::option::Option<crate::model::DatasetInputConfig>>>(
             mut self,
             v: T,
@@ -2444,13 +2458,13 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `dataset`.
+        /// Sets the value of [dataset][crate::model::ExportDataRequest::dataset].
         pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.dataset = v.into();
             self
         }
 
-        /// Sets the value of `output_config`.
+        /// Sets the value of [output_config][crate::model::ExportDataRequest::output_config].
         pub fn set_output_config<
             T: Into<std::option::Option<crate::model::DatasetOutputConfig>>,
         >(
@@ -2511,25 +2525,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListExamplesRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListExamplesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListExamplesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2607,13 +2621,13 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `model`.
+        /// Sets the value of [model][crate::model::CreateModelRequest::model].
         pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
             mut self,
             v: T,
@@ -2672,25 +2686,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListModelsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListModelsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListModelsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2731,7 +2745,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetModelRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2807,7 +2821,7 @@ pub mod translation_service {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteModelRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2866,25 +2880,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::ListLocationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][location::model::ListLocationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][location::model::ListLocationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][location::model::ListLocationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -2925,7 +2939,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][location::model::GetLocationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -2984,25 +2998,25 @@ pub mod translation_service {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -3046,7 +3060,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3090,7 +3104,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3134,7 +3148,7 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -3178,13 +3192,13 @@ pub mod translation_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::WaitOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `timeout`.
+        /// Sets the value of [timeout][longrunning::model::WaitOperationRequest::timeout].
         pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
             self.0.request.timeout = v.into();
             self

@@ -145,31 +145,31 @@ pub struct Workflow {
 }
 
 impl Workflow {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Workflow::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Workflow::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Workflow::state].
     pub fn set_state<T: std::convert::Into<crate::model::workflow::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `revision_id`.
+    /// Sets the value of [revision_id][crate::model::Workflow::revision_id].
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Workflow::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -178,7 +178,7 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::Workflow::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -187,7 +187,7 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `revision_create_time`.
+    /// Sets the value of [revision_create_time][crate::model::Workflow::revision_create_time].
     pub fn set_revision_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -196,30 +196,19 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `service_account`.
+    /// Sets the value of [service_account][crate::model::Workflow::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
-    /// Sets the value of `crypto_key_name`.
+    /// Sets the value of [crypto_key_name][crate::model::Workflow::crypto_key_name].
     pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_name = v.into();
         self
     }
 
-    /// Sets the value of `state_error`.
+    /// Sets the value of [state_error][crate::model::Workflow::state_error].
     pub fn set_state_error<
         T: std::convert::Into<std::option::Option<crate::model::workflow::StateError>>,
     >(
@@ -230,7 +219,7 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `call_log_level`.
+    /// Sets the value of [call_log_level][crate::model::Workflow::call_log_level].
     pub fn set_call_log_level<T: std::convert::Into<crate::model::workflow::CallLogLevel>>(
         mut self,
         v: T,
@@ -239,14 +228,27 @@ impl Workflow {
         self
     }
 
-    /// Sets the value of `user_env_vars`.
-    pub fn set_user_env_vars<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_env_vars = v.into();
+    /// Sets the value of [labels][crate::model::Workflow::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
+    pub fn set_user_env_vars<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_env_vars = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -289,13 +291,13 @@ pub mod workflow {
     }
 
     impl StateError {
-        /// Sets the value of `details`.
+        /// Sets the value of [details][crate::model::workflow::StateError::details].
         pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
             self
         }
 
-        /// Sets the value of `r#type`.
+        /// Sets the value of [r#type][crate::model::workflow::StateError::type].
         pub fn set_type<T: std::convert::Into<crate::model::workflow::state_error::Type>>(
             mut self,
             v: T,
@@ -463,31 +465,31 @@ pub struct ListWorkflowsRequest {
 }
 
 impl ListWorkflowsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListWorkflowsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListWorkflowsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListWorkflowsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `order_by`.
+    /// Sets the value of [order_by][crate::model::ListWorkflowsRequest::order_by].
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -525,27 +527,31 @@ pub struct ListWorkflowsResponse {
 }
 
 impl ListWorkflowsResponse {
-    /// Sets the value of `workflows`.
-    pub fn set_workflows<T: std::convert::Into<std::vec::Vec<crate::model::Workflow>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.workflows = v.into();
-        self
-    }
-
-    /// Sets the value of `next_page_token`.
+    /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `unreachable`.
-    pub fn set_unreachable<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.unreachable = v.into();
+    /// Sets the value of [workflows][crate::model::ListWorkflowsResponse::workflows].
+    pub fn set_workflows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Workflow>,
+    {
+        use std::iter::Iterator;
+        self.workflows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListWorkflowsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -593,13 +599,13 @@ pub struct GetWorkflowRequest {
 }
 
 impl GetWorkflowRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `revision_id`.
+    /// Sets the value of [revision_id][crate::model::GetWorkflowRequest::revision_id].
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -644,13 +650,13 @@ pub struct CreateWorkflowRequest {
 }
 
 impl CreateWorkflowRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `workflow`.
+    /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
     pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
         mut self,
         v: T,
@@ -659,7 +665,7 @@ impl CreateWorkflowRequest {
         self
     }
 
-    /// Sets the value of `workflow_id`.
+    /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
     pub fn set_workflow_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workflow_id = v.into();
         self
@@ -689,7 +695,7 @@ pub struct DeleteWorkflowRequest {
 }
 
 impl DeleteWorkflowRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -723,7 +729,7 @@ pub struct UpdateWorkflowRequest {
 }
 
 impl UpdateWorkflowRequest {
-    /// Sets the value of `workflow`.
+    /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
     pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
         mut self,
         v: T,
@@ -732,7 +738,7 @@ impl UpdateWorkflowRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -776,7 +782,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -785,7 +791,7 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -794,19 +800,19 @@ impl OperationMetadata {
         self
     }
 
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::OperationMetadata::target].
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
-    /// Sets the value of `verb`.
+    /// Sets the value of [verb][crate::model::OperationMetadata::verb].
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
-    /// Sets the value of `api_version`.
+    /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

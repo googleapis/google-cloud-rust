@@ -82,19 +82,19 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListDatabasesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListDatabasesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -174,28 +174,19 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `create_statement`.
+        /// Sets the value of [create_statement][crate::model::CreateDatabaseRequest::create_statement].
         pub fn set_create_statement<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.create_statement = v.into();
             self
         }
 
-        /// Sets the value of `extra_statements`.
-        pub fn set_extra_statements<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.extra_statements = v.into();
-            self
-        }
-
-        /// Sets the value of `encryption_config`.
+        /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::EncryptionConfig>>,
         >(
@@ -206,7 +197,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `database_dialect`.
+        /// Sets the value of [database_dialect][crate::model::CreateDatabaseRequest::database_dialect].
         pub fn set_database_dialect<T: Into<crate::model::DatabaseDialect>>(
             mut self,
             v: T,
@@ -215,9 +206,20 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `proto_descriptors`.
+        /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
+            self
+        }
+
+        /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+        pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.extra_statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -256,7 +258,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -336,7 +338,7 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
         pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
             mut self,
             v: T,
@@ -345,7 +347,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -429,27 +431,32 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
         }
 
-        /// Sets the value of `statements`.
-        pub fn set_statements<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.statements = v.into();
-            self
-        }
-
-        /// Sets the value of `operation_id`.
+        /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
         pub fn set_operation_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation_id = v.into();
             self
         }
 
-        /// Sets the value of `proto_descriptors`.
+        /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
         pub fn set_proto_descriptors<T: Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.proto_descriptors = v.into();
+            self
+        }
+
+        /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
+        pub fn set_statements<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.statements = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -488,7 +495,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -529,7 +536,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `database`.
+        /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
         pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database = v.into();
             self
@@ -570,13 +577,13 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
             mut self,
             v: T,
@@ -585,7 +592,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -629,13 +636,13 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
             mut self,
             v: T,
@@ -682,18 +689,20 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][iam_v1::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][iam_v1::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -770,19 +779,19 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `backup_id`.
+        /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
-        /// Sets the value of `backup`.
+        /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -791,7 +800,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `encryption_config`.
+        /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
         >(
@@ -874,25 +883,25 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `backup_id`.
+        /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
         pub fn set_backup_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_id = v.into();
             self
         }
 
-        /// Sets the value of `source_backup`.
+        /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
         pub fn set_source_backup<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.source_backup = v.into();
             self
         }
 
-        /// Sets the value of `expire_time`.
+        /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -901,7 +910,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `encryption_config`.
+        /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::CopyBackupEncryptionConfig>>,
         >(
@@ -947,7 +956,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetBackupRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -988,7 +997,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `backup`.
+        /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
             mut self,
             v: T,
@@ -997,7 +1006,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1041,7 +1050,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1097,25 +1106,25 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1195,19 +1204,19 @@ pub mod database_admin {
             lro::new_poller(polling_policy, polling_backoff_policy, start, query)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `database_id`.
+        /// Sets the value of [database_id][crate::model::RestoreDatabaseRequest::database_id].
         pub fn set_database_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.database_id = v.into();
             self
         }
 
-        /// Sets the value of `encryption_config`.
+        /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
         pub fn set_encryption_config<
             T: Into<std::option::Option<crate::model::RestoreDatabaseEncryptionConfig>>,
         >(
@@ -1282,25 +1291,25 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListDatabaseOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListDatabaseOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListDatabaseOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1359,25 +1368,25 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListBackupOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListBackupOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListBackupOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1436,19 +1445,19 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListDatabaseRolesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListDatabaseRolesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1492,19 +1501,19 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `backup_schedule_id`.
+        /// Sets the value of [backup_schedule_id][crate::model::CreateBackupScheduleRequest::backup_schedule_id].
         pub fn set_backup_schedule_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.backup_schedule_id = v.into();
             self
         }
 
-        /// Sets the value of `backup_schedule`.
+        /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
             mut self,
             v: T,
@@ -1551,7 +1560,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1595,7 +1604,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `backup_schedule`.
+        /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
             mut self,
             v: T,
@@ -1604,7 +1613,7 @@ pub mod database_admin {
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
             mut self,
             v: T,
@@ -1651,7 +1660,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1710,19 +1719,19 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `parent`.
+        /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListBackupSchedulesRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListBackupSchedulesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1781,25 +1790,25 @@ pub mod database_admin {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][longrunning::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][longrunning::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][longrunning::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -1843,7 +1852,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1887,7 +1896,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -1931,7 +1940,7 @@ pub mod database_admin {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][longrunning::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self

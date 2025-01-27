@@ -67,15 +67,20 @@ pub mod trace_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `spans`.
-        pub fn set_spans<T: Into<std::vec::Vec<crate::model::Span>>>(mut self, v: T) -> Self {
-            self.0.request.spans = v.into();
+        /// Sets the value of [spans][crate::model::BatchWriteSpansRequest::spans].
+        pub fn set_spans<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Span>,
+        {
+            use std::iter::Iterator;
+            self.0.request.spans = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -114,25 +119,25 @@ pub mod trace_service {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::Span::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `span_id`.
+        /// Sets the value of [span_id][crate::model::Span::span_id].
         pub fn set_span_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.span_id = v.into();
             self
         }
 
-        /// Sets the value of `parent_span_id`.
+        /// Sets the value of [parent_span_id][crate::model::Span::parent_span_id].
         pub fn set_parent_span_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent_span_id = v.into();
             self
         }
 
-        /// Sets the value of `display_name`.
+        /// Sets the value of [display_name][crate::model::Span::display_name].
         pub fn set_display_name<T: Into<std::option::Option<crate::model::TruncatableString>>>(
             mut self,
             v: T,
@@ -141,7 +146,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `start_time`.
+        /// Sets the value of [start_time][crate::model::Span::start_time].
         pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -150,13 +155,13 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `end_time`.
+        /// Sets the value of [end_time][crate::model::Span::end_time].
         pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
             self.0.request.end_time = v.into();
             self
         }
 
-        /// Sets the value of `attributes`.
+        /// Sets the value of [attributes][crate::model::Span::attributes].
         pub fn set_attributes<T: Into<std::option::Option<crate::model::span::Attributes>>>(
             mut self,
             v: T,
@@ -165,7 +170,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `stack_trace`.
+        /// Sets the value of [stack_trace][crate::model::Span::stack_trace].
         pub fn set_stack_trace<T: Into<std::option::Option<crate::model::StackTrace>>>(
             mut self,
             v: T,
@@ -174,7 +179,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `time_events`.
+        /// Sets the value of [time_events][crate::model::Span::time_events].
         pub fn set_time_events<T: Into<std::option::Option<crate::model::span::TimeEvents>>>(
             mut self,
             v: T,
@@ -183,7 +188,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `links`.
+        /// Sets the value of [links][crate::model::Span::links].
         pub fn set_links<T: Into<std::option::Option<crate::model::span::Links>>>(
             mut self,
             v: T,
@@ -192,7 +197,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `status`.
+        /// Sets the value of [status][crate::model::Span::status].
         pub fn set_status<T: Into<std::option::Option<rpc::model::Status>>>(
             mut self,
             v: T,
@@ -201,7 +206,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `same_process_as_parent_span`.
+        /// Sets the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
         pub fn set_same_process_as_parent_span<T: Into<std::option::Option<wkt::BoolValue>>>(
             mut self,
             v: T,
@@ -210,7 +215,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `child_span_count`.
+        /// Sets the value of [child_span_count][crate::model::Span::child_span_count].
         pub fn set_child_span_count<T: Into<std::option::Option<wkt::Int32Value>>>(
             mut self,
             v: T,
@@ -219,7 +224,7 @@ pub mod trace_service {
             self
         }
 
-        /// Sets the value of `span_kind`.
+        /// Sets the value of [span_kind][crate::model::Span::span_kind].
         pub fn set_span_kind<T: Into<crate::model::span::SpanKind>>(mut self, v: T) -> Self {
             self.0.request.span_kind = v.into();
             self

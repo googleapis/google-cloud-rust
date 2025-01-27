@@ -183,25 +183,25 @@ pub struct Color {
 }
 
 impl Color {
-    /// Sets the value of `red`.
+    /// Sets the value of [red][crate::model::Color::red].
     pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
         self
     }
 
-    /// Sets the value of `green`.
+    /// Sets the value of [green][crate::model::Color::green].
     pub fn set_green<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.green = v.into();
         self
     }
 
-    /// Sets the value of `blue`.
+    /// Sets the value of [blue][crate::model::Color::blue].
     pub fn set_blue<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.blue = v.into();
         self
     }
 
-    /// Sets the value of `alpha`.
+    /// Sets the value of [alpha][crate::model::Color::alpha].
     pub fn set_alpha<T: std::convert::Into<std::option::Option<wkt::FloatValue>>>(
         mut self,
         v: T,
@@ -252,19 +252,19 @@ pub struct Date {
 }
 
 impl Date {
-    /// Sets the value of `year`.
+    /// Sets the value of [year][crate::model::Date::year].
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
-    /// Sets the value of `month`.
+    /// Sets the value of [month][crate::model::Date::month].
     pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
-    /// Sets the value of `day`.
+    /// Sets the value of [day][crate::model::Date::day].
     pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
@@ -343,43 +343,43 @@ pub struct DateTime {
 }
 
 impl DateTime {
-    /// Sets the value of `year`.
+    /// Sets the value of [year][crate::model::DateTime::year].
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
         self
     }
 
-    /// Sets the value of `month`.
+    /// Sets the value of [month][crate::model::DateTime::month].
     pub fn set_month<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.month = v.into();
         self
     }
 
-    /// Sets the value of `day`.
+    /// Sets the value of [day][crate::model::DateTime::day].
     pub fn set_day<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
 
-    /// Sets the value of `hours`.
+    /// Sets the value of [hours][crate::model::DateTime::hours].
     pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
-    /// Sets the value of `minutes`.
+    /// Sets the value of [minutes][crate::model::DateTime::minutes].
     pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
-    /// Sets the value of `seconds`.
+    /// Sets the value of [seconds][crate::model::DateTime::seconds].
     pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
-    /// Sets the value of `nanos`.
+    /// Sets the value of [nanos][crate::model::DateTime::nanos].
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
@@ -443,13 +443,13 @@ pub struct TimeZone {
 }
 
 impl TimeZone {
-    /// Sets the value of `id`.
+    /// Sets the value of [id][crate::model::TimeZone::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::TimeZone::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -542,7 +542,7 @@ pub struct Decimal {
 }
 
 impl Decimal {
-    /// Sets the value of `value`.
+    /// Sets the value of [value][crate::model::Decimal::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -622,25 +622,25 @@ pub struct Expr {
 }
 
 impl Expr {
-    /// Sets the value of `expression`.
+    /// Sets the value of [expression][crate::model::Expr::expression].
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
         self
     }
 
-    /// Sets the value of `title`.
+    /// Sets the value of [title][crate::model::Expr::title].
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Expr::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `location`.
+    /// Sets the value of [location][crate::model::Expr::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -670,13 +670,13 @@ pub struct Fraction {
 }
 
 impl Fraction {
-    /// Sets the value of `numerator`.
+    /// Sets the value of [numerator][crate::model::Fraction::numerator].
     pub fn set_numerator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.numerator = v.into();
         self
     }
 
-    /// Sets the value of `denominator`.
+    /// Sets the value of [denominator][crate::model::Fraction::denominator].
     pub fn set_denominator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.denominator = v.into();
         self
@@ -716,7 +716,7 @@ pub struct Interval {
 }
 
 impl Interval {
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::Interval::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -725,7 +725,7 @@ impl Interval {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::Interval::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -759,13 +759,13 @@ pub struct LatLng {
 }
 
 impl LatLng {
-    /// Sets the value of `latitude`.
+    /// Sets the value of [latitude][crate::model::LatLng::latitude].
     pub fn set_latitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.latitude = v.into();
         self
     }
 
-    /// Sets the value of `longitude`.
+    /// Sets the value of [longitude][crate::model::LatLng::longitude].
     pub fn set_longitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.longitude = v.into();
         self
@@ -797,13 +797,13 @@ pub struct LocalizedText {
 }
 
 impl LocalizedText {
-    /// Sets the value of `text`.
+    /// Sets the value of [text][crate::model::LocalizedText::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::LocalizedText::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
@@ -841,19 +841,19 @@ pub struct Money {
 }
 
 impl Money {
-    /// Sets the value of `currency_code`.
+    /// Sets the value of [currency_code][crate::model::Money::currency_code].
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
         self
     }
 
-    /// Sets the value of `units`.
+    /// Sets the value of [units][crate::model::Money::units].
     pub fn set_units<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.units = v.into();
         self
     }
 
-    /// Sets the value of `nanos`.
+    /// Sets the value of [nanos][crate::model::Money::nanos].
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self
@@ -920,7 +920,7 @@ pub struct PhoneNumber {
 }
 
 impl PhoneNumber {
-    /// Sets the value of `extension`.
+    /// Sets the value of [extension][crate::model::PhoneNumber::extension].
     pub fn set_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extension = v.into();
         self
@@ -979,13 +979,13 @@ pub mod phone_number {
     }
 
     impl ShortCode {
-        /// Sets the value of `region_code`.
+        /// Sets the value of [region_code][crate::model::phone_number::ShortCode::region_code].
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
             self
         }
 
-        /// Sets the value of `number`.
+        /// Sets the value of [number][crate::model::phone_number::ShortCode::number].
         pub fn set_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.number = v.into();
             self
@@ -1158,37 +1158,37 @@ pub struct PostalAddress {
 }
 
 impl PostalAddress {
-    /// Sets the value of `revision`.
+    /// Sets the value of [revision][crate::model::PostalAddress::revision].
     pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
-    /// Sets the value of `region_code`.
+    /// Sets the value of [region_code][crate::model::PostalAddress::region_code].
     pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.region_code = v.into();
         self
     }
 
-    /// Sets the value of `language_code`.
+    /// Sets the value of [language_code][crate::model::PostalAddress::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
         self
     }
 
-    /// Sets the value of `postal_code`.
+    /// Sets the value of [postal_code][crate::model::PostalAddress::postal_code].
     pub fn set_postal_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.postal_code = v.into();
         self
     }
 
-    /// Sets the value of `sorting_code`.
+    /// Sets the value of [sorting_code][crate::model::PostalAddress::sorting_code].
     pub fn set_sorting_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sorting_code = v.into();
         self
     }
 
-    /// Sets the value of `administrative_area`.
+    /// Sets the value of [administrative_area][crate::model::PostalAddress::administrative_area].
     pub fn set_administrative_area<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1197,39 +1197,43 @@ impl PostalAddress {
         self
     }
 
-    /// Sets the value of `locality`.
+    /// Sets the value of [locality][crate::model::PostalAddress::locality].
     pub fn set_locality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locality = v.into();
         self
     }
 
-    /// Sets the value of `sublocality`.
+    /// Sets the value of [sublocality][crate::model::PostalAddress::sublocality].
     pub fn set_sublocality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sublocality = v.into();
         self
     }
 
-    /// Sets the value of `address_lines`.
-    pub fn set_address_lines<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.address_lines = v.into();
-        self
-    }
-
-    /// Sets the value of `recipients`.
-    pub fn set_recipients<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recipients = v.into();
-        self
-    }
-
-    /// Sets the value of `organization`.
+    /// Sets the value of [organization][crate::model::PostalAddress::organization].
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
+        self
+    }
+
+    /// Sets the value of [address_lines][crate::model::PostalAddress::address_lines].
+    pub fn set_address_lines<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.address_lines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [recipients][crate::model::PostalAddress::recipients].
+    pub fn set_recipients<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.recipients = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1318,25 +1322,25 @@ pub struct Quaternion {
 }
 
 impl Quaternion {
-    /// Sets the value of `x`.
+    /// Sets the value of [x][crate::model::Quaternion::x].
     pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
         self
     }
 
-    /// Sets the value of `y`.
+    /// Sets the value of [y][crate::model::Quaternion::y].
     pub fn set_y<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.y = v.into();
         self
     }
 
-    /// Sets the value of `z`.
+    /// Sets the value of [z][crate::model::Quaternion::z].
     pub fn set_z<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.z = v.into();
         self
     }
 
-    /// Sets the value of `w`.
+    /// Sets the value of [w][crate::model::Quaternion::w].
     pub fn set_w<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.w = v.into();
         self
@@ -1376,25 +1380,25 @@ pub struct TimeOfDay {
 }
 
 impl TimeOfDay {
-    /// Sets the value of `hours`.
+    /// Sets the value of [hours][crate::model::TimeOfDay::hours].
     pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();
         self
     }
 
-    /// Sets the value of `minutes`.
+    /// Sets the value of [minutes][crate::model::TimeOfDay::minutes].
     pub fn set_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.minutes = v.into();
         self
     }
 
-    /// Sets the value of `seconds`.
+    /// Sets the value of [seconds][crate::model::TimeOfDay::seconds].
     pub fn set_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.seconds = v.into();
         self
     }
 
-    /// Sets the value of `nanos`.
+    /// Sets the value of [nanos][crate::model::TimeOfDay::nanos].
     pub fn set_nanos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.nanos = v.into();
         self

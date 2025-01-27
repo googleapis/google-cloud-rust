@@ -60,21 +60,25 @@ pub struct Authentication {
 }
 
 impl Authentication {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::AuthenticationRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
+    /// Sets the value of [rules][crate::model::Authentication::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthenticationRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `providers`.
-    pub fn set_providers<T: std::convert::Into<std::vec::Vec<crate::model::AuthProvider>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.providers = v.into();
+    /// Sets the value of [providers][crate::model::Authentication::providers].
+    pub fn set_providers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthProvider>,
+    {
+        use std::iter::Iterator;
+        self.providers = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -122,13 +126,13 @@ pub struct AuthenticationRule {
 }
 
 impl AuthenticationRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::AuthenticationRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `oauth`.
+    /// Sets the value of [oauth][crate::model::AuthenticationRule::oauth].
     pub fn set_oauth<
         T: std::convert::Into<std::option::Option<crate::model::OAuthRequirements>>,
     >(
@@ -139,18 +143,20 @@ impl AuthenticationRule {
         self
     }
 
-    /// Sets the value of `allow_without_credential`.
+    /// Sets the value of [allow_without_credential][crate::model::AuthenticationRule::allow_without_credential].
     pub fn set_allow_without_credential<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_without_credential = v.into();
         self
     }
 
-    /// Sets the value of `requirements`.
-    pub fn set_requirements<T: std::convert::Into<std::vec::Vec<crate::model::AuthRequirement>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requirements = v.into();
+    /// Sets the value of [requirements][crate::model::AuthenticationRule::requirements].
+    pub fn set_requirements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthRequirement>,
+    {
+        use std::iter::Iterator;
+        self.requirements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -183,7 +189,7 @@ pub struct JwtLocation {
 }
 
 impl JwtLocation {
-    /// Sets the value of `value_prefix`.
+    /// Sets the value of [value_prefix][crate::model::JwtLocation::value_prefix].
     pub fn set_value_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_prefix = v.into();
         self
@@ -317,31 +323,31 @@ pub struct AuthProvider {
 }
 
 impl AuthProvider {
-    /// Sets the value of `id`.
+    /// Sets the value of [id][crate::model::AuthProvider::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
-    /// Sets the value of `issuer`.
+    /// Sets the value of [issuer][crate::model::AuthProvider::issuer].
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
-    /// Sets the value of `jwks_uri`.
+    /// Sets the value of [jwks_uri][crate::model::AuthProvider::jwks_uri].
     pub fn set_jwks_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.jwks_uri = v.into();
         self
     }
 
-    /// Sets the value of `audiences`.
+    /// Sets the value of [audiences][crate::model::AuthProvider::audiences].
     pub fn set_audiences<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audiences = v.into();
         self
     }
 
-    /// Sets the value of `authorization_url`.
+    /// Sets the value of [authorization_url][crate::model::AuthProvider::authorization_url].
     pub fn set_authorization_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -350,12 +356,14 @@ impl AuthProvider {
         self
     }
 
-    /// Sets the value of `jwt_locations`.
-    pub fn set_jwt_locations<T: std::convert::Into<std::vec::Vec<crate::model::JwtLocation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.jwt_locations = v.into();
+    /// Sets the value of [jwt_locations][crate::model::AuthProvider::jwt_locations].
+    pub fn set_jwt_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::JwtLocation>,
+    {
+        use std::iter::Iterator;
+        self.jwt_locations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -403,7 +411,7 @@ pub struct OAuthRequirements {
 }
 
 impl OAuthRequirements {
-    /// Sets the value of `canonical_scopes`.
+    /// Sets the value of [canonical_scopes][crate::model::OAuthRequirements::canonical_scopes].
     pub fn set_canonical_scopes<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -465,13 +473,13 @@ pub struct AuthRequirement {
 }
 
 impl AuthRequirement {
-    /// Sets the value of `provider_id`.
+    /// Sets the value of [provider_id][crate::model::AuthRequirement::provider_id].
     pub fn set_provider_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.provider_id = v.into();
         self
     }
 
-    /// Sets the value of `audiences`.
+    /// Sets the value of [audiences][crate::model::AuthRequirement::audiences].
     pub fn set_audiences<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audiences = v.into();
         self
@@ -498,12 +506,14 @@ pub struct Backend {
 }
 
 impl Backend {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::BackendRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
+    /// Sets the value of [rules][crate::model::Backend::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackendRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -618,37 +628,37 @@ pub struct BackendRule {
 }
 
 impl BackendRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::BackendRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `address`.
+    /// Sets the value of [address][crate::model::BackendRule::address].
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
-    /// Sets the value of `deadline`.
+    /// Sets the value of [deadline][crate::model::BackendRule::deadline].
     pub fn set_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.deadline = v.into();
         self
     }
 
-    /// Sets the value of `min_deadline`.
+    /// Sets the value of [min_deadline][crate::model::BackendRule::min_deadline].
     pub fn set_min_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min_deadline = v.into();
         self
     }
 
-    /// Sets the value of `operation_deadline`.
+    /// Sets the value of [operation_deadline][crate::model::BackendRule::operation_deadline].
     pub fn set_operation_deadline<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.operation_deadline = v.into();
         self
     }
 
-    /// Sets the value of `path_translation`.
+    /// Sets the value of [path_translation][crate::model::BackendRule::path_translation].
     pub fn set_path_translation<
         T: std::convert::Into<crate::model::backend_rule::PathTranslation>,
     >(
@@ -659,22 +669,22 @@ impl BackendRule {
         self
     }
 
-    /// Sets the value of `protocol`.
+    /// Sets the value of [protocol][crate::model::BackendRule::protocol].
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self
     }
 
-    /// Sets the value of `overrides_by_request_protocol`.
-    pub fn set_overrides_by_request_protocol<
-        T: std::convert::Into<
-            std::collections::HashMap<std::string::String, crate::model::BackendRule>,
-        >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.overrides_by_request_protocol = v.into();
+    /// Sets the value of [overrides_by_request_protocol][crate::model::BackendRule::overrides_by_request_protocol].
+    pub fn set_overrides_by_request_protocol<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::BackendRule>,
+    {
+        use std::iter::Iterator;
+        self.overrides_by_request_protocol =
+            v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -861,14 +871,14 @@ pub struct Billing {
 }
 
 impl Billing {
-    /// Sets the value of `consumer_destinations`.
-    pub fn set_consumer_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::billing::BillingDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consumer_destinations = v.into();
+    /// Sets the value of [consumer_destinations][crate::model::Billing::consumer_destinations].
+    pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::billing::BillingDestination>,
+    {
+        use std::iter::Iterator;
+        self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -909,7 +919,7 @@ pub mod billing {
     }
 
     impl BillingDestination {
-        /// Sets the value of `monitored_resource`.
+        /// Sets the value of [monitored_resource][crate::model::billing::BillingDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -918,12 +928,14 @@ pub mod billing {
             self
         }
 
-        /// Sets the value of `metrics`.
-        pub fn set_metrics<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = v.into();
+        /// Sets the value of [metrics][crate::model::billing::BillingDestination::metrics].
+        pub fn set_metrics<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.metrics = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -956,7 +968,7 @@ pub struct CommonLanguageSettings {
 }
 
 impl CommonLanguageSettings {
-    /// Sets the value of `reference_docs_uri`.
+    /// Sets the value of [reference_docs_uri][crate::model::CommonLanguageSettings::reference_docs_uri].
     pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -965,18 +977,7 @@ impl CommonLanguageSettings {
         self
     }
 
-    /// Sets the value of `destinations`.
-    pub fn set_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::ClientLibraryDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.destinations = v.into();
-        self
-    }
-
-    /// Sets the value of `selective_gapic_generation`.
+    /// Sets the value of [selective_gapic_generation][crate::model::CommonLanguageSettings::selective_gapic_generation].
     pub fn set_selective_gapic_generation<
         T: std::convert::Into<std::option::Option<crate::model::SelectiveGapicGeneration>>,
     >(
@@ -984,6 +985,17 @@ impl CommonLanguageSettings {
         v: T,
     ) -> Self {
         self.selective_gapic_generation = v.into();
+        self
+    }
+
+    /// Sets the value of [destinations][crate::model::CommonLanguageSettings::destinations].
+    pub fn set_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClientLibraryDestination>,
+    {
+        use std::iter::Iterator;
+        self.destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1047,13 +1059,13 @@ pub struct ClientLibrarySettings {
 }
 
 impl ClientLibrarySettings {
-    /// Sets the value of `version`.
+    /// Sets the value of [version][crate::model::ClientLibrarySettings::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
-    /// Sets the value of `launch_stage`.
+    /// Sets the value of [launch_stage][crate::model::ClientLibrarySettings::launch_stage].
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -1062,13 +1074,13 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `rest_numeric_enums`.
+    /// Sets the value of [rest_numeric_enums][crate::model::ClientLibrarySettings::rest_numeric_enums].
     pub fn set_rest_numeric_enums<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rest_numeric_enums = v.into();
         self
     }
 
-    /// Sets the value of `java_settings`.
+    /// Sets the value of [java_settings][crate::model::ClientLibrarySettings::java_settings].
     pub fn set_java_settings<
         T: std::convert::Into<std::option::Option<crate::model::JavaSettings>>,
     >(
@@ -1079,7 +1091,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `cpp_settings`.
+    /// Sets the value of [cpp_settings][crate::model::ClientLibrarySettings::cpp_settings].
     pub fn set_cpp_settings<
         T: std::convert::Into<std::option::Option<crate::model::CppSettings>>,
     >(
@@ -1090,7 +1102,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `php_settings`.
+    /// Sets the value of [php_settings][crate::model::ClientLibrarySettings::php_settings].
     pub fn set_php_settings<
         T: std::convert::Into<std::option::Option<crate::model::PhpSettings>>,
     >(
@@ -1101,7 +1113,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `python_settings`.
+    /// Sets the value of [python_settings][crate::model::ClientLibrarySettings::python_settings].
     pub fn set_python_settings<
         T: std::convert::Into<std::option::Option<crate::model::PythonSettings>>,
     >(
@@ -1112,7 +1124,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `node_settings`.
+    /// Sets the value of [node_settings][crate::model::ClientLibrarySettings::node_settings].
     pub fn set_node_settings<
         T: std::convert::Into<std::option::Option<crate::model::NodeSettings>>,
     >(
@@ -1123,7 +1135,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `dotnet_settings`.
+    /// Sets the value of [dotnet_settings][crate::model::ClientLibrarySettings::dotnet_settings].
     pub fn set_dotnet_settings<
         T: std::convert::Into<std::option::Option<crate::model::DotnetSettings>>,
     >(
@@ -1134,7 +1146,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `ruby_settings`.
+    /// Sets the value of [ruby_settings][crate::model::ClientLibrarySettings::ruby_settings].
     pub fn set_ruby_settings<
         T: std::convert::Into<std::option::Option<crate::model::RubySettings>>,
     >(
@@ -1145,7 +1157,7 @@ impl ClientLibrarySettings {
         self
     }
 
-    /// Sets the value of `go_settings`.
+    /// Sets the value of [go_settings][crate::model::ClientLibrarySettings::go_settings].
     pub fn set_go_settings<T: std::convert::Into<std::option::Option<crate::model::GoSettings>>>(
         mut self,
         v: T,
@@ -1225,24 +1237,13 @@ pub struct Publishing {
 }
 
 impl Publishing {
-    /// Sets the value of `method_settings`.
-    pub fn set_method_settings<
-        T: std::convert::Into<std::vec::Vec<crate::model::MethodSettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method_settings = v.into();
-        self
-    }
-
-    /// Sets the value of `new_issue_uri`.
+    /// Sets the value of [new_issue_uri][crate::model::Publishing::new_issue_uri].
     pub fn set_new_issue_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_issue_uri = v.into();
         self
     }
 
-    /// Sets the value of `documentation_uri`.
+    /// Sets the value of [documentation_uri][crate::model::Publishing::documentation_uri].
     pub fn set_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1251,34 +1252,25 @@ impl Publishing {
         self
     }
 
-    /// Sets the value of `api_short_name`.
+    /// Sets the value of [api_short_name][crate::model::Publishing::api_short_name].
     pub fn set_api_short_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_short_name = v.into();
         self
     }
 
-    /// Sets the value of `github_label`.
+    /// Sets the value of [github_label][crate::model::Publishing::github_label].
     pub fn set_github_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.github_label = v.into();
         self
     }
 
-    /// Sets the value of `codeowner_github_teams`.
-    pub fn set_codeowner_github_teams<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.codeowner_github_teams = v.into();
-        self
-    }
-
-    /// Sets the value of `doc_tag_prefix`.
+    /// Sets the value of [doc_tag_prefix][crate::model::Publishing::doc_tag_prefix].
     pub fn set_doc_tag_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.doc_tag_prefix = v.into();
         self
     }
 
-    /// Sets the value of `organization`.
+    /// Sets the value of [organization][crate::model::Publishing::organization].
     pub fn set_organization<T: std::convert::Into<crate::model::ClientLibraryOrganization>>(
         mut self,
         v: T,
@@ -1287,18 +1279,7 @@ impl Publishing {
         self
     }
 
-    /// Sets the value of `library_settings`.
-    pub fn set_library_settings<
-        T: std::convert::Into<std::vec::Vec<crate::model::ClientLibrarySettings>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.library_settings = v.into();
-        self
-    }
-
-    /// Sets the value of `proto_reference_documentation_uri`.
+    /// Sets the value of [proto_reference_documentation_uri][crate::model::Publishing::proto_reference_documentation_uri].
     pub fn set_proto_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1307,12 +1288,45 @@ impl Publishing {
         self
     }
 
-    /// Sets the value of `rest_reference_documentation_uri`.
+    /// Sets the value of [rest_reference_documentation_uri][crate::model::Publishing::rest_reference_documentation_uri].
     pub fn set_rest_reference_documentation_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.rest_reference_documentation_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [method_settings][crate::model::Publishing::method_settings].
+    pub fn set_method_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MethodSettings>,
+    {
+        use std::iter::Iterator;
+        self.method_settings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [codeowner_github_teams][crate::model::Publishing::codeowner_github_teams].
+    pub fn set_codeowner_github_teams<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.codeowner_github_teams = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [library_settings][crate::model::Publishing::library_settings].
+    pub fn set_library_settings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ClientLibrarySettings>,
+    {
+        use std::iter::Iterator;
+        self.library_settings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1366,24 +1380,13 @@ pub struct JavaSettings {
 }
 
 impl JavaSettings {
-    /// Sets the value of `library_package`.
+    /// Sets the value of [library_package][crate::model::JavaSettings::library_package].
     pub fn set_library_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.library_package = v.into();
         self
     }
 
-    /// Sets the value of `service_class_names`.
-    pub fn set_service_class_names<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_class_names = v.into();
-        self
-    }
-
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::JavaSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1391,6 +1394,18 @@ impl JavaSettings {
         v: T,
     ) -> Self {
         self.common = v.into();
+        self
+    }
+
+    /// Sets the value of [service_class_names][crate::model::JavaSettings::service_class_names].
+    pub fn set_service_class_names<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.service_class_names = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1413,7 +1428,7 @@ pub struct CppSettings {
 }
 
 impl CppSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::CppSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1443,7 +1458,7 @@ pub struct PhpSettings {
 }
 
 impl PhpSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::PhpSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1478,7 +1493,7 @@ pub struct PythonSettings {
 }
 
 impl PythonSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::PythonSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1489,7 +1504,7 @@ impl PythonSettings {
         self
     }
 
-    /// Sets the value of `experimental_features`.
+    /// Sets the value of [experimental_features][crate::model::PythonSettings::experimental_features].
     pub fn set_experimental_features<
         T: std::convert::Into<
             std::option::Option<crate::model::python_settings::ExperimentalFeatures>,
@@ -1536,13 +1551,13 @@ pub mod python_settings {
     }
 
     impl ExperimentalFeatures {
-        /// Sets the value of `rest_async_io_enabled`.
+        /// Sets the value of [rest_async_io_enabled][crate::model::python_settings::ExperimentalFeatures::rest_async_io_enabled].
         pub fn set_rest_async_io_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.rest_async_io_enabled = v.into();
             self
         }
 
-        /// Sets the value of `protobuf_pythonic_types_enabled`.
+        /// Sets the value of [protobuf_pythonic_types_enabled][crate::model::python_settings::ExperimentalFeatures::protobuf_pythonic_types_enabled].
         pub fn set_protobuf_pythonic_types_enabled<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -1571,7 +1586,7 @@ pub struct NodeSettings {
 }
 
 impl NodeSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::NodeSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1636,7 +1651,7 @@ pub struct DotnetSettings {
 }
 
 impl DotnetSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::DotnetSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1647,54 +1662,60 @@ impl DotnetSettings {
         self
     }
 
-    /// Sets the value of `renamed_services`.
-    pub fn set_renamed_services<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.renamed_services = v.into();
+    /// Sets the value of [ignored_resources][crate::model::DotnetSettings::ignored_resources].
+    pub fn set_ignored_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ignored_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `renamed_resources`.
-    pub fn set_renamed_resources<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.renamed_resources = v.into();
+    /// Sets the value of [forced_namespace_aliases][crate::model::DotnetSettings::forced_namespace_aliases].
+    pub fn set_forced_namespace_aliases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.forced_namespace_aliases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `ignored_resources`.
-    pub fn set_ignored_resources<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ignored_resources = v.into();
+    /// Sets the value of [handwritten_signatures][crate::model::DotnetSettings::handwritten_signatures].
+    pub fn set_handwritten_signatures<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.handwritten_signatures = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `forced_namespace_aliases`.
-    pub fn set_forced_namespace_aliases<
-        T: std::convert::Into<std::vec::Vec<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.forced_namespace_aliases = v.into();
+    /// Sets the value of [renamed_services][crate::model::DotnetSettings::renamed_services].
+    pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.renamed_services = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
-    /// Sets the value of `handwritten_signatures`.
-    pub fn set_handwritten_signatures<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.handwritten_signatures = v.into();
+    /// Sets the value of [renamed_resources][crate::model::DotnetSettings::renamed_resources].
+    pub fn set_renamed_resources<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.renamed_resources = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1717,7 +1738,7 @@ pub struct RubySettings {
 }
 
 impl RubySettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::RubySettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1758,7 +1779,7 @@ pub struct GoSettings {
 }
 
 impl GoSettings {
-    /// Sets the value of `common`.
+    /// Sets the value of [common][crate::model::GoSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
     >(
@@ -1769,14 +1790,15 @@ impl GoSettings {
         self
     }
 
-    /// Sets the value of `renamed_services`.
-    pub fn set_renamed_services<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.renamed_services = v.into();
+    /// Sets the value of [renamed_services][crate::model::GoSettings::renamed_services].
+    pub fn set_renamed_services<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.renamed_services = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -1838,13 +1860,13 @@ pub struct MethodSettings {
 }
 
 impl MethodSettings {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::MethodSettings::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `long_running`.
+    /// Sets the value of [long_running][crate::model::MethodSettings::long_running].
     pub fn set_long_running<
         T: std::convert::Into<std::option::Option<crate::model::method_settings::LongRunning>>,
     >(
@@ -1855,12 +1877,14 @@ impl MethodSettings {
         self
     }
 
-    /// Sets the value of `auto_populated_fields`.
-    pub fn set_auto_populated_fields<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.auto_populated_fields = v.into();
+    /// Sets the value of [auto_populated_fields][crate::model::MethodSettings::auto_populated_fields].
+    pub fn set_auto_populated_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.auto_populated_fields = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1908,7 +1932,7 @@ pub mod method_settings {
     }
 
     impl LongRunning {
-        /// Sets the value of `initial_poll_delay`.
+        /// Sets the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
         pub fn set_initial_poll_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -1917,13 +1941,13 @@ pub mod method_settings {
             self
         }
 
-        /// Sets the value of `poll_delay_multiplier`.
+        /// Sets the value of [poll_delay_multiplier][crate::model::method_settings::LongRunning::poll_delay_multiplier].
         pub fn set_poll_delay_multiplier<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.poll_delay_multiplier = v.into();
             self
         }
 
-        /// Sets the value of `max_poll_delay`.
+        /// Sets the value of [max_poll_delay][crate::model::method_settings::LongRunning::max_poll_delay].
         pub fn set_max_poll_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -1932,7 +1956,7 @@ pub mod method_settings {
             self
         }
 
-        /// Sets the value of `total_poll_timeout`.
+        /// Sets the value of [total_poll_timeout][crate::model::method_settings::LongRunning::total_poll_timeout].
         pub fn set_total_poll_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -1963,12 +1987,14 @@ pub struct SelectiveGapicGeneration {
 }
 
 impl SelectiveGapicGeneration {
-    /// Sets the value of `methods`.
-    pub fn set_methods<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.methods = v.into();
+    /// Sets the value of [methods][crate::model::SelectiveGapicGeneration::methods].
+    pub fn set_methods<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.methods = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2023,25 +2049,25 @@ pub struct ConfigChange {
 }
 
 impl ConfigChange {
-    /// Sets the value of `element`.
+    /// Sets the value of [element][crate::model::ConfigChange::element].
     pub fn set_element<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.element = v.into();
         self
     }
 
-    /// Sets the value of `old_value`.
+    /// Sets the value of [old_value][crate::model::ConfigChange::old_value].
     pub fn set_old_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.old_value = v.into();
         self
     }
 
-    /// Sets the value of `new_value`.
+    /// Sets the value of [new_value][crate::model::ConfigChange::new_value].
     pub fn set_new_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_value = v.into();
         self
     }
 
-    /// Sets the value of `change_type`.
+    /// Sets the value of [change_type][crate::model::ConfigChange::change_type].
     pub fn set_change_type<T: std::convert::Into<crate::model::ChangeType>>(
         mut self,
         v: T,
@@ -2050,12 +2076,14 @@ impl ConfigChange {
         self
     }
 
-    /// Sets the value of `advices`.
-    pub fn set_advices<T: std::convert::Into<std::vec::Vec<crate::model::Advice>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.advices = v.into();
+    /// Sets the value of [advices][crate::model::ConfigChange::advices].
+    pub fn set_advices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Advice>,
+    {
+        use std::iter::Iterator;
+        self.advices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2080,7 +2108,7 @@ pub struct Advice {
 }
 
 impl Advice {
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Advice::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2120,12 +2148,14 @@ pub struct ProjectProperties {
 }
 
 impl ProjectProperties {
-    /// Sets the value of `properties`.
-    pub fn set_properties<T: std::convert::Into<std::vec::Vec<crate::model::Property>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.properties = v.into();
+    /// Sets the value of [properties][crate::model::ProjectProperties::properties].
+    pub fn set_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Property>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2165,13 +2195,13 @@ pub struct Property {
 }
 
 impl Property {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Property::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Property::type].
     pub fn set_type<T: std::convert::Into<crate::model::property::PropertyType>>(
         mut self,
         v: T,
@@ -2180,7 +2210,7 @@ impl Property {
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::Property::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -2288,12 +2318,14 @@ pub struct Context {
 }
 
 impl Context {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::ContextRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
+    /// Sets the value of [rules][crate::model::Context::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ContextRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2342,49 +2374,53 @@ pub struct ContextRule {
 }
 
 impl ContextRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::ContextRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `requested`.
-    pub fn set_requested<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requested = v.into();
+    /// Sets the value of [requested][crate::model::ContextRule::requested].
+    pub fn set_requested<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.requested = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `provided`.
-    pub fn set_provided<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.provided = v.into();
+    /// Sets the value of [provided][crate::model::ContextRule::provided].
+    pub fn set_provided<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.provided = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `allowed_request_extensions`.
-    pub fn set_allowed_request_extensions<
-        T: std::convert::Into<std::vec::Vec<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allowed_request_extensions = v.into();
+    /// Sets the value of [allowed_request_extensions][crate::model::ContextRule::allowed_request_extensions].
+    pub fn set_allowed_request_extensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_request_extensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `allowed_response_extensions`.
-    pub fn set_allowed_response_extensions<
-        T: std::convert::Into<std::vec::Vec<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.allowed_response_extensions = v.into();
+    /// Sets the value of [allowed_response_extensions][crate::model::ContextRule::allowed_response_extensions].
+    pub fn set_allowed_response_extensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_response_extensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2420,18 +2456,20 @@ pub struct Control {
 }
 
 impl Control {
-    /// Sets the value of `environment`.
+    /// Sets the value of [environment][crate::model::Control::environment].
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
-    /// Sets the value of `method_policies`.
-    pub fn set_method_policies<T: std::convert::Into<std::vec::Vec<crate::model::MethodPolicy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.method_policies = v.into();
+    /// Sets the value of [method_policies][crate::model::Control::method_policies].
+    pub fn set_method_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MethodPolicy>,
+    {
+        use std::iter::Iterator;
+        self.method_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2519,25 +2557,25 @@ pub struct Distribution {
 }
 
 impl Distribution {
-    /// Sets the value of `count`.
+    /// Sets the value of [count][crate::model::Distribution::count].
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
     }
 
-    /// Sets the value of `mean`.
+    /// Sets the value of [mean][crate::model::Distribution::mean].
     pub fn set_mean<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.mean = v.into();
         self
     }
 
-    /// Sets the value of `sum_of_squared_deviation`.
+    /// Sets the value of [sum_of_squared_deviation][crate::model::Distribution::sum_of_squared_deviation].
     pub fn set_sum_of_squared_deviation<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.sum_of_squared_deviation = v.into();
         self
     }
 
-    /// Sets the value of `range`.
+    /// Sets the value of [range][crate::model::Distribution::range].
     pub fn set_range<
         T: std::convert::Into<std::option::Option<crate::model::distribution::Range>>,
     >(
@@ -2548,7 +2586,7 @@ impl Distribution {
         self
     }
 
-    /// Sets the value of `bucket_options`.
+    /// Sets the value of [bucket_options][crate::model::Distribution::bucket_options].
     pub fn set_bucket_options<
         T: std::convert::Into<std::option::Option<crate::model::distribution::BucketOptions>>,
     >(
@@ -2559,20 +2597,25 @@ impl Distribution {
         self
     }
 
-    /// Sets the value of `bucket_counts`.
-    pub fn set_bucket_counts<T: std::convert::Into<std::vec::Vec<i64>>>(mut self, v: T) -> Self {
-        self.bucket_counts = v.into();
+    /// Sets the value of [bucket_counts][crate::model::Distribution::bucket_counts].
+    pub fn set_bucket_counts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.bucket_counts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `exemplars`.
-    pub fn set_exemplars<
-        T: std::convert::Into<std::vec::Vec<crate::model::distribution::Exemplar>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.exemplars = v.into();
+    /// Sets the value of [exemplars][crate::model::Distribution::exemplars].
+    pub fn set_exemplars<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::distribution::Exemplar>,
+    {
+        use std::iter::Iterator;
+        self.exemplars = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2602,13 +2645,13 @@ pub mod distribution {
     }
 
     impl Range {
-        /// Sets the value of `min`.
+        /// Sets the value of [min][crate::model::distribution::Range::min].
         pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.min = v.into();
             self
         }
 
-        /// Sets the value of `max`.
+        /// Sets the value of [max][crate::model::distribution::Range::max].
         pub fn set_max<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.max = v.into();
             self
@@ -2698,19 +2741,19 @@ pub mod distribution {
         }
 
         impl Linear {
-            /// Sets the value of `num_finite_buckets`.
+            /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Linear::num_finite_buckets].
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
                 self
             }
 
-            /// Sets the value of `width`.
+            /// Sets the value of [width][crate::model::distribution::bucket_options::Linear::width].
             pub fn set_width<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.width = v.into();
                 self
             }
 
-            /// Sets the value of `offset`.
+            /// Sets the value of [offset][crate::model::distribution::bucket_options::Linear::offset].
             pub fn set_offset<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.offset = v.into();
                 self
@@ -2749,19 +2792,19 @@ pub mod distribution {
         }
 
         impl Exponential {
-            /// Sets the value of `num_finite_buckets`.
+            /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Exponential::num_finite_buckets].
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
                 self
             }
 
-            /// Sets the value of `growth_factor`.
+            /// Sets the value of [growth_factor][crate::model::distribution::bucket_options::Exponential::growth_factor].
             pub fn set_growth_factor<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.growth_factor = v.into();
                 self
             }
 
-            /// Sets the value of `scale`.
+            /// Sets the value of [scale][crate::model::distribution::bucket_options::Exponential::scale].
             pub fn set_scale<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.scale = v.into();
                 self
@@ -2796,9 +2839,14 @@ pub mod distribution {
         }
 
         impl Explicit {
-            /// Sets the value of `bounds`.
-            pub fn set_bounds<T: std::convert::Into<std::vec::Vec<f64>>>(mut self, v: T) -> Self {
-                self.bounds = v.into();
+            /// Sets the value of [bounds][crate::model::distribution::bucket_options::Explicit::bounds].
+            pub fn set_bounds<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<f64>,
+            {
+                use std::iter::Iterator;
+                self.bounds = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -2857,13 +2905,13 @@ pub mod distribution {
     }
 
     impl Exemplar {
-        /// Sets the value of `value`.
+        /// Sets the value of [value][crate::model::distribution::Exemplar::value].
         pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
         }
 
-        /// Sets the value of `timestamp`.
+        /// Sets the value of [timestamp][crate::model::distribution::Exemplar::timestamp].
         pub fn set_timestamp<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -2872,12 +2920,14 @@ pub mod distribution {
             self
         }
 
-        /// Sets the value of `attachments`.
-        pub fn set_attachments<T: std::convert::Into<std::vec::Vec<wkt::Any>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.attachments = v.into();
+        /// Sets the value of [attachments][crate::model::distribution::Exemplar::attachments].
+        pub fn set_attachments<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<wkt::Any>,
+        {
+            use std::iter::Iterator;
+            self.attachments = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -2967,31 +3017,13 @@ pub struct Documentation {
 }
 
 impl Documentation {
-    /// Sets the value of `summary`.
+    /// Sets the value of [summary][crate::model::Documentation::summary].
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
         self
     }
 
-    /// Sets the value of `pages`.
-    pub fn set_pages<T: std::convert::Into<std::vec::Vec<crate::model::Page>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pages = v.into();
-        self
-    }
-
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::DocumentationRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
-        self
-    }
-
-    /// Sets the value of `documentation_root_url`.
+    /// Sets the value of [documentation_root_url][crate::model::Documentation::documentation_root_url].
     pub fn set_documentation_root_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3000,7 +3032,7 @@ impl Documentation {
         self
     }
 
-    /// Sets the value of `service_root_url`.
+    /// Sets the value of [service_root_url][crate::model::Documentation::service_root_url].
     pub fn set_service_root_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3009,9 +3041,31 @@ impl Documentation {
         self
     }
 
-    /// Sets the value of `overview`.
+    /// Sets the value of [overview][crate::model::Documentation::overview].
     pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.overview = v.into();
+        self
+    }
+
+    /// Sets the value of [pages][crate::model::Documentation::pages].
+    pub fn set_pages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Page>,
+    {
+        use std::iter::Iterator;
+        self.pages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::Documentation::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DocumentationRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3051,19 +3105,19 @@ pub struct DocumentationRule {
 }
 
 impl DocumentationRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::DocumentationRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::DocumentationRule::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `deprecation_description`.
+    /// Sets the value of [deprecation_description][crate::model::DocumentationRule::deprecation_description].
     pub fn set_deprecation_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3110,24 +3164,26 @@ pub struct Page {
 }
 
 impl Page {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Page::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `content`.
+    /// Sets the value of [content][crate::model::Page::content].
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
-    /// Sets the value of `subpages`.
-    pub fn set_subpages<T: std::convert::Into<std::vec::Vec<crate::model::Page>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.subpages = v.into();
+    /// Sets the value of [subpages][crate::model::Page::subpages].
+    pub fn set_subpages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Page>,
+    {
+        use std::iter::Iterator;
+        self.subpages = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3194,30 +3250,32 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Endpoint::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `aliases`.
-    pub fn set_aliases<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.aliases = v.into();
-        self
-    }
-
-    /// Sets the value of `target`.
+    /// Sets the value of [target][crate::model::Endpoint::target].
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
-    /// Sets the value of `allow_cors`.
+    /// Sets the value of [allow_cors][crate::model::Endpoint::allow_cors].
     pub fn set_allow_cors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_cors = v.into();
+        self
+    }
+
+    /// Sets the value of [aliases][crate::model::Endpoint::aliases].
+    pub fn set_aliases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.aliases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3248,7 +3306,7 @@ pub struct FieldInfo {
 }
 
 impl FieldInfo {
-    /// Sets the value of `format`.
+    /// Sets the value of [format][crate::model::FieldInfo::format].
     pub fn set_format<T: std::convert::Into<crate::model::field_info::Format>>(
         mut self,
         v: T,
@@ -3257,14 +3315,14 @@ impl FieldInfo {
         self
     }
 
-    /// Sets the value of `referenced_types`.
-    pub fn set_referenced_types<
-        T: std::convert::Into<std::vec::Vec<crate::model::TypeReference>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.referenced_types = v.into();
+    /// Sets the value of [referenced_types][crate::model::FieldInfo::referenced_types].
+    pub fn set_referenced_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TypeReference>,
+    {
+        use std::iter::Iterator;
+        self.referenced_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3353,7 +3411,7 @@ pub struct TypeReference {
 }
 
 impl TypeReference {
-    /// Sets the value of `type_name`.
+    /// Sets the value of [type_name][crate::model::TypeReference::type_name].
     pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_name = v.into();
         self
@@ -3392,21 +3450,23 @@ pub struct Http {
 }
 
 impl Http {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::HttpRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
-        self
-    }
-
-    /// Sets the value of `fully_decode_reserved_expansion`.
+    /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
     pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
         mut self,
         v: T,
     ) -> Self {
         self.fully_decode_reserved_expansion = v.into();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::Http::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HttpRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3745,30 +3805,32 @@ pub struct HttpRule {
 }
 
 impl HttpRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::HttpRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `body`.
+    /// Sets the value of [body][crate::model::HttpRule::body].
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
-    /// Sets the value of `response_body`.
+    /// Sets the value of [response_body][crate::model::HttpRule::response_body].
     pub fn set_response_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_body = v.into();
         self
     }
 
-    /// Sets the value of `additional_bindings`.
-    pub fn set_additional_bindings<T: std::convert::Into<std::vec::Vec<crate::model::HttpRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.additional_bindings = v.into();
+    /// Sets the value of [additional_bindings][crate::model::HttpRule::additional_bindings].
+    pub fn set_additional_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HttpRule>,
+    {
+        use std::iter::Iterator;
+        self.additional_bindings = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -3837,13 +3899,13 @@ pub struct CustomHttpPattern {
 }
 
 impl CustomHttpPattern {
-    /// Sets the value of `kind`.
+    /// Sets the value of [kind][crate::model::CustomHttpPattern::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
-    /// Sets the value of `path`.
+    /// Sets the value of [path][crate::model::CustomHttpPattern::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
@@ -3923,21 +3985,26 @@ pub struct HttpBody {
 }
 
 impl HttpBody {
-    /// Sets the value of `content_type`.
+    /// Sets the value of [content_type][crate::model::HttpBody::content_type].
     pub fn set_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_type = v.into();
         self
     }
 
-    /// Sets the value of `data`.
+    /// Sets the value of [data][crate::model::HttpBody::data].
     pub fn set_data<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
-    /// Sets the value of `extensions`.
-    pub fn set_extensions<T: std::convert::Into<std::vec::Vec<wkt::Any>>>(mut self, v: T) -> Self {
-        self.extensions = v.into();
+    /// Sets the value of [extensions][crate::model::HttpBody::extensions].
+    pub fn set_extensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.extensions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3967,13 +4034,13 @@ pub struct LabelDescriptor {
 }
 
 impl LabelDescriptor {
-    /// Sets the value of `key`.
+    /// Sets the value of [key][crate::model::LabelDescriptor::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
     }
 
-    /// Sets the value of `value_type`.
+    /// Sets the value of [value_type][crate::model::LabelDescriptor::value_type].
     pub fn set_value_type<T: std::convert::Into<crate::model::label_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -3982,7 +4049,7 @@ impl LabelDescriptor {
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::LabelDescriptor::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -4071,30 +4138,32 @@ pub struct LogDescriptor {
 }
 
 impl LogDescriptor {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::LogDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<T: std::convert::Into<std::vec::Vec<crate::model::LabelDescriptor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::LogDescriptor::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::LogDescriptor::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::LogDescriptor::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4157,25 +4226,25 @@ pub struct Logging {
 }
 
 impl Logging {
-    /// Sets the value of `producer_destinations`.
-    pub fn set_producer_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::logging::LoggingDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.producer_destinations = v.into();
+    /// Sets the value of [producer_destinations][crate::model::Logging::producer_destinations].
+    pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::logging::LoggingDestination>,
+    {
+        use std::iter::Iterator;
+        self.producer_destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `consumer_destinations`.
-    pub fn set_consumer_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::logging::LoggingDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consumer_destinations = v.into();
+    /// Sets the value of [consumer_destinations][crate::model::Logging::consumer_destinations].
+    pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::logging::LoggingDestination>,
+    {
+        use std::iter::Iterator;
+        self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4217,7 +4286,7 @@ pub mod logging {
     }
 
     impl LoggingDestination {
-        /// Sets the value of `monitored_resource`.
+        /// Sets the value of [monitored_resource][crate::model::logging::LoggingDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4226,12 +4295,14 @@ pub mod logging {
             self
         }
 
-        /// Sets the value of `logs`.
-        pub fn set_logs<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.logs = v.into();
+        /// Sets the value of [logs][crate::model::logging::LoggingDestination::logs].
+        pub fn set_logs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.logs = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4443,28 +4514,19 @@ pub struct MetricDescriptor {
 }
 
 impl MetricDescriptor {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MetricDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::MetricDescriptor::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<T: std::convert::Into<std::vec::Vec<crate::model::LabelDescriptor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `metric_kind`.
+    /// Sets the value of [metric_kind][crate::model::MetricDescriptor::metric_kind].
     pub fn set_metric_kind<T: std::convert::Into<crate::model::metric_descriptor::MetricKind>>(
         mut self,
         v: T,
@@ -4473,7 +4535,7 @@ impl MetricDescriptor {
         self
     }
 
-    /// Sets the value of `value_type`.
+    /// Sets the value of [value_type][crate::model::MetricDescriptor::value_type].
     pub fn set_value_type<T: std::convert::Into<crate::model::metric_descriptor::ValueType>>(
         mut self,
         v: T,
@@ -4482,25 +4544,25 @@ impl MetricDescriptor {
         self
     }
 
-    /// Sets the value of `unit`.
+    /// Sets the value of [unit][crate::model::MetricDescriptor::unit].
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::MetricDescriptor::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::MetricDescriptor::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `metadata`.
+    /// Sets the value of [metadata][crate::model::MetricDescriptor::metadata].
     pub fn set_metadata<
         T: std::convert::Into<
             std::option::Option<crate::model::metric_descriptor::MetricDescriptorMetadata>,
@@ -4513,7 +4575,7 @@ impl MetricDescriptor {
         self
     }
 
-    /// Sets the value of `launch_stage`.
+    /// Sets the value of [launch_stage][crate::model::MetricDescriptor::launch_stage].
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
@@ -4522,14 +4584,25 @@ impl MetricDescriptor {
         self
     }
 
-    /// Sets the value of `monitored_resource_types`.
-    pub fn set_monitored_resource_types<
-        T: std::convert::Into<std::vec::Vec<std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitored_resource_types = v.into();
+    /// Sets the value of [labels][crate::model::MetricDescriptor::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [monitored_resource_types][crate::model::MetricDescriptor::monitored_resource_types].
+    pub fn set_monitored_resource_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.monitored_resource_types = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4578,7 +4651,7 @@ pub mod metric_descriptor {
     }
 
     impl MetricDescriptorMetadata {
-        /// Sets the value of `launch_stage`.
+        /// Sets the value of [launch_stage][crate::model::metric_descriptor::MetricDescriptorMetadata::launch_stage].
         pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
             mut self,
             v: T,
@@ -4587,7 +4660,7 @@ pub mod metric_descriptor {
             self
         }
 
-        /// Sets the value of `sample_period`.
+        /// Sets the value of [sample_period][crate::model::metric_descriptor::MetricDescriptorMetadata::sample_period].
         pub fn set_sample_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -4596,7 +4669,7 @@ pub mod metric_descriptor {
             self
         }
 
-        /// Sets the value of `ingest_delay`.
+        /// Sets the value of [ingest_delay][crate::model::metric_descriptor::MetricDescriptorMetadata::ingest_delay].
         pub fn set_ingest_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
             v: T,
@@ -4605,9 +4678,14 @@ pub mod metric_descriptor {
             self
         }
 
-        /// Sets the value of `time_series_resource_hierarchy_level`.
-        pub fn set_time_series_resource_hierarchy_level<T: std::convert::Into<std::vec::Vec<crate::model::metric_descriptor::metric_descriptor_metadata::TimeSeriesResourceHierarchyLevel>>>(mut self, v: T) -> Self{
-            self.time_series_resource_hierarchy_level = v.into();
+        /// Sets the value of [time_series_resource_hierarchy_level][crate::model::metric_descriptor::MetricDescriptorMetadata::time_series_resource_hierarchy_level].
+        pub fn set_time_series_resource_hierarchy_level<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::metric_descriptor::metric_descriptor_metadata::TimeSeriesResourceHierarchyLevel>
+        {
+            use std::iter::Iterator;
+            self.time_series_resource_hierarchy_level = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -4769,20 +4847,21 @@ pub struct Metric {
 }
 
 impl Metric {
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::Metric::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [labels][crate::model::Metric::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -4852,45 +4931,47 @@ pub struct MonitoredResourceDescriptor {
 }
 
 impl MonitoredResourceDescriptor {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::MonitoredResourceDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::MonitoredResourceDescriptor::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
+    /// Sets the value of [display_name][crate::model::MonitoredResourceDescriptor::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::MonitoredResourceDescriptor::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<T: std::convert::Into<std::vec::Vec<crate::model::LabelDescriptor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
-        self
-    }
-
-    /// Sets the value of `launch_stage`.
+    /// Sets the value of [launch_stage][crate::model::MonitoredResourceDescriptor::launch_stage].
     pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
         mut self,
         v: T,
     ) -> Self {
         self.launch_stage = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::MonitoredResourceDescriptor::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LabelDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4947,20 +5028,21 @@ pub struct MonitoredResource {
 }
 
 impl MonitoredResource {
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::MonitoredResource::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `labels`.
-    pub fn set_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.labels = v.into();
+    /// Sets the value of [labels][crate::model::MonitoredResource::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5005,7 +5087,7 @@ pub struct MonitoredResourceMetadata {
 }
 
 impl MonitoredResourceMetadata {
-    /// Sets the value of `system_labels`.
+    /// Sets the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
     pub fn set_system_labels<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
         v: T,
@@ -5014,14 +5096,15 @@ impl MonitoredResourceMetadata {
         self
     }
 
-    /// Sets the value of `user_labels`.
-    pub fn set_user_labels<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, std::string::String>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.user_labels = v.into();
+    /// Sets the value of [user_labels][crate::model::MonitoredResourceMetadata::user_labels].
+    pub fn set_user_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5111,25 +5194,25 @@ pub struct Monitoring {
 }
 
 impl Monitoring {
-    /// Sets the value of `producer_destinations`.
-    pub fn set_producer_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::monitoring::MonitoringDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.producer_destinations = v.into();
+    /// Sets the value of [producer_destinations][crate::model::Monitoring::producer_destinations].
+    pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>,
+    {
+        use std::iter::Iterator;
+        self.producer_destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `consumer_destinations`.
-    pub fn set_consumer_destinations<
-        T: std::convert::Into<std::vec::Vec<crate::model::monitoring::MonitoringDestination>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.consumer_destinations = v.into();
+    /// Sets the value of [consumer_destinations][crate::model::Monitoring::consumer_destinations].
+    pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::monitoring::MonitoringDestination>,
+    {
+        use std::iter::Iterator;
+        self.consumer_destinations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5170,7 +5253,7 @@ pub mod monitoring {
     }
 
     impl MonitoringDestination {
-        /// Sets the value of `monitored_resource`.
+        /// Sets the value of [monitored_resource][crate::model::monitoring::MonitoringDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5179,12 +5262,14 @@ pub mod monitoring {
             self
         }
 
-        /// Sets the value of `metrics`.
-        pub fn set_metrics<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.metrics = v.into();
+        /// Sets the value of [metrics][crate::model::monitoring::MonitoringDestination::metrics].
+        pub fn set_metrics<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.metrics = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }
@@ -5235,13 +5320,13 @@ pub struct FieldPolicy {
 }
 
 impl FieldPolicy {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::FieldPolicy::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `resource_permission`.
+    /// Sets the value of [resource_permission][crate::model::FieldPolicy::resource_permission].
     pub fn set_resource_permission<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5250,7 +5335,7 @@ impl FieldPolicy {
         self
     }
 
-    /// Sets the value of `resource_type`.
+    /// Sets the value of [resource_type][crate::model::FieldPolicy::resource_type].
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
@@ -5288,18 +5373,20 @@ pub struct MethodPolicy {
 }
 
 impl MethodPolicy {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::MethodPolicy::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `request_policies`.
-    pub fn set_request_policies<T: std::convert::Into<std::vec::Vec<crate::model::FieldPolicy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.request_policies = v.into();
+    /// Sets the value of [request_policies][crate::model::MethodPolicy::request_policies].
+    pub fn set_request_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FieldPolicy>,
+    {
+        use std::iter::Iterator;
+        self.request_policies = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5380,21 +5467,25 @@ pub struct Quota {
 }
 
 impl Quota {
-    /// Sets the value of `limits`.
-    pub fn set_limits<T: std::convert::Into<std::vec::Vec<crate::model::QuotaLimit>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.limits = v.into();
+    /// Sets the value of [limits][crate::model::Quota::limits].
+    pub fn set_limits<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QuotaLimit>,
+    {
+        use std::iter::Iterator;
+        self.limits = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `metric_rules`.
-    pub fn set_metric_rules<T: std::convert::Into<std::vec::Vec<crate::model::MetricRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metric_rules = v.into();
+    /// Sets the value of [metric_rules][crate::model::Quota::metric_rules].
+    pub fn set_metric_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MetricRule>,
+    {
+        use std::iter::Iterator;
+        self.metric_rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5433,20 +5524,21 @@ pub struct MetricRule {
 }
 
 impl MetricRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::MetricRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `metric_costs`.
-    pub fn set_metric_costs<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, i64>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metric_costs = v.into();
+    /// Sets the value of [metric_costs][crate::model::MetricRule::metric_costs].
+    pub fn set_metric_costs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.metric_costs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5559,68 +5651,69 @@ pub struct QuotaLimit {
 }
 
 impl QuotaLimit {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::QuotaLimit::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `description`.
+    /// Sets the value of [description][crate::model::QuotaLimit::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
-    /// Sets the value of `default_limit`.
+    /// Sets the value of [default_limit][crate::model::QuotaLimit::default_limit].
     pub fn set_default_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.default_limit = v.into();
         self
     }
 
-    /// Sets the value of `max_limit`.
+    /// Sets the value of [max_limit][crate::model::QuotaLimit::max_limit].
     pub fn set_max_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_limit = v.into();
         self
     }
 
-    /// Sets the value of `free_tier`.
+    /// Sets the value of [free_tier][crate::model::QuotaLimit::free_tier].
     pub fn set_free_tier<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.free_tier = v.into();
         self
     }
 
-    /// Sets the value of `duration`.
+    /// Sets the value of [duration][crate::model::QuotaLimit::duration].
     pub fn set_duration<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.duration = v.into();
         self
     }
 
-    /// Sets the value of `metric`.
+    /// Sets the value of [metric][crate::model::QuotaLimit::metric].
     pub fn set_metric<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metric = v.into();
         self
     }
 
-    /// Sets the value of `unit`.
+    /// Sets the value of [unit][crate::model::QuotaLimit::unit].
     pub fn set_unit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit = v.into();
         self
     }
 
-    /// Sets the value of `values`.
-    pub fn set_values<
-        T: std::convert::Into<std::collections::HashMap<std::string::String, i64>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.values = v.into();
+    /// Sets the value of [display_name][crate::model::QuotaLimit::display_name].
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
         self
     }
 
-    /// Sets the value of `display_name`.
-    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.display_name = v.into();
+    /// Sets the value of [values][crate::model::QuotaLimit::values].
+    pub fn set_values<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<i64>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }
@@ -5785,28 +5878,19 @@ pub struct ResourceDescriptor {
 }
 
 impl ResourceDescriptor {
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ResourceDescriptor::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `pattern`.
-    pub fn set_pattern<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pattern = v.into();
-        self
-    }
-
-    /// Sets the value of `name_field`.
+    /// Sets the value of [name_field][crate::model::ResourceDescriptor::name_field].
     pub fn set_name_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name_field = v.into();
         self
     }
 
-    /// Sets the value of `history`.
+    /// Sets the value of [history][crate::model::ResourceDescriptor::history].
     pub fn set_history<T: std::convert::Into<crate::model::resource_descriptor::History>>(
         mut self,
         v: T,
@@ -5815,26 +5899,37 @@ impl ResourceDescriptor {
         self
     }
 
-    /// Sets the value of `plural`.
+    /// Sets the value of [plural][crate::model::ResourceDescriptor::plural].
     pub fn set_plural<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.plural = v.into();
         self
     }
 
-    /// Sets the value of `singular`.
+    /// Sets the value of [singular][crate::model::ResourceDescriptor::singular].
     pub fn set_singular<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.singular = v.into();
         self
     }
 
-    /// Sets the value of `style`.
-    pub fn set_style<
-        T: std::convert::Into<std::vec::Vec<crate::model::resource_descriptor::Style>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.style = v.into();
+    /// Sets the value of [pattern][crate::model::ResourceDescriptor::pattern].
+    pub fn set_pattern<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.pattern = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [style][crate::model::ResourceDescriptor::style].
+    pub fn set_style<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::resource_descriptor::Style>,
+    {
+        use std::iter::Iterator;
+        self.style = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5972,13 +6067,13 @@ pub struct ResourceReference {
 }
 
 impl ResourceReference {
-    /// Sets the value of `r#type`.
+    /// Sets the value of [r#type][crate::model::ResourceReference::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
-    /// Sets the value of `child_type`.
+    /// Sets the value of [child_type][crate::model::ResourceReference::child_type].
     pub fn set_child_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.child_type = v.into();
         self
@@ -6418,14 +6513,14 @@ pub struct RoutingRule {
 }
 
 impl RoutingRule {
-    /// Sets the value of `routing_parameters`.
-    pub fn set_routing_parameters<
-        T: std::convert::Into<std::vec::Vec<crate::model::RoutingParameter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.routing_parameters = v.into();
+    /// Sets the value of [routing_parameters][crate::model::RoutingRule::routing_parameters].
+    pub fn set_routing_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RoutingParameter>,
+    {
+        use std::iter::Iterator;
+        self.routing_parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6513,13 +6608,13 @@ pub struct RoutingParameter {
 }
 
 impl RoutingParameter {
-    /// Sets the value of `field`.
+    /// Sets the value of [field][crate::model::RoutingParameter::field].
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
         self
     }
 
-    /// Sets the value of `path_template`.
+    /// Sets the value of [path_template][crate::model::RoutingParameter::path_template].
     pub fn set_path_template<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path_template = v.into();
         self
@@ -6720,19 +6815,19 @@ pub struct Service {
 }
 
 impl Service {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `title`.
+    /// Sets the value of [title][crate::model::Service::title].
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
-    /// Sets the value of `producer_project_id`.
+    /// Sets the value of [producer_project_id][crate::model::Service::producer_project_id].
     pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6741,31 +6836,13 @@ impl Service {
         self
     }
 
-    /// Sets the value of `id`.
+    /// Sets the value of [id][crate::model::Service::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
-    /// Sets the value of `apis`.
-    pub fn set_apis<T: std::convert::Into<std::vec::Vec<wkt::Api>>>(mut self, v: T) -> Self {
-        self.apis = v.into();
-        self
-    }
-
-    /// Sets the value of `types`.
-    pub fn set_types<T: std::convert::Into<std::vec::Vec<wkt::Type>>>(mut self, v: T) -> Self {
-        self.types = v.into();
-        self
-    }
-
-    /// Sets the value of `enums`.
-    pub fn set_enums<T: std::convert::Into<std::vec::Vec<wkt::Enum>>>(mut self, v: T) -> Self {
-        self.enums = v.into();
-        self
-    }
-
-    /// Sets the value of `documentation`.
+    /// Sets the value of [documentation][crate::model::Service::documentation].
     pub fn set_documentation<
         T: std::convert::Into<std::option::Option<crate::model::Documentation>>,
     >(
@@ -6776,7 +6853,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `backend`.
+    /// Sets the value of [backend][crate::model::Service::backend].
     pub fn set_backend<T: std::convert::Into<std::option::Option<crate::model::Backend>>>(
         mut self,
         v: T,
@@ -6785,7 +6862,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `http`.
+    /// Sets the value of [http][crate::model::Service::http].
     pub fn set_http<T: std::convert::Into<std::option::Option<crate::model::Http>>>(
         mut self,
         v: T,
@@ -6794,7 +6871,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `quota`.
+    /// Sets the value of [quota][crate::model::Service::quota].
     pub fn set_quota<T: std::convert::Into<std::option::Option<crate::model::Quota>>>(
         mut self,
         v: T,
@@ -6803,7 +6880,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `authentication`.
+    /// Sets the value of [authentication][crate::model::Service::authentication].
     pub fn set_authentication<
         T: std::convert::Into<std::option::Option<crate::model::Authentication>>,
     >(
@@ -6814,7 +6891,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `context`.
+    /// Sets the value of [context][crate::model::Service::context].
     pub fn set_context<T: std::convert::Into<std::option::Option<crate::model::Context>>>(
         mut self,
         v: T,
@@ -6823,7 +6900,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `usage`.
+    /// Sets the value of [usage][crate::model::Service::usage].
     pub fn set_usage<T: std::convert::Into<std::option::Option<crate::model::Usage>>>(
         mut self,
         v: T,
@@ -6832,16 +6909,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `endpoints`.
-    pub fn set_endpoints<T: std::convert::Into<std::vec::Vec<crate::model::Endpoint>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.endpoints = v.into();
-        self
-    }
-
-    /// Sets the value of `control`.
+    /// Sets the value of [control][crate::model::Service::control].
     pub fn set_control<T: std::convert::Into<std::option::Option<crate::model::Control>>>(
         mut self,
         v: T,
@@ -6850,36 +6918,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `logs`.
-    pub fn set_logs<T: std::convert::Into<std::vec::Vec<crate::model::LogDescriptor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.logs = v.into();
-        self
-    }
-
-    /// Sets the value of `metrics`.
-    pub fn set_metrics<T: std::convert::Into<std::vec::Vec<crate::model::MetricDescriptor>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.metrics = v.into();
-        self
-    }
-
-    /// Sets the value of `monitored_resources`.
-    pub fn set_monitored_resources<
-        T: std::convert::Into<std::vec::Vec<crate::model::MonitoredResourceDescriptor>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.monitored_resources = v.into();
-        self
-    }
-
-    /// Sets the value of `billing`.
+    /// Sets the value of [billing][crate::model::Service::billing].
     pub fn set_billing<T: std::convert::Into<std::option::Option<crate::model::Billing>>>(
         mut self,
         v: T,
@@ -6888,7 +6927,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `logging`.
+    /// Sets the value of [logging][crate::model::Service::logging].
     pub fn set_logging<T: std::convert::Into<std::option::Option<crate::model::Logging>>>(
         mut self,
         v: T,
@@ -6897,7 +6936,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `monitoring`.
+    /// Sets the value of [monitoring][crate::model::Service::monitoring].
     pub fn set_monitoring<T: std::convert::Into<std::option::Option<crate::model::Monitoring>>>(
         mut self,
         v: T,
@@ -6906,7 +6945,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `system_parameters`.
+    /// Sets the value of [system_parameters][crate::model::Service::system_parameters].
     pub fn set_system_parameters<
         T: std::convert::Into<std::option::Option<crate::model::SystemParameters>>,
     >(
@@ -6917,7 +6956,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `source_info`.
+    /// Sets the value of [source_info][crate::model::Service::source_info].
     pub fn set_source_info<T: std::convert::Into<std::option::Option<crate::model::SourceInfo>>>(
         mut self,
         v: T,
@@ -6926,7 +6965,7 @@ impl Service {
         self
     }
 
-    /// Sets the value of `publishing`.
+    /// Sets the value of [publishing][crate::model::Service::publishing].
     pub fn set_publishing<T: std::convert::Into<std::option::Option<crate::model::Publishing>>>(
         mut self,
         v: T,
@@ -6935,12 +6974,89 @@ impl Service {
         self
     }
 
-    /// Sets the value of `config_version`.
+    /// Sets the value of [config_version][crate::model::Service::config_version].
     pub fn set_config_version<T: std::convert::Into<std::option::Option<wkt::UInt32Value>>>(
         mut self,
         v: T,
     ) -> Self {
         self.config_version = v.into();
+        self
+    }
+
+    /// Sets the value of [apis][crate::model::Service::apis].
+    pub fn set_apis<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Api>,
+    {
+        use std::iter::Iterator;
+        self.apis = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [types][crate::model::Service::types].
+    pub fn set_types<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Type>,
+    {
+        use std::iter::Iterator;
+        self.types = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enums][crate::model::Service::enums].
+    pub fn set_enums<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Enum>,
+    {
+        use std::iter::Iterator;
+        self.enums = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [endpoints][crate::model::Service::endpoints].
+    pub fn set_endpoints<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Endpoint>,
+    {
+        use std::iter::Iterator;
+        self.endpoints = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [logs][crate::model::Service::logs].
+    pub fn set_logs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::LogDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.logs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metrics][crate::model::Service::metrics].
+    pub fn set_metrics<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MetricDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.metrics = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [monitored_resources][crate::model::Service::monitored_resources].
+    pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MonitoredResourceDescriptor>,
+    {
+        use std::iter::Iterator;
+        self.monitored_resources = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6963,12 +7079,14 @@ pub struct SourceInfo {
 }
 
 impl SourceInfo {
-    /// Sets the value of `source_files`.
-    pub fn set_source_files<T: std::convert::Into<std::vec::Vec<wkt::Any>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.source_files = v.into();
+    /// Sets the value of [source_files][crate::model::SourceInfo::source_files].
+    pub fn set_source_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Any>,
+    {
+        use std::iter::Iterator;
+        self.source_files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7027,12 +7145,14 @@ pub struct SystemParameters {
 }
 
 impl SystemParameters {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::SystemParameterRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
+    /// Sets the value of [rules][crate::model::SystemParameters::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SystemParameterRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7070,18 +7190,20 @@ pub struct SystemParameterRule {
 }
 
 impl SystemParameterRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::SystemParameterRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `parameters`.
-    pub fn set_parameters<T: std::convert::Into<std::vec::Vec<crate::model::SystemParameter>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.parameters = v.into();
+    /// Sets the value of [parameters][crate::model::SystemParameterRule::parameters].
+    pub fn set_parameters<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SystemParameter>,
+    {
+        use std::iter::Iterator;
+        self.parameters = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7116,19 +7238,19 @@ pub struct SystemParameter {
 }
 
 impl SystemParameter {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::SystemParameter::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `http_header`.
+    /// Sets the value of [http_header][crate::model::SystemParameter::http_header].
     pub fn set_http_header<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.http_header = v.into();
         self
     }
 
-    /// Sets the value of `url_query_parameter`.
+    /// Sets the value of [url_query_parameter][crate::model::SystemParameter::url_query_parameter].
     pub fn set_url_query_parameter<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7181,30 +7303,34 @@ pub struct Usage {
 }
 
 impl Usage {
-    /// Sets the value of `requirements`.
-    pub fn set_requirements<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.requirements = v.into();
-        self
-    }
-
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::UsageRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
-        self
-    }
-
-    /// Sets the value of `producer_notification_channel`.
+    /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
     pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
     ) -> Self {
         self.producer_notification_channel = v.into();
+        self
+    }
+
+    /// Sets the value of [requirements][crate::model::Usage::requirements].
+    pub fn set_requirements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.requirements = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::Usage::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UsageRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7270,19 +7396,19 @@ pub struct UsageRule {
 }
 
 impl UsageRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::UsageRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `allow_unregistered_calls`.
+    /// Sets the value of [allow_unregistered_calls][crate::model::UsageRule::allow_unregistered_calls].
     pub fn set_allow_unregistered_calls<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_unregistered_calls = v.into();
         self
     }
 
-    /// Sets the value of `skip_service_control`.
+    /// Sets the value of [skip_service_control][crate::model::UsageRule::skip_service_control].
     pub fn set_skip_service_control<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_service_control = v.into();
         self
@@ -7333,12 +7459,14 @@ pub struct Visibility {
 }
 
 impl Visibility {
-    /// Sets the value of `rules`.
-    pub fn set_rules<T: std::convert::Into<std::vec::Vec<crate::model::VisibilityRule>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.rules = v.into();
+    /// Sets the value of [rules][crate::model::Visibility::rules].
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VisibilityRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7387,13 +7515,13 @@ pub struct VisibilityRule {
 }
 
 impl VisibilityRule {
-    /// Sets the value of `selector`.
+    /// Sets the value of [selector][crate::model::VisibilityRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
         self
     }
 
-    /// Sets the value of `restriction`.
+    /// Sets the value of [restriction][crate::model::VisibilityRule::restriction].
     pub fn set_restriction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.restriction = v.into();
         self

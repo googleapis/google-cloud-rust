@@ -70,36 +70,40 @@ pub struct GenerateAccessTokenRequest {
 }
 
 impl GenerateAccessTokenRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `delegates`.
-    pub fn set_delegates<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delegates = v.into();
-        self
-    }
-
-    /// Sets the value of `scope`.
-    pub fn set_scope<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.scope = v.into();
-        self
-    }
-
-    /// Sets the value of `lifetime`.
+    /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
     pub fn set_lifetime<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
     ) -> Self {
         self.lifetime = v.into();
+        self
+    }
+
+    /// Sets the value of [delegates][crate::model::GenerateAccessTokenRequest::delegates].
+    pub fn set_delegates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.delegates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::GenerateAccessTokenRequest::scope].
+    pub fn set_scope<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scope = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -126,13 +130,13 @@ pub struct GenerateAccessTokenResponse {
 }
 
 impl GenerateAccessTokenResponse {
-    /// Sets the value of `access_token`.
+    /// Sets the value of [access_token][crate::model::GenerateAccessTokenResponse::access_token].
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::GenerateAccessTokenResponse::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -180,24 +184,26 @@ pub struct SignBlobRequest {
 }
 
 impl SignBlobRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::SignBlobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `delegates`.
-    pub fn set_delegates<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delegates = v.into();
+    /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+    pub fn set_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.payload = v.into();
         self
     }
 
-    /// Sets the value of `payload`.
-    pub fn set_payload<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.payload = v.into();
+    /// Sets the value of [delegates][crate::model::SignBlobRequest::delegates].
+    pub fn set_delegates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.delegates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -224,13 +230,13 @@ pub struct SignBlobResponse {
 }
 
 impl SignBlobResponse {
-    /// Sets the value of `key_id`.
+    /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
-    /// Sets the value of `signed_blob`.
+    /// Sets the value of [signed_blob][crate::model::SignBlobResponse::signed_blob].
     pub fn set_signed_blob<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.signed_blob = v.into();
         self
@@ -274,24 +280,26 @@ pub struct SignJwtRequest {
 }
 
 impl SignJwtRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::SignJwtRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `delegates`.
-    pub fn set_delegates<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delegates = v.into();
+    /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+    pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.payload = v.into();
         self
     }
 
-    /// Sets the value of `payload`.
-    pub fn set_payload<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.payload = v.into();
+    /// Sets the value of [delegates][crate::model::SignJwtRequest::delegates].
+    pub fn set_delegates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.delegates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -317,13 +325,13 @@ pub struct SignJwtResponse {
 }
 
 impl SignJwtResponse {
-    /// Sets the value of `key_id`.
+    /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
-    /// Sets the value of `signed_jwt`.
+    /// Sets the value of [signed_jwt][crate::model::SignJwtResponse::signed_jwt].
     pub fn set_signed_jwt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.signed_jwt = v.into();
         self
@@ -372,30 +380,32 @@ pub struct GenerateIdTokenRequest {
 }
 
 impl GenerateIdTokenRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `delegates`.
-    pub fn set_delegates<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.delegates = v.into();
-        self
-    }
-
-    /// Sets the value of `audience`.
+    /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self
     }
 
-    /// Sets the value of `include_email`.
+    /// Sets the value of [include_email][crate::model::GenerateIdTokenRequest::include_email].
     pub fn set_include_email<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_email = v.into();
+        self
+    }
+
+    /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
+    pub fn set_delegates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.delegates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -417,7 +427,7 @@ pub struct GenerateIdTokenResponse {
 }
 
 impl GenerateIdTokenResponse {
-    /// Sets the value of `token`.
+    /// Sets the value of [token][crate::model::GenerateIdTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
         self

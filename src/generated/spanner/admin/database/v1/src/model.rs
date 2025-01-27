@@ -201,13 +201,13 @@ pub struct Backup {
 }
 
 impl Backup {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::Backup::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
-    /// Sets the value of `version_time`.
+    /// Sets the value of [version_time][crate::model::Backup::version_time].
     pub fn set_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -216,7 +216,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::Backup::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -225,13 +225,13 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Backup::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Backup::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -240,40 +240,31 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `size_bytes`.
+    /// Sets the value of [size_bytes][crate::model::Backup::size_bytes].
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
-    /// Sets the value of `freeable_size_bytes`.
+    /// Sets the value of [freeable_size_bytes][crate::model::Backup::freeable_size_bytes].
     pub fn set_freeable_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.freeable_size_bytes = v.into();
         self
     }
 
-    /// Sets the value of `exclusive_size_bytes`.
+    /// Sets the value of [exclusive_size_bytes][crate::model::Backup::exclusive_size_bytes].
     pub fn set_exclusive_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.exclusive_size_bytes = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Backup::state].
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `referencing_databases`.
-    pub fn set_referencing_databases<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.referencing_databases = v.into();
-        self
-    }
-
-    /// Sets the value of `encryption_info`.
+    /// Sets the value of [encryption_info][crate::model::Backup::encryption_info].
     pub fn set_encryption_info<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionInfo>>,
     >(
@@ -284,18 +275,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `encryption_information`.
-    pub fn set_encryption_information<
-        T: std::convert::Into<std::vec::Vec<crate::model::EncryptionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_information = v.into();
-        self
-    }
-
-    /// Sets the value of `database_dialect`.
+    /// Sets the value of [database_dialect][crate::model::Backup::database_dialect].
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -304,16 +284,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `referencing_backups`.
-    pub fn set_referencing_backups<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.referencing_backups = v.into();
-        self
-    }
-
-    /// Sets the value of `max_expire_time`.
+    /// Sets the value of [max_expire_time][crate::model::Backup::max_expire_time].
     pub fn set_max_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -322,16 +293,7 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `backup_schedules`.
-    pub fn set_backup_schedules<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_schedules = v.into();
-        self
-    }
-
-    /// Sets the value of `incremental_backup_chain_id`.
+    /// Sets the value of [incremental_backup_chain_id][crate::model::Backup::incremental_backup_chain_id].
     pub fn set_incremental_backup_chain_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -340,12 +302,56 @@ impl Backup {
         self
     }
 
-    /// Sets the value of `oldest_version_time`.
+    /// Sets the value of [oldest_version_time][crate::model::Backup::oldest_version_time].
     pub fn set_oldest_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
     ) -> Self {
         self.oldest_version_time = v.into();
+        self
+    }
+
+    /// Sets the value of [referencing_databases][crate::model::Backup::referencing_databases].
+    pub fn set_referencing_databases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referencing_databases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [encryption_information][crate::model::Backup::encryption_information].
+    pub fn set_encryption_information<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        use std::iter::Iterator;
+        self.encryption_information = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referencing_backups][crate::model::Backup::referencing_backups].
+    pub fn set_referencing_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referencing_backups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [backup_schedules][crate::model::Backup::backup_schedules].
+    pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -433,19 +439,19 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `backup_id`.
+    /// Sets the value of [backup_id][crate::model::CreateBackupRequest::backup_id].
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
         v: T,
@@ -454,7 +460,7 @@ impl CreateBackupRequest {
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::CreateBackupRequest::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
     >(
@@ -517,19 +523,19 @@ pub struct CreateBackupMetadata {
 }
 
 impl CreateBackupMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::CreateBackupMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::CreateBackupMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -540,7 +546,7 @@ impl CreateBackupMetadata {
         self
     }
 
-    /// Sets the value of `cancel_time`.
+    /// Sets the value of [cancel_time][crate::model::CreateBackupMetadata::cancel_time].
     pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -605,25 +611,25 @@ pub struct CopyBackupRequest {
 }
 
 impl CopyBackupRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `backup_id`.
+    /// Sets the value of [backup_id][crate::model::CopyBackupRequest::backup_id].
     pub fn set_backup_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup_id = v.into();
         self
     }
 
-    /// Sets the value of `source_backup`.
+    /// Sets the value of [source_backup][crate::model::CopyBackupRequest::source_backup].
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
-    /// Sets the value of `expire_time`.
+    /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
     pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -632,7 +638,7 @@ impl CopyBackupRequest {
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::CopyBackupRequest::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::CopyBackupEncryptionConfig>>,
     >(
@@ -699,19 +705,19 @@ pub struct CopyBackupMetadata {
 }
 
 impl CopyBackupMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_backup`.
+    /// Sets the value of [source_backup][crate::model::CopyBackupMetadata::source_backup].
     pub fn set_source_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_backup = v.into();
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::CopyBackupMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -722,7 +728,7 @@ impl CopyBackupMetadata {
         self
     }
 
-    /// Sets the value of `cancel_time`.
+    /// Sets the value of [cancel_time][crate::model::CopyBackupMetadata::cancel_time].
     pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -765,7 +771,7 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
         v: T,
@@ -774,7 +780,7 @@ impl UpdateBackupRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -807,7 +813,7 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -837,7 +843,7 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -926,25 +932,25 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -981,18 +987,20 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
-    /// Sets the value of `backups`.
-    pub fn set_backups<T: std::convert::Into<std::vec::Vec<crate::model::Backup>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backups = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    pub fn set_backups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Backup>,
+    {
+        use std::iter::Iterator;
+        self.backups = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1124,25 +1132,25 @@ pub struct ListBackupOperationsRequest {
 }
 
 impl ListBackupOperationsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListBackupOperationsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListBackupOperationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListBackupOperationsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1189,18 +1197,20 @@ pub struct ListBackupOperationsResponse {
 }
 
 impl ListBackupOperationsResponse {
-    /// Sets the value of `operations`.
-    pub fn set_operations<T: std::convert::Into<std::vec::Vec<longrunning::model::Operation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operations = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [operations][crate::model::ListBackupOperationsResponse::operations].
+    pub fn set_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<longrunning::model::Operation>,
+    {
+        use std::iter::Iterator;
+        self.operations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1258,13 +1268,13 @@ pub struct BackupInfo {
 }
 
 impl BackupInfo {
-    /// Sets the value of `backup`.
+    /// Sets the value of [backup][crate::model::BackupInfo::backup].
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
         self
     }
 
-    /// Sets the value of `version_time`.
+    /// Sets the value of [version_time][crate::model::BackupInfo::version_time].
     pub fn set_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1273,7 +1283,7 @@ impl BackupInfo {
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::BackupInfo::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1282,7 +1292,7 @@ impl BackupInfo {
         self
     }
 
-    /// Sets the value of `source_database`.
+    /// Sets the value of [source_database][crate::model::BackupInfo::source_database].
     pub fn set_source_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_database = v.into();
         self
@@ -1335,7 +1345,7 @@ pub struct CreateBackupEncryptionConfig {
 }
 
 impl CreateBackupEncryptionConfig {
-    /// Sets the value of `encryption_type`.
+    /// Sets the value of [encryption_type][crate::model::CreateBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>,
     >(
@@ -1346,18 +1356,20 @@ impl CreateBackupEncryptionConfig {
         self
     }
 
-    /// Sets the value of `kms_key_name`.
+    /// Sets the value of [kms_key_name][crate::model::CreateBackupEncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
-    /// Sets the value of `kms_key_names`.
-    pub fn set_kms_key_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_names = v.into();
+    /// Sets the value of [kms_key_names][crate::model::CreateBackupEncryptionConfig::kms_key_names].
+    pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1456,7 +1468,7 @@ pub struct CopyBackupEncryptionConfig {
 }
 
 impl CopyBackupEncryptionConfig {
-    /// Sets the value of `encryption_type`.
+    /// Sets the value of [encryption_type][crate::model::CopyBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>,
     >(
@@ -1467,18 +1479,20 @@ impl CopyBackupEncryptionConfig {
         self
     }
 
-    /// Sets the value of `kms_key_name`.
+    /// Sets the value of [kms_key_name][crate::model::CopyBackupEncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
-    /// Sets the value of `kms_key_names`.
-    pub fn set_kms_key_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_names = v.into();
+    /// Sets the value of [kms_key_names][crate::model::CopyBackupEncryptionConfig::kms_key_names].
+    pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -1673,13 +1687,13 @@ pub struct BackupSchedule {
 }
 
 impl BackupSchedule {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::BackupSchedule::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `spec`.
+    /// Sets the value of [spec][crate::model::BackupSchedule::spec].
     pub fn set_spec<
         T: std::convert::Into<std::option::Option<crate::model::BackupScheduleSpec>>,
     >(
@@ -1690,7 +1704,7 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `retention_duration`.
+    /// Sets the value of [retention_duration][crate::model::BackupSchedule::retention_duration].
     pub fn set_retention_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -1699,7 +1713,7 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::BackupSchedule::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::CreateBackupEncryptionConfig>>,
     >(
@@ -1710,7 +1724,7 @@ impl BackupSchedule {
         self
     }
 
-    /// Sets the value of `update_time`.
+    /// Sets the value of [update_time][crate::model::BackupSchedule::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1795,19 +1809,19 @@ pub struct CrontabSpec {
 }
 
 impl CrontabSpec {
-    /// Sets the value of `text`.
+    /// Sets the value of [text][crate::model::CrontabSpec::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
         self
     }
 
-    /// Sets the value of `time_zone`.
+    /// Sets the value of [time_zone][crate::model::CrontabSpec::time_zone].
     pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.time_zone = v.into();
         self
     }
 
-    /// Sets the value of `creation_window`.
+    /// Sets the value of [creation_window][crate::model::CrontabSpec::creation_window].
     pub fn set_creation_window<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
         v: T,
@@ -1848,13 +1862,13 @@ pub struct CreateBackupScheduleRequest {
 }
 
 impl CreateBackupScheduleRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `backup_schedule_id`.
+    /// Sets the value of [backup_schedule_id][crate::model::CreateBackupScheduleRequest::backup_schedule_id].
     pub fn set_backup_schedule_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1863,7 +1877,7 @@ impl CreateBackupScheduleRequest {
         self
     }
 
-    /// Sets the value of `backup_schedule`.
+    /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
     >(
@@ -1898,7 +1912,7 @@ pub struct GetBackupScheduleRequest {
 }
 
 impl GetBackupScheduleRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1928,7 +1942,7 @@ pub struct DeleteBackupScheduleRequest {
 }
 
 impl DeleteBackupScheduleRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1973,19 +1987,19 @@ pub struct ListBackupSchedulesRequest {
 }
 
 impl ListBackupSchedulesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListBackupSchedulesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListBackupSchedulesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2021,20 +2035,20 @@ pub struct ListBackupSchedulesResponse {
 }
 
 impl ListBackupSchedulesResponse {
-    /// Sets the value of `backup_schedules`.
-    pub fn set_backup_schedules<
-        T: std::convert::Into<std::vec::Vec<crate::model::BackupSchedule>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.backup_schedules = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [backup_schedules][crate::model::ListBackupSchedulesResponse::backup_schedules].
+    pub fn set_backup_schedules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupSchedule>,
+    {
+        use std::iter::Iterator;
+        self.backup_schedules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2083,7 +2097,7 @@ pub struct UpdateBackupScheduleRequest {
 }
 
 impl UpdateBackupScheduleRequest {
-    /// Sets the value of `backup_schedule`.
+    /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
     >(
@@ -2094,7 +2108,7 @@ impl UpdateBackupScheduleRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -2132,13 +2146,13 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
-    /// Sets the value of `progress_percent`.
+    /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
-    /// Sets the value of `start_time`.
+    /// Sets the value of [start_time][crate::model::OperationProgress::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2147,7 +2161,7 @@ impl OperationProgress {
         self
     }
 
-    /// Sets the value of `end_time`.
+    /// Sets the value of [end_time][crate::model::OperationProgress::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2196,18 +2210,20 @@ pub struct EncryptionConfig {
 }
 
 impl EncryptionConfig {
-    /// Sets the value of `kms_key_name`.
+    /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
-    /// Sets the value of `kms_key_names`.
-    pub fn set_kms_key_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_names = v.into();
+    /// Sets the value of [kms_key_names][crate::model::EncryptionConfig::kms_key_names].
+    pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2240,7 +2256,7 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
-    /// Sets the value of `encryption_type`.
+    /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
         v: T,
@@ -2249,7 +2265,7 @@ impl EncryptionInfo {
         self
     }
 
-    /// Sets the value of `encryption_status`.
+    /// Sets the value of [encryption_status][crate::model::EncryptionInfo::encryption_status].
     pub fn set_encryption_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -2258,7 +2274,7 @@ impl EncryptionInfo {
         self
     }
 
-    /// Sets the value of `kms_key_version`.
+    /// Sets the value of [kms_key_version][crate::model::EncryptionInfo::kms_key_version].
     pub fn set_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_version = v.into();
         self
@@ -2326,7 +2342,7 @@ pub struct RestoreInfo {
 }
 
 impl RestoreInfo {
-    /// Sets the value of `source_type`.
+    /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -2457,19 +2473,19 @@ pub struct Database {
 }
 
 impl Database {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::Database::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `state`.
+    /// Sets the value of [state][crate::model::Database::state].
     pub fn set_state<T: std::convert::Into<crate::model::database::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
-    /// Sets the value of `create_time`.
+    /// Sets the value of [create_time][crate::model::Database::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2478,7 +2494,7 @@ impl Database {
         self
     }
 
-    /// Sets the value of `restore_info`.
+    /// Sets the value of [restore_info][crate::model::Database::restore_info].
     pub fn set_restore_info<
         T: std::convert::Into<std::option::Option<crate::model::RestoreInfo>>,
     >(
@@ -2489,7 +2505,7 @@ impl Database {
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::Database::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionConfig>>,
     >(
@@ -2500,18 +2516,7 @@ impl Database {
         self
     }
 
-    /// Sets the value of `encryption_info`.
-    pub fn set_encryption_info<
-        T: std::convert::Into<std::vec::Vec<crate::model::EncryptionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.encryption_info = v.into();
-        self
-    }
-
-    /// Sets the value of `version_retention_period`.
+    /// Sets the value of [version_retention_period][crate::model::Database::version_retention_period].
     pub fn set_version_retention_period<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2520,7 +2525,7 @@ impl Database {
         self
     }
 
-    /// Sets the value of `earliest_version_time`.
+    /// Sets the value of [earliest_version_time][crate::model::Database::earliest_version_time].
     pub fn set_earliest_version_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2529,13 +2534,13 @@ impl Database {
         self
     }
 
-    /// Sets the value of `default_leader`.
+    /// Sets the value of [default_leader][crate::model::Database::default_leader].
     pub fn set_default_leader<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.default_leader = v.into();
         self
     }
 
-    /// Sets the value of `database_dialect`.
+    /// Sets the value of [database_dialect][crate::model::Database::database_dialect].
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -2544,15 +2549,26 @@ impl Database {
         self
     }
 
-    /// Sets the value of `enable_drop_protection`.
+    /// Sets the value of [enable_drop_protection][crate::model::Database::enable_drop_protection].
     pub fn set_enable_drop_protection<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_drop_protection = v.into();
         self
     }
 
-    /// Sets the value of `reconciling`.
+    /// Sets the value of [reconciling][crate::model::Database::reconciling].
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_info][crate::model::Database::encryption_info].
+    pub fn set_encryption_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EncryptionInfo>,
+    {
+        use std::iter::Iterator;
+        self.encryption_info = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2640,19 +2656,19 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListDatabasesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListDatabasesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2688,18 +2704,20 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
-    /// Sets the value of `databases`.
-    pub fn set_databases<T: std::convert::Into<std::vec::Vec<crate::model::Database>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.databases = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [databases][crate::model::ListDatabasesResponse::databases].
+    pub fn set_databases<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Database>,
+    {
+        use std::iter::Iterator;
+        self.databases = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2784,13 +2802,13 @@ pub struct CreateDatabaseRequest {
 }
 
 impl CreateDatabaseRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `create_statement`.
+    /// Sets the value of [create_statement][crate::model::CreateDatabaseRequest::create_statement].
     pub fn set_create_statement<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2799,16 +2817,7 @@ impl CreateDatabaseRequest {
         self
     }
 
-    /// Sets the value of `extra_statements`.
-    pub fn set_extra_statements<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.extra_statements = v.into();
-        self
-    }
-
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::CreateDatabaseRequest::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::EncryptionConfig>>,
     >(
@@ -2819,7 +2828,7 @@ impl CreateDatabaseRequest {
         self
     }
 
-    /// Sets the value of `database_dialect`.
+    /// Sets the value of [database_dialect][crate::model::CreateDatabaseRequest::database_dialect].
     pub fn set_database_dialect<T: std::convert::Into<crate::model::DatabaseDialect>>(
         mut self,
         v: T,
@@ -2828,9 +2837,20 @@ impl CreateDatabaseRequest {
         self
     }
 
-    /// Sets the value of `proto_descriptors`.
+    /// Sets the value of [proto_descriptors][crate::model::CreateDatabaseRequest::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
+        self
+    }
+
+    /// Sets the value of [extra_statements][crate::model::CreateDatabaseRequest::extra_statements].
+    pub fn set_extra_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.extra_statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2856,7 +2876,7 @@ pub struct CreateDatabaseMetadata {
 }
 
 impl CreateDatabaseMetadata {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::CreateDatabaseMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -2885,7 +2905,7 @@ pub struct GetDatabaseRequest {
 }
 
 impl GetDatabaseRequest {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2920,7 +2940,7 @@ pub struct UpdateDatabaseRequest {
 }
 
 impl UpdateDatabaseRequest {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::option::Option<crate::model::Database>>>(
         mut self,
         v: T,
@@ -2929,7 +2949,7 @@ impl UpdateDatabaseRequest {
         self
     }
 
-    /// Sets the value of `update_mask`.
+    /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
         v: T,
@@ -2976,7 +2996,7 @@ pub struct UpdateDatabaseMetadata {
 }
 
 impl UpdateDatabaseMetadata {
-    /// Sets the value of `request`.
+    /// Sets the value of [request][crate::model::UpdateDatabaseMetadata::request].
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::UpdateDatabaseRequest>>,
     >(
@@ -2987,7 +3007,7 @@ impl UpdateDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::UpdateDatabaseMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -2998,7 +3018,7 @@ impl UpdateDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `cancel_time`.
+    /// Sets the value of [cancel_time][crate::model::UpdateDatabaseMetadata::cancel_time].
     pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3097,30 +3117,32 @@ pub struct UpdateDatabaseDdlRequest {
 }
 
 impl UpdateDatabaseDdlRequest {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
-    /// Sets the value of `statements`.
-    pub fn set_statements<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.statements = v.into();
-        self
-    }
-
-    /// Sets the value of `operation_id`.
+    /// Sets the value of [operation_id][crate::model::UpdateDatabaseDdlRequest::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation_id = v.into();
         self
     }
 
-    /// Sets the value of `proto_descriptors`.
+    /// Sets the value of [proto_descriptors][crate::model::UpdateDatabaseDdlRequest::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
+        self
+    }
+
+    /// Sets the value of [statements][crate::model::UpdateDatabaseDdlRequest::statements].
+    pub fn set_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3163,24 +3185,26 @@ pub struct DdlStatementActionInfo {
 }
 
 impl DdlStatementActionInfo {
-    /// Sets the value of `action`.
+    /// Sets the value of [action][crate::model::DdlStatementActionInfo::action].
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
-    /// Sets the value of `entity_type`.
+    /// Sets the value of [entity_type][crate::model::DdlStatementActionInfo::entity_type].
     pub fn set_entity_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_type = v.into();
         self
     }
 
-    /// Sets the value of `entity_names`.
-    pub fn set_entity_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.entity_names = v.into();
+    /// Sets the value of [entity_names][crate::model::DdlStatementActionInfo::entity_names].
+    pub fn set_entity_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.entity_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3239,53 +3263,59 @@ pub struct UpdateDatabaseDdlMetadata {
 }
 
 impl UpdateDatabaseDdlMetadata {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::UpdateDatabaseDdlMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
-    /// Sets the value of `statements`.
-    pub fn set_statements<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.statements = v.into();
-        self
-    }
-
-    /// Sets the value of `commit_timestamps`.
-    pub fn set_commit_timestamps<T: std::convert::Into<std::vec::Vec<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.commit_timestamps = v.into();
-        self
-    }
-
-    /// Sets the value of `throttled`.
+    /// Sets the value of [throttled][crate::model::UpdateDatabaseDdlMetadata::throttled].
     pub fn set_throttled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.throttled = v.into();
         self
     }
 
-    /// Sets the value of `progress`.
-    pub fn set_progress<T: std::convert::Into<std::vec::Vec<crate::model::OperationProgress>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.progress = v.into();
+    /// Sets the value of [statements][crate::model::UpdateDatabaseDdlMetadata::statements].
+    pub fn set_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
-    /// Sets the value of `actions`.
-    pub fn set_actions<
-        T: std::convert::Into<std::vec::Vec<crate::model::DdlStatementActionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.actions = v.into();
+    /// Sets the value of [commit_timestamps][crate::model::UpdateDatabaseDdlMetadata::commit_timestamps].
+    pub fn set_commit_timestamps<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Timestamp>,
+    {
+        use std::iter::Iterator;
+        self.commit_timestamps = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [progress][crate::model::UpdateDatabaseDdlMetadata::progress].
+    pub fn set_progress<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::OperationProgress>,
+    {
+        use std::iter::Iterator;
+        self.progress = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [actions][crate::model::UpdateDatabaseDdlMetadata::actions].
+    pub fn set_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DdlStatementActionInfo>,
+    {
+        use std::iter::Iterator;
+        self.actions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3311,7 +3341,7 @@ pub struct DropDatabaseRequest {
 }
 
 impl DropDatabaseRequest {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -3341,7 +3371,7 @@ pub struct GetDatabaseDdlRequest {
 }
 
 impl GetDatabaseDdlRequest {
-    /// Sets the value of `database`.
+    /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
@@ -3379,18 +3409,20 @@ pub struct GetDatabaseDdlResponse {
 }
 
 impl GetDatabaseDdlResponse {
-    /// Sets the value of `statements`.
-    pub fn set_statements<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.statements = v.into();
+    /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
+    pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
+        self.proto_descriptors = v.into();
         self
     }
 
-    /// Sets the value of `proto_descriptors`.
-    pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
-        self.proto_descriptors = v.into();
+    /// Sets the value of [statements][crate::model::GetDatabaseDdlResponse::statements].
+    pub fn set_statements<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.statements = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3483,25 +3515,25 @@ pub struct ListDatabaseOperationsRequest {
 }
 
 impl ListDatabaseOperationsRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `filter`.
+    /// Sets the value of [filter][crate::model::ListDatabaseOperationsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListDatabaseOperationsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListDatabaseOperationsRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3544,18 +3576,20 @@ pub struct ListDatabaseOperationsResponse {
 }
 
 impl ListDatabaseOperationsResponse {
-    /// Sets the value of `operations`.
-    pub fn set_operations<T: std::convert::Into<std::vec::Vec<longrunning::model::Operation>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.operations = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [operations][crate::model::ListDatabaseOperationsResponse::operations].
+    pub fn set_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<longrunning::model::Operation>,
+    {
+        use std::iter::Iterator;
+        self.operations = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3620,19 +3654,19 @@ pub struct RestoreDatabaseRequest {
 }
 
 impl RestoreDatabaseRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `database_id`.
+    /// Sets the value of [database_id][crate::model::RestoreDatabaseRequest::database_id].
     pub fn set_database_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_id = v.into();
         self
     }
 
-    /// Sets the value of `encryption_config`.
+    /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
     pub fn set_encryption_config<
         T: std::convert::Into<std::option::Option<crate::model::RestoreDatabaseEncryptionConfig>>,
     >(
@@ -3717,7 +3751,7 @@ pub struct RestoreDatabaseEncryptionConfig {
 }
 
 impl RestoreDatabaseEncryptionConfig {
-    /// Sets the value of `encryption_type`.
+    /// Sets the value of [encryption_type][crate::model::RestoreDatabaseEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>,
     >(
@@ -3728,18 +3762,20 @@ impl RestoreDatabaseEncryptionConfig {
         self
     }
 
-    /// Sets the value of `kms_key_name`.
+    /// Sets the value of [kms_key_name][crate::model::RestoreDatabaseEncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
-    /// Sets the value of `kms_key_names`.
-    pub fn set_kms_key_names<T: std::convert::Into<std::vec::Vec<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.kms_key_names = v.into();
+    /// Sets the value of [kms_key_names][crate::model::RestoreDatabaseEncryptionConfig::kms_key_names].
+    pub fn set_kms_key_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.kms_key_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3863,13 +3899,13 @@ pub struct RestoreDatabaseMetadata {
 }
 
 impl RestoreDatabaseMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::RestoreDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `source_type`.
+    /// Sets the value of [source_type][crate::model::RestoreDatabaseMetadata::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
         v: T,
@@ -3878,7 +3914,7 @@ impl RestoreDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::RestoreDatabaseMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -3889,7 +3925,7 @@ impl RestoreDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `cancel_time`.
+    /// Sets the value of [cancel_time][crate::model::RestoreDatabaseMetadata::cancel_time].
     pub fn set_cancel_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3898,7 +3934,7 @@ impl RestoreDatabaseMetadata {
         self
     }
 
-    /// Sets the value of `optimize_database_operation_name`.
+    /// Sets the value of [optimize_database_operation_name][crate::model::RestoreDatabaseMetadata::optimize_database_operation_name].
     pub fn set_optimize_database_operation_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3965,13 +4001,13 @@ pub struct OptimizeRestoredDatabaseMetadata {
 }
 
 impl OptimizeRestoredDatabaseMetadata {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::OptimizeRestoredDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
-    /// Sets the value of `progress`.
+    /// Sets the value of [progress][crate::model::OptimizeRestoredDatabaseMetadata::progress].
     pub fn set_progress<
         T: std::convert::Into<std::option::Option<crate::model::OperationProgress>>,
     >(
@@ -4003,7 +4039,7 @@ pub struct DatabaseRole {
 }
 
 impl DatabaseRole {
-    /// Sets the value of `name`.
+    /// Sets the value of [name][crate::model::DatabaseRole::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4047,19 +4083,19 @@ pub struct ListDatabaseRolesRequest {
 }
 
 impl ListDatabaseRolesRequest {
-    /// Sets the value of `parent`.
+    /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
-    /// Sets the value of `page_size`.
+    /// Sets the value of [page_size][crate::model::ListDatabaseRolesRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
-    /// Sets the value of `page_token`.
+    /// Sets the value of [page_token][crate::model::ListDatabaseRolesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4095,18 +4131,20 @@ pub struct ListDatabaseRolesResponse {
 }
 
 impl ListDatabaseRolesResponse {
-    /// Sets the value of `database_roles`.
-    pub fn set_database_roles<T: std::convert::Into<std::vec::Vec<crate::model::DatabaseRole>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.database_roles = v.into();
+    /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 
-    /// Sets the value of `next_page_token`.
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
+    /// Sets the value of [database_roles][crate::model::ListDatabaseRolesResponse::database_roles].
+    pub fn set_database_roles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DatabaseRole>,
+    {
+        use std::iter::Iterator;
+        self.database_roles = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

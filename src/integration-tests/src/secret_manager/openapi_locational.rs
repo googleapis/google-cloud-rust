@@ -50,9 +50,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     let create = client
         .create_secret_by_project_and_location(&project_id, &location_id)
         .set_secret_id(&secret_id)
-        .set_request_body(smo::model::Secret::default().set_labels(
-            [("integration-test", "true")].map(|(k, v)| (k.to_string(), v.to_string())),
-        ))
+        .set_request_body(smo::model::Secret::default().set_labels([("integration-test", "true")]))
         .send()
         .await?;
     println!("CREATE = {create:?}");

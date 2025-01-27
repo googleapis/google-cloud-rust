@@ -65,19 +65,19 @@ pub mod iam_policy {
             (*self.0.stub).set_iam_policy(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `policy`.
+        /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
         pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(mut self, v: T) -> Self {
             self.0.request.policy = v.into();
             self
         }
 
-        /// Sets the value of `update_mask`.
+        /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
         pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
             self.0.request.update_mask = v.into();
             self
@@ -118,13 +118,13 @@ pub mod iam_policy {
             (*self.0.stub).get_iam_policy(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `options`.
+        /// Sets the value of [options][crate::model::GetIamPolicyRequest::options].
         pub fn set_options<T: Into<std::option::Option<crate::model::GetPolicyOptions>>>(mut self, v: T) -> Self {
             self.0.request.options = v.into();
             self
@@ -165,15 +165,20 @@ pub mod iam_policy {
             (*self.0.stub).test_iam_permissions(self.0.request, self.0.options).await
         }
 
-        /// Sets the value of `resource`.
+        /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
         pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.resource = v.into();
             self
         }
 
-        /// Sets the value of `permissions`.
-        pub fn set_permissions<T: Into<std::vec::Vec<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.permissions = v.into();
+        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

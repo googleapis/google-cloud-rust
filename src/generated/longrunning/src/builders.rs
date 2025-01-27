@@ -82,25 +82,25 @@ pub mod operations {
             gax::paginator::Paginator::new(token, execute)
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::ListOperationsRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
         }
 
-        /// Sets the value of `filter`.
+        /// Sets the value of [filter][crate::model::ListOperationsRequest::filter].
         pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.filter = v.into();
             self
         }
 
-        /// Sets the value of `page_size`.
+        /// Sets the value of [page_size][crate::model::ListOperationsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
             self
         }
 
-        /// Sets the value of `page_token`.
+        /// Sets the value of [page_token][crate::model::ListOperationsRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
             self
@@ -141,7 +141,7 @@ pub mod operations {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::GetOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -182,7 +182,7 @@ pub mod operations {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::DeleteOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
@@ -223,7 +223,7 @@ pub mod operations {
                 .await
         }
 
-        /// Sets the value of `name`.
+        /// Sets the value of [name][crate::model::CancelOperationRequest::name].
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
             self
