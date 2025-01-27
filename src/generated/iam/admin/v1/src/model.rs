@@ -856,8 +856,8 @@ pub struct ServiceAccountKey {
     /// allows for the assertion of the service account identity.
     /// When base64 decoded, the private key data can be used to authenticate with
     /// Google API client libraries and with
-    /// \<a href="/sdk/gcloud/reference/auth/activate-service-account"\>gcloud
-    /// auth activate-service-account\</a\>.
+    /// <a href="/sdk/gcloud/reference/auth/activate-service-account">gcloud
+    /// auth activate-service-account</a>.
     #[serde(skip_serializing_if = "bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::base64::Base64")]
     pub private_key_data: bytes::Bytes,
