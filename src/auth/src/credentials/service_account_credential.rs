@@ -52,7 +52,7 @@ impl std::fmt::Debug for ServiceAccountInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ServiceAccountInfo")
             .field("client_email", &self.client_email)
-            .field("private_key_id", &"[censored]")
+            .field("private_key_id", &self.private_key_id)
             .field("private_key", &"[censored]")
             .field("project_id", &self.project_id)
             .field("universe_domain", &self.universe_domain)
@@ -181,13 +181,14 @@ mod test {
         let expected = ServiceAccountInfo {
             client_email: "test-client-email".to_string(),
             private_key_id: "test-private-key-id".to_string(),
-            private_key: "test-private-key".to_string(),
+            private_key: "super-duper-secret-private-key".to_string(),
             project_id: "test-project-id".to_string(),
             universe_domain: "test-universe-domain".to_string(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-email"), "{fmt}");
-        assert!(!fmt.contains("test-private-key"), "{fmt}");
+        assert!(fmt.contains("test-private-key-id"), "{fmt}");
+        assert!(!fmt.contains("super-duper-secret-private-key"), "{fmt}");
         assert!(fmt.contains("test-project-id"), "{fmt}");
         assert!(fmt.contains("test-universe-domain"), "{fmt}");
     }
