@@ -162,13 +162,12 @@ pub mod folder {
 
     /// Folder lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -179,15 +178,16 @@ pub mod folder {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The folder has been marked for deletion by the user.
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
     }
 }
 
@@ -937,13 +937,12 @@ pub mod organization {
 
     /// Organization lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -954,15 +953,16 @@ pub mod organization {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.  This is only useful for distinguishing unset values.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The organization has been marked for deletion by the user.
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
     }
 
     /// The owner of this organization. The owner should be specified on
@@ -1329,13 +1329,12 @@ pub mod project {
 
     /// Project lifecycle states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1346,13 +1345,14 @@ pub mod project {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.  This is only used/useful for distinguishing
         /// unset values.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The normal and active state.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// The project has been marked for deletion by the user
         /// (by invoking
@@ -1362,7 +1362,7 @@ pub mod project {
         /// [google.cloud.resourcemanager.v3.Projects.UndeleteProject].
         ///
         /// [google.cloud.resourcemanager.v3.Projects.DeleteProject]: crate::client::Projects::delete_project
-        pub const DELETE_REQUESTED: &str = "DELETE_REQUESTED";
+        pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
     }
 }
 
@@ -3779,13 +3779,12 @@ impl wkt::message::Message for DeleteTagValueMetadata {
 /// policy engine may have multiple purposes defined, however a TagKey may only
 /// specify a single purpose.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Purpose(std::string::String);
+pub struct Purpose(std::borrow::Cow<'static, str>);
 
 impl Purpose {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new Purpose instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -3796,9 +3795,10 @@ impl Purpose {
 
 /// Useful constants to work with [Purpose](Purpose)
 pub mod purpose {
+    use super::Purpose;
 
     /// Unspecified purpose.
-    pub const PURPOSE_UNSPECIFIED: &str = "PURPOSE_UNSPECIFIED";
+    pub const PURPOSE_UNSPECIFIED: Purpose = Purpose::new("PURPOSE_UNSPECIFIED");
 
     /// Purpose for Compute Engine firewalls.
     /// A corresponding `purpose_data` should be set for the network the tag is
@@ -3816,5 +3816,5 @@ pub mod purpose {
     /// `<https://www.googleapis.com/compute/staging_v1/projects/fail-closed-load-testing/global/networks/6992953698831725600>`
     ///
     /// - `fail-closed-load-testing/load-testing-network`
-    pub const GCE_FIREWALL: &str = "GCE_FIREWALL";
+    pub const GCE_FIREWALL: Purpose = Purpose::new("GCE_FIREWALL");
 }
