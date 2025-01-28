@@ -89,7 +89,7 @@ impl {{Codec.Name}} {
 }
 {{^Codec.HasSyntheticFields}}
 
-impl wkt::message::Message for {{Name}} {
+impl wkt::message::Message for {{Codec.Name}} {
     fn typename() -> &'static str {
         "type.googleapis.com/{{Codec.SourceFQN}}"
     }
