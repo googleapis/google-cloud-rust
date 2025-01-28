@@ -40,7 +40,7 @@ const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platfo
 #[allow(dead_code)]
 #[derive(serde::Deserialize, Debug, Builder)]
 #[builder(setter(into))]
-pub(crate) struct ServiceAccountInfo {
+struct ServiceAccountInfo {
     client_email: String,
     private_key_id: String,
     private_key: String,
@@ -50,7 +50,7 @@ pub(crate) struct ServiceAccountInfo {
 
 #[allow(dead_code)] // TODO(#679) - implementation in progress
 #[derive(Debug)]
-pub(crate) struct ServiceAccountCredential<T>
+struct ServiceAccountCredential<T>
 where
     T: TokenProvider,
 {
@@ -59,7 +59,7 @@ where
 
 #[allow(dead_code)]
 #[derive(Debug)]
-pub(crate) struct ServiceAccountTokenProvider {
+struct ServiceAccountTokenProvider {
     service_account_info: ServiceAccountInfo,
 }
 
@@ -191,7 +191,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
@@ -248,7 +248,7 @@ mod test {
         let mut mock = MockTokenProvider::new();
         mock.expect_get_token()
             .times(1)
-            .return_once(|| Err(CredentialError::new(false, Box::from("fail"))));
+            .return_once(|| Err(CredentialError::non_retryable("fail")));
 
         let sac = ServiceAccountCredential {
             token_provider: mock,
