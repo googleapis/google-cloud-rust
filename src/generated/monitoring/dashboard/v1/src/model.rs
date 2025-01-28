@@ -842,6 +842,112 @@ impl Dashboard {
         self.layout = v.into();
         self
     }
+
+    /// The value of [layout][crate::model::Dashboard::layout]
+    /// if it holds a `GridLayout`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_grid_layout(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GridLayout>> {
+        #[allow(unreachable_patterns)]
+        self.layout.as_ref().and_then(|v| match v {
+            crate::model::dashboard::Layout::GridLayout(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [layout][crate::model::Dashboard::layout]
+    /// if it holds a `MosaicLayout`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_mosaic_layout(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::MosaicLayout>> {
+        #[allow(unreachable_patterns)]
+        self.layout.as_ref().and_then(|v| match v {
+            crate::model::dashboard::Layout::MosaicLayout(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [layout][crate::model::Dashboard::layout]
+    /// if it holds a `RowLayout`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_row_layout(&self) -> std::option::Option<&std::boxed::Box<crate::model::RowLayout>> {
+        #[allow(unreachable_patterns)]
+        self.layout.as_ref().and_then(|v| match v {
+            crate::model::dashboard::Layout::RowLayout(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [layout][crate::model::Dashboard::layout]
+    /// if it holds a `ColumnLayout`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_column_layout(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ColumnLayout>> {
+        #[allow(unreachable_patterns)]
+        self.layout.as_ref().and_then(|v| match v {
+            crate::model::dashboard::Layout::ColumnLayout(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [layout][crate::model::Dashboard::layout]
+    /// to hold a `GridLayout`.
+    ///
+    /// Note that all the setters affecting `layout` are
+    /// mutually exclusive.
+    pub fn set_grid_layout<T: std::convert::Into<std::boxed::Box<crate::model::GridLayout>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.layout =
+            std::option::Option::Some(crate::model::dashboard::Layout::GridLayout(v.into()));
+        self
+    }
+
+    /// Sets the value of [layout][crate::model::Dashboard::layout]
+    /// to hold a `MosaicLayout`.
+    ///
+    /// Note that all the setters affecting `layout` are
+    /// mutually exclusive.
+    pub fn set_mosaic_layout<T: std::convert::Into<std::boxed::Box<crate::model::MosaicLayout>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.layout =
+            std::option::Option::Some(crate::model::dashboard::Layout::MosaicLayout(v.into()));
+        self
+    }
+
+    /// Sets the value of [layout][crate::model::Dashboard::layout]
+    /// to hold a `RowLayout`.
+    ///
+    /// Note that all the setters affecting `layout` are
+    /// mutually exclusive.
+    pub fn set_row_layout<T: std::convert::Into<std::boxed::Box<crate::model::RowLayout>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.layout =
+            std::option::Option::Some(crate::model::dashboard::Layout::RowLayout(v.into()));
+        self
+    }
+
+    /// Sets the value of [layout][crate::model::Dashboard::layout]
+    /// to hold a `ColumnLayout`.
+    ///
+    /// Note that all the setters affecting `layout` are
+    /// mutually exclusive.
+    pub fn set_column_layout<T: std::convert::Into<std::boxed::Box<crate::model::ColumnLayout>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.layout =
+            std::option::Option::Some(crate::model::dashboard::Layout::ColumnLayout(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for Dashboard {
@@ -932,6 +1038,31 @@ impl DashboardFilter {
         v: T,
     ) -> Self {
         self.default_value = v.into();
+        self
+    }
+
+    /// The value of [default_value][crate::model::DashboardFilter::default_value]
+    /// if it holds a `StringValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_string_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.default_value.as_ref().and_then(|v| match v {
+            crate::model::dashboard_filter::DefaultValue::StringValue(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [default_value][crate::model::DashboardFilter::default_value]
+    /// to hold a `StringValue`.
+    ///
+    /// Note that all the setters affecting `default_value` are
+    /// mutually exclusive.
+    pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.default_value = std::option::Option::Some(
+            crate::model::dashboard_filter::DefaultValue::StringValue(v.into()),
+        );
         self
     }
 }
@@ -1794,6 +1925,126 @@ impl TimeSeriesQuery {
         self.source = v.into();
         self
     }
+
+    /// The value of [source][crate::model::TimeSeriesQuery::source]
+    /// if it holds a `TimeSeriesFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_time_series_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesFilter>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::time_series_query::Source::TimeSeriesFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [source][crate::model::TimeSeriesQuery::source]
+    /// if it holds a `TimeSeriesFilterRatio`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_time_series_filter_ratio(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesFilterRatio>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::time_series_query::Source::TimeSeriesFilterRatio(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [source][crate::model::TimeSeriesQuery::source]
+    /// if it holds a `TimeSeriesQueryLanguage`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_time_series_query_language(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::time_series_query::Source::TimeSeriesQueryLanguage(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [source][crate::model::TimeSeriesQuery::source]
+    /// if it holds a `PrometheusQuery`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_prometheus_query(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::time_series_query::Source::PrometheusQuery(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::TimeSeriesQuery::source]
+    /// to hold a `TimeSeriesFilter`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_time_series_filter<
+        T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::time_series_query::Source::TimeSeriesFilter(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [source][crate::model::TimeSeriesQuery::source]
+    /// to hold a `TimeSeriesFilterRatio`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_time_series_filter_ratio<
+        T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesFilterRatio>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::time_series_query::Source::TimeSeriesFilterRatio(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [source][crate::model::TimeSeriesQuery::source]
+    /// to hold a `TimeSeriesQueryLanguage`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_time_series_query_language<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::time_series_query::Source::TimeSeriesQueryLanguage(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [source][crate::model::TimeSeriesQuery::source]
+    /// to hold a `PrometheusQuery`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_prometheus_query<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::time_series_query::Source::PrometheusQuery(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for TimeSeriesQuery {
@@ -1892,6 +2143,70 @@ impl TimeSeriesFilter {
         self.output_filter = v.into();
         self
     }
+
+    /// The value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
+    /// if it holds a `PickTimeSeriesFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_pick_time_series_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PickTimeSeriesFilter>> {
+        #[allow(unreachable_patterns)]
+        self.output_filter.as_ref().and_then(|v| match v {
+            crate::model::time_series_filter::OutputFilter::PickTimeSeriesFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
+    /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_statistical_time_series_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
+        #[allow(unreachable_patterns)]
+        self.output_filter.as_ref().and_then(|v| match v {
+            crate::model::time_series_filter::OutputFilter::StatisticalTimeSeriesFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
+    /// to hold a `PickTimeSeriesFilter`.
+    ///
+    /// Note that all the setters affecting `output_filter` are
+    /// mutually exclusive.
+    pub fn set_pick_time_series_filter<
+        T: std::convert::Into<std::boxed::Box<crate::model::PickTimeSeriesFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_filter = std::option::Option::Some(
+            crate::model::time_series_filter::OutputFilter::PickTimeSeriesFilter(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilter::output_filter]
+    /// to hold a `StatisticalTimeSeriesFilter`.
+    ///
+    /// Note that all the setters affecting `output_filter` are
+    /// mutually exclusive.
+    pub fn set_statistical_time_series_filter<
+        T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_filter = std::option::Option::Some(
+            crate::model::time_series_filter::OutputFilter::StatisticalTimeSeriesFilter(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for TimeSeriesFilter {
@@ -1988,6 +2303,72 @@ impl TimeSeriesFilterRatio {
         v: T,
     ) -> Self {
         self.output_filter = v.into();
+        self
+    }
+
+    /// The value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
+    /// if it holds a `PickTimeSeriesFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_pick_time_series_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PickTimeSeriesFilter>> {
+        #[allow(unreachable_patterns)]
+        self.output_filter.as_ref().and_then(|v| match v {
+            crate::model::time_series_filter_ratio::OutputFilter::PickTimeSeriesFilter(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
+    /// if it holds a `StatisticalTimeSeriesFilter`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_statistical_time_series_filter(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>> {
+        #[allow(unreachable_patterns)]
+        self.output_filter.as_ref().and_then(|v| match v {
+            crate::model::time_series_filter_ratio::OutputFilter::StatisticalTimeSeriesFilter(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
+    /// to hold a `PickTimeSeriesFilter`.
+    ///
+    /// Note that all the setters affecting `output_filter` are
+    /// mutually exclusive.
+    pub fn set_pick_time_series_filter<
+        T: std::convert::Into<std::boxed::Box<crate::model::PickTimeSeriesFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_filter = std::option::Option::Some(
+            crate::model::time_series_filter_ratio::OutputFilter::PickTimeSeriesFilter(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [output_filter][crate::model::TimeSeriesFilterRatio::output_filter]
+    /// to hold a `StatisticalTimeSeriesFilter`.
+    ///
+    /// Note that all the setters affecting `output_filter` are
+    /// mutually exclusive.
+    pub fn set_statistical_time_series_filter<
+        T: std::convert::Into<std::boxed::Box<crate::model::StatisticalTimeSeriesFilter>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.output_filter = std::option::Option::Some(
+            crate::model::time_series_filter_ratio::OutputFilter::StatisticalTimeSeriesFilter(
+                v.into(),
+            ),
+        );
         self
     }
 }
@@ -2481,6 +2862,89 @@ impl Scorecard {
         v: T,
     ) -> Self {
         self.data_view = v.into();
+        self
+    }
+
+    /// The value of [data_view][crate::model::Scorecard::data_view]
+    /// if it holds a `GaugeView`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_gauge_view(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::scorecard::GaugeView>> {
+        #[allow(unreachable_patterns)]
+        self.data_view.as_ref().and_then(|v| match v {
+            crate::model::scorecard::DataView::GaugeView(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [data_view][crate::model::Scorecard::data_view]
+    /// if it holds a `SparkChartView`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_spark_chart_view(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::scorecard::SparkChartView>> {
+        #[allow(unreachable_patterns)]
+        self.data_view.as_ref().and_then(|v| match v {
+            crate::model::scorecard::DataView::SparkChartView(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [data_view][crate::model::Scorecard::data_view]
+    /// if it holds a `BlankView`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_blank_view(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+        #[allow(unreachable_patterns)]
+        self.data_view.as_ref().and_then(|v| match v {
+            crate::model::scorecard::DataView::BlankView(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data_view][crate::model::Scorecard::data_view]
+    /// to hold a `GaugeView`.
+    ///
+    /// Note that all the setters affecting `data_view` are
+    /// mutually exclusive.
+    pub fn set_gauge_view<
+        T: std::convert::Into<std::boxed::Box<crate::model::scorecard::GaugeView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_view =
+            std::option::Option::Some(crate::model::scorecard::DataView::GaugeView(v.into()));
+        self
+    }
+
+    /// Sets the value of [data_view][crate::model::Scorecard::data_view]
+    /// to hold a `SparkChartView`.
+    ///
+    /// Note that all the setters affecting `data_view` are
+    /// mutually exclusive.
+    pub fn set_spark_chart_view<
+        T: std::convert::Into<std::boxed::Box<crate::model::scorecard::SparkChartView>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_view =
+            std::option::Option::Some(crate::model::scorecard::DataView::SparkChartView(v.into()));
+        self
+    }
+
+    /// Sets the value of [data_view][crate::model::Scorecard::data_view]
+    /// to hold a `BlankView`.
+    ///
+    /// Note that all the setters affecting `data_view` are
+    /// mutually exclusive.
+    pub fn set_blank_view<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_view =
+            std::option::Option::Some(crate::model::scorecard::DataView::BlankView(v.into()));
         self
     }
 }
@@ -3333,6 +3797,348 @@ impl Widget {
         v: T,
     ) -> Self {
         self.content = v.into();
+        self
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `XyChart`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_xy_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::XyChart>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::XyChart(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `Scorecard`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_scorecard(&self) -> std::option::Option<&std::boxed::Box<crate::model::Scorecard>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::Scorecard(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `Text`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_text(&self) -> std::option::Option<&std::boxed::Box<crate::model::Text>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::Text(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `Blank`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_blank(&self) -> std::option::Option<&std::boxed::Box<wkt::Empty>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::Blank(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `AlertChart`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_alert_chart(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AlertChart>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::AlertChart(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `TimeSeriesTable`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_time_series_table(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::TimeSeriesTable>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::TimeSeriesTable(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `CollapsibleGroup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_collapsible_group(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CollapsibleGroup>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::CollapsibleGroup(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `LogsPanel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_logs_panel(&self) -> std::option::Option<&std::boxed::Box<crate::model::LogsPanel>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::LogsPanel(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `IncidentList`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_incident_list(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IncidentList>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::IncidentList(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `PieChart`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_pie_chart(&self) -> std::option::Option<&std::boxed::Box<crate::model::PieChart>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::PieChart(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `ErrorReportingPanel`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_error_reporting_panel(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ErrorReportingPanel>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::ErrorReportingPanel(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `SectionHeader`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_section_header(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SectionHeader>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::SectionHeader(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [content][crate::model::Widget::content]
+    /// if it holds a `SingleViewGroup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_single_view_group(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SingleViewGroup>> {
+        #[allow(unreachable_patterns)]
+        self.content.as_ref().and_then(|v| match v {
+            crate::model::widget::Content::SingleViewGroup(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `XyChart`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_xy_chart<T: std::convert::Into<std::boxed::Box<crate::model::XyChart>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content = std::option::Option::Some(crate::model::widget::Content::XyChart(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `Scorecard`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_scorecard<T: std::convert::Into<std::boxed::Box<crate::model::Scorecard>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::Scorecard(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::Text>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content = std::option::Option::Some(crate::model::widget::Content::Text(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `Blank`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_blank<T: std::convert::Into<std::boxed::Box<wkt::Empty>>>(mut self, v: T) -> Self {
+        self.content = std::option::Option::Some(crate::model::widget::Content::Blank(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `AlertChart`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_alert_chart<T: std::convert::Into<std::boxed::Box<crate::model::AlertChart>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::AlertChart(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `TimeSeriesTable`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_time_series_table<
+        T: std::convert::Into<std::boxed::Box<crate::model::TimeSeriesTable>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::TimeSeriesTable(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `CollapsibleGroup`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_collapsible_group<
+        T: std::convert::Into<std::boxed::Box<crate::model::CollapsibleGroup>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::CollapsibleGroup(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `LogsPanel`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_logs_panel<T: std::convert::Into<std::boxed::Box<crate::model::LogsPanel>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::LogsPanel(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `IncidentList`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_incident_list<T: std::convert::Into<std::boxed::Box<crate::model::IncidentList>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::IncidentList(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `PieChart`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_pie_chart<T: std::convert::Into<std::boxed::Box<crate::model::PieChart>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content = std::option::Option::Some(crate::model::widget::Content::PieChart(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `ErrorReportingPanel`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_error_reporting_panel<
+        T: std::convert::Into<std::boxed::Box<crate::model::ErrorReportingPanel>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::ErrorReportingPanel(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `SectionHeader`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_section_header<
+        T: std::convert::Into<std::boxed::Box<crate::model::SectionHeader>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::SectionHeader(v.into()));
+        self
+    }
+
+    /// Sets the value of [content][crate::model::Widget::content]
+    /// to hold a `SingleViewGroup`.
+    ///
+    /// Note that all the setters affecting `content` are
+    /// mutually exclusive.
+    pub fn set_single_view_group<
+        T: std::convert::Into<std::boxed::Box<crate::model::SingleViewGroup>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.content =
+            std::option::Option::Some(crate::model::widget::Content::SingleViewGroup(v.into()));
         self
     }
 }

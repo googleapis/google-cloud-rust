@@ -395,6 +395,56 @@ impl DateTime {
         self.time_offset = v.into();
         self
     }
+
+    /// The value of [time_offset][crate::model::DateTime::time_offset]
+    /// if it holds a `UtcOffset`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_utc_offset(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.time_offset.as_ref().and_then(|v| match v {
+            crate::model::date_time::TimeOffset::UtcOffset(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [time_offset][crate::model::DateTime::time_offset]
+    /// if it holds a `TimeZone`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_time_zone(&self) -> std::option::Option<&std::boxed::Box<crate::model::TimeZone>> {
+        #[allow(unreachable_patterns)]
+        self.time_offset.as_ref().and_then(|v| match v {
+            crate::model::date_time::TimeOffset::TimeZone(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
+    /// to hold a `UtcOffset`.
+    ///
+    /// Note that all the setters affecting `time_offset` are
+    /// mutually exclusive.
+    pub fn set_utc_offset<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_offset =
+            std::option::Option::Some(crate::model::date_time::TimeOffset::UtcOffset(v.into()));
+        self
+    }
+
+    /// Sets the value of [time_offset][crate::model::DateTime::time_offset]
+    /// to hold a `TimeZone`.
+    ///
+    /// Note that all the setters affecting `time_offset` are
+    /// mutually exclusive.
+    pub fn set_time_zone<T: std::convert::Into<std::boxed::Box<crate::model::TimeZone>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.time_offset =
+            std::option::Option::Some(crate::model::date_time::TimeOffset::TimeZone(v.into()));
+        self
+    }
 }
 
 impl wkt::message::Message for DateTime {
@@ -934,6 +984,57 @@ impl PhoneNumber {
         v: T,
     ) -> Self {
         self.kind = v.into();
+        self
+    }
+
+    /// The value of [kind][crate::model::PhoneNumber::kind]
+    /// if it holds a `E164Number`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_e164_number(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::phone_number::Kind::E164Number(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// The value of [kind][crate::model::PhoneNumber::kind]
+    /// if it holds a `ShortCode`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn get_short_code(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::phone_number::ShortCode>> {
+        #[allow(unreachable_patterns)]
+        self.kind.as_ref().and_then(|v| match v {
+            crate::model::phone_number::Kind::ShortCode(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
+    /// to hold a `E164Number`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_e164_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kind =
+            std::option::Option::Some(crate::model::phone_number::Kind::E164Number(v.into()));
+        self
+    }
+
+    /// Sets the value of [kind][crate::model::PhoneNumber::kind]
+    /// to hold a `ShortCode`.
+    ///
+    /// Note that all the setters affecting `kind` are
+    /// mutually exclusive.
+    pub fn set_short_code<
+        T: std::convert::Into<std::boxed::Box<crate::model::phone_number::ShortCode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.kind =
+            std::option::Option::Some(crate::model::phone_number::Kind::ShortCode(v.into()));
         self
     }
 }

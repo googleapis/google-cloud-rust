@@ -70,5 +70,6 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return nil
 	}
 	api.LabelRecursiveFields(model)
+	api.CrossReference(model)
 	return language.GenerateClient(model, config.General.Language, output, config.Codec)
 }
