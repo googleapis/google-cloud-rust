@@ -18,8 +18,5 @@ specification-source = 'schema/google/showcase/v1beta1'
 service-config = 'schema/google/showcase/v1beta1/showcase_v1beta1.yaml'
 
 [codec]
-copyright-year = '2024'
+copyright-year = '2025'
 not-for-publication = 'true'
-package-name-override = 'secretmanager-golden-openapi'
-'package:gax' = 'package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client'
-'package:wkt' = 'package=gcp-sdk-wkt,path=../src/wkt,source=google.protobuf'
