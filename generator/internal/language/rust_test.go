@@ -1931,7 +1931,8 @@ Trailing Slash https://example9.com/
 http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html
 http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
-https://cloud.google.com/apis/design/design_patterns#integer_types.`
+https://cloud.google.com/apis/design/design_patterns#integer_types.
+Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	want := []string{
 		"/// blah blah <https://cloud.google.com> foo bar",
 		"/// [link](https://example1.com)",
@@ -1947,6 +1948,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		"/// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>.",
+		"/// Hyperlink: <a href=\"https://hyperlink.com\">Content</a>",
 	}
 
 	wkt := &rustPackage{
