@@ -2864,11 +2864,13 @@ pub mod distribution {
         #[non_exhaustive]
         pub enum Options {
             /// The linear bucket.
-            LinearBuckets(crate::model::distribution::bucket_options::Linear),
+            LinearBuckets(std::boxed::Box<crate::model::distribution::bucket_options::Linear>),
             /// The exponential buckets.
-            ExponentialBuckets(crate::model::distribution::bucket_options::Exponential),
+            ExponentialBuckets(
+                std::boxed::Box<crate::model::distribution::bucket_options::Exponential>,
+            ),
             /// The explicit buckets.
-            ExplicitBuckets(crate::model::distribution::bucket_options::Explicit),
+            ExplicitBuckets(std::boxed::Box<crate::model::distribution::bucket_options::Explicit>),
         }
     }
 
@@ -3880,7 +3882,7 @@ pub mod http_rule {
         /// included in the `pattern` field, such as HEAD, or "*" to leave the
         /// HTTP method unspecified for this rule. The wild-card rule is useful
         /// for services that provide content to Web (HTML) clients.
-        Custom(crate::model::CustomHttpPattern),
+        Custom(std::boxed::Box<crate::model::CustomHttpPattern>),
     }
 }
 

@@ -1594,7 +1594,7 @@ pub mod restore_table_metadata {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum SourceInfo {
-        BackupInfo(crate::model::BackupInfo),
+        BackupInfo(std::boxed::Box<crate::model::BackupInfo>),
     }
 }
 
@@ -2400,10 +2400,10 @@ pub mod modify_column_families_request {
         pub enum Mod {
             /// Create a new column family with the specified schema, or fail if
             /// one already exists with the given ID.
-            Create(crate::model::ColumnFamily),
+            Create(std::boxed::Box<crate::model::ColumnFamily>),
             /// Update an existing column family to the specified schema, or fail
             /// if no column family exists with the given ID.
-            Update(crate::model::ColumnFamily),
+            Update(std::boxed::Box<crate::model::ColumnFamily>),
             /// Drop (delete) the column family with the given ID, or fail if no such
             /// family exists.
             Drop(bool),
@@ -2545,11 +2545,11 @@ pub mod check_consistency_request {
         /// Checks that reads using an app profile with `StandardIsolation` can
         /// see all writes committed before the token was created, even if the
         /// read and write target different clusters.
-        StandardReadRemoteWrites(crate::model::StandardReadRemoteWrites),
+        StandardReadRemoteWrites(std::boxed::Box<crate::model::StandardReadRemoteWrites>),
         /// Checks that reads using an app profile with `DataBoostIsolationReadOnly`
         /// can see all writes committed before the token was created, but only if
         /// the read and write target the same cluster.
-        DataBoostReadLocalWrites(crate::model::DataBoostReadLocalWrites),
+        DataBoostReadLocalWrites(std::boxed::Box<crate::model::DataBoostReadLocalWrites>),
     }
 }
 
@@ -4677,7 +4677,7 @@ pub mod cluster {
     #[non_exhaustive]
     pub enum Config {
         /// Configuration for this cluster.
-        ClusterConfig(crate::model::cluster::ClusterConfig),
+        ClusterConfig(std::boxed::Box<crate::model::cluster::ClusterConfig>),
     }
 }
 
@@ -4875,7 +4875,11 @@ pub mod app_profile {
         pub enum Affinity {
             /// Row affinity sticky routing based on the row key of the request.
             /// Requests that span multiple rows are routed non-deterministically.
-            RowAffinity(crate::model::app_profile::multi_cluster_routing_use_any::RowAffinity),
+            RowAffinity(
+                std::boxed::Box<
+                    crate::model::app_profile::multi_cluster_routing_use_any::RowAffinity,
+                >,
+            ),
         }
     }
 
@@ -5067,9 +5071,11 @@ pub mod app_profile {
     #[non_exhaustive]
     pub enum RoutingPolicy {
         /// Use a multi-cluster routing policy.
-        MultiClusterRoutingUseAny(crate::model::app_profile::MultiClusterRoutingUseAny),
+        MultiClusterRoutingUseAny(
+            std::boxed::Box<crate::model::app_profile::MultiClusterRoutingUseAny>,
+        ),
         /// Use a single-cluster routing policy.
-        SingleClusterRouting(crate::model::app_profile::SingleClusterRouting),
+        SingleClusterRouting(std::boxed::Box<crate::model::app_profile::SingleClusterRouting>),
     }
 
     /// Options for isolating this app profile's traffic from other use cases.
@@ -5084,10 +5090,12 @@ pub mod app_profile {
         Priority(crate::model::app_profile::Priority),
         /// The standard options used for isolating this app profile's traffic from
         /// other use cases.
-        StandardIsolation(crate::model::app_profile::StandardIsolation),
+        StandardIsolation(std::boxed::Box<crate::model::app_profile::StandardIsolation>),
         /// Specifies that this app profile is intended for read-only usage via the
         /// Data Boost feature.
-        DataBoostIsolationReadOnly(crate::model::app_profile::DataBoostIsolationReadOnly),
+        DataBoostIsolationReadOnly(
+            std::boxed::Box<crate::model::app_profile::DataBoostIsolationReadOnly>,
+        ),
     }
 }
 
@@ -5244,7 +5252,7 @@ pub mod restore_info {
     pub enum SourceInfo {
         /// Information about the backup used to restore the table. The backup
         /// may no longer exist.
-        BackupInfo(crate::model::BackupInfo),
+        BackupInfo(std::boxed::Box<crate::model::BackupInfo>),
     }
 }
 
@@ -5648,7 +5656,7 @@ pub mod table {
     pub enum AutomatedBackupConfig {
         /// If specified, automated backups are enabled for this table.
         /// Otherwise, automated backups are disabled.
-        AutomatedBackupPolicy(crate::model::table::AutomatedBackupPolicy),
+        AutomatedBackupPolicy(std::boxed::Box<crate::model::table::AutomatedBackupPolicy>),
     }
 }
 
@@ -5867,7 +5875,7 @@ pub mod authorized_view {
     #[non_exhaustive]
     pub enum AuthorizedView {
         /// An AuthorizedView permitting access to an explicit subset of a Table.
-        SubsetView(crate::model::authorized_view::SubsetView),
+        SubsetView(std::boxed::Box<crate::model::authorized_view::SubsetView>),
     }
 }
 
@@ -6029,11 +6037,11 @@ pub mod gc_rule {
         /// Delete cells in a column older than the given age.
         /// Values must be at least one millisecond, and will be truncated to
         /// microsecond granularity.
-        MaxAge(wkt::Duration),
+        MaxAge(std::boxed::Box<wkt::Duration>),
         /// Delete cells that would be deleted by every nested rule.
-        Intersection(crate::model::gc_rule::Intersection),
+        Intersection(std::boxed::Box<crate::model::gc_rule::Intersection>),
         /// Delete cells that would be deleted by any nested rule.
-        Union(crate::model::gc_rule::Union),
+        Union(std::boxed::Box<crate::model::gc_rule::Union>),
     }
 }
 
@@ -6764,7 +6772,7 @@ pub mod r#type {
             #[non_exhaustive]
             pub enum Encoding {
                 /// Use `Raw` encoding.
-                Raw(crate::model::r#type::bytes::encoding::Raw),
+                Raw(std::boxed::Box<crate::model::r#type::bytes::encoding::Raw>),
             }
         }
     }
@@ -6885,9 +6893,9 @@ pub mod r#type {
             #[non_exhaustive]
             pub enum Encoding {
                 /// Deprecated: if set, converts to an empty `utf8_bytes`.
-                Utf8Raw(crate::model::r#type::string::encoding::Utf8Raw),
+                Utf8Raw(std::boxed::Box<crate::model::r#type::string::encoding::Utf8Raw>),
                 /// Use `Utf8Bytes` encoding.
-                Utf8Bytes(crate::model::r#type::string::encoding::Utf8Bytes),
+                Utf8Bytes(std::boxed::Box<crate::model::r#type::string::encoding::Utf8Bytes>),
             }
         }
     }
@@ -7009,7 +7017,9 @@ pub mod r#type {
             #[non_exhaustive]
             pub enum Encoding {
                 /// Use `BigEndianBytes` encoding.
-                BigEndianBytes(crate::model::r#type::int_64::encoding::BigEndianBytes),
+                BigEndianBytes(
+                    std::boxed::Box<crate::model::r#type::int_64::encoding::BigEndianBytes>,
+                ),
             }
         }
     }
@@ -7412,13 +7422,15 @@ pub mod r#type {
         #[non_exhaustive]
         pub enum Aggregator {
             /// Sum aggregator.
-            Sum(crate::model::r#type::aggregate::Sum),
+            Sum(std::boxed::Box<crate::model::r#type::aggregate::Sum>),
             /// HyperLogLogPlusPlusUniqueCount aggregator.
-            HllppUniqueCount(crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount),
+            HllppUniqueCount(
+                std::boxed::Box<crate::model::r#type::aggregate::HyperLogLogPlusPlusUniqueCount>,
+            ),
             /// Max aggregator.
-            Max(crate::model::r#type::aggregate::Max),
+            Max(std::boxed::Box<crate::model::r#type::aggregate::Max>),
             /// Min aggregator.
-            Min(crate::model::r#type::aggregate::Min),
+            Min(std::boxed::Box<crate::model::r#type::aggregate::Min>),
         }
     }
 
@@ -7428,29 +7440,29 @@ pub mod r#type {
     #[non_exhaustive]
     pub enum Kind {
         /// Bytes
-        BytesType(crate::model::r#type::Bytes),
+        BytesType(std::boxed::Box<crate::model::r#type::Bytes>),
         /// String
-        StringType(crate::model::r#type::String),
+        StringType(std::boxed::Box<crate::model::r#type::String>),
         /// Int64
-        Int64Type(crate::model::r#type::Int64),
+        Int64Type(std::boxed::Box<crate::model::r#type::Int64>),
         /// Float32
-        Float32Type(crate::model::r#type::Float32),
+        Float32Type(std::boxed::Box<crate::model::r#type::Float32>),
         /// Float64
-        Float64Type(crate::model::r#type::Float64),
+        Float64Type(std::boxed::Box<crate::model::r#type::Float64>),
         /// Bool
-        BoolType(crate::model::r#type::Bool),
+        BoolType(std::boxed::Box<crate::model::r#type::Bool>),
         /// Timestamp
-        TimestampType(crate::model::r#type::Timestamp),
+        TimestampType(std::boxed::Box<crate::model::r#type::Timestamp>),
         /// Date
-        DateType(crate::model::r#type::Date),
+        DateType(std::boxed::Box<crate::model::r#type::Date>),
         /// Aggregate
-        AggregateType(crate::model::r#type::Aggregate),
+        AggregateType(std::boxed::Box<crate::model::r#type::Aggregate>),
         /// Struct
-        StructType(crate::model::r#type::Struct),
+        StructType(std::boxed::Box<crate::model::r#type::Struct>),
         /// Array
-        ArrayType(crate::model::r#type::Array),
+        ArrayType(std::boxed::Box<crate::model::r#type::Array>),
         /// Map
-        MapType(crate::model::r#type::Map),
+        MapType(std::boxed::Box<crate::model::r#type::Map>),
     }
 }
 

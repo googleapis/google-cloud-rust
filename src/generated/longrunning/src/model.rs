@@ -118,7 +118,7 @@ pub mod operation {
     #[non_exhaustive]
     pub enum Result {
         /// The error result of the operation in case of failure or cancellation.
-        Error(rpc::model::Status),
+        Error(std::boxed::Box<rpc::model::Status>),
         /// The normal, successful response of the operation.  If the original
         /// method returns no data on success, such as `Delete`, the response is
         /// `google.protobuf.Empty`.  If the original method is standard
@@ -127,7 +127,7 @@ pub mod operation {
         /// is the original method name.  For example, if the original method name
         /// is `TakeSnapshot()`, the inferred response type is
         /// `TakeSnapshotResponse`.
-        Response(wkt::Any),
+        Response(std::boxed::Box<wkt::Any>),
     }
 }
 

@@ -280,9 +280,9 @@ mod test {
             .set_name("test-only-name")
             .set_done(true)
             .set_metadata(wkt::Any::try_from(&wkt::Timestamp::clamp(123, 0))?)
-            .set_result(operation::Result::Response(wkt::Any::try_from(
-                &wkt::Duration::clamp(234, 0),
-            )?));
+            .set_result(operation::Result::Response(
+                wkt::Any::try_from(&wkt::Duration::clamp(234, 0))?.into(),
+            ));
         let op = O::new(op);
         let (name, polling) = handle_common(op);
         assert_eq!(name, None);
@@ -323,9 +323,9 @@ mod test {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default().set_result(operation::Result::Response(Any::try_from(
-            &wkt::Duration::clamp(123, 0),
-        )?));
+        let op = Operation::default().set_result(operation::Result::Response(
+            Any::try_from(&wkt::Duration::clamp(123, 0))?.into(),
+        ));
         let op = O::new(op);
         let result = as_result(op)?;
         assert_eq!(result, wkt::Duration::clamp(123, 0));
@@ -340,7 +340,9 @@ mod test {
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
         let op = Operation::default().set_result(operation::Result::Error(
-            rpc::model::Status::default().set_message("test only"),
+            rpc::model::Status::default()
+                .set_message("test only")
+                .into(),
         ));
         let op = O::new(op);
         let result = as_result(op);
@@ -356,9 +358,9 @@ mod test {
         type R = wkt::Duration;
         type M = wkt::Timestamp;
         type O = super::Operation<R, M>;
-        let op = Operation::default().set_result(operation::Result::Response(Any::try_from(
-            &wkt::Timestamp::clamp(123, 0),
-        )?));
+        let op = Operation::default().set_result(operation::Result::Response(
+            Any::try_from(&wkt::Timestamp::clamp(123, 0))?.into(),
+        ));
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
         assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err}");

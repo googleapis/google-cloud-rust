@@ -2754,7 +2754,7 @@ pub mod sql_instances_verify_external_sync_settings_request {
     #[non_exhaustive]
     pub enum SyncConfig {
         /// Optional. MySQL-specific settings for start external sync.
-        MysqlSyncConfig(crate::model::MySqlSyncConfig),
+        MysqlSyncConfig(std::boxed::Box<crate::model::MySqlSyncConfig>),
     }
 }
 
@@ -2854,7 +2854,7 @@ pub mod sql_instances_start_external_sync_request {
     #[non_exhaustive]
     pub enum SyncConfig {
         /// MySQL-specific settings for start external sync.
-        MysqlSyncConfig(crate::model::MySqlSyncConfig),
+        MysqlSyncConfig(std::boxed::Box<crate::model::MySqlSyncConfig>),
     }
 }
 
@@ -6415,7 +6415,7 @@ pub mod database {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum DatabaseDetails {
-        SqlserverDatabaseDetails(crate::model::SqlServerDatabaseDetails),
+        SqlserverDatabaseDetails(std::boxed::Box<crate::model::SqlServerDatabaseDetails>),
     }
 }
 
@@ -10956,7 +10956,7 @@ pub mod user {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum UserDetails {
-        SqlserverUserDetails(crate::model::SqlServerUserDetails),
+        SqlserverUserDetails(std::boxed::Box<crate::model::SqlServerUserDetails>),
     }
 }
 

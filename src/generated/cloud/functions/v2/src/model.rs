@@ -575,10 +575,10 @@ pub mod source {
     #[non_exhaustive]
     pub enum Source {
         /// If provided, get the source from this location in Google Cloud Storage.
-        StorageSource(crate::model::StorageSource),
+        StorageSource(std::boxed::Box<crate::model::StorageSource>),
         /// If provided, get the source from this location in a Cloud Source
         /// Repository.
-        RepoSource(crate::model::RepoSource),
+        RepoSource(std::boxed::Box<crate::model::RepoSource>),
         /// If provided, get the source from GitHub repository. This option is valid
         /// only for GCF 1st Gen function.
         /// Example: <https://github.com/>\<user\>/\<repo\>/blob/\<commit\>/\<path-to-code\>
@@ -881,8 +881,8 @@ pub mod build_config {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum RuntimeUpdatePolicy {
-        AutomaticUpdatePolicy(crate::model::AutomaticUpdatePolicy),
-        OnDeployUpdatePolicy(crate::model::OnDeployUpdatePolicy),
+        AutomaticUpdatePolicy(std::boxed::Box<crate::model::AutomaticUpdatePolicy>),
+        OnDeployUpdatePolicy(std::boxed::Box<crate::model::OnDeployUpdatePolicy>),
     }
 }
 

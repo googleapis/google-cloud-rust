@@ -370,16 +370,16 @@ pub mod connection {
     #[non_exhaustive]
     pub enum ConnectionConfig {
         /// Configuration for connections to github.com.
-        GithubConfig(crate::model::GitHubConfig),
+        GithubConfig(std::boxed::Box<crate::model::GitHubConfig>),
         /// Configuration for connections to an instance of GitHub Enterprise.
-        GithubEnterpriseConfig(crate::model::GitHubEnterpriseConfig),
+        GithubEnterpriseConfig(std::boxed::Box<crate::model::GitHubEnterpriseConfig>),
         /// Configuration for connections to gitlab.com or an instance of GitLab
         /// Enterprise.
-        GitlabConfig(crate::model::GitLabConfig),
+        GitlabConfig(std::boxed::Box<crate::model::GitLabConfig>),
         /// Configuration for connections to Bitbucket Data Center.
-        BitbucketDataCenterConfig(crate::model::BitbucketDataCenterConfig),
+        BitbucketDataCenterConfig(std::boxed::Box<crate::model::BitbucketDataCenterConfig>),
         /// Configuration for connections to Bitbucket Cloud.
-        BitbucketCloudConfig(crate::model::BitbucketCloudConfig),
+        BitbucketCloudConfig(std::boxed::Box<crate::model::BitbucketCloudConfig>),
     }
 }
 

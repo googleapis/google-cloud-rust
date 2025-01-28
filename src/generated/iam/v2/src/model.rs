@@ -403,7 +403,7 @@ pub mod policy_rule {
     #[non_exhaustive]
     pub enum Kind {
         /// A rule for a deny policy.
-        DenyRule(crate::model::DenyRule),
+        DenyRule(std::boxed::Box<crate::model::DenyRule>),
     }
 }
 

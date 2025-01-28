@@ -301,12 +301,12 @@ pub mod secret {
         /// This is always provided on output, regardless of what was sent on input.
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        ExpireTime(wkt::Timestamp),
+        ExpireTime(std::boxed::Box<wkt::Timestamp>),
         /// Input only. The TTL for the
         /// [Secret][google.cloud.secretmanager.v1.Secret].
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        Ttl(wkt::Duration),
+        Ttl(std::boxed::Box<wkt::Duration>),
     }
 }
 
@@ -707,12 +707,12 @@ pub mod replication {
         /// replicated without any restrictions.
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        Automatic(crate::model::replication::Automatic),
+        Automatic(std::boxed::Box<crate::model::replication::Automatic>),
         /// The [Secret][google.cloud.secretmanager.v1.Secret] will only be
         /// replicated into the locations specified.
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-        UserManaged(crate::model::replication::UserManaged),
+        UserManaged(std::boxed::Box<crate::model::replication::UserManaged>),
     }
 }
 
@@ -950,7 +950,7 @@ pub mod replication_status {
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        Automatic(crate::model::replication_status::AutomaticStatus),
+        Automatic(std::boxed::Box<crate::model::replication_status::AutomaticStatus>),
         /// Describes the replication status of a
         /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] with
         /// user-managed replication.
@@ -961,7 +961,7 @@ pub mod replication_status {
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        UserManaged(crate::model::replication_status::UserManagedStatus),
+        UserManaged(std::boxed::Box<crate::model::replication_status::UserManagedStatus>),
     }
 }
 

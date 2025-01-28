@@ -264,7 +264,7 @@ pub mod submit_build_request {
     #[non_exhaustive]
     pub enum Source {
         /// Required. Source for the build.
-        StorageSource(crate::model::StorageSource),
+        StorageSource(std::boxed::Box<crate::model::StorageSource>),
     }
 
     /// Build type must be one of the following.
@@ -273,9 +273,9 @@ pub mod submit_build_request {
     #[non_exhaustive]
     pub enum BuildType {
         /// Build the source using Buildpacks.
-        BuildpackBuild(crate::model::submit_build_request::BuildpacksBuild),
+        BuildpackBuild(std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>),
         /// Build the source using Docker. This means the source has a Dockerfile.
-        DockerBuild(crate::model::submit_build_request::DockerBuild),
+        DockerBuild(std::boxed::Box<crate::model::submit_build_request::DockerBuild>),
     }
 }
 
@@ -2735,7 +2735,7 @@ pub mod env_var {
         /// Variable references are not supported in Cloud Run.
         Value(std::string::String),
         /// Source for the environment variable's value.
-        ValueSource(crate::model::EnvVarSource),
+        ValueSource(std::boxed::Box<crate::model::EnvVarSource>),
     }
 }
 
@@ -2933,17 +2933,17 @@ pub mod volume {
     #[non_exhaustive]
     pub enum VolumeType {
         /// Secret represents a secret that should populate this volume.
-        Secret(crate::model::SecretVolumeSource),
+        Secret(std::boxed::Box<crate::model::SecretVolumeSource>),
         /// For Cloud SQL volumes, contains the specific instances that should be
         /// mounted. Visit <https://cloud.google.com/sql/docs/mysql/connect-run> for
         /// more information on how to connect Cloud SQL and Cloud Run.
-        CloudSqlInstance(crate::model::CloudSqlInstance),
+        CloudSqlInstance(std::boxed::Box<crate::model::CloudSqlInstance>),
         /// Ephemeral storage used as a shared volume.
-        EmptyDir(crate::model::EmptyDirVolumeSource),
+        EmptyDir(std::boxed::Box<crate::model::EmptyDirVolumeSource>),
         /// For NFS Voumes, contains the path to the nfs Volume
-        Nfs(crate::model::NFSVolumeSource),
+        Nfs(std::boxed::Box<crate::model::NFSVolumeSource>),
         /// Persistent storage backed by a Google Cloud Storage bucket.
-        Gcs(crate::model::GCSVolumeSource),
+        Gcs(std::boxed::Box<crate::model::GCSVolumeSource>),
     }
 }
 
@@ -3381,13 +3381,13 @@ pub mod probe {
     pub enum ProbeType {
         /// Optional. HTTPGet specifies the http request to perform.
         /// Exactly one of httpGet, tcpSocket, or grpc must be specified.
-        HttpGet(crate::model::HTTPGetAction),
+        HttpGet(std::boxed::Box<crate::model::HTTPGetAction>),
         /// Optional. TCPSocket specifies an action involving a TCP port.
         /// Exactly one of httpGet, tcpSocket, or grpc must be specified.
-        TcpSocket(crate::model::TCPSocketAction),
+        TcpSocket(std::boxed::Box<crate::model::TCPSocketAction>),
         /// Optional. GRPC specifies an action involving a gRPC port.
         /// Exactly one of httpGet, tcpSocket, or grpc must be specified.
-        Grpc(crate::model::GRPCAction),
+        Grpc(std::boxed::Box<crate::model::GRPCAction>),
     }
 }
 

@@ -720,11 +720,11 @@ pub mod job {
     #[non_exhaustive]
     pub enum Target {
         /// Pub/Sub target.
-        PubsubTarget(crate::model::PubsubTarget),
+        PubsubTarget(std::boxed::Box<crate::model::PubsubTarget>),
         /// App Engine HTTP target.
-        AppEngineHttpTarget(crate::model::AppEngineHttpTarget),
+        AppEngineHttpTarget(std::boxed::Box<crate::model::AppEngineHttpTarget>),
         /// HTTP target.
-        HttpTarget(crate::model::HttpTarget),
+        HttpTarget(std::boxed::Box<crate::model::HttpTarget>),
     }
 }
 
@@ -1030,7 +1030,7 @@ pub mod http_target {
         ///
         /// This type of authorization should generally only be used when calling
         /// Google APIs hosted on *.googleapis.com.
-        OauthToken(crate::model::OAuthToken),
+        OauthToken(std::boxed::Box<crate::model::OAuthToken>),
         /// If specified, an
         /// [OIDC](https://developers.google.com/identity/protocols/OpenIDConnect)
         /// token will be generated and attached as an `Authorization` header in the
@@ -1039,7 +1039,7 @@ pub mod http_target {
         /// This type of authorization can be used for many scenarios, including
         /// calling Cloud Run, or endpoints where you intend to validate the token
         /// yourself.
-        OidcToken(crate::model::OidcToken),
+        OidcToken(std::boxed::Box<crate::model::OidcToken>),
     }
 }
 

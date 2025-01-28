@@ -100,3 +100,13 @@ func hasNestedTypes(m *api.Message) bool {
 	}
 	return false
 }
+
+func fieldIsMap(f *api.Field, state *api.APIState) bool {
+	if f.Typez != api.MESSAGE_TYPE {
+		return false
+	}
+	if m, ok := state.MessageByID[f.TypezID]; ok {
+		return m.IsMap
+	}
+	return false
+}

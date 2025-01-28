@@ -2543,7 +2543,7 @@ pub mod lint_policy_request {
     #[non_exhaustive]
     pub enum LintObject {
         /// [google.iam.v1.Binding.condition] [google.iam.v1.Binding.condition] object to be linted.
-        Condition(gtype::model::Expr),
+        Condition(std::boxed::Box<gtype::model::Expr>),
     }
 }
 
