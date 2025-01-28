@@ -32,7 +32,7 @@ pub(crate) const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 pub struct JwsClaims {
     pub iss: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope: Option<Vec<String>>,
+    pub scope: Option<String>,
     pub aud: Option<String>,
     #[serde(with = "time::serde::timestamp")]
     pub exp: OffsetDateTime,
@@ -129,7 +129,7 @@ mod tests {
 
         let claims = JwsClaims {
             iss: "test_iss".to_string(),
-            scope: Some(vec!["scope1".to_string(), "scope2".to_string()]),
+            scope: Some("scope1 scope2".to_string()),
             aud: None,
             exp: then,
             iat: now,
@@ -147,7 +147,7 @@ mod tests {
         let v: Value = serde_json::from_str(&decoded).unwrap();
 
         assert_eq!(v["iss"], "test_iss");
-        assert_eq!(v["scope"], serde_json::json!(["scope1", "scope2"]));
+        assert_eq!(v["scope"], "scope1 scope2");
 
         assert_eq!(v["iat"], now.unix_timestamp());
         assert_eq!(v["exp"], then.unix_timestamp());
@@ -182,7 +182,7 @@ mod tests {
 
         let claims = JwsClaims {
             iss: "test_iss".to_string(),
-            scope: Some(vec!["scope".to_string()]),
+            scope: Some("scope".to_string()),
             aud: Some("test-aud".to_string()),
             exp: then,
             iat: now,

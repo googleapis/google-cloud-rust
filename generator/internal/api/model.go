@@ -295,6 +295,9 @@ type Field struct {
 	// containing message. That triggers slightly different code generation for
 	// some languages.
 	Recursive bool
+	// For fields that are part of a OneOf, the group of fields that makes the
+	// OneOf.
+	Group *OneOf
 	// A placeholder to put language specific annotations.
 	Codec any
 }

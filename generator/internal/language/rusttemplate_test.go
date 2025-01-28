@@ -18,6 +18,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
@@ -38,6 +39,137 @@ func TestPackageNames(t *testing.T) {
 	want := "gcp_sdk_workflows_v1"
 	if got.PackageNamespace != want {
 		t.Errorf("mismatched package namespace, want=%s, got=%s", want, got.PackageNamespace)
+	}
+}
+
+func Test_OneOfAnnotations(t *testing.T) {
+	singular := &api.Field{
+		Name:     "oneof_field",
+		JSONName: "oneofField",
+		ID:       ".test.Message.oneof_field",
+		Typez:    api.STRING_TYPE,
+		IsOneOf:  true,
+	}
+	repeated := &api.Field{
+		Name:     "oneof_field_repeated",
+		JSONName: "oneofFieldRepeated",
+		ID:       ".test.Message.oneof_field_repeated",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+	map_field := &api.Field{
+		Name:     "oneof_field_map",
+		JSONName: "oneofFieldMap",
+		ID:       ".test.Message.oneof_field_map",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".test.$Map",
+		Repeated: false,
+		IsOneOf:  true,
+	}
+	group := &api.OneOf{
+		Name:          "type",
+		ID:            ".test.Message.type",
+		Documentation: "Say something clever about this oneof.",
+		Fields:        []*api.Field{singular, repeated, map_field},
+	}
+	message := &api.Message{
+		Name:    "Message",
+		ID:      ".test.Message",
+		Package: "test",
+		Fields:  []*api.Field{singular, repeated, map_field},
+		OneOfs:  []*api.OneOf{group},
+	}
+	map_message := &api.Message{
+		Name:    "$Map",
+		ID:      ".test.$Map",
+		IsMap:   true,
+		Package: "test",
+		Fields: []*api.Field{
+			{Name: "key", Typez: api.INT32_TYPE},
+			{Name: "value", Typez: api.INT32_TYPE},
+		},
+	}
+	model := api.NewTestAPI([]*api.Message{message, map_message}, []*api.Enum{}, []*api.Service{})
+	api.CrossReference(model)
+	codec, err := newRustCodec(map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = newRustTemplateData(model, codec, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Stops the recursion when comparing fields.
+	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
+
+	if diff := cmp.Diff(&rustOneOfAnnotation{
+		FieldName:      "r#type",
+		SetterName:     "type",
+		EnumName:       "Type",
+		FQEnumName:     "crate::model::message::Type",
+		FieldType:      "crate::model::message::Type",
+		DocLines:       []string{"/// Say something clever about this oneof."},
+		SingularFields: []*api.Field{singular},
+		RepeatedFields: []*api.Field{repeated},
+		MapFields:      []*api.Field{map_field},
+	}, group.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in oneof annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustFieldAnnotations{
+		FieldName:     "oneof_field",
+		SetterName:    "oneof_field",
+		BranchName:    "OneofField",
+		FQMessageName: "crate::model::Message",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		},
+		FieldType:          "std::string::String",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = builder.query(&[("oneofField", &req.oneof_field)]);`,
+		KeyType:            "",
+		ValueType:          "",
+	}, singular.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustFieldAnnotations{
+		FieldName:     "oneof_field_repeated",
+		SetterName:    "oneof_field_repeated",
+		BranchName:    "OneofFieldRepeated",
+		FQMessageName: "crate::model::Message",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		},
+		FieldType:          "std::vec::Vec<std::string::String>",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = req.oneof_field_repeated.iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
+		KeyType:            "",
+		ValueType:          "",
+	}, repeated.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&rustFieldAnnotations{
+		FieldName:     "oneof_field_map",
+		SetterName:    "oneof_field_map",
+		BranchName:    "OneofFieldMap",
+		FQMessageName: "crate::model::Message",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+		},
+		FieldType:          "std::collections::HashMap<i32,i32>",
+		PrimitiveFieldType: "std::collections::HashMap<i32,i32>",
+		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.oneof_field_map).map_err(Error::serde)?.add(builder, "oneofFieldMap") };`,
+		KeyType:            "i32",
+		ValueType:          "i32",
+	}, map_field.Codec, ignore); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 }
 

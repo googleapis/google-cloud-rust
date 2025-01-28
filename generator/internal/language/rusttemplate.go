@@ -131,12 +131,17 @@ type rustOneOfAnnotation struct {
 	// `snake_case`, but are never mangled with a `r#` prefix.
 	SetterName string
 	// The `oneof` is represented by a Rust `enum`, these need to be `PascalCase`.
-	EnumName              string
-	NameToPascal          string
-	NameToSnake           string
-	NameToSnakeNoMangling string
-	FieldType             string
-	DocLines              []string
+	EnumName string
+	// The Rust `enum` may be in a deeply nested scope. This is a shortcut.
+	FQEnumName string
+	FieldType  string
+	DocLines   []string
+	// The subset of the oneof fields that are neither maps, nor repeated.
+	SingularFields []*api.Field
+	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
+	RepeatedFields []*api.Field
+	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
+	MapFields []*api.Field
 }
 
 type rustFieldAnnotations struct {
@@ -292,6 +297,38 @@ func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpeci
 	}
 }
 
+type rustFieldPartition struct {
+	singularFields []*api.Field
+	repeatedFields []*api.Field
+	mapFields      []*api.Field
+}
+
+func rustPartitionFields(fields []*api.Field, state *api.APIState) rustFieldPartition {
+	isMap := func(f *api.Field) bool {
+		if f.Typez != api.MESSAGE_TYPE {
+			return false
+		}
+		if m, ok := state.MessageByID[f.TypezID]; ok {
+			return m.IsMap
+		}
+		return false
+	}
+	isRepeated := func(f *api.Field) bool {
+		return f.Repeated && !isMap(f)
+	}
+	return rustFieldPartition{
+		singularFields: filterSlice(fields, func(f *api.Field) bool {
+			return !isRepeated(f) && !isMap(f)
+		}),
+		repeatedFields: filterSlice(fields, func(f *api.Field) bool {
+			return isRepeated(f)
+		}),
+		mapFields: filterSlice(fields, func(f *api.Field) bool {
+			return isMap(f)
+		}),
+	}
+}
+
 func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
 	hasSyntheticFields := false
 	for _, f := range m.Fields {
@@ -310,40 +347,22 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 		rustAnnotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
 
-	isMap := func(f *api.Field) bool {
-		if f.Typez != api.MESSAGE_TYPE {
-			return false
-		}
-		if m, ok := state.MessageByID[f.TypezID]; ok {
-			return m.IsMap
-		}
-		return false
-	}
-	isRepeated := func(f *api.Field) bool {
-		return f.Repeated && !isMap(f)
-	}
-
 	basicFields := filterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
+	partition := rustPartitionFields(basicFields, state)
 	m.Codec = &rustMessageAnnotation{
-		Name:              rustToPascal(m.Name),
-		ModuleName:        rustToSnake(m.Name),
-		QualifiedName:     rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
-		SourceFQN:         strings.TrimPrefix(m.ID, "."),
-		DocLines:          rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		MessageAttributes: rustMessageAttributes(deserializeWithDefaults),
-		HasNestedTypes:    hasNestedTypes(m),
-		BasicFields:       basicFields,
-		SingularFields: filterSlice(basicFields, func(f *api.Field) bool {
-			return !isRepeated(f) && !isMap(f)
-		}),
-		RepeatedFields: filterSlice(m.Fields, func(f *api.Field) bool {
-			return isRepeated(f)
-		}),
-		MapFields: filterSlice(m.Fields, func(f *api.Field) bool {
-			return isMap(f)
-		}),
+		Name:               rustToPascal(m.Name),
+		ModuleName:         rustToSnake(m.Name),
+		QualifiedName:      rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping),
+		SourceFQN:          strings.TrimPrefix(m.ID, "."),
+		DocLines:           rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		MessageAttributes:  rustMessageAttributes(deserializeWithDefaults),
+		HasNestedTypes:     hasNestedTypes(m),
+		BasicFields:        basicFields,
+		SingularFields:     partition.singularFields,
+		RepeatedFields:     partition.repeatedFields,
+		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
 	}
 }
@@ -391,13 +410,20 @@ func newRustMethod(m *api.Method, s *api.Service, state *api.APIState, modulePat
 }
 
 func rustAnnotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) {
+	partition := rustPartitionFields(oneof.Fields, state)
 	scope := rustMessageScopeName(message, "", modulePath, sourceSpecificationPackageName, packageMapping)
+	enumName := rustToPascal(oneof.Name)
+	fqEnumName := fmt.Sprintf("%s::%s", scope, enumName)
 	oneof.Codec = &rustOneOfAnnotation{
-		FieldName:  rustToSnake(oneof.Name),
-		SetterName: rustToSnakeNoMangling(oneof.Name),
-		EnumName:   rustToPascal(oneof.Name),
-		FieldType:  fmt.Sprintf("%s::%s", scope, rustToPascal(oneof.Name)),
-		DocLines:   rustFormatDocComments(oneof.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		FieldName:      rustToSnake(oneof.Name),
+		SetterName:     rustToSnakeNoMangling(oneof.Name),
+		EnumName:       enumName,
+		FQEnumName:     fqEnumName,
+		FieldType:      fmt.Sprintf("%s::%s", scope, rustToPascal(oneof.Name)),
+		DocLines:       rustFormatDocComments(oneof.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		SingularFields: partition.singularFields,
+		RepeatedFields: partition.repeatedFields,
+		MapFields:      partition.mapFields,
 	}
 }
 

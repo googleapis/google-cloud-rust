@@ -51,9 +51,9 @@ var rustTemplates embed.FS
 var commentUrlRegex = regexp.MustCompile(
 	`` + // `go fmt` is annoying
 		`https?://` + // Accept either https or http.
-		`([A-Za-z0-9\.\-]+\.)+` + // Be generous in accepting most of the authority (hostname)
+		`([A-Za-z0-9\.\-_]+\.)+` + // Be generous in accepting most of the authority (hostname)
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
-		`(/[-a-zA-Z0-9@:%_\+.~#?&/=]*)?`) // Accept just about anything on the query and URL fragments
+		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
 
 func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -1058,6 +1058,10 @@ func escapeUrls(line string) string {
 
 		if strings.HasSuffix(prefix, "<") && strings.HasPrefix(suffix, ">") {
 			// Skip adding <> if the url is already surrounded by angled brackets.
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
+		} else if strings.Contains(line[lastIndex:match[0]], "<a href") {
+			// The url is in a hyperlink, leave it as-is
 			escapedLine.WriteString(line[lastIndex:match[1]])
 			lastIndex = match[1]
 		} else if strings.HasSuffix(line[lastIndex:match[0]], `"`) && strings.HasPrefix(line[match[1]:], `"`) {

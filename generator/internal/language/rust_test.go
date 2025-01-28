@@ -1805,7 +1805,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 	placeholder>.
 	Third example: projects/<project>/secrets/<secret>
 	Urls remain unchanged <https://www.example.com>
-	Hyperlinks remain unchanged <a href=https://www.hyperlink.com>hyperlined content</a>` + `
+	Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>` + `
 	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
 
 	want := []string{
@@ -1814,7 +1814,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 		"/// placeholder\\>.",
 		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
 		"/// Urls remain unchanged <https://www.example.com>",
-		"/// Hyperlinks remain unchanged <a href=<https://www.hyperlink.com>>hyperlined content</a>",
+		"/// Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>",
 		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
 	}
 
@@ -1931,7 +1931,8 @@ Trailing Slash https://example9.com/
 http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html
 http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
 https://cloud.google.com/apis/design/design_patterns#integer_types
-https://cloud.google.com/apis/design/design_patterns#integer_types.`
+https://cloud.google.com/apis/design/design_patterns#integer_types.
+Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	want := []string{
 		"/// blah blah <https://cloud.google.com> foo bar",
 		"/// [link](https://example1.com)",
@@ -1947,6 +1948,7 @@ https://cloud.google.com/apis/design/design_patterns#integer_types.`
 		"/// <http://www.unicode.org/reports/tr35/#Unicode_locale_identifier>.",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>",
 		"/// <https://cloud.google.com/apis/design/design_patterns#integer_types>.",
+		"/// Hyperlink: <a href=\"https://hyperlink.com\">Content</a>",
 	}
 
 	wkt := &rustPackage{
