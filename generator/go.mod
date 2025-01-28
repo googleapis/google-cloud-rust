@@ -1,6 +1,6 @@
 module github.com/googleapis/google-cloud-rust/generator
 
-go 1.23.2
+go 1.23.5
 
 require (
 	cloud.google.com/go/iam v1.3.1
