@@ -1655,14 +1655,14 @@ pub struct ListRolesRequest {
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles).
     ///   Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles>`
     ///
     /// * [`organizations.roles.list()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/list):
     ///   `organizations/{ORGANIZATION_ID}`. This method lists all
     ///   organization-level [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles).
     ///   Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
@@ -1800,21 +1800,21 @@ pub struct GetRoleRequest {
     ///   [predefined
     ///   roles](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles)
     ///   in Cloud IAM. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/roles/>{ROLE_NAME}`
+    ///   `<https://iam.googleapis.com/v1/roles/{ROLE_NAME}>`
     ///
     /// * [`projects.roles.get()`](https://cloud.google.com/iam/reference/rest/v1/projects.roles/get):
     ///   `projects/{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}`. This method returns only
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the project level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     /// * [`organizations.roles.get()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/get):
     ///   `organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`. This method
     ///   returns only [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the organization level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
@@ -1855,14 +1855,14 @@ pub struct CreateRoleRequest {
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles).
     ///   Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles>`
     ///
     /// * [`organizations.roles.create()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/create):
     ///   `organizations/{ORGANIZATION_ID}`. This method creates organization-level
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles).
     ///   Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
@@ -1930,14 +1930,14 @@ pub struct UpdateRoleRequest {
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the project level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     /// * [`organizations.roles.patch()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/patch):
     ///   `organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`. This method
     ///   updates only [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the organization level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
@@ -2004,14 +2004,14 @@ pub struct DeleteRoleRequest {
     ///   [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the project level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     /// * [`organizations.roles.delete()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/delete):
     ///   `organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`. This method
     ///   deletes only [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the organization level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
@@ -2063,14 +2063,14 @@ pub struct UndeleteRoleRequest {
     ///   only [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the project level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/projects/>{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/projects/{PROJECT_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     /// * [`organizations.roles.undelete()`](https://cloud.google.com/iam/reference/rest/v1/organizations.roles/undelete):
     ///   `organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`. This method
     ///   undeletes only [custom
     ///   roles](https://cloud.google.com/iam/docs/understanding-custom-roles) that
     ///   have been created at the organization level. Example request URL:
-    ///   `<https://iam.googleapis.com/v1/organizations/>{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}`
+    ///   `<https://iam.googleapis.com/v1/organizations/{ORGANIZATION_ID}/roles/{CUSTOM_ROLE_ID}>`
     ///
     ///
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
