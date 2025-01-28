@@ -33,7 +33,7 @@ const DEFAULT_HEADER: JwsHeader = JwsHeader {
     kid: None,
 };
 
-const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platform"];
+const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
@@ -72,7 +72,7 @@ impl TokenProvider for ServiceAccountTokenProvider {
         let exp = now + DEFAULT_TOKEN_TIMEOUT;
         let claims = JwsClaims {
             iss: self.service_account_info.client_email.clone(),
-            scope: Some(DEFAULT_SCOPES.map(|s| s.to_string()).to_vec()),
+            scope: Some(DEFAULT_SCOPES.to_string()),
             aud: None,
             exp,
             iat: now,
