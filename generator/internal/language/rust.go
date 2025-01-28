@@ -1060,6 +1060,10 @@ func escapeUrls(line string) string {
 			// Skip adding <> if the url is already surrounded by angled brackets.
 			escapedLine.WriteString(line[lastIndex:match[1]])
 			lastIndex = match[1]
+		} else if strings.Contains(line[lastIndex:match[0]], "<a href") {
+			// The url is in a hyperlink, leave it as-is
+			escapedLine.WriteString(line[lastIndex:match[1]])
+			lastIndex = match[1]
 		} else if strings.HasSuffix(line[lastIndex:match[0]], `"`) && strings.HasPrefix(line[match[1]:], `"`) {
 			// The URL is in quotes `"`, escape it to appear as verbatim text.
 			escapedLine.WriteString(line[lastIndex : match[0]-1])
