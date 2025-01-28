@@ -1351,6 +1351,105 @@ func TestRust_AsQueryParameter(t *testing.T) {
 	}
 }
 
+func TestRust_OneOfAsQueryParameter(t *testing.T) {
+	options := &api.Message{
+		Name:   "Options",
+		ID:     "..Options",
+		Fields: []*api.Field{},
+	}
+	optionsField := &api.Field{
+		Name:     "options_field",
+		JSONName: "optionsField",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  options.ID,
+		IsOneOf:  true,
+	}
+	typeField := &api.Field{
+		Name:     "type",
+		JSONName: "type",
+		Typez:    api.INT32_TYPE,
+		IsOneOf:  true,
+	}
+	singularField := &api.Field{
+		Name:     "singular_field",
+		JSONName: "singularField",
+		Typez:    api.STRING_TYPE,
+		IsOneOf:  true,
+	}
+	repeatedField := &api.Field{
+		Name:     "repeated_field",
+		JSONName: "repeatedField",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+
+	singularEnumField := &api.Field{
+		Name:     "singular_enum_field",
+		JSONName: "singularEnumField",
+		Typez:    api.ENUM_TYPE,
+		IsOneOf:  true,
+	}
+	repeatedEnumField := &api.Field{
+		Name:     "repeated_enum_field",
+		JSONName: "repeatedEnumField",
+		Typez:    api.ENUM_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+
+	singularFieldMaskField := &api.Field{
+		Name:     "singular_field_mask",
+		JSONName: "singularFieldMask",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".google.protobuf.FieldMask",
+		IsOneOf:  true,
+	}
+
+	fields := []*api.Field{
+		typeField,
+		optionsField,
+		singularField, repeatedField,
+		singularEnumField, repeatedEnumField,
+		singularFieldMaskField,
+	}
+	oneof := &api.OneOf{
+		Name:   "one_of",
+		ID:     "..Request.one_of",
+		Fields: fields,
+	}
+	request := &api.Message{
+		Name:   "TestRequest",
+		ID:     "..TestRequest",
+		Fields: fields,
+		OneOfs: []*api.OneOf{oneof},
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{options, request},
+		[]*api.Enum{},
+		[]*api.Service{})
+	api.CrossReference(model)
+	rustLoadWellKnownTypes(model.State)
+
+	for _, test := range []struct {
+		field *api.Field
+		want  string
+	}{
+		{optionsField, `let builder = req.get_options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{typeField, `let builder = req.get_type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
+		{singularField, `let builder = req.get_singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
+		{repeatedField, `let builder = req.get_repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
+		{singularEnumField, `let builder = req.get_singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
+		{repeatedEnumField, `let builder = req.get_repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{singularFieldMaskField, `let builder = req.get_singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+	} {
+		got := rustAddQueryParameter(test.field)
+		if test.want != got {
+			t.Errorf("mismatched as query parameter for %s\nwant=%s\n got=%s", test.field.Name, test.want, got)
+		}
+	}
+}
+
 type rustCaseConvertTest struct {
 	Input    string
 	Expected string
