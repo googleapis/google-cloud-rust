@@ -514,13 +514,12 @@ pub mod autokey_config {
 
     /// The states AutokeyConfig can be in.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -531,20 +530,21 @@ pub mod autokey_config {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// The state of the AutokeyConfig is unspecified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The AutokeyConfig is currently active.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// A previously configured key project has been deleted and the current
         /// AutokeyConfig is unusable.
-        pub const KEY_PROJECT_DELETED: &str = "KEY_PROJECT_DELETED";
+        pub const KEY_PROJECT_DELETED: State = State::new("KEY_PROJECT_DELETED");
 
         /// The AutokeyConfig is not yet initialized or has been reset to its default
         /// uninitialized state.
-        pub const UNINITIALIZED: &str = "UNINITIALIZED";
+        pub const UNINITIALIZED: State = State::new("UNINITIALIZED");
     }
 }
 
@@ -1362,13 +1362,12 @@ pub mod ekm_connection {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyManagementMode(std::string::String);
+    pub struct KeyManagementMode(std::borrow::Cow<'static, str>);
 
     impl KeyManagementMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new KeyManagementMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1379,9 +1378,11 @@ pub mod ekm_connection {
 
     /// Useful constants to work with [KeyManagementMode](KeyManagementMode)
     pub mod key_management_mode {
+        use super::KeyManagementMode;
 
         /// Not specified.
-        pub const KEY_MANAGEMENT_MODE_UNSPECIFIED: &str = "KEY_MANAGEMENT_MODE_UNSPECIFIED";
+        pub const KEY_MANAGEMENT_MODE_UNSPECIFIED: KeyManagementMode =
+            KeyManagementMode::new("KEY_MANAGEMENT_MODE_UNSPECIFIED");
 
         /// EKM-side key management operations on
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] created with this
@@ -1401,7 +1402,7 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
-        pub const MANUAL: &str = "MANUAL";
+        pub const MANUAL: KeyManagementMode = KeyManagementMode::new("MANUAL");
 
         /// All [CryptoKeys][google.cloud.kms.v1.CryptoKey] created with this
         /// [EkmConnection][google.cloud.kms.v1.EkmConnection] use EKM-side key
@@ -1423,7 +1424,7 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
         /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
-        pub const CLOUD_KMS: &str = "CLOUD_KMS";
+        pub const CLOUD_KMS: KeyManagementMode = KeyManagementMode::new("CLOUD_KMS");
     }
 }
 
@@ -1872,13 +1873,12 @@ pub mod crypto_key {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose]: crate::model::crypto_key::CryptoKeyPurpose
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyPurpose(std::string::String);
+    pub struct CryptoKeyPurpose(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyPurpose {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CryptoKeyPurpose instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1889,9 +1889,11 @@ pub mod crypto_key {
 
     /// Useful constants to work with [CryptoKeyPurpose](CryptoKeyPurpose)
     pub mod crypto_key_purpose {
+        use super::CryptoKeyPurpose;
 
         /// Not specified.
-        pub const CRYPTO_KEY_PURPOSE_UNSPECIFIED: &str = "CRYPTO_KEY_PURPOSE_UNSPECIFIED";
+        pub const CRYPTO_KEY_PURPOSE_UNSPECIFIED: CryptoKeyPurpose =
+            CryptoKeyPurpose::new("CRYPTO_KEY_PURPOSE_UNSPECIFIED");
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt] and
@@ -1900,7 +1902,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.Decrypt]: crate::client::KeyManagementService::decrypt
         /// [google.cloud.kms.v1.KeyManagementService.Encrypt]: crate::client::KeyManagementService::encrypt
-        pub const ENCRYPT_DECRYPT: &str = "ENCRYPT_DECRYPT";
+        pub const ENCRYPT_DECRYPT: CryptoKeyPurpose = CryptoKeyPurpose::new("ENCRYPT_DECRYPT");
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with
@@ -1911,7 +1913,7 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.AsymmetricSign]: crate::client::KeyManagementService::asymmetric_sign
         /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-        pub const ASYMMETRIC_SIGN: &str = "ASYMMETRIC_SIGN";
+        pub const ASYMMETRIC_SIGN: CryptoKeyPurpose = CryptoKeyPurpose::new("ASYMMETRIC_SIGN");
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with
@@ -1922,7 +1924,8 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.AsymmetricDecrypt]: crate::client::KeyManagementService::asymmetric_decrypt
         /// [google.cloud.kms.v1.KeyManagementService.GetPublicKey]: crate::client::KeyManagementService::get_public_key
-        pub const ASYMMETRIC_DECRYPT: &str = "ASYMMETRIC_DECRYPT";
+        pub const ASYMMETRIC_DECRYPT: CryptoKeyPurpose =
+            CryptoKeyPurpose::new("ASYMMETRIC_DECRYPT");
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [RawEncrypt][google.cloud.kms.v1.KeyManagementService.RawEncrypt]
@@ -1933,14 +1936,15 @@ pub mod crypto_key {
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.RawDecrypt]: crate::client::KeyManagementService::raw_decrypt
         /// [google.cloud.kms.v1.KeyManagementService.RawEncrypt]: crate::client::KeyManagementService::raw_encrypt
-        pub const RAW_ENCRYPT_DECRYPT: &str = "RAW_ENCRYPT_DECRYPT";
+        pub const RAW_ENCRYPT_DECRYPT: CryptoKeyPurpose =
+            CryptoKeyPurpose::new("RAW_ENCRYPT_DECRYPT");
 
         /// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with this purpose may be used
         /// with [MacSign][google.cloud.kms.v1.KeyManagementService.MacSign].
         ///
         /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
         /// [google.cloud.kms.v1.KeyManagementService.MacSign]: crate::client::KeyManagementService::mac_sign
-        pub const MAC: &str = "MAC";
+        pub const MAC: CryptoKeyPurpose = CryptoKeyPurpose::new("MAC");
     }
 
     /// Controls the rate of automatic rotation.
@@ -2170,13 +2174,12 @@ pub mod key_operation_attestation {
 
     /// Attestation formats provided by the HSM.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AttestationFormat(std::string::String);
+    pub struct AttestationFormat(std::borrow::Cow<'static, str>);
 
     impl AttestationFormat {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new AttestationFormat instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2187,20 +2190,24 @@ pub mod key_operation_attestation {
 
     /// Useful constants to work with [AttestationFormat](AttestationFormat)
     pub mod attestation_format {
+        use super::AttestationFormat;
 
         /// Not specified.
-        pub const ATTESTATION_FORMAT_UNSPECIFIED: &str = "ATTESTATION_FORMAT_UNSPECIFIED";
+        pub const ATTESTATION_FORMAT_UNSPECIFIED: AttestationFormat =
+            AttestationFormat::new("ATTESTATION_FORMAT_UNSPECIFIED");
 
         /// Cavium HSM attestation compressed with gzip. Note that this format is
         /// defined by Cavium and subject to change at any time.
         ///
         /// See
         /// <https://www.marvell.com/products/security-solutions/nitrox-hs-adapters/software-key-attestation.html>.
-        pub const CAVIUM_V1_COMPRESSED: &str = "CAVIUM_V1_COMPRESSED";
+        pub const CAVIUM_V1_COMPRESSED: AttestationFormat =
+            AttestationFormat::new("CAVIUM_V1_COMPRESSED");
 
         /// Cavium HSM attestation V2 compressed with gzip. This is a new format
         /// introduced in Cavium's version 3.2-08.
-        pub const CAVIUM_V2_COMPRESSED: &str = "CAVIUM_V2_COMPRESSED";
+        pub const CAVIUM_V2_COMPRESSED: AttestationFormat =
+            AttestationFormat::new("CAVIUM_V2_COMPRESSED");
     }
 }
 
@@ -2581,13 +2588,12 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.GOOGLE_SYMMETRIC_ENCRYPTION]: crate::model::crypto_key_version::crypto_key_version_algorithm::GOOGLE_SYMMETRIC_ENCRYPTION
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm.RSA_SIGN_PSS_2048_SHA256]: crate::model::crypto_key_version::crypto_key_version_algorithm::RSA_SIGN_PSS_2048_SHA256
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionAlgorithm(std::string::String);
+    pub struct CryptoKeyVersionAlgorithm(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionAlgorithm {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CryptoKeyVersionAlgorithm instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2598,122 +2604,158 @@ pub mod crypto_key_version {
 
     /// Useful constants to work with [CryptoKeyVersionAlgorithm](CryptoKeyVersionAlgorithm)
     pub mod crypto_key_version_algorithm {
+        use super::CryptoKeyVersionAlgorithm;
 
         /// Not specified.
-        pub const CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED: &str =
-            "CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED";
+        pub const CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("CRYPTO_KEY_VERSION_ALGORITHM_UNSPECIFIED");
 
         /// Creates symmetric encryption keys.
-        pub const GOOGLE_SYMMETRIC_ENCRYPTION: &str = "GOOGLE_SYMMETRIC_ENCRYPTION";
+        pub const GOOGLE_SYMMETRIC_ENCRYPTION: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("GOOGLE_SYMMETRIC_ENCRYPTION");
 
         /// AES-GCM (Galois Counter Mode) using 128-bit keys.
-        pub const AES_128_GCM: &str = "AES_128_GCM";
+        pub const AES_128_GCM: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_128_GCM");
 
         /// AES-GCM (Galois Counter Mode) using 256-bit keys.
-        pub const AES_256_GCM: &str = "AES_256_GCM";
+        pub const AES_256_GCM: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_256_GCM");
 
         /// AES-CBC (Cipher Block Chaining Mode) using 128-bit keys.
-        pub const AES_128_CBC: &str = "AES_128_CBC";
+        pub const AES_128_CBC: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_128_CBC");
 
         /// AES-CBC (Cipher Block Chaining Mode) using 256-bit keys.
-        pub const AES_256_CBC: &str = "AES_256_CBC";
+        pub const AES_256_CBC: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_256_CBC");
 
         /// AES-CTR (Counter Mode) using 128-bit keys.
-        pub const AES_128_CTR: &str = "AES_128_CTR";
+        pub const AES_128_CTR: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_128_CTR");
 
         /// AES-CTR (Counter Mode) using 256-bit keys.
-        pub const AES_256_CTR: &str = "AES_256_CTR";
+        pub const AES_256_CTR: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("AES_256_CTR");
 
         /// RSASSA-PSS 2048 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_2048_SHA256: &str = "RSA_SIGN_PSS_2048_SHA256";
+        pub const RSA_SIGN_PSS_2048_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PSS_2048_SHA256");
 
         /// RSASSA-PSS 3072 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_3072_SHA256: &str = "RSA_SIGN_PSS_3072_SHA256";
+        pub const RSA_SIGN_PSS_3072_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PSS_3072_SHA256");
 
         /// RSASSA-PSS 4096 bit key with a SHA256 digest.
-        pub const RSA_SIGN_PSS_4096_SHA256: &str = "RSA_SIGN_PSS_4096_SHA256";
+        pub const RSA_SIGN_PSS_4096_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PSS_4096_SHA256");
 
         /// RSASSA-PSS 4096 bit key with a SHA512 digest.
-        pub const RSA_SIGN_PSS_4096_SHA512: &str = "RSA_SIGN_PSS_4096_SHA512";
+        pub const RSA_SIGN_PSS_4096_SHA512: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PSS_4096_SHA512");
 
         /// RSASSA-PKCS1-v1_5 with a 2048 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_2048_SHA256: &str = "RSA_SIGN_PKCS1_2048_SHA256";
+        pub const RSA_SIGN_PKCS1_2048_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PKCS1_2048_SHA256");
 
         /// RSASSA-PKCS1-v1_5 with a 3072 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_3072_SHA256: &str = "RSA_SIGN_PKCS1_3072_SHA256";
+        pub const RSA_SIGN_PKCS1_3072_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PKCS1_3072_SHA256");
 
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA256 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA256: &str = "RSA_SIGN_PKCS1_4096_SHA256";
+        pub const RSA_SIGN_PKCS1_4096_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PKCS1_4096_SHA256");
 
         /// RSASSA-PKCS1-v1_5 with a 4096 bit key and a SHA512 digest.
-        pub const RSA_SIGN_PKCS1_4096_SHA512: &str = "RSA_SIGN_PKCS1_4096_SHA512";
+        pub const RSA_SIGN_PKCS1_4096_SHA512: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_PKCS1_4096_SHA512");
 
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 2048 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_2048: &str = "RSA_SIGN_RAW_PKCS1_2048";
+        pub const RSA_SIGN_RAW_PKCS1_2048: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_RAW_PKCS1_2048");
 
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 3072 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_3072: &str = "RSA_SIGN_RAW_PKCS1_3072";
+        pub const RSA_SIGN_RAW_PKCS1_3072: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_RAW_PKCS1_3072");
 
         /// RSASSA-PKCS1-v1_5 signing without encoding, with a 4096 bit key.
-        pub const RSA_SIGN_RAW_PKCS1_4096: &str = "RSA_SIGN_RAW_PKCS1_4096";
+        pub const RSA_SIGN_RAW_PKCS1_4096: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_SIGN_RAW_PKCS1_4096");
 
         /// RSAES-OAEP 2048 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_2048_SHA256: &str = "RSA_DECRYPT_OAEP_2048_SHA256";
+        pub const RSA_DECRYPT_OAEP_2048_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_2048_SHA256");
 
         /// RSAES-OAEP 3072 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_3072_SHA256: &str = "RSA_DECRYPT_OAEP_3072_SHA256";
+        pub const RSA_DECRYPT_OAEP_3072_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_3072_SHA256");
 
         /// RSAES-OAEP 4096 bit key with a SHA256 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA256: &str = "RSA_DECRYPT_OAEP_4096_SHA256";
+        pub const RSA_DECRYPT_OAEP_4096_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_4096_SHA256");
 
         /// RSAES-OAEP 4096 bit key with a SHA512 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA512: &str = "RSA_DECRYPT_OAEP_4096_SHA512";
+        pub const RSA_DECRYPT_OAEP_4096_SHA512: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_4096_SHA512");
 
         /// RSAES-OAEP 2048 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_2048_SHA1: &str = "RSA_DECRYPT_OAEP_2048_SHA1";
+        pub const RSA_DECRYPT_OAEP_2048_SHA1: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_2048_SHA1");
 
         /// RSAES-OAEP 3072 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_3072_SHA1: &str = "RSA_DECRYPT_OAEP_3072_SHA1";
+        pub const RSA_DECRYPT_OAEP_3072_SHA1: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_3072_SHA1");
 
         /// RSAES-OAEP 4096 bit key with a SHA1 digest.
-        pub const RSA_DECRYPT_OAEP_4096_SHA1: &str = "RSA_DECRYPT_OAEP_4096_SHA1";
+        pub const RSA_DECRYPT_OAEP_4096_SHA1: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("RSA_DECRYPT_OAEP_4096_SHA1");
 
         /// ECDSA on the NIST P-256 curve with a SHA256 digest.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_P256_SHA256: &str = "EC_SIGN_P256_SHA256";
+        pub const EC_SIGN_P256_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("EC_SIGN_P256_SHA256");
 
         /// ECDSA on the NIST P-384 curve with a SHA384 digest.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_P384_SHA384: &str = "EC_SIGN_P384_SHA384";
+        pub const EC_SIGN_P384_SHA384: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("EC_SIGN_P384_SHA384");
 
         /// ECDSA on the non-NIST secp256k1 curve. This curve is only supported for
         /// HSM protection level.
         /// Other hash functions can also be used:
         /// <https://cloud.google.com/kms/docs/create-validate-signatures#ecdsa_support_for_other_hash_algorithms>
-        pub const EC_SIGN_SECP256K1_SHA256: &str = "EC_SIGN_SECP256K1_SHA256";
+        pub const EC_SIGN_SECP256K1_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("EC_SIGN_SECP256K1_SHA256");
 
         /// EdDSA on the Curve25519 in pure mode (taking data as input).
-        pub const EC_SIGN_ED25519: &str = "EC_SIGN_ED25519";
+        pub const EC_SIGN_ED25519: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("EC_SIGN_ED25519");
 
         /// HMAC-SHA256 signing with a 256 bit key.
-        pub const HMAC_SHA256: &str = "HMAC_SHA256";
+        pub const HMAC_SHA256: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("HMAC_SHA256");
 
         /// HMAC-SHA1 signing with a 160 bit key.
-        pub const HMAC_SHA1: &str = "HMAC_SHA1";
+        pub const HMAC_SHA1: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("HMAC_SHA1");
 
         /// HMAC-SHA384 signing with a 384 bit key.
-        pub const HMAC_SHA384: &str = "HMAC_SHA384";
+        pub const HMAC_SHA384: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("HMAC_SHA384");
 
         /// HMAC-SHA512 signing with a 512 bit key.
-        pub const HMAC_SHA512: &str = "HMAC_SHA512";
+        pub const HMAC_SHA512: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("HMAC_SHA512");
 
         /// HMAC-SHA224 signing with a 224 bit key.
-        pub const HMAC_SHA224: &str = "HMAC_SHA224";
+        pub const HMAC_SHA224: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("HMAC_SHA224");
 
         /// Algorithm representing symmetric encryption by an external key manager.
-        pub const EXTERNAL_SYMMETRIC_ENCRYPTION: &str = "EXTERNAL_SYMMETRIC_ENCRYPTION";
+        pub const EXTERNAL_SYMMETRIC_ENCRYPTION: CryptoKeyVersionAlgorithm =
+            CryptoKeyVersionAlgorithm::new("EXTERNAL_SYMMETRIC_ENCRYPTION");
     }
 
     /// The state of a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion],
@@ -2721,13 +2763,12 @@ pub mod crypto_key_version {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionState(std::string::String);
+    pub struct CryptoKeyVersionState(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionState {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CryptoKeyVersionState instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2738,10 +2779,11 @@ pub mod crypto_key_version {
 
     /// Useful constants to work with [CryptoKeyVersionState](CryptoKeyVersionState)
     pub mod crypto_key_version_state {
+        use super::CryptoKeyVersionState;
 
         /// Not specified.
-        pub const CRYPTO_KEY_VERSION_STATE_UNSPECIFIED: &str =
-            "CRYPTO_KEY_VERSION_STATE_UNSPECIFIED";
+        pub const CRYPTO_KEY_VERSION_STATE_UNSPECIFIED: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("CRYPTO_KEY_VERSION_STATE_UNSPECIFIED");
 
         /// This version is still being generated. It may not be used, enabled,
         /// disabled, or destroyed yet. Cloud KMS will automatically mark this
@@ -2750,10 +2792,11 @@ pub mod crypto_key_version {
         /// as soon as the version is ready.
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const PENDING_GENERATION: &str = "PENDING_GENERATION";
+        pub const PENDING_GENERATION: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("PENDING_GENERATION");
 
         /// This version may be used for cryptographic operations.
-        pub const ENABLED: &str = "ENABLED";
+        pub const ENABLED: CryptoKeyVersionState = CryptoKeyVersionState::new("ENABLED");
 
         /// This version may not be used, but the key material is still available,
         /// and the version can be placed back into the
@@ -2761,7 +2804,7 @@ pub mod crypto_key_version {
         /// state.
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: CryptoKeyVersionState = CryptoKeyVersionState::new("DISABLED");
 
         /// This version is destroyed, and the key material is no longer stored.
         /// This version may only become
@@ -2774,7 +2817,7 @@ pub mod crypto_key_version {
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
         /// [google.cloud.kms.v1.CryptoKeyVersion.reimport_eligible]: crate::model::CryptoKeyVersion::reimport_eligible
         /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
-        pub const DESTROYED: &str = "DESTROYED";
+        pub const DESTROYED: CryptoKeyVersionState = CryptoKeyVersionState::new("DESTROYED");
 
         /// This version is scheduled for destruction, and will be destroyed soon.
         /// Call
@@ -2785,7 +2828,8 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DISABLED]: crate::model::crypto_key_version::crypto_key_version_state::DISABLED
         /// [google.cloud.kms.v1.KeyManagementService.RestoreCryptoKeyVersion]: crate::client::KeyManagementService::restore_crypto_key_version
-        pub const DESTROY_SCHEDULED: &str = "DESTROY_SCHEDULED";
+        pub const DESTROY_SCHEDULED: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("DESTROY_SCHEDULED");
 
         /// This version is still being imported. It may not be used, enabled,
         /// disabled, or destroyed yet. Cloud KMS will automatically mark this
@@ -2794,7 +2838,8 @@ pub mod crypto_key_version {
         /// as soon as the version is ready.
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.ENABLED]: crate::model::crypto_key_version::crypto_key_version_state::ENABLED
-        pub const PENDING_IMPORT: &str = "PENDING_IMPORT";
+        pub const PENDING_IMPORT: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("PENDING_IMPORT");
 
         /// This version was not imported successfully. It may not be used, enabled,
         /// disabled, or destroyed. The submitted key material has been discarded.
@@ -2802,19 +2847,22 @@ pub mod crypto_key_version {
         /// [CryptoKeyVersion.import_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.import_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.import_failure_reason]: crate::model::CryptoKeyVersion::import_failure_reason
-        pub const IMPORT_FAILED: &str = "IMPORT_FAILED";
+        pub const IMPORT_FAILED: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("IMPORT_FAILED");
 
         /// This version was not generated successfully. It may not be used, enabled,
         /// disabled, or destroyed. Additional details can be found in
         /// [CryptoKeyVersion.generation_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.generation_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.generation_failure_reason]: crate::model::CryptoKeyVersion::generation_failure_reason
-        pub const GENERATION_FAILED: &str = "GENERATION_FAILED";
+        pub const GENERATION_FAILED: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("GENERATION_FAILED");
 
         /// This version was destroyed, and it may not be used or enabled again.
         /// Cloud KMS is waiting for the corresponding key material residing in an
         /// external key manager to be destroyed.
-        pub const PENDING_EXTERNAL_DESTRUCTION: &str = "PENDING_EXTERNAL_DESTRUCTION";
+        pub const PENDING_EXTERNAL_DESTRUCTION: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("PENDING_EXTERNAL_DESTRUCTION");
 
         /// This version was destroyed, and it may not be used or enabled again.
         /// However, Cloud KMS could not confirm that the corresponding key material
@@ -2823,7 +2871,8 @@ pub mod crypto_key_version {
         /// [CryptoKeyVersion.external_destruction_failure_reason][google.cloud.kms.v1.CryptoKeyVersion.external_destruction_failure_reason].
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion.external_destruction_failure_reason]: crate::model::CryptoKeyVersion::external_destruction_failure_reason
-        pub const EXTERNAL_DESTRUCTION_FAILED: &str = "EXTERNAL_DESTRUCTION_FAILED";
+        pub const EXTERNAL_DESTRUCTION_FAILED: CryptoKeyVersionState =
+            CryptoKeyVersionState::new("EXTERNAL_DESTRUCTION_FAILED");
     }
 
     /// A view for [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]s.
@@ -2837,13 +2886,12 @@ pub mod crypto_key_version {
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeyVersions]: crate::client::KeyManagementService::list_crypto_key_versions
     /// [google.cloud.kms.v1.KeyManagementService.ListCryptoKeys]: crate::client::KeyManagementService::list_crypto_keys
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CryptoKeyVersionView(std::string::String);
+    pub struct CryptoKeyVersionView(std::borrow::Cow<'static, str>);
 
     impl CryptoKeyVersionView {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CryptoKeyVersionView instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2854,6 +2902,7 @@ pub mod crypto_key_version {
 
     /// Useful constants to work with [CryptoKeyVersionView](CryptoKeyVersionView)
     pub mod crypto_key_version_view {
+        use super::CryptoKeyVersionView;
 
         /// Default view for each
         /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. Does not
@@ -2862,7 +2911,8 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.CryptoKeyVersion.attestation]: crate::model::CryptoKeyVersion::attestation
-        pub const CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED: &str = "CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED";
+        pub const CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED: CryptoKeyVersionView =
+            CryptoKeyVersionView::new("CRYPTO_KEY_VERSION_VIEW_UNSPECIFIED");
 
         /// Provides all fields in each
         /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion], including the
@@ -2870,7 +2920,7 @@ pub mod crypto_key_version {
         ///
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.CryptoKeyVersion.attestation]: crate::model::CryptoKeyVersion::attestation
-        pub const FULL: &str = "FULL";
+        pub const FULL: CryptoKeyVersionView = CryptoKeyVersionView::new("FULL");
     }
 }
 
@@ -3265,13 +3315,12 @@ pub mod import_job {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.ImportMethod]: crate::model::import_job::ImportMethod
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ImportMethod(std::string::String);
+    pub struct ImportMethod(std::borrow::Cow<'static, str>);
 
     impl ImportMethod {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ImportMethod instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3282,9 +3331,11 @@ pub mod import_job {
 
     /// Useful constants to work with [ImportMethod](ImportMethod)
     pub mod import_method {
+        use super::ImportMethod;
 
         /// Not specified.
-        pub const IMPORT_METHOD_UNSPECIFIED: &str = "IMPORT_METHOD_UNSPECIFIED";
+        pub const IMPORT_METHOD_UNSPECIFIED: ImportMethod =
+            ImportMethod::new("IMPORT_METHOD_UNSPECIFIED");
 
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
@@ -3292,7 +3343,8 @@ pub mod import_job {
         /// ephemeral AES key with a 3072 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_3072_SHA1_AES_256: &str = "RSA_OAEP_3072_SHA1_AES_256";
+        pub const RSA_OAEP_3072_SHA1_AES_256: ImportMethod =
+            ImportMethod::new("RSA_OAEP_3072_SHA1_AES_256");
 
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
@@ -3300,7 +3352,8 @@ pub mod import_job {
         /// ephemeral AES key with a 4096 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_4096_SHA1_AES_256: &str = "RSA_OAEP_4096_SHA1_AES_256";
+        pub const RSA_OAEP_4096_SHA1_AES_256: ImportMethod =
+            ImportMethod::new("RSA_OAEP_4096_SHA1_AES_256");
 
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
@@ -3308,7 +3361,8 @@ pub mod import_job {
         /// ephemeral AES key with a 3072 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_3072_SHA256_AES_256: &str = "RSA_OAEP_3072_SHA256_AES_256";
+        pub const RSA_OAEP_3072_SHA256_AES_256: ImportMethod =
+            ImportMethod::new("RSA_OAEP_3072_SHA256_AES_256");
 
         /// This ImportMethod represents the CKM_RSA_AES_KEY_WRAP key wrapping
         /// scheme defined in the PKCS #11 standard. In summary, this involves
@@ -3316,19 +3370,20 @@ pub mod import_job {
         /// ephemeral AES key with a 4096 bit RSA key. For more details, see
         /// [RSA AES key wrap
         /// mechanism](http://docs.oasis-open.org/pkcs11/pkcs11-curr/v2.40/cos01/pkcs11-curr-v2.40-cos01.html#_Toc408226908).
-        pub const RSA_OAEP_4096_SHA256_AES_256: &str = "RSA_OAEP_4096_SHA256_AES_256";
+        pub const RSA_OAEP_4096_SHA256_AES_256: ImportMethod =
+            ImportMethod::new("RSA_OAEP_4096_SHA256_AES_256");
 
         /// This ImportMethod represents RSAES-OAEP with a 3072 bit RSA key. The
         /// key material to be imported is wrapped directly with the RSA key. Due
         /// to technical limitations of RSA wrapping, this method cannot be used to
         /// wrap RSA keys for import.
-        pub const RSA_OAEP_3072_SHA256: &str = "RSA_OAEP_3072_SHA256";
+        pub const RSA_OAEP_3072_SHA256: ImportMethod = ImportMethod::new("RSA_OAEP_3072_SHA256");
 
         /// This ImportMethod represents RSAES-OAEP with a 4096 bit RSA key. The
         /// key material to be imported is wrapped directly with the RSA key. Due
         /// to technical limitations of RSA wrapping, this method cannot be used to
         /// wrap RSA keys for import.
-        pub const RSA_OAEP_4096_SHA256: &str = "RSA_OAEP_4096_SHA256";
+        pub const RSA_OAEP_4096_SHA256: ImportMethod = ImportMethod::new("RSA_OAEP_4096_SHA256");
     }
 
     /// The state of the [ImportJob][google.cloud.kms.v1.ImportJob], indicating if
@@ -3336,13 +3391,12 @@ pub mod import_job {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ImportJobState(std::string::String);
+    pub struct ImportJobState(std::borrow::Cow<'static, str>);
 
     impl ImportJobState {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ImportJobState instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3353,9 +3407,11 @@ pub mod import_job {
 
     /// Useful constants to work with [ImportJobState](ImportJobState)
     pub mod import_job_state {
+        use super::ImportJobState;
 
         /// Not specified.
-        pub const IMPORT_JOB_STATE_UNSPECIFIED: &str = "IMPORT_JOB_STATE_UNSPECIFIED";
+        pub const IMPORT_JOB_STATE_UNSPECIFIED: ImportJobState =
+            ImportJobState::new("IMPORT_JOB_STATE_UNSPECIFIED");
 
         /// The wrapping key for this job is still being generated. It may not be
         /// used. Cloud KMS will automatically mark this job as
@@ -3363,7 +3419,7 @@ pub mod import_job {
         /// the wrapping key is generated.
         ///
         /// [google.cloud.kms.v1.ImportJob.ImportJobState.ACTIVE]: crate::model::import_job::import_job_state::ACTIVE
-        pub const PENDING_GENERATION: &str = "PENDING_GENERATION";
+        pub const PENDING_GENERATION: ImportJobState = ImportJobState::new("PENDING_GENERATION");
 
         /// This job may be used in
         /// [CreateCryptoKey][google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]
@@ -3373,10 +3429,10 @@ pub mod import_job {
         ///
         /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKey]: crate::client::KeyManagementService::create_crypto_key
         /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: ImportJobState = ImportJobState::new("ACTIVE");
 
         /// This job can no longer be used and may not leave this state once entered.
-        pub const EXPIRED: &str = "EXPIRED";
+        pub const EXPIRED: ImportJobState = ImportJobState::new("EXPIRED");
     }
 }
 
@@ -7468,13 +7524,12 @@ impl wkt::message::Message for LocationMetadata {
 ///
 /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ProtectionLevel(std::string::String);
+pub struct ProtectionLevel(std::borrow::Cow<'static, str>);
 
 impl ProtectionLevel {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ProtectionLevel instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7485,34 +7540,35 @@ impl ProtectionLevel {
 
 /// Useful constants to work with [ProtectionLevel](ProtectionLevel)
 pub mod protection_level {
+    use super::ProtectionLevel;
 
     /// Not specified.
-    pub const PROTECTION_LEVEL_UNSPECIFIED: &str = "PROTECTION_LEVEL_UNSPECIFIED";
+    pub const PROTECTION_LEVEL_UNSPECIFIED: ProtectionLevel =
+        ProtectionLevel::new("PROTECTION_LEVEL_UNSPECIFIED");
 
     /// Crypto operations are performed in software.
-    pub const SOFTWARE: &str = "SOFTWARE";
+    pub const SOFTWARE: ProtectionLevel = ProtectionLevel::new("SOFTWARE");
 
     /// Crypto operations are performed in a Hardware Security Module.
-    pub const HSM: &str = "HSM";
+    pub const HSM: ProtectionLevel = ProtectionLevel::new("HSM");
 
     /// Crypto operations are performed by an external key manager.
-    pub const EXTERNAL: &str = "EXTERNAL";
+    pub const EXTERNAL: ProtectionLevel = ProtectionLevel::new("EXTERNAL");
 
     /// Crypto operations are performed in an EKM-over-VPC backend.
-    pub const EXTERNAL_VPC: &str = "EXTERNAL_VPC";
+    pub const EXTERNAL_VPC: ProtectionLevel = ProtectionLevel::new("EXTERNAL_VPC");
 }
 
 /// Describes the reason for a data access. Please refer to
 /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
 /// for the detailed semantic meaning of justification reason codes.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct AccessReason(std::string::String);
+pub struct AccessReason(std::borrow::Cow<'static, str>);
 
 impl AccessReason {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new AccessReason instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7523,32 +7579,38 @@ impl AccessReason {
 
 /// Useful constants to work with [AccessReason](AccessReason)
 pub mod access_reason {
+    use super::AccessReason;
 
     /// Unspecified access reason.
-    pub const REASON_UNSPECIFIED: &str = "REASON_UNSPECIFIED";
+    pub const REASON_UNSPECIFIED: AccessReason = AccessReason::new("REASON_UNSPECIFIED");
 
     /// Customer-initiated support.
-    pub const CUSTOMER_INITIATED_SUPPORT: &str = "CUSTOMER_INITIATED_SUPPORT";
+    pub const CUSTOMER_INITIATED_SUPPORT: AccessReason =
+        AccessReason::new("CUSTOMER_INITIATED_SUPPORT");
 
     /// Google-initiated access for system management and troubleshooting.
-    pub const GOOGLE_INITIATED_SERVICE: &str = "GOOGLE_INITIATED_SERVICE";
+    pub const GOOGLE_INITIATED_SERVICE: AccessReason =
+        AccessReason::new("GOOGLE_INITIATED_SERVICE");
 
     /// Google-initiated access in response to a legal request or legal process.
-    pub const THIRD_PARTY_DATA_REQUEST: &str = "THIRD_PARTY_DATA_REQUEST";
+    pub const THIRD_PARTY_DATA_REQUEST: AccessReason =
+        AccessReason::new("THIRD_PARTY_DATA_REQUEST");
 
     /// Google-initiated access for security, fraud, abuse, or compliance purposes.
-    pub const GOOGLE_INITIATED_REVIEW: &str = "GOOGLE_INITIATED_REVIEW";
+    pub const GOOGLE_INITIATED_REVIEW: AccessReason = AccessReason::new("GOOGLE_INITIATED_REVIEW");
 
     /// Customer uses their account to perform any access to their own data which
     /// their IAM policy authorizes.
-    pub const CUSTOMER_INITIATED_ACCESS: &str = "CUSTOMER_INITIATED_ACCESS";
+    pub const CUSTOMER_INITIATED_ACCESS: AccessReason =
+        AccessReason::new("CUSTOMER_INITIATED_ACCESS");
 
     /// Google systems access customer data to help optimize the structure of the
     /// data or quality for future uses by the customer.
-    pub const GOOGLE_INITIATED_SYSTEM_OPERATION: &str = "GOOGLE_INITIATED_SYSTEM_OPERATION";
+    pub const GOOGLE_INITIATED_SYSTEM_OPERATION: AccessReason =
+        AccessReason::new("GOOGLE_INITIATED_SYSTEM_OPERATION");
 
     /// No reason is expected for this key request.
-    pub const REASON_NOT_EXPECTED: &str = "REASON_NOT_EXPECTED";
+    pub const REASON_NOT_EXPECTED: AccessReason = AccessReason::new("REASON_NOT_EXPECTED");
 
     /// Customer uses their account to perform any access to their own data which
     /// their IAM policy authorizes, and one of the following is true:
@@ -7558,7 +7620,8 @@ pub mod access_reason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
-    pub const MODIFIED_CUSTOMER_INITIATED_ACCESS: &str = "MODIFIED_CUSTOMER_INITIATED_ACCESS";
+    pub const MODIFIED_CUSTOMER_INITIATED_ACCESS: AccessReason =
+        AccessReason::new("MODIFIED_CUSTOMER_INITIATED_ACCESS");
 
     /// Google systems access customer data to help optimize the structure of the
     /// data or quality for future uses by the customer, and one of the following
@@ -7569,11 +7632,12 @@ pub mod access_reason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
-    pub const MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION: &str =
-        "MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION";
+    pub const MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION: AccessReason =
+        AccessReason::new("MODIFIED_GOOGLE_INITIATED_SYSTEM_OPERATION");
 
     /// Google-initiated access to maintain system reliability.
-    pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: &str = "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT";
+    pub const GOOGLE_RESPONSE_TO_PRODUCTION_ALERT: AccessReason =
+        AccessReason::new("GOOGLE_RESPONSE_TO_PRODUCTION_ALERT");
 
     /// One of the following operations is being executed while simultaneously
     /// encountering an internal technical issue which prevented a more precise
@@ -7585,6 +7649,6 @@ pub mod access_reason {
     ///   IAM policy authorizes.
     /// * Customer-initiated Google support access.
     /// * Google-initiated support access to protect system reliability.
-    pub const CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING: &str =
-        "CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING";
+    pub const CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING: AccessReason =
+        AccessReason::new("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING");
 }

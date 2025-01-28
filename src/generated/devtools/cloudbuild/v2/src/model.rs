@@ -441,13 +441,12 @@ pub mod installation_state {
 
     /// Stage of the installation process.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Stage(std::string::String);
+    pub struct Stage(std::borrow::Cow<'static, str>);
 
     impl Stage {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Stage instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -458,22 +457,23 @@ pub mod installation_state {
 
     /// Useful constants to work with [Stage](Stage)
     pub mod stage {
+        use super::Stage;
 
         /// No stage specified.
-        pub const STAGE_UNSPECIFIED: &str = "STAGE_UNSPECIFIED";
+        pub const STAGE_UNSPECIFIED: Stage = Stage::new("STAGE_UNSPECIFIED");
 
         /// Only for GitHub Enterprise. An App creation has been requested.
         /// The user needs to confirm the creation in their GitHub enterprise host.
-        pub const PENDING_CREATE_APP: &str = "PENDING_CREATE_APP";
+        pub const PENDING_CREATE_APP: Stage = Stage::new("PENDING_CREATE_APP");
 
         /// User needs to authorize the GitHub (or Enterprise) App via OAuth.
-        pub const PENDING_USER_OAUTH: &str = "PENDING_USER_OAUTH";
+        pub const PENDING_USER_OAUTH: Stage = Stage::new("PENDING_USER_OAUTH");
 
         /// User needs to follow the link to install the GitHub (or Enterprise) App.
-        pub const PENDING_INSTALL_APP: &str = "PENDING_INSTALL_APP";
+        pub const PENDING_INSTALL_APP: Stage = Stage::new("PENDING_INSTALL_APP");
 
         /// Installation process has been completed.
-        pub const COMPLETE: &str = "COMPLETE";
+        pub const COMPLETE: Stage = Stage::new("COMPLETE");
     }
 }
 
@@ -2079,13 +2079,12 @@ pub mod fetch_git_refs_request {
 
     /// Type of refs
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RefType(std::string::String);
+    pub struct RefType(std::borrow::Cow<'static, str>);
 
     impl RefType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RefType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2096,15 +2095,16 @@ pub mod fetch_git_refs_request {
 
     /// Useful constants to work with [RefType](RefType)
     pub mod ref_type {
+        use super::RefType;
 
         /// No type specified.
-        pub const REF_TYPE_UNSPECIFIED: &str = "REF_TYPE_UNSPECIFIED";
+        pub const REF_TYPE_UNSPECIFIED: RefType = RefType::new("REF_TYPE_UNSPECIFIED");
 
         /// To fetch tags.
-        pub const TAG: &str = "TAG";
+        pub const TAG: RefType = RefType::new("TAG");
 
         /// To fetch branches.
-        pub const BRANCH: &str = "BRANCH";
+        pub const BRANCH: RefType = RefType::new("BRANCH");
     }
 }
 

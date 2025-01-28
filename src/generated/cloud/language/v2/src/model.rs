@@ -96,13 +96,12 @@ pub mod document {
 
     /// The document types enum.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -113,15 +112,16 @@ pub mod document {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// The content type is not specified.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// Plain text
-        pub const PLAIN_TEXT: &str = "PLAIN_TEXT";
+        pub const PLAIN_TEXT: Type = Type::new("PLAIN_TEXT");
 
         /// HTML
-        pub const HTML: &str = "HTML";
+        pub const HTML: Type = Type::new("HTML");
     }
 
     /// The source of the document: a string containing the content or a
@@ -283,13 +283,12 @@ pub mod entity {
     /// below lists the associated fields for entities that have different
     /// metadata.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -300,30 +299,31 @@ pub mod entity {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Unknown
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: Type = Type::new("UNKNOWN");
 
         /// Person
-        pub const PERSON: &str = "PERSON";
+        pub const PERSON: Type = Type::new("PERSON");
 
         /// Location
-        pub const LOCATION: &str = "LOCATION";
+        pub const LOCATION: Type = Type::new("LOCATION");
 
         /// Organization
-        pub const ORGANIZATION: &str = "ORGANIZATION";
+        pub const ORGANIZATION: Type = Type::new("ORGANIZATION");
 
         /// Event
-        pub const EVENT: &str = "EVENT";
+        pub const EVENT: Type = Type::new("EVENT");
 
         /// Artwork
-        pub const WORK_OF_ART: &str = "WORK_OF_ART";
+        pub const WORK_OF_ART: Type = Type::new("WORK_OF_ART");
 
         /// Consumer product
-        pub const CONSUMER_GOOD: &str = "CONSUMER_GOOD";
+        pub const CONSUMER_GOOD: Type = Type::new("CONSUMER_GOOD");
 
         /// Other types of entities
-        pub const OTHER: &str = "OTHER";
+        pub const OTHER: Type = Type::new("OTHER");
 
         /// Phone number
         ///
@@ -336,7 +336,7 @@ pub mod entity {
         /// * `area_code` - region or area code, if detected
         /// * `extension` - phone extension (to be dialed after connection), if
         ///   detected
-        pub const PHONE_NUMBER: &str = "PHONE_NUMBER";
+        pub const PHONE_NUMBER: Type = Type::new("PHONE_NUMBER");
 
         /// Address
         ///
@@ -353,7 +353,7 @@ pub mod entity {
         ///   detected
         /// * `sublocality` - used in Asian addresses to demark a district within a
         ///   city, if detected
-        pub const ADDRESS: &str = "ADDRESS";
+        pub const ADDRESS: Type = Type::new("ADDRESS");
 
         /// Date
         ///
@@ -362,17 +362,17 @@ pub mod entity {
         /// * `year` - four digit year, if detected
         /// * `month` - two digit month number, if detected
         /// * `day` - two digit day number, if detected
-        pub const DATE: &str = "DATE";
+        pub const DATE: Type = Type::new("DATE");
 
         /// Number
         ///
         /// The metadata is the number itself.
-        pub const NUMBER: &str = "NUMBER";
+        pub const NUMBER: Type = Type::new("NUMBER");
 
         /// Price
         ///
         /// The metadata identifies the `value` and `currency`.
-        pub const PRICE: &str = "PRICE";
+        pub const PRICE: Type = Type::new("PRICE");
     }
 }
 
@@ -490,13 +490,12 @@ pub mod entity_mention {
 
     /// The supported types of mentions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -507,15 +506,16 @@ pub mod entity_mention {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Unknown
-        pub const TYPE_UNKNOWN: &str = "TYPE_UNKNOWN";
+        pub const TYPE_UNKNOWN: Type = Type::new("TYPE_UNKNOWN");
 
         /// Proper name
-        pub const PROPER: &str = "PROPER";
+        pub const PROPER: Type = Type::new("PROPER");
 
         /// Common noun (or noun compound)
-        pub const COMMON: &str = "COMMON";
+        pub const COMMON: Type = Type::new("COMMON");
     }
 }
 
@@ -935,13 +935,12 @@ pub mod moderate_text_request {
 
     /// The model version to use for ModerateText.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ModelVersion(std::string::String);
+    pub struct ModelVersion(std::borrow::Cow<'static, str>);
 
     impl ModelVersion {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ModelVersion instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -952,19 +951,21 @@ pub mod moderate_text_request {
 
     /// Useful constants to work with [ModelVersion](ModelVersion)
     pub mod model_version {
+        use super::ModelVersion;
 
         /// The default model version.
-        pub const MODEL_VERSION_UNSPECIFIED: &str = "MODEL_VERSION_UNSPECIFIED";
+        pub const MODEL_VERSION_UNSPECIFIED: ModelVersion =
+            ModelVersion::new("MODEL_VERSION_UNSPECIFIED");
 
         /// Use the v1 model, this model is used by default when not provided.
         /// The v1 model only returns probability (confidence) score for each
         /// category.
-        pub const MODEL_VERSION_1: &str = "MODEL_VERSION_1";
+        pub const MODEL_VERSION_1: ModelVersion = ModelVersion::new("MODEL_VERSION_1");
 
         /// Use the v2 model.
         /// The v2 model only returns probability (confidence) score for each
         /// category, and returns severity score for a subset of the categories.
-        pub const MODEL_VERSION_2: &str = "MODEL_VERSION_2";
+        pub const MODEL_VERSION_2: ModelVersion = ModelVersion::new("MODEL_VERSION_2");
     }
 }
 
@@ -1266,13 +1267,12 @@ impl wkt::message::Message for AnnotateTextResponse {
 /// languages that natively use different text encodings may access offsets
 /// differently.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct EncodingType(std::string::String);
+pub struct EncodingType(std::borrow::Cow<'static, str>);
 
 impl EncodingType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new EncodingType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1283,23 +1283,24 @@ impl EncodingType {
 
 /// Useful constants to work with [EncodingType](EncodingType)
 pub mod encoding_type {
+    use super::EncodingType;
 
     /// If `EncodingType` is not specified, encoding-dependent information (such as
     /// `begin_offset`) will be set at `-1`.
-    pub const NONE: &str = "NONE";
+    pub const NONE: EncodingType = EncodingType::new("NONE");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-8 encoding of the input. C++ and Go are examples of languages
     /// that use this encoding natively.
-    pub const UTF8: &str = "UTF8";
+    pub const UTF8: EncodingType = EncodingType::new("UTF8");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-16 encoding of the input. Java and JavaScript are examples of
     /// languages that use this encoding natively.
-    pub const UTF16: &str = "UTF16";
+    pub const UTF16: EncodingType = EncodingType::new("UTF16");
 
     /// Encoding-dependent information (such as `begin_offset`) is calculated based
     /// on the UTF-32 encoding of the input. Python is an example of a language
     /// that uses this encoding natively.
-    pub const UTF32: &str = "UTF32";
+    pub const UTF32: EncodingType = EncodingType::new("UTF32");
 }

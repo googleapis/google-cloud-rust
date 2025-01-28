@@ -720,13 +720,12 @@ pub mod backend_rule {
     /// do not accept requests over HTTP/HTTPS should leave `path_translation`
     /// unspecified.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PathTranslation(std::string::String);
+    pub struct PathTranslation(std::borrow::Cow<'static, str>);
 
     impl PathTranslation {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new PathTranslation instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -737,8 +736,10 @@ pub mod backend_rule {
 
     /// Useful constants to work with [PathTranslation](PathTranslation)
     pub mod path_translation {
+        use super::PathTranslation;
 
-        pub const PATH_TRANSLATION_UNSPECIFIED: &str = "PATH_TRANSLATION_UNSPECIFIED";
+        pub const PATH_TRANSLATION_UNSPECIFIED: PathTranslation =
+            PathTranslation::new("PATH_TRANSLATION_UNSPECIFIED");
 
         /// Use the backend address as-is, with no modification to the path. If the
         /// URL pattern contains variables, the variable names and values will be
@@ -767,7 +768,7 @@ pub mod backend_rule {
         /// Translated:
         /// https://example.cloudfunctions.net/getUser?timezone=EST&cid=widgetworks&uid=johndoe
         /// ```
-        pub const CONSTANT_ADDRESS: &str = "CONSTANT_ADDRESS";
+        pub const CONSTANT_ADDRESS: PathTranslation = PathTranslation::new("CONSTANT_ADDRESS");
 
         /// The request path will be appended to the backend address.
         ///
@@ -792,7 +793,8 @@ pub mod backend_rule {
         /// Translated:
         /// https://example.appspot.com/api/company/widgetworks/user/johndoe?timezone=EST
         /// ```
-        pub const APPEND_PATH_TO_ADDRESS: &str = "APPEND_PATH_TO_ADDRESS";
+        pub const APPEND_PATH_TO_ADDRESS: PathTranslation =
+            PathTranslation::new("APPEND_PATH_TO_ADDRESS");
     }
 
     /// Authentication settings used by the backend.
@@ -2231,13 +2233,12 @@ pub mod property {
 
     /// Supported data type of the property values
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PropertyType(std::string::String);
+    pub struct PropertyType(std::borrow::Cow<'static, str>);
 
     impl PropertyType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new PropertyType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2248,21 +2249,22 @@ pub mod property {
 
     /// Useful constants to work with [PropertyType](PropertyType)
     pub mod property_type {
+        use super::PropertyType;
 
         /// The type is unspecified, and will result in an error.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: PropertyType = PropertyType::new("UNSPECIFIED");
 
         /// The type is `int64`.
-        pub const INT64: &str = "INT64";
+        pub const INT64: PropertyType = PropertyType::new("INT64");
 
         /// The type is `bool`.
-        pub const BOOL: &str = "BOOL";
+        pub const BOOL: PropertyType = PropertyType::new("BOOL");
 
         /// The type is `string`.
-        pub const STRING: &str = "STRING";
+        pub const STRING: PropertyType = PropertyType::new("STRING");
 
         /// The type is 'double'.
-        pub const DOUBLE: &str = "DOUBLE";
+        pub const DOUBLE: PropertyType = PropertyType::new("DOUBLE");
     }
 }
 
@@ -3344,13 +3346,12 @@ pub mod field_info {
     /// The standard format of a field value. The supported formats are all backed
     /// by either an RFC defined by the IETF or a Google-defined AIP.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Format(std::string::String);
+    pub struct Format(std::borrow::Cow<'static, str>);
 
     impl Format {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Format instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3361,34 +3362,35 @@ pub mod field_info {
 
     /// Useful constants to work with [Format](Format)
     pub mod format {
+        use super::Format;
 
         /// Default, unspecified value.
-        pub const FORMAT_UNSPECIFIED: &str = "FORMAT_UNSPECIFIED";
+        pub const FORMAT_UNSPECIFIED: Format = Format::new("FORMAT_UNSPECIFIED");
 
         /// Universally Unique Identifier, version 4, value as defined by
         /// <https://datatracker.ietf.org/doc/html/rfc4122>. The value may be
         /// normalized to entirely lowercase letters. For example, the value
         /// `F47AC10B-58CC-0372-8567-0E02B2C3D479` would be normalized to
         /// `f47ac10b-58cc-0372-8567-0e02b2c3d479`.
-        pub const UUID4: &str = "UUID4";
+        pub const UUID4: Format = Format::new("UUID4");
 
         /// Internet Protocol v4 value as defined by [RFC
         /// 791](https://datatracker.ietf.org/doc/html/rfc791). The value may be
         /// condensed, with leading zeros in each octet stripped. For example,
         /// `001.022.233.040` would be condensed to `1.22.233.40`.
-        pub const IPV4: &str = "IPV4";
+        pub const IPV4: Format = Format::new("IPV4");
 
         /// Internet Protocol v6 value as defined by [RFC
         /// 2460](https://datatracker.ietf.org/doc/html/rfc2460). The value may be
         /// normalized to entirely lowercase letters with zeros compressed, following
         /// [RFC 5952](https://datatracker.ietf.org/doc/html/rfc5952). For example,
         /// the value `2001:0DB8:0::0` would be normalized to `2001:db8::`.
-        pub const IPV6: &str = "IPV6";
+        pub const IPV6: Format = Format::new("IPV6");
 
         /// An IP address in either v4 or v6 format as described by the individual
         /// values defined herein. See the comments on the IPV4 and IPV6 types for
         /// allowed normalizations of each.
-        pub const IPV4_OR_IPV6: &str = "IPV4_OR_IPV6";
+        pub const IPV4_OR_IPV6: Format = Format::new("IPV4_OR_IPV6");
     }
 }
 
@@ -4072,13 +4074,12 @@ pub mod label_descriptor {
 
     /// Value types that can be used as label values.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ValueType(std::string::String);
+    pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ValueType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4089,15 +4090,16 @@ pub mod label_descriptor {
 
     /// Useful constants to work with [ValueType](ValueType)
     pub mod value_type {
+        use super::ValueType;
 
         /// A variable-length string. This is the default.
-        pub const STRING: &str = "STRING";
+        pub const STRING: ValueType = ValueType::new("STRING");
 
         /// Boolean; true or false.
-        pub const BOOL: &str = "BOOL";
+        pub const BOOL: ValueType = ValueType::new("BOOL");
 
         /// A 64-bit signed integer.
-        pub const INT64: &str = "INT64";
+        pub const INT64: ValueType = ValueType::new("INT64");
     }
 }
 
@@ -4706,13 +4708,12 @@ pub mod metric_descriptor {
 
         /// The resource hierarchy level of the timeseries data of a metric.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct TimeSeriesResourceHierarchyLevel(std::string::String);
+        pub struct TimeSeriesResourceHierarchyLevel(std::borrow::Cow<'static, str>);
 
         impl TimeSeriesResourceHierarchyLevel {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new TimeSeriesResourceHierarchyLevel instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -4723,19 +4724,25 @@ pub mod metric_descriptor {
 
         /// Useful constants to work with [TimeSeriesResourceHierarchyLevel](TimeSeriesResourceHierarchyLevel)
         pub mod time_series_resource_hierarchy_level {
+            use super::TimeSeriesResourceHierarchyLevel;
 
             /// Do not use this default value.
-            pub const TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED: &str =
-                "TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED";
+            pub const TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED:
+                TimeSeriesResourceHierarchyLevel = TimeSeriesResourceHierarchyLevel::new(
+                "TIME_SERIES_RESOURCE_HIERARCHY_LEVEL_UNSPECIFIED",
+            );
 
             /// Scopes a metric to a project.
-            pub const PROJECT: &str = "PROJECT";
+            pub const PROJECT: TimeSeriesResourceHierarchyLevel =
+                TimeSeriesResourceHierarchyLevel::new("PROJECT");
 
             /// Scopes a metric to an organization.
-            pub const ORGANIZATION: &str = "ORGANIZATION";
+            pub const ORGANIZATION: TimeSeriesResourceHierarchyLevel =
+                TimeSeriesResourceHierarchyLevel::new("ORGANIZATION");
 
             /// Scopes a metric to a folder.
-            pub const FOLDER: &str = "FOLDER";
+            pub const FOLDER: TimeSeriesResourceHierarchyLevel =
+                TimeSeriesResourceHierarchyLevel::new("FOLDER");
         }
     }
 
@@ -4743,13 +4750,12 @@ pub mod metric_descriptor {
     /// For information on setting the start time and end time based on
     /// the MetricKind, see [TimeInterval][google.monitoring.v3.TimeInterval].
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct MetricKind(std::string::String);
+    pub struct MetricKind(std::borrow::Cow<'static, str>);
 
     impl MetricKind {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new MetricKind instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4760,33 +4766,33 @@ pub mod metric_descriptor {
 
     /// Useful constants to work with [MetricKind](MetricKind)
     pub mod metric_kind {
+        use super::MetricKind;
 
         /// Do not use this default value.
-        pub const METRIC_KIND_UNSPECIFIED: &str = "METRIC_KIND_UNSPECIFIED";
+        pub const METRIC_KIND_UNSPECIFIED: MetricKind = MetricKind::new("METRIC_KIND_UNSPECIFIED");
 
         /// An instantaneous measurement of a value.
-        pub const GAUGE: &str = "GAUGE";
+        pub const GAUGE: MetricKind = MetricKind::new("GAUGE");
 
         /// The change in a value during a time interval.
-        pub const DELTA: &str = "DELTA";
+        pub const DELTA: MetricKind = MetricKind::new("DELTA");
 
         /// A value accumulated over a time interval.  Cumulative
         /// measurements in a time series should have the same start time
         /// and increasing end times, until an event resets the cumulative
         /// value to zero and sets a new start time for the following
         /// points.
-        pub const CUMULATIVE: &str = "CUMULATIVE";
+        pub const CUMULATIVE: MetricKind = MetricKind::new("CUMULATIVE");
     }
 
     /// The value type of a metric.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ValueType(std::string::String);
+    pub struct ValueType(std::borrow::Cow<'static, str>);
 
     impl ValueType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ValueType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4797,31 +4803,32 @@ pub mod metric_descriptor {
 
     /// Useful constants to work with [ValueType](ValueType)
     pub mod value_type {
+        use super::ValueType;
 
         /// Do not use this default value.
-        pub const VALUE_TYPE_UNSPECIFIED: &str = "VALUE_TYPE_UNSPECIFIED";
+        pub const VALUE_TYPE_UNSPECIFIED: ValueType = ValueType::new("VALUE_TYPE_UNSPECIFIED");
 
         /// The value is a boolean.
         /// This value type can be used only if the metric kind is `GAUGE`.
-        pub const BOOL: &str = "BOOL";
+        pub const BOOL: ValueType = ValueType::new("BOOL");
 
         /// The value is a signed 64-bit integer.
-        pub const INT64: &str = "INT64";
+        pub const INT64: ValueType = ValueType::new("INT64");
 
         /// The value is a double precision floating point number.
-        pub const DOUBLE: &str = "DOUBLE";
+        pub const DOUBLE: ValueType = ValueType::new("DOUBLE");
 
         /// The value is a text string.
         /// This value type can be used only if the metric kind is `GAUGE`.
-        pub const STRING: &str = "STRING";
+        pub const STRING: ValueType = ValueType::new("STRING");
 
         /// The value is a [`Distribution`][google.api.Distribution].
         ///
         /// [google.api.Distribution]: crate::model::Distribution
-        pub const DISTRIBUTION: &str = "DISTRIBUTION";
+        pub const DISTRIBUTION: ValueType = ValueType::new("DISTRIBUTION");
 
         /// The value is money.
-        pub const MONEY: &str = "MONEY";
+        pub const MONEY: ValueType = ValueType::new("MONEY");
     }
 }
 
@@ -5951,13 +5958,12 @@ pub mod resource_descriptor {
     /// A description of the historical or future-looking state of the
     /// resource pattern.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct History(std::string::String);
+    pub struct History(std::borrow::Cow<'static, str>);
 
     impl History {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new History instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5968,29 +5974,29 @@ pub mod resource_descriptor {
 
     /// Useful constants to work with [History](History)
     pub mod history {
+        use super::History;
 
         /// The "unset" value.
-        pub const HISTORY_UNSPECIFIED: &str = "HISTORY_UNSPECIFIED";
+        pub const HISTORY_UNSPECIFIED: History = History::new("HISTORY_UNSPECIFIED");
 
         /// The resource originally had one pattern and launched as such, and
         /// additional patterns were added later.
-        pub const ORIGINALLY_SINGLE_PATTERN: &str = "ORIGINALLY_SINGLE_PATTERN";
+        pub const ORIGINALLY_SINGLE_PATTERN: History = History::new("ORIGINALLY_SINGLE_PATTERN");
 
         /// The resource has one pattern, but the API owner expects to add more
         /// later. (This is the inverse of ORIGINALLY_SINGLE_PATTERN, and prevents
         /// that from being necessary once there are multiple patterns.)
-        pub const FUTURE_MULTI_PATTERN: &str = "FUTURE_MULTI_PATTERN";
+        pub const FUTURE_MULTI_PATTERN: History = History::new("FUTURE_MULTI_PATTERN");
     }
 
     /// A flag representing a specific style that a resource claims to conform to.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Style(std::string::String);
+    pub struct Style(std::borrow::Cow<'static, str>);
 
     impl Style {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Style instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6001,9 +6007,10 @@ pub mod resource_descriptor {
 
     /// Useful constants to work with [Style](Style)
     pub mod style {
+        use super::Style;
 
         /// The unspecified value. Do not use.
-        pub const STYLE_UNSPECIFIED: &str = "STYLE_UNSPECIFIED";
+        pub const STYLE_UNSPECIFIED: Style = Style::new("STYLE_UNSPECIFIED");
 
         /// This resource is intended to be "declarative-friendly".
         ///
@@ -6013,7 +6020,7 @@ pub mod resource_descriptor {
         ///
         /// Note: This is used by the API linter (linter.aip.dev) to enable
         /// additional checks.
-        pub const DECLARATIVE_FRIENDLY: &str = "DECLARATIVE_FRIENDLY";
+        pub const DECLARATIVE_FRIENDLY: Style = Style::new("DECLARATIVE_FRIENDLY");
     }
 }
 
@@ -7540,13 +7547,12 @@ impl wkt::message::Message for VisibilityRule {
 /// The organization for which the client libraries are being published.
 /// Affects the url where generated docs are published, etc.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ClientLibraryOrganization(std::string::String);
+pub struct ClientLibraryOrganization(std::borrow::Cow<'static, str>);
 
 impl ClientLibraryOrganization {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ClientLibraryOrganization instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7557,42 +7563,44 @@ impl ClientLibraryOrganization {
 
 /// Useful constants to work with [ClientLibraryOrganization](ClientLibraryOrganization)
 pub mod client_library_organization {
+    use super::ClientLibraryOrganization;
 
     /// Not useful.
-    pub const CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED: &str =
-        "CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED";
+    pub const CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED: ClientLibraryOrganization =
+        ClientLibraryOrganization::new("CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED");
 
     /// Google Cloud Platform Org.
-    pub const CLOUD: &str = "CLOUD";
+    pub const CLOUD: ClientLibraryOrganization = ClientLibraryOrganization::new("CLOUD");
 
     /// Ads (Advertising) Org.
-    pub const ADS: &str = "ADS";
+    pub const ADS: ClientLibraryOrganization = ClientLibraryOrganization::new("ADS");
 
     /// Photos Org.
-    pub const PHOTOS: &str = "PHOTOS";
+    pub const PHOTOS: ClientLibraryOrganization = ClientLibraryOrganization::new("PHOTOS");
 
     /// Street View Org.
-    pub const STREET_VIEW: &str = "STREET_VIEW";
+    pub const STREET_VIEW: ClientLibraryOrganization =
+        ClientLibraryOrganization::new("STREET_VIEW");
 
     /// Shopping Org.
-    pub const SHOPPING: &str = "SHOPPING";
+    pub const SHOPPING: ClientLibraryOrganization = ClientLibraryOrganization::new("SHOPPING");
 
     /// Geo Org.
-    pub const GEO: &str = "GEO";
+    pub const GEO: ClientLibraryOrganization = ClientLibraryOrganization::new("GEO");
 
     /// Generative AI - <https://developers.generativeai.google>
-    pub const GENERATIVE_AI: &str = "GENERATIVE_AI";
+    pub const GENERATIVE_AI: ClientLibraryOrganization =
+        ClientLibraryOrganization::new("GENERATIVE_AI");
 }
 
 /// To where should client libraries be published?
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ClientLibraryDestination(std::string::String);
+pub struct ClientLibraryDestination(std::borrow::Cow<'static, str>);
 
 impl ClientLibraryDestination {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ClientLibraryDestination instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7603,30 +7611,31 @@ impl ClientLibraryDestination {
 
 /// Useful constants to work with [ClientLibraryDestination](ClientLibraryDestination)
 pub mod client_library_destination {
+    use super::ClientLibraryDestination;
 
     /// Client libraries will neither be generated nor published to package
     /// managers.
-    pub const CLIENT_LIBRARY_DESTINATION_UNSPECIFIED: &str =
-        "CLIENT_LIBRARY_DESTINATION_UNSPECIFIED";
+    pub const CLIENT_LIBRARY_DESTINATION_UNSPECIFIED: ClientLibraryDestination =
+        ClientLibraryDestination::new("CLIENT_LIBRARY_DESTINATION_UNSPECIFIED");
 
     /// Generate the client library in a repo under github.com/googleapis,
     /// but don't publish it to package managers.
-    pub const GITHUB: &str = "GITHUB";
+    pub const GITHUB: ClientLibraryDestination = ClientLibraryDestination::new("GITHUB");
 
     /// Publish the library to package managers like nuget.org and npmjs.com.
-    pub const PACKAGE_MANAGER: &str = "PACKAGE_MANAGER";
+    pub const PACKAGE_MANAGER: ClientLibraryDestination =
+        ClientLibraryDestination::new("PACKAGE_MANAGER");
 }
 
 /// Classifies set of possible modifications to an object in the service
 /// configuration.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ChangeType(std::string::String);
+pub struct ChangeType(std::borrow::Cow<'static, str>);
 
 impl ChangeType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ChangeType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7637,21 +7646,22 @@ impl ChangeType {
 
 /// Useful constants to work with [ChangeType](ChangeType)
 pub mod change_type {
+    use super::ChangeType;
 
     /// No value was provided.
-    pub const CHANGE_TYPE_UNSPECIFIED: &str = "CHANGE_TYPE_UNSPECIFIED";
+    pub const CHANGE_TYPE_UNSPECIFIED: ChangeType = ChangeType::new("CHANGE_TYPE_UNSPECIFIED");
 
     /// The changed object exists in the 'new' service configuration, but not
     /// in the 'old' service configuration.
-    pub const ADDED: &str = "ADDED";
+    pub const ADDED: ChangeType = ChangeType::new("ADDED");
 
     /// The changed object exists in the 'old' service configuration, but not
     /// in the 'new' service configuration.
-    pub const REMOVED: &str = "REMOVED";
+    pub const REMOVED: ChangeType = ChangeType::new("REMOVED");
 
     /// The changed object exists in both service configurations, but its value
     /// is different.
-    pub const MODIFIED: &str = "MODIFIED";
+    pub const MODIFIED: ChangeType = ChangeType::new("MODIFIED");
 }
 
 /// Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -7665,13 +7675,12 @@ pub mod change_type {
 /// reason. For more information, see the definition of the specific error
 /// reason.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ErrorReason(std::string::String);
+pub struct ErrorReason(std::borrow::Cow<'static, str>);
 
 impl ErrorReason {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ErrorReason instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -7682,9 +7691,10 @@ impl ErrorReason {
 
 /// Useful constants to work with [ErrorReason](ErrorReason)
 pub mod error_reason {
+    use super::ErrorReason;
 
     /// Do not use this default value.
-    pub const ERROR_REASON_UNSPECIFIED: &str = "ERROR_REASON_UNSPECIFIED";
+    pub const ERROR_REASON_UNSPECIFIED: ErrorReason = ErrorReason::new("ERROR_REASON_UNSPECIFIED");
 
     /// The request is calling a disabled service for a consumer.
     ///
@@ -7703,7 +7713,7 @@ pub mod error_reason {
     ///
     /// This response indicates the "pubsub.googleapis.com" has been disabled in
     /// "projects/123".
-    pub const SERVICE_DISABLED: &str = "SERVICE_DISABLED";
+    pub const SERVICE_DISABLED: ErrorReason = ErrorReason::new("SERVICE_DISABLED");
 
     /// The request whose associated billing account is disabled.
     ///
@@ -7722,7 +7732,7 @@ pub mod error_reason {
     /// ```
     ///
     /// This response indicates the billing account associated has been disabled.
-    pub const BILLING_DISABLED: &str = "BILLING_DISABLED";
+    pub const BILLING_DISABLED: ErrorReason = ErrorReason::new("BILLING_DISABLED");
 
     /// The request is denied because the provided [API
     /// key](https://cloud.google.com/docs/authentication/api-keys) is invalid. It
@@ -7739,7 +7749,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_INVALID: &str = "API_KEY_INVALID";
+    pub const API_KEY_INVALID: ErrorReason = ErrorReason::new("API_KEY_INVALID");
 
     /// The request is denied because it violates [API key API
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_api_restrictions).
@@ -7757,7 +7767,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_SERVICE_BLOCKED: &str = "API_KEY_SERVICE_BLOCKED";
+    pub const API_KEY_SERVICE_BLOCKED: ErrorReason = ErrorReason::new("API_KEY_SERVICE_BLOCKED");
 
     /// The request is denied because it violates [API key HTTP
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_http_restrictions).
@@ -7775,7 +7785,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_HTTP_REFERRER_BLOCKED: &str = "API_KEY_HTTP_REFERRER_BLOCKED";
+    pub const API_KEY_HTTP_REFERRER_BLOCKED: ErrorReason =
+        ErrorReason::new("API_KEY_HTTP_REFERRER_BLOCKED");
 
     /// The request is denied because it violates [API key IP address
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -7793,7 +7804,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_IP_ADDRESS_BLOCKED: &str = "API_KEY_IP_ADDRESS_BLOCKED";
+    pub const API_KEY_IP_ADDRESS_BLOCKED: ErrorReason =
+        ErrorReason::new("API_KEY_IP_ADDRESS_BLOCKED");
 
     /// The request is denied because it violates [API key Android application
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -7811,7 +7823,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_ANDROID_APP_BLOCKED: &str = "API_KEY_ANDROID_APP_BLOCKED";
+    pub const API_KEY_ANDROID_APP_BLOCKED: ErrorReason =
+        ErrorReason::new("API_KEY_ANDROID_APP_BLOCKED");
 
     /// The request is denied because it violates [API key iOS application
     /// restrictions](https://cloud.google.com/docs/authentication/api-keys#adding_application_restrictions).
@@ -7829,7 +7842,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const API_KEY_IOS_APP_BLOCKED: &str = "API_KEY_IOS_APP_BLOCKED";
+    pub const API_KEY_IOS_APP_BLOCKED: ErrorReason = ErrorReason::new("API_KEY_IOS_APP_BLOCKED");
 
     /// The request is denied because there is not enough rate quota for the
     /// consumer.
@@ -7868,7 +7881,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RATE_LIMIT_EXCEEDED: &str = "RATE_LIMIT_EXCEEDED";
+    pub const RATE_LIMIT_EXCEEDED: ErrorReason = ErrorReason::new("RATE_LIMIT_EXCEEDED");
 
     /// The request is denied because there is not enough resource quota for the
     /// consumer.
@@ -7906,7 +7919,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RESOURCE_QUOTA_EXCEEDED: &str = "RESOURCE_QUOTA_EXCEEDED";
+    pub const RESOURCE_QUOTA_EXCEEDED: ErrorReason = ErrorReason::new("RESOURCE_QUOTA_EXCEEDED");
 
     /// The request whose associated billing account address is in a tax restricted
     /// location, violates the local tax restrictions when creating resources in
@@ -7929,7 +7942,8 @@ pub mod error_reason {
     ///
     /// This response indicates creating the Cloud Storage Bucket in
     /// "locations/asia-northeast3" violates the location tax restriction.
-    pub const LOCATION_TAX_POLICY_VIOLATED: &str = "LOCATION_TAX_POLICY_VIOLATED";
+    pub const LOCATION_TAX_POLICY_VIOLATED: ErrorReason =
+        ErrorReason::new("LOCATION_TAX_POLICY_VIOLATED");
 
     /// The request is denied because the caller does not have required permission
     /// on the user project "projects/123" or the user project is invalid. For more
@@ -7948,7 +7962,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const USER_PROJECT_DENIED: &str = "USER_PROJECT_DENIED";
+    pub const USER_PROJECT_DENIED: ErrorReason = ErrorReason::new("USER_PROJECT_DENIED");
 
     /// The request is denied because the consumer "projects/123" is suspended due
     /// to Terms of Service(Tos) violations. Check [Project suspension
@@ -7967,7 +7981,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CONSUMER_SUSPENDED: &str = "CONSUMER_SUSPENDED";
+    pub const CONSUMER_SUSPENDED: ErrorReason = ErrorReason::new("CONSUMER_SUSPENDED");
 
     /// The request is denied because the associated consumer is invalid. It may be
     /// in a bad format, cannot be found, or have been deleted.
@@ -7984,7 +7998,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CONSUMER_INVALID: &str = "CONSUMER_INVALID";
+    pub const CONSUMER_INVALID: ErrorReason = ErrorReason::new("CONSUMER_INVALID");
 
     /// The request is denied because it violates [VPC Service
     /// Controls](https://cloud.google.com/vpc-service-controls/docs/overview).
@@ -8007,7 +8021,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const SECURITY_POLICY_VIOLATED: &str = "SECURITY_POLICY_VIOLATED";
+    pub const SECURITY_POLICY_VIOLATED: ErrorReason = ErrorReason::new("SECURITY_POLICY_VIOLATED");
 
     /// The request is denied because the provided access token has expired.
     ///
@@ -8023,7 +8037,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCESS_TOKEN_EXPIRED: &str = "ACCESS_TOKEN_EXPIRED";
+    pub const ACCESS_TOKEN_EXPIRED: ErrorReason = ErrorReason::new("ACCESS_TOKEN_EXPIRED");
 
     /// The request is denied because the provided access token doesn't have at
     /// least one of the acceptable scopes required for the API. Please check
@@ -8044,7 +8058,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCESS_TOKEN_SCOPE_INSUFFICIENT: &str = "ACCESS_TOKEN_SCOPE_INSUFFICIENT";
+    pub const ACCESS_TOKEN_SCOPE_INSUFFICIENT: ErrorReason =
+        ErrorReason::new("ACCESS_TOKEN_SCOPE_INSUFFICIENT");
 
     /// The request is denied because the account associated with the provided
     /// access token is in an invalid state, such as disabled or deleted.
@@ -8068,7 +8083,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCOUNT_STATE_INVALID: &str = "ACCOUNT_STATE_INVALID";
+    pub const ACCOUNT_STATE_INVALID: ErrorReason = ErrorReason::new("ACCOUNT_STATE_INVALID");
 
     /// The request is denied because the type of the provided access token is not
     /// supported by the API being called.
@@ -8085,7 +8100,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const ACCESS_TOKEN_TYPE_UNSUPPORTED: &str = "ACCESS_TOKEN_TYPE_UNSUPPORTED";
+    pub const ACCESS_TOKEN_TYPE_UNSUPPORTED: ErrorReason =
+        ErrorReason::new("ACCESS_TOKEN_TYPE_UNSUPPORTED");
 
     /// The request is denied because the request doesn't have any authentication
     /// credentials. For more information regarding the supported authentication
@@ -8104,7 +8120,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const CREDENTIALS_MISSING: &str = "CREDENTIALS_MISSING";
+    pub const CREDENTIALS_MISSING: ErrorReason = ErrorReason::new("CREDENTIALS_MISSING");
 
     /// The request is denied because the provided project owning the resource
     /// which acts as the [API
@@ -8125,7 +8141,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RESOURCE_PROJECT_INVALID: &str = "RESOURCE_PROJECT_INVALID";
+    pub const RESOURCE_PROJECT_INVALID: ErrorReason = ErrorReason::new("RESOURCE_PROJECT_INVALID");
 
     /// The request is denied because the provided session cookie is missing,
     /// invalid or failed to decode.
@@ -8143,7 +8159,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const SESSION_COOKIE_INVALID: &str = "SESSION_COOKIE_INVALID";
+    pub const SESSION_COOKIE_INVALID: ErrorReason = ErrorReason::new("SESSION_COOKIE_INVALID");
 
     /// The request is denied because the user is from a Google Workspace customer
     /// that blocks their users from accessing a particular service.
@@ -8162,7 +8178,7 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const USER_BLOCKED_BY_ADMIN: &str = "USER_BLOCKED_BY_ADMIN";
+    pub const USER_BLOCKED_BY_ADMIN: ErrorReason = ErrorReason::new("USER_BLOCKED_BY_ADMIN");
 
     /// The request is denied because the resource service usage is restricted
     /// by administrators according to the organization policy constraint.
@@ -8181,7 +8197,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const RESOURCE_USAGE_RESTRICTION_VIOLATED: &str = "RESOURCE_USAGE_RESTRICTION_VIOLATED";
+    pub const RESOURCE_USAGE_RESTRICTION_VIOLATED: ErrorReason =
+        ErrorReason::new("RESOURCE_USAGE_RESTRICTION_VIOLATED");
 
     /// Unimplemented. Do not use.
     ///
@@ -8201,7 +8218,8 @@ pub mod error_reason {
     ///   }
     /// }
     /// ```
-    pub const SYSTEM_PARAMETER_UNSUPPORTED: &str = "SYSTEM_PARAMETER_UNSUPPORTED";
+    pub const SYSTEM_PARAMETER_UNSUPPORTED: ErrorReason =
+        ErrorReason::new("SYSTEM_PARAMETER_UNSUPPORTED");
 
     /// The request is denied because it violates Org Restriction: the requested
     /// resource does not belong to allowed organizations specified in
@@ -8218,7 +8236,8 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const ORG_RESTRICTION_VIOLATION: &str = "ORG_RESTRICTION_VIOLATION";
+    pub const ORG_RESTRICTION_VIOLATION: ErrorReason =
+        ErrorReason::new("ORG_RESTRICTION_VIOLATION");
 
     /// The request is denied because "X-Goog-Allowed-Resources" header is in a bad
     /// format.
@@ -8235,7 +8254,8 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const ORG_RESTRICTION_HEADER_INVALID: &str = "ORG_RESTRICTION_HEADER_INVALID";
+    pub const ORG_RESTRICTION_HEADER_INVALID: ErrorReason =
+        ErrorReason::new("ORG_RESTRICTION_HEADER_INVALID");
 
     /// Unimplemented. Do not use.
     ///
@@ -8256,7 +8276,7 @@ pub mod error_reason {
     ///
     /// This response indicates the "pubsub.googleapis.com" is not visible to
     /// "projects/123" (or it may not exist).
-    pub const SERVICE_NOT_VISIBLE: &str = "SERVICE_NOT_VISIBLE";
+    pub const SERVICE_NOT_VISIBLE: ErrorReason = ErrorReason::new("SERVICE_NOT_VISIBLE");
 
     /// The request is related to a project for which GCP access is suspended.
     ///
@@ -8274,7 +8294,7 @@ pub mod error_reason {
     /// ```
     ///
     /// This response indicates the associated GCP account has been suspended.
-    pub const GCP_SUSPENDED: &str = "GCP_SUSPENDED";
+    pub const GCP_SUSPENDED: ErrorReason = ErrorReason::new("GCP_SUSPENDED");
 
     /// The request violates the location policies when creating resources in
     /// the restricted region.
@@ -8295,7 +8315,7 @@ pub mod error_reason {
     /// This response indicates creating the Cloud Storage Bucket in
     /// "locations/asia-northeast3" violates at least one location policy.
     /// The troubleshooting guidance is provided in the Help links.
-    pub const LOCATION_POLICY_VIOLATED: &str = "LOCATION_POLICY_VIOLATED";
+    pub const LOCATION_POLICY_VIOLATED: ErrorReason = ErrorReason::new("LOCATION_POLICY_VIOLATED");
 
     /// The request is denied because origin request header is missing.
     ///
@@ -8311,7 +8331,7 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const MISSING_ORIGIN: &str = "MISSING_ORIGIN";
+    pub const MISSING_ORIGIN: ErrorReason = ErrorReason::new("MISSING_ORIGIN");
 
     /// The request is denied because the request contains more than one credential
     /// type that are individually acceptable, but not together. The customer
@@ -8328,7 +8348,7 @@ pub mod error_reason {
     /// "service": "pubsub.googleapis.com"
     /// }
     /// }
-    pub const OVERLOADED_CREDENTIALS: &str = "OVERLOADED_CREDENTIALS";
+    pub const OVERLOADED_CREDENTIALS: ErrorReason = ErrorReason::new("OVERLOADED_CREDENTIALS");
 }
 
 /// An indicator of the behavior of a given field (for example, that a field
@@ -8338,13 +8358,12 @@ pub mod error_reason {
 ///
 /// Note: This enum **may** receive new values in the future.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FieldBehavior(std::string::String);
+pub struct FieldBehavior(std::borrow::Cow<'static, str>);
 
 impl FieldBehavior {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new FieldBehavior instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -8355,47 +8374,49 @@ impl FieldBehavior {
 
 /// Useful constants to work with [FieldBehavior](FieldBehavior)
 pub mod field_behavior {
+    use super::FieldBehavior;
 
     /// Conventional default for enums. Do not use this.
-    pub const FIELD_BEHAVIOR_UNSPECIFIED: &str = "FIELD_BEHAVIOR_UNSPECIFIED";
+    pub const FIELD_BEHAVIOR_UNSPECIFIED: FieldBehavior =
+        FieldBehavior::new("FIELD_BEHAVIOR_UNSPECIFIED");
 
     /// Specifically denotes a field as optional.
     /// While all fields in protocol buffers are optional, this may be specified
     /// for emphasis if appropriate.
-    pub const OPTIONAL: &str = "OPTIONAL";
+    pub const OPTIONAL: FieldBehavior = FieldBehavior::new("OPTIONAL");
 
     /// Denotes a field as required.
     /// This indicates that the field **must** be provided as part of the request,
     /// and failure to do so will cause an error (usually `INVALID_ARGUMENT`).
-    pub const REQUIRED: &str = "REQUIRED";
+    pub const REQUIRED: FieldBehavior = FieldBehavior::new("REQUIRED");
 
     /// Denotes a field as output only.
     /// This indicates that the field is provided in responses, but including the
     /// field in a request does nothing (the server *must* ignore it and
     /// *must not* throw an error as a result of the field's presence).
-    pub const OUTPUT_ONLY: &str = "OUTPUT_ONLY";
+    pub const OUTPUT_ONLY: FieldBehavior = FieldBehavior::new("OUTPUT_ONLY");
 
     /// Denotes a field as input only.
     /// This indicates that the field is provided in requests, and the
     /// corresponding field is not included in output.
-    pub const INPUT_ONLY: &str = "INPUT_ONLY";
+    pub const INPUT_ONLY: FieldBehavior = FieldBehavior::new("INPUT_ONLY");
 
     /// Denotes a field as immutable.
     /// This indicates that the field may be set once in a request to create a
     /// resource, but may not be changed thereafter.
-    pub const IMMUTABLE: &str = "IMMUTABLE";
+    pub const IMMUTABLE: FieldBehavior = FieldBehavior::new("IMMUTABLE");
 
     /// Denotes that a (repeated) field is an unordered list.
     /// This indicates that the service may provide the elements of the list
     /// in any arbitrary  order, rather than the order the user originally
     /// provided. Additionally, the list's order may or may not be stable.
-    pub const UNORDERED_LIST: &str = "UNORDERED_LIST";
+    pub const UNORDERED_LIST: FieldBehavior = FieldBehavior::new("UNORDERED_LIST");
 
     /// Denotes that this field returns a non-empty default value if not set.
     /// This indicates that if the user provides the empty value in a request,
     /// a non-empty value will be returned. The user will not be aware of what
     /// non-empty value to expect.
-    pub const NON_EMPTY_DEFAULT: &str = "NON_EMPTY_DEFAULT";
+    pub const NON_EMPTY_DEFAULT: FieldBehavior = FieldBehavior::new("NON_EMPTY_DEFAULT");
 
     /// Denotes that the field in a resource (a message annotated with
     /// google.api.resource) is used in the resource name to uniquely identify the
@@ -8409,19 +8430,18 @@ pub mod field_behavior {
     /// depending on the request it is embedded in (e.g. for Create methods name
     /// is optional and unused, while for Update methods it is required). Instead
     /// of method-specific annotations, only `IDENTIFIER` is required.
-    pub const IDENTIFIER: &str = "IDENTIFIER";
+    pub const IDENTIFIER: FieldBehavior = FieldBehavior::new("IDENTIFIER");
 }
 
 /// The launch stage as defined by [Google Cloud Platform
 /// Launch Stages](https://cloud.google.com/terms/launch-stages).
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct LaunchStage(std::string::String);
+pub struct LaunchStage(std::borrow::Cow<'static, str>);
 
 impl LaunchStage {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new LaunchStage instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -8432,22 +8452,23 @@ impl LaunchStage {
 
 /// Useful constants to work with [LaunchStage](LaunchStage)
 pub mod launch_stage {
+    use super::LaunchStage;
 
     /// Do not use this default value.
-    pub const LAUNCH_STAGE_UNSPECIFIED: &str = "LAUNCH_STAGE_UNSPECIFIED";
+    pub const LAUNCH_STAGE_UNSPECIFIED: LaunchStage = LaunchStage::new("LAUNCH_STAGE_UNSPECIFIED");
 
     /// The feature is not yet implemented. Users can not use it.
-    pub const UNIMPLEMENTED: &str = "UNIMPLEMENTED";
+    pub const UNIMPLEMENTED: LaunchStage = LaunchStage::new("UNIMPLEMENTED");
 
     /// Prelaunch features are hidden from users and are only visible internally.
-    pub const PRELAUNCH: &str = "PRELAUNCH";
+    pub const PRELAUNCH: LaunchStage = LaunchStage::new("PRELAUNCH");
 
     /// Early Access features are limited to a closed group of testers. To use
     /// these features, you must sign up in advance and sign a Trusted Tester
     /// agreement (which includes confidentiality provisions). These features may
     /// be unstable, changed in backward-incompatible ways, and are not
     /// guaranteed to be released.
-    pub const EARLY_ACCESS: &str = "EARLY_ACCESS";
+    pub const EARLY_ACCESS: LaunchStage = LaunchStage::new("EARLY_ACCESS");
 
     /// Alpha is a limited availability test for releases before they are cleared
     /// for widespread use. By Alpha, all significant design issues are resolved
@@ -8458,23 +8479,23 @@ pub mod launch_stage {
     /// they will be far enough along that customers can actually use them in
     /// test environments or for limited-use tests -- just like they would in
     /// normal production cases.
-    pub const ALPHA: &str = "ALPHA";
+    pub const ALPHA: LaunchStage = LaunchStage::new("ALPHA");
 
     /// Beta is the point at which we are ready to open a release for any
     /// customer to use. There are no SLA or technical support obligations in a
     /// Beta release. Products will be complete from a feature perspective, but
     /// may have some open outstanding issues. Beta releases are suitable for
     /// limited production use cases.
-    pub const BETA: &str = "BETA";
+    pub const BETA: LaunchStage = LaunchStage::new("BETA");
 
     /// GA features are open to all developers and are considered stable and
     /// fully qualified for production use.
-    pub const GA: &str = "GA";
+    pub const GA: LaunchStage = LaunchStage::new("GA");
 
     /// Deprecated features are scheduled to be shut down and removed. For more
     /// information, see the "Deprecation Policy" section of our [Terms of
     /// Service](https://cloud.google.com/terms/)
     /// and the [Google Cloud Platform Subject to the Deprecation
     /// Policy](https://cloud.google.com/terms/deprecation) documentation.
-    pub const DEPRECATED: &str = "DEPRECATED";
+    pub const DEPRECATED: LaunchStage = LaunchStage::new("DEPRECATED");
 }

@@ -4880,13 +4880,12 @@ pub mod batch_translate_metadata {
 
     /// State of the job.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -4897,28 +4896,29 @@ pub mod batch_translate_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request is being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The batch is processed, and at least one item was successfully
         /// processed.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// The batch is done and no item was successfully processed.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: State = State::new("CANCELLING");
 
         /// The batch is done after the user has called the
         /// longrunning.Operations.CancelOperation. Any records processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
     }
 }
 
@@ -5804,13 +5804,12 @@ pub mod create_glossary_metadata {
 
     /// Enumerates the possible states that the creation request can be in.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5821,25 +5820,26 @@ pub mod create_glossary_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request is being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The glossary was successfully created.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// Failed to create the glossary.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: State = State::new("CANCELLING");
 
         /// The glossary creation request was successfully canceled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
     }
 }
 
@@ -5908,13 +5908,12 @@ pub mod update_glossary_metadata {
 
     /// Enumerates the possible states that the update request can be in.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5925,25 +5924,26 @@ pub mod update_glossary_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request is being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The glossary was successfully updated.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// Failed to update the glossary.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: State = State::new("CANCELLING");
 
         /// The glossary update request was successfully canceled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
     }
 }
 
@@ -6008,13 +6008,12 @@ pub mod delete_glossary_metadata {
 
     /// Enumerates the possible states that the creation request can be in.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6025,25 +6024,26 @@ pub mod delete_glossary_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request is being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The glossary was successfully deleted.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// Failed to delete the glossary.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: State = State::new("CANCELLING");
 
         /// The glossary deletion request was successfully canceled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
     }
 }
 
@@ -6748,13 +6748,12 @@ pub mod batch_translate_document_metadata {
 
     /// State of the job.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -6765,27 +6764,28 @@ pub mod batch_translate_document_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request is being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The batch is processed, and at least one item was successfully processed.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// The batch is done and no item was successfully processed.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Request is in the process of being canceled after caller invoked
         /// longrunning.Operations.CancelOperation on the request id.
-        pub const CANCELLING: &str = "CANCELLING";
+        pub const CANCELLING: State = State::new("CANCELLING");
 
         /// The batch is done after the user has called the
         /// longrunning.Operations.CancelOperation. Any records processed before the
         /// cancel command are output as specified in the request.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
     }
 }
 
@@ -6842,13 +6842,12 @@ impl wkt::message::Message for TranslateTextGlossaryConfig {
 
 /// Possible states of long running operations.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationState(std::string::String);
+pub struct OperationState(std::borrow::Cow<'static, str>);
 
 impl OperationState {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new OperationState instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -6859,23 +6858,30 @@ impl OperationState {
 
 /// Useful constants to work with [OperationState](OperationState)
 pub mod operation_state {
+    use super::OperationState;
 
     /// Invalid.
-    pub const OPERATION_STATE_UNSPECIFIED: &str = "OPERATION_STATE_UNSPECIFIED";
+    pub const OPERATION_STATE_UNSPECIFIED: OperationState =
+        OperationState::new("OPERATION_STATE_UNSPECIFIED");
 
     /// Request is being processed.
-    pub const OPERATION_STATE_RUNNING: &str = "OPERATION_STATE_RUNNING";
+    pub const OPERATION_STATE_RUNNING: OperationState =
+        OperationState::new("OPERATION_STATE_RUNNING");
 
     /// The operation was successful.
-    pub const OPERATION_STATE_SUCCEEDED: &str = "OPERATION_STATE_SUCCEEDED";
+    pub const OPERATION_STATE_SUCCEEDED: OperationState =
+        OperationState::new("OPERATION_STATE_SUCCEEDED");
 
     /// Failed to process operation.
-    pub const OPERATION_STATE_FAILED: &str = "OPERATION_STATE_FAILED";
+    pub const OPERATION_STATE_FAILED: OperationState =
+        OperationState::new("OPERATION_STATE_FAILED");
 
     /// Request is in the process of being canceled after caller invoked
     /// longrunning.Operations.CancelOperation on the request id.
-    pub const OPERATION_STATE_CANCELLING: &str = "OPERATION_STATE_CANCELLING";
+    pub const OPERATION_STATE_CANCELLING: OperationState =
+        OperationState::new("OPERATION_STATE_CANCELLING");
 
     /// The operation request was successfully canceled.
-    pub const OPERATION_STATE_CANCELLED: &str = "OPERATION_STATE_CANCELLED";
+    pub const OPERATION_STATE_CANCELLED: OperationState =
+        OperationState::new("OPERATION_STATE_CANCELLED");
 }

@@ -704,13 +704,12 @@ pub mod list_service_account_keys_request {
     /// `KeyType` filters to selectively retrieve certain varieties
     /// of keys.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct KeyType(std::string::String);
+    pub struct KeyType(std::borrow::Cow<'static, str>);
 
     impl KeyType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new KeyType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -721,16 +720,17 @@ pub mod list_service_account_keys_request {
 
     /// Useful constants to work with [KeyType](KeyType)
     pub mod key_type {
+        use super::KeyType;
 
         /// Unspecified key type. The presence of this in the
         /// message will immediately result in an error.
-        pub const KEY_TYPE_UNSPECIFIED: &str = "KEY_TYPE_UNSPECIFIED";
+        pub const KEY_TYPE_UNSPECIFIED: KeyType = KeyType::new("KEY_TYPE_UNSPECIFIED");
 
         /// User-managed keys (managed and rotated by the user).
-        pub const USER_MANAGED: &str = "USER_MANAGED";
+        pub const USER_MANAGED: KeyType = KeyType::new("USER_MANAGED");
 
         /// System-managed keys (managed and rotated by Google).
-        pub const SYSTEM_MANAGED: &str = "SYSTEM_MANAGED";
+        pub const SYSTEM_MANAGED: KeyType = KeyType::new("SYSTEM_MANAGED");
     }
 }
 
@@ -1474,13 +1474,12 @@ pub mod role {
 
     /// A stage representing a role's lifecycle phase.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RoleLaunchStage(std::string::String);
+    pub struct RoleLaunchStage(std::borrow::Cow<'static, str>);
 
     impl RoleLaunchStage {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RoleLaunchStage instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1491,27 +1490,28 @@ pub mod role {
 
     /// Useful constants to work with [RoleLaunchStage](RoleLaunchStage)
     pub mod role_launch_stage {
+        use super::RoleLaunchStage;
 
         /// The user has indicated this role is currently in an Alpha phase. If this
         /// launch stage is selected, the `stage` field will not be included when
         /// requesting the definition for a given role.
-        pub const ALPHA: &str = "ALPHA";
+        pub const ALPHA: RoleLaunchStage = RoleLaunchStage::new("ALPHA");
 
         /// The user has indicated this role is currently in a Beta phase.
-        pub const BETA: &str = "BETA";
+        pub const BETA: RoleLaunchStage = RoleLaunchStage::new("BETA");
 
         /// The user has indicated this role is generally available.
-        pub const GA: &str = "GA";
+        pub const GA: RoleLaunchStage = RoleLaunchStage::new("GA");
 
         /// The user has indicated this role is being deprecated.
-        pub const DEPRECATED: &str = "DEPRECATED";
+        pub const DEPRECATED: RoleLaunchStage = RoleLaunchStage::new("DEPRECATED");
 
         /// This role is disabled and will not contribute permissions to any
         /// principals it is granted to in policies.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: RoleLaunchStage = RoleLaunchStage::new("DISABLED");
 
         /// The user has indicated this role is currently in an EAP phase.
-        pub const EAP: &str = "EAP";
+        pub const EAP: RoleLaunchStage = RoleLaunchStage::new("EAP");
     }
 }
 
@@ -2215,13 +2215,12 @@ pub mod permission {
 
     /// A stage representing a permission's lifecycle phase.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct PermissionLaunchStage(std::string::String);
+    pub struct PermissionLaunchStage(std::borrow::Cow<'static, str>);
 
     impl PermissionLaunchStage {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new PermissionLaunchStage instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2232,29 +2231,29 @@ pub mod permission {
 
     /// Useful constants to work with [PermissionLaunchStage](PermissionLaunchStage)
     pub mod permission_launch_stage {
+        use super::PermissionLaunchStage;
 
         /// The permission is currently in an alpha phase.
-        pub const ALPHA: &str = "ALPHA";
+        pub const ALPHA: PermissionLaunchStage = PermissionLaunchStage::new("ALPHA");
 
         /// The permission is currently in a beta phase.
-        pub const BETA: &str = "BETA";
+        pub const BETA: PermissionLaunchStage = PermissionLaunchStage::new("BETA");
 
         /// The permission is generally available.
-        pub const GA: &str = "GA";
+        pub const GA: PermissionLaunchStage = PermissionLaunchStage::new("GA");
 
         /// The permission is being deprecated.
-        pub const DEPRECATED: &str = "DEPRECATED";
+        pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::new("DEPRECATED");
     }
 
     /// The state of the permission with regards to custom roles.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CustomRolesSupportLevel(std::string::String);
+    pub struct CustomRolesSupportLevel(std::borrow::Cow<'static, str>);
 
     impl CustomRolesSupportLevel {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CustomRolesSupportLevel instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2265,15 +2264,17 @@ pub mod permission {
 
     /// Useful constants to work with [CustomRolesSupportLevel](CustomRolesSupportLevel)
     pub mod custom_roles_support_level {
+        use super::CustomRolesSupportLevel;
 
         /// Default state. Permission is fully supported for custom role use.
-        pub const SUPPORTED: &str = "SUPPORTED";
+        pub const SUPPORTED: CustomRolesSupportLevel = CustomRolesSupportLevel::new("SUPPORTED");
 
         /// Permission is being tested to check custom role compatibility.
-        pub const TESTING: &str = "TESTING";
+        pub const TESTING: CustomRolesSupportLevel = CustomRolesSupportLevel::new("TESTING");
 
         /// Permission is not supported for custom role use.
-        pub const NOT_SUPPORTED: &str = "NOT_SUPPORTED";
+        pub const NOT_SUPPORTED: CustomRolesSupportLevel =
+            CustomRolesSupportLevel::new("NOT_SUPPORTED");
     }
 }
 
@@ -2645,13 +2646,12 @@ pub mod lint_result {
     /// Possible Level values of a validation unit corresponding to its domain
     /// of discourse.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Level(std::string::String);
+    pub struct Level(std::borrow::Cow<'static, str>);
 
     impl Level {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Level instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2662,24 +2662,24 @@ pub mod lint_result {
 
     /// Useful constants to work with [Level](Level)
     pub mod level {
+        use super::Level;
 
         /// Level is unspecified.
-        pub const LEVEL_UNSPECIFIED: &str = "LEVEL_UNSPECIFIED";
+        pub const LEVEL_UNSPECIFIED: Level = Level::new("LEVEL_UNSPECIFIED");
 
         /// A validation unit which operates on an individual condition within a
         /// binding.
-        pub const CONDITION: &str = "CONDITION";
+        pub const CONDITION: Level = Level::new("CONDITION");
     }
 
     /// Possible Severity values of an issued result.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::string::String);
+    pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Severity instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2690,14 +2690,15 @@ pub mod lint_result {
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
+        use super::Severity;
 
         /// Severity is unspecified.
-        pub const SEVERITY_UNSPECIFIED: &str = "SEVERITY_UNSPECIFIED";
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
 
         /// A validation unit returns an error only for critical issues. If an
         /// attempt is made to set the problematic policy without rectifying the
         /// critical issue, it causes the `setPolicy` operation to fail.
-        pub const ERROR: &str = "ERROR";
+        pub const ERROR: Severity = Severity::new("ERROR");
 
         /// Any issue which is severe enough but does not cause an error.
         /// For example, suspicious constructs in the input object will not
@@ -2708,21 +2709,21 @@ pub mod lint_result {
         /// - Unsatisfiable condition: Expired timestamp in date/time condition.
         /// - Ineffective condition: Condition on a <principal, role> pair which is
         ///   granted unconditionally in another binding of the same policy.
-        pub const WARNING: &str = "WARNING";
+        pub const WARNING: Severity = Severity::new("WARNING");
 
         /// Reserved for the issues that are not severe as `ERROR`/`WARNING`, but
         /// need special handling. For instance, messages about skipped validation
         /// units are issued as `NOTICE`.
-        pub const NOTICE: &str = "NOTICE";
+        pub const NOTICE: Severity = Severity::new("NOTICE");
 
         /// Any informative statement which is not severe enough to raise
         /// `ERROR`/`WARNING`/`NOTICE`, like auto-correction recommendations on the
         /// input content. Note that current version of the linter does not utilize
         /// `INFO`.
-        pub const INFO: &str = "INFO";
+        pub const INFO: Severity = Severity::new("INFO");
 
         /// Deprecated severity level.
-        pub const DEPRECATED: &str = "DEPRECATED";
+        pub const DEPRECATED: Severity = Severity::new("DEPRECATED");
     }
 }
 
@@ -2759,13 +2760,12 @@ impl wkt::message::Message for LintPolicyResponse {
 
 /// Supported key algorithms.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyAlgorithm(std::string::String);
+pub struct ServiceAccountKeyAlgorithm(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountKeyAlgorithm {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ServiceAccountKeyAlgorithm instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2776,26 +2776,29 @@ impl ServiceAccountKeyAlgorithm {
 
 /// Useful constants to work with [ServiceAccountKeyAlgorithm](ServiceAccountKeyAlgorithm)
 pub mod service_account_key_algorithm {
+    use super::ServiceAccountKeyAlgorithm;
 
     /// An unspecified key algorithm.
-    pub const KEY_ALG_UNSPECIFIED: &str = "KEY_ALG_UNSPECIFIED";
+    pub const KEY_ALG_UNSPECIFIED: ServiceAccountKeyAlgorithm =
+        ServiceAccountKeyAlgorithm::new("KEY_ALG_UNSPECIFIED");
 
     /// 1k RSA Key.
-    pub const KEY_ALG_RSA_1024: &str = "KEY_ALG_RSA_1024";
+    pub const KEY_ALG_RSA_1024: ServiceAccountKeyAlgorithm =
+        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_1024");
 
     /// 2k RSA Key.
-    pub const KEY_ALG_RSA_2048: &str = "KEY_ALG_RSA_2048";
+    pub const KEY_ALG_RSA_2048: ServiceAccountKeyAlgorithm =
+        ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_2048");
 }
 
 /// Supported private key output formats.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPrivateKeyType(std::string::String);
+pub struct ServiceAccountPrivateKeyType(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountPrivateKeyType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ServiceAccountPrivateKeyType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2806,28 +2809,31 @@ impl ServiceAccountPrivateKeyType {
 
 /// Useful constants to work with [ServiceAccountPrivateKeyType](ServiceAccountPrivateKeyType)
 pub mod service_account_private_key_type {
+    use super::ServiceAccountPrivateKeyType;
 
     /// Unspecified. Equivalent to `TYPE_GOOGLE_CREDENTIALS_FILE`.
-    pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+    pub const TYPE_UNSPECIFIED: ServiceAccountPrivateKeyType =
+        ServiceAccountPrivateKeyType::new("TYPE_UNSPECIFIED");
 
     /// PKCS12 format.
     /// The password for the PKCS12 file is `notasecret`.
     /// For more information, see <https://tools.ietf.org/html/rfc7292>.
-    pub const TYPE_PKCS12_FILE: &str = "TYPE_PKCS12_FILE";
+    pub const TYPE_PKCS12_FILE: ServiceAccountPrivateKeyType =
+        ServiceAccountPrivateKeyType::new("TYPE_PKCS12_FILE");
 
     /// Google Credentials File format.
-    pub const TYPE_GOOGLE_CREDENTIALS_FILE: &str = "TYPE_GOOGLE_CREDENTIALS_FILE";
+    pub const TYPE_GOOGLE_CREDENTIALS_FILE: ServiceAccountPrivateKeyType =
+        ServiceAccountPrivateKeyType::new("TYPE_GOOGLE_CREDENTIALS_FILE");
 }
 
 /// Supported public key output formats.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountPublicKeyType(std::string::String);
+pub struct ServiceAccountPublicKeyType(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountPublicKeyType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ServiceAccountPublicKeyType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2838,26 +2844,29 @@ impl ServiceAccountPublicKeyType {
 
 /// Useful constants to work with [ServiceAccountPublicKeyType](ServiceAccountPublicKeyType)
 pub mod service_account_public_key_type {
+    use super::ServiceAccountPublicKeyType;
 
     /// Do not return the public key.
-    pub const TYPE_NONE: &str = "TYPE_NONE";
+    pub const TYPE_NONE: ServiceAccountPublicKeyType =
+        ServiceAccountPublicKeyType::new("TYPE_NONE");
 
     /// X509 PEM format.
-    pub const TYPE_X509_PEM_FILE: &str = "TYPE_X509_PEM_FILE";
+    pub const TYPE_X509_PEM_FILE: ServiceAccountPublicKeyType =
+        ServiceAccountPublicKeyType::new("TYPE_X509_PEM_FILE");
 
     /// Raw public key.
-    pub const TYPE_RAW_PUBLIC_KEY: &str = "TYPE_RAW_PUBLIC_KEY";
+    pub const TYPE_RAW_PUBLIC_KEY: ServiceAccountPublicKeyType =
+        ServiceAccountPublicKeyType::new("TYPE_RAW_PUBLIC_KEY");
 }
 
 /// Service Account Key Origin.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ServiceAccountKeyOrigin(std::string::String);
+pub struct ServiceAccountKeyOrigin(std::borrow::Cow<'static, str>);
 
 impl ServiceAccountKeyOrigin {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ServiceAccountKeyOrigin instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2868,26 +2877,29 @@ impl ServiceAccountKeyOrigin {
 
 /// Useful constants to work with [ServiceAccountKeyOrigin](ServiceAccountKeyOrigin)
 pub mod service_account_key_origin {
+    use super::ServiceAccountKeyOrigin;
 
     /// Unspecified key origin.
-    pub const ORIGIN_UNSPECIFIED: &str = "ORIGIN_UNSPECIFIED";
+    pub const ORIGIN_UNSPECIFIED: ServiceAccountKeyOrigin =
+        ServiceAccountKeyOrigin::new("ORIGIN_UNSPECIFIED");
 
     /// Key is provided by user.
-    pub const USER_PROVIDED: &str = "USER_PROVIDED";
+    pub const USER_PROVIDED: ServiceAccountKeyOrigin =
+        ServiceAccountKeyOrigin::new("USER_PROVIDED");
 
     /// Key is provided by Google.
-    pub const GOOGLE_PROVIDED: &str = "GOOGLE_PROVIDED";
+    pub const GOOGLE_PROVIDED: ServiceAccountKeyOrigin =
+        ServiceAccountKeyOrigin::new("GOOGLE_PROVIDED");
 }
 
 /// A view for Role objects.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RoleView(std::string::String);
+pub struct RoleView(std::borrow::Cow<'static, str>);
 
 impl RoleView {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new RoleView instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2898,11 +2910,12 @@ impl RoleView {
 
 /// Useful constants to work with [RoleView](RoleView)
 pub mod role_view {
+    use super::RoleView;
 
     /// Omits the `included_permissions` field.
     /// This is the default value.
-    pub const BASIC: &str = "BASIC";
+    pub const BASIC: RoleView = RoleView::new("BASIC");
 
     /// Returns all fields.
-    pub const FULL: &str = "FULL";
+    pub const FULL: RoleView = RoleView::new("FULL");
 }

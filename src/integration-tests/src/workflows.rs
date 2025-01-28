@@ -18,6 +18,7 @@ use gax::{error::Error, options::RequestOptionsBuilder};
 use lro::Poller;
 use rand::{distributions::Alphanumeric, Rng};
 use std::time::Duration;
+use wf::model::workflow::CallLogLevel;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
@@ -73,14 +74,8 @@ main:
         .set_workflow(
             wf::model::Workflow::default()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(
-                    wf::model::workflow::CallLogLevel::default()
-                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
-                )
-                .set_state(
-                    wf::model::workflow::State::default()
-                        .set_value(wf::model::workflow::state::UNAVAILABLE),
-                )
+                .set_call_log_level(CallLogLevel::new("LOG_ERRORS_ONLY"))
+                .set_state(wf::model::workflow::State::new("UNAVAILABLE"))
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
@@ -155,14 +150,8 @@ main:
         .set_workflow(
             wf::model::Workflow::default()
                 .set_labels([("integration-test", "true")])
-                .set_call_log_level(
-                    wf::model::workflow::CallLogLevel::default()
-                        .set_value(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY),
-                )
-                .set_state(
-                    wf::model::workflow::State::default()
-                        .set_value(wf::model::workflow::state::UNAVAILABLE),
-                )
+                .set_call_log_level(CallLogLevel::new("LOG_ERRORS_ONLY"))
+                .set_state(wf::model::workflow::State::new("UNAVAILABLE"))
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )

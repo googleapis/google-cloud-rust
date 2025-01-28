@@ -240,13 +240,12 @@ pub mod function {
 
     /// Describes the current state of the function.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -257,25 +256,26 @@ pub mod function {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified. Invalid state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Function has been successfully deployed and is serving.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// Function deployment failed and the function is not serving.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// Function is being created or updated.
-        pub const DEPLOYING: &str = "DEPLOYING";
+        pub const DEPLOYING: State = State::new("DEPLOYING");
 
         /// Function is being deleted.
-        pub const DELETING: &str = "DELETING";
+        pub const DELETING: State = State::new("DELETING");
 
         /// Function deployment failed and the function serving state is undefined.
         /// The function should be updated or deleted to move it out of this state.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: State = State::new("UNKNOWN");
     }
 }
 
@@ -334,13 +334,12 @@ pub mod state_message {
 
     /// Severity of the state message.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Severity(std::string::String);
+    pub struct Severity(std::borrow::Cow<'static, str>);
 
     impl Severity {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Severity instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -351,18 +350,19 @@ pub mod state_message {
 
     /// Useful constants to work with [Severity](Severity)
     pub mod severity {
+        use super::Severity;
 
         /// Not specified. Invalid severity.
-        pub const SEVERITY_UNSPECIFIED: &str = "SEVERITY_UNSPECIFIED";
+        pub const SEVERITY_UNSPECIFIED: Severity = Severity::new("SEVERITY_UNSPECIFIED");
 
         /// ERROR-level severity.
-        pub const ERROR: &str = "ERROR";
+        pub const ERROR: Severity = Severity::new("ERROR");
 
         /// WARNING-level severity.
-        pub const WARNING: &str = "WARNING";
+        pub const WARNING: Severity = Severity::new("WARNING");
 
         /// INFO-level severity.
-        pub const INFO: &str = "INFO";
+        pub const INFO: Severity = Severity::new("INFO");
     }
 }
 
@@ -843,13 +843,12 @@ pub mod build_config {
 
     /// Docker Registry to use for storing function Docker images.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DockerRegistry(std::string::String);
+    pub struct DockerRegistry(std::borrow::Cow<'static, str>);
 
     impl DockerRegistry {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new DockerRegistry instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -860,20 +859,22 @@ pub mod build_config {
 
     /// Useful constants to work with [DockerRegistry](DockerRegistry)
     pub mod docker_registry {
+        use super::DockerRegistry;
 
         /// Unspecified.
-        pub const DOCKER_REGISTRY_UNSPECIFIED: &str = "DOCKER_REGISTRY_UNSPECIFIED";
+        pub const DOCKER_REGISTRY_UNSPECIFIED: DockerRegistry =
+            DockerRegistry::new("DOCKER_REGISTRY_UNSPECIFIED");
 
         /// Docker images will be stored in multi-regional Container Registry
         /// repositories named `gcf`.
-        pub const CONTAINER_REGISTRY: &str = "CONTAINER_REGISTRY";
+        pub const CONTAINER_REGISTRY: DockerRegistry = DockerRegistry::new("CONTAINER_REGISTRY");
 
         /// Docker images will be stored in regional Artifact Registry repositories.
         /// By default, GCF will create and use repositories named `gcf-artifacts`
         /// in every region in which a function is deployed. But the repository to
         /// use can also be specified by the user using the `docker_repository`
         /// field.
-        pub const ARTIFACT_REGISTRY: &str = "ARTIFACT_REGISTRY";
+        pub const ARTIFACT_REGISTRY: DockerRegistry = DockerRegistry::new("ARTIFACT_REGISTRY");
     }
 
     /// This controls when security patches are applied to the runtime environment.
@@ -1182,13 +1183,12 @@ pub mod service_config {
     /// This controls what traffic is diverted through the VPC Access Connector
     /// resource. By default PRIVATE_RANGES_ONLY will be used.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VpcConnectorEgressSettings(std::string::String);
+    pub struct VpcConnectorEgressSettings(std::borrow::Cow<'static, str>);
 
     impl VpcConnectorEgressSettings {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new VpcConnectorEgressSettings instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1199,17 +1199,20 @@ pub mod service_config {
 
     /// Useful constants to work with [VpcConnectorEgressSettings](VpcConnectorEgressSettings)
     pub mod vpc_connector_egress_settings {
+        use super::VpcConnectorEgressSettings;
 
         /// Unspecified.
-        pub const VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED: &str =
-            "VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED";
+        pub const VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED: VpcConnectorEgressSettings =
+            VpcConnectorEgressSettings::new("VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED");
 
         /// Use the VPC Access Connector only for private IP space from RFC1918.
-        pub const PRIVATE_RANGES_ONLY: &str = "PRIVATE_RANGES_ONLY";
+        pub const PRIVATE_RANGES_ONLY: VpcConnectorEgressSettings =
+            VpcConnectorEgressSettings::new("PRIVATE_RANGES_ONLY");
 
         /// Force the use of VPC Access Connector for all egress traffic from the
         /// function.
-        pub const ALL_TRAFFIC: &str = "ALL_TRAFFIC";
+        pub const ALL_TRAFFIC: VpcConnectorEgressSettings =
+            VpcConnectorEgressSettings::new("ALL_TRAFFIC");
     }
 
     /// Available ingress settings.
@@ -1218,13 +1221,12 @@ pub mod service_config {
     ///
     /// If unspecified, ALLOW_ALL will be used.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IngressSettings(std::string::String);
+    pub struct IngressSettings(std::borrow::Cow<'static, str>);
 
     impl IngressSettings {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new IngressSettings instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1235,18 +1237,22 @@ pub mod service_config {
 
     /// Useful constants to work with [IngressSettings](IngressSettings)
     pub mod ingress_settings {
+        use super::IngressSettings;
 
         /// Unspecified.
-        pub const INGRESS_SETTINGS_UNSPECIFIED: &str = "INGRESS_SETTINGS_UNSPECIFIED";
+        pub const INGRESS_SETTINGS_UNSPECIFIED: IngressSettings =
+            IngressSettings::new("INGRESS_SETTINGS_UNSPECIFIED");
 
         /// Allow HTTP traffic from public and private sources.
-        pub const ALLOW_ALL: &str = "ALLOW_ALL";
+        pub const ALLOW_ALL: IngressSettings = IngressSettings::new("ALLOW_ALL");
 
         /// Allow HTTP traffic from only private VPC sources.
-        pub const ALLOW_INTERNAL_ONLY: &str = "ALLOW_INTERNAL_ONLY";
+        pub const ALLOW_INTERNAL_ONLY: IngressSettings =
+            IngressSettings::new("ALLOW_INTERNAL_ONLY");
 
         /// Allow HTTP traffic from private VPC sources and through GCLB.
-        pub const ALLOW_INTERNAL_AND_GCLB: &str = "ALLOW_INTERNAL_AND_GCLB";
+        pub const ALLOW_INTERNAL_AND_GCLB: IngressSettings =
+            IngressSettings::new("ALLOW_INTERNAL_AND_GCLB");
     }
 
     /// Available security level settings.
@@ -1256,13 +1262,12 @@ pub mod service_config {
     /// Security level is only configurable for 1st Gen functions, If unspecified,
     /// SECURE_OPTIONAL will be used. 2nd Gen functions are SECURE_ALWAYS ONLY.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct SecurityLevel(std::string::String);
+    pub struct SecurityLevel(std::borrow::Cow<'static, str>);
 
     impl SecurityLevel {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new SecurityLevel instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1273,19 +1278,21 @@ pub mod service_config {
 
     /// Useful constants to work with [SecurityLevel](SecurityLevel)
     pub mod security_level {
+        use super::SecurityLevel;
 
         /// Unspecified.
-        pub const SECURITY_LEVEL_UNSPECIFIED: &str = "SECURITY_LEVEL_UNSPECIFIED";
+        pub const SECURITY_LEVEL_UNSPECIFIED: SecurityLevel =
+            SecurityLevel::new("SECURITY_LEVEL_UNSPECIFIED");
 
         /// Requests for a URL that match this handler that do not use HTTPS are
         /// automatically redirected to the HTTPS URL with the same path. Query
         /// parameters are reserved for the redirect.
-        pub const SECURE_ALWAYS: &str = "SECURE_ALWAYS";
+        pub const SECURE_ALWAYS: SecurityLevel = SecurityLevel::new("SECURE_ALWAYS");
 
         /// Both HTTP and HTTPS requests with URLs that match the handler succeed
         /// without redirects. The application can examine the request to determine
         /// which protocol was used and respond accordingly.
-        pub const SECURE_OPTIONAL: &str = "SECURE_OPTIONAL";
+        pub const SECURE_OPTIONAL: SecurityLevel = SecurityLevel::new("SECURE_OPTIONAL");
     }
 }
 
@@ -1617,13 +1624,12 @@ pub mod event_trigger {
     /// Describes the retry policy in case of function's execution failure.
     /// Retried execution is charged as any other execution.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RetryPolicy(std::string::String);
+    pub struct RetryPolicy(std::borrow::Cow<'static, str>);
 
     impl RetryPolicy {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RetryPolicy instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1634,16 +1640,19 @@ pub mod event_trigger {
 
     /// Useful constants to work with [RetryPolicy](RetryPolicy)
     pub mod retry_policy {
+        use super::RetryPolicy;
 
         /// Not specified.
-        pub const RETRY_POLICY_UNSPECIFIED: &str = "RETRY_POLICY_UNSPECIFIED";
+        pub const RETRY_POLICY_UNSPECIFIED: RetryPolicy =
+            RetryPolicy::new("RETRY_POLICY_UNSPECIFIED");
 
         /// Do not retry.
-        pub const RETRY_POLICY_DO_NOT_RETRY: &str = "RETRY_POLICY_DO_NOT_RETRY";
+        pub const RETRY_POLICY_DO_NOT_RETRY: RetryPolicy =
+            RetryPolicy::new("RETRY_POLICY_DO_NOT_RETRY");
 
         /// Retry on any failure, retry up to 7 days with an exponential backoff
         /// (capped at 10 seconds).
-        pub const RETRY_POLICY_RETRY: &str = "RETRY_POLICY_RETRY";
+        pub const RETRY_POLICY_RETRY: RetryPolicy = RetryPolicy::new("RETRY_POLICY_RETRY");
     }
 }
 
@@ -2353,13 +2362,12 @@ pub mod list_runtimes_response {
 
     /// The various stages that a runtime can be in.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RuntimeStage(std::string::String);
+    pub struct RuntimeStage(std::borrow::Cow<'static, str>);
 
     impl RuntimeStage {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RuntimeStage instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2370,27 +2378,29 @@ pub mod list_runtimes_response {
 
     /// Useful constants to work with [RuntimeStage](RuntimeStage)
     pub mod runtime_stage {
+        use super::RuntimeStage;
 
         /// Not specified.
-        pub const RUNTIME_STAGE_UNSPECIFIED: &str = "RUNTIME_STAGE_UNSPECIFIED";
+        pub const RUNTIME_STAGE_UNSPECIFIED: RuntimeStage =
+            RuntimeStage::new("RUNTIME_STAGE_UNSPECIFIED");
 
         /// The runtime is in development.
-        pub const DEVELOPMENT: &str = "DEVELOPMENT";
+        pub const DEVELOPMENT: RuntimeStage = RuntimeStage::new("DEVELOPMENT");
 
         /// The runtime is in the Alpha stage.
-        pub const ALPHA: &str = "ALPHA";
+        pub const ALPHA: RuntimeStage = RuntimeStage::new("ALPHA");
 
         /// The runtime is in the Beta stage.
-        pub const BETA: &str = "BETA";
+        pub const BETA: RuntimeStage = RuntimeStage::new("BETA");
 
         /// The runtime is generally available.
-        pub const GA: &str = "GA";
+        pub const GA: RuntimeStage = RuntimeStage::new("GA");
 
         /// The runtime is deprecated.
-        pub const DEPRECATED: &str = "DEPRECATED";
+        pub const DEPRECATED: RuntimeStage = RuntimeStage::new("DEPRECATED");
 
         /// The runtime is no longer supported.
-        pub const DECOMMISSIONED: &str = "DECOMMISSIONED";
+        pub const DECOMMISSIONED: RuntimeStage = RuntimeStage::new("DECOMMISSIONED");
     }
 }
 
@@ -2710,13 +2720,12 @@ pub mod stage {
 
     /// Possible names for a Stage
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Name(std::string::String);
+    pub struct Name(std::borrow::Cow<'static, str>);
 
     impl Name {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Name instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2727,38 +2736,38 @@ pub mod stage {
 
     /// Useful constants to work with [Name](Name)
     pub mod name {
+        use super::Name;
 
         /// Not specified. Invalid name.
-        pub const NAME_UNSPECIFIED: &str = "NAME_UNSPECIFIED";
+        pub const NAME_UNSPECIFIED: Name = Name::new("NAME_UNSPECIFIED");
 
         /// Artifact Regsitry Stage
-        pub const ARTIFACT_REGISTRY: &str = "ARTIFACT_REGISTRY";
+        pub const ARTIFACT_REGISTRY: Name = Name::new("ARTIFACT_REGISTRY");
 
         /// Build Stage
-        pub const BUILD: &str = "BUILD";
+        pub const BUILD: Name = Name::new("BUILD");
 
         /// Service Stage
-        pub const SERVICE: &str = "SERVICE";
+        pub const SERVICE: Name = Name::new("SERVICE");
 
         /// Trigger Stage
-        pub const TRIGGER: &str = "TRIGGER";
+        pub const TRIGGER: Name = Name::new("TRIGGER");
 
         /// Service Rollback Stage
-        pub const SERVICE_ROLLBACK: &str = "SERVICE_ROLLBACK";
+        pub const SERVICE_ROLLBACK: Name = Name::new("SERVICE_ROLLBACK");
 
         /// Trigger Rollback Stage
-        pub const TRIGGER_ROLLBACK: &str = "TRIGGER_ROLLBACK";
+        pub const TRIGGER_ROLLBACK: Name = Name::new("TRIGGER_ROLLBACK");
     }
 
     /// Possible states for a Stage
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2769,30 +2778,30 @@ pub mod stage {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified. Invalid state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Stage has not started.
-        pub const NOT_STARTED: &str = "NOT_STARTED";
+        pub const NOT_STARTED: State = State::new("NOT_STARTED");
 
         /// Stage is in progress.
-        pub const IN_PROGRESS: &str = "IN_PROGRESS";
+        pub const IN_PROGRESS: State = State::new("IN_PROGRESS");
 
         /// Stage has completed.
-        pub const COMPLETE: &str = "COMPLETE";
+        pub const COMPLETE: State = State::new("COMPLETE");
     }
 }
 
 /// The type of the long running operation.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct OperationType(std::string::String);
+pub struct OperationType(std::borrow::Cow<'static, str>);
 
 impl OperationType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new OperationType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2803,29 +2812,30 @@ impl OperationType {
 
 /// Useful constants to work with [OperationType](OperationType)
 pub mod operation_type {
+    use super::OperationType;
 
     /// Unspecified
-    pub const OPERATIONTYPE_UNSPECIFIED: &str = "OPERATIONTYPE_UNSPECIFIED";
+    pub const OPERATIONTYPE_UNSPECIFIED: OperationType =
+        OperationType::new("OPERATIONTYPE_UNSPECIFIED");
 
     /// CreateFunction
-    pub const CREATE_FUNCTION: &str = "CREATE_FUNCTION";
+    pub const CREATE_FUNCTION: OperationType = OperationType::new("CREATE_FUNCTION");
 
     /// UpdateFunction
-    pub const UPDATE_FUNCTION: &str = "UPDATE_FUNCTION";
+    pub const UPDATE_FUNCTION: OperationType = OperationType::new("UPDATE_FUNCTION");
 
     /// DeleteFunction
-    pub const DELETE_FUNCTION: &str = "DELETE_FUNCTION";
+    pub const DELETE_FUNCTION: OperationType = OperationType::new("DELETE_FUNCTION");
 }
 
 /// The environment the function is hosted on.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Environment(std::string::String);
+pub struct Environment(std::borrow::Cow<'static, str>);
 
 impl Environment {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new Environment instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -2836,13 +2846,14 @@ impl Environment {
 
 /// Useful constants to work with [Environment](Environment)
 pub mod environment {
+    use super::Environment;
 
     /// Unspecified
-    pub const ENVIRONMENT_UNSPECIFIED: &str = "ENVIRONMENT_UNSPECIFIED";
+    pub const ENVIRONMENT_UNSPECIFIED: Environment = Environment::new("ENVIRONMENT_UNSPECIFIED");
 
     /// Gen 1
-    pub const GEN_1: &str = "GEN_1";
+    pub const GEN_1: Environment = Environment::new("GEN_1");
 
     /// Gen 2
-    pub const GEN_2: &str = "GEN_2";
+    pub const GEN_2: Environment = Environment::new("GEN_2");
 }
