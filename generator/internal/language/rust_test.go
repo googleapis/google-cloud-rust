@@ -1805,7 +1805,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 	placeholder>.
 	Third example: projects/<project>/secrets/<secret>
 	Urls remain unchanged <https://www.example.com>
-	Hyperlinks remain unchanged <a href=https://www.hyperlink.com>hyperlined content</a>` + `
+	Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>` + `
 	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
 
 	want := []string{
@@ -1814,7 +1814,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 		"/// placeholder\\>.",
 		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
 		"/// Urls remain unchanged <https://www.example.com>",
-		"/// Hyperlinks remain unchanged <a href=<https://www.hyperlink.com>>hyperlined content</a>",
+		"/// Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>",
 		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
 	}
 
