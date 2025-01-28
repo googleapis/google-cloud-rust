@@ -38,7 +38,7 @@ const DEFAULT_SCOPES: [&str; 1] = ["https://www.googleapis.com/auth/cloud-platfo
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
 #[allow(dead_code)]
-#[derive(serde::Deserialize, Debug, Builder)]
+#[derive(serde::Deserialize, Builder)]
 #[builder(setter(into))]
 pub(crate) struct ServiceAccountInfo {
     client_email: String,
@@ -46,6 +46,18 @@ pub(crate) struct ServiceAccountInfo {
     private_key: String,
     project_id: String,
     universe_domain: String,
+}
+
+impl std::fmt::Debug for ServiceAccountInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ServiceAccountInfo")
+            .field("client_email", &self.client_email)
+            .field("private_key_id", &"[censored]")
+            .field("private_key", &"[censored]")
+            .field("project_id", &self.project_id)
+            .field("universe_domain", &self.universe_domain)
+            .finish()
+    }
 }
 
 #[allow(dead_code)] // TODO(#679) - implementation in progress
@@ -163,6 +175,22 @@ mod test {
     use rustls_pemfile::Item;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test]
+    fn debug_token_provider() {
+        let expected = ServiceAccountInfo {
+            client_email: "test-client-email".to_string(),
+            private_key_id: "test-private-key-id".to_string(),
+            private_key: "test-private-key".to_string(),
+            project_id: "test-project-id".to_string(),
+            universe_domain: "test-universe-domain".to_string(),
+        };
+        let fmt = format!("{expected:?}");
+        assert!(fmt.contains("test-client-email"), "{fmt}");
+        assert!(!fmt.contains("test-private-key"), "{fmt}");
+        assert!(fmt.contains("test-project-id"), "{fmt}");
+        assert!(fmt.contains("test-universe-domain"), "{fmt}");
+    }
 
     #[tokio::test]
     async fn get_token_success() {
