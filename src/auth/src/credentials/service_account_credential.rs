@@ -27,12 +27,6 @@ use rustls::sign::Signer;
 use rustls_pemfile::Item;
 use time::OffsetDateTime;
 
-const DEFAULT_HEADER: JwsHeader = JwsHeader {
-    alg: "RS256",
-    typ: "JWT",
-    kid: None,
-};
-
 const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
@@ -89,10 +83,15 @@ impl TokenProvider for ServiceAccountTokenProvider {
             exp,
             iat: now,
             typ: None,
-            sub: None,
+            sub: Some(self.service_account_info.client_email.clone()),
         };
 
-        let encoded_header_claims = format!("{}.{}", DEFAULT_HEADER.encode()?, claims.encode()?);
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: &self.service_account_info.private_key_id,
+        };
+        let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
             .sign(encoded_header_claims.as_bytes())
             .map_err(CredentialError::non_retryable)?;
@@ -168,6 +167,7 @@ where
 mod test {
     use super::*;
     use crate::token::test::MockTokenProvider;
+    use base64::Engine;
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::EncodePrivateKey;
     use rsa::pkcs8::LineEnding;
@@ -287,11 +287,11 @@ mod test {
 
     fn get_mock_service_account() -> ServiceAccountInfo {
         ServiceAccountInfoBuilder::default()
-            .client_email("")
-            .private_key_id("")
+            .client_email("test-client-email")
+            .private_key_id("test-private-key-id")
             .private_key("")
-            .project_id("")
-            .universe_domain("")
+            .project_id("test-project-id")
+            .universe_domain("test-universe-domain")
             .build()
             .unwrap()
     }
@@ -332,6 +332,16 @@ mod test {
             .to_string()
     }
 
+    fn b64_decode_to_json(s: String) -> serde_json::Value {
+        let decoded = String::from_utf8(
+            base64::engine::general_purpose::URL_SAFE_NO_PAD
+                .decode(s)
+                .unwrap(),
+        )
+        .unwrap();
+        serde_json::from_str(&decoded).unwrap()
+    }
+
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
@@ -340,7 +350,28 @@ mod test {
         let token_provider = ServiceAccountTokenProvider {
             service_account_info,
         };
-        assert!(token_provider.get_token().await.is_ok());
+        let token = token_provider.get_token().await?;
+        println!("DEBUG TOKEN: {}", token.token);
+        let re =
+            regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
+        let captures = re.captures(&token.token).ok_or_else(|| {
+            format!(
+                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
+                token.token
+            )
+        })?;
+        let header = b64_decode_to_json(captures["header"].to_string());
+        assert_eq!(header["alg"], "RS256");
+        assert_eq!(header["typ"], "JWT");
+        assert_eq!(header["kid"], "test-private-key-id");
+
+        let claims = b64_decode_to_json(captures["claims"].to_string());
+        assert_eq!(claims["iss"], "test-client-email");
+        assert_eq!(claims["scope"], DEFAULT_SCOPES);
+        assert!(claims["iat"].is_number());
+        assert!(claims["exp"].is_number());
+        assert_eq!(claims["sub"], "test-client-email");
+
         Ok(())
     }
 

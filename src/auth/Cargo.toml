@@ -41,11 +41,12 @@ derive_builder = "0.20.2"
 [dev-dependencies]
 axum        = "0.8.1"
 mockall     = "0.13.1"
+rand        = "0.8.5"
+regex       = "1.11.1"
+rsa         = { version = "0.9.7", features = ["pem"] }
 scoped-env  = "2.1.0"
 serial_test = "3.2.0"
 tempfile    = "3.14.0"
 test-case   = "3.3.1"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test  = "0.4.4"
-rsa         = { version = "0.9.7", features = ["pem"] }
-rand        = "0.8.5"
