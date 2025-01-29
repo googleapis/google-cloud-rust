@@ -35,7 +35,7 @@ options should be already configured in a `.sidekick.toml` file.
 
 ```bash
 cd generator
-go run github.com/googleapis/google-cloud-rust/generator/sidekick@latest generate -project-root=.. \
+go run cmd/sidekick/main.go generate -project-root=.. \
   -specification-format openapi \
   -specification-source generator/testdata/openapi/secretmanager_openapi_v1.json \
   -service-config generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml \
