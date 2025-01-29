@@ -21,7 +21,7 @@ pub mod web_risk_service {
     /// Common implementation for [crate::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::WebRiskService>,
+        stub: Arc<dyn crate::stubs::dynamic::WebRiskService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod web_risk_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod web_risk_service {
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
     impl ComputeThreatListDiff {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -105,7 +105,7 @@ pub mod web_risk_service {
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
     impl SearchUris {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -157,7 +157,7 @@ pub mod web_risk_service {
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
     impl SearchHashes {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,7 +209,7 @@ pub mod web_risk_service {
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
     impl CreateSubmission {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -262,7 +262,7 @@ pub mod web_risk_service {
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
     impl SubmitUri {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +368,7 @@ pub mod web_risk_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -445,7 +445,7 @@ pub mod web_risk_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -489,7 +489,7 @@ pub mod web_risk_service {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -533,7 +533,7 @@ pub mod web_risk_service {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::WebRiskService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::WebRiskService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

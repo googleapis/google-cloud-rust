@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::IAMCredentials] to make requests with.
+/// An implementation of [crate::stubs::IAMCredentials] to make requests with.
 ///
 /// `IAMCredentials` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -39,7 +39,7 @@ use std::sync::Arc;
 /// more.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials {
-    inner: Arc<dyn crate::traits::dyntraits::IAMCredentials>,
+    inner: Arc<dyn crate::stubs::dynamic::IAMCredentials>,
 }
 
 impl IAMCredentials {
@@ -60,7 +60,7 @@ impl IAMCredentials {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::IAMCredentials + 'static,
+        T: crate::stubs::IAMCredentials + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -69,7 +69,7 @@ impl IAMCredentials {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::IAMCredentials>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::IAMCredentials>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -78,13 +78,13 @@ impl IAMCredentials {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::IAMCredentials> {
+    ) -> Result<impl crate::stubs::IAMCredentials> {
         crate::transport::IAMCredentials::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::IAMCredentials> {
+    ) -> Result<impl crate::stubs::IAMCredentials> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::IAMCredentials::new)

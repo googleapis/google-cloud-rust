@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Policies](crate::traits::Policies) using a [gax::http_client::ReqwestClient].
+/// Implements [Policies](crate::stubs::Policies) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Policies {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl Policies {
     }
 }
 
-impl crate::traits::Policies for Policies {
+impl crate::stubs::Policies for Policies {
     async fn list_policies(
         &self,
         req: crate::model::ListPoliciesRequest,

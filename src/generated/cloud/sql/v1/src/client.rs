@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::SqlBackupRunsService] to make requests with.
+/// An implementation of [crate::stubs::SqlBackupRunsService] to make requests with.
 ///
 /// `SqlBackupRunsService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Service for managing database backups.
 #[derive(Clone, Debug)]
 pub struct SqlBackupRunsService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlBackupRunsService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>,
 }
 
 impl SqlBackupRunsService {
@@ -51,22 +51,22 @@ impl SqlBackupRunsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlBackupRunsService + 'static {
+    where T: crate::stubs::SqlBackupRunsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlBackupRunsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlBackupRunsService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlBackupRunsService> {
         crate::transport::SqlBackupRunsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlBackupRunsService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlBackupRunsService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlBackupRunsService::new)
     }
 
@@ -126,7 +126,7 @@ impl SqlBackupRunsService {
 
 }
 
-/// An implementation of [crate::traits::SqlConnectService] to make requests with.
+/// An implementation of [crate::stubs::SqlConnectService] to make requests with.
 ///
 /// `SqlConnectService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -139,7 +139,7 @@ impl SqlBackupRunsService {
 /// Cloud SQL connect service.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlConnectService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlConnectService>,
 }
 
 impl SqlConnectService {
@@ -159,22 +159,22 @@ impl SqlConnectService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlConnectService + 'static {
+    where T: crate::stubs::SqlConnectService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlConnectService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlConnectService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlConnectService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlConnectService> {
         crate::transport::SqlConnectService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlConnectService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlConnectService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlConnectService::new)
     }
 
@@ -207,7 +207,7 @@ impl SqlConnectService {
 
 }
 
-/// An implementation of [crate::traits::SqlDatabasesService] to make requests with.
+/// An implementation of [crate::stubs::SqlDatabasesService] to make requests with.
 ///
 /// `SqlDatabasesService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -220,7 +220,7 @@ impl SqlConnectService {
 /// Service to manage databases.
 #[derive(Clone, Debug)]
 pub struct SqlDatabasesService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlDatabasesService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>,
 }
 
 impl SqlDatabasesService {
@@ -240,22 +240,22 @@ impl SqlDatabasesService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlDatabasesService + 'static {
+    where T: crate::stubs::SqlDatabasesService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlDatabasesService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlDatabasesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlDatabasesService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlDatabasesService> {
         crate::transport::SqlDatabasesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlDatabasesService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlDatabasesService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlDatabasesService::new)
     }
 
@@ -347,7 +347,7 @@ impl SqlDatabasesService {
 
 }
 
-/// An implementation of [crate::traits::SqlFlagsService] to make requests with.
+/// An implementation of [crate::stubs::SqlFlagsService] to make requests with.
 ///
 /// `SqlFlagsService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -360,7 +360,7 @@ impl SqlDatabasesService {
 /// Service to manage database flags for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlFlagsService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlFlagsService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlFlagsService>,
 }
 
 impl SqlFlagsService {
@@ -380,22 +380,22 @@ impl SqlFlagsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlFlagsService + 'static {
+    where T: crate::stubs::SqlFlagsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlFlagsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlFlagsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlFlagsService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlFlagsService> {
         crate::transport::SqlFlagsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlFlagsService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlFlagsService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlFlagsService::new)
     }
 
@@ -409,7 +409,7 @@ impl SqlFlagsService {
 
 }
 
-/// An implementation of [crate::traits::SqlInstancesService] to make requests with.
+/// An implementation of [crate::stubs::SqlInstancesService] to make requests with.
 ///
 /// `SqlInstancesService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -422,7 +422,7 @@ impl SqlFlagsService {
 /// Service to manage Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlInstancesService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlInstancesService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlInstancesService>,
 }
 
 impl SqlInstancesService {
@@ -442,22 +442,22 @@ impl SqlInstancesService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlInstancesService + 'static {
+    where T: crate::stubs::SqlInstancesService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlInstancesService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlInstancesService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlInstancesService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlInstancesService> {
         crate::transport::SqlInstancesService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlInstancesService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlInstancesService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlInstancesService::new)
     }
 
@@ -903,7 +903,7 @@ impl SqlInstancesService {
 
 }
 
-/// An implementation of [crate::traits::SqlOperationsService] to make requests with.
+/// An implementation of [crate::stubs::SqlOperationsService] to make requests with.
 ///
 /// `SqlOperationsService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -916,7 +916,7 @@ impl SqlInstancesService {
 /// Service to fetch operations for database instances.
 #[derive(Clone, Debug)]
 pub struct SqlOperationsService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlOperationsService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlOperationsService>,
 }
 
 impl SqlOperationsService {
@@ -936,22 +936,22 @@ impl SqlOperationsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlOperationsService + 'static {
+    where T: crate::stubs::SqlOperationsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlOperationsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlOperationsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlOperationsService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlOperationsService> {
         crate::transport::SqlOperationsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlOperationsService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlOperationsService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlOperationsService::new)
     }
 
@@ -992,7 +992,7 @@ impl SqlOperationsService {
 
 }
 
-/// An implementation of [crate::traits::SqlSslCertsService] to make requests with.
+/// An implementation of [crate::stubs::SqlSslCertsService] to make requests with.
 ///
 /// `SqlSslCertsService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1005,7 +1005,7 @@ impl SqlOperationsService {
 /// Service to manage SSL certs for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlSslCertsService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlSslCertsService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>,
 }
 
 impl SqlSslCertsService {
@@ -1025,22 +1025,22 @@ impl SqlSslCertsService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlSslCertsService + 'static {
+    where T: crate::stubs::SqlSslCertsService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlSslCertsService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlSslCertsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlSslCertsService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlSslCertsService> {
         crate::transport::SqlSslCertsService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlSslCertsService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlSslCertsService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlSslCertsService::new)
     }
 
@@ -1103,7 +1103,7 @@ impl SqlSslCertsService {
 
 }
 
-/// An implementation of [crate::traits::SqlTiersService] to make requests with.
+/// An implementation of [crate::stubs::SqlTiersService] to make requests with.
 ///
 /// `SqlTiersService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1116,7 +1116,7 @@ impl SqlSslCertsService {
 /// Service for providing machine types (tiers) for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlTiersService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlTiersService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlTiersService>,
 }
 
 impl SqlTiersService {
@@ -1136,22 +1136,22 @@ impl SqlTiersService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlTiersService + 'static {
+    where T: crate::stubs::SqlTiersService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlTiersService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlTiersService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlTiersService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlTiersService> {
         crate::transport::SqlTiersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlTiersService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlTiersService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlTiersService::new)
     }
 
@@ -1169,7 +1169,7 @@ impl SqlTiersService {
 
 }
 
-/// An implementation of [crate::traits::SqlUsersService] to make requests with.
+/// An implementation of [crate::stubs::SqlUsersService] to make requests with.
 ///
 /// `SqlUsersService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1182,7 +1182,7 @@ impl SqlTiersService {
 /// Cloud SQL users service.
 #[derive(Clone, Debug)]
 pub struct SqlUsersService {
-    inner: Arc<dyn crate::traits::dyntraits::SqlUsersService>,
+    inner: Arc<dyn crate::stubs::dynamic::SqlUsersService>,
 }
 
 impl SqlUsersService {
@@ -1202,22 +1202,22 @@ impl SqlUsersService {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::SqlUsersService + 'static {
+    where T: crate::stubs::SqlUsersService + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::SqlUsersService>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::SqlUsersService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlUsersService> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlUsersService> {
         crate::transport::SqlUsersService::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::SqlUsersService> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::SqlUsersService> {
         Self::build_transport(conf).await.map(crate::tracing::SqlUsersService::new)
     }
 

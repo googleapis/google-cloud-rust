@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Workflows] to make requests with.
+/// An implementation of [crate::stubs::Workflows] to make requests with.
 ///
 /// `Workflows` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -33,7 +33,7 @@ use std::sync::Arc;
 /// networking interruptions.
 #[derive(Clone, Debug)]
 pub struct Workflows {
-    inner: Arc<dyn crate::traits::dyntraits::Workflows>,
+    inner: Arc<dyn crate::stubs::dynamic::Workflows>,
 }
 
 impl Workflows {
@@ -54,7 +54,7 @@ impl Workflows {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Workflows + 'static,
+        T: crate::stubs::Workflows + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -63,7 +63,7 @@ impl Workflows {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Workflows>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Workflows>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -72,13 +72,13 @@ impl Workflows {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Workflows> {
+    ) -> Result<impl crate::stubs::Workflows> {
         crate::transport::Workflows::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Workflows> {
+    ) -> Result<impl crate::stubs::Workflows> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Workflows::new)

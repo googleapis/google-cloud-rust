@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::AccountManagementService] to make requests with.
+/// An implementation of [crate::stubs::AccountManagementService] to make requests with.
 ///
 /// `AccountManagementService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Account management for Identity Toolkit
 #[derive(Clone, Debug)]
 pub struct AccountManagementService {
-    inner: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
+    inner: Arc<dyn crate::stubs::dynamic::AccountManagementService>,
 }
 
 impl AccountManagementService {
@@ -52,7 +52,7 @@ impl AccountManagementService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::AccountManagementService + 'static,
+        T: crate::stubs::AccountManagementService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl AccountManagementService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::AccountManagementService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::AccountManagementService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl AccountManagementService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AccountManagementService> {
+    ) -> Result<impl crate::stubs::AccountManagementService> {
         crate::transport::AccountManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AccountManagementService> {
+    ) -> Result<impl crate::stubs::AccountManagementService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::AccountManagementService::new)
@@ -103,7 +103,7 @@ impl AccountManagementService {
     }
 }
 
-/// An implementation of [crate::traits::AuthenticationService] to make requests with.
+/// An implementation of [crate::stubs::AuthenticationService] to make requests with.
 ///
 /// `AuthenticationService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -116,7 +116,7 @@ impl AccountManagementService {
 /// Authentication for Identity Toolkit
 #[derive(Clone, Debug)]
 pub struct AuthenticationService {
-    inner: Arc<dyn crate::traits::dyntraits::AuthenticationService>,
+    inner: Arc<dyn crate::stubs::dynamic::AuthenticationService>,
 }
 
 impl AuthenticationService {
@@ -137,7 +137,7 @@ impl AuthenticationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::AuthenticationService + 'static,
+        T: crate::stubs::AuthenticationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -146,7 +146,7 @@ impl AuthenticationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::AuthenticationService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::AuthenticationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -155,13 +155,13 @@ impl AuthenticationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AuthenticationService> {
+    ) -> Result<impl crate::stubs::AuthenticationService> {
         crate::transport::AuthenticationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AuthenticationService> {
+    ) -> Result<impl crate::stubs::AuthenticationService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::AuthenticationService::new)

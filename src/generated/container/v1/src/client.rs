@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::ClusterManager] to make requests with.
+/// An implementation of [crate::stubs::ClusterManager] to make requests with.
 ///
 /// `ClusterManager` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Google Kubernetes Engine Cluster Manager v1
 #[derive(Clone, Debug)]
 pub struct ClusterManager {
-    inner: Arc<dyn crate::traits::dyntraits::ClusterManager>,
+    inner: Arc<dyn crate::stubs::dynamic::ClusterManager>,
 }
 
 impl ClusterManager {
@@ -52,7 +52,7 @@ impl ClusterManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::ClusterManager + 'static,
+        T: crate::stubs::ClusterManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl ClusterManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::ClusterManager>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::ClusterManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl ClusterManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::ClusterManager> {
+    ) -> Result<impl crate::stubs::ClusterManager> {
         crate::transport::ClusterManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::ClusterManager> {
+    ) -> Result<impl crate::stubs::ClusterManager> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::ClusterManager::new)

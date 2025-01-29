@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::WebRiskService] to make requests with.
+/// An implementation of [crate::stubs::WebRiskService] to make requests with.
 ///
 /// `WebRiskService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -32,7 +32,7 @@ use std::sync::Arc;
 /// website and in client applications.
 #[derive(Clone, Debug)]
 pub struct WebRiskService {
-    inner: Arc<dyn crate::traits::dyntraits::WebRiskService>,
+    inner: Arc<dyn crate::stubs::dynamic::WebRiskService>,
 }
 
 impl WebRiskService {
@@ -53,7 +53,7 @@ impl WebRiskService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::WebRiskService + 'static,
+        T: crate::stubs::WebRiskService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -62,7 +62,7 @@ impl WebRiskService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::WebRiskService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::WebRiskService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -71,13 +71,13 @@ impl WebRiskService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::WebRiskService> {
+    ) -> Result<impl crate::stubs::WebRiskService> {
         crate::transport::WebRiskService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::WebRiskService> {
+    ) -> Result<impl crate::stubs::WebRiskService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::WebRiskService::new)

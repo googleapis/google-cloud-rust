@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::RepositoryManager] to make requests with.
+/// An implementation of [crate::stubs::RepositoryManager] to make requests with.
 ///
 /// `RepositoryManager` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Manages connections to source code repositories.
 #[derive(Clone, Debug)]
 pub struct RepositoryManager {
-    inner: Arc<dyn crate::traits::dyntraits::RepositoryManager>,
+    inner: Arc<dyn crate::stubs::dynamic::RepositoryManager>,
 }
 
 impl RepositoryManager {
@@ -52,7 +52,7 @@ impl RepositoryManager {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::RepositoryManager + 'static,
+        T: crate::stubs::RepositoryManager + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl RepositoryManager {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::RepositoryManager>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::RepositoryManager>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl RepositoryManager {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::RepositoryManager> {
+    ) -> Result<impl crate::stubs::RepositoryManager> {
         crate::transport::RepositoryManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::RepositoryManager> {
+    ) -> Result<impl crate::stubs::RepositoryManager> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::RepositoryManager::new)

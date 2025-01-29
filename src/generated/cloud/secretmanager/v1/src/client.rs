@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::SecretManagerService] to make requests with.
+/// An implementation of [crate::stubs::SecretManagerService] to make requests with.
 ///
 /// `SecretManagerService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -40,7 +40,7 @@ use std::sync::Arc;
 /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
-    inner: Arc<dyn crate::traits::dyntraits::SecretManagerService>,
+    inner: Arc<dyn crate::stubs::dynamic::SecretManagerService>,
 }
 
 impl SecretManagerService {
@@ -61,7 +61,7 @@ impl SecretManagerService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::SecretManagerService + 'static,
+        T: crate::stubs::SecretManagerService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -70,7 +70,7 @@ impl SecretManagerService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::SecretManagerService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::SecretManagerService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -79,13 +79,13 @@ impl SecretManagerService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::SecretManagerService> {
+    ) -> Result<impl crate::stubs::SecretManagerService> {
         crate::transport::SecretManagerService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::SecretManagerService> {
+    ) -> Result<impl crate::stubs::SecretManagerService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::SecretManagerService::new)

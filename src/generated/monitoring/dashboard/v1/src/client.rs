@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::DashboardsService] to make requests with.
+/// An implementation of [crate::stubs::DashboardsService] to make requests with.
 ///
 /// `DashboardsService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -32,7 +32,7 @@ use std::sync::Arc;
 /// widgets in a specific layout.
 #[derive(Clone, Debug)]
 pub struct DashboardsService {
-    inner: Arc<dyn crate::traits::dyntraits::DashboardsService>,
+    inner: Arc<dyn crate::stubs::dynamic::DashboardsService>,
 }
 
 impl DashboardsService {
@@ -53,7 +53,7 @@ impl DashboardsService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::DashboardsService + 'static,
+        T: crate::stubs::DashboardsService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -62,7 +62,7 @@ impl DashboardsService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::DashboardsService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::DashboardsService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -71,13 +71,13 @@ impl DashboardsService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::DashboardsService> {
+    ) -> Result<impl crate::stubs::DashboardsService> {
         crate::transport::DashboardsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::DashboardsService> {
+    ) -> Result<impl crate::stubs::DashboardsService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::DashboardsService::new)

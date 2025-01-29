@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [SqlBackupRunsService](crate::traits::SqlBackupRunsService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlBackupRunsService](crate::stubs::SqlBackupRunsService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlBackupRunsService {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl SqlBackupRunsService {
     }
 }
 
-impl crate::traits::SqlBackupRunsService for SqlBackupRunsService {
+impl crate::stubs::SqlBackupRunsService for SqlBackupRunsService {
     async fn delete(
         &self,
         req: crate::model::SqlBackupRunsDeleteRequest,
@@ -146,7 +146,7 @@ impl crate::traits::SqlBackupRunsService for SqlBackupRunsService {
 
 }
 
-/// Implements [SqlConnectService](crate::traits::SqlConnectService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlConnectService](crate::stubs::SqlConnectService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlConnectService {
     inner: gax::http_client::ReqwestClient,
@@ -167,7 +167,7 @@ impl SqlConnectService {
     }
 }
 
-impl crate::traits::SqlConnectService for SqlConnectService {
+impl crate::stubs::SqlConnectService for SqlConnectService {
     async fn get_connect_settings(
         &self,
         req: crate::model::GetConnectSettingsRequest,
@@ -221,7 +221,7 @@ impl crate::traits::SqlConnectService for SqlConnectService {
 
 }
 
-/// Implements [SqlDatabasesService](crate::traits::SqlDatabasesService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlDatabasesService](crate::stubs::SqlDatabasesService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlDatabasesService {
     inner: gax::http_client::ReqwestClient,
@@ -242,7 +242,7 @@ impl SqlDatabasesService {
     }
 }
 
-impl crate::traits::SqlDatabasesService for SqlDatabasesService {
+impl crate::stubs::SqlDatabasesService for SqlDatabasesService {
     async fn delete(
         &self,
         req: crate::model::SqlDatabasesDeleteRequest,
@@ -399,7 +399,7 @@ impl crate::traits::SqlDatabasesService for SqlDatabasesService {
 
 }
 
-/// Implements [SqlFlagsService](crate::traits::SqlFlagsService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlFlagsService](crate::stubs::SqlFlagsService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlFlagsService {
     inner: gax::http_client::ReqwestClient,
@@ -420,7 +420,7 @@ impl SqlFlagsService {
     }
 }
 
-impl crate::traits::SqlFlagsService for SqlFlagsService {
+impl crate::stubs::SqlFlagsService for SqlFlagsService {
     async fn list(
         &self,
         req: crate::model::SqlFlagsListRequest,
@@ -446,7 +446,7 @@ impl crate::traits::SqlFlagsService for SqlFlagsService {
 
 }
 
-/// Implements [SqlInstancesService](crate::traits::SqlInstancesService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlInstancesService](crate::stubs::SqlInstancesService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlInstancesService {
     inner: gax::http_client::ReqwestClient,
@@ -467,7 +467,7 @@ impl SqlInstancesService {
     }
 }
 
-impl crate::traits::SqlInstancesService for SqlInstancesService {
+impl crate::stubs::SqlInstancesService for SqlInstancesService {
     async fn add_server_ca(
         &self,
         req: crate::model::SqlInstancesAddServerCaRequest,
@@ -1323,7 +1323,7 @@ impl crate::traits::SqlInstancesService for SqlInstancesService {
 
 }
 
-/// Implements [SqlOperationsService](crate::traits::SqlOperationsService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlOperationsService](crate::stubs::SqlOperationsService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlOperationsService {
     inner: gax::http_client::ReqwestClient,
@@ -1344,7 +1344,7 @@ impl SqlOperationsService {
     }
 }
 
-impl crate::traits::SqlOperationsService for SqlOperationsService {
+impl crate::stubs::SqlOperationsService for SqlOperationsService {
     async fn get(
         &self,
         req: crate::model::SqlOperationsGetRequest,
@@ -1424,7 +1424,7 @@ impl crate::traits::SqlOperationsService for SqlOperationsService {
 
 }
 
-/// Implements [SqlSslCertsService](crate::traits::SqlSslCertsService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlSslCertsService](crate::stubs::SqlSslCertsService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlSslCertsService {
     inner: gax::http_client::ReqwestClient,
@@ -1445,7 +1445,7 @@ impl SqlSslCertsService {
     }
 }
 
-impl crate::traits::SqlSslCertsService for SqlSslCertsService {
+impl crate::stubs::SqlSslCertsService for SqlSslCertsService {
     async fn delete(
         &self,
         req: crate::model::SqlSslCertsDeleteRequest,
@@ -1550,7 +1550,7 @@ impl crate::traits::SqlSslCertsService for SqlSslCertsService {
 
 }
 
-/// Implements [SqlTiersService](crate::traits::SqlTiersService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlTiersService](crate::stubs::SqlTiersService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlTiersService {
     inner: gax::http_client::ReqwestClient,
@@ -1571,7 +1571,7 @@ impl SqlTiersService {
     }
 }
 
-impl crate::traits::SqlTiersService for SqlTiersService {
+impl crate::stubs::SqlTiersService for SqlTiersService {
     async fn list(
         &self,
         req: crate::model::SqlTiersListRequest,
@@ -1598,7 +1598,7 @@ impl crate::traits::SqlTiersService for SqlTiersService {
 
 }
 
-/// Implements [SqlUsersService](crate::traits::SqlUsersService) using a [gax::http_client::ReqwestClient].
+/// Implements [SqlUsersService](crate::stubs::SqlUsersService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct SqlUsersService {
     inner: gax::http_client::ReqwestClient,
@@ -1619,7 +1619,7 @@ impl SqlUsersService {
     }
 }
 
-impl crate::traits::SqlUsersService for SqlUsersService {
+impl crate::stubs::SqlUsersService for SqlUsersService {
     async fn delete(
         &self,
         req: crate::model::SqlUsersDeleteRequest,

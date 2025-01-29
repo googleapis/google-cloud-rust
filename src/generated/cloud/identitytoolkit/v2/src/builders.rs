@@ -21,7 +21,7 @@ pub mod account_management_service {
     /// Common implementation for [crate::client::AccountManagementService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
+        stub: Arc<dyn crate::stubs::dynamic::AccountManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,9 +30,7 @@ pub mod account_management_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(
-            stub: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
-        ) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccountManagementService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -46,9 +44,7 @@ pub mod account_management_service {
     pub struct FinalizeMfaEnrollment(RequestBuilder<crate::model::FinalizeMfaEnrollmentRequest>);
 
     impl FinalizeMfaEnrollment {
-        pub(crate) fn new(
-            stub: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
-        ) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccountManagementService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,9 +111,7 @@ pub mod account_management_service {
     pub struct StartMfaEnrollment(RequestBuilder<crate::model::StartMfaEnrollmentRequest>);
 
     impl StartMfaEnrollment {
-        pub(crate) fn new(
-            stub: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
-        ) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccountManagementService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,9 +172,7 @@ pub mod account_management_service {
     pub struct WithdrawMfa(RequestBuilder<crate::model::WithdrawMfaRequest>);
 
     impl WithdrawMfa {
-        pub(crate) fn new(
-            stub: Arc<dyn crate::traits::dyntraits::AccountManagementService>,
-        ) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AccountManagementService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -236,7 +228,7 @@ pub mod authentication_service {
     /// Common implementation for [crate::client::AuthenticationService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::AuthenticationService>,
+        stub: Arc<dyn crate::stubs::dynamic::AuthenticationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -245,7 +237,7 @@ pub mod authentication_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::AuthenticationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AuthenticationService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -259,7 +251,7 @@ pub mod authentication_service {
     pub struct FinalizeMfaSignIn(RequestBuilder<crate::model::FinalizeMfaSignInRequest>);
 
     impl FinalizeMfaSignIn {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::AuthenticationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AuthenticationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -320,7 +312,7 @@ pub mod authentication_service {
     pub struct StartMfaSignIn(RequestBuilder<crate::model::StartMfaSignInRequest>);
 
     impl StartMfaSignIn {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::AuthenticationService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::AuthenticationService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

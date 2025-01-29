@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Operations] to make requests with.
+/// An implementation of [crate::stubs::Operations] to make requests with.
 ///
 /// `Operations` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// [google.longrunning.Operation]: crate::model::Operation
 #[derive(Clone, Debug)]
 pub struct Operations {
-    inner: Arc<dyn crate::traits::dyntraits::Operations>,
+    inner: Arc<dyn crate::stubs::dynamic::Operations>,
 }
 
 impl Operations {
@@ -62,7 +62,7 @@ impl Operations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Operations + 'static,
+        T: crate::stubs::Operations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -71,7 +71,7 @@ impl Operations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Operations>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Operations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -80,13 +80,13 @@ impl Operations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Operations> {
+    ) -> Result<impl crate::stubs::Operations> {
         crate::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Operations> {
+    ) -> Result<impl crate::stubs::Operations> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Operations::new)

@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Policies] to make requests with.
+/// An implementation of [crate::stubs::Policies] to make requests with.
 ///
 /// `Policies` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// An interface for managing Identity and Access Management (IAM) policies.
 #[derive(Clone, Debug)]
 pub struct Policies {
-    inner: Arc<dyn crate::traits::dyntraits::Policies>,
+    inner: Arc<dyn crate::stubs::dynamic::Policies>,
 }
 
 impl Policies {
@@ -52,7 +52,7 @@ impl Policies {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Policies + 'static,
+        T: crate::stubs::Policies + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl Policies {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Policies>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Policies>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl Policies {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Policies> {
+    ) -> Result<impl crate::stubs::Policies> {
         crate::transport::Policies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Policies> {
+    ) -> Result<impl crate::stubs::Policies> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Policies::new)

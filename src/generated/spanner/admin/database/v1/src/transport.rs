@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [DatabaseAdmin](crate::traits::DatabaseAdmin) using a [gax::http_client::ReqwestClient].
+/// Implements [DatabaseAdmin](crate::stubs::DatabaseAdmin) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct DatabaseAdmin {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl DatabaseAdmin {
     }
 }
 
-impl crate::traits::DatabaseAdmin for DatabaseAdmin {
+impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
     async fn list_databases(
         &self,
         req: crate::model::ListDatabasesRequest,
