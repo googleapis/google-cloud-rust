@@ -28,11 +28,11 @@ func TestPackageNames(t *testing.T) {
 		[]*api.Service{{Name: "Workflows", Package: "gcp-sdk-workflows-v1"}})
 	// Override the default name for test APIs ("Test").
 	model.Name = "workflows-v1"
-	codec, err := newRustCodec(map[string]string{})
+	codec, err := newCodec(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := newRustTemplateData(model, codec, "")
+	got, err := newTemplateData(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -92,11 +92,11 @@ func Test_OneOfAnnotations(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{message, map_message}, []*api.Enum{}, []*api.Service{})
 	api.CrossReference(model)
-	codec, err := newRustCodec(map[string]string{})
+	codec, err := newCodec(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = newRustTemplateData(model, codec, "")
+	_, err = newTemplateData(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +104,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 	// Stops the recursion when comparing fields.
 	ignore := cmpopts.IgnoreFields(api.Field{}, "Group")
 
-	if diff := cmp.Diff(&rustOneOfAnnotation{
+	if diff := cmp.Diff(&oneOfAnnotation{
 		FieldName:      "r#type",
 		SetterName:     "type",
 		EnumName:       "Type",
@@ -118,7 +118,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		t.Errorf("mismatch in oneof annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustFieldAnnotations{
+	if diff := cmp.Diff(&fieldAnnotations{
 		FieldName:     "oneof_field",
 		SetterName:    "oneof_field",
 		BranchName:    "OneofField",
@@ -136,7 +136,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustFieldAnnotations{
+	if diff := cmp.Diff(&fieldAnnotations{
 		FieldName:     "oneof_field_repeated",
 		SetterName:    "oneof_field_repeated",
 		BranchName:    "OneofFieldRepeated",
@@ -154,7 +154,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustFieldAnnotations{
+	if diff := cmp.Diff(&fieldAnnotations{
 		FieldName:     "oneof_field_map",
 		SetterName:    "oneof_field_map",
 		BranchName:    "OneofFieldMap",
@@ -199,16 +199,16 @@ func Test_RustEnumAnnotations(t *testing.T) {
 
 	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
-	codec, err := newRustCodec(map[string]string{})
+	codec, err := newCodec(map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = newRustTemplateData(model, codec, "")
+	_, err = newTemplateData(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(&rustEnumAnnotation{
+	if diff := cmp.Diff(&enumAnnotation{
 		Name:       "TestEnum",
 		ModuleName: "test_enum",
 		DocLines:   []string{"/// The enum is documented."},
@@ -216,7 +216,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "WEEK_5",
 		EnumType: "TestEnum",
 		DocLines: []string{"/// week5 is also documented."},
@@ -224,7 +224,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "MULTI_WORD_VALUE",
 		EnumType: "TestEnum",
 		DocLines: []string{"/// MULTI_WORD_VALUE is also documented."},
@@ -232,7 +232,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&rustEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "VALUE",
 		EnumType: "TestEnum",
 		DocLines: []string{"/// VALUE is also documented."},
