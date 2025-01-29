@@ -20,8 +20,9 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language"
+	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
+	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
 )
 
 func init() {
@@ -74,9 +75,9 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 
 	switch config.General.Language {
 	case "rust":
-		return language.RustGenerate(model, output, config.Codec)
+		return rust.Generate(model, output, config.Codec)
 	case "go":
-		return language.GolangGenerate(model, output, config.Codec)
+		return golang.Generate(model, output, config.Codec)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}

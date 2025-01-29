@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package language
+package golang
 
 import (
 	"embed"
@@ -22,10 +22,11 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 )
 
-//go:embed templates/go
+//go:embed templates
 var goTemplates embed.FS
 
 type goImport struct {
@@ -33,14 +34,14 @@ type goImport struct {
 	name string
 }
 
-func GolangGenerate(model *api.API, outdir string, options map[string]string) error {
+func Generate(model *api.API, outdir string, options map[string]string) error {
 	data, err := newGoTemplateData(model, options)
 	if err != nil {
 		return err
 	}
 	provider := goTemplatesProvider()
-	generatedFiles := walkTemplatesDir(goTemplates, "templates/go")
-	return GenerateFromRoot(outdir, data, provider, generatedFiles)
+	generatedFiles := language.WalkTemplatesDir(goTemplates, "templates/go")
+	return language.GenerateFromRoot(outdir, data, provider, generatedFiles)
 }
 
 func goLoadWellKnownTypes(s *api.APIState) {
@@ -101,7 +102,7 @@ func goAsQueryParameter(f *api.Field) string {
 	return fmt.Sprintf("req.%s.to_str()", strcase.ToLowerCamel(f.Name))
 }
 
-func goTemplatesProvider() templateProvider {
+func goTemplatesProvider() language.TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := goTemplates.ReadFile(name)
 		if err != nil {

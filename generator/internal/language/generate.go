@@ -41,7 +41,7 @@ func (p *mustacheProvider) Get(name string) (string, error) {
 // conventional to have a single class per file.
 //
 // TODO(#653) - `root any` will become `model *api.API` once the intermediate templatedata is gone.
-func GenerateFromRoot(outdir string, root any, provider templateProvider, generatedFiles []GeneratedFile) error {
+func GenerateFromRoot(outdir string, root any, provider TemplateProvider, generatedFiles []GeneratedFile) error {
 	var errs []error
 	for _, gen := range generatedFiles {
 		templateContents, err := provider(gen.TemplatePath)

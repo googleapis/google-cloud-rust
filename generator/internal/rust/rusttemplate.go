@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package language
+package rust
 
 import (
 	"fmt"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/license"
 	"github.com/iancoleman/strcase"
 )
@@ -231,7 +232,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 			}
 			return ""
 		}(),
-		Services: mapSlice(model.Services, func(s *api.Service) *RustService {
+		Services: language.MapSlice(model.Services, func(s *api.Service) *RustService {
 			return newRustService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
 		}),
 		Messages:          model.Messages,
@@ -243,7 +244,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	// Services without methods create a lot of warnings in Rust. The dead code
 	// analysis is extremely good, and can determine that several types and
 	// member variables are going unused.
-	data.Services = filterSlice(data.Services, func(s *RustService) bool {
+	data.Services = language.FilterSlice(data.Services, func(s *RustService) bool {
 		return len(s.Methods) > 0
 	})
 	// Determine if any service has an LRO.
@@ -273,7 +274,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 
 func newRustService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustService {
 	// Some codecs skip some methods.
-	methods := filterSlice(s.Methods, func(m *api.Method) bool {
+	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return rustGenerateMethod(m)
 	})
 	hasLROs := false
@@ -284,7 +285,7 @@ func newRustService(s *api.Service, model *api.API, modulePath, sourceSpecificat
 		}
 	}
 	return &RustService{
-		Methods: mapSlice(methods, func(m *api.Method) *RustMethod {
+		Methods: language.MapSlice(methods, func(m *api.Method) *RustMethod {
 			return newRustMethod(m, s, model.State, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
 		}),
 		NameToSnake:         rustToSnake(s.Name),
@@ -319,13 +320,13 @@ func rustPartitionFields(fields []*api.Field, state *api.APIState) rustFieldPart
 		return f.Repeated && !isMap(f)
 	}
 	return rustFieldPartition{
-		singularFields: filterSlice(fields, func(f *api.Field) bool {
+		singularFields: language.FilterSlice(fields, func(f *api.Field) bool {
 			return !isRepeated(f) && !isMap(f)
 		}),
-		repeatedFields: filterSlice(fields, func(f *api.Field) bool {
+		repeatedFields: language.FilterSlice(fields, func(f *api.Field) bool {
 			return isRepeated(f)
 		}),
-		mapFields: filterSlice(fields, func(f *api.Field) bool {
+		mapFields: language.FilterSlice(fields, func(f *api.Field) bool {
 			return isMap(f)
 		}),
 	}
@@ -349,7 +350,7 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 		rustAnnotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
 
-	basicFields := filterSlice(m.Fields, func(f *api.Field) bool {
+	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
 	partition := rustPartitionFields(basicFields, state)
@@ -360,7 +361,7 @@ func rustAnnotateMessage(m *api.Message, state *api.APIState, deserializeWithDef
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           rustFormatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		MessageAttributes:  rustMessageAttributes(deserializeWithDefaults),
-		HasNestedTypes:     hasNestedTypes(m),
+		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		SingularFields:     partition.singularFields,
 		RepeatedFields:     partition.repeatedFields,
@@ -389,8 +390,8 @@ func newRustMethod(m *api.Method, s *api.Service, state *api.APIState, modulePat
 		NameToPascal:        rustToPascal(m.Name),
 		NameToSnake:         strcase.ToSnake(m.Name),
 		OutputTypeName:      rustMethodInOutTypeName(m.OutputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		PathParams:          PathParams(m, state),
-		QueryParams:         QueryParams(m, state),
+		PathParams:          language.PathParams(m, state),
+		QueryParams:         language.QueryParams(m, state),
 		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: rustToPascal(s.Name),
 		ServiceNameToCamel:  rustToCamel(s.Name),
