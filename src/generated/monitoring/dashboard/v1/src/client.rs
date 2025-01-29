@@ -18,18 +18,24 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::DashboardsService] to make requests with.
+/// Implements a client for the Cloud Monitoring API.
 ///
-/// `DashboardsService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Manages Stackdriver dashboards. A dashboard is an arrangement of data display
+/// widgets in a specific layout.
+///
+/// # Configuration
+///
+/// `DashboardsService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `DashboardsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DashboardsService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Manages Stackdriver dashboards. A dashboard is an arrangement of data display
-/// widgets in a specific layout.
 #[derive(Clone, Debug)]
 pub struct DashboardsService {
     inner: Arc<dyn crate::stubs::dynamic::DashboardsService>,

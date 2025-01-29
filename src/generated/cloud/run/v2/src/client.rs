@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Builds] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Builds` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Build Control Plane API
+///
+/// # Configuration
+///
+/// `Builds` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Builds` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Builds` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Build Control Plane API
 #[derive(Clone, Debug)]
 pub struct Builds {
     inner: Arc<dyn crate::stubs::dynamic::Builds>,
@@ -131,17 +137,23 @@ impl Builds {
     }
 }
 
-/// An implementation of [crate::stubs::Executions] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Executions` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Execution Control Plane API.
+///
+/// # Configuration
+///
+/// `Executions` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Executions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Executions` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Execution Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Executions {
     inner: Arc<dyn crate::stubs::dynamic::Executions>,
@@ -448,17 +460,23 @@ impl Executions {
     }
 }
 
-/// An implementation of [crate::stubs::Jobs] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Jobs` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Job Control Plane API.
+///
+/// # Configuration
+///
+/// `Jobs` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Jobs` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Jobs` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Job Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Jobs {
     inner: Arc<dyn crate::stubs::dynamic::Jobs>,
@@ -978,17 +996,23 @@ impl Jobs {
     }
 }
 
-/// An implementation of [crate::stubs::Revisions] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Revisions` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Revision Control Plane API.
+///
+/// # Configuration
+///
+/// `Revisions` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Revisions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Revisions` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Revision Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Revisions {
     inner: Arc<dyn crate::stubs::dynamic::Revisions>,
@@ -1197,17 +1221,23 @@ impl Revisions {
     }
 }
 
-/// An implementation of [crate::stubs::Services] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Services` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Service Control Plane API
+///
+/// # Configuration
+///
+/// `Services` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Services` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Services` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Service Control Plane API
 #[derive(Clone, Debug)]
 pub struct Services {
     inner: Arc<dyn crate::stubs::dynamic::Services>,
@@ -1643,17 +1673,23 @@ impl Services {
     }
 }
 
-/// An implementation of [crate::stubs::Tasks] to make requests with.
+/// Implements a client for the Cloud Run Admin API.
 ///
-/// `Tasks` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud Run Task Control Plane API.
+///
+/// # Configuration
+///
+/// `Tasks` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Tasks` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Tasks` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud Run Task Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Tasks {
     inner: Arc<dyn crate::stubs::dynamic::Tasks>,

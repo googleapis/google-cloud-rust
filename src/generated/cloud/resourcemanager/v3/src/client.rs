@@ -18,19 +18,25 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Folders] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `Folders` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Manages Cloud Platform folder resources.
+/// Folders can be used to organize the resources under an
+/// organization and to control the policies applied to groups of resources.
+///
+/// # Configuration
+///
+/// `Folders` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Folders` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Folders` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Manages Cloud Platform folder resources.
-/// Folders can be used to organize the resources under an
-/// organization and to control the policies applied to groups of resources.
 #[derive(Clone, Debug)]
 pub struct Folders {
     inner: Arc<dyn crate::stubs::dynamic::Folders>,
@@ -737,17 +743,23 @@ impl Folders {
     }
 }
 
-/// An implementation of [crate::stubs::Organizations] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `Organizations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Allows users to manage their organization resources.
+///
+/// # Configuration
+///
+/// `Organizations` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Organizations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Organizations` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Allows users to manage their organization resources.
 #[derive(Clone, Debug)]
 pub struct Organizations {
     inner: Arc<dyn crate::stubs::dynamic::Organizations>,
@@ -873,17 +885,23 @@ impl Organizations {
     }
 }
 
-/// An implementation of [crate::stubs::Projects] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `Projects` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Manages Google Cloud Projects.
+///
+/// # Configuration
+///
+/// `Projects` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Projects` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Projects` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Manages Google Cloud Projects.
 #[derive(Clone, Debug)]
 pub struct Projects {
     inner: Arc<dyn crate::stubs::dynamic::Projects>,
@@ -1606,18 +1624,24 @@ impl Projects {
     }
 }
 
-/// An implementation of [crate::stubs::TagBindings] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `TagBindings` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Allow users to create and manage TagBindings between TagValues and
+/// different Google Cloud resources throughout the GCP resource hierarchy.
+///
+/// # Configuration
+///
+/// `TagBindings` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `TagBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagBindings` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Allow users to create and manage TagBindings between TagValues and
-/// different Google Cloud resources throughout the GCP resource hierarchy.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
     inner: Arc<dyn crate::stubs::dynamic::TagBindings>,
@@ -1889,21 +1913,27 @@ impl TagBindings {
     }
 }
 
-/// An implementation of [crate::stubs::TagHolds] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `TagHolds` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `TagHolds` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TagHolds` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Allow users to create and manage TagHolds for TagValues. TagHolds represent
 /// the use of a Tag Value that is not captured by TagBindings but
 /// should still block TagValue deletion (such as a reference in a policy
 /// condition). This service provides isolated failure domains by cloud location
 /// so that TagHolds can be managed in the same location as their usage.
+///
+/// # Configuration
+///
+/// `TagHolds` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `TagHolds` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `TagHolds` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
     inner: Arc<dyn crate::stubs::dynamic::TagHolds>,
@@ -2171,17 +2201,23 @@ impl TagHolds {
     }
 }
 
-/// An implementation of [crate::stubs::TagKeys] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `TagKeys` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Allow users to create and manage tag keys.
+///
+/// # Configuration
+///
+/// `TagKeys` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `TagKeys` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagKeys` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Allow users to create and manage tag keys.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
     inner: Arc<dyn crate::stubs::dynamic::TagKeys>,
@@ -2599,17 +2635,23 @@ impl TagKeys {
     }
 }
 
-/// An implementation of [crate::stubs::TagValues] to make requests with.
+/// Implements a client for the Cloud Resource Manager API.
 ///
-/// `TagValues` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Allow users to create and manage tag values.
+///
+/// # Configuration
+///
+/// `TagValues` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `TagValues` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagValues` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Allow users to create and manage tag values.
 #[derive(Clone, Debug)]
 pub struct TagValues {
     inner: Arc<dyn crate::stubs::dynamic::TagValues>,

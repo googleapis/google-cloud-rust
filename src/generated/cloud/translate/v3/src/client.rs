@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::TranslationService] to make requests with.
+/// Implements a client for the Cloud Translation API.
 ///
-/// `TranslationService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Provides natural language translation operations.
+///
+/// # Configuration
+///
+/// `TranslationService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `TranslationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TranslationService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Provides natural language translation operations.
 #[derive(Clone, Debug)]
 pub struct TranslationService {
     inner: Arc<dyn crate::stubs::dynamic::TranslationService>,

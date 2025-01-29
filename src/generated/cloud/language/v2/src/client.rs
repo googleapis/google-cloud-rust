@@ -18,18 +18,24 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::LanguageService] to make requests with.
+/// Implements a client for the Cloud Natural Language API.
 ///
-/// `LanguageService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Provides text analysis operations such as sentiment analysis and entity
+/// recognition.
+///
+/// # Configuration
+///
+/// `LanguageService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `LanguageService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LanguageService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Provides text analysis operations such as sentiment analysis and entity
-/// recognition.
 #[derive(Clone, Debug)]
 pub struct LanguageService {
     inner: Arc<dyn crate::stubs::dynamic::LanguageService>,
