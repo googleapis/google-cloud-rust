@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::InstanceAdmin] to make requests with.
+/// An implementation of [crate::stubs::InstanceAdmin] to make requests with.
 ///
 /// `InstanceAdmin` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -51,7 +51,7 @@ use std::sync::Arc;
 /// databases in that instance, and their performance may suffer.
 #[derive(Clone, Debug)]
 pub struct InstanceAdmin {
-    inner: Arc<dyn crate::traits::dyntraits::InstanceAdmin>,
+    inner: Arc<dyn crate::stubs::dynamic::InstanceAdmin>,
 }
 
 impl InstanceAdmin {
@@ -72,7 +72,7 @@ impl InstanceAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::InstanceAdmin + 'static,
+        T: crate::stubs::InstanceAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -81,7 +81,7 @@ impl InstanceAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::InstanceAdmin>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::InstanceAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -90,13 +90,13 @@ impl InstanceAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::InstanceAdmin> {
+    ) -> Result<impl crate::stubs::InstanceAdmin> {
         crate::transport::InstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::InstanceAdmin> {
+    ) -> Result<impl crate::stubs::InstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::InstanceAdmin::new)

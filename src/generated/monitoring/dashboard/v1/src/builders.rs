@@ -21,7 +21,7 @@ pub mod dashboards_service {
     /// Common implementation for [crate::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::DashboardsService>,
+        stub: Arc<dyn crate::stubs::dynamic::DashboardsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod dashboards_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod dashboards_service {
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
     impl CreateDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -100,7 +100,7 @@ pub mod dashboards_service {
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
     impl ListDashboards {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,7 +168,7 @@ pub mod dashboards_service {
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
     impl GetDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -209,7 +209,7 @@ pub mod dashboards_service {
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
     impl DeleteDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,7 +250,7 @@ pub mod dashboards_service {
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 
     impl UpdateDashboard {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::DashboardsService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DashboardsService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

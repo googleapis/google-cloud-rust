@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Folders](crate::traits::Folders) using a [gax::http_client::ReqwestClient].
+/// Implements [Folders](crate::stubs::Folders) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Folders {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl Folders {
     }
 }
 
-impl crate::traits::Folders for Folders {
+impl crate::stubs::Folders for Folders {
     async fn get_folder(
         &self,
         req: crate::model::GetFolderRequest,
@@ -304,7 +304,7 @@ impl crate::traits::Folders for Folders {
     }
 }
 
-/// Implements [Organizations](crate::traits::Organizations) using a [gax::http_client::ReqwestClient].
+/// Implements [Organizations](crate::stubs::Organizations) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Organizations {
     inner: gax::http_client::ReqwestClient,
@@ -325,7 +325,7 @@ impl Organizations {
     }
 }
 
-impl crate::traits::Organizations for Organizations {
+impl crate::stubs::Organizations for Organizations {
     async fn get_organization(
         &self,
         req: crate::model::GetOrganizationRequest,
@@ -447,7 +447,7 @@ impl crate::traits::Organizations for Organizations {
     }
 }
 
-/// Implements [Projects](crate::traits::Projects) using a [gax::http_client::ReqwestClient].
+/// Implements [Projects](crate::stubs::Projects) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Projects {
     inner: gax::http_client::ReqwestClient,
@@ -468,7 +468,7 @@ impl Projects {
     }
 }
 
-impl crate::traits::Projects for Projects {
+impl crate::stubs::Projects for Projects {
     async fn get_project(
         &self,
         req: crate::model::GetProjectRequest,
@@ -737,7 +737,7 @@ impl crate::traits::Projects for Projects {
     }
 }
 
-/// Implements [TagBindings](crate::traits::TagBindings) using a [gax::http_client::ReqwestClient].
+/// Implements [TagBindings](crate::stubs::TagBindings) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct TagBindings {
     inner: gax::http_client::ReqwestClient,
@@ -758,7 +758,7 @@ impl TagBindings {
     }
 }
 
-impl crate::traits::TagBindings for TagBindings {
+impl crate::stubs::TagBindings for TagBindings {
     async fn list_tag_bindings(
         &self,
         req: crate::model::ListTagBindingsRequest,
@@ -876,7 +876,7 @@ impl crate::traits::TagBindings for TagBindings {
     }
 }
 
-/// Implements [TagHolds](crate::traits::TagHolds) using a [gax::http_client::ReqwestClient].
+/// Implements [TagHolds](crate::stubs::TagHolds) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct TagHolds {
     inner: gax::http_client::ReqwestClient,
@@ -897,7 +897,7 @@ impl TagHolds {
     }
 }
 
-impl crate::traits::TagHolds for TagHolds {
+impl crate::stubs::TagHolds for TagHolds {
     async fn create_tag_hold(
         &self,
         req: crate::model::CreateTagHoldRequest,
@@ -997,7 +997,7 @@ impl crate::traits::TagHolds for TagHolds {
     }
 }
 
-/// Implements [TagKeys](crate::traits::TagKeys) using a [gax::http_client::ReqwestClient].
+/// Implements [TagKeys](crate::stubs::TagKeys) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct TagKeys {
     inner: gax::http_client::ReqwestClient,
@@ -1018,7 +1018,7 @@ impl TagKeys {
     }
 }
 
-impl crate::traits::TagKeys for TagKeys {
+impl crate::stubs::TagKeys for TagKeys {
     async fn list_tag_keys(
         &self,
         req: crate::model::ListTagKeysRequest,
@@ -1254,7 +1254,7 @@ impl crate::traits::TagKeys for TagKeys {
     }
 }
 
-/// Implements [TagValues](crate::traits::TagValues) using a [gax::http_client::ReqwestClient].
+/// Implements [TagValues](crate::stubs::TagValues) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct TagValues {
     inner: gax::http_client::ReqwestClient,
@@ -1275,7 +1275,7 @@ impl TagValues {
     }
 }
 
-impl crate::traits::TagValues for TagValues {
+impl crate::stubs::TagValues for TagValues {
     async fn list_tag_values(
         &self,
         req: crate::model::ListTagValuesRequest,

@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [AccountManagementService](crate::traits::AccountManagementService) using a [gax::http_client::ReqwestClient].
+/// Implements [AccountManagementService](crate::stubs::AccountManagementService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct AccountManagementService {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl AccountManagementService {
     }
 }
 
-impl crate::traits::AccountManagementService for AccountManagementService {
+impl crate::stubs::AccountManagementService for AccountManagementService {
     async fn finalize_mfa_enrollment(
         &self,
         req: crate::model::FinalizeMfaEnrollmentRequest,
@@ -101,7 +101,7 @@ impl crate::traits::AccountManagementService for AccountManagementService {
     }
 }
 
-/// Implements [AuthenticationService](crate::traits::AuthenticationService) using a [gax::http_client::ReqwestClient].
+/// Implements [AuthenticationService](crate::stubs::AuthenticationService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct AuthenticationService {
     inner: gax::http_client::ReqwestClient,
@@ -122,7 +122,7 @@ impl AuthenticationService {
     }
 }
 
-impl crate::traits::AuthenticationService for AuthenticationService {
+impl crate::stubs::AuthenticationService for AuthenticationService {
     async fn finalize_mfa_sign_in(
         &self,
         req: crate::model::FinalizeMfaSignInRequest,

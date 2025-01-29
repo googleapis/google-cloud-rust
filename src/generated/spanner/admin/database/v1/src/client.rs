@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::DatabaseAdmin] to make requests with.
+/// An implementation of [crate::stubs::DatabaseAdmin] to make requests with.
 ///
 /// `DatabaseAdmin` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// * restore a database from an existing backup
 #[derive(Clone, Debug)]
 pub struct DatabaseAdmin {
-    inner: Arc<dyn crate::traits::dyntraits::DatabaseAdmin>,
+    inner: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>,
 }
 
 impl DatabaseAdmin {
@@ -59,7 +59,7 @@ impl DatabaseAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::DatabaseAdmin + 'static,
+        T: crate::stubs::DatabaseAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl DatabaseAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::DatabaseAdmin>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::DatabaseAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl DatabaseAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::DatabaseAdmin> {
+    ) -> Result<impl crate::stubs::DatabaseAdmin> {
         crate::transport::DatabaseAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::DatabaseAdmin> {
+    ) -> Result<impl crate::stubs::DatabaseAdmin> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::DatabaseAdmin::new)

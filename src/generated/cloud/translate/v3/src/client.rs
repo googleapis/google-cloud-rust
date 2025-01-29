@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::TranslationService] to make requests with.
+/// An implementation of [crate::stubs::TranslationService] to make requests with.
 ///
 /// `TranslationService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Provides natural language translation operations.
 #[derive(Clone, Debug)]
 pub struct TranslationService {
-    inner: Arc<dyn crate::traits::dyntraits::TranslationService>,
+    inner: Arc<dyn crate::stubs::dynamic::TranslationService>,
 }
 
 impl TranslationService {
@@ -52,7 +52,7 @@ impl TranslationService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TranslationService + 'static,
+        T: crate::stubs::TranslationService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl TranslationService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TranslationService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TranslationService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl TranslationService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TranslationService> {
+    ) -> Result<impl crate::stubs::TranslationService> {
         crate::transport::TranslationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TranslationService> {
+    ) -> Result<impl crate::stubs::TranslationService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TranslationService::new)

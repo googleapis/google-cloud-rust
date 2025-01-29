@@ -21,7 +21,7 @@ pub mod metrics_scopes {
     /// Common implementation for [crate::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>,
+        stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod metrics_scopes {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod metrics_scopes {
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -87,7 +87,7 @@ pub mod metrics_scopes {
     );
 
     impl ListMetricsScopesByMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -136,7 +136,7 @@ pub mod metrics_scopes {
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
     impl CreateMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -230,7 +230,7 @@ pub mod metrics_scopes {
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
     impl DeleteMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +309,7 @@ pub mod metrics_scopes {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::MetricsScopes>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::MetricsScopes>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

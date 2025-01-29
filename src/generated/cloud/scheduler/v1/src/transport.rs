@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [CloudScheduler](crate::traits::CloudScheduler) using a [gax::http_client::ReqwestClient].
+/// Implements [CloudScheduler](crate::stubs::CloudScheduler) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct CloudScheduler {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl CloudScheduler {
     }
 }
 
-impl crate::traits::CloudScheduler for CloudScheduler {
+impl crate::stubs::CloudScheduler for CloudScheduler {
     async fn list_jobs(
         &self,
         req: crate::model::ListJobsRequest,

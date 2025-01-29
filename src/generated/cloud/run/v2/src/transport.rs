@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Builds](crate::traits::Builds) using a [gax::http_client::ReqwestClient].
+/// Implements [Builds](crate::stubs::Builds) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Builds {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl Builds {
     }
 }
 
-impl crate::traits::Builds for Builds {
+impl crate::stubs::Builds for Builds {
     async fn submit_build(
         &self,
         req: crate::model::SubmitBuildRequest,
@@ -138,7 +138,7 @@ impl crate::traits::Builds for Builds {
     }
 }
 
-/// Implements [Executions](crate::traits::Executions) using a [gax::http_client::ReqwestClient].
+/// Implements [Executions](crate::stubs::Executions) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Executions {
     inner: gax::http_client::ReqwestClient,
@@ -159,7 +159,7 @@ impl Executions {
     }
 }
 
-impl crate::traits::Executions for Executions {
+impl crate::stubs::Executions for Executions {
     async fn get_execution(
         &self,
         req: crate::model::GetExecutionRequest,
@@ -334,7 +334,7 @@ impl crate::traits::Executions for Executions {
     }
 }
 
-/// Implements [Jobs](crate::traits::Jobs) using a [gax::http_client::ReqwestClient].
+/// Implements [Jobs](crate::stubs::Jobs) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Jobs {
     inner: gax::http_client::ReqwestClient,
@@ -353,7 +353,7 @@ impl Jobs {
     }
 }
 
-impl crate::traits::Jobs for Jobs {
+impl crate::stubs::Jobs for Jobs {
     async fn create_job(
         &self,
         req: crate::model::CreateJobRequest,
@@ -644,7 +644,7 @@ impl crate::traits::Jobs for Jobs {
     }
 }
 
-/// Implements [Revisions](crate::traits::Revisions) using a [gax::http_client::ReqwestClient].
+/// Implements [Revisions](crate::stubs::Revisions) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Revisions {
     inner: gax::http_client::ReqwestClient,
@@ -665,7 +665,7 @@ impl Revisions {
     }
 }
 
-impl crate::traits::Revisions for Revisions {
+impl crate::stubs::Revisions for Revisions {
     async fn get_revision(
         &self,
         req: crate::model::GetRevisionRequest,
@@ -823,7 +823,7 @@ impl crate::traits::Revisions for Revisions {
     }
 }
 
-/// Implements [Services](crate::traits::Services) using a [gax::http_client::ReqwestClient].
+/// Implements [Services](crate::stubs::Services) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Services {
     inner: gax::http_client::ReqwestClient,
@@ -844,7 +844,7 @@ impl Services {
     }
 }
 
-impl crate::traits::Services for Services {
+impl crate::stubs::Services for Services {
     async fn create_service(
         &self,
         req: crate::model::CreateServiceRequest,
@@ -1135,7 +1135,7 @@ impl crate::traits::Services for Services {
     }
 }
 
-/// Implements [Tasks](crate::traits::Tasks) using a [gax::http_client::ReqwestClient].
+/// Implements [Tasks](crate::stubs::Tasks) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Tasks {
     inner: gax::http_client::ReqwestClient,
@@ -1154,7 +1154,7 @@ impl Tasks {
     }
 }
 
-impl crate::traits::Tasks for Tasks {
+impl crate::stubs::Tasks for Tasks {
     async fn get_task(
         &self,
         req: crate::model::GetTaskRequest,

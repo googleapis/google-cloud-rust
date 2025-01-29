@@ -21,7 +21,7 @@ pub mod repository_manager {
     /// Common implementation for [crate::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>,
+        stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod repository_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod repository_manager {
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,7 +141,7 @@ pub mod repository_manager {
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,7 +182,7 @@ pub mod repository_manager {
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,7 +250,7 @@ pub mod repository_manager {
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,7 +356,7 @@ pub mod repository_manager {
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -447,7 +447,7 @@ pub mod repository_manager {
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -546,7 +546,7 @@ pub mod repository_manager {
     );
 
     impl BatchCreateRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +644,7 @@ pub mod repository_manager {
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -685,7 +685,7 @@ pub mod repository_manager {
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -762,7 +762,7 @@ pub mod repository_manager {
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -853,7 +853,7 @@ pub mod repository_manager {
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +897,7 @@ pub mod repository_manager {
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -940,7 +940,7 @@ pub mod repository_manager {
     );
 
     impl FetchLinkableRepositories {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1013,7 +1013,7 @@ pub mod repository_manager {
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1063,7 +1063,7 @@ pub mod repository_manager {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1122,7 +1122,7 @@ pub mod repository_manager {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1172,7 +1172,7 @@ pub mod repository_manager {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1227,7 +1227,7 @@ pub mod repository_manager {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1271,7 +1271,7 @@ pub mod repository_manager {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::RepositoryManager>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::RepositoryManager>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

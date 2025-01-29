@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Autokey] to make requests with.
+/// An implementation of [crate::stubs::Autokey] to make requests with.
 ///
 /// `Autokey` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -53,7 +53,7 @@ use std::sync::Arc;
 /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
 #[derive(Clone, Debug)]
 pub struct Autokey {
-    inner: Arc<dyn crate::traits::dyntraits::Autokey>,
+    inner: Arc<dyn crate::stubs::dynamic::Autokey>,
 }
 
 impl Autokey {
@@ -74,7 +74,7 @@ impl Autokey {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Autokey + 'static,
+        T: crate::stubs::Autokey + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -83,7 +83,7 @@ impl Autokey {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Autokey>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Autokey>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -92,13 +92,13 @@ impl Autokey {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Autokey> {
+    ) -> Result<impl crate::stubs::Autokey> {
         crate::transport::Autokey::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Autokey> {
+    ) -> Result<impl crate::stubs::Autokey> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Autokey::new)
@@ -295,7 +295,7 @@ impl Autokey {
     }
 }
 
-/// An implementation of [crate::traits::AutokeyAdmin] to make requests with.
+/// An implementation of [crate::stubs::AutokeyAdmin] to make requests with.
 ///
 /// `AutokeyAdmin` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -317,7 +317,7 @@ impl Autokey {
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 #[derive(Clone, Debug)]
 pub struct AutokeyAdmin {
-    inner: Arc<dyn crate::traits::dyntraits::AutokeyAdmin>,
+    inner: Arc<dyn crate::stubs::dynamic::AutokeyAdmin>,
 }
 
 impl AutokeyAdmin {
@@ -338,7 +338,7 @@ impl AutokeyAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::AutokeyAdmin + 'static,
+        T: crate::stubs::AutokeyAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -347,7 +347,7 @@ impl AutokeyAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::AutokeyAdmin>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::AutokeyAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -356,13 +356,13 @@ impl AutokeyAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AutokeyAdmin> {
+    ) -> Result<impl crate::stubs::AutokeyAdmin> {
         crate::transport::AutokeyAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::AutokeyAdmin> {
+    ) -> Result<impl crate::stubs::AutokeyAdmin> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::AutokeyAdmin::new)
@@ -473,7 +473,7 @@ impl AutokeyAdmin {
     }
 }
 
-/// An implementation of [crate::traits::EkmService] to make requests with.
+/// An implementation of [crate::stubs::EkmService] to make requests with.
 ///
 /// `EkmService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -493,7 +493,7 @@ impl AutokeyAdmin {
 /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
 #[derive(Clone, Debug)]
 pub struct EkmService {
-    inner: Arc<dyn crate::traits::dyntraits::EkmService>,
+    inner: Arc<dyn crate::stubs::dynamic::EkmService>,
 }
 
 impl EkmService {
@@ -514,7 +514,7 @@ impl EkmService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::EkmService + 'static,
+        T: crate::stubs::EkmService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -523,7 +523,7 @@ impl EkmService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::EkmService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::EkmService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -532,13 +532,13 @@ impl EkmService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::EkmService> {
+    ) -> Result<impl crate::stubs::EkmService> {
         crate::transport::EkmService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::EkmService> {
+    ) -> Result<impl crate::stubs::EkmService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::EkmService::new)
@@ -693,7 +693,7 @@ impl EkmService {
     }
 }
 
-/// An implementation of [crate::traits::KeyManagementService] to make requests with.
+/// An implementation of [crate::stubs::KeyManagementService] to make requests with.
 ///
 /// `KeyManagementService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -722,7 +722,7 @@ impl EkmService {
 /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
 #[derive(Clone, Debug)]
 pub struct KeyManagementService {
-    inner: Arc<dyn crate::traits::dyntraits::KeyManagementService>,
+    inner: Arc<dyn crate::stubs::dynamic::KeyManagementService>,
 }
 
 impl KeyManagementService {
@@ -743,7 +743,7 @@ impl KeyManagementService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::KeyManagementService + 'static,
+        T: crate::stubs::KeyManagementService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -752,7 +752,7 @@ impl KeyManagementService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::KeyManagementService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::KeyManagementService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -761,13 +761,13 @@ impl KeyManagementService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::KeyManagementService> {
+    ) -> Result<impl crate::stubs::KeyManagementService> {
         crate::transport::KeyManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::KeyManagementService> {
+    ) -> Result<impl crate::stubs::KeyManagementService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::KeyManagementService::new)

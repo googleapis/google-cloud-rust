@@ -21,7 +21,7 @@ pub mod iam {
     /// Common implementation for [crate::client::Iam] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::Iam>,
+        stub: Arc<dyn crate::stubs::dynamic::Iam>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod iam {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod iam {
     pub struct ListServiceAccounts(RequestBuilder<crate::model::ListServiceAccountsRequest>);
 
     impl ListServiceAccounts {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,7 +115,7 @@ pub mod iam {
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +159,7 @@ pub mod iam {
     pub struct CreateServiceAccount(RequestBuilder<crate::model::CreateServiceAccountRequest>);
 
     impl CreateServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -218,7 +218,7 @@ pub mod iam {
     pub struct UpdateServiceAccount(RequestBuilder<crate::model::ServiceAccount>);
 
     impl UpdateServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -307,7 +307,7 @@ pub mod iam {
     pub struct PatchServiceAccount(RequestBuilder<crate::model::PatchServiceAccountRequest>);
 
     impl PatchServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -363,7 +363,7 @@ pub mod iam {
     pub struct DeleteServiceAccount(RequestBuilder<crate::model::DeleteServiceAccountRequest>);
 
     impl DeleteServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -407,7 +407,7 @@ pub mod iam {
     pub struct UndeleteServiceAccount(RequestBuilder<crate::model::UndeleteServiceAccountRequest>);
 
     impl UndeleteServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -451,7 +451,7 @@ pub mod iam {
     pub struct EnableServiceAccount(RequestBuilder<crate::model::EnableServiceAccountRequest>);
 
     impl EnableServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -495,7 +495,7 @@ pub mod iam {
     pub struct DisableServiceAccount(RequestBuilder<crate::model::DisableServiceAccountRequest>);
 
     impl DisableServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -539,7 +539,7 @@ pub mod iam {
     pub struct ListServiceAccountKeys(RequestBuilder<crate::model::ListServiceAccountKeysRequest>);
 
     impl ListServiceAccountKeys {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -594,7 +594,7 @@ pub mod iam {
     pub struct GetServiceAccountKey(RequestBuilder<crate::model::GetServiceAccountKeyRequest>);
 
     impl GetServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -649,7 +649,7 @@ pub mod iam {
     );
 
     impl CreateServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -713,7 +713,7 @@ pub mod iam {
     );
 
     impl UploadServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -765,7 +765,7 @@ pub mod iam {
     );
 
     impl DeleteServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -811,7 +811,7 @@ pub mod iam {
     );
 
     impl DisableServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -857,7 +857,7 @@ pub mod iam {
     );
 
     impl EnableServiceAccountKey {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -901,7 +901,7 @@ pub mod iam {
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -948,7 +948,7 @@ pub mod iam {
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -995,7 +995,7 @@ pub mod iam {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1045,7 +1045,7 @@ pub mod iam {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1104,7 +1104,7 @@ pub mod iam {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1159,7 +1159,7 @@ pub mod iam {
     pub struct QueryGrantableRoles(RequestBuilder<crate::model::QueryGrantableRolesRequest>);
 
     impl QueryGrantableRoles {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1236,7 +1236,7 @@ pub mod iam {
     pub struct ListRoles(RequestBuilder<crate::model::ListRolesRequest>);
 
     impl ListRoles {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1315,7 +1315,7 @@ pub mod iam {
     pub struct GetRole(RequestBuilder<crate::model::GetRoleRequest>);
 
     impl GetRole {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1356,7 +1356,7 @@ pub mod iam {
     pub struct CreateRole(RequestBuilder<crate::model::CreateRoleRequest>);
 
     impl CreateRole {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1409,7 +1409,7 @@ pub mod iam {
     pub struct UpdateRole(RequestBuilder<crate::model::UpdateRoleRequest>);
 
     impl UpdateRole {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1465,7 +1465,7 @@ pub mod iam {
     pub struct DeleteRole(RequestBuilder<crate::model::DeleteRoleRequest>);
 
     impl DeleteRole {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1512,7 +1512,7 @@ pub mod iam {
     pub struct UndeleteRole(RequestBuilder<crate::model::UndeleteRoleRequest>);
 
     impl UndeleteRole {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1561,7 +1561,7 @@ pub mod iam {
     );
 
     impl QueryTestablePermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1634,7 +1634,7 @@ pub mod iam {
     pub struct QueryAuditableServices(RequestBuilder<crate::model::QueryAuditableServicesRequest>);
 
     impl QueryAuditableServices {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1678,7 +1678,7 @@ pub mod iam {
     pub struct LintPolicy(RequestBuilder<crate::model::LintPolicyRequest>);
 
     impl LintPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Iam>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Iam>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
