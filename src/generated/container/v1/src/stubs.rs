@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,18 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Google Kubernetes Engine Cluster Manager v1
+/// Defines the trait used to implement [crate::client::ClusterManager].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the container clients.
+/// Application developers may need to implement this trait to mock
+/// `client::ClusterManager`.  In other use-cases, application developers only
+/// use `client::ClusterManager` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait ClusterManager: std::fmt::Debug + Send + Sync {
-    /// Lists all clusters owned by a project in either the specified zone or all
-    /// zones.
+    /// Implements [crate::client::ClusterManager::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -51,7 +52,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the details of a specific cluster.
+    /// Implements [crate::client::ClusterManager::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -62,20 +63,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a cluster, consisting of the specified number and type of Google
-    /// Compute Engine instances.
-    ///
-    /// By default, the cluster is created in the project's
-    /// [default
-    /// network](https://cloud.google.com/compute/docs/networks-and-firewalls#networks).
-    ///
-    /// One firewall is added for the cluster. After cluster creation,
-    /// the Kubelet creates routes for each node to allow the containers
-    /// on that node to communicate with all other instances in the
-    /// cluster.
-    ///
-    /// Finally, an entry is added to the project's global metadata indicating
-    /// which CIDR range the cluster is using.
+    /// Implements [crate::client::ClusterManager::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -86,7 +74,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the settings of a specific cluster.
+    /// Implements [crate::client::ClusterManager::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::UpdateClusterRequest,
@@ -97,7 +85,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the version and/or image type for the specified node pool.
+    /// Implements [crate::client::ClusterManager::update_node_pool].
     fn update_node_pool(
         &self,
         _req: crate::model::UpdateNodePoolRequest,
@@ -108,7 +96,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the autoscaling settings for the specified node pool.
+    /// Implements [crate::client::ClusterManager::set_node_pool_autoscaling].
     fn set_node_pool_autoscaling(
         &self,
         _req: crate::model::SetNodePoolAutoscalingRequest,
@@ -119,7 +107,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the logging service for a specific cluster.
+    /// Implements [crate::client::ClusterManager::set_logging_service].
     fn set_logging_service(
         &self,
         _req: crate::model::SetLoggingServiceRequest,
@@ -130,7 +118,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the monitoring service for a specific cluster.
+    /// Implements [crate::client::ClusterManager::set_monitoring_service].
     fn set_monitoring_service(
         &self,
         _req: crate::model::SetMonitoringServiceRequest,
@@ -141,7 +129,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the addons for a specific cluster.
+    /// Implements [crate::client::ClusterManager::set_addons_config].
     fn set_addons_config(
         &self,
         _req: crate::model::SetAddonsConfigRequest,
@@ -152,10 +140,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the locations for a specific cluster.
-    /// Deprecated. Use
-    /// [projects.locations.clusters.update](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters/update)
-    /// instead.
+    /// Implements [crate::client::ClusterManager::set_locations].
     fn set_locations(
         &self,
         _req: crate::model::SetLocationsRequest,
@@ -166,7 +151,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates the master for a specific cluster.
+    /// Implements [crate::client::ClusterManager::update_master].
     fn update_master(
         &self,
         _req: crate::model::UpdateMasterRequest,
@@ -177,9 +162,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets master auth materials. Currently supports changing the admin password
-    /// or a specific cluster, either via password generation or explicitly setting
-    /// the password.
+    /// Implements [crate::client::ClusterManager::set_master_auth].
     fn set_master_auth(
         &self,
         _req: crate::model::SetMasterAuthRequest,
@@ -190,15 +173,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes the cluster, including the Kubernetes endpoint and all worker
-    /// nodes.
-    ///
-    /// Firewalls and routes that were configured during cluster creation
-    /// are also deleted.
-    ///
-    /// Other Google Compute Engine resources that might be in use by the cluster,
-    /// such as load balancer resources, are not deleted if they weren't present
-    /// when the cluster was initially created.
+    /// Implements [crate::client::ClusterManager::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -209,7 +184,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists all operations in a project in a specific zone or all zones.
+    /// Implements [crate::client::ClusterManager::list_operations].
     fn list_operations(
         &self,
         _req: crate::model::ListOperationsRequest,
@@ -221,7 +196,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets the specified operation.
+    /// Implements [crate::client::ClusterManager::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::GetOperationRequest,
@@ -232,7 +207,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Cancels the specified operation.
+    /// Implements [crate::client::ClusterManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: crate::model::CancelOperationRequest,
@@ -241,7 +216,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns configuration info about the Google Kubernetes Engine service.
+    /// Implements [crate::client::ClusterManager::get_server_config].
     fn get_server_config(
         &self,
         _req: crate::model::GetServerConfigRequest,
@@ -252,8 +227,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the public component of the cluster signing keys in
-    /// JSON Web Key format.
+    /// Implements [crate::client::ClusterManager::get_json_web_keys].
     fn get_json_web_keys(
         &self,
         _req: crate::model::GetJSONWebKeysRequest,
@@ -265,7 +239,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists the node pools for a cluster.
+    /// Implements [crate::client::ClusterManager::list_node_pools].
     fn list_node_pools(
         &self,
         _req: crate::model::ListNodePoolsRequest,
@@ -277,7 +251,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Retrieves the requested node pool.
+    /// Implements [crate::client::ClusterManager::get_node_pool].
     fn get_node_pool(
         &self,
         _req: crate::model::GetNodePoolRequest,
@@ -288,7 +262,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a node pool for a cluster.
+    /// Implements [crate::client::ClusterManager::create_node_pool].
     fn create_node_pool(
         &self,
         _req: crate::model::CreateNodePoolRequest,
@@ -299,7 +273,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a node pool from a cluster.
+    /// Implements [crate::client::ClusterManager::delete_node_pool].
     fn delete_node_pool(
         &self,
         _req: crate::model::DeleteNodePoolRequest,
@@ -310,8 +284,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// CompleteNodePoolUpgrade will signal an on-going node pool upgrade to
-    /// complete.
+    /// Implements [crate::client::ClusterManager::complete_node_pool_upgrade].
     fn complete_node_pool_upgrade(
         &self,
         _req: crate::model::CompleteNodePoolUpgradeRequest,
@@ -320,8 +293,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Rolls back a previously Aborted or Failed NodePool upgrade.
-    /// This makes no changes if the last upgrade successfully completed.
+    /// Implements [crate::client::ClusterManager::rollback_node_pool_upgrade].
     fn rollback_node_pool_upgrade(
         &self,
         _req: crate::model::RollbackNodePoolUpgradeRequest,
@@ -332,7 +304,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the NodeManagement options for a node pool.
+    /// Implements [crate::client::ClusterManager::set_node_pool_management].
     fn set_node_pool_management(
         &self,
         _req: crate::model::SetNodePoolManagementRequest,
@@ -343,7 +315,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets labels on a cluster.
+    /// Implements [crate::client::ClusterManager::set_labels].
     fn set_labels(
         &self,
         _req: crate::model::SetLabelsRequest,
@@ -354,7 +326,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Enables or disables the ABAC authorization mechanism on a cluster.
+    /// Implements [crate::client::ClusterManager::set_legacy_abac].
     fn set_legacy_abac(
         &self,
         _req: crate::model::SetLegacyAbacRequest,
@@ -365,7 +337,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Starts master IP rotation.
+    /// Implements [crate::client::ClusterManager::start_ip_rotation].
     fn start_ip_rotation(
         &self,
         _req: crate::model::StartIPRotationRequest,
@@ -376,7 +348,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Completes master IP rotation.
+    /// Implements [crate::client::ClusterManager::complete_ip_rotation].
     fn complete_ip_rotation(
         &self,
         _req: crate::model::CompleteIPRotationRequest,
@@ -387,11 +359,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the size for a specific node pool. The new size will be used for all
-    /// replicas, including future replicas created by modifying
-    /// [NodePool.locations][google.container.v1.NodePool.locations].
-    ///
-    /// [google.container.v1.NodePool.locations]: crate::model::NodePool::locations
+    /// Implements [crate::client::ClusterManager::set_node_pool_size].
     fn set_node_pool_size(
         &self,
         _req: crate::model::SetNodePoolSizeRequest,
@@ -402,7 +370,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Enables or disables Network Policy for a cluster.
+    /// Implements [crate::client::ClusterManager::set_network_policy].
     fn set_network_policy(
         &self,
         _req: crate::model::SetNetworkPolicyRequest,
@@ -413,7 +381,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the maintenance policy for a cluster.
+    /// Implements [crate::client::ClusterManager::set_maintenance_policy].
     fn set_maintenance_policy(
         &self,
         _req: crate::model::SetMaintenancePolicyRequest,
@@ -424,7 +392,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists subnetworks that are usable for creating clusters in a project.
+    /// Implements [crate::client::ClusterManager::list_usable_subnetworks].
     fn list_usable_subnetworks(
         &self,
         _req: crate::model::ListUsableSubnetworksRequest,
@@ -436,8 +404,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Checks the cluster compatibility with Autopilot mode, and returns a list of
-    /// compatibility issues.
+    /// Implements [crate::client::ClusterManager::check_autopilot_compatibility].
     fn check_autopilot_compatibility(
         &self,
         _req: crate::model::CheckAutopilotCompatibilityRequest,

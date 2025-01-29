@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,45 +28,20 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// API Overview
+/// Defines the trait used to implement [crate::client::IAMPolicy].
 ///
-/// Manages Identity and Access Management (IAM) policies.
-///
-/// Any implementation of an API that offers access control features
-/// implements the google.iam.v1.IAMPolicy interface.
-///
-/// ## Data model
-///
-/// Access control is applied when a principal (user or service account), takes
-/// some action on a resource exposed by a service. Resources, identified by
-/// URI-like names, are the unit of access control specification. Service
-/// implementations can choose the granularity of access control and the
-/// supported permissions for their resources.
-/// For example one database service may allow access control to be
-/// specified only at the Table level, whereas another might allow access control
-/// to also be specified at the Column level.
-///
-/// ## Policy Structure
-///
-/// See google.iam.v1.Policy
-///
-/// This is intentionally not a CRUD style API because access control policies
-/// are created and deleted implicitly with the resources to which they are
-/// attached.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the  clients.
+/// Application developers may need to implement this trait to mock
+/// `client::IAMPolicy`.  In other use-cases, application developers only
+/// use `client::IAMPolicy` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
 
-    /// Sets the access control policy on the specified resource. Replaces any
-    /// existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    /// Implements [crate::client::IAMPolicy::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: crate::model::SetIamPolicyRequest,
@@ -75,9 +50,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets the access control policy for a resource.
-    /// Returns an empty policy if the resource exists and does not have a policy
-    /// set.
+    /// Implements [crate::client::IAMPolicy::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: crate::model::GetIamPolicyRequest,
@@ -86,13 +59,7 @@ pub trait IAMPolicy: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns permissions that a caller has on the specified resource.
-    /// If the resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
+    /// Implements [crate::client::IAMPolicy::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,

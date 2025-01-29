@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,17 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Account management for Identity Toolkit
+/// Defines the trait used to implement [crate::client::AccountManagementService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the identitytoolkit clients.
+/// Application developers may need to implement this trait to mock
+/// `client::AccountManagementService`.  In other use-cases, application developers only
+/// use `client::AccountManagementService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait AccountManagementService: std::fmt::Debug + Send + Sync {
-    /// Finishes enrolling a second factor for the user.
+    /// Implements [crate::client::AccountManagementService::finalize_mfa_enrollment].
     fn finalize_mfa_enrollment(
         &self,
         _req: crate::model::FinalizeMfaEnrollmentRequest,
@@ -50,8 +52,7 @@ pub trait AccountManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Step one of the MFA enrollment process. In SMS case, this sends an
-    /// SMS verification code to the user.
+    /// Implements [crate::client::AccountManagementService::start_mfa_enrollment].
     fn start_mfa_enrollment(
         &self,
         _req: crate::model::StartMfaEnrollmentRequest,
@@ -63,7 +64,7 @@ pub trait AccountManagementService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Revokes one second factor from the enrolled second factors for an account.
+    /// Implements [crate::client::AccountManagementService::withdraw_mfa].
     fn withdraw_mfa(
         &self,
         _req: crate::model::WithdrawMfaRequest,
@@ -76,17 +77,19 @@ pub trait AccountManagementService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Authentication for Identity Toolkit
+/// Defines the trait used to implement [crate::client::AuthenticationService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the identitytoolkit clients.
+/// Application developers may need to implement this trait to mock
+/// `client::AuthenticationService`.  In other use-cases, application developers only
+/// use `client::AuthenticationService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait AuthenticationService: std::fmt::Debug + Send + Sync {
-    /// Verifies the MFA challenge and performs sign-in
+    /// Implements [crate::client::AuthenticationService::finalize_mfa_sign_in].
     fn finalize_mfa_sign_in(
         &self,
         _req: crate::model::FinalizeMfaSignInRequest,
@@ -98,7 +101,7 @@ pub trait AuthenticationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Sends the MFA challenge
+    /// Implements [crate::client::AuthenticationService::start_mfa_sign_in].
     fn start_mfa_sign_in(
         &self,
         _req: crate::model::StartMfaSignInRequest,

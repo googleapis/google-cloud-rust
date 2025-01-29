@@ -17,34 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Web Risk API defines an interface to detect malicious URLs on your
-/// website and in client applications.
+/// Defines the trait used to implement [crate::client::WebRiskService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the webrisk clients.
+/// Application developers may need to implement this trait to mock
+/// `client::WebRiskService`.  In other use-cases, application developers only
+/// use `client::WebRiskService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait WebRiskService: std::fmt::Debug + Send + Sync {
-    /// Gets the most recent threat list diffs. These diffs should be applied to
-    /// a local database of hashes to keep it up-to-date. If the local database is
-    /// empty or excessively out-of-date, a complete snapshot of the database will
-    /// be returned. This Method only updates a single ThreatList at a time. To
-    /// update multiple ThreatList databases, this method needs to be called once
-    /// for each list.
+    /// Implements [crate::client::WebRiskService::compute_threat_list_diff].
     fn compute_threat_list_diff(
         &self,
         _req: crate::model::ComputeThreatListDiffRequest,
@@ -56,11 +53,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// This method is used to check whether a URI is on a given threatList.
-    /// Multiple threatLists may be searched in a single query.
-    /// The response will list all requested threatLists the URI was found to
-    /// match. If the URI is not found on any of the requested ThreatList an
-    /// empty response will be returned.
+    /// Implements [crate::client::WebRiskService::search_uris].
     fn search_uris(
         &self,
         _req: crate::model::SearchUrisRequest,
@@ -72,11 +65,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the full hashes that match the requested hash prefix.
-    /// This is used after a hash prefix is looked up in a threatList
-    /// and there is a match. The client side threatList only holds partial hashes
-    /// so the client must query this method to determine if there is a full
-    /// hash match of a threat.
+    /// Implements [crate::client::WebRiskService::search_hashes].
     fn search_hashes(
         &self,
         _req: crate::model::SearchHashesRequest,
@@ -88,13 +77,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a Submission of a URI suspected of containing phishing content to
-    /// be reviewed. If the result verifies the existence of malicious phishing
-    /// content, the site will be added to the [Google's Social Engineering
-    /// lists](https://support.google.com/webmasters/answer/6350487/) in order to
-    /// protect users that could get exposed to this threat in the future. Only
-    /// allowlisted projects can use this method during Early Access. Please reach
-    /// out to Sales or your customer engineer to obtain access.
+    /// Implements [crate::client::WebRiskService::create_submission].
     fn create_submission(
         &self,
         _req: crate::model::CreateSubmissionRequest,
@@ -105,16 +88,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Submits a URI suspected of containing malicious content to be reviewed.
-    /// Returns a google.longrunning.Operation which, once the review is complete,
-    /// is updated with its result. You can use the [Pub/Sub API]
-    /// (<https://cloud.google.com/pubsub>) to receive notifications for the returned
-    /// Operation. If the result verifies the existence of malicious content, the
-    /// site will be added to the [Google's Social Engineering lists]
-    /// (<https://support.google.com/webmasters/answer/6350487/>) in order to
-    /// protect users that could get exposed to this threat in the future. Only
-    /// allowlisted projects can use this method during Early Access. Please reach
-    /// out to Sales or your customer engineer to obtain access.
+    /// Implements [crate::client::WebRiskService::submit_uri].
     fn submit_uri(
         &self,
         _req: crate::model::SubmitUriRequest,
@@ -126,9 +100,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::WebRiskService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -140,9 +112,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::WebRiskService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -154,9 +124,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::WebRiskService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -165,9 +133,7 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::WebRiskService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -177,14 +143,24 @@ pub trait WebRiskService: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

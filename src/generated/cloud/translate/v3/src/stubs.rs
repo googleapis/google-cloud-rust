@@ -17,28 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Provides natural language translation operations.
+/// Defines the trait used to implement [crate::client::TranslationService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the translate clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TranslationService`.  In other use-cases, application developers only
+/// use `client::TranslationService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TranslationService: std::fmt::Debug + Send + Sync {
-    /// Translates input text and returns translated text.
+    /// Implements [crate::client::TranslationService::translate_text].
     fn translate_text(
         &self,
         _req: crate::model::TranslateTextRequest,
@@ -50,7 +53,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Romanize input text written in non-Latin scripts to Latin text.
+    /// Implements [crate::client::TranslationService::romanize_text].
     fn romanize_text(
         &self,
         _req: crate::model::RomanizeTextRequest,
@@ -62,7 +65,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Detects the language of text within a request.
+    /// Implements [crate::client::TranslationService::detect_language].
     fn detect_language(
         &self,
         _req: crate::model::DetectLanguageRequest,
@@ -74,7 +77,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Returns a list of supported languages for translation.
+    /// Implements [crate::client::TranslationService::get_supported_languages].
     fn get_supported_languages(
         &self,
         _req: crate::model::GetSupportedLanguagesRequest,
@@ -86,7 +89,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Translates documents in synchronous mode.
+    /// Implements [crate::client::TranslationService::translate_document].
     fn translate_document(
         &self,
         _req: crate::model::TranslateDocumentRequest,
@@ -98,13 +101,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Translates a large volume of text in asynchronous batch mode.
-    /// This function provides real-time output as the inputs are being processed.
-    /// If caller cancels a request, the partial results (for an input file, it's
-    /// all or nothing) may still be available on the specified output location.
-    ///
-    /// This call returns immediately and you can
-    /// use google.longrunning.Operation.name to poll the status of the call.
+    /// Implements [crate::client::TranslationService::batch_translate_text].
     fn batch_translate_text(
         &self,
         _req: crate::model::BatchTranslateTextRequest,
@@ -116,13 +113,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Translates a large volume of document in asynchronous batch mode.
-    /// This function provides real-time output as the inputs are being processed.
-    /// If caller cancels a request, the partial results (for an input file, it's
-    /// all or nothing) may still be available on the specified output location.
-    ///
-    /// This call returns immediately and you can use
-    /// google.longrunning.Operation.name to poll the status of the call.
+    /// Implements [crate::client::TranslationService::batch_translate_document].
     fn batch_translate_document(
         &self,
         _req: crate::model::BatchTranslateDocumentRequest,
@@ -134,8 +125,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a glossary and returns the long-running operation. Returns
-    /// NOT_FOUND, if the project doesn't exist.
+    /// Implements [crate::client::TranslationService::create_glossary].
     fn create_glossary(
         &self,
         _req: crate::model::CreateGlossaryRequest,
@@ -147,8 +137,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a glossary. A LRO is used since the update can be async if the
-    /// glossary's entry file is updated.
+    /// Implements [crate::client::TranslationService::update_glossary].
     fn update_glossary(
         &self,
         _req: crate::model::UpdateGlossaryRequest,
@@ -160,8 +149,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists glossaries in a project. Returns NOT_FOUND, if the project doesn't
-    /// exist.
+    /// Implements [crate::client::TranslationService::list_glossaries].
     fn list_glossaries(
         &self,
         _req: crate::model::ListGlossariesRequest,
@@ -173,8 +161,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets a glossary. Returns NOT_FOUND, if the glossary doesn't
-    /// exist.
+    /// Implements [crate::client::TranslationService::get_glossary].
     fn get_glossary(
         &self,
         _req: crate::model::GetGlossaryRequest,
@@ -185,9 +172,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a glossary, or cancels glossary construction
-    /// if the glossary isn't created yet.
-    /// Returns NOT_FOUND, if the glossary doesn't exist.
+    /// Implements [crate::client::TranslationService::delete_glossary].
     fn delete_glossary(
         &self,
         _req: crate::model::DeleteGlossaryRequest,
@@ -199,7 +184,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets a single glossary entry by the given id.
+    /// Implements [crate::client::TranslationService::get_glossary_entry].
     fn get_glossary_entry(
         &self,
         _req: crate::model::GetGlossaryEntryRequest,
@@ -210,7 +195,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// List the entries for the glossary.
+    /// Implements [crate::client::TranslationService::list_glossary_entries].
     fn list_glossary_entries(
         &self,
         _req: crate::model::ListGlossaryEntriesRequest,
@@ -222,7 +207,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Creates a glossary entry.
+    /// Implements [crate::client::TranslationService::create_glossary_entry].
     fn create_glossary_entry(
         &self,
         _req: crate::model::CreateGlossaryEntryRequest,
@@ -233,7 +218,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a glossary entry.
+    /// Implements [crate::client::TranslationService::update_glossary_entry].
     fn update_glossary_entry(
         &self,
         _req: crate::model::UpdateGlossaryEntryRequest,
@@ -244,7 +229,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a single entry from the glossary
+    /// Implements [crate::client::TranslationService::delete_glossary_entry].
     fn delete_glossary_entry(
         &self,
         _req: crate::model::DeleteGlossaryEntryRequest,
@@ -253,7 +238,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a Dataset.
+    /// Implements [crate::client::TranslationService::create_dataset].
     fn create_dataset(
         &self,
         _req: crate::model::CreateDatasetRequest,
@@ -265,7 +250,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets a Dataset.
+    /// Implements [crate::client::TranslationService::get_dataset].
     fn get_dataset(
         &self,
         _req: crate::model::GetDatasetRequest,
@@ -276,7 +261,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists datasets.
+    /// Implements [crate::client::TranslationService::list_datasets].
     fn list_datasets(
         &self,
         _req: crate::model::ListDatasetsRequest,
@@ -288,7 +273,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a dataset and all of its contents.
+    /// Implements [crate::client::TranslationService::delete_dataset].
     fn delete_dataset(
         &self,
         _req: crate::model::DeleteDatasetRequest,
@@ -300,7 +285,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates an Adaptive MT dataset.
+    /// Implements [crate::client::TranslationService::create_adaptive_mt_dataset].
     fn create_adaptive_mt_dataset(
         &self,
         _req: crate::model::CreateAdaptiveMtDatasetRequest,
@@ -312,8 +297,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes an Adaptive MT dataset, including all its entries and associated
-    /// metadata.
+    /// Implements [crate::client::TranslationService::delete_adaptive_mt_dataset].
     fn delete_adaptive_mt_dataset(
         &self,
         _req: crate::model::DeleteAdaptiveMtDatasetRequest,
@@ -322,7 +306,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets the Adaptive MT dataset.
+    /// Implements [crate::client::TranslationService::get_adaptive_mt_dataset].
     fn get_adaptive_mt_dataset(
         &self,
         _req: crate::model::GetAdaptiveMtDatasetRequest,
@@ -334,7 +318,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists all Adaptive MT datasets for which the caller has read permission.
+    /// Implements [crate::client::TranslationService::list_adaptive_mt_datasets].
     fn list_adaptive_mt_datasets(
         &self,
         _req: crate::model::ListAdaptiveMtDatasetsRequest,
@@ -346,7 +330,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Translate text using Adaptive MT.
+    /// Implements [crate::client::TranslationService::adaptive_mt_translate].
     fn adaptive_mt_translate(
         &self,
         _req: crate::model::AdaptiveMtTranslateRequest,
@@ -358,7 +342,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets and AdaptiveMtFile
+    /// Implements [crate::client::TranslationService::get_adaptive_mt_file].
     fn get_adaptive_mt_file(
         &self,
         _req: crate::model::GetAdaptiveMtFileRequest,
@@ -369,7 +353,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes an AdaptiveMtFile along with its sentences.
+    /// Implements [crate::client::TranslationService::delete_adaptive_mt_file].
     fn delete_adaptive_mt_file(
         &self,
         _req: crate::model::DeleteAdaptiveMtFileRequest,
@@ -378,8 +362,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Imports an AdaptiveMtFile and adds all of its sentences into the
-    /// AdaptiveMtDataset.
+    /// Implements [crate::client::TranslationService::import_adaptive_mt_file].
     fn import_adaptive_mt_file(
         &self,
         _req: crate::model::ImportAdaptiveMtFileRequest,
@@ -391,7 +374,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists all AdaptiveMtFiles associated to an AdaptiveMtDataset.
+    /// Implements [crate::client::TranslationService::list_adaptive_mt_files].
     fn list_adaptive_mt_files(
         &self,
         _req: crate::model::ListAdaptiveMtFilesRequest,
@@ -403,7 +386,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists all AdaptiveMtSentences under a given file/dataset.
+    /// Implements [crate::client::TranslationService::list_adaptive_mt_sentences].
     fn list_adaptive_mt_sentences(
         &self,
         _req: crate::model::ListAdaptiveMtSentencesRequest,
@@ -416,7 +399,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Import sentence pairs into translation Dataset.
+    /// Implements [crate::client::TranslationService::import_data].
     fn import_data(
         &self,
         _req: crate::model::ImportDataRequest,
@@ -428,7 +411,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Exports dataset's data to the provided output location.
+    /// Implements [crate::client::TranslationService::export_data].
     fn export_data(
         &self,
         _req: crate::model::ExportDataRequest,
@@ -440,7 +423,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists sentence pairs in the dataset.
+    /// Implements [crate::client::TranslationService::list_examples].
     fn list_examples(
         &self,
         _req: crate::model::ListExamplesRequest,
@@ -452,7 +435,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a Model.
+    /// Implements [crate::client::TranslationService::create_model].
     fn create_model(
         &self,
         _req: crate::model::CreateModelRequest,
@@ -464,7 +447,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists models.
+    /// Implements [crate::client::TranslationService::list_models].
     fn list_models(
         &self,
         _req: crate::model::ListModelsRequest,
@@ -476,7 +459,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets a model.
+    /// Implements [crate::client::TranslationService::get_model].
     fn get_model(
         &self,
         _req: crate::model::GetModelRequest,
@@ -485,7 +468,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Model>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes a model.
+    /// Implements [crate::client::TranslationService::delete_model].
     fn delete_model(
         &self,
         _req: crate::model::DeleteModelRequest,
@@ -497,7 +480,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::TranslationService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -509,7 +492,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::TranslationService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -520,9 +503,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TranslationService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -534,9 +515,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TranslationService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -548,9 +527,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TranslationService::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -559,9 +536,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TranslationService::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -570,9 +545,7 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::TranslationService::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -585,14 +558,24 @@ pub trait TranslationService: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

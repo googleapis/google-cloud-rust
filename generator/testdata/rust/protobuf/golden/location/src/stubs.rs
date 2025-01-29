@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,22 +28,20 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// An abstract interface that provides location-related information for
-/// a service. Service-specific metadata is provided through the
-/// [Location.metadata][google.cloud.location.Location.metadata] field.
+/// Defines the trait used to implement [crate::client::Locations].
 ///
-/// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloud clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Locations`.  In other use-cases, application developers only
+/// use `client::Locations` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Locations: std::fmt::Debug + Send + Sync {
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::Locations::list_locations].
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
@@ -52,7 +50,7 @@ pub trait Locations: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::Locations::get_location].
     fn get_location(
         &self,
         _req: crate::model::GetLocationRequest,

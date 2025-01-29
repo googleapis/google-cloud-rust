@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `TranslationService`.
+/// A dyn-compatible, crate-private version of [super::TranslationService].
 #[async_trait::async_trait]
 pub trait TranslationService: std::fmt::Debug + Send + Sync {
     async fn translate_text(

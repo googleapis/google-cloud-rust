@@ -17,39 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Creates and manages builds on Google Cloud Platform.
+/// Defines the trait used to implement [crate::client::CloudBuild].
 ///
-/// The main concept used by this API is a `Build`, which describes the location
-/// of the source to build, how to build the source, and where to store the
-/// built artifacts, if any.
-///
-/// A user can list previously-requested builds or get builds by their ID to
-/// determine the status of the build.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudbuild clients.
+/// Application developers may need to implement this trait to mock
+/// `client::CloudBuild`.  In other use-cases, application developers only
+/// use `client::CloudBuild` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait CloudBuild: std::fmt::Debug + Send + Sync {
-    /// Starts a build with the specified configuration.
-    ///
-    /// This method returns a long-running `Operation`, which includes the build
-    /// ID. Pass the build ID to `GetBuild` to determine the build status (such as
-    /// `SUCCESS` or `FAILURE`).
+    /// Implements [crate::client::CloudBuild::create_build].
     fn create_build(
         &self,
         _req: crate::model::CreateBuildRequest,
@@ -61,10 +53,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns information about a previously requested build.
-    ///
-    /// The `Build` that is returned includes its status (such as `SUCCESS`,
-    /// `FAILURE`, or `WORKING`), and timing information.
+    /// Implements [crate::client::CloudBuild::get_build].
     fn get_build(
         &self,
         _req: crate::model::GetBuildRequest,
@@ -73,10 +62,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists previously requested builds.
-    ///
-    /// Previously requested builds may still be in-progress, or may have finished
-    /// successfully or unsuccessfully.
+    /// Implements [crate::client::CloudBuild::list_builds].
     fn list_builds(
         &self,
         _req: crate::model::ListBuildsRequest,
@@ -88,7 +74,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Cancels a build in progress.
+    /// Implements [crate::client::CloudBuild::cancel_build].
     fn cancel_build(
         &self,
         _req: crate::model::CancelBuildRequest,
@@ -97,33 +83,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Build>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new build based on the specified build.
-    ///
-    /// This method creates a new build using the original build request, which may
-    /// or may not result in an identical build.
-    ///
-    /// For triggered builds:
-    ///
-    /// * Triggered builds resolve to a precise revision; therefore a retry of a
-    ///   triggered build will result in a build that uses the same revision.
-    ///
-    /// For non-triggered builds that specify `RepoSource`:
-    ///
-    /// * If the original build built from the tip of a branch, the retried build
-    ///   will build from the tip of that branch, which may not be the same revision
-    ///   as the original build.
-    /// * If the original build specified a commit sha or revision ID, the retried
-    ///   build will use the identical source.
-    ///
-    /// For builds that specify `StorageSource`:
-    ///
-    /// * If the original build pulled source from Cloud Storage without
-    ///   specifying the generation of the object, the new build will use the current
-    ///   object, which may be different from the original build source.
-    /// * If the original build pulled source from Cloud Storage and specified the
-    ///   generation of the object, the new build will attempt to use the same
-    ///   object, which may or may not be available depending on the bucket's
-    ///   lifecycle management settings.
+    /// Implements [crate::client::CloudBuild::retry_build].
     fn retry_build(
         &self,
         _req: crate::model::RetryBuildRequest,
@@ -135,12 +95,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Approves or rejects a pending build.
-    ///
-    /// If approved, the returned LRO will be analogous to the LRO returned from
-    /// a CreateBuild call.
-    ///
-    /// If rejected, the returned LRO will be immediately done.
+    /// Implements [crate::client::CloudBuild::approve_build].
     fn approve_build(
         &self,
         _req: crate::model::ApproveBuildRequest,
@@ -152,9 +107,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new `BuildTrigger`.
-    ///
-    /// This API is experimental.
+    /// Implements [crate::client::CloudBuild::create_build_trigger].
     fn create_build_trigger(
         &self,
         _req: crate::model::CreateBuildTriggerRequest,
@@ -165,9 +118,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns information about a `BuildTrigger`.
-    ///
-    /// This API is experimental.
+    /// Implements [crate::client::CloudBuild::get_build_trigger].
     fn get_build_trigger(
         &self,
         _req: crate::model::GetBuildTriggerRequest,
@@ -178,9 +129,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists existing `BuildTrigger`s.
-    ///
-    /// This API is experimental.
+    /// Implements [crate::client::CloudBuild::list_build_triggers].
     fn list_build_triggers(
         &self,
         _req: crate::model::ListBuildTriggersRequest,
@@ -192,9 +141,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Deletes a `BuildTrigger` by its project ID and trigger ID.
-    ///
-    /// This API is experimental.
+    /// Implements [crate::client::CloudBuild::delete_build_trigger].
     fn delete_build_trigger(
         &self,
         _req: crate::model::DeleteBuildTriggerRequest,
@@ -203,9 +150,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates a `BuildTrigger` by its project ID and trigger ID.
-    ///
-    /// This API is experimental.
+    /// Implements [crate::client::CloudBuild::update_build_trigger].
     fn update_build_trigger(
         &self,
         _req: crate::model::UpdateBuildTriggerRequest,
@@ -216,13 +161,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Runs a `BuildTrigger` at a particular source revision.
-    ///
-    /// To run a regional or global trigger, use the POST request
-    /// that includes the location endpoint in the path (ex.
-    /// v1/projects/{projectId}/locations/{region}/triggers/{triggerId}:run). The
-    /// POST request that does not include the location endpoint in the path can
-    /// only be used when running global triggers.
+    /// Implements [crate::client::CloudBuild::run_build_trigger].
     fn run_build_trigger(
         &self,
         _req: crate::model::RunBuildTriggerRequest,
@@ -234,8 +173,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// ReceiveTriggerWebhook [Experimental] is called when the API receives a
-    /// webhook request targeted at a specific trigger.
+    /// Implements [crate::client::CloudBuild::receive_trigger_webhook].
     fn receive_trigger_webhook(
         &self,
         _req: crate::model::ReceiveTriggerWebhookRequest,
@@ -247,7 +185,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Creates a `WorkerPool`.
+    /// Implements [crate::client::CloudBuild::create_worker_pool].
     fn create_worker_pool(
         &self,
         _req: crate::model::CreateWorkerPoolRequest,
@@ -259,7 +197,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns details of a `WorkerPool`.
+    /// Implements [crate::client::CloudBuild::get_worker_pool].
     fn get_worker_pool(
         &self,
         _req: crate::model::GetWorkerPoolRequest,
@@ -270,7 +208,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a `WorkerPool`.
+    /// Implements [crate::client::CloudBuild::delete_worker_pool].
     fn delete_worker_pool(
         &self,
         _req: crate::model::DeleteWorkerPoolRequest,
@@ -282,7 +220,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a `WorkerPool`.
+    /// Implements [crate::client::CloudBuild::update_worker_pool].
     fn update_worker_pool(
         &self,
         _req: crate::model::UpdateWorkerPoolRequest,
@@ -294,7 +232,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists `WorkerPool`s.
+    /// Implements [crate::client::CloudBuild::list_worker_pools].
     fn list_worker_pools(
         &self,
         _req: crate::model::ListWorkerPoolsRequest,
@@ -306,9 +244,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::CloudBuild::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -320,9 +256,7 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::CloudBuild::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -332,14 +266,24 @@ pub trait CloudBuild: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

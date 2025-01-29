@@ -17,28 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Manages connections to source code repositories.
+/// Defines the trait used to implement [crate::client::RepositoryManager].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudbuild clients.
+/// Application developers may need to implement this trait to mock
+/// `client::RepositoryManager`.  In other use-cases, application developers only
+/// use `client::RepositoryManager` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
-    /// Creates a Connection.
+    /// Implements [crate::client::RepositoryManager::create_connection].
     fn create_connection(
         &self,
         _req: crate::model::CreateConnectionRequest,
@@ -50,7 +53,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets details of a single connection.
+    /// Implements [crate::client::RepositoryManager::get_connection].
     fn get_connection(
         &self,
         _req: crate::model::GetConnectionRequest,
@@ -61,7 +64,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists Connections in a given project and location.
+    /// Implements [crate::client::RepositoryManager::list_connections].
     fn list_connections(
         &self,
         _req: crate::model::ListConnectionsRequest,
@@ -73,7 +76,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Updates a single connection.
+    /// Implements [crate::client::RepositoryManager::update_connection].
     fn update_connection(
         &self,
         _req: crate::model::UpdateConnectionRequest,
@@ -85,7 +88,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a single connection.
+    /// Implements [crate::client::RepositoryManager::delete_connection].
     fn delete_connection(
         &self,
         _req: crate::model::DeleteConnectionRequest,
@@ -97,7 +100,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a Repository.
+    /// Implements [crate::client::RepositoryManager::create_repository].
     fn create_repository(
         &self,
         _req: crate::model::CreateRepositoryRequest,
@@ -109,7 +112,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates multiple repositories inside a connection.
+    /// Implements [crate::client::RepositoryManager::batch_create_repositories].
     fn batch_create_repositories(
         &self,
         _req: crate::model::BatchCreateRepositoriesRequest,
@@ -121,7 +124,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets details of a single repository.
+    /// Implements [crate::client::RepositoryManager::get_repository].
     fn get_repository(
         &self,
         _req: crate::model::GetRepositoryRequest,
@@ -132,7 +135,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists Repositories in a given connection.
+    /// Implements [crate::client::RepositoryManager::list_repositories].
     fn list_repositories(
         &self,
         _req: crate::model::ListRepositoriesRequest,
@@ -144,7 +147,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Deletes a single repository.
+    /// Implements [crate::client::RepositoryManager::delete_repository].
     fn delete_repository(
         &self,
         _req: crate::model::DeleteRepositoryRequest,
@@ -156,7 +159,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Fetches read/write token of a given repository.
+    /// Implements [crate::client::RepositoryManager::fetch_read_write_token].
     fn fetch_read_write_token(
         &self,
         _req: crate::model::FetchReadWriteTokenRequest,
@@ -168,7 +171,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Fetches read token of a given repository.
+    /// Implements [crate::client::RepositoryManager::fetch_read_token].
     fn fetch_read_token(
         &self,
         _req: crate::model::FetchReadTokenRequest,
@@ -180,8 +183,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// FetchLinkableRepositories get repositories from SCM that are
-    /// accessible and could be added to the connection.
+    /// Implements [crate::client::RepositoryManager::fetch_linkable_repositories].
     fn fetch_linkable_repositories(
         &self,
         _req: crate::model::FetchLinkableRepositoriesRequest,
@@ -194,7 +196,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Fetch the list of branches or tags for a given repository.
+    /// Implements [crate::client::RepositoryManager::fetch_git_refs].
     fn fetch_git_refs(
         &self,
         _req: crate::model::FetchGitRefsRequest,
@@ -206,11 +208,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::RepositoryManager::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -221,8 +219,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::RepositoryManager::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -233,13 +230,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::RepositoryManager::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -251,9 +242,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::RepositoryManager::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -265,9 +254,7 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::RepositoryManager::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -277,14 +264,24 @@ pub trait RepositoryManager: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

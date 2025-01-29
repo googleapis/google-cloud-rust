@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,19 +28,20 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Stores sensitive data such as API keys, passwords, and certificates.
-/// Provides convenience while improving security.
+/// Defines the trait used to implement [crate::client::SecretManagerService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the secretmanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SecretManagerService`.  In other use-cases, application developers only
+/// use `client::SecretManagerService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::SecretManagerService::list_locations].
     fn list_locations(
         &self,
         _req: crate::model::ListLocationsRequest,
@@ -49,7 +50,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListLocationsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::SecretManagerService::get_location].
     fn get_location(
         &self,
         _req: crate::model::GetLocationRequest,
@@ -58,7 +59,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Location>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists Secrets.
+    /// Implements [crate::client::SecretManagerService::list_secrets].
     fn list_secrets(
         &self,
         _req: crate::model::ListSecretsRequest,
@@ -67,7 +68,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListSecretsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new Secret containing no SecretVersions.
+    /// Implements [crate::client::SecretManagerService::create_secret].
     fn create_secret(
         &self,
         _req: crate::model::CreateSecretRequest,
@@ -76,7 +77,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists Secrets.
+    /// Implements [crate::client::SecretManagerService::list_secrets_by_project_and_location].
     fn list_secrets_by_project_and_location(
         &self,
         _req: crate::model::ListSecretsByProjectAndLocationRequest,
@@ -85,7 +86,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListSecretsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new Secret containing no SecretVersions.
+    /// Implements [crate::client::SecretManagerService::create_secret_by_project_and_location].
     fn create_secret_by_project_and_location(
         &self,
         _req: crate::model::CreateSecretByProjectAndLocationRequest,
@@ -94,8 +95,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new SecretVersion containing secret data and attaches
-    /// it to an existing Secret.
+    /// Implements [crate::client::SecretManagerService::add_secret_version].
     fn add_secret_version(
         &self,
         _req: crate::model::AddSecretVersionRequest,
@@ -104,8 +104,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new SecretVersion containing secret data and attaches
-    /// it to an existing Secret.
+    /// Implements [crate::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret].
     fn add_secret_version_by_project_and_location_and_secret(
         &self,
         _req: crate::model::AddSecretVersionRequest,
@@ -114,7 +113,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets metadata for a given Secret.
+    /// Implements [crate::client::SecretManagerService::get_secret].
     fn get_secret(
         &self,
         _req: crate::model::GetSecretRequest,
@@ -123,7 +122,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes a Secret.
+    /// Implements [crate::client::SecretManagerService::delete_secret].
     fn delete_secret(
         &self,
         _req: crate::model::DeleteSecretRequest,
@@ -132,7 +131,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates metadata of an existing Secret.
+    /// Implements [crate::client::SecretManagerService::update_secret].
     fn update_secret(
         &self,
         _req: crate::model::UpdateSecretRequest,
@@ -141,7 +140,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets metadata for a given Secret.
+    /// Implements [crate::client::SecretManagerService::get_secret_by_project_and_location_and_secret].
     fn get_secret_by_project_and_location_and_secret(
         &self,
         _req: crate::model::GetSecretByProjectAndLocationAndSecretRequest,
@@ -150,7 +149,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Deletes a Secret.
+    /// Implements [crate::client::SecretManagerService::delete_secret_by_project_and_location_and_secret].
     fn delete_secret_by_project_and_location_and_secret(
         &self,
         _req: crate::model::DeleteSecretByProjectAndLocationAndSecretRequest,
@@ -159,7 +158,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates metadata of an existing Secret.
+    /// Implements [crate::client::SecretManagerService::update_secret_by_project_and_location_and_secret].
     fn update_secret_by_project_and_location_and_secret(
         &self,
         _req: crate::model::UpdateSecretByProjectAndLocationAndSecretRequest,
@@ -168,8 +167,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Secret>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists SecretVersions. This call does not return secret
-    /// data.
+    /// Implements [crate::client::SecretManagerService::list_secret_versions].
     fn list_secret_versions(
         &self,
         _req: crate::model::ListSecretVersionsRequest,
@@ -178,8 +176,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListSecretVersionsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists SecretVersions. This call does not return secret
-    /// data.
+    /// Implements [crate::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret].
     fn list_secret_versions_by_project_and_location_and_secret(
         &self,
         _req: crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest,
@@ -188,10 +185,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::ListSecretVersionsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets metadata for a SecretVersion.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
+    /// Implements [crate::client::SecretManagerService::get_secret_version].
     fn get_secret_version(
         &self,
         _req: crate::model::GetSecretVersionRequest,
@@ -200,10 +194,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets metadata for a SecretVersion.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
+    /// Implements [crate::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version].
     fn get_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         _req: crate::model::GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -212,10 +203,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Accesses a SecretVersion. This call returns the secret data.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
+    /// Implements [crate::client::SecretManagerService::access_secret_version].
     fn access_secret_version(
         &self,
         _req: crate::model::AccessSecretVersionRequest,
@@ -224,10 +212,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::AccessSecretVersionResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Accesses a SecretVersion. This call returns the secret data.
-    ///
-    /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
-    /// created SecretVersion.
+    /// Implements [crate::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version].
     fn access_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         _req: crate::model::AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest,
@@ -236,10 +221,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::AccessSecretVersionResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Disables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DISABLED.
+    /// Implements [crate::client::SecretManagerService::disable_secret_version].
     fn disable_secret_version(
         &self,
         _req: crate::model::DisableSecretVersionRequest,
@@ -248,10 +230,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Disables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DISABLED.
+    /// Implements [crate::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version].
     fn disable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         _req: crate::model::DisableSecretVersionRequest,
@@ -260,10 +239,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Enables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// ENABLED.
+    /// Implements [crate::client::SecretManagerService::enable_secret_version].
     fn enable_secret_version(
         &self,
         _req: crate::model::EnableSecretVersionRequest,
@@ -272,10 +248,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Enables a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// ENABLED.
+    /// Implements [crate::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version].
     fn enable_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         _req: crate::model::EnableSecretVersionRequest,
@@ -284,11 +257,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Destroys a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DESTROYED and irrevocably destroys the
-    /// secret data.
+    /// Implements [crate::client::SecretManagerService::destroy_secret_version].
     fn destroy_secret_version(
         &self,
         _req: crate::model::DestroySecretVersionRequest,
@@ -297,11 +266,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Destroys a SecretVersion.
-    ///
-    /// Sets the state of the SecretVersion to
-    /// DESTROYED and irrevocably destroys the
-    /// secret data.
+    /// Implements [crate::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version].
     fn destroy_secret_version_by_project_and_location_and_secret_and_version(
         &self,
         _req: crate::model::DestroySecretVersionRequest,
@@ -310,11 +275,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::SecretVersion>>(Err(Error::other("unimplemented")))
     }
 
-    /// Sets the access control policy on the specified secret. Replaces any
-    /// existing policy.
-    ///
-    /// Permissions on SecretVersions are enforced according
-    /// to the policy set on the associated Secret.
+    /// Implements [crate::client::SecretManagerService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: crate::model::SetIamPolicyRequest,
@@ -323,11 +284,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Sets the access control policy on the specified secret. Replaces any
-    /// existing policy.
-    ///
-    /// Permissions on SecretVersions are enforced according
-    /// to the policy set on the associated Secret.
+    /// Implements [crate::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret].
     fn set_iam_policy_by_project_and_location_and_secret(
         &self,
         _req: crate::model::SetIamPolicyRequest,
@@ -336,8 +293,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets the access control policy for a secret.
-    /// Returns empty policy if the secret exists and does not have a policy set.
+    /// Implements [crate::client::SecretManagerService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: crate::model::GetIamPolicyRequest,
@@ -346,8 +302,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets the access control policy for a secret.
-    /// Returns empty policy if the secret exists and does not have a policy set.
+    /// Implements [crate::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret].
     fn get_iam_policy_by_project_and_location_and_secret(
         &self,
         _req: crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest,
@@ -356,13 +311,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Policy>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns permissions that a caller has for the specified secret.
-    /// If the secret does not exist, this call returns an empty set of
-    /// permissions, not a NOT_FOUND error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
+    /// Implements [crate::client::SecretManagerService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: crate::model::TestIamPermissionsRequest,
@@ -371,13 +320,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::TestIamPermissionsResponse>>(Err(Error::other("unimplemented")))
     }
 
-    /// Returns permissions that a caller has for the specified secret.
-    /// If the secret does not exist, this call returns an empty set of
-    /// permissions, not a NOT_FOUND error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
+    /// Implements [crate::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret].
     fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
         _req: crate::model::TestIamPermissionsRequest,

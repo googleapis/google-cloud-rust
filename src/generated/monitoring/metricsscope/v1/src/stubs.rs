@@ -17,29 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Manages Cloud Monitoring Metrics Scopes, and the monitoring of Google Cloud
-/// projects and AWS accounts.
+/// Defines the trait used to implement [crate::client::MetricsScopes].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the monitoring clients.
+/// Application developers may need to implement this trait to mock
+/// `client::MetricsScopes`.  In other use-cases, application developers only
+/// use `client::MetricsScopes` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
-    /// Returns a specific `Metrics Scope`.
+    /// Implements [crate::client::MetricsScopes::get_metrics_scope].
     fn get_metrics_scope(
         &self,
         _req: crate::model::GetMetricsScopeRequest,
@@ -50,9 +52,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns a list of every `Metrics Scope` that a specific `MonitoredProject`
-    /// has been added to. The metrics scope representing the specified monitored
-    /// project will always be the first entry in the response.
+    /// Implements [crate::client::MetricsScopes::list_metrics_scopes_by_monitored_project].
     fn list_metrics_scopes_by_monitored_project(
         &self,
         _req: crate::model::ListMetricsScopesByMonitoredProjectRequest,
@@ -65,8 +65,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )
     }
 
-    /// Adds a `MonitoredProject` with the given project ID
-    /// to the specified `Metrics Scope`.
+    /// Implements [crate::client::MetricsScopes::create_monitored_project].
     fn create_monitored_project(
         &self,
         _req: crate::model::CreateMonitoredProjectRequest,
@@ -78,7 +77,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a `MonitoredProject` from the specified `Metrics Scope`.
+    /// Implements [crate::client::MetricsScopes::delete_monitored_project].
     fn delete_monitored_project(
         &self,
         _req: crate::model::DeleteMonitoredProjectRequest,
@@ -90,9 +89,7 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::MetricsScopes::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -105,14 +102,24 @@ pub trait MetricsScopes: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

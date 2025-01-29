@@ -17,31 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Workflows is used to deploy and execute workflow programs.
-/// Workflows makes sure the program executes reliably, despite hardware and
-/// networking interruptions.
+/// Defines the trait used to implement [crate::client::Workflows].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the workflows clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Workflows`.  In other use-cases, application developers only
+/// use `client::Workflows` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Workflows: std::fmt::Debug + Send + Sync {
-    /// Lists workflows in a given project and location.
-    /// The default order is not specified.
+    /// Implements [crate::client::Workflows::list_workflows].
     fn list_workflows(
         &self,
         _req: crate::model::ListWorkflowsRequest,
@@ -53,7 +53,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets details of a single workflow.
+    /// Implements [crate::client::Workflows::get_workflow].
     fn get_workflow(
         &self,
         _req: crate::model::GetWorkflowRequest,
@@ -64,9 +64,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new workflow. If a workflow with the specified name already
-    /// exists in the specified project and location, the long running operation
-    /// returns a [ALREADY_EXISTS][google.rpc.Code.ALREADY_EXISTS] error.
+    /// Implements [crate::client::Workflows::create_workflow].
     fn create_workflow(
         &self,
         _req: crate::model::CreateWorkflowRequest,
@@ -78,9 +76,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a workflow with the specified name.
-    /// This method also cancels and deletes all running executions of the
-    /// workflow.
+    /// Implements [crate::client::Workflows::delete_workflow].
     fn delete_workflow(
         &self,
         _req: crate::model::DeleteWorkflowRequest,
@@ -92,11 +88,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates an existing workflow.
-    /// Running this method has no impact on already running executions of the
-    /// workflow. A new revision of the workflow might be created as a result of a
-    /// successful update operation. In that case, the new revision is used
-    /// in new workflow executions.
+    /// Implements [crate::client::Workflows::update_workflow].
     fn update_workflow(
         &self,
         _req: crate::model::UpdateWorkflowRequest,
@@ -108,7 +100,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::Workflows::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -120,7 +112,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::Workflows::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,
@@ -131,9 +123,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Workflows::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -145,9 +135,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Workflows::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -159,9 +147,7 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Workflows::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -171,14 +157,24 @@ pub trait Workflows: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
