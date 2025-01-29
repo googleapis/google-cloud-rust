@@ -71,8 +71,8 @@ impl JwsClaims {
 pub struct JwsHeader<'a> {
     pub alg: &'a str,
     pub typ: &'a str,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub kid: Option<&'a str>,
+    #[serde(skip_serializing_if = "str::is_empty")]
+    pub kid: &'a str,
 }
 
 impl JwsHeader<'_> {
@@ -200,7 +200,7 @@ mod tests {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: Some("some_key_id"),
+            kid: "some_key_id",
         };
         let encoded = header.encode().unwrap();
         let decoded = String::from_utf8(
@@ -221,7 +221,7 @@ mod tests {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: None,
+            kid: "",
         };
         let encoded = header.encode().unwrap();
         let decoded = String::from_utf8(
