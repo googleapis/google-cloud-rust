@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `DatabaseAdmin`.
+/// A dyn-compatible, crate-private version of [super::DatabaseAdmin].
 #[async_trait::async_trait]
 pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
     async fn list_databases(

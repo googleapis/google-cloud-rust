@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `WebRiskService`.
+/// A dyn-compatible, crate-private version of [super::WebRiskService].
 #[async_trait::async_trait]
 pub trait WebRiskService: std::fmt::Debug + Send + Sync {
     async fn compute_threat_list_diff(

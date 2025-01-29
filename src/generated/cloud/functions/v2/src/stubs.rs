@@ -17,33 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Google Cloud Functions is used to deploy functions that are executed by
-/// Google in response to various events. Data connected with that event is
-/// passed to a function as the input data.
+/// Defines the trait used to implement [crate::client::FunctionService].
 ///
-/// A **function** is a resource which describes a function that should be
-/// executed and how it is triggered.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudfunctions clients.
+/// Application developers may need to implement this trait to mock
+/// `client::FunctionService`.  In other use-cases, application developers only
+/// use `client::FunctionService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait FunctionService: std::fmt::Debug + Send + Sync {
-    /// Returns a function with the given name from the requested project.
+    /// Implements [crate::client::FunctionService::get_function].
     fn get_function(
         &self,
         _req: crate::model::GetFunctionRequest,
@@ -54,7 +52,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns a list of functions that belong to the requested project.
+    /// Implements [crate::client::FunctionService::list_functions].
     fn list_functions(
         &self,
         _req: crate::model::ListFunctionsRequest,
@@ -66,9 +64,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new function. If a function with the given name already exists in
-    /// the specified project, the long running operation will return
-    /// `ALREADY_EXISTS` error.
+    /// Implements [crate::client::FunctionService::create_function].
     fn create_function(
         &self,
         _req: crate::model::CreateFunctionRequest,
@@ -80,7 +76,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates existing function.
+    /// Implements [crate::client::FunctionService::update_function].
     fn update_function(
         &self,
         _req: crate::model::UpdateFunctionRequest,
@@ -92,9 +88,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a function with the given name from the specified project. If the
-    /// given function is used by some trigger, the trigger will be updated to
-    /// remove this function.
+    /// Implements [crate::client::FunctionService::delete_function].
     fn delete_function(
         &self,
         _req: crate::model::DeleteFunctionRequest,
@@ -106,29 +100,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns a signed URL for uploading a function source code.
-    /// For more information about the signed URL usage see:
-    /// <https://cloud.google.com/storage/docs/access-control/signed-urls>.
-    /// Once the function source code upload is complete, the used signed
-    /// URL should be provided in CreateFunction or UpdateFunction request
-    /// as a reference to the function source code.
-    ///
-    /// When uploading source code to the generated signed URL, please follow
-    /// these restrictions:
-    ///
-    /// * Source file type should be a zip file.
-    /// * No credentials should be attached - the signed URLs provide access to the
-    ///   target bucket using internal service identity; if credentials were
-    ///   attached, the identity from the credentials would be used, but that
-    ///   identity does not have permissions to upload files to the URL.
-    ///
-    /// When making a HTTP PUT request, specify this header:
-    ///
-    /// * `content-type: application/zip`
-    ///
-    /// Do not specify this header:
-    ///
-    /// * `Authorization: Bearer YOUR_TOKEN`
+    /// Implements [crate::client::FunctionService::generate_upload_url].
     fn generate_upload_url(
         &self,
         _req: crate::model::GenerateUploadUrlRequest,
@@ -140,11 +112,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Returns a signed URL for downloading deployed function source code.
-    /// The URL is only valid for a limited period and should be used within
-    /// 30 minutes of generation.
-    /// For more information about the signed URL usage see:
-    /// <https://cloud.google.com/storage/docs/access-control/signed-urls>
+    /// Implements [crate::client::FunctionService::generate_download_url].
     fn generate_download_url(
         &self,
         _req: crate::model::GenerateDownloadUrlRequest,
@@ -156,7 +124,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Returns a list of runtimes that are supported for the requested project.
+    /// Implements [crate::client::FunctionService::list_runtimes].
     fn list_runtimes(
         &self,
         _req: crate::model::ListRuntimesRequest,
@@ -168,7 +136,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::FunctionService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -180,11 +148,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Sets the access control policy on the specified resource. Replaces
-    /// any existing policy.
-    ///
-    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
-    /// errors.
+    /// Implements [crate::client::FunctionService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -195,8 +159,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a resource. Returns an empty policy
-    /// if the resource exists and does not have a policy set.
+    /// Implements [crate::client::FunctionService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -207,13 +170,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified resource. If the
-    /// resource does not exist, this will return an empty set of
-    /// permissions, not a `NOT_FOUND` error.
-    ///
-    /// Note: This operation is designed to be used for building
-    /// permission-aware UIs and command-line tools, not for authorization
-    /// checking. This operation may "fail open" without warning.
+    /// Implements [crate::client::FunctionService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -225,9 +182,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::FunctionService::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -239,9 +194,7 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::FunctionService::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -254,14 +207,24 @@ pub trait FunctionService: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

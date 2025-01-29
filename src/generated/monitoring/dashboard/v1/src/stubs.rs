@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,23 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Manages Stackdriver dashboards. A dashboard is an arrangement of data display
-/// widgets in a specific layout.
+/// Defines the trait used to implement [crate::client::DashboardsService].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the monitoring clients.
+/// Application developers may need to implement this trait to mock
+/// `client::DashboardsService`.  In other use-cases, application developers only
+/// use `client::DashboardsService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait DashboardsService: std::fmt::Debug + Send + Sync {
-    /// Creates a new custom dashboard. For examples on how you can use this API to
-    /// create dashboards, see [Managing dashboards by
-    /// API](https://cloud.google.com/monitoring/dashboards/api-dashboard). This
-    /// method requires the `monitoring.dashboards.create` permission on the
-    /// specified project. For more information about permissions, see [Cloud
-    /// Identity and Access Management](https://cloud.google.com/iam).
+    /// Implements [crate::client::DashboardsService::create_dashboard].
     fn create_dashboard(
         &self,
         _req: crate::model::CreateDashboardRequest,
@@ -55,11 +51,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists the existing dashboards.
-    ///
-    /// This method requires the `monitoring.dashboards.list` permission
-    /// on the specified project. For more information, see
-    /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    /// Implements [crate::client::DashboardsService::list_dashboards].
     fn list_dashboards(
         &self,
         _req: crate::model::ListDashboardsRequest,
@@ -71,11 +63,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Fetches a specific dashboard.
-    ///
-    /// This method requires the `monitoring.dashboards.get` permission
-    /// on the specified dashboard. For more information, see
-    /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    /// Implements [crate::client::DashboardsService::get_dashboard].
     fn get_dashboard(
         &self,
         _req: crate::model::GetDashboardRequest,
@@ -86,11 +74,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes an existing custom dashboard.
-    ///
-    /// This method requires the `monitoring.dashboards.delete` permission
-    /// on the specified dashboard. For more information, see
-    /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    /// Implements [crate::client::DashboardsService::delete_dashboard].
     fn delete_dashboard(
         &self,
         _req: crate::model::DeleteDashboardRequest,
@@ -99,11 +83,7 @@ pub trait DashboardsService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Replaces an existing custom dashboard with a new definition.
-    ///
-    /// This method requires the `monitoring.dashboards.update` permission
-    /// on the specified dashboard. For more information, see
-    /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    /// Implements [crate::client::DashboardsService::update_dashboard].
     fn update_dashboard(
         &self,
         _req: crate::model::UpdateDashboardRequest,

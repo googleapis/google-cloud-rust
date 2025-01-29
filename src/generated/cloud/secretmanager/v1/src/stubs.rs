@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,28 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Secret Manager Service
+/// Defines the trait used to implement [crate::client::SecretManagerService].
 ///
-/// Manages secrets and operations using those secrets. Implements a REST
-/// model with the following objects:
-///
-/// * [Secret][google.cloud.secretmanager.v1.Secret]
-/// * [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-///
-/// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-/// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the secretmanager clients.
+/// Application developers may need to implement this trait to mock
+/// `client::SecretManagerService`.  In other use-cases, application developers only
+/// use `client::SecretManagerService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
-    /// Lists [Secrets][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// Implements [crate::client::SecretManagerService::list_secrets].
     fn list_secrets(
         &self,
         _req: crate::model::ListSecretsRequest,
@@ -61,11 +52,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new [Secret][google.cloud.secretmanager.v1.Secret] containing no
-    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::create_secret].
     fn create_secret(
         &self,
         _req: crate::model::CreateSecretRequest,
@@ -76,12 +63,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new [SecretVersion][google.cloud.secretmanager.v1.SecretVersion]
-    /// containing secret data and attaches it to an existing
-    /// [Secret][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::add_secret_version].
     fn add_secret_version(
         &self,
         _req: crate::model::AddSecretVersionRequest,
@@ -92,9 +74,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// Implements [crate::client::SecretManagerService::get_secret].
     fn get_secret(
         &self,
         _req: crate::model::GetSecretRequest,
@@ -105,10 +85,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates metadata of an existing
-    /// [Secret][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// Implements [crate::client::SecretManagerService::update_secret].
     fn update_secret(
         &self,
         _req: crate::model::UpdateSecretRequest,
@@ -119,9 +96,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    /// Implements [crate::client::SecretManagerService::delete_secret].
     fn delete_secret(
         &self,
         _req: crate::model::DeleteSecretRequest,
@@ -130,10 +105,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists [SecretVersions][google.cloud.secretmanager.v1.SecretVersion]. This
-    /// call does not return secret data.
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::list_secret_versions].
     fn list_secret_versions(
         &self,
         _req: crate::model::ListSecretVersionsRequest,
@@ -145,13 +117,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets metadata for a
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
-    /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::get_secret_version].
     fn get_secret_version(
         &self,
         _req: crate::model::GetSecretVersionRequest,
@@ -162,13 +128,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Accesses a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    /// This call returns the secret data.
-    ///
-    /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
-    /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::access_secret_version].
     fn access_secret_version(
         &self,
         _req: crate::model::AccessSecretVersionRequest,
@@ -180,15 +140,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Disables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
-    /// [DISABLED][google.cloud.secretmanager.v1.SecretVersion.State.DISABLED].
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::state::DISABLED
-    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    /// Implements [crate::client::SecretManagerService::disable_secret_version].
     fn disable_secret_version(
         &self,
         _req: crate::model::DisableSecretVersionRequest,
@@ -199,15 +151,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Enables a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
-    /// [ENABLED][google.cloud.secretmanager.v1.SecretVersion.State.ENABLED].
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
-    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    /// Implements [crate::client::SecretManagerService::enable_secret_version].
     fn enable_secret_version(
         &self,
         _req: crate::model::EnableSecretVersionRequest,
@@ -218,16 +162,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Destroys a [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
-    ///
-    /// Sets the [state][google.cloud.secretmanager.v1.SecretVersion.state] of the
-    /// [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] to
-    /// [DESTROYED][google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]
-    /// and irrevocably destroys the secret data.
-    ///
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-    /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::state::DESTROYED
-    /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    /// Implements [crate::client::SecretManagerService::destroy_secret_version].
     fn destroy_secret_version(
         &self,
         _req: crate::model::DestroySecretVersionRequest,
@@ -238,16 +173,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on the specified secret. Replaces any
-    /// existing policy.
-    ///
-    /// Permissions on
-    /// [SecretVersions][google.cloud.secretmanager.v1.SecretVersion] are enforced
-    /// according to the policy set on the associated
-    /// [Secret][google.cloud.secretmanager.v1.Secret].
-    ///
-    /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
-    /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    /// Implements [crate::client::SecretManagerService::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -258,8 +184,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a secret.
-    /// Returns empty policy if the secret exists and does not have a policy set.
+    /// Implements [crate::client::SecretManagerService::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -270,13 +195,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has for the specified secret.
-    /// If the secret does not exist, this call returns an empty set of
-    /// permissions, not a NOT_FOUND error.
-    ///
-    /// Note: This operation is designed to be used for building permission-aware
-    /// UIs and command-line tools, not for authorization checking. This operation
-    /// may "fail open" without warning.
+    /// Implements [crate::client::SecretManagerService::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -288,7 +207,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists information about the supported locations for this service.
+    /// Implements [crate::client::SecretManagerService::list_locations].
     fn list_locations(
         &self,
         _req: location::model::ListLocationsRequest,
@@ -300,7 +219,7 @@ pub trait SecretManagerService: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information about a location.
+    /// Implements [crate::client::SecretManagerService::get_location].
     fn get_location(
         &self,
         _req: location::model::GetLocationRequest,

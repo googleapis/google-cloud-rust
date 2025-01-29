@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `BigtableInstanceAdmin`.
+/// A dyn-compatible, crate-private version of [super::BigtableInstanceAdmin].
 #[async_trait::async_trait]
 pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     async fn create_instance(
@@ -423,7 +423,7 @@ impl<T: crate::stubs::BigtableInstanceAdmin> BigtableInstanceAdmin for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `BigtableTableAdmin`.
+/// A dyn-compatible, crate-private version of [super::BigtableTableAdmin].
 #[async_trait::async_trait]
 pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     async fn create_table(

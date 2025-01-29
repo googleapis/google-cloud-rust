@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `InstanceAdmin`.
+/// A dyn-compatible, crate-private version of [super::InstanceAdmin].
 #[async_trait::async_trait]
 pub trait InstanceAdmin: std::fmt::Debug + Send + Sync {
     async fn list_instance_configs(

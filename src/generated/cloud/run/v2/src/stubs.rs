@@ -17,28 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Cloud Run Build Control Plane API
+/// Defines the trait used to implement [crate::client::Builds].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Builds`.  In other use-cases, application developers only
+/// use `client::Builds` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Builds: std::fmt::Debug + Send + Sync {
-    /// Submits a build in a given project.
+    /// Implements [crate::client::Builds::submit_build].
     fn submit_build(
         &self,
         _req: crate::model::SubmitBuildRequest,
@@ -50,9 +53,7 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Builds::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -64,9 +65,7 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Builds::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -78,9 +77,7 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Builds::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -89,9 +86,7 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Builds::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -104,17 +99,19 @@ pub trait Builds: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Cloud Run Execution Control Plane API.
+/// Defines the trait used to implement [crate::client::Executions].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Executions`.  In other use-cases, application developers only
+/// use `client::Executions` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Executions: std::fmt::Debug + Send + Sync {
-    /// Gets information about an Execution.
+    /// Implements [crate::client::Executions::get_execution].
     fn get_execution(
         &self,
         _req: crate::model::GetExecutionRequest,
@@ -125,8 +122,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists Executions from a Job. Results are sorted by creation time,
-    /// descending.
+    /// Implements [crate::client::Executions::list_executions].
     fn list_executions(
         &self,
         _req: crate::model::ListExecutionsRequest,
@@ -138,7 +134,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Deletes an Execution.
+    /// Implements [crate::client::Executions::delete_execution].
     fn delete_execution(
         &self,
         _req: crate::model::DeleteExecutionRequest,
@@ -150,7 +146,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Cancels an Execution.
+    /// Implements [crate::client::Executions::cancel_execution].
     fn cancel_execution(
         &self,
         _req: crate::model::CancelExecutionRequest,
@@ -162,9 +158,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Executions::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -176,9 +170,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Executions::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -190,9 +182,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Executions::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -201,9 +191,7 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Executions::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -216,29 +204,41 @@ pub trait Executions: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Cloud Run Job Control Plane API.
+/// Defines the trait used to implement [crate::client::Jobs].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Jobs`.  In other use-cases, application developers only
+/// use `client::Jobs` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Jobs: std::fmt::Debug + Send + Sync {
-    /// Creates a Job.
+    /// Implements [crate::client::Jobs::create_job].
     fn create_job(
         &self,
         _req: crate::model::CreateJobRequest,
@@ -250,7 +250,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets information about a Job.
+    /// Implements [crate::client::Jobs::get_job].
     fn get_job(
         &self,
         _req: crate::model::GetJobRequest,
@@ -259,7 +259,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Job>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists Jobs. Results are sorted by creation time, descending.
+    /// Implements [crate::client::Jobs::list_jobs].
     fn list_jobs(
         &self,
         _req: crate::model::ListJobsRequest,
@@ -271,7 +271,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a Job.
+    /// Implements [crate::client::Jobs::update_job].
     fn update_job(
         &self,
         _req: crate::model::UpdateJobRequest,
@@ -283,7 +283,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a Job.
+    /// Implements [crate::client::Jobs::delete_job].
     fn delete_job(
         &self,
         _req: crate::model::DeleteJobRequest,
@@ -295,7 +295,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Triggers creation of a new Execution of this Job.
+    /// Implements [crate::client::Jobs::run_job].
     fn run_job(
         &self,
         _req: crate::model::RunJobRequest,
@@ -307,8 +307,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the IAM Access Control policy currently in effect for the given Job.
-    /// This result does not include any inherited policies.
+    /// Implements [crate::client::Jobs::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -319,8 +318,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the IAM Access control policy for the specified Job. Overwrites
-    /// any existing policy.
+    /// Implements [crate::client::Jobs::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -331,9 +329,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified Project.
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::Jobs::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -345,9 +341,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Jobs::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -359,9 +353,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Jobs::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -373,9 +365,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Jobs::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -384,9 +374,7 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Jobs::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -399,29 +387,41 @@ pub trait Jobs: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Cloud Run Revision Control Plane API.
+/// Defines the trait used to implement [crate::client::Revisions].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Revisions`.  In other use-cases, application developers only
+/// use `client::Revisions` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Revisions: std::fmt::Debug + Send + Sync {
-    /// Gets information about a Revision.
+    /// Implements [crate::client::Revisions::get_revision].
     fn get_revision(
         &self,
         _req: crate::model::GetRevisionRequest,
@@ -432,8 +432,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists Revisions from a given Service, or from a given location.  Results
-    /// are sorted by creation time, descending.
+    /// Implements [crate::client::Revisions::list_revisions].
     fn list_revisions(
         &self,
         _req: crate::model::ListRevisionsRequest,
@@ -445,7 +444,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a Revision.
+    /// Implements [crate::client::Revisions::delete_revision].
     fn delete_revision(
         &self,
         _req: crate::model::DeleteRevisionRequest,
@@ -457,9 +456,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Revisions::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -471,9 +468,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Revisions::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -485,9 +480,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Revisions::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -496,9 +489,7 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Revisions::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -511,29 +502,41 @@ pub trait Revisions: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Cloud Run Service Control Plane API
+/// Defines the trait used to implement [crate::client::Services].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Services`.  In other use-cases, application developers only
+/// use `client::Services` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Services: std::fmt::Debug + Send + Sync {
-    /// Creates a new Service in a given project and location.
+    /// Implements [crate::client::Services::create_service].
     fn create_service(
         &self,
         _req: crate::model::CreateServiceRequest,
@@ -545,7 +548,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets information about a Service.
+    /// Implements [crate::client::Services::get_service].
     fn get_service(
         &self,
         _req: crate::model::GetServiceRequest,
@@ -556,7 +559,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists Services. Results are sorted by creation time, descending.
+    /// Implements [crate::client::Services::list_services].
     fn list_services(
         &self,
         _req: crate::model::ListServicesRequest,
@@ -568,7 +571,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a Service.
+    /// Implements [crate::client::Services::update_service].
     fn update_service(
         &self,
         _req: crate::model::UpdateServiceRequest,
@@ -580,9 +583,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a Service.
-    /// This will cause the Service to stop serving traffic and will delete all
-    /// revisions.
+    /// Implements [crate::client::Services::delete_service].
     fn delete_service(
         &self,
         _req: crate::model::DeleteServiceRequest,
@@ -594,8 +595,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the IAM Access Control policy currently in effect for the given
-    /// Cloud Run Service. This result does not include any inherited policies.
+    /// Implements [crate::client::Services::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -606,8 +606,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the IAM Access control policy for the specified Service. Overwrites
-    /// any existing policy.
+    /// Implements [crate::client::Services::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -618,9 +617,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that a caller has on the specified Project.
-    ///
-    /// There are no permissions required for making this API call.
+    /// Implements [crate::client::Services::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -632,9 +629,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Services::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -646,9 +641,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Services::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -660,9 +653,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Services::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -671,9 +662,7 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Services::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,
@@ -686,29 +675,41 @@ pub trait Services: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Cloud Run Task Control Plane API.
+/// Defines the trait used to implement [crate::client::Tasks].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the run clients.
+/// Application developers may need to implement this trait to mock
+/// `client::Tasks`.  In other use-cases, application developers only
+/// use `client::Tasks` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait Tasks: std::fmt::Debug + Send + Sync {
-    /// Gets information about a Task.
+    /// Implements [crate::client::Tasks::get_task].
     fn get_task(
         &self,
         _req: crate::model::GetTaskRequest,
@@ -717,7 +718,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Task>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists Tasks from an Execution of a Job.
+    /// Implements [crate::client::Tasks::list_tasks].
     fn list_tasks(
         &self,
         _req: crate::model::ListTasksRequest,
@@ -729,9 +730,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Tasks::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -743,9 +742,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Tasks::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -757,9 +754,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Tasks::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -768,9 +763,7 @@ pub trait Tasks: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::Tasks::wait_operation].
     fn wait_operation(
         &self,
         _req: longrunning::model::WaitOperationRequest,

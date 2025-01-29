@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `Autokey`.
+/// A dyn-compatible, crate-private version of [super::Autokey].
 #[async_trait::async_trait]
 pub trait Autokey: std::fmt::Debug + Send + Sync {
     async fn create_key_handle(
@@ -183,7 +183,7 @@ impl<T: crate::stubs::Autokey> Autokey for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `AutokeyAdmin`.
+/// A dyn-compatible, crate-private version of [super::AutokeyAdmin].
 #[async_trait::async_trait]
 pub trait AutokeyAdmin: std::fmt::Debug + Send + Sync {
     async fn update_autokey_config(
@@ -326,7 +326,7 @@ impl<T: crate::stubs::AutokeyAdmin> AutokeyAdmin for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `EkmService`.
+/// A dyn-compatible, crate-private version of [super::EkmService].
 #[async_trait::async_trait]
 pub trait EkmService: std::fmt::Debug + Send + Sync {
     async fn list_ekm_connections(
@@ -529,7 +529,7 @@ impl<T: crate::stubs::EkmService> EkmService for T {
     }
 }
 
-/// A dyn-compatible, crate-private version of `KeyManagementService`.
+/// A dyn-compatible, crate-private version of [super::KeyManagementService].
 #[async_trait::async_trait]
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
     async fn list_key_rings(

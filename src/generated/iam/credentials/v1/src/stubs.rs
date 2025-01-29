@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,25 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// A service account is a special type of Google account that belongs to your
-/// application or a virtual machine (VM), instead of to an individual end user.
-/// Your application assumes the identity of the service account to call Google
-/// APIs, so that the users aren't directly involved.
+/// Defines the trait used to implement [crate::client::IAMCredentials].
 ///
-/// Service account credentials are used to temporarily assume the identity
-/// of the service account. Supported credential types include OAuth 2.0 access
-/// tokens, OpenID Connect ID tokens, self-signed JSON Web Tokens (JWTs), and
-/// more.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the iamcredentials clients.
+/// Application developers may need to implement this trait to mock
+/// `client::IAMCredentials`.  In other use-cases, application developers only
+/// use `client::IAMCredentials` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
-    /// Generates an OAuth 2.0 access token for a service account.
+    /// Implements [crate::client::IAMCredentials::generate_access_token].
     fn generate_access_token(
         &self,
         _req: crate::model::GenerateAccessTokenRequest,
@@ -58,7 +52,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Generates an OpenID Connect ID token for a service account.
+    /// Implements [crate::client::IAMCredentials::generate_id_token].
     fn generate_id_token(
         &self,
         _req: crate::model::GenerateIdTokenRequest,
@@ -70,7 +64,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Signs a blob using a service account's system-managed private key.
+    /// Implements [crate::client::IAMCredentials::sign_blob].
     fn sign_blob(
         &self,
         _req: crate::model::SignBlobRequest,
@@ -82,7 +76,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Signs a JWT using a service account's system-managed private key.
+    /// Implements [crate::client::IAMCredentials::sign_jwt].
     fn sign_jwt(
         &self,
         _req: crate::model::SignJwtRequest,

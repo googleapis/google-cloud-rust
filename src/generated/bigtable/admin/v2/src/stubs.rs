@@ -17,36 +17,31 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
+use std::sync::Arc;
 
 pub(crate) mod dynamic;
 
-/// Service for creating, configuring, and deleting Cloud Bigtable Instances and
-/// Clusters. Provides access to the Instance and Cluster schemas only, not the
-/// tables' metadata or data stored in those tables.
+/// Defines the trait used to implement [crate::client::BigtableInstanceAdmin].
 ///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the bigtableadmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::BigtableInstanceAdmin`.  In other use-cases, application developers only
+/// use `client::BigtableInstanceAdmin` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
-    /// Create an instance within a project.
-    ///
-    /// Note that exactly one of Cluster.serve_nodes and
-    /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
-    /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
-    /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
-    /// enabled.
+    /// Implements [crate::client::BigtableInstanceAdmin::create_instance].
     fn create_instance(
         &self,
         _req: crate::model::CreateInstanceRequest,
@@ -58,7 +53,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets information about an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
@@ -69,7 +64,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about instances in a project.
+    /// Implements [crate::client::BigtableInstanceAdmin::list_instances].
     fn list_instances(
         &self,
         _req: crate::model::ListInstancesRequest,
@@ -81,9 +76,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates an instance within a project. This method updates only the display
-    /// name and type for an Instance. To update other Instance properties, such as
-    /// labels, use PartialUpdateInstance.
+    /// Implements [crate::client::BigtableInstanceAdmin::update_instance].
     fn update_instance(
         &self,
         _req: crate::model::Instance,
@@ -94,8 +87,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Partially updates an instance within a project. This method can modify all
-    /// fields of an Instance and is the preferred way to update an Instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::partial_update_instance].
     fn partial_update_instance(
         &self,
         _req: crate::model::PartialUpdateInstanceRequest,
@@ -107,7 +99,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Delete an instance from a project.
+    /// Implements [crate::client::BigtableInstanceAdmin::delete_instance].
     fn delete_instance(
         &self,
         _req: crate::model::DeleteInstanceRequest,
@@ -116,13 +108,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a cluster within an instance.
-    ///
-    /// Note that exactly one of Cluster.serve_nodes and
-    /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
-    /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
-    /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
-    /// enabled.
+    /// Implements [crate::client::BigtableInstanceAdmin::create_cluster].
     fn create_cluster(
         &self,
         _req: crate::model::CreateClusterRequest,
@@ -134,7 +120,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets information about a cluster.
+    /// Implements [crate::client::BigtableInstanceAdmin::get_cluster].
     fn get_cluster(
         &self,
         _req: crate::model::GetClusterRequest,
@@ -145,7 +131,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about clusters in an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::list_clusters].
     fn list_clusters(
         &self,
         _req: crate::model::ListClustersRequest,
@@ -157,11 +143,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a cluster within an instance.
-    ///
-    /// Note that UpdateCluster does not support updating
-    /// cluster_config.cluster_autoscaling_config. In order to update it, you
-    /// must use PartialUpdateCluster.
+    /// Implements [crate::client::BigtableInstanceAdmin::update_cluster].
     fn update_cluster(
         &self,
         _req: crate::model::Cluster,
@@ -173,18 +155,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Partially updates a cluster within a project. This method is the preferred
-    /// way to update a Cluster.
-    ///
-    /// To enable and update autoscaling, set
-    /// cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
-    /// serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
-    /// are ignored. Note that an update cannot simultaneously set serve_nodes to
-    /// non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
-    /// also specify both in the update_mask.
-    ///
-    /// To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
-    /// and explicitly set a serve_node count via the update_mask.
+    /// Implements [crate::client::BigtableInstanceAdmin::partial_update_cluster].
     fn partial_update_cluster(
         &self,
         _req: crate::model::PartialUpdateClusterRequest,
@@ -196,7 +167,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a cluster from an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::delete_cluster].
     fn delete_cluster(
         &self,
         _req: crate::model::DeleteClusterRequest,
@@ -205,7 +176,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates an app profile within an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::create_app_profile].
     fn create_app_profile(
         &self,
         _req: crate::model::CreateAppProfileRequest,
@@ -216,7 +187,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets information about an app profile.
+    /// Implements [crate::client::BigtableInstanceAdmin::get_app_profile].
     fn get_app_profile(
         &self,
         _req: crate::model::GetAppProfileRequest,
@@ -227,7 +198,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists information about app profiles in an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::list_app_profiles].
     fn list_app_profiles(
         &self,
         _req: crate::model::ListAppProfilesRequest,
@@ -239,7 +210,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Updates an app profile within an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::update_app_profile].
     fn update_app_profile(
         &self,
         _req: crate::model::UpdateAppProfileRequest,
@@ -251,7 +222,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes an app profile from an instance.
+    /// Implements [crate::client::BigtableInstanceAdmin::delete_app_profile].
     fn delete_app_profile(
         &self,
         _req: crate::model::DeleteAppProfileRequest,
@@ -260,8 +231,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Gets the access control policy for an instance resource. Returns an empty
-    /// policy if an instance exists but does not have a policy set.
+    /// Implements [crate::client::BigtableInstanceAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -272,8 +242,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on an instance resource. Replaces any
-    /// existing policy.
+    /// Implements [crate::client::BigtableInstanceAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -284,7 +253,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that the caller has on the specified instance resource.
+    /// Implements [crate::client::BigtableInstanceAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -296,8 +265,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Lists hot tablets in a cluster, within the time range provided. Hot
-    /// tablets are ordered based on CPU usage.
+    /// Implements [crate::client::BigtableInstanceAdmin::list_hot_tablets].
     fn list_hot_tablets(
         &self,
         _req: crate::model::ListHotTabletsRequest,
@@ -309,9 +277,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableInstanceAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -323,9 +289,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableInstanceAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -337,9 +301,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableInstanceAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -348,9 +310,7 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableInstanceAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -360,34 +320,41 @@ pub trait BigtableInstanceAdmin: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }
 
-/// Service for creating, configuring, and deleting Cloud Bigtable tables.
+/// Defines the trait used to implement [crate::client::BigtableTableAdmin].
 ///
-/// Provides access to the table schemas only, not the data stored within
-/// the tables.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the bigtableadmin clients.
+/// Application developers may need to implement this trait to mock
+/// `client::BigtableTableAdmin`.  In other use-cases, application developers only
+/// use `client::BigtableTableAdmin` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
-    /// Creates a new table in the specified instance.
-    /// The table can be created with a full set of initial column families,
-    /// specified in the request.
+    /// Implements [crate::client::BigtableTableAdmin::create_table].
     fn create_table(
         &self,
         _req: crate::model::CreateTableRequest,
@@ -396,14 +363,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new table from the specified snapshot. The target table must
-    /// not exist. The snapshot and the table must be in the same instance.
-    ///
-    /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
-    /// feature is not currently available to most Cloud Bigtable customers. This
-    /// feature might be changed in backward-incompatible ways and is not
-    /// recommended for production use. It is not subject to any SLA or deprecation
-    /// policy.
+    /// Implements [crate::client::BigtableTableAdmin::create_table_from_snapshot].
     fn create_table_from_snapshot(
         &self,
         _req: crate::model::CreateTableFromSnapshotRequest,
@@ -415,7 +375,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists all tables served from a specified instance.
+    /// Implements [crate::client::BigtableTableAdmin::list_tables].
     fn list_tables(
         &self,
         _req: crate::model::ListTablesRequest,
@@ -427,7 +387,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets metadata information about the specified table.
+    /// Implements [crate::client::BigtableTableAdmin::get_table].
     fn get_table(
         &self,
         _req: crate::model::GetTableRequest,
@@ -436,7 +396,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Updates a specified table.
+    /// Implements [crate::client::BigtableTableAdmin::update_table].
     fn update_table(
         &self,
         _req: crate::model::UpdateTableRequest,
@@ -448,7 +408,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Permanently deletes a specified table and all of its data.
+    /// Implements [crate::client::BigtableTableAdmin::delete_table].
     fn delete_table(
         &self,
         _req: crate::model::DeleteTableRequest,
@@ -457,7 +417,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Restores a specified table which was accidentally deleted.
+    /// Implements [crate::client::BigtableTableAdmin::undelete_table].
     fn undelete_table(
         &self,
         _req: crate::model::UndeleteTableRequest,
@@ -469,7 +429,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Creates a new AuthorizedView in a table.
+    /// Implements [crate::client::BigtableTableAdmin::create_authorized_view].
     fn create_authorized_view(
         &self,
         _req: crate::model::CreateAuthorizedViewRequest,
@@ -481,7 +441,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists all AuthorizedViews from a specific table.
+    /// Implements [crate::client::BigtableTableAdmin::list_authorized_views].
     fn list_authorized_views(
         &self,
         _req: crate::model::ListAuthorizedViewsRequest,
@@ -493,7 +453,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Gets information from a specified AuthorizedView.
+    /// Implements [crate::client::BigtableTableAdmin::get_authorized_view].
     fn get_authorized_view(
         &self,
         _req: crate::model::GetAuthorizedViewRequest,
@@ -504,7 +464,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates an AuthorizedView in a table.
+    /// Implements [crate::client::BigtableTableAdmin::update_authorized_view].
     fn update_authorized_view(
         &self,
         _req: crate::model::UpdateAuthorizedViewRequest,
@@ -516,7 +476,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Permanently deletes a specified AuthorizedView.
+    /// Implements [crate::client::BigtableTableAdmin::delete_authorized_view].
     fn delete_authorized_view(
         &self,
         _req: crate::model::DeleteAuthorizedViewRequest,
@@ -525,10 +485,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Performs a series of column family modifications on the specified table.
-    /// Either all or none of the modifications will occur before this method
-    /// returns, but data requests received prior to that point may see a table
-    /// where only some modifications have taken effect.
+    /// Implements [crate::client::BigtableTableAdmin::modify_column_families].
     fn modify_column_families(
         &self,
         _req: crate::model::ModifyColumnFamiliesRequest,
@@ -537,9 +494,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<crate::model::Table>>(Err(Error::other("unimplemented")))
     }
 
-    /// Permanently drop/delete a row range from a specified table. The request can
-    /// specify whether to delete all rows in a table, or only those that match a
-    /// particular prefix.
+    /// Implements [crate::client::BigtableTableAdmin::drop_row_range].
     fn drop_row_range(
         &self,
         _req: crate::model::DropRowRangeRequest,
@@ -548,10 +503,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Generates a consistency token for a Table, which can be used in
-    /// CheckConsistency to check whether mutations to the table that finished
-    /// before this call started have been replicated. The tokens will be available
-    /// for 90 days.
+    /// Implements [crate::client::BigtableTableAdmin::generate_consistency_token].
     fn generate_consistency_token(
         &self,
         _req: crate::model::GenerateConsistencyTokenRequest,
@@ -564,9 +516,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Checks replication consistency based on a consistency token, that is, if
-    /// replication has caught up based on the conditions specified in the token
-    /// and the check request.
+    /// Implements [crate::client::BigtableTableAdmin::check_consistency].
     fn check_consistency(
         &self,
         _req: crate::model::CheckConsistencyRequest,
@@ -578,14 +528,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Creates a new snapshot in the specified cluster from the specified
-    /// source table. The cluster and the table must be in the same instance.
-    ///
-    /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
-    /// feature is not currently available to most Cloud Bigtable customers. This
-    /// feature might be changed in backward-incompatible ways and is not
-    /// recommended for production use. It is not subject to any SLA or deprecation
-    /// policy.
+    /// Implements [crate::client::BigtableTableAdmin::snapshot_table].
     fn snapshot_table(
         &self,
         _req: crate::model::SnapshotTableRequest,
@@ -597,13 +540,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets metadata information about the specified snapshot.
-    ///
-    /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
-    /// feature is not currently available to most Cloud Bigtable customers. This
-    /// feature might be changed in backward-incompatible ways and is not
-    /// recommended for production use. It is not subject to any SLA or deprecation
-    /// policy.
+    /// Implements [crate::client::BigtableTableAdmin::get_snapshot].
     fn get_snapshot(
         &self,
         _req: crate::model::GetSnapshotRequest,
@@ -614,13 +551,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Lists all snapshots associated with the specified cluster.
-    ///
-    /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
-    /// feature is not currently available to most Cloud Bigtable customers. This
-    /// feature might be changed in backward-incompatible ways and is not
-    /// recommended for production use. It is not subject to any SLA or deprecation
-    /// policy.
+    /// Implements [crate::client::BigtableTableAdmin::list_snapshots].
     fn list_snapshots(
         &self,
         _req: crate::model::ListSnapshotsRequest,
@@ -632,13 +563,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Permanently deletes the specified snapshot.
-    ///
-    /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
-    /// feature is not currently available to most Cloud Bigtable customers. This
-    /// feature might be changed in backward-incompatible ways and is not
-    /// recommended for production use. It is not subject to any SLA or deprecation
-    /// policy.
+    /// Implements [crate::client::BigtableTableAdmin::delete_snapshot].
     fn delete_snapshot(
         &self,
         _req: crate::model::DeleteSnapshotRequest,
@@ -647,20 +572,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Starts creating a new Cloud Bigtable Backup.  The returned backup
-    /// [long-running operation][google.longrunning.Operation] can be used to
-    /// track creation of the backup. The
-    /// [metadata][google.longrunning.Operation.metadata] field type is
-    /// [CreateBackupMetadata][google.bigtable.admin.v2.CreateBackupMetadata]. The
-    /// [response][google.longrunning.Operation.response] field type is
-    /// [Backup][google.bigtable.admin.v2.Backup], if successful. Cancelling the
-    /// returned operation will stop the creation and delete the backup.
-    ///
-    /// [google.bigtable.admin.v2.Backup]: crate::model::Backup
-    /// [google.bigtable.admin.v2.CreateBackupMetadata]: crate::model::CreateBackupMetadata
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// Implements [crate::client::BigtableTableAdmin::create_backup].
     fn create_backup(
         &self,
         _req: crate::model::CreateBackupRequest,
@@ -672,7 +584,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets metadata on a pending or completed Cloud Bigtable Backup.
+    /// Implements [crate::client::BigtableTableAdmin::get_backup].
     fn get_backup(
         &self,
         _req: crate::model::GetBackupRequest,
@@ -683,7 +595,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Updates a pending or completed Cloud Bigtable Backup.
+    /// Implements [crate::client::BigtableTableAdmin::update_backup].
     fn update_backup(
         &self,
         _req: crate::model::UpdateBackupRequest,
@@ -694,7 +606,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Deletes a pending or completed Cloud Bigtable backup.
+    /// Implements [crate::client::BigtableTableAdmin::delete_backup].
     fn delete_backup(
         &self,
         _req: crate::model::DeleteBackupRequest,
@@ -703,8 +615,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Lists Cloud Bigtable backups. Returns both completed and pending
-    /// backups.
+    /// Implements [crate::client::BigtableTableAdmin::list_backups].
     fn list_backups(
         &self,
         _req: crate::model::ListBackupsRequest,
@@ -716,19 +627,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Create a new table by restoring from a completed backup.  The
-    /// returned table [long-running operation][google.longrunning.Operation] can
-    /// be used to track the progress of the operation, and to cancel it.  The
-    /// [metadata][google.longrunning.Operation.metadata] field type is
-    /// [RestoreTableMetadata][google.bigtable.admin.v2.RestoreTableMetadata].  The
-    /// [response][google.longrunning.Operation.response] type is
-    /// [Table][google.bigtable.admin.v2.Table], if successful.
-    ///
-    /// [google.bigtable.admin.v2.RestoreTableMetadata]: crate::model::RestoreTableMetadata
-    /// [google.bigtable.admin.v2.Table]: crate::model::Table
-    /// [google.longrunning.Operation]: longrunning::model::Operation
-    /// [google.longrunning.Operation.metadata]: longrunning::model::Operation::metadata
-    /// [google.longrunning.Operation.response]: longrunning::model::Operation::result
+    /// Implements [crate::client::BigtableTableAdmin::restore_table].
     fn restore_table(
         &self,
         _req: crate::model::RestoreTableRequest,
@@ -740,8 +639,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Copy a Cloud Bigtable backup to a new backup in the destination cluster
-    /// located in the destination instance and project.
+    /// Implements [crate::client::BigtableTableAdmin::copy_backup].
     fn copy_backup(
         &self,
         _req: crate::model::CopyBackupRequest,
@@ -753,9 +651,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Gets the access control policy for a Table or Backup resource.
-    /// Returns an empty policy if the resource exists but does not have a policy
-    /// set.
+    /// Implements [crate::client::BigtableTableAdmin::get_iam_policy].
     fn get_iam_policy(
         &self,
         _req: iam_v1::model::GetIamPolicyRequest,
@@ -766,8 +662,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Sets the access control policy on a Table or Backup resource.
-    /// Replaces any existing policy.
+    /// Implements [crate::client::BigtableTableAdmin::set_iam_policy].
     fn set_iam_policy(
         &self,
         _req: iam_v1::model::SetIamPolicyRequest,
@@ -778,8 +673,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Returns permissions that the caller has on the specified Table or Backup
-    /// resource.
+    /// Implements [crate::client::BigtableTableAdmin::test_iam_permissions].
     fn test_iam_permissions(
         &self,
         _req: iam_v1::model::TestIamPermissionsRequest,
@@ -791,9 +685,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableTableAdmin::list_operations].
     fn list_operations(
         &self,
         _req: longrunning::model::ListOperationsRequest,
@@ -805,9 +697,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableTableAdmin::get_operation].
     fn get_operation(
         &self,
         _req: longrunning::model::GetOperationRequest,
@@ -819,9 +709,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         )))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableTableAdmin::delete_operation].
     fn delete_operation(
         &self,
         _req: longrunning::model::DeleteOperationRequest,
@@ -830,9 +718,7 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
-    ///
-    /// [google.longrunning.Operations]: longrunning::client::Operations
+    /// Implements [crate::client::BigtableTableAdmin::cancel_operation].
     fn cancel_operation(
         &self,
         _req: longrunning::model::CancelOperationRequest,
@@ -842,14 +728,24 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
     }
 
     /// Returns the polling policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_policy::PollingPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_policy::PollingPolicy> {
+        Arc::new(gax::polling_policy::Aip194Strict)
+    }
 
     /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
     fn get_polling_backoff_policy(
         &self,
-        options: &gax::options::RequestOptions,
-    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+        _options: &gax::options::RequestOptions,
+    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
 }

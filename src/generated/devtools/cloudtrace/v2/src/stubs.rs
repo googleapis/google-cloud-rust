@@ -17,10 +17,10 @@
 //! Traits to mock the clients in this library.
 //!
 //! Application developers may need to mock the clients in this library to test
-//! how their application responds. Such applications should define mocks that
-//! implement one of the traits defined in this module, initialize the client
-//! with an instance of this mock in their tests, and verify their application
-//! responds as expected.
+//! how their application works with different (and sometimes hard to trigger)
+//! client and service behavior. Such test can define mocks implementing the
+//! trait(s) defined in this module, initialize the client with an instance of
+//! this mock in their tests, and verify their application responds as expected.
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
@@ -28,24 +28,19 @@ use gax::error::Error;
 
 pub(crate) mod dynamic;
 
-/// Service for collecting and viewing traces and spans within a trace.
+/// Defines the trait used to implement [crate::client::TraceService].
 ///
-/// A trace is a collection of spans corresponding to a single
-/// operation or a set of operations in an application.
-///
-/// A span is an individual timed event which forms a node of the trace tree.
-/// A single trace can contain spans from multiple services.
-///
-/// # Mocking
-///
-/// Application developers may use this trait to mock the cloudtrace clients.
+/// Application developers may need to implement this trait to mock
+/// `client::TraceService`.  In other use-cases, application developers only
+/// use `client::TraceService` and need not be concerned with this trait or
+/// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
-/// implementation for each method. These implementations return an error.
+/// implementation of each method. Most of these implementations just return an
+/// error.
 pub trait TraceService: std::fmt::Debug + Send + Sync {
-    /// Batch writes new spans to new or existing traces. You cannot update
-    /// existing spans.
+    /// Implements [crate::client::TraceService::batch_write_spans].
     fn batch_write_spans(
         &self,
         _req: crate::model::BatchWriteSpansRequest,
@@ -54,7 +49,7 @@ pub trait TraceService: std::fmt::Debug + Send + Sync {
         std::future::ready::<crate::Result<wkt::Empty>>(Err(Error::other("unimplemented")))
     }
 
-    /// Creates a new span.
+    /// Implements [crate::client::TraceService::create_span].
     fn create_span(
         &self,
         _req: crate::model::Span,

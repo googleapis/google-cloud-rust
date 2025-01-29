@@ -16,7 +16,7 @@
 
 use std::sync::Arc;
 
-/// A dyn-compatible, crate-private version of `Policies`.
+/// A dyn-compatible, crate-private version of [super::Policies].
 #[async_trait::async_trait]
 pub trait Policies: std::fmt::Debug + Send + Sync {
     async fn list_policies(
