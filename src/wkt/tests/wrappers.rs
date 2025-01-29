@@ -36,6 +36,26 @@ pub struct Helper {
     pub field_bytes: Option<wkt::BytesValue>,
 }
 
+#[serde_with::serde_as]
+#[serde_with::skip_serializing_none]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Repeated {
+    pub field_double: Vec<wkt::DoubleValue>,
+    pub field_float: Vec<wkt::FloatValue>,
+    #[serde_as(as = "Vec<serde_with::DisplayFromStr>")]
+    pub field_int64: Vec<wkt::Int64Value>,
+    #[serde_as(as = "Vec<serde_with::DisplayFromStr>")]
+    pub field_uint64: Vec<wkt::UInt64Value>,
+    pub field_int32: Vec<wkt::Int32Value>,
+    pub field_uint32: Vec<wkt::UInt32Value>,
+    pub field_bool: Vec<wkt::BoolValue>,
+    pub field_string: Vec<wkt::StringValue>,
+    #[serde_as(as = "Vec<serde_with::base64::Base64>")]
+    pub field_bytes: Vec<wkt::BytesValue>,
+}
+
 #[test]
 fn serialize_in_struct() -> Result {
     let input = Helper {
@@ -54,18 +74,52 @@ fn serialize_in_struct() -> Result {
     let json = serde_json::to_value(&input)?;
     let want = json!({
         "fieldDouble": 42_f64,
-        "fieldFloat": 42_f32,
-        "fieldInt64": "42",
+        "fieldFloat":  42_f32,
+        "fieldInt64":  "42",
         "fieldUint64": "42",
-        "fieldInt32": 42,
+        "fieldInt32":  42,
         "fieldUint32": 42,
-        "fieldBool": true,
+        "fieldBool":   true,
         "fieldString": "zebras are more fun than foxes",
-        "fieldBytes": "YnV0IHplYnJhcyBhcmUgdmV4aW5n",
+        "fieldBytes":  "YnV0IHplYnJhcyBhcmUgdmV4aW5n",
     });
     assert_eq!(json, want);
 
     let roundtrip = serde_json::from_value::<Helper>(json)?;
+    assert_eq!(input, roundtrip);
+    Ok(())
+}
+
+#[test]
+fn serialize_in_repeated() -> Result {
+    let input = Repeated {
+        field_double: vec![42.0_f64],
+        field_float: vec![42.0_f32],
+        field_int64: vec![42_i64],
+        field_uint64: vec![42_u64],
+        field_int32: vec![42_i32],
+        field_uint32: vec![42_u32],
+        field_bool: vec![true],
+        field_string: vec!["zebras are more fun than foxes".to_string()],
+        field_bytes: vec![bytes::Bytes::from_static(
+            "but zebras are vexing".as_bytes(),
+        )],
+    };
+    let json = serde_json::to_value(&input)?;
+    let want = json!({
+        "fieldDouble":  [42_f64],
+        "fieldFloat":   [42_f32],
+        "fieldInt64":   ["42"],
+        "fieldUint64":  ["42"],
+        "fieldInt32":   [42],
+        "fieldUint32":  [42],
+        "fieldBool":    [true],
+        "fieldString":  ["zebras are more fun than foxes"],
+        "fieldBytes":   ["YnV0IHplYnJhcyBhcmUgdmV4aW5n"],
+    });
+    assert_eq!(json, want);
+
+    let roundtrip = serde_json::from_value::<Repeated>(json)?;
     assert_eq!(input, roundtrip);
     Ok(())
 }
