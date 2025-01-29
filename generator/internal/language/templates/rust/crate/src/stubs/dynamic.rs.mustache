@@ -47,9 +47,9 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{/HasLROs}}
 }
 
-/// All implementations of [crate::traits::{{NameToPascal}}] also implement [{{NameToPascal}}].
+/// All implementations of [crate::stubs::{{NameToPascal}}] also implement [{{NameToPascal}}].
 #[async_trait::async_trait]
-impl<T: crate::traits::{{NameToPascal}}> {{NameToPascal}} for T {
+impl<T: crate::stubs::{{NameToPascal}}> {{NameToPascal}} for T {
     {{#Methods}}
     /// Forwards the call to the implementation provided by `T`.
     async fn {{NameToSnake}}(

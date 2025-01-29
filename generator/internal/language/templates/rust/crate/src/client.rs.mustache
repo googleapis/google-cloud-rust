@@ -26,7 +26,7 @@ use std::sync::Arc;
 {{/HasServices}}
 {{#Services}}
 
-/// An implementation of [crate::traits::{{NameToPascal}}] to make requests with.
+/// An implementation of [crate::stubs::{{NameToPascal}}] to make requests with.
 ///
 /// `{{NameToPascal}}` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -41,7 +41,7 @@ use std::sync::Arc;
 {{/DocLines}}
 #[derive(Clone, Debug)]
 pub struct {{NameToPascal}} {
-    inner: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
+    inner: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>,
 }
 
 impl {{NameToPascal}} {
@@ -61,22 +61,22 @@ impl {{NameToPascal}} {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::{{NameToPascal}} + 'static {
+    where T: crate::stubs::{{NameToPascal}} + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::{{NameToPascal}}> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{NameToPascal}}> {
         crate::transport::{{NameToPascal}}::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::{{NameToPascal}}> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{NameToPascal}}> {
         Self::build_transport(conf).await.map(crate::tracing::{{NameToPascal}}::new)
     }
 

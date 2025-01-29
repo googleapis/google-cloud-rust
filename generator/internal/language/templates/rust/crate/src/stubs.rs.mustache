@@ -18,12 +18,21 @@ limitations under the License.
 //{{{.}}}
 {{/BoilerPlate}}
 {{#HasServices}}
+
+//! Traits to mock the clients in this library.
+//!
+//! Application developers may need to mock the clients in this library to test
+//! how their application responds. Such applications should define mocks that
+//! implement one of the traits defined in this module, initialize the client
+//! with an instance of this mock in their tests, and verify their application
+//! responds as expected.
+
 {{! TODO(#742) - remove this workaround once the bug is fixed }}
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use gax::error::Error;
 
-pub(crate) mod dyntraits;
+pub(crate) mod dynamic;
 
 {{/HasServices}}
 {{#Services}}

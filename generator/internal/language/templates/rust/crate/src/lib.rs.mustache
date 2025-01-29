@@ -39,12 +39,11 @@ pub mod model;
 {{#HasServices}}
 pub(crate) use gax::Result;
 
-/// The traits implemented by this client library.
 {{! Google APIs often use angle brackets for <PLACEHOLDERS>, rustdoc does not like those. }}
 #[allow(rustdoc::invalid_html_tags)]
 {{! We use explicit links because it is easier to generate the code with them. }}
 #[allow(rustdoc::redundant_explicit_links)]
-pub mod traits;
+pub mod stubs;
 
 /// Concrete implementations of this client library traits.
 pub mod client;

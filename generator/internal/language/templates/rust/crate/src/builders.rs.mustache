@@ -26,14 +26,14 @@ pub mod {{NameToSnake}} {
     /// Common implementation for [crate::client::{{NameToPascal}}] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>,
+        stub: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{NameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -48,7 +48,7 @@ pub mod {{NameToSnake}} {
     pub struct {{NameToPascal}}(RequestBuilder<{{InputTypeName}}>);
 
     impl {{NameToPascal}} {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::{{ServiceNameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{ServiceNameToPascal}}>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
