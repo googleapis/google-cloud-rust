@@ -21,35 +21,12 @@ import (
 )
 
 func GenerateClient(model *api.API, language, outdir string, options map[string]string) error {
-	var (
-		data           any
-		provider       templateProvider
-		generatedFiles []GeneratedFile
-	)
 	switch language {
 	case "rust":
-		codec, err := newRustCodec(options)
-		if err != nil {
-			return err
-		}
-		data, err = newRustTemplateData(model, codec, outdir)
-		if err != nil {
-			return err
-		}
-		provider = rustTemplatesProvider()
-		hasServices := len(model.State.ServiceByID) > 0
-		generatedFiles = rustGeneratedFiles(codec.generateModule, hasServices)
+		return RustGenerate(model, outdir, options)
 	case "go":
-		var err error
-		data, err = newGoTemplateData(model, options)
-		if err != nil {
-			return err
-		}
-		provider = goTemplatesProvider()
-		generatedFiles = walkTemplatesDir(goTemplates, "templates/go")
+		return GolangGenerate(model, outdir, options)
 	default:
 		return fmt.Errorf("unknown language: %s", language)
 	}
-
-	return GenerateFromRoot(outdir, data, provider, generatedFiles)
 }

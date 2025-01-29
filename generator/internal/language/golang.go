@@ -33,6 +33,16 @@ type goImport struct {
 	name string
 }
 
+func GolangGenerate(model *api.API, outdir string, options map[string]string) error {
+	data, err := newGoTemplateData(model, options)
+	if err != nil {
+		return err
+	}
+	provider := goTemplatesProvider()
+	generatedFiles := walkTemplatesDir(goTemplates, "templates/go")
+	return GenerateFromRoot(outdir, data, provider, generatedFiles)
+}
+
 func goLoadWellKnownTypes(s *api.APIState) {
 	timestamp := &api.Message{
 		ID:      ".google.protobuf.Timestamp",

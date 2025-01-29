@@ -55,6 +55,21 @@ var commentUrlRegex = regexp.MustCompile(
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
 
+func RustGenerate(model *api.API, outdir string, options map[string]string) error {
+	codec, err := newRustCodec(options)
+	if err != nil {
+		return err
+	}
+	data, err := newRustTemplateData(model, codec, outdir)
+	if err != nil {
+		return err
+	}
+	provider := rustTemplatesProvider()
+	hasServices := len(model.State.ServiceByID) > 0
+	generatedFiles := rustGeneratedFiles(codec.generateModule, hasServices)
+	return GenerateFromRoot(outdir, data, provider, generatedFiles)
+}
+
 func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
 	codec := &rustCodec{
