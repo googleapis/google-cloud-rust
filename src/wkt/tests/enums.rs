@@ -17,6 +17,6 @@ use gcp_sdk_wkt::Syntax;
 #[test]
 fn string_to_constant() {
     let syntax_string = String::from("SYNTAX_PROTO2");
-    let syntax_constant= Syntax::from(syntax_string);
+    let syntax_constant = Syntax::from(syntax_string);
     assert_eq!(gcp_sdk_wkt::syntax::SYNTAX_PROTO2, syntax_constant)
 }
