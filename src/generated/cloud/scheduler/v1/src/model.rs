@@ -792,6 +792,12 @@ pub mod job {
         pub const UPDATE_FAILED: State = State::new("UPDATE_FAILED");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Required.
     ///
     /// Delivery settings containing destination and parameters.
@@ -1669,4 +1675,10 @@ pub mod http_method {
 
     /// HTTP OPTIONS
     pub const OPTIONS: HttpMethod = HttpMethod::new("OPTIONS");
+}
+
+impl std::convert::From<std::string::String> for HttpMethod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

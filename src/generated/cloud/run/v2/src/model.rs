@@ -696,6 +696,12 @@ pub mod condition {
         pub const CONDITION_SUCCEEDED: State = State::new("CONDITION_SUCCEEDED");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Represents the severity of the condition failures.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
@@ -727,6 +733,12 @@ pub mod condition {
 
         /// Info severity.
         pub const INFO: Severity = Severity::new("INFO");
+    }
+
+    impl std::convert::From<std::string::String> for Severity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Reasons common to all types of conditions.
@@ -803,6 +815,12 @@ pub mod condition {
         pub const INTERNAL: CommonReason = CommonReason::new("INTERNAL");
     }
 
+    impl std::convert::From<std::string::String> for CommonReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Reasons specific to Revision resource.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct RevisionReason(std::borrow::Cow<'static, str>);
@@ -877,6 +895,12 @@ pub mod condition {
             RevisionReason::new("MIN_INSTANCES_WARMING");
     }
 
+    impl std::convert::From<std::string::String> for RevisionReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Reasons specific to Execution resource.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct ExecutionReason(std::borrow::Cow<'static, str>);
@@ -917,6 +941,12 @@ pub mod condition {
 
         /// The execution was deleted.
         pub const DELETED: ExecutionReason = ExecutionReason::new("DELETED");
+    }
+
+    impl std::convert::From<std::string::String> for ExecutionReason {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The reason for this condition. Depending on the condition type,
@@ -2684,6 +2714,12 @@ pub mod execution_reference {
         pub const EXECUTION_CANCELLED: CompletionStatus =
             CompletionStatus::new("EXECUTION_CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for CompletionStatus {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// A single application container.
@@ -3632,6 +3668,12 @@ pub mod empty_dir_volume_source {
 
         /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
         pub const MEMORY: Medium = Medium::new("MEMORY");
+    }
+
+    impl std::convert::From<std::string::String> for Medium {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6841,6 +6883,12 @@ pub mod vpc_access {
         /// Only private IP ranges are routed through the VPC connector.
         pub const PRIVATE_RANGES_ONLY: VpcEgress = VpcEgress::new("PRIVATE_RANGES_ONLY");
     }
+
+    impl std::convert::From<std::string::String> for VpcEgress {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Settings for Binary Authorization feature.
@@ -7111,6 +7159,12 @@ pub mod service_scaling {
         /// Scale to exactly min instances and ignore max instances.
         pub const MANUAL: ScalingMode = ScalingMode::new("MANUAL");
     }
+
+    impl std::convert::From<std::string::String> for ScalingMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Hardware constraints configuration.
@@ -7171,6 +7225,12 @@ pub mod traffic_target_allocation_type {
         TrafficTargetAllocationType::new("TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION");
 }
 
+impl std::convert::From<std::string::String> for TrafficTargetAllocationType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Allowed ingress traffic for the Container.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct IngressTraffic(std::borrow::Cow<'static, str>);
@@ -7210,6 +7270,12 @@ pub mod ingress_traffic {
     pub const INGRESS_TRAFFIC_NONE: IngressTraffic = IngressTraffic::new("INGRESS_TRAFFIC_NONE");
 }
 
+impl std::convert::From<std::string::String> for IngressTraffic {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Alternatives for execution environments.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExecutionEnvironment(std::borrow::Cow<'static, str>);
@@ -7243,6 +7309,12 @@ pub mod execution_environment {
         ExecutionEnvironment::new("EXECUTION_ENVIRONMENT_GEN2");
 }
 
+impl std::convert::From<std::string::String> for ExecutionEnvironment {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Specifies behavior if an encryption key used by a resource is revoked.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct EncryptionKeyRevocationAction(std::borrow::Cow<'static, str>);
@@ -7274,4 +7346,10 @@ pub mod encryption_key_revocation_action {
     /// Shuts down existing instances, and prevents creation of new ones.
     pub const SHUTDOWN: EncryptionKeyRevocationAction =
         EncryptionKeyRevocationAction::new("SHUTDOWN");
+}
+
+impl std::convert::From<std::string::String> for EncryptionKeyRevocationAction {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

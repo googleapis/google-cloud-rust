@@ -731,6 +731,12 @@ pub mod list_service_account_keys_request {
         /// System-managed keys (managed and rotated by Google).
         pub const SYSTEM_MANAGED: KeyType = KeyType::new("SYSTEM_MANAGED");
     }
+
+    impl std::convert::From<std::string::String> for KeyType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The service account keys list response.
@@ -1512,6 +1518,12 @@ pub mod role {
         /// The user has indicated this role is currently in an EAP phase.
         pub const EAP: RoleLaunchStage = RoleLaunchStage::new("EAP");
     }
+
+    impl std::convert::From<std::string::String> for RoleLaunchStage {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The grantable role query request.
@@ -2245,6 +2257,12 @@ pub mod permission {
         pub const DEPRECATED: PermissionLaunchStage = PermissionLaunchStage::new("DEPRECATED");
     }
 
+    impl std::convert::From<std::string::String> for PermissionLaunchStage {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The state of the permission with regards to custom roles.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CustomRolesSupportLevel(std::borrow::Cow<'static, str>);
@@ -2274,6 +2292,12 @@ pub mod permission {
         /// Permission is not supported for custom role use.
         pub const NOT_SUPPORTED: CustomRolesSupportLevel =
             CustomRolesSupportLevel::new("NOT_SUPPORTED");
+    }
+
+    impl std::convert::From<std::string::String> for CustomRolesSupportLevel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2699,6 +2723,12 @@ pub mod lint_result {
         pub const CONDITION: Level = Level::new("CONDITION");
     }
 
+    impl std::convert::From<std::string::String> for Level {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Possible Severity values of an issued result.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Severity(std::borrow::Cow<'static, str>);
@@ -2751,6 +2781,12 @@ pub mod lint_result {
 
         /// Deprecated severity level.
         pub const DEPRECATED: Severity = Severity::new("DEPRECATED");
+    }
+
+    impl std::convert::From<std::string::String> for Severity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2818,6 +2854,12 @@ pub mod service_account_key_algorithm {
         ServiceAccountKeyAlgorithm::new("KEY_ALG_RSA_2048");
 }
 
+impl std::convert::From<std::string::String> for ServiceAccountKeyAlgorithm {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Supported private key output formats.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountPrivateKeyType(std::borrow::Cow<'static, str>);
@@ -2853,6 +2895,12 @@ pub mod service_account_private_key_type {
         ServiceAccountPrivateKeyType::new("TYPE_GOOGLE_CREDENTIALS_FILE");
 }
 
+impl std::convert::From<std::string::String> for ServiceAccountPrivateKeyType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Supported public key output formats.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ServiceAccountPublicKeyType(std::borrow::Cow<'static, str>);
@@ -2884,6 +2932,12 @@ pub mod service_account_public_key_type {
     /// Raw public key.
     pub const TYPE_RAW_PUBLIC_KEY: ServiceAccountPublicKeyType =
         ServiceAccountPublicKeyType::new("TYPE_RAW_PUBLIC_KEY");
+}
+
+impl std::convert::From<std::string::String> for ServiceAccountPublicKeyType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Service Account Key Origin.
@@ -2919,6 +2973,12 @@ pub mod service_account_key_origin {
         ServiceAccountKeyOrigin::new("GOOGLE_PROVIDED");
 }
 
+impl std::convert::From<std::string::String> for ServiceAccountKeyOrigin {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// A view for Role objects.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RoleView(std::borrow::Cow<'static, str>);
@@ -2945,4 +3005,10 @@ pub mod role_view {
 
     /// Returns all fields.
     pub const FULL: RoleView = RoleView::new("FULL");
+}
+
+impl std::convert::From<std::string::String> for RoleView {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

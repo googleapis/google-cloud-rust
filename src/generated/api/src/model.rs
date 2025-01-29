@@ -909,6 +909,12 @@ pub mod backend_rule {
             PathTranslation::new("APPEND_PATH_TO_ADDRESS");
     }
 
+    impl std::convert::From<std::string::String> for PathTranslation {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Authentication settings used by the backend.
     ///
     /// These are typically used to provide service management functionality to
@@ -2378,6 +2384,12 @@ pub mod property {
         /// The type is 'double'.
         pub const DOUBLE: PropertyType = PropertyType::new("DOUBLE");
     }
+
+    impl std::convert::From<std::string::String> for PropertyType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// `Context` defines which contexts an API requests.
@@ -3609,6 +3621,12 @@ pub mod field_info {
         /// allowed normalizations of each.
         pub const IPV4_OR_IPV6: Format = Format::new("IPV4_OR_IPV6");
     }
+
+    impl std::convert::From<std::string::String> for Format {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// A reference to a message type, for use in [FieldInfo][google.api.FieldInfo].
@@ -4451,6 +4469,12 @@ pub mod label_descriptor {
         /// A 64-bit signed integer.
         pub const INT64: ValueType = ValueType::new("INT64");
     }
+
+    impl std::convert::From<std::string::String> for ValueType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// A description of a log type. Example in YAML format:
@@ -5094,6 +5118,12 @@ pub mod metric_descriptor {
             pub const FOLDER: TimeSeriesResourceHierarchyLevel =
                 TimeSeriesResourceHierarchyLevel::new("FOLDER");
         }
+
+        impl std::convert::From<std::string::String> for TimeSeriesResourceHierarchyLevel {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// The kind of measurement. It describes how the data is reported.
@@ -5133,6 +5163,12 @@ pub mod metric_descriptor {
         /// value to zero and sets a new start time for the following
         /// points.
         pub const CUMULATIVE: MetricKind = MetricKind::new("CUMULATIVE");
+    }
+
+    impl std::convert::From<std::string::String> for MetricKind {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The value type of a metric.
@@ -5179,6 +5215,12 @@ pub mod metric_descriptor {
 
         /// The value is money.
         pub const MONEY: ValueType = ValueType::new("MONEY");
+    }
+
+    impl std::convert::From<std::string::String> for ValueType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6339,6 +6381,12 @@ pub mod resource_descriptor {
         pub const FUTURE_MULTI_PATTERN: History = History::new("FUTURE_MULTI_PATTERN");
     }
 
+    impl std::convert::From<std::string::String> for History {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// A flag representing a specific style that a resource claims to conform to.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Style(std::borrow::Cow<'static, str>);
@@ -6371,6 +6419,12 @@ pub mod resource_descriptor {
         /// Note: This is used by the API linter (linter.aip.dev) to enable
         /// additional checks.
         pub const DECLARATIVE_FRIENDLY: Style = Style::new("DECLARATIVE_FRIENDLY");
+    }
+
+    impl std::convert::From<std::string::String> for Style {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7943,6 +7997,12 @@ pub mod client_library_organization {
         ClientLibraryOrganization::new("GENERATIVE_AI");
 }
 
+impl std::convert::From<std::string::String> for ClientLibraryOrganization {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// To where should client libraries be published?
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ClientLibraryDestination(std::borrow::Cow<'static, str>);
@@ -7975,6 +8035,12 @@ pub mod client_library_destination {
     /// Publish the library to package managers like nuget.org and npmjs.com.
     pub const PACKAGE_MANAGER: ClientLibraryDestination =
         ClientLibraryDestination::new("PACKAGE_MANAGER");
+}
+
+impl std::convert::From<std::string::String> for ClientLibraryDestination {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Classifies set of possible modifications to an object in the service
@@ -8012,6 +8078,12 @@ pub mod change_type {
     /// The changed object exists in both service configurations, but its value
     /// is different.
     pub const MODIFIED: ChangeType = ChangeType::new("MODIFIED");
+}
+
+impl std::convert::From<std::string::String> for ChangeType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Defines the supported values for `google.rpc.ErrorInfo.reason` for the
@@ -8701,6 +8773,12 @@ pub mod error_reason {
     pub const OVERLOADED_CREDENTIALS: ErrorReason = ErrorReason::new("OVERLOADED_CREDENTIALS");
 }
 
+impl std::convert::From<std::string::String> for ErrorReason {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// An indicator of the behavior of a given field (for example, that a field
 /// is required in requests, or given as output but ignored as input).
 /// This **does not** change the behavior in protocol buffers itself; it only
@@ -8783,6 +8861,12 @@ pub mod field_behavior {
     pub const IDENTIFIER: FieldBehavior = FieldBehavior::new("IDENTIFIER");
 }
 
+impl std::convert::From<std::string::String> for FieldBehavior {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// The launch stage as defined by [Google Cloud Platform
 /// Launch Stages](https://cloud.google.com/terms/launch-stages).
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -8848,4 +8932,10 @@ pub mod launch_stage {
     /// and the [Google Cloud Platform Subject to the Deprecation
     /// Policy](https://cloud.google.com/terms/deprecation) documentation.
     pub const DEPRECATED: LaunchStage = LaunchStage::new("DEPRECATED");
+}
+
+impl std::convert::From<std::string::String> for LaunchStage {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

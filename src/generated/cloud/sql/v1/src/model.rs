@@ -698,6 +698,12 @@ pub mod connect_settings {
         /// Cloud's Certificate Authority Service (CAS).
         pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
     }
+
+    impl std::convert::From<std::string::String> for CaMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
 }
 
 /// Ephemeral certificate creation request.
@@ -2549,6 +2555,12 @@ pub mod backup_reencryption_config {
         /// Reencrypt on-demand backups
         pub const ON_DEMAND: BackupType = BackupType::new("ON_DEMAND");
     }
+
+    impl std::convert::From<std::string::String> for BackupType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
 }
 
 /// Instance get disk shrink config request.
@@ -2746,6 +2758,12 @@ pub mod sql_instances_verify_external_sync_settings_request {
         pub const OFFLINE: ExternalSyncMode = ExternalSyncMode::new("OFFLINE");
     }
 
+    impl std::convert::From<std::string::String> for ExternalSyncMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// MigrationType determines whether the migration is a physical file-based
     /// migration or a logical dump file-based migration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2776,6 +2794,12 @@ pub mod sql_instances_verify_external_sync_settings_request {
 
         /// Physical file-based migration
         pub const PHYSICAL: MigrationType = MigrationType::new("PHYSICAL");
+    }
+
+    impl std::convert::From<std::string::String> for MigrationType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4494,6 +4518,12 @@ pub mod database_instance {
             /// corruption.
             pub const SOFT_SHUTDOWN: SqlOutOfDiskState = SqlOutOfDiskState::new("SOFT_SHUTDOWN");
         }
+
+        impl std::convert::From<std::string::String> for SqlOutOfDiskState {
+          fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+          }
+        }
     }
 
     /// The current serving state of the database instance.
@@ -4543,6 +4573,12 @@ pub mod database_instance {
         pub const ONLINE_MAINTENANCE: SqlInstanceState = SqlInstanceState::new("ONLINE_MAINTENANCE");
     }
 
+    impl std::convert::From<std::string::String> for SqlInstanceState {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// The SQL network architecture for the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlNetworkArchitecture(std::borrow::Cow<'static, str>);
@@ -4571,6 +4607,12 @@ pub mod database_instance {
 
         /// The instance uses the old network architecture.
         pub const OLD_NETWORK_ARCHITECTURE: SqlNetworkArchitecture = SqlNetworkArchitecture::new("OLD_NETWORK_ARCHITECTURE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlNetworkArchitecture {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -4862,6 +4904,12 @@ pub mod sql_instances_reschedule_maintenance_request_body {
 
         /// Reschedules maintenance to a specific time and day.
         pub const SPECIFIC_TIME: RescheduleType = RescheduleType::new("SPECIFIC_TIME");
+    }
+
+    impl std::convert::From<std::string::String> for RescheduleType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -5389,6 +5437,12 @@ pub mod sql_external_sync_setting_error {
         /// The source database has generated columns that can't be migrated. Please
         /// change them to regular columns before migration.
         pub const UNSUPPORTED_COLUMNS: SqlExternalSyncSettingErrorType = SqlExternalSyncSettingErrorType::new("UNSUPPORTED_COLUMNS");
+    }
+
+    impl std::convert::From<std::string::String> for SqlExternalSyncSettingErrorType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -6047,6 +6101,12 @@ pub mod api_warning {
         /// failed.
         pub const INTERNAL_STATE_FAILURE: SqlApiWarningCode = SqlApiWarningCode::new("INTERNAL_STATE_FAILURE");
     }
+
+    impl std::convert::From<std::string::String> for SqlApiWarningCode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
 }
 
 /// We currently only support backup retention by specifying the number
@@ -6120,6 +6180,12 @@ pub mod backup_retention_settings {
 
         /// Retention will be by count, eg. "retain the most recent 7 backups".
         pub const COUNT: RetentionUnit = RetentionUnit::new("COUNT");
+    }
+
+    impl std::convert::From<std::string::String> for RetentionUnit {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -6292,6 +6358,12 @@ pub mod backup_configuration {
         /// The transaction logs used for PITR for the instance are stored in
         /// Cloud Storage. Only applicable to MySQL and PostgreSQL.
         pub const CLOUD_STORAGE: TransactionalLogStorageState = TransactionalLogStorageState::new("CLOUD_STORAGE");
+    }
+
+    impl std::convert::From<std::string::String> for TransactionalLogStorageState {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -7904,6 +7976,12 @@ pub mod ip_configuration {
         pub const TRUSTED_CLIENT_CERTIFICATE_REQUIRED: SslMode = SslMode::new("TRUSTED_CLIENT_CERTIFICATE_REQUIRED");
     }
 
+    impl std::convert::From<std::string::String> for SslMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// Various Certificate Authority (CA) modes for certificate signing.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CaMode(std::borrow::Cow<'static, str>);
@@ -7934,6 +8012,12 @@ pub mod ip_configuration {
         /// Google-managed regional CA part of root CA hierarchy hosted on Google
         /// Cloud's Certificate Authority Service (CAS).
         pub const GOOGLE_MANAGED_CAS_CA: CaMode = CaMode::new("GOOGLE_MANAGED_CAS_CA");
+    }
+
+    impl std::convert::From<std::string::String> for CaMode {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -8894,6 +8978,12 @@ pub mod operation {
         pub const MAJOR_VERSION_UPGRADE: SqlOperationType = SqlOperationType::new("MAJOR_VERSION_UPGRADE");
     }
 
+    impl std::convert::From<std::string::String> for SqlOperationType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// The status of an operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SqlOperationStatus(std::borrow::Cow<'static, str>);
@@ -8926,6 +9016,12 @@ pub mod operation {
 
         /// The operation completed.
         pub const DONE: SqlOperationStatus = SqlOperationStatus::new("DONE");
+    }
+
+    impl std::convert::From<std::string::String> for SqlOperationStatus {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -9139,6 +9235,12 @@ pub mod password_validation_policy {
         /// A combination of lowercase, uppercase, numeric, and non-alphanumeric
         /// characters.
         pub const COMPLEXITY_DEFAULT: Complexity = Complexity::new("COMPLEXITY_DEFAULT");
+    }
+
+    impl std::convert::From<std::string::String> for Complexity {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -9633,6 +9735,12 @@ pub mod settings {
         pub const ON_DEMAND: SqlActivationPolicy = SqlActivationPolicy::new("ON_DEMAND");
     }
 
+    impl std::convert::From<std::string::String> for SqlActivationPolicy {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// The edition of the instance, can be ENTERPRISE or ENTERPRISE_PLUS.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Edition(std::borrow::Cow<'static, str>);
@@ -9662,6 +9770,12 @@ pub mod settings {
 
         /// The instance is an Enterprise Plus edition.
         pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    }
+
+    impl std::convert::From<std::string::String> for Edition {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// The options for enforcing Cloud SQL connectors in the instance.
@@ -9695,6 +9809,12 @@ pub mod settings {
         /// Cloud SQL Auth Proxy and Cloud SQL Java, Python, and Go connectors.
         /// Note: This disables all existing authorized networks.
         pub const REQUIRED: ConnectorEnforcement = ConnectorEnforcement::new("REQUIRED");
+    }
+
+    impl std::convert::From<std::string::String> for ConnectorEnforcement {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
@@ -11042,6 +11162,12 @@ pub mod user {
         pub const CLOUD_IAM_GROUP_SERVICE_ACCOUNT: SqlUserType = SqlUserType::new("CLOUD_IAM_GROUP_SERVICE_ACCOUNT");
     }
 
+    impl std::convert::From<std::string::String> for SqlUserType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
+
     /// The type of retained password.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DualPasswordType(std::borrow::Cow<'static, str>);
@@ -11074,6 +11200,12 @@ pub mod user {
 
         /// Dual password usable for connecting using this user.
         pub const DUAL_PASSWORD: DualPasswordType = DualPasswordType::new("DUAL_PASSWORD");
+    }
+
+    impl std::convert::From<std::string::String> for DualPasswordType {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 
     /// User details for specific database type
@@ -11233,6 +11365,12 @@ pub mod sql_backup_run_status {
     pub const DELETED: SqlBackupRunStatus = SqlBackupRunStatus::new("DELETED");
 }
 
+impl std::convert::From<std::string::String> for SqlBackupRunStatus {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 /// Defines the supported backup kinds.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackupKind(std::borrow::Cow<'static, str>);
@@ -11264,6 +11402,12 @@ pub mod sql_backup_kind {
     pub const PHYSICAL: SqlBackupKind = SqlBackupKind::new("PHYSICAL");
 }
 
+impl std::convert::From<std::string::String> for SqlBackupKind {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 /// Type of backup (i.e. automated, on demand, etc).
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackupRunType(std::borrow::Cow<'static, str>);
@@ -11293,6 +11437,12 @@ pub mod sql_backup_run_type {
 
     /// The user manually triggers a backup.
     pub const ON_DEMAND: SqlBackupRunType = SqlBackupRunType::new("ON_DEMAND");
+}
+
+impl std::convert::From<std::string::String> for SqlBackupRunType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11341,6 +11491,12 @@ pub mod sql_flag_type {
     pub const REPEATED_STRING: SqlFlagType = SqlFlagType::new("REPEATED_STRING");
 }
 
+impl std::convert::From<std::string::String> for SqlFlagType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 /// External Sync parallel level.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct ExternalSyncParallelLevel(std::borrow::Cow<'static, str>);
@@ -11373,6 +11529,12 @@ pub mod external_sync_parallel_level {
 
     /// Maximum parallel level.
     pub const MAX: ExternalSyncParallelLevel = ExternalSyncParallelLevel::new("MAX");
+}
+
+impl std::convert::From<std::string::String> for ExternalSyncParallelLevel {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11408,6 +11570,12 @@ pub mod sql_instance_type {
 
     /// A Cloud SQL instance acting as a read-replica.
     pub const READ_REPLICA_INSTANCE: SqlInstanceType = SqlInstanceType::new("READ_REPLICA_INSTANCE");
+}
+
+impl std::convert::From<std::string::String> for SqlInstanceType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The suspension reason of the database instance if the state is SUSPENDED.
@@ -11450,6 +11618,12 @@ pub mod sql_suspension_reason {
     pub const KMS_KEY_ISSUE: SqlSuspensionReason = SqlSuspensionReason::new("KMS_KEY_ISSUE");
 }
 
+impl std::convert::From<std::string::String> for SqlSuspensionReason {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlFileType(std::borrow::Cow<'static, str>);
 
@@ -11480,6 +11654,12 @@ pub mod sql_file_type {
     pub const CSV: SqlFileType = SqlFileType::new("CSV");
 
     pub const BAK: SqlFileType = SqlFileType::new("BAK");
+}
+
+impl std::convert::From<std::string::String> for SqlFileType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11515,6 +11695,12 @@ pub mod bak_type {
     pub const TLOG: BakType = BakType::new("TLOG");
 }
 
+impl std::convert::From<std::string::String> for BakType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlBackendType(std::borrow::Cow<'static, str>);
 
@@ -11546,6 +11732,12 @@ pub mod sql_backend_type {
 
     /// On premises instance.
     pub const EXTERNAL: SqlBackendType = SqlBackendType::new("EXTERNAL");
+}
+
+impl std::convert::From<std::string::String> for SqlBackendType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11588,6 +11780,12 @@ pub mod sql_ip_address_type {
     /// decommission this IP as soon as the migration is complete.
     /// Note: V1 instances with V1 ip addresses will be counted as PRIMARY.
     pub const MIGRATED_1ST_GEN: SqlIpAddressType = SqlIpAddressType::new("MIGRATED_1ST_GEN");
+}
+
+impl std::convert::From<std::string::String> for SqlIpAddressType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The database engine type and version.
@@ -11744,6 +11942,12 @@ pub mod sql_database_version {
     pub const SQLSERVER_2022_WEB: SqlDatabaseVersion = SqlDatabaseVersion::new("SQLSERVER_2022_WEB");
 }
 
+impl std::convert::From<std::string::String> for SqlDatabaseVersion {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 /// The pricing plan for this instance.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlPricingPlan(std::borrow::Cow<'static, str>);
@@ -11773,6 +11977,12 @@ pub mod sql_pricing_plan {
 
     /// The instance is billed per usage.
     pub const PER_USE: SqlPricingPlan = SqlPricingPlan::new("PER_USE");
+}
+
+impl std::convert::From<std::string::String> for SqlPricingPlan {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11807,6 +12017,12 @@ pub mod sql_replication_type {
     /// option is set to asynchronous, you can lose up to a few seconds of updates
     /// to your data.
     pub const ASYNCHRONOUS: SqlReplicationType = SqlReplicationType::new("ASYNCHRONOUS");
+}
+
+impl std::convert::From<std::string::String> for SqlReplicationType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 /// The type of disk that is used for a v2 instance to use.
@@ -11844,6 +12060,12 @@ pub mod sql_data_disk_type {
     pub const OBSOLETE_LOCAL_SSD: SqlDataDiskType = SqlDataDiskType::new("OBSOLETE_LOCAL_SSD");
 }
 
+impl std::convert::From<std::string::String> for SqlDataDiskType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}
+
 /// The availability type of the given Cloud SQL instance.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct SqlAvailabilityType(std::borrow::Cow<'static, str>);
@@ -11873,6 +12095,12 @@ pub mod sql_availability_type {
 
     /// Regional available instance.
     pub const REGIONAL: SqlAvailabilityType = SqlAvailabilityType::new("REGIONAL");
+}
+
+impl std::convert::From<std::string::String> for SqlAvailabilityType {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }
 
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -11914,4 +12142,10 @@ pub mod sql_update_track {
     /// timing indicates that the maintenance update is scheduled 35 to 42 days
     /// after the notification is sent out.
     pub const WEEK_5: SqlUpdateTrack = SqlUpdateTrack::new("WEEK_5");
+}
+
+impl std::convert::From<std::string::String> for SqlUpdateTrack {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }

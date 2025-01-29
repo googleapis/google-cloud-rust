@@ -701,6 +701,12 @@ pub mod field {
         pub const TYPE_SINT64: Kind = Kind::new("TYPE_SINT64");
     }
 
+    impl std::convert::From<std::string::String> for Kind {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Whether a field is optional, required, or repeated.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Cardinality(std::borrow::Cow<'static, str>);
@@ -732,6 +738,12 @@ pub mod field {
 
         /// For repeated fields.
         pub const CARDINALITY_REPEATED: Cardinality = Cardinality::new("CARDINALITY_REPEATED");
+    }
+
+    impl std::convert::From<std::string::String> for Cardinality {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -944,4 +956,10 @@ pub mod syntax {
 
     /// Syntax `editions`.
     pub const SYNTAX_EDITIONS: Syntax = Syntax::new("SYNTAX_EDITIONS");
+}
+
+impl std::convert::From<std::string::String> for Syntax {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

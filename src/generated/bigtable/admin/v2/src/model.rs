@@ -786,6 +786,12 @@ pub mod create_cluster_metadata {
             /// COMPLETED, not CANCELLED.
             pub const CANCELLED: State = State::new("CANCELLED");
         }
+
+        impl std::convert::From<std::string::String> for State {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 }
 
@@ -4496,6 +4502,12 @@ pub mod instance {
         pub const CREATING: State = State::new("CREATING");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The type of the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
@@ -4528,6 +4540,12 @@ pub mod instance {
         /// DEPRECATED: Prefer PRODUCTION for all use cases, as it no longer enforces
         /// a higher minimum node count than DEVELOPMENT.
         pub const DEVELOPMENT: Type = Type::new("DEVELOPMENT");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4919,6 +4937,12 @@ pub mod cluster {
         pub const DISABLED: State = State::new("DISABLED");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Possible node scaling factors of the clusters. Node scaling delivers better
     /// latency and more throughput by removing node boundaries.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -4953,6 +4977,12 @@ pub mod cluster {
         /// enabled, otherwise an INVALID_ARGUMENT error will be returned.
         pub const NODE_SCALING_FACTOR_2X: NodeScalingFactor =
             NodeScalingFactor::new("NODE_SCALING_FACTOR_2X");
+    }
+
+    impl std::convert::From<std::string::String> for NodeScalingFactor {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5510,6 +5540,12 @@ pub mod app_profile {
             /// Table pays for compute.
             pub const HOST_PAYS: ComputeBillingOwner = ComputeBillingOwner::new("HOST_PAYS");
         }
+
+        impl std::convert::From<std::string::String> for ComputeBillingOwner {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// Possible priorities for an app profile. Note that higher priority writes
@@ -5542,6 +5578,12 @@ pub mod app_profile {
         pub const PRIORITY_MEDIUM: Priority = Priority::new("PRIORITY_MEDIUM");
 
         pub const PRIORITY_HIGH: Priority = Priority::new("PRIORITY_HIGH");
+    }
+
+    impl std::convert::From<std::string::String> for Priority {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The routing policy for all read/write requests that use this app profile.
@@ -6078,6 +6120,12 @@ pub mod table {
             pub const READY_OPTIMIZING: ReplicationState =
                 ReplicationState::new("READY_OPTIMIZING");
         }
+
+        impl std::convert::From<std::string::String> for ReplicationState {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// Defines an automated backup policy for a table
@@ -6153,6 +6201,12 @@ pub mod table {
         pub const MILLIS: TimestampGranularity = TimestampGranularity::new("MILLIS");
     }
 
+    impl std::convert::From<std::string::String> for TimestampGranularity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Defines a view over a table's fields.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct View(std::borrow::Cow<'static, str>);
@@ -6191,6 +6245,12 @@ pub mod table {
 
         /// Populates all fields.
         pub const FULL: View = View::new("FULL");
+    }
+
+    impl std::convert::From<std::string::String> for View {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -6443,6 +6503,12 @@ pub mod authorized_view {
 
         /// Populates every fields.
         pub const FULL: ResponseView = ResponseView::new("FULL");
+    }
+
+    impl std::convert::From<std::string::String> for ResponseView {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The type of this AuthorizedView.
@@ -6822,6 +6888,12 @@ pub mod encryption_info {
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
             EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
     }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// A snapshot of a table at a particular time. A snapshot can be used as a
@@ -6965,6 +7037,12 @@ pub mod snapshot {
         /// creation process encounters an error. A snapshot may not be restored to a
         /// table while it is being created.
         pub const CREATING: State = State::new("CREATING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7183,6 +7261,12 @@ pub mod backup {
         pub const READY: State = State::new("READY");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The type of the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct BackupType(std::borrow::Cow<'static, str>);
@@ -7216,6 +7300,12 @@ pub mod backup {
         /// backup reaches production performance more quickly than a standard
         /// backup.
         pub const HOT: BackupType = BackupType::new("HOT");
+    }
+
+    impl std::convert::From<std::string::String> for BackupType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -8758,6 +8848,12 @@ pub mod storage_type {
     pub const HDD: StorageType = StorageType::new("HDD");
 }
 
+impl std::convert::From<std::string::String> for StorageType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Indicates the type of the restore source.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
@@ -8784,4 +8880,10 @@ pub mod restore_source_type {
 
     /// A backup was used as the source of the restore.
     pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+}
+
+impl std::convert::From<std::string::String> for RestoreSourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

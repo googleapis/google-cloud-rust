@@ -238,6 +238,12 @@ pub mod storage_source {
         /// Use the Cloud Storage Fetcher tool to download the source file.
         pub const GCS_FETCHER: SourceFetcher = SourceFetcher::new("GCS_FETCHER");
     }
+
+    impl std::convert::From<std::string::String> for SourceFetcher {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Location of the source in any accessible Git repository.
@@ -2034,6 +2040,12 @@ pub mod build {
             /// e.g. alerts that a feature used in the build is pending removal
             pub const ALERT: Priority = Priority::new("ALERT");
         }
+
+        impl std::convert::From<std::string::String> for Priority {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// A fatal problem encountered during the execution of the build.
@@ -2122,6 +2134,12 @@ pub mod build {
             /// The source fetching has failed.
             pub const FETCH_SOURCE_FAILED: FailureType = FailureType::new("FETCH_SOURCE_FAILED");
         }
+
+        impl std::convert::From<std::string::String> for FailureType {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// Possible status of a build or build step.
@@ -2174,6 +2192,12 @@ pub mod build {
 
         /// Build was enqueued for longer than the value of `queue_ttl`.
         pub const EXPIRED: Status = Status::new("EXPIRED");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2924,6 +2948,12 @@ pub mod hash {
         /// Use a sha512 hash.
         pub const SHA512: HashType = HashType::new("SHA512");
     }
+
+    impl std::convert::From<std::string::String> for HashType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Secrets and secret environment variables.
@@ -3513,6 +3543,12 @@ pub mod build_approval {
         /// Build was cancelled while it was still pending approval.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// ApprovalConfig describes configuration for manual approval of a build.
@@ -3653,6 +3689,12 @@ pub mod approval_result {
 
         /// Build is rejected.
         pub const REJECTED: Decision = Decision::new("REJECTED");
+    }
+
+    impl std::convert::From<std::string::String> for Decision {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4004,6 +4046,12 @@ pub mod git_file_source {
 
         /// A GitLab-hosted repo.
         pub const GITLAB: RepoType = RepoType::new("GITLAB");
+    }
+
+    impl std::convert::From<std::string::String> for RepoType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The source of the SCM repo.
@@ -4629,6 +4677,12 @@ pub mod repository_event_config {
         pub const GITLAB_ENTERPRISE: RepositoryType = RepositoryType::new("GITLAB_ENTERPRISE");
     }
 
+    impl std::convert::From<std::string::String> for RepositoryType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The types of filter to trigger a build.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -4886,6 +4940,12 @@ pub mod pubsub_config {
         /// Some of the subscription's field are misconfigured.
         pub const SUBSCRIPTION_MISCONFIGURED: State = State::new("SUBSCRIPTION_MISCONFIGURED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// WebhookConfig describes the configuration of a trigger that
@@ -4988,6 +5048,12 @@ pub mod webhook_config {
 
         /// The secret provided in auth_method has been deleted.
         pub const SECRET_DELETED: State = State::new("SECRET_DELETED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Auth method specifies how the webhook authenticates with GCP.
@@ -5114,6 +5180,12 @@ pub mod pull_request_filter {
         /// contributors' Pull Requests before builds are triggered.
         pub const COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY: CommentControl =
             CommentControl::new("COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY");
+    }
+
+    impl std::convert::From<std::string::String> for CommentControl {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Target refs to match.
@@ -5879,6 +5951,12 @@ pub mod build_options {
         pub const VERIFIED: VerifyOption = VerifyOption::new("VERIFIED");
     }
 
+    impl std::convert::From<std::string::String> for VerifyOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Supported Compute Engine machine types.
     /// For more information, see [Machine
     /// types](https://cloud.google.com/compute/docs/machine-types).
@@ -5920,6 +5998,12 @@ pub mod build_options {
         pub const E2_MEDIUM: MachineType = MachineType::new("E2_MEDIUM");
     }
 
+    impl std::convert::From<std::string::String> for MachineType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Specifies the behavior when there is an error in the substitution checks.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct SubstitutionOption(std::borrow::Cow<'static, str>);
@@ -5946,6 +6030,12 @@ pub mod build_options {
 
         /// Do not fail the build if error in substitutions checks.
         pub const ALLOW_LOOSE: SubstitutionOption = SubstitutionOption::new("ALLOW_LOOSE");
+    }
+
+    impl std::convert::From<std::string::String> for SubstitutionOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Specifies the behavior when writing build logs to Cloud Storage.
@@ -5977,6 +6067,12 @@ pub mod build_options {
         /// Build logs should not be streamed to Cloud Storage; they will be
         /// written when the build is completed.
         pub const STREAM_OFF: LogStreamingOption = LogStreamingOption::new("STREAM_OFF");
+    }
+
+    impl std::convert::From<std::string::String> for LogStreamingOption {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Specifies the logging mode.
@@ -6021,6 +6117,12 @@ pub mod build_options {
         pub const NONE: LoggingMode = LoggingMode::new("NONE");
     }
 
+    impl std::convert::From<std::string::String> for LoggingMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Default Cloud Storage log bucket behavior options.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DefaultLogsBucketBehavior(std::borrow::Cow<'static, str>);
@@ -6054,6 +6156,12 @@ pub mod build_options {
         /// Bucket is located in a Google-owned project and is not regionalized.
         pub const LEGACY_BUCKET: DefaultLogsBucketBehavior =
             DefaultLogsBucketBehavior::new("LEGACY_BUCKET");
+    }
+
+    impl std::convert::From<std::string::String> for DefaultLogsBucketBehavior {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -6573,6 +6681,12 @@ pub mod worker_pool {
         pub const UPDATING: State = State::new("UPDATING");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Configuration for the `WorkerPool`.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -6806,6 +6920,12 @@ pub mod private_pool_v_1_config {
             /// If set, workers are created with a public address which allows for
             /// public internet egress.
             pub const PUBLIC_EGRESS: EgressOption = EgressOption::new("PUBLIC_EGRESS");
+        }
+
+        impl std::convert::From<std::string::String> for EgressOption {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 

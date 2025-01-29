@@ -578,6 +578,12 @@ pub mod span {
                 /// Indicates a received message.
                 pub const RECEIVED: Type = Type::new("RECEIVED");
             }
+
+            impl std::convert::From<std::string::String> for Type {
+                fn from(value: std::string::String) -> Self {
+                    Self(std::borrow::Cow::Owned(value))
+                }
+            }
         }
 
         /// A `TimeEvent` can contain either an `Annotation` object or a
@@ -750,6 +756,12 @@ pub mod span {
             /// The linked span is a parent of the current span.
             pub const PARENT_LINKED_SPAN: Type = Type::new("PARENT_LINKED_SPAN");
         }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// A collection of links, which are references from this span to a span
@@ -840,6 +852,12 @@ pub mod span {
         /// latency relationship between producer and consumer spans (e.g. receiving
         /// a message from a pubsub service subscription).
         pub const CONSUMER: SpanKind = SpanKind::new("CONSUMER");
+    }
+
+    impl std::convert::From<std::string::String> for SpanKind {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 

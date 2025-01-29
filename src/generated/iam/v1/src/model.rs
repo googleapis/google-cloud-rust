@@ -731,6 +731,12 @@ pub mod audit_log_config {
         /// Data reads. Example: CloudSQL Users list
         pub const DATA_READ: LogType = LogType::new("DATA_READ");
     }
+
+    impl std::convert::From<std::string::String> for LogType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The difference delta between two policies.
@@ -878,6 +884,12 @@ pub mod binding_delta {
         /// Removal of a Binding.
         pub const REMOVE: Action = Action::new("REMOVE");
     }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// One delta entry for AuditConfig. Each individual change (only one
@@ -979,6 +991,12 @@ pub mod audit_config_delta {
 
         /// Removal of an audit configuration.
         pub const REMOVE: Action = Action::new("REMOVE");
+    }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 

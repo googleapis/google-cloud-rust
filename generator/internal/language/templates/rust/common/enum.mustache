@@ -44,3 +44,9 @@ pub mod {{Codec.ModuleName}} {
     pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new("{{Codec.Name}}");
     {{/Values}}
 }
+
+impl std::convert::From<std::string::String> for {{Codec.Name}} {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
+}

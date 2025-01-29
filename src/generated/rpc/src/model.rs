@@ -1140,3 +1140,9 @@ pub mod code {
     /// HTTP Mapping: 500 Internal Server Error
     pub const DATA_LOSS: Code = Code::new("DATA_LOSS");
 }
+
+impl std::convert::From<std::string::String> for Code {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}

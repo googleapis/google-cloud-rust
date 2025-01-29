@@ -397,6 +397,12 @@ pub mod backup {
         /// The backup is complete and ready for use.
         pub const READY: State = State::new("READY");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The request for
@@ -1429,6 +1435,12 @@ pub mod create_backup_encryption_config {
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
             EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
     }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Encryption configuration for the copied backup.
@@ -1557,6 +1569,12 @@ pub mod copy_backup_encryption_config {
         /// `kms_key_names` must contain valid Cloud KMS key(s).
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
             EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2426,6 +2444,12 @@ pub mod encryption_info {
         /// will be populated, and `encryption_status` may be populated.
         pub const CUSTOMER_MANAGED_ENCRYPTION: Type = Type::new("CUSTOMER_MANAGED_ENCRYPTION");
     }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Information about the database restore.
@@ -2751,6 +2775,12 @@ pub mod database {
         /// of the database will be restored, and the database will transition to
         /// `READY` state.
         pub const READY_OPTIMIZING: State = State::new("READY_OPTIMIZING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3985,6 +4015,12 @@ pub mod restore_database_encryption_config {
         pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
             EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
     }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Metadata type for the long-running operation returned by
@@ -4386,6 +4422,12 @@ pub mod database_dialect {
     pub const POSTGRESQL: DatabaseDialect = DatabaseDialect::new("POSTGRESQL");
 }
 
+impl std::convert::From<std::string::String> for DatabaseDialect {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Indicates the type of the restore source.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
@@ -4411,4 +4453,10 @@ pub mod restore_source_type {
 
     /// A backup was used as the source of the restore.
     pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+}
+
+impl std::convert::From<std::string::String> for RestoreSourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

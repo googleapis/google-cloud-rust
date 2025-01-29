@@ -545,6 +545,12 @@ pub mod autokey_config {
         /// uninitialized state.
         pub const UNINITIALIZED: State = State::new("UNINITIALIZED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Request message for
@@ -1425,6 +1431,12 @@ pub mod ekm_connection {
         /// [google.cloud.kms.v1.KeyManagementService.DestroyCryptoKeyVersion]: crate::client::KeyManagementService::destroy_crypto_key_version
         pub const CLOUD_KMS: KeyManagementMode = KeyManagementMode::new("CLOUD_KMS");
     }
+
+    impl std::convert::From<std::string::String> for KeyManagementMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// An [EkmConfig][google.cloud.kms.v1.EkmConfig] is a singleton resource that
@@ -1974,6 +1986,12 @@ pub mod crypto_key {
         pub const MAC: CryptoKeyPurpose = CryptoKeyPurpose::new("MAC");
     }
 
+    impl std::convert::From<std::string::String> for CryptoKeyPurpose {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Controls the rate of automatic rotation.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -2235,6 +2253,12 @@ pub mod key_operation_attestation {
         /// introduced in Cavium's version 3.2-08.
         pub const CAVIUM_V2_COMPRESSED: AttestationFormat =
             AttestationFormat::new("CAVIUM_V2_COMPRESSED");
+    }
+
+    impl std::convert::From<std::string::String> for AttestationFormat {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2785,6 +2809,12 @@ pub mod crypto_key_version {
             CryptoKeyVersionAlgorithm::new("EXTERNAL_SYMMETRIC_ENCRYPTION");
     }
 
+    impl std::convert::From<std::string::String> for CryptoKeyVersionAlgorithm {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The state of a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion],
     /// indicating if it can be used.
     ///
@@ -2902,6 +2932,12 @@ pub mod crypto_key_version {
             CryptoKeyVersionState::new("EXTERNAL_DESTRUCTION_FAILED");
     }
 
+    impl std::convert::From<std::string::String> for CryptoKeyVersionState {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// A view for [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]s.
     /// Controls the level of detail returned for
     /// [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] in
@@ -2948,6 +2984,12 @@ pub mod crypto_key_version {
         /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
         /// [google.cloud.kms.v1.CryptoKeyVersion.attestation]: crate::model::CryptoKeyVersion::attestation
         pub const FULL: CryptoKeyVersionView = CryptoKeyVersionView::new("FULL");
+    }
+
+    impl std::convert::From<std::string::String> for CryptoKeyVersionView {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3413,6 +3455,12 @@ pub mod import_job {
         pub const RSA_OAEP_4096_SHA256: ImportMethod = ImportMethod::new("RSA_OAEP_4096_SHA256");
     }
 
+    impl std::convert::From<std::string::String> for ImportMethod {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The state of the [ImportJob][google.cloud.kms.v1.ImportJob], indicating if
     /// it can be used.
     ///
@@ -3460,6 +3508,12 @@ pub mod import_job {
 
         /// This job can no longer be used and may not leave this state once entered.
         pub const EXPIRED: ImportJobState = ImportJobState::new("EXPIRED");
+    }
+
+    impl std::convert::From<std::string::String> for ImportJobState {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7674,6 +7728,12 @@ pub mod protection_level {
     pub const EXTERNAL_VPC: ProtectionLevel = ProtectionLevel::new("EXTERNAL_VPC");
 }
 
+impl std::convert::From<std::string::String> for ProtectionLevel {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Describes the reason for a data access. Please refer to
 /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
 /// for the detailed semantic meaning of justification reason codes.
@@ -7766,4 +7826,10 @@ pub mod access_reason {
     /// * Google-initiated support access to protect system reliability.
     pub const CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING: AccessReason =
         AccessReason::new("CUSTOMER_AUTHORIZED_WORKFLOW_SERVICING");
+}
+
+impl std::convert::From<std::string::String> for AccessReason {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

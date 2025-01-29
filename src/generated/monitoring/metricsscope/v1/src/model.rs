@@ -408,4 +408,10 @@ pub mod operation_metadata {
         /// The batch processing was cancelled.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }

@@ -630,6 +630,12 @@ pub mod installation_state {
         /// Installation process has been completed.
         pub const COMPLETE: Stage = Stage::new("COMPLETE");
     }
+
+    impl std::convert::From<std::string::String> for Stage {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Request message for FetchLinkableRepositories.
@@ -2260,6 +2266,12 @@ pub mod fetch_git_refs_request {
 
         /// To fetch branches.
         pub const BRANCH: RefType = RefType::new("BRANCH");
+    }
+
+    impl std::convert::From<std::string::String> for RefType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 

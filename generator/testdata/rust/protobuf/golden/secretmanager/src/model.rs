@@ -571,6 +571,12 @@ pub mod secret_version {
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
         pub const DESTROYED: State = State::new("DESTROYED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
+    }
 }
 
 /// A policy that defines the replication and encryption configuration of data.

@@ -411,6 +411,12 @@ pub mod aggregation {
         pub const ALIGN_PERCENT_CHANGE: Aligner = Aligner::new("ALIGN_PERCENT_CHANGE");
     }
 
+    impl std::convert::From<std::string::String> for Aligner {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// A Reducer operation describes how to aggregate data points from multiple
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
@@ -522,6 +528,12 @@ pub mod aggregation {
         /// `GAUGE` and `DELTA` metrics of numeric and distribution type. The value
         /// of the output is `DOUBLE`.
         pub const REDUCE_PERCENTILE_05: Reducer = Reducer::new("REDUCE_PERCENTILE_05");
+    }
+
+    impl std::convert::From<std::string::String> for Reducer {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -643,6 +655,12 @@ pub mod pick_time_series_filter {
         pub const METHOD_LATEST: Method = Method::new("METHOD_LATEST");
     }
 
+    impl std::convert::From<std::string::String> for Method {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Describes the ranking directions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Direction(std::borrow::Cow<'static, str>);
@@ -672,6 +690,12 @@ pub mod pick_time_series_filter {
 
         /// Pass the lowest `num_time_series` ranking inputs.
         pub const BOTTOM: Direction = Direction::new("BOTTOM");
+    }
+
+    impl std::convert::From<std::string::String> for Direction {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -749,6 +773,12 @@ pub mod statistical_time_series_filter {
 
         /// Compute the outlier score of each stream.
         pub const METHOD_CLUSTER_OUTLIER: Method = Method::new("METHOD_CLUSTER_OUTLIER");
+    }
+
+    impl std::convert::From<std::string::String> for Method {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1115,6 +1145,12 @@ pub mod dashboard_filter {
 
         /// Filter on a group id
         pub const GROUP: FilterType = FilterType::new("GROUP");
+    }
+
+    impl std::convert::From<std::string::String> for FilterType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The default value used in the filter comparison
@@ -2553,6 +2589,12 @@ pub mod threshold {
         pub const RED: Color = Color::new("RED");
     }
 
+    impl std::convert::From<std::string::String> for Color {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -2586,6 +2628,12 @@ pub mod threshold {
         pub const BELOW: Direction = Direction::new("BELOW");
     }
 
+    impl std::convert::From<std::string::String> for Direction {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// An axis identifier.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct TargetAxis(std::borrow::Cow<'static, str>);
@@ -2614,6 +2662,12 @@ pub mod threshold {
 
         /// The y2_axis (the left axis of chart).
         pub const Y2: TargetAxis = TargetAxis::new("Y2");
+    }
+
+    impl std::convert::From<std::string::String> for TargetAxis {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2770,6 +2824,12 @@ pub mod pie_chart {
 
         /// Similar to PIE, but the DONUT type PieChart has a hole in the middle.
         pub const DONUT: PieChartType = PieChartType::new("DONUT");
+    }
+
+    impl std::convert::From<std::string::String> for PieChartType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3325,6 +3385,12 @@ pub mod time_series_table {
         /// Horizontal bar rendering
         pub const BAR: MetricVisualization = MetricVisualization::new("BAR");
     }
+
+    impl std::convert::From<std::string::String> for MetricVisualization {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Table display options that can be reused.
@@ -3554,6 +3620,12 @@ pub mod text {
             pub const H_RIGHT: HorizontalAlignment = HorizontalAlignment::new("H_RIGHT");
         }
 
+        impl std::convert::From<std::string::String> for HorizontalAlignment {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
         /// The vertical alignment of both the title and content on a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct VerticalAlignment(std::borrow::Cow<'static, str>);
@@ -3586,6 +3658,12 @@ pub mod text {
 
             /// Bottom-align
             pub const V_BOTTOM: VerticalAlignment = VerticalAlignment::new("V_BOTTOM");
+        }
+
+        impl std::convert::From<std::string::String> for VerticalAlignment {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// Specifies padding size around a text widget
@@ -3628,6 +3706,12 @@ pub mod text {
             pub const P_EXTRA_LARGE: PaddingSize = PaddingSize::new("P_EXTRA_LARGE");
         }
 
+        impl std::convert::From<std::string::String> for PaddingSize {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
         /// Specifies a font size for the title and content of a text widget
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct FontSize(std::borrow::Cow<'static, str>);
@@ -3665,6 +3749,12 @@ pub mod text {
 
             /// Extra large font size
             pub const FS_EXTRA_LARGE: FontSize = FontSize::new("FS_EXTRA_LARGE");
+        }
+
+        impl std::convert::From<std::string::String> for FontSize {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         /// Specifies where a visual pointer is placed on a text widget (also
@@ -3728,6 +3818,12 @@ pub mod text {
             /// Placed on the top of the left side of the widget
             pub const PL_LEFT_TOP: PointerLocation = PointerLocation::new("PL_LEFT_TOP");
         }
+
+        impl std::convert::From<std::string::String> for PointerLocation {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// The format type of the text content.
@@ -3758,6 +3854,12 @@ pub mod text {
 
         /// The text contains no special formatting.
         pub const RAW: Format = Format::new("RAW");
+    }
+
+    impl std::convert::From<std::string::String> for Format {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4458,6 +4560,12 @@ pub mod xy_chart {
             pub const HEATMAP: PlotType = PlotType::new("HEATMAP");
         }
 
+        impl std::convert::From<std::string::String> for PlotType {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
         /// An axis identifier.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         pub struct TargetAxis(std::borrow::Cow<'static, str>);
@@ -4487,6 +4595,12 @@ pub mod xy_chart {
 
             /// The y2_axis (the left axis of chart).
             pub const Y2: TargetAxis = TargetAxis::new("Y2");
+        }
+
+        impl std::convert::From<std::string::String> for TargetAxis {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -4561,6 +4675,12 @@ pub mod xy_chart {
             /// Logarithmic scale (base 10).
             pub const LOG10: Scale = Scale::new("LOG10");
         }
+
+        impl std::convert::From<std::string::String> for Scale {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 }
 
@@ -4631,6 +4751,12 @@ pub mod chart_options {
         /// and more.
         pub const STATS: Mode = Mode::new("STATS");
     }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Defines the possible types of spark chart supported by the `Scorecard`.
@@ -4662,4 +4788,10 @@ pub mod spark_chart_type {
 
     /// The sparkbar will be rendered as a small bar chart.
     pub const SPARK_BAR: SparkChartType = SparkChartType::new("SPARK_BAR");
+}
+
+impl std::convert::From<std::string::String> for SparkChartType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

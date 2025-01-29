@@ -366,6 +366,12 @@ pub mod workflow {
             /// Caused by an issue with KMS.
             pub const KMS_ERROR: Type = Type::new("KMS_ERROR");
         }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// Describes the current state of workflow deployment.
@@ -396,6 +402,12 @@ pub mod workflow {
 
         /// Workflow data is unavailable. See the `state_error` field.
         pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Describes the level of platform logging to apply to calls and call
@@ -432,6 +444,12 @@ pub mod workflow {
 
         /// Explicitly log nothing.
         pub const LOG_NONE: CallLogLevel = CallLogLevel::new("LOG_NONE");
+    }
+
+    impl std::convert::From<std::string::String> for CallLogLevel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Required. Location of the workflow source code.

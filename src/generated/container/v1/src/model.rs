@@ -186,6 +186,12 @@ pub mod linux_node_config {
         /// the node image.
         pub const CGROUP_MODE_V2: CgroupMode = CgroupMode::new("CGROUP_MODE_V2");
     }
+
+    impl std::convert::From<std::string::String> for CgroupMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Parameters that can be configured on Windows nodes.
@@ -250,6 +256,12 @@ pub mod windows_node_config {
 
         /// LTSC2022 specifies to use LTSC2022 as the Windows Servercore Base Image
         pub const OS_VERSION_LTSC2022: OSVersion = OSVersion::new("OS_VERSION_LTSC2022");
+    }
+
+    impl std::convert::From<std::string::String> for OSVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1104,6 +1116,12 @@ pub mod node_config {
             LocalSsdEncryptionMode::new("EPHEMERAL_KEY_ENCRYPTION");
     }
 
+    impl std::convert::From<std::string::String> for LocalSsdEncryptionMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Possible effective cgroup modes for the node.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct EffectiveCgroupMode(std::borrow::Cow<'static, str>);
@@ -1138,6 +1156,12 @@ pub mod node_config {
         /// cgroup configuration.
         pub const EFFECTIVE_CGROUP_MODE_V2: EffectiveCgroupMode =
             EffectiveCgroupMode::new("EFFECTIVE_CGROUP_MODE_V2");
+    }
+
+    impl std::convert::From<std::string::String> for EffectiveCgroupMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1439,6 +1463,12 @@ pub mod node_network_config {
             /// Higher bandwidth, actual values based on VM size.
             pub const TIER_1: Tier = Tier::new("TIER_1");
         }
+
+        impl std::convert::From<std::string::String> for Tier {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 }
 
@@ -1634,6 +1664,12 @@ pub mod sandbox_config {
         /// Run sandbox using gvisor.
         pub const GVISOR: Type = Type::new("GVISOR");
     }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// GcfsConfig contains configurations of Google Container File System
@@ -1757,6 +1793,12 @@ pub mod reservation_affinity {
         /// Must consume from a specific reservation. Must specify key value fields
         /// for specifying the reservations.
         pub const SPECIFIC_RESERVATION: Type = Type::new("SPECIFIC_RESERVATION");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1886,6 +1928,12 @@ pub mod sole_tenant_config {
 
             /// Anti-affinity operator.
             pub const NOT_IN: Operator = Operator::new("NOT_IN");
+        }
+
+        impl std::convert::From<std::string::String> for Operator {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -2189,6 +2237,12 @@ pub mod node_taint {
 
         /// NoExecute
         pub const NO_EXECUTE: Effect = Effect::new("NO_EXECUTE");
+    }
+
+    impl std::convert::From<std::string::String> for Effect {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3106,6 +3160,12 @@ pub mod cloud_run_config {
         pub const LOAD_BALANCER_TYPE_INTERNAL: LoadBalancerType =
             LoadBalancerType::new("LOAD_BALANCER_TYPE_INTERNAL");
     }
+
+    impl std::convert::From<std::string::String> for LoadBalancerType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Configuration options for the Config Connector add-on.
@@ -3543,6 +3603,12 @@ pub mod network_policy {
         /// Tigera (Calico Felix).
         pub const CALICO: Provider = Provider::new("CALICO");
     }
+
+    impl std::convert::From<std::string::String> for Provider {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Configuration for Binary Authorization.
@@ -3623,6 +3689,12 @@ pub mod binary_authorization {
         /// enabled boolean to true.
         pub const PROJECT_SINGLETON_POLICY_ENFORCE: EvaluationMode =
             EvaluationMode::new("PROJECT_SINGLETON_POLICY_ENFORCE");
+    }
+
+    impl std::convert::From<std::string::String> for EvaluationMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -5186,6 +5258,12 @@ pub mod cluster {
         /// full functionality. Details can be found in the `statusMessage` field.
         pub const DEGRADED: Status = Status::new("DEGRADED");
     }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// RBACBindingConfig allows user to restrict ClusterRoleBindings an RoleBindings
@@ -5471,6 +5549,12 @@ pub mod compliance_posture_config {
         /// Enables Compliance Posture features on the cluster.
         pub const ENABLED: Mode = Mode::new("ENABLED");
     }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// K8sBetaAPIConfig , configuration for beta APIs
@@ -5590,6 +5674,12 @@ pub mod security_posture_config {
         pub const ENTERPRISE: Mode = Mode::new("ENTERPRISE");
     }
 
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// VulnerabilityMode defines enablement mode for vulnerability scanning.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct VulnerabilityMode(std::borrow::Cow<'static, str>);
@@ -5626,6 +5716,12 @@ pub mod security_posture_config {
         /// features.
         pub const VULNERABILITY_ENTERPRISE: VulnerabilityMode =
             VulnerabilityMode::new("VULNERABILITY_ENTERPRISE");
+    }
+
+    impl std::convert::From<std::string::String> for VulnerabilityMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7244,6 +7340,12 @@ pub mod operation {
         pub const ABORTING: Status = Status::new("ABORTING");
     }
 
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Operation type categorizes the operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct Type(std::borrow::Cow<'static, str>);
@@ -7406,6 +7508,12 @@ pub mod operation {
         /// Fleet features of GKE Enterprise are being upgraded. The cluster should
         /// be assumed to be blocked for other upgrades until the operation finishes.
         pub const FLEET_FEATURE_UPGRADE: Type = Type::new("FLEET_FEATURE_UPGRADE");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -8933,6 +9041,12 @@ pub mod set_master_auth_request {
         /// authentication is enabled, with either a provided password or a generated
         /// one.
         pub const SET_USERNAME: Action = Action::new("SET_USERNAME");
+    }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -10664,6 +10778,12 @@ pub mod node_pool {
                 /// Rollback has been initiated.
                 pub const ROLLBACK_STARTED: Phase = Phase::new("ROLLBACK_STARTED");
             }
+
+            impl std::convert::From<std::string::String> for Phase {
+                fn from(value: std::string::String) -> Self {
+                    Self(std::borrow::Cow::Owned(value))
+                }
+            }
         }
     }
 
@@ -10754,6 +10874,12 @@ pub mod node_pool {
             /// ensure low communication latency.
             pub const COMPACT: Type = Type::new("COMPACT");
         }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// QueuedProvisioning defines the queued provisioning used by the node pool.
@@ -10829,6 +10955,12 @@ pub mod node_pool {
         /// The ERROR state indicates the node pool may be unusable. Details
         /// can be found in the `statusMessage` field.
         pub const ERROR: Status = Status::new("ERROR");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -11310,6 +11442,12 @@ pub mod maintenance_exclusion_options {
         /// and also exclude all node pool upgrades. Only control
         /// plane patches are allowed.
         pub const NO_MINOR_OR_NODE_UPGRADES: Scope = Scope::new("NO_MINOR_OR_NODE_UPGRADES");
+    }
+
+    impl std::convert::From<std::string::String> for Scope {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -11868,6 +12006,12 @@ pub mod cluster_autoscaling {
         /// Use default (balanced) autoscaling configuration.
         pub const BALANCED: AutoscalingProfile = AutoscalingProfile::new("BALANCED");
     }
+
+    impl std::convert::From<std::string::String> for AutoscalingProfile {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// AutoprovisioningNodePoolDefaults contains defaults for a node pool created
@@ -12223,6 +12367,12 @@ pub mod node_pool_autoscaling {
 
         /// ANY policy picks zones that have the highest capacity available.
         pub const ANY: LocationPolicy = LocationPolicy::new("ANY");
+    }
+
+    impl std::convert::From<std::string::String> for LocationPolicy {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -12694,6 +12844,12 @@ pub mod gpu_sharing_config {
         /// GPUs are shared between containers with NVIDIA MPS.
         pub const MPS: GPUSharingStrategy = GPUSharingStrategy::new("MPS");
     }
+
+    impl std::convert::From<std::string::String> for GPUSharingStrategy {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// GPUDriverInstallationConfig specifies the version of GPU driver to be auto
@@ -12769,6 +12925,12 @@ pub mod gpu_driver_installation_config {
         /// "Latest" GPU driver in COS.
         pub const LATEST: GPUDriverVersion = GPUDriverVersion::new("LATEST");
     }
+
+    impl std::convert::From<std::string::String> for GPUDriverVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// WorkloadMetadataConfig defines the metadata configuration to expose to
@@ -12838,6 +13000,12 @@ pub mod workload_metadata_config {
         /// Servers. This feature can only be enabled if Workload Identity is enabled
         /// at the cluster level.
         pub const GKE_METADATA: Mode = Mode::new("GKE_METADATA");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13090,6 +13258,12 @@ pub mod status_condition {
 
         /// Cluster CA is expiring soon.
         pub const CA_EXPIRING: Code = Code::new("CA_EXPIRING");
+    }
+
+    impl std::convert::From<std::string::String> for Code {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13408,6 +13582,12 @@ pub mod network_config {
             /// Higher bandwidth, actual values based on VM size.
             pub const TIER_1: Tier = Tier::new("TIER_1");
         }
+
+        impl std::convert::From<std::string::String> for Tier {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 }
 
@@ -13476,6 +13656,12 @@ pub mod gateway_api_config {
 
         /// Gateway API support is enabled, standard CRDs are installed
         pub const CHANNEL_STANDARD: Channel = Channel::new("CHANNEL_STANDARD");
+    }
+
+    impl std::convert::From<std::string::String> for Channel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13968,6 +14154,12 @@ pub mod autopilot_compatibility_issue {
         pub const PASSED_WITH_OPTIONAL_CONFIG: IssueType =
             IssueType::new("PASSED_WITH_OPTIONAL_CONFIG");
     }
+
+    impl std::convert::From<std::string::String> for IssueType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// CheckAutopilotCompatibilityResponse has a list of compatibility issues.
@@ -14090,6 +14282,12 @@ pub mod release_channel {
         /// Clusters subscribed to EXTENDED receive extended support and availability
         /// for versions which are known to be stable and reliable in production.
         pub const EXTENDED: Channel = Channel::new("EXTENDED");
+    }
+
+    impl std::convert::From<std::string::String> for Channel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14270,6 +14468,12 @@ pub mod dns_config {
         pub const KUBE_DNS: Provider = Provider::new("KUBE_DNS");
     }
 
+    impl std::convert::From<std::string::String> for Provider {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// DNSScope lists the various scopes of access to cluster DNS records.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct DNSScope(std::borrow::Cow<'static, str>);
@@ -14298,6 +14502,12 @@ pub mod dns_config {
 
         /// DNS records are accessible from within the VPC.
         pub const VPC_SCOPE: DNSScope = DNSScope::new("VPC_SCOPE");
+    }
+
+    impl std::convert::From<std::string::String> for DNSScope {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14590,6 +14800,12 @@ pub mod database_encryption {
         pub const DECRYPTED: State = State::new("DECRYPTED");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Current State of etcd encryption.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct CurrentState(std::borrow::Cow<'static, str>);
@@ -14640,6 +14856,12 @@ pub mod database_encryption {
         /// De-crypting Secrets to plain text in etcd encountered an error.
         pub const CURRENT_STATE_DECRYPTION_ERROR: CurrentState =
             CurrentState::new("CURRENT_STATE_DECRYPTION_ERROR");
+    }
+
+    impl std::convert::From<std::string::String> for CurrentState {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14857,6 +15079,12 @@ pub mod usable_subnetwork_secondary_range {
         /// IN_USE_MANAGED_POD denotes this range was created by GKE and is claimed
         /// for pods. It cannot be used for other clusters.
         pub const IN_USE_MANAGED_POD: Status = Status::new("IN_USE_MANAGED_POD");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -15332,6 +15560,12 @@ pub mod notification_config {
         /// Corresponds with SecurityBulletinEvent.
         pub const SECURITY_BULLETIN_EVENT: EventType = EventType::new("SECURITY_BULLETIN_EVENT");
     }
+
+    impl std::convert::From<std::string::String> for EventType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// ConfidentialNodes is configuration for the confidential nodes feature, which
@@ -15597,6 +15831,12 @@ pub mod upgrade_info_event {
 
         /// CANCELED indicates the upgrade has canceled.
         pub const CANCELED: State = State::new("CANCELED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -15989,6 +16229,12 @@ pub mod logging_component_config {
         /// kcp connection logs
         pub const KCP_CONNECTION: Component = Component::new("KCP_CONNECTION");
     }
+
+    impl std::convert::From<std::string::String> for Component {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// RayClusterLoggingConfig specifies configuration of Ray logging.
@@ -16166,6 +16412,12 @@ pub mod advanced_datapath_observability_config {
         /// exposed via external load balancer
         pub const EXTERNAL_LB: RelayMode = RelayMode::new("EXTERNAL_LB");
     }
+
+    impl std::convert::From<std::string::String> for RelayMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// RayClusterMonitoringConfig specifies monitoring configuration for Ray
@@ -16284,6 +16536,12 @@ pub mod logging_variant_config {
         /// maximum logging throughput variant.
         pub const MAX_THROUGHPUT: Variant = Variant::new("MAX_THROUGHPUT");
     }
+
+    impl std::convert::From<std::string::String> for Variant {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// MonitoringComponentConfig is cluster monitoring component configuration.
@@ -16383,6 +16641,12 @@ pub mod monitoring_component_config {
 
         /// NVIDIA Data Center GPU Manager (DCGM)
         pub const DCGM: Component = Component::new("DCGM");
+    }
+
+    impl std::convert::From<std::string::String> for Component {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16888,6 +17152,12 @@ pub mod enterprise_config {
         /// ENTERPRISE indicates a GKE Enterprise cluster.
         pub const ENTERPRISE: ClusterTier = ClusterTier::new("ENTERPRISE");
     }
+
+    impl std::convert::From<std::string::String> for ClusterTier {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// SecretManagerConfig is config for secret manager enablement.
@@ -16986,6 +17256,12 @@ pub mod secondary_boot_disk {
         /// a container image cache.
         pub const CONTAINER_IMAGE_CACHE: Mode = Mode::new("CONTAINER_IMAGE_CACHE");
     }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// SecondaryBootDiskUpdateStrategy is a placeholder which will be extended
@@ -17042,6 +17318,12 @@ pub mod private_i_pv_6_google_access {
         PrivateIPv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL");
 }
 
+impl std::convert::From<std::string::String> for PrivateIPv6GoogleAccess {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// UpgradeResourceType is the resource type that is upgrading. It is used
 /// in upgrade notifications.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -17072,6 +17354,12 @@ pub mod upgrade_resource_type {
 
     /// Node pool
     pub const NODE_POOL: UpgradeResourceType = UpgradeResourceType::new("NODE_POOL");
+}
+
+impl std::convert::From<std::string::String> for UpgradeResourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// The datapath provider selects the implementation of the Kubernetes networking
@@ -17109,6 +17397,12 @@ pub mod datapath_provider {
     pub const ADVANCED_DATAPATH: DatapathProvider = DatapathProvider::new("ADVANCED_DATAPATH");
 }
 
+impl std::convert::From<std::string::String> for DatapathProvider {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Strategy used for node pool update.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct NodePoolUpdateStrategy(std::borrow::Cow<'static, str>);
@@ -17142,6 +17436,12 @@ pub mod node_pool_update_strategy {
     pub const SURGE: NodePoolUpdateStrategy = NodePoolUpdateStrategy::new("SURGE");
 }
 
+impl std::convert::From<std::string::String> for NodePoolUpdateStrategy {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Possible values for IP stack type
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct StackType(std::borrow::Cow<'static, str>);
@@ -17170,6 +17470,12 @@ pub mod stack_type {
 
     /// Cluster can use both IPv4 and IPv6
     pub const IPV4_IPV6: StackType = StackType::new("IPV4_IPV6");
+}
+
+impl std::convert::From<std::string::String> for StackType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Possible values for IPv6 access type
@@ -17201,6 +17507,12 @@ pub mod i_pv_6_access_type {
 
     /// Access type external (all v6 addresses are external IPs)
     pub const EXTERNAL: IPv6AccessType = IPv6AccessType::new("EXTERNAL");
+}
+
+impl std::convert::From<std::string::String> for IPv6AccessType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Options for in-transit encryption.
@@ -17235,4 +17547,10 @@ pub mod in_transit_encryption_config {
     /// Data in-transit is encrypted using inter-node transparent encryption.
     pub const IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT: InTransitEncryptionConfig =
         InTransitEncryptionConfig::new("IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT");
+}
+
+impl std::convert::From<std::string::String> for InTransitEncryptionConfig {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

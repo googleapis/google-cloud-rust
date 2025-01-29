@@ -324,6 +324,12 @@ pub mod compute_threat_list_diff_response {
         /// or the client is believed to be corrupt.
         pub const RESET: ResponseType = ResponseType::new("RESET");
     }
+
+    impl std::convert::From<std::string::String> for ResponseType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Request to check URI entries against threatLists.
@@ -1061,6 +1067,12 @@ pub mod threat_info {
             pub const HIGH: ConfidenceLevel = ConfidenceLevel::new("HIGH");
         }
 
+        impl std::convert::From<std::string::String> for ConfidenceLevel {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
+
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
         #[non_exhaustive]
@@ -1162,6 +1174,12 @@ pub mod threat_info {
             pub const AUTOMATED_REPORT: JustificationLabel =
                 JustificationLabel::new("AUTOMATED_REPORT");
         }
+
+        impl std::convert::From<std::string::String> for JustificationLabel {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
+        }
     }
 
     /// The abuse type found on the URI.
@@ -1195,6 +1213,12 @@ pub mod threat_info {
 
         /// The URI contains unwanted software.
         pub const UNWANTED_SOFTWARE: AbuseType = AbuseType::new("UNWANTED_SOFTWARE");
+    }
+
+    impl std::convert::From<std::string::String> for AbuseType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1280,6 +1304,12 @@ pub mod threat_discovery {
 
         /// General Windows platform.
         pub const WINDOWS: Platform = Platform::new("WINDOWS");
+    }
+
+    impl std::convert::From<std::string::String> for Platform {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1486,6 +1516,12 @@ pub mod submit_uri_metadata {
         /// The operation was closed with no action taken.
         pub const CLOSED: State = State::new("CLOSED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The type of threat. This maps directly to the threat list a threat may
@@ -1527,6 +1563,12 @@ pub mod threat_type {
         ThreatType::new("SOCIAL_ENGINEERING_EXTENDED_COVERAGE");
 }
 
+impl std::convert::From<std::string::String> for ThreatType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// The ways in which threat entry sets can be compressed.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct CompressionType(std::borrow::Cow<'static, str>);
@@ -1556,4 +1598,10 @@ pub mod compression_type {
 
     /// Rice-Golomb encoded data.
     pub const RICE: CompressionType = CompressionType::new("RICE");
+}
+
+impl std::convert::From<std::string::String> for CompressionType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

@@ -276,6 +276,12 @@ pub mod function {
         /// The function should be updated or deleted to move it out of this state.
         pub const UNKNOWN: State = State::new("UNKNOWN");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Informational messages about the state of the Cloud Function or Operation.
@@ -362,6 +368,12 @@ pub mod state_message {
 
         /// INFO-level severity.
         pub const INFO: Severity = Severity::new("INFO");
+    }
+
+    impl std::convert::From<std::string::String> for Severity {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1082,6 +1094,12 @@ pub mod build_config {
         pub const ARTIFACT_REGISTRY: DockerRegistry = DockerRegistry::new("ARTIFACT_REGISTRY");
     }
 
+    impl std::convert::From<std::string::String> for DockerRegistry {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// This controls when security patches are applied to the runtime environment.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -1420,6 +1438,12 @@ pub mod service_config {
             VpcConnectorEgressSettings::new("ALL_TRAFFIC");
     }
 
+    impl std::convert::From<std::string::String> for VpcConnectorEgressSettings {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Available ingress settings.
     ///
     /// This controls what traffic can reach the function.
@@ -1460,6 +1484,12 @@ pub mod service_config {
             IngressSettings::new("ALLOW_INTERNAL_AND_GCLB");
     }
 
+    impl std::convert::From<std::string::String> for IngressSettings {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Available security level settings.
     ///
     /// This enforces security protocol on function URL.
@@ -1498,6 +1528,12 @@ pub mod service_config {
         /// without redirects. The application can examine the request to determine
         /// which protocol was used and respond accordingly.
         pub const SECURE_OPTIONAL: SecurityLevel = SecurityLevel::new("SECURE_OPTIONAL");
+    }
+
+    impl std::convert::From<std::string::String> for SecurityLevel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1858,6 +1894,12 @@ pub mod event_trigger {
         /// Retry on any failure, retry up to 7 days with an exponential backoff
         /// (capped at 10 seconds).
         pub const RETRY_POLICY_RETRY: RetryPolicy = RetryPolicy::new("RETRY_POLICY_RETRY");
+    }
+
+    impl std::convert::From<std::string::String> for RetryPolicy {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2607,6 +2649,12 @@ pub mod list_runtimes_response {
         /// The runtime is no longer supported.
         pub const DECOMMISSIONED: RuntimeStage = RuntimeStage::new("DECOMMISSIONED");
     }
+
+    impl std::convert::From<std::string::String> for RuntimeStage {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Security patches are applied automatically to the runtime without requiring
@@ -2965,6 +3013,12 @@ pub mod stage {
         pub const TRIGGER_ROLLBACK: Name = Name::new("TRIGGER_ROLLBACK");
     }
 
+    impl std::convert::From<std::string::String> for Name {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Possible states for a Stage
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
@@ -2996,6 +3050,12 @@ pub mod stage {
 
         /// Stage has completed.
         pub const COMPLETE: State = State::new("COMPLETE");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3033,6 +3093,12 @@ pub mod operation_type {
     pub const DELETE_FUNCTION: OperationType = OperationType::new("DELETE_FUNCTION");
 }
 
+impl std::convert::From<std::string::String> for OperationType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// The environment the function is hosted on.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct Environment(std::borrow::Cow<'static, str>);
@@ -3061,4 +3127,10 @@ pub mod environment {
 
     /// Gen 2
     pub const GEN_2: Environment = Environment::new("GEN_2");
+}
+
+impl std::convert::From<std::string::String> for Environment {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

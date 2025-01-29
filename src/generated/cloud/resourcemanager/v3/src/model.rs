@@ -189,6 +189,12 @@ pub mod folder {
         /// The folder has been marked for deletion by the user.
         pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The GetFolder request message.
@@ -965,6 +971,12 @@ pub mod organization {
         pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The owner of this organization. The owner should be specified on
     /// creation. Once set, it cannot be changed.
     ///
@@ -1363,6 +1375,12 @@ pub mod project {
         ///
         /// [google.cloud.resourcemanager.v3.Projects.DeleteProject]: crate::client::Projects::delete_project
         pub const DELETE_REQUESTED: State = State::new("DELETE_REQUESTED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3817,4 +3835,10 @@ pub mod purpose {
     ///
     /// - `fail-closed-load-testing/load-testing-network`
     pub const GCE_FIREWALL: Purpose = Purpose::new("GCE_FIREWALL");
+}
+
+impl std::convert::From<std::string::String> for Purpose {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

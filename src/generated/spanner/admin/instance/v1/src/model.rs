@@ -215,6 +215,12 @@ pub mod replica_info {
         /// * Participate in leader election but are not eligible to become leader.
         pub const WITNESS: ReplicaType = ReplicaType::new("WITNESS");
     }
+
+    impl std::convert::From<std::string::String> for ReplicaType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// A possible configuration for a Cloud Spanner instance. Configurations
@@ -491,6 +497,12 @@ pub mod instance_config {
         pub const USER_MANAGED: Type = Type::new("USER_MANAGED");
     }
 
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Indicates the current state of the instance configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct State(std::borrow::Cow<'static, str>);
@@ -520,6 +532,12 @@ pub mod instance_config {
         /// The instance configuration is fully created and ready to be used to
         /// create instances.
         pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Describes the availability for free instances to be created in an instance
@@ -567,6 +585,12 @@ pub mod instance_config {
             FreeInstanceAvailability::new("QUOTA_EXCEEDED");
     }
 
+    impl std::convert::From<std::string::String> for FreeInstanceAvailability {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// Indicates the quorum type of this instance configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     pub struct QuorumType(std::borrow::Cow<'static, str>);
@@ -606,6 +630,12 @@ pub mod instance_config {
         /// forms a write quorum from replicas that are spread across more than one
         /// region in a multi-region configuration.
         pub const MULTI_REGION: QuorumType = QuorumType::new("MULTI_REGION");
+    }
+
+    impl std::convert::From<std::string::String> for QuorumType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1488,6 +1518,12 @@ pub mod instance {
         pub const READY: State = State::new("READY");
     }
 
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The type of this instance. The type can be used to distinguish product
     /// variants, that can affect aspects like: usage restrictions, quotas and
     /// billing. Currently this is used to distinguish FREE_INSTANCE vs PROVISIONED
@@ -1525,6 +1561,12 @@ pub mod instance {
         pub const FREE_INSTANCE: InstanceType = InstanceType::new("FREE_INSTANCE");
     }
 
+    impl std::convert::From<std::string::String> for InstanceType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The edition selected for this instance. Different editions provide
     /// different capabilities at different price points.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1557,6 +1599,12 @@ pub mod instance {
 
         /// Enterprise Plus edition.
         pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    }
+
+    impl std::convert::From<std::string::String> for Edition {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Indicates the
@@ -1596,6 +1644,12 @@ pub mod instance {
         /// You can edit or delete the default backup schedule once it's created.
         pub const AUTOMATIC: DefaultBackupScheduleType =
             DefaultBackupScheduleType::new("AUTOMATIC");
+    }
+
+    impl std::convert::From<std::string::String> for DefaultBackupScheduleType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2769,6 +2823,12 @@ pub mod free_instance_metadata {
         pub const REMOVE_AFTER_GRACE_PERIOD: ExpireBehavior =
             ExpireBehavior::new("REMOVE_AFTER_GRACE_PERIOD");
     }
+
+    impl std::convert::From<std::string::String> for ExpireBehavior {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Metadata type for the operation returned by
@@ -3160,6 +3220,12 @@ pub mod instance_partition {
         /// The instance partition is fully created and ready to do work such as
         /// creating placements and using in databases.
         pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Compute capacity defines amount of server and storage resources that are
@@ -4071,4 +4137,10 @@ pub mod fulfillment_period {
     /// to complete.
     pub const FULFILLMENT_PERIOD_EXTENDED: FulfillmentPeriod =
         FulfillmentPeriod::new("FULFILLMENT_PERIOD_EXTENDED");
+}
+
+impl std::convert::From<std::string::String> for FulfillmentPeriod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

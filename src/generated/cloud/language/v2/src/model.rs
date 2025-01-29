@@ -166,6 +166,12 @@ pub mod document {
         pub const HTML: Type = Type::new("HTML");
     }
 
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
+
     /// The source of the document: a string containing the content or a
     /// Google Cloud Storage URI.
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -416,6 +422,12 @@ pub mod entity {
         /// The metadata identifies the `value` and `currency`.
         pub const PRICE: Type = Type::new("PRICE");
     }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Represents the feeling associated with the entire text or entities in
@@ -558,6 +570,12 @@ pub mod entity_mention {
 
         /// Common noun (or noun compound)
         pub const COMMON: Type = Type::new("COMMON");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1009,6 +1027,12 @@ pub mod moderate_text_request {
         /// category, and returns severity score for a subset of the categories.
         pub const MODEL_VERSION_2: ModelVersion = ModelVersion::new("MODEL_VERSION_2");
     }
+
+    impl std::convert::From<std::string::String> for ModelVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// The document moderation response message.
@@ -1345,4 +1369,10 @@ pub mod encoding_type {
     /// on the UTF-32 encoding of the input. Python is an example of a language
     /// that uses this encoding natively.
     pub const UTF32: EncodingType = EncodingType::new("UTF32");
+}
+
+impl std::convert::From<std::string::String> for EncodingType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

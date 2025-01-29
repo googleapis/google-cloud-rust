@@ -1564,6 +1564,12 @@ pub mod calendar_period {
     pub const YEAR: CalendarPeriod = CalendarPeriod::new("YEAR");
 }
 
+impl std::convert::From<std::string::String> for CalendarPeriod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
+}
+
 /// Represents a day of the week.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DayOfWeek(std::borrow::Cow<'static, str>);
@@ -1607,6 +1613,12 @@ pub mod day_of_week {
 
     /// Sunday
     pub const SUNDAY: DayOfWeek = DayOfWeek::new("SUNDAY");
+}
+
+impl std::convert::From<std::string::String> for DayOfWeek {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Represents a month in the Gregorian calendar.
@@ -1667,4 +1679,10 @@ pub mod month {
 
     /// The month of December.
     pub const DECEMBER: Month = Month::new("DECEMBER");
+}
+
+impl std::convert::From<std::string::String> for Month {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

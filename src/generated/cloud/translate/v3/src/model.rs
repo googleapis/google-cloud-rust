@@ -5271,6 +5271,12 @@ pub mod batch_translate_metadata {
         /// cancel command are output as specified in the request.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Stored in the
@@ -6279,6 +6285,12 @@ pub mod create_glossary_metadata {
         /// The glossary creation request was successfully canceled.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Stored in the
@@ -6383,6 +6395,12 @@ pub mod update_glossary_metadata {
         /// The glossary update request was successfully canceled.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Stored in the
@@ -6482,6 +6500,12 @@ pub mod delete_glossary_metadata {
 
         /// The glossary deletion request was successfully canceled.
         pub const CANCELLED: State = State::new("CANCELLED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7285,6 +7309,12 @@ pub mod batch_translate_document_metadata {
         /// cancel command are output as specified in the request.
         pub const CANCELLED: State = State::new("CANCELLED");
     }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
+    }
 }
 
 /// Configures which glossary is used for a specific target language and defines
@@ -7382,4 +7412,10 @@ pub mod operation_state {
     /// The operation request was successfully canceled.
     pub const OPERATION_STATE_CANCELLED: OperationState =
         OperationState::new("OPERATION_STATE_CANCELLED");
+}
+
+impl std::convert::From<std::string::String> for OperationState {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
