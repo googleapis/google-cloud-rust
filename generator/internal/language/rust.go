@@ -404,9 +404,19 @@ func rustWrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	}
 	// A few message types require ad-hoc treatment. Most are just managed with
 	// the default handler.
+	if f.Optional {
+		return append(
+			attributes,
+			fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+	}
+	if f.Repeated {
+		return append(
+			attributes,
+			fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
+	}
 	return append(
 		attributes,
-		fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 }
 
 func rustFieldAttributes(f *api.Field, state *api.APIState) []string {

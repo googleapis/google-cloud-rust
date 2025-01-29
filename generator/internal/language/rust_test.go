@@ -761,11 +761,25 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
+				Name:     "f_int64_repeated",
+				JSONName: "fInt64Repeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Int64Value",
+				Repeated: true,
+			},
+			{
 				Name:     "f_uint64",
 				JSONName: "fUint64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.UInt64Value",
 				Optional: true,
+			},
+			{
+				Name:     "f_uint64_repeated",
+				JSONName: "fUint64Repeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.UInt64Value",
+				Repeated: true,
 			},
 			{
 				Name:     "f_bytes",
@@ -775,6 +789,13 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
+				Name:     "f_bytes_repeated",
+				JSONName: "fBytesRepeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.BytesValue",
+				Repeated: true,
+			},
+			{
 				Name:     "f_string",
 				JSONName: "fString",
 				Typez:    api.MESSAGE_TYPE,
@@ -782,11 +803,10 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
-				Name:     "f_repeated_any",
-				JSONName: "fRepeatedAny",
+				Name:     "f_string_repeated",
+				JSONName: "fStringRepeated",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Optional: false,
+				TypezID:  ".google.protobuf.StringValue",
 				Repeated: true,
 			},
 			{
@@ -796,17 +816,28 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				TypezID:  ".google.protobuf.Any",
 				Optional: true,
 			},
+			{
+				Name:     "f_any_repeated",
+				JSONName: "fAnyRepeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Repeated: true,
+			},
 		},
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_bytes":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_string":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_repeated_any": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-		"f_any":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
+		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_any":             `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
 	}
 	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
