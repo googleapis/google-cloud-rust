@@ -129,7 +129,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
-		AddQueryParameter:  `let builder = builder.query(&[("oneofField", &req.oneof_field)]);`,
+		AddQueryParameter:  `let builder = req.get_oneof_field().iter().fold(builder, |builder, p| builder.query(&[("oneofField", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
 	}, singular.Codec, ignore); diff != "" {
@@ -147,7 +147,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::vec::Vec<std::string::String>",
 		PrimitiveFieldType: "std::string::String",
-		AddQueryParameter:  `let builder = req.oneof_field_repeated.iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
+		AddQueryParameter:  `let builder = req.get_oneof_field_repeated().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
 	}, repeated.Codec, ignore); diff != "" {
@@ -165,7 +165,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::collections::HashMap<i32,i32>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,i32>",
-		AddQueryParameter:  `let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.oneof_field_map).map_err(Error::serde)?.add(builder, "oneofFieldMap") };`,
+		AddQueryParameter:  `let builder = req.get_oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
 		KeyType:            "i32",
 		ValueType:          "i32",
 	}, map_field.Codec, ignore); diff != "" {

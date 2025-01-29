@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Locations] to make requests with.
+/// An implementation of [crate::stubs::Locations] to make requests with.
 ///
 /// `Locations` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -35,7 +35,7 @@ use std::sync::Arc;
 /// [google.cloud.location.Location.metadata]: crate::model::Location::metadata
 #[derive(Clone, Debug)]
 pub struct Locations {
-    inner: Arc<dyn crate::traits::dyntraits::Locations>,
+    inner: Arc<dyn crate::stubs::dynamic::Locations>,
 }
 
 impl Locations {
@@ -55,22 +55,22 @@ impl Locations {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::traits::Locations + 'static {
+    where T: crate::stubs::Locations + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::traits::dyntraits::Locations>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::Locations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Locations> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Locations> {
         crate::transport::Locations::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Locations> {
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Locations> {
         Self::build_transport(conf).await.map(crate::tracing::Locations::new)
     }
 

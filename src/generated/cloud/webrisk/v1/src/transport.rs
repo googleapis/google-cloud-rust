@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [WebRiskService](crate::traits::WebRiskService) using a [gax::http_client::ReqwestClient].
+/// Implements [WebRiskService](crate::stubs::WebRiskService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct WebRiskService {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl WebRiskService {
     }
 }
 
-impl crate::traits::WebRiskService for WebRiskService {
+impl crate::stubs::WebRiskService for WebRiskService {
     async fn compute_threat_list_diff(
         &self,
         req: crate::model::ComputeThreatListDiffRequest,

@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::LanguageService] to make requests with.
+/// An implementation of [crate::stubs::LanguageService] to make requests with.
 ///
 /// `LanguageService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -32,7 +32,7 @@ use std::sync::Arc;
 /// recognition.
 #[derive(Clone, Debug)]
 pub struct LanguageService {
-    inner: Arc<dyn crate::traits::dyntraits::LanguageService>,
+    inner: Arc<dyn crate::stubs::dynamic::LanguageService>,
 }
 
 impl LanguageService {
@@ -53,7 +53,7 @@ impl LanguageService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::LanguageService + 'static,
+        T: crate::stubs::LanguageService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -62,7 +62,7 @@ impl LanguageService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::LanguageService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::LanguageService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -71,13 +71,13 @@ impl LanguageService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::LanguageService> {
+    ) -> Result<impl crate::stubs::LanguageService> {
         crate::transport::LanguageService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::LanguageService> {
+    ) -> Result<impl crate::stubs::LanguageService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::LanguageService::new)

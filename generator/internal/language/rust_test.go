@@ -761,11 +761,25 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
+				Name:     "f_int64_repeated",
+				JSONName: "fInt64Repeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Int64Value",
+				Repeated: true,
+			},
+			{
 				Name:     "f_uint64",
 				JSONName: "fUint64",
 				Typez:    api.MESSAGE_TYPE,
 				TypezID:  ".google.protobuf.UInt64Value",
 				Optional: true,
+			},
+			{
+				Name:     "f_uint64_repeated",
+				JSONName: "fUint64Repeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.UInt64Value",
+				Repeated: true,
 			},
 			{
 				Name:     "f_bytes",
@@ -775,6 +789,13 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
+				Name:     "f_bytes_repeated",
+				JSONName: "fBytesRepeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.BytesValue",
+				Repeated: true,
+			},
+			{
 				Name:     "f_string",
 				JSONName: "fString",
 				Typez:    api.MESSAGE_TYPE,
@@ -782,11 +803,10 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				Optional: true,
 			},
 			{
-				Name:     "f_repeated_any",
-				JSONName: "fRepeatedAny",
+				Name:     "f_string_repeated",
+				JSONName: "fStringRepeated",
 				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Optional: false,
+				TypezID:  ".google.protobuf.StringValue",
 				Repeated: true,
 			},
 			{
@@ -796,17 +816,28 @@ func TestRust_WktFieldAttributes(t *testing.T) {
 				TypezID:  ".google.protobuf.Any",
 				Optional: true,
 			},
+			{
+				Name:     "f_any_repeated",
+				JSONName: "fAnyRepeated",
+				Typez:    api.MESSAGE_TYPE,
+				TypezID:  ".google.protobuf.Any",
+				Repeated: true,
+			},
 		},
 	}
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_bytes":        `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_string":       `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_repeated_any": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-		"f_any":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
+		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_any":             `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
+		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
 	}
 	rustLoadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -1351,6 +1382,105 @@ func TestRust_AsQueryParameter(t *testing.T) {
 	}
 }
 
+func TestRust_OneOfAsQueryParameter(t *testing.T) {
+	options := &api.Message{
+		Name:   "Options",
+		ID:     "..Options",
+		Fields: []*api.Field{},
+	}
+	optionsField := &api.Field{
+		Name:     "options_field",
+		JSONName: "optionsField",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  options.ID,
+		IsOneOf:  true,
+	}
+	typeField := &api.Field{
+		Name:     "type",
+		JSONName: "type",
+		Typez:    api.INT32_TYPE,
+		IsOneOf:  true,
+	}
+	singularField := &api.Field{
+		Name:     "singular_field",
+		JSONName: "singularField",
+		Typez:    api.STRING_TYPE,
+		IsOneOf:  true,
+	}
+	repeatedField := &api.Field{
+		Name:     "repeated_field",
+		JSONName: "repeatedField",
+		Typez:    api.STRING_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+
+	singularEnumField := &api.Field{
+		Name:     "singular_enum_field",
+		JSONName: "singularEnumField",
+		Typez:    api.ENUM_TYPE,
+		IsOneOf:  true,
+	}
+	repeatedEnumField := &api.Field{
+		Name:     "repeated_enum_field",
+		JSONName: "repeatedEnumField",
+		Typez:    api.ENUM_TYPE,
+		Repeated: true,
+		IsOneOf:  true,
+	}
+
+	singularFieldMaskField := &api.Field{
+		Name:     "singular_field_mask",
+		JSONName: "singularFieldMask",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".google.protobuf.FieldMask",
+		IsOneOf:  true,
+	}
+
+	fields := []*api.Field{
+		typeField,
+		optionsField,
+		singularField, repeatedField,
+		singularEnumField, repeatedEnumField,
+		singularFieldMaskField,
+	}
+	oneof := &api.OneOf{
+		Name:   "one_of",
+		ID:     "..Request.one_of",
+		Fields: fields,
+	}
+	request := &api.Message{
+		Name:   "TestRequest",
+		ID:     "..TestRequest",
+		Fields: fields,
+		OneOfs: []*api.OneOf{oneof},
+	}
+	model := api.NewTestAPI(
+		[]*api.Message{options, request},
+		[]*api.Enum{},
+		[]*api.Service{})
+	api.CrossReference(model)
+	rustLoadWellKnownTypes(model.State)
+
+	for _, test := range []struct {
+		field *api.Field
+		want  string
+	}{
+		{optionsField, `let builder = req.get_options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{typeField, `let builder = req.get_type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
+		{singularField, `let builder = req.get_singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
+		{repeatedField, `let builder = req.get_repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
+		{singularEnumField, `let builder = req.get_singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p.value())]));`},
+		{repeatedEnumField, `let builder = req.get_repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p.value())]));`},
+		{singularFieldMaskField, `let builder = req.get_singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+	} {
+		got := rustAddQueryParameter(test.field)
+		if test.want != got {
+			t.Errorf("mismatched as query parameter for %s\nwant=%s\n got=%s", test.field.Name, test.want, got)
+		}
+	}
+}
+
 type rustCaseConvertTest struct {
 	Input    string
 	Expected string
@@ -1614,6 +1744,9 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [Enum][test.v1.SomeMessage.SomeEnum]
 [Message][test.v1.SomeMessage] repeated
 [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
+[oneof group][test.v1.SomeMessage.result]
+[oneof field][test.v1.SomeMessage.error]
+[unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links
 [SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
 [ExternalService][google.iam.v1.Iampolicy]
@@ -1629,6 +1762,9 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
 		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [oneof group][test.v1.SomeMessage.result]",
+		"/// [oneof field][test.v1.SomeMessage.error]",
+		"/// [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links",
 		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
 		"/// [ExternalService][google.iam.v1.Iampolicy]",
@@ -1646,6 +1782,8 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [test.v1.SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [test.v1.SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [test.v1.SomeService]: crate::client::SomeService",
 		// Skipped because the method is skipped
 		// "/// [test.v1.SomeService.CreateBar]: crate::client::SomeService::create_bar",
@@ -1691,7 +1829,9 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 [relative link to method][SomeService.CreateFoo]
 [relative link to message][SomeMessage]
 [relative link to message field][SomeMessage.field]
+[relative link to message oneof group][SomeMessage.result]
 [relative link to message oneof field][SomeMessage.error]
+[relative link to unmangled field][SomeMessage.type]
 [relative link to enum][SomeMessage.SomeEnum]
 [relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]
 `
@@ -1700,7 +1840,9 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 		"/// [relative link to method][SomeService.CreateFoo]",
 		"/// [relative link to message][SomeMessage]",
 		"/// [relative link to message field][SomeMessage.field]",
+		"/// [relative link to message oneof group][SomeMessage.result]",
 		"/// [relative link to message oneof field][SomeMessage.error]",
+		"/// [relative link to unmangled field][SomeMessage.type]",
 		"/// [relative link to enum][SomeMessage.SomeEnum]",
 		"/// [relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]",
 		"///",
@@ -1709,6 +1851,8 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [SomeService]: crate::client::SomeService",
 		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
 	}
@@ -1748,7 +1892,9 @@ implied service reference [SomeService][]
 implied method reference [SomeService.CreateFoo][]
 implied message reference [SomeMessage][]
 implied message field reference [SomeMessage.field][]
+implied message oneof group reference [SomeMessage.result][]
 implied message oneof field reference [SomeMessage.error][]
+implied message unmangled field reference [SomeMessage.type][]
 implied enum reference [SomeMessage.SomeEnum][]
 implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 `
@@ -1757,7 +1903,9 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 		"/// implied method reference [SomeService.CreateFoo][]",
 		"/// implied message reference [SomeMessage][]",
 		"/// implied message field reference [SomeMessage.field][]",
+		"/// implied message oneof group reference [SomeMessage.result][]",
 		"/// implied message oneof field reference [SomeMessage.error][]",
+		"/// implied message unmangled field reference [SomeMessage.type][]",
 		"/// implied enum reference [SomeMessage.SomeEnum][]",
 		"/// implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]",
 		"///",
@@ -1766,6 +1914,8 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [SomeService]: crate::client::SomeService",
 		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
 	}
@@ -1848,13 +1998,17 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		ID:      ".test.v1.SomeMessage.error",
 		IsOneOf: true,
 	}
+	typez := &api.Field{
+		Name: "type",
+		ID:   ".test.v1.SomeMessage.type",
+	}
 	someMessage := &api.Message{
 		Name:    "SomeMessage",
 		ID:      ".test.v1.SomeMessage",
 		Package: "test.v1",
 		Enums:   []*api.Enum{someEnum},
 		Fields: []*api.Field{
-			{Name: "unused"}, {Name: "field"}, response, errorz,
+			{Name: "unused"}, {Name: "field"}, response, errorz, typez,
 		},
 		OneOfs: []*api.OneOf{
 			{

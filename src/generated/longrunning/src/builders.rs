@@ -21,7 +21,7 @@ pub mod operations {
     /// Common implementation for [crate::client::Operations] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::Operations>,
+        stub: Arc<dyn crate::stubs::dynamic::Operations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod operations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Operations>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod operations {
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Operations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -118,7 +118,7 @@ pub mod operations {
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Operations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +159,7 @@ pub mod operations {
     pub struct DeleteOperation(RequestBuilder<crate::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Operations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -200,7 +200,7 @@ pub mod operations {
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Operations>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Operations>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

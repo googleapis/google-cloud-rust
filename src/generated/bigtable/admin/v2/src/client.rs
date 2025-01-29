@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::BigtableInstanceAdmin] to make requests with.
+/// An implementation of [crate::stubs::BigtableInstanceAdmin] to make requests with.
 ///
 /// `BigtableInstanceAdmin` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -33,7 +33,7 @@ use std::sync::Arc;
 /// tables' metadata or data stored in those tables.
 #[derive(Clone, Debug)]
 pub struct BigtableInstanceAdmin {
-    inner: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>,
+    inner: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>,
 }
 
 impl BigtableInstanceAdmin {
@@ -54,7 +54,7 @@ impl BigtableInstanceAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::BigtableInstanceAdmin + 'static,
+        T: crate::stubs::BigtableInstanceAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -63,7 +63,7 @@ impl BigtableInstanceAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -72,13 +72,13 @@ impl BigtableInstanceAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::BigtableInstanceAdmin> {
+    ) -> Result<impl crate::stubs::BigtableInstanceAdmin> {
         crate::transport::BigtableInstanceAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::BigtableInstanceAdmin> {
+    ) -> Result<impl crate::stubs::BigtableInstanceAdmin> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::BigtableInstanceAdmin::new)
@@ -885,7 +885,7 @@ impl BigtableInstanceAdmin {
     }
 }
 
-/// An implementation of [crate::traits::BigtableTableAdmin] to make requests with.
+/// An implementation of [crate::stubs::BigtableTableAdmin] to make requests with.
 ///
 /// `BigtableTableAdmin` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -901,7 +901,7 @@ impl BigtableInstanceAdmin {
 /// the tables.
 #[derive(Clone, Debug)]
 pub struct BigtableTableAdmin {
-    inner: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>,
+    inner: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>,
 }
 
 impl BigtableTableAdmin {
@@ -922,7 +922,7 @@ impl BigtableTableAdmin {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::BigtableTableAdmin + 'static,
+        T: crate::stubs::BigtableTableAdmin + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -931,7 +931,7 @@ impl BigtableTableAdmin {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -940,13 +940,13 @@ impl BigtableTableAdmin {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::BigtableTableAdmin> {
+    ) -> Result<impl crate::stubs::BigtableTableAdmin> {
         crate::transport::BigtableTableAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::BigtableTableAdmin> {
+    ) -> Result<impl crate::stubs::BigtableTableAdmin> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::BigtableTableAdmin::new)

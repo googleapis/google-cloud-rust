@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Folders] to make requests with.
+/// An implementation of [crate::stubs::Folders] to make requests with.
 ///
 /// `Folders` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -33,7 +33,7 @@ use std::sync::Arc;
 /// organization and to control the policies applied to groups of resources.
 #[derive(Clone, Debug)]
 pub struct Folders {
-    inner: Arc<dyn crate::traits::dyntraits::Folders>,
+    inner: Arc<dyn crate::stubs::dynamic::Folders>,
 }
 
 impl Folders {
@@ -54,7 +54,7 @@ impl Folders {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Folders + 'static,
+        T: crate::stubs::Folders + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -63,7 +63,7 @@ impl Folders {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Folders>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Folders>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -72,13 +72,13 @@ impl Folders {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Folders> {
+    ) -> Result<impl crate::stubs::Folders> {
         crate::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Folders> {
+    ) -> Result<impl crate::stubs::Folders> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Folders::new)
@@ -737,7 +737,7 @@ impl Folders {
     }
 }
 
-/// An implementation of [crate::traits::Organizations] to make requests with.
+/// An implementation of [crate::stubs::Organizations] to make requests with.
 ///
 /// `Organizations` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -750,7 +750,7 @@ impl Folders {
 /// Allows users to manage their organization resources.
 #[derive(Clone, Debug)]
 pub struct Organizations {
-    inner: Arc<dyn crate::traits::dyntraits::Organizations>,
+    inner: Arc<dyn crate::stubs::dynamic::Organizations>,
 }
 
 impl Organizations {
@@ -771,7 +771,7 @@ impl Organizations {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Organizations + 'static,
+        T: crate::stubs::Organizations + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -780,7 +780,7 @@ impl Organizations {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Organizations>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Organizations>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -789,13 +789,13 @@ impl Organizations {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Organizations> {
+    ) -> Result<impl crate::stubs::Organizations> {
         crate::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Organizations> {
+    ) -> Result<impl crate::stubs::Organizations> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Organizations::new)
@@ -873,7 +873,7 @@ impl Organizations {
     }
 }
 
-/// An implementation of [crate::traits::Projects] to make requests with.
+/// An implementation of [crate::stubs::Projects] to make requests with.
 ///
 /// `Projects` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -886,7 +886,7 @@ impl Organizations {
 /// Manages Google Cloud Projects.
 #[derive(Clone, Debug)]
 pub struct Projects {
-    inner: Arc<dyn crate::traits::dyntraits::Projects>,
+    inner: Arc<dyn crate::stubs::dynamic::Projects>,
 }
 
 impl Projects {
@@ -907,7 +907,7 @@ impl Projects {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Projects + 'static,
+        T: crate::stubs::Projects + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -916,7 +916,7 @@ impl Projects {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Projects>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Projects>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -925,13 +925,13 @@ impl Projects {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Projects> {
+    ) -> Result<impl crate::stubs::Projects> {
         crate::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Projects> {
+    ) -> Result<impl crate::stubs::Projects> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Projects::new)
@@ -1606,7 +1606,7 @@ impl Projects {
     }
 }
 
-/// An implementation of [crate::traits::TagBindings] to make requests with.
+/// An implementation of [crate::stubs::TagBindings] to make requests with.
 ///
 /// `TagBindings` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1620,7 +1620,7 @@ impl Projects {
 /// different Google Cloud resources throughout the GCP resource hierarchy.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
-    inner: Arc<dyn crate::traits::dyntraits::TagBindings>,
+    inner: Arc<dyn crate::stubs::dynamic::TagBindings>,
 }
 
 impl TagBindings {
@@ -1641,7 +1641,7 @@ impl TagBindings {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TagBindings + 'static,
+        T: crate::stubs::TagBindings + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1650,7 +1650,7 @@ impl TagBindings {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TagBindings>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TagBindings>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1659,13 +1659,13 @@ impl TagBindings {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagBindings> {
+    ) -> Result<impl crate::stubs::TagBindings> {
         crate::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagBindings> {
+    ) -> Result<impl crate::stubs::TagBindings> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TagBindings::new)
@@ -1889,7 +1889,7 @@ impl TagBindings {
     }
 }
 
-/// An implementation of [crate::traits::TagHolds] to make requests with.
+/// An implementation of [crate::stubs::TagHolds] to make requests with.
 ///
 /// `TagHolds` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1906,7 +1906,7 @@ impl TagBindings {
 /// so that TagHolds can be managed in the same location as their usage.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
-    inner: Arc<dyn crate::traits::dyntraits::TagHolds>,
+    inner: Arc<dyn crate::stubs::dynamic::TagHolds>,
 }
 
 impl TagHolds {
@@ -1927,7 +1927,7 @@ impl TagHolds {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TagHolds + 'static,
+        T: crate::stubs::TagHolds + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1936,7 +1936,7 @@ impl TagHolds {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TagHolds>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TagHolds>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1945,13 +1945,13 @@ impl TagHolds {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagHolds> {
+    ) -> Result<impl crate::stubs::TagHolds> {
         crate::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagHolds> {
+    ) -> Result<impl crate::stubs::TagHolds> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TagHolds::new)
@@ -2171,7 +2171,7 @@ impl TagHolds {
     }
 }
 
-/// An implementation of [crate::traits::TagKeys] to make requests with.
+/// An implementation of [crate::stubs::TagKeys] to make requests with.
 ///
 /// `TagKeys` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -2184,7 +2184,7 @@ impl TagHolds {
 /// Allow users to create and manage tag keys.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
-    inner: Arc<dyn crate::traits::dyntraits::TagKeys>,
+    inner: Arc<dyn crate::stubs::dynamic::TagKeys>,
 }
 
 impl TagKeys {
@@ -2205,7 +2205,7 @@ impl TagKeys {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TagKeys + 'static,
+        T: crate::stubs::TagKeys + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2214,7 +2214,7 @@ impl TagKeys {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TagKeys>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TagKeys>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2223,13 +2223,13 @@ impl TagKeys {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagKeys> {
+    ) -> Result<impl crate::stubs::TagKeys> {
         crate::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagKeys> {
+    ) -> Result<impl crate::stubs::TagKeys> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TagKeys::new)
@@ -2599,7 +2599,7 @@ impl TagKeys {
     }
 }
 
-/// An implementation of [crate::traits::TagValues] to make requests with.
+/// An implementation of [crate::stubs::TagValues] to make requests with.
 ///
 /// `TagValues` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -2612,7 +2612,7 @@ impl TagKeys {
 /// Allow users to create and manage tag values.
 #[derive(Clone, Debug)]
 pub struct TagValues {
-    inner: Arc<dyn crate::traits::dyntraits::TagValues>,
+    inner: Arc<dyn crate::stubs::dynamic::TagValues>,
 }
 
 impl TagValues {
@@ -2633,7 +2633,7 @@ impl TagValues {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TagValues + 'static,
+        T: crate::stubs::TagValues + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -2642,7 +2642,7 @@ impl TagValues {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TagValues>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TagValues>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -2651,13 +2651,13 @@ impl TagValues {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagValues> {
+    ) -> Result<impl crate::stubs::TagValues> {
         crate::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TagValues> {
+    ) -> Result<impl crate::stubs::TagValues> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TagValues::new)

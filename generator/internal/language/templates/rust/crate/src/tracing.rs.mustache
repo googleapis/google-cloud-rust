@@ -22,22 +22,22 @@ use crate::Result;
 
 {{/HasServices}}
 {{#Services}}
-/// Implements a [{{NameToPascal}}](crate::traits::{{NametoPascal}}) decorator for logging and tracing.
+/// Implements a [{{NameToPascal}}](crate::stubs::{{NametoPascal}}) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct {{NameToPascal}}<T>
-where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
+where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
 impl<T> {{NameToPascal}}<T>
-where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
+where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
-impl<T> crate::traits::{{NameToPascal}} for {{NameToPascal}}<T>
-where T: crate::traits::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
+impl<T> crate::stubs::{{NameToPascal}} for {{NameToPascal}}<T>
+where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     {{#Methods}}
     #[tracing::instrument(ret)]
     async fn {{NameToSnake}}(

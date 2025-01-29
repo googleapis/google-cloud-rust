@@ -21,7 +21,7 @@ pub mod secret_manager_service {
     /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>,
+        stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod secret_manager_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod secret_manager_service {
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,7 +124,7 @@ pub mod secret_manager_service {
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,7 +171,7 @@ pub mod secret_manager_service {
     pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
 
     impl ListSecrets {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -251,7 +251,7 @@ pub mod secret_manager_service {
     pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
 
     impl CreateSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,7 +309,7 @@ pub mod secret_manager_service {
     );
 
     impl ListSecretsByProjectAndLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -400,7 +400,7 @@ pub mod secret_manager_service {
     );
 
     impl CreateSecretByProjectAndLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -465,7 +465,7 @@ pub mod secret_manager_service {
     pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
 
     impl AddSecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -532,7 +532,7 @@ pub mod secret_manager_service {
     );
 
     impl AddSecretVersionByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,7 +600,7 @@ pub mod secret_manager_service {
     pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
 
     impl GetSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -647,7 +647,7 @@ pub mod secret_manager_service {
     pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
 
     impl DeleteSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -700,7 +700,7 @@ pub mod secret_manager_service {
     pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
 
     impl UpdateSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -764,7 +764,7 @@ pub mod secret_manager_service {
     );
 
     impl GetSecretByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,7 +824,7 @@ pub mod secret_manager_service {
     );
 
     impl DeleteSecretByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -890,7 +890,7 @@ pub mod secret_manager_service {
     );
 
     impl UpdateSecretByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -963,7 +963,7 @@ pub mod secret_manager_service {
     pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
 
     impl ListSecretVersions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1054,7 +1054,7 @@ pub mod secret_manager_service {
     );
 
     impl ListSecretVersionsByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1154,7 +1154,7 @@ pub mod secret_manager_service {
     pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
 
     impl GetSecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1214,7 +1214,7 @@ pub mod secret_manager_service {
     );
 
     impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,7 +1281,7 @@ pub mod secret_manager_service {
     pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
 
     impl AccessSecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1341,7 +1341,7 @@ pub mod secret_manager_service {
     );
 
     impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1408,7 +1408,7 @@ pub mod secret_manager_service {
     pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
 
     impl DisableSecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1478,7 +1478,7 @@ pub mod secret_manager_service {
     );
 
     impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1549,7 +1549,7 @@ pub mod secret_manager_service {
     pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
 
     impl EnableSecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1619,7 +1619,7 @@ pub mod secret_manager_service {
     );
 
     impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1690,7 +1690,7 @@ pub mod secret_manager_service {
     pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
 
     impl DestroySecretVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1760,7 +1760,7 @@ pub mod secret_manager_service {
     );
 
     impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1831,7 +1831,7 @@ pub mod secret_manager_service {
     pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1904,7 +1904,7 @@ pub mod secret_manager_service {
     );
 
     impl SetIamPolicyByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1975,7 +1975,7 @@ pub mod secret_manager_service {
     pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2033,7 +2033,7 @@ pub mod secret_manager_service {
     );
 
     impl GetIamPolicyByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2100,7 +2100,7 @@ pub mod secret_manager_service {
     pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2169,7 +2169,7 @@ pub mod secret_manager_service {
     );
 
     impl TestIamPermissionsByProjectAndLocationAndSecret {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::SecretManagerService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::SecretManagerService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

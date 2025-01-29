@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::CloudBuild] to make requests with.
+/// An implementation of [crate::stubs::CloudBuild] to make requests with.
 ///
 /// `CloudBuild` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -38,7 +38,7 @@ use std::sync::Arc;
 /// determine the status of the build.
 #[derive(Clone, Debug)]
 pub struct CloudBuild {
-    inner: Arc<dyn crate::traits::dyntraits::CloudBuild>,
+    inner: Arc<dyn crate::stubs::dynamic::CloudBuild>,
 }
 
 impl CloudBuild {
@@ -59,7 +59,7 @@ impl CloudBuild {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::CloudBuild + 'static,
+        T: crate::stubs::CloudBuild + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -68,7 +68,7 @@ impl CloudBuild {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::CloudBuild>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudBuild>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -77,13 +77,13 @@ impl CloudBuild {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::CloudBuild> {
+    ) -> Result<impl crate::stubs::CloudBuild> {
         crate::transport::CloudBuild::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::CloudBuild> {
+    ) -> Result<impl crate::stubs::CloudBuild> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::CloudBuild::new)

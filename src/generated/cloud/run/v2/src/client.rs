@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Builds] to make requests with.
+/// An implementation of [crate::stubs::Builds] to make requests with.
 ///
 /// `Builds` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -31,7 +31,7 @@ use std::sync::Arc;
 /// Cloud Run Build Control Plane API
 #[derive(Clone, Debug)]
 pub struct Builds {
-    inner: Arc<dyn crate::traits::dyntraits::Builds>,
+    inner: Arc<dyn crate::stubs::dynamic::Builds>,
 }
 
 impl Builds {
@@ -52,7 +52,7 @@ impl Builds {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Builds + 'static,
+        T: crate::stubs::Builds + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -61,7 +61,7 @@ impl Builds {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Builds>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Builds>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -70,13 +70,13 @@ impl Builds {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Builds> {
+    ) -> Result<impl crate::stubs::Builds> {
         crate::transport::Builds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Builds> {
+    ) -> Result<impl crate::stubs::Builds> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Builds::new)
@@ -131,7 +131,7 @@ impl Builds {
     }
 }
 
-/// An implementation of [crate::traits::Executions] to make requests with.
+/// An implementation of [crate::stubs::Executions] to make requests with.
 ///
 /// `Executions` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -144,7 +144,7 @@ impl Builds {
 /// Cloud Run Execution Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Executions {
-    inner: Arc<dyn crate::traits::dyntraits::Executions>,
+    inner: Arc<dyn crate::stubs::dynamic::Executions>,
 }
 
 impl Executions {
@@ -165,7 +165,7 @@ impl Executions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Executions + 'static,
+        T: crate::stubs::Executions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -174,7 +174,7 @@ impl Executions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Executions>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Executions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -183,13 +183,13 @@ impl Executions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Executions> {
+    ) -> Result<impl crate::stubs::Executions> {
         crate::transport::Executions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Executions> {
+    ) -> Result<impl crate::stubs::Executions> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Executions::new)
@@ -448,7 +448,7 @@ impl Executions {
     }
 }
 
-/// An implementation of [crate::traits::Jobs] to make requests with.
+/// An implementation of [crate::stubs::Jobs] to make requests with.
 ///
 /// `Jobs` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -461,7 +461,7 @@ impl Executions {
 /// Cloud Run Job Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Jobs {
-    inner: Arc<dyn crate::traits::dyntraits::Jobs>,
+    inner: Arc<dyn crate::stubs::dynamic::Jobs>,
 }
 
 impl Jobs {
@@ -482,7 +482,7 @@ impl Jobs {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Jobs + 'static,
+        T: crate::stubs::Jobs + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -491,20 +491,20 @@ impl Jobs {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Jobs>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Jobs>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Jobs> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Jobs> {
         crate::transport::Jobs::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Jobs> {
+    ) -> Result<impl crate::stubs::Jobs> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Jobs::new)
@@ -978,7 +978,7 @@ impl Jobs {
     }
 }
 
-/// An implementation of [crate::traits::Revisions] to make requests with.
+/// An implementation of [crate::stubs::Revisions] to make requests with.
 ///
 /// `Revisions` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -991,7 +991,7 @@ impl Jobs {
 /// Cloud Run Revision Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Revisions {
-    inner: Arc<dyn crate::traits::dyntraits::Revisions>,
+    inner: Arc<dyn crate::stubs::dynamic::Revisions>,
 }
 
 impl Revisions {
@@ -1012,7 +1012,7 @@ impl Revisions {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Revisions + 'static,
+        T: crate::stubs::Revisions + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1021,7 +1021,7 @@ impl Revisions {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Revisions>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Revisions>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1030,13 +1030,13 @@ impl Revisions {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Revisions> {
+    ) -> Result<impl crate::stubs::Revisions> {
         crate::transport::Revisions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Revisions> {
+    ) -> Result<impl crate::stubs::Revisions> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Revisions::new)
@@ -1197,7 +1197,7 @@ impl Revisions {
     }
 }
 
-/// An implementation of [crate::traits::Services] to make requests with.
+/// An implementation of [crate::stubs::Services] to make requests with.
 ///
 /// `Services` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1210,7 +1210,7 @@ impl Revisions {
 /// Cloud Run Service Control Plane API
 #[derive(Clone, Debug)]
 pub struct Services {
-    inner: Arc<dyn crate::traits::dyntraits::Services>,
+    inner: Arc<dyn crate::stubs::dynamic::Services>,
 }
 
 impl Services {
@@ -1231,7 +1231,7 @@ impl Services {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Services + 'static,
+        T: crate::stubs::Services + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1240,7 +1240,7 @@ impl Services {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Services>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Services>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -1249,13 +1249,13 @@ impl Services {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Services> {
+    ) -> Result<impl crate::stubs::Services> {
         crate::transport::Services::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Services> {
+    ) -> Result<impl crate::stubs::Services> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Services::new)
@@ -1643,7 +1643,7 @@ impl Services {
     }
 }
 
-/// An implementation of [crate::traits::Tasks] to make requests with.
+/// An implementation of [crate::stubs::Tasks] to make requests with.
 ///
 /// `Tasks` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -1656,7 +1656,7 @@ impl Services {
 /// Cloud Run Task Control Plane API.
 #[derive(Clone, Debug)]
 pub struct Tasks {
-    inner: Arc<dyn crate::traits::dyntraits::Tasks>,
+    inner: Arc<dyn crate::stubs::dynamic::Tasks>,
 }
 
 impl Tasks {
@@ -1677,7 +1677,7 @@ impl Tasks {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Tasks + 'static,
+        T: crate::stubs::Tasks + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -1686,22 +1686,20 @@ impl Tasks {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Tasks>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Tasks>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(
-        conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Tasks> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Tasks> {
         crate::transport::Tasks::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Tasks> {
+    ) -> Result<impl crate::stubs::Tasks> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Tasks::new)

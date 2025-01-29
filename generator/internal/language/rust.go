@@ -404,9 +404,19 @@ func rustWrapperFieldAttributes(f *api.Field, attributes []string) []string {
 	}
 	// A few message types require ad-hoc treatment. Most are just managed with
 	// the default handler.
+	if f.Optional {
+		return append(
+			attributes,
+			fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+	}
+	if f.Repeated {
+		return append(
+			attributes,
+			fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
+	}
 	return append(
 		attributes,
-		fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
+		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
 }
 
 func rustFieldAttributes(f *api.Field, state *api.APIState) []string {
@@ -581,12 +591,16 @@ func rustBaseFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpec
 }
 
 func rustAddQueryParameter(f *api.Field) string {
+	if f.IsOneOf {
+		return rustAddQueryParameterOneOf(f)
+	}
+	fieldName := rustToSnake(f.Name)
 	switch f.Typez {
 	case api.ENUM_TYPE:
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, rustToSnake(f.Name), f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s.value())]);`, f.JSONName, rustToSnake(f.Name))
+		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s.value())]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
@@ -594,14 +608,31 @@ func rustAddQueryParameter(f *api.Field) string {
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "%s") });`, rustToSnake(f.Name), f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gax::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, rustToSnake(f.Name), f.JSONName)
+		return fmt.Sprintf(`let builder = { use gax::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, fieldName, f.JSONName)
 	default:
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, rustToSnake(f.Name), f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, rustToSnake(f.Name))
+		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, fieldName)
+	}
+}
+
+func rustAddQueryParameterOneOf(f *api.Field) string {
+	fieldName := rustToSnakeNoMangling(f.Name)
+	switch f.Typez {
+	case api.ENUM_TYPE:
+		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p.value())]));`, fieldName, f.JSONName)
+	case api.MESSAGE_TYPE:
+		// Query parameters in nested messages are first converted to a
+		// `serde_json::Value`` and then recursively merged into the request
+		// query. The conversion to `serde_json::Value` is expensive, but very
+		// few requests use nested objects as query parameters. Furthermore,
+		// the conversion is skipped if the object field is `None`.`
+		return fmt.Sprintf(`let builder = req.get_%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gax::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
+	default:
+		return fmt.Sprintf(`let builder = req.get_%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
 }
 
@@ -1262,10 +1293,15 @@ func rustTryFieldRustdocLink(id string, state *api.APIState, modulePath, sourceS
 	for _, f := range m.Fields {
 		if f.Name == fieldName {
 			if !f.IsOneOf {
-				return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(f.Name))
+				return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(f.Name))
 			} else {
 				return rustTryOneOfRustdocLink(f, m, modulePath, sourceSpecificationPackageName, packageMapping)
 			}
+		}
+	}
+	for _, o := range m.OneOfs {
+		if o.Name == fieldName {
+			return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(o.Name))
 		}
 	}
 	return ""
@@ -1275,7 +1311,7 @@ func rustTryOneOfRustdocLink(field *api.Field, message *api.Message, modulePath,
 	for _, o := range message.OneOfs {
 		for _, f := range o.Fields {
 			if f.ID == field.ID {
-				return fmt.Sprintf("%s::%s", rustFQMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(o.Name))
+				return fmt.Sprintf("%s::%s", rustFQMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(o.Name))
 			}
 		}
 	}

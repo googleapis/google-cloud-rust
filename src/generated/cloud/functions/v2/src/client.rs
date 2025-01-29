@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::FunctionService] to make requests with.
+/// An implementation of [crate::stubs::FunctionService] to make requests with.
 ///
 /// `FunctionService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -36,7 +36,7 @@ use std::sync::Arc;
 /// executed and how it is triggered.
 #[derive(Clone, Debug)]
 pub struct FunctionService {
-    inner: Arc<dyn crate::traits::dyntraits::FunctionService>,
+    inner: Arc<dyn crate::stubs::dynamic::FunctionService>,
 }
 
 impl FunctionService {
@@ -57,7 +57,7 @@ impl FunctionService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::FunctionService + 'static,
+        T: crate::stubs::FunctionService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -66,7 +66,7 @@ impl FunctionService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::FunctionService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::FunctionService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -75,13 +75,13 @@ impl FunctionService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::FunctionService> {
+    ) -> Result<impl crate::stubs::FunctionService> {
         crate::transport::FunctionService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::FunctionService> {
+    ) -> Result<impl crate::stubs::FunctionService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::FunctionService::new)

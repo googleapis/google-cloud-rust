@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::MetricsScopes] to make requests with.
+/// An implementation of [crate::stubs::MetricsScopes] to make requests with.
 ///
 /// `MetricsScopes` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -32,7 +32,7 @@ use std::sync::Arc;
 /// projects and AWS accounts.
 #[derive(Clone, Debug)]
 pub struct MetricsScopes {
-    inner: Arc<dyn crate::traits::dyntraits::MetricsScopes>,
+    inner: Arc<dyn crate::stubs::dynamic::MetricsScopes>,
 }
 
 impl MetricsScopes {
@@ -53,7 +53,7 @@ impl MetricsScopes {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::MetricsScopes + 'static,
+        T: crate::stubs::MetricsScopes + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -62,7 +62,7 @@ impl MetricsScopes {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::MetricsScopes>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::MetricsScopes>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -71,13 +71,13 @@ impl MetricsScopes {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::MetricsScopes> {
+    ) -> Result<impl crate::stubs::MetricsScopes> {
         crate::transport::MetricsScopes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::MetricsScopes> {
+    ) -> Result<impl crate::stubs::MetricsScopes> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::MetricsScopes::new)

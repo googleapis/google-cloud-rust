@@ -21,7 +21,7 @@ pub mod workflows {
     /// Common implementation for [crate::client::Workflows] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::Workflows>,
+        stub: Arc<dyn crate::stubs::dynamic::Workflows>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod workflows {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod workflows {
     pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
 
     impl ListWorkflows {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,7 +124,7 @@ pub mod workflows {
     pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
 
     impl GetWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,7 +171,7 @@ pub mod workflows {
     pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
 
     impl CreateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,7 +265,7 @@ pub mod workflows {
     pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
     impl DeleteWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,7 +341,7 @@ pub mod workflows {
     pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
     impl UpdateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +432,7 @@ pub mod workflows {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -509,7 +509,7 @@ pub mod workflows {
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -550,7 +550,7 @@ pub mod workflows {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -627,7 +627,7 @@ pub mod workflows {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -671,7 +671,7 @@ pub mod workflows {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::Workflows>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::Workflows>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

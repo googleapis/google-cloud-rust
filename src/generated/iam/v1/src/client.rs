@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::IAMPolicy] to make requests with.
+/// An implementation of [crate::stubs::IAMPolicy] to make requests with.
 ///
 /// `IAMPolicy` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -55,7 +55,7 @@ use std::sync::Arc;
 /// attached.
 #[derive(Clone, Debug)]
 pub struct IAMPolicy {
-    inner: Arc<dyn crate::traits::dyntraits::IAMPolicy>,
+    inner: Arc<dyn crate::stubs::dynamic::IAMPolicy>,
 }
 
 impl IAMPolicy {
@@ -76,7 +76,7 @@ impl IAMPolicy {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::IAMPolicy + 'static,
+        T: crate::stubs::IAMPolicy + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -85,7 +85,7 @@ impl IAMPolicy {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::IAMPolicy>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::IAMPolicy>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -94,13 +94,13 @@ impl IAMPolicy {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::IAMPolicy> {
+    ) -> Result<impl crate::stubs::IAMPolicy> {
         crate::transport::IAMPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::IAMPolicy> {
+    ) -> Result<impl crate::stubs::IAMPolicy> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::IAMPolicy::new)

@@ -21,7 +21,7 @@ pub mod function_service {
     /// Common implementation for [crate::client::FunctionService] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::FunctionService>,
+        stub: Arc<dyn crate::stubs::dynamic::FunctionService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod function_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod function_service {
     pub struct GetFunction(RequestBuilder<crate::model::GetFunctionRequest>);
 
     impl GetFunction {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -91,7 +91,7 @@ pub mod function_service {
     pub struct ListFunctions(RequestBuilder<crate::model::ListFunctionsRequest>);
 
     impl ListFunctions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,7 +171,7 @@ pub mod function_service {
     pub struct CreateFunction(RequestBuilder<crate::model::CreateFunctionRequest>);
 
     impl CreateFunction {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,7 +265,7 @@ pub mod function_service {
     pub struct UpdateFunction(RequestBuilder<crate::model::UpdateFunctionRequest>);
 
     impl UpdateFunction {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,7 +356,7 @@ pub mod function_service {
     pub struct DeleteFunction(RequestBuilder<crate::model::DeleteFunctionRequest>);
 
     impl DeleteFunction {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +432,7 @@ pub mod function_service {
     pub struct GenerateUploadUrl(RequestBuilder<crate::model::GenerateUploadUrlRequest>);
 
     impl GenerateUploadUrl {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -488,7 +488,7 @@ pub mod function_service {
     pub struct GenerateDownloadUrl(RequestBuilder<crate::model::GenerateDownloadUrlRequest>);
 
     impl GenerateDownloadUrl {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -532,7 +532,7 @@ pub mod function_service {
     pub struct ListRuntimes(RequestBuilder<crate::model::ListRuntimesRequest>);
 
     impl ListRuntimes {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -579,7 +579,7 @@ pub mod function_service {
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -656,7 +656,7 @@ pub mod function_service {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -715,7 +715,7 @@ pub mod function_service {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -765,7 +765,7 @@ pub mod function_service {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -820,7 +820,7 @@ pub mod function_service {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +897,7 @@ pub mod function_service {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::FunctionService>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::FunctionService>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

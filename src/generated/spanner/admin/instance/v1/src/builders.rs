@@ -21,7 +21,7 @@ pub mod instance_admin {
     /// Common implementation for [crate::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>,
+        stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod instance_admin {
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
     impl ListInstanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,7 +115,7 @@ pub mod instance_admin {
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +159,7 @@ pub mod instance_admin {
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
     impl CreateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,7 +265,7 @@ pub mod instance_admin {
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
     impl UpdateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -368,7 +368,7 @@ pub mod instance_admin {
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
     impl DeleteInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -426,7 +426,7 @@ pub mod instance_admin {
     );
 
     impl ListInstanceConfigOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -505,7 +505,7 @@ pub mod instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -588,7 +588,7 @@ pub mod instance_admin {
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
     impl ListInstancePartitions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -670,7 +670,7 @@ pub mod instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -720,7 +720,7 @@ pub mod instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,7 +815,7 @@ pub mod instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -907,7 +907,7 @@ pub mod instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -948,7 +948,7 @@ pub mod instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1007,7 +1007,7 @@ pub mod instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1057,7 +1057,7 @@ pub mod instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,7 +1112,7 @@ pub mod instance_admin {
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
     impl GetInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1158,7 @@ pub mod instance_admin {
     );
 
     impl CreateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1264,7 +1264,7 @@ pub mod instance_admin {
     );
 
     impl DeleteInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1316,7 +1316,7 @@ pub mod instance_admin {
     );
 
     impl UpdateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1419,7 +1419,7 @@ pub mod instance_admin {
     );
 
     impl ListInstancePartitionOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1507,7 +1507,7 @@ pub mod instance_admin {
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1595,7 +1595,7 @@ pub mod instance_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1672,7 +1672,7 @@ pub mod instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1716,7 +1716,7 @@ pub mod instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1760,7 +1760,7 @@ pub mod instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::InstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::InstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

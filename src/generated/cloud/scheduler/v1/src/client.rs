@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::CloudScheduler] to make requests with.
+/// An implementation of [crate::stubs::CloudScheduler] to make requests with.
 ///
 /// `CloudScheduler` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -32,7 +32,7 @@ use std::sync::Arc;
 /// schedule asynchronous jobs.
 #[derive(Clone, Debug)]
 pub struct CloudScheduler {
-    inner: Arc<dyn crate::traits::dyntraits::CloudScheduler>,
+    inner: Arc<dyn crate::stubs::dynamic::CloudScheduler>,
 }
 
 impl CloudScheduler {
@@ -53,7 +53,7 @@ impl CloudScheduler {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::CloudScheduler + 'static,
+        T: crate::stubs::CloudScheduler + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -62,7 +62,7 @@ impl CloudScheduler {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::CloudScheduler>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::CloudScheduler>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -71,13 +71,13 @@ impl CloudScheduler {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::CloudScheduler> {
+    ) -> Result<impl crate::stubs::CloudScheduler> {
         crate::transport::CloudScheduler::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::CloudScheduler> {
+    ) -> Result<impl crate::stubs::CloudScheduler> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::CloudScheduler::new)

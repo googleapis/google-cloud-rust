@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::Iam] to make requests with.
+/// An implementation of [crate::stubs::Iam] to make requests with.
 ///
 /// `Iam` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -59,7 +59,7 @@ use std::sync::Arc;
 /// received.
 #[derive(Clone, Debug)]
 pub struct Iam {
-    inner: Arc<dyn crate::traits::dyntraits::Iam>,
+    inner: Arc<dyn crate::stubs::dynamic::Iam>,
 }
 
 impl Iam {
@@ -80,7 +80,7 @@ impl Iam {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::Iam + 'static,
+        T: crate::stubs::Iam + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -89,20 +89,20 @@ impl Iam {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::Iam>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::Iam>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::traits::Iam> {
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::Iam> {
         crate::transport::Iam::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::Iam> {
+    ) -> Result<impl crate::stubs::Iam> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::Iam::new)

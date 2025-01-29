@@ -18,7 +18,7 @@ use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 
-/// Implements [Autokey](crate::traits::Autokey) using a [gax::http_client::ReqwestClient].
+/// Implements [Autokey](crate::stubs::Autokey) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct Autokey {
     inner: gax::http_client::ReqwestClient,
@@ -39,7 +39,7 @@ impl Autokey {
     }
 }
 
-impl crate::traits::Autokey for Autokey {
+impl crate::stubs::Autokey for Autokey {
     async fn create_key_handle(
         &self,
         req: crate::model::CreateKeyHandleRequest,
@@ -254,7 +254,7 @@ impl crate::traits::Autokey for Autokey {
     }
 }
 
-/// Implements [AutokeyAdmin](crate::traits::AutokeyAdmin) using a [gax::http_client::ReqwestClient].
+/// Implements [AutokeyAdmin](crate::stubs::AutokeyAdmin) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct AutokeyAdmin {
     inner: gax::http_client::ReqwestClient,
@@ -275,7 +275,7 @@ impl AutokeyAdmin {
     }
 }
 
-impl crate::traits::AutokeyAdmin for AutokeyAdmin {
+impl crate::stubs::AutokeyAdmin for AutokeyAdmin {
     async fn update_autokey_config(
         &self,
         req: crate::model::UpdateAutokeyConfigRequest,
@@ -488,7 +488,7 @@ impl crate::traits::AutokeyAdmin for AutokeyAdmin {
     }
 }
 
-/// Implements [EkmService](crate::traits::EkmService) using a [gax::http_client::ReqwestClient].
+/// Implements [EkmService](crate::stubs::EkmService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct EkmService {
     inner: gax::http_client::ReqwestClient,
@@ -509,7 +509,7 @@ impl EkmService {
     }
 }
 
-impl crate::traits::EkmService for EkmService {
+impl crate::stubs::EkmService for EkmService {
     async fn list_ekm_connections(
         &self,
         req: crate::model::ListEkmConnectionsRequest,
@@ -828,7 +828,7 @@ impl crate::traits::EkmService for EkmService {
     }
 }
 
-/// Implements [KeyManagementService](crate::traits::KeyManagementService) using a [gax::http_client::ReqwestClient].
+/// Implements [KeyManagementService](crate::stubs::KeyManagementService) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct KeyManagementService {
     inner: gax::http_client::ReqwestClient,
@@ -849,7 +849,7 @@ impl KeyManagementService {
     }
 }
 
-impl crate::traits::KeyManagementService for KeyManagementService {
+impl crate::stubs::KeyManagementService for KeyManagementService {
     async fn list_key_rings(
         &self,
         req: crate::model::ListKeyRingsRequest,

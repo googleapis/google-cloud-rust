@@ -18,7 +18,7 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::traits::TraceService] to make requests with.
+/// An implementation of [crate::stubs::TraceService] to make requests with.
 ///
 /// `TraceService` has various configuration parameters, but the defaults
 /// are set to work with most applications.
@@ -37,7 +37,7 @@ use std::sync::Arc;
 /// A single trace can contain spans from multiple services.
 #[derive(Clone, Debug)]
 pub struct TraceService {
-    inner: Arc<dyn crate::traits::dyntraits::TraceService>,
+    inner: Arc<dyn crate::stubs::dynamic::TraceService>,
 }
 
 impl TraceService {
@@ -58,7 +58,7 @@ impl TraceService {
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
     where
-        T: crate::traits::TraceService + 'static,
+        T: crate::stubs::TraceService + 'static,
     {
         Self {
             inner: Arc::new(stub),
@@ -67,7 +67,7 @@ impl TraceService {
 
     async fn build_inner(
         conf: gax::options::ClientConfig,
-    ) -> Result<Arc<dyn crate::traits::dyntraits::TraceService>> {
+    ) -> Result<Arc<dyn crate::stubs::dynamic::TraceService>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
@@ -76,13 +76,13 @@ impl TraceService {
 
     async fn build_transport(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TraceService> {
+    ) -> Result<impl crate::stubs::TraceService> {
         crate::transport::TraceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gax::options::ClientConfig,
-    ) -> Result<impl crate::traits::TraceService> {
+    ) -> Result<impl crate::stubs::TraceService> {
         Self::build_transport(conf)
             .await
             .map(crate::tracing::TraceService::new)

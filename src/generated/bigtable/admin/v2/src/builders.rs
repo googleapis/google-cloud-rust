@@ -21,7 +21,7 @@ pub mod bigtable_instance_admin {
     /// Common implementation for [crate::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>,
+        stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -30,7 +30,7 @@ pub mod bigtable_instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -44,7 +44,7 @@ pub mod bigtable_instance_admin {
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -150,7 +150,7 @@ pub mod bigtable_instance_admin {
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -191,7 +191,7 @@ pub mod bigtable_instance_admin {
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -238,7 +238,7 @@ pub mod bigtable_instance_admin {
     pub struct UpdateInstance(RequestBuilder<crate::model::Instance>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,7 +323,7 @@ pub mod bigtable_instance_admin {
     pub struct PartialUpdateInstance(RequestBuilder<crate::model::PartialUpdateInstanceRequest>);
 
     impl PartialUpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -418,7 +418,7 @@ pub mod bigtable_instance_admin {
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -459,7 +459,7 @@ pub mod bigtable_instance_admin {
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,7 +553,7 @@ pub mod bigtable_instance_admin {
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -594,7 +594,7 @@ pub mod bigtable_instance_admin {
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -641,7 +641,7 @@ pub mod bigtable_instance_admin {
     pub struct UpdateCluster(RequestBuilder<crate::model::Cluster>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -773,7 +773,7 @@ pub mod bigtable_instance_admin {
     pub struct PartialUpdateCluster(RequestBuilder<crate::model::PartialUpdateClusterRequest>);
 
     impl PartialUpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -868,7 +868,7 @@ pub mod bigtable_instance_admin {
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,7 +909,7 @@ pub mod bigtable_instance_admin {
     pub struct CreateAppProfile(RequestBuilder<crate::model::CreateAppProfileRequest>);
 
     impl CreateAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -974,7 +974,7 @@ pub mod bigtable_instance_admin {
     pub struct GetAppProfile(RequestBuilder<crate::model::GetAppProfileRequest>);
 
     impl GetAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1015,7 +1015,7 @@ pub mod bigtable_instance_admin {
     pub struct ListAppProfiles(RequestBuilder<crate::model::ListAppProfilesRequest>);
 
     impl ListAppProfiles {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1083,7 +1083,7 @@ pub mod bigtable_instance_admin {
     pub struct UpdateAppProfile(RequestBuilder<crate::model::UpdateAppProfileRequest>);
 
     impl UpdateAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1184,7 +1184,7 @@ pub mod bigtable_instance_admin {
     pub struct DeleteAppProfile(RequestBuilder<crate::model::DeleteAppProfileRequest>);
 
     impl DeleteAppProfile {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1234,7 +1234,7 @@ pub mod bigtable_instance_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1284,7 +1284,7 @@ pub mod bigtable_instance_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1343,7 +1343,7 @@ pub mod bigtable_instance_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1398,7 +1398,7 @@ pub mod bigtable_instance_admin {
     pub struct ListHotTablets(RequestBuilder<crate::model::ListHotTabletsRequest>);
 
     impl ListHotTablets {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1481,7 +1481,7 @@ pub mod bigtable_instance_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1558,7 +1558,7 @@ pub mod bigtable_instance_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1602,7 +1602,7 @@ pub mod bigtable_instance_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1646,7 +1646,7 @@ pub mod bigtable_instance_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableInstanceAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1693,7 +1693,7 @@ pub mod bigtable_table_admin {
     /// Common implementation for [crate::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>,
+        stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1702,7 +1702,7 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1716,7 +1716,7 @@ pub mod bigtable_table_admin {
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1785,7 +1785,7 @@ pub mod bigtable_table_admin {
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1880,7 +1880,7 @@ pub mod bigtable_table_admin {
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1954,7 +1954,7 @@ pub mod bigtable_table_admin {
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2001,7 +2001,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2091,7 +2091,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2132,7 +2132,7 @@ pub mod bigtable_table_admin {
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2211,7 +2211,7 @@ pub mod bigtable_table_admin {
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2311,7 +2311,7 @@ pub mod bigtable_table_admin {
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2391,7 +2391,7 @@ pub mod bigtable_table_admin {
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2444,7 +2444,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2547,7 +2547,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2597,7 +2597,7 @@ pub mod bigtable_table_admin {
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2658,7 +2658,7 @@ pub mod bigtable_table_admin {
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2710,7 +2710,7 @@ pub mod bigtable_table_admin {
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2754,7 +2754,7 @@ pub mod bigtable_table_admin {
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2813,7 +2813,7 @@ pub mod bigtable_table_admin {
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2916,7 +2916,7 @@ pub mod bigtable_table_admin {
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2957,7 +2957,7 @@ pub mod bigtable_table_admin {
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3025,7 +3025,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3066,7 +3066,7 @@ pub mod bigtable_table_admin {
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3160,7 +3160,7 @@ pub mod bigtable_table_admin {
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3201,7 +3201,7 @@ pub mod bigtable_table_admin {
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3254,7 +3254,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3295,7 +3295,7 @@ pub mod bigtable_table_admin {
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3375,7 +3375,7 @@ pub mod bigtable_table_admin {
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3469,7 +3469,7 @@ pub mod bigtable_table_admin {
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3568,7 +3568,7 @@ pub mod bigtable_table_admin {
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3618,7 +3618,7 @@ pub mod bigtable_table_admin {
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3677,7 +3677,7 @@ pub mod bigtable_table_admin {
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3732,7 +3732,7 @@ pub mod bigtable_table_admin {
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3809,7 +3809,7 @@ pub mod bigtable_table_admin {
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3853,7 +3853,7 @@ pub mod bigtable_table_admin {
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3897,7 +3897,7 @@ pub mod bigtable_table_admin {
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn crate::traits::dyntraits::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

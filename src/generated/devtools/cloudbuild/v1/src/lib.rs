@@ -32,10 +32,9 @@ pub mod model;
 
 pub(crate) use gax::Result;
 
-/// The traits implemented by this client library.
 #[allow(rustdoc::invalid_html_tags)]
 #[allow(rustdoc::redundant_explicit_links)]
-pub mod traits;
+pub mod stubs;
 
 /// Concrete implementations of this client library traits.
 pub mod client;
