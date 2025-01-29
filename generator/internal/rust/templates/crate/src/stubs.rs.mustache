@@ -53,13 +53,13 @@ pub(crate) mod dynamic;
 pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{#Methods}}
 
-    /// Implements [crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
-    fn {{NameToSnake}}(
+    /// Implements [crate::client::{{ServiceNameToPascal}}::{{Codec.Name}}].
+    fn {{Codec.Name}}(
         &self,
-        _req: {{InputTypeName}},
+        _req: {{InputType.Codec.QualifiedName}},
         _options: gax::options::RequestOptions
-    ) -> impl std::future::Future<Output = crate::Result<{{OutputTypeName}}>> + Send {
-        std::future::ready::<crate::Result<{{OutputTypeName}}>>(Err(Error::other("unimplemented")))
+    ) -> impl std::future::Future<Output = crate::Result<{{OutputType.Codec.QualifiedName}}>> + Send {
+        std::future::ready::<crate::Result<{{OutputType.Codec.QualifiedName}}>>(Err(Error::other("unimplemented")))
     }
     {{/Methods}}
     {{#HasLROs}}

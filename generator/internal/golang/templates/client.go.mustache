@@ -95,10 +95,10 @@ func (c *Client) {{ServiceName}}() *{{ServiceName}}{
 {{#DocLines}}
 // {{{.}}}
 {{/DocLines}}
-func (s *{{ServiceName}}) {{NameToCamel}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputTypeName}}, error) {
-    out := new({{OutputTypeName}})
+func (s *{{Codec.ServiceName}}) {{Codec.Name}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputType.Codec.Name}}, error) {
+    out := new({{OutputType.Codec.Name}})
     {{#PathInfo.Codec.HasBody}}
-    reqBody, err := json.Marshal(req{{BodyAccessor}})
+    reqBody, err := json.Marshal(req{{Codec.BodyAccessor}})
     if err != nil {
         return nil, err
     }

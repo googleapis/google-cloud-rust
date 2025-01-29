@@ -40,12 +40,12 @@ impl<T> crate::stubs::{{NameToPascal}} for {{NameToPascal}}<T>
 where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     {{#Methods}}
     #[tracing::instrument(ret)]
-    async fn {{NameToSnake}}(
+    async fn {{Codec.Name}}(
         &self,
-        req: {{InputTypeName}},
+        req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions
-    ) -> Result<{{OutputTypeName}}> {
-        self.inner.{{NameToSnake}}(req, options).await
+    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
+        self.inner.{{Codec.Name}}(req, options).await
     }
 
     {{/Methods}}

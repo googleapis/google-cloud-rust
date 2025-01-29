@@ -49,11 +49,11 @@ impl {{NameToPascal}} {
 
 impl crate::stubs::{{NameToPascal}} for {{NameToPascal}} {
     {{#Methods}}
-    async fn {{NameToSnake}}(
+    async fn {{Codec.Name}}(
         &self,
-        req: {{InputTypeName}},
+        req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
-    ) -> Result<{{OutputTypeName}}> {
+    ) -> Result<{{OutputType.Codec.QualifiedName}}> {
         let options = options.set_default_idempotency(reqwest::Method::{{PathInfo.Codec.Method}}.is_idempotent());
         let builder = self
             .inner
@@ -73,12 +73,12 @@ impl crate::stubs::{{NameToPascal}} for {{NameToPascal}} {
             )
             .query(&[("alt", "json")])
             .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        {{#QueryParams}}
+        {{#Codec.QueryParams}}
         {{{Codec.AddQueryParameter}}}
-        {{/QueryParams}}
+        {{/Codec.QueryParams}}
         self.inner.execute(
             builder,
-            {{#PathInfo.Codec.HasBody}}Some(req{{BodyAccessor}}){{/PathInfo.Codec.HasBody}}
+            {{#PathInfo.Codec.HasBody}}Some(req{{Codec.BodyAccessor}}){{/PathInfo.Codec.HasBody}}
             {{^PathInfo.Codec.HasBody}}None::<gax::http_client::NoBody>{{/PathInfo.Codec.HasBody}},
             options,
         ).await

@@ -104,8 +104,10 @@ type Method struct {
 	ID string
 	// InputType is the input to the Method
 	InputTypeID string
+	InputType   *Message
 	// OutputType is the output of the Method
 	OutputTypeID string
+	OutputType   *Message
 	// PathInfo information about the HTTP request
 	PathInfo *PathInfo
 	// IsPageable is true if the method conforms to standard defined by
@@ -117,6 +119,8 @@ type Method struct {
 	ServerSideStreaming bool
 	// For methods returning long-running operations
 	OperationInfo *OperationInfo
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized request path information.
@@ -154,6 +158,10 @@ type OperationInfo struct {
 	// The result type. This is the expected type when the long running
 	// operation completes successfully.
 	ResponseTypeID string
+	// The method.
+	Method *Method
+	// Language specific annotations
+	Codec any
 }
 
 // A path segment is either a string literal (such as "projects") or a field

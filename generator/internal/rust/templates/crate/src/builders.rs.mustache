@@ -43,19 +43,19 @@ pub mod {{NameToSnake}} {
     }
 
     {{#Methods}}
-    /// The request builder for a {{ServiceNameToPascal}}::{{NameToSnake}} call.
+    /// The request builder for a {{Codec.ServiceNameToPascal}}::{{Codec.Name}} call.
     #[derive(Clone, Debug)]
-    pub struct {{NameToPascal}}(RequestBuilder<{{InputTypeName}}>);
+    pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
 
-    impl {{NameToPascal}} {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{ServiceNameToPascal}}>) -> Self {
+    impl {{Codec.BuilderName}} {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{Codec.ServiceNameToPascal}}>) -> Self {
             Self(
                 RequestBuilder::new(stub)
             )
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<{{InputTypeName}}>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<{{InputType.Codec.QualifiedName}}>>(mut self, v: V) -> Self {
             self.0.request = v.into();
             self
         }
@@ -72,22 +72,22 @@ pub mod {{NameToSnake}} {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [{{NameToSnake}}][crate::client::{{ServiceNameToPascal}}::{{NameToSnake}}].
+        /// on [{{Method.Codec.Name}}][crate::client::{{Method.Codec.ServiceNameToPascal}}::{{Method.Codec.Name}}].
         {{/OperationInfo}}
-        pub async fn send(self) -> Result<{{OutputTypeName}}> {
+        pub async fn send(self) -> Result<{{OutputType.Codec.QualifiedName}}> {
             {{!
                 In rare cases `self.0.stub.foo` is ambiguous: we are calling
                 via `Arc<dyn T>` which implements `T` but also implements other
                 traits (e.g. `std::clone::Clone`) making the call ambiguous.
                 Using `*self.0.stub` makes the call not-ambiguous.
             }}
-            (*self.0.stub).{{NameToSnake}}(self.0.request, self.0.options).await
+            (*self.0.stub).{{Codec.Name}}(self.0.request, self.0.options).await
         }
         {{#IsPageable}}
 
         /// Streams the responses back.
         #[cfg(feature = "unstable-stream")]
-        pub async fn stream(self) -> gax::paginator::Paginator<{{OutputTypeName}}, gax::error::Error> {
+        pub async fn stream(self) -> gax::paginator::Paginator<{{OutputType.Codec.QualifiedName}}, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
                 let builder = self.clone();
@@ -99,12 +99,12 @@ pub mod {{NameToSnake}} {
         {{/IsPageable}}
         {{#OperationInfo}}
 
-        /// Creates a [Poller][lro::Poller] to work with `{{NameToSnake}}`.
+        /// Creates a [Poller][lro::Poller] to work with `{{Method.Codec.Name}}`.
         pub fn poller(
             self
-        ) -> impl lro::Poller<{{ResponseType}}, {{MetadataType}}>
+        ) -> impl lro::Poller<{{Codec.ResponseType}}, {{Codec.MetadataType}}>
         {
-            type Operation = lro::Operation<{{ResponseType}}, {{MetadataType}}>;
+            type Operation = lro::Operation<{{Codec.ResponseType}}, {{Codec.MetadataType}}>;
             let polling_policy = self.0.stub.get_polling_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -176,7 +176,7 @@ pub mod {{NameToSnake}} {
         {{/InputType.OneOfs}}
     }
 
-    impl gax::options::RequestBuilder for {{NameToPascal}} {
+    impl gax::options::RequestBuilder for {{Codec.BuilderName}} {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

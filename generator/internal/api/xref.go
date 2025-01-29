@@ -14,6 +14,8 @@
 
 package api
 
+import "fmt"
+
 // CrossReference fills out the cross-references in `model` that the parser(s)
 // missed.
 //
@@ -25,7 +27,7 @@ package api
 // the codecs run. It populates links between the parsed elements that the
 // codecs need. For example, the `oneof` fields use the containing `OneOf` to
 // reference any types or names of the `OneOf` during their generation.
-func CrossReference(model *API) {
+func CrossReference(model *API) error {
 	for _, m := range model.State.MessageByID {
 		for _, o := range m.OneOfs {
 			for _, f := range o.Fields {
@@ -33,4 +35,20 @@ func CrossReference(model *API) {
 			}
 		}
 	}
+	for _, m := range model.State.MethodByID {
+		input, ok := model.State.MessageByID[m.InputTypeID]
+		if !ok {
+			return fmt.Errorf("cannot find input type %s for method %s", m.InputTypeID, m.ID)
+		}
+		output, ok := model.State.MessageByID[m.OutputTypeID]
+		if !ok {
+			return fmt.Errorf("cannot find output type %s for method %s", m.OutputTypeID, m.ID)
+		}
+		m.InputType = input
+		m.OutputType = output
+		if m.OperationInfo != nil {
+			m.OperationInfo.Method = m
+		}
+	}
+	return nil
 }

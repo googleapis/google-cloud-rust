@@ -87,9 +87,9 @@ impl {{NameToPascal}} {
     }
 
     {{#Methods}}
-    {{#DocLines}}
+    {{#Codec.DocLines}}
     {{{.}}}
-    {{/DocLines}}
+    {{/Codec.DocLines}}
     {{#OperationInfo}}
     ///
     /// # Long running operations
@@ -115,8 +115,8 @@ impl {{NameToPascal}} {
     /// # use gax::Result;
     /// # use {{PackageNamespace}}::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<{{ResponseTypeInDocs}}, {{MetadataTypeInDocs}}>
-    /// ) -> Result<{{ResponseTypeInDocs}}> {
+    ///     mut poller: impl lro::Poller<{{Codec.ResponseTypeInDocs}}, {{Codec.MetadataTypeInDocs}}>
+    /// ) -> Result<{{Codec.ResponseTypeInDocs}}> {
     ///     poller.until_done().await
     /// }
     /// ```
@@ -133,8 +133,8 @@ impl {{NameToPascal}} {
     /// # use gax::Result;
     /// # use {{PackageNamespace}}::model;
     /// async fn wait(
-    ///     mut poller: impl lro::Poller<{{ResponseTypeInDocs}}, {{MetadataTypeInDocs}}>
-    /// ) -> Result<{{ResponseTypeInDocs}}> {
+    ///     mut poller: impl lro::Poller<{{Codec.ResponseTypeInDocs}}, {{Codec.MetadataTypeInDocs}}>
+    /// ) -> Result<{{Codec.ResponseTypeInDocs}}> {
     ///     while let Some(p) = poller.poll().await {
     ///         match p {
     ///             lro::PollingResult::Completed(r) => { return r; },
@@ -154,11 +154,11 @@ impl {{NameToPascal}} {
     /// the operation.
     ///
     /// If the `done` field is `true`, the operation has completed. The `result`
-    /// field contains the final response, this will be a [{{ResponseType}}] (as
+    /// field contains the final response, this will be a [{{Codec.ResponseType}}] (as
     /// an [Any]), or the error (as a `Status`).
     ///
     /// If the `done` field is `false`, the operation has not completed.  The
-    /// operation may also include a [{{MetadataType}}] value in the `metadata`
+    /// operation may also include a [{{Codec.MetadataType}}] value in the `metadata`
     /// field. This value would also be encoded as an [Any]. The metadata may
     /// include information about how much progress the LRO has made.
     ///
@@ -169,8 +169,8 @@ impl {{NameToPascal}} {
     /// long-running operation failed. Long-running operation failures return
     /// the error status in the [result] field.
     ///
-    /// [send()]: crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::send
-    /// [poller()]: crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::poller
+    /// [send()]: crate::builders::{{Method.Codec.ServiceNameToSnake}}::{{Method.Codec.BuilderName}}::send
+    /// [poller()]: crate::builders::{{Method.Codec.ServiceNameToSnake}}::{{Method.Codec.BuilderName}}::poller
     /// [until_done()]: lro::Poller::until_done
     /// [PollingPolicy]: gax::polling_policy::PollingPolicy
     /// [PollingBackoffPolicy]: gax::polling_backoff_policy::PollingBackoffPolicy
@@ -181,17 +181,17 @@ impl {{NameToPascal}} {
     /// [result]: longrunning::model::Operation::result
     /// [Any]: wkt::Any
     {{/OperationInfo}}
-    pub fn {{NameToSnake}}(
+    pub fn {{Codec.Name}}(
         &self,
-        {{#PathParams}}
+        {{#Codec.PathParams}}
         {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
-        {{/PathParams}}
-    ) -> crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}
+        {{/Codec.PathParams}}
+    ) -> crate::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
-        crate::builders::{{ServiceNameToSnake}}::{{NameToPascal}}::new(self.inner.clone())
-        {{#PathParams}}
+        crate::builders::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
+        {{#Codec.PathParams}}
             .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
-        {{/PathParams}}
+        {{/Codec.PathParams}}
     }
 
     {{/Methods}}

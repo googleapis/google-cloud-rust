@@ -42,7 +42,7 @@ type templateData struct {
 }
 
 type service struct {
-	Methods             []*method
+	Methods             []*api.Method
 	NameToPascal        string
 	ServiceNameToPascal string
 	NameToCamel         string
@@ -61,21 +61,15 @@ type messageAnnotation struct {
 	BasicFields []*api.Field
 }
 
-type method struct {
-	NameToCamel         string
+type methodAnnotation struct {
+	Name                string
 	NameToPascal        string
 	DocLines            []string
-	InputTypeName       string
-	OutputTypeName      string
-	PathInfo            *api.PathInfo
 	PathParams          []*api.Field
 	QueryParams         []*api.Field
 	BodyAccessor        string
-	IsPageable          bool
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
-	InputTypeID         string
-	InputType           *api.Message
 	OperationInfo       *operationInfo
 }
 
@@ -197,14 +191,15 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 }
 
 func newService(s *api.Service, state *api.APIState) *service {
-	// Some codecs skip some methods.
+	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
 	})
+	for _, m := range methods {
+		annotateMethod(m, s, state)
+	}
 	return &service{
-		Methods: language.MapSlice(methods, func(m *api.Method) *method {
-			return newMethod(m, s, state)
-		}),
+		Methods:             methods,
 		NameToPascal:        toPascal(s.Name),
 		ServiceNameToPascal: toPascal(s.Name), // Alias for clarity
 		NameToCamel:         strcase.ToLowerCamel(s.Name),
@@ -233,7 +228,7 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 	}
 }
 
-func newMethod(m *api.Method, s *api.Service, state *api.APIState) *method {
+func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	pathInfoAnnotation := &pathInfoAnnotation{
 		Method:   m.PathInfo.Verb,
 		PathFmt:  httpPathFmt(m.PathInfo),
@@ -241,27 +236,22 @@ func newMethod(m *api.Method, s *api.Service, state *api.APIState) *method {
 		HasBody:  m.PathInfo.BodyFieldPath != "",
 	}
 	m.PathInfo.Codec = pathInfoAnnotation
-	method := &method{
+	annotation := &methodAnnotation{
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            formatDocComments(m.Documentation, state),
-		PathInfo:            m.PathInfo,
-		InputTypeName:       methodInOutTypeName(m.InputTypeID, state),
-		NameToCamel:         strcase.ToCamel(m.Name),
+		Name:                strcase.ToCamel(m.Name),
 		NameToPascal:        toPascal(m.Name),
-		OutputTypeName:      methodInOutTypeName(m.OutputTypeID, state),
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
-		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: toPascal(s.Name),
-		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
-		method.OperationInfo = &operationInfo{
+		annotation.OperationInfo = &operationInfo{
 			MetadataType: methodInOutTypeName(m.OperationInfo.MetadataTypeID, state),
 			ResponseType: methodInOutTypeName(m.OperationInfo.ResponseTypeID, state),
 		}
 	}
-	return method
+	m.Codec = annotation
 }
 
 func annotateOneOf(field *api.OneOf, state *api.APIState) {
