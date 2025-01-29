@@ -71,5 +71,13 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	}
 	api.LabelRecursiveFields(model)
 	api.CrossReference(model)
-	return language.GenerateClient(model, config.General.Language, output, config.Codec)
+
+	switch config.General.Language {
+	case "rust":
+		return language.RustGenerate(model, output, config.Codec)
+	case "go":
+		return language.GolangGenerate(model, output, config.Codec)
+	default:
+		return fmt.Errorf("unknown language: %s", config.General.Language)
+	}
 }
