@@ -60,7 +60,8 @@ type RustService struct {
 	DocLines            []string
 	DefaultHost         string
 	// If true, this service includes methods that return long-running operations.
-	HasLROs bool
+	HasLROs  bool
+	APITitle string
 }
 
 type rustMessageAnnotation struct {
@@ -231,7 +232,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 			return ""
 		}(),
 		Services: mapSlice(model.Services, func(s *api.Service) *RustService {
-			return newRustService(s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
+			return newRustService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
 		}),
 		Messages:          model.Messages,
 		Enums:             model.Enums,
@@ -270,7 +271,7 @@ func newRustTemplateData(model *api.API, c *rustCodec, outdir string) (*RustTemp
 	return data, nil
 }
 
-func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustService {
+func newRustService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage, packageNamespace string) *RustService {
 	// Some codecs skip some methods.
 	methods := filterSlice(s.Methods, func(m *api.Method) bool {
 		return rustGenerateMethod(m)
@@ -284,16 +285,17 @@ func newRustService(s *api.Service, state *api.APIState, modulePath, sourceSpeci
 	}
 	return &RustService{
 		Methods: mapSlice(methods, func(m *api.Method) *RustMethod {
-			return newRustMethod(m, s, state, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
+			return newRustMethod(m, s, model.State, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
 		}),
 		NameToSnake:         rustToSnake(s.Name),
 		NameToPascal:        rustToPascal(s.Name),
 		ServiceNameToPascal: rustToPascal(s.Name), // Alias for clarity
 		NameToCamel:         rustToCamel(s.Name),
 		ServiceName:         s.Name,
-		DocLines:            rustFormatDocComments(s.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
+		DocLines:            rustFormatDocComments(s.Documentation, model.State, modulePath, sourceSpecificationPackageName, packageMapping),
 		DefaultHost:         s.DefaultHost,
 		HasLROs:             hasLROs,
+		APITitle:            model.Title,
 	}
 }
 
