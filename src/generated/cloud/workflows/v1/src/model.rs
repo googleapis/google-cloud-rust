@@ -342,13 +342,12 @@ pub mod workflow {
 
         /// Describes the possibled types of a state error.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::string::String);
+        pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Type instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -359,24 +358,30 @@ pub mod workflow {
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
+            use super::Type;
 
             /// No type specified.
-            pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
             /// Caused by an issue with KMS.
-            pub const KMS_ERROR: &str = "KMS_ERROR";
+            pub const KMS_ERROR: Type = Type::new("KMS_ERROR");
+        }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
     /// Describes the current state of workflow deployment.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -387,27 +392,33 @@ pub mod workflow {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The workflow has been deployed successfully and is serving.
-        pub const ACTIVE: &str = "ACTIVE";
+        pub const ACTIVE: State = State::new("ACTIVE");
 
         /// Workflow data is unavailable. See the `state_error` field.
-        pub const UNAVAILABLE: &str = "UNAVAILABLE";
+        pub const UNAVAILABLE: State = State::new("UNAVAILABLE");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Describes the level of platform logging to apply to calls and call
     /// responses during workflow executions.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CallLogLevel(std::string::String);
+    pub struct CallLogLevel(std::borrow::Cow<'static, str>);
 
     impl CallLogLevel {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CallLogLevel instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -418,19 +429,27 @@ pub mod workflow {
 
     /// Useful constants to work with [CallLogLevel](CallLogLevel)
     pub mod call_log_level {
+        use super::CallLogLevel;
 
         /// No call logging level specified.
-        pub const CALL_LOG_LEVEL_UNSPECIFIED: &str = "CALL_LOG_LEVEL_UNSPECIFIED";
+        pub const CALL_LOG_LEVEL_UNSPECIFIED: CallLogLevel =
+            CallLogLevel::new("CALL_LOG_LEVEL_UNSPECIFIED");
 
         /// Log all call steps within workflows, all call returns, and all exceptions
         /// raised.
-        pub const LOG_ALL_CALLS: &str = "LOG_ALL_CALLS";
+        pub const LOG_ALL_CALLS: CallLogLevel = CallLogLevel::new("LOG_ALL_CALLS");
 
         /// Log only exceptions that are raised from call steps within workflows.
-        pub const LOG_ERRORS_ONLY: &str = "LOG_ERRORS_ONLY";
+        pub const LOG_ERRORS_ONLY: CallLogLevel = CallLogLevel::new("LOG_ERRORS_ONLY");
 
         /// Explicitly log nothing.
-        pub const LOG_NONE: &str = "LOG_NONE";
+        pub const LOG_NONE: CallLogLevel = CallLogLevel::new("LOG_NONE");
+    }
+
+    impl std::convert::From<std::string::String> for CallLogLevel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Required. Location of the workflow source code.

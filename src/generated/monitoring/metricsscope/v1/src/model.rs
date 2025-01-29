@@ -375,13 +375,12 @@ pub mod operation_metadata {
 
     /// Batch operation states.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -392,20 +391,27 @@ pub mod operation_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// Request has been received.
-        pub const CREATED: &str = "CREATED";
+        pub const CREATED: State = State::new("CREATED");
 
         /// Request is actively being processed.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The batch processing is done.
-        pub const DONE: &str = "DONE";
+        pub const DONE: State = State::new("DONE");
 
         /// The batch processing was cancelled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }

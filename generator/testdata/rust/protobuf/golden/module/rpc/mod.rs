@@ -803,13 +803,12 @@ impl wkt::message::Message for Status {
 /// `OUT_OF_RANGE` over `FAILED_PRECONDITION` if both codes apply.
 /// Similarly prefer `NOT_FOUND` or `ALREADY_EXISTS` over `FAILED_PRECONDITION`.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct Code(std::string::String);
+pub struct Code(std::borrow::Cow<'static, str>);
 
 impl Code {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new Code instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -820,16 +819,18 @@ impl Code {
 
 /// Useful constants to work with [Code](Code)
 pub mod code {
+    use super::Code;
+    
 
     /// Not an error; returned on success.
     ///
     /// HTTP Mapping: 200 OK
-    pub const OK: &str = "OK";
+    pub const OK: Code = Code::new("OK");
 
     /// The operation was cancelled, typically by the caller.
     ///
     /// HTTP Mapping: 499 Client Closed Request
-    pub const CANCELLED: &str = "CANCELLED";
+    pub const CANCELLED: Code = Code::new("CANCELLED");
 
     /// Unknown error.  For example, this error may be returned when
     /// a `Status` value received from another address space belongs to
@@ -838,7 +839,7 @@ pub mod code {
     /// may be converted to this error.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const UNKNOWN: &str = "UNKNOWN";
+    pub const UNKNOWN: Code = Code::new("UNKNOWN");
 
     /// The client specified an invalid argument.  Note that this differs
     /// from `FAILED_PRECONDITION`.  `INVALID_ARGUMENT` indicates arguments
@@ -846,7 +847,7 @@ pub mod code {
     /// (e.g., a malformed file name).
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const INVALID_ARGUMENT: &str = "INVALID_ARGUMENT";
+    pub const INVALID_ARGUMENT: Code = Code::new("INVALID_ARGUMENT");
 
     /// The deadline expired before the operation could complete. For operations
     /// that change the state of the system, this error may be returned
@@ -855,7 +856,7 @@ pub mod code {
     /// enough for the deadline to expire.
     ///
     /// HTTP Mapping: 504 Gateway Timeout
-    pub const DEADLINE_EXCEEDED: &str = "DEADLINE_EXCEEDED";
+    pub const DEADLINE_EXCEEDED: Code = Code::new("DEADLINE_EXCEEDED");
 
     /// Some requested entity (e.g., file or directory) was not found.
     ///
@@ -866,13 +867,13 @@ pub mod code {
     /// must be used.
     ///
     /// HTTP Mapping: 404 Not Found
-    pub const NOT_FOUND: &str = "NOT_FOUND";
+    pub const NOT_FOUND: Code = Code::new("NOT_FOUND");
 
     /// The entity that a client attempted to create (e.g., file or directory)
     /// already exists.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ALREADY_EXISTS: &str = "ALREADY_EXISTS";
+    pub const ALREADY_EXISTS: Code = Code::new("ALREADY_EXISTS");
 
     /// The caller does not have permission to execute the specified
     /// operation. `PERMISSION_DENIED` must not be used for rejections
@@ -884,19 +885,19 @@ pub mod code {
     /// other pre-conditions.
     ///
     /// HTTP Mapping: 403 Forbidden
-    pub const PERMISSION_DENIED: &str = "PERMISSION_DENIED";
+    pub const PERMISSION_DENIED: Code = Code::new("PERMISSION_DENIED");
 
     /// The request does not have valid authentication credentials for the
     /// operation.
     ///
     /// HTTP Mapping: 401 Unauthorized
-    pub const UNAUTHENTICATED: &str = "UNAUTHENTICATED";
+    pub const UNAUTHENTICATED: Code = Code::new("UNAUTHENTICATED");
 
     /// Some resource has been exhausted, perhaps a per-user quota, or
     /// perhaps the entire file system is out of space.
     ///
     /// HTTP Mapping: 429 Too Many Requests
-    pub const RESOURCE_EXHAUSTED: &str = "RESOURCE_EXHAUSTED";
+    pub const RESOURCE_EXHAUSTED: Code = Code::new("RESOURCE_EXHAUSTED");
 
     /// The operation was rejected because the system is not in a state
     /// required for the operation's execution.  For example, the directory
@@ -916,7 +917,7 @@ pub mod code {
     /// the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const FAILED_PRECONDITION: &str = "FAILED_PRECONDITION";
+    pub const FAILED_PRECONDITION: Code = Code::new("FAILED_PRECONDITION");
 
     /// The operation was aborted, typically due to a concurrency issue such as
     /// a sequencer check failure or transaction abort.
@@ -925,7 +926,7 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
-    pub const ABORTED: &str = "ABORTED";
+    pub const ABORTED: Code = Code::new("ABORTED");
 
     /// The operation was attempted past the valid range.  E.g., seeking or
     /// reading past end-of-file.
@@ -944,20 +945,20 @@ pub mod code {
     /// they are done.
     ///
     /// HTTP Mapping: 400 Bad Request
-    pub const OUT_OF_RANGE: &str = "OUT_OF_RANGE";
+    pub const OUT_OF_RANGE: Code = Code::new("OUT_OF_RANGE");
 
     /// The operation is not implemented or is not supported/enabled in this
     /// service.
     ///
     /// HTTP Mapping: 501 Not Implemented
-    pub const UNIMPLEMENTED: &str = "UNIMPLEMENTED";
+    pub const UNIMPLEMENTED: Code = Code::new("UNIMPLEMENTED");
 
     /// Internal errors.  This means that some invariants expected by the
     /// underlying system have been broken.  This error code is reserved
     /// for serious errors.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const INTERNAL: &str = "INTERNAL";
+    pub const INTERNAL: Code = Code::new("INTERNAL");
 
     /// The service is currently unavailable.  This is most likely a
     /// transient condition, which can be corrected by retrying with
@@ -968,10 +969,16 @@ pub mod code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 503 Service Unavailable
-    pub const UNAVAILABLE: &str = "UNAVAILABLE";
+    pub const UNAVAILABLE: Code = Code::new("UNAVAILABLE");
 
     /// Unrecoverable data loss or corruption.
     ///
     /// HTTP Mapping: 500 Internal Server Error
-    pub const DATA_LOSS: &str = "DATA_LOSS";
+    pub const DATA_LOSS: Code = Code::new("DATA_LOSS");
+}
+
+impl std::convert::From<std::string::String> for Code {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }

@@ -294,13 +294,12 @@ pub mod compute_threat_list_diff_response {
 
     /// The type of response sent to the client.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ResponseType(std::string::String);
+    pub struct ResponseType(std::borrow::Cow<'static, str>);
 
     impl ResponseType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ResponseType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -311,17 +310,25 @@ pub mod compute_threat_list_diff_response {
 
     /// Useful constants to work with [ResponseType](ResponseType)
     pub mod response_type {
+        use super::ResponseType;
 
         /// Unknown.
-        pub const RESPONSE_TYPE_UNSPECIFIED: &str = "RESPONSE_TYPE_UNSPECIFIED";
+        pub const RESPONSE_TYPE_UNSPECIFIED: ResponseType =
+            ResponseType::new("RESPONSE_TYPE_UNSPECIFIED");
 
         /// Partial updates are applied to the client's existing local database.
-        pub const DIFF: &str = "DIFF";
+        pub const DIFF: ResponseType = ResponseType::new("DIFF");
 
         /// Full updates resets the client's entire local database. This means
         /// that either the client had no state, was seriously out-of-date,
         /// or the client is believed to be corrupt.
-        pub const RESET: &str = "RESET";
+        pub const RESET: ResponseType = ResponseType::new("RESET");
+    }
+
+    impl std::convert::From<std::string::String> for ResponseType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1028,13 +1035,12 @@ pub mod threat_info {
 
         /// Enum representation of confidence.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct ConfidenceLevel(std::string::String);
+        pub struct ConfidenceLevel(std::borrow::Cow<'static, str>);
 
         impl ConfidenceLevel {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new ConfidenceLevel instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -1045,18 +1051,26 @@ pub mod threat_info {
 
         /// Useful constants to work with [ConfidenceLevel](ConfidenceLevel)
         pub mod confidence_level {
+            use super::ConfidenceLevel;
 
             /// Default.
-            pub const CONFIDENCE_LEVEL_UNSPECIFIED: &str = "CONFIDENCE_LEVEL_UNSPECIFIED";
+            pub const CONFIDENCE_LEVEL_UNSPECIFIED: ConfidenceLevel =
+                ConfidenceLevel::new("CONFIDENCE_LEVEL_UNSPECIFIED");
 
             /// Less than 60% confidence that the URI is unsafe.
-            pub const LOW: &str = "LOW";
+            pub const LOW: ConfidenceLevel = ConfidenceLevel::new("LOW");
 
             /// Between 60% and 80% confidence that the URI is unsafe.
-            pub const MEDIUM: &str = "MEDIUM";
+            pub const MEDIUM: ConfidenceLevel = ConfidenceLevel::new("MEDIUM");
 
             /// Greater than 80% confidence that the URI is unsafe.
-            pub const HIGH: &str = "HIGH";
+            pub const HIGH: ConfidenceLevel = ConfidenceLevel::new("HIGH");
+        }
+
+        impl std::convert::From<std::string::String> for ConfidenceLevel {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
 
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -1127,13 +1141,12 @@ pub mod threat_info {
 
         /// Labels that explain how the URI was classified.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct JustificationLabel(std::string::String);
+        pub struct JustificationLabel(std::borrow::Cow<'static, str>);
 
         impl JustificationLabel {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new JustificationLabel instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -1144,30 +1157,39 @@ pub mod threat_info {
 
         /// Useful constants to work with [JustificationLabel](JustificationLabel)
         pub mod justification_label {
+            use super::JustificationLabel;
 
             /// Default.
-            pub const JUSTIFICATION_LABEL_UNSPECIFIED: &str = "JUSTIFICATION_LABEL_UNSPECIFIED";
+            pub const JUSTIFICATION_LABEL_UNSPECIFIED: JustificationLabel =
+                JustificationLabel::new("JUSTIFICATION_LABEL_UNSPECIFIED");
 
             /// The submitter manually verified that the submission is unsafe.
-            pub const MANUAL_VERIFICATION: &str = "MANUAL_VERIFICATION";
+            pub const MANUAL_VERIFICATION: JustificationLabel =
+                JustificationLabel::new("MANUAL_VERIFICATION");
 
             /// The submitter received the submission from an end user.
-            pub const USER_REPORT: &str = "USER_REPORT";
+            pub const USER_REPORT: JustificationLabel = JustificationLabel::new("USER_REPORT");
 
             /// The submitter received the submission from an automated system.
-            pub const AUTOMATED_REPORT: &str = "AUTOMATED_REPORT";
+            pub const AUTOMATED_REPORT: JustificationLabel =
+                JustificationLabel::new("AUTOMATED_REPORT");
+        }
+
+        impl std::convert::From<std::string::String> for JustificationLabel {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
     /// The abuse type found on the URI.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AbuseType(std::string::String);
+    pub struct AbuseType(std::borrow::Cow<'static, str>);
 
     impl AbuseType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new AbuseType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1178,18 +1200,25 @@ pub mod threat_info {
 
     /// Useful constants to work with [AbuseType](AbuseType)
     pub mod abuse_type {
+        use super::AbuseType;
 
         /// Default.
-        pub const ABUSE_TYPE_UNSPECIFIED: &str = "ABUSE_TYPE_UNSPECIFIED";
+        pub const ABUSE_TYPE_UNSPECIFIED: AbuseType = AbuseType::new("ABUSE_TYPE_UNSPECIFIED");
 
         /// The URI contains malware.
-        pub const MALWARE: &str = "MALWARE";
+        pub const MALWARE: AbuseType = AbuseType::new("MALWARE");
 
         /// The URI contains social engineering.
-        pub const SOCIAL_ENGINEERING: &str = "SOCIAL_ENGINEERING";
+        pub const SOCIAL_ENGINEERING: AbuseType = AbuseType::new("SOCIAL_ENGINEERING");
 
         /// The URI contains unwanted software.
-        pub const UNWANTED_SOFTWARE: &str = "UNWANTED_SOFTWARE";
+        pub const UNWANTED_SOFTWARE: AbuseType = AbuseType::new("UNWANTED_SOFTWARE");
+    }
+
+    impl std::convert::From<std::string::String> for AbuseType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1243,13 +1272,12 @@ pub mod threat_discovery {
 
     /// Platform types.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Platform(std::string::String);
+    pub struct Platform(std::borrow::Cow<'static, str>);
 
     impl Platform {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Platform instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1260,21 +1288,28 @@ pub mod threat_discovery {
 
     /// Useful constants to work with [Platform](Platform)
     pub mod platform {
+        use super::Platform;
 
         /// Default.
-        pub const PLATFORM_UNSPECIFIED: &str = "PLATFORM_UNSPECIFIED";
+        pub const PLATFORM_UNSPECIFIED: Platform = Platform::new("PLATFORM_UNSPECIFIED");
 
         /// General Android platform.
-        pub const ANDROID: &str = "ANDROID";
+        pub const ANDROID: Platform = Platform::new("ANDROID");
 
         /// General iOS platform.
-        pub const IOS: &str = "IOS";
+        pub const IOS: Platform = Platform::new("IOS");
 
         /// General macOS platform.
-        pub const MACOS: &str = "MACOS";
+        pub const MACOS: Platform = Platform::new("MACOS");
 
         /// General Windows platform.
-        pub const WINDOWS: &str = "WINDOWS";
+        pub const WINDOWS: Platform = Platform::new("WINDOWS");
+    }
+
+    impl std::convert::From<std::string::String> for Platform {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1445,13 +1480,12 @@ pub mod submit_uri_metadata {
 
     /// Enum that represents the state of the long-running operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1462,37 +1496,43 @@ pub mod submit_uri_metadata {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Default unspecified state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The operation is currently running.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: State = State::new("RUNNING");
 
         /// The operation finished with a success status.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// The operation was cancelled.
-        pub const CANCELLED: &str = "CANCELLED";
+        pub const CANCELLED: State = State::new("CANCELLED");
 
         /// The operation finished with a failure status.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// The operation was closed with no action taken.
-        pub const CLOSED: &str = "CLOSED";
+        pub const CLOSED: State = State::new("CLOSED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
 /// The type of threat. This maps directly to the threat list a threat may
 /// belong to.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct ThreatType(std::string::String);
+pub struct ThreatType(std::borrow::Cow<'static, str>);
 
 impl ThreatType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new ThreatType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1503,33 +1543,40 @@ impl ThreatType {
 
 /// Useful constants to work with [ThreatType](ThreatType)
 pub mod threat_type {
+    use super::ThreatType;
 
     /// No entries should match this threat type. This threat type is unused.
-    pub const THREAT_TYPE_UNSPECIFIED: &str = "THREAT_TYPE_UNSPECIFIED";
+    pub const THREAT_TYPE_UNSPECIFIED: ThreatType = ThreatType::new("THREAT_TYPE_UNSPECIFIED");
 
     /// Malware targeting any platform.
-    pub const MALWARE: &str = "MALWARE";
+    pub const MALWARE: ThreatType = ThreatType::new("MALWARE");
 
     /// Social engineering targeting any platform.
-    pub const SOCIAL_ENGINEERING: &str = "SOCIAL_ENGINEERING";
+    pub const SOCIAL_ENGINEERING: ThreatType = ThreatType::new("SOCIAL_ENGINEERING");
 
     /// Unwanted software targeting any platform.
-    pub const UNWANTED_SOFTWARE: &str = "UNWANTED_SOFTWARE";
+    pub const UNWANTED_SOFTWARE: ThreatType = ThreatType::new("UNWANTED_SOFTWARE");
 
     /// A list of extended coverage social engineering URIs targeting any
     /// platform.
-    pub const SOCIAL_ENGINEERING_EXTENDED_COVERAGE: &str = "SOCIAL_ENGINEERING_EXTENDED_COVERAGE";
+    pub const SOCIAL_ENGINEERING_EXTENDED_COVERAGE: ThreatType =
+        ThreatType::new("SOCIAL_ENGINEERING_EXTENDED_COVERAGE");
+}
+
+impl std::convert::From<std::string::String> for ThreatType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// The ways in which threat entry sets can be compressed.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct CompressionType(std::string::String);
+pub struct CompressionType(std::borrow::Cow<'static, str>);
 
 impl CompressionType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new CompressionType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1540,13 +1587,21 @@ impl CompressionType {
 
 /// Useful constants to work with [CompressionType](CompressionType)
 pub mod compression_type {
+    use super::CompressionType;
 
     /// Unknown.
-    pub const COMPRESSION_TYPE_UNSPECIFIED: &str = "COMPRESSION_TYPE_UNSPECIFIED";
+    pub const COMPRESSION_TYPE_UNSPECIFIED: CompressionType =
+        CompressionType::new("COMPRESSION_TYPE_UNSPECIFIED");
 
     /// Raw, uncompressed data.
-    pub const RAW: &str = "RAW";
+    pub const RAW: CompressionType = CompressionType::new("RAW");
 
     /// Rice-Golomb encoded data.
-    pub const RICE: &str = "RICE";
+    pub const RICE: CompressionType = CompressionType::new("RICE");
+}
+
+impl std::convert::From<std::string::String> for CompressionType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

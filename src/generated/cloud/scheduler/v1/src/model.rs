@@ -747,13 +747,12 @@ pub mod job {
 
     /// State of the job.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -764,23 +763,24 @@ pub mod job {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Unspecified state.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The job is executing normally.
-        pub const ENABLED: &str = "ENABLED";
+        pub const ENABLED: State = State::new("ENABLED");
 
         /// The job is paused by the user. It will not execute. A user can
         /// intentionally pause the job using
         /// [PauseJobRequest][google.cloud.scheduler.v1.PauseJobRequest].
         ///
         /// [google.cloud.scheduler.v1.PauseJobRequest]: crate::model::PauseJobRequest
-        pub const PAUSED: &str = "PAUSED";
+        pub const PAUSED: State = State::new("PAUSED");
 
         /// The job is disabled by the system due to error. The user
         /// cannot directly set a job to be disabled.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: State = State::new("DISABLED");
 
         /// The job state resulting from a failed
         /// [CloudScheduler.UpdateJob][google.cloud.scheduler.v1.CloudScheduler.UpdateJob]
@@ -789,7 +789,13 @@ pub mod job {
         /// until a successful response is received.
         ///
         /// [google.cloud.scheduler.v1.CloudScheduler.UpdateJob]: crate::client::CloudScheduler::update_job
-        pub const UPDATE_FAILED: &str = "UPDATE_FAILED";
+        pub const UPDATE_FAILED: State = State::new("UPDATE_FAILED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Required.
@@ -1628,13 +1634,12 @@ impl wkt::message::Message for OidcToken {
 
 /// The HTTP method used to execute the job.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct HttpMethod(std::string::String);
+pub struct HttpMethod(std::borrow::Cow<'static, str>);
 
 impl HttpMethod {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new HttpMethod instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -1645,28 +1650,35 @@ impl HttpMethod {
 
 /// Useful constants to work with [HttpMethod](HttpMethod)
 pub mod http_method {
+    use super::HttpMethod;
 
     /// HTTP method unspecified. Defaults to POST.
-    pub const HTTP_METHOD_UNSPECIFIED: &str = "HTTP_METHOD_UNSPECIFIED";
+    pub const HTTP_METHOD_UNSPECIFIED: HttpMethod = HttpMethod::new("HTTP_METHOD_UNSPECIFIED");
 
     /// HTTP POST
-    pub const POST: &str = "POST";
+    pub const POST: HttpMethod = HttpMethod::new("POST");
 
     /// HTTP GET
-    pub const GET: &str = "GET";
+    pub const GET: HttpMethod = HttpMethod::new("GET");
 
     /// HTTP HEAD
-    pub const HEAD: &str = "HEAD";
+    pub const HEAD: HttpMethod = HttpMethod::new("HEAD");
 
     /// HTTP PUT
-    pub const PUT: &str = "PUT";
+    pub const PUT: HttpMethod = HttpMethod::new("PUT");
 
     /// HTTP DELETE
-    pub const DELETE: &str = "DELETE";
+    pub const DELETE: HttpMethod = HttpMethod::new("DELETE");
 
     /// HTTP PATCH
-    pub const PATCH: &str = "PATCH";
+    pub const PATCH: HttpMethod = HttpMethod::new("PATCH");
 
     /// HTTP OPTIONS
-    pub const OPTIONS: &str = "OPTIONS";
+    pub const OPTIONS: HttpMethod = HttpMethod::new("OPTIONS");
+}
+
+impl std::convert::From<std::string::String> for HttpMethod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

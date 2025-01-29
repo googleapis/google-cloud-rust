@@ -168,13 +168,12 @@ pub mod replica_info {
     /// documentation](https://cloud.google.com/spanner/docs/replication#replica_types)
     /// for more details.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ReplicaType(std::string::String);
+    pub struct ReplicaType(std::borrow::Cow<'static, str>);
 
     impl ReplicaType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ReplicaType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -185,9 +184,10 @@ pub mod replica_info {
 
     /// Useful constants to work with [ReplicaType](ReplicaType)
     pub mod replica_type {
+        use super::ReplicaType;
 
         /// Not specified.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: ReplicaType = ReplicaType::new("TYPE_UNSPECIFIED");
 
         /// Read-write replicas support both reads and writes. These replicas:
         ///
@@ -196,7 +196,7 @@ pub mod replica_info {
         /// * Can vote whether to commit a write.
         /// * Participate in leadership election.
         /// * Are eligible to become a leader.
-        pub const READ_WRITE: &str = "READ_WRITE";
+        pub const READ_WRITE: ReplicaType = ReplicaType::new("READ_WRITE");
 
         /// Read-only replicas only support reads (not writes). Read-only replicas:
         ///
@@ -204,7 +204,7 @@ pub mod replica_info {
         /// * Serve reads.
         /// * Do not participate in voting to commit writes.
         /// * Are not eligible to become a leader.
-        pub const READ_ONLY: &str = "READ_ONLY";
+        pub const READ_ONLY: ReplicaType = ReplicaType::new("READ_ONLY");
 
         /// Witness replicas don't support reads but do participate in voting to
         /// commit writes. Witness replicas:
@@ -213,7 +213,13 @@ pub mod replica_info {
         /// * Do not serve reads.
         /// * Vote whether to commit writes.
         /// * Participate in leader election but are not eligible to become leader.
-        pub const WITNESS: &str = "WITNESS";
+        pub const WITNESS: ReplicaType = ReplicaType::new("WITNESS");
+    }
+
+    impl std::convert::From<std::string::String> for ReplicaType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -463,13 +469,12 @@ pub mod instance_config {
 
     /// The type of this configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -480,26 +485,32 @@ pub mod instance_config {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Unspecified.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// Google-managed configuration.
-        pub const GOOGLE_MANAGED: &str = "GOOGLE_MANAGED";
+        pub const GOOGLE_MANAGED: Type = Type::new("GOOGLE_MANAGED");
 
         /// User-managed configuration.
-        pub const USER_MANAGED: &str = "USER_MANAGED";
+        pub const USER_MANAGED: Type = Type::new("USER_MANAGED");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Indicates the current state of the instance configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -510,28 +521,34 @@ pub mod instance_config {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The instance configuration is still being created.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The instance configuration is fully created and ready to be used to
         /// create instances.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Describes the availability for free instances to be created in an instance
     /// configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct FreeInstanceAvailability(std::string::String);
+    pub struct FreeInstanceAvailability(std::borrow::Cow<'static, str>);
 
     impl FreeInstanceAvailability {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new FreeInstanceAvailability instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -542,38 +559,46 @@ pub mod instance_config {
 
     /// Useful constants to work with [FreeInstanceAvailability](FreeInstanceAvailability)
     pub mod free_instance_availability {
+        use super::FreeInstanceAvailability;
 
         /// Not specified.
-        pub const FREE_INSTANCE_AVAILABILITY_UNSPECIFIED: &str =
-            "FREE_INSTANCE_AVAILABILITY_UNSPECIFIED";
+        pub const FREE_INSTANCE_AVAILABILITY_UNSPECIFIED: FreeInstanceAvailability =
+            FreeInstanceAvailability::new("FREE_INSTANCE_AVAILABILITY_UNSPECIFIED");
 
         /// Indicates that free instances are available to be created in this
         /// instance configuration.
-        pub const AVAILABLE: &str = "AVAILABLE";
+        pub const AVAILABLE: FreeInstanceAvailability = FreeInstanceAvailability::new("AVAILABLE");
 
         /// Indicates that free instances are not supported in this instance
         /// configuration.
-        pub const UNSUPPORTED: &str = "UNSUPPORTED";
+        pub const UNSUPPORTED: FreeInstanceAvailability =
+            FreeInstanceAvailability::new("UNSUPPORTED");
 
         /// Indicates that free instances are currently not available to be created
         /// in this instance configuration.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: FreeInstanceAvailability = FreeInstanceAvailability::new("DISABLED");
 
         /// Indicates that additional free instances cannot be created in this
         /// instance configuration because the project has reached its limit of free
         /// instances.
-        pub const QUOTA_EXCEEDED: &str = "QUOTA_EXCEEDED";
+        pub const QUOTA_EXCEEDED: FreeInstanceAvailability =
+            FreeInstanceAvailability::new("QUOTA_EXCEEDED");
+    }
+
+    impl std::convert::From<std::string::String> for FreeInstanceAvailability {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Indicates the quorum type of this instance configuration.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct QuorumType(std::string::String);
+    pub struct QuorumType(std::borrow::Cow<'static, str>);
 
     impl QuorumType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new QuorumType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -584,13 +609,14 @@ pub mod instance_config {
 
     /// Useful constants to work with [QuorumType](QuorumType)
     pub mod quorum_type {
+        use super::QuorumType;
 
         /// Quorum type not specified.
-        pub const QUORUM_TYPE_UNSPECIFIED: &str = "QUORUM_TYPE_UNSPECIFIED";
+        pub const QUORUM_TYPE_UNSPECIFIED: QuorumType = QuorumType::new("QUORUM_TYPE_UNSPECIFIED");
 
         /// An instance configuration tagged with `REGION` quorum type forms a write
         /// quorum in a single region.
-        pub const REGION: &str = "REGION";
+        pub const REGION: QuorumType = QuorumType::new("REGION");
 
         /// An instance configuration tagged with the `DUAL_REGION` quorum type forms
         /// a write quorum with exactly two read-write regions in a multi-region
@@ -598,12 +624,18 @@ pub mod instance_config {
         ///
         /// This instance configuration requires failover in the event of
         /// regional failures.
-        pub const DUAL_REGION: &str = "DUAL_REGION";
+        pub const DUAL_REGION: QuorumType = QuorumType::new("DUAL_REGION");
 
         /// An instance configuration tagged with the `MULTI_REGION` quorum type
         /// forms a write quorum from replicas that are spread across more than one
         /// region in a multi-region configuration.
-        pub const MULTI_REGION: &str = "MULTI_REGION";
+        pub const MULTI_REGION: QuorumType = QuorumType::new("MULTI_REGION");
+    }
+
+    impl std::convert::From<std::string::String> for QuorumType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1455,13 +1487,12 @@ pub mod instance {
 
     /// Indicates the current state of the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1472,18 +1503,25 @@ pub mod instance {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The instance is still being created. Resources may not be
         /// available yet, and operations such as database creation may not
         /// work.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The instance is fully created and ready to do work such as
         /// creating databases.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The type of this instance. The type can be used to distinguish product
@@ -1491,13 +1529,12 @@ pub mod instance {
     /// billing. Currently this is used to distinguish FREE_INSTANCE vs PROVISIONED
     /// instances.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct InstanceType(std::string::String);
+    pub struct InstanceType(std::borrow::Cow<'static, str>);
 
     impl InstanceType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new InstanceType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1508,30 +1545,37 @@ pub mod instance {
 
     /// Useful constants to work with [InstanceType](InstanceType)
     pub mod instance_type {
+        use super::InstanceType;
 
         /// Not specified.
-        pub const INSTANCE_TYPE_UNSPECIFIED: &str = "INSTANCE_TYPE_UNSPECIFIED";
+        pub const INSTANCE_TYPE_UNSPECIFIED: InstanceType =
+            InstanceType::new("INSTANCE_TYPE_UNSPECIFIED");
 
         /// Provisioned instances have dedicated resources, standard usage limits and
         /// support.
-        pub const PROVISIONED: &str = "PROVISIONED";
+        pub const PROVISIONED: InstanceType = InstanceType::new("PROVISIONED");
 
         /// Free instances provide no guarantee for dedicated resources,
         /// [node_count, processing_units] should be 0. They come
         /// with stricter usage limits and limited support.
-        pub const FREE_INSTANCE: &str = "FREE_INSTANCE";
+        pub const FREE_INSTANCE: InstanceType = InstanceType::new("FREE_INSTANCE");
+    }
+
+    impl std::convert::From<std::string::String> for InstanceType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// The edition selected for this instance. Different editions provide
     /// different capabilities at different price points.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Edition(std::string::String);
+    pub struct Edition(std::borrow::Cow<'static, str>);
 
     impl Edition {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Edition instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1542,18 +1586,25 @@ pub mod instance {
 
     /// Useful constants to work with [Edition](Edition)
     pub mod edition {
+        use super::Edition;
 
         /// Edition not specified.
-        pub const EDITION_UNSPECIFIED: &str = "EDITION_UNSPECIFIED";
+        pub const EDITION_UNSPECIFIED: Edition = Edition::new("EDITION_UNSPECIFIED");
 
         /// Standard edition.
-        pub const STANDARD: &str = "STANDARD";
+        pub const STANDARD: Edition = Edition::new("STANDARD");
 
         /// Enterprise edition.
-        pub const ENTERPRISE: &str = "ENTERPRISE";
+        pub const ENTERPRISE: Edition = Edition::new("ENTERPRISE");
 
         /// Enterprise Plus edition.
-        pub const ENTERPRISE_PLUS: &str = "ENTERPRISE_PLUS";
+        pub const ENTERPRISE_PLUS: Edition = Edition::new("ENTERPRISE_PLUS");
+    }
+
+    impl std::convert::From<std::string::String> for Edition {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Indicates the
@@ -1561,13 +1612,12 @@ pub mod instance {
     /// schedule](https://cloud.google.com/spanner/docs/backup#default-backup-schedules)
     /// behavior for new databases within the instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DefaultBackupScheduleType(std::string::String);
+    pub struct DefaultBackupScheduleType(std::borrow::Cow<'static, str>);
 
     impl DefaultBackupScheduleType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new DefaultBackupScheduleType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1578,20 +1628,28 @@ pub mod instance {
 
     /// Useful constants to work with [DefaultBackupScheduleType](DefaultBackupScheduleType)
     pub mod default_backup_schedule_type {
+        use super::DefaultBackupScheduleType;
 
         /// Not specified.
-        pub const DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED: &str =
-            "DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED";
+        pub const DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED: DefaultBackupScheduleType =
+            DefaultBackupScheduleType::new("DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED");
 
         /// A default backup schedule isn't created automatically when a new database
         /// is created in the instance.
-        pub const NONE: &str = "NONE";
+        pub const NONE: DefaultBackupScheduleType = DefaultBackupScheduleType::new("NONE");
 
         /// A default backup schedule is created automatically when a new database
         /// is created in the instance. The default backup schedule creates a full
         /// backup every 24 hours. These full backups are retained for 7 days.
         /// You can edit or delete the default backup schedule once it's created.
-        pub const AUTOMATIC: &str = "AUTOMATIC";
+        pub const AUTOMATIC: DefaultBackupScheduleType =
+            DefaultBackupScheduleType::new("AUTOMATIC");
+    }
+
+    impl std::convert::From<std::string::String> for DefaultBackupScheduleType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2734,13 +2792,12 @@ pub mod free_instance_metadata {
 
     /// Allows users to change behavior when a free instance expires.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ExpireBehavior(std::string::String);
+    pub struct ExpireBehavior(std::borrow::Cow<'static, str>);
 
     impl ExpireBehavior {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ExpireBehavior instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2751,17 +2808,26 @@ pub mod free_instance_metadata {
 
     /// Useful constants to work with [ExpireBehavior](ExpireBehavior)
     pub mod expire_behavior {
+        use super::ExpireBehavior;
 
         /// Not specified.
-        pub const EXPIRE_BEHAVIOR_UNSPECIFIED: &str = "EXPIRE_BEHAVIOR_UNSPECIFIED";
+        pub const EXPIRE_BEHAVIOR_UNSPECIFIED: ExpireBehavior =
+            ExpireBehavior::new("EXPIRE_BEHAVIOR_UNSPECIFIED");
 
         /// When the free instance expires, upgrade the instance to a provisioned
         /// instance.
-        pub const FREE_TO_PROVISIONED: &str = "FREE_TO_PROVISIONED";
+        pub const FREE_TO_PROVISIONED: ExpireBehavior = ExpireBehavior::new("FREE_TO_PROVISIONED");
 
         /// When the free instance expires, disable the instance, and delete it
         /// after the grace period passes if it has not been upgraded.
-        pub const REMOVE_AFTER_GRACE_PERIOD: &str = "REMOVE_AFTER_GRACE_PERIOD";
+        pub const REMOVE_AFTER_GRACE_PERIOD: ExpireBehavior =
+            ExpireBehavior::new("REMOVE_AFTER_GRACE_PERIOD");
+    }
+
+    impl std::convert::From<std::string::String> for ExpireBehavior {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3125,13 +3191,12 @@ pub mod instance_partition {
 
     /// Indicates the current state of the instance partition.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3142,18 +3207,25 @@ pub mod instance_partition {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The instance partition is still being created. Resources may not be
         /// available yet, and operations such as creating placements using this
         /// instance partition may not work.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The instance partition is fully created and ready to do work such as
         /// creating placements and using in databases.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Compute capacity defines amount of server and storage resources that are
@@ -4034,13 +4106,12 @@ impl wkt::message::Message for MoveInstanceMetadata {
 
 /// Indicates the expected fulfillment period of an operation.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct FulfillmentPeriod(std::string::String);
+pub struct FulfillmentPeriod(std::borrow::Cow<'static, str>);
 
 impl FulfillmentPeriod {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new FulfillmentPeriod instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4051,15 +4122,25 @@ impl FulfillmentPeriod {
 
 /// Useful constants to work with [FulfillmentPeriod](FulfillmentPeriod)
 pub mod fulfillment_period {
+    use super::FulfillmentPeriod;
 
     /// Not specified.
-    pub const FULFILLMENT_PERIOD_UNSPECIFIED: &str = "FULFILLMENT_PERIOD_UNSPECIFIED";
+    pub const FULFILLMENT_PERIOD_UNSPECIFIED: FulfillmentPeriod =
+        FulfillmentPeriod::new("FULFILLMENT_PERIOD_UNSPECIFIED");
 
     /// Normal fulfillment period. The operation is expected to complete within
     /// minutes.
-    pub const FULFILLMENT_PERIOD_NORMAL: &str = "FULFILLMENT_PERIOD_NORMAL";
+    pub const FULFILLMENT_PERIOD_NORMAL: FulfillmentPeriod =
+        FulfillmentPeriod::new("FULFILLMENT_PERIOD_NORMAL");
 
     /// Extended fulfillment period. It can take up to an hour for the operation
     /// to complete.
-    pub const FULFILLMENT_PERIOD_EXTENDED: &str = "FULFILLMENT_PERIOD_EXTENDED";
+    pub const FULFILLMENT_PERIOD_EXTENDED: FulfillmentPeriod =
+        FulfillmentPeriod::new("FULFILLMENT_PERIOD_EXTENDED");
+}
+
+impl std::convert::From<std::string::String> for FulfillmentPeriod {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

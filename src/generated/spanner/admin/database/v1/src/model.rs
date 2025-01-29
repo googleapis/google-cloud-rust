@@ -369,13 +369,12 @@ pub mod backup {
 
     /// Indicates the current state of the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -386,16 +385,23 @@ pub mod backup {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The pending backup is still being created. Operations on the
         /// backup may fail with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The backup is complete and ready for use.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1387,13 +1393,12 @@ pub mod create_backup_encryption_config {
 
     /// Encryption types for the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1404,9 +1409,11 @@ pub mod create_backup_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// Use the same encryption configuration as the database. This is the
         /// default option when
@@ -1416,14 +1423,23 @@ pub mod create_backup_encryption_config {
         /// KMS key as the database.
         ///
         /// [google.spanner.admin.database.v1.CreateBackupEncryptionConfig]: crate::model::CreateBackupEncryptionConfig
-        pub const USE_DATABASE_ENCRYPTION: &str = "USE_DATABASE_ENCRYPTION";
+        pub const USE_DATABASE_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_DATABASE_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, `kms_key_name`
         /// must contain a valid Cloud KMS key.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1510,13 +1526,12 @@ pub mod copy_backup_encryption_config {
 
     /// Encryption types for the backup.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1527,9 +1542,11 @@ pub mod copy_backup_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// This is the default option for
         /// [CopyBackup][google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]
@@ -1541,15 +1558,23 @@ pub mod copy_backup_encryption_config {
         ///
         /// [google.spanner.admin.database.v1.CopyBackupEncryptionConfig]: crate::model::CopyBackupEncryptionConfig
         /// [google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup]: crate::client::DatabaseAdmin::copy_backup
-        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: &str =
-            "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION";
+        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, either `kms_key_name` or
         /// `kms_key_names` must contain valid Cloud KMS key(s).
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2388,13 +2413,12 @@ pub mod encryption_info {
 
     /// Possible encryption types.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2405,19 +2429,26 @@ pub mod encryption_info {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Encryption type was not specified, though data at rest remains encrypted.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// The data is encrypted at rest with a key that is
         /// fully managed by Google. No key version or status will be populated.
         /// This is the default state.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: Type = Type::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// The data is encrypted at rest with a key that is
         /// managed by the customer. The active version of the key. `kms_key_version`
         /// will be populated, and `encryption_status` may be populated.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: Type = Type::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -2707,13 +2738,12 @@ pub mod database {
 
     /// Indicates the current state of the database.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2724,16 +2754,17 @@ pub mod database {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Not specified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The database is still being created. Operations on the database may fail
         /// with `FAILED_PRECONDITION` in this state.
-        pub const CREATING: &str = "CREATING";
+        pub const CREATING: State = State::new("CREATING");
 
         /// The database is fully created and ready for use.
-        pub const READY: &str = "READY";
+        pub const READY: State = State::new("READY");
 
         /// The database is fully created and ready for use, but is still
         /// being optimized for performance and cannot handle full load.
@@ -2743,7 +2774,13 @@ pub mod database {
         /// from being deleted. When optimizations are complete, the full performance
         /// of the database will be restored, and the database will transition to
         /// `READY` state.
-        pub const READY_OPTIMIZING: &str = "READY_OPTIMIZING";
+        pub const READY_OPTIMIZING: State = State::new("READY_OPTIMIZING");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3939,13 +3976,12 @@ pub mod restore_database_encryption_config {
 
     /// Encryption types for the database to be restored.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EncryptionType(std::string::String);
+    pub struct EncryptionType(std::borrow::Cow<'static, str>);
 
     impl EncryptionType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EncryptionType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3956,24 +3992,34 @@ pub mod restore_database_encryption_config {
 
     /// Useful constants to work with [EncryptionType](EncryptionType)
     pub mod encryption_type {
+        use super::EncryptionType;
 
         /// Unspecified. Do not use.
-        pub const ENCRYPTION_TYPE_UNSPECIFIED: &str = "ENCRYPTION_TYPE_UNSPECIFIED";
+        pub const ENCRYPTION_TYPE_UNSPECIFIED: EncryptionType =
+            EncryptionType::new("ENCRYPTION_TYPE_UNSPECIFIED");
 
         /// This is the default option when
         /// [encryption_config][google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]
         /// is not specified.
         ///
         /// [google.spanner.admin.database.v1.RestoreDatabaseEncryptionConfig]: crate::model::RestoreDatabaseEncryptionConfig
-        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: &str =
-            "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION";
+        pub const USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION: EncryptionType =
+            EncryptionType::new("USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION");
 
         /// Use Google default encryption.
-        pub const GOOGLE_DEFAULT_ENCRYPTION: &str = "GOOGLE_DEFAULT_ENCRYPTION";
+        pub const GOOGLE_DEFAULT_ENCRYPTION: EncryptionType =
+            EncryptionType::new("GOOGLE_DEFAULT_ENCRYPTION");
 
         /// Use customer managed encryption. If specified, `kms_key_name` must
         /// must contain a valid Cloud KMS key.
-        pub const CUSTOMER_MANAGED_ENCRYPTION: &str = "CUSTOMER_MANAGED_ENCRYPTION";
+        pub const CUSTOMER_MANAGED_ENCRYPTION: EncryptionType =
+            EncryptionType::new("CUSTOMER_MANAGED_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for EncryptionType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -4346,13 +4392,12 @@ impl gax::paginator::PageableResponse for ListDatabaseRolesResponse {
 
 /// Indicates the dialect type of a database.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DatabaseDialect(std::string::String);
+pub struct DatabaseDialect(std::borrow::Cow<'static, str>);
 
 impl DatabaseDialect {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new DatabaseDialect instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4363,27 +4408,34 @@ impl DatabaseDialect {
 
 /// Useful constants to work with [DatabaseDialect](DatabaseDialect)
 pub mod database_dialect {
+    use super::DatabaseDialect;
 
     /// Default value. This value will create a database with the
     /// GOOGLE_STANDARD_SQL dialect.
-    pub const DATABASE_DIALECT_UNSPECIFIED: &str = "DATABASE_DIALECT_UNSPECIFIED";
+    pub const DATABASE_DIALECT_UNSPECIFIED: DatabaseDialect =
+        DatabaseDialect::new("DATABASE_DIALECT_UNSPECIFIED");
 
     /// GoogleSQL supported SQL.
-    pub const GOOGLE_STANDARD_SQL: &str = "GOOGLE_STANDARD_SQL";
+    pub const GOOGLE_STANDARD_SQL: DatabaseDialect = DatabaseDialect::new("GOOGLE_STANDARD_SQL");
 
     /// PostgreSQL supported SQL.
-    pub const POSTGRESQL: &str = "POSTGRESQL";
+    pub const POSTGRESQL: DatabaseDialect = DatabaseDialect::new("POSTGRESQL");
+}
+
+impl std::convert::From<std::string::String> for DatabaseDialect {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Indicates the type of the restore source.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct RestoreSourceType(std::string::String);
+pub struct RestoreSourceType(std::borrow::Cow<'static, str>);
 
 impl RestoreSourceType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new RestoreSourceType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -4394,10 +4446,17 @@ impl RestoreSourceType {
 
 /// Useful constants to work with [RestoreSourceType](RestoreSourceType)
 pub mod restore_source_type {
+    use super::RestoreSourceType;
 
     /// No restore associated.
-    pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+    pub const TYPE_UNSPECIFIED: RestoreSourceType = RestoreSourceType::new("TYPE_UNSPECIFIED");
 
     /// A backup was used as the source of the restore.
-    pub const BACKUP: &str = "BACKUP";
+    pub const BACKUP: RestoreSourceType = RestoreSourceType::new("BACKUP");
+}
+
+impl std::convert::From<std::string::String> for RestoreSourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

@@ -18,13 +18,12 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct {{Codec.Name}}(std::string::String);
+pub struct {{Codec.Name}}(std::borrow::Cow<'static, str>);
 
 impl {{Codec.Name}} {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new {{Codec.Name}} instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -35,11 +34,19 @@ impl {{Codec.Name}} {
 
 /// Useful constants to work with [{{Codec.Name}}]({{Codec.Name}})
 pub mod {{Codec.ModuleName}} {
+    use super::{{Codec.Name}};
+    
     {{#Values}}
 
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    pub const {{Codec.Name}}: &str = "{{Name}}";
+    pub const {{Codec.Name}}: {{Codec.EnumType}} = {{Codec.EnumType}}::new("{{Codec.Name}}");
     {{/Values}}
+}
+
+impl std::convert::From<std::string::String> for {{Codec.Name}} {
+  fn from(value: std::string::String) -> Self {
+    Self(std::borrow::Cow::Owned(value))
+  }
 }

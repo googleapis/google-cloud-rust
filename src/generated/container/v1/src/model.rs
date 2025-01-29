@@ -156,13 +156,12 @@ pub mod linux_node_config {
 
     /// Possible cgroup modes that can be used.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CgroupMode(std::string::String);
+    pub struct CgroupMode(std::borrow::Cow<'static, str>);
 
     impl CgroupMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CgroupMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -173,18 +172,25 @@ pub mod linux_node_config {
 
     /// Useful constants to work with [CgroupMode](CgroupMode)
     pub mod cgroup_mode {
+        use super::CgroupMode;
 
         /// CGROUP_MODE_UNSPECIFIED is when unspecified cgroup configuration is used.
         /// The default for the GKE node OS image will be used.
-        pub const CGROUP_MODE_UNSPECIFIED: &str = "CGROUP_MODE_UNSPECIFIED";
+        pub const CGROUP_MODE_UNSPECIFIED: CgroupMode = CgroupMode::new("CGROUP_MODE_UNSPECIFIED");
 
         /// CGROUP_MODE_V1 specifies to use cgroupv1 for the cgroup configuration on
         /// the node image.
-        pub const CGROUP_MODE_V1: &str = "CGROUP_MODE_V1";
+        pub const CGROUP_MODE_V1: CgroupMode = CgroupMode::new("CGROUP_MODE_V1");
 
         /// CGROUP_MODE_V2 specifies to use cgroupv2 for the cgroup configuration on
         /// the node image.
-        pub const CGROUP_MODE_V2: &str = "CGROUP_MODE_V2";
+        pub const CGROUP_MODE_V2: CgroupMode = CgroupMode::new("CGROUP_MODE_V2");
+    }
+
+    impl std::convert::From<std::string::String> for CgroupMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -224,13 +230,12 @@ pub mod windows_node_config {
 
     /// Possible OS version that can be used.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct OSVersion(std::string::String);
+    pub struct OSVersion(std::borrow::Cow<'static, str>);
 
     impl OSVersion {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new OSVersion instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -241,15 +246,22 @@ pub mod windows_node_config {
 
     /// Useful constants to work with [OSVersion](OSVersion)
     pub mod os_version {
+        use super::OSVersion;
 
         /// When OSVersion is not specified
-        pub const OS_VERSION_UNSPECIFIED: &str = "OS_VERSION_UNSPECIFIED";
+        pub const OS_VERSION_UNSPECIFIED: OSVersion = OSVersion::new("OS_VERSION_UNSPECIFIED");
 
         /// LTSC2019 specifies to use LTSC2019 as the Windows Servercore Base Image
-        pub const OS_VERSION_LTSC2019: &str = "OS_VERSION_LTSC2019";
+        pub const OS_VERSION_LTSC2019: OSVersion = OSVersion::new("OS_VERSION_LTSC2019");
 
         /// LTSC2022 specifies to use LTSC2022 as the Windows Servercore Base Image
-        pub const OS_VERSION_LTSC2022: &str = "OS_VERSION_LTSC2022";
+        pub const OS_VERSION_LTSC2022: OSVersion = OSVersion::new("OS_VERSION_LTSC2022");
+    }
+
+    impl std::convert::From<std::string::String> for OSVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1066,13 +1078,12 @@ pub mod node_config {
     /// LocalSsdEncryptionMode specifies the method used for encrypting the Local
     /// SSDs attached to the node.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LocalSsdEncryptionMode(std::string::String);
+    pub struct LocalSsdEncryptionMode(std::borrow::Cow<'static, str>);
 
     impl LocalSsdEncryptionMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LocalSsdEncryptionMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1083,34 +1094,42 @@ pub mod node_config {
 
     /// Useful constants to work with [LocalSsdEncryptionMode](LocalSsdEncryptionMode)
     pub mod local_ssd_encryption_mode {
+        use super::LocalSsdEncryptionMode;
 
         /// The given node will be encrypted using keys managed by Google
         /// infrastructure and the keys will be deleted when the node is
         /// deleted.
-        pub const LOCAL_SSD_ENCRYPTION_MODE_UNSPECIFIED: &str =
-            "LOCAL_SSD_ENCRYPTION_MODE_UNSPECIFIED";
+        pub const LOCAL_SSD_ENCRYPTION_MODE_UNSPECIFIED: LocalSsdEncryptionMode =
+            LocalSsdEncryptionMode::new("LOCAL_SSD_ENCRYPTION_MODE_UNSPECIFIED");
 
         /// The given node will be encrypted using keys managed by Google
         /// infrastructure and the keys will be deleted when the node is
         /// deleted.
-        pub const STANDARD_ENCRYPTION: &str = "STANDARD_ENCRYPTION";
+        pub const STANDARD_ENCRYPTION: LocalSsdEncryptionMode =
+            LocalSsdEncryptionMode::new("STANDARD_ENCRYPTION");
 
         /// The given node will opt-in for using ephemeral key for
         /// encryption of Local SSDs.
         /// The Local SSDs will not be able to recover data in case of node
         /// crash.
-        pub const EPHEMERAL_KEY_ENCRYPTION: &str = "EPHEMERAL_KEY_ENCRYPTION";
+        pub const EPHEMERAL_KEY_ENCRYPTION: LocalSsdEncryptionMode =
+            LocalSsdEncryptionMode::new("EPHEMERAL_KEY_ENCRYPTION");
+    }
+
+    impl std::convert::From<std::string::String> for LocalSsdEncryptionMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Possible effective cgroup modes for the node.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EffectiveCgroupMode(std::string::String);
+    pub struct EffectiveCgroupMode(std::borrow::Cow<'static, str>);
 
     impl EffectiveCgroupMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EffectiveCgroupMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1121,18 +1140,28 @@ pub mod node_config {
 
     /// Useful constants to work with [EffectiveCgroupMode](EffectiveCgroupMode)
     pub mod effective_cgroup_mode {
+        use super::EffectiveCgroupMode;
 
         /// EFFECTIVE_CGROUP_MODE_UNSPECIFIED means the cgroup configuration for the
         /// node pool is unspecified, i.e. the node pool is a Windows node pool.
-        pub const EFFECTIVE_CGROUP_MODE_UNSPECIFIED: &str = "EFFECTIVE_CGROUP_MODE_UNSPECIFIED";
+        pub const EFFECTIVE_CGROUP_MODE_UNSPECIFIED: EffectiveCgroupMode =
+            EffectiveCgroupMode::new("EFFECTIVE_CGROUP_MODE_UNSPECIFIED");
 
         /// CGROUP_MODE_V1 means the node pool is configured to use cgroupv1 for the
         /// cgroup configuration.
-        pub const EFFECTIVE_CGROUP_MODE_V1: &str = "EFFECTIVE_CGROUP_MODE_V1";
+        pub const EFFECTIVE_CGROUP_MODE_V1: EffectiveCgroupMode =
+            EffectiveCgroupMode::new("EFFECTIVE_CGROUP_MODE_V1");
 
         /// CGROUP_MODE_V2 means the node pool is configured to use cgroupv2 for the
         /// cgroup configuration.
-        pub const EFFECTIVE_CGROUP_MODE_V2: &str = "EFFECTIVE_CGROUP_MODE_V2";
+        pub const EFFECTIVE_CGROUP_MODE_V2: EffectiveCgroupMode =
+            EffectiveCgroupMode::new("EFFECTIVE_CGROUP_MODE_V2");
+    }
+
+    impl std::convert::From<std::string::String> for EffectiveCgroupMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1410,13 +1439,12 @@ pub mod node_network_config {
 
         /// Node network tier
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Tier(std::string::String);
+        pub struct Tier(std::borrow::Cow<'static, str>);
 
         impl Tier {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Tier instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -1427,12 +1455,19 @@ pub mod node_network_config {
 
         /// Useful constants to work with [Tier](Tier)
         pub mod tier {
+            use super::Tier;
 
             /// Default value
-            pub const TIER_UNSPECIFIED: &str = "TIER_UNSPECIFIED";
+            pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
 
             /// Higher bandwidth, actual values based on VM size.
-            pub const TIER_1: &str = "TIER_1";
+            pub const TIER_1: Tier = Tier::new("TIER_1");
+        }
+
+        impl std::convert::From<std::string::String> for Tier {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -1605,13 +1640,12 @@ pub mod sandbox_config {
 
     /// Possible types of sandboxes.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1622,12 +1656,19 @@ pub mod sandbox_config {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Default value. This should not be used.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: Type = Type::new("UNSPECIFIED");
 
         /// Run sandbox using gvisor.
-        pub const GVISOR: &str = "GVISOR";
+        pub const GVISOR: Type = Type::new("GVISOR");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1722,13 +1763,12 @@ pub mod reservation_affinity {
 
     /// Indicates whether to consume capacity from a reservation or not.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -1739,19 +1779,26 @@ pub mod reservation_affinity {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Default value. This should not be used.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: Type = Type::new("UNSPECIFIED");
 
         /// Do not consume from any reserved capacity.
-        pub const NO_RESERVATION: &str = "NO_RESERVATION";
+        pub const NO_RESERVATION: Type = Type::new("NO_RESERVATION");
 
         /// Consume any reservation available.
-        pub const ANY_RESERVATION: &str = "ANY_RESERVATION";
+        pub const ANY_RESERVATION: Type = Type::new("ANY_RESERVATION");
 
         /// Must consume from a specific reservation. Must specify key value fields
         /// for specifying the reservations.
-        pub const SPECIFIC_RESERVATION: &str = "SPECIFIC_RESERVATION";
+        pub const SPECIFIC_RESERVATION: Type = Type::new("SPECIFIC_RESERVATION");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -1855,13 +1902,12 @@ pub mod sole_tenant_config {
         /// Operator allows user to specify affinity or anti-affinity for the
         /// given key values.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Operator(std::string::String);
+        pub struct Operator(std::borrow::Cow<'static, str>);
 
         impl Operator {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Operator instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -1872,15 +1918,22 @@ pub mod sole_tenant_config {
 
         /// Useful constants to work with [Operator](Operator)
         pub mod operator {
+            use super::Operator;
 
             /// Invalid or unspecified affinity operator.
-            pub const OPERATOR_UNSPECIFIED: &str = "OPERATOR_UNSPECIFIED";
+            pub const OPERATOR_UNSPECIFIED: Operator = Operator::new("OPERATOR_UNSPECIFIED");
 
             /// Affinity operator.
-            pub const IN: &str = "IN";
+            pub const IN: Operator = Operator::new("IN");
 
             /// Anti-affinity operator.
-            pub const NOT_IN: &str = "NOT_IN";
+            pub const NOT_IN: Operator = Operator::new("NOT_IN");
+        }
+
+        impl std::convert::From<std::string::String> for Operator {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -2155,13 +2208,12 @@ pub mod node_taint {
 
     /// Possible values for Effect in taint.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Effect(std::string::String);
+    pub struct Effect(std::borrow::Cow<'static, str>);
 
     impl Effect {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Effect instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -2172,18 +2224,25 @@ pub mod node_taint {
 
     /// Useful constants to work with [Effect](Effect)
     pub mod effect {
+        use super::Effect;
 
         /// Not set
-        pub const EFFECT_UNSPECIFIED: &str = "EFFECT_UNSPECIFIED";
+        pub const EFFECT_UNSPECIFIED: Effect = Effect::new("EFFECT_UNSPECIFIED");
 
         /// NoSchedule
-        pub const NO_SCHEDULE: &str = "NO_SCHEDULE";
+        pub const NO_SCHEDULE: Effect = Effect::new("NO_SCHEDULE");
 
         /// PreferNoSchedule
-        pub const PREFER_NO_SCHEDULE: &str = "PREFER_NO_SCHEDULE";
+        pub const PREFER_NO_SCHEDULE: Effect = Effect::new("PREFER_NO_SCHEDULE");
 
         /// NoExecute
-        pub const NO_EXECUTE: &str = "NO_EXECUTE";
+        pub const NO_EXECUTE: Effect = Effect::new("NO_EXECUTE");
+    }
+
+    impl std::convert::From<std::string::String> for Effect {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3071,13 +3130,12 @@ pub mod cloud_run_config {
 
     /// Load balancer type of ingress service of Cloud Run.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LoadBalancerType(std::string::String);
+    pub struct LoadBalancerType(std::borrow::Cow<'static, str>);
 
     impl LoadBalancerType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LoadBalancerType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3088,15 +3146,25 @@ pub mod cloud_run_config {
 
     /// Useful constants to work with [LoadBalancerType](LoadBalancerType)
     pub mod load_balancer_type {
+        use super::LoadBalancerType;
 
         /// Load balancer type for Cloud Run is unspecified.
-        pub const LOAD_BALANCER_TYPE_UNSPECIFIED: &str = "LOAD_BALANCER_TYPE_UNSPECIFIED";
+        pub const LOAD_BALANCER_TYPE_UNSPECIFIED: LoadBalancerType =
+            LoadBalancerType::new("LOAD_BALANCER_TYPE_UNSPECIFIED");
 
         /// Install external load balancer for Cloud Run.
-        pub const LOAD_BALANCER_TYPE_EXTERNAL: &str = "LOAD_BALANCER_TYPE_EXTERNAL";
+        pub const LOAD_BALANCER_TYPE_EXTERNAL: LoadBalancerType =
+            LoadBalancerType::new("LOAD_BALANCER_TYPE_EXTERNAL");
 
         /// Install internal load balancer for Cloud Run.
-        pub const LOAD_BALANCER_TYPE_INTERNAL: &str = "LOAD_BALANCER_TYPE_INTERNAL";
+        pub const LOAD_BALANCER_TYPE_INTERNAL: LoadBalancerType =
+            LoadBalancerType::new("LOAD_BALANCER_TYPE_INTERNAL");
+    }
+
+    impl std::convert::From<std::string::String> for LoadBalancerType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3511,13 +3579,12 @@ pub mod network_policy {
 
     /// Allowed Network Policy providers.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Provider(std::string::String);
+    pub struct Provider(std::borrow::Cow<'static, str>);
 
     impl Provider {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Provider instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3528,12 +3595,19 @@ pub mod network_policy {
 
     /// Useful constants to work with [Provider](Provider)
     pub mod provider {
+        use super::Provider;
 
         /// Not set
-        pub const PROVIDER_UNSPECIFIED: &str = "PROVIDER_UNSPECIFIED";
+        pub const PROVIDER_UNSPECIFIED: Provider = Provider::new("PROVIDER_UNSPECIFIED");
 
         /// Tigera (Calico Felix).
-        pub const CALICO: &str = "CALICO";
+        pub const CALICO: Provider = Provider::new("CALICO");
+    }
+
+    impl std::convert::From<std::string::String> for Provider {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -3585,13 +3659,12 @@ pub mod binary_authorization {
 
     /// Binary Authorization mode of operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EvaluationMode(std::string::String);
+    pub struct EvaluationMode(std::borrow::Cow<'static, str>);
 
     impl EvaluationMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EvaluationMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -3602,17 +3675,26 @@ pub mod binary_authorization {
 
     /// Useful constants to work with [EvaluationMode](EvaluationMode)
     pub mod evaluation_mode {
+        use super::EvaluationMode;
 
         /// Default value
-        pub const EVALUATION_MODE_UNSPECIFIED: &str = "EVALUATION_MODE_UNSPECIFIED";
+        pub const EVALUATION_MODE_UNSPECIFIED: EvaluationMode =
+            EvaluationMode::new("EVALUATION_MODE_UNSPECIFIED");
 
         /// Disable BinaryAuthorization
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: EvaluationMode = EvaluationMode::new("DISABLED");
 
         /// Enforce Kubernetes admission requests with BinaryAuthorization using the
         /// project's singleton policy. This is equivalent to setting the
         /// enabled boolean to true.
-        pub const PROJECT_SINGLETON_POLICY_ENFORCE: &str = "PROJECT_SINGLETON_POLICY_ENFORCE";
+        pub const PROJECT_SINGLETON_POLICY_ENFORCE: EvaluationMode =
+            EvaluationMode::new("PROJECT_SINGLETON_POLICY_ENFORCE");
+    }
+
+    impl std::convert::From<std::string::String> for EvaluationMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -5132,13 +5214,12 @@ pub mod cluster {
 
     /// The current status of the cluster.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::string::String);
+    pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Status instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5149,32 +5230,39 @@ pub mod cluster {
 
     /// Useful constants to work with [Status](Status)
     pub mod status {
+        use super::Status;
 
         /// Not set.
-        pub const STATUS_UNSPECIFIED: &str = "STATUS_UNSPECIFIED";
+        pub const STATUS_UNSPECIFIED: Status = Status::new("STATUS_UNSPECIFIED");
 
         /// The PROVISIONING state indicates the cluster is being created.
-        pub const PROVISIONING: &str = "PROVISIONING";
+        pub const PROVISIONING: Status = Status::new("PROVISIONING");
 
         /// The RUNNING state indicates the cluster has been created and is fully
         /// usable.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: Status = Status::new("RUNNING");
 
         /// The RECONCILING state indicates that some work is actively being done on
         /// the cluster, such as upgrading the master or node software. Details can
         /// be found in the `statusMessage` field.
-        pub const RECONCILING: &str = "RECONCILING";
+        pub const RECONCILING: Status = Status::new("RECONCILING");
 
         /// The STOPPING state indicates the cluster is being deleted.
-        pub const STOPPING: &str = "STOPPING";
+        pub const STOPPING: Status = Status::new("STOPPING");
 
         /// The ERROR state indicates the cluster is unusable. It will be
         /// automatically deleted. Details can be found in the `statusMessage` field.
-        pub const ERROR: &str = "ERROR";
+        pub const ERROR: Status = Status::new("ERROR");
 
         /// The DEGRADED state indicates the cluster requires user action to restore
         /// full functionality. Details can be found in the `statusMessage` field.
-        pub const DEGRADED: &str = "DEGRADED";
+        pub const DEGRADED: Status = Status::new("DEGRADED");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -5434,13 +5522,12 @@ pub mod compliance_posture_config {
 
     /// Mode defines enablement mode for Compliance Posture.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::string::String);
+    pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Mode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5451,15 +5538,22 @@ pub mod compliance_posture_config {
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
+        use super::Mode;
 
         /// Default value not specified.
-        pub const MODE_UNSPECIFIED: &str = "MODE_UNSPECIFIED";
+        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
 
         /// Disables Compliance Posture features on the cluster.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: Mode = Mode::new("DISABLED");
 
         /// Enables Compliance Posture features on the cluster.
-        pub const ENABLED: &str = "ENABLED";
+        pub const ENABLED: Mode = Mode::new("ENABLED");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -5549,13 +5643,12 @@ pub mod security_posture_config {
 
     /// Mode defines enablement mode for GKE Security posture features.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::string::String);
+    pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Mode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5566,29 +5659,35 @@ pub mod security_posture_config {
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
+        use super::Mode;
 
         /// Default value not specified.
-        pub const MODE_UNSPECIFIED: &str = "MODE_UNSPECIFIED";
+        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
 
         /// Disables Security Posture features on the cluster.
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: Mode = Mode::new("DISABLED");
 
         /// Applies Security Posture features on the cluster.
-        pub const BASIC: &str = "BASIC";
+        pub const BASIC: Mode = Mode::new("BASIC");
 
         /// Applies the Security Posture off cluster Enterprise level features.
-        pub const ENTERPRISE: &str = "ENTERPRISE";
+        pub const ENTERPRISE: Mode = Mode::new("ENTERPRISE");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// VulnerabilityMode defines enablement mode for vulnerability scanning.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct VulnerabilityMode(std::string::String);
+    pub struct VulnerabilityMode(std::borrow::Cow<'static, str>);
 
     impl VulnerabilityMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new VulnerabilityMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -5599,19 +5698,30 @@ pub mod security_posture_config {
 
     /// Useful constants to work with [VulnerabilityMode](VulnerabilityMode)
     pub mod vulnerability_mode {
+        use super::VulnerabilityMode;
 
         /// Default value not specified.
-        pub const VULNERABILITY_MODE_UNSPECIFIED: &str = "VULNERABILITY_MODE_UNSPECIFIED";
+        pub const VULNERABILITY_MODE_UNSPECIFIED: VulnerabilityMode =
+            VulnerabilityMode::new("VULNERABILITY_MODE_UNSPECIFIED");
 
         /// Disables vulnerability scanning on the cluster.
-        pub const VULNERABILITY_DISABLED: &str = "VULNERABILITY_DISABLED";
+        pub const VULNERABILITY_DISABLED: VulnerabilityMode =
+            VulnerabilityMode::new("VULNERABILITY_DISABLED");
 
         /// Applies basic vulnerability scanning on the cluster.
-        pub const VULNERABILITY_BASIC: &str = "VULNERABILITY_BASIC";
+        pub const VULNERABILITY_BASIC: VulnerabilityMode =
+            VulnerabilityMode::new("VULNERABILITY_BASIC");
 
         /// Applies the Security Posture's vulnerability on cluster Enterprise level
         /// features.
-        pub const VULNERABILITY_ENTERPRISE: &str = "VULNERABILITY_ENTERPRISE";
+        pub const VULNERABILITY_ENTERPRISE: VulnerabilityMode =
+            VulnerabilityMode::new("VULNERABILITY_ENTERPRISE");
+    }
+
+    impl std::convert::From<std::string::String> for VulnerabilityMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -7196,13 +7306,12 @@ pub mod operation {
 
     /// Current status of the operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::string::String);
+    pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Status instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7213,32 +7322,38 @@ pub mod operation {
 
     /// Useful constants to work with [Status](Status)
     pub mod status {
+        use super::Status;
 
         /// Not set.
-        pub const STATUS_UNSPECIFIED: &str = "STATUS_UNSPECIFIED";
+        pub const STATUS_UNSPECIFIED: Status = Status::new("STATUS_UNSPECIFIED");
 
         /// The operation has been created.
-        pub const PENDING: &str = "PENDING";
+        pub const PENDING: Status = Status::new("PENDING");
 
         /// The operation is currently running.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: Status = Status::new("RUNNING");
 
         /// The operation is done, either cancelled or completed.
-        pub const DONE: &str = "DONE";
+        pub const DONE: Status = Status::new("DONE");
 
         /// The operation is aborting.
-        pub const ABORTING: &str = "ABORTING";
+        pub const ABORTING: Status = Status::new("ABORTING");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Operation type categorizes the operation.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Type(std::string::String);
+    pub struct Type(std::borrow::Cow<'static, str>);
 
     impl Type {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Type instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -7249,9 +7364,10 @@ pub mod operation {
 
     /// Useful constants to work with [Type](Type)
     pub mod r#type {
+        use super::Type;
 
         /// Not set.
-        pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+        pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
         /// The cluster is being created. The cluster should be assumed to be
         /// unusable until the operation finishes.
@@ -7260,7 +7376,7 @@ pub mod operation {
         /// state][Cluster.Status.ERROR] and eventually be deleted.
         ///
         /// [Cluster.Status.ERROR]: crate::model::cluster::status::ERROR
-        pub const CREATE_CLUSTER: &str = "CREATE_CLUSTER";
+        pub const CREATE_CLUSTER: Type = Type::new("CREATE_CLUSTER");
 
         /// The cluster is being deleted. The cluster should be assumed to be
         /// unusable as soon as this operation starts.
@@ -7270,7 +7386,7 @@ pub mod operation {
         /// retried until completed.
         ///
         /// [Cluster.Status.ERROR]: crate::model::cluster::status::ERROR
-        pub const DELETE_CLUSTER: &str = "DELETE_CLUSTER";
+        pub const DELETE_CLUSTER: Type = Type::new("DELETE_CLUSTER");
 
         /// The [cluster
         /// version][google.container.v1.ClusterUpdate.desired_master_version] is
@@ -7281,7 +7397,7 @@ pub mod operation {
         /// upgrades](https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-upgrades#cluster_upgrades).
         ///
         /// [google.container.v1.ClusterUpdate.desired_master_version]: crate::model::ClusterUpdate::desired_master_version
-        pub const UPGRADE_MASTER: &str = "UPGRADE_MASTER";
+        pub const UPGRADE_MASTER: Type = Type::new("UPGRADE_MASTER");
 
         /// A node pool is being updated. Despite calling this an "upgrade", this
         /// includes most forms of updates to node pools. This also includes
@@ -7297,13 +7413,13 @@ pub mod operation {
         ///
         /// [google.container.v1.ClusterManager.CancelOperation]: crate::client::ClusterManager::cancel_operation
         /// [google.container.v1.Operation.progress]: crate::model::Operation::progress
-        pub const UPGRADE_NODES: &str = "UPGRADE_NODES";
+        pub const UPGRADE_NODES: Type = Type::new("UPGRADE_NODES");
 
         /// A problem has been detected with the control plane and is being repaired.
         /// This operation type is initiated by GKE. For more details, see
         /// [documentation on
         /// repairs](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#repairs).
-        pub const REPAIR_CLUSTER: &str = "REPAIR_CLUSTER";
+        pub const REPAIR_CLUSTER: Type = Type::new("REPAIR_CLUSTER");
 
         /// The cluster is being updated. This is a broad category of operations and
         /// includes operations that only change metadata as well as those that must
@@ -7318,7 +7434,7 @@ pub mod operation {
         ///
         /// Some GKE-initiated operations use this type. This includes certain types
         /// of auto-upgrades and incident mitigations.
-        pub const UPDATE_CLUSTER: &str = "UPDATE_CLUSTER";
+        pub const UPDATE_CLUSTER: Type = Type::new("UPDATE_CLUSTER");
 
         /// A node pool is being created. The node pool should be assumed to be
         /// unusable until this operation finishes. In the event of an error, the
@@ -7327,59 +7443,59 @@ pub mod operation {
         /// If enabled, [node
         /// autoprovisioning](https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-provisioning)
         /// may have automatically initiated such operations.
-        pub const CREATE_NODE_POOL: &str = "CREATE_NODE_POOL";
+        pub const CREATE_NODE_POOL: Type = Type::new("CREATE_NODE_POOL");
 
         /// The node pool is being deleted. The node pool should be assumed to be
         /// unusable as soon as this operation starts.
-        pub const DELETE_NODE_POOL: &str = "DELETE_NODE_POOL";
+        pub const DELETE_NODE_POOL: Type = Type::new("DELETE_NODE_POOL");
 
         /// The node pool's [manamagent][google.container.v1.NodePool.management]
         /// field is being updated. These operations only update metadata and may be
         /// concurrent with most other operations.
         ///
         /// [google.container.v1.NodePool.management]: crate::model::NodePool::management
-        pub const SET_NODE_POOL_MANAGEMENT: &str = "SET_NODE_POOL_MANAGEMENT";
+        pub const SET_NODE_POOL_MANAGEMENT: Type = Type::new("SET_NODE_POOL_MANAGEMENT");
 
         /// A problem has been detected with nodes and [they are being
         /// repaired](https://cloud.google.com/kubernetes-engine/docs/how-to/node-auto-repair).
         /// This operation type is initiated by GKE, typically automatically. This
         /// operation may be concurrent with other operations and there may be
         /// multiple repairs occurring on the same node pool.
-        pub const AUTO_REPAIR_NODES: &str = "AUTO_REPAIR_NODES";
+        pub const AUTO_REPAIR_NODES: Type = Type::new("AUTO_REPAIR_NODES");
 
         /// Unused. Automatic node upgrade uses
         /// [UPGRADE_NODES][google.container.v1.Operation.Type.UPGRADE_NODES].
         ///
         /// [google.container.v1.Operation.Type.UPGRADE_NODES]: crate::model::operation::r#type::UPGRADE_NODES
-        pub const AUTO_UPGRADE_NODES: &str = "AUTO_UPGRADE_NODES";
+        pub const AUTO_UPGRADE_NODES: Type = Type::new("AUTO_UPGRADE_NODES");
 
         /// Unused. Updating labels uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::r#type::UPDATE_CLUSTER
-        pub const SET_LABELS: &str = "SET_LABELS";
+        pub const SET_LABELS: Type = Type::new("SET_LABELS");
 
         /// Unused. Updating master auth uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::r#type::UPDATE_CLUSTER
-        pub const SET_MASTER_AUTH: &str = "SET_MASTER_AUTH";
+        pub const SET_MASTER_AUTH: Type = Type::new("SET_MASTER_AUTH");
 
         /// The node pool is being resized. With the exception of resizing to or from
         /// size zero, the node pool is generally usable during this operation.
-        pub const SET_NODE_POOL_SIZE: &str = "SET_NODE_POOL_SIZE";
+        pub const SET_NODE_POOL_SIZE: Type = Type::new("SET_NODE_POOL_SIZE");
 
         /// Unused. Updating network policy uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::r#type::UPDATE_CLUSTER
-        pub const SET_NETWORK_POLICY: &str = "SET_NETWORK_POLICY";
+        pub const SET_NETWORK_POLICY: Type = Type::new("SET_NETWORK_POLICY");
 
         /// Unused. Updating maintenance policy uses
         /// [UPDATE_CLUSTER][google.container.v1.Operation.Type.UPDATE_CLUSTER].
         ///
         /// [google.container.v1.Operation.Type.UPDATE_CLUSTER]: crate::model::operation::r#type::UPDATE_CLUSTER
-        pub const SET_MAINTENANCE_POLICY: &str = "SET_MAINTENANCE_POLICY";
+        pub const SET_MAINTENANCE_POLICY: Type = Type::new("SET_MAINTENANCE_POLICY");
 
         /// The control plane is being resized. This operation type is initiated by
         /// GKE. These operations are often performed preemptively to ensure that the
@@ -7387,11 +7503,17 @@ pub mod operation {
         /// of issues. For more details, see
         /// [documentation on
         /// resizes](https://cloud.google.com/kubernetes-engine/docs/concepts/maintenance-windows-and-exclusions#repairs).
-        pub const RESIZE_CLUSTER: &str = "RESIZE_CLUSTER";
+        pub const RESIZE_CLUSTER: Type = Type::new("RESIZE_CLUSTER");
 
         /// Fleet features of GKE Enterprise are being upgraded. The cluster should
         /// be assumed to be blocked for other upgrades until the operation finishes.
-        pub const FLEET_FEATURE_UPGRADE: &str = "FLEET_FEATURE_UPGRADE";
+        pub const FLEET_FEATURE_UPGRADE: Type = Type::new("FLEET_FEATURE_UPGRADE");
+    }
+
+    impl std::convert::From<std::string::String> for Type {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -8887,13 +9009,12 @@ pub mod set_master_auth_request {
 
     /// Operation type: what type update to perform.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Action(std::string::String);
+    pub struct Action(std::borrow::Cow<'static, str>);
 
     impl Action {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Action instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -8904,21 +9025,28 @@ pub mod set_master_auth_request {
 
     /// Useful constants to work with [Action](Action)
     pub mod action {
+        use super::Action;
 
         /// Operation is unknown and will error out.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: Action = Action::new("UNKNOWN");
 
         /// Set the password to a user generated value.
-        pub const SET_PASSWORD: &str = "SET_PASSWORD";
+        pub const SET_PASSWORD: Action = Action::new("SET_PASSWORD");
 
         /// Generate a new password and set it to that.
-        pub const GENERATE_PASSWORD: &str = "GENERATE_PASSWORD";
+        pub const GENERATE_PASSWORD: Action = Action::new("GENERATE_PASSWORD");
 
         /// Set the username.  If an empty username is provided, basic authentication
         /// is disabled for the cluster.  If a non-empty username is provided, basic
         /// authentication is enabled, with either a provided password or a generated
         /// one.
-        pub const SET_USERNAME: &str = "SET_USERNAME";
+        pub const SET_USERNAME: Action = Action::new("SET_USERNAME");
+    }
+
+    impl std::convert::From<std::string::String> for Action {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -10608,16 +10736,12 @@ pub mod node_pool {
 
             /// Phase represents the different stages blue-green upgrade is running in.
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-            pub struct Phase(std::string::String);
+            pub struct Phase(std::borrow::Cow<'static, str>);
 
             impl Phase {
-                /// Sets the enum value.
-                pub fn set_value<T: std::convert::Into<std::string::String>>(
-                    mut self,
-                    v: T,
-                ) -> Self {
-                    self.0 = v.into();
-                    self
+                /// Creates a new Phase instance.
+                pub const fn new(v: &'static str) -> Self {
+                    Self(std::borrow::Cow::Borrowed(v))
                 }
 
                 /// Gets the enum value.
@@ -10628,30 +10752,37 @@ pub mod node_pool {
 
             /// Useful constants to work with [Phase](Phase)
             pub mod phase {
+                use super::Phase;
 
                 /// Unspecified phase.
-                pub const PHASE_UNSPECIFIED: &str = "PHASE_UNSPECIFIED";
+                pub const PHASE_UNSPECIFIED: Phase = Phase::new("PHASE_UNSPECIFIED");
 
                 /// blue-green upgrade has been initiated.
-                pub const UPDATE_STARTED: &str = "UPDATE_STARTED";
+                pub const UPDATE_STARTED: Phase = Phase::new("UPDATE_STARTED");
 
                 /// Start creating green pool nodes.
-                pub const CREATING_GREEN_POOL: &str = "CREATING_GREEN_POOL";
+                pub const CREATING_GREEN_POOL: Phase = Phase::new("CREATING_GREEN_POOL");
 
                 /// Start cordoning blue pool nodes.
-                pub const CORDONING_BLUE_POOL: &str = "CORDONING_BLUE_POOL";
+                pub const CORDONING_BLUE_POOL: Phase = Phase::new("CORDONING_BLUE_POOL");
 
                 /// Start draining blue pool nodes.
-                pub const DRAINING_BLUE_POOL: &str = "DRAINING_BLUE_POOL";
+                pub const DRAINING_BLUE_POOL: Phase = Phase::new("DRAINING_BLUE_POOL");
 
                 /// Start soaking time after draining entire blue pool.
-                pub const NODE_POOL_SOAKING: &str = "NODE_POOL_SOAKING";
+                pub const NODE_POOL_SOAKING: Phase = Phase::new("NODE_POOL_SOAKING");
 
                 /// Start deleting blue nodes.
-                pub const DELETING_BLUE_POOL: &str = "DELETING_BLUE_POOL";
+                pub const DELETING_BLUE_POOL: Phase = Phase::new("DELETING_BLUE_POOL");
 
                 /// Rollback has been initiated.
-                pub const ROLLBACK_STARTED: &str = "ROLLBACK_STARTED";
+                pub const ROLLBACK_STARTED: Phase = Phase::new("ROLLBACK_STARTED");
+            }
+
+            impl std::convert::From<std::string::String> for Phase {
+                fn from(value: std::string::String) -> Self {
+                    Self(std::borrow::Cow::Owned(value))
+                }
             }
         }
     }
@@ -10717,13 +10848,12 @@ pub mod node_pool {
 
         /// Type defines the type of placement policy.
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Type(std::string::String);
+        pub struct Type(std::borrow::Cow<'static, str>);
 
         impl Type {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Type instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -10734,14 +10864,21 @@ pub mod node_pool {
 
         /// Useful constants to work with [Type](Type)
         pub mod r#type {
+            use super::Type;
 
             /// TYPE_UNSPECIFIED specifies no requirements on nodes
             /// placement.
-            pub const TYPE_UNSPECIFIED: &str = "TYPE_UNSPECIFIED";
+            pub const TYPE_UNSPECIFIED: Type = Type::new("TYPE_UNSPECIFIED");
 
             /// COMPACT specifies node placement in the same availability domain to
             /// ensure low communication latency.
-            pub const COMPACT: &str = "COMPACT";
+            pub const COMPACT: Type = Type::new("COMPACT");
+        }
+
+        impl std::convert::From<std::string::String> for Type {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 
@@ -10773,13 +10910,12 @@ pub mod node_pool {
 
     /// The current status of the node pool instance.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::string::String);
+    pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Status instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -10790,34 +10926,41 @@ pub mod node_pool {
 
     /// Useful constants to work with [Status](Status)
     pub mod status {
+        use super::Status;
 
         /// Not set.
-        pub const STATUS_UNSPECIFIED: &str = "STATUS_UNSPECIFIED";
+        pub const STATUS_UNSPECIFIED: Status = Status::new("STATUS_UNSPECIFIED");
 
         /// The PROVISIONING state indicates the node pool is being created.
-        pub const PROVISIONING: &str = "PROVISIONING";
+        pub const PROVISIONING: Status = Status::new("PROVISIONING");
 
         /// The RUNNING state indicates the node pool has been created
         /// and is fully usable.
-        pub const RUNNING: &str = "RUNNING";
+        pub const RUNNING: Status = Status::new("RUNNING");
 
         /// The RUNNING_WITH_ERROR state indicates the node pool has been created
         /// and is partially usable. Some error state has occurred and some
         /// functionality may be impaired. Customer may need to reissue a request
         /// or trigger a new update.
-        pub const RUNNING_WITH_ERROR: &str = "RUNNING_WITH_ERROR";
+        pub const RUNNING_WITH_ERROR: Status = Status::new("RUNNING_WITH_ERROR");
 
         /// The RECONCILING state indicates that some work is actively being done on
         /// the node pool, such as upgrading node software. Details can
         /// be found in the `statusMessage` field.
-        pub const RECONCILING: &str = "RECONCILING";
+        pub const RECONCILING: Status = Status::new("RECONCILING");
 
         /// The STOPPING state indicates the node pool is being deleted.
-        pub const STOPPING: &str = "STOPPING";
+        pub const STOPPING: Status = Status::new("STOPPING");
 
         /// The ERROR state indicates the node pool may be unusable. Details
         /// can be found in the `statusMessage` field.
-        pub const ERROR: &str = "ERROR";
+        pub const ERROR: Status = Status::new("ERROR");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -11268,13 +11411,12 @@ pub mod maintenance_exclusion_options {
 
     /// Scope of exclusion.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Scope(std::string::String);
+    pub struct Scope(std::borrow::Cow<'static, str>);
 
     impl Scope {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Scope instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -11285,20 +11427,27 @@ pub mod maintenance_exclusion_options {
 
     /// Useful constants to work with [Scope](Scope)
     pub mod scope {
+        use super::Scope;
 
         /// NO_UPGRADES excludes all upgrades, including patch upgrades and minor
         /// upgrades across control planes and nodes. This is the default exclusion
         /// behavior.
-        pub const NO_UPGRADES: &str = "NO_UPGRADES";
+        pub const NO_UPGRADES: Scope = Scope::new("NO_UPGRADES");
 
         /// NO_MINOR_UPGRADES excludes all minor upgrades for the cluster, only
         /// patches are allowed.
-        pub const NO_MINOR_UPGRADES: &str = "NO_MINOR_UPGRADES";
+        pub const NO_MINOR_UPGRADES: Scope = Scope::new("NO_MINOR_UPGRADES");
 
         /// NO_MINOR_OR_NODE_UPGRADES excludes all minor upgrades for the cluster,
         /// and also exclude all node pool upgrades. Only control
         /// plane patches are allowed.
-        pub const NO_MINOR_OR_NODE_UPGRADES: &str = "NO_MINOR_OR_NODE_UPGRADES";
+        pub const NO_MINOR_OR_NODE_UPGRADES: Scope = Scope::new("NO_MINOR_OR_NODE_UPGRADES");
+    }
+
+    impl std::convert::From<std::string::String> for Scope {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -11828,13 +11977,12 @@ pub mod cluster_autoscaling {
 
     /// Defines possible options for autoscaling_profile field.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct AutoscalingProfile(std::string::String);
+    pub struct AutoscalingProfile(std::borrow::Cow<'static, str>);
 
     impl AutoscalingProfile {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new AutoscalingProfile instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -11845,15 +11993,24 @@ pub mod cluster_autoscaling {
 
     /// Useful constants to work with [AutoscalingProfile](AutoscalingProfile)
     pub mod autoscaling_profile {
+        use super::AutoscalingProfile;
 
         /// No change to autoscaling configuration.
-        pub const PROFILE_UNSPECIFIED: &str = "PROFILE_UNSPECIFIED";
+        pub const PROFILE_UNSPECIFIED: AutoscalingProfile =
+            AutoscalingProfile::new("PROFILE_UNSPECIFIED");
 
         /// Prioritize optimizing utilization of resources.
-        pub const OPTIMIZE_UTILIZATION: &str = "OPTIMIZE_UTILIZATION";
+        pub const OPTIMIZE_UTILIZATION: AutoscalingProfile =
+            AutoscalingProfile::new("OPTIMIZE_UTILIZATION");
 
         /// Use default (balanced) autoscaling configuration.
-        pub const BALANCED: &str = "BALANCED";
+        pub const BALANCED: AutoscalingProfile = AutoscalingProfile::new("BALANCED");
+    }
+
+    impl std::convert::From<std::string::String> for AutoscalingProfile {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -12182,13 +12339,12 @@ pub mod node_pool_autoscaling {
     /// Location policy specifies how zones are picked when scaling up the
     /// nodepool.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct LocationPolicy(std::string::String);
+    pub struct LocationPolicy(std::borrow::Cow<'static, str>);
 
     impl LocationPolicy {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new LocationPolicy instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -12199,16 +12355,24 @@ pub mod node_pool_autoscaling {
 
     /// Useful constants to work with [LocationPolicy](LocationPolicy)
     pub mod location_policy {
+        use super::LocationPolicy;
 
         /// Not set.
-        pub const LOCATION_POLICY_UNSPECIFIED: &str = "LOCATION_POLICY_UNSPECIFIED";
+        pub const LOCATION_POLICY_UNSPECIFIED: LocationPolicy =
+            LocationPolicy::new("LOCATION_POLICY_UNSPECIFIED");
 
         /// BALANCED is a best effort policy that aims to balance the sizes of
         /// different zones.
-        pub const BALANCED: &str = "BALANCED";
+        pub const BALANCED: LocationPolicy = LocationPolicy::new("BALANCED");
 
         /// ANY policy picks zones that have the highest capacity available.
-        pub const ANY: &str = "ANY";
+        pub const ANY: LocationPolicy = LocationPolicy::new("ANY");
+    }
+
+    impl std::convert::From<std::string::String> for LocationPolicy {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -12652,13 +12816,12 @@ pub mod gpu_sharing_config {
 
     /// The type of GPU sharing strategy currently provided.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GPUSharingStrategy(std::string::String);
+    pub struct GPUSharingStrategy(std::borrow::Cow<'static, str>);
 
     impl GPUSharingStrategy {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new GPUSharingStrategy instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -12669,15 +12832,23 @@ pub mod gpu_sharing_config {
 
     /// Useful constants to work with [GPUSharingStrategy](GPUSharingStrategy)
     pub mod gpu_sharing_strategy {
+        use super::GPUSharingStrategy;
 
         /// Default value.
-        pub const GPU_SHARING_STRATEGY_UNSPECIFIED: &str = "GPU_SHARING_STRATEGY_UNSPECIFIED";
+        pub const GPU_SHARING_STRATEGY_UNSPECIFIED: GPUSharingStrategy =
+            GPUSharingStrategy::new("GPU_SHARING_STRATEGY_UNSPECIFIED");
 
         /// GPUs are time-shared between containers.
-        pub const TIME_SHARING: &str = "TIME_SHARING";
+        pub const TIME_SHARING: GPUSharingStrategy = GPUSharingStrategy::new("TIME_SHARING");
 
         /// GPUs are shared between containers with NVIDIA MPS.
-        pub const MPS: &str = "MPS";
+        pub const MPS: GPUSharingStrategy = GPUSharingStrategy::new("MPS");
+    }
+
+    impl std::convert::From<std::string::String> for GPUSharingStrategy {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -12722,13 +12893,12 @@ pub mod gpu_driver_installation_config {
 
     /// The GPU driver version to install.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct GPUDriverVersion(std::string::String);
+    pub struct GPUDriverVersion(std::borrow::Cow<'static, str>);
 
     impl GPUDriverVersion {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new GPUDriverVersion instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -12739,18 +12909,27 @@ pub mod gpu_driver_installation_config {
 
     /// Useful constants to work with [GPUDriverVersion](GPUDriverVersion)
     pub mod gpu_driver_version {
+        use super::GPUDriverVersion;
 
         /// Default value is to not install any GPU driver.
-        pub const GPU_DRIVER_VERSION_UNSPECIFIED: &str = "GPU_DRIVER_VERSION_UNSPECIFIED";
+        pub const GPU_DRIVER_VERSION_UNSPECIFIED: GPUDriverVersion =
+            GPUDriverVersion::new("GPU_DRIVER_VERSION_UNSPECIFIED");
 
         /// Disable GPU driver auto installation and needs manual installation
-        pub const INSTALLATION_DISABLED: &str = "INSTALLATION_DISABLED";
+        pub const INSTALLATION_DISABLED: GPUDriverVersion =
+            GPUDriverVersion::new("INSTALLATION_DISABLED");
 
         /// "Default" GPU driver in COS and Ubuntu.
-        pub const DEFAULT: &str = "DEFAULT";
+        pub const DEFAULT: GPUDriverVersion = GPUDriverVersion::new("DEFAULT");
 
         /// "Latest" GPU driver in COS.
-        pub const LATEST: &str = "LATEST";
+        pub const LATEST: GPUDriverVersion = GPUDriverVersion::new("LATEST");
+    }
+
+    impl std::convert::From<std::string::String> for GPUDriverVersion {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -12791,13 +12970,12 @@ pub mod workload_metadata_config {
     /// Mode is the configuration for how to expose metadata to workloads running
     /// on the node.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::string::String);
+    pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Mode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -12808,19 +12986,26 @@ pub mod workload_metadata_config {
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
+        use super::Mode;
 
         /// Not set.
-        pub const MODE_UNSPECIFIED: &str = "MODE_UNSPECIFIED";
+        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
 
         /// Expose all Compute Engine metadata to pods.
-        pub const GCE_METADATA: &str = "GCE_METADATA";
+        pub const GCE_METADATA: Mode = Mode::new("GCE_METADATA");
 
         /// Run the GKE Metadata Server on this node. The GKE Metadata Server exposes
         /// a metadata API to workloads that is compatible with the V1 Compute
         /// Metadata APIs exposed by the Compute Engine and App Engine Metadata
         /// Servers. This feature can only be enabled if Workload Identity is enabled
         /// at the cluster level.
-        pub const GKE_METADATA: &str = "GKE_METADATA";
+        pub const GKE_METADATA: Mode = Mode::new("GKE_METADATA");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13032,13 +13217,12 @@ pub mod status_condition {
 
     /// Code for each condition
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Code(std::string::String);
+    pub struct Code(std::borrow::Cow<'static, str>);
 
     impl Code {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Code instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -13049,30 +13233,37 @@ pub mod status_condition {
 
     /// Useful constants to work with [Code](Code)
     pub mod code {
+        use super::Code;
 
         /// UNKNOWN indicates a generic condition.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: Code = Code::new("UNKNOWN");
 
         /// GCE_STOCKOUT indicates that Google Compute Engine resources are
         /// temporarily unavailable.
-        pub const GCE_STOCKOUT: &str = "GCE_STOCKOUT";
+        pub const GCE_STOCKOUT: Code = Code::new("GCE_STOCKOUT");
 
         /// GKE_SERVICE_ACCOUNT_DELETED indicates that the user deleted their robot
         /// service account.
-        pub const GKE_SERVICE_ACCOUNT_DELETED: &str = "GKE_SERVICE_ACCOUNT_DELETED";
+        pub const GKE_SERVICE_ACCOUNT_DELETED: Code = Code::new("GKE_SERVICE_ACCOUNT_DELETED");
 
         /// Google Compute Engine quota was exceeded.
-        pub const GCE_QUOTA_EXCEEDED: &str = "GCE_QUOTA_EXCEEDED";
+        pub const GCE_QUOTA_EXCEEDED: Code = Code::new("GCE_QUOTA_EXCEEDED");
 
         /// Cluster state was manually changed by an SRE due to a system logic error.
-        pub const SET_BY_OPERATOR: &str = "SET_BY_OPERATOR";
+        pub const SET_BY_OPERATOR: Code = Code::new("SET_BY_OPERATOR");
 
         /// Unable to perform an encrypt operation against the CloudKMS key used for
         /// etcd level encryption.
-        pub const CLOUD_KMS_KEY_ERROR: &str = "CLOUD_KMS_KEY_ERROR";
+        pub const CLOUD_KMS_KEY_ERROR: Code = Code::new("CLOUD_KMS_KEY_ERROR");
 
         /// Cluster CA is expiring soon.
-        pub const CA_EXPIRING: &str = "CA_EXPIRING";
+        pub const CA_EXPIRING: Code = Code::new("CA_EXPIRING");
+    }
+
+    impl std::convert::From<std::string::String> for Code {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13367,13 +13558,12 @@ pub mod network_config {
 
         /// Node network tier
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        pub struct Tier(std::string::String);
+        pub struct Tier(std::borrow::Cow<'static, str>);
 
         impl Tier {
-            /// Sets the enum value.
-            pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.0 = v.into();
-                self
+            /// Creates a new Tier instance.
+            pub const fn new(v: &'static str) -> Self {
+                Self(std::borrow::Cow::Borrowed(v))
             }
 
             /// Gets the enum value.
@@ -13384,12 +13574,19 @@ pub mod network_config {
 
         /// Useful constants to work with [Tier](Tier)
         pub mod tier {
+            use super::Tier;
 
             /// Default value
-            pub const TIER_UNSPECIFIED: &str = "TIER_UNSPECIFIED";
+            pub const TIER_UNSPECIFIED: Tier = Tier::new("TIER_UNSPECIFIED");
 
             /// Higher bandwidth, actual values based on VM size.
-            pub const TIER_1: &str = "TIER_1";
+            pub const TIER_1: Tier = Tier::new("TIER_1");
+        }
+
+        impl std::convert::From<std::string::String> for Tier {
+            fn from(value: std::string::String) -> Self {
+                Self(std::borrow::Cow::Owned(value))
+            }
         }
     }
 }
@@ -13429,13 +13626,12 @@ pub mod gateway_api_config {
     /// Channel describes if/how Gateway API should be installed and implemented in
     /// a cluster.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Channel(std::string::String);
+    pub struct Channel(std::borrow::Cow<'static, str>);
 
     impl Channel {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Channel instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -13446,19 +13642,26 @@ pub mod gateway_api_config {
 
     /// Useful constants to work with [Channel](Channel)
     pub mod channel {
+        use super::Channel;
 
         /// Default value.
-        pub const CHANNEL_UNSPECIFIED: &str = "CHANNEL_UNSPECIFIED";
+        pub const CHANNEL_UNSPECIFIED: Channel = Channel::new("CHANNEL_UNSPECIFIED");
 
         /// Gateway API support is disabled
-        pub const CHANNEL_DISABLED: &str = "CHANNEL_DISABLED";
+        pub const CHANNEL_DISABLED: Channel = Channel::new("CHANNEL_DISABLED");
 
         /// Deprecated: use CHANNEL_STANDARD instead.
         /// Gateway API support is enabled, experimental CRDs are installed
-        pub const CHANNEL_EXPERIMENTAL: &str = "CHANNEL_EXPERIMENTAL";
+        pub const CHANNEL_EXPERIMENTAL: Channel = Channel::new("CHANNEL_EXPERIMENTAL");
 
         /// Gateway API support is enabled, standard CRDs are installed
-        pub const CHANNEL_STANDARD: &str = "CHANNEL_STANDARD";
+        pub const CHANNEL_STANDARD: Channel = Channel::new("CHANNEL_STANDARD");
+    }
+
+    impl std::convert::From<std::string::String> for Channel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -13915,13 +14118,12 @@ pub mod autopilot_compatibility_issue {
 
     /// The type of the reported issue.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct IssueType(std::string::String);
+    pub struct IssueType(std::borrow::Cow<'static, str>);
 
     impl IssueType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new IssueType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -13932,22 +14134,31 @@ pub mod autopilot_compatibility_issue {
 
     /// Useful constants to work with [IssueType](IssueType)
     pub mod issue_type {
+        use super::IssueType;
 
         /// Default value, should not be used.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: IssueType = IssueType::new("UNSPECIFIED");
 
         /// Indicates that the issue is a known incompatibility between the
         /// cluster and Autopilot mode.
-        pub const INCOMPATIBILITY: &str = "INCOMPATIBILITY";
+        pub const INCOMPATIBILITY: IssueType = IssueType::new("INCOMPATIBILITY");
 
         /// Indicates the issue is an incompatibility if customers take no further
         /// action to resolve.
-        pub const ADDITIONAL_CONFIG_REQUIRED: &str = "ADDITIONAL_CONFIG_REQUIRED";
+        pub const ADDITIONAL_CONFIG_REQUIRED: IssueType =
+            IssueType::new("ADDITIONAL_CONFIG_REQUIRED");
 
         /// Indicates the issue is not an incompatibility, but depending on the
         /// workloads business logic, there is a potential that they won't work on
         /// Autopilot.
-        pub const PASSED_WITH_OPTIONAL_CONFIG: &str = "PASSED_WITH_OPTIONAL_CONFIG";
+        pub const PASSED_WITH_OPTIONAL_CONFIG: IssueType =
+            IssueType::new("PASSED_WITH_OPTIONAL_CONFIG");
+    }
+
+    impl std::convert::From<std::string::String> for IssueType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14030,13 +14241,12 @@ pub mod release_channel {
 
     /// Possible values for 'channel'.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Channel(std::string::String);
+    pub struct Channel(std::borrow::Cow<'static, str>);
 
     impl Channel {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Channel instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14047,9 +14257,10 @@ pub mod release_channel {
 
     /// Useful constants to work with [Channel](Channel)
     pub mod channel {
+        use super::Channel;
 
         /// No channel specified.
-        pub const UNSPECIFIED: &str = "UNSPECIFIED";
+        pub const UNSPECIFIED: Channel = Channel::new("UNSPECIFIED");
 
         /// RAPID channel is offered on an early access basis for customers who want
         /// to test new releases.
@@ -14057,20 +14268,26 @@ pub mod release_channel {
         /// WARNING: Versions available in the RAPID Channel may be subject to
         /// unresolved issues with no known workaround and are not subject to any
         /// SLAs.
-        pub const RAPID: &str = "RAPID";
+        pub const RAPID: Channel = Channel::new("RAPID");
 
         /// Clusters subscribed to REGULAR receive versions that are considered GA
         /// quality. REGULAR is intended for production users who want to take
         /// advantage of new features.
-        pub const REGULAR: &str = "REGULAR";
+        pub const REGULAR: Channel = Channel::new("REGULAR");
 
         /// Clusters subscribed to STABLE receive versions that are known to be
         /// stable and reliable in production.
-        pub const STABLE: &str = "STABLE";
+        pub const STABLE: Channel = Channel::new("STABLE");
 
         /// Clusters subscribed to EXTENDED receive extended support and availability
         /// for versions which are known to be stable and reliable in production.
-        pub const EXTENDED: &str = "EXTENDED";
+        pub const EXTENDED: Channel = Channel::new("EXTENDED");
+    }
+
+    impl std::convert::From<std::string::String> for Channel {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14220,13 +14437,12 @@ pub mod dns_config {
 
     /// Provider lists the various in-cluster DNS providers.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Provider(std::string::String);
+    pub struct Provider(std::borrow::Cow<'static, str>);
 
     impl Provider {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Provider instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14237,29 +14453,35 @@ pub mod dns_config {
 
     /// Useful constants to work with [Provider](Provider)
     pub mod provider {
+        use super::Provider;
 
         /// Default value
-        pub const PROVIDER_UNSPECIFIED: &str = "PROVIDER_UNSPECIFIED";
+        pub const PROVIDER_UNSPECIFIED: Provider = Provider::new("PROVIDER_UNSPECIFIED");
 
         /// Use GKE default DNS provider(kube-dns) for DNS resolution.
-        pub const PLATFORM_DEFAULT: &str = "PLATFORM_DEFAULT";
+        pub const PLATFORM_DEFAULT: Provider = Provider::new("PLATFORM_DEFAULT");
 
         /// Use CloudDNS for DNS resolution.
-        pub const CLOUD_DNS: &str = "CLOUD_DNS";
+        pub const CLOUD_DNS: Provider = Provider::new("CLOUD_DNS");
 
         /// Use KubeDNS for DNS resolution.
-        pub const KUBE_DNS: &str = "KUBE_DNS";
+        pub const KUBE_DNS: Provider = Provider::new("KUBE_DNS");
+    }
+
+    impl std::convert::From<std::string::String> for Provider {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// DNSScope lists the various scopes of access to cluster DNS records.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct DNSScope(std::string::String);
+    pub struct DNSScope(std::borrow::Cow<'static, str>);
 
     impl DNSScope {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new DNSScope instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14270,15 +14492,22 @@ pub mod dns_config {
 
     /// Useful constants to work with [DNSScope](DNSScope)
     pub mod dns_scope {
+        use super::DNSScope;
 
         /// Default value, will be inferred as cluster scope.
-        pub const DNS_SCOPE_UNSPECIFIED: &str = "DNS_SCOPE_UNSPECIFIED";
+        pub const DNS_SCOPE_UNSPECIFIED: DNSScope = DNSScope::new("DNS_SCOPE_UNSPECIFIED");
 
         /// DNS records are accessible from within the cluster.
-        pub const CLUSTER_SCOPE: &str = "CLUSTER_SCOPE";
+        pub const CLUSTER_SCOPE: DNSScope = DNSScope::new("CLUSTER_SCOPE");
 
         /// DNS records are accessible from within the VPC.
-        pub const VPC_SCOPE: &str = "VPC_SCOPE";
+        pub const VPC_SCOPE: DNSScope = DNSScope::new("VPC_SCOPE");
+    }
+
+    impl std::convert::From<std::string::String> for DNSScope {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14542,13 +14771,12 @@ pub mod database_encryption {
 
     /// State of etcd encryption.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14559,27 +14787,33 @@ pub mod database_encryption {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// Should never be set
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: State = State::new("UNKNOWN");
 
         /// Secrets in etcd are encrypted.
-        pub const ENCRYPTED: &str = "ENCRYPTED";
+        pub const ENCRYPTED: State = State::new("ENCRYPTED");
 
         /// Secrets in etcd are stored in plain text (at etcd level) - this is
         /// unrelated to Compute Engine level full disk encryption.
-        pub const DECRYPTED: &str = "DECRYPTED";
+        pub const DECRYPTED: State = State::new("DECRYPTED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 
     /// Current State of etcd encryption.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct CurrentState(std::string::String);
+    pub struct CurrentState(std::borrow::Cow<'static, str>);
 
     impl CurrentState {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new CurrentState instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14590,30 +14824,44 @@ pub mod database_encryption {
 
     /// Useful constants to work with [CurrentState](CurrentState)
     pub mod current_state {
+        use super::CurrentState;
 
         /// Should never be set
-        pub const CURRENT_STATE_UNSPECIFIED: &str = "CURRENT_STATE_UNSPECIFIED";
+        pub const CURRENT_STATE_UNSPECIFIED: CurrentState =
+            CurrentState::new("CURRENT_STATE_UNSPECIFIED");
 
         /// Secrets in etcd are encrypted.
-        pub const CURRENT_STATE_ENCRYPTED: &str = "CURRENT_STATE_ENCRYPTED";
+        pub const CURRENT_STATE_ENCRYPTED: CurrentState =
+            CurrentState::new("CURRENT_STATE_ENCRYPTED");
 
         /// Secrets in etcd are stored in plain text (at etcd level) - this is
         /// unrelated to Compute Engine level full disk encryption.
-        pub const CURRENT_STATE_DECRYPTED: &str = "CURRENT_STATE_DECRYPTED";
+        pub const CURRENT_STATE_DECRYPTED: CurrentState =
+            CurrentState::new("CURRENT_STATE_DECRYPTED");
 
         /// Encryption (or re-encryption with a different CloudKMS key)
         /// of Secrets is in progress.
-        pub const CURRENT_STATE_ENCRYPTION_PENDING: &str = "CURRENT_STATE_ENCRYPTION_PENDING";
+        pub const CURRENT_STATE_ENCRYPTION_PENDING: CurrentState =
+            CurrentState::new("CURRENT_STATE_ENCRYPTION_PENDING");
 
         /// Encryption (or re-encryption with a different CloudKMS key) of Secrets in
         /// etcd encountered an error.
-        pub const CURRENT_STATE_ENCRYPTION_ERROR: &str = "CURRENT_STATE_ENCRYPTION_ERROR";
+        pub const CURRENT_STATE_ENCRYPTION_ERROR: CurrentState =
+            CurrentState::new("CURRENT_STATE_ENCRYPTION_ERROR");
 
         /// De-crypting Secrets to plain text in etcd is in progress.
-        pub const CURRENT_STATE_DECRYPTION_PENDING: &str = "CURRENT_STATE_DECRYPTION_PENDING";
+        pub const CURRENT_STATE_DECRYPTION_PENDING: CurrentState =
+            CurrentState::new("CURRENT_STATE_DECRYPTION_PENDING");
 
         /// De-crypting Secrets to plain text in etcd encountered an error.
-        pub const CURRENT_STATE_DECRYPTION_ERROR: &str = "CURRENT_STATE_DECRYPTION_ERROR";
+        pub const CURRENT_STATE_DECRYPTION_ERROR: CurrentState =
+            CurrentState::new("CURRENT_STATE_DECRYPTION_ERROR");
+    }
+
+    impl std::convert::From<std::string::String> for CurrentState {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -14794,13 +15042,12 @@ pub mod usable_subnetwork_secondary_range {
 
     /// Status shows the current usage of a secondary IP range.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Status(std::string::String);
+    pub struct Status(std::borrow::Cow<'static, str>);
 
     impl Status {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Status instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -14811,26 +15058,33 @@ pub mod usable_subnetwork_secondary_range {
 
     /// Useful constants to work with [Status](Status)
     pub mod status {
+        use super::Status;
 
         /// UNKNOWN is the zero value of the Status enum. It's not a valid status.
-        pub const UNKNOWN: &str = "UNKNOWN";
+        pub const UNKNOWN: Status = Status::new("UNKNOWN");
 
         /// UNUSED denotes that this range is unclaimed by any cluster.
-        pub const UNUSED: &str = "UNUSED";
+        pub const UNUSED: Status = Status::new("UNUSED");
 
         /// IN_USE_SERVICE denotes that this range is claimed by cluster(s) for
         /// services. User-managed services range can be shared between clusters
         /// within the same subnetwork.
-        pub const IN_USE_SERVICE: &str = "IN_USE_SERVICE";
+        pub const IN_USE_SERVICE: Status = Status::new("IN_USE_SERVICE");
 
         /// IN_USE_SHAREABLE_POD denotes this range was created by the network admin
         /// and is currently claimed by a cluster for pods. It can only be used by
         /// other clusters as a pod range.
-        pub const IN_USE_SHAREABLE_POD: &str = "IN_USE_SHAREABLE_POD";
+        pub const IN_USE_SHAREABLE_POD: Status = Status::new("IN_USE_SHAREABLE_POD");
 
         /// IN_USE_MANAGED_POD denotes this range was created by GKE and is claimed
         /// for pods. It cannot be used for other clusters.
-        pub const IN_USE_MANAGED_POD: &str = "IN_USE_MANAGED_POD";
+        pub const IN_USE_MANAGED_POD: Status = Status::new("IN_USE_MANAGED_POD");
+    }
+
+    impl std::convert::From<std::string::String> for Status {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -15276,13 +15530,12 @@ pub mod notification_config {
     /// Types of notifications currently supported. Can be used to filter what
     /// notifications are sent.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct EventType(std::string::String);
+    pub struct EventType(std::borrow::Cow<'static, str>);
 
     impl EventType {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new EventType instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -15293,18 +15546,25 @@ pub mod notification_config {
 
     /// Useful constants to work with [EventType](EventType)
     pub mod event_type {
+        use super::EventType;
 
         /// Not set, will be ignored.
-        pub const EVENT_TYPE_UNSPECIFIED: &str = "EVENT_TYPE_UNSPECIFIED";
+        pub const EVENT_TYPE_UNSPECIFIED: EventType = EventType::new("EVENT_TYPE_UNSPECIFIED");
 
         /// Corresponds with UpgradeAvailableEvent.
-        pub const UPGRADE_AVAILABLE_EVENT: &str = "UPGRADE_AVAILABLE_EVENT";
+        pub const UPGRADE_AVAILABLE_EVENT: EventType = EventType::new("UPGRADE_AVAILABLE_EVENT");
 
         /// Corresponds with UpgradeEvent.
-        pub const UPGRADE_EVENT: &str = "UPGRADE_EVENT";
+        pub const UPGRADE_EVENT: EventType = EventType::new("UPGRADE_EVENT");
 
         /// Corresponds with SecurityBulletinEvent.
-        pub const SECURITY_BULLETIN_EVENT: &str = "SECURITY_BULLETIN_EVENT";
+        pub const SECURITY_BULLETIN_EVENT: EventType = EventType::new("SECURITY_BULLETIN_EVENT");
+    }
+
+    impl std::convert::From<std::string::String> for EventType {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -15539,13 +15799,12 @@ pub mod upgrade_info_event {
 
     /// The state of the upgrade.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -15556,21 +15815,28 @@ pub mod upgrade_info_event {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
 
         /// STATE_UNSPECIFIED indicates the state is unspecified.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// STARTED indicates the upgrade has started.
-        pub const STARTED: &str = "STARTED";
+        pub const STARTED: State = State::new("STARTED");
 
         /// SUCCEEDED indicates the upgrade has completed successfully.
-        pub const SUCCEEDED: &str = "SUCCEEDED";
+        pub const SUCCEEDED: State = State::new("SUCCEEDED");
 
         /// FAILED indicates the upgrade has failed.
-        pub const FAILED: &str = "FAILED";
+        pub const FAILED: State = State::new("FAILED");
 
         /// CANCELED indicates the upgrade has canceled.
-        pub const CANCELED: &str = "CANCELED";
+        pub const CANCELED: State = State::new("CANCELED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -15921,13 +16187,12 @@ pub mod logging_component_config {
 
     /// GKE components exposing logs
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Component(std::string::String);
+    pub struct Component(std::borrow::Cow<'static, str>);
 
     impl Component {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Component instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -15938,30 +16203,37 @@ pub mod logging_component_config {
 
     /// Useful constants to work with [Component](Component)
     pub mod component {
+        use super::Component;
 
         /// Default value. This shouldn't be used.
-        pub const COMPONENT_UNSPECIFIED: &str = "COMPONENT_UNSPECIFIED";
+        pub const COMPONENT_UNSPECIFIED: Component = Component::new("COMPONENT_UNSPECIFIED");
 
         /// system components
-        pub const SYSTEM_COMPONENTS: &str = "SYSTEM_COMPONENTS";
+        pub const SYSTEM_COMPONENTS: Component = Component::new("SYSTEM_COMPONENTS");
 
         /// workloads
-        pub const WORKLOADS: &str = "WORKLOADS";
+        pub const WORKLOADS: Component = Component::new("WORKLOADS");
 
         /// kube-apiserver
-        pub const APISERVER: &str = "APISERVER";
+        pub const APISERVER: Component = Component::new("APISERVER");
 
         /// kube-scheduler
-        pub const SCHEDULER: &str = "SCHEDULER";
+        pub const SCHEDULER: Component = Component::new("SCHEDULER");
 
         /// kube-controller-manager
-        pub const CONTROLLER_MANAGER: &str = "CONTROLLER_MANAGER";
+        pub const CONTROLLER_MANAGER: Component = Component::new("CONTROLLER_MANAGER");
 
         /// kcp-sshd
-        pub const KCP_SSHD: &str = "KCP_SSHD";
+        pub const KCP_SSHD: Component = Component::new("KCP_SSHD");
 
         /// kcp connection logs
-        pub const KCP_CONNECTION: &str = "KCP_CONNECTION";
+        pub const KCP_CONNECTION: Component = Component::new("KCP_CONNECTION");
+    }
+
+    impl std::convert::From<std::string::String> for Component {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16110,13 +16382,12 @@ pub mod advanced_datapath_observability_config {
 
     /// Supported Relay modes
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct RelayMode(std::string::String);
+    pub struct RelayMode(std::borrow::Cow<'static, str>);
 
     impl RelayMode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new RelayMode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -16127,18 +16398,25 @@ pub mod advanced_datapath_observability_config {
 
     /// Useful constants to work with [RelayMode](RelayMode)
     pub mod relay_mode {
+        use super::RelayMode;
 
         /// Default value. This shouldn't be used.
-        pub const RELAY_MODE_UNSPECIFIED: &str = "RELAY_MODE_UNSPECIFIED";
+        pub const RELAY_MODE_UNSPECIFIED: RelayMode = RelayMode::new("RELAY_MODE_UNSPECIFIED");
 
         /// disabled
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: RelayMode = RelayMode::new("DISABLED");
 
         /// exposed via internal load balancer
-        pub const INTERNAL_VPC_LB: &str = "INTERNAL_VPC_LB";
+        pub const INTERNAL_VPC_LB: RelayMode = RelayMode::new("INTERNAL_VPC_LB");
 
         /// exposed via external load balancer
-        pub const EXTERNAL_LB: &str = "EXTERNAL_LB";
+        pub const EXTERNAL_LB: RelayMode = RelayMode::new("EXTERNAL_LB");
+    }
+
+    impl std::convert::From<std::string::String> for RelayMode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16231,13 +16509,12 @@ pub mod logging_variant_config {
 
     /// Logging component variants.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Variant(std::string::String);
+    pub struct Variant(std::borrow::Cow<'static, str>);
 
     impl Variant {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Variant instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -16248,15 +16525,22 @@ pub mod logging_variant_config {
 
     /// Useful constants to work with [Variant](Variant)
     pub mod variant {
+        use super::Variant;
 
         /// Default value. This shouldn't be used.
-        pub const VARIANT_UNSPECIFIED: &str = "VARIANT_UNSPECIFIED";
+        pub const VARIANT_UNSPECIFIED: Variant = Variant::new("VARIANT_UNSPECIFIED");
 
         /// default logging variant.
-        pub const DEFAULT: &str = "DEFAULT";
+        pub const DEFAULT: Variant = Variant::new("DEFAULT");
 
         /// maximum logging throughput variant.
-        pub const MAX_THROUGHPUT: &str = "MAX_THROUGHPUT";
+        pub const MAX_THROUGHPUT: Variant = Variant::new("MAX_THROUGHPUT");
+    }
+
+    impl std::convert::From<std::string::String> for Variant {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16298,13 +16582,12 @@ pub mod monitoring_component_config {
 
     /// GKE components exposing metrics
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Component(std::string::String);
+    pub struct Component(std::borrow::Cow<'static, str>);
 
     impl Component {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Component instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -16315,48 +16598,55 @@ pub mod monitoring_component_config {
 
     /// Useful constants to work with [Component](Component)
     pub mod component {
+        use super::Component;
 
         /// Default value. This shouldn't be used.
-        pub const COMPONENT_UNSPECIFIED: &str = "COMPONENT_UNSPECIFIED";
+        pub const COMPONENT_UNSPECIFIED: Component = Component::new("COMPONENT_UNSPECIFIED");
 
         /// system components
-        pub const SYSTEM_COMPONENTS: &str = "SYSTEM_COMPONENTS";
+        pub const SYSTEM_COMPONENTS: Component = Component::new("SYSTEM_COMPONENTS");
 
         /// kube-apiserver
-        pub const APISERVER: &str = "APISERVER";
+        pub const APISERVER: Component = Component::new("APISERVER");
 
         /// kube-scheduler
-        pub const SCHEDULER: &str = "SCHEDULER";
+        pub const SCHEDULER: Component = Component::new("SCHEDULER");
 
         /// kube-controller-manager
-        pub const CONTROLLER_MANAGER: &str = "CONTROLLER_MANAGER";
+        pub const CONTROLLER_MANAGER: Component = Component::new("CONTROLLER_MANAGER");
 
         /// Storage
-        pub const STORAGE: &str = "STORAGE";
+        pub const STORAGE: Component = Component::new("STORAGE");
 
         /// Horizontal Pod Autoscaling
-        pub const HPA: &str = "HPA";
+        pub const HPA: Component = Component::new("HPA");
 
         /// Pod
-        pub const POD: &str = "POD";
+        pub const POD: Component = Component::new("POD");
 
         /// DaemonSet
-        pub const DAEMONSET: &str = "DAEMONSET";
+        pub const DAEMONSET: Component = Component::new("DAEMONSET");
 
         /// Deployment
-        pub const DEPLOYMENT: &str = "DEPLOYMENT";
+        pub const DEPLOYMENT: Component = Component::new("DEPLOYMENT");
 
         /// Statefulset
-        pub const STATEFULSET: &str = "STATEFULSET";
+        pub const STATEFULSET: Component = Component::new("STATEFULSET");
 
         /// CADVISOR
-        pub const CADVISOR: &str = "CADVISOR";
+        pub const CADVISOR: Component = Component::new("CADVISOR");
 
         /// KUBELET
-        pub const KUBELET: &str = "KUBELET";
+        pub const KUBELET: Component = Component::new("KUBELET");
 
         /// NVIDIA Data Center GPU Manager (DCGM)
-        pub const DCGM: &str = "DCGM";
+        pub const DCGM: Component = Component::new("DCGM");
+    }
+
+    impl std::convert::From<std::string::String> for Component {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16834,13 +17124,12 @@ pub mod enterprise_config {
 
     /// Premium tiers for GKE Cluster.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct ClusterTier(std::string::String);
+    pub struct ClusterTier(std::borrow::Cow<'static, str>);
 
     impl ClusterTier {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new ClusterTier instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -16851,15 +17140,23 @@ pub mod enterprise_config {
 
     /// Useful constants to work with [ClusterTier](ClusterTier)
     pub mod cluster_tier {
+        use super::ClusterTier;
 
         /// CLUSTER_TIER_UNSPECIFIED is when cluster_tier is not set.
-        pub const CLUSTER_TIER_UNSPECIFIED: &str = "CLUSTER_TIER_UNSPECIFIED";
+        pub const CLUSTER_TIER_UNSPECIFIED: ClusterTier =
+            ClusterTier::new("CLUSTER_TIER_UNSPECIFIED");
 
         /// STANDARD indicates a standard GKE cluster.
-        pub const STANDARD: &str = "STANDARD";
+        pub const STANDARD: ClusterTier = ClusterTier::new("STANDARD");
 
         /// ENTERPRISE indicates a GKE Enterprise cluster.
-        pub const ENTERPRISE: &str = "ENTERPRISE";
+        pub const ENTERPRISE: ClusterTier = ClusterTier::new("ENTERPRISE");
+    }
+
+    impl std::convert::From<std::string::String> for ClusterTier {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16934,13 +17231,12 @@ pub mod secondary_boot_disk {
     /// Mode specifies how the secondary boot disk will be used.
     /// This triggers mode-specified logic in the control plane.
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct Mode(std::string::String);
+    pub struct Mode(std::borrow::Cow<'static, str>);
 
     impl Mode {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new Mode instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -16951,13 +17247,20 @@ pub mod secondary_boot_disk {
 
     /// Useful constants to work with [Mode](Mode)
     pub mod mode {
+        use super::Mode;
 
         /// MODE_UNSPECIFIED is when mode is not set.
-        pub const MODE_UNSPECIFIED: &str = "MODE_UNSPECIFIED";
+        pub const MODE_UNSPECIFIED: Mode = Mode::new("MODE_UNSPECIFIED");
 
         /// CONTAINER_IMAGE_CACHE is for using the secondary boot disk as
         /// a container image cache.
-        pub const CONTAINER_IMAGE_CACHE: &str = "CONTAINER_IMAGE_CACHE";
+        pub const CONTAINER_IMAGE_CACHE: Mode = Mode::new("CONTAINER_IMAGE_CACHE");
+    }
+
+    impl std::convert::From<std::string::String> for Mode {
+        fn from(value: std::string::String) -> Self {
+            Self(std::borrow::Cow::Owned(value))
+        }
     }
 }
 
@@ -16980,13 +17283,12 @@ impl wkt::message::Message for SecondaryBootDiskUpdateStrategy {
 /// PrivateIPv6GoogleAccess controls whether and how the pods can communicate
 /// with Google Services through gRPC over IPv6.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct PrivateIPv6GoogleAccess(std::string::String);
+pub struct PrivateIPv6GoogleAccess(std::borrow::Cow<'static, str>);
 
 impl PrivateIPv6GoogleAccess {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new PrivateIPv6GoogleAccess instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -16997,32 +17299,40 @@ impl PrivateIPv6GoogleAccess {
 
 /// Useful constants to work with [PrivateIPv6GoogleAccess](PrivateIPv6GoogleAccess)
 pub mod private_i_pv_6_google_access {
+    use super::PrivateIPv6GoogleAccess;
 
     /// Default value. Same as DISABLED
-    pub const PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED: &str =
-        "PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED";
+    pub const PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED: PrivateIPv6GoogleAccess =
+        PrivateIPv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED");
 
     /// No private access to or from Google Services
-    pub const PRIVATE_IPV6_GOOGLE_ACCESS_DISABLED: &str = "PRIVATE_IPV6_GOOGLE_ACCESS_DISABLED";
+    pub const PRIVATE_IPV6_GOOGLE_ACCESS_DISABLED: PrivateIPv6GoogleAccess =
+        PrivateIPv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_DISABLED");
 
     /// Enables private IPv6 access to Google Services from GKE
-    pub const PRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE: &str = "PRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE";
+    pub const PRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE: PrivateIPv6GoogleAccess =
+        PrivateIPv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE");
 
     /// Enables private IPv6 access to and from Google Services
-    pub const PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL: &str =
-        "PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL";
+    pub const PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL: PrivateIPv6GoogleAccess =
+        PrivateIPv6GoogleAccess::new("PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL");
+}
+
+impl std::convert::From<std::string::String> for PrivateIPv6GoogleAccess {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// UpgradeResourceType is the resource type that is upgrading. It is used
 /// in upgrade notifications.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct UpgradeResourceType(std::string::String);
+pub struct UpgradeResourceType(std::borrow::Cow<'static, str>);
 
 impl UpgradeResourceType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new UpgradeResourceType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17033,27 +17343,34 @@ impl UpgradeResourceType {
 
 /// Useful constants to work with [UpgradeResourceType](UpgradeResourceType)
 pub mod upgrade_resource_type {
+    use super::UpgradeResourceType;
 
     /// Default value. This shouldn't be used.
-    pub const UPGRADE_RESOURCE_TYPE_UNSPECIFIED: &str = "UPGRADE_RESOURCE_TYPE_UNSPECIFIED";
+    pub const UPGRADE_RESOURCE_TYPE_UNSPECIFIED: UpgradeResourceType =
+        UpgradeResourceType::new("UPGRADE_RESOURCE_TYPE_UNSPECIFIED");
 
     /// Master / control plane
-    pub const MASTER: &str = "MASTER";
+    pub const MASTER: UpgradeResourceType = UpgradeResourceType::new("MASTER");
 
     /// Node pool
-    pub const NODE_POOL: &str = "NODE_POOL";
+    pub const NODE_POOL: UpgradeResourceType = UpgradeResourceType::new("NODE_POOL");
+}
+
+impl std::convert::From<std::string::String> for UpgradeResourceType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// The datapath provider selects the implementation of the Kubernetes networking
 /// model for service resolution and network policy enforcement.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct DatapathProvider(std::string::String);
+pub struct DatapathProvider(std::borrow::Cow<'static, str>);
 
 impl DatapathProvider {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new DatapathProvider instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17064,29 +17381,36 @@ impl DatapathProvider {
 
 /// Useful constants to work with [DatapathProvider](DatapathProvider)
 pub mod datapath_provider {
+    use super::DatapathProvider;
 
     /// Default value.
-    pub const DATAPATH_PROVIDER_UNSPECIFIED: &str = "DATAPATH_PROVIDER_UNSPECIFIED";
+    pub const DATAPATH_PROVIDER_UNSPECIFIED: DatapathProvider =
+        DatapathProvider::new("DATAPATH_PROVIDER_UNSPECIFIED");
 
     /// Use the IPTables implementation based on kube-proxy.
-    pub const LEGACY_DATAPATH: &str = "LEGACY_DATAPATH";
+    pub const LEGACY_DATAPATH: DatapathProvider = DatapathProvider::new("LEGACY_DATAPATH");
 
     /// Use the eBPF based GKE Dataplane V2 with additional features. See the [GKE
     /// Dataplane V2
     /// documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/dataplane-v2)
     /// for more.
-    pub const ADVANCED_DATAPATH: &str = "ADVANCED_DATAPATH";
+    pub const ADVANCED_DATAPATH: DatapathProvider = DatapathProvider::new("ADVANCED_DATAPATH");
+}
+
+impl std::convert::From<std::string::String> for DatapathProvider {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Strategy used for node pool update.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct NodePoolUpdateStrategy(std::string::String);
+pub struct NodePoolUpdateStrategy(std::borrow::Cow<'static, str>);
 
 impl NodePoolUpdateStrategy {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new NodePoolUpdateStrategy instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17097,28 +17421,35 @@ impl NodePoolUpdateStrategy {
 
 /// Useful constants to work with [NodePoolUpdateStrategy](NodePoolUpdateStrategy)
 pub mod node_pool_update_strategy {
+    use super::NodePoolUpdateStrategy;
 
     /// Default value if unset. GKE internally defaults the update strategy to
     /// SURGE for unspecified strategies.
-    pub const NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED: &str = "NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED";
+    pub const NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED: NodePoolUpdateStrategy =
+        NodePoolUpdateStrategy::new("NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED");
 
     /// blue-green upgrade.
-    pub const BLUE_GREEN: &str = "BLUE_GREEN";
+    pub const BLUE_GREEN: NodePoolUpdateStrategy = NodePoolUpdateStrategy::new("BLUE_GREEN");
 
     /// SURGE is the traditional way of upgrade a node pool.
     /// max_surge and max_unavailable determines the level of upgrade parallelism.
-    pub const SURGE: &str = "SURGE";
+    pub const SURGE: NodePoolUpdateStrategy = NodePoolUpdateStrategy::new("SURGE");
+}
+
+impl std::convert::From<std::string::String> for NodePoolUpdateStrategy {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Possible values for IP stack type
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct StackType(std::string::String);
+pub struct StackType(std::borrow::Cow<'static, str>);
 
 impl StackType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new StackType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17129,26 +17460,32 @@ impl StackType {
 
 /// Useful constants to work with [StackType](StackType)
 pub mod stack_type {
+    use super::StackType;
 
     /// Default value, will be defaulted as IPV4 only
-    pub const STACK_TYPE_UNSPECIFIED: &str = "STACK_TYPE_UNSPECIFIED";
+    pub const STACK_TYPE_UNSPECIFIED: StackType = StackType::new("STACK_TYPE_UNSPECIFIED");
 
     /// Cluster is IPV4 only
-    pub const IPV4: &str = "IPV4";
+    pub const IPV4: StackType = StackType::new("IPV4");
 
     /// Cluster can use both IPv4 and IPv6
-    pub const IPV4_IPV6: &str = "IPV4_IPV6";
+    pub const IPV4_IPV6: StackType = StackType::new("IPV4_IPV6");
+}
+
+impl std::convert::From<std::string::String> for StackType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Possible values for IPv6 access type
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct IPv6AccessType(std::string::String);
+pub struct IPv6AccessType(std::borrow::Cow<'static, str>);
 
 impl IPv6AccessType {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new IPv6AccessType instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17159,26 +17496,33 @@ impl IPv6AccessType {
 
 /// Useful constants to work with [IPv6AccessType](IPv6AccessType)
 pub mod i_pv_6_access_type {
+    use super::IPv6AccessType;
 
     /// Default value, will be defaulted as type external.
-    pub const IPV6_ACCESS_TYPE_UNSPECIFIED: &str = "IPV6_ACCESS_TYPE_UNSPECIFIED";
+    pub const IPV6_ACCESS_TYPE_UNSPECIFIED: IPv6AccessType =
+        IPv6AccessType::new("IPV6_ACCESS_TYPE_UNSPECIFIED");
 
     /// Access type internal (all v6 addresses are internal IPs)
-    pub const INTERNAL: &str = "INTERNAL";
+    pub const INTERNAL: IPv6AccessType = IPv6AccessType::new("INTERNAL");
 
     /// Access type external (all v6 addresses are external IPs)
-    pub const EXTERNAL: &str = "EXTERNAL";
+    pub const EXTERNAL: IPv6AccessType = IPv6AccessType::new("EXTERNAL");
+}
+
+impl std::convert::From<std::string::String> for IPv6AccessType {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }
 
 /// Options for in-transit encryption.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-pub struct InTransitEncryptionConfig(std::string::String);
+pub struct InTransitEncryptionConfig(std::borrow::Cow<'static, str>);
 
 impl InTransitEncryptionConfig {
-    /// Sets the enum value.
-    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.0 = v.into();
-        self
+    /// Creates a new InTransitEncryptionConfig instance.
+    pub const fn new(v: &'static str) -> Self {
+        Self(std::borrow::Cow::Borrowed(v))
     }
 
     /// Gets the enum value.
@@ -17189,16 +17533,24 @@ impl InTransitEncryptionConfig {
 
 /// Useful constants to work with [InTransitEncryptionConfig](InTransitEncryptionConfig)
 pub mod in_transit_encryption_config {
+    use super::InTransitEncryptionConfig;
 
     /// Unspecified, will be inferred as default -
     /// IN_TRANSIT_ENCRYPTION_UNSPECIFIED.
-    pub const IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED: &str =
-        "IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED";
+    pub const IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED: InTransitEncryptionConfig =
+        InTransitEncryptionConfig::new("IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED");
 
     /// In-transit encryption is disabled.
-    pub const IN_TRANSIT_ENCRYPTION_DISABLED: &str = "IN_TRANSIT_ENCRYPTION_DISABLED";
+    pub const IN_TRANSIT_ENCRYPTION_DISABLED: InTransitEncryptionConfig =
+        InTransitEncryptionConfig::new("IN_TRANSIT_ENCRYPTION_DISABLED");
 
     /// Data in-transit is encrypted using inter-node transparent encryption.
-    pub const IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT: &str =
-        "IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT";
+    pub const IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT: InTransitEncryptionConfig =
+        InTransitEncryptionConfig::new("IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT");
+}
+
+impl std::convert::From<std::string::String> for InTransitEncryptionConfig {
+    fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+    }
 }

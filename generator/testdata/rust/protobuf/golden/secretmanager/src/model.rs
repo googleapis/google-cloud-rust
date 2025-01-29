@@ -526,13 +526,12 @@ pub mod secret_version {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    pub struct State(std::string::String);
+    pub struct State(std::borrow::Cow<'static, str>);
 
     impl State {
-        /// Sets the enum value.
-        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0 = v.into();
-            self
+        /// Creates a new State instance.
+        pub const fn new(v: &'static str) -> Self {
+            Self(std::borrow::Cow::Borrowed(v))
         }
 
         /// Gets the enum value.
@@ -543,15 +542,17 @@ pub mod secret_version {
 
     /// Useful constants to work with [State](State)
     pub mod state {
+        use super::State;
+        
 
         /// Not specified. This value is unused and invalid.
-        pub const STATE_UNSPECIFIED: &str = "STATE_UNSPECIFIED";
+        pub const STATE_UNSPECIFIED: State = State::new("STATE_UNSPECIFIED");
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may be
         /// accessed.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const ENABLED: &str = "ENABLED";
+        pub const ENABLED: State = State::new("ENABLED");
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] may not
         /// be accessed, but the secret data is still available and can be placed
@@ -561,14 +562,20 @@ pub mod secret_version {
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
         /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::state::ENABLED
-        pub const DISABLED: &str = "DISABLED";
+        pub const DISABLED: State = State::new("DISABLED");
 
         /// The [SecretVersion][google.cloud.secretmanager.v1.SecretVersion] is
         /// destroyed and the secret data is no longer stored. A version may not
         /// leave this state once entered.
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
-        pub const DESTROYED: &str = "DESTROYED";
+        pub const DESTROYED: State = State::new("DESTROYED");
+    }
+
+    impl std::convert::From<std::string::String> for State {
+      fn from(value: std::string::String) -> Self {
+        Self(std::borrow::Cow::Owned(value))
+      }
     }
 }
 
