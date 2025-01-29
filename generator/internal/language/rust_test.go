@@ -1713,6 +1713,9 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 [Enum][test.v1.SomeMessage.SomeEnum]
 [Message][test.v1.SomeMessage] repeated
 [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]
+[oneof group][test.v1.SomeMessage.result]
+[oneof field][test.v1.SomeMessage.error]
+[unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links
 [SomeMessage.error][test.v1.SomeMessage.error]
 [ExternalMessage][google.iam.v1.SetIamPolicyRequest]
 [ExternalService][google.iam.v1.Iampolicy]
@@ -1728,6 +1731,9 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [Enum][test.v1.SomeMessage.SomeEnum]",
 		"/// [Message][test.v1.SomeMessage] repeated",
 		"/// [Service][test.v1.SomeService] [field][test.v1.SomeMessage.field]",
+		"/// [oneof group][test.v1.SomeMessage.result]",
+		"/// [oneof field][test.v1.SomeMessage.error]",
+		"/// [unmangled field][test.v1.SomeMessage.type] - normally r#type, but not in links",
 		"/// [SomeMessage.error][test.v1.SomeMessage.error]",
 		"/// [ExternalMessage][google.iam.v1.SetIamPolicyRequest]",
 		"/// [ExternalService][google.iam.v1.Iampolicy]",
@@ -1745,6 +1751,8 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 		"/// [test.v1.SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [test.v1.SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [test.v1.SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [test.v1.SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [test.v1.SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [test.v1.SomeService]: crate::client::SomeService",
 		// Skipped because the method is skipped
 		// "/// [test.v1.SomeService.CreateBar]: crate::client::SomeService::create_bar",
@@ -1790,7 +1798,9 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 [relative link to method][SomeService.CreateFoo]
 [relative link to message][SomeMessage]
 [relative link to message field][SomeMessage.field]
+[relative link to message oneof group][SomeMessage.result]
 [relative link to message oneof field][SomeMessage.error]
+[relative link to unmangled field][SomeMessage.type]
 [relative link to enum][SomeMessage.SomeEnum]
 [relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]
 `
@@ -1799,7 +1809,9 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 		"/// [relative link to method][SomeService.CreateFoo]",
 		"/// [relative link to message][SomeMessage]",
 		"/// [relative link to message field][SomeMessage.field]",
+		"/// [relative link to message oneof group][SomeMessage.result]",
 		"/// [relative link to message oneof field][SomeMessage.error]",
+		"/// [relative link to unmangled field][SomeMessage.type]",
 		"/// [relative link to enum][SomeMessage.SomeEnum]",
 		"/// [relative link to enum value][SomeMessage.SomeEnum.ENUM_VALUE]",
 		"///",
@@ -1808,6 +1820,8 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [SomeService]: crate::client::SomeService",
 		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
 	}
@@ -1847,7 +1861,9 @@ implied service reference [SomeService][]
 implied method reference [SomeService.CreateFoo][]
 implied message reference [SomeMessage][]
 implied message field reference [SomeMessage.field][]
+implied message oneof group reference [SomeMessage.result][]
 implied message oneof field reference [SomeMessage.error][]
+implied message unmangled field reference [SomeMessage.type][]
 implied enum reference [SomeMessage.SomeEnum][]
 implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 `
@@ -1856,7 +1872,9 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 		"/// implied method reference [SomeService.CreateFoo][]",
 		"/// implied message reference [SomeMessage][]",
 		"/// implied message field reference [SomeMessage.field][]",
+		"/// implied message oneof group reference [SomeMessage.result][]",
 		"/// implied message oneof field reference [SomeMessage.error][]",
+		"/// implied message unmangled field reference [SomeMessage.type][]",
 		"/// implied enum reference [SomeMessage.SomeEnum][]",
 		"/// implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]",
 		"///",
@@ -1865,6 +1883,8 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 		"/// [SomeMessage.SomeEnum.ENUM_VALUE]: crate::model::some_message::some_enum::ENUM_VALUE",
 		"/// [SomeMessage.error]: crate::model::SomeMessage::result",
 		"/// [SomeMessage.field]: crate::model::SomeMessage::field",
+		"/// [SomeMessage.result]: crate::model::SomeMessage::result",
+		"/// [SomeMessage.type]: crate::model::SomeMessage::type",
 		"/// [SomeService]: crate::client::SomeService",
 		"/// [SomeService.CreateFoo]: crate::client::SomeService::create_foo",
 	}
@@ -1947,13 +1967,17 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 		ID:      ".test.v1.SomeMessage.error",
 		IsOneOf: true,
 	}
+	typez := &api.Field{
+		Name: "type",
+		ID:   ".test.v1.SomeMessage.type",
+	}
 	someMessage := &api.Message{
 		Name:    "SomeMessage",
 		ID:      ".test.v1.SomeMessage",
 		Package: "test.v1",
 		Enums:   []*api.Enum{someEnum},
 		Fields: []*api.Field{
-			{Name: "unused"}, {Name: "field"}, response, errorz,
+			{Name: "unused"}, {Name: "field"}, response, errorz, typez,
 		},
 		OneOfs: []*api.OneOf{
 			{

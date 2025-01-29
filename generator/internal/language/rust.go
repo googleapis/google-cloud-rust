@@ -1283,10 +1283,15 @@ func rustTryFieldRustdocLink(id string, state *api.APIState, modulePath, sourceS
 	for _, f := range m.Fields {
 		if f.Name == fieldName {
 			if !f.IsOneOf {
-				return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(f.Name))
+				return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(f.Name))
 			} else {
 				return rustTryOneOfRustdocLink(f, m, modulePath, sourceSpecificationPackageName, packageMapping)
 			}
+		}
+	}
+	for _, o := range m.OneOfs {
+		if o.Name == fieldName {
+			return fmt.Sprintf("%s::%s", rustFQMessageName(m, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(o.Name))
 		}
 	}
 	return ""
@@ -1296,7 +1301,7 @@ func rustTryOneOfRustdocLink(field *api.Field, message *api.Message, modulePath,
 	for _, o := range message.OneOfs {
 		for _, f := range o.Fields {
 			if f.ID == field.ID {
-				return fmt.Sprintf("%s::%s", rustFQMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnake(o.Name))
+				return fmt.Sprintf("%s::%s", rustFQMessageName(message, modulePath, sourceSpecificationPackageName, packageMapping), rustToSnakeNoMangling(o.Name))
 			}
 		}
 	}
