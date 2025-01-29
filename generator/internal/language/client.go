@@ -15,23 +15,10 @@
 package language
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 
-	"github.com/cbroglie/mustache"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
-
-type mustacheProvider struct {
-	impl    func(string) (string, error)
-	dirname string
-}
-
-func (p *mustacheProvider) Get(name string) (string, error) {
-	return p.impl(filepath.Join(p.dirname, name) + ".mustache")
-}
 
 func GenerateClient(model *api.API, language, outdir string, options map[string]string) error {
 	var (
@@ -64,34 +51,5 @@ func GenerateClient(model *api.API, language, outdir string, options map[string]
 		return fmt.Errorf("unknown language: %s", language)
 	}
 
-	var errs []error
-	for _, gen := range generatedFiles {
-		templateContents, err := provider(gen.TemplatePath)
-		if err != nil {
-			errs = append(errs, err)
-			continue
-		}
-		if outdir == "" {
-			wd, _ := os.Getwd()
-			outdir = wd
-		}
-		destination := filepath.Join(outdir, gen.OutputPath)
-		os.MkdirAll(filepath.Dir(destination), 0777) // Ignore errors
-		nestedProvider := mustacheProvider{
-			impl:    provider,
-			dirname: filepath.Dir(gen.TemplatePath),
-		}
-		s, err := mustache.RenderPartials(templateContents, &nestedProvider, data)
-		if err != nil {
-			errs = append(errs, err)
-			continue
-		}
-		if err := os.WriteFile(destination, []byte(s), os.ModePerm); err != nil {
-			errs = append(errs, err)
-		}
-	}
-	if len(errs) > 0 {
-		return fmt.Errorf("errors generating output files: %w", errors.Join(errs...))
-	}
-	return nil
+	return GenerateFromRoot(outdir, data, provider, generatedFiles)
 }
