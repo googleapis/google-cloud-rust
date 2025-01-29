@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::SecretManagerService] to make requests with.
+/// Implements a client for the Secret Manager API.
 ///
-/// `SecretManagerService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `SecretManagerService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `SecretManagerService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Secret Manager Service
 ///
@@ -38,6 +32,18 @@ use std::sync::Arc;
 ///
 /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
 /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+///
+/// # Configuration
+///
+/// `SecretManagerService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `SecretManagerService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SecretManagerService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct SecretManagerService {
     inner: Arc<dyn crate::stubs::dynamic::SecretManagerService>,

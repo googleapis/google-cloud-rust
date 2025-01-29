@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::DatabaseAdmin] to make requests with.
+/// Implements a client for the Cloud Spanner API.
 ///
-/// `DatabaseAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `DatabaseAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `DatabaseAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Cloud Spanner Database Admin API
 ///
@@ -36,6 +30,18 @@ use std::sync::Arc;
 /// * update the schema of pre-existing databases
 /// * create, delete, copy and list backups for a database
 /// * restore a database from an existing backup
+///
+/// # Configuration
+///
+/// `DatabaseAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `DatabaseAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `DatabaseAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct DatabaseAdmin {
     inner: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>,

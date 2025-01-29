@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::SqlBackupRunsService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlBackupRunsService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service for managing database backups.
+///
+/// # Configuration
+///
+/// `SqlBackupRunsService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlBackupRunsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlBackupRunsService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service for managing database backups.
 #[derive(Clone, Debug)]
 pub struct SqlBackupRunsService {
     inner: Arc<dyn crate::stubs::dynamic::SqlBackupRunsService>,
@@ -126,17 +132,23 @@ impl SqlBackupRunsService {
 
 }
 
-/// An implementation of [crate::stubs::SqlConnectService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlConnectService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud SQL connect service.
+///
+/// # Configuration
+///
+/// `SqlConnectService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlConnectService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlConnectService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud SQL connect service.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService {
     inner: Arc<dyn crate::stubs::dynamic::SqlConnectService>,
@@ -207,17 +219,23 @@ impl SqlConnectService {
 
 }
 
-/// An implementation of [crate::stubs::SqlDatabasesService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlDatabasesService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service to manage databases.
+///
+/// # Configuration
+///
+/// `SqlDatabasesService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlDatabasesService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlDatabasesService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service to manage databases.
 #[derive(Clone, Debug)]
 pub struct SqlDatabasesService {
     inner: Arc<dyn crate::stubs::dynamic::SqlDatabasesService>,
@@ -347,17 +365,23 @@ impl SqlDatabasesService {
 
 }
 
-/// An implementation of [crate::stubs::SqlFlagsService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlFlagsService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service to manage database flags for Cloud SQL instances.
+///
+/// # Configuration
+///
+/// `SqlFlagsService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlFlagsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlFlagsService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service to manage database flags for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlFlagsService {
     inner: Arc<dyn crate::stubs::dynamic::SqlFlagsService>,
@@ -409,17 +433,23 @@ impl SqlFlagsService {
 
 }
 
-/// An implementation of [crate::stubs::SqlInstancesService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlInstancesService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service to manage Cloud SQL instances.
+///
+/// # Configuration
+///
+/// `SqlInstancesService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlInstancesService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlInstancesService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service to manage Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlInstancesService {
     inner: Arc<dyn crate::stubs::dynamic::SqlInstancesService>,
@@ -903,17 +933,23 @@ impl SqlInstancesService {
 
 }
 
-/// An implementation of [crate::stubs::SqlOperationsService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlOperationsService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service to fetch operations for database instances.
+///
+/// # Configuration
+///
+/// `SqlOperationsService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlOperationsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlOperationsService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service to fetch operations for database instances.
 #[derive(Clone, Debug)]
 pub struct SqlOperationsService {
     inner: Arc<dyn crate::stubs::dynamic::SqlOperationsService>,
@@ -992,17 +1028,23 @@ impl SqlOperationsService {
 
 }
 
-/// An implementation of [crate::stubs::SqlSslCertsService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlSslCertsService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service to manage SSL certs for Cloud SQL instances.
+///
+/// # Configuration
+///
+/// `SqlSslCertsService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlSslCertsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlSslCertsService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service to manage SSL certs for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlSslCertsService {
     inner: Arc<dyn crate::stubs::dynamic::SqlSslCertsService>,
@@ -1103,17 +1145,23 @@ impl SqlSslCertsService {
 
 }
 
-/// An implementation of [crate::stubs::SqlTiersService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlTiersService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service for providing machine types (tiers) for Cloud SQL instances.
+///
+/// # Configuration
+///
+/// `SqlTiersService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlTiersService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlTiersService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service for providing machine types (tiers) for Cloud SQL instances.
 #[derive(Clone, Debug)]
 pub struct SqlTiersService {
     inner: Arc<dyn crate::stubs::dynamic::SqlTiersService>,
@@ -1169,17 +1217,23 @@ impl SqlTiersService {
 
 }
 
-/// An implementation of [crate::stubs::SqlUsersService] to make requests with.
+/// Implements a client for the Cloud SQL Admin API.
 ///
-/// `SqlUsersService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Cloud SQL users service.
+///
+/// # Configuration
+///
+/// `SqlUsersService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `SqlUsersService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SqlUsersService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Cloud SQL users service.
 #[derive(Clone, Debug)]
 pub struct SqlUsersService {
     inner: Arc<dyn crate::stubs::dynamic::SqlUsersService>,

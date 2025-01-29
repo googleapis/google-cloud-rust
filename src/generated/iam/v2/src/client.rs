@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Policies] to make requests with.
+/// Implements a client for the Identity and Access Management (IAM) API.
 ///
-/// `Policies` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// An interface for managing Identity and Access Management (IAM) policies.
+///
+/// # Configuration
+///
+/// `Policies` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `Policies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Policies` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// An interface for managing Identity and Access Management (IAM) policies.
 #[derive(Clone, Debug)]
 pub struct Policies {
     inner: Arc<dyn crate::stubs::dynamic::Policies>,

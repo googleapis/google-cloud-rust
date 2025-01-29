@@ -18,17 +18,23 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::AccountManagementService] to make requests with.
+/// Implements a client for the Identity Toolkit API.
 ///
-/// `AccountManagementService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Account management for Identity Toolkit
+///
+/// # Configuration
+///
+/// `AccountManagementService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `AccountManagementService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AccountManagementService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Account management for Identity Toolkit
 #[derive(Clone, Debug)]
 pub struct AccountManagementService {
     inner: Arc<dyn crate::stubs::dynamic::AccountManagementService>,
@@ -103,17 +109,23 @@ impl AccountManagementService {
     }
 }
 
-/// An implementation of [crate::stubs::AuthenticationService] to make requests with.
+/// Implements a client for the Identity Toolkit API.
 ///
-/// `AuthenticationService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Authentication for Identity Toolkit
+///
+/// # Configuration
+///
+/// `AuthenticationService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `AuthenticationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AuthenticationService` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Authentication for Identity Toolkit
 #[derive(Clone, Debug)]
 pub struct AuthenticationService {
     inner: Arc<dyn crate::stubs::dynamic::AuthenticationService>,

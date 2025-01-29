@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::TraceService] to make requests with.
+/// Implements a client for the Stackdriver Trace API.
 ///
-/// `TraceService` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `TraceService` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `TraceService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Service for collecting and viewing traces and spans within a trace.
 ///
@@ -35,6 +29,18 @@ use std::sync::Arc;
 ///
 /// A span is an individual timed event which forms a node of the trace tree.
 /// A single trace can contain spans from multiple services.
+///
+/// # Configuration
+///
+/// `TraceService` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `TraceService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `TraceService` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct TraceService {
     inner: Arc<dyn crate::stubs::dynamic::TraceService>,

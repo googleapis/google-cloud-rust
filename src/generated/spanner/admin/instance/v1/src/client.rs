@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::InstanceAdmin] to make requests with.
+/// Implements a client for the Cloud Spanner API.
 ///
-/// `InstanceAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `InstanceAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `InstanceAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Cloud Spanner Instance Admin API
 ///
@@ -49,6 +43,18 @@ use std::sync::Arc;
 /// instance receives a lot of requests and consumes most of the
 /// instance resources, fewer resources are available for other
 /// databases in that instance, and their performance may suffer.
+///
+/// # Configuration
+///
+/// `InstanceAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `InstanceAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InstanceAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct InstanceAdmin {
     inner: Arc<dyn crate::stubs::dynamic::InstanceAdmin>,

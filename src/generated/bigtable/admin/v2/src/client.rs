@@ -18,19 +18,25 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::BigtableInstanceAdmin] to make requests with.
+/// Implements a client for the Cloud Bigtable Admin API.
 ///
-/// `BigtableInstanceAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+/// Service for creating, configuring, and deleting Cloud Bigtable Instances and
+/// Clusters. Provides access to the Instance and Cluster schemas only, not the
+/// tables' metadata or data stored in those tables.
+///
+/// # Configuration
+///
+/// `BigtableInstanceAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `BigtableInstanceAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `BigtableInstanceAdmin` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-/// Service for creating, configuring, and deleting Cloud Bigtable Instances and
-/// Clusters. Provides access to the Instance and Cluster schemas only, not the
-/// tables' metadata or data stored in those tables.
 #[derive(Clone, Debug)]
 pub struct BigtableInstanceAdmin {
     inner: Arc<dyn crate::stubs::dynamic::BigtableInstanceAdmin>,
@@ -885,20 +891,26 @@ impl BigtableInstanceAdmin {
     }
 }
 
-/// An implementation of [crate::stubs::BigtableTableAdmin] to make requests with.
+/// Implements a client for the Cloud Bigtable Admin API.
 ///
-/// `BigtableTableAdmin` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `BigtableTableAdmin` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `BigtableTableAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Service for creating, configuring, and deleting Cloud Bigtable tables.
 ///
 /// Provides access to the table schemas only, not the data stored within
 /// the tables.
+///
+/// # Configuration
+///
+/// `BigtableTableAdmin` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `BigtableTableAdmin` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `BigtableTableAdmin` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct BigtableTableAdmin {
     inner: Arc<dyn crate::stubs::dynamic::BigtableTableAdmin>,

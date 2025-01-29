@@ -26,19 +26,25 @@ use std::sync::Arc;
 {{/HasServices}}
 {{#Services}}
 
-/// An implementation of [crate::stubs::{{NameToPascal}}] to make requests with.
+/// Implements a client for the {{APITitle}}.
 ///
-/// `{{NameToPascal}}` has various configuration parameters, but the defaults
-/// are set to work with most applications.
+/// # Service Description
+///
+{{#DocLines}}
+{{{.}}}
+{{/DocLines}}
+///
+/// # Configuration
+///
+/// `{{NameToPascal}}` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
 ///
 /// `{{NameToPascal}}` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `{{NameToPascal}}` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
-///
-{{#DocLines}}
-{{{.}}}
-{{/DocLines}}
 #[derive(Clone, Debug)]
 pub struct {{NameToPascal}} {
     inner: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>,

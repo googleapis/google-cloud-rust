@@ -18,15 +18,9 @@
 use crate::Result;
 use std::sync::Arc;
 
-/// An implementation of [crate::stubs::Operations] to make requests with.
+/// Implements a client for the Long Running Operations API.
 ///
-/// `Operations` has various configuration parameters, but the defaults
-/// are set to work with most applications.
-///
-/// `Operations` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `Operations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// # Service Description
 ///
 /// Manages long-running operations with an API service.
 ///
@@ -39,6 +33,18 @@ use std::sync::Arc;
 /// developers can have a consistent client experience.
 ///
 /// [google.longrunning.Operation]: crate::model::Operation
+///
+/// # Configuration
+///
+/// `Operations` has various configuration parameters, the defaults should
+/// work with most applications.
+///
+/// # Pooling and Cloning
+///
+/// `Operations` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Operations` in
+/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
+/// internally.
 #[derive(Clone, Debug)]
 pub struct Operations {
     inner: Arc<dyn crate::stubs::dynamic::Operations>,
