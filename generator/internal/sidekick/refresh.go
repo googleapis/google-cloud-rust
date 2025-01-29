@@ -20,8 +20,9 @@ import (
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
-	"github.com/googleapis/google-cloud-rust/generator/internal/language"
+	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
+	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
 )
 
 func init() {
@@ -71,5 +72,13 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	}
 	api.LabelRecursiveFields(model)
 	api.CrossReference(model)
-	return language.GenerateClient(model, config.General.Language, output, config.Codec)
+
+	switch config.General.Language {
+	case "rust":
+		return rust.Generate(model, output, config.Codec)
+	case "go":
+		return golang.Generate(model, output, config.Codec)
+	default:
+		return fmt.Errorf("unknown language: %s", config.General.Language)
+	}
 }

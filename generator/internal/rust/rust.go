@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package language
+package rust
 
 import (
 	"bytes"
@@ -28,6 +28,7 @@ import (
 	"unicode"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/iancoleman/strcase"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"
@@ -35,7 +36,7 @@ import (
 	"github.com/yuin/goldmark/text"
 )
 
-//go:embed templates/rust
+//go:embed templates
 var rustTemplates embed.FS
 
 // A regular expression to find https links in comments.
@@ -54,6 +55,21 @@ var commentUrlRegex = regexp.MustCompile(
 		`([A-Za-z0-9\.\-_]+\.)+` + // Be generous in accepting most of the authority (hostname)
 		`[a-zA-Z]{2,63}` + // The root domain is far more strict
 		`(/[-a-zA-Z0-9@:%_\+.~#?&/={}\$]*)?`) // Accept just about anything on the query and URL fragments
+
+func Generate(model *api.API, outdir string, options map[string]string) error {
+	codec, err := newRustCodec(options)
+	if err != nil {
+		return err
+	}
+	data, err := newRustTemplateData(model, codec, outdir)
+	if err != nil {
+		return err
+	}
+	provider := rustTemplatesProvider()
+	hasServices := len(model.State.ServiceByID) > 0
+	generatedFiles := rustGeneratedFiles(codec.generateModule, hasServices)
+	return language.GenerateFromRoot(outdir, data, provider, generatedFiles)
+}
 
 func newRustCodec(options map[string]string) (*rustCodec, error) {
 	year, _, _ := time.Now().Date()
@@ -501,7 +517,7 @@ func rustOneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpe
 	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
 	case f.Typez == api.MESSAGE_TYPE:
-		if fieldIsMap(f, state) {
+		if language.FieldIsMap(f, state) {
 			return baseType
 		}
 		if f.Optional {
@@ -528,7 +544,7 @@ func rustFieldType(f *api.Field, state *api.APIState, primitive bool, modulePath
 		if f.Optional {
 			return fmt.Sprintf("std::option::Option<std::boxed::Box<%s>>", baseType)
 		}
-		if fieldIsMap(f, state) {
+		if language.FieldIsMap(f, state) {
 			// Maps are never boxed.
 			return baseType
 		}
@@ -636,7 +652,7 @@ func rustAddQueryParameterOneOf(f *api.Field) string {
 	}
 }
 
-func rustTemplatesProvider() templateProvider {
+func rustTemplatesProvider() language.TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := rustTemplates.ReadFile(name)
 		if err != nil {
@@ -646,17 +662,17 @@ func rustTemplatesProvider() templateProvider {
 	}
 }
 
-func rustGeneratedFiles(generateModule, hasServices bool) []GeneratedFile {
+func rustGeneratedFiles(generateModule, hasServices bool) []language.GeneratedFile {
 	var root string
 	switch {
 	case generateModule:
-		root = "templates/rust/mod"
+		root = "templates/mod"
 	case !hasServices:
-		root = "templates/rust/nosvc"
+		root = "templates/nosvc"
 	default:
-		root = "templates/rust/crate"
+		root = "templates/crate"
 	}
-	return walkTemplatesDir(rustTemplates, root)
+	return language.WalkTemplatesDir(rustTemplates, root)
 }
 
 func rustMethodInOutTypeName(id string, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*rustPackage) string {
@@ -1405,7 +1421,7 @@ func rustRequiredPackages(outdir string, extraPackages []*rustPackage) []string 
 			components = append(components, "default-features = false")
 		}
 		if len(pkg.features) > 0 {
-			feats := strings.Join(mapSlice(pkg.features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
+			feats := strings.Join(language.MapSlice(pkg.features, func(s string) string { return fmt.Sprintf("%q", s) }), ", ")
 			components = append(components, fmt.Sprintf("features = [%s]", feats))
 		}
 		lines = append(lines, fmt.Sprintf("%-10s = { %s }", pkg.name, strings.Join(components, ", ")))
@@ -1595,12 +1611,4 @@ func rustEscapeKeyword(symbol string) string {
 		return symbol
 	}
 	return "r#" + symbol
-}
-
-func mapSlice[T, R any](s []T, f func(T) R) []R {
-	r := make([]R, len(s))
-	for i, v := range s {
-		r[i] = f(v)
-	}
-	return r
 }

@@ -34,7 +34,7 @@ type GeneratedFile struct {
 // The function is expected to accept a template name, including its full path
 // and the `.mustache` extension, such as `rust/crate/src/lib.rs.mustach` and
 // tuen return the full contents of the template (or an error).
-type templateProvider func(templateName string) (string, error)
+type TemplateProvider func(templateName string) (string, error)
 
 func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	msg, ok := state.MessageByID[m.InputTypeID]
@@ -79,7 +79,7 @@ func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
 	return queryParams
 }
 
-func filterSlice[T any](slice []T, predicate func(T) bool) []T {
+func FilterSlice[T any](slice []T, predicate func(T) bool) []T {
 	result := make([]T, 0)
 	for _, v := range slice {
 		if predicate(v) {
@@ -89,7 +89,15 @@ func filterSlice[T any](slice []T, predicate func(T) bool) []T {
 	return result
 }
 
-func hasNestedTypes(m *api.Message) bool {
+func MapSlice[T, R any](s []T, f func(T) R) []R {
+	r := make([]R, len(s))
+	for i, v := range s {
+		r[i] = f(v)
+	}
+	return r
+}
+
+func HasNestedTypes(m *api.Message) bool {
 	if len(m.Enums) > 0 || len(m.OneOfs) > 0 {
 		return true
 	}
@@ -101,7 +109,7 @@ func hasNestedTypes(m *api.Message) bool {
 	return false
 }
 
-func fieldIsMap(f *api.Field, state *api.APIState) bool {
+func FieldIsMap(f *api.Field, state *api.APIState) bool {
 	if f.Typez != api.MESSAGE_TYPE {
 		return false
 	}

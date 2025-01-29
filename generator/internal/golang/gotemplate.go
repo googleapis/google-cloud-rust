@@ -12,13 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package language
+package golang
 
 import (
 	"fmt"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/license"
 	"github.com/iancoleman/strcase"
 )
@@ -177,7 +178,7 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 			}
 			return ""
 		}(),
-		Services: mapSlice(model.Services, func(s *api.Service) *GoService {
+		Services: language.MapSlice(model.Services, func(s *api.Service) *GoService {
 			return newGoService(s, model.State)
 		}),
 		Messages:  model.Messages,
@@ -197,11 +198,11 @@ func newGoTemplateData(model *api.API, options map[string]string) (*GoTemplateDa
 
 func newGoService(s *api.Service, state *api.APIState) *GoService {
 	// Some codecs skip some methods.
-	methods := filterSlice(s.Methods, func(m *api.Method) bool {
+	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return goGenerateMethod(m)
 	})
 	return &GoService{
-		Methods: mapSlice(methods, func(m *api.Method) *GoMethod {
+		Methods: language.MapSlice(methods, func(m *api.Method) *GoMethod {
 			return newGoMethod(m, s, state)
 		}),
 		NameToPascal:        goToPascal(s.Name),
@@ -223,10 +224,10 @@ func goAnnotateMessage(m *api.Message, state *api.APIState, importMap map[string
 	m.Codec = &goMessageAnnotation{
 		Name:           goMessageName(m, importMap),
 		QualifiedName:  goMessageName(m, importMap),
-		HasNestedTypes: hasNestedTypes(m),
+		HasNestedTypes: language.HasNestedTypes(m),
 		DocLines:       goFormatDocComments(m.Documentation, state),
 		SourceFQN:      strings.TrimPrefix(m.ID, "."),
-		BasicFields: filterSlice(m.Fields, func(s *api.Field) bool {
+		BasicFields: language.FilterSlice(m.Fields, func(s *api.Field) bool {
 			return !s.IsOneOf
 		}),
 	}
@@ -248,8 +249,8 @@ func newGoMethod(m *api.Method, s *api.Service, state *api.APIState) *GoMethod {
 		NameToCamel:         strcase.ToCamel(m.Name),
 		NameToPascal:        goToPascal(m.Name),
 		OutputTypeName:      goMethodInOutTypeName(m.OutputTypeID, state),
-		PathParams:          PathParams(m, state),
-		QueryParams:         QueryParams(m, state),
+		PathParams:          language.PathParams(m, state),
+		QueryParams:         language.QueryParams(m, state),
 		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: goToPascal(s.Name),
 		InputTypeID:         m.InputTypeID,
