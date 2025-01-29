@@ -35,16 +35,16 @@ type goImport struct {
 }
 
 func Generate(model *api.API, outdir string, options map[string]string) error {
-	data, err := newGoTemplateData(model, options)
+	data, err := newTemplateData(model, options)
 	if err != nil {
 		return err
 	}
-	provider := goTemplatesProvider()
+	provider := templatesProvider()
 	generatedFiles := language.WalkTemplatesDir(goTemplates, "templates/go")
 	return language.GenerateFromRoot(outdir, data, provider, generatedFiles)
 }
 
-func goLoadWellKnownTypes(s *api.APIState) {
+func loadWellKnownTypes(s *api.APIState) {
 	timestamp := &api.Message{
 		ID:      ".google.protobuf.Timestamp",
 		Name:    "Time",
@@ -59,7 +59,7 @@ func goLoadWellKnownTypes(s *api.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
-func goFieldType(f *api.Field, state *api.APIState, importMap map[string]*goImport) string {
+func fieldType(f *api.Field, state *api.APIState, importMap map[string]*goImport) string {
 	var out string
 	switch f.Typez {
 	case api.STRING_TYPE:
@@ -79,30 +79,30 @@ func goFieldType(f *api.Field, state *api.APIState, importMap map[string]*goImpo
 			return ""
 		}
 		if m.IsMap {
-			key := goFieldType(m.Fields[0], state, importMap)
-			val := goFieldType(m.Fields[1], state, importMap)
+			key := fieldType(m.Fields[0], state, importMap)
+			val := fieldType(m.Fields[1], state, importMap)
 			out = "map[" + key + "]" + val
 			break
 		}
-		out = "*" + goMessageName(m, importMap)
+		out = "*" + messageName(m, importMap)
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		out = goEnumName(e, importMap)
+		out = enumName(e, importMap)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
 	return out
 }
 
-func goAsQueryParameter(f *api.Field) string {
+func asQueryParameter(f *api.Field) string {
 	return fmt.Sprintf("req.%s.to_str()", strcase.ToLowerCamel(f.Name))
 }
 
-func goTemplatesProvider() language.TemplateProvider {
+func templatesProvider() language.TemplateProvider {
 	return func(name string) (string, error) {
 		contents, err := goTemplates.ReadFile(name)
 		if err != nil {
@@ -112,7 +112,7 @@ func goTemplatesProvider() language.TemplateProvider {
 	}
 }
 
-func goMethodInOutTypeName(id string, s *api.APIState) string {
+func methodInOutTypeName(id string, s *api.APIState) string {
 	if id == "" {
 		return ""
 	}
@@ -124,24 +124,24 @@ func goMethodInOutTypeName(id string, s *api.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
-func goMessageName(m *api.Message, importMap map[string]*goImport) string {
+func messageName(m *api.Message, importMap map[string]*goImport) string {
 	if m.Parent != nil {
-		return goMessageName(m.Parent, importMap) + "_" + strcase.ToCamel(m.Name)
+		return messageName(m.Parent, importMap) + "_" + strcase.ToCamel(m.Name)
 	}
 	if imp, ok := importMap[m.Package]; ok {
-		return imp.name + "." + goToPascal(m.Name)
+		return imp.name + "." + toPascal(m.Name)
 	}
-	return goToPascal(m.Name)
+	return toPascal(m.Name)
 }
 
-func goEnumName(e *api.Enum, importMap map[string]*goImport) string {
+func enumName(e *api.Enum, importMap map[string]*goImport) string {
 	if e.Parent != nil {
-		return goMessageName(e.Parent, importMap) + "_" + strcase.ToCamel(e.Name)
+		return messageName(e.Parent, importMap) + "_" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }
 
-func goEnumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
+func enumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
 	var name string
 	if strings.ToUpper(e.Name) == e.Name {
 		name = e.Name
@@ -149,12 +149,12 @@ func goEnumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
 		name = strcase.ToScreamingSnake(e.Name)
 	}
 	if e.Parent.Parent != nil {
-		return goMessageName(e.Parent.Parent, importMap) + "_" + name
+		return messageName(e.Parent.Parent, importMap) + "_" + name
 	}
 	return name
 }
 
-func goBodyAccessor(m *api.Method) string {
+func bodyAccessor(m *api.Method) string {
 	if m.PathInfo.BodyFieldPath == "*" {
 		// no accessor needed, use the whole request
 		return ""
@@ -162,7 +162,7 @@ func goBodyAccessor(m *api.Method) string {
 	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
 }
 
-func goHTTPPathFmt(m *api.PathInfo) string {
+func httpPathFmt(m *api.PathInfo) string {
 	fmt := ""
 	for _, segment := range m.PathTemplate {
 		if segment.Literal != nil {
@@ -176,7 +176,7 @@ func goHTTPPathFmt(m *api.PathInfo) string {
 	return fmt
 }
 
-func goHTTPPathArgs(h *api.PathInfo) []string {
+func httpPathArgs(h *api.PathInfo) []string {
 	var args []string
 	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
 	for _, segment := range h.PathTemplate {
@@ -188,11 +188,11 @@ func goHTTPPathArgs(h *api.PathInfo) []string {
 	return args
 }
 
-func goToPascal(symbol string) string {
-	return goEscapeKeyword(strcase.ToCamel(symbol))
+func toPascal(symbol string) string {
+	return escapeKeyword(strcase.ToCamel(symbol))
 }
 
-func goFormatDocComments(documentation string, _ *api.APIState) []string {
+func formatDocComments(documentation string, _ *api.APIState) []string {
 	ss := strings.Split(documentation, "\n")
 	for i := range ss {
 		ss[i] = strings.TrimRightFunc(ss[i], unicode.IsSpace)
@@ -200,14 +200,14 @@ func goFormatDocComments(documentation string, _ *api.APIState) []string {
 	return ss
 }
 
-func goPackageName(api *api.API, packageNameOverride string) string {
+func modelPackageName(api *api.API, packageNameOverride string) string {
 	if len(packageNameOverride) > 0 {
 		return packageNameOverride
 	}
 	return api.Name
 }
 
-func goValidatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
+func validatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
 	if sourceSpecificationPackageName == newPackage {
 		return nil
 	}
@@ -224,7 +224,7 @@ func goValidatePackageName(newPackage, elementName, sourceSpecificationPackageNa
 		sourceSpecificationPackageName, newPackage, elementName)
 }
 
-func goValidate(api *api.API, sourceSpecificationPackageName string) error {
+func validateModel(api *api.API, sourceSpecificationPackageName string) error {
 	// Set the source package. We should always take the first service registered
 	// as the source package. Services with mixes will register those after the
 	// source package.
@@ -234,24 +234,24 @@ func goValidate(api *api.API, sourceSpecificationPackageName string) error {
 		sourceSpecificationPackageName = api.Messages[0].Package
 	}
 	for _, s := range api.Services {
-		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
+		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Messages {
-		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
+		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	for _, s := range api.Enums {
-		if err := goValidatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
+		if err := validatePackageName(s.Package, s.ID, sourceSpecificationPackageName); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func goImports(importMap map[string]*goImport) []string {
+func imports(importMap map[string]*goImport) []string {
 	var imports []string
 	for _, imp := range importMap {
 		imports = append(imports, fmt.Sprintf("%q", imp.path))
@@ -259,7 +259,7 @@ func goImports(importMap map[string]*goImport) []string {
 	return imports
 }
 
-func goGenerateMethod(m *api.Method) bool {
+func generateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
 	// TODO(#499) - switch to explicitly excluding such functions. Easier to
@@ -270,7 +270,7 @@ func goGenerateMethod(m *api.Method) bool {
 // The list of Golang keywords and reserved words can be found at:
 //
 // https://go.dev/ref/spec#Keywords
-func goEscapeKeyword(symbol string) string {
+func escapeKeyword(symbol string) string {
 	keywords := map[string]bool{
 		"break":       true,
 		"default":     true,

@@ -47,19 +47,19 @@ func Test_GoEnumAnnotations(t *testing.T) {
 
 	model := api.NewTestAPI(
 		[]*api.Message{}, []*api.Enum{enum}, []*api.Service{})
-	_, err := newGoTemplateData(model, map[string]string{})
+	_, err := newTemplateData(model, map[string]string{})
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(&goEnumAnnotation{
+	if diff := cmp.Diff(&enumAnnotation{
 		Name:     "TestEnum",
 		DocLines: []string{"The enum is documented."},
 	}, enum.Codec); diff != "" {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&goEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "WEEK_5",
 		EnumType: "TestEnum",
 		DocLines: []string{"week5 is also documented."},
@@ -67,7 +67,7 @@ func Test_GoEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&goEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "MULTI_WORD_VALUE",
 		EnumType: "TestEnum",
 		DocLines: []string{"MULTI_WORD_VALUE is also documented."},
@@ -75,7 +75,7 @@ func Test_GoEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 
-	if diff := cmp.Diff(&goEnumValueAnnotation{
+	if diff := cmp.Diff(&enumValueAnnotation{
 		Name:     "VALUE",
 		EnumType: "TestEnum",
 		DocLines: []string{"VALUE is also documented."},
