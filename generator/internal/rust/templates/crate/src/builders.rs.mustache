@@ -19,21 +19,21 @@ limitations under the License.
 {{/BoilerPlate}}
 {{#Services}}
 
-pub mod {{NameToSnake}} {
+pub mod {{Codec.ModuleName}} {
     use crate::Result;
     use std::sync::Arc;
 
-    /// Common implementation for [crate::client::{{NameToPascal}}] request builders.
+    /// Common implementation for [crate::client::{{Codec.Name}}] request builders.
     #[derive(Clone, Debug)]
     pub struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>,
+        stub: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
     where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>) -> Self {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -42,7 +42,7 @@ pub mod {{NameToSnake}} {
         }
     }
 
-    {{#Methods}}
+    {{#Codec.Methods}}
     /// The request builder for a {{Codec.ServiceNameToPascal}}::{{Codec.Name}} call.
     #[derive(Clone, Debug)]
     pub struct {{Codec.BuilderName}}(RequestBuilder<{{InputType.Codec.QualifiedName}}>);
@@ -182,6 +182,6 @@ pub mod {{NameToSnake}} {
         }
     }
 
-    {{/Methods}}
+    {{/Codec.Methods}}
 }
 {{/Services}}

@@ -35,20 +35,16 @@ type templateData struct {
 	BoilerPlate       []string
 	Imports           []string
 	DefaultHost       string
-	Services          []*service
+	Services          []*api.Service
 	Messages          []*api.Message
 	Enums             []*api.Enum
 	GoPackage         string
 }
 
-type service struct {
-	Methods             []*api.Method
-	NameToPascal        string
-	ServiceNameToPascal string
-	NameToCamel         string
-	ServiceName         string
-	DocLines            []string
-	DefaultHost         string
+type serviceAnnotations struct {
+	Name        string
+	DocLines    []string
+	DefaultHost string
 }
 
 type messageAnnotation struct {
@@ -154,6 +150,9 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 	for _, m := range model.State.MessageByID {
 		annotateMessage(m, model.State, importMap)
 	}
+	for _, s := range model.Services {
+		annotateService(s, model.State)
+	}
 	data := &templateData{
 		Name:              model.Name,
 		Title:             model.Title,
@@ -172,9 +171,7 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 			}
 			return ""
 		}(),
-		Services: language.MapSlice(model.Services, func(s *api.Service) *service {
-			return newService(s, model.State)
-		}),
+		Services:  model.Services,
 		Messages:  model.Messages,
 		Enums:     model.Enums,
 		GoPackage: packageName,
@@ -190,7 +187,7 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 	return data, nil
 }
 
-func newService(s *api.Service, state *api.APIState) *service {
+func annotateService(s *api.Service, state *api.APIState) {
 	// Some methods are skipped.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
@@ -198,15 +195,12 @@ func newService(s *api.Service, state *api.APIState) *service {
 	for _, m := range methods {
 		annotateMethod(m, s, state)
 	}
-	return &service{
-		Methods:             methods,
-		NameToPascal:        toPascal(s.Name),
-		ServiceNameToPascal: toPascal(s.Name), // Alias for clarity
-		NameToCamel:         strcase.ToLowerCamel(s.Name),
-		ServiceName:         s.Name,
-		DocLines:            formatDocComments(s.Documentation, state),
-		DefaultHost:         s.DefaultHost,
+	ann := &serviceAnnotations{
+		Name:        toPascal(s.Name),
+		DocLines:    formatDocComments(s.Documentation, state),
+		DefaultHost: s.DefaultHost,
 	}
+	s.Codec = ann
 }
 
 func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*goImport) {

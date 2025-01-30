@@ -22,23 +22,23 @@ use crate::Result;
 
 {{/HasServices}}
 {{#Services}}
-/// Implements a [{{NameToPascal}}](crate::stubs::{{NameToPascal}}) decorator for logging and tracing.
+/// Implements a [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) decorator for logging and tracing.
 #[derive(Clone, Debug)]
-pub struct {{NameToPascal}}<T>
-where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
+pub struct {{Codec.Name}}<T>
+where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     inner: T,
 }
 
-impl<T> {{NameToPascal}}<T>
-where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
+impl<T> {{Codec.Name}}<T>
+where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
 }
 
-impl<T> crate::stubs::{{NameToPascal}} for {{NameToPascal}}<T>
-where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
-    {{#Methods}}
+impl<T> crate::stubs::{{Codec.Name}} for {{Codec.Name}}<T>
+where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
+    {{#Codec.Methods}}
     #[tracing::instrument(ret)]
     async fn {{Codec.Name}}(
         &self,
@@ -48,8 +48,8 @@ where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
         self.inner.{{Codec.Name}}(req, options).await
     }
 
-    {{/Methods}}
-    {{#HasLROs}}
+    {{/Codec.Methods}}
+    {{#Codec.HasLROs}}
 
     fn get_polling_policy(
         &self,
@@ -64,7 +64,7 @@ where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
     ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
-    {{/HasLROs}}
+    {{/Codec.HasLROs}}
 }
 
 {{/Services}}

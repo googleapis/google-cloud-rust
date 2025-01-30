@@ -26,31 +26,31 @@ use std::sync::Arc;
 {{/HasServices}}
 {{#Services}}
 
-/// Implements a client for the {{APITitle}}.
+/// Implements a client for the {{Codec.APITitle}}.
 ///
 /// # Service Description
 ///
-{{#DocLines}}
+{{#Codec.DocLines}}
 {{{.}}}
-{{/DocLines}}
+{{/Codec.DocLines}}
 ///
 /// # Configuration
 ///
-/// `{{NameToPascal}}` has various configuration parameters, the defaults should
+/// `{{Codec.Name}}` has various configuration parameters, the defaults should
 /// work with most applications.
 ///
 /// # Pooling and Cloning
 ///
-/// `{{NameToPascal}}` holds a connection pool internally, it is advised to
-/// create one and the reuse it.  You do not need to wrap `{{NameToPascal}}` in
+/// `{{Codec.Name}}` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 #[derive(Clone, Debug)]
-pub struct {{NameToPascal}} {
-    inner: Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>,
+pub struct {{Codec.Name}} {
+    inner: Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>,
 }
 
-impl {{NameToPascal}} {
+impl {{Codec.Name}} {
     /// Creates a new client with the default configuration.
     pub async fn new() -> Result<Self> {
         Self::new_with_config(gax::options::ClientConfig::default()).await
@@ -67,26 +67,26 @@ impl {{NameToPascal}} {
     /// The most common case for calling this function is when mocking the
     /// client.
     pub fn from_stub<T>(stub: T) -> Self
-    where T: crate::stubs::{{NameToPascal}} + 'static {
+    where T: crate::stubs::{{Codec.Name}} + 'static {
         Self { inner: Arc::new(stub) }
     }
 
-    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::{{NameToPascal}}>> {
+    async fn build_inner(conf: gax::options::ClientConfig) -> Result<Arc<dyn crate::stubs::dynamic::{{Codec.Name}}>> {
         if conf.tracing_enabled() {
             return Ok(Arc::new(Self::build_with_tracing(conf).await?));
         }
         Ok(Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{NameToPascal}}> {
-        crate::transport::{{NameToPascal}}::new(conf).await
+    async fn build_transport(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{Codec.Name}}> {
+        crate::transport::{{Codec.Name}}::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{NameToPascal}}> {
-        Self::build_transport(conf).await.map(crate::tracing::{{NameToPascal}}::new)
+    async fn build_with_tracing(conf: gax::options::ClientConfig) -> Result<impl crate::stubs::{{Codec.Name}}> {
+        Self::build_transport(conf).await.map(crate::tracing::{{Codec.Name}}::new)
     }
 
-    {{#Methods}}
+    {{#Codec.Methods}}
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
@@ -194,6 +194,6 @@ impl {{NameToPascal}} {
         {{/Codec.PathParams}}
     }
 
-    {{/Methods}}
+    {{/Codec.Methods}}
 }
 {{/Services}}

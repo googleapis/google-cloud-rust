@@ -39,21 +39,21 @@ pub(crate) mod dynamic;
 
 {{/HasServices}}
 {{#Services}}
-/// Defines the trait used to implement [crate::client::{{NameToPascal}}].
+/// Defines the trait used to implement [crate::client::{{Codec.Name}}].
 ///
 /// Application developers may need to implement this trait to mock
-/// `client::{{NameToPascal}}`.  In other use-cases, application developers only
-/// use `client::{{NameToPascal}}` and need not be concerned with this trait or
+/// `client::{{Codec.Name}}`.  In other use-cases, application developers only
+/// use `client::{{Codec.Name}}` and need not be concerned with this trait or
 /// its implementations.
 ///
 /// Services gain new RPCs routinely. Consequently, this trait gains new methods
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
-pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
-    {{#Methods}}
+pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
+    {{#Codec.Methods}}
 
-    /// Implements [crate::client::{{ServiceNameToPascal}}::{{Codec.Name}}].
+    /// Implements [crate::client::{{Codec.ServiceNameToPascal}}::{{Codec.Name}}].
     fn {{Codec.Name}}(
         &self,
         _req: {{InputType.Codec.QualifiedName}},
@@ -61,8 +61,8 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<Output = crate::Result<{{OutputType.Codec.QualifiedName}}>> + Send {
         std::future::ready::<crate::Result<{{OutputType.Codec.QualifiedName}}>>(Err(Error::other("unimplemented")))
     }
-    {{/Methods}}
-    {{#HasLROs}}
+    {{/Codec.Methods}}
+    {{#Codec.HasLROs}}
 
     /// Returns the polling policy.
     ///
@@ -85,7 +85,7 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
-    {{/HasLROs}}
+    {{/Codec.HasLROs}}
 }
 
 {{/Services}}

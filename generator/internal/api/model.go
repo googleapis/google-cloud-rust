@@ -92,6 +92,8 @@ type Service struct {
 	DefaultHost string
 	// The Protobuf package this service belongs to.
 	Package string
+	// Language specific annotations
+	Codec any
 }
 
 // Method defines a RPC belonging to a Service.

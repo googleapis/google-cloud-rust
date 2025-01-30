@@ -39,7 +39,7 @@ type templateData struct {
 	BoilerPlate       []string
 	Imports           []string
 	DefaultHost       string
-	Services          []*service
+	Services          []*api.Service
 	Messages          []*api.Message
 	Enums             []*api.Enum
 	NameToLower       string
@@ -51,15 +51,18 @@ type templateData struct {
 	IsWktCrate bool
 }
 
-type service struct {
-	Methods             []*api.Method
-	NameToSnake         string
-	NameToPascal        string
-	ServiceNameToPascal string
-	NameToCamel         string
-	ServiceName         string
-	DocLines            []string
-	DefaultHost         string
+type serviceAnnotations struct {
+	// The name of the service. The Rust naming conventions requires this to be
+	// in `PascalCase`. Notably, names like `IAM` *must* become `Iam`, but
+	// `IAMService` can stay unchanged.
+	Name string
+	// For each service we generate a module containing all its builders.
+	// The Rust naming conventions required this to be `snake_case` format.
+	ModuleName string
+	DocLines   []string
+	// Only a subset of the methods is generated.
+	Methods     []*api.Method
+	DefaultHost string
 	// If true, this service includes methods that return long-running operations.
 	HasLROs  bool
 	APITitle string
@@ -208,8 +211,12 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 	for _, m := range model.Messages {
 		annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	}
+	hasLROs := false
 	for _, s := range model.Services {
 		for _, m := range s.Methods {
+			if m.OperationInfo != nil {
+				hasLROs = true
+			}
 			if !generateMethod(m) {
 				continue
 			}
@@ -221,6 +228,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 			}
 		}
+		annotateService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	}
 	data := &templateData{
 		Name:             model.Name,
@@ -230,6 +238,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 		PackageNamespace: packageNamespace,
 		PackageVersion:   c.version,
 		HasServices:      len(model.Services) > 0,
+		HasLROs:          hasLROs,
 		CopyrightYear:    c.generationYear,
 		BoilerPlate: append(license.LicenseHeaderBulk(),
 			"",
@@ -240,9 +249,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 			}
 			return ""
 		}(),
-		Services: language.MapSlice(model.Services, func(s *api.Service) *service {
-			return newService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-		}),
+		Services:          model.Services,
 		Messages:          model.Messages,
 		Enums:             model.Enums,
 		NameToLower:       strings.ToLower(model.Name),
@@ -251,17 +258,17 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 	}
 	// Services without methods create a lot of warnings in Rust. The dead code
 	// analysis is extremely good, and can determine that several types and
-	// member variables are going unused.
-	data.Services = language.FilterSlice(data.Services, func(s *service) bool {
-		return len(s.Methods) > 0
-	})
-	// Determine if any service has an LRO.
-	for _, s := range data.Services {
-		if s.HasLROs {
-			data.HasLROs = true
-			break
+	// member variables are going unused if the service does not have any
+	// generated methods. Filter out the services to the subset that will
+	// produce at least one method.
+	data.Services = language.FilterSlice(data.Services, func(s *api.Service) bool {
+		for _, m := range s.Methods {
+			if generateMethod(m) {
+				return true
+			}
 		}
-	}
+		return false
+	})
 
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
@@ -273,7 +280,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 	return data, nil
 }
 
-func newService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) *service {
+func annotateService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
 	// Some codecs skip some methods.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
@@ -285,18 +292,16 @@ func newService(s *api.Service, model *api.API, modulePath, sourceSpecificationP
 			break
 		}
 	}
-	return &service{
-		Methods:             methods,
-		NameToSnake:         toSnake(s.Name),
-		NameToPascal:        toPascal(s.Name),
-		ServiceNameToPascal: toPascal(s.Name), // Alias for clarity
-		NameToCamel:         toCamel(s.Name),
-		ServiceName:         s.Name,
-		DocLines:            formatDocComments(s.Documentation, model.State, modulePath, sourceSpecificationPackageName, packageMapping),
-		DefaultHost:         s.DefaultHost,
-		HasLROs:             hasLROs,
-		APITitle:            model.Title,
+	ann := &serviceAnnotations{
+		Name:        toPascal(s.Name),
+		ModuleName:  toSnake(s.Name),
+		DocLines:    formatDocComments(s.Documentation, model.State, modulePath, sourceSpecificationPackageName, packageMapping),
+		Methods:     methods,
+		DefaultHost: s.DefaultHost,
+		HasLROs:     hasLROs,
+		APITitle:    model.Title,
 	}
+	s.Codec = ann
 }
 
 type fieldPartition struct {
