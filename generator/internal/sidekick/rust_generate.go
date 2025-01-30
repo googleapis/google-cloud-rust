@@ -52,6 +52,16 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		cmdLine.Output = path.Join("src/generated", strings.TrimPrefix(cmdLine.SpecificationSource, "google/"))
 	}
 
+	if err := runExternalCommand("cargo", "--version"); err != nil {
+		return fmt.Errorf("got an error trying to run `cargo --version`, please verify it is installed: %w", err)
+	}
+	if err := runExternalCommand("taplo", "--version"); err != nil {
+		return fmt.Errorf("got an error trying to run `taplo --version`, please verify it is installed: %w", err)
+	}
+	if err := runExternalCommand("git", "--version"); err != nil {
+		return fmt.Errorf("got an error trying to run `git --version`, please verify it is installed: %w", err)
+	}
+
 	if err := runExternalCommand("cargo", "new", "--vcs", "none", "--lib", cmdLine.Output); err != nil {
 		return err
 	}
