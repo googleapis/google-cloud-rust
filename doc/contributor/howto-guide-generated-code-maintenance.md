@@ -15,6 +15,35 @@ fork:
 git checkout -b feat-websecurityscanner-generate-library
 ```
 
+Generate the library:
+
+```bash
+go -C generator/ run ./cmd/sidekick rust-generate \
+    -project-root .. \
+    -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
+```
+
+Compile and run the tests:
+
+```bash
+typos && cargo build && cargo test && cargo doc
+```
+
+Commit all these changes and send a PR to merge them:
+
+```bash
+git commit -m "feat(websecurityscanner): generate library"
+```
+
+### Generating a library with customized directories
+
+We may need to customize the target or source directory for some generated
+libraries, in that case use:
+
+```bash
+git checkout -b feat-websecurityscanner-generate-library
+```
+
 Create an empty library using `cargo`. The contents will be overwritten by
 `sidekick`, but this automatically updates the top-level `Cargo.toml` file:
 
@@ -36,11 +65,11 @@ go -C generator/ run ./cmd/sidekick generate \
 Add the files to `git`, compile them, and run the tests:
 
 ```bash
-cargo fmt && cargo build && cargo test && cargo doc
+typos && cargo fmt && cargo build && cargo test && cargo doc
 git add src/generated/cloud/websecurityscanner/v1
 ```
 
-Commit all these changes and send a PR to merge them.
+Commit all these changes and send a PR to merge them:
 
 ```bash
 git commit -m "feat(websecurityscanner): generate library"
