@@ -351,7 +351,6 @@ mod test {
             service_account_info,
         };
         let token = token_provider.get_token().await?;
-        println!("DEBUG TOKEN: {}", token.token);
         let re =
             regex::Regex::new(r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)").unwrap();
         let captures = re.captures(&token.token).ok_or_else(|| {
