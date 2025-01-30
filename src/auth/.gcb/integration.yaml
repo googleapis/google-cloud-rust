@@ -16,12 +16,12 @@ options:
   dynamic_substitutions: true
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
+  env:
+    - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - name: 'rust:1.84-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
-      # TODO(#806) - For now, we just build the code. Eventually we will run
-      # real integration tests.
-      cargo build -p gcp-sdk-auth
+      cargo test --features run-integration-tests -p auth-integration-tests
