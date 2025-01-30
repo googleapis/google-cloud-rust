@@ -71,7 +71,9 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return nil
 	}
 	api.LabelRecursiveFields(model)
-	api.CrossReference(model)
+	if err := api.CrossReference(model); err != nil {
+		return err
+	}
 
 	switch config.General.Language {
 	case "rust":

@@ -27,11 +27,11 @@ use std::sync::Arc;
 #[async_trait::async_trait]
 pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
     {{#Methods}}
-    async fn {{NameToSnake}}(
+    async fn {{Codec.Name}}(
         &self,
-        req: {{InputTypeName}},
+        req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions
-    ) -> crate::Result<{{OutputTypeName}}>;
+    ) -> crate::Result<{{OutputType.Codec.QualifiedName}}>;
 
     {{/Methods}}
     {{#HasLROs}}
@@ -52,12 +52,12 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
 impl<T: crate::stubs::{{NameToPascal}}> {{NameToPascal}} for T {
     {{#Methods}}
     /// Forwards the call to the implementation provided by `T`.
-    async fn {{NameToSnake}}(
+    async fn {{Codec.Name}}(
         &self,
-        req: {{InputTypeName}},
+        req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions
-    ) -> crate::Result<{{OutputTypeName}}> {
-        T::{{NameToSnake}}(self, req, options).await
+    ) -> crate::Result<{{OutputType.Codec.QualifiedName}}> {
+        T::{{Codec.Name}}(self, req, options).await
     }
 
     {{/Methods}}

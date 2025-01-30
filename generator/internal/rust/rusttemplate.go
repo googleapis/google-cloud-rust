@@ -52,7 +52,7 @@ type templateData struct {
 }
 
 type service struct {
-	Methods             []*method
+	Methods             []*api.Method
 	NameToSnake         string
 	NameToPascal        string
 	ServiceNameToPascal string
@@ -87,23 +87,17 @@ type messageAnnotation struct {
 	HasSyntheticFields bool
 }
 
-type method struct {
-	NameToSnake         string
-	NameToCamel         string
-	NameToPascal        string
+type methodAnnotation struct {
+	Name                string
+	BuilderName         string
 	DocLines            []string
-	InputTypeName       string
-	OutputTypeName      string
 	PathInfo            *api.PathInfo
 	PathParams          []*api.Field
 	QueryParams         []*api.Field
 	BodyAccessor        string
-	IsPageable          bool
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
 	ServiceNameToSnake  string
-	InputTypeID         string
-	InputType           *api.Message
 	OperationInfo       *operationInfo
 }
 
@@ -214,6 +208,20 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 	for _, m := range model.Messages {
 		annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	}
+	for _, s := range model.Services {
+		for _, m := range s.Methods {
+			if !generateMethod(m) {
+				continue
+			}
+			annotateMethod(m, s, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
+			if m := m.InputType; m != nil {
+				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+			}
+			if m := m.OutputType; m != nil {
+				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+			}
+		}
+	}
 	data := &templateData{
 		Name:             model.Name,
 		Title:            model.Title,
@@ -233,7 +241,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 			return ""
 		}(),
 		Services: language.MapSlice(model.Services, func(s *api.Service) *service {
-			return newService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping, packageNamespace)
+			return newService(s, model, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 		}),
 		Messages:          model.Messages,
 		Enums:             model.Enums,
@@ -262,33 +270,23 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 	data.ExternPackages = externPackages(c.extraPackages)
 	addStreamingFeature(data, model, c.extraPackages)
 
-	for _, s := range data.Services {
-		for _, method := range s.Methods {
-			if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
-				annotateMessage(m, model.State, c.deserializeWithdDefaults, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
-				method.InputType = m
-			}
-		}
-	}
 	return data, nil
 }
 
-func newService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez, packageNamespace string) *service {
+func newService(s *api.Service, model *api.API, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) *service {
 	// Some codecs skip some methods.
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return generateMethod(m)
 	})
 	hasLROs := false
-	for _, m := range s.Methods {
+	for _, m := range methods {
 		if m.OperationInfo != nil {
 			hasLROs = true
 			break
 		}
 	}
 	return &service{
-		Methods: language.MapSlice(methods, func(m *api.Method) *method {
-			return newMethod(m, s, model.State, modulePath, sourceSpecificationPackageName, packageMapping, packageNamespace)
-		}),
+		Methods:             methods,
 		NameToSnake:         toSnake(s.Name),
 		NameToPascal:        toPascal(s.Name),
 		ServiceNameToPascal: toPascal(s.Name), // Alias for clarity
@@ -333,12 +331,10 @@ func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
 	}
 }
 
+// annotateMessage annotates the message, its fields, its nested
+// messages, and its nested enums.
 func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
-	hasSyntheticFields := false
 	for _, f := range m.Fields {
-		if f.Synthetic {
-			hasSyntheticFields = true
-		}
 		annotateField(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
 	for _, f := range m.OneOfs {
@@ -350,7 +346,13 @@ func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefault
 	for _, child := range m.Messages {
 		annotateMessage(child, state, deserializeWithDefaults, modulePath, sourceSpecificationPackageName, packageMapping)
 	}
-
+	hasSyntheticFields := false
+	for _, f := range m.Fields {
+		if f.Synthetic {
+			hasSyntheticFields = true
+			break
+		}
+	}
 	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
@@ -371,7 +373,7 @@ func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefault
 	}
 }
 
-func newMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez, packageNamespace string) *method {
+func annotateMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez, packageNamespace string) {
 	pathInfoAnnotation := &pathInfoAnnotation{
 		Method:        m.PathInfo.Verb,
 		MethodToLower: strings.ToLower(m.PathInfo.Verb),
@@ -382,27 +384,22 @@ func newMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, s
 	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
 	m.PathInfo.Codec = pathInfoAnnotation
-	method := &method{
+	annotation := &methodAnnotation{
+		Name:                strcase.ToSnake(m.Name),
+		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            formatDocComments(m.Documentation, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		PathInfo:            m.PathInfo,
-		InputTypeName:       methodInOutTypeName(m.InputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
-		NameToCamel:         strcase.ToCamel(m.Name),
-		NameToPascal:        toPascal(m.Name),
-		NameToSnake:         strcase.ToSnake(m.Name),
-		OutputTypeName:      methodInOutTypeName(m.OutputTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping),
 		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
-		IsPageable:          m.IsPageable,
 		ServiceNameToPascal: toPascal(s.Name),
 		ServiceNameToCamel:  toCamel(s.Name),
 		ServiceNameToSnake:  toSnake(s.Name),
-		InputTypeID:         m.InputTypeID,
 	}
 	if m.OperationInfo != nil {
 		metadataType := methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
 		responseType := methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, modulePath, sourceSpecificationPackageName, packageMapping)
-		method.OperationInfo = &operationInfo{
+		m.OperationInfo.Codec = &operationInfo{
 			MetadataType:       metadataType,
 			ResponseType:       responseType,
 			MetadataTypeInDocs: strings.TrimPrefix(metadataType, "crate::"),
@@ -410,7 +407,7 @@ func newMethod(m *api.Method, s *api.Service, state *api.APIState, modulePath, s
 			PackageNamespace:   packageNamespace,
 		}
 	}
-	return method
+	m.Codec = annotation
 }
 
 func annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
