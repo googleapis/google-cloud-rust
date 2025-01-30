@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod jws;
+
 use crate::credentials::dynamic::CredentialTrait;
-use crate::credentials::util::jws::{
-    JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
-};
 use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
 use derive_builder::Builder;
 use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
+use jws::{JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
