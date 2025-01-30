@@ -13,7 +13,7 @@
 // limitations under the License.
 
 pub(crate) mod mds_credential;
-pub(crate) mod service_account_credential;
+mod service_account_credential;
 pub(crate) mod user_credential;
 pub(crate) mod util;
 
@@ -263,6 +263,7 @@ pub async fn create_access_token_credential() -> Result<Credential> {
         )?;
     match cred_type {
         "authorized_user" => user_credential::creds_from(js),
+        "service_account" => service_account_credential::creds_from(js),
         _ => Err(CredentialError::non_retryable(format!(
             "Unimplemented credential type: {cred_type}"
         ))),

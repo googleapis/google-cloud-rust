@@ -16,7 +16,7 @@ use crate::credentials::dynamic::CredentialTrait;
 use crate::credentials::util::jws::{
     JwsClaims, JwsHeader, CLOCK_SKEW_FUDGE, DEFAULT_TOKEN_TIMEOUT,
 };
-use crate::credentials::Result;
+use crate::credentials::{Credential, Result};
 use crate::errors::CredentialError;
 use crate::token::{Token, TokenProvider};
 use async_trait::async_trait;
@@ -25,16 +25,30 @@ use http::header::{HeaderName, HeaderValue, AUTHORIZATION};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pemfile::Item;
+use std::sync::Arc;
 use time::OffsetDateTime;
 
 const DEFAULT_SCOPES: &str = "https://www.googleapis.com/auth/cloud-platform";
 
+pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
+    let service_account_info =
+        serde_json::from_value::<ServiceAccountInfo>(js).map_err(CredentialError::non_retryable)?;
+    let token_provider = ServiceAccountTokenProvider {
+        service_account_info,
+    };
+
+    Ok(Credential {
+        inner: Arc::new(ServiceAccountCredential {
+            token_provider,
+        }),
+    })
+}
+
 /// A representation of a Service Account File. See [Service Account Keys](https://google.aip.dev/auth/4112)
 /// for more details.
-#[allow(dead_code)]
 #[derive(serde::Deserialize, Builder)]
 #[builder(setter(into))]
-pub(crate) struct ServiceAccountInfo {
+struct ServiceAccountInfo {
     client_email: String,
     private_key_id: String,
     private_key: String,
@@ -54,18 +68,16 @@ impl std::fmt::Debug for ServiceAccountInfo {
     }
 }
 
-#[allow(dead_code)] // TODO(#679) - implementation in progress
 #[derive(Debug)]
-pub(crate) struct ServiceAccountCredential<T>
+struct ServiceAccountCredential<T>
 where
     T: TokenProvider,
 {
     token_provider: T,
 }
 
-#[allow(dead_code)]
 #[derive(Debug)]
-pub(crate) struct ServiceAccountTokenProvider {
+struct ServiceAccountTokenProvider {
     service_account_info: ServiceAccountInfo,
 }
 
