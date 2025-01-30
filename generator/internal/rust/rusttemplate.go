@@ -332,7 +332,7 @@ func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
 }
 
 // annotateMessage annotates the message, its fields, its nested
-// mesages, and its nested enums.
+// messages, and its nested enums.
 func annotateMessage(m *api.Message, state *api.APIState, deserializeWithDefaults bool, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) {
 	for _, f := range m.Fields {
 		annotateField(f, m, state, modulePath, sourceSpecificationPackageName, packageMapping)
