@@ -705,7 +705,7 @@ func messageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecif
 		if packageName == sourceSpecificationPackageName {
 			return modulePath
 		}
-		mapped, ok := mapPackage(packageName, packageMapping)
+		mapped, ok := packageMapping[packageName]
 		if !ok {
 			return packageName
 		}
@@ -1372,7 +1372,7 @@ func methodRustdocLink(m *api.Method, state *api.APIState, packageMapping map[st
 }
 
 func serviceRustdocLink(s *api.Service, packageMapping map[string]*packagez) string {
-	mapped, ok := mapPackage(s.Package, packageMapping)
+	mapped, ok := packageMapping[s.Package]
 	if ok {
 		return fmt.Sprintf("%s::client::%s", mapped.name, toPascal(s.Name))
 	}
@@ -1390,12 +1390,56 @@ func projectRoot(outdir string) string {
 	return rel
 }
 
-func mapPackage(source string, packageMapping map[string]*packagez) (*packagez, bool) {
-	mapped, ok := packageMapping[source]
-	if ok {
+func usePackage(source string, c *codec) {
+	mapped, ok := c.packageMapping[source]
+	if ok && source != c.sourceSpecificationPackageName {
 		mapped.used = true
 	}
-	return mapped, ok
+}
+
+func findUsedPackagesMessage(message *api.Message, model *api.API, c *codec, visited map[string]bool) {
+	if _, ok := visited[message.ID]; ok {
+		return
+	}
+	visited[message.ID] = true
+	usePackage(message.Package, c)
+	for _, e := range message.Enums {
+		usePackage(e.Package, c)
+	}
+	for _, m := range message.Messages {
+		findUsedPackagesMessage(m, model, c, visited)
+	}
+	for _, f := range message.Fields {
+		switch f.Typez {
+		case api.MESSAGE_TYPE:
+			if fm, ok := model.State.MessageByID[f.TypezID]; ok {
+				usePackage(fm.Package, c)
+			}
+		case api.ENUM_TYPE:
+			if fe, ok := model.State.EnumByID[f.TypezID]; ok {
+				usePackage(fe.Package, c)
+			}
+		}
+	}
+}
+
+func findUsedPackages(model *api.API, c *codec) {
+	for _, message := range model.Messages {
+		findUsedPackagesMessage(message, model, c, map[string]bool{})
+	}
+	for _, enum := range model.Enums {
+		usePackage(enum.Package, c)
+	}
+	for _, s := range model.Services {
+		for _, method := range s.Methods {
+			if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
+				findUsedPackagesMessage(m, model, c, map[string]bool{})
+			}
+			if m, ok := model.State.MessageByID[method.OutputTypeID]; ok {
+				usePackage(m.Package, c)
+			}
+		}
+	}
 }
 
 func requiredPackages(outdir string, extraPackages []*packagez) []string {
