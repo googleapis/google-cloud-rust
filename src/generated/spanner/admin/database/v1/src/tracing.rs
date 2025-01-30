@@ -218,6 +218,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn add_split_points(
+        &self,
+        req: crate::model::AddSplitPointsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::AddSplitPointsResponse> {
+        self.inner.add_split_points(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,

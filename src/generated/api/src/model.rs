@@ -2105,9 +2105,23 @@ pub struct SelectiveGapicGeneration {
     /// on public client surfaces.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub methods: std::vec::Vec<std::string::String>,
+
+    /// Setting this to true indicates to the client generators that methods
+    /// that would be excluded from the generation should instead be generated
+    /// in a way that indicates these methods should not be consumed by
+    /// end users. How this is expressed is up to individual language
+    /// implementations to decide. Some examples may be: added annotations,
+    /// obfuscated identifiers, or other language idiomatic patterns.
+    pub generate_omitted_as_internal: bool,
 }
 
 impl SelectiveGapicGeneration {
+    /// Sets the value of [generate_omitted_as_internal][crate::model::SelectiveGapicGeneration::generate_omitted_as_internal].
+    pub fn set_generate_omitted_as_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.generate_omitted_as_internal = v.into();
+        self
+    }
+
     /// Sets the value of [methods][crate::model::SelectiveGapicGeneration::methods].
     pub fn set_methods<T, V>(mut self, v: T) -> Self
     where

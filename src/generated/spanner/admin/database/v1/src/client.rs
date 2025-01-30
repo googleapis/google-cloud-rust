@@ -997,6 +997,15 @@ impl DatabaseAdmin {
             .set_parent(parent.into())
     }
 
+    /// Adds split points to specified tables, indexes of a database.
+    pub fn add_split_points(
+        &self,
+        database: impl Into<std::string::String>,
+    ) -> crate::builders::database_admin::AddSplitPoints {
+        crate::builders::database_admin::AddSplitPoints::new(self.inner.clone())
+            .set_database(database.into())
+    }
+
     /// Creates a new backup schedule.
     pub fn create_backup_schedule(
         &self,
