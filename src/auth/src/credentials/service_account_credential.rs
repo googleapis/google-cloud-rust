@@ -125,10 +125,10 @@ impl TokenProvider for ServiceAccountTokenProvider {
 impl ServiceAccountTokenProvider {
     // Creates a signer using the private key stored in the service account file.
     fn signer(&self, private_key: &String) -> Result<Box<dyn Signer>> {
-        let crypto_provider = CryptoProvider::get_default()
-            .ok_or_else(|| CredentialError::non_retryable("unable to get crypto provider"))?;
-
-        let key_provider = crypto_provider.key_provider;
+        let key_provider = CryptoProvider::get_default().map_or_else(
+            || rustls::crypto::aws_lc_rs::default_provider().key_provider,
+            |p| p.key_provider,
+        );
 
         let private_key = rustls_pemfile::read_one(&mut private_key.as_bytes())
             .map_err(CredentialError::non_retryable)?
@@ -318,7 +318,6 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_pkcs1_key_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         service_account_info.private_key = generate_pkcs1_key();
         let token_provider = ServiceAccountTokenProvider {
@@ -354,7 +353,6 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         service_account_info.private_key = generate_pkcs8_key();
         let token_provider = ServiceAccountTokenProvider {
@@ -386,7 +384,6 @@ mod test {
 
     #[tokio::test]
     async fn get_service_account_token_invalid_key_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let mut service_account_info = get_mock_service_account();
         let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
         service_account_info.private_key = pem_data.to_string();
@@ -401,7 +398,6 @@ mod test {
 
     #[test]
     fn signer_failure() -> TestResult {
-        let _ = CryptoProvider::install_default(rustls::crypto::aws_lc_rs::default_provider());
         let tp = ServiceAccountTokenProvider {
             service_account_info: get_mock_service_account(),
         };
