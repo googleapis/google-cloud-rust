@@ -78,7 +78,7 @@ func runExternalCommand(dir, c string, arg ...string) error {
 		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 			return fmt.Errorf("%v: %v\n%s", cmd, err, ee.Stderr)
 		}
-		fmt.Errorf("%v: %v\n%s", cmd, err, output)
+		return fmt.Errorf("%v: %v\n%s", cmd, err, output)
 	}
 	return nil
 }
