@@ -24,8 +24,8 @@ use time::OffsetDateTime;
 // or seconds ahead of the machines receiving the assertion.
 // Create the assertion with a 10 second margin to avoid most clock
 // skew problems.
-pub(crate) const CLOCK_SKEW_FUDGE: Duration = Duration::from_secs(10);
-pub(crate) const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
+pub const CLOCK_SKEW_FUDGE: Duration = Duration::from_secs(10);
+pub const DEFAULT_TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
 
 /// JSON Web Signature for a token.
 #[derive(Serialize)]
