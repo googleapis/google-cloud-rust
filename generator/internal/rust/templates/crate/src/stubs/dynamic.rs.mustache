@@ -23,18 +23,18 @@ use std::sync::Arc;
 {{/HasLROs}}
 {{#Services}}
 
-/// A dyn-compatible, crate-private version of [super::{{NameToPascal}}].
+/// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
 #[async_trait::async_trait]
-pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
-    {{#Methods}}
+pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
+    {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions
     ) -> crate::Result<{{OutputType.Codec.QualifiedName}}>;
 
-    {{/Methods}}
-    {{#HasLROs}}
+    {{/Codec.Methods}}
+    {{#Codec.HasLROs}}
     fn get_polling_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -44,13 +44,13 @@ pub trait {{NameToPascal}}: std::fmt::Debug + Send + Sync {
         &self,
         options: &gax::options::RequestOptions,
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
-    {{/HasLROs}}
+    {{/Codec.HasLROs}}
 }
 
-/// All implementations of [crate::stubs::{{NameToPascal}}] also implement [{{NameToPascal}}].
+/// All implementations of [crate::stubs::{{Codec.Name}}] also implement [{{Codec.Name}}].
 #[async_trait::async_trait]
-impl<T: crate::stubs::{{NameToPascal}}> {{NameToPascal}} for T {
-    {{#Methods}}
+impl<T: crate::stubs::{{Codec.Name}}> {{Codec.Name}} for T {
+    {{#Codec.Methods}}
     /// Forwards the call to the implementation provided by `T`.
     async fn {{Codec.Name}}(
         &self,
@@ -60,8 +60,8 @@ impl<T: crate::stubs::{{NameToPascal}}> {{NameToPascal}} for T {
         T::{{Codec.Name}}(self, req, options).await
     }
 
-    {{/Methods}}
-    {{#HasLROs}}
+    {{/Codec.Methods}}
+    {{#Codec.HasLROs}}
     fn get_polling_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -75,6 +75,6 @@ impl<T: crate::stubs::{{NameToPascal}}> {{NameToPascal}} for T {
     ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
-    {{/HasLROs}}
+    {{/Codec.HasLROs}}
 }
 {{/Services}}

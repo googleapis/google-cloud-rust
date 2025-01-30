@@ -26,29 +26,29 @@ use gax::error::Error;
 
 {{/HasServices}}
 {{#Services}}
-/// Implements [{{NameToPascal}}](crate::stubs::{{NameToPascal}}) using a [gax::http_client::ReqwestClient].
+/// Implements [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
-pub struct {{NameToPascal}} {
+pub struct {{Codec.Name}} {
     inner: gax::http_client::ReqwestClient,
 }
 
-impl std::fmt::Debug for {{NameToPascal}} {
+impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-        f.debug_struct("{{NameToPascal}}")
+        f.debug_struct("{{Codec.Name}}")
             .field("inner", &self.inner)
             .finish()
     }
 }
 
-impl {{NameToPascal}} {
+impl {{Codec.Name}} {
     pub async fn new(config: gax::http_client::ClientConfig) -> Result<Self> {
         let inner = gax::http_client::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
-impl crate::stubs::{{NameToPascal}} for {{NameToPascal}} {
-    {{#Methods}}
+impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
+    {{#Codec.Methods}}
     async fn {{Codec.Name}}(
         &self,
         req: {{InputType.Codec.QualifiedName}},
@@ -84,8 +84,8 @@ impl crate::stubs::{{NameToPascal}} for {{NameToPascal}} {
         ).await
     }
 
-    {{/Methods}}
-    {{#HasLROs}}
+    {{/Codec.Methods}}
+    {{#Codec.HasLROs}}
     fn get_polling_policy(
         &self,
         options: &gax::options::RequestOptions,
@@ -99,7 +99,7 @@ impl crate::stubs::{{NameToPascal}} for {{NameToPascal}} {
     ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         self.inner.get_polling_backoff_policy(options)
     }
-    {{/HasLROs}}
+    {{/Codec.HasLROs}}
 }
 
 {{/Services}}
