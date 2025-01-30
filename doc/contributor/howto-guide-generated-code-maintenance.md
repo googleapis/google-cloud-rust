@@ -36,14 +36,14 @@ go -C generator/ run ./cmd/sidekick generate \
 Add the files to `git`, compile them, and run the tests:
 
 ```bash
-git add src/generated/cloud/websecurityscanner/v1
 cargo fmt && cargo build && cargo test && cargo doc
+git add src/generated/cloud/websecurityscanner/v1
 ```
 
 Commit all these changes and send a PR to merge them.
 
 ```bash
-git commit -m"feat(websecurityscanner): generate library" .
+git commit -m "feat(websecurityscanner): generate library"
 ```
 
 ## Update the code with new googleapis protos
