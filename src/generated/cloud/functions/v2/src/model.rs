@@ -27,7 +27,6 @@ extern crate location;
 extern crate longrunning;
 extern crate lro;
 extern crate reqwest;
-extern crate rpc;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;

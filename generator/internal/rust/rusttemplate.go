@@ -257,6 +257,7 @@ func newTemplateData(model *api.API, c *codec, outdir string) (*templateData, er
 
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
+	findUsedPackages(model, c)
 	data.RequiredPackages = requiredPackages(outdir, c.extraPackages)
 	data.ExternPackages = externPackages(c.extraPackages)
 	addStreamingFeature(data, model, c.extraPackages)
