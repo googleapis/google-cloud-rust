@@ -52,28 +52,28 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		cmdLine.Output = path.Join("src/generated", strings.TrimPrefix(cmdLine.SpecificationSource, "google/"))
 	}
 
-	if err := runExternalCommand(".", "cargo", "new", "--vcs", "none", "--lib", cmdLine.Output); err != nil {
+	if err := runExternalCommand("cargo", "new", "--vcs", "none", "--lib", cmdLine.Output); err != nil {
 		return err
 	}
-	if err := runExternalCommand(".", "taplo", "fmt", "Cargo.toml"); err != nil {
+	if err := runExternalCommand("taplo", "fmt", "Cargo.toml"); err != nil {
 		return err
 	}
 	if err := generate(rootConfig, cmdLine); err != nil {
 		return err
 	}
-	if err := runExternalCommand(".", "cargo", "fmt"); err != nil {
+	if err := runExternalCommand("cargo", "fmt"); err != nil {
 		return err
 	}
-	if err := runExternalCommand(".", "git", "add", cmdLine.Output); err != nil {
+	if err := runExternalCommand("git", "add", cmdLine.Output); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func runExternalCommand(dir, c string, arg ...string) error {
+func runExternalCommand(c string, arg ...string) error {
 	cmd := exec.Command(c, arg...)
-	cmd.Dir = dir
+	cmd.Dir = "."
 	if output, err := cmd.CombinedOutput(); err != nil {
 		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
 			return fmt.Errorf("%v: %v\n%s", cmd, err, ee.Stderr)
