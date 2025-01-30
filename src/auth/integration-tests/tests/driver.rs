@@ -36,8 +36,7 @@ mod driver {
                 "projects/rust-auth-testing/secrets/test-sa-creds-json/versions/latest",
             )
             .send()
-            .await
-            ?;
+            .await?;
         let adc_json = response
             .payload
             .expect("missing payload in test-sa-creds-json response")
