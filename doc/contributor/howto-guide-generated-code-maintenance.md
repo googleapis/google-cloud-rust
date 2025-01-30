@@ -39,7 +39,7 @@ git commit -m "feat(websecurityscanner): generate library"
 
 We may need to customize the target or source directory for some generated
 libraries. For example, you may need to leave room for other crates in the same
-directory.  In this case you cannot use `rust-generate` and need to manually
+directory. In this case you cannot use `rust-generate` and need to manually
 provide the source and output directories to the `generate` subcommand.
 We will use `google/api` as an example.
 
