@@ -22,7 +22,7 @@ use crate::Result;
 
 {{/HasServices}}
 {{#Services}}
-/// Implements a [{{NameToPascal}}](crate::stubs::{{NametoPascal}}) decorator for logging and tracing.
+/// Implements a [{{NameToPascal}}](crate::stubs::{{NameToPascal}}) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct {{NameToPascal}}<T>
 where T: crate::stubs::{{NameToPascal}} + std::fmt::Debug + Send + Sync {
