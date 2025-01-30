@@ -38,9 +38,7 @@ pub(crate) fn creds_from(js: serde_json::Value) -> Result<Credential> {
     };
 
     Ok(Credential {
-        inner: Arc::new(ServiceAccountCredential {
-            token_provider,
-        }),
+        inner: Arc::new(ServiceAccountCredential { token_provider }),
     })
 }
 
