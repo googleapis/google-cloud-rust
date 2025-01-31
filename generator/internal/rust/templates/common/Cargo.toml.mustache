@@ -13,14 +13,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-# Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+# Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 #{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
 [package]
-name                 = "{{PackageName}}"
-version              = "{{PackageVersion}}"
+name                 = "{{Codec.PackageName}}"
+version              = "{{Codec.PackageVersion}}"
 description          = "Google Cloud Client Libraries for Rust - {{Title}}"
 edition.workspace    = true
 authors.workspace    = true
@@ -28,23 +28,23 @@ license.workspace    = true
 repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
-{{#NotForPublication}}
+{{#Codec.NotForPublication}}
 publish              = false
-{{/NotForPublication}}
+{{/Codec.NotForPublication}}
 
 [dependencies]
-{{#RequiredPackages}}
+{{#Codec.RequiredPackages}}
 {{{.}}}
-{{/RequiredPackages}}
-{{#HasFeatures}}
+{{/Codec.RequiredPackages}}
+{{#Codec.HasFeatures}}
 
 [features]
-{{#Features}}
+{{#Codec.Features}}
 {{{.}}}
-{{/Features}}
-{{/HasFeatures}}
-{{#HasLROs}}
+{{/Codec.Features}}
+{{/Codec.HasFeatures}}
+{{#Codec.HasLROs}}
 
 [dev-dependencies]
 tokio = { version = "1", features = ["time"] }
-{{/HasLROs}}
+{{/Codec.HasLROs}}

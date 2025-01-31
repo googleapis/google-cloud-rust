@@ -13,15 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
-{{#HasLROs}}
+{{/Codec.BoilerPlate}}
+{{#Codec.HasLROs}}
 
 use std::sync::Arc;
-{{/HasLROs}}
-{{#Services}}
+{{/Codec.HasLROs}}
+{{#Codec.Services}}
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
 #[async_trait::async_trait]
@@ -77,4 +77,4 @@ impl<T: crate::stubs::{{Codec.Name}}> {{Codec.Name}} for T {
     }
     {{/Codec.HasLROs}}
 }
-{{/Services}}
+{{/Codec.Services}}

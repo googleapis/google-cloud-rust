@@ -13,12 +13,12 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
-package {{GoPackage}}
+package {{Codec.GoPackage}}
 
 import (
     "bytes"
@@ -31,13 +31,13 @@ import (
 	"time"
 
     "cloud.google.com/go/auth"
-    {{#Imports}}
+    {{#Codec.Imports}}
     {{{.}}}
-    {{/Imports}}
+    {{/Codec.Imports}}
 )
 
-{{#HasServices}}
-const defaultHost = "https://{{DefaultHost}}"
+{{#Codec.HasServices}}
+const defaultHost = "https://{{Codec.DefaultHost}}"
 
 type Options struct {
     Credentials *auth.Credentials
@@ -145,7 +145,7 @@ func doRequest(client *http.Client, req *http.Request) ([]byte, error){
     }
     return b, nil
 }
-{{/HasServices}}
+{{/Codec.HasServices}}
 {{#Messages}}
 {{> message}}
 {{/Messages}}

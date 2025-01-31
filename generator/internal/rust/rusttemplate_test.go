@@ -32,7 +32,7 @@ func TestPackageNames(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	got, err := newTemplateData(model, codec, "")
+	got, err := annotateModel(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -96,7 +96,7 @@ func Test_OneOfAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = newTemplateData(model, codec, "")
+	_, err = annotateModel(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -203,7 +203,7 @@ func Test_RustEnumAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	_, err = newTemplateData(model, codec, "")
+	_, err = annotateModel(model, codec, "")
 	if err != nil {
 		t.Fatal(err)
 	}

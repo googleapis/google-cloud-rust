@@ -13,15 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
-{{#HasServices}}
+{{/Codec.BoilerPlate}}
+{{#Codec.HasServices}}
 use crate::Result;
 
-{{/HasServices}}
-{{#Services}}
+{{/Codec.HasServices}}
+{{#Codec.Services}}
 /// Implements a [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct {{Codec.Name}}<T>
@@ -67,4 +67,4 @@ where T: crate::stubs::{{Codec.Name}} + std::fmt::Debug + Send + Sync {
     {{/Codec.HasLROs}}
 }
 
-{{/Services}}
+{{/Codec.Services}}

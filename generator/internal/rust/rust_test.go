@@ -402,7 +402,7 @@ func TestRust_NoStreamingFeature(t *testing.T) {
 		{Name: "CreateResource", IsPageableResponse: false},
 	}, []*api.Enum{}, []*api.Service{})
 	loadWellKnownTypes(model.State)
-	data := &templateData{}
+	data := &modelAnnotations{}
 	addStreamingFeature(data, model, c.extraPackages)
 	if data.HasFeatures {
 		t.Errorf("mismatch in data.HasFeatures, expected `HasFeatures: false`, got=%v", data)
@@ -471,7 +471,7 @@ func checkRustContext(t *testing.T, codec *codec, wantFeatures string) {
 		{Name: "ListResources", IsPageableResponse: true},
 	}, []*api.Enum{}, []*api.Service{})
 	loadWellKnownTypes(model.State)
-	data := &templateData{}
+	data := &modelAnnotations{}
 	addStreamingFeature(data, model, codec.extraPackages)
 	want := []string{wantFeatures}
 	if !data.HasFeatures {

@@ -13,19 +13,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
-{{#HasServices}}
+{{/Codec.BoilerPlate}}
+{{#Codec.HasServices}}
 
 use crate::Result;
 {{! Disable warnings about unused imports: sometimes there are no RPCs with query parameters and this goes unused }}
 #[allow(unused_imports)]
 use gax::error::Error;
 
-{{/HasServices}}
-{{#Services}}
+{{/Codec.HasServices}}
+{{#Codec.Services}}
 /// Implements [{{Codec.Name}}](crate::stubs::{{Codec.Name}}) using a [gax::http_client::ReqwestClient].
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
@@ -102,4 +102,4 @@ impl crate::stubs::{{Codec.Name}} for {{Codec.Name}} {
     {{/Codec.HasLROs}}
 }
 
-{{/Services}}
+{{/Codec.Services}}

@@ -13,21 +13,21 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
 {{! Google APIs often use angle brackets for <PLACEHOLDERS>, rustdoc does not like those. }}
 #![allow(rustdoc::invalid_html_tags)]
 {{! We use explicit links because it is easier to generate the code with them. }}
 #![allow(rustdoc::redundant_explicit_links)]
-{{#IsWktCrate}}
+{{#Codec.IsWktCrate}}
 {{!
 This file is used to bootstrap the `gcp-sdk-wkt` crate. In all other crates
 `wkt` is well-defined and refers to said crate.}}
 use crate as wkt;
-{{/IsWktCrate}}
+{{/Codec.IsWktCrate}}
 {{#Messages}}
 {{> message}}
 {{/Messages}}

@@ -50,5 +50,12 @@ func CrossReference(model *API) error {
 			m.OperationInfo.Method = m
 		}
 	}
+	for _, s := range model.State.ServiceByID {
+		s.Model = model
+		for _, m := range s.Methods {
+			m.Model = model
+			m.Service = s
+		}
+	}
 	return nil
 }

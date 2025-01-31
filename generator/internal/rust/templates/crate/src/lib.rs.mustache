@@ -13,10 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
 //! Google Cloud Client Libraries for Rust - {{Title}}
 //!
@@ -29,14 +29,14 @@ limitations under the License.
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
-{{#Services}}
+{{#Codec.Services}}
 //! * [{{Codec.Name}}](client/struct.{{Codec.Name}}.html)
-{{/Services}}
+{{/Codec.Services}}
 
 /// The messages and enums that are part of this client library.
 pub mod model;
 
-{{#HasServices}}
+{{#Codec.HasServices}}
 pub use gax::Result;
 pub use gax::error::Error;
 
@@ -59,7 +59,7 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
-const DEFAULT_HOST: &str = "https://{{DefaultHost}}/";
+const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}/";
 
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -76,4 +76,4 @@ pub(crate) mod info {
     }
 }
 
-{{/HasServices}}
+{{/Codec.HasServices}}
