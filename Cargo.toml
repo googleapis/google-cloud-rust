@@ -20,6 +20,7 @@ members = [
   "src/auth/integration-tests",
   "src/base",
   "src/gax",
+  "src/generated/api/serviceusage/v1",
   "src/generated/api/types",
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/common",
