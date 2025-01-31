@@ -49,7 +49,9 @@ revison     = "revison"
 corresponsing = "corresponsing"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
 maching = "maching"
-# src/generated/type say "Requestor", `typos` recommends `Requester`.
-requestor = "requestor"
+# src/generated/privacy/dlp/v2 has a typo, needs to be fixed upstream.
+similiarly = "similiarly"
 # src/generated/spanner/admin/database/v1 has a typo, needs to be fixed upstream.
 intital = "intital"
+# src/generated/type say "Requestor", `typos` recommends `Requester`.
+requestor = "requestor"

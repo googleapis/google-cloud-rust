@@ -49,6 +49,7 @@ members = [
   "src/generated/monitoring/metricsscope/v1",
   "src/generated/monitoring/v3",
   "src/generated/openapi-validation",
+  "src/generated/privacy/dlp/v2",
   "src/generated/rpc",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
