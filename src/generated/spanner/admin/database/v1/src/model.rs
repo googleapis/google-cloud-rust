@@ -4390,6 +4390,184 @@ impl gax::paginator::PageableResponse for ListDatabaseRolesResponse {
     }
 }
 
+/// The request for
+/// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
+///
+/// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AddSplitPointsRequest {
+    /// Required. The database on whose tables/indexes split points are to be
+    /// added. Values are of the form
+    /// `projects/<project>/instances/<instance>/databases/<database>`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub database: std::string::String,
+
+    /// Required. The split points to add.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub split_points: std::vec::Vec<crate::model::SplitPoints>,
+
+    /// Optional. A user-supplied tag associated with the split points.
+    /// For example, "intital_data_load", "special_event_1".
+    /// Defaults to "CloudAddSplitPointsAPI" if not specified.
+    /// The length of the tag must not exceed 50 characters,else will be trimmed.
+    /// Only valid UTF8 characters are allowed.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub initiator: std::string::String,
+}
+
+impl AddSplitPointsRequest {
+    /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+    pub fn set_initiator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.initiator = v.into();
+        self
+    }
+
+    /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
+    pub fn set_split_points<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SplitPoints>,
+    {
+        use std::iter::Iterator;
+        self.split_points = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AddSplitPointsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.AddSplitPointsRequest"
+    }
+}
+
+/// The response for
+/// [AddSplitPoints][google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints].
+///
+/// [google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints]: crate::client::DatabaseAdmin::add_split_points
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AddSplitPointsResponse {}
+
+impl AddSplitPointsResponse {}
+
+impl wkt::message::Message for AddSplitPointsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.AddSplitPointsResponse"
+    }
+}
+
+/// The split points of a table/index.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SplitPoints {
+    /// The table to split.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub table: std::string::String,
+
+    /// The index to split.
+    /// If specified, the `table` field must refer to the index's base table.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    pub index: std::string::String,
+
+    /// Required. The list of split keys, i.e., the split boundaries.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    pub keys: std::vec::Vec<crate::model::split_points::Key>,
+
+    /// Optional. The expiration timestamp of the split points.
+    /// A timestamp in the past means immediate expiration.
+    /// The maximum value can be 30 days in the future.
+    /// Defaults to 10 days in the future if not specified.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+}
+
+impl SplitPoints {
+    /// Sets the value of [table][crate::model::SplitPoints::table].
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [index][crate::model::SplitPoints::index].
+    pub fn set_index<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.index = v.into();
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::SplitPoints::expire_time].
+    pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expire_time = v.into();
+        self
+    }
+
+    /// Sets the value of [keys][crate::model::SplitPoints::keys].
+    pub fn set_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::split_points::Key>,
+    {
+        use std::iter::Iterator;
+        self.keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SplitPoints {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.spanner.admin.database.v1.SplitPoints"
+    }
+}
+
+/// Defines additional types related to SplitPoints
+pub mod split_points {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A split key.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct Key {
+        /// Required. The column values making up the split key.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub key_parts: std::option::Option<wkt::ListValue>,
+    }
+
+    impl Key {
+        /// Sets the value of [key_parts][crate::model::split_points::Key::key_parts].
+        pub fn set_key_parts<T: std::convert::Into<std::option::Option<wkt::ListValue>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.key_parts = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Key {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.spanner.admin.database.v1.SplitPoints.Key"
+        }
+    }
+}
+
 /// Indicates the dialect type of a database.
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 pub struct DatabaseDialect(std::borrow::Cow<'static, str>);

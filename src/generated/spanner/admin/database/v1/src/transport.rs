@@ -494,6 +494,26 @@ impl crate::stubs::DatabaseAdmin for DatabaseAdmin {
             .await
     }
 
+    async fn add_split_points(
+        &self,
+        req: crate::model::AddSplitPointsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<crate::model::AddSplitPointsResponse> {
+        let options = options.set_default_idempotency(reqwest::Method::POST.is_idempotent());
+        let builder = self
+            .inner
+            .builder(
+                reqwest::Method::POST,
+                format!("/v1/{}:addSplitPoints", req.database),
+            )
+            .query(&[("alt", "json")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn create_backup_schedule(
         &self,
         req: crate::model::CreateBackupScheduleRequest,

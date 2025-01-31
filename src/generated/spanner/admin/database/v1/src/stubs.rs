@@ -270,6 +270,18 @@ pub trait DatabaseAdmin: std::fmt::Debug + Send + Sync {
         ))
     }
 
+    /// Implements [crate::client::DatabaseAdmin::add_split_points].
+    fn add_split_points(
+        &self,
+        _req: crate::model::AddSplitPointsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::model::AddSplitPointsResponse>> + Send
+    {
+        std::future::ready::<crate::Result<crate::model::AddSplitPointsResponse>>(Err(
+            Error::other("unimplemented"),
+        ))
+    }
+
     /// Implements [crate::client::DatabaseAdmin::create_backup_schedule].
     fn create_backup_schedule(
         &self,

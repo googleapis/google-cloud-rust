@@ -1470,6 +1470,64 @@ pub mod database_admin {
         }
     }
 
+    /// The request builder for a DatabaseAdmin::add_split_points call.
+    #[derive(Clone, Debug)]
+    pub struct AddSplitPoints(RequestBuilder<crate::model::AddSplitPointsRequest>);
+
+    impl AddSplitPoints {
+        pub(crate) fn new(stub: Arc<dyn crate::stubs::dynamic::DatabaseAdmin>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::AddSplitPointsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AddSplitPointsResponse> {
+            (*self.0.stub)
+                .add_split_points(self.0.request, self.0.options)
+                .await
+        }
+
+        /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
+        pub fn set_database<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.database = v.into();
+            self
+        }
+
+        /// Sets the value of [initiator][crate::model::AddSplitPointsRequest::initiator].
+        pub fn set_initiator<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.initiator = v.into();
+            self
+        }
+
+        /// Sets the value of [split_points][crate::model::AddSplitPointsRequest::split_points].
+        pub fn set_split_points<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::SplitPoints>,
+        {
+            use std::iter::Iterator;
+            self.0.request.split_points = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl gax::options::RequestBuilder for AddSplitPoints {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for a DatabaseAdmin::create_backup_schedule call.
     #[derive(Clone, Debug)]
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
