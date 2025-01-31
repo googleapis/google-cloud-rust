@@ -26,7 +26,7 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-api        = { version = "0.1", path = "../../../../../src/generated/api", package = "gcp-sdk-api" }
+api        = { version = "0.1", path = "../../../../../src/generated/api/types", package = "gcp-sdk-api" }
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.1", path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
