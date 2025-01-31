@@ -14,7 +14,7 @@
 
 variable "project" {}
 variable "region" {}
-variable "service_account" {}
+variable "test_runner" {}
 
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
@@ -86,7 +86,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   filename = "src/auth/.gcb/${each.key}.yaml"
   tags     = ["pull-request", "name:${each.key}"]
 
-  service_account = var.service_account
+  service_account = var.test_runner.id
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
@@ -106,7 +106,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   filename = "src/auth/.gcb/${each.key}.yaml"
   tags     = ["post-merge", "push", "name:${each.key}"]
 
-  service_account = var.service_account
+  service_account = var.test_runner.id
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
