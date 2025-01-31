@@ -46,7 +46,7 @@ version = "0.1.0"
 'package:wkt' = 'force-used=true,package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
-'package:api'         = 'package=gcp-sdk-api,source=google.api,path=src/generated/api,version=0.1'
+'package:api'         = 'package=gcp-sdk-api,source=google.api,path=src/generated/api/types,version=0.1'
 'package:gtype'       = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.1'
 'package:iam_v1'      = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.1'
 'package:location'    = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1'
