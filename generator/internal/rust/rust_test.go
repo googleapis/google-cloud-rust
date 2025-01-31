@@ -23,6 +23,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
+	"github.com/googleapis/google-cloud-rust/generator/internal/language"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
 )
 
@@ -491,6 +492,60 @@ func TestRust_WellKnownTypesAsMethod(t *testing.T) {
 	got := methodInOutTypeName(".google.protobuf.Empty", model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
+	}
+}
+
+func TestRust_GeneratedFiles(t *testing.T) {
+	generateModule := true
+	files := generatedFiles(generateModule, false)
+	if len(files) == 0 {
+		t.Errorf("expected a non-empty list of template files from generatedFiles(true, false)")
+	}
+	// No crate for module-only files
+	unexpectedGeneratedFile(t, "Cargo.toml", files)
+
+	files = generatedFiles(generateModule, true)
+	if len(files) == 0 {
+		t.Errorf("expected a non-empty list of template files from generatedFiles(true, true)")
+	}
+	// No crate for module-only files
+	unexpectedGeneratedFile(t, "Cargo.toml", files)
+
+	generateModule = false
+	files = generatedFiles(generateModule, false)
+	if len(files) == 0 {
+		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
+	}
+	// Must have crate crate for module-only files
+	expectGeneratedFile(t, "Cargo.toml", files)
+	// Should not have a client if there are no services.
+	unexpectedGeneratedFile(t, "client.rs", files)
+
+	files = generatedFiles(generateModule, true)
+	if len(files) == 0 {
+		t.Errorf("expected a non-empty list of template files from generatedFiles(false, false)")
+	}
+	// Must have crate crate for module-only files
+	expectGeneratedFile(t, "Cargo.toml", files)
+	expectGeneratedFile(t, "client.rs", files)
+}
+
+func expectGeneratedFile(t *testing.T, name string, files []language.GeneratedFile) {
+	t.Helper()
+	for _, g := range files {
+		if strings.HasSuffix(g.OutputPath, name) {
+			return
+		}
+	}
+	t.Errorf("could not find %s in %v", name, files)
+}
+
+func unexpectedGeneratedFile(t *testing.T, name string, files []language.GeneratedFile) {
+	t.Helper()
+	for _, g := range files {
+		if strings.HasSuffix(g.OutputPath, name) {
+			t.Errorf("unexpectedly found %s in %v", name, files)
+		}
 	}
 }
 
