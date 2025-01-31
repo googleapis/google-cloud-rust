@@ -65,6 +65,7 @@ func TestRust_ParseOptions(t *testing.T) {
 	}
 	want := &codec{
 		version:                  "1.2.3",
+		releaseLevel:             "preview",
 		packageNameOverride:      "test-only",
 		generationYear:           "2035",
 		modulePath:               "alternative::generated",

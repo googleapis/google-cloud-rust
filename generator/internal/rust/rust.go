@@ -36,7 +36,7 @@ import (
 	"github.com/yuin/goldmark/text"
 )
 
-//go:embed templates
+//go:embed all:templates
 var rustTemplates embed.FS
 
 // A regular expression to find https links in comments.
@@ -79,6 +79,7 @@ func newCodec(options map[string]string) (*codec, error) {
 		extraPackages:            []*packagez{},
 		packageMapping:           map[string]*packagez{},
 		version:                  "0.0.0",
+		releaseLevel:             "preview",
 	}
 
 	for key, definition := range options {
@@ -109,6 +110,8 @@ func newCodec(options map[string]string) (*codec, error) {
 			codec.doNotPublish = value
 		case key == "version":
 			codec.version = definition
+		case key == "release-level":
+			codec.releaseLevel = definition
 		case strings.HasPrefix(key, "package:"):
 			pkgOption, err := parsePackageOption(key, definition)
 			if err != nil {
@@ -214,6 +217,9 @@ type codec struct {
 	doNotPublish bool
 	// The version of the generated crate.
 	version string
+	// The "release level" as required by the `.repo-metadata.json` file.
+	// Typically "stable" or "preview".
+	releaseLevel string
 	// True if the API model includes any services
 	hasServices bool
 }
