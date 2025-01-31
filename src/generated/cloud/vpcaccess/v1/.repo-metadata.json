@@ -1,0 +1,11 @@
+{
+    "api_id": "vpcaccess.googleapis.com",
+    "api_shortname": "vpcaccess",
+    "client_documentation": "https://docs.rs/gcp-sdk-vpcaccess-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Serverless VPC Access API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

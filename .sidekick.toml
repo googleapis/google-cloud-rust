@@ -27,6 +27,8 @@ extra-protos-extracted-name = 'gapic-showcase-0.35.5'
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
 version = "0.1.0"
+# The default release level for all crates.
+release-level = "preview"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
 'package:bytes'      = 'force-used=true,package=bytes,version=1,feature=serde'

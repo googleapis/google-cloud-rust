@@ -1,0 +1,11 @@
+{
+    "api_id": "longrunning.googleapis.com",
+    "api_shortname": "longrunning",
+    "client_documentation": "https://docs.rs/gcp-sdk-longrunning/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Long Running Operations API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
