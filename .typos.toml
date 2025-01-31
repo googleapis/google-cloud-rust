@@ -27,6 +27,10 @@ extend-glob = ["*.mustache"]
 ser = "ser"
 
 [type.rust.extend-words]
+# This is correct, https://en.wikipedia.org/wiki/Comune
+comune = "comune"
+# A common spelling, but typos-cli prefers implementers
+implementors = "implementors"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
