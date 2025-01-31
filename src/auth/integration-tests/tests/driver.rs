@@ -25,6 +25,8 @@ mod driver {
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     #[serial_test::serial]
     async fn service_account() -> Result<()> {
+        let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
         // Create a SecretManager client. When running on GCB, this loads MDS
         // credentials for our `integration-test-runner` service account.
         let client = SecretManagerService::new().await?;
@@ -32,9 +34,10 @@ mod driver {
         // Load the ADC json for the principal under test, in this case, a
         // service account.
         let response = client
-            .access_secret_version(
-                "projects/rust-auth-testing/secrets/test-sa-creds-json/versions/latest",
-            )
+            .access_secret_version(format!(
+                "projects/{}/secrets/test-sa-creds-json/versions/latest",
+                project
+            ))
             .send()
             .await?;
         let adc_json = response
@@ -59,9 +62,10 @@ mod driver {
 
         // Access a secret, which only this principal has permissions to do.
         let response = client
-            .access_secret_version(
-                "projects/rust-auth-testing/secrets/test-sa-creds-secret/versions/latest",
-            )
+            .access_secret_version(format!(
+                "projects/{}/secrets/test-sa-creds-secret/versions/latest",
+                project
+            ))
             .send()
             .await?;
         let secret = response
