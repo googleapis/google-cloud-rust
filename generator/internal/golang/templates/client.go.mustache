@@ -49,7 +49,7 @@ type Client struct {
     hc *http.Client
     opts *Options
     {{#Services}}
-    {{NameToCamel}} *{{ServiceName}}
+    {{Codec.FieldName}} *{{Codec.StructName}}
     {{/Services}}
 }
 
@@ -76,26 +76,26 @@ func (c *Client) token(ctx context.Context) (string, error) {
 }
 
 {{#Services}}
-{{#DocLines}}
+{{#Codec.DocLines}}
 // {{{.}}}
-{{/DocLines}}
-type {{ServiceName}} struct {
+{{/Codec.DocLines}}
+type {{Codec.StructName}} struct {
     client *Client
     baseURL   string
 }
 
-{{#DocLines}}
+{{#Codec.DocLines}}
 // {{{.}}}
-{{/DocLines}}
-func (c *Client) {{ServiceName}}() *{{ServiceName}}{
-    return &{{ServiceName}}{client: c, baseURL: defaultHost}
+{{/Codec.DocLines}}
+func (c *Client) {{Codec.StructName}}() *{{Codec.StructName}}{
+    return &{{Codec.StructName}}{client: c, baseURL: defaultHost}
 }
 
 {{#Methods}}
-{{#DocLines}}
+{{#Codec.DocLines}}
 // {{{.}}}
-{{/DocLines}}
-func (s *{{Codec.ServiceName}}) {{Codec.Name}}(ctx context.Context, req *{{InputTypeName}}) (*{{OutputType.Codec.Name}}, error) {
+{{/Codec.DocLines}}
+func (s *{{Codec.ServiceStructName}}) {{Codec.Name}}(ctx context.Context, req *{{InputType.Codec.Name}}) (*{{OutputType.Codec.Name}}, error) {
     out := new({{OutputType.Codec.Name}})
     {{#PathInfo.Codec.HasBody}}
     reqBody, err := json.Marshal(req{{Codec.BodyAccessor}})

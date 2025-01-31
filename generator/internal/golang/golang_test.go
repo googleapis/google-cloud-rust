@@ -27,6 +27,13 @@ type goCaseConvertTest struct {
 	Expected string
 }
 
+func TestGo_GeneratedFiles(t *testing.T) {
+	files := generatedFiles()
+	if len(files) == 0 {
+		t.Errorf("expected a non-empty list of template files from generatedFiles()")
+	}
+}
+
 func TestGo_ToPascal(t *testing.T) {
 	var pascalConvertTests = []goCaseConvertTest{
 		{"foo_bar", "FooBar"},
