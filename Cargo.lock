@@ -1070,6 +1070,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-monitoring-v3"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-api",
+ "gcp-sdk-gax",
+ "gcp-sdk-rpc",
+ "gcp-sdk-type",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-resourcemanager-v3"
 version = "0.1.0"
 dependencies = [
