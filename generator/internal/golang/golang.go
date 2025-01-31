@@ -40,7 +40,7 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 		return err
 	}
 	provider := templatesProvider()
-	generatedFiles := language.WalkTemplatesDir(goTemplates, "templates/go")
+	generatedFiles := language.WalkTemplatesDir(goTemplates, "templates")
 	return language.GenerateFromRoot(outdir, data, provider, generatedFiles)
 }
 

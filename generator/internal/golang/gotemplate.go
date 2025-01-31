@@ -42,7 +42,8 @@ type templateData struct {
 }
 
 type serviceAnnotations struct {
-	Name        string
+	FieldName   string
+	StructName  string
 	DocLines    []string
 	DefaultHost string
 }
@@ -58,15 +59,14 @@ type messageAnnotation struct {
 }
 
 type methodAnnotation struct {
-	Name                string
-	NameToPascal        string
-	DocLines            []string
-	PathParams          []*api.Field
-	QueryParams         []*api.Field
-	BodyAccessor        string
-	ServiceNameToPascal string
-	ServiceNameToCamel  string
-	OperationInfo       *operationInfo
+	Name              string
+	NameToPascal      string
+	DocLines          []string
+	PathParams        []*api.Field
+	QueryParams       []*api.Field
+	BodyAccessor      string
+	ServiceStructName string
+	OperationInfo     *operationInfo
 }
 
 type pathInfoAnnotation struct {
@@ -196,7 +196,8 @@ func annotateService(s *api.Service, state *api.APIState) {
 		annotateMethod(m, s, state)
 	}
 	ann := &serviceAnnotations{
-		Name:        toPascal(s.Name),
+		FieldName:   strcase.ToLowerCamel(s.Name),
+		StructName:  s.Name,
 		DocLines:    formatDocComments(s.Documentation, state),
 		DefaultHost: s.DefaultHost,
 	}
@@ -231,13 +232,13 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	}
 	m.PathInfo.Codec = pathInfoAnnotation
 	annotation := &methodAnnotation{
-		BodyAccessor:        bodyAccessor(m),
-		DocLines:            formatDocComments(m.Documentation, state),
-		Name:                strcase.ToCamel(m.Name),
-		NameToPascal:        toPascal(m.Name),
-		PathParams:          language.PathParams(m, state),
-		QueryParams:         language.QueryParams(m, state),
-		ServiceNameToPascal: toPascal(s.Name),
+		BodyAccessor:      bodyAccessor(m),
+		DocLines:          formatDocComments(m.Documentation, state),
+		Name:              strcase.ToCamel(m.Name),
+		NameToPascal:      toPascal(m.Name),
+		PathParams:        language.PathParams(m, state),
+		QueryParams:       language.QueryParams(m, state),
+		ServiceStructName: s.Name,
 	}
 	if m.OperationInfo != nil {
 		annotation.OperationInfo = &operationInfo{
