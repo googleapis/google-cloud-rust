@@ -13,18 +13,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
-{{#HasServices}}
+{{/Codec.BoilerPlate}}
+{{#Codec.HasServices}}
 {{! TODO(#742) - remove this workaround once the bug is fixed }}
 #![allow(rustdoc::broken_intra_doc_links)]
 
 use crate::Result;
 use std::sync::Arc;
-{{/HasServices}}
-{{#Services}}
+{{/Codec.HasServices}}
+{{#Codec.Services}}
 
 /// Implements a client for the {{Codec.APITitle}}.
 ///
@@ -113,7 +113,7 @@ impl {{Codec.Name}} {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use {{PackageNamespace}}::model;
+    /// # use {{Method.Model.Codec.PackageNamespace}}::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<{{Codec.ResponseTypeInDocs}}, {{Codec.MetadataTypeInDocs}}>
     /// ) -> Result<{{Codec.ResponseTypeInDocs}}> {
@@ -131,7 +131,7 @@ impl {{Codec.Name}} {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use {{PackageNamespace}}::model;
+    /// # use {{Method.Model.Codec.PackageNamespace}}::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<{{Codec.ResponseTypeInDocs}}, {{Codec.MetadataTypeInDocs}}>
     /// ) -> Result<{{Codec.ResponseTypeInDocs}}> {
@@ -196,4 +196,4 @@ impl {{Codec.Name}} {
 
     {{/Codec.Methods}}
 }
-{{/Services}}
+{{/Codec.Services}}

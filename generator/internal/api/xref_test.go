@@ -104,3 +104,26 @@ func TestCrossReferenceMethod(t *testing.T) {
 		t.Errorf("mismatched output type, got=%v, want=%v", method.OutputType, response)
 	}
 }
+
+func TestCrossReferenceService(t *testing.T) {
+	service := &Service{
+		Name: "Service",
+		ID:   ".test.Service",
+	}
+	mixin := &Service{
+		Name: "Mixin",
+		ID:   ".external.Mixin",
+	}
+
+	model := NewTestAPI([]*Message{}, []*Enum{}, []*Service{service})
+	model.State.ServiceByID[mixin.ID] = mixin
+	if err := CrossReference(model); err != nil {
+		t.Fatal(err)
+	}
+	if service.Model != model {
+		t.Errorf("mismatched model, got=%v, want=%v", service.Model, model)
+	}
+	if mixin.Model != model {
+		t.Errorf("mismatched model, got=%v, want=%v", mixin.Model, model)
+	}
+}

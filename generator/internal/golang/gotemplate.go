@@ -24,10 +24,7 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
-type templateData struct {
-	Name              string
-	Title             string
-	Description       string
+type modelAnnotations struct {
 	PackageName       string
 	SourcePackageName string
 	HasServices       bool
@@ -35,9 +32,6 @@ type templateData struct {
 	BoilerPlate       []string
 	Imports           []string
 	DefaultHost       string
-	Services          []*api.Service
-	Messages          []*api.Message
-	Enums             []*api.Enum
 	GoPackage         string
 }
 
@@ -105,11 +99,11 @@ type enumValueAnnotation struct {
 	EnumType string
 }
 
-// newTemplateData creates a struct used as input for Mustache templates.
+// annotateModel creates a struct used as input for Mustache templates.
 // Fields and methods defined in this struct directly correspond to Mustache
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
-func newTemplateData(model *api.API, options map[string]string) (*templateData, error) {
+func annotateModel(model *api.API, options map[string]string) (*modelAnnotations, error) {
 	var (
 		sourceSpecificationPackageName string
 		packageNameOverride            string
@@ -153,10 +147,7 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 	for _, s := range model.Services {
 		annotateService(s, model.State)
 	}
-	data := &templateData{
-		Name:              model.Name,
-		Title:             model.Title,
-		Description:       model.Description,
+	ann := &modelAnnotations{
 		PackageName:       modelPackageName(model, packageNameOverride),
 		SourcePackageName: sourceSpecificationPackageName,
 		HasServices:       len(model.Services) > 0,
@@ -171,20 +162,11 @@ func newTemplateData(model *api.API, options map[string]string) (*templateData, 
 			}
 			return ""
 		}(),
-		Services:  model.Services,
-		Messages:  model.Messages,
-		Enums:     model.Enums,
 		GoPackage: packageName,
 	}
 
-	for _, s := range data.Services {
-		for _, method := range s.Methods {
-			if m, ok := model.State.MessageByID[method.InputTypeID]; ok {
-				method.InputType = m
-			}
-		}
-	}
-	return data, nil
+	model.Codec = ann
+	return ann, nil
 }
 
 func annotateService(s *api.Service, state *api.APIState) {

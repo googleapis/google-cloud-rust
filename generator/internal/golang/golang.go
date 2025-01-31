@@ -35,12 +35,12 @@ type goImport struct {
 }
 
 func Generate(model *api.API, outdir string, options map[string]string) error {
-	data, err := newTemplateData(model, options)
+	_, err := annotateModel(model, options)
 	if err != nil {
 		return err
 	}
 	provider := templatesProvider()
-	return language.GenerateFromRoot(outdir, data, provider, generatedFiles())
+	return language.GenerateFromRoot(outdir, model, provider, generatedFiles())
 }
 
 func generatedFiles() []language.GeneratedFile {

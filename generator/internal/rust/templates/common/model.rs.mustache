@@ -13,10 +13,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 }}
-// Copyright {{CopyrightYear}} Google LLC
-{{#BoilerPlate}}
+// Copyright {{Codec.CopyrightYear}} Google LLC
+{{#Codec.BoilerPlate}}
 //{{{.}}}
-{{/BoilerPlate}}
+{{/Codec.BoilerPlate}}
 
 {{! Google APIs often use angle brackets for <PLACEHOLDERS>, rustdoc does not like those. }}
 {{! We use explicit links because it is easier to generate the code with them. }}
@@ -26,9 +26,9 @@ limitations under the License.
 {{! We disable the standard prelude to avoid clashes with generated types. }}
 #![no_implicit_prelude]
 extern crate std;
-{{#ExternPackages}}
+{{#Codec.ExternPackages}}
 extern crate {{.}};
-{{/ExternPackages}}
+{{/Codec.ExternPackages}}
 {{#Messages}}
 {{> message}}
 {{/Messages}}

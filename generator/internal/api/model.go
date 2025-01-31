@@ -59,6 +59,8 @@ type API struct {
 	Messages []*Message
 	// Enums
 	Enums []*Enum
+	// Language specific annotations
+	Codec any
 
 	// State contains helpful information that can be used when generating
 	// clients.
@@ -92,6 +94,9 @@ type Service struct {
 	DefaultHost string
 	// The Protobuf package this service belongs to.
 	Package string
+	// The model this service belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Model *API
 	// Language specific annotations
 	Codec any
 }
@@ -121,6 +126,12 @@ type Method struct {
 	ServerSideStreaming bool
 	// For methods returning long-running operations
 	OperationInfo *OperationInfo
+	// The model this method belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Model *API
+	// The service this method belongs to, mustache templates use this field to
+	// navigate the data structure.
+	Service *Service
 	// Language specific annotations
 	Codec any
 }

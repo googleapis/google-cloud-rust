@@ -61,14 +61,13 @@ func Generate(model *api.API, outdir string, options map[string]string) error {
 	if err != nil {
 		return err
 	}
-	data, err := newTemplateData(model, codec, outdir)
-	if err != nil {
+	if _, err := annotateModel(model, codec, outdir); err != nil {
 		return err
 	}
 	provider := templatesProvider()
 	hasServices := len(model.State.ServiceByID) > 0
 	generatedFiles := generatedFiles(codec.generateModule, hasServices)
-	return language.GenerateFromRoot(outdir, data, provider, generatedFiles)
+	return language.GenerateFromRoot(outdir, model, provider, generatedFiles)
 }
 
 func newCodec(options map[string]string) (*codec, error) {
@@ -1552,7 +1551,7 @@ func hasStreamingRPC(model *api.API) bool {
 	return false
 }
 
-func addStreamingFeature(data *templateData, api *api.API, extraPackages []*packagez) {
+func addStreamingFeature(ann *modelAnnotations, api *api.API, extraPackages []*packagez) {
 	hasStreamingRPC := hasStreamingRPC(api)
 	if !hasStreamingRPC {
 		return
@@ -1575,8 +1574,8 @@ func addStreamingFeature(data *templateData, api *api.API, extraPackages []*pack
 	}
 	sort.Strings(deps)
 	features := fmt.Sprintf("unstable-stream = [%s]", strings.Join(deps, ", "))
-	data.HasFeatures = true
-	data.Features = append(data.Features, features)
+	ann.HasFeatures = true
+	ann.Features = append(ann.Features, features)
 }
 
 func generateMethod(m *api.Method) bool {
