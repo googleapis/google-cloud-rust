@@ -30,7 +30,8 @@
 /// The messages and enums that are part of this client library.
 pub mod model;
 
-pub(crate) use gax::Result;
+pub use gax::Result;
+pub use gax::error::Error;
 
 #[allow(rustdoc::invalid_html_tags)]
 #[allow(rustdoc::redundant_explicit_links)]
