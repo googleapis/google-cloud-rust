@@ -17,11 +17,14 @@ package sidekick
 import (
 	"errors"
 	"fmt"
+	"log/slog"
+	"os"
 	"os/exec"
 	"path"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
+	toml "github.com/pelletier/go-toml/v2"
 )
 
 func init() {
@@ -53,21 +56,26 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 	}
 
 	if err := runExternalCommand("cargo", "--version"); err != nil {
-		return fmt.Errorf("got an error trying to run `cargo --version`, please verify it is installed: %w", err)
+		return fmt.Errorf("got an error trying to run `cargo --version`, the instructions on https://www.rust-lang.org/learn/get-started may solve this problem: %w", err)
 	}
 	if err := runExternalCommand("taplo", "--version"); err != nil {
-		return fmt.Errorf("got an error trying to run `taplo --version`, please verify it is installed: %w", err)
+		return fmt.Errorf("got an error trying to run `taplo --version`, please install using `cargo install taplo-cli`: %w", err)
+	}
+	if err := runExternalCommand("typos", "--version"); err != nil {
+		return fmt.Errorf("got an error trying to run `typos --version`, please install using `cargo install typos-cli`: %w", err)
 	}
 	if err := runExternalCommand("git", "--version"); err != nil {
-		return fmt.Errorf("got an error trying to run `git --version`, please verify it is installed: %w", err)
+		return fmt.Errorf("got an error trying to run `git --version`, the instructions on https://github.com/git-guides/install-git may solve this problem: %w", err)
 	}
 
+	slog.Info("Preparing cargo workspace to get new package")
 	if err := runExternalCommand("cargo", "new", "--vcs", "none", "--lib", cmdLine.Output); err != nil {
 		return err
 	}
 	if err := runExternalCommand("taplo", "fmt", "Cargo.toml"); err != nil {
 		return err
 	}
+	slog.Info("Generating new library code and adding it to git")
 	if err := generate(rootConfig, cmdLine); err != nil {
 		return err
 	}
@@ -75,6 +83,28 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		return err
 	}
 	if err := runExternalCommand("git", "add", cmdLine.Output); err != nil {
+		return err
+	}
+	packagez, err := getPackageName(cmdLine.Output)
+	if err != nil {
+		return err
+	}
+	slog.Info("Generated new client library", "package", packagez)
+	slog.Info("Running `cargo test` on new client library")
+	if err := runExternalCommand("cargo", "test", "--package", packagez); err != nil {
+		return err
+	}
+	slog.Info("Running `cargo doc` on new client library")
+	if err := runExternalCommand("cargo", "doc", "--package", packagez); err != nil {
+		return err
+	}
+	slog.Info("Running `cargo clippy` on new client library")
+	if err := runExternalCommand("cargo", "clippy", "--package", packagez, "--", "--deny", "warnings"); err != nil {
+		return err
+	}
+	slog.Info("Running `typos` on new client library")
+	if err := runExternalCommand("cargo", "clippy", "--package", packagez, "--", "--deny", "warnings"); err != nil {
+		slog.Info("please manually add the typos to `.typos.toml` and fix the problem upstream")
 		return err
 	}
 
@@ -91,4 +121,25 @@ func runExternalCommand(c string, arg ...string) error {
 		return fmt.Errorf("%v: %v\n%s", cmd, err, output)
 	}
 	return nil
+}
+
+func getPackageName(output string) (string, error) {
+	cargo := CargoConfig{}
+	filename := path.Join(output, "Cargo.toml")
+	if contents, err := os.ReadFile(filename); err == nil {
+		err = toml.Unmarshal(contents, &cargo)
+		if err != nil {
+			return "", fmt.Errorf("error reading %s: %w", filename, err)
+		}
+	}
+	// Ignore errors reading the top-level file.
+	return cargo.Package.Name, nil
+}
+
+type CargoConfig struct {
+	Package CargoPackage // `toml:"package"`
+}
+
+type CargoPackage struct {
+	Name string // `toml:"name"`
 }
