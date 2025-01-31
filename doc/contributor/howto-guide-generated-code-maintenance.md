@@ -15,7 +15,8 @@ new branch in your fork:
 git checkout -b feat-websecurityscanner-generate-library
 ```
 
-Generate the library:
+This command will generate the library, add the library to Cargo and git, and
+run the necessary tests:
 
 ```bash
 go -C generator/ run ./cmd/sidekick rust-generate \
@@ -23,11 +24,9 @@ go -C generator/ run ./cmd/sidekick rust-generate \
     -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
 ```
 
-Compile and run the tests:
-
-```bash
-typos && cargo build && cargo test && cargo doc
-```
+Often we identify typos in the Protobuf comments. Add the typos to the ignore
+list on `.typos.toml` and fix the problem upstream. Do not treat this as a
+blocker.
 
 Commit all these changes and send a PR to merge them:
 
