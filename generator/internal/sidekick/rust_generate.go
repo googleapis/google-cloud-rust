@@ -103,7 +103,7 @@ func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
 		return err
 	}
 	slog.Info("Running `typos` on new client library")
-	if err := runExternalCommand("cargo", "clippy", "--package", packagez, "--", "--deny", "warnings"); err != nil {
+	if err := runExternalCommand("typos"); err != nil {
 		slog.Info("please manually add the typos to `.typos.toml` and fix the problem upstream")
 		return err
 	}
