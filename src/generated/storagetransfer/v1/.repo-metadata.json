@@ -1,0 +1,11 @@
+{
+    "api_id": "storagetransfer.googleapis.com",
+    "api_shortname": "storagetransfer",
+    "client_documentation": "https://docs.rs/gcp-sdk-storagetransfer-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Storage Transfer API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
