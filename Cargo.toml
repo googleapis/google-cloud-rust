@@ -46,6 +46,7 @@ members = [
   "src/generated/iam/credentials/v1",
   "src/generated/iam/v1",
   "src/generated/iam/v2",
+  "src/generated/logging/type",
   "src/generated/longrunning",
   "src/generated/monitoring/dashboard/v1",
   "src/generated/monitoring/metricsscope/v1",
