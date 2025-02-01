@@ -67,12 +67,15 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err != nil {
 		return err
 	}
-	if cmdLine.DryRun {
-		return nil
-	}
 	api.LabelRecursiveFields(model)
 	if err := api.CrossReference(model); err != nil {
 		return err
+	}
+	if title, ok := config.Source["title-override"]; ok {
+		model.Title = title
+	}
+	if cmdLine.DryRun {
+		return nil
 	}
 
 	switch config.General.Language {
