@@ -60,5 +60,5 @@ intital = "intital"
 # src/generated/type say "Requestor", `typos` recommends `Requester`.
 requestor = "requestor"
 # src/generated/storagetransfer has typoes, they need to be fixed upstream.
-ovewritten = "ovewritten"
+ovewritten   = "ovewritten"
 combintation = "combintation"
