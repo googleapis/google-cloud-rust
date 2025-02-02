@@ -125,6 +125,7 @@ func makeAPIForOpenAPI(serviceConfig *serviceconfig.Service, model *libopenapi.D
 		return nil, err
 	}
 	updateMethodPagination(result)
+	updateAutoPopulatedFields(serviceConfig, result)
 	return result, nil
 }
 
@@ -341,6 +342,9 @@ func makeRequestMessage(a *api.API, operation *v3.Operation, packageName, templa
 			Typez:         typez,
 			TypezID:       typezID,
 			Synthetic:     true,
+		}
+		if typez == api.STRING_TYPE && schema.Format == "uuid" && !field.Optional {
+			field.AutoPopulated = true
 		}
 		addFieldIfNew(message, field)
 	}
@@ -646,6 +650,8 @@ func scalarTypeForNumberFormats(messageName, name string, schema *base.Schema) (
 func scalarTypeForStringFormats(messageName, name string, schema *base.Schema) (api.Typez, string, error) {
 	switch schema.Format {
 	case "":
+		return api.STRING_TYPE, "string", nil
+	case "uuid":
 		return api.STRING_TYPE, "string", nil
 	case "byte":
 		return api.BYTES_TYPE, "bytes", nil

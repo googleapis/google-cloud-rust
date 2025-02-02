@@ -139,3 +139,29 @@ func parseDefaultHost(m proto.Message) string {
 	}
 	return defaultHost
 }
+
+func protobufIsAutoPopulated(field *descriptorpb.FieldDescriptorProto) bool {
+	if field.GetType() != descriptorpb.FieldDescriptorProto_TYPE_STRING {
+		return false
+	}
+	extensionId := annotations.E_FieldInfo
+	if !proto.HasExtension(field.GetOptions(), extensionId) {
+		return false
+	}
+	fieldInfo := proto.GetExtension(field.GetOptions(), extensionId).(*annotations.FieldInfo)
+	if fieldInfo.GetFormat() != annotations.FieldInfo_UUID4 {
+		return false
+	}
+	extensionId = annotations.E_FieldBehavior
+	if !proto.HasExtension(field.GetOptions(), extensionId) {
+		return false
+	}
+	fieldBehavior := proto.GetExtension(field.GetOptions(), extensionId).([]annotations.FieldBehavior)
+	for _, b := range fieldBehavior {
+		if b == annotations.FieldBehavior_REQUIRED {
+			return true
+		}
+	}
+
+	return false
+}

@@ -22,6 +22,9 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"github.com/googleapis/google-cloud-rust/generator/internal/sample"
+	"google.golang.org/genproto/googleapis/api/annotations"
+	"google.golang.org/genproto/googleapis/api/serviceconfig"
+	"google.golang.org/protobuf/types/known/apipb"
 )
 
 func TestOpenAPI_AllOf(t *testing.T) {
@@ -917,6 +920,110 @@ func TestOpenAPI_Pagination(t *testing.T) {
 			TypezID:  "..Foo",
 			JSONName: "secrets",
 			Repeated: true,
+		},
+	})
+}
+
+func TestOpenAPI_AutoPopulated(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "test.TestService",
+			},
+		},
+		Publishing: &annotations.Publishing{
+			MethodSettings: []*annotations.MethodSettings{
+				{
+					Selector: ".test.TestService.CreateFoo",
+					AutoPopulatedFields: []string{
+						"requestId",
+						"notRequestIdOptional",
+						"notRequestIdMissingFormat",
+					},
+				},
+			},
+		},
+	}
+
+	contents, err := os.ReadFile("testdata/auto_populated_openapi.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	model, err := createDocModel(contents)
+	if err != nil {
+		t.Fatal(err)
+	}
+	test, err := makeAPIForOpenAPI(serviceConfig, model)
+	if err != nil {
+		t.Fatalf("Error in makeAPI() %q", err)
+	}
+
+	message, ok := test.State.MessageByID[".test.CreateFooRequest"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.CreateFooRequest")
+	}
+	checkMessage(t, message, &api.Message{
+		Name:          "CreateFooRequest",
+		ID:            ".test.CreateFooRequest",
+		Package:       "test",
+		Documentation: "The request message for CreateFoo.",
+		Fields: []*api.Field{
+			{
+				Name:          "project",
+				JSONName:      "project",
+				Documentation: "The `{project}` component of the target path.\n\nThe full target path will be in the form `/v1/projects/{project}/foos`.",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+			},
+			{
+				Name:          "fooId",
+				JSONName:      "fooId",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+			},
+			{
+				Name:          "requestId",
+				JSONName:      "requestId",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				Synthetic:     true,
+				AutoPopulated: true,
+			},
+			{
+				Name:          "notRequestIdOptional",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				JSONName:      "notRequestIdOptional",
+				Synthetic:     true,
+				Optional:      true,
+			},
+			{
+				Name:          "notRequestIdMissingFormat",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				JSONName:      "notRequestIdMissingFormat",
+				Synthetic:     true,
+			},
+			{
+				Name:          "notRequestIdMissingServiceConfig",
+				Documentation: "Test-only Description",
+				Typez:         api.STRING_TYPE,
+				TypezID:       "string",
+				JSONName:      "notRequestIdMissingServiceConfig",
+				Synthetic:     true,
+			},
 		},
 	})
 }

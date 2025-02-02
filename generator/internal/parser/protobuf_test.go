@@ -1331,6 +1331,144 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 	})
 }
 
+func TestProtobuf_AutoPopulated(t *testing.T) {
+	var serviceConfig = &serviceconfig.Service{
+		Name:  "test.googleapis.com",
+		Title: "Test API",
+		Documentation: &serviceconfig.Documentation{
+			Summary:  "Used for testing generation.",
+			Overview: "Test Overview",
+		},
+		Apis: []*apipb.Api{
+			{
+				Name: "test.googleapis.com.TestService",
+			},
+		},
+		Publishing: &annotations.Publishing{
+			MethodSettings: []*annotations.MethodSettings{
+				{
+					Selector: ".test.TestService.CreateFoo",
+					AutoPopulatedFields: []string{
+						"request_id",
+						"request_id_optional",
+						// Intentionally add some fields that are not
+						// auto-populated to test the other conditions.
+						"not_request_id_bad_type",
+						"not_request_id_missing_field_behavior",
+						"not_request_id_bad_field_behavior",
+						"not_request_id_missing_field_info",
+						"not_request_id_missing_field_info_format",
+						"not_request_id_bad_field_info_format",
+					},
+				},
+			},
+		},
+	}
+	test := makeAPIForProtobuf(serviceConfig, newTestCodeGeneratorRequest(t, "auto_populated.proto"))
+	for _, service := range test.Services {
+		if service.ID == ".google.longrunning.Operations" {
+			t.Fatalf("Mixin %s should not be in list of services to generate", service.ID)
+		}
+	}
+	message, ok := test.State.MessageByID[".test.CreateFooRequest"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.CreateFooRequest")
+	}
+	checkMessage(t, message, &api.Message{
+		Name:          "CreateFooRequest",
+		Package:       "test",
+		ID:            ".test.CreateFooRequest",
+		Documentation: "A request to create a `Foo` resource.",
+		Fields: []*api.Field{
+			{
+				Name:          "parent",
+				JSONName:      "parent",
+				ID:            ".test.CreateFooRequest.parent",
+				Documentation: "Required. The resource name of the project.",
+				Typez:         api.STRING_TYPE,
+			},
+			{
+				Name:          "foo_id",
+				JSONName:      "fooId",
+				ID:            ".test.CreateFooRequest.foo_id",
+				Documentation: "Required. This must be unique within the project.",
+				Typez:         api.STRING_TYPE,
+			},
+			{
+				Name:          "foo",
+				JSONName:      "foo",
+				ID:            ".test.CreateFooRequest.foo",
+				Documentation: "Required. A [Foo][test.Foo] with initial field values.",
+				Typez:         api.MESSAGE_TYPE,
+				TypezID:       ".test.Foo",
+				Optional:      true,
+			},
+			{
+				Name:     "request_id",
+				JSONName: "requestId",
+				ID:       ".test.CreateFooRequest.request_id",
+				Documentation: "Required. This is an auto-populated field. The remaining fields almost\n" +
+					"meet the requirements to be auto-populated, but fail for the reasons\n" +
+					"implied by their name.",
+				Typez:         api.STRING_TYPE,
+				AutoPopulated: true,
+			},
+			{
+				Name:          "request_id_optional",
+				ID:            ".test.CreateFooRequest.request_id_optional",
+				Typez:         api.STRING_TYPE,
+				JSONName:      "requestIdOptional",
+				Optional:      true,
+				AutoPopulated: true,
+			},
+
+			{
+				Name:     "not_request_id_bad_type",
+				ID:       ".test.CreateFooRequest.not_request_id_bad_type",
+				Typez:    api.BYTES_TYPE,
+				JSONName: "notRequestIdBadType",
+			},
+			{
+				Name:     "not_request_id_missing_field_behavior",
+				ID:       ".test.CreateFooRequest.not_request_id_missing_field_behavior",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdMissingFieldBehavior",
+			},
+			{
+				Name:     "not_request_id_bad_field_behavior",
+				ID:       ".test.CreateFooRequest.not_request_id_bad_field_behavior",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdBadFieldBehavior",
+			},
+			{
+				Name:     "not_request_id_missing_field_info",
+				ID:       ".test.CreateFooRequest.not_request_id_missing_field_info",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdMissingFieldInfo",
+			},
+			{
+				Name:     "not_request_id_missing_field_info_format",
+				ID:       ".test.CreateFooRequest.not_request_id_missing_field_info_format",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdMissingFieldInfoFormat",
+			},
+			{
+				Name:     "not_request_id_bad_field_info_format",
+				ID:       ".test.CreateFooRequest.not_request_id_bad_field_info_format",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdBadFieldInfoFormat",
+			},
+			{
+				Name:     "not_request_id_missing_service_config",
+				ID:       ".test.CreateFooRequest.not_request_id_missing_service_config",
+				Typez:    api.STRING_TYPE,
+				JSONName: "notRequestIdMissingServiceConfig",
+			},
+		},
+	})
+
+}
+
 func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGeneratorRequest {
 	t.Helper()
 	options := map[string]string{
