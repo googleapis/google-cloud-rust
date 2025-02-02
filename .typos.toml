@@ -34,6 +34,10 @@ implementors = "implementors"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/cloud/accessapproval/v1, these are intentional and expected
+# to remain as spelled forever.
+OCE = "OCE"
+NAM = "NAM"
 # src/generated/bigtable/admin/v2, this may be a typo or not, but in any case,
 # it cannot be changed: it is the name of an IAM role.
 encrypter = "encrypter"
