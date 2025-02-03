@@ -44,16 +44,7 @@ jobs:
       - run: go test
         working-directory: generator/internal/golang
       - name: Generate Go API
-        run: >-
-          go run cmd/sidekick/main.go generate -project-root=..
-            -specification-format=openapi
-            -specification-source=generator/testdata/openapi/secretmanager_openapi_v1.json
-            -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml
-            -codec-option=go-package-name=secretmanager
-            -codec-option=package:wkt=package=types,path=types,source=google.protobuf
-            -codec-option=package:gax=package=gax,path=gax,feature=unstable-sdk-client
-            -language=go
-            -output=generator/testdata/go/openapi/golden
+        run: go run cmd/sidekick/main.go generate -project-root=.. -specification-format=openapi -specification-source=generator/testdata/openapi/secretmanager_openapi_v1.json -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml -codec-option=go-package-name=secretmanager -codec-option=package:wkt=package=types,path=types,source=google.protobuf -codec-option=package:gax=package=gax,path=gax,feature=unstable-sdk-client -language=go -output=generator/testdata/go/openapi/golden
 
 # TODO(devoncarew): Commented out as the generated code does not currently build.
 # - name: Validate generation
