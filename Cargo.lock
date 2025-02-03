@@ -1001,6 +1001,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-kms-inventory-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-kms-v1",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-kms-v1"
 version = "0.2.0"
 dependencies = [
