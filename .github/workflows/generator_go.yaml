@@ -1,0 +1,59 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: "Client Generator: Go"
+permissions: read-all
+
+on: [push, pull_request]
+
+jobs:
+  generator-build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: generator
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install protoc
+        run: |
+          set -e
+          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
+          cd /usr/local
+          sudo unzip -x /tmp/protoc.zip
+          protoc --version
+      - run: go install golang.org/x/tools/cmd/goimports@latest
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - run: go get
+      - run: go test
+        working-directory: internal/golang
+
+      - name: Generate Go API
+        run: >-
+          go run cmd/sidekick/main.go generate -project-root=..
+            -specification-format=openapi
+            -specification-source=generator/testdata/openapi/secretmanager_openapi_v1.json
+            -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml
+            -codec-option=go-package-name=secretmanager
+            -codec-option=package:wkt=package=types,path=types,source=google.protobuf
+            -codec-option=package:gax=package=gax,path=gax,feature=unstable-sdk-client
+            -language=go
+            -output=generator/testdata/go/openapi/golden
+
+      # TODO(devoncarew): Commented out as the generated code does not currently build.
+      # - name: Validate generation
+      #   working-directory: testdata/rust/openapi/golden
+      #   run: go build

@@ -15,6 +15,9 @@
 package golang
 
 import (
+	"io/fs"
+	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -170,5 +173,24 @@ func TestGo_ValidateMessageMismatch(t *testing.T) {
 		[]*api.Service{{Name: "s1", Package: "p1"}, {Name: "s2", Package: "p2"}})
 	if err := validateModel(test, "p1"); err == nil {
 		t.Errorf("expected an error in API validation got=%s", sourceSpecificationPackageName)
+	}
+}
+
+func TestGo_TemplatesAvailable(t *testing.T) {
+	var count = 0
+	fs.WalkDir(goTemplates, "templates", func(path string, d fs.DirEntry, err error) error {
+		if filepath.Ext(path) != ".mustache" {
+			return nil
+		}
+		if strings.Count(d.Name(), ".") == 1 {
+			// skip partials
+			return nil
+		}
+		count++
+		return nil
+	})
+
+	if count == 0 {
+		t.Errorf("no go templates found")
 	}
 }
