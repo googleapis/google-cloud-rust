@@ -26,7 +26,7 @@ extra-protos-extracted-name = 'gapic-showcase-0.35.5'
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.2.0-rc1"
+version = "0.2.0-rc2"
 # The default release level for all crates.
 release-level = "preview"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
@@ -40,17 +40,17 @@ release-level = "preview"
 'package:reqwest'     = 'used-if=services,package=reqwest,version=0.12,feature=json'
 'package:serde_json'  = 'used-if=services,package=serde_json,version=1'
 'package:tracing'     = 'used-if=services,package=tracing,version=0.1'
-'package:gax'         = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.2.0-rc1'
+'package:gax'         = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.2.0-rc2'
 # Only used if LROs are present
-'package:lro' = 'used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0-rc1'
+'package:lro' = 'used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0-rc2'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
 # OTOH, the only case where this is not used is a crate without any messages, i.e., just enums.
-'package:wkt' = 'force-used=true,package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.1-rc1'
+'package:wkt' = 'force-used=true,package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.1-rc2'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
-'package:api'         = 'package=gcp-sdk-api,source=google.api,path=src/generated/api/types,version=0.2.0-rc1'
-'package:gtype'       = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.2.0-rc1'
-'package:iam_v1'      = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2.0-rc1'
-'package:location'    = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2.0-rc1'
-'package:longrunning' = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2.0-rc1'
-'package:rpc'         = 'package=gcp-sdk-rpc,source=google.rpc,path=src/generated/rpc,version=0.2.0-rc1'
+'package:api'         = 'package=gcp-sdk-api,source=google.api,path=src/generated/api/types,version=0.2.0-rc2'
+'package:gtype'       = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.2.0-rc2'
+'package:iam_v1'      = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2.0-rc2'
+'package:location'    = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2.0-rc2'
+'package:longrunning' = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2.0-rc2'
+'package:rpc'         = 'package=gcp-sdk-rpc,source=google.rpc,path=src/generated/rpc,version=0.2.0-rc2'

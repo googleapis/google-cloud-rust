@@ -16,7 +16,7 @@
 
 [package]
 name                 = "secretmanager-openapi-v1"
-version              = "0.2.0-rc1"
+version              = "0.2.0-rc2"
 description          = "Google Cloud Client Libraries for Rust - Secret Manager API"
 edition.workspace    = true
 authors.workspace    = true
@@ -29,14 +29,14 @@ publish              = false
 [dependencies]
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
-gax        = { version = "0.2.0-rc1", path = "../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
+gax        = { version = "0.2.0-rc2", path = "../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 lazy_static = { version = "1" }
 reqwest    = { version = "0.12", features = ["json"] }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.1.1-rc1", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
+wkt        = { version = "0.1.1-rc2", path = "../../../src/wkt", package = "gcp-sdk-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream"]
