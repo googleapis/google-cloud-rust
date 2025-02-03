@@ -38,6 +38,8 @@ jobs:
       - name: Display rustc version
         run: rustc --version
       - run: cargo test
+      - name: Test gax with features disabled
+        run: cargo test -p gcp-sdk-gax
   coverage:
     runs-on: ubuntu-24.04
     strategy:
@@ -86,6 +88,9 @@ jobs:
       - run: cargo clippy -- --deny warnings
       - run: cargo fmt
       - run: cargo doc
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+      - run: cargo doc -p gcp-sdk-gax
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: git diff --exit-code
