@@ -30,7 +30,7 @@ wkt                = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
 iam_v1             = { path = "../../src/generated/iam/v1", package = "gcp-sdk-iam-v1" }
 loc                = { path = "../../src/generated/cloud/location", package = "gcp-sdk-location" }
 longrunning        = { path = "../../src/generated/longrunning", package = "gcp-sdk-longrunning" }
-bytes              = "1.8.0"
+bytes              = "1.10.0"
 crc32c             = "0.6.8"
 futures            = "0.3.31"
 rand               = "0.8.5"
