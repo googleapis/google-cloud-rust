@@ -185,7 +185,7 @@ impl PollingPolicy for Aip194Strict {
         }
 
         if let Some(http) = error.as_inner::<crate::error::HttpError>() {
-            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
+            return if http.status_code() == reqwest::StatusCode::SERVICE_UNAVAILABLE {
                 LoopState::Continue(error)
             } else {
                 LoopState::Permanent(error)
