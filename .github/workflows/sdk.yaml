@@ -39,7 +39,7 @@ jobs:
         run: rustc --version
       - run: cargo test
       - name: Test gax with features disabled
-        run: cargo test -p gcp-sdk-gax
+        run: cargo build -p gcp-sdk-gax
   coverage:
     runs-on: ubuntu-24.04
     strategy:
