@@ -783,6 +783,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-assuredworkloads-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-auth"
 version = "0.1.1"
 dependencies = [
