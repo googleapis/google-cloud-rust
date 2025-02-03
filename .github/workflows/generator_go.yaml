@@ -55,5 +55,5 @@ jobs:
 
       # TODO(devoncarew): Commented out as the generated code does not currently build.
       # - name: Validate generation
-      #   working-directory: testdata/rust/openapi/golden
+      #   working-directory: testdata/go/openapi/golden
       #   run: go build
