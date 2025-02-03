@@ -14,14 +14,12 @@
 
 name: "Client Generator: Go"
 permissions: read-all
-
 # Run CI on pushes to the main branch and on PRs against main.
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
-
+    branches: [main]
 jobs:
   generator-build:
     runs-on: ubuntu-24.04
@@ -45,10 +43,10 @@ jobs:
       - run: go get
       - run: go test
         working-directory: generator/internal/golang
-
       - name: Generate Go API
         run: >-
           go run cmd/sidekick/main.go generate -project-root=..
+
             -specification-format=openapi
             -specification-source=generator/testdata/openapi/secretmanager_openapi_v1.json
             -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml
@@ -58,7 +56,7 @@ jobs:
             -language=go
             -output=generator/testdata/go/openapi/golden
 
-      # TODO(devoncarew): Commented out as the generated code does not currently build.
-      # - name: Validate generation
-      #   working-directory: testdata/go/openapi/golden
-      #   run: go build
+# TODO(devoncarew): Commented out as the generated code does not currently build.
+# - name: Validate generation
+#   working-directory: testdata/go/openapi/golden
+#   run: go build
