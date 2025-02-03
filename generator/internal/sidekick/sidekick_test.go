@@ -241,6 +241,29 @@ func TestRustBootstrapWkt(t *testing.T) {
 	}
 }
 
+func TestRustOverrideTitle(t *testing.T) {
+	cmdLine := &CommandLine{
+		Command:             []string{},
+		ProjectRoot:         projectRoot,
+		SpecificationFormat: "protobuf",
+		SpecificationSource: "google/type",
+		Language:            "rust",
+		Source: map[string]string{
+			"googleapis-root": googleapisRoot,
+			"title-override":  "Replace or Provide Custom Title",
+		},
+		Output: path.Join(testdataDir, "rust/protobuf/golden/override/type"),
+		Codec: map[string]string{
+			"copyright-year":        "2025",
+			"package-name-override": "google-cloud-test-only",
+		},
+	}
+	cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})
+	if err := runCommand(cmdGenerate, cmdLine); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestGoFromProtobuf(t *testing.T) {
 	var outDir = fmt.Sprintf("%s/go/protobuf/golden", testdataDir)
 	type TestConfig struct {
