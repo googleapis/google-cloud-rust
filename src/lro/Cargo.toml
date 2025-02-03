@@ -31,7 +31,7 @@ wkt         = { version = "0.1.1-rc2", path = "../wkt", package = "gcp-sdk-wkt" 
 serde       = "1.0.216"
 tokio       = { version = "1.42", features = ["time"] }
 futures     = { version = "0.3.31", optional = true }
-pin-project = { version = "1.1.8", optional = true }
+pin-project = { version = "1.1.9", optional = true }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
