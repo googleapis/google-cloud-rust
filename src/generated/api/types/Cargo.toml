@@ -16,7 +16,7 @@
 
 [package]
 name                 = "gcp-sdk-api"
-version              = "0.1.0"
+version              = "0.2.0-rc1"
 description          = "Google Cloud Client Libraries for Rust - Service Config API"
 edition.workspace    = true
 authors.workspace    = true
@@ -29,4 +29,4 @@ categories.workspace = true
 bytes      = { version = "1", features = ["serde"] }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-wkt        = { version = "0.1", path = "../../../../src/wkt", package = "gcp-sdk-wkt" }
+wkt        = { version = "0.1.1-rc1", path = "../../../../src/wkt", package = "gcp-sdk-wkt" }
