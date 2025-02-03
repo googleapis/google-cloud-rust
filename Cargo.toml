@@ -26,6 +26,7 @@ members = [
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/apigateway/v1",
+  "src/generated/cloud/apigeeconnect/v1",
   "src/generated/cloud/common",
   "src/generated/cloud/functions/v2",
   "src/generated/cloud/kms/inventory/v1",
