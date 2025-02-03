@@ -240,3 +240,94 @@ func Test_RustEnumAnnotations(t *testing.T) {
 		t.Errorf("mismatch in enum annotations (-want, +got)\n:%s", diff)
 	}
 }
+
+func Test_JsonNameAnnotations(t *testing.T) {
+	parent := &api.Field{
+		Name:     "parent",
+		JSONName: "parent",
+		ID:       ".test.Request.parent",
+		Typez:    api.STRING_TYPE,
+	}
+	publicKey := &api.Field{
+		Name:     "public_key",
+		JSONName: "public_key",
+		ID:       ".test.Request.public_key",
+		Typez:    api.STRING_TYPE,
+	}
+	readTime := &api.Field{
+		Name:     "read_time",
+		JSONName: "readTime",
+		ID:       ".test.Request.read_time",
+		Typez:    api.INT32_TYPE,
+	}
+	message := &api.Message{
+		Name:          "Request",
+		Package:       "test",
+		ID:            ".test.Request",
+		Documentation: "A test message.",
+		Fields:        []*api.Field{parent, publicKey, readTime},
+	}
+	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
+	api.CrossReference(model)
+	codec, err := newCodec(map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = annotateModel(model, codec, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:     "parent",
+		SetterName:    "parent",
+		BranchName:    "Parent",
+		FQMessageName: "crate::model::Request",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		},
+		FieldType:          "std::string::String",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = builder.query(&[("parent", &req.parent)]);`,
+		KeyType:            "",
+		ValueType:          "",
+	}, parent.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:     "public_key",
+		SetterName:    "public_key",
+		BranchName:    "PublicKey",
+		FQMessageName: "crate::model::Request",
+		DocLines:      nil,
+		Attributes: []string{
+			`#[serde(rename = "public_key")]`,
+			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		},
+		FieldType:          "std::string::String",
+		PrimitiveFieldType: "std::string::String",
+		AddQueryParameter:  `let builder = builder.query(&[("public_key", &req.public_key)]);`,
+		KeyType:            "",
+		ValueType:          "",
+	}, publicKey.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+
+	if diff := cmp.Diff(&fieldAnnotations{
+		FieldName:          "read_time",
+		SetterName:         "read_time",
+		BranchName:         "ReadTime",
+		FQMessageName:      "crate::model::Request",
+		DocLines:           nil,
+		Attributes:         []string{},
+		FieldType:          "i32",
+		PrimitiveFieldType: "i32",
+		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
+		KeyType:            "",
+		ValueType:          "",
+	}, readTime.Codec); diff != "" {
+		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
+	}
+}

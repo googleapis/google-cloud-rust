@@ -621,6 +621,40 @@ func TestProtobuf_WellKnownTypeFields(t *testing.T) {
 	})
 }
 
+func TestProtobuf_JsonName(t *testing.T) {
+	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "json_name.proto"))
+	message, ok := test.State.MessageByID[".test.Request"]
+	if !ok {
+		t.Fatalf("Cannot find message %s in API State", ".test.Request")
+	}
+	checkMessage(t, message, &api.Message{
+		Name:          "Request",
+		Package:       "test",
+		ID:            ".test.Request",
+		Documentation: "A test message.",
+		Fields: []*api.Field{
+			{
+				Name:     "parent",
+				JSONName: "parent",
+				ID:       ".test.Request.parent",
+				Typez:    api.STRING_TYPE,
+			},
+			{
+				Name:     "public_key",
+				JSONName: "public_key",
+				ID:       ".test.Request.public_key",
+				Typez:    api.STRING_TYPE,
+			},
+			{
+				Name:     "read_time",
+				JSONName: "readTime",
+				ID:       ".test.Request.read_time",
+				Typez:    api.INT32_TYPE,
+			},
+		},
+	})
+}
+
 func TestProtobuf_MapFields(t *testing.T) {
 	test := makeAPIForProtobuf(nil, newTestCodeGeneratorRequest(t, "map_fields.proto"))
 	message, ok := test.State.MessageByID[".test.Fake"]
