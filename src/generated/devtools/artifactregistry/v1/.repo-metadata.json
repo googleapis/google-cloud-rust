@@ -1,0 +1,11 @@
+{
+    "api_id": "artifactregistry.googleapis.com",
+    "api_shortname": "artifactregistry",
+    "client_documentation": "https://docs.rs/gcp-sdk-devtools-artifactregistry-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Artifact Registry API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
