@@ -14,7 +14,7 @@
 
 [package]
 name                 = "gcp-sdk-lro"
-version              = "0.1.0-rc1"
+version              = "0.1.0-rc2"
 description          = "Google Cloud Client Libraries for Rust - LRO Helpers"
 edition.workspace    = true
 authors.workspace    = true
@@ -24,10 +24,10 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-gax         = { version = "0.2.0-rc1", path = "../gax", package = "gcp-sdk-gax" }
-longrunning = { version = "0.2.0-rc1", path = "../generated/longrunning", package = "gcp-sdk-longrunning" }
-rpc         = { version = "0.2.0-rc1", path = "../generated/rpc", package = "gcp-sdk-rpc" }
-wkt         = { version = "0.1.1-rc1", path = "../wkt", package = "gcp-sdk-wkt" }
+gax         = { version = "0.2.0-rc2", path = "../gax", package = "gcp-sdk-gax" }
+longrunning = { version = "0.2.0-rc2", path = "../generated/longrunning", package = "gcp-sdk-longrunning" }
+rpc         = { version = "0.2.0-rc2", path = "../generated/rpc", package = "gcp-sdk-rpc" }
+wkt         = { version = "0.1.1-rc2", path = "../wkt", package = "gcp-sdk-wkt" }
 serde       = "1.0.216"
 tokio       = { version = "1.42", features = ["time"] }
 futures     = { version = "0.3.31", optional = true }
