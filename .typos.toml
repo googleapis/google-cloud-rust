@@ -55,6 +55,8 @@ permamently = "permamently"
 revison     = "revison"
 # src/generated/cloud/sql/v1 has a typo, needs to be fixed upstream.
 corresponsing = "corresponsing"
+# src/generated/datastore/admin/v1 has a typo, needs to be fixed upstream.
+Ths = "Ths"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
 maching = "maching"
 # src/generated/privacy/dlp/v2 has a typo, needs to be fixed upstream.
