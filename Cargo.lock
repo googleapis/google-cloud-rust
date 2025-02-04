@@ -1299,6 +1299,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-rpc-context"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "gcp-sdk-run-v2"
 version = "0.2.0"
 dependencies = [
