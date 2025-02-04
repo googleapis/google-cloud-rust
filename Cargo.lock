@@ -3556,6 +3556,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "user-guide-samples"
+version = "0.0.0"
+dependencies = [
+ "gcp-sdk-devtools-artifactregistry-v1",
+ "gcp-sdk-kms-v1",
+ "gcp-sdk-secretmanager-v1",
+ "tokio",
+]
+
+[[package]]
 name = "utf16_iter"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"

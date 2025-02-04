@@ -67,6 +67,35 @@ jobs:
         with:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
+  docs:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['1.84']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ matrix.rust-version }}
+          cargo install mdbook
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustc --version
+      - run: mdbook build guide
+      - run: mdbook test guide
+      - run: cargo doc
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+      - run: cargo doc -p gcp-sdk-gax
+        env:
+          RUSTDOCFLAGS: "-D warnings"
   lint:
     runs-on: ubuntu-24.04
     strategy:
@@ -87,12 +116,6 @@ jobs:
         run: rustc --version
       - run: cargo clippy -- --deny warnings
       - run: cargo fmt
-      - run: cargo doc
-        env:
-          RUSTDOCFLAGS: "-D warnings"
-      - run: cargo doc -p gcp-sdk-gax
-        env:
-          RUSTDOCFLAGS: "-D warnings"
       - run: git diff --exit-code
   regenerate:
     # Verifies the generated code has not been tampered with. Or maybe that the
