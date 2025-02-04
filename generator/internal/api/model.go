@@ -316,6 +316,17 @@ type Field struct {
 	// containing message. That triggers slightly different code generation for
 	// some languages.
 	Recursive bool
+	// AutoPopulated is true if the field meets the requirements in AIP-4235.
+	// That is:
+	// - It has Typez == STRING_TYPE
+	// - For Protobuf, has the `google.api.field_behavior = REQUIRED` annotation
+	// - For Protobuf, has the `google.api.field_info.format = UUID4` annotation
+	// - For OpenAPI, it is a required field
+	// - For OpenAPI, it has format == "uuid"
+	// - In the service config file, it is listed in the
+	//   `google.api.MethodSettings.auto_populated_fields` entry in
+	//   `google.api.Publishing.method_settings`
+	AutoPopulated bool
 	// For fields that are part of a OneOf, the group of fields that makes the
 	// OneOf.
 	Group *OneOf
