@@ -13,7 +13,6 @@
 # limitations under the License.
 
 variable "project" {}
-variable "test_runner" {}
 
 data "google_project" "project" {
 }
@@ -40,14 +39,6 @@ resource "google_secret_manager_secret" "test-sa-creds-json-secret" {
 resource "google_secret_manager_secret_version" "test-sa-creds-json-secret-version" {
   secret      = google_secret_manager_secret.test-sa-creds-json-secret.id
   secret_data = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
-}
-
-# The integration test runner needs access to the service account key secret
-resource "google_secret_manager_secret_iam_member" "test-sa-creds-json-secret-member" {
-  project = "${var.project}"
-  secret_id = google_secret_manager_secret.test-sa-creds-json-secret.id
-  role = "roles/secretmanager.secretAccessor"
-  member = "serviceAccount:${var.test_runner.email}"
 }
 
 # The "secret" that will be accessed by the principal testing service account
@@ -80,4 +71,8 @@ resource "google_secret_manager_secret_iam_member" "test-sa-creds-secret-member"
   secret_id = google_secret_manager_secret.test-sa-creds-secret.id
   role = "roles/secretmanager.secretAccessor"
   member = "serviceAccount:${data.google_service_account.test-sa-creds-principal.email}"
+}
+
+output "adc_secret" {
+  value = google_secret_manager_secret.test-sa-creds-json-secret
 }
