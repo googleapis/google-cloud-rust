@@ -302,6 +302,28 @@ impl std::convert::From<Duration> for chrono::Duration {
     }
 }
 
+/// Converts from [jiff::SignedDuration] to [Duration].
+///
+/// This conversion may fail if the [jiff::SignedDuration] value is out of range.
+#[cfg(feature = "jiff-0_2")]
+impl std::convert::TryFrom<jiff::SignedDuration> for Duration {
+    type Error = DurationError;
+
+    fn try_from(value: jiff::SignedDuration) -> Result<Self, Self::Error> {
+        Self::new(value.as_secs(), value.subsec_nanos())
+    }
+}
+
+/// Converts from [Duration] to [jiff::SignedDuration].
+#[cfg(feature = "jiff-0_2")]
+impl std::convert::From<Duration> for jiff::SignedDuration {
+    fn from(value: Duration) -> Self {
+        // Safety: The range of jiff::SignedDuration is larger than Duration,
+        // so this will not overflow.
+        Self::new(value.seconds, value.nanos)
+    }
+}
+
 /// Implement [`serde`](::serde) serialization for [Duration].
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -543,5 +565,37 @@ mod test {
     fn from_chrono_time_out_of_range(value: chrono::Duration) {
         let got = Duration::try_from(value);
         assert_eq!(got, Err(DurationError::OutOfRange()));
+    }
+
+    #[test_case(jiff::SignedDuration::default(), Duration::default() ; "default")]
+    #[test_case(jiff::SignedDuration::ZERO, Duration::new(0, 0).unwrap() ; "zero")]
+    #[test_case(jiff::SignedDuration::from_secs(10_000 * SECONDS_IN_YEAR), Duration::new(10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly 10,000 years")]
+    #[test_case(jiff::SignedDuration::from_secs(-10_000 * SECONDS_IN_YEAR), Duration::new(-10_000 * SECONDS_IN_YEAR, 0).unwrap() ; "exactly negative 10,000 years")]
+    #[test_case(jiff::SignedDuration::new(-5, -500_000), Duration::new(-5, -500_000).unwrap() ; "negative seconds and nanos")]
+    #[test_case(jiff::SignedDuration::new(5, 500_000), Duration::new(5, 500_000).unwrap() ; "positive seconds and nanos")]
+    fn from_jiff_time_in_range(value: jiff::SignedDuration, want: Duration) -> Result {
+        let got = Duration::try_from(value)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(Duration::default(), jiff::SignedDuration::default() ; "default")]
+    #[test_case(Duration::new(0, 0).unwrap(), jiff::SignedDuration::ZERO ; "zero")]
+    #[test_case(Duration::new(10_000 * SECONDS_IN_YEAR , 0).unwrap(), jiff::SignedDuration::from_secs(10_000 * SECONDS_IN_YEAR) ; "exactly 10,000 years")]
+    #[test_case(Duration::new(-10_000 * SECONDS_IN_YEAR , 0).unwrap(), jiff::SignedDuration::from_secs(-10_000 * SECONDS_IN_YEAR) ; "exactly negative 10,000 years")]
+    #[test_case(Duration::new(-5, -500_000).unwrap(), jiff::SignedDuration::new(-5, -500_000) ; "negative seconds and nanos")]
+    #[test_case(Duration::new(5, 500_000).unwrap(), jiff::SignedDuration::new(5, 500_000) ; "positive seconds and nanos")]
+    fn to_jiff_time_in_range(value: Duration, want: jiff::SignedDuration) -> Result {
+        let got = jiff::SignedDuration::from(value);
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(jiff::SignedDuration::new(10_001 * SECONDS_IN_YEAR, 0) ; "above the range")]
+    #[test_case(jiff::SignedDuration::new(-10_001 * SECONDS_IN_YEAR, 0) ; "below the range")]
+    fn from_jiff_time_out_of_range(value: jiff::SignedDuration) -> Result {
+        let got = Duration::try_from(value);
+        assert_eq!(got, Err(DurationError::OutOfRange()));
+        Ok(())
     }
 }

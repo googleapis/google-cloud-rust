@@ -298,8 +298,41 @@ impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
     }
 }
 
+/// Converts from [jiff::Timestamp] to [Timestamp].
+///
+/// This conversion may fail if the [jiff::Timestamp] value is out of range.
+#[cfg(feature = "jiff-0_2")]
+impl TryFrom<jiff::Timestamp> for Timestamp {
+    type Error = TimestampError;
+
+    fn try_from(value: jiff::Timestamp) -> std::result::Result<Self, Self::Error> {
+        let ns = value.subsec_nanosecond();
+
+        // Jiff nanosecond component is negative before the Unix epoch.
+        if ns < 0 {
+            Timestamp::new(value.as_second() - 1, ns + 1_000_000_000)
+        } else {
+            Timestamp::new(value.as_second(), ns)
+        }
+    }
+}
+
+/// Converts from [Timestamp] to [jiff::Timestamp].
+///
+/// This conversion may fail if the [Timestamp] value is out of range.
+#[cfg(feature = "jiff-0_2")]
+impl TryFrom<Timestamp> for jiff::Timestamp {
+    type Error = jiff::Error;
+
+    fn try_from(value: Timestamp) -> std::result::Result<Self, Self::Error> {
+        jiff::Timestamp::new(value.seconds, value.nanos)
+    }
+}
+
 #[cfg(test)]
 mod test {
+    use std::str::FromStr;
+
     use super::*;
     use serde_json::json;
     use test_case::test_case;
@@ -389,6 +422,48 @@ mod test {
         assert!(got.is_err());
         let msg = format!("{got:?}");
         assert!(msg.contains("RFC 3339"), "message={}", msg);
+        Ok(())
+    }
+
+    #[test_case(jiff::Timestamp::default(), Timestamp::default() ; "default")]
+    #[test_case(jiff::Timestamp::new(0, 0).unwrap(), Timestamp::new(0, 0).unwrap() ; "zero")]
+    #[test_case(jiff::Timestamp::MAX, Timestamp::new(253402207200, Timestamp::MAX_NANOS).unwrap() ; "maximum")]
+    #[test_case(jiff::Timestamp::from_str("0001-01-01T00:00:00Z").unwrap(), Timestamp::new(Timestamp::MIN_SECONDS, Timestamp::MIN_NANOS).unwrap() ; "minimum")]
+    #[test_case(jiff::Timestamp::new(-4, -500_000_000).unwrap(), Timestamp::new(-5, 500_000_000).unwrap() ; "negative seconds and nanos")]
+    #[test_case(jiff::Timestamp::new(5, 500_000_000).unwrap(), Timestamp::new(5, 500_000_000).unwrap() ; "positive seconds and nanos")]
+    fn from_jiff_time_in_range(value: jiff::Timestamp, want: Timestamp) -> Result {
+        let got = Timestamp::try_from(value)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(Timestamp::default(), jiff::Timestamp::default() ; "default")]
+    #[test_case(Timestamp::new(0, 0).unwrap(), jiff::Timestamp::new(0, 0).unwrap() ; "zero")]
+    #[test_case(Timestamp::new(253402207200, Timestamp::MAX_NANOS).unwrap(), jiff::Timestamp::MAX ; "maximum")]
+    #[test_case(Timestamp::new(Timestamp::MIN_SECONDS, Timestamp::MIN_NANOS).unwrap(), jiff::Timestamp::from_str("0001-01-01T00:00:00Z").unwrap() ; "minimum")]
+    #[test_case(Timestamp::new(-5, 500_000_000).unwrap(), jiff::Timestamp::new(-4, -500_000_000).unwrap() ; "negative seconds and nanos")]
+    #[test_case(Timestamp::new(5, 500_000_000).unwrap(), jiff::Timestamp::new(5, 500_000_000).unwrap() ; "positive seconds and nanos")]
+    fn to_jiff_time_in_range(value: Timestamp, want: jiff::Timestamp) -> Result {
+        let got = jiff::Timestamp::try_from(value)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    // Jiff timestamps support years in BCE.
+    #[test_case(jiff::Timestamp::from_str("-000001-01-01T00:00:01Z").unwrap() ; "below the range")]
+    fn from_jiff_time_out_of_range(value: jiff::Timestamp) -> Result {
+        let got = Timestamp::try_from(value);
+        assert_eq!(got, Err(TimestampError::OutOfRange()));
+        Ok(())
+    }
+
+    // Jiff timestamps are slightly constrained in range, in order to allow
+    // valid civil times across all timezones, so the maximum possible value
+    // is a few hours shorter.
+    #[test_case(Timestamp::new(253402207201, 0).unwrap() ; "above the range")]
+    fn to_jiff_time_out_of_range(value: Timestamp) -> Result {
+        let got = jiff::Timestamp::try_from(value);
+        matches!(got, Err(_));
         Ok(())
     }
 }
