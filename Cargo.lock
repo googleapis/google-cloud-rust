@@ -957,6 +957,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "gcp-sdk-essentialcontacts-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "gcp-sdk-functions-v2"
 version = "0.2.0"
 dependencies = [
