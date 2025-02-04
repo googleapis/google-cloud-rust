@@ -33,7 +33,7 @@ gax        = { version = "0.2", path = "../../../../src/gax", package = "gcp-sdk
 gtype      = { version = "0.2", path = "../../../../src/generated/type", package = "gcp-sdk-type" }
 lazy_static = { version = "1" }
 reqwest    = { version = "0.12", features = ["json"] }
-rpc        = { version = "0.2", path = "../../../../src/generated/rpc", package = "gcp-sdk-rpc" }
+rpc        = { version = "0.2", path = "../../../../src/generated/rpc/types", package = "gcp-sdk-rpc" }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }

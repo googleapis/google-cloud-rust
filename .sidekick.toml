@@ -53,4 +53,4 @@ release-level = "preview"
 'package:iam_v1'      = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
 'package:location'    = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
 'package:longrunning' = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2'
-'package:rpc'         = 'package=gcp-sdk-rpc,source=google.rpc,path=src/generated/rpc,version=0.2'
+'package:rpc'         = 'package=gcp-sdk-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'

@@ -33,7 +33,7 @@ iam_v1     = { version = "0.2", path = "../../../../../src/generated/iam/v1", pa
 lazy_static = { version = "1" }
 location   = { version = "0.2", path = "../../../../../src/generated/cloud/location", package = "gcp-sdk-location" }
 reqwest    = { version = "0.12", features = ["json"] }
-rpc        = { version = "0.2", path = "../../../../../src/generated/rpc", package = "gcp-sdk-rpc" }
+rpc        = { version = "0.2", path = "../../../../../src/generated/rpc/types", package = "gcp-sdk-rpc" }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }

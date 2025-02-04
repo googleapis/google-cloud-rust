@@ -26,7 +26,7 @@ categories.workspace = true
 [dependencies]
 gax         = { version = "0.2", path = "../gax", package = "gcp-sdk-gax" }
 longrunning = { version = "0.2", path = "../generated/longrunning", package = "gcp-sdk-longrunning" }
-rpc         = { version = "0.2", path = "../generated/rpc", package = "gcp-sdk-rpc" }
+rpc         = { version = "0.2", path = "../generated/rpc/types", package = "gcp-sdk-rpc" }
 wkt         = { version = "0.1.1", path = "../wkt", package = "gcp-sdk-wkt" }
 serde       = "1.0.216"
 tokio       = { version = "1.42", features = ["time"] }
