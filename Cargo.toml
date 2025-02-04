@@ -62,6 +62,7 @@ members = [
   "src/generated/monitoring/v3",
   "src/generated/openapi-validation",
   "src/generated/privacy/dlp/v2",
+  "src/generated/rpc/context",
   "src/generated/rpc/types",
   "src/generated/spanner/admin/database/v1",
   "src/generated/spanner/admin/instance/v1",
