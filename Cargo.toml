@@ -44,6 +44,7 @@ members = [
   "src/generated/cloud/webrisk/v1",
   "src/generated/cloud/workflows/v1",
   "src/generated/container/v1",
+  "src/generated/datastore/admin/v1",
   "src/generated/devtools/artifactregistry/v1",
   "src/generated/devtools/cloudbuild/v1",
   "src/generated/devtools/cloudbuild/v2",
