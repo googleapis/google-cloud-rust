@@ -78,8 +78,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -196,8 +196,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -308,8 +308,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -420,8 +420,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -727,8 +727,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -1080,8 +1080,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -1277,8 +1277,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -1642,8 +1642,8 @@ pub mod artifact_registry {
         ) -> gax::paginator::Paginator<crate::model::ListFilesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -1888,8 +1888,8 @@ pub mod artifact_registry {
         ) -> gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -2197,8 +2197,8 @@ pub mod artifact_registry {
         ) -> gax::paginator::Paginator<crate::model::ListRulesResponse, gax::error::Error> {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -2811,8 +2811,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
@@ -3105,8 +3105,8 @@ pub mod artifact_registry {
         {
             let token = gax::paginator::extract_token(&self.0.request.page_token);
             let execute = move |token: String| {
-                let builder = self.clone();
-                builder.0.request.clone().set_page_token(token);
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
                 builder.send()
             };
             gax::paginator::Paginator::new(token, execute)
