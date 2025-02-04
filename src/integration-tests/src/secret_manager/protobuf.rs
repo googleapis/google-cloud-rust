@@ -107,6 +107,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     );
 
     run_secret_versions(&client, &create.name).await?;
+    run_many_secret_versions(&client, &create.name).await?;
     run_iam(&client, &create.name).await?;
     run_locations(&client, &project_id).await?;
 
@@ -270,6 +271,54 @@ async fn run_secret_versions(
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
+
+    Ok(())
+}
+
+async fn run_many_secret_versions(
+    client: &sm::client::SecretManagerService,
+    secret_name: &str,
+) -> Result<()> {
+    use std::collections::BTreeSet;
+
+    println!("\nTesting list_secret_versions() with multiple pages");
+    let mut want = BTreeSet::new();
+    for i in 0..5 {
+        println!("\nTesting create_secret_version() with i = {i}");
+        let data = "The quick brown fox jumps over the lazy dog".as_bytes();
+        let checksum = crc32c::crc32c(data);
+        let create_secret_version = client
+            .add_secret_version(secret_name)
+            .set_payload(
+                sm::model::SecretPayload::default()
+                    .set_data(bytes::Bytes::from(data))
+                    .set_data_crc32c(checksum as i64),
+            )
+            .send()
+            .await?;
+        want.insert(create_secret_version.name);
+    }
+    let want = want;
+
+    const PAGE_SIZE: i32 = 2;
+    let mut stream = client.list_secret_versions(secret_name).set_page_size(PAGE_SIZE).stream().await;
+    let mut got = BTreeSet::new();
+    while let Some(page) = stream.next().await {
+        let page = page?;
+        assert!(page.versions.len() <= PAGE_SIZE as usize, "{page:?}");
+        page.versions.into_iter().for_each(|v| { got.insert(v.name); });
+    }
+    let got = got;
+
+    assert!(want.is_subset(&got), "want={want:?}, got={got:?}");
+
+    let pending : Vec<_> = want.iter().map(|name| client.destroy_secret_version(name).send()).collect();
+    // Print the errors, but otherwise ignore them.
+    futures::future::join_all(pending)
+        .await
+        .into_iter()
+        .zip(want)
+        .for_each(|(r, name)| println!("    {name} = {r:?}"));
 
     Ok(())
 }
