@@ -1501,7 +1501,7 @@ func packageName(api *api.API, packageNameOverride string) string {
 	if name == "" {
 		name = api.Name
 	}
-	return "gcp-sdk-" + name
+	return "google-cloud-" + name
 }
 
 func validateModel(api *api.API, sourceSpecificationPackageName string) error {

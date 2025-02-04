@@ -19,3 +19,4 @@ service-config = 'google/bigtable/admin/v2/bigtableadmin_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = "gcp-sdk-bigtable-admin-v2"

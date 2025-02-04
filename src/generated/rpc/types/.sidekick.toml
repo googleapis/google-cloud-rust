@@ -18,3 +18,4 @@ service-config = 'google/rpc/rpc_publish.yaml'
 
 [codec]
 copyright-year = '2024'
+package-name-override = "gcp-sdk-rpc"

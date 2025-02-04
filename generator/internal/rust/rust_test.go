@@ -158,11 +158,11 @@ func TestRust_PackageName(t *testing.T) {
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-service-v3", nil, &api.API{
+	rustPackageNameImpl(t, "google-cloud-service-v3", nil, &api.API{
 		Name:        "test-only-name",
 		PackageName: "google.cloud.service.v3",
 	})
-	rustPackageNameImpl(t, "gcp-sdk-type", nil, &api.API{
+	rustPackageNameImpl(t, "google-cloud-type", nil, &api.API{
 		Name:        "type",
 		PackageName: "",
 	})
