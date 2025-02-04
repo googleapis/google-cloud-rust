@@ -11,4 +11,4 @@ APIs, documentation, missing features, bugs, etc.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-logging-type/latest/gcp-sdk-logging-type)
+* Read the [crate's documentation](https://docs.rs/google-cloud-logging-type/latest/google-cloud-logging-type)

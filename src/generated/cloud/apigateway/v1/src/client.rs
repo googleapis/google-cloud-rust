@@ -129,7 +129,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Gateway, model::OperationMetadata>
     /// ) -> Result<model::Gateway> {
@@ -147,7 +147,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Gateway, model::OperationMetadata>
     /// ) -> Result<model::Gateway> {
@@ -227,7 +227,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Gateway, model::OperationMetadata>
     /// ) -> Result<model::Gateway> {
@@ -245,7 +245,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Gateway, model::OperationMetadata>
     /// ) -> Result<model::Gateway> {
@@ -325,7 +325,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -343,7 +343,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -440,7 +440,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Api, model::OperationMetadata>
     /// ) -> Result<model::Api> {
@@ -458,7 +458,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Api, model::OperationMetadata>
     /// ) -> Result<model::Api> {
@@ -538,7 +538,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Api, model::OperationMetadata>
     /// ) -> Result<model::Api> {
@@ -556,7 +556,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Api, model::OperationMetadata>
     /// ) -> Result<model::Api> {
@@ -635,7 +635,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -653,7 +653,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -751,7 +751,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ApiConfig, model::OperationMetadata>
     /// ) -> Result<model::ApiConfig> {
@@ -769,7 +769,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ApiConfig, model::OperationMetadata>
     /// ) -> Result<model::ApiConfig> {
@@ -849,7 +849,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ApiConfig, model::OperationMetadata>
     /// ) -> Result<model::ApiConfig> {
@@ -867,7 +867,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ApiConfig, model::OperationMetadata>
     /// ) -> Result<model::ApiConfig> {
@@ -947,7 +947,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -965,7 +965,7 @@ impl ApiGatewayService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_apigateway_v1::model;
+    /// # use google_cloud_apigateway_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

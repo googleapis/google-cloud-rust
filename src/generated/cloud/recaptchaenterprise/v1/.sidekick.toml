@@ -19,4 +19,3 @@ service-config = 'google/cloud/recaptchaenterprise/v1/recaptchaenterprise_v1.yam
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-recaptchaenterprise-v1"

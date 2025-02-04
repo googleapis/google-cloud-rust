@@ -14,8 +14,8 @@ creating friction.
 
 The main types to work with this crate are the clients:
 
-* [RecaptchaEnterpriseService](https://docs.rs/gcp-sdk-recaptchaenterprise-v1/latest/gcp_sdk_recaptchaenterprise_v1/client/struct.RecaptchaEnterpriseService.html)
+* [RecaptchaEnterpriseService](https://docs.rs/google-cloud-recaptchaenterprise-v1/latest/google_cloud_recaptchaenterprise_v1/client/struct.RecaptchaEnterpriseService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-recaptchaenterprise-v1/latest/gcp-sdk-recaptchaenterprise-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-recaptchaenterprise-v1/latest/google-cloud-recaptchaenterprise-v1)

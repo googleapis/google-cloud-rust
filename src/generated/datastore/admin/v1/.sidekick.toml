@@ -19,4 +19,3 @@ service-config = 'google/datastore/admin/v1/datastore_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-datastore-admin-v1"

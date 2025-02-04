@@ -21,4 +21,4 @@ title-override = 'RPC Audit and Logging Attributes'
 
 [codec]
 copyright-year = '2025'
-package-name-override = 'gcp-sdk-rpc-context'
+package-name-override = 'google-cloud-rpc-context'

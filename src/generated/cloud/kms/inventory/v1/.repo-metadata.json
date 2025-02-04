@@ -1,7 +1,7 @@
 {
     "api_id": "kmsinventory.googleapis.com",
     "api_shortname": "kmsinventory",
-    "client_documentation": "https://docs.rs/gcp-sdk-kms-inventory-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-kms-inventory-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

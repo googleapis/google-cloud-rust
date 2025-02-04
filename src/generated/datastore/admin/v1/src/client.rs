@@ -164,7 +164,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ExportEntitiesResponse, model::ExportEntitiesMetadata>
     /// ) -> Result<model::ExportEntitiesResponse> {
@@ -182,7 +182,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ExportEntitiesResponse, model::ExportEntitiesMetadata>
     /// ) -> Result<model::ExportEntitiesResponse> {
@@ -266,7 +266,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ImportEntitiesMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -284,7 +284,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ImportEntitiesMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -380,7 +380,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Index, model::IndexOperationMetadata>
     /// ) -> Result<model::Index> {
@@ -398,7 +398,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Index, model::IndexOperationMetadata>
     /// ) -> Result<model::Index> {
@@ -492,7 +492,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Index, model::IndexOperationMetadata>
     /// ) -> Result<model::Index> {
@@ -510,7 +510,7 @@ impl DatastoreAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_datastore_admin_v1::model;
+    /// # use google_cloud_datastore_admin_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Index, model::IndexOperationMetadata>
     /// ) -> Result<model::Index> {

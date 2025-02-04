@@ -13,8 +13,8 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [ApiGatewayService](https://docs.rs/gcp-sdk-apigateway-v1/latest/gcp_sdk_apigateway_v1/client/struct.ApiGatewayService.html)
+* [ApiGatewayService](https://docs.rs/google-cloud-apigateway-v1/latest/google_cloud_apigateway_v1/client/struct.ApiGatewayService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-apigateway-v1/latest/gcp-sdk-apigateway-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-apigateway-v1/latest/google-cloud-apigateway-v1)

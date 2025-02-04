@@ -19,4 +19,3 @@ service-config = 'google/cloud/essentialcontacts/v1/essentialcontacts_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-essentialcontacts-v1"

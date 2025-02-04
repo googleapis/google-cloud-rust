@@ -19,4 +19,3 @@ service-config = 'google/cloud/apigateway/v1/apigateway_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-apigateway-v1"
