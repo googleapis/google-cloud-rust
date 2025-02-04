@@ -19,3 +19,4 @@ service-config = 'google/cloud/accessapproval/v1/accessapproval_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = "gcp-sdk-accessapproval-v1"

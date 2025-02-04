@@ -19,3 +19,4 @@ service-config = 'google/iam/admin/v1/iam.yaml'
 
 [codec]
 copyright-year = '2025'
+package-name-override = "gcp-sdk-iam-admin-v1"

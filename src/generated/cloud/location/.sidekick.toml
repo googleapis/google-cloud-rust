@@ -19,3 +19,4 @@ service-config = 'google/cloud/location/cloud.yaml'
 [codec]
 copyright-year = '2024'
 'package:location' = 'ignore=true'
+package-name-override = "gcp-sdk-location"
