@@ -301,18 +301,27 @@ async fn run_many_secret_versions(
     let want = want;
 
     const PAGE_SIZE: i32 = 2;
-    let mut stream = client.list_secret_versions(secret_name).set_page_size(PAGE_SIZE).stream().await;
+    let mut stream = client
+        .list_secret_versions(secret_name)
+        .set_page_size(PAGE_SIZE)
+        .stream()
+        .await;
     let mut got = BTreeSet::new();
     while let Some(page) = stream.next().await {
         let page = page?;
         assert!(page.versions.len() <= PAGE_SIZE as usize, "{page:?}");
-        page.versions.into_iter().for_each(|v| { got.insert(v.name); });
+        page.versions.into_iter().for_each(|v| {
+            got.insert(v.name);
+        });
     }
     let got = got;
 
     assert!(want.is_subset(&got), "want={want:?}, got={got:?}");
 
-    let pending : Vec<_> = want.iter().map(|name| client.destroy_secret_version(name).send()).collect();
+    let pending: Vec<_> = want
+        .iter()
+        .map(|name| client.destroy_secret_version(name).send())
+        .collect();
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
         .await

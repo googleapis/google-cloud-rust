@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 #[cfg(test)]
 mod mocking {
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -27,48 +26,63 @@ mod mocking {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn test_helper() -> TestResult {
-
         let mut mock = MockSecretManagerService::new();
         let mut seq = mockall::Sequence::new();
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
-            .withf(|r, _| {
-                r.parent == "projects/test-project" && r.page_token.is_empty()
-            })
-            .return_once(|_, _| Ok(sm::model::ListSecretsResponse::default().set_next_page_token("test-page-001").set_secrets(make_secrets(3, 0))));
+            .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
+            .return_once(|_, _| {
+                Ok(sm::model::ListSecretsResponse::default()
+                    .set_next_page_token("test-page-001")
+                    .set_secrets(make_secrets(3, 0)))
+            });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
-            .withf(|r, _| {
-                r.parent == "projects/test-project" && r.page_token == "test-page-001"
-            })
-            .return_once(|_, _| Ok(sm::model::ListSecretsResponse::default().set_next_page_token("test-page-002").set_secrets(make_secrets(3, 3))));
+            .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
+            .return_once(|_, _| {
+                Ok(sm::model::ListSecretsResponse::default()
+                    .set_next_page_token("test-page-002")
+                    .set_secrets(make_secrets(3, 3)))
+            });
         mock.expect_list_secrets()
             .once()
             .in_sequence(&mut seq)
-            .withf(|r, _| {
-                r.parent == "projects/test-project" && r.page_token == "test-page-002"
-            })
-            .return_once(|_, _| Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6))));
+            .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
+            .return_once(|_, _| {
+                Ok(sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)))
+            });
 
         let client = sm::client::SecretManagerService::from_stub(mock);
-        let mut stream = client.list_secrets("projects/test-project").stream().await.items();
+        let mut stream = client
+            .list_secrets("projects/test-project")
+            .stream()
+            .await
+            .items();
         let mut names = Vec::new();
         while let Some(response) = stream.next().await {
             names.push(response?.name);
         }
 
-        assert_eq!(names, make_secrets(9, 0).into_iter().map(|s| s.name).collect::<Vec<String>>());
-
+        assert_eq!(
+            names,
+            make_secrets(9, 0)
+                .into_iter()
+                .map(|s| s.name)
+                .collect::<Vec<String>>()
+        );
 
         Ok(())
     }
 
     fn make_secrets(count: i32, start: i32) -> Vec<sm::model::Secret> {
-        (start..(start+count))
+        (start..(start + count))
             .into_iter()
-            .map(|v| sm::model::Secret::default().set_name(format!("projects/test-project/secrets/{}", v)))
+            .map(|v| {
+                sm::model::Secret::default()
+                    .set_name(format!("projects/test-project/secrets/{}", v))
+            })
             .collect()
     }
 }
