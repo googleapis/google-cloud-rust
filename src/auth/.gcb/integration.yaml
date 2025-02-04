@@ -18,9 +18,23 @@ options:
   logging: CLOUD_LOGGING_ONLY
   env:
     - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+    - SCCACHE_GCS_BUCKET=${PROJECT_ID}-build-cache
+    - SCCACHE_GCS_RW_MODE=READ_WRITE
+    - SCCACHE_GCS_KEY_PREFIX=sccache/integration
+    - RUSTC_WRAPPER=/workspace/.bin/sccache
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
-  - name: 'rust:1.84-bookworm'
+  - id: 'Set up build cache'
+    name: 'gcr.io/cloud-builders/curl'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      mkdir -p .bin
+      curl -fsSL https://github.com/mozilla/sccache/releases/download/v0.9.1/sccache-v0.9.1-x86_64-unknown-linux-musl.tar.gz |
+        tar -C /workspace/.bin -zxf - --strip-components=1
+      chmod 755 /workspace/.bin/sccache
+  - id: 'Run auth integration tests'
+    name: 'rust:1.84-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e

@@ -53,6 +53,36 @@ resource "google_storage_bucket" "cloudbuild" {
   }
 }
 
+# Create a bucket to cache build artifacts.
+resource "google_storage_bucket" "build-cache" {
+  name          = "${var.project}-build-cache"
+  force_destroy = false
+  # This prevents Terraform from deleting the bucket. Any plan to do so is
+  # rejected. If we really need to delete the bucket we must take additional
+  # steps.
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  # The bucket configuration.
+  location                    = "US-CENTRAL1"
+  storage_class               = "STANDARD"
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = false
+  }
+  # Remove objects older than 90d. It is unlikely that any build artifact is
+  # usefull after that long, and we can always rebuild them if needed.
+  lifecycle_rule {
+    condition {
+      age = 90
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
 # This service account is created externally. It is used for all the builds.
 data "google_service_account" "integration-test-runner" {
   account_id = "integration-test-runner"
@@ -60,8 +90,15 @@ data "google_service_account" "integration-test-runner" {
 
 # The service account will need to read tarballs uploaded by `gcloud submit`.
 resource "google_storage_bucket_iam_member" "sa-can-read-build-tarballs" {
-  bucket = "${var.project}_cloudbuild"
+  bucket = google_storage_bucket.cloudbuild.name
   role   = "roles/storage.objectViewer"
+  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+}
+
+# The service account will need to read and write into the build cache.
+resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
+  bucket = google_storage_bucket.build-cache.name
+  role   = "roles/storage.admin"
   member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
