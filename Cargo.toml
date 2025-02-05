@@ -21,6 +21,7 @@ members = [
   "src/base",
   "src/gax",
   "src/generated/api/servicecontrol/v1",
+  "src/generated/api/servicecontrol/v2",
   "src/generated/api/servicemanagement/v1",
   "src/generated/api/serviceusage/v1",
   "src/generated/api/types",
