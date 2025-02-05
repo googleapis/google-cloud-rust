@@ -33,12 +33,12 @@ supporting toolchain.
 
 At the risk of being repetitive, most of the guides do not assume you have used
 any Google Service or client library before (in Rust or other language).
-However, the guides will prefer refer you to service specific tutorials to
+However, the guides will refer you to service specific tutorials to
 initialize their projects and services.
 
 ## Service Specific Documentation
 
-These guides are not intended as tutorials for each services or extended guides
+These guides are not intended as tutorials for each services or as extended guides
 on how to design Rust applications to work on Google Cloud. They are starting
 points to get you productive with the client libraries for Rust.
 

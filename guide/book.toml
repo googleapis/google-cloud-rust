@@ -20,4 +20,4 @@ multilingual = false
 src          = "src"
 
 [rust]
-edition = "2018"
+edition = "2021"
