@@ -27,7 +27,7 @@ categories.workspace = true
 [dependencies]
 tokio = { version = "1.43", features = ["full", "macros"] }
 
-[dependencies.gcp-sdk-devtools-artifactregistry-v1]
+[dependencies.google-cloud-devtools-artifactregistry-v1]
 # TODO(#...) - update once the release is available
 # version = "0.3.0"
 features = ["unstable-stream"]

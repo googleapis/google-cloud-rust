@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_devtools_artifactregistry_v1::client::ArtifactRegistry;
+use google_cloud_devtools_artifactregistry_v1::client::ArtifactRegistry;
 use std::env;
 
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -44,13 +44,10 @@ async fn list_resources(project_id: &str) -> Result {
 async fn main() -> Result {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        println!("Usage: list_artifacts <project-id>");
+        println!("Usage: list_resources <project-id>");
         return Ok(());
     }
-    let project_id = &args[1];
-
-    list_resources(project_id).await?;
-
+    list_resources(&args[1]).await?;
     Ok(())
 }
 
