@@ -13,8 +13,8 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [EssentialContactsService](https://docs.rs/gcp-sdk-essentialcontacts-v1/latest/gcp_sdk_essentialcontacts_v1/client/struct.EssentialContactsService.html)
+* [EssentialContactsService](https://docs.rs/google-cloud-essentialcontacts-v1/latest/google_cloud_essentialcontacts_v1/client/struct.EssentialContactsService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-essentialcontacts-v1/latest/gcp-sdk-essentialcontacts-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-essentialcontacts-v1/latest/google-cloud-essentialcontacts-v1)

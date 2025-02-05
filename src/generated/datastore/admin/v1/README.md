@@ -14,8 +14,8 @@ scalable storage for your application.
 
 The main types to work with this crate are the clients:
 
-* [DatastoreAdmin](https://docs.rs/gcp-sdk-datastore-admin-v1/latest/gcp_sdk_datastore_admin_v1/client/struct.DatastoreAdmin.html)
+* [DatastoreAdmin](https://docs.rs/google-cloud-datastore-admin-v1/latest/google_cloud_datastore_admin_v1/client/struct.DatastoreAdmin.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-datastore-admin-v1/latest/gcp-sdk-datastore-admin-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-datastore-admin-v1/latest/google-cloud-datastore-admin-v1)

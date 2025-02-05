@@ -111,7 +111,7 @@ impl AssuredWorkloadsService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_assuredworkloads_v1::model;
+    /// # use google_cloud_assuredworkloads_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workload, model::CreateWorkloadOperationMetadata>
     /// ) -> Result<model::Workload> {
@@ -129,7 +129,7 @@ impl AssuredWorkloadsService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_assuredworkloads_v1::model;
+    /// # use google_cloud_assuredworkloads_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workload, model::CreateWorkloadOperationMetadata>
     /// ) -> Result<model::Workload> {

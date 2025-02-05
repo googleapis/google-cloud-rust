@@ -198,7 +198,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ImportAptArtifactsResponse, model::ImportAptArtifactsMetadata>
     /// ) -> Result<model::ImportAptArtifactsResponse> {
@@ -216,7 +216,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ImportAptArtifactsResponse, model::ImportAptArtifactsMetadata>
     /// ) -> Result<model::ImportAptArtifactsResponse> {
@@ -299,7 +299,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ImportYumArtifactsResponse, model::ImportYumArtifactsMetadata>
     /// ) -> Result<model::ImportYumArtifactsResponse> {
@@ -317,7 +317,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ImportYumArtifactsResponse, model::ImportYumArtifactsMetadata>
     /// ) -> Result<model::ImportYumArtifactsResponse> {
@@ -416,7 +416,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Repository, model::OperationMetadata>
     /// ) -> Result<model::Repository> {
@@ -434,7 +434,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Repository, model::OperationMetadata>
     /// ) -> Result<model::Repository> {
@@ -525,7 +525,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -543,7 +543,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -642,7 +642,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -660,7 +660,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -759,7 +759,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -777,7 +777,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -858,7 +858,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::BatchDeleteVersionsMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -876,7 +876,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::BatchDeleteVersionsMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -984,7 +984,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1002,7 +1002,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1268,7 +1268,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Attachment, model::OperationMetadata>
     /// ) -> Result<model::Attachment> {
@@ -1286,7 +1286,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Attachment, model::OperationMetadata>
     /// ) -> Result<model::Attachment> {
@@ -1368,7 +1368,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1386,7 +1386,7 @@ impl ArtifactRegistry {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_artifactregistry_v1::model;
+    /// # use google_cloud_devtools_artifactregistry_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

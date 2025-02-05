@@ -1,7 +1,7 @@
 {
     "api_id": "recaptchaenterprise.googleapis.com",
     "api_shortname": "recaptchaenterprise",
-    "client_documentation": "https://docs.rs/gcp-sdk-recaptchaenterprise-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-recaptchaenterprise-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

@@ -21,4 +21,4 @@ title-override = "Logging types"
 
 [codec]
 copyright-year = '2025'
-package-name-override = 'gcp-sdk-logging-type'
+package-name-override = 'google-cloud-logging-type'

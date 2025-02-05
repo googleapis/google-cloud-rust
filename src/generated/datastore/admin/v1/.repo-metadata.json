@@ -1,7 +1,7 @@
 {
     "api_id": "datastore.googleapis.com",
     "api_shortname": "datastore",
-    "client_documentation": "https://docs.rs/gcp-sdk-datastore-admin-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-datastore-admin-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
