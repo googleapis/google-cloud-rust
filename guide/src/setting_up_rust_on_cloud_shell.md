@@ -38,15 +38,15 @@ Cloud Shell is a great environment to run small examples and tests.
 
 1. Add the [Secret Manager] client library to the new project
 
-```shell
-cargo add gcp-sdk-secretmanager-v1 --features unstable-stream
-```
+   ```shell
+   cargo add gcp-sdk-secretmanager-v1 --features unstable-stream
+   ```
 
 1. Add the [tokio] crate to the new project
 
-```shell
-cargo add tokio --features macros
-```
+   ```shell
+   cargo add tokio --features macros
+   ```
 
 1. Edit your project to use the Secret Manager client library:
 
