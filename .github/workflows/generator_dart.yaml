@@ -17,9 +17,9 @@ permissions: read-all
 # Run on PRs and pushes to the default branch.
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   generator-build:
     runs-on: ubuntu-24.04
@@ -49,3 +49,4 @@ jobs:
       - name: Detect changed goldens
         run: git diff --exit-code
         working-directory: generator/testdata/dart
+      - run: cat testdata/dart/protobuf/golden/secretmanager/pubspec.yaml
