@@ -61,6 +61,8 @@ corresponsing = "corresponsing"
 # src/generated/cloud/videointelligence/v1 has typos, they need to be fixed upstream.
 coordindate  = "coordindate"
 trignometric = "trignometric"
+# src/generated/cloud/vision/v1 has a false positive.
+pn = "pn"
 # src/generated/datastore/admin/v1 has a typo, needs to be fixed upstream.
 Ths = "Ths"
 # src/generated/devtools/cloudbuild/v2 has a typo, needs to be fixed upstream.
