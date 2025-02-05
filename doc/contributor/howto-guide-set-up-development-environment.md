@@ -40,6 +40,48 @@ cargo fmt && cargo clippy -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+## Generating the user guide
+
+We use [mdBook] to generate a user guide: a series of short "how-to" documents.
+Install the tool using `cargo install`:
+
+```bash
+cargo install mdbook
+```
+
+Then generate the documents with `mdbook build`:
+
+```bash
+mdbook build guide
+```
+
+You will find the generated book in `guide/book`. You can also test any code
+snippets in the documentation using:
+
+```bash
+mdbook test guide
+```
+
+Some of the samples are integration tests, you can verify they build using:
+
+```bash
+cargo build --package user-guide-samples
+```
+
+and verify they run using the instructions in the [Integration Tests](#integration-tests) section.
+
+### Using `mdbook serve`
+
+If you are working on the user guide you may find this handy:
+
+```bash
+mdbook serve guide
+```
+
+This will serve the documentation on a local HTTP server (usually at
+`http://localhost:3000/`). It will also automatically rebuild the documentation
+as you modify it.
+
 ## Getting code coverage locally
 
 ### Install coverage tools (once)
@@ -125,7 +167,7 @@ env \
     GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER=rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com \
     GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT} \
-  cargo test --features run-integration-tests --package integration-tests
+  cargo test --features run-integration-tests --package integration-tests --package user-guide-samples
 ```
 
 There are (at the moment) six integration tests. All using secret manager. We

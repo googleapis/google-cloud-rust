@@ -16,6 +16,7 @@
 resolver = "2"
 
 members = [
+  "guide/samples",
   "src/auth",
   "src/auth/integration-tests",
   "src/base",
