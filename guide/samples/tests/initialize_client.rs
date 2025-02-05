@@ -45,17 +45,6 @@ async fn initialize_client(project_id: &str) -> Result {
 }
 // [END test_only_snippet] ANCHOR_END: all
 
-#[tokio::main]
-async fn main() -> Result {
-    let args: Vec<String> = std::env::args().collect();
-    if args.len() < 2 {
-        println!("Usage: initialize_client <project-id>");
-        return Ok(());
-    }
-    initialize_client(&args[1]).await?;
-    Ok(())
-}
-
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod test {
     use super::*;

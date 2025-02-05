@@ -40,17 +40,6 @@ async fn list_resources(project_id: &str) -> Result {
     Ok(())
 }
 
-#[tokio::main]
-async fn main() -> Result {
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        println!("Usage: list_resources <project-id>");
-        return Ok(());
-    }
-    list_resources(&args[1]).await?;
-    Ok(())
-}
-
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod test {
     use super::*;
