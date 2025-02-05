@@ -70,17 +70,17 @@ cargo build --package user-guide-samples
 
 and verify they run using the instructions in the [Integration Tests](#integration-tests) section.
 
-### Using `mdbook watch`
+### Using `mdbook serve`
 
-If you are working on the user guide you may find
+If you are working on the user guide you may find this handy:
 
 ```bash
-mdbook watch guide
+mdbook serve guide
 ```
 
-This will automatically rebuild the documentation when you save any of the
-`guide/src/*.md` files. You can then use a local browser to examine the rendered
-output.
+This will serve the documentation on a local HTTP server (usually at
+`http://localhost:3000/`). It will also automatically rebuild the documentation
+as you modify it.
 
 ## Getting code coverage locally
 
