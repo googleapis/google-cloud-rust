@@ -1,0 +1,6 @@
+name: google_secretmanager
+description: The Google Cloud client library for the Secret Manager API.
+version: 0.1.0
+
+environment: 
+  sdk: ^3.6.0

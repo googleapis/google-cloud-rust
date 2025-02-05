@@ -1,0 +1,51 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Client Generator - Dart
+permissions: read-all
+# Run on PRs and pushes to the default branch.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  generator-build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: generator
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install protoc
+        run: |
+          set -e
+          curl -fSSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip
+          cd /usr/local
+          sudo unzip -x /tmp/protoc.zip
+          protoc --version
+      - name: Install goimports
+        run: go install golang.org/x/tools/cmd/goimports@latest
+      - name: Install Go
+        uses: actions/setup-go@v5
+      - name: Install Dart
+        uses: dart-lang/setup-dart@v1
+      - name: Generate a Dart secretmanager / protobuf client
+        run: go run cmd/sidekick/main.go generate -project-root=.. -specification-format=protobuf -specification-source=generator/testdata/googleapis/google/cloud/secretmanager/v1 -service-config=generator/testdata/googleapis/google/cloud/secretmanager/v1/secretmanager_v1.yaml -language=dart -output=generator/testdata/dart/protobuf/golden/secretmanager -source-option=googleapis-root=generator/testdata/googleapis
+      - name: Analyze the generated client
+        run: dart analyze --fatal-infos
+        working-directory: generator/testdata/dart/protobuf/golden/secretmanager
+      - name: Detect changed goldens
+        run: git diff --exit-code
+        working-directory: generator/testdata/dart
