@@ -1575,6 +1575,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-bigquery-connection-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-iam-v1",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-datacatalog-v1"
 version = "0.2.0"
 dependencies = [
