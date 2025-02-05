@@ -36,6 +36,7 @@ members = [
   "src/generated/cloud/kms/v1",
   "src/generated/cloud/language/v2",
   "src/generated/cloud/location",
+  "src/generated/cloud/networkmanagement/v1",
   "src/generated/cloud/recaptchaenterprise/v1",
   "src/generated/cloud/resourcemanager/v3",
   "src/generated/cloud/run/v2",
