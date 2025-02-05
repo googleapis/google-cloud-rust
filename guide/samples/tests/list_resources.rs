@@ -12,12 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_devtools_artifactregistry_v1::client::ArtifactRegistry;
-use std::env;
+pub type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-async fn list_resources(project_id: &str) -> Result {
+pub async fn list_resources(project_id: &str) -> Result {
+    use google_cloud_devtools_artifactregistry_v1::client::ArtifactRegistry;
     let client = ArtifactRegistry::new().await?;
 
     let mut items = client

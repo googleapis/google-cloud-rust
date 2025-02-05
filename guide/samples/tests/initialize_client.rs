@@ -13,9 +13,9 @@
 // limitations under the License.
 
 // [START test_only_snippet] ANCHOR: all
-type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+pub type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
-async fn initialize_client(project_id: &str) -> Result {
+pub async fn initialize_client(project_id: &str) -> Result {
     // [START test_only] ANCHOR: use
     use gcp_sdk_secretmanager_v1::client::SecretManagerService;
     // [END test_only] ANCHOR_END: use
