@@ -1710,6 +1710,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-vision-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-longrunning",
+ "gcp-sdk-lro",
+ "gcp-sdk-rpc",
+ "gcp-sdk-type",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "h2"
 version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
