@@ -13,9 +13,12 @@
 # limitations under the License.
 
 name: Client Generator
-on: [push, pull_request]
-permissions:
-  contents: read
+permissions: read-all
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   generator-build:
     runs-on: ubuntu-24.04

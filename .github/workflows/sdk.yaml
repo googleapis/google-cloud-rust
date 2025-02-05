@@ -13,7 +13,12 @@
 # limitations under the License.
 
 name: Rust SDK
-on: [push, pull_request]
+permissions: read-all
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   build:
     strategy:
