@@ -1,0 +1,11 @@
+{
+    "api_id": "datacatalog.googleapis.com",
+    "api_shortname": "datacatalog",
+    "client_documentation": "https://docs.rs/google-cloud-datacatalog-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Google Cloud Data Catalog API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
