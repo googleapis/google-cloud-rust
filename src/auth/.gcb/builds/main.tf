@@ -35,15 +35,15 @@ module "services" {
 
 # Set up for the service account integration test.
 module "service_account_test" {
-  source      = "./service_account_test"
-  project     = var.project
+  source  = "./service_account_test"
+  project = var.project
 }
 
 # Create the GCB resources, connection, triggers, etc.
 module "triggers" {
-  depends_on  = [module.service_account_test]
-  source      = "./triggers"
-  project     = var.project
-  region      = var.region
+  depends_on    = [module.service_account_test]
+  source        = "./triggers"
+  project       = var.project
+  region        = var.region
   sa_adc_secret = module.service_account_test.adc_secret
 }

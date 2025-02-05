@@ -35,9 +35,9 @@ resource "google_project_service" "cloudbuild" {
 
 # Create a bucket used by Cloud Build.
 resource "google_storage_bucket" "cloudbuild" {
-  name          = "${var.project}_cloudbuild"
+  name                        = "${var.project}_cloudbuild"
   uniform_bucket_level_access = true
-  force_destroy = false
+  force_destroy               = false
   # This prevents Terraform from deleting the bucket. Any plan to do so is
   # rejected. If we really need to delete the bucket we must take additional
   # steps.
@@ -46,8 +46,8 @@ resource "google_storage_bucket" "cloudbuild" {
   }
 
   # The bucket configuration.
-  location                    = "US-CENTRAL1"
-  storage_class               = "STANDARD"
+  location      = "US-CENTRAL1"
+  storage_class = "STANDARD"
   versioning {
     enabled = false
   }
@@ -104,10 +104,10 @@ resource "google_storage_bucket_iam_member" "sa-can-use-build-cache" {
 
 # The integration test runner needs access to the ADC JSON secrets
 resource "google_secret_manager_secret_iam_member" "test-adc-json-secret-member" {
-  project = "${var.project}"
+  project   = var.project
   secret_id = "${var.sa_adc_secret}".id
-  role = "roles/secretmanager.secretAccessor"
-  member = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
 locals {

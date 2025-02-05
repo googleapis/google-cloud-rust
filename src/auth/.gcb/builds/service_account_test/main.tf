@@ -29,7 +29,7 @@ resource "google_service_account_key" "test-sa-creds-principal-key" {
 
 # This secret stores the ADC json for the principal testing service account credentials.
 resource "google_secret_manager_secret" "test-sa-creds-json-secret" {
-  secret_id   = "test-sa-creds-json"
+  secret_id = "test-sa-creds-json"
   replication {
     auto {}
   }
@@ -59,7 +59,7 @@ resource "google_secret_manager_secret" "test-sa-creds-secret" {
 
 # Add a value to the secret.
 resource "google_secret_manager_secret_version" "test-sa-creds-secret-version" {
-  secret      = google_secret_manager_secret.test-sa-creds-secret.id
+  secret = google_secret_manager_secret.test-sa-creds-secret.id
 
   # We do not care that the value is public. We are just testing ACLs.
   secret_data = "service_account"
@@ -67,10 +67,10 @@ resource "google_secret_manager_secret_version" "test-sa-creds-secret-version" {
 
 # Set up secret permissions for service account credentials.
 resource "google_secret_manager_secret_iam_member" "test-sa-creds-secret-member" {
-  project = "${var.project}"
+  project   = var.project
   secret_id = google_secret_manager_secret.test-sa-creds-secret.id
-  role = "roles/secretmanager.secretAccessor"
-  member = "serviceAccount:${data.google_service_account.test-sa-creds-principal.email}"
+  role      = "roles/secretmanager.secretAccessor"
+  member    = "serviceAccount:${data.google_service_account.test-sa-creds-principal.email}"
 }
 
 output "adc_secret" {
