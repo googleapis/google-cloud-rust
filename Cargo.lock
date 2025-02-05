@@ -1519,6 +1519,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-api-servicecontrol-v2"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-rpc",
+ "gcp-sdk-wkt",
+ "google-cloud-rpc-context",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-apigateway-v1"
 version = "0.2.0"
 dependencies = [
