@@ -66,5 +66,10 @@ jobs:
           cargo install taplo-cli --version 0.9.3
           git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:src/generated/**' | \
             xargs -0 taplo fmt
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+      - name: Format Terraform files
+        run: |
+          git ls-files -z -- '*.tf' ':!:**/testdata/**' ':!:src/generated/**' | \
+            xargs -0 terraform fmt
       - name: Check for changes
         run: git diff --exit-code

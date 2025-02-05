@@ -195,8 +195,19 @@ use with:
 git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
 ```
 
+### Format Terraform files
+
+We use `terraform` to format `.tf` files. You will rarely have any need to edit
+these files. If you do, you probably know how to [install terraform]. Format the
+files using:
+
+```bash
+git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
+```
+
 [enable the secret manager api]: docs/configuring-secret-manager
 [getting-started-rust]: https://www.rust-lang.org/learn/get-started
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
+[install terraform]: https://developer.hashicorp.com/terraform/install
 [secret manager]: https://cloud.google.com/secret-manager/
