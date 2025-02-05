@@ -202,7 +202,7 @@ these files. If you do, you probably know how to [install terraform]. Format the
 files using:
 
 ```bash
-git ls-files -z -- '*.tf' '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
+git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
 ```
 
 [enable the secret manager api]: docs/configuring-secret-manager
