@@ -35,8 +35,6 @@ jobs:
           cd /usr/local
           sudo unzip -x /tmp/protoc.zip
           protoc --version
-      - name: Install goimports
-        run: go install golang.org/x/tools/cmd/goimports@latest
       - name: Install Go
         uses: actions/setup-go@v5
       - name: Install Dart
@@ -49,4 +47,9 @@ jobs:
       - name: Detect changed goldens
         run: git diff --exit-code
         working-directory: generator/testdata/dart
-      - run: cat testdata/dart/protobuf/golden/secretmanager/pubspec.yaml
+      - name: "generated: pubspec.yaml"
+        working-directory: testdata/dart/protobuf/golden/secretmanager
+        run: cat pubspec.yaml
+      - name: "generated: client.dart"
+        working-directory: testdata/dart/protobuf/golden/secretmanager
+        run: cat client.dart

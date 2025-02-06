@@ -29,11 +29,6 @@ import (
 //go:embed templates
 var dartTemplates embed.FS
 
-type goImport struct {
-	path string
-	name string
-}
-
 func Generate(model *api.API, outdir string, options map[string]string) error {
 	_, err := annotateModel(model, options)
 	if err != nil {
@@ -62,7 +57,7 @@ func loadWellKnownTypes(s *api.APIState) {
 	s.MessageByID[duration.ID] = duration
 }
 
-func fieldType(f *api.Field, state *api.APIState, importMap map[string]*goImport) string {
+func fieldType(f *api.Field, state *api.APIState) string {
 	var out string
 	switch f.Typez {
 	case api.STRING_TYPE:
@@ -74,35 +69,30 @@ func fieldType(f *api.Field, state *api.APIState, importMap map[string]*goImport
 	case api.BOOL_TYPE:
 		out = "bool"
 	case api.BYTES_TYPE:
-		out = "[]byte"
+		out = "Uint8List"
 	case api.MESSAGE_TYPE:
+		// TODO(devoncarew): Handle MESSAGE_TYPE conversion.
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
 		if m.IsMap {
-			key := fieldType(m.Fields[0], state, importMap)
-			val := fieldType(m.Fields[1], state, importMap)
-			out = "map[" + key + "]" + val
+			out = "Map"
 			break
 		}
-		out = "*" + messageName(m, importMap)
+		out = "*" + messageName(m)
 	case api.ENUM_TYPE:
 		e, ok := state.EnumByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
 			return ""
 		}
-		out = enumName(e, importMap)
+		out = enumName(e)
 	default:
 		slog.Error("unhandled fieldType", "type", f.Typez, "id", f.TypezID)
 	}
 	return out
-}
-
-func asQueryParameter(f *api.Field) string {
-	return fmt.Sprintf("req.%s.to_str()", strcase.ToLowerCamel(f.Name))
 }
 
 func templatesProvider() language.TemplateProvider {
@@ -127,24 +117,21 @@ func methodInOutTypeName(id string, s *api.APIState) string {
 	return strcase.ToCamel(m.Name)
 }
 
-func messageName(m *api.Message, importMap map[string]*goImport) string {
+func messageName(m *api.Message) string {
 	if m.Parent != nil {
-		return messageName(m.Parent, importMap) + "_" + strcase.ToCamel(m.Name)
-	}
-	if imp, ok := importMap[m.Package]; ok {
-		return imp.name + "." + toPascal(m.Name)
+		return messageName(m.Parent) + "_" + strcase.ToCamel(m.Name)
 	}
 	return toPascal(m.Name)
 }
 
-func enumName(e *api.Enum, importMap map[string]*goImport) string {
+func enumName(e *api.Enum) string {
 	if e.Parent != nil {
-		return messageName(e.Parent, importMap) + "_" + strcase.ToCamel(e.Name)
+		return messageName(e.Parent) + "_" + strcase.ToCamel(e.Name)
 	}
 	return strcase.ToCamel(e.Name)
 }
 
-func enumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
+func enumValueName(e *api.EnumValue) string {
 	var name string
 	if strings.ToUpper(e.Name) == e.Name {
 		name = e.Name
@@ -152,7 +139,7 @@ func enumValueName(e *api.EnumValue, importMap map[string]*goImport) string {
 		name = strcase.ToScreamingSnake(e.Name)
 	}
 	if e.Parent.Parent != nil {
-		return messageName(e.Parent.Parent, importMap) + "_" + name
+		return messageName(e.Parent.Parent) + "_" + name
 	}
 	return name
 }
@@ -165,29 +152,15 @@ func bodyAccessor(m *api.Method) string {
 	return "." + strcase.ToCamel(m.PathInfo.BodyFieldPath)
 }
 
-func httpPathFmt(m *api.PathInfo) string {
+func httpPathFmt(_ *api.PathInfo) string {
 	fmt := ""
-	for _, segment := range m.PathTemplate {
-		if segment.Literal != nil {
-			fmt = fmt + "/" + *segment.Literal
-		} else if segment.FieldPath != nil {
-			fmt = fmt + "/%s"
-		} else if segment.Verb != nil {
-			fmt = fmt + ":" + *segment.Verb
-		}
-	}
+	// TODO(devoncarew): Determine the correct format for Dart.
 	return fmt
 }
 
-func httpPathArgs(h *api.PathInfo) []string {
+func httpPathArgs(_ *api.PathInfo) []string {
 	var args []string
-	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
-	for _, segment := range h.PathTemplate {
-		if segment.FieldPath != nil {
-			// TODO(#34) - handle nested path params
-			args = append(args, fmt.Sprintf(", req.%s", strcase.ToCamel(*segment.FieldPath)))
-		}
-	}
+	// TODO(devoncarew): Determine the correct format for Dart.
 	return args
 }
 
@@ -223,7 +196,7 @@ func validatePackageName(newPackage, elementName, sourceSpecificationPackageName
 	if sourceSpecificationPackageName == newPackage {
 		return nil
 	}
-	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+	return fmt.Errorf("dart codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
 		sourceSpecificationPackageName, newPackage, elementName)
 }
 
@@ -254,14 +227,6 @@ func validateModel(api *api.API, sourceSpecificationPackageName string) error {
 	return nil
 }
 
-func imports(importMap map[string]*goImport) []string {
-	var imports []string
-	for _, imp := range importMap {
-		imports = append(imports, fmt.Sprintf("%q", imp.path))
-	}
-	return imports
-}
-
 func generateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
@@ -270,36 +235,12 @@ func generateMethod(m *api.Method) bool {
 	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
 }
 
-// The list of Golang keywords and reserved words can be found at:
-//
-// https://go.dev/ref/spec#Keywords
+// The list of Dart keywords and reserved words can be found at
+// https://dart.dev/language/keywords.
 func escapeKeyword(symbol string) string {
+	// TODO(devoncarew): Populate these once we need this function.
 	keywords := map[string]bool{
-		"break":       true,
-		"default":     true,
-		"func":        true,
-		"interface":   true,
-		"select":      true,
-		"case":        true,
-		"defer":       true,
-		"go":          true,
-		"map":         true,
-		"struct":      true,
-		"chan":        true,
-		"else":        true,
-		"goto":        true,
-		"package":     true,
-		"switch":      true,
-		"const":       true,
-		"fallthrough": true,
-		"if":          true,
-		"range":       true,
-		"type":        true,
-		"continue":    true,
-		"for":         true,
-		"import":      true,
-		"return":      true,
-		"var":         true,
+		//
 	}
 	_, ok := keywords[symbol]
 	if !ok {
