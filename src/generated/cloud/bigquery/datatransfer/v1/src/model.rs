@@ -100,6 +100,10 @@ pub struct DataSourceParameter {
 }
 
 impl DataSourceParameter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [param_id][crate::model::DataSourceParameter::param_id].
     pub fn set_param_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.param_id = v.into();
@@ -375,6 +379,10 @@ pub struct DataSource {
 }
 
 impl DataSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DataSource::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -631,6 +639,10 @@ pub struct GetDataSourceRequest {
 }
 
 impl GetDataSourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDataSourceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -669,6 +681,10 @@ pub struct ListDataSourcesRequest {
 }
 
 impl ListDataSourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -713,6 +729,10 @@ pub struct ListDataSourcesResponse {
 }
 
 impl ListDataSourcesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDataSourcesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -827,6 +847,10 @@ pub struct CreateTransferConfigRequest {
 }
 
 impl CreateTransferConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTransferConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -944,6 +968,10 @@ pub struct UpdateTransferConfigRequest {
 }
 
 impl UpdateTransferConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
     pub fn set_transfer_config<
         T: std::convert::Into<std::option::Option<crate::model::TransferConfig>>,
@@ -1009,6 +1037,10 @@ pub struct GetTransferConfigRequest {
 }
 
 impl GetTransferConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTransferConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1037,6 +1069,10 @@ pub struct DeleteTransferConfigRequest {
 }
 
 impl DeleteTransferConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTransferConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1065,6 +1101,10 @@ pub struct GetTransferRunRequest {
 }
 
 impl GetTransferRunRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTransferRunRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1093,6 +1133,10 @@ pub struct DeleteTransferRunRequest {
 }
 
 impl DeleteTransferRunRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTransferRunRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1135,6 +1179,10 @@ pub struct ListTransferConfigsRequest {
 }
 
 impl ListTransferConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTransferConfigsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1190,6 +1238,10 @@ pub struct ListTransferConfigsResponse {
 }
 
 impl ListTransferConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTransferConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1260,6 +1312,10 @@ pub struct ListTransferRunsRequest {
 }
 
 impl ListTransferRunsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTransferRunsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1365,6 +1421,10 @@ pub struct ListTransferRunsResponse {
 }
 
 impl ListTransferRunsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTransferRunsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1432,6 +1492,10 @@ pub struct ListTransferLogsRequest {
 }
 
 impl ListTransferLogsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTransferLogsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1487,6 +1551,10 @@ pub struct ListTransferLogsResponse {
 }
 
 impl ListTransferLogsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTransferLogsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1543,6 +1611,10 @@ pub struct CheckValidCredsRequest {
 }
 
 impl CheckValidCredsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CheckValidCredsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1567,6 +1639,10 @@ pub struct CheckValidCredsResponse {
 }
 
 impl CheckValidCredsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [has_valid_creds][crate::model::CheckValidCredsResponse::has_valid_creds].
     pub fn set_has_valid_creds<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_valid_creds = v.into();
@@ -1604,6 +1680,10 @@ pub struct ScheduleTransferRunsRequest {
 }
 
 impl ScheduleTransferRunsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ScheduleTransferRunsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1647,6 +1727,10 @@ pub struct ScheduleTransferRunsResponse {
 }
 
 impl ScheduleTransferRunsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [runs][crate::model::ScheduleTransferRunsResponse::runs].
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
@@ -1684,6 +1768,10 @@ pub struct StartManualTransferRunsRequest {
 }
 
 impl StartManualTransferRunsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::StartManualTransferRunsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1802,6 +1890,10 @@ pub mod start_manual_transfer_runs_request {
     }
 
     impl TimeRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [start_time][crate::model::start_manual_transfer_runs_request::TimeRange::start_time].
         pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -1860,6 +1952,10 @@ pub struct StartManualTransferRunsResponse {
 }
 
 impl StartManualTransferRunsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [runs][crate::model::StartManualTransferRunsResponse::runs].
     pub fn set_runs<T, V>(mut self, v: T) -> Self
     where
@@ -1897,6 +1993,10 @@ pub struct EnrollDataSourcesRequest {
 }
 
 impl EnrollDataSourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnrollDataSourcesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1940,6 +2040,10 @@ pub struct UnenrollDataSourcesRequest {
 }
 
 impl UnenrollDataSourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UnenrollDataSourcesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1976,6 +2080,10 @@ pub struct EmailPreferences {
 }
 
 impl EmailPreferences {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_failure_email][crate::model::EmailPreferences::enable_failure_email].
     pub fn set_enable_failure_email<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_failure_email = v.into();
@@ -2018,6 +2126,10 @@ pub struct ScheduleOptions {
 }
 
 impl ScheduleOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disable_auto_scheduling][crate::model::ScheduleOptions::disable_auto_scheduling].
     pub fn set_disable_auto_scheduling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable_auto_scheduling = v.into();
@@ -2064,6 +2176,10 @@ pub struct ScheduleOptionsV2 {
 }
 
 impl ScheduleOptionsV2 {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `schedule`.
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::schedule_options_v_2::Schedule>>,
@@ -2240,6 +2356,10 @@ pub struct TimeBasedSchedule {
 }
 
 impl TimeBasedSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [schedule][crate::model::TimeBasedSchedule::schedule].
     pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schedule = v.into();
@@ -2278,7 +2398,11 @@ impl wkt::message::Message for TimeBasedSchedule {
 #[non_exhaustive]
 pub struct ManualSchedule {}
 
-impl ManualSchedule {}
+impl ManualSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ManualSchedule {
     fn typename() -> &'static str {
@@ -2300,6 +2424,10 @@ pub struct EventDrivenSchedule {
 }
 
 impl EventDrivenSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [pubsub_subscription][crate::model::EventDrivenSchedule::pubsub_subscription].
     pub fn set_pubsub_subscription<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2328,6 +2456,10 @@ pub struct UserInfo {
 }
 
 impl UserInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [email][crate::model::UserInfo::email].
     pub fn set_email<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -2477,6 +2609,10 @@ pub struct TransferConfig {
 }
 
 impl TransferConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TransferConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2702,6 +2838,10 @@ pub struct EncryptionConfiguration {
 }
 
 impl EncryptionConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfiguration::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::option::Option<wkt::StringValue>>>(
         mut self,
@@ -2805,6 +2945,10 @@ pub struct TransferRun {
 }
 
 impl TransferRun {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TransferRun::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2998,6 +3142,10 @@ pub struct TransferMessage {
 }
 
 impl TransferMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [message_time][crate::model::TransferMessage::message_time].
     pub fn set_message_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,

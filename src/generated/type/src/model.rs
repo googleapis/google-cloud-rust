@@ -183,6 +183,10 @@ pub struct Color {
 }
 
 impl Color {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [red][crate::model::Color::red].
     pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
@@ -252,6 +256,10 @@ pub struct Date {
 }
 
 impl Date {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [year][crate::model::Date::year].
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
@@ -343,6 +351,10 @@ pub struct DateTime {
 }
 
 impl DateTime {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [year][crate::model::DateTime::year].
     pub fn set_year<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.year = v.into();
@@ -493,6 +505,10 @@ pub struct TimeZone {
 }
 
 impl TimeZone {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::TimeZone::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -592,6 +608,10 @@ pub struct Decimal {
 }
 
 impl Decimal {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [value][crate::model::Decimal::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
@@ -672,6 +692,10 @@ pub struct Expr {
 }
 
 impl Expr {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [expression][crate::model::Expr::expression].
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.expression = v.into();
@@ -720,6 +744,10 @@ pub struct Fraction {
 }
 
 impl Fraction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [numerator][crate::model::Fraction::numerator].
     pub fn set_numerator<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.numerator = v.into();
@@ -766,6 +794,10 @@ pub struct Interval {
 }
 
 impl Interval {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::Interval::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -809,6 +841,10 @@ pub struct LatLng {
 }
 
 impl LatLng {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [latitude][crate::model::LatLng::latitude].
     pub fn set_latitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.latitude = v.into();
@@ -847,6 +883,10 @@ pub struct LocalizedText {
 }
 
 impl LocalizedText {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::LocalizedText::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -891,6 +931,10 @@ pub struct Money {
 }
 
 impl Money {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [currency_code][crate::model::Money::currency_code].
     pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.currency_code = v.into();
@@ -970,6 +1014,10 @@ pub struct PhoneNumber {
 }
 
 impl PhoneNumber {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [extension][crate::model::PhoneNumber::extension].
     pub fn set_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extension = v.into();
@@ -1080,6 +1128,10 @@ pub mod phone_number {
     }
 
     impl ShortCode {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [region_code][crate::model::phone_number::ShortCode::region_code].
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
@@ -1259,6 +1311,10 @@ pub struct PostalAddress {
 }
 
 impl PostalAddress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [revision][crate::model::PostalAddress::revision].
     pub fn set_revision<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -1423,6 +1479,10 @@ pub struct Quaternion {
 }
 
 impl Quaternion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [x][crate::model::Quaternion::x].
     pub fn set_x<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -1481,6 +1541,10 @@ pub struct TimeOfDay {
 }
 
 impl TimeOfDay {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [hours][crate::model::TimeOfDay::hours].
     pub fn set_hours<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hours = v.into();

@@ -151,6 +151,10 @@ pub struct ConnectivityTest {
 }
 
 impl ConnectivityTest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ConnectivityTest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -390,6 +394,10 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ip_address][crate::model::Endpoint::ip_address].
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
@@ -559,6 +567,10 @@ pub mod endpoint {
     }
 
     impl CloudFunctionEndpoint {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [uri][crate::model::endpoint::CloudFunctionEndpoint::uri].
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
@@ -586,6 +598,10 @@ pub mod endpoint {
     }
 
     impl AppEngineVersionEndpoint {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [uri][crate::model::endpoint::AppEngineVersionEndpoint::uri].
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
@@ -614,6 +630,10 @@ pub mod endpoint {
     }
 
     impl CloudRunRevisionEndpoint {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [uri][crate::model::endpoint::CloudRunRevisionEndpoint::uri].
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
@@ -739,6 +759,10 @@ pub struct ReachabilityDetails {
 }
 
 impl ReachabilityDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [result][crate::model::ReachabilityDetails::result].
     pub fn set_result<T: std::convert::Into<crate::model::reachability_details::Result>>(
         mut self,
@@ -867,6 +891,10 @@ pub struct LatencyPercentile {
 }
 
 impl LatencyPercentile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [percent][crate::model::LatencyPercentile::percent].
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.percent = v.into();
@@ -898,6 +926,10 @@ pub struct LatencyDistribution {
 }
 
 impl LatencyDistribution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [latency_percentiles][crate::model::LatencyDistribution::latency_percentiles].
     pub fn set_latency_percentiles<T, V>(mut self, v: T) -> Self
     where
@@ -964,6 +996,10 @@ pub struct ProbingDetails {
 }
 
 impl ProbingDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [result][crate::model::ProbingDetails::result].
     pub fn set_result<T: std::convert::Into<crate::model::probing_details::ProbingResult>>(
         mut self,
@@ -1072,6 +1108,10 @@ pub mod probing_details {
     }
 
     impl EdgeLocation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [metropolitan_area][crate::model::probing_details::EdgeLocation::metropolitan_area].
         pub fn set_metropolitan_area<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -1225,6 +1265,10 @@ pub struct ListConnectivityTestsRequest {
 }
 
 impl ListConnectivityTestsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConnectivityTestsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1282,6 +1326,10 @@ pub struct ListConnectivityTestsResponse {
 }
 
 impl ListConnectivityTestsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConnectivityTestsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1343,6 +1391,10 @@ pub struct GetConnectivityTestRequest {
 }
 
 impl GetConnectivityTestRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetConnectivityTestRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1384,6 +1436,10 @@ pub struct CreateConnectivityTestRequest {
 }
 
 impl CreateConnectivityTestRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateConnectivityTestRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1431,6 +1487,10 @@ pub struct UpdateConnectivityTestRequest {
 }
 
 impl UpdateConnectivityTestRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -1471,6 +1531,10 @@ pub struct DeleteConnectivityTestRequest {
 }
 
 impl DeleteConnectivityTestRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteConnectivityTestRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1497,6 +1561,10 @@ pub struct RerunConnectivityTestRequest {
 }
 
 impl RerunConnectivityTestRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RerunConnectivityTestRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1548,6 +1616,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1643,6 +1715,10 @@ pub struct Trace {
 }
 
 impl Trace {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [endpoint_info][crate::model::Trace::endpoint_info].
     pub fn set_endpoint_info<
         T: std::convert::Into<std::option::Option<crate::model::EndpointInfo>>,
@@ -1709,6 +1785,10 @@ pub struct Step {
 }
 
 impl Step {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [description][crate::model::Step::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2769,6 +2849,10 @@ pub struct InstanceInfo {
 }
 
 impl InstanceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::InstanceInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -2867,6 +2951,10 @@ pub struct NetworkInfo {
 }
 
 impl NetworkInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::NetworkInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -2969,6 +3057,10 @@ pub struct FirewallInfo {
 }
 
 impl FirewallInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::FirewallInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -3227,6 +3319,10 @@ pub struct RouteInfo {
 }
 
 impl RouteInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [route_type][crate::model::RouteInfo::route_type].
     pub fn set_route_type<T: std::convert::Into<crate::model::route_info::RouteType>>(
         mut self,
@@ -3585,6 +3681,10 @@ pub struct GoogleServiceInfo {
 }
 
 impl GoogleServiceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_ip][crate::model::GoogleServiceInfo::source_ip].
     pub fn set_source_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_ip = v.into();
@@ -3730,6 +3830,10 @@ pub struct ForwardingRuleInfo {
 }
 
 impl ForwardingRuleInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::ForwardingRuleInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -3846,6 +3950,10 @@ pub struct LoadBalancerInfo {
 }
 
 impl LoadBalancerInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [load_balancer_type][crate::model::LoadBalancerInfo::load_balancer_type].
     pub fn set_load_balancer_type<
         T: std::convert::Into<crate::model::load_balancer_info::LoadBalancerType>,
@@ -4020,6 +4128,10 @@ pub struct LoadBalancerBackend {
 }
 
 impl LoadBalancerBackend {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::LoadBalancerBackend::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4156,6 +4268,10 @@ pub struct VpnGatewayInfo {
 }
 
 impl VpnGatewayInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::VpnGatewayInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4242,6 +4358,10 @@ pub struct VpnTunnelInfo {
 }
 
 impl VpnTunnelInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::VpnTunnelInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -4399,6 +4519,10 @@ pub struct EndpointInfo {
 }
 
 impl EndpointInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_ip][crate::model::EndpointInfo::source_ip].
     pub fn set_source_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_ip = v.into();
@@ -4491,6 +4615,10 @@ pub struct DeliverInfo {
 }
 
 impl DeliverInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [target][crate::model::DeliverInfo::target].
     pub fn set_target<T: std::convert::Into<crate::model::deliver_info::Target>>(
         mut self,
@@ -4643,6 +4771,10 @@ pub struct ForwardInfo {
 }
 
 impl ForwardInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [target][crate::model::ForwardInfo::target].
     pub fn set_target<T: std::convert::Into<crate::model::forward_info::Target>>(
         mut self,
@@ -4759,6 +4891,10 @@ pub struct AbortInfo {
 }
 
 impl AbortInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cause][crate::model::AbortInfo::cause].
     pub fn set_cause<T: std::convert::Into<crate::model::abort_info::Cause>>(
         mut self,
@@ -5014,6 +5150,10 @@ pub struct DropInfo {
 }
 
 impl DropInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cause][crate::model::DropInfo::cause].
     pub fn set_cause<T: std::convert::Into<crate::model::drop_info::Cause>>(
         mut self,
@@ -5502,6 +5642,10 @@ pub struct GKEMasterInfo {
 }
 
 impl GKEMasterInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cluster_uri][crate::model::GKEMasterInfo::cluster_uri].
     pub fn set_cluster_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_uri = v.into();
@@ -5575,6 +5719,10 @@ pub struct CloudSQLInstanceInfo {
 }
 
 impl CloudSQLInstanceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::CloudSQLInstanceInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5650,6 +5798,10 @@ pub struct RedisInstanceInfo {
 }
 
 impl RedisInstanceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::RedisInstanceInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5734,6 +5886,10 @@ pub struct RedisClusterInfo {
 }
 
 impl RedisClusterInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::RedisClusterInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5807,6 +5963,10 @@ pub struct CloudFunctionInfo {
 }
 
 impl CloudFunctionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::CloudFunctionInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5862,6 +6022,10 @@ pub struct CloudRunRevisionInfo {
 }
 
 impl CloudRunRevisionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::CloudRunRevisionInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5917,6 +6081,10 @@ pub struct AppEngineVersionInfo {
 }
 
 impl AppEngineVersionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::AppEngineVersionInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -5968,6 +6136,10 @@ pub struct VpcConnectorInfo {
 }
 
 impl VpcConnectorInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::VpcConnectorInfo::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -6051,6 +6223,10 @@ pub struct NatInfo {
 }
 
 impl NatInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::NatInfo::type].
     pub fn set_type<T: std::convert::Into<crate::model::nat_info::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -6244,6 +6420,10 @@ pub struct ProxyConnectionInfo {
 }
 
 impl ProxyConnectionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [protocol][crate::model::ProxyConnectionInfo::protocol].
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
@@ -6380,6 +6560,10 @@ pub struct LoadBalancerBackendInfo {
 }
 
 impl LoadBalancerBackendInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::LoadBalancerBackendInfo::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6548,6 +6732,10 @@ pub struct StorageBucketInfo {
 }
 
 impl StorageBucketInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::StorageBucketInfo::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -6574,6 +6762,10 @@ pub struct ServerlessNegInfo {
 }
 
 impl ServerlessNegInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [neg_uri][crate::model::ServerlessNegInfo::neg_uri].
     pub fn set_neg_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.neg_uri = v.into();
@@ -6618,6 +6810,10 @@ pub struct ListVpcFlowLogsConfigsRequest {
 }
 
 impl ListVpcFlowLogsConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListVpcFlowLogsConfigsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6675,6 +6871,10 @@ pub struct ListVpcFlowLogsConfigsResponse {
 }
 
 impl ListVpcFlowLogsConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListVpcFlowLogsConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6736,6 +6936,10 @@ pub struct GetVpcFlowLogsConfigRequest {
 }
 
 impl GetVpcFlowLogsConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetVpcFlowLogsConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6770,6 +6974,10 @@ pub struct CreateVpcFlowLogsConfigRequest {
 }
 
 impl CreateVpcFlowLogsConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateVpcFlowLogsConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -6820,6 +7028,10 @@ pub struct UpdateVpcFlowLogsConfigRequest {
 }
 
 impl UpdateVpcFlowLogsConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -6860,6 +7072,10 @@ pub struct DeleteVpcFlowLogsConfigRequest {
 }
 
 impl DeleteVpcFlowLogsConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteVpcFlowLogsConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6949,6 +7165,10 @@ pub struct VpcFlowLogsConfig {
 }
 
 impl VpcFlowLogsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::VpcFlowLogsConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

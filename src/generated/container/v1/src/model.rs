@@ -67,6 +67,10 @@ pub struct LinuxNodeConfig {
 }
 
 impl LinuxNodeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cgroup_mode][crate::model::LinuxNodeConfig::cgroup_mode].
     pub fn set_cgroup_mode<T: std::convert::Into<crate::model::linux_node_config::CgroupMode>>(
         mut self,
@@ -129,6 +133,10 @@ pub mod linux_node_config {
     }
 
     impl HugepagesConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [hugepage_size2m][crate::model::linux_node_config::HugepagesConfig::hugepage_size2m].
         pub fn set_hugepage_size2m<T: std::convert::Into<std::option::Option<i32>>>(
             mut self,
@@ -207,6 +215,10 @@ pub struct WindowsNodeConfig {
 }
 
 impl WindowsNodeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [os_version][crate::model::WindowsNodeConfig::os_version].
     pub fn set_os_version<T: std::convert::Into<crate::model::windows_node_config::OSVersion>>(
         mut self,
@@ -321,6 +333,10 @@ pub struct NodeKubeletConfig {
 }
 
 impl NodeKubeletConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cpu_manager_policy][crate::model::NodeKubeletConfig::cpu_manager_policy].
     pub fn set_cpu_manager_policy<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -658,6 +674,10 @@ pub struct NodeConfig {
 }
 
 impl NodeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [machine_type][crate::model::NodeConfig::machine_type].
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
@@ -1184,6 +1204,10 @@ pub struct AdvancedMachineFeatures {
 }
 
 impl AdvancedMachineFeatures {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
     pub fn set_threads_per_core<T: std::convert::Into<std::option::Option<i64>>>(
         mut self,
@@ -1302,6 +1326,10 @@ pub struct NodeNetworkConfig {
 }
 
 impl NodeNetworkConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_pod_range][crate::model::NodeNetworkConfig::create_pod_range].
     pub fn set_create_pod_range<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.create_pod_range = v.into();
@@ -1410,6 +1438,10 @@ pub mod node_network_config {
     }
 
     impl NetworkPerformanceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::node_network_config::NetworkPerformanceConfig::total_egress_bandwidth_tier].
         pub fn set_total_egress_bandwidth_tier<
             T: std::convert::Into<
@@ -1489,6 +1521,10 @@ pub struct AdditionalNodeNetworkConfig {
 }
 
 impl AdditionalNodeNetworkConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [network][crate::model::AdditionalNodeNetworkConfig::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -1530,6 +1566,10 @@ pub struct AdditionalPodNetworkConfig {
 }
 
 impl AdditionalPodNetworkConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [subnetwork][crate::model::AdditionalPodNetworkConfig::subnetwork].
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
@@ -1586,6 +1626,10 @@ pub struct ShieldedInstanceConfig {
 }
 
 impl ShieldedInstanceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_secure_boot][crate::model::ShieldedInstanceConfig::enable_secure_boot].
     pub fn set_enable_secure_boot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_secure_boot = v.into();
@@ -1617,6 +1661,10 @@ pub struct SandboxConfig {
 }
 
 impl SandboxConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::SandboxConfig::type].
     pub fn set_type<T: std::convert::Into<crate::model::sandbox_config::Type>>(
         mut self,
@@ -1684,6 +1732,10 @@ pub struct GcfsConfig {
 }
 
 impl GcfsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::GcfsConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -1721,6 +1773,10 @@ pub struct ReservationAffinity {
 }
 
 impl ReservationAffinity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [consume_reservation_type][crate::model::ReservationAffinity::consume_reservation_type].
     pub fn set_consume_reservation_type<
         T: std::convert::Into<crate::model::reservation_affinity::Type>,
@@ -1815,6 +1871,10 @@ pub struct SoleTenantConfig {
 }
 
 impl SoleTenantConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [node_affinities][crate::model::SoleTenantConfig::node_affinities].
     pub fn set_node_affinities<T, V>(mut self, v: T) -> Self
     where
@@ -1859,6 +1919,10 @@ pub mod sole_tenant_config {
     }
 
     impl NodeAffinity {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key][crate::model::sole_tenant_config::NodeAffinity::key].
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
@@ -1952,6 +2016,10 @@ pub struct ContainerdConfig {
 }
 
 impl ContainerdConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [private_registry_access_config][crate::model::ContainerdConfig::private_registry_access_config].
     pub fn set_private_registry_access_config<
         T: std::convert::Into<
@@ -1994,6 +2062,10 @@ pub mod containerd_config {
     }
 
     impl PrivateRegistryAccessConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [enabled][crate::model::containerd_config::PrivateRegistryAccessConfig::enabled].
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
@@ -2049,6 +2121,10 @@ pub mod containerd_config {
         }
 
         impl CertificateAuthorityDomainConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [fqdns][crate::model::containerd_config::private_registry_access_config::CertificateAuthorityDomainConfig::fqdns].
             pub fn set_fqdns<T, V>(mut self, v: T) -> Self
             where
@@ -2119,6 +2195,10 @@ pub mod containerd_config {
             }
 
             impl GCPSecretManagerCertificateConfig {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [secret_uri][crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig::secret_uri].
                 pub fn set_secret_uri<T: std::convert::Into<std::string::String>>(
                     mut self,
@@ -2173,6 +2253,10 @@ pub struct NodeTaint {
 }
 
 impl NodeTaint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::NodeTaint::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -2259,6 +2343,10 @@ pub struct NodeTaints {
 }
 
 impl NodeTaints {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taints][crate::model::NodeTaints::taints].
     pub fn set_taints<T, V>(mut self, v: T) -> Self
     where
@@ -2290,6 +2378,10 @@ pub struct NodeLabels {
 }
 
 impl NodeLabels {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [labels][crate::model::NodeLabels::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -2322,6 +2414,10 @@ pub struct ResourceLabels {
 }
 
 impl ResourceLabels {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [labels][crate::model::ResourceLabels::labels].
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
@@ -2354,6 +2450,10 @@ pub struct NetworkTags {
 }
 
 impl NetworkTags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tags][crate::model::NetworkTags::tags].
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
@@ -2427,6 +2527,10 @@ pub struct MasterAuth {
 }
 
 impl MasterAuth {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [username][crate::model::MasterAuth::username].
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
@@ -2492,6 +2596,10 @@ pub struct ClientCertificateConfig {
 }
 
 impl ClientCertificateConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [issue_client_certificate][crate::model::ClientCertificateConfig::issue_client_certificate].
     pub fn set_issue_client_certificate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.issue_client_certificate = v.into();
@@ -2584,6 +2692,10 @@ pub struct AddonsConfig {
 }
 
 impl AddonsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [http_load_balancing][crate::model::AddonsConfig::http_load_balancing].
     pub fn set_http_load_balancing<
         T: std::convert::Into<std::option::Option<crate::model::HttpLoadBalancing>>,
@@ -2759,6 +2871,10 @@ pub struct HttpLoadBalancing {
 }
 
 impl HttpLoadBalancing {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::HttpLoadBalancing::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -2787,6 +2903,10 @@ pub struct HorizontalPodAutoscaling {
 }
 
 impl HorizontalPodAutoscaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::HorizontalPodAutoscaling::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -2811,6 +2931,10 @@ pub struct KubernetesDashboard {
 }
 
 impl KubernetesDashboard {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::KubernetesDashboard::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -2837,6 +2961,10 @@ pub struct NetworkPolicyConfig {
 }
 
 impl NetworkPolicyConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::NetworkPolicyConfig::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -2861,6 +2989,10 @@ pub struct DnsCacheConfig {
 }
 
 impl DnsCacheConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::DnsCacheConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -2885,6 +3017,10 @@ pub struct PrivateClusterMasterGlobalAccessConfig {
 }
 
 impl PrivateClusterMasterGlobalAccessConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::PrivateClusterMasterGlobalAccessConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -2978,6 +3114,10 @@ pub struct PrivateClusterConfig {
 }
 
 impl PrivateClusterConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_private_nodes][crate::model::PrivateClusterConfig::enable_private_nodes].
     pub fn set_enable_private_nodes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_private_nodes = v.into();
@@ -3066,6 +3206,10 @@ pub struct AuthenticatorGroupsConfig {
 }
 
 impl AuthenticatorGroupsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::AuthenticatorGroupsConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3099,6 +3243,10 @@ pub struct CloudRunConfig {
 }
 
 impl CloudRunConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::CloudRunConfig::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -3179,6 +3327,10 @@ pub struct ConfigConnectorConfig {
 }
 
 impl ConfigConnectorConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ConfigConnectorConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3203,6 +3355,10 @@ pub struct GcePersistentDiskCsiDriverConfig {
 }
 
 impl GcePersistentDiskCsiDriverConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::GcePersistentDiskCsiDriverConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3227,6 +3383,10 @@ pub struct GcpFilestoreCsiDriverConfig {
 }
 
 impl GcpFilestoreCsiDriverConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::GcpFilestoreCsiDriverConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3251,6 +3411,10 @@ pub struct GcsFuseCsiDriverConfig {
 }
 
 impl GcsFuseCsiDriverConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::GcsFuseCsiDriverConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3276,6 +3440,10 @@ pub struct ParallelstoreCsiDriverConfig {
 }
 
 impl ParallelstoreCsiDriverConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ParallelstoreCsiDriverConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3309,6 +3477,10 @@ pub struct RayOperatorConfig {
 }
 
 impl RayOperatorConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::RayOperatorConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3355,6 +3527,10 @@ pub struct GkeBackupAgentConfig {
 }
 
 impl GkeBackupAgentConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::GkeBackupAgentConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3379,6 +3555,10 @@ pub struct StatefulHAConfig {
 }
 
 impl StatefulHAConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::StatefulHAConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3419,6 +3599,10 @@ pub struct MasterAuthorizedNetworksConfig {
 }
 
 impl MasterAuthorizedNetworksConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::MasterAuthorizedNetworksConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3484,6 +3668,10 @@ pub mod master_authorized_networks_config {
     }
 
     impl CidrBlock {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [display_name][crate::model::master_authorized_networks_config::CidrBlock::display_name].
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -3522,6 +3710,10 @@ pub struct LegacyAbac {
 }
 
 impl LegacyAbac {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::LegacyAbac::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3550,6 +3742,10 @@ pub struct NetworkPolicy {
 }
 
 impl NetworkPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [provider][crate::model::NetworkPolicy::provider].
     pub fn set_provider<T: std::convert::Into<crate::model::network_policy::Provider>>(
         mut self,
@@ -3628,6 +3824,10 @@ pub struct BinaryAuthorization {
 }
 
 impl BinaryAuthorization {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::BinaryAuthorization::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -3711,6 +3911,10 @@ pub struct PodCIDROverprovisionConfig {
 }
 
 impl PodCIDROverprovisionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disable][crate::model::PodCIDROverprovisionConfig::disable].
     pub fn set_disable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disable = v.into();
@@ -3900,6 +4104,10 @@ pub struct IPAllocationPolicy {
 }
 
 impl IPAllocationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [use_ip_aliases][crate::model::IPAllocationPolicy::use_ip_aliases].
     pub fn set_use_ip_aliases<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_ip_aliases = v.into();
@@ -4512,6 +4720,10 @@ pub struct Cluster {
 }
 
 impl Cluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Cluster::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5285,6 +5497,10 @@ pub struct RBACBindingConfig {
 }
 
 impl RBACBindingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_insecure_binding_system_unauthenticated][crate::model::RBACBindingConfig::enable_insecure_binding_system_unauthenticated].
     pub fn set_enable_insecure_binding_system_unauthenticated<
         T: std::convert::Into<std::option::Option<bool>>,
@@ -5369,6 +5585,10 @@ pub struct UserManagedKeysConfig {
 }
 
 impl UserManagedKeysConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cluster_ca][crate::model::UserManagedKeysConfig::cluster_ca].
     pub fn set_cluster_ca<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_ca = v.into();
@@ -5458,6 +5678,10 @@ pub struct CompliancePostureConfig {
 }
 
 impl CompliancePostureConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::CompliancePostureConfig::mode].
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::compliance_posture_config::Mode>>,
@@ -5504,6 +5728,10 @@ pub mod compliance_posture_config {
     }
 
     impl ComplianceStandard {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [standard][crate::model::compliance_posture_config::ComplianceStandard::standard].
         pub fn set_standard<T: std::convert::Into<std::option::Option<std::string::String>>>(
             mut self,
@@ -5569,6 +5797,10 @@ pub struct K8sBetaAPIConfig {
 }
 
 impl K8sBetaAPIConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled_apis][crate::model::K8sBetaAPIConfig::enabled_apis].
     pub fn set_enabled_apis<T, V>(mut self, v: T) -> Self
     where
@@ -5605,6 +5837,10 @@ pub struct SecurityPostureConfig {
 }
 
 impl SecurityPostureConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::SecurityPostureConfig::mode].
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::security_posture_config::Mode>>,
@@ -5756,6 +5992,10 @@ pub struct NodePoolAutoConfig {
 }
 
 impl NodePoolAutoConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [network_tags][crate::model::NodePoolAutoConfig::network_tags].
     pub fn set_network_tags<
         T: std::convert::Into<std::option::Option<crate::model::NetworkTags>>,
@@ -5819,6 +6059,10 @@ pub struct NodePoolDefaults {
 }
 
 impl NodePoolDefaults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [node_config_defaults][crate::model::NodePoolDefaults::node_config_defaults].
     pub fn set_node_config_defaults<
         T: std::convert::Into<std::option::Option<crate::model::NodeConfigDefaults>>,
@@ -5863,6 +6107,10 @@ pub struct NodeConfigDefaults {
 }
 
 impl NodeConfigDefaults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gcfs_config][crate::model::NodeConfigDefaults::gcfs_config].
     pub fn set_gcfs_config<T: std::convert::Into<std::option::Option<crate::model::GcfsConfig>>>(
         mut self,
@@ -6290,6 +6538,10 @@ pub struct ClusterUpdate {
 }
 
 impl ClusterUpdate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [desired_node_version][crate::model::ClusterUpdate::desired_node_version].
     pub fn set_desired_node_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6993,6 +7245,10 @@ pub struct AdditionalPodRangesConfig {
 }
 
 impl AdditionalPodRangesConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [pod_range_names][crate::model::AdditionalPodRangesConfig::pod_range_names].
     pub fn set_pod_range_names<T, V>(mut self, v: T) -> Self
     where
@@ -7037,6 +7293,10 @@ pub struct RangeInfo {
 }
 
 impl RangeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [range_name][crate::model::RangeInfo::range_name].
     pub fn set_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.range_name = v.into();
@@ -7067,6 +7327,10 @@ pub struct DesiredEnterpriseConfig {
 }
 
 impl DesiredEnterpriseConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [desired_tier][crate::model::DesiredEnterpriseConfig::desired_tier].
     pub fn set_desired_tier<T: std::convert::Into<crate::model::enterprise_config::ClusterTier>>(
         mut self,
@@ -7178,6 +7442,10 @@ pub struct Operation {
 }
 
 impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Operation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7547,6 +7815,10 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::OperationProgress::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7612,6 +7884,10 @@ pub mod operation_progress {
     }
 
     impl Metric {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::operation_progress::Metric::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -7767,6 +8043,10 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -7832,6 +8112,10 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetClusterRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -7898,6 +8182,10 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8125,6 +8413,10 @@ pub struct UpdateNodePoolRequest {
 }
 
 impl UpdateNodePoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::UpdateNodePoolRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8458,6 +8750,10 @@ pub struct SetNodePoolAutoscalingRequest {
 }
 
 impl SetNodePoolAutoscalingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetNodePoolAutoscalingRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8551,6 +8847,10 @@ pub struct SetLoggingServiceRequest {
 }
 
 impl SetLoggingServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetLoggingServiceRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8633,6 +8933,10 @@ pub struct SetMonitoringServiceRequest {
 }
 
 impl SetMonitoringServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetMonitoringServiceRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8709,6 +9013,10 @@ pub struct SetAddonsConfigRequest {
 }
 
 impl SetAddonsConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetAddonsConfigRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8792,6 +9100,10 @@ pub struct SetLocationsRequest {
 }
 
 impl SetLocationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetLocationsRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8878,6 +9190,10 @@ pub struct UpdateMasterRequest {
 }
 
 impl UpdateMasterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::UpdateMasterRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -8953,6 +9269,10 @@ pub struct SetMasterAuthRequest {
 }
 
 impl SetMasterAuthRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetMasterAuthRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9081,6 +9401,10 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9139,6 +9463,10 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9182,6 +9510,10 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
@@ -9242,6 +9574,10 @@ pub struct GetOperationRequest {
 }
 
 impl GetOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetOperationRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9300,6 +9636,10 @@ pub struct ListOperationsRequest {
 }
 
 impl ListOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ListOperationsRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9356,6 +9696,10 @@ pub struct CancelOperationRequest {
 }
 
 impl CancelOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CancelOperationRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9404,6 +9748,10 @@ pub struct ListOperationsResponse {
 }
 
 impl ListOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [operations][crate::model::ListOperationsResponse::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -9459,6 +9807,10 @@ pub struct GetServerConfigRequest {
 }
 
 impl GetServerConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetServerConfigRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9516,6 +9868,10 @@ pub struct ServerConfig {
 }
 
 impl ServerConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [default_cluster_version][crate::model::ServerConfig::default_cluster_version].
     pub fn set_default_cluster_version<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9613,6 +9969,10 @@ pub mod server_config {
     }
 
     impl ReleaseChannelConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [channel][crate::model::server_config::ReleaseChannelConfig::channel].
         pub fn set_channel<T: std::convert::Into<crate::model::release_channel::Channel>>(
             mut self,
@@ -9695,6 +10055,10 @@ pub struct CreateNodePoolRequest {
 }
 
 impl CreateNodePoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CreateNodePoolRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9772,6 +10136,10 @@ pub struct DeleteNodePoolRequest {
 }
 
 impl DeleteNodePoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::DeleteNodePoolRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9840,6 +10208,10 @@ pub struct ListNodePoolsRequest {
 }
 
 impl ListNodePoolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ListNodePoolsRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9908,6 +10280,10 @@ pub struct GetNodePoolRequest {
 }
 
 impl GetNodePoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetNodePoolRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -9962,6 +10338,10 @@ pub struct BlueGreenSettings {
 }
 
 impl BlueGreenSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [node_pool_soak_duration][crate::model::BlueGreenSettings::node_pool_soak_duration].
     pub fn set_node_pool_soak_duration<
         T: std::convert::Into<std::option::Option<wkt::Duration>>,
@@ -10050,6 +10430,10 @@ pub mod blue_green_settings {
     }
 
     impl StandardRolloutPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [batch_soak_duration][crate::model::blue_green_settings::StandardRolloutPolicy::batch_soak_duration].
         pub fn set_batch_soak_duration<
             T: std::convert::Into<std::option::Option<wkt::Duration>>,
@@ -10283,6 +10667,10 @@ pub struct NodePool {
 }
 
 impl NodePool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::NodePool::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10559,6 +10947,10 @@ pub mod node_pool {
     }
 
     impl UpgradeSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [max_surge][crate::model::node_pool::UpgradeSettings::max_surge].
         pub fn set_max_surge<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_surge = v.into();
@@ -10614,6 +11006,10 @@ pub mod node_pool {
     }
 
     impl UpdateInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [blue_green_info][crate::model::node_pool::UpdateInfo::blue_green_info].
         pub fn set_blue_green_info<
             T: std::convert::Into<
@@ -10671,6 +11067,10 @@ pub mod node_pool {
         }
 
         impl BlueGreenInfo {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [phase][crate::model::node_pool::update_info::BlueGreenInfo::phase].
             pub fn set_phase<
                 T: std::convert::Into<crate::model::node_pool::update_info::blue_green_info::Phase>,
@@ -10810,6 +11210,10 @@ pub mod node_pool {
     }
 
     impl PlacementPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::node_pool::PlacementPolicy::type].
         pub fn set_type<T: std::convert::Into<crate::model::node_pool::placement_policy::Type>>(
             mut self,
@@ -10895,6 +11299,10 @@ pub mod node_pool {
     }
 
     impl QueuedProvisioning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [enabled][crate::model::node_pool::QueuedProvisioning::enabled].
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
@@ -10988,6 +11396,10 @@ pub struct NodeManagement {
 }
 
 impl NodeManagement {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [auto_upgrade][crate::model::NodeManagement::auto_upgrade].
     pub fn set_auto_upgrade<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_upgrade = v.into();
@@ -11036,6 +11448,10 @@ pub struct BestEffortProvisioning {
 }
 
 impl BestEffortProvisioning {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::BestEffortProvisioning::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -11075,6 +11491,10 @@ pub struct AutoUpgradeOptions {
 }
 
 impl AutoUpgradeOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [auto_upgrade_start_time][crate::model::AutoUpgradeOptions::auto_upgrade_start_time].
     pub fn set_auto_upgrade_start_time<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -11117,6 +11537,10 @@ pub struct MaintenancePolicy {
 }
 
 impl MaintenancePolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [window][crate::model::MaintenancePolicy::window].
     pub fn set_window<
         T: std::convert::Into<std::option::Option<crate::model::MaintenanceWindow>>,
@@ -11161,6 +11585,10 @@ pub struct MaintenanceWindow {
 }
 
 impl MaintenanceWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [maintenance_exclusions][crate::model::MaintenanceWindow::maintenance_exclusions].
     pub fn set_maintenance_exclusions<T, K, V>(mut self, v: T) -> Self
     where
@@ -11293,6 +11721,10 @@ pub struct TimeWindow {
 }
 
 impl TimeWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -11388,6 +11820,10 @@ pub struct MaintenanceExclusionOptions {
 }
 
 impl MaintenanceExclusionOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [scope][crate::model::MaintenanceExclusionOptions::scope].
     pub fn set_scope<T: std::convert::Into<crate::model::maintenance_exclusion_options::Scope>>(
         mut self,
@@ -11500,6 +11936,10 @@ pub struct RecurringTimeWindow {
 }
 
 impl RecurringTimeWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [window][crate::model::RecurringTimeWindow::window].
     pub fn set_window<T: std::convert::Into<std::option::Option<crate::model::TimeWindow>>>(
         mut self,
@@ -11543,6 +11983,10 @@ pub struct DailyMaintenanceWindow {
 }
 
 impl DailyMaintenanceWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::DailyMaintenanceWindow::start_time].
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_time = v.into();
@@ -11604,6 +12048,10 @@ pub struct SetNodePoolManagementRequest {
 }
 
 impl SetNodePoolManagementRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetNodePoolManagementRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -11692,6 +12140,10 @@ pub struct SetNodePoolSizeRequest {
 }
 
 impl SetNodePoolSizeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetNodePoolSizeRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -11750,6 +12202,10 @@ pub struct CompleteNodePoolUpgradeRequest {
 }
 
 impl CompleteNodePoolUpgradeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CompleteNodePoolUpgradeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11806,6 +12262,10 @@ pub struct RollbackNodePoolUpgradeRequest {
 }
 
 impl RollbackNodePoolUpgradeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::RollbackNodePoolUpgradeRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -11861,6 +12321,10 @@ pub struct ListNodePoolsResponse {
 }
 
 impl ListNodePoolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [node_pools][crate::model::ListNodePoolsResponse::node_pools].
     pub fn set_node_pools<T, V>(mut self, v: T) -> Self
     where
@@ -11913,6 +12377,10 @@ pub struct ClusterAutoscaling {
 }
 
 impl ClusterAutoscaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_node_autoprovisioning][crate::model::ClusterAutoscaling::enable_node_autoprovisioning].
     pub fn set_enable_node_autoprovisioning<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_node_autoprovisioning = v.into();
@@ -12089,6 +12557,10 @@ pub struct AutoprovisioningNodePoolDefaults {
 }
 
 impl AutoprovisioningNodePoolDefaults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account][crate::model::AutoprovisioningNodePoolDefaults::service_account].
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
@@ -12214,6 +12686,10 @@ pub struct ResourceLimit {
 }
 
 impl ResourceLimit {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_type][crate::model::ResourceLimit::resource_type].
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
@@ -12277,6 +12753,10 @@ pub struct NodePoolAutoscaling {
 }
 
 impl NodePoolAutoscaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::NodePoolAutoscaling::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -12422,6 +12902,10 @@ pub struct SetLabelsRequest {
 }
 
 impl SetLabelsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetLabelsRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -12509,6 +12993,10 @@ pub struct SetLegacyAbacRequest {
 }
 
 impl SetLegacyAbacRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetLegacyAbacRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -12581,6 +13069,10 @@ pub struct StartIPRotationRequest {
 }
 
 impl StartIPRotationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::StartIPRotationRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -12649,6 +13141,10 @@ pub struct CompleteIPRotationRequest {
 }
 
 impl CompleteIPRotationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CompleteIPRotationRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -12712,6 +13208,10 @@ pub struct AcceleratorConfig {
 }
 
 impl AcceleratorConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [accelerator_count][crate::model::AcceleratorConfig::accelerator_count].
     pub fn set_accelerator_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.accelerator_count = v.into();
@@ -12783,6 +13283,10 @@ pub struct GPUSharingConfig {
 }
 
 impl GPUSharingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [max_shared_clients_per_gpu][crate::model::GPUSharingConfig::max_shared_clients_per_gpu].
     pub fn set_max_shared_clients_per_gpu<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_shared_clients_per_gpu = v.into();
@@ -12866,6 +13370,10 @@ pub struct GPUDriverInstallationConfig {
 }
 
 impl GPUDriverInstallationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gpu_driver_version][crate::model::GPUDriverInstallationConfig::gpu_driver_version].
     pub fn set_gpu_driver_version<
         T: std::convert::Into<
@@ -12946,6 +13454,10 @@ pub struct WorkloadMetadataConfig {
 }
 
 impl WorkloadMetadataConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::WorkloadMetadataConfig::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::workload_metadata_config::Mode>>(
         mut self,
@@ -13044,6 +13556,10 @@ pub struct SetNetworkPolicyRequest {
 }
 
 impl SetNetworkPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetNetworkPolicyRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13120,6 +13636,10 @@ pub struct SetMaintenancePolicyRequest {
 }
 
 impl SetMaintenancePolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::SetMaintenancePolicyRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -13182,6 +13702,10 @@ pub struct StatusCondition {
 }
 
 impl StatusCondition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [code][crate::model::StatusCondition::code].
     pub fn set_code<T: std::convert::Into<crate::model::status_condition::Code>>(
         mut self,
@@ -13358,6 +13882,10 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [network][crate::model::NetworkConfig::network].
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
@@ -13529,6 +14057,10 @@ pub mod network_config {
     }
 
     impl ClusterNetworkPerformanceConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [total_egress_bandwidth_tier][crate::model::network_config::ClusterNetworkPerformanceConfig::total_egress_bandwidth_tier].
         pub fn set_total_egress_bandwidth_tier<
             T: std::convert::Into<
@@ -13602,6 +14134,10 @@ pub struct GatewayAPIConfig {
 }
 
 impl GatewayAPIConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [channel][crate::model::GatewayAPIConfig::channel].
     pub fn set_channel<T: std::convert::Into<crate::model::gateway_api_config::Channel>>(
         mut self,
@@ -13676,6 +14212,10 @@ pub struct ServiceExternalIPsConfig {
 }
 
 impl ServiceExternalIPsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ServiceExternalIPsConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -13703,6 +14243,10 @@ pub struct GetOpenIDConfigRequest {
 }
 
 impl GetOpenIDConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::GetOpenIDConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13753,6 +14297,10 @@ pub struct GetOpenIDConfigResponse {
 }
 
 impl GetOpenIDConfigResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [issuer][crate::model::GetOpenIDConfigResponse::issuer].
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
@@ -13843,6 +14391,10 @@ pub struct GetJSONWebKeysRequest {
 }
 
 impl GetJSONWebKeysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::GetJSONWebKeysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13901,6 +14453,10 @@ pub struct Jwk {
 }
 
 impl Jwk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kty][crate::model::Jwk::kty].
     pub fn set_kty<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kty = v.into();
@@ -13975,6 +14531,10 @@ pub struct GetJSONWebKeysResponse {
 }
 
 impl GetJSONWebKeysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [keys][crate::model::GetJSONWebKeysResponse::keys].
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
@@ -14007,6 +14567,10 @@ pub struct CheckAutopilotCompatibilityRequest {
 }
 
 impl CheckAutopilotCompatibilityRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CheckAutopilotCompatibilityRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -14052,6 +14616,10 @@ pub struct AutopilotCompatibilityIssue {
 }
 
 impl AutopilotCompatibilityIssue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [last_observation][crate::model::AutopilotCompatibilityIssue::last_observation].
     pub fn set_last_observation<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -14178,6 +14746,10 @@ pub struct CheckAutopilotCompatibilityResponse {
 }
 
 impl CheckAutopilotCompatibilityResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [summary][crate::model::CheckAutopilotCompatibilityResponse::summary].
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
@@ -14218,6 +14790,10 @@ pub struct ReleaseChannel {
 }
 
 impl ReleaseChannel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [channel][crate::model::ReleaseChannel::channel].
     pub fn set_channel<T: std::convert::Into<crate::model::release_channel::Channel>>(
         mut self,
@@ -14302,6 +14878,10 @@ pub struct CostManagementConfig {
 }
 
 impl CostManagementConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::CostManagementConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -14327,6 +14907,10 @@ pub struct IntraNodeVisibilityConfig {
 }
 
 impl IntraNodeVisibilityConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::IntraNodeVisibilityConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -14352,6 +14936,10 @@ pub struct ILBSubsettingConfig {
 }
 
 impl ILBSubsettingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ILBSubsettingConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -14387,6 +14975,10 @@ pub struct DNSConfig {
 }
 
 impl DNSConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cluster_dns][crate::model::DNSConfig::cluster_dns].
     pub fn set_cluster_dns<T: std::convert::Into<crate::model::dns_config::Provider>>(
         mut self,
@@ -14523,6 +15115,10 @@ pub struct MaxPodsConstraint {
 }
 
 impl MaxPodsConstraint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [max_pods_per_node][crate::model::MaxPodsConstraint::max_pods_per_node].
     pub fn set_max_pods_per_node<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_pods_per_node = v.into();
@@ -14549,6 +15145,10 @@ pub struct WorkloadIdentityConfig {
 }
 
 impl WorkloadIdentityConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [workload_pool][crate::model::WorkloadIdentityConfig::workload_pool].
     pub fn set_workload_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_pool = v.into();
@@ -14574,6 +15174,10 @@ pub struct IdentityServiceConfig {
 }
 
 impl IdentityServiceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::IdentityServiceConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -14609,6 +15213,10 @@ pub struct MeshCertificates {
 }
 
 impl MeshCertificates {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_certificates][crate::model::MeshCertificates::enable_certificates].
     pub fn set_enable_certificates<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
         mut self,
@@ -14657,6 +15265,10 @@ pub struct DatabaseEncryption {
 }
 
 impl DatabaseEncryption {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key_name][crate::model::DatabaseEncryption::key_name].
     pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_name = v.into();
@@ -14738,6 +15350,10 @@ pub mod database_encryption {
     }
 
     impl OperationError {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key_name][crate::model::database_encryption::OperationError::key_name].
         pub fn set_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key_name = v.into();
@@ -14897,6 +15513,10 @@ pub struct ListUsableSubnetworksRequest {
 }
 
 impl ListUsableSubnetworksRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListUsableSubnetworksRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -14948,6 +15568,10 @@ pub struct ListUsableSubnetworksResponse {
 }
 
 impl ListUsableSubnetworksResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListUsableSubnetworksResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -15005,6 +15629,10 @@ pub struct UsableSubnetworkSecondaryRange {
 }
 
 impl UsableSubnetworkSecondaryRange {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [range_name][crate::model::UsableSubnetworkSecondaryRange::range_name].
     pub fn set_range_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.range_name = v.into();
@@ -15122,6 +15750,10 @@ pub struct UsableSubnetwork {
 }
 
 impl UsableSubnetwork {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [subnetwork][crate::model::UsableSubnetwork::subnetwork].
     pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnetwork = v.into();
@@ -15186,6 +15818,10 @@ pub struct ResourceUsageExportConfig {
 }
 
 impl ResourceUsageExportConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bigquery_destination][crate::model::ResourceUsageExportConfig::bigquery_destination].
     pub fn set_bigquery_destination<
         T: std::convert::Into<
@@ -15244,6 +15880,10 @@ pub mod resource_usage_export_config {
     }
 
     impl BigQueryDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dataset_id][crate::model::resource_usage_export_config::BigQueryDestination::dataset_id].
         pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset_id = v.into();
@@ -15270,6 +15910,10 @@ pub mod resource_usage_export_config {
     }
 
     impl ConsumptionMeteringConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [enabled][crate::model::resource_usage_export_config::ConsumptionMeteringConfig::enabled].
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
@@ -15297,6 +15941,10 @@ pub struct VerticalPodAutoscaling {
 }
 
 impl VerticalPodAutoscaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::VerticalPodAutoscaling::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -15322,6 +15970,10 @@ pub struct DefaultSnatStatus {
 }
 
 impl DefaultSnatStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [disabled][crate::model::DefaultSnatStatus::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
@@ -15346,6 +15998,10 @@ pub struct ShieldedNodes {
 }
 
 impl ShieldedNodes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ShieldedNodes::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -15370,6 +16026,10 @@ pub struct VirtualNIC {
 }
 
 impl VirtualNIC {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::VirtualNIC::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -15394,6 +16054,10 @@ pub struct FastSocket {
 }
 
 impl FastSocket {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::FastSocket::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -15419,6 +16083,10 @@ pub struct NotificationConfig {
 }
 
 impl NotificationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [pubsub][crate::model::NotificationConfig::pubsub].
     pub fn set_pubsub<
         T: std::convert::Into<std::option::Option<crate::model::notification_config::PubSub>>,
@@ -15464,6 +16132,10 @@ pub mod notification_config {
     }
 
     impl PubSub {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [enabled][crate::model::notification_config::PubSub::enabled].
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
@@ -15509,6 +16181,10 @@ pub mod notification_config {
     }
 
     impl Filter {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [event_type][crate::model::notification_config::Filter::event_type].
         pub fn set_event_type<T, V>(mut self, v: T) -> Self
         where
@@ -15580,6 +16256,10 @@ pub struct ConfidentialNodes {
 }
 
 impl ConfidentialNodes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ConfidentialNodes::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -15626,6 +16306,10 @@ pub struct UpgradeEvent {
 }
 
 impl UpgradeEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_type][crate::model::UpgradeEvent::resource_type].
     pub fn set_resource_type<T: std::convert::Into<crate::model::UpgradeResourceType>>(
         mut self,
@@ -15719,6 +16403,10 @@ pub struct UpgradeInfoEvent {
 }
 
 impl UpgradeInfoEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_type][crate::model::UpgradeInfoEvent::resource_type].
     pub fn set_resource_type<T: std::convert::Into<crate::model::UpgradeResourceType>>(
         mut self,
@@ -15866,6 +16554,10 @@ pub struct UpgradeAvailableEvent {
 }
 
 impl UpgradeAvailableEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::UpgradeAvailableEvent::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -15961,6 +16653,10 @@ pub struct SecurityBulletinEvent {
 }
 
 impl SecurityBulletinEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_type_affected][crate::model::SecurityBulletinEvent::resource_type_affected].
     pub fn set_resource_type_affected<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16067,6 +16763,10 @@ pub struct Autopilot {
 }
 
 impl Autopilot {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::Autopilot::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -16104,6 +16804,10 @@ pub struct WorkloadPolicyConfig {
 }
 
 impl WorkloadPolicyConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [allow_net_admin][crate::model::WorkloadPolicyConfig::allow_net_admin].
     pub fn set_allow_net_admin<T: std::convert::Into<std::option::Option<bool>>>(
         mut self,
@@ -16132,6 +16836,10 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [component_config][crate::model::LoggingConfig::component_config].
     pub fn set_component_config<
         T: std::convert::Into<std::option::Option<crate::model::LoggingComponentConfig>>,
@@ -16162,6 +16870,10 @@ pub struct LoggingComponentConfig {
 }
 
 impl LoggingComponentConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_components][crate::model::LoggingComponentConfig::enable_components].
     pub fn set_enable_components<T, V>(mut self, v: T) -> Self
     where
@@ -16248,6 +16960,10 @@ pub struct RayClusterLoggingConfig {
 }
 
 impl RayClusterLoggingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::RayClusterLoggingConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -16283,6 +16999,10 @@ pub struct MonitoringConfig {
 }
 
 impl MonitoringConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [component_config][crate::model::MonitoringConfig::component_config].
     pub fn set_component_config<
         T: std::convert::Into<std::option::Option<crate::model::MonitoringComponentConfig>>,
@@ -16342,6 +17062,10 @@ pub struct AdvancedDatapathObservabilityConfig {
 }
 
 impl AdvancedDatapathObservabilityConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_metrics][crate::model::AdvancedDatapathObservabilityConfig::enable_metrics].
     pub fn set_enable_metrics<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_metrics = v.into();
@@ -16432,6 +17156,10 @@ pub struct RayClusterMonitoringConfig {
 }
 
 impl RayClusterMonitoringConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::RayClusterMonitoringConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -16457,6 +17185,10 @@ pub struct NodePoolLoggingConfig {
 }
 
 impl NodePoolLoggingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [variant_config][crate::model::NodePoolLoggingConfig::variant_config].
     pub fn set_variant_config<
         T: std::convert::Into<std::option::Option<crate::model::LoggingVariantConfig>>,
@@ -16486,6 +17218,10 @@ pub struct LoggingVariantConfig {
 }
 
 impl LoggingVariantConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [variant][crate::model::LoggingVariantConfig::variant].
     pub fn set_variant<T: std::convert::Into<crate::model::logging_variant_config::Variant>>(
         mut self,
@@ -16557,6 +17293,10 @@ pub struct MonitoringComponentConfig {
 }
 
 impl MonitoringComponentConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_components][crate::model::MonitoringComponentConfig::enable_components].
     pub fn set_enable_components<T, V>(mut self, v: T) -> Self
     where
@@ -16662,6 +17402,10 @@ pub struct ManagedPrometheusConfig {
 }
 
 impl ManagedPrometheusConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::ManagedPrometheusConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -16699,6 +17443,10 @@ pub struct Fleet {
 }
 
 impl Fleet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project][crate::model::Fleet::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
@@ -16742,6 +17490,10 @@ pub struct ControlPlaneEndpointsConfig {
 }
 
 impl ControlPlaneEndpointsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dns_endpoint_config][crate::model::ControlPlaneEndpointsConfig::dns_endpoint_config].
     pub fn set_dns_endpoint_config<
         T: std::convert::Into<
@@ -16803,6 +17555,10 @@ pub mod control_plane_endpoints_config {
     }
 
     impl DNSEndpointConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [endpoint][crate::model::control_plane_endpoints_config::DNSEndpointConfig::endpoint].
         pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.endpoint = v.into();
@@ -16881,6 +17637,10 @@ pub mod control_plane_endpoints_config {
     }
 
     impl IPEndpointsConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [enabled][crate::model::control_plane_endpoints_config::IPEndpointsConfig::enabled].
         pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(
             mut self,
@@ -16982,6 +17742,10 @@ pub struct LocalNvmeSsdBlockConfig {
 }
 
 impl LocalNvmeSsdBlockConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [local_ssd_count][crate::model::LocalNvmeSsdBlockConfig::local_ssd_count].
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
@@ -17025,6 +17789,10 @@ pub struct EphemeralStorageLocalSsdConfig {
 }
 
 impl EphemeralStorageLocalSsdConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [local_ssd_count][crate::model::EphemeralStorageLocalSsdConfig::local_ssd_count].
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
@@ -17059,6 +17827,10 @@ pub struct ResourceManagerTags {
 }
 
 impl ResourceManagerTags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tags][crate::model::ResourceManagerTags::tags].
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
@@ -17092,6 +17864,10 @@ pub struct EnterpriseConfig {
 }
 
 impl EnterpriseConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cluster_tier][crate::model::EnterpriseConfig::cluster_tier].
     pub fn set_cluster_tier<T: std::convert::Into<crate::model::enterprise_config::ClusterTier>>(
         mut self,
@@ -17172,6 +17948,10 @@ pub struct SecretManagerConfig {
 }
 
 impl SecretManagerConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enabled][crate::model::SecretManagerConfig::enabled].
     pub fn set_enabled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -17201,6 +17981,10 @@ pub struct SecondaryBootDisk {
 }
 
 impl SecondaryBootDisk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::SecondaryBootDisk::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::secondary_boot_disk::Mode>>(
         mut self,
@@ -17272,7 +18056,11 @@ pub mod secondary_boot_disk {
 #[non_exhaustive]
 pub struct SecondaryBootDiskUpdateStrategy {}
 
-impl SecondaryBootDiskUpdateStrategy {}
+impl SecondaryBootDiskUpdateStrategy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for SecondaryBootDiskUpdateStrategy {
     fn typename() -> &'static str {

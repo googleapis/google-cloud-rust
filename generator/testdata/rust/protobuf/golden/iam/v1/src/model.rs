@@ -50,6 +50,9 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [resource][crate::model::SetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -95,6 +98,9 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [resource][crate::model::GetIamPolicyRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -136,6 +142,9 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [resource][crate::model::TestIamPermissionsRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -175,6 +184,9 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [permissions][crate::model::TestIamPermissionsResponse::permissions].
     pub fn set_permissions<T, V>(mut self, v: T) -> Self
@@ -223,6 +235,9 @@ pub struct GetPolicyOptions {
 }
 
 impl GetPolicyOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [requested_policy_version][crate::model::GetPolicyOptions::requested_policy_version].
     pub fn set_requested_policy_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -377,6 +392,9 @@ pub struct Policy {
 }
 
 impl Policy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [version][crate::model::Policy::version].
     pub fn set_version<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -492,6 +510,9 @@ pub struct Binding {
 }
 
 impl Binding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [role][crate::model::Binding::role].
     pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -594,6 +615,9 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [service][crate::model::AuditConfig::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -660,6 +684,9 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [log_type][crate::model::AuditLogConfig::log_type].
     pub fn set_log_type<T: std::convert::Into<crate::model::audit_log_config::LogType>>(mut self, v: T) -> Self {
@@ -750,6 +777,9 @@ pub struct PolicyDelta {
 }
 
 impl PolicyDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [binding_deltas][crate::model::PolicyDelta::binding_deltas].
     pub fn set_binding_deltas<T, V>(mut self, v: T) -> Self
@@ -810,6 +840,9 @@ pub struct BindingDelta {
 }
 
 impl BindingDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [action][crate::model::BindingDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::binding_delta::Action>>(mut self, v: T) -> Self {
@@ -919,6 +952,9 @@ pub struct AuditConfigDelta {
 }
 
 impl AuditConfigDelta {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [action][crate::model::AuditConfigDelta::action].
     pub fn set_action<T: std::convert::Into<crate::model::audit_config_delta::Action>>(mut self, v: T) -> Self {

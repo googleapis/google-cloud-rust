@@ -50,6 +50,10 @@ pub struct ExcludeInfoTypes {
 }
 
 impl ExcludeInfoTypes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_types][crate::model::ExcludeInfoTypes::info_types].
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
@@ -90,6 +94,10 @@ pub struct ExcludeByHotword {
 }
 
 impl ExcludeByHotword {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [hotword_regex][crate::model::ExcludeByHotword::hotword_regex].
     pub fn set_hotword_regex<
         T: std::convert::Into<std::option::Option<crate::model::custom_info_type::Regex>>,
@@ -137,6 +145,10 @@ pub struct ExclusionRule {
 }
 
 impl ExclusionRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [matching_type][crate::model::ExclusionRule::matching_type].
     pub fn set_matching_type<T: std::convert::Into<crate::model::MatchingType>>(
         mut self,
@@ -317,6 +329,10 @@ pub struct InspectionRule {
 }
 
 impl InspectionRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::inspection_rule::Type>>,
@@ -431,6 +447,10 @@ pub struct InspectionRuleSet {
 }
 
 impl InspectionRuleSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_types][crate::model::InspectionRuleSet::info_types].
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
@@ -550,6 +570,10 @@ pub struct InspectConfig {
 }
 
 impl InspectConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_likelihood][crate::model::InspectConfig::min_likelihood].
     pub fn set_min_likelihood<T: std::convert::Into<crate::model::Likelihood>>(
         mut self,
@@ -671,6 +695,10 @@ pub mod inspect_config {
     }
 
     impl InfoTypeLikelihood {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [info_type][crate::model::inspect_config::InfoTypeLikelihood::info_type].
         pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
             mut self,
@@ -747,6 +775,10 @@ pub mod inspect_config {
     }
 
     impl FindingLimits {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [max_findings_per_item][crate::model::inspect_config::FindingLimits::max_findings_per_item].
         pub fn set_max_findings_per_item<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_findings_per_item = v.into();
@@ -801,6 +833,10 @@ pub mod inspect_config {
         }
 
         impl InfoTypeLimit {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [info_type][crate::model::inspect_config::finding_limits::InfoTypeLimit::info_type].
             pub fn set_info_type<
                 T: std::convert::Into<std::option::Option<crate::model::InfoType>>,
@@ -844,6 +880,10 @@ pub struct ByteContentItem {
 }
 
 impl ByteContentItem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::ByteContentItem::type].
     pub fn set_type<T: std::convert::Into<crate::model::byte_content_item::BytesType>>(
         mut self,
@@ -964,6 +1004,10 @@ pub struct ContentItem {
 }
 
 impl ContentItem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `data_item`.
     pub fn set_data_item<
         T: std::convert::Into<std::option::Option<crate::model::content_item::DataItem>>,
@@ -1095,6 +1139,10 @@ pub struct Table {
 }
 
 impl Table {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [headers][crate::model::Table::headers].
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
@@ -1141,6 +1189,10 @@ pub mod table {
     }
 
     impl Row {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [values][crate::model::table::Row::values].
         pub fn set_values<T, V>(mut self, v: T) -> Self
         where
@@ -1180,6 +1232,10 @@ pub struct InspectResult {
 }
 
 impl InspectResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [findings_truncated][crate::model::InspectResult::findings_truncated].
     pub fn set_findings_truncated<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.findings_truncated = v.into();
@@ -1285,6 +1341,10 @@ pub struct Finding {
 }
 
 impl Finding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Finding::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1422,6 +1482,10 @@ pub struct Location {
 }
 
 impl Location {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [byte_range][crate::model::Location::byte_range].
     pub fn set_byte_range<T: std::convert::Into<std::option::Option<crate::model::Range>>>(
         mut self,
@@ -1505,6 +1569,10 @@ pub struct ContentLocation {
 }
 
 impl ContentLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [container_name][crate::model::ContentLocation::container_name].
     pub fn set_container_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.container_name = v.into();
@@ -1713,6 +1781,10 @@ pub struct MetadataLocation {
 }
 
 impl MetadataLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::MetadataLocation::type].
     pub fn set_type<T: std::convert::Into<crate::model::MetadataType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -1795,6 +1867,10 @@ pub struct StorageMetadataLabel {
 }
 
 impl StorageMetadataLabel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::StorageMetadataLabel::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -1821,6 +1897,10 @@ pub struct DocumentLocation {
 }
 
 impl DocumentLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_offset][crate::model::DocumentLocation::file_offset].
     pub fn set_file_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.file_offset = v.into();
@@ -1854,6 +1934,10 @@ pub struct RecordLocation {
 }
 
 impl RecordLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [record_key][crate::model::RecordLocation::record_key].
     pub fn set_record_key<T: std::convert::Into<std::option::Option<crate::model::RecordKey>>>(
         mut self,
@@ -1907,6 +1991,10 @@ pub struct TableLocation {
 }
 
 impl TableLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [row_index][crate::model::TableLocation::row_index].
     pub fn set_row_index<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.row_index = v.into();
@@ -1979,6 +2067,10 @@ pub struct Container {
 }
 
 impl Container {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Container::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -2047,6 +2139,10 @@ pub struct Range {
 }
 
 impl Range {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start][crate::model::Range::start].
     pub fn set_start<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.start = v.into();
@@ -2078,6 +2174,10 @@ pub struct ImageLocation {
 }
 
 impl ImageLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bounding_boxes][crate::model::ImageLocation::bounding_boxes].
     pub fn set_bounding_boxes<T, V>(mut self, v: T) -> Self
     where
@@ -2116,6 +2216,10 @@ pub struct BoundingBox {
 }
 
 impl BoundingBox {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [top][crate::model::BoundingBox::top].
     pub fn set_top<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.top = v.into();
@@ -2198,6 +2302,10 @@ pub struct RedactImageRequest {
 }
 
 impl RedactImageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::RedactImageRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2279,6 +2387,10 @@ pub mod redact_image_request {
     }
 
     impl ImageRedactionConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [redaction_color][crate::model::redact_image_request::ImageRedactionConfig::redaction_color].
         pub fn set_redaction_color<
             T: std::convert::Into<std::option::Option<crate::model::Color>>,
@@ -2408,6 +2520,10 @@ pub struct Color {
 }
 
 impl Color {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [red][crate::model::Color::red].
     pub fn set_red<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.red = v.into();
@@ -2456,6 +2572,10 @@ pub struct RedactImageResponse {
 }
 
 impl RedactImageResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [redacted_image][crate::model::RedactImageResponse::redacted_image].
     pub fn set_redacted_image<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.redacted_image = v.into();
@@ -2562,6 +2682,10 @@ pub struct DeidentifyContentRequest {
 }
 
 impl DeidentifyContentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::DeidentifyContentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2646,6 +2770,10 @@ pub struct DeidentifyContentResponse {
 }
 
 impl DeidentifyContentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [item][crate::model::DeidentifyContentResponse::item].
     pub fn set_item<T: std::convert::Into<std::option::Option<crate::model::ContentItem>>>(
         mut self,
@@ -2745,6 +2873,10 @@ pub struct ReidentifyContentRequest {
 }
 
 impl ReidentifyContentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ReidentifyContentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2829,6 +2961,10 @@ pub struct ReidentifyContentResponse {
 }
 
 impl ReidentifyContentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [item][crate::model::ReidentifyContentResponse::item].
     pub fn set_item<T: std::convert::Into<std::option::Option<crate::model::ContentItem>>>(
         mut self,
@@ -2906,6 +3042,10 @@ pub struct InspectContentRequest {
 }
 
 impl InspectContentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::InspectContentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2966,6 +3106,10 @@ pub struct InspectContentResponse {
 }
 
 impl InspectContentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [result][crate::model::InspectContentResponse::result].
     pub fn set_result<T: std::convert::Into<std::option::Option<crate::model::InspectResult>>>(
         mut self,
@@ -3006,6 +3150,10 @@ pub struct OutputStorageConfig {
 }
 
 impl OutputStorageConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_schema][crate::model::OutputStorageConfig::output_schema].
     pub fn set_output_schema<
         T: std::convert::Into<crate::model::output_storage_config::OutputSchema>,
@@ -3152,6 +3300,10 @@ pub struct InfoTypeStats {
 }
 
 impl InfoTypeStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::InfoTypeStats::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -3191,6 +3343,10 @@ pub struct InspectDataSourceDetails {
 }
 
 impl InspectDataSourceDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [requested_options][crate::model::InspectDataSourceDetails::requested_options].
     pub fn set_requested_options<
         T: std::convert::Into<
@@ -3244,6 +3400,10 @@ pub mod inspect_data_source_details {
     }
 
     impl RequestedOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [snapshot_inspect_template][crate::model::inspect_data_source_details::RequestedOptions::snapshot_inspect_template].
         pub fn set_snapshot_inspect_template<
             T: std::convert::Into<std::option::Option<crate::model::InspectTemplate>>,
@@ -3303,6 +3463,10 @@ pub mod inspect_data_source_details {
     }
 
     impl Result {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [processed_bytes][crate::model::inspect_data_source_details::Result::processed_bytes].
         pub fn set_processed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.processed_bytes = v.into();
@@ -3365,6 +3529,10 @@ pub struct DataProfileBigQueryRowSchema {
 }
 
 impl DataProfileBigQueryRowSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `data_profile`.
     pub fn set_data_profile<
         T: std::convert::Into<
@@ -3527,6 +3695,10 @@ pub struct HybridInspectStatistics {
 }
 
 impl HybridInspectStatistics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [processed_count][crate::model::HybridInspectStatistics::processed_count].
     pub fn set_processed_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.processed_count = v.into();
@@ -3566,6 +3738,10 @@ pub struct ActionDetails {
 }
 
 impl ActionDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `details`.
     pub fn set_details<
         T: std::convert::Into<std::option::Option<crate::model::action_details::Details>>,
@@ -3651,6 +3827,10 @@ pub struct DeidentifyDataSourceStats {
 }
 
 impl DeidentifyDataSourceStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transformed_bytes][crate::model::DeidentifyDataSourceStats::transformed_bytes].
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
@@ -3697,6 +3877,10 @@ pub struct DeidentifyDataSourceDetails {
 }
 
 impl DeidentifyDataSourceDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [requested_options][crate::model::DeidentifyDataSourceDetails::requested_options].
     pub fn set_requested_options<
         T: std::convert::Into<
@@ -3762,6 +3946,10 @@ pub mod deidentify_data_source_details {
     }
 
     impl RequestedDeidentifyOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [snapshot_deidentify_template][crate::model::deidentify_data_source_details::RequestedDeidentifyOptions::snapshot_deidentify_template].
         pub fn set_snapshot_deidentify_template<
             T: std::convert::Into<std::option::Option<crate::model::DeidentifyTemplate>>,
@@ -3840,6 +4028,10 @@ pub struct InfoTypeDescription {
 }
 
 impl InfoTypeDescription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InfoTypeDescription::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3922,6 +4114,10 @@ pub struct InfoTypeCategory {
 }
 
 impl InfoTypeCategory {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `category`.
     pub fn set_category<
         T: std::convert::Into<std::option::Option<crate::model::info_type_category::Category>>,
@@ -4354,6 +4550,10 @@ pub struct VersionDescription {
 }
 
 impl VersionDescription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::VersionDescription::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -4406,6 +4606,10 @@ pub struct ListInfoTypesRequest {
 }
 
 impl ListInfoTypesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListInfoTypesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4449,6 +4653,10 @@ pub struct ListInfoTypesResponse {
 }
 
 impl ListInfoTypesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_types][crate::model::ListInfoTypesResponse::info_types].
     pub fn set_info_types<T, V>(mut self, v: T) -> Self
     where
@@ -4490,6 +4698,10 @@ pub struct RiskAnalysisJobConfig {
 }
 
 impl RiskAnalysisJobConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [privacy_metric][crate::model::RiskAnalysisJobConfig::privacy_metric].
     pub fn set_privacy_metric<
         T: std::convert::Into<std::option::Option<crate::model::PrivacyMetric>>,
@@ -4548,6 +4760,10 @@ pub struct QuasiId {
 }
 
 impl QuasiId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field][crate::model::QuasiId::field].
     pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
         mut self,
@@ -4697,6 +4913,10 @@ pub struct StatisticalTable {
 }
 
 impl StatisticalTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table][crate::model::StatisticalTable::table].
     pub fn set_table<T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>>(
         mut self,
@@ -4759,6 +4979,10 @@ pub mod statistical_table {
     }
 
     impl QuasiIdentifierField {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [field][crate::model::statistical_table::QuasiIdentifierField::field].
         pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
             mut self,
@@ -4794,6 +5018,10 @@ pub struct PrivacyMetric {
 }
 
 impl PrivacyMetric {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::privacy_metric::Type>>,
@@ -5026,6 +5254,10 @@ pub mod privacy_metric {
     }
 
     impl NumericalStatsConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [field][crate::model::privacy_metric::NumericalStatsConfig::field].
         pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
             mut self,
@@ -5058,6 +5290,10 @@ pub mod privacy_metric {
     }
 
     impl CategoricalStatsConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [field][crate::model::privacy_metric::CategoricalStatsConfig::field].
         pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
             mut self,
@@ -5103,6 +5339,10 @@ pub mod privacy_metric {
     }
 
     impl KAnonymityConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [entity_id][crate::model::privacy_metric::KAnonymityConfig::entity_id].
         pub fn set_entity_id<T: std::convert::Into<std::option::Option<crate::model::EntityId>>>(
             mut self,
@@ -5148,6 +5388,10 @@ pub mod privacy_metric {
     }
 
     impl LDiversityConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [sensitive_attribute][crate::model::privacy_metric::LDiversityConfig::sensitive_attribute].
         pub fn set_sensitive_attribute<
             T: std::convert::Into<std::option::Option<crate::model::FieldId>>,
@@ -5209,6 +5453,10 @@ pub mod privacy_metric {
     }
 
     impl KMapEstimationConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [region_code][crate::model::privacy_metric::KMapEstimationConfig::region_code].
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
@@ -5273,6 +5521,10 @@ pub mod privacy_metric {
         }
 
         impl TaggedField {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [field][crate::model::privacy_metric::k_map_estimation_config::TaggedField::field].
             pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
                 mut self,
@@ -5446,6 +5698,10 @@ pub mod privacy_metric {
         }
 
         impl AuxiliaryTable {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [table][crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable::table].
             pub fn set_table<
                 T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
@@ -5508,6 +5764,10 @@ pub mod privacy_metric {
             }
 
             impl QuasiIdField {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [field][crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField::field].
                 pub fn set_field<
                     T: std::convert::Into<std::option::Option<crate::model::FieldId>>,
@@ -5565,6 +5825,10 @@ pub mod privacy_metric {
     }
 
     impl DeltaPresenceEstimationConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [region_code][crate::model::privacy_metric::DeltaPresenceEstimationConfig::region_code].
         pub fn set_region_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.region_code = v.into();
@@ -5650,6 +5914,10 @@ pub struct AnalyzeDataSourceRiskDetails {
 }
 
 impl AnalyzeDataSourceRiskDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [requested_privacy_metric][crate::model::AnalyzeDataSourceRiskDetails::requested_privacy_metric].
     pub fn set_requested_privacy_metric<
         T: std::convert::Into<std::option::Option<crate::model::PrivacyMetric>>,
@@ -5955,6 +6223,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl NumericalStatsResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [min_value][crate::model::analyze_data_source_risk_details::NumericalStatsResult::min_value].
         pub fn set_min_value<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
             mut self,
@@ -6004,6 +6276,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl CategoricalStatsResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [value_frequency_histogram_buckets][crate::model::analyze_data_source_risk_details::CategoricalStatsResult::value_frequency_histogram_buckets].
         pub fn set_value_frequency_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
@@ -6056,6 +6332,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl CategoricalStatsHistogramBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [value_frequency_lower_bound][crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket::value_frequency_lower_bound].
             pub fn set_value_frequency_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
@@ -6118,6 +6398,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl KAnonymityResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [equivalence_class_histogram_buckets][crate::model::analyze_data_source_risk_details::KAnonymityResult::equivalence_class_histogram_buckets].
         pub fn set_equivalence_class_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
@@ -6160,6 +6444,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl KAnonymityEquivalenceClass {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [equivalence_class_size][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass::equivalence_class_size].
             pub fn set_equivalence_class_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.equivalence_class_size = v.into();
@@ -6214,6 +6502,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl KAnonymityHistogramBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [equivalence_class_size_lower_bound][crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket::equivalence_class_size_lower_bound].
             pub fn set_equivalence_class_size_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
@@ -6276,6 +6568,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl LDiversityResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [sensitive_value_frequency_histogram_buckets][crate::model::analyze_data_source_risk_details::LDiversityResult::sensitive_value_frequency_histogram_buckets].
         pub fn set_sensitive_value_frequency_histogram_buckets<T, V>(mut self, v: T) -> Self
         where
@@ -6325,6 +6621,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl LDiversityEquivalenceClass {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [equivalence_class_size][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass::equivalence_class_size].
             pub fn set_equivalence_class_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.equivalence_class_size = v.into();
@@ -6401,6 +6701,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl LDiversityHistogramBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [sensitive_value_frequency_lower_bound][crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket::sensitive_value_frequency_lower_bound].
             pub fn set_sensitive_value_frequency_lower_bound<T: std::convert::Into<i64>>(
                 mut self,
@@ -6471,6 +6775,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl KMapEstimationResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [k_map_estimation_histogram][crate::model::analyze_data_source_risk_details::KMapEstimationResult::k_map_estimation_histogram].
         pub fn set_k_map_estimation_histogram<T, V>(mut self, v: T) -> Self
         where
@@ -6510,6 +6818,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl KMapEstimationQuasiIdValues {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [estimated_anonymity][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues::estimated_anonymity].
             pub fn set_estimated_anonymity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.estimated_anonymity = v.into();
@@ -6571,6 +6883,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl KMapEstimationHistogramBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [min_anonymity][crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket::min_anonymity].
             pub fn set_min_anonymity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.min_anonymity = v.into();
@@ -6635,6 +6951,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl DeltaPresenceEstimationResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [delta_presence_estimation_histogram][crate::model::analyze_data_source_risk_details::DeltaPresenceEstimationResult::delta_presence_estimation_histogram].
         pub fn set_delta_presence_estimation_histogram<T, V>(mut self, v: T) -> Self
         where
@@ -6680,6 +7000,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl DeltaPresenceEstimationQuasiIdValues {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [estimated_probability][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues::estimated_probability].
             pub fn set_estimated_probability<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.estimated_probability = v.into();
@@ -6740,6 +7064,10 @@ pub mod analyze_data_source_risk_details {
         }
 
         impl DeltaPresenceEstimationHistogramBucket {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [min_probability][crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket::min_probability].
             pub fn set_min_probability<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
                 self.min_probability = v.into();
@@ -6795,6 +7123,10 @@ pub mod analyze_data_source_risk_details {
     }
 
     impl RequestedRiskAnalysisOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [job_config][crate::model::analyze_data_source_risk_details::RequestedRiskAnalysisOptions::job_config].
         pub fn set_job_config<
             T: std::convert::Into<std::option::Option<crate::model::RiskAnalysisJobConfig>>,
@@ -6863,6 +7195,10 @@ pub struct ValueFrequency {
 }
 
 impl ValueFrequency {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [value][crate::model::ValueFrequency::value].
     pub fn set_value<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
         mut self,
@@ -6902,6 +7238,10 @@ pub struct Value {
 }
 
 impl Value {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::value::Type>>>(
         mut self,
@@ -7141,6 +7481,10 @@ pub struct QuoteInfo {
 }
 
 impl QuoteInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `parsed_quote`.
     pub fn set_parsed_quote<
         T: std::convert::Into<std::option::Option<crate::model::quote_info::ParsedQuote>>,
@@ -7224,6 +7568,10 @@ pub struct DateTime {
 }
 
 impl DateTime {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [date][crate::model::DateTime::date].
     pub fn set_date<T: std::convert::Into<std::option::Option<gtype::model::Date>>>(
         mut self,
@@ -7283,6 +7631,10 @@ pub mod date_time {
     }
 
     impl TimeZone {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [offset_minutes][crate::model::date_time::TimeZone::offset_minutes].
         pub fn set_offset_minutes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.offset_minutes = v.into();
@@ -7315,6 +7667,10 @@ pub struct DeidentifyConfig {
 }
 
 impl DeidentifyConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transformation_error_handling][crate::model::DeidentifyConfig::transformation_error_handling].
     pub fn set_transformation_error_handling<
         T: std::convert::Into<std::option::Option<crate::model::TransformationErrorHandling>>,
@@ -7474,6 +7830,10 @@ pub struct ImageTransformations {
 }
 
 impl ImageTransformations {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transforms][crate::model::ImageTransformations::transforms].
     pub fn set_transforms<T, V>(mut self, v: T) -> Self
     where
@@ -7515,6 +7875,10 @@ pub mod image_transformations {
     }
 
     impl ImageTransformation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [redaction_color][crate::model::image_transformations::ImageTransformation::redaction_color].
         pub fn set_redaction_color<
             T: std::convert::Into<std::option::Option<crate::model::Color>>,
@@ -7686,6 +8050,10 @@ pub mod image_transformations {
         }
 
         impl SelectedInfoTypes {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [info_types][crate::model::image_transformations::image_transformation::SelectedInfoTypes::info_types].
             pub fn set_info_types<T, V>(mut self, v: T) -> Self
             where
@@ -7711,7 +8079,11 @@ pub mod image_transformations {
         #[non_exhaustive]
         pub struct AllInfoTypes {}
 
-        impl AllInfoTypes {}
+        impl AllInfoTypes {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for AllInfoTypes {
             fn typename() -> &'static str {
@@ -7726,7 +8098,11 @@ pub mod image_transformations {
         #[non_exhaustive]
         pub struct AllText {}
 
-        impl AllText {}
+        impl AllText {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
 
         impl wkt::message::Message for AllText {
             fn typename() -> &'static str {
@@ -7781,6 +8157,10 @@ pub struct TransformationErrorHandling {
 }
 
 impl TransformationErrorHandling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `mode`.
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::transformation_error_handling::Mode>>,
@@ -7883,7 +8263,11 @@ pub mod transformation_error_handling {
     #[non_exhaustive]
     pub struct ThrowError {}
 
-    impl ThrowError {}
+    impl ThrowError {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for ThrowError {
         fn typename() -> &'static str {
@@ -7901,7 +8285,11 @@ pub mod transformation_error_handling {
     #[non_exhaustive]
     pub struct LeaveUntransformed {}
 
-    impl LeaveUntransformed {}
+    impl LeaveUntransformed {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for LeaveUntransformed {
         fn typename() -> &'static str {
@@ -7935,6 +8323,10 @@ pub struct PrimitiveTransformation {
 }
 
 impl PrimitiveTransformation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `transformation`.
     pub fn set_transformation<
         T: std::convert::Into<
@@ -8396,6 +8788,10 @@ pub struct TimePartConfig {
 }
 
 impl TimePartConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [part_to_extract][crate::model::TimePartConfig::part_to_extract].
     pub fn set_part_to_extract<T: std::convert::Into<crate::model::time_part_config::TimePart>>(
         mut self,
@@ -8485,6 +8881,10 @@ pub struct CryptoHashConfig {
 }
 
 impl CryptoHashConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [crypto_key][crate::model::CryptoHashConfig::crypto_key].
     pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
         mut self,
@@ -8573,6 +8973,10 @@ pub struct CryptoDeterministicConfig {
 }
 
 impl CryptoDeterministicConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [crypto_key][crate::model::CryptoDeterministicConfig::crypto_key].
     pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
         mut self,
@@ -8621,6 +9025,10 @@ pub struct ReplaceValueConfig {
 }
 
 impl ReplaceValueConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [new_value][crate::model::ReplaceValueConfig::new_value].
     pub fn set_new_value<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
         mut self,
@@ -8649,6 +9057,10 @@ pub struct ReplaceDictionaryConfig {
 }
 
 impl ReplaceDictionaryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::replace_dictionary_config::Type>>,
@@ -8724,7 +9136,11 @@ pub mod replace_dictionary_config {
 #[non_exhaustive]
 pub struct ReplaceWithInfoTypeConfig {}
 
-impl ReplaceWithInfoTypeConfig {}
+impl ReplaceWithInfoTypeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ReplaceWithInfoTypeConfig {
     fn typename() -> &'static str {
@@ -8741,7 +9157,11 @@ impl wkt::message::Message for ReplaceWithInfoTypeConfig {
 #[non_exhaustive]
 pub struct RedactConfig {}
 
-impl RedactConfig {}
+impl RedactConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for RedactConfig {
     fn typename() -> &'static str {
@@ -8762,6 +9182,10 @@ pub struct CharsToIgnore {
 }
 
 impl CharsToIgnore {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `characters`.
     pub fn set_characters<
         T: std::convert::Into<std::option::Option<crate::model::chars_to_ignore::Characters>>,
@@ -8959,6 +9383,10 @@ pub struct CharacterMaskConfig {
 }
 
 impl CharacterMaskConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [masking_character][crate::model::CharacterMaskConfig::masking_character].
     pub fn set_masking_character<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -9041,6 +9469,10 @@ pub struct FixedSizeBucketingConfig {
 }
 
 impl FixedSizeBucketingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [lower_bound][crate::model::FixedSizeBucketingConfig::lower_bound].
     pub fn set_lower_bound<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
         mut self,
@@ -9095,6 +9527,10 @@ pub struct BucketingConfig {
 }
 
 impl BucketingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [buckets][crate::model::BucketingConfig::buckets].
     pub fn set_buckets<T, V>(mut self, v: T) -> Self
     where
@@ -9139,6 +9575,10 @@ pub mod bucketing_config {
     }
 
     impl Bucket {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [min][crate::model::bucketing_config::Bucket::min].
         pub fn set_min<T: std::convert::Into<std::option::Option<crate::model::Value>>>(
             mut self,
@@ -9256,6 +9696,10 @@ pub struct CryptoReplaceFfxFpeConfig {
 }
 
 impl CryptoReplaceFfxFpeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [crypto_key][crate::model::CryptoReplaceFfxFpeConfig::crypto_key].
     pub fn set_crypto_key<T: std::convert::Into<std::option::Option<crate::model::CryptoKey>>>(
         mut self,
@@ -9480,6 +9924,10 @@ pub struct CryptoKey {
 }
 
 impl CryptoKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::Source>>,
@@ -9622,6 +10070,10 @@ pub struct TransientCryptoKey {
 }
 
 impl TransientCryptoKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TransientCryptoKey::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9649,6 +10101,10 @@ pub struct UnwrappedCryptoKey {
 }
 
 impl UnwrappedCryptoKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::UnwrappedCryptoKey::key].
     pub fn set_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -9689,6 +10145,10 @@ pub struct KmsWrappedCryptoKey {
 }
 
 impl KmsWrappedCryptoKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [wrapped_key][crate::model::KmsWrappedCryptoKey::wrapped_key].
     pub fn set_wrapped_key<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
@@ -9741,6 +10201,10 @@ pub struct DateShiftConfig {
 }
 
 impl DateShiftConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [upper_bound_days][crate::model::DateShiftConfig::upper_bound_days].
     pub fn set_upper_bound_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.upper_bound_days = v.into();
@@ -9840,6 +10304,10 @@ pub struct InfoTypeTransformations {
 }
 
 impl InfoTypeTransformations {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transformations][crate::model::InfoTypeTransformations::transformations].
     pub fn set_transformations<T, V>(mut self, v: T) -> Self
     where
@@ -9882,6 +10350,10 @@ pub mod info_type_transformations {
     }
 
     impl InfoTypeTransformation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [primitive_transformation][crate::model::info_type_transformations::InfoTypeTransformation::primitive_transformation].
         pub fn set_primitive_transformation<
             T: std::convert::Into<std::option::Option<crate::model::PrimitiveTransformation>>,
@@ -9943,6 +10415,10 @@ pub struct FieldTransformation {
 }
 
 impl FieldTransformation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [condition][crate::model::FieldTransformation::condition].
     pub fn set_condition<
         T: std::convert::Into<std::option::Option<crate::model::RecordCondition>>,
@@ -10083,6 +10559,10 @@ pub struct RecordTransformations {
 }
 
 impl RecordTransformations {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field_transformations][crate::model::RecordTransformations::field_transformations].
     pub fn set_field_transformations<T, V>(mut self, v: T) -> Self
     where
@@ -10126,6 +10606,10 @@ pub struct RecordSuppression {
 }
 
 impl RecordSuppression {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [condition][crate::model::RecordSuppression::condition].
     pub fn set_condition<
         T: std::convert::Into<std::option::Option<crate::model::RecordCondition>>,
@@ -10157,6 +10641,10 @@ pub struct RecordCondition {
 }
 
 impl RecordCondition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [expressions][crate::model::RecordCondition::expressions].
     pub fn set_expressions<
         T: std::convert::Into<std::option::Option<crate::model::record_condition::Expressions>>,
@@ -10217,6 +10705,10 @@ pub mod record_condition {
     }
 
     impl Condition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [field][crate::model::record_condition::Condition::field].
         pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
             mut self,
@@ -10263,6 +10755,10 @@ pub mod record_condition {
     }
 
     impl Conditions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [conditions][crate::model::record_condition::Conditions::conditions].
         pub fn set_conditions<T, V>(mut self, v: T) -> Self
         where
@@ -10297,6 +10793,10 @@ pub mod record_condition {
     }
 
     impl Expressions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [logical_operator][crate::model::record_condition::Expressions::logical_operator].
         pub fn set_logical_operator<
             T: std::convert::Into<crate::model::record_condition::expressions::LogicalOperator>,
@@ -10427,6 +10927,10 @@ pub struct TransformationOverview {
 }
 
 impl TransformationOverview {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transformed_bytes][crate::model::TransformationOverview::transformed_bytes].
     pub fn set_transformed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.transformed_bytes = v.into();
@@ -10491,6 +10995,10 @@ pub struct TransformationSummary {
 }
 
 impl TransformationSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::TransformationSummary::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -10592,6 +11100,10 @@ pub mod transformation_summary {
     }
 
     impl SummaryResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [count][crate::model::transformation_summary::SummaryResult::count].
         pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.count = v.into();
@@ -10697,6 +11209,10 @@ pub struct TransformationDescription {
 }
 
 impl TransformationDescription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::TransformationDescription::type].
     pub fn set_type<T: std::convert::Into<crate::model::TransformationType>>(
         mut self,
@@ -10778,6 +11294,10 @@ pub struct TransformationDetails {
 }
 
 impl TransformationDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_name][crate::model::TransformationDetails::resource_name].
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
@@ -10852,6 +11372,10 @@ pub struct TransformationLocation {
 }
 
 impl TransformationLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [container_type][crate::model::TransformationLocation::container_type].
     pub fn set_container_type<T: std::convert::Into<crate::model::TransformationContainerType>>(
         mut self,
@@ -10979,6 +11503,10 @@ pub struct RecordTransformation {
 }
 
 impl RecordTransformation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field_id][crate::model::RecordTransformation::field_id].
     pub fn set_field_id<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
         mut self,
@@ -11029,6 +11557,10 @@ pub struct TransformationResultStatus {
 }
 
 impl TransformationResultStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [result_status_type][crate::model::TransformationResultStatus::result_status_type].
     pub fn set_result_status_type<
         T: std::convert::Into<crate::model::TransformationResultStatusType>,
@@ -11068,6 +11600,10 @@ pub struct TransformationDetailsStorageConfig {
 }
 
 impl TransformationDetailsStorageConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<
@@ -11148,6 +11684,10 @@ pub struct Schedule {
 }
 
 impl Schedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `option`.
     pub fn set_option<
         T: std::convert::Into<std::option::Option<crate::model::schedule::Option>>,
@@ -11226,7 +11766,11 @@ pub mod schedule {
 #[non_exhaustive]
 pub struct Manual {}
 
-impl Manual {}
+impl Manual {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for Manual {
     fn typename() -> &'static str {
@@ -11274,6 +11818,10 @@ pub struct InspectTemplate {
 }
 
 impl InspectTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InspectTemplate::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11367,6 +11915,10 @@ pub struct DeidentifyTemplate {
 }
 
 impl DeidentifyTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeidentifyTemplate::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11442,6 +11994,10 @@ pub struct Error {
 }
 
 impl Error {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [details][crate::model::Error::details].
     pub fn set_details<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -11580,6 +12136,10 @@ pub struct JobTrigger {
 }
 
 impl JobTrigger {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::JobTrigger::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11717,6 +12277,10 @@ pub mod job_trigger {
     }
 
     impl Trigger {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `trigger`.
         pub fn set_trigger<
             T: std::convert::Into<std::option::Option<crate::model::job_trigger::trigger::Trigger>>,
@@ -11876,6 +12440,10 @@ pub struct Action {
 }
 
 impl Action {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `action`.
     pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::action::Action>>>(
         mut self,
@@ -12121,6 +12689,10 @@ pub mod action {
     }
 
     impl SaveFindings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [output_config][crate::model::action::SaveFindings::output_config].
         pub fn set_output_config<
             T: std::convert::Into<std::option::Option<crate::model::OutputStorageConfig>>,
@@ -12158,6 +12730,10 @@ pub mod action {
     }
 
     impl PublishToPubSub {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [topic][crate::model::action::PublishToPubSub::topic].
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
@@ -12185,7 +12761,11 @@ pub mod action {
     #[non_exhaustive]
     pub struct PublishSummaryToCscc {}
 
-    impl PublishSummaryToCscc {}
+    impl PublishSummaryToCscc {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for PublishSummaryToCscc {
         fn typename() -> &'static str {
@@ -12219,7 +12799,11 @@ pub mod action {
     #[non_exhaustive]
     pub struct PublishFindingsToCloudDataCatalog {}
 
-    impl PublishFindingsToCloudDataCatalog {}
+    impl PublishFindingsToCloudDataCatalog {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for PublishFindingsToCloudDataCatalog {
         fn typename() -> &'static str {
@@ -12280,6 +12864,10 @@ pub mod action {
     }
 
     impl Deidentify {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [transformation_config][crate::model::action::Deidentify::transformation_config].
         pub fn set_transformation_config<
             T: std::convert::Into<std::option::Option<crate::model::TransformationConfig>>,
@@ -12391,7 +12979,11 @@ pub mod action {
     #[non_exhaustive]
     pub struct JobNotificationEmails {}
 
-    impl JobNotificationEmails {}
+    impl JobNotificationEmails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for JobNotificationEmails {
         fn typename() -> &'static str {
@@ -12409,7 +13001,11 @@ pub mod action {
     #[non_exhaustive]
     pub struct PublishToStackdriver {}
 
-    impl PublishToStackdriver {}
+    impl PublishToStackdriver {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for PublishToStackdriver {
         fn typename() -> &'static str {
@@ -12479,6 +13075,10 @@ pub struct TransformationConfig {
 }
 
 impl TransformationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [deidentify_template][crate::model::TransformationConfig::deidentify_template].
     pub fn set_deidentify_template<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -12561,6 +13161,10 @@ pub struct CreateInspectTemplateRequest {
 }
 
 impl CreateInspectTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateInspectTemplateRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12619,6 +13223,10 @@ pub struct UpdateInspectTemplateRequest {
 }
 
 impl UpdateInspectTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateInspectTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12666,6 +13274,10 @@ pub struct GetInspectTemplateRequest {
 }
 
 impl GetInspectTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetInspectTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12741,6 +13353,10 @@ pub struct ListInspectTemplatesRequest {
 }
 
 impl ListInspectTemplatesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListInspectTemplatesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12795,6 +13411,10 @@ pub struct ListInspectTemplatesResponse {
 }
 
 impl ListInspectTemplatesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListInspectTemplatesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -12846,6 +13466,10 @@ pub struct DeleteInspectTemplateRequest {
 }
 
 impl DeleteInspectTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteInspectTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12903,6 +13527,10 @@ pub struct CreateJobTriggerRequest {
 }
 
 impl CreateJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateJobTriggerRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12950,6 +13578,10 @@ pub struct ActivateJobTriggerRequest {
 }
 
 impl ActivateJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ActivateJobTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12984,6 +13616,10 @@ pub struct UpdateJobTriggerRequest {
 }
 
 impl UpdateJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateJobTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13028,6 +13664,10 @@ pub struct GetJobTriggerRequest {
 }
 
 impl GetJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetJobTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13080,6 +13720,10 @@ pub struct CreateDiscoveryConfigRequest {
 }
 
 impl CreateDiscoveryConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDiscoveryConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13131,6 +13775,10 @@ pub struct UpdateDiscoveryConfigRequest {
 }
 
 impl UpdateDiscoveryConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateDiscoveryConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13177,6 +13825,10 @@ pub struct GetDiscoveryConfigRequest {
 }
 
 impl GetDiscoveryConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDiscoveryConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13237,6 +13889,10 @@ pub struct ListDiscoveryConfigsRequest {
 }
 
 impl ListDiscoveryConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDiscoveryConfigsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13285,6 +13941,10 @@ pub struct ListDiscoveryConfigsResponse {
 }
 
 impl ListDiscoveryConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDiscoveryConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -13335,6 +13995,10 @@ pub struct DeleteDiscoveryConfigRequest {
 }
 
 impl DeleteDiscoveryConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteDiscoveryConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13394,6 +14058,10 @@ pub struct CreateDlpJobRequest {
 }
 
 impl CreateDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDlpJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13600,6 +14268,10 @@ pub struct ListJobTriggersRequest {
 }
 
 impl ListJobTriggersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListJobTriggersRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -13666,6 +14338,10 @@ pub struct ListJobTriggersResponse {
 }
 
 impl ListJobTriggersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobTriggersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -13716,6 +14392,10 @@ pub struct DeleteJobTriggerRequest {
 }
 
 impl DeleteJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteJobTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -13755,6 +14435,10 @@ pub struct InspectJobConfig {
 }
 
 impl InspectJobConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [storage_config][crate::model::InspectJobConfig::storage_config].
     pub fn set_storage_config<
         T: std::convert::Into<std::option::Option<crate::model::StorageConfig>>,
@@ -13816,6 +14500,10 @@ pub struct DataProfileAction {
 }
 
 impl DataProfileAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `action`.
     pub fn set_action<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_action::Action>>,
@@ -14027,6 +14715,10 @@ pub mod data_profile_action {
     }
 
     impl Export {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [profile_table][crate::model::data_profile_action::Export::profile_table].
         pub fn set_profile_table<
             T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
@@ -14074,6 +14766,10 @@ pub mod data_profile_action {
     }
 
     impl PubSubNotification {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [topic][crate::model::data_profile_action::PubSubNotification::topic].
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
@@ -14173,7 +14869,11 @@ pub mod data_profile_action {
     #[non_exhaustive]
     pub struct PublishToChronicle {}
 
-    impl PublishToChronicle {}
+    impl PublishToChronicle {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for PublishToChronicle {
         fn typename() -> &'static str {
@@ -14188,7 +14888,11 @@ pub mod data_profile_action {
     #[non_exhaustive]
     pub struct PublishToSecurityCommandCenter {}
 
-    impl PublishToSecurityCommandCenter {}
+    impl PublishToSecurityCommandCenter {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for PublishToSecurityCommandCenter {
         fn typename() -> &'static str {
@@ -14233,6 +14937,10 @@ pub mod data_profile_action {
     }
 
     impl TagResources {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [lower_data_risk_to_low][crate::model::data_profile_action::TagResources::lower_data_risk_to_low].
         pub fn set_lower_data_risk_to_low<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.lower_data_risk_to_low = v.into();
@@ -14293,6 +15001,10 @@ pub mod data_profile_action {
         }
 
         impl TagCondition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [tag][crate::model::data_profile_action::tag_resources::TagCondition::tag].
             pub fn set_tag<
                 T: std::convert::Into<
@@ -14390,6 +15102,10 @@ pub mod data_profile_action {
         }
 
         impl TagValue {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `format`.
             pub fn set_format<
                 T: std::convert::Into<
@@ -14577,6 +15293,10 @@ pub struct DataProfileJobConfig {
 }
 
 impl DataProfileJobConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [location][crate::model::DataProfileJobConfig::location].
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::DataProfileLocation>>,
@@ -14659,6 +15379,10 @@ pub struct BigQueryRegex {
 }
 
 impl BigQueryRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id_regex][crate::model::BigQueryRegex::project_id_regex].
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -14704,6 +15428,10 @@ pub struct BigQueryRegexes {
 }
 
 impl BigQueryRegexes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [patterns][crate::model::BigQueryRegexes::patterns].
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -14734,6 +15462,10 @@ pub struct BigQueryTableTypes {
 }
 
 impl BigQueryTableTypes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [types][crate::model::BigQueryTableTypes::types].
     pub fn set_types<T, V>(mut self, v: T) -> Self
     where
@@ -14759,7 +15491,11 @@ impl wkt::message::Message for BigQueryTableTypes {
 #[non_exhaustive]
 pub struct Disabled {}
 
-impl Disabled {}
+impl Disabled {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for Disabled {
     fn typename() -> &'static str {
@@ -14779,6 +15515,10 @@ pub struct DataProfileLocation {
 }
 
 impl DataProfileLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `location`.
     pub fn set_location<
         T: std::convert::Into<std::option::Option<crate::model::data_profile_location::Location>>,
@@ -14946,6 +15686,10 @@ pub struct DiscoveryConfig {
 }
 
 impl DiscoveryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DiscoveryConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -15090,6 +15834,10 @@ pub mod discovery_config {
     }
 
     impl OrgConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [location][crate::model::discovery_config::OrgConfig::location].
         pub fn set_location<
             T: std::convert::Into<std::option::Option<crate::model::DiscoveryStartingLocation>>,
@@ -15164,6 +15912,10 @@ pub struct DiscoveryTarget {
 }
 
 impl DiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `target`.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::discovery_target::Target>>,
@@ -15395,6 +16147,10 @@ pub struct BigQueryDiscoveryTarget {
 }
 
 impl BigQueryDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::BigQueryDiscoveryTarget::filter].
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::DiscoveryBigQueryFilter>>,
@@ -15535,6 +16291,10 @@ pub struct DiscoveryBigQueryFilter {
 }
 
 impl DiscoveryBigQueryFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_big_query_filter::Filter>>,
@@ -15667,7 +16427,11 @@ pub mod discovery_big_query_filter {
     #[non_exhaustive]
     pub struct AllOtherBigQueryTables {}
 
-    impl AllOtherBigQueryTables {}
+    impl AllOtherBigQueryTables {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for AllOtherBigQueryTables {
         fn typename() -> &'static str {
@@ -15715,6 +16479,10 @@ pub struct BigQueryTableCollection {
 }
 
 impl BigQueryTableCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::big_query_table_collection::Pattern>>,
@@ -15810,6 +16578,10 @@ pub struct DiscoveryBigQueryConditions {
 }
 
 impl DiscoveryBigQueryConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [created_after][crate::model::DiscoveryBigQueryConditions::created_after].
     pub fn set_created_after<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -15935,6 +16707,10 @@ pub mod discovery_big_query_conditions {
     }
 
     impl OrConditions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [min_row_count][crate::model::discovery_big_query_conditions::OrConditions::min_row_count].
         pub fn set_min_row_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.min_row_count = v.into();
@@ -16001,6 +16777,10 @@ pub struct DiscoveryGenerationCadence {
 }
 
 impl DiscoveryGenerationCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [schema_modified_cadence][crate::model::DiscoveryGenerationCadence::schema_modified_cadence].
     pub fn set_schema_modified_cadence<
         T: std::convert::Into<std::option::Option<crate::model::DiscoverySchemaModifiedCadence>>,
@@ -16072,6 +16852,10 @@ pub struct DiscoveryTableModifiedCadence {
 }
 
 impl DiscoveryTableModifiedCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [frequency][crate::model::DiscoveryTableModifiedCadence::frequency].
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
@@ -16117,6 +16901,10 @@ pub struct DiscoverySchemaModifiedCadence {
 }
 
 impl DiscoverySchemaModifiedCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [frequency][crate::model::DiscoverySchemaModifiedCadence::frequency].
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
@@ -16157,6 +16945,10 @@ pub struct DiscoveryInspectTemplateModifiedCadence {
 }
 
 impl DiscoveryInspectTemplateModifiedCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [frequency][crate::model::DiscoveryInspectTemplateModifiedCadence::frequency].
     pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
         mut self,
@@ -16195,6 +16987,10 @@ pub struct CloudSqlDiscoveryTarget {
 }
 
 impl CloudSqlDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::CloudSqlDiscoveryTarget::filter].
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::DiscoveryCloudSqlFilter>>,
@@ -16332,6 +17128,10 @@ pub struct DiscoveryCloudSqlFilter {
 }
 
 impl DiscoveryCloudSqlFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_cloud_sql_filter::Filter>>,
@@ -16486,6 +17286,10 @@ pub struct DatabaseResourceCollection {
 }
 
 impl DatabaseResourceCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<
@@ -16570,6 +17374,10 @@ pub struct DatabaseResourceRegexes {
 }
 
 impl DatabaseResourceRegexes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [patterns][crate::model::DatabaseResourceRegexes::patterns].
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -16619,6 +17427,10 @@ pub struct DatabaseResourceRegex {
 }
 
 impl DatabaseResourceRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id_regex][crate::model::DatabaseResourceRegex::project_id_regex].
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -16663,7 +17475,11 @@ impl wkt::message::Message for DatabaseResourceRegex {
 #[non_exhaustive]
 pub struct AllOtherDatabaseResources {}
 
-impl AllOtherDatabaseResources {}
+impl AllOtherDatabaseResources {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AllOtherDatabaseResources {
     fn typename() -> &'static str {
@@ -16698,6 +17514,10 @@ pub struct DatabaseResourceReference {
 }
 
 impl DatabaseResourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::DatabaseResourceReference::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -16753,6 +17573,10 @@ pub struct DiscoveryCloudSqlConditions {
 }
 
 impl DiscoveryCloudSqlConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database_engines][crate::model::DiscoveryCloudSqlConditions::database_engines].
     pub fn set_database_engines<T, V>(mut self, v: T) -> Self
     where
@@ -16897,6 +17721,10 @@ pub struct DiscoveryCloudSqlGenerationCadence {
 }
 
 impl DiscoveryCloudSqlGenerationCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [schema_modified_cadence][crate::model::DiscoveryCloudSqlGenerationCadence::schema_modified_cadence].
     pub fn set_schema_modified_cadence<
         T: std::convert::Into<
@@ -16966,6 +17794,10 @@ pub mod discovery_cloud_sql_generation_cadence {
     }
 
     impl SchemaModifiedCadence {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [frequency][crate::model::discovery_cloud_sql_generation_cadence::SchemaModifiedCadence::frequency].
         pub fn set_frequency<T: std::convert::Into<crate::model::DataProfileUpdateFrequency>>(
             mut self,
@@ -17057,7 +17889,11 @@ pub mod discovery_cloud_sql_generation_cadence {
 #[non_exhaustive]
 pub struct SecretsDiscoveryTarget {}
 
-impl SecretsDiscoveryTarget {}
+impl SecretsDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for SecretsDiscoveryTarget {
     fn typename() -> &'static str {
@@ -17087,6 +17923,10 @@ pub struct CloudStorageDiscoveryTarget {
 }
 
 impl CloudStorageDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::CloudStorageDiscoveryTarget::filter].
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::DiscoveryCloudStorageFilter>>,
@@ -17226,6 +18066,10 @@ pub struct DiscoveryCloudStorageFilter {
 }
 
 impl DiscoveryCloudStorageFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<
@@ -17383,6 +18227,10 @@ pub struct FileStoreCollection {
 }
 
 impl FileStoreCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<std::option::Option<crate::model::file_store_collection::Pattern>>,
@@ -17465,6 +18313,10 @@ pub struct FileStoreRegexes {
 }
 
 impl FileStoreRegexes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [patterns][crate::model::FileStoreRegexes::patterns].
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -17495,6 +18347,10 @@ pub struct FileStoreRegex {
 }
 
 impl FileStoreRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `resource_regex`.
     pub fn set_resource_regex<
         T: std::convert::Into<std::option::Option<crate::model::file_store_regex::ResourceRegex>>,
@@ -17581,6 +18437,10 @@ pub struct CloudStorageRegex {
 }
 
 impl CloudStorageRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id_regex][crate::model::CloudStorageRegex::project_id_regex].
     pub fn set_project_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -17623,6 +18483,10 @@ pub struct CloudStorageResourceReference {
 }
 
 impl CloudStorageResourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_name][crate::model::CloudStorageResourceReference::bucket_name].
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
@@ -17664,6 +18528,10 @@ pub struct DiscoveryCloudStorageGenerationCadence {
 }
 
 impl DiscoveryCloudStorageGenerationCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryCloudStorageGenerationCadence::refresh_frequency].
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
@@ -17722,6 +18590,10 @@ pub struct DiscoveryCloudStorageConditions {
 }
 
 impl DiscoveryCloudStorageConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [included_object_attributes][crate::model::DiscoveryCloudStorageConditions::included_object_attributes].
     pub fn set_included_object_attributes<T, V>(mut self, v: T) -> Self
     where
@@ -17902,6 +18774,10 @@ pub struct DiscoveryFileStoreConditions {
 }
 
 impl DiscoveryFileStoreConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [created_after][crate::model::DiscoveryFileStoreConditions::created_after].
     pub fn set_created_after<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -18021,6 +18897,10 @@ pub struct OtherCloudDiscoveryTarget {
 }
 
 impl OtherCloudDiscoveryTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [data_source_type][crate::model::OtherCloudDiscoveryTarget::data_source_type].
     pub fn set_data_source_type<
         T: std::convert::Into<std::option::Option<crate::model::DataSourceType>>,
@@ -18169,6 +19049,10 @@ pub struct DiscoveryOtherCloudFilter {
 }
 
 impl DiscoveryOtherCloudFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `filter`.
     pub fn set_filter<
         T: std::convert::Into<std::option::Option<crate::model::discovery_other_cloud_filter::Filter>>,
@@ -18319,6 +19203,10 @@ pub struct OtherCloudResourceCollection {
 }
 
 impl OtherCloudResourceCollection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `pattern`.
     pub fn set_pattern<
         T: std::convert::Into<
@@ -18402,6 +19290,10 @@ pub struct OtherCloudResourceRegexes {
 }
 
 impl OtherCloudResourceRegexes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [patterns][crate::model::OtherCloudResourceRegexes::patterns].
     pub fn set_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -18436,6 +19328,10 @@ pub struct OtherCloudResourceRegex {
 }
 
 impl OtherCloudResourceRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `resource_regex`.
     pub fn set_resource_regex<
         T: std::convert::Into<
@@ -18516,6 +19412,10 @@ pub struct AwsAccountRegex {
 }
 
 impl AwsAccountRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [account_id_regex][crate::model::AwsAccountRegex::account_id_regex].
     pub fn set_account_id_regex<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -18549,6 +19449,10 @@ pub struct AmazonS3BucketRegex {
 }
 
 impl AmazonS3BucketRegex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [aws_account_regex][crate::model::AmazonS3BucketRegex::aws_account_regex].
     pub fn set_aws_account_regex<
         T: std::convert::Into<std::option::Option<crate::model::AwsAccountRegex>>,
@@ -18589,6 +19493,10 @@ pub struct OtherCloudSingleResourceReference {
 }
 
 impl OtherCloudSingleResourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `resource`.
     pub fn set_resource<
         T: std::convert::Into<
@@ -18668,6 +19576,10 @@ pub struct AwsAccount {
 }
 
 impl AwsAccount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [account_id][crate::model::AwsAccount::account_id].
     pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_id = v.into();
@@ -18697,6 +19609,10 @@ pub struct AmazonS3Bucket {
 }
 
 impl AmazonS3Bucket {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [aws_account][crate::model::AmazonS3Bucket::aws_account].
     pub fn set_aws_account<T: std::convert::Into<std::option::Option<crate::model::AwsAccount>>>(
         mut self,
@@ -18737,6 +19653,10 @@ pub struct DiscoveryOtherCloudConditions {
 }
 
 impl DiscoveryOtherCloudConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_age][crate::model::DiscoveryOtherCloudConditions::min_age].
     pub fn set_min_age<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -18832,6 +19752,10 @@ pub struct AmazonS3BucketConditions {
 }
 
 impl AmazonS3BucketConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_types][crate::model::AmazonS3BucketConditions::bucket_types].
     pub fn set_bucket_types<T, V>(mut self, v: T) -> Self
     where
@@ -18975,6 +19899,10 @@ pub struct DiscoveryOtherCloudGenerationCadence {
 }
 
 impl DiscoveryOtherCloudGenerationCadence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [refresh_frequency][crate::model::DiscoveryOtherCloudGenerationCadence::refresh_frequency].
     pub fn set_refresh_frequency<
         T: std::convert::Into<crate::model::DataProfileUpdateFrequency>,
@@ -19019,6 +19947,10 @@ pub struct DiscoveryStartingLocation {
 }
 
 impl DiscoveryStartingLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `location`.
     pub fn set_location<
         T: std::convert::Into<
@@ -19119,6 +20051,10 @@ pub struct OtherCloudDiscoveryStartingLocation {
 }
 
 impl OtherCloudDiscoveryStartingLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `location`.
     pub fn set_location<
         T: std::convert::Into<
@@ -19197,6 +20133,10 @@ pub mod other_cloud_discovery_starting_location {
     }
 
     impl AwsDiscoveryStartingLocation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `scope`.
         pub fn set_scope<T: std::convert::Into<std::option::Option<crate::model::other_cloud_discovery_starting_location::aws_discovery_starting_location::Scope>>>(mut self, v: T) -> Self
         {
@@ -19303,7 +20243,11 @@ pub mod other_cloud_discovery_starting_location {
 #[non_exhaustive]
 pub struct AllOtherResources {}
 
-impl AllOtherResources {}
+impl AllOtherResources {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AllOtherResources {
     fn typename() -> &'static str {
@@ -19363,6 +20307,10 @@ pub struct DlpJob {
 }
 
 impl DlpJob {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DlpJob::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19608,6 +20556,10 @@ pub struct GetDlpJobRequest {
 }
 
 impl GetDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDlpJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19712,6 +20664,10 @@ pub struct ListDlpJobsRequest {
 }
 
 impl ListDlpJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDlpJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19777,6 +20733,10 @@ pub struct ListDlpJobsResponse {
 }
 
 impl ListDlpJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDlpJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -19826,6 +20786,10 @@ pub struct CancelDlpJobRequest {
 }
 
 impl CancelDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CancelDlpJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19851,6 +20815,10 @@ pub struct FinishDlpJobRequest {
 }
 
 impl FinishDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::FinishDlpJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19876,6 +20844,10 @@ pub struct DeleteDlpJobRequest {
 }
 
 impl DeleteDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteDlpJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -19937,6 +20909,10 @@ pub struct CreateDeidentifyTemplateRequest {
 }
 
 impl CreateDeidentifyTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDeidentifyTemplateRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -19996,6 +20972,10 @@ pub struct UpdateDeidentifyTemplateRequest {
 }
 
 impl UpdateDeidentifyTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateDeidentifyTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20043,6 +21023,10 @@ pub struct GetDeidentifyTemplateRequest {
 }
 
 impl GetDeidentifyTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDeidentifyTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20118,6 +21102,10 @@ pub struct ListDeidentifyTemplatesRequest {
 }
 
 impl ListDeidentifyTemplatesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDeidentifyTemplatesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20173,6 +21161,10 @@ pub struct ListDeidentifyTemplatesResponse {
 }
 
 impl ListDeidentifyTemplatesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDeidentifyTemplatesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -20225,6 +21217,10 @@ pub struct DeleteDeidentifyTemplateRequest {
 }
 
 impl DeleteDeidentifyTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteDeidentifyTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20262,6 +21258,10 @@ pub struct LargeCustomDictionaryConfig {
 }
 
 impl LargeCustomDictionaryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_path][crate::model::LargeCustomDictionaryConfig::output_path].
     pub fn set_output_path<
         T: std::convert::Into<std::option::Option<crate::model::CloudStoragePath>>,
@@ -20386,6 +21386,10 @@ pub struct LargeCustomDictionaryStats {
 }
 
 impl LargeCustomDictionaryStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [approx_num_phrases][crate::model::LargeCustomDictionaryStats::approx_num_phrases].
     pub fn set_approx_num_phrases<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.approx_num_phrases = v.into();
@@ -20421,6 +21425,10 @@ pub struct StoredInfoTypeConfig {
 }
 
 impl StoredInfoTypeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::StoredInfoTypeConfig::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -20575,6 +21583,10 @@ pub struct StoredInfoTypeStats {
 }
 
 impl StoredInfoTypeStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::stored_info_type_stats::Type>>,
@@ -20682,6 +21694,10 @@ pub struct StoredInfoTypeVersion {
 }
 
 impl StoredInfoTypeVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [config][crate::model::StoredInfoTypeVersion::config].
     pub fn set_config<
         T: std::convert::Into<std::option::Option<crate::model::StoredInfoTypeConfig>>,
@@ -20762,6 +21778,10 @@ pub struct StoredInfoType {
 }
 
 impl StoredInfoType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::StoredInfoType::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20845,6 +21865,10 @@ pub struct CreateStoredInfoTypeRequest {
 }
 
 impl CreateStoredInfoTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateStoredInfoTypeRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -20908,6 +21932,10 @@ pub struct UpdateStoredInfoTypeRequest {
 }
 
 impl UpdateStoredInfoTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateStoredInfoTypeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -20955,6 +21983,10 @@ pub struct GetStoredInfoTypeRequest {
 }
 
 impl GetStoredInfoTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetStoredInfoTypeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21027,6 +22059,10 @@ pub struct ListStoredInfoTypesRequest {
 }
 
 impl ListStoredInfoTypesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListStoredInfoTypesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21081,6 +22117,10 @@ pub struct ListStoredInfoTypesResponse {
 }
 
 impl ListStoredInfoTypesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListStoredInfoTypesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -21132,6 +22172,10 @@ pub struct DeleteStoredInfoTypeRequest {
 }
 
 impl DeleteStoredInfoTypeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteStoredInfoTypeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21162,6 +22206,10 @@ pub struct HybridInspectJobTriggerRequest {
 }
 
 impl HybridInspectJobTriggerRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::HybridInspectJobTriggerRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21203,6 +22251,10 @@ pub struct HybridInspectDlpJobRequest {
 }
 
 impl HybridInspectDlpJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::HybridInspectDlpJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -21244,6 +22296,10 @@ pub struct HybridContentItem {
 }
 
 impl HybridContentItem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [item][crate::model::HybridContentItem::item].
     pub fn set_item<T: std::convert::Into<std::option::Option<crate::model::ContentItem>>>(
         mut self,
@@ -21324,6 +22380,10 @@ pub struct HybridFindingDetails {
 }
 
 impl HybridFindingDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [container_details][crate::model::HybridFindingDetails::container_details].
     pub fn set_container_details<
         T: std::convert::Into<std::option::Option<crate::model::Container>>,
@@ -21384,7 +22444,11 @@ impl wkt::message::Message for HybridFindingDetails {
 #[non_exhaustive]
 pub struct HybridInspectResponse {}
 
-impl HybridInspectResponse {}
+impl HybridInspectResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for HybridInspectResponse {
     fn typename() -> &'static str {
@@ -21456,6 +22520,10 @@ pub struct ListProjectDataProfilesRequest {
 }
 
 impl ListProjectDataProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListProjectDataProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21509,6 +22577,10 @@ pub struct ListProjectDataProfilesResponse {
 }
 
 impl ListProjectDataProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProjectDataProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -21623,6 +22695,10 @@ pub struct ListTableDataProfilesRequest {
 }
 
 impl ListTableDataProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTableDataProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21676,6 +22752,10 @@ pub struct ListTableDataProfilesResponse {
 }
 
 impl ListTableDataProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTableDataProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -21791,6 +22871,10 @@ pub struct ListColumnDataProfilesRequest {
 }
 
 impl ListColumnDataProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListColumnDataProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -21844,6 +22928,10 @@ pub struct ListColumnDataProfilesResponse {
 }
 
 impl ListColumnDataProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListColumnDataProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -21893,6 +22981,10 @@ pub struct DataRiskLevel {
 }
 
 impl DataRiskLevel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [score][crate::model::DataRiskLevel::score].
     pub fn set_score<T: std::convert::Into<crate::model::data_risk_level::DataRiskLevelScore>>(
         mut self,
@@ -22005,6 +23097,10 @@ pub struct ProjectDataProfile {
 }
 
 impl ProjectDataProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ProjectDataProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22113,6 +23209,10 @@ pub struct DataProfileConfigSnapshot {
 }
 
 impl DataProfileConfigSnapshot {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [inspect_config][crate::model::DataProfileConfigSnapshot::inspect_config].
     pub fn set_inspect_config<
         T: std::convert::Into<std::option::Option<crate::model::InspectConfig>>,
@@ -22288,6 +23388,10 @@ pub struct TableDataProfile {
 }
 
 impl TableDataProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TableDataProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -22586,6 +23690,10 @@ pub struct ProfileStatus {
 }
 
 impl ProfileStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [status][crate::model::ProfileStatus::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -22626,6 +23734,10 @@ pub struct InfoTypeSummary {
 }
 
 impl InfoTypeSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::InfoTypeSummary::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -22668,6 +23780,10 @@ pub struct OtherInfoTypeSummary {
 }
 
 impl OtherInfoTypeSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::OtherInfoTypeSummary::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -22786,6 +23902,10 @@ pub struct ColumnDataProfile {
 }
 
 impl ColumnDataProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ColumnDataProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23270,6 +24390,10 @@ pub struct FileStoreDataProfile {
 }
 
 impl FileStoreDataProfile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::FileStoreDataProfile::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23547,6 +24671,10 @@ pub struct FileStoreInfoTypeSummary {
 }
 
 impl FileStoreInfoTypeSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::FileStoreInfoTypeSummary::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -23575,6 +24703,10 @@ pub struct FileExtensionInfo {
 }
 
 impl FileExtensionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_extension][crate::model::FileExtensionInfo::file_extension].
     pub fn set_file_extension<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_extension = v.into();
@@ -23635,6 +24767,10 @@ pub struct FileClusterSummary {
 }
 
 impl FileClusterSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_cluster_type][crate::model::FileClusterSummary::file_cluster_type].
     pub fn set_file_cluster_type<
         T: std::convert::Into<std::option::Option<crate::model::FileClusterType>>,
@@ -23738,6 +24874,10 @@ pub struct GetProjectDataProfileRequest {
 }
 
 impl GetProjectDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetProjectDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23764,6 +24904,10 @@ pub struct GetFileStoreDataProfileRequest {
 }
 
 impl GetFileStoreDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetFileStoreDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23859,6 +25003,10 @@ pub struct ListFileStoreDataProfilesRequest {
 }
 
 impl ListFileStoreDataProfilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListFileStoreDataProfilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -23913,6 +25061,10 @@ pub struct ListFileStoreDataProfilesResponse {
 }
 
 impl ListFileStoreDataProfilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListFileStoreDataProfilesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -23962,6 +25114,10 @@ pub struct DeleteFileStoreDataProfileRequest {
 }
 
 impl DeleteFileStoreDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteFileStoreDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -23988,6 +25144,10 @@ pub struct GetTableDataProfileRequest {
 }
 
 impl GetTableDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTableDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24014,6 +25174,10 @@ pub struct GetColumnDataProfileRequest {
 }
 
 impl GetColumnDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetColumnDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24040,6 +25204,10 @@ pub struct DataProfilePubSubCondition {
 }
 
 impl DataProfilePubSubCondition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [expressions][crate::model::DataProfilePubSubCondition::expressions].
     pub fn set_expressions<
         T: std::convert::Into<
@@ -24079,6 +25247,10 @@ pub mod data_profile_pub_sub_condition {
     }
 
     impl PubSubCondition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<
@@ -24202,6 +25374,10 @@ pub mod data_profile_pub_sub_condition {
     }
 
     impl PubSubExpressions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [logical_operator][crate::model::data_profile_pub_sub_condition::PubSubExpressions::logical_operator].
         pub fn set_logical_operator<T: std::convert::Into<crate::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator>>(mut self, v: T) -> Self{
             self.logical_operator = v.into();
@@ -24332,6 +25508,10 @@ pub struct DataProfilePubSubMessage {
 }
 
 impl DataProfilePubSubMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [profile][crate::model::DataProfilePubSubMessage::profile].
     pub fn set_profile<
         T: std::convert::Into<std::option::Option<crate::model::TableDataProfile>>,
@@ -24394,6 +25574,10 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24429,6 +25613,10 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24468,6 +25656,10 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24525,6 +25717,10 @@ pub struct SearchConnectionsRequest {
 }
 
 impl SearchConnectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::SearchConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -24573,6 +25769,10 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -24629,6 +25829,10 @@ pub struct SearchConnectionsResponse {
 }
 
 impl SearchConnectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -24687,6 +25891,10 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24731,6 +25939,10 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24770,6 +25982,10 @@ pub struct Connection {
 }
 
 impl Connection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Connection::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -24875,6 +26091,10 @@ pub struct SecretManagerCredential {
 }
 
 impl SecretManagerCredential {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [username][crate::model::SecretManagerCredential::username].
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
@@ -24907,7 +26127,11 @@ impl wkt::message::Message for SecretManagerCredential {
 #[non_exhaustive]
 pub struct CloudSqlIamCredential {}
 
-impl CloudSqlIamCredential {}
+impl CloudSqlIamCredential {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for CloudSqlIamCredential {
     fn typename() -> &'static str {
@@ -24948,6 +26172,10 @@ pub struct CloudSqlProperties {
 }
 
 impl CloudSqlProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connection_name][crate::model::CloudSqlProperties::connection_name].
     pub fn set_connection_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_name = v.into();
@@ -25122,6 +26350,10 @@ pub struct DeleteTableDataProfileRequest {
 }
 
 impl DeleteTableDataProfileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTableDataProfileRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25153,6 +26385,10 @@ pub struct DataSourceType {
 }
 
 impl DataSourceType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [data_source][crate::model::DataSourceType::data_source].
     pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.data_source = v.into();
@@ -25178,6 +26414,10 @@ pub struct FileClusterType {
 }
 
 impl FileClusterType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `file_cluster_type`.
     pub fn set_file_cluster_type<
         T: std::convert::Into<std::option::Option<crate::model::file_cluster_type::FileClusterType>>,
@@ -25324,6 +26564,10 @@ pub struct InfoType {
 }
 
 impl InfoType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InfoType::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25366,6 +26610,10 @@ pub struct SensitivityScore {
 }
 
 impl SensitivityScore {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [score][crate::model::SensitivityScore::score].
     pub fn set_score<
         T: std::convert::Into<crate::model::sensitivity_score::SensitivityScoreLevel>,
@@ -25463,6 +26711,10 @@ pub struct StoredType {
 }
 
 impl StoredType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::StoredType::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -25530,6 +26782,10 @@ pub struct CustomInfoType {
 }
 
 impl CustomInfoType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [info_type][crate::model::CustomInfoType::info_type].
     pub fn set_info_type<T: std::convert::Into<std::option::Option<crate::model::InfoType>>>(
         mut self,
@@ -25750,6 +27006,10 @@ pub mod custom_info_type {
     }
 
     impl Dictionary {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `source`.
         pub fn set_source<
             T: std::convert::Into<
@@ -25857,6 +27117,10 @@ pub mod custom_info_type {
         }
 
         impl WordList {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [words][crate::model::custom_info_type::dictionary::WordList::words].
             pub fn set_words<T, V>(mut self, v: T) -> Self
             where
@@ -25907,6 +27171,10 @@ pub mod custom_info_type {
     }
 
     impl Regex {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [pattern][crate::model::custom_info_type::Regex::pattern].
         pub fn set_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pattern = v.into();
@@ -25945,7 +27213,11 @@ pub mod custom_info_type {
     #[non_exhaustive]
     pub struct SurrogateType {}
 
-    impl SurrogateType {}
+    impl SurrogateType {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for SurrogateType {
         fn typename() -> &'static str {
@@ -25968,6 +27240,10 @@ pub mod custom_info_type {
     }
 
     impl DetectionRule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `r#type`.
         pub fn set_type<
             T: std::convert::Into<
@@ -26048,6 +27324,10 @@ pub mod custom_info_type {
         }
 
         impl Proximity {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [window_before][crate::model::custom_info_type::detection_rule::Proximity::window_before].
             pub fn set_window_before<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.window_before = v.into();
@@ -26082,6 +27362,10 @@ pub mod custom_info_type {
         }
 
         impl LikelihoodAdjustment {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `adjustment`.
             pub fn set_adjustment<T: std::convert::Into<std::option::Option<crate::model::custom_info_type::detection_rule::likelihood_adjustment::Adjustment>>>(mut self, v: T) -> Self
             {
@@ -26209,6 +27493,10 @@ pub mod custom_info_type {
         }
 
         impl HotwordRule {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [hotword_regex][crate::model::custom_info_type::detection_rule::HotwordRule::hotword_regex].
             pub fn set_hotword_regex<
                 T: std::convert::Into<std::option::Option<crate::model::custom_info_type::Regex>>,
@@ -26333,6 +27621,10 @@ pub struct FieldId {
 }
 
 impl FieldId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::FieldId::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26367,6 +27659,10 @@ pub struct PartitionId {
 }
 
 impl PartitionId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::PartitionId::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -26398,6 +27694,10 @@ pub struct KindExpression {
 }
 
 impl KindExpression {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::KindExpression::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -26428,6 +27728,10 @@ pub struct DatastoreOptions {
 }
 
 impl DatastoreOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [partition_id][crate::model::DatastoreOptions::partition_id].
     pub fn set_partition_id<
         T: std::convert::Into<std::option::Option<crate::model::PartitionId>>,
@@ -26520,6 +27824,10 @@ pub struct CloudStorageRegexFileSet {
 }
 
 impl CloudStorageRegexFileSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_name][crate::model::CloudStorageRegexFileSet::bucket_name].
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
@@ -26606,6 +27914,10 @@ pub struct CloudStorageOptions {
 }
 
 impl CloudStorageOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_set][crate::model::CloudStorageOptions::file_set].
     pub fn set_file_set<
         T: std::convert::Into<std::option::Option<crate::model::cloud_storage_options::FileSet>>,
@@ -26695,6 +28007,10 @@ pub mod cloud_storage_options {
     }
 
     impl FileSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [url][crate::model::cloud_storage_options::FileSet::url].
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
@@ -26773,6 +28089,10 @@ pub struct CloudStorageFileSet {
 }
 
 impl CloudStorageFileSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [url][crate::model::CloudStorageFileSet::url].
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
@@ -26799,6 +28119,10 @@ pub struct CloudStoragePath {
 }
 
 impl CloudStoragePath {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::CloudStoragePath::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -26869,6 +28193,10 @@ pub struct BigQueryOptions {
 }
 
 impl BigQueryOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table_reference][crate::model::BigQueryOptions::table_reference].
     pub fn set_table_reference<
         T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
@@ -27006,6 +28334,10 @@ pub struct StorageConfig {
 }
 
 impl StorageConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [timespan_config][crate::model::StorageConfig::timespan_config].
     pub fn set_timespan_config<
         T: std::convert::Into<std::option::Option<crate::model::storage_config::TimespanConfig>>,
@@ -27234,6 +28566,10 @@ pub mod storage_config {
     }
 
     impl TimespanConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [start_time][crate::model::storage_config::TimespanConfig::start_time].
         pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -27342,6 +28678,10 @@ pub struct HybridOptions {
 }
 
 impl HybridOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [description][crate::model::HybridOptions::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -27409,6 +28749,10 @@ pub struct BigQueryKey {
 }
 
 impl BigQueryKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table_reference][crate::model::BigQueryKey::table_reference].
     pub fn set_table_reference<
         T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>,
@@ -27445,6 +28789,10 @@ pub struct DatastoreKey {
 }
 
 impl DatastoreKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entity_key][crate::model::DatastoreKey::entity_key].
     pub fn set_entity_key<T: std::convert::Into<std::option::Option<crate::model::Key>>>(
         mut self,
@@ -27490,6 +28838,10 @@ pub struct Key {
 }
 
 impl Key {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [partition_id][crate::model::Key::partition_id].
     pub fn set_partition_id<
         T: std::convert::Into<std::option::Option<crate::model::PartitionId>>,
@@ -27546,6 +28898,10 @@ pub mod key {
     }
 
     impl PathElement {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [kind][crate::model::key::PathElement::kind].
         pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.kind = v.into();
@@ -27654,6 +29010,10 @@ pub struct RecordKey {
 }
 
 impl RecordKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id_values][crate::model::RecordKey::id_values].
     pub fn set_id_values<T, V>(mut self, v: T) -> Self
     where
@@ -27777,6 +29137,10 @@ pub struct BigQueryTable {
 }
 
 impl BigQueryTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::BigQueryTable::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -27819,6 +29183,10 @@ pub struct TableReference {
 }
 
 impl TableReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataset_id][crate::model::TableReference::dataset_id].
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
@@ -27854,6 +29222,10 @@ pub struct BigQueryField {
 }
 
 impl BigQueryField {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table][crate::model::BigQueryField::table].
     pub fn set_table<T: std::convert::Into<std::option::Option<crate::model::BigQueryTable>>>(
         mut self,
@@ -27895,6 +29267,10 @@ pub struct EntityId {
 }
 
 impl EntityId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field][crate::model::EntityId::field].
     pub fn set_field<T: std::convert::Into<std::option::Option<crate::model::FieldId>>>(
         mut self,
@@ -27926,6 +29302,10 @@ pub struct TableOptions {
 }
 
 impl TableOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [identifying_fields][crate::model::TableOptions::identifying_fields].
     pub fn set_identifying_fields<T, V>(mut self, v: T) -> Self
     where

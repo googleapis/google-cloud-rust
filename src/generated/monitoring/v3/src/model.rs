@@ -165,6 +165,10 @@ pub struct AlertPolicy {
 }
 
 impl AlertPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AlertPolicy::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -349,6 +353,10 @@ pub mod alert_policy {
     }
 
     impl Documentation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [content][crate::model::alert_policy::Documentation::content].
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
@@ -411,6 +419,10 @@ pub mod alert_policy {
         }
 
         impl Link {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [display_name][crate::model::alert_policy::documentation::Link::display_name].
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -487,6 +499,10 @@ pub mod alert_policy {
     }
 
     impl Condition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::alert_policy::Condition::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -761,6 +777,10 @@ pub mod alert_policy {
         }
 
         impl Trigger {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `r#type`.
             pub fn set_type<
                 T: std::convert::Into<
@@ -961,6 +981,10 @@ pub mod alert_policy {
         }
 
         impl MetricThreshold {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [filter][crate::model::alert_policy::condition::MetricThreshold::filter].
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
@@ -1091,6 +1115,10 @@ pub mod alert_policy {
             }
 
             impl ForecastOptions {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [forecast_horizon][crate::model::alert_policy::condition::metric_threshold::ForecastOptions::forecast_horizon].
                 pub fn set_forecast_horizon<
                     T: std::convert::Into<std::option::Option<wkt::Duration>>,
@@ -1167,6 +1195,10 @@ pub mod alert_policy {
         }
 
         impl MetricAbsence {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [filter][crate::model::alert_policy::condition::MetricAbsence::filter].
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
@@ -1245,6 +1277,10 @@ pub mod alert_policy {
         }
 
         impl LogMatch {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [filter][crate::model::alert_policy::condition::LogMatch::filter].
             pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.filter = v.into();
@@ -1311,6 +1347,10 @@ pub mod alert_policy {
         }
 
         impl MonitoringQueryLanguageCondition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [query][crate::model::alert_policy::condition::MonitoringQueryLanguageCondition::query].
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
@@ -1471,6 +1511,10 @@ pub mod alert_policy {
         }
 
         impl PrometheusQueryLanguageCondition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [query][crate::model::alert_policy::condition::PrometheusQueryLanguageCondition::query].
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
@@ -1583,6 +1627,10 @@ pub mod alert_policy {
         }
 
         impl SqlCondition {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [query][crate::model::alert_policy::condition::SqlCondition::query].
             pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.query = v.into();
@@ -1836,6 +1884,10 @@ pub mod alert_policy {
             }
 
             impl Minutes {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Minutes::periodicity].
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
@@ -1868,6 +1920,10 @@ pub mod alert_policy {
             }
 
             impl Hourly {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Hourly::periodicity].
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
@@ -1908,6 +1964,10 @@ pub mod alert_policy {
             }
 
             impl Daily {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [periodicity][crate::model::alert_policy::condition::sql_condition::Daily::periodicity].
                 pub fn set_periodicity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                     self.periodicity = v.into();
@@ -1949,6 +2009,10 @@ pub mod alert_policy {
             }
 
             impl RowCountTest {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [comparison][crate::model::alert_policy::condition::sql_condition::RowCountTest::comparison].
                 pub fn set_comparison<T: std::convert::Into<crate::model::ComparisonType>>(
                     mut self,
@@ -1985,6 +2049,10 @@ pub mod alert_policy {
             }
 
             impl BooleanTest {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [column][crate::model::alert_policy::condition::sql_condition::BooleanTest::column].
                 pub fn set_column<T: std::convert::Into<std::string::String>>(
                     mut self,
@@ -2154,6 +2222,10 @@ pub mod alert_policy {
     }
 
     impl AlertStrategy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [notification_rate_limit][crate::model::alert_policy::AlertStrategy::notification_rate_limit].
         pub fn set_notification_rate_limit<
             T: std::convert::Into<
@@ -2227,6 +2299,10 @@ pub mod alert_policy {
         }
 
         impl NotificationRateLimit {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [period][crate::model::alert_policy::alert_strategy::NotificationRateLimit::period].
             pub fn set_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
                 mut self,
@@ -2269,6 +2345,10 @@ pub mod alert_policy {
         }
 
         impl NotificationChannelStrategy {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [renotify_interval][crate::model::alert_policy::alert_strategy::NotificationChannelStrategy::renotify_interval].
             pub fn set_renotify_interval<
                 T: std::convert::Into<std::option::Option<wkt::Duration>>,
@@ -2459,6 +2539,10 @@ pub struct CreateAlertPolicyRequest {
 }
 
 impl CreateAlertPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateAlertPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2499,6 +2583,10 @@ pub struct GetAlertPolicyRequest {
 }
 
 impl GetAlertPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAlertPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2565,6 +2653,10 @@ pub struct ListAlertPoliciesRequest {
 }
 
 impl ListAlertPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListAlertPoliciesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2624,6 +2716,10 @@ pub struct ListAlertPoliciesResponse {
 }
 
 impl ListAlertPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListAlertPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2706,6 +2802,10 @@ pub struct UpdateAlertPolicyRequest {
 }
 
 impl UpdateAlertPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateAlertPolicyRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -2753,6 +2853,10 @@ pub struct DeleteAlertPolicyRequest {
 }
 
 impl DeleteAlertPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteAlertPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2778,6 +2882,10 @@ pub struct TypedValue {
 }
 
 impl TypedValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `value`.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::typed_value::Value>>,
@@ -2994,6 +3102,10 @@ pub struct TimeInterval {
 }
 
 impl TimeInterval {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [end_time][crate::model::TimeInterval::end_time].
     pub fn set_end_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3121,6 +3233,10 @@ pub struct Aggregation {
 }
 
 impl Aggregation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
     pub fn set_alignment_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -3508,6 +3624,10 @@ pub struct DroppedLabels {
 }
 
 impl DroppedLabels {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label][crate::model::DroppedLabels::label].
     pub fn set_label<T, K, V>(mut self, v: T) -> Self
     where
@@ -3595,6 +3715,10 @@ pub struct Group {
 }
 
 impl Group {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Group::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3665,6 +3789,10 @@ pub struct ListGroupsRequest {
 }
 
 impl ListGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListGroupsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3848,6 +3976,10 @@ pub struct ListGroupsResponse {
 }
 
 impl ListGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListGroupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3901,6 +4033,10 @@ pub struct GetGroupRequest {
 }
 
 impl GetGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetGroupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3940,6 +4076,10 @@ pub struct CreateGroupRequest {
 }
 
 impl CreateGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateGroupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3985,6 +4125,10 @@ pub struct UpdateGroupRequest {
 }
 
 impl UpdateGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
     pub fn set_group<T: std::convert::Into<std::option::Option<crate::model::Group>>>(
         mut self,
@@ -4029,6 +4173,10 @@ pub struct DeleteGroupRequest {
 }
 
 impl DeleteGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4093,6 +4241,10 @@ pub struct ListGroupMembersRequest {
 }
 
 impl ListGroupMembersRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListGroupMembersRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4154,6 +4306,10 @@ pub struct ListGroupMembersResponse {
 }
 
 impl ListGroupMembersResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListGroupMembersResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4221,6 +4377,10 @@ pub struct Point {
 }
 
 impl Point {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [interval][crate::model::Point::interval].
     pub fn set_interval<T: std::convert::Into<std::option::Option<crate::model::TimeInterval>>>(
         mut self,
@@ -4321,6 +4481,10 @@ pub struct TimeSeries {
 }
 
 impl TimeSeries {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metric][crate::model::TimeSeries::metric].
     pub fn set_metric<T: std::convert::Into<std::option::Option<api::model::Metric>>>(
         mut self,
@@ -4416,6 +4580,10 @@ pub struct TimeSeriesDescriptor {
 }
 
 impl TimeSeriesDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_descriptors][crate::model::TimeSeriesDescriptor::label_descriptors].
     pub fn set_label_descriptors<T, V>(mut self, v: T) -> Self
     where
@@ -4475,6 +4643,10 @@ pub mod time_series_descriptor {
     }
 
     impl ValueDescriptor {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key][crate::model::time_series_descriptor::ValueDescriptor::key].
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
@@ -4533,6 +4705,10 @@ pub struct TimeSeriesData {
 }
 
 impl TimeSeriesData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_values][crate::model::TimeSeriesData::label_values].
     pub fn set_label_values<T, V>(mut self, v: T) -> Self
     where
@@ -4585,6 +4761,10 @@ pub mod time_series_data {
     }
 
     impl PointData {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_interval][crate::model::time_series_data::PointData::time_interval].
         pub fn set_time_interval<
             T: std::convert::Into<std::option::Option<crate::model::TimeInterval>>,
@@ -4627,6 +4807,10 @@ pub struct LabelValue {
 }
 
 impl LabelValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `value`.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::label_value::Value>>,
@@ -4747,6 +4931,10 @@ pub struct QueryError {
 }
 
 impl QueryError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [locator][crate::model::QueryError::locator].
     pub fn set_locator<T: std::convert::Into<std::option::Option<crate::model::TextLocator>>>(
         mut self,
@@ -4830,6 +5018,10 @@ pub struct TextLocator {
 }
 
 impl TextLocator {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source][crate::model::TextLocator::source].
     pub fn set_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source = v.into();
@@ -4902,6 +5094,10 @@ pub mod text_locator {
     }
 
     impl Position {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [line][crate::model::text_locator::Position::line].
         pub fn set_line<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.line = v.into();
@@ -4960,6 +5156,10 @@ pub struct ListMonitoredResourceDescriptorsRequest {
 }
 
 impl ListMonitoredResourceDescriptorsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListMonitoredResourceDescriptorsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5010,6 +5210,10 @@ pub struct ListMonitoredResourceDescriptorsResponse {
 }
 
 impl ListMonitoredResourceDescriptorsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListMonitoredResourceDescriptorsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5066,6 +5270,10 @@ pub struct GetMonitoredResourceDescriptorRequest {
 }
 
 impl GetMonitoredResourceDescriptorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetMonitoredResourceDescriptorRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5135,6 +5343,10 @@ pub struct ListMetricDescriptorsRequest {
 }
 
 impl ListMetricDescriptorsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListMetricDescriptorsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5191,6 +5403,10 @@ pub struct ListMetricDescriptorsResponse {
 }
 
 impl ListMetricDescriptorsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListMetricDescriptorsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5248,6 +5464,10 @@ pub struct GetMetricDescriptorRequest {
 }
 
 impl GetMetricDescriptorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetMetricDescriptorRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5282,6 +5502,10 @@ pub struct CreateMetricDescriptorRequest {
 }
 
 impl CreateMetricDescriptorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateMetricDescriptorRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5326,6 +5550,10 @@ pub struct DeleteMetricDescriptorRequest {
 }
 
 impl DeleteMetricDescriptorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteMetricDescriptorRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5412,6 +5640,10 @@ pub struct ListTimeSeriesRequest {
 }
 
 impl ListTimeSeriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListTimeSeriesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5564,6 +5796,10 @@ pub struct ListTimeSeriesResponse {
 }
 
 impl ListTimeSeriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTimeSeriesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5646,6 +5882,10 @@ pub struct CreateTimeSeriesRequest {
 }
 
 impl CreateTimeSeriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateTimeSeriesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5686,6 +5926,10 @@ pub struct CreateTimeSeriesError {
 }
 
 impl CreateTimeSeriesError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_series][crate::model::CreateTimeSeriesError::time_series].
     pub fn set_time_series<T: std::convert::Into<std::option::Option<crate::model::TimeSeries>>>(
         mut self,
@@ -5729,6 +5973,10 @@ pub struct CreateTimeSeriesSummary {
 }
 
 impl CreateTimeSeriesSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [total_point_count][crate::model::CreateTimeSeriesSummary::total_point_count].
     pub fn set_total_point_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_point_count = v.into();
@@ -5779,6 +6027,10 @@ pub mod create_time_series_summary {
     }
 
     impl Error {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [status][crate::model::create_time_series_summary::Error::status].
         pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
             mut self,
@@ -5837,6 +6089,10 @@ pub struct QueryTimeSeriesRequest {
 }
 
 impl QueryTimeSeriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::QueryTimeSeriesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5898,6 +6154,10 @@ pub struct QueryTimeSeriesResponse {
 }
 
 impl QueryTimeSeriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_series_descriptor][crate::model::QueryTimeSeriesResponse::time_series_descriptor].
     pub fn set_time_series_descriptor<
         T: std::convert::Into<std::option::Option<crate::model::TimeSeriesDescriptor>>,
@@ -5974,6 +6234,10 @@ pub struct QueryErrorList {
 }
 
 impl QueryErrorList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [error_summary][crate::model::QueryErrorList::error_summary].
     pub fn set_error_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_summary = v.into();
@@ -6014,6 +6278,10 @@ pub struct MutationRecord {
 }
 
 impl MutationRecord {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mutate_time][crate::model::MutationRecord::mutate_time].
     pub fn set_mutate_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -6090,6 +6358,10 @@ pub struct NotificationChannelDescriptor {
 }
 
 impl NotificationChannelDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::NotificationChannelDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6261,6 +6533,10 @@ pub struct NotificationChannel {
 }
 
 impl NotificationChannel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::NotificationChannel::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -6453,6 +6729,10 @@ pub struct ListNotificationChannelDescriptorsRequest {
 }
 
 impl ListNotificationChannelDescriptorsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListNotificationChannelDescriptorsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6498,6 +6778,10 @@ pub struct ListNotificationChannelDescriptorsResponse {
 }
 
 impl ListNotificationChannelDescriptorsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListNotificationChannelDescriptorsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6551,6 +6835,10 @@ pub struct GetNotificationChannelDescriptorRequest {
 }
 
 impl GetNotificationChannelDescriptorRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetNotificationChannelDescriptorRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6591,6 +6879,10 @@ pub struct CreateNotificationChannelRequest {
 }
 
 impl CreateNotificationChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateNotificationChannelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6670,6 +6962,10 @@ pub struct ListNotificationChannelsRequest {
 }
 
 impl ListNotificationChannelsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListNotificationChannelsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6730,6 +7026,10 @@ pub struct ListNotificationChannelsResponse {
 }
 
 impl ListNotificationChannelsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListNotificationChannelsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6789,6 +7089,10 @@ pub struct GetNotificationChannelRequest {
 }
 
 impl GetNotificationChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetNotificationChannelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6821,6 +7125,10 @@ pub struct UpdateNotificationChannelRequest {
 }
 
 impl UpdateNotificationChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateNotificationChannelRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -6870,6 +7178,10 @@ pub struct DeleteNotificationChannelRequest {
 }
 
 impl DeleteNotificationChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteNotificationChannelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6901,6 +7213,10 @@ pub struct SendNotificationChannelVerificationCodeRequest {
 }
 
 impl SendNotificationChannelVerificationCodeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SendNotificationChannelVerificationCodeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6940,6 +7256,10 @@ pub struct GetNotificationChannelVerificationCodeRequest {
 }
 
 impl GetNotificationChannelVerificationCodeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetNotificationChannelVerificationCodeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6983,6 +7303,10 @@ pub struct GetNotificationChannelVerificationCodeResponse {
 }
 
 impl GetNotificationChannelVerificationCodeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [code][crate::model::GetNotificationChannelVerificationCodeResponse::code].
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
@@ -7027,6 +7351,10 @@ pub struct VerifyNotificationChannelRequest {
 }
 
 impl VerifyNotificationChannelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::VerifyNotificationChannelRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7094,6 +7422,10 @@ pub struct Service {
 }
 
 impl Service {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7463,7 +7795,11 @@ pub mod service {
     #[non_exhaustive]
     pub struct Custom {}
 
-    impl Custom {}
+    impl Custom {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for Custom {
         fn typename() -> &'static str {
@@ -7485,6 +7821,10 @@ pub mod service {
     }
 
     impl AppEngine {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [module_id][crate::model::service::AppEngine::module_id].
         pub fn set_module_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.module_id = v.into();
@@ -7512,6 +7852,10 @@ pub mod service {
     }
 
     impl CloudEndpoints {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service][crate::model::service::CloudEndpoints::service].
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
@@ -7557,6 +7901,10 @@ pub mod service {
     }
 
     impl ClusterIstio {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [location][crate::model::service::ClusterIstio::location].
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
@@ -7621,6 +7969,10 @@ pub mod service {
     }
 
     impl MeshIstio {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [mesh_uid][crate::model::service::MeshIstio::mesh_uid].
         pub fn set_mesh_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mesh_uid = v.into();
@@ -7681,6 +8033,10 @@ pub mod service {
     }
 
     impl IstioCanonicalService {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [mesh_uid][crate::model::service::IstioCanonicalService::mesh_uid].
         pub fn set_mesh_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mesh_uid = v.into();
@@ -7732,6 +8088,10 @@ pub mod service {
     }
 
     impl CloudRun {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service_name][crate::model::service::CloudRun::service_name].
         pub fn set_service_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -7782,6 +8142,10 @@ pub mod service {
     }
 
     impl GkeNamespace {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [project_id][crate::model::service::GkeNamespace::project_id].
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
@@ -7855,6 +8219,10 @@ pub mod service {
     }
 
     impl GkeWorkload {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [project_id][crate::model::service::GkeWorkload::project_id].
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
@@ -7945,6 +8313,10 @@ pub mod service {
     }
 
     impl GkeService {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [project_id][crate::model::service::GkeService::project_id].
         pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project_id = v.into();
@@ -8015,6 +8387,10 @@ pub mod service {
     }
 
     impl BasicService {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service_type][crate::model::service::BasicService::service_type].
         pub fn set_service_type<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -8056,6 +8432,10 @@ pub mod service {
     }
 
     impl Telemetry {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [resource_name][crate::model::service::Telemetry::resource_name].
         pub fn set_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -8150,6 +8530,10 @@ pub struct ServiceLevelObjective {
 }
 
 impl ServiceLevelObjective {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ServiceLevelObjective::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -8354,6 +8738,10 @@ pub struct ServiceLevelIndicator {
 }
 
 impl ServiceLevelIndicator {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `r#type`.
     pub fn set_type<
         T: std::convert::Into<std::option::Option<crate::model::service_level_indicator::Type>>,
@@ -8526,6 +8914,10 @@ pub struct BasicSli {
 }
 
 impl BasicSli {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [method][crate::model::BasicSli::method].
     pub fn set_method<T, V>(mut self, v: T) -> Self
     where
@@ -8647,7 +9039,11 @@ pub mod basic_sli {
     #[non_exhaustive]
     pub struct AvailabilityCriteria {}
 
-    impl AvailabilityCriteria {}
+    impl AvailabilityCriteria {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for AvailabilityCriteria {
         fn typename() -> &'static str {
@@ -8668,6 +9064,10 @@ pub mod basic_sli {
     }
 
     impl LatencyCriteria {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [threshold][crate::model::basic_sli::LatencyCriteria::threshold].
         pub fn set_threshold<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -8712,6 +9112,10 @@ pub struct Range {
 }
 
 impl Range {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min][crate::model::Range::min].
     pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.min = v.into();
@@ -8744,6 +9148,10 @@ pub struct RequestBasedSli {
 }
 
 impl RequestBasedSli {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `method`.
     pub fn set_method<
         T: std::convert::Into<std::option::Option<crate::model::request_based_sli::Method>>,
@@ -8882,6 +9290,10 @@ pub struct TimeSeriesRatio {
 }
 
 impl TimeSeriesRatio {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [good_service_filter][crate::model::TimeSeriesRatio::good_service_filter].
     pub fn set_good_service_filter<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8939,6 +9351,10 @@ pub struct DistributionCut {
 }
 
 impl DistributionCut {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [distribution_filter][crate::model::DistributionCut::distribution_filter].
     pub fn set_distribution_filter<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -8983,6 +9399,10 @@ pub struct WindowsBasedSli {
 }
 
 impl WindowsBasedSli {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [window_period][crate::model::WindowsBasedSli::window_period].
     pub fn set_window_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -9158,6 +9578,10 @@ pub mod windows_based_sli {
     }
 
     impl PerformanceThreshold {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [threshold][crate::model::windows_based_sli::PerformanceThreshold::threshold].
         pub fn set_threshold<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.threshold = v.into();
@@ -9287,6 +9711,10 @@ pub mod windows_based_sli {
     }
 
     impl MetricRange {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series][crate::model::windows_based_sli::MetricRange::time_series].
         pub fn set_time_series<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.time_series = v.into();
@@ -9358,6 +9786,10 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9402,6 +9834,10 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9465,6 +9901,10 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9514,6 +9954,10 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -9568,6 +10012,10 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
         mut self,
@@ -9609,6 +10057,10 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9650,6 +10102,10 @@ pub struct CreateServiceLevelObjectiveRequest {
 }
 
 impl CreateServiceLevelObjectiveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateServiceLevelObjectiveRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9706,6 +10162,10 @@ pub struct GetServiceLevelObjectiveRequest {
 }
 
 impl GetServiceLevelObjectiveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceLevelObjectiveRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9766,6 +10226,10 @@ pub struct ListServiceLevelObjectivesRequest {
 }
 
 impl ListServiceLevelObjectivesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListServiceLevelObjectivesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -9824,6 +10288,10 @@ pub struct ListServiceLevelObjectivesResponse {
 }
 
 impl ListServiceLevelObjectivesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServiceLevelObjectivesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -9878,6 +10346,10 @@ pub struct UpdateServiceLevelObjectiveRequest {
 }
 
 impl UpdateServiceLevelObjectiveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_level_objective][crate::model::UpdateServiceLevelObjectiveRequest::service_level_objective].
     pub fn set_service_level_objective<
         T: std::convert::Into<std::option::Option<crate::model::ServiceLevelObjective>>,
@@ -9922,6 +10394,10 @@ pub struct DeleteServiceLevelObjectiveRequest {
 }
 
 impl DeleteServiceLevelObjectiveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceLevelObjectiveRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9974,6 +10450,10 @@ pub struct Snooze {
 }
 
 impl Snooze {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Snooze::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10061,6 +10541,10 @@ pub mod snooze {
     }
 
     impl Criteria {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [filter][crate::model::snooze::Criteria::filter].
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
@@ -10110,6 +10594,10 @@ pub struct CreateSnoozeRequest {
 }
 
 impl CreateSnoozeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateSnoozeRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10178,6 +10666,10 @@ pub struct ListSnoozesRequest {
 }
 
 impl ListSnoozesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListSnoozesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -10227,6 +10719,10 @@ pub struct ListSnoozesResponse {
 }
 
 impl ListSnoozesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListSnoozesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -10281,6 +10777,10 @@ pub struct GetSnoozeRequest {
 }
 
 impl GetSnoozeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetSnoozeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10343,6 +10843,10 @@ pub struct UpdateSnoozeRequest {
 }
 
 impl UpdateSnoozeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [snooze][crate::model::UpdateSnoozeRequest::snooze].
     pub fn set_snooze<T: std::convert::Into<std::option::Option<crate::model::Snooze>>>(
         mut self,
@@ -10401,6 +10905,10 @@ pub struct SpanContext {
 }
 
 impl SpanContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [span_name][crate::model::SpanContext::span_name].
     pub fn set_span_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.span_name = v.into();
@@ -10458,6 +10966,10 @@ pub struct InternalChecker {
 }
 
 impl InternalChecker {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InternalChecker::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -10568,6 +11080,10 @@ pub struct SyntheticMonitorTarget {
 }
 
 impl SyntheticMonitorTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `target`.
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::synthetic_monitor_target::Target>>,
@@ -10648,6 +11164,10 @@ pub mod synthetic_monitor_target {
     }
 
     impl CloudFunctionV2Target {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::synthetic_monitor_target::CloudFunctionV2Target::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -10778,6 +11298,10 @@ pub struct UptimeCheckConfig {
 }
 
 impl UptimeCheckConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UptimeCheckConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -11085,6 +11609,10 @@ pub mod uptime_check_config {
     }
 
     impl ResourceGroup {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [group_id][crate::model::uptime_check_config::ResourceGroup::group_id].
         pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group_id = v.into();
@@ -11120,6 +11648,10 @@ pub mod uptime_check_config {
     }
 
     impl PingConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [pings_count][crate::model::uptime_check_config::PingConfig::pings_count].
         pub fn set_pings_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.pings_count = v.into();
@@ -11246,6 +11778,10 @@ pub mod uptime_check_config {
     }
 
     impl HttpCheck {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [request_method][crate::model::uptime_check_config::HttpCheck::request_method].
         pub fn set_request_method<
             T: std::convert::Into<crate::model::uptime_check_config::http_check::RequestMethod>,
@@ -11448,6 +11984,10 @@ pub mod uptime_check_config {
         }
 
         impl BasicAuthentication {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [username][crate::model::uptime_check_config::http_check::BasicAuthentication::username].
             pub fn set_username<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -11488,6 +12028,10 @@ pub mod uptime_check_config {
         }
 
         impl ResponseStatusCode {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of `status_code`.
             pub fn set_status_code<T: std::convert::Into<std::option::Option<crate::model::uptime_check_config::http_check::response_status_code::StatusCode>>>(mut self, v: T) -> Self
             {
@@ -11640,6 +12184,10 @@ pub mod uptime_check_config {
         }
 
         impl ServiceAgentAuthentication {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [r#type][crate::model::uptime_check_config::http_check::ServiceAgentAuthentication::type].
             pub fn set_type<T: std::convert::Into<crate::model::uptime_check_config::http_check::service_agent_authentication::ServiceAgentAuthenticationType>>(mut self, v: T) -> Self{
                 self.r#type = v.into();
@@ -11806,6 +12354,10 @@ pub mod uptime_check_config {
     }
 
     impl TcpCheck {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [port][crate::model::uptime_check_config::TcpCheck::port].
         pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.port = v.into();
@@ -11859,6 +12411,10 @@ pub mod uptime_check_config {
     }
 
     impl ContentMatcher {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [content][crate::model::uptime_check_config::ContentMatcher::content].
         pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.content = v.into();
@@ -11963,6 +12519,10 @@ pub mod uptime_check_config {
         }
 
         impl JsonPathMatcher {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [json_path][crate::model::uptime_check_config::content_matcher::JsonPathMatcher::json_path].
             pub fn set_json_path<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -12224,6 +12784,10 @@ pub struct UptimeCheckIp {
 }
 
 impl UptimeCheckIp {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [region][crate::model::UptimeCheckIp::region].
     pub fn set_region<T: std::convert::Into<crate::model::UptimeCheckRegion>>(
         mut self,
@@ -12290,6 +12854,10 @@ pub struct ListUptimeCheckConfigsRequest {
 }
 
 impl ListUptimeCheckConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListUptimeCheckConfigsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12345,6 +12913,10 @@ pub struct ListUptimeCheckConfigsResponse {
 }
 
 impl ListUptimeCheckConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListUptimeCheckConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -12404,6 +12976,10 @@ pub struct GetUptimeCheckConfigRequest {
 }
 
 impl GetUptimeCheckConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetUptimeCheckConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12439,6 +13015,10 @@ pub struct CreateUptimeCheckConfigRequest {
 }
 
 impl CreateUptimeCheckConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateUptimeCheckConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -12492,6 +13072,10 @@ pub struct UpdateUptimeCheckConfigRequest {
 }
 
 impl UpdateUptimeCheckConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateUptimeCheckConfigRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -12535,6 +13119,10 @@ pub struct DeleteUptimeCheckConfigRequest {
 }
 
 impl DeleteUptimeCheckConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteUptimeCheckConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -12570,6 +13158,10 @@ pub struct ListUptimeCheckIpsRequest {
 }
 
 impl ListUptimeCheckIpsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [page_size][crate::model::ListUptimeCheckIpsRequest::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -12611,6 +13203,10 @@ pub struct ListUptimeCheckIpsResponse {
 }
 
 impl ListUptimeCheckIpsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListUptimeCheckIpsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();

@@ -52,6 +52,10 @@ pub struct ManagedService {
 }
 
 impl ManagedService {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::ManagedService::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -98,6 +102,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [progress_percentage][crate::model::OperationMetadata::progress_percentage].
     pub fn set_progress_percentage<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percentage = v.into();
@@ -162,6 +170,10 @@ pub mod operation_metadata {
     }
 
     impl Step {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [description][crate::model::operation_metadata::Step::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
@@ -250,6 +262,10 @@ pub struct Diagnostic {
 }
 
 impl Diagnostic {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [location][crate::model::Diagnostic::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
@@ -334,6 +350,10 @@ pub struct ConfigSource {
 }
 
 impl ConfigSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::ConfigSource::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -378,6 +398,10 @@ pub struct ConfigFile {
 }
 
 impl ConfigFile {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_path][crate::model::ConfigFile::file_path].
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
@@ -479,6 +503,10 @@ pub struct ConfigRef {
 }
 
 impl ConfigRef {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ConfigRef::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -511,6 +539,10 @@ pub struct ChangeReport {
 }
 
 impl ChangeReport {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [config_changes][crate::model::ChangeReport::config_changes].
     pub fn set_config_changes<T, V>(mut self, v: T) -> Self
     where
@@ -574,6 +606,10 @@ pub struct Rollout {
 }
 
 impl Rollout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rollout_id][crate::model::Rollout::rollout_id].
     pub fn set_rollout_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.rollout_id = v.into();
@@ -744,6 +780,10 @@ pub mod rollout {
     }
 
     impl TrafficPercentStrategy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [percentages][crate::model::rollout::TrafficPercentStrategy::percentages].
         pub fn set_percentages<T, K, V>(mut self, v: T) -> Self
         where
@@ -771,7 +811,11 @@ pub mod rollout {
     #[non_exhaustive]
     pub struct DeleteServiceStrategy {}
 
-    impl DeleteServiceStrategy {}
+    impl DeleteServiceStrategy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for DeleteServiceStrategy {
         fn typename() -> &'static str {
@@ -876,6 +920,10 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [producer_project_id][crate::model::ListServicesRequest::producer_project_id].
     pub fn set_producer_project_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -926,6 +974,10 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -976,6 +1028,10 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::GetServiceRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1001,6 +1057,10 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::ManagedService>>>(
         mut self,
@@ -1031,6 +1091,10 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1058,6 +1122,10 @@ pub struct UndeleteServiceRequest {
 }
 
 impl UndeleteServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1083,6 +1151,10 @@ pub struct UndeleteServiceResponse {
 }
 
 impl UndeleteServiceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::UndeleteServiceResponse::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::ManagedService>>>(
         mut self,
@@ -1124,6 +1196,10 @@ pub struct GetServiceConfigRequest {
 }
 
 impl GetServiceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::GetServiceConfigRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1215,6 +1291,10 @@ pub struct ListServiceConfigsRequest {
 }
 
 impl ListServiceConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::ListServiceConfigsRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1256,6 +1336,10 @@ pub struct ListServiceConfigsResponse {
 }
 
 impl ListServiceConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServiceConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1311,6 +1395,10 @@ pub struct CreateServiceConfigRequest {
 }
 
 impl CreateServiceConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::CreateServiceConfigRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1356,6 +1444,10 @@ pub struct SubmitConfigSourceRequest {
 }
 
 impl SubmitConfigSourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1398,6 +1490,10 @@ pub struct SubmitConfigSourceResponse {
 }
 
 impl SubmitConfigSourceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_config][crate::model::SubmitConfigSourceResponse::service_config].
     pub fn set_service_config<T: std::convert::Into<std::option::Option<api::model::Service>>>(
         mut self,
@@ -1432,6 +1528,10 @@ pub struct CreateServiceRolloutRequest {
 }
 
 impl CreateServiceRolloutRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1489,6 +1589,10 @@ pub struct ListServiceRolloutsRequest {
 }
 
 impl ListServiceRolloutsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::ListServiceRolloutsRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1536,6 +1640,10 @@ pub struct ListServiceRolloutsResponse {
 }
 
 impl ListServiceRolloutsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServiceRolloutsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1591,6 +1699,10 @@ pub struct GetServiceRolloutRequest {
 }
 
 impl GetServiceRolloutRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::GetServiceRolloutRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -1617,7 +1729,11 @@ impl wkt::message::Message for GetServiceRolloutRequest {
 #[non_exhaustive]
 pub struct EnableServiceResponse {}
 
-impl EnableServiceResponse {}
+impl EnableServiceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for EnableServiceResponse {
     fn typename() -> &'static str {
@@ -1657,6 +1773,10 @@ pub struct GenerateConfigReportRequest {
 }
 
 impl GenerateConfigReportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
     pub fn set_new_config<T: std::convert::Into<std::option::Option<wkt::Any>>>(
         mut self,
@@ -1709,6 +1829,10 @@ pub struct GenerateConfigReportResponse {
 }
 
 impl GenerateConfigReportResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::GenerateConfigReportResponse::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();

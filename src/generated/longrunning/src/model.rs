@@ -64,6 +64,10 @@ pub struct Operation {
 }
 
 impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Operation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -191,6 +195,10 @@ pub struct GetOperationRequest {
 }
 
 impl GetOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -230,6 +238,10 @@ pub struct ListOperationsRequest {
 }
 
 impl ListOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListOperationsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -280,6 +292,10 @@ pub struct ListOperationsResponse {
 }
 
 impl ListOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -332,6 +348,10 @@ pub struct CancelOperationRequest {
 }
 
 impl CancelOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CancelOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -360,6 +380,10 @@ pub struct DeleteOperationRequest {
 }
 
 impl DeleteOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -392,6 +416,10 @@ pub struct WaitOperationRequest {
 }
 
 impl WaitOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::WaitOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -454,6 +482,10 @@ pub struct OperationInfo {
 }
 
 impl OperationInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [response_type][crate::model::OperationInfo::response_type].
     pub fn set_response_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.response_type = v.into();

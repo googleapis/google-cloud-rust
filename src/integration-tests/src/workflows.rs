@@ -71,7 +71,7 @@ main:
         .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
-            wf::model::Workflow::default()
+            wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
                 .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
                 .set_state(wf::model::workflow::state::UNAVAILABLE)
@@ -147,7 +147,7 @@ main:
         .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
-            wf::model::Workflow::default()
+            wf::model::Workflow::new()
                 .set_labels([("integration-test", "true")])
                 .set_call_log_level(wf::model::workflow::call_log_level::LOG_ERRORS_ONLY)
                 .set_state(wf::model::workflow::state::UNAVAILABLE)

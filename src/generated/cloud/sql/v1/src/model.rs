@@ -52,6 +52,9 @@ pub struct SqlBackupRunsDeleteRequest {
 }
 
 impl SqlBackupRunsDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -99,6 +102,9 @@ pub struct SqlBackupRunsGetRequest {
 }
 
 impl SqlBackupRunsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
     pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -145,6 +151,9 @@ pub struct SqlBackupRunsInsertRequest {
 }
 
 impl SqlBackupRunsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -197,6 +206,9 @@ pub struct SqlBackupRunsListRequest {
 }
 
 impl SqlBackupRunsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -322,6 +334,9 @@ pub struct BackupRun {
 }
 
 impl BackupRun {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::BackupRun::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -460,6 +475,9 @@ pub struct BackupRunsListResponse {
 }
 
 impl BackupRunsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::BackupRunsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -513,6 +531,9 @@ pub struct GetConnectSettingsRequest {
 }
 
 impl GetConnectSettingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -594,6 +615,9 @@ pub struct ConnectSettings {
 }
 
 impl ConnectSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::ConnectSettings::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -740,6 +764,9 @@ pub struct GenerateEphemeralCertRequest {
 }
 
 impl GenerateEphemeralCertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -797,6 +824,9 @@ pub struct GenerateEphemeralCertResponse {
 }
 
 impl GenerateEphemeralCertResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [ephemeral_cert][crate::model::GenerateEphemeralCertResponse::ephemeral_cert].
     pub fn set_ephemeral_cert<T: std::convert::Into<std::option::Option<crate::model::SslCert>>>(mut self, v: T) -> Self {
@@ -832,6 +862,9 @@ pub struct SqlDatabasesDeleteRequest {
 }
 
 impl SqlDatabasesDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -879,6 +912,9 @@ pub struct SqlDatabasesGetRequest {
 }
 
 impl SqlDatabasesGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -925,6 +961,9 @@ pub struct SqlDatabasesInsertRequest {
 }
 
 impl SqlDatabasesInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -968,6 +1007,9 @@ pub struct SqlDatabasesListRequest {
 }
 
 impl SqlDatabasesListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1012,6 +1054,9 @@ pub struct SqlDatabasesUpdateRequest {
 }
 
 impl SqlDatabasesUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1061,6 +1106,9 @@ pub struct DatabasesListResponse {
 }
 
 impl DatabasesListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DatabasesListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1100,6 +1148,9 @@ pub struct SqlFlagsListRequest {
 }
 
 impl SqlFlagsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
     pub fn set_database_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1131,6 +1182,9 @@ pub struct FlagsListResponse {
 }
 
 impl FlagsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::FlagsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1222,6 +1276,9 @@ pub struct Flag {
 }
 
 impl Flag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::Flag::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1322,6 +1379,9 @@ pub struct SqlInstancesAddServerCaRequest {
 }
 
 impl SqlInstancesAddServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1363,6 +1423,9 @@ pub struct SqlInstancesCloneRequest {
 }
 
 impl SqlInstancesCloneRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1406,6 +1469,9 @@ pub struct SqlInstancesDeleteRequest {
 }
 
 impl SqlInstancesDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1446,6 +1512,9 @@ pub struct SqlInstancesDemoteMasterRequest {
 }
 
 impl SqlInstancesDemoteMasterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1493,6 +1562,9 @@ pub struct SqlInstancesDemoteRequest {
 }
 
 impl SqlInstancesDemoteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1539,6 +1611,9 @@ pub struct SqlInstancesExportRequest {
 }
 
 impl SqlInstancesExportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1585,6 +1660,9 @@ pub struct SqlInstancesFailoverRequest {
 }
 
 impl SqlInstancesFailoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1628,6 +1706,9 @@ pub struct SqlInstancesGetRequest {
 }
 
 impl SqlInstancesGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1668,6 +1749,9 @@ pub struct SqlInstancesImportRequest {
 }
 
 impl SqlInstancesImportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1711,6 +1795,9 @@ pub struct SqlInstancesInsertRequest {
 }
 
 impl SqlInstancesInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1767,6 +1854,9 @@ pub struct SqlInstancesListRequest {
 }
 
 impl SqlInstancesListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1816,6 +1906,9 @@ pub struct SqlInstancesListServerCasRequest {
 }
 
 impl SqlInstancesListServerCasRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1856,6 +1949,9 @@ pub struct SqlInstancesPatchRequest {
 }
 
 impl SqlInstancesPatchRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1908,6 +2004,9 @@ pub struct SqlInstancesPromoteReplicaRequest {
 }
 
 impl SqlInstancesPromoteReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -1957,6 +2056,9 @@ pub struct SqlInstancesSwitchoverRequest {
 }
 
 impl SqlInstancesSwitchoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2000,6 +2102,9 @@ pub struct SqlInstancesResetSslConfigRequest {
 }
 
 impl SqlInstancesResetSslConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2037,6 +2142,9 @@ pub struct SqlInstancesRestartRequest {
 }
 
 impl SqlInstancesRestartRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2077,6 +2185,9 @@ pub struct SqlInstancesRestoreBackupRequest {
 }
 
 impl SqlInstancesRestoreBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2123,6 +2234,9 @@ pub struct SqlInstancesRotateServerCaRequest {
 }
 
 impl SqlInstancesRotateServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2166,6 +2280,9 @@ pub struct SqlInstancesStartReplicaRequest {
 }
 
 impl SqlInstancesStartReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2203,6 +2320,9 @@ pub struct SqlInstancesStopReplicaRequest {
 }
 
 impl SqlInstancesStopReplicaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2243,6 +2363,9 @@ pub struct SqlInstancesTruncateLogRequest {
 }
 
 impl SqlInstancesTruncateLogRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2290,6 +2413,9 @@ pub struct SqlInstancesPerformDiskShrinkRequest {
 }
 
 impl SqlInstancesPerformDiskShrinkRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2336,6 +2462,9 @@ pub struct SqlInstancesUpdateRequest {
 }
 
 impl SqlInstancesUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2382,6 +2511,9 @@ pub struct SqlInstancesRescheduleMaintenanceRequest {
 }
 
 impl SqlInstancesRescheduleMaintenanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2429,6 +2561,9 @@ pub struct SqlInstancesReencryptRequest {
 }
 
 impl SqlInstancesReencryptRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2468,6 +2603,9 @@ pub struct InstancesReencryptRequest {
 }
 
 impl InstancesReencryptRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_reencryption_config][crate::model::InstancesReencryptRequest::backup_reencryption_config].
     pub fn set_backup_reencryption_config<T: std::convert::Into<std::option::Option<crate::model::BackupReencryptionConfig>>>(mut self, v: T) -> Self {
@@ -2499,6 +2637,9 @@ pub struct BackupReencryptionConfig {
 }
 
 impl BackupReencryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_limit][crate::model::BackupReencryptionConfig::backup_limit].
     pub fn set_backup_limit<T: std::convert::Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
@@ -2580,6 +2721,9 @@ pub struct SqlInstancesGetDiskShrinkConfigRequest {
 }
 
 impl SqlInstancesGetDiskShrinkConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2638,6 +2782,9 @@ pub struct SqlInstancesVerifyExternalSyncSettingsRequest {
 }
 
 impl SqlInstancesVerifyExternalSyncSettingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2846,6 +2993,9 @@ pub struct SqlInstancesStartExternalSyncRequest {
 }
 
 impl SqlInstancesStartExternalSyncRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2954,6 +3104,9 @@ pub struct SqlInstancesResetReplicaSizeRequest {
 }
 
 impl SqlInstancesResetReplicaSizeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -2994,6 +3147,9 @@ pub struct SqlInstancesCreateEphemeralCertRequest {
 }
 
 impl SqlInstancesCreateEphemeralCertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3033,6 +3189,9 @@ pub struct InstancesCloneRequest {
 }
 
 impl InstancesCloneRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [clone_context][crate::model::InstancesCloneRequest::clone_context].
     pub fn set_clone_context<T: std::convert::Into<std::option::Option<crate::model::CloneContext>>>(mut self, v: T) -> Self {
@@ -3060,6 +3219,9 @@ pub struct InstancesDemoteMasterRequest {
 }
 
 impl InstancesDemoteMasterRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [demote_master_context][crate::model::InstancesDemoteMasterRequest::demote_master_context].
     pub fn set_demote_master_context<T: std::convert::Into<std::option::Option<crate::model::DemoteMasterContext>>>(mut self, v: T) -> Self {
@@ -3088,6 +3250,9 @@ pub struct InstancesDemoteRequest {
 }
 
 impl InstancesDemoteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [demote_context][crate::model::InstancesDemoteRequest::demote_context].
     pub fn set_demote_context<T: std::convert::Into<std::option::Option<crate::model::DemoteContext>>>(mut self, v: T) -> Self {
@@ -3115,6 +3280,9 @@ pub struct InstancesExportRequest {
 }
 
 impl InstancesExportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [export_context][crate::model::InstancesExportRequest::export_context].
     pub fn set_export_context<T: std::convert::Into<std::option::Option<crate::model::ExportContext>>>(mut self, v: T) -> Self {
@@ -3142,6 +3310,9 @@ pub struct InstancesFailoverRequest {
 }
 
 impl InstancesFailoverRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [failover_context][crate::model::InstancesFailoverRequest::failover_context].
     pub fn set_failover_context<T: std::convert::Into<std::option::Option<crate::model::FailoverContext>>>(mut self, v: T) -> Self {
@@ -3173,6 +3344,9 @@ pub struct SslCertsCreateEphemeralRequest {
 }
 
 impl SslCertsCreateEphemeralRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [public_key][crate::model::SslCertsCreateEphemeralRequest::public_key].
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3206,6 +3380,9 @@ pub struct InstancesImportRequest {
 }
 
 impl InstancesImportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [import_context][crate::model::InstancesImportRequest::import_context].
     pub fn set_import_context<T: std::convert::Into<std::option::Option<crate::model::ImportContext>>>(mut self, v: T) -> Self {
@@ -3246,6 +3423,9 @@ pub struct InstancesListResponse {
 }
 
 impl InstancesListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::InstancesListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3308,6 +3488,9 @@ pub struct InstancesListServerCasResponse {
 }
 
 impl InstancesListServerCasResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [active_version][crate::model::InstancesListServerCasResponse::active_version].
     pub fn set_active_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3352,6 +3535,9 @@ pub struct InstancesRestoreBackupRequest {
 }
 
 impl InstancesRestoreBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [restore_backup_context][crate::model::InstancesRestoreBackupRequest::restore_backup_context].
     pub fn set_restore_backup_context<T: std::convert::Into<std::option::Option<crate::model::RestoreBackupContext>>>(mut self, v: T) -> Self {
@@ -3379,6 +3565,9 @@ pub struct InstancesRotateServerCaRequest {
 }
 
 impl InstancesRotateServerCaRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [rotate_server_ca_context][crate::model::InstancesRotateServerCaRequest::rotate_server_ca_context].
     pub fn set_rotate_server_ca_context<T: std::convert::Into<std::option::Option<crate::model::RotateServerCaContext>>>(mut self, v: T) -> Self {
@@ -3406,6 +3595,9 @@ pub struct InstancesTruncateLogRequest {
 }
 
 impl InstancesTruncateLogRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [truncate_log_context][crate::model::InstancesTruncateLogRequest::truncate_log_context].
     pub fn set_truncate_log_context<T: std::convert::Into<std::option::Option<crate::model::TruncateLogContext>>>(mut self, v: T) -> Self {
@@ -3433,6 +3625,9 @@ pub struct InstancesAcquireSsrsLeaseRequest {
 }
 
 impl InstancesAcquireSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [acquire_ssrs_lease_context][crate::model::InstancesAcquireSsrsLeaseRequest::acquire_ssrs_lease_context].
     pub fn set_acquire_ssrs_lease_context<T: std::convert::Into<std::option::Option<crate::model::AcquireSsrsLeaseContext>>>(mut self, v: T) -> Self {
@@ -3468,6 +3663,9 @@ pub struct SqlInstancesVerifyExternalSyncSettingsResponse {
 }
 
 impl SqlInstancesVerifyExternalSyncSettingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesVerifyExternalSyncSettingsResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3525,6 +3723,9 @@ pub struct SqlInstancesGetDiskShrinkConfigResponse {
 }
 
 impl SqlInstancesGetDiskShrinkConfigResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetDiskShrinkConfigResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3568,6 +3769,9 @@ pub struct SqlInstancesGetLatestRecoveryTimeRequest {
 }
 
 impl SqlInstancesGetLatestRecoveryTimeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3605,6 +3809,9 @@ pub struct SqlInstancesGetLatestRecoveryTimeResponse {
 }
 
 impl SqlInstancesGetLatestRecoveryTimeResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlInstancesGetLatestRecoveryTimeResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3678,6 +3885,9 @@ pub struct CloneContext {
 }
 
 impl CloneContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::CloneContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -3760,6 +3970,9 @@ pub struct BinLogCoordinates {
 }
 
 impl BinLogCoordinates {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [bin_log_file_name][crate::model::BinLogCoordinates::bin_log_file_name].
     pub fn set_bin_log_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4024,6 +4237,9 @@ pub struct DatabaseInstance {
 }
 
 impl DatabaseInstance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DatabaseInstance::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4359,6 +4575,9 @@ pub mod database_instance {
     }
 
     impl SqlFailoverReplica {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [name][crate::model::database_instance::SqlFailoverReplica::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4401,6 +4620,9 @@ pub mod database_instance {
     }
 
     impl SqlScheduledMaintenance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [start_time][crate::model::database_instance::SqlScheduledMaintenance::start_time].
         pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
@@ -4461,6 +4683,9 @@ pub mod database_instance {
     }
 
     impl SqlOutOfDiskReport {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [sql_out_of_disk_state][crate::model::database_instance::SqlOutOfDiskReport::sql_out_of_disk_state].
         pub fn set_sql_out_of_disk_state<T: std::convert::Into<std::option::Option<crate::model::database_instance::sql_out_of_disk_report::SqlOutOfDiskState>>>(mut self, v: T) -> Self {
@@ -4649,6 +4874,9 @@ pub struct GeminiInstanceConfig {
 }
 
 impl GeminiInstanceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [entitled][crate::model::GeminiInstanceConfig::entitled].
     pub fn set_entitled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
@@ -4728,6 +4956,9 @@ pub struct ReplicationCluster {
 }
 
 impl ReplicationCluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [psa_write_endpoint][crate::model::ReplicationCluster::psa_write_endpoint].
     pub fn set_psa_write_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -4776,6 +5007,9 @@ pub struct AvailableDatabaseVersion {
 }
 
 impl AvailableDatabaseVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [major_version][crate::model::AvailableDatabaseVersion::major_version].
     pub fn set_major_version<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
@@ -4815,6 +5049,9 @@ pub struct SqlInstancesRescheduleMaintenanceRequestBody {
 }
 
 impl SqlInstancesRescheduleMaintenanceRequestBody {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [reschedule][crate::model::SqlInstancesRescheduleMaintenanceRequestBody::reschedule].
     pub fn set_reschedule<T: std::convert::Into<std::option::Option<crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule>>>(mut self, v: T) -> Self {
@@ -4853,6 +5090,9 @@ pub mod sql_instances_reschedule_maintenance_request_body {
     }
 
     impl Reschedule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [reschedule_type][crate::model::sql_instances_reschedule_maintenance_request_body::Reschedule::reschedule_type].
         pub fn set_reschedule_type<T: std::convert::Into<crate::model::sql_instances_reschedule_maintenance_request_body::RescheduleType>>(mut self, v: T) -> Self {
@@ -4949,6 +5189,9 @@ pub struct DemoteMasterContext {
 }
 
 impl DemoteMasterContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5006,6 +5249,9 @@ pub struct DemoteContext {
 }
 
 impl DemoteContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5044,6 +5290,9 @@ pub struct FailoverContext {
 }
 
 impl FailoverContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [settings_version][crate::model::FailoverContext::settings_version].
     pub fn set_settings_version<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -5090,6 +5339,9 @@ pub struct RestoreBackupContext {
 }
 
 impl RestoreBackupContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::RestoreBackupContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5140,6 +5392,9 @@ pub struct RotateServerCaContext {
 }
 
 impl RotateServerCaContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::RotateServerCaContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5178,6 +5433,9 @@ pub struct TruncateLogContext {
 }
 
 impl TruncateLogContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::TruncateLogContext::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5220,6 +5478,9 @@ pub struct SqlExternalSyncSettingError {
 }
 
 impl SqlExternalSyncSettingError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlExternalSyncSettingError::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5492,6 +5753,9 @@ pub struct OnPremisesConfiguration {
 }
 
 impl OnPremisesConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host_port][crate::model::OnPremisesConfiguration::host_port].
     pub fn set_host_port<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5590,6 +5854,9 @@ pub struct ReplicaConfiguration {
 }
 
 impl ReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::ReplicaConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5647,6 +5914,9 @@ pub struct SqlInstancesAcquireSsrsLeaseRequest {
 }
 
 impl SqlInstancesAcquireSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5686,6 +5956,9 @@ pub struct SqlInstancesAcquireSsrsLeaseResponse {
 }
 
 impl SqlInstancesAcquireSsrsLeaseResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesAcquireSsrsLeaseResponse::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5720,6 +5993,9 @@ pub struct SqlInstancesReleaseSsrsLeaseRequest {
 }
 
 impl SqlInstancesReleaseSsrsLeaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5753,6 +6029,9 @@ pub struct SqlInstancesReleaseSsrsLeaseResponse {
 }
 
 impl SqlInstancesReleaseSsrsLeaseResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation_id][crate::model::SqlInstancesReleaseSsrsLeaseResponse::operation_id].
     pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5784,6 +6063,9 @@ pub struct SqlOperationsGetRequest {
 }
 
 impl SqlOperationsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5829,6 +6111,9 @@ pub struct SqlOperationsListRequest {
 }
 
 impl SqlOperationsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5883,6 +6168,9 @@ pub struct OperationsListResponse {
 }
 
 impl OperationsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5931,6 +6219,9 @@ pub struct SqlOperationsCancelRequest {
 }
 
 impl SqlOperationsCancelRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -5978,6 +6269,9 @@ pub struct AclEntry {
 }
 
 impl AclEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [value][crate::model::AclEntry::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6030,6 +6324,9 @@ pub struct ApiWarning {
 }
 
 impl ApiWarning {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [code][crate::model::ApiWarning::code].
     pub fn set_code<T: std::convert::Into<crate::model::api_warning::SqlApiWarningCode>>(mut self, v: T) -> Self {
@@ -6128,6 +6425,9 @@ pub struct BackupRetentionSettings {
 }
 
 impl BackupRetentionSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [retention_unit][crate::model::BackupRetentionSettings::retention_unit].
     pub fn set_retention_unit<T: std::convert::Into<crate::model::backup_retention_settings::RetentionUnit>>(mut self, v: T) -> Self {
@@ -6242,6 +6542,9 @@ pub struct BackupConfiguration {
 }
 
 impl BackupConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [start_time][crate::model::BackupConfiguration::start_time].
     pub fn set_start_time<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6380,6 +6683,9 @@ pub struct PerformDiskShrinkContext {
 }
 
 impl PerformDiskShrinkContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [target_size_gb][crate::model::PerformDiskShrinkContext::target_size_gb].
     pub fn set_target_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -6411,6 +6717,9 @@ pub struct BackupContext {
 }
 
 impl BackupContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [backup_id][crate::model::BackupContext::backup_id].
     pub fn set_backup_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
@@ -6478,6 +6787,9 @@ pub struct Database {
 }
 
 impl Database {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::Database::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6596,6 +6908,9 @@ pub struct SqlServerDatabaseDetails {
 }
 
 impl SqlServerDatabaseDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [compatibility_level][crate::model::SqlServerDatabaseDetails::compatibility_level].
     pub fn set_compatibility_level<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -6639,6 +6954,9 @@ pub struct DatabaseFlags {
 }
 
 impl DatabaseFlags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::DatabaseFlags::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6672,6 +6990,9 @@ pub struct MySqlSyncConfig {
 }
 
 impl MySqlSyncConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [initial_sync_flags][crate::model::MySqlSyncConfig::initial_sync_flags].
     pub fn set_initial_sync_flags<T, V>(mut self, v: T) -> Self
@@ -6710,6 +7031,9 @@ pub struct SyncFlags {
 }
 
 impl SyncFlags {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::SyncFlags::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6753,6 +7077,9 @@ pub struct InstanceReference {
 }
 
 impl InstanceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [name][crate::model::InstanceReference::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6802,6 +7129,9 @@ pub struct DemoteMasterConfiguration {
 }
 
 impl DemoteMasterConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6857,6 +7187,9 @@ pub struct DemoteMasterMySqlReplicaConfiguration {
 }
 
 impl DemoteMasterMySqlReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::DemoteMasterMySqlReplicaConfiguration::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -6957,6 +7290,9 @@ pub struct ExportContext {
 }
 
 impl ExportContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [uri][crate::model::ExportContext::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7055,6 +7391,9 @@ pub mod export_context {
     }
 
     impl SqlCsvExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [select_query][crate::model::export_context::SqlCsvExportOptions::select_query].
         pub fn set_select_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7126,6 +7465,9 @@ pub mod export_context {
     }
 
     impl SqlExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [schema_only][crate::model::export_context::SqlExportOptions::schema_only].
         pub fn set_schema_only<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7199,6 +7541,9 @@ pub mod export_context {
         }
 
         impl MysqlExportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [master_data][crate::model::export_context::sql_export_options::MysqlExportOptions::master_data].
             pub fn set_master_data<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -7233,6 +7578,9 @@ pub mod export_context {
         }
 
         impl PostgresExportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [clean][crate::model::export_context::sql_export_options::PostgresExportOptions::clean].
             pub fn set_clean<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7285,6 +7633,9 @@ pub mod export_context {
     }
 
     impl SqlBakExportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [striped][crate::model::export_context::SqlBakExportOptions::striped].
         pub fn set_striped<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7371,6 +7722,9 @@ pub struct ImportContext {
 }
 
 impl ImportContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [uri][crate::model::ImportContext::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7453,6 +7807,9 @@ pub mod import_context {
     }
 
     impl SqlImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [threads][crate::model::import_context::SqlImportOptions::threads].
         pub fn set_threads<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -7503,6 +7860,9 @@ pub mod import_context {
         }
 
         impl PostgresImportOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [clean][crate::model::import_context::sql_import_options::PostgresImportOptions::clean].
             pub fn set_clean<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -7560,6 +7920,9 @@ pub mod import_context {
     }
 
     impl SqlCsvImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [table][crate::model::import_context::SqlCsvImportOptions::table].
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7654,6 +8017,9 @@ pub mod import_context {
     }
 
     impl SqlBakImportOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [encryption_options][crate::model::import_context::SqlBakImportOptions::encryption_options].
         pub fn set_encryption_options<T: std::convert::Into<std::option::Option<crate::model::import_context::sql_bak_import_options::EncryptionOptions>>>(mut self, v: T) -> Self {
@@ -7734,6 +8100,9 @@ pub mod import_context {
         }
 
         impl EncryptionOptions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
 
             /// Sets the value of [cert_path][crate::model::import_context::sql_bak_import_options::EncryptionOptions::cert_path].
             pub fn set_cert_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -7846,6 +8215,9 @@ pub struct IpConfiguration {
 }
 
 impl IpConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [ipv4_enabled][crate::model::IpConfiguration::ipv4_enabled].
     pub fn set_ipv4_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(mut self, v: T) -> Self {
@@ -8043,6 +8415,9 @@ pub struct PscConfig {
 }
 
 impl PscConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [psc_enabled][crate::model::PscConfig::psc_enabled].
     pub fn set_psc_enabled<T: std::convert::Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
@@ -8100,6 +8475,9 @@ pub struct LocationPreference {
 }
 
 impl LocationPreference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [follow_gae_application][crate::model::LocationPreference::follow_gae_application].
     pub fn set_follow_gae_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8161,6 +8539,9 @@ pub struct MaintenanceWindow {
 }
 
 impl MaintenanceWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [hour][crate::model::MaintenanceWindow::hour].
     pub fn set_hour<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -8222,6 +8603,9 @@ pub struct DenyMaintenancePeriod {
 }
 
 impl DenyMaintenancePeriod {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [start_date][crate::model::DenyMaintenancePeriod::start_date].
     pub fn set_start_date<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8280,6 +8664,9 @@ pub struct InsightsConfig {
 }
 
 impl InsightsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [query_insights_enabled][crate::model::InsightsConfig::query_insights_enabled].
     pub fn set_query_insights_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -8379,6 +8766,9 @@ pub struct MySqlReplicaConfiguration {
 }
 
 impl MySqlReplicaConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [dump_file_path][crate::model::MySqlReplicaConfiguration::dump_file_path].
     pub fn set_dump_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8470,6 +8860,9 @@ pub struct DiskEncryptionConfiguration {
 }
 
 impl DiskEncryptionConfiguration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kms_key_name][crate::model::DiskEncryptionConfiguration::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8507,6 +8900,9 @@ pub struct DiskEncryptionStatus {
 }
 
 impl DiskEncryptionStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kms_key_version_name][crate::model::DiskEncryptionStatus::kms_key_version_name].
     pub fn set_kms_key_version_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -8554,6 +8950,9 @@ pub struct IpMapping {
 }
 
 impl IpMapping {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [r#type][crate::model::IpMapping::type].
     pub fn set_type<T: std::convert::Into<crate::model::SqlIpAddressType>>(mut self, v: T) -> Self {
@@ -8682,6 +9081,9 @@ pub struct Operation {
 }
 
 impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::Operation::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9046,6 +9448,9 @@ pub struct OperationError {
 }
 
 impl OperationError {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationError::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9089,6 +9494,9 @@ pub struct OperationErrors {
 }
 
 impl OperationErrors {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::OperationErrors::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9152,6 +9560,9 @@ pub struct PasswordValidationPolicy {
 }
 
 impl PasswordValidationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [min_length][crate::model::PasswordValidationPolicy::min_length].
     pub fn set_min_length<T: std::convert::Into<std::option::Option<wkt::Int32Value>>>(mut self, v: T) -> Self {
@@ -9256,6 +9667,9 @@ pub struct DataCacheConfig {
 }
 
 impl DataCacheConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [data_cache_enabled][crate::model::DataCacheConfig::data_cache_enabled].
     pub fn set_data_cache_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -9462,6 +9876,9 @@ pub struct Settings {
 }
 
 impl Settings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [settings_version][crate::model::Settings::settings_version].
     pub fn set_settings_version<T: std::convert::Into<std::option::Option<wkt::Int64Value>>>(mut self, v: T) -> Self {
@@ -9830,6 +10247,9 @@ pub struct AdvancedMachineFeatures {
 }
 
 impl AdvancedMachineFeatures {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [threads_per_core][crate::model::AdvancedMachineFeatures::threads_per_core].
     pub fn set_threads_per_core<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -9893,6 +10313,9 @@ pub struct SslCert {
 }
 
 impl SslCert {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCert::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -9973,6 +10396,9 @@ pub struct SslCertDetail {
 }
 
 impl SslCertDetail {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [cert_info][crate::model::SslCertDetail::cert_info].
     pub fn set_cert_info<T: std::convert::Into<std::option::Option<crate::model::SslCert>>>(mut self, v: T) -> Self {
@@ -10010,6 +10436,9 @@ pub struct SqlActiveDirectoryConfig {
 }
 
 impl SqlActiveDirectoryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlActiveDirectoryConfig::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10055,6 +10484,9 @@ pub struct SqlServerAuditConfig {
 }
 
 impl SqlServerAuditConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SqlServerAuditConfig::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10114,6 +10546,9 @@ pub struct AcquireSsrsLeaseContext {
 }
 
 impl AcquireSsrsLeaseContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [setup_login][crate::model::AcquireSsrsLeaseContext::setup_login].
     pub fn set_setup_login<T: std::convert::Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
@@ -10166,6 +10601,9 @@ pub struct SqlSslCertsDeleteRequest {
 }
 
 impl SqlSslCertsDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10212,6 +10650,9 @@ pub struct SqlSslCertsGetRequest {
 }
 
 impl SqlSslCertsGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10257,6 +10698,9 @@ pub struct SqlSslCertsInsertRequest {
 }
 
 impl SqlSslCertsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10299,6 +10743,9 @@ pub struct SqlSslCertsListRequest {
 }
 
 impl SqlSslCertsListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10333,6 +10780,9 @@ pub struct SslCertsInsertRequest {
 }
 
 impl SslCertsInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [common_name][crate::model::SslCertsInsertRequest::common_name].
     pub fn set_common_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10374,6 +10824,9 @@ pub struct SslCertsInsertResponse {
 }
 
 impl SslCertsInsertResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCertsInsertResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10423,6 +10876,9 @@ pub struct SslCertsListResponse {
 }
 
 impl SslCertsListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::SslCertsListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10461,6 +10917,9 @@ pub struct SqlTiersListRequest {
 }
 
 impl SqlTiersListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10492,6 +10951,9 @@ pub struct TiersListResponse {
 }
 
 impl TiersListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::TiersListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10549,6 +11011,9 @@ pub struct Tier {
 }
 
 impl Tier {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [tier][crate::model::Tier::tier].
     pub fn set_tier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10616,6 +11081,9 @@ pub struct SqlUsersDeleteRequest {
 }
 
 impl SqlUsersDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10673,6 +11141,9 @@ pub struct SqlUsersGetRequest {
 }
 
 impl SqlUsersGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10724,6 +11195,9 @@ pub struct SqlUsersInsertRequest {
 }
 
 impl SqlUsersInsertRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10766,6 +11240,9 @@ pub struct SqlUsersListRequest {
 }
 
 impl SqlUsersListRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10813,6 +11290,9 @@ pub struct SqlUsersUpdateRequest {
 }
 
 impl SqlUsersUpdateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -10878,6 +11358,9 @@ pub struct UserPasswordValidationPolicy {
 }
 
 impl UserPasswordValidationPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [allowed_failed_attempts][crate::model::UserPasswordValidationPolicy::allowed_failed_attempts].
     pub fn set_allowed_failed_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
@@ -10932,6 +11415,9 @@ pub struct PasswordStatus {
 }
 
 impl PasswordStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [locked][crate::model::PasswordStatus::locked].
     pub fn set_locked<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -11016,6 +11502,9 @@ pub struct User {
 }
 
 impl User {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::User::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -11233,6 +11722,9 @@ pub struct SqlServerUserDetails {
 }
 
 impl SqlServerUserDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [disabled][crate::model::SqlServerUserDetails::disabled].
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
@@ -11279,6 +11771,9 @@ pub struct UsersListResponse {
 }
 
 impl UsersListResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [kind][crate::model::UsersListResponse::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {

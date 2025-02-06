@@ -55,6 +55,10 @@ pub struct CreateWorkloadRequest {
 }
 
 impl CreateWorkloadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -102,6 +106,10 @@ pub struct UpdateWorkloadRequest {
 }
 
 impl UpdateWorkloadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
     pub fn set_workload<T: std::convert::Into<std::option::Option<crate::model::Workload>>>(
         mut self,
@@ -146,6 +154,10 @@ pub struct DeleteWorkloadRequest {
 }
 
 impl DeleteWorkloadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -181,6 +193,10 @@ pub struct GetWorkloadRequest {
 }
 
 impl GetWorkloadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetWorkloadRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -221,6 +237,10 @@ pub struct ListWorkloadsRequest {
 }
 
 impl ListWorkloadsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -268,6 +288,10 @@ pub struct ListWorkloadsResponse {
 }
 
 impl ListWorkloadsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListWorkloadsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -411,6 +435,10 @@ pub struct Workload {
 }
 
 impl Workload {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Workload::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -585,6 +613,10 @@ pub mod workload {
     }
 
     impl ResourceInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [resource_id][crate::model::workload::ResourceInfo::resource_id].
         pub fn set_resource_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.resource_id = v.into();
@@ -685,6 +717,10 @@ pub mod workload {
     }
 
     impl KMSSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [next_rotation_time][crate::model::workload::KMSSettings::next_rotation_time].
         pub fn set_next_rotation_time<
             T: std::convert::Into<std::option::Option<wkt::Timestamp>>,
@@ -739,6 +775,10 @@ pub mod workload {
     }
 
     impl ResourceSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [resource_id][crate::model::workload::ResourceSettings::resource_id].
         pub fn set_resource_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.resource_id = v.into();
@@ -790,6 +830,10 @@ pub mod workload {
     }
 
     impl SaaEnrollmentResponse {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [setup_status][crate::model::workload::SaaEnrollmentResponse::setup_status].
         pub fn set_setup_status<
             T: std::convert::Into<
@@ -1085,6 +1129,10 @@ pub struct CreateWorkloadOperationMetadata {
 }
 
 impl CreateWorkloadOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::CreateWorkloadOperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1143,6 +1191,10 @@ pub struct RestrictAllowedResourcesRequest {
 }
 
 impl RestrictAllowedResourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RestrictAllowedResourcesRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1223,7 +1275,11 @@ pub mod restrict_allowed_resources_request {
 #[non_exhaustive]
 pub struct RestrictAllowedResourcesResponse {}
 
-impl RestrictAllowedResourcesResponse {}
+impl RestrictAllowedResourcesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for RestrictAllowedResourcesResponse {
     fn typename() -> &'static str {
@@ -1260,6 +1316,10 @@ pub struct AcknowledgeViolationRequest {
 }
 
 impl AcknowledgeViolationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AcknowledgeViolationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1295,7 +1355,11 @@ impl wkt::message::Message for AcknowledgeViolationRequest {
 #[non_exhaustive]
 pub struct AcknowledgeViolationResponse {}
 
-impl AcknowledgeViolationResponse {}
+impl AcknowledgeViolationResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AcknowledgeViolationResponse {
     fn typename() -> &'static str {
@@ -1319,6 +1383,10 @@ pub struct TimeWindow {
 }
 
 impl TimeWindow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1374,6 +1442,10 @@ pub struct ListViolationsRequest {
 }
 
 impl ListViolationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListViolationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1430,6 +1502,10 @@ pub struct ListViolationsResponse {
 }
 
 impl ListViolationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListViolationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1481,6 +1557,10 @@ pub struct GetViolationRequest {
 }
 
 impl GetViolationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetViolationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1572,6 +1652,10 @@ pub struct Violation {
 }
 
 impl Violation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Violation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1719,6 +1803,10 @@ pub mod violation {
     }
 
     impl Remediation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [instructions][crate::model::violation::Remediation::instructions].
         pub fn set_instructions<
             T: std::convert::Into<
@@ -1784,6 +1872,10 @@ pub mod violation {
         }
 
         impl Instructions {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [gcloud_instructions][crate::model::violation::remediation::Instructions::gcloud_instructions].
             pub fn set_gcloud_instructions<
                 T: std::convert::Into<
@@ -1844,6 +1936,10 @@ pub mod violation {
             }
 
             impl Gcloud {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [gcloud_commands][crate::model::violation::remediation::instructions::Gcloud::gcloud_commands].
                 pub fn set_gcloud_commands<T, V>(mut self, v: T) -> Self
                 where
@@ -1904,6 +2000,10 @@ pub mod violation {
             }
 
             impl Console {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
                 /// Sets the value of [console_uris][crate::model::violation::remediation::instructions::Console::console_uris].
                 pub fn set_console_uris<T, V>(mut self, v: T) -> Self
                 where

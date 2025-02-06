@@ -56,6 +56,10 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -99,6 +103,10 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -155,6 +163,10 @@ pub struct Connection {
 }
 
 impl Connection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [endpoint][crate::model::Connection::endpoint].
     pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint = v.into();
@@ -198,6 +210,10 @@ pub struct Cluster {
 }
 
 impl Cluster {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Cluster::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -249,6 +265,10 @@ pub struct EgressRequest {
 }
 
 impl EgressRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::EgressRequest::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -313,6 +333,10 @@ pub struct Payload {
 }
 
 impl Payload {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `kind`.
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::payload::Kind>>>(
         mut self,
@@ -433,6 +457,10 @@ pub struct StreamInfo {
 }
 
 impl StreamInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::StreamInfo::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -484,6 +512,10 @@ pub struct EgressResponse {
 }
 
 impl EgressResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::EgressResponse::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -574,6 +606,10 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::HttpRequest::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -643,6 +679,10 @@ pub struct Url {
 }
 
 impl Url {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [scheme][crate::model::Url::scheme].
     pub fn set_scheme<T: std::convert::Into<crate::model::Scheme>>(mut self, v: T) -> Self {
         self.scheme = v.into();
@@ -682,6 +722,10 @@ pub struct Header {
 }
 
 impl Header {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::Header::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -741,6 +785,10 @@ pub struct HttpResponse {
 }
 
 impl HttpResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::HttpResponse::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();

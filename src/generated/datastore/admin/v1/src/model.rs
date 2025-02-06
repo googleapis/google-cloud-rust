@@ -59,6 +59,10 @@ pub struct CommonMetadata {
 }
 
 impl CommonMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::CommonMetadata::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -191,6 +195,10 @@ pub struct Progress {
 }
 
 impl Progress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [work_completed][crate::model::Progress::work_completed].
     pub fn set_work_completed<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.work_completed = v.into();
@@ -256,6 +264,10 @@ pub struct ExportEntitiesRequest {
 }
 
 impl ExportEntitiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ExportEntitiesRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -346,6 +358,10 @@ pub struct ImportEntitiesRequest {
 }
 
 impl ImportEntitiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ImportEntitiesRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -408,6 +424,10 @@ pub struct ExportEntitiesResponse {
 }
 
 impl ExportEntitiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_url][crate::model::ExportEntitiesResponse::output_url].
     pub fn set_output_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.output_url = v.into();
@@ -456,6 +476,10 @@ pub struct ExportEntitiesMetadata {
 }
 
 impl ExportEntitiesMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::ExportEntitiesMetadata::common].
     pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
         mut self,
@@ -547,6 +571,10 @@ pub struct ImportEntitiesMetadata {
 }
 
 impl ImportEntitiesMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::ImportEntitiesMetadata::common].
     pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
         mut self,
@@ -642,6 +670,10 @@ pub struct EntityFilter {
 }
 
 impl EntityFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kinds][crate::model::EntityFilter::kinds].
     pub fn set_kinds<T, V>(mut self, v: T) -> Self
     where
@@ -691,6 +723,10 @@ pub struct CreateIndexRequest {
 }
 
 impl CreateIndexRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CreateIndexRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -732,6 +768,10 @@ pub struct DeleteIndexRequest {
 }
 
 impl DeleteIndexRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::DeleteIndexRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -770,6 +810,10 @@ pub struct GetIndexRequest {
 }
 
 impl GetIndexRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetIndexRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -815,6 +859,10 @@ pub struct ListIndexesRequest {
 }
 
 impl ListIndexesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ListIndexesRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -865,6 +913,10 @@ pub struct ListIndexesResponse {
 }
 
 impl ListIndexesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListIndexesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -922,6 +974,10 @@ pub struct IndexOperationMetadata {
 }
 
 impl IndexOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::IndexOperationMetadata::common].
     pub fn set_common<T: std::convert::Into<std::option::Option<crate::model::CommonMetadata>>>(
         mut self,
@@ -978,6 +1034,10 @@ pub struct DatastoreFirestoreMigrationMetadata {
 }
 
 impl DatastoreFirestoreMigrationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [migration_state][crate::model::DatastoreFirestoreMigrationMetadata::migration_state].
     pub fn set_migration_state<T: std::convert::Into<crate::model::MigrationState>>(
         mut self,
@@ -1038,6 +1098,10 @@ pub struct Index {
 }
 
 impl Index {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::Index::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -1110,6 +1174,10 @@ pub mod index {
     }
 
     impl IndexedProperty {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::index::IndexedProperty::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -1277,6 +1345,10 @@ pub struct MigrationStateEvent {
 }
 
 impl MigrationStateEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::MigrationStateEvent::state].
     pub fn set_state<T: std::convert::Into<crate::model::MigrationState>>(mut self, v: T) -> Self {
         self.state = v.into();
@@ -1310,6 +1382,10 @@ pub struct MigrationProgressEvent {
 }
 
 impl MigrationProgressEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [step][crate::model::MigrationProgressEvent::step].
     pub fn set_step<T: std::convert::Into<crate::model::MigrationStep>>(mut self, v: T) -> Self {
         self.step = v.into();
@@ -1427,6 +1503,10 @@ pub mod migration_progress_event {
     }
 
     impl PrepareStepDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [concurrency_mode][crate::model::migration_progress_event::PrepareStepDetails::concurrency_mode].
         pub fn set_concurrency_mode<
             T: std::convert::Into<crate::model::migration_progress_event::ConcurrencyMode>,
@@ -1456,6 +1536,10 @@ pub mod migration_progress_event {
     }
 
     impl RedirectWritesStepDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [concurrency_mode][crate::model::migration_progress_event::RedirectWritesStepDetails::concurrency_mode].
         pub fn set_concurrency_mode<
             T: std::convert::Into<crate::model::migration_progress_event::ConcurrencyMode>,

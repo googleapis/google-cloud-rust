@@ -54,6 +54,10 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -98,6 +102,10 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -134,6 +142,10 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -178,6 +190,10 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -239,6 +255,10 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -283,6 +303,10 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -333,6 +357,10 @@ pub struct Connection {
 }
 
 impl Connection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Connection::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -648,6 +676,10 @@ pub struct CloudSqlProperties {
 }
 
 impl CloudSqlProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instance_id][crate::model::CloudSqlProperties::instance_id].
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
@@ -755,6 +787,10 @@ pub struct CloudSqlCredential {
 }
 
 impl CloudSqlCredential {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [username][crate::model::CloudSqlCredential::username].
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
@@ -825,6 +861,10 @@ pub struct CloudSpannerProperties {
 }
 
 impl CloudSpannerProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::CloudSpannerProperties::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -881,6 +921,10 @@ pub struct AwsProperties {
 }
 
 impl AwsProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `authentication_method`.
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::aws_properties::AuthenticationMethod>>,
@@ -1006,6 +1050,10 @@ pub struct AwsCrossAccountRole {
 }
 
 impl AwsCrossAccountRole {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [iam_role_id][crate::model::AwsCrossAccountRole::iam_role_id].
     pub fn set_iam_role_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_role_id = v.into();
@@ -1050,6 +1098,10 @@ pub struct AwsAccessRole {
 }
 
 impl AwsAccessRole {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [iam_role_id][crate::model::AwsAccessRole::iam_role_id].
     pub fn set_iam_role_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_role_id = v.into();
@@ -1109,6 +1161,10 @@ pub struct AzureProperties {
 }
 
 impl AzureProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [application][crate::model::AzureProperties::application].
     pub fn set_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.application = v.into();
@@ -1187,6 +1243,10 @@ pub struct CloudResourceProperties {
 }
 
 impl CloudResourceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_id][crate::model::CloudResourceProperties::service_account_id].
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1219,6 +1279,10 @@ pub struct MetastoreServiceConfig {
 }
 
 impl MetastoreServiceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metastore_service][crate::model::MetastoreServiceConfig::metastore_service].
     pub fn set_metastore_service<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1252,6 +1316,10 @@ pub struct SparkHistoryServerConfig {
 }
 
 impl SparkHistoryServerConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataproc_cluster][crate::model::SparkHistoryServerConfig::dataproc_cluster].
     pub fn set_dataproc_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1299,6 +1367,10 @@ pub struct SparkProperties {
 }
 
 impl SparkProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_id][crate::model::SparkProperties::service_account_id].
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1359,6 +1431,10 @@ pub struct SalesforceDataCloudProperties {
 }
 
 impl SalesforceDataCloudProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instance_uri][crate::model::SalesforceDataCloudProperties::instance_uri].
     pub fn set_instance_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_uri = v.into();

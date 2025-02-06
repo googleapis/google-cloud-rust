@@ -107,6 +107,10 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request_method][crate::model::HttpRequest::request_method].
     pub fn set_request_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_method = v.into();

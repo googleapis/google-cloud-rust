@@ -58,6 +58,10 @@ pub struct Document {
 }
 
 impl Document {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Document::type].
     pub fn set_type<T: std::convert::Into<crate::model::document::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -209,6 +213,10 @@ pub struct Sentence {
 }
 
 impl Sentence {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::Sentence::text].
     pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
         mut self,
@@ -271,6 +279,10 @@ pub struct Entity {
 }
 
 impl Entity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Entity::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -448,6 +460,10 @@ pub struct Sentiment {
 }
 
 impl Sentiment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [magnitude][crate::model::Sentiment::magnitude].
     pub fn set_magnitude<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.magnitude = v.into();
@@ -497,6 +513,10 @@ pub struct EntityMention {
 }
 
 impl EntityMention {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::EntityMention::text].
     pub fn set_text<T: std::convert::Into<std::option::Option<crate::model::TextSpan>>>(
         mut self,
@@ -599,6 +619,10 @@ pub struct TextSpan {
 }
 
 impl TextSpan {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content][crate::model::TextSpan::content].
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
@@ -639,6 +663,10 @@ pub struct ClassificationCategory {
 }
 
 impl ClassificationCategory {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ClassificationCategory::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -679,6 +707,10 @@ pub struct AnalyzeSentimentRequest {
 }
 
 impl AnalyzeSentimentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -731,6 +763,10 @@ pub struct AnalyzeSentimentResponse {
 }
 
 impl AnalyzeSentimentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document_sentiment][crate::model::AnalyzeSentimentResponse::document_sentiment].
     pub fn set_document_sentiment<
         T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,
@@ -787,6 +823,10 @@ pub struct AnalyzeEntitiesRequest {
 }
 
 impl AnalyzeEntitiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -835,6 +875,10 @@ pub struct AnalyzeEntitiesResponse {
 }
 
 impl AnalyzeEntitiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::AnalyzeEntitiesResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -877,6 +921,10 @@ pub struct ClassifyTextRequest {
 }
 
 impl ClassifyTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -916,6 +964,10 @@ pub struct ClassifyTextResponse {
 }
 
 impl ClassifyTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::ClassifyTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -961,6 +1013,10 @@ pub struct ModerateTextRequest {
 }
 
 impl ModerateTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::ModerateTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -1058,6 +1114,10 @@ pub struct ModerateTextResponse {
 }
 
 impl ModerateTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::ModerateTextResponse::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -1108,6 +1168,10 @@ pub struct AnnotateTextRequest {
 }
 
 impl AnnotateTextRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
     pub fn set_document<T: std::convert::Into<std::option::Option<crate::model::Document>>>(
         mut self,
@@ -1170,6 +1234,10 @@ pub mod annotate_text_request {
     }
 
     impl Features {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [extract_entities][crate::model::annotate_text_request::Features::extract_entities].
         pub fn set_extract_entities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.extract_entities = v.into();
@@ -1253,6 +1321,10 @@ pub struct AnnotateTextResponse {
 }
 
 impl AnnotateTextResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [document_sentiment][crate::model::AnnotateTextResponse::document_sentiment].
     pub fn set_document_sentiment<
         T: std::convert::Into<std::option::Option<crate::model::Sentiment>>,

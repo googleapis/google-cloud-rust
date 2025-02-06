@@ -47,6 +47,10 @@ pub struct AlertChart {
 }
 
 impl AlertChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AlertChart::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -72,6 +76,10 @@ pub struct CollapsibleGroup {
 }
 
 impl CollapsibleGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [collapsed][crate::model::CollapsibleGroup::collapsed].
     pub fn set_collapsed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.collapsed = v.into();
@@ -184,6 +192,10 @@ pub struct Aggregation {
 }
 
 impl Aggregation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [alignment_period][crate::model::Aggregation::alignment_period].
     pub fn set_alignment_period<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -566,6 +578,10 @@ pub struct PickTimeSeriesFilter {
 }
 
 impl PickTimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ranking_method][crate::model::PickTimeSeriesFilter::ranking_method].
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::pick_time_series_filter::Method>,
@@ -719,6 +735,10 @@ pub struct StatisticalTimeSeriesFilter {
 }
 
 impl StatisticalTimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ranking_method][crate::model::StatisticalTimeSeriesFilter::ranking_method].
     pub fn set_ranking_method<
         T: std::convert::Into<crate::model::statistical_time_series_filter::Method>,
@@ -821,6 +841,10 @@ pub struct Dashboard {
 }
 
 impl Dashboard {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Dashboard::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1036,6 +1060,10 @@ pub struct DashboardFilter {
 }
 
 impl DashboardFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_key][crate::model::DashboardFilter::label_key].
     pub fn set_label_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label_key = v.into();
@@ -1189,6 +1217,10 @@ pub struct CreateDashboardRequest {
 }
 
 impl CreateDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDashboardRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1244,6 +1276,10 @@ pub struct ListDashboardsRequest {
 }
 
 impl ListDashboardsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDashboardsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1287,6 +1323,10 @@ pub struct ListDashboardsResponse {
 }
 
 impl ListDashboardsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDashboardsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1340,6 +1380,10 @@ pub struct GetDashboardRequest {
 }
 
 impl GetDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDashboardRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1369,6 +1413,10 @@ pub struct DeleteDashboardRequest {
 }
 
 impl DeleteDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteDashboardRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1398,6 +1446,10 @@ pub struct UpdateDashboardRequest {
 }
 
 impl UpdateDashboardRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
     pub fn set_dashboard<T: std::convert::Into<std::option::Option<crate::model::Dashboard>>>(
         mut self,
@@ -1454,6 +1506,10 @@ pub struct ErrorReportingPanel {
 }
 
 impl ErrorReportingPanel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_names][crate::model::ErrorReportingPanel::project_names].
     pub fn set_project_names<T, V>(mut self, v: T) -> Self
     where
@@ -1515,6 +1571,10 @@ pub struct IncidentList {
 }
 
 impl IncidentList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [monitored_resources][crate::model::IncidentList::monitored_resources].
     pub fn set_monitored_resources<T, V>(mut self, v: T) -> Self
     where
@@ -1562,6 +1622,10 @@ pub struct GridLayout {
 }
 
 impl GridLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::GridLayout::columns].
     pub fn set_columns<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.columns = v.into();
@@ -1604,6 +1668,10 @@ pub struct MosaicLayout {
 }
 
 impl MosaicLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::MosaicLayout::columns].
     pub fn set_columns<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.columns = v.into();
@@ -1663,6 +1731,10 @@ pub mod mosaic_layout {
     }
 
     impl Tile {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [x_pos][crate::model::mosaic_layout::Tile::x_pos].
         pub fn set_x_pos<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.x_pos = v.into();
@@ -1717,6 +1789,10 @@ pub struct RowLayout {
 }
 
 impl RowLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rows][crate::model::RowLayout::rows].
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
@@ -1759,6 +1835,10 @@ pub mod row_layout {
     }
 
     impl Row {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [weight][crate::model::row_layout::Row::weight].
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
@@ -1797,6 +1877,10 @@ pub struct ColumnLayout {
 }
 
 impl ColumnLayout {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::ColumnLayout::columns].
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
@@ -1839,6 +1923,10 @@ pub mod column_layout {
     }
 
     impl Column {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [weight][crate::model::column_layout::Column::weight].
         pub fn set_weight<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.weight = v.into();
@@ -1884,6 +1972,10 @@ pub struct LogsPanel {
 }
 
 impl LogsPanel {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::LogsPanel::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -1939,6 +2031,10 @@ pub struct TimeSeriesQuery {
 }
 
 impl TimeSeriesQuery {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [unit_override][crate::model::TimeSeriesQuery::unit_override].
     pub fn set_unit_override<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.unit_override = v.into();
@@ -2141,6 +2237,10 @@ pub struct TimeSeriesFilter {
 }
 
 impl TimeSeriesFilter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::TimeSeriesFilter::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -2296,6 +2396,10 @@ pub struct TimeSeriesFilterRatio {
 }
 
 impl TimeSeriesFilterRatio {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [numerator][crate::model::TimeSeriesFilterRatio::numerator].
     pub fn set_numerator<
         T: std::convert::Into<std::option::Option<crate::model::time_series_filter_ratio::RatioPart>>,
@@ -2441,6 +2545,10 @@ pub mod time_series_filter_ratio {
     }
 
     impl RatioPart {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [filter][crate::model::time_series_filter_ratio::RatioPart::filter].
         pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.filter = v.into();
@@ -2506,6 +2614,10 @@ pub struct Threshold {
 }
 
 impl Threshold {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label][crate::model::Threshold::label].
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
@@ -2689,6 +2801,10 @@ pub struct PieChart {
 }
 
 impl PieChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [chart_type][crate::model::PieChart::chart_type].
     pub fn set_chart_type<T: std::convert::Into<crate::model::pie_chart::PieChartType>>(
         mut self,
@@ -2757,6 +2873,10 @@ pub mod pie_chart {
     }
 
     impl PieChartDataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::pie_chart::PieChartDataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -2893,6 +3013,10 @@ pub struct Scorecard {
 }
 
 impl Scorecard {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_series_query][crate::model::Scorecard::time_series_query].
     pub fn set_time_series_query<
         T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -3039,6 +3163,10 @@ pub mod scorecard {
     }
 
     impl GaugeView {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [lower_bound][crate::model::scorecard::GaugeView::lower_bound].
         pub fn set_lower_bound<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.lower_bound = v.into();
@@ -3080,6 +3208,10 @@ pub mod scorecard {
     }
 
     impl SparkChartView {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [spark_chart_type][crate::model::scorecard::SparkChartView::spark_chart_type].
         pub fn set_spark_chart_type<T: std::convert::Into<crate::model::SparkChartType>>(
             mut self,
@@ -3139,6 +3271,10 @@ pub struct SectionHeader {
 }
 
 impl SectionHeader {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [subtitle][crate::model::SectionHeader::subtitle].
     pub fn set_subtitle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subtitle = v.into();
@@ -3167,7 +3303,11 @@ impl wkt::message::Message for SectionHeader {
 #[non_exhaustive]
 pub struct SingleViewGroup {}
 
-impl SingleViewGroup {}
+impl SingleViewGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for SingleViewGroup {
     fn typename() -> &'static str {
@@ -3194,6 +3334,10 @@ pub struct TimeSeriesTable {
 }
 
 impl TimeSeriesTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metric_visualization][crate::model::TimeSeriesTable::metric_visualization].
     pub fn set_metric_visualization<
         T: std::convert::Into<crate::model::time_series_table::MetricVisualization>,
@@ -3272,6 +3416,10 @@ pub mod time_series_table {
     }
 
     impl TableDataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::time_series_table::TableDataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -3336,6 +3484,10 @@ pub mod time_series_table {
     }
 
     impl ColumnSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [column][crate::model::time_series_table::ColumnSettings::column].
         pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.column = v.into();
@@ -3406,6 +3558,10 @@ pub struct TableDisplayOptions {
 }
 
 impl TableDisplayOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [shown_columns][crate::model::TableDisplayOptions::shown_columns].
     pub fn set_shown_columns<T, V>(mut self, v: T) -> Self
     where
@@ -3443,6 +3599,10 @@ pub struct Text {
 }
 
 impl Text {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content][crate::model::Text::content].
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
@@ -3508,6 +3668,10 @@ pub mod text {
     }
 
     impl TextStyle {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [background_color][crate::model::text::TextStyle::background_color].
         pub fn set_background_color<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -3885,6 +4049,10 @@ pub struct Widget {
 }
 
 impl Widget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [title][crate::model::Widget::title].
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
@@ -4338,6 +4506,10 @@ pub struct XyChart {
 }
 
 impl XyChart {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [timeshift_duration][crate::model::XyChart::timeshift_duration].
     pub fn set_timeshift_duration<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -4452,6 +4624,10 @@ pub mod xy_chart {
     }
 
     impl DataSet {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time_series_query][crate::model::xy_chart::DataSet::time_series_query].
         pub fn set_time_series_query<
             T: std::convert::Into<std::option::Option<crate::model::TimeSeriesQuery>>,
@@ -4619,6 +4795,10 @@ pub mod xy_chart {
     }
 
     impl Axis {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [label][crate::model::xy_chart::Axis::label].
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();
@@ -4695,6 +4875,10 @@ pub struct ChartOptions {
 }
 
 impl ChartOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mode][crate::model::ChartOptions::mode].
     pub fn set_mode<T: std::convert::Into<crate::model::chart_options::Mode>>(
         mut self,

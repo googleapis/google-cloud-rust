@@ -72,6 +72,10 @@ pub struct Api {
 }
 
 impl Api {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Api::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -260,6 +264,10 @@ pub struct ApiConfig {
 }
 
 impl ApiConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ApiConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -392,6 +400,10 @@ pub mod api_config {
     }
 
     impl File {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [path][crate::model::api_config::File::path].
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
@@ -423,6 +435,10 @@ pub mod api_config {
     }
 
     impl OpenApiDocument {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [document][crate::model::api_config::OpenApiDocument::document].
         pub fn set_document<
             T: std::convert::Into<std::option::Option<crate::model::api_config::File>>,
@@ -466,6 +482,10 @@ pub mod api_config {
     }
 
     impl GrpcServiceDefinition {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [file_descriptor_set][crate::model::api_config::GrpcServiceDefinition::file_descriptor_set].
         pub fn set_file_descriptor_set<
             T: std::convert::Into<std::option::Option<crate::model::api_config::File>>,
@@ -591,6 +611,10 @@ pub struct Gateway {
 }
 
 impl Gateway {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Gateway::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -740,6 +764,10 @@ pub struct ListGatewaysRequest {
 }
 
 impl ListGatewaysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -797,6 +825,10 @@ pub struct ListGatewaysResponse {
 }
 
 impl ListGatewaysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -858,6 +890,10 @@ pub struct GetGatewayRequest {
 }
 
 impl GetGatewayRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetGatewayRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -893,6 +929,10 @@ pub struct CreateGatewayRequest {
 }
 
 impl CreateGatewayRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -941,6 +981,10 @@ pub struct UpdateGatewayRequest {
 }
 
 impl UpdateGatewayRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -979,6 +1023,10 @@ pub struct DeleteGatewayRequest {
 }
 
 impl DeleteGatewayRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1020,6 +1068,10 @@ pub struct ListApisRequest {
 }
 
 impl ListApisRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListApisRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1077,6 +1129,10 @@ pub struct ListApisResponse {
 }
 
 impl ListApisResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListApisResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1138,6 +1194,10 @@ pub struct GetApiRequest {
 }
 
 impl GetApiRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetApiRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1173,6 +1233,10 @@ pub struct CreateApiRequest {
 }
 
 impl CreateApiRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateApiRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1221,6 +1285,10 @@ pub struct UpdateApiRequest {
 }
 
 impl UpdateApiRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -1259,6 +1327,10 @@ pub struct DeleteApiRequest {
 }
 
 impl DeleteApiRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteApiRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1300,6 +1372,10 @@ pub struct ListApiConfigsRequest {
 }
 
 impl ListApiConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListApiConfigsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1357,6 +1433,10 @@ pub struct ListApiConfigsResponse {
 }
 
 impl ListApiConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListApiConfigsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1422,6 +1502,10 @@ pub struct GetApiConfigRequest {
 }
 
 impl GetApiConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetApiConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1507,6 +1591,10 @@ pub struct CreateApiConfigRequest {
 }
 
 impl CreateApiConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateApiConfigRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1555,6 +1643,10 @@ pub struct UpdateApiConfigRequest {
 }
 
 impl UpdateApiConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -1593,6 +1685,10 @@ pub struct DeleteApiConfigRequest {
 }
 
 impl DeleteApiConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteApiConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1650,6 +1746,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1737,6 +1837,10 @@ pub mod operation_metadata {
     }
 
     impl Diagnostic {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [location][crate::model::operation_metadata::Diagnostic::location].
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();

@@ -66,6 +66,10 @@ pub struct CheckRequest {
 }
 
 impl CheckRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -155,6 +159,10 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ResourceInfo::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -212,6 +220,10 @@ pub struct CheckResponse {
 }
 
 impl CheckResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [status][crate::model::CheckResponse::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -269,6 +281,10 @@ pub struct ReportRequest {
 }
 
 impl ReportRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
     pub fn set_service_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_name = v.into();
@@ -310,7 +326,11 @@ impl wkt::message::Message for ReportRequest {
 #[non_exhaustive]
 pub struct ReportResponse {}
 
-impl ReportResponse {}
+impl ReportResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ReportResponse {
     fn typename() -> &'static str {
@@ -330,6 +350,10 @@ pub struct ResourceInfoList {
 }
 
 impl ResourceInfoList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resources][crate::model::ResourceInfoList::resources].
     pub fn set_resources<T, V>(mut self, v: T) -> Self
     where

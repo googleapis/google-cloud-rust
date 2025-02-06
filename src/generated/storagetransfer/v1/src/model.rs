@@ -46,6 +46,10 @@ pub struct GetGoogleServiceAccountRequest {
 }
 
 impl GetGoogleServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::GetGoogleServiceAccountRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -71,6 +75,10 @@ pub struct CreateTransferJobRequest {
 }
 
 impl CreateTransferJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
     pub fn set_transfer_job<
         T: std::convert::Into<std::option::Option<crate::model::TransferJob>>,
@@ -150,6 +158,10 @@ pub struct UpdateTransferJobRequest {
 }
 
 impl UpdateTransferJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job_name][crate::model::UpdateTransferJobRequest::job_name].
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
@@ -208,6 +220,10 @@ pub struct GetTransferJobRequest {
 }
 
 impl GetTransferJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job_name][crate::model::GetTransferJobRequest::job_name].
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
@@ -244,6 +260,10 @@ pub struct DeleteTransferJobRequest {
 }
 
 impl DeleteTransferJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job_name][crate::model::DeleteTransferJobRequest::job_name].
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
@@ -313,6 +333,10 @@ pub struct ListTransferJobsRequest {
 }
 
 impl ListTransferJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [filter][crate::model::ListTransferJobsRequest::filter].
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
@@ -354,6 +378,10 @@ pub struct ListTransferJobsResponse {
 }
 
 impl ListTransferJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTransferJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -403,6 +431,10 @@ pub struct PauseTransferOperationRequest {
 }
 
 impl PauseTransferOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::PauseTransferOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -428,6 +460,10 @@ pub struct ResumeTransferOperationRequest {
 }
 
 impl ResumeTransferOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ResumeTransferOperationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -458,6 +494,10 @@ pub struct RunTransferJobRequest {
 }
 
 impl RunTransferJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job_name][crate::model::RunTransferJobRequest::job_name].
     pub fn set_job_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_name = v.into();
@@ -510,6 +550,10 @@ pub struct CreateAgentPoolRequest {
 }
 
 impl CreateAgentPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::CreateAgentPoolRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -580,6 +624,10 @@ pub struct UpdateAgentPoolRequest {
 }
 
 impl UpdateAgentPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
     pub fn set_agent_pool<T: std::convert::Into<std::option::Option<crate::model::AgentPool>>>(
         mut self,
@@ -617,6 +665,10 @@ pub struct GetAgentPoolRequest {
 }
 
 impl GetAgentPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAgentPoolRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -642,6 +694,10 @@ pub struct DeleteAgentPoolRequest {
 }
 
 impl DeleteAgentPoolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteAgentPoolRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -685,6 +741,10 @@ pub struct ListAgentPoolsRequest {
 }
 
 impl ListAgentPoolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project_id][crate::model::ListAgentPoolsRequest::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
@@ -732,6 +792,10 @@ pub struct ListAgentPoolsResponse {
 }
 
 impl ListAgentPoolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListAgentPoolsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -785,6 +849,10 @@ pub struct GoogleServiceAccount {
 }
 
 impl GoogleServiceAccount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [account_email][crate::model::GoogleServiceAccount::account_email].
     pub fn set_account_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.account_email = v.into();
@@ -826,6 +894,10 @@ pub struct AwsAccessKey {
 }
 
 impl AwsAccessKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [access_key_id][crate::model::AwsAccessKey::access_key_id].
     pub fn set_access_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_key_id = v.into();
@@ -868,6 +940,10 @@ pub struct AzureCredentials {
 }
 
 impl AzureCredentials {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [sas_token][crate::model::AzureCredentials::sas_token].
     pub fn set_sas_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sas_token = v.into();
@@ -1024,6 +1100,10 @@ pub struct ObjectConditions {
 }
 
 impl ObjectConditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_time_elapsed_since_last_modification][crate::model::ObjectConditions::min_time_elapsed_since_last_modification].
     pub fn set_min_time_elapsed_since_last_modification<
         T: std::convert::Into<std::option::Option<wkt::Duration>>,
@@ -1135,6 +1215,10 @@ pub struct GcsData {
 }
 
 impl GcsData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_name][crate::model::GcsData::bucket_name].
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
@@ -1254,6 +1338,10 @@ pub struct AwsS3Data {
 }
 
 impl AwsS3Data {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_name][crate::model::AwsS3Data::bucket_name].
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
@@ -1422,6 +1510,10 @@ pub struct AzureBlobStorageData {
 }
 
 impl AzureBlobStorageData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [storage_account][crate::model::AzureBlobStorageData::storage_account].
     pub fn set_storage_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_account = v.into();
@@ -1524,6 +1616,10 @@ pub struct HttpData {
 }
 
 impl HttpData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [list_url][crate::model::HttpData::list_url].
     pub fn set_list_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.list_url = v.into();
@@ -1549,6 +1645,10 @@ pub struct PosixFilesystem {
 }
 
 impl PosixFilesystem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [root_directory][crate::model::PosixFilesystem::root_directory].
     pub fn set_root_directory<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.root_directory = v.into();
@@ -1577,6 +1677,10 @@ pub struct HdfsData {
 }
 
 impl HdfsData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::HdfsData::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -1625,6 +1729,10 @@ pub struct AwsS3CompatibleData {
 }
 
 impl AwsS3CompatibleData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket_name][crate::model::AwsS3CompatibleData::bucket_name].
     pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket_name = v.into();
@@ -1745,6 +1853,10 @@ pub struct S3CompatibleMetadata {
 }
 
 impl S3CompatibleMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [auth_method][crate::model::S3CompatibleMetadata::auth_method].
     pub fn set_auth_method<
         T: std::convert::Into<crate::model::s_3_compatible_metadata::AuthMethod>,
@@ -1982,6 +2094,10 @@ pub struct AgentPool {
 }
 
 impl AgentPool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AgentPool::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2039,6 +2155,10 @@ pub mod agent_pool {
     }
 
     impl BandwidthLimit {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [limit_mbps][crate::model::agent_pool::BandwidthLimit::limit_mbps].
         pub fn set_limit_mbps<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.limit_mbps = v.into();
@@ -2139,6 +2259,10 @@ pub struct TransferOptions {
 }
 
 impl TransferOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [overwrite_objects_already_existing_in_sink][crate::model::TransferOptions::overwrite_objects_already_existing_in_sink].
     pub fn set_overwrite_objects_already_existing_in_sink<T: std::convert::Into<bool>>(
         mut self,
@@ -2295,6 +2419,10 @@ pub struct TransferSpec {
 }
 
 impl TransferSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [object_conditions][crate::model::TransferSpec::object_conditions].
     pub fn set_object_conditions<
         T: std::convert::Into<std::option::Option<crate::model::ObjectConditions>>,
@@ -2780,6 +2908,10 @@ pub struct ReplicationSpec {
 }
 
 impl ReplicationSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [object_conditions][crate::model::ReplicationSpec::object_conditions].
     pub fn set_object_conditions<
         T: std::convert::Into<std::option::Option<crate::model::ObjectConditions>>,
@@ -2980,6 +3112,10 @@ pub struct MetadataOptions {
 }
 
 impl MetadataOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [symlink][crate::model::MetadataOptions::symlink].
     pub fn set_symlink<T: std::convert::Into<crate::model::metadata_options::Symlink>>(
         mut self,
@@ -3453,6 +3589,10 @@ pub struct TransferManifest {
 }
 
 impl TransferManifest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [location][crate::model::TransferManifest::location].
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
@@ -3563,6 +3703,10 @@ pub struct Schedule {
 }
 
 impl Schedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [schedule_start_date][crate::model::Schedule::schedule_start_date].
     pub fn set_schedule_start_date<
         T: std::convert::Into<std::option::Option<gtype::model::Date>>,
@@ -3650,6 +3794,10 @@ pub struct EventStream {
 }
 
 impl EventStream {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EventStream::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3793,6 +3941,10 @@ pub struct TransferJob {
 }
 
 impl TransferJob {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TransferJob::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3994,6 +4146,10 @@ pub struct ErrorLogEntry {
 }
 
 impl ErrorLogEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [url][crate::model::ErrorLogEntry::url].
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
@@ -4041,6 +4197,10 @@ pub struct ErrorSummary {
 }
 
 impl ErrorSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [error_code][crate::model::ErrorSummary::error_code].
     pub fn set_error_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.error_code = v.into();
@@ -4183,6 +4343,10 @@ pub struct TransferCounters {
 }
 
 impl TransferCounters {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [objects_found_from_source][crate::model::TransferCounters::objects_found_from_source].
     pub fn set_objects_found_from_source<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.objects_found_from_source = v.into();
@@ -4390,6 +4554,10 @@ pub struct NotificationConfig {
 }
 
 impl NotificationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [pubsub_topic][crate::model::NotificationConfig::pubsub_topic].
     pub fn set_pubsub_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pubsub_topic = v.into();
@@ -4556,6 +4724,10 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_onprem_gcs_transfer_logs][crate::model::LoggingConfig::enable_onprem_gcs_transfer_logs].
     pub fn set_enable_onprem_gcs_transfer_logs<T: std::convert::Into<bool>>(
         mut self,
@@ -4730,6 +4902,10 @@ pub struct TransferOperation {
 }
 
 impl TransferOperation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TransferOperation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
