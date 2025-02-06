@@ -13,8 +13,8 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [WebRiskService](https://docs.rs/gcp-sdk-webrisk-v1/latest/gcp_sdk_webrisk_v1/client/struct.WebRiskService.html)
+* [WebRiskService](https://docs.rs/google-cloud-webrisk-v1/latest/google_cloud_webrisk_v1/client/struct.WebRiskService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-webrisk-v1/latest/gcp-sdk-webrisk-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-webrisk-v1/latest/google-cloud-webrisk-v1)

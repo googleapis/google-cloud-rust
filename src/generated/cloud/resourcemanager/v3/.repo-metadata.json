@@ -1,7 +1,7 @@
 {
     "api_id": "cloudresourcemanager.googleapis.com",
     "api_shortname": "cloudresourcemanager",
-    "client_documentation": "https://docs.rs/gcp-sdk-resourcemanager-v3/latest",
+    "client_documentation": "https://docs.rs/google-cloud-resourcemanager-v3/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

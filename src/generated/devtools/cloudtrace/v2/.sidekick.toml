@@ -19,4 +19,3 @@ service-config = 'google/devtools/cloudtrace/v2/cloudtrace_v2.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-devtools-cloudtrace-v2"

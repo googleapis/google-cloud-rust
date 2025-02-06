@@ -13,8 +13,8 @@ API for managing VPC access connectors.
 
 The main types to work with this crate are the clients:
 
-* [VpcAccessService](https://docs.rs/gcp-sdk-vpcaccess-v1/latest/gcp_sdk_vpcaccess_v1/client/struct.VpcAccessService.html)
+* [VpcAccessService](https://docs.rs/google-cloud-vpcaccess-v1/latest/google_cloud_vpcaccess_v1/client/struct.VpcAccessService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-vpcaccess-v1/latest/gcp-sdk-vpcaccess-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-vpcaccess-v1/latest/google-cloud-vpcaccess-v1)

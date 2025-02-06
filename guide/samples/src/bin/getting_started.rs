@@ -15,7 +15,7 @@
 // ANCHOR: all
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    use gcp_sdk_secretmanager_v1::client::SecretManagerService;
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
     let project_id = std::env::args().nth(1).unwrap();
     let client = SecretManagerService::new().await?;
 

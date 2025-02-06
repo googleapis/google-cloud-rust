@@ -136,7 +136,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -154,7 +154,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -234,7 +234,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -252,7 +252,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Function, model::OperationMetadata>
     /// ) -> Result<model::Function> {
@@ -334,7 +334,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -352,7 +352,7 @@ impl FunctionService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_functions_v2::model;
+    /// # use google_cloud_functions_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

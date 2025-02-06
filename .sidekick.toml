@@ -48,11 +48,11 @@ release-level = "preview"
 'package:wkt' = 'force-used=true,package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf,version=0.1.1'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
-'package:api'          = 'package=gcp-sdk-api,source=google.api,path=src/generated/api/types,version=0.2'
-'package:gtype'        = 'package=gcp-sdk-type,source=google.type,path=src/generated/type,version=0.2'
-'package:iam_v1'       = 'package=gcp-sdk-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
-'package:location'     = 'package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
+'package:api'          = 'package=google-cloud-api,source=google.api,path=src/generated/api/types,version=0.2'
+'package:gtype'        = 'package=google-cloud-type,source=google.type,path=src/generated/type,version=0.2'
+'package:iam_v1'       = 'package=google-cloud-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
+'package:location'     = 'package=google-cloud-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
 'package:logging_type' = 'package=google-cloud-logging-type,source=google.logging.type,path=src/generated/logging/type,version=0.2'
 'package:longrunning'  = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2'
-'package:rpc'          = 'package=gcp-sdk-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'
+'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'
 'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context,path=src/generated/rpc/context,version=0.2'

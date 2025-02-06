@@ -1,7 +1,7 @@
 {
     "api_id": "cloudfunctions.googleapis.com",
     "api_shortname": "cloudfunctions",
-    "client_documentation": "https://docs.rs/gcp-sdk-functions-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-functions-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

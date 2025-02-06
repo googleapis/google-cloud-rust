@@ -131,7 +131,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {
@@ -149,7 +149,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {
@@ -240,7 +240,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {
@@ -258,7 +258,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {
@@ -337,7 +337,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {
@@ -355,7 +355,7 @@ impl Policies {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_iam_v2::model;
+    /// # use google_cloud_iam_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Policy, model::PolicyOperationMetadata>
     /// ) -> Result<model::Policy> {

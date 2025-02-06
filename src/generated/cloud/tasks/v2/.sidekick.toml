@@ -19,4 +19,3 @@ service-config = 'google/cloud/tasks/v2/cloudtasks_v2.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-tasks-v2"

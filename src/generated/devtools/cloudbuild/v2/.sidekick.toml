@@ -19,4 +19,3 @@ service-config = 'google/devtools/cloudbuild/v2/cloudbuild_v2.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-devtools-cloudbuild-v2"

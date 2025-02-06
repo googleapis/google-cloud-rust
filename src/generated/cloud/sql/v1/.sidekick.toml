@@ -19,4 +19,3 @@ service-config = 'google/cloud/sql/v1/sqladmin_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-sql-v1"

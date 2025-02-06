@@ -19,4 +19,3 @@ service-config = 'google/cloud/translate/v3/translate_v3.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-translation-v3"

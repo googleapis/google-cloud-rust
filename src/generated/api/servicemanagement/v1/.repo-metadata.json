@@ -1,7 +1,7 @@
 {
     "api_id": "servicemanagement.googleapis.com",
     "api_shortname": "servicemanagement",
-    "client_documentation": "https://docs.rs/gcp-sdk-api-servicemanagement-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-api-servicemanagement-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

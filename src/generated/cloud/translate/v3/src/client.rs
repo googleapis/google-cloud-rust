@@ -162,7 +162,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchTranslateResponse, model::BatchTranslateMetadata>
     /// ) -> Result<model::BatchTranslateResponse> {
@@ -180,7 +180,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchTranslateResponse, model::BatchTranslateMetadata>
     /// ) -> Result<model::BatchTranslateResponse> {
@@ -266,7 +266,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchTranslateDocumentResponse, model::BatchTranslateDocumentMetadata>
     /// ) -> Result<model::BatchTranslateDocumentResponse> {
@@ -284,7 +284,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchTranslateDocumentResponse, model::BatchTranslateDocumentMetadata>
     /// ) -> Result<model::BatchTranslateDocumentResponse> {
@@ -365,7 +365,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Glossary, model::CreateGlossaryMetadata>
     /// ) -> Result<model::Glossary> {
@@ -383,7 +383,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Glossary, model::CreateGlossaryMetadata>
     /// ) -> Result<model::Glossary> {
@@ -464,7 +464,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Glossary, model::UpdateGlossaryMetadata>
     /// ) -> Result<model::Glossary> {
@@ -482,7 +482,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Glossary, model::UpdateGlossaryMetadata>
     /// ) -> Result<model::Glossary> {
@@ -584,7 +584,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::DeleteGlossaryResponse, model::DeleteGlossaryMetadata>
     /// ) -> Result<model::DeleteGlossaryResponse> {
@@ -602,7 +602,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::DeleteGlossaryResponse, model::DeleteGlossaryMetadata>
     /// ) -> Result<model::DeleteGlossaryResponse> {
@@ -727,7 +727,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Dataset, model::CreateDatasetMetadata>
     /// ) -> Result<model::Dataset> {
@@ -745,7 +745,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Dataset, model::CreateDatasetMetadata>
     /// ) -> Result<model::Dataset> {
@@ -843,7 +843,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteDatasetMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -861,7 +861,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteDatasetMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1033,7 +1033,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ImportDataMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1051,7 +1051,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ImportDataMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1131,7 +1131,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ExportDataMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1149,7 +1149,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::ExportDataMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1238,7 +1238,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Model, model::CreateModelMetadata>
     /// ) -> Result<model::Model> {
@@ -1256,7 +1256,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Model, model::CreateModelMetadata>
     /// ) -> Result<model::Model> {
@@ -1354,7 +1354,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteModelMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1372,7 +1372,7 @@ impl TranslationService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_translation_v3::model;
+    /// # use google_cloud_translation_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteModelMetadata>
     /// ) -> Result<wkt::Empty> {

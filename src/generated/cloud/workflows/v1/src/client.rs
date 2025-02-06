@@ -132,7 +132,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -150,7 +150,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -232,7 +232,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -250,7 +250,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -333,7 +333,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {
@@ -351,7 +351,7 @@ impl Workflows {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_workflows_v1::model;
+    /// # use google_cloud_workflows_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Workflow, model::OperationMetadata>
     /// ) -> Result<model::Workflow> {

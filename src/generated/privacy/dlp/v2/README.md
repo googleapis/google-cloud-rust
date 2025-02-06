@@ -15,8 +15,8 @@ ease.
 
 The main types to work with this crate are the clients:
 
-* [DlpService](https://docs.rs/gcp-sdk-privacy-dlp-v2/latest/gcp_sdk_privacy_dlp_v2/client/struct.DlpService.html)
+* [DlpService](https://docs.rs/google-cloud-privacy-dlp-v2/latest/google_cloud_privacy_dlp_v2/client/struct.DlpService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-privacy-dlp-v2/latest/gcp-sdk-privacy-dlp-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/latest/google-cloud-privacy-dlp-v2)

@@ -17,8 +17,8 @@ your application for Stackdriver Trace, we recommend using OpenTelemetry.
 
 The main types to work with this crate are the clients:
 
-* [TraceService](https://docs.rs/gcp-sdk-devtools-cloudtrace-v2/latest/gcp_sdk_devtools_cloudtrace_v2/client/struct.TraceService.html)
+* [TraceService](https://docs.rs/google-cloud-devtools-cloudtrace-v2/latest/google_cloud_devtools_cloudtrace_v2/client/struct.TraceService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-devtools-cloudtrace-v2/latest/gcp-sdk-devtools-cloudtrace-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-devtools-cloudtrace-v2/latest/google-cloud-devtools-cloudtrace-v2)

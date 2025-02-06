@@ -133,7 +133,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MonitoredProject, model::OperationMetadata>
     /// ) -> Result<model::MonitoredProject> {
@@ -151,7 +151,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MonitoredProject, model::OperationMetadata>
     /// ) -> Result<model::MonitoredProject> {
@@ -231,7 +231,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -249,7 +249,7 @@ impl MetricsScopes {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_monitoring_metricsscope_v1::model;
+    /// # use google_cloud_monitoring_metricsscope_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

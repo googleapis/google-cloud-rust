@@ -36,13 +36,13 @@ tokio = { version = "1.43", features = ["full", "macros"] }
 features = ["unstable-stream"]
 path     = "../../src/generated/devtools/artifactregistry/v1"
 
-[dependencies.gcp-sdk-kms-v1]
+[dependencies.google-cloud-kms-v1]
 version  = "0.2.0"
 features = ["unstable-stream"]
 path     = "../../src/generated/cloud/kms/v1"
 
 # ANCHOR: secretmanager
-[dependencies.gcp-sdk-secretmanager-v1]
+[dependencies.google-cloud-secretmanager-v1]
 version  = "0.2.0"
 features = ["unstable-stream"]
 # ANCHOR_END: secretmanager

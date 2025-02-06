@@ -14,8 +14,8 @@ Kubernetes technology.
 
 The main types to work with this crate are the clients:
 
-* [ClusterManager](https://docs.rs/gcp-sdk-container-v1/latest/gcp_sdk_container_v1/client/struct.ClusterManager.html)
+* [ClusterManager](https://docs.rs/google-cloud-container-v1/latest/google_cloud_container_v1/client/struct.ClusterManager.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-container-v1/latest/gcp-sdk-container-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-container-v1/latest/google-cloud-container-v1)

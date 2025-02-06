@@ -172,7 +172,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::CreateFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -190,7 +190,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::CreateFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -284,7 +284,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::UpdateFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -302,7 +302,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::UpdateFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -399,7 +399,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::MoveFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -417,7 +417,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::MoveFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -509,7 +509,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::DeleteFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -527,7 +527,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::DeleteFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -619,7 +619,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::UndeleteFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -637,7 +637,7 @@ impl Folders {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Folder, model::UndeleteFolderMetadata>
     /// ) -> Result<model::Folder> {
@@ -1020,7 +1020,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::CreateProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1038,7 +1038,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::CreateProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1119,7 +1119,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::UpdateProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1137,7 +1137,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::UpdateProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1230,7 +1230,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::MoveProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1248,7 +1248,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::MoveProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1363,7 +1363,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::DeleteProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1381,7 +1381,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::DeleteProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1468,7 +1468,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::UndeleteProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1486,7 +1486,7 @@ impl Projects {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Project, model::UndeleteProjectMetadata>
     /// ) -> Result<model::Project> {
@@ -1727,7 +1727,7 @@ impl TagBindings {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagBinding, model::CreateTagBindingMetadata>
     /// ) -> Result<model::TagBinding> {
@@ -1745,7 +1745,7 @@ impl TagBindings {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagBinding, model::CreateTagBindingMetadata>
     /// ) -> Result<model::TagBinding> {
@@ -1821,7 +1821,7 @@ impl TagBindings {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteTagBindingMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -1839,7 +1839,7 @@ impl TagBindings {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteTagBindingMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -2011,7 +2011,7 @@ impl TagHolds {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagHold, model::CreateTagHoldMetadata>
     /// ) -> Result<model::TagHold> {
@@ -2029,7 +2029,7 @@ impl TagHolds {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagHold, model::CreateTagHoldMetadata>
     /// ) -> Result<model::TagHold> {
@@ -2108,7 +2108,7 @@ impl TagHolds {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteTagHoldMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -2126,7 +2126,7 @@ impl TagHolds {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteTagHoldMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -2318,7 +2318,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::CreateTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2336,7 +2336,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::CreateTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2412,7 +2412,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::UpdateTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2430,7 +2430,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::UpdateTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2510,7 +2510,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::DeleteTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2528,7 +2528,7 @@ impl TagKeys {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagKey, model::DeleteTagKeyMetadata>
     /// ) -> Result<model::TagKey> {
@@ -2752,7 +2752,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::CreateTagValueMetadata>
     /// ) -> Result<model::TagValue> {
@@ -2770,7 +2770,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::CreateTagValueMetadata>
     /// ) -> Result<model::TagValue> {
@@ -2846,7 +2846,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::UpdateTagValueMetadata>
     /// ) -> Result<model::TagValue> {
@@ -2864,7 +2864,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::UpdateTagValueMetadata>
     /// ) -> Result<model::TagValue> {
@@ -2945,7 +2945,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::DeleteTagValueMetadata>
     /// ) -> Result<model::TagValue> {
@@ -2963,7 +2963,7 @@ impl TagValues {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_resourcemanager_v3::model;
+    /// # use google_cloud_resourcemanager_v3::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::TagValue, model::DeleteTagValueMetadata>
     /// ) -> Result<model::TagValue> {

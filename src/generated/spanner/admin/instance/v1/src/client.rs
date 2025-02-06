@@ -197,7 +197,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstanceConfig, model::CreateInstanceConfigMetadata>
     /// ) -> Result<model::InstanceConfig> {
@@ -215,7 +215,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstanceConfig, model::CreateInstanceConfigMetadata>
     /// ) -> Result<model::InstanceConfig> {
@@ -344,7 +344,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstanceConfig, model::UpdateInstanceConfigMetadata>
     /// ) -> Result<model::InstanceConfig> {
@@ -362,7 +362,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstanceConfig, model::UpdateInstanceConfigMetadata>
     /// ) -> Result<model::InstanceConfig> {
@@ -541,7 +541,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::CreateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -559,7 +559,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::CreateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -682,7 +682,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::UpdateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -700,7 +700,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Instance, model::UpdateInstanceMetadata>
     /// ) -> Result<model::Instance> {
@@ -891,7 +891,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstancePartition, model::CreateInstancePartitionMetadata>
     /// ) -> Result<model::InstancePartition> {
@@ -909,7 +909,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstancePartition, model::CreateInstancePartitionMetadata>
     /// ) -> Result<model::InstancePartition> {
@@ -1053,7 +1053,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstancePartition, model::UpdateInstancePartitionMetadata>
     /// ) -> Result<model::InstancePartition> {
@@ -1071,7 +1071,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::InstancePartition, model::UpdateInstancePartitionMetadata>
     /// ) -> Result<model::InstancePartition> {
@@ -1241,7 +1241,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MoveInstanceResponse, model::MoveInstanceMetadata>
     /// ) -> Result<model::MoveInstanceResponse> {
@@ -1259,7 +1259,7 @@ impl InstanceAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_instance_v1::model;
+    /// # use google_cloud_spanner_admin_instance_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::MoveInstanceResponse, model::MoveInstanceMetadata>
     /// ) -> Result<model::MoveInstanceResponse> {

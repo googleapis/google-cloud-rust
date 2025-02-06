@@ -19,4 +19,3 @@ service-config = 'google/privacy/dlp/v2/dlp_v2.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-privacy-dlp-v2"

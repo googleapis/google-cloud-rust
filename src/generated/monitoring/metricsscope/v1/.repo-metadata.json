@@ -1,7 +1,7 @@
 {
     "api_id": "monitoring.googleapis.com",
     "api_shortname": "monitoring",
-    "client_documentation": "https://docs.rs/gcp-sdk-monitoring-metricsscope-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-monitoring-metricsscope-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

@@ -13,8 +13,8 @@ Manages access control for Google Cloud Platform resources.
 
 The main types to work with this crate are the clients:
 
-* [IAMPolicy](https://docs.rs/gcp-sdk-iam-v1/latest/gcp_sdk_iam_v1/client/struct.IAMPolicy.html)
+* [IAMPolicy](https://docs.rs/google-cloud-iam-v1/latest/google_cloud_iam_v1/client/struct.IAMPolicy.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-iam-v1/latest/gcp-sdk-iam-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-iam-v1/latest/google-cloud-iam-v1)

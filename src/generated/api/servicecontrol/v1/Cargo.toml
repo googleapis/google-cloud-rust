@@ -26,14 +26,14 @@ keywords.workspace   = true
 categories.workspace = true
 
 [dependencies]
-api        = { version = "0.2", path = "../../../../../src/generated/api/types", package = "gcp-sdk-api" }
+api        = { version = "0.2", path = "../../../../../src/generated/api/types", package = "google-cloud-api" }
 async-trait = { version = "0.1" }
 bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.2", path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 lazy_static = { version = "1" }
 logging_type = { version = "0.2", path = "../../../../../src/generated/logging/type", package = "google-cloud-logging-type" }
 reqwest    = { version = "0.12", features = ["json"] }
-rpc        = { version = "0.2", path = "../../../../../src/generated/rpc/types", package = "gcp-sdk-rpc" }
+rpc        = { version = "0.2", path = "../../../../../src/generated/rpc/types", package = "google-cloud-rpc" }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }

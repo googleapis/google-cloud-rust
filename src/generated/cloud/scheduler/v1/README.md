@@ -13,8 +13,8 @@ Creates and manages jobs run on a regular recurring schedule.
 
 The main types to work with this crate are the clients:
 
-* [CloudScheduler](https://docs.rs/gcp-sdk-scheduler-v1/latest/gcp_sdk_scheduler_v1/client/struct.CloudScheduler.html)
+* [CloudScheduler](https://docs.rs/google-cloud-scheduler-v1/latest/google_cloud_scheduler_v1/client/struct.CloudScheduler.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-scheduler-v1/latest/gcp-sdk-scheduler-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-scheduler-v1/latest/google-cloud-scheduler-v1)

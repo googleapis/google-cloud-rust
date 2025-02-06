@@ -19,4 +19,3 @@ service-config = 'google/cloud/kms/v1/cloudkms_v1.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-kms-v1"

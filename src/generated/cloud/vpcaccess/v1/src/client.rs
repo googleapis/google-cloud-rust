@@ -113,7 +113,7 @@ impl VpcAccessService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_vpcaccess_v1::model;
+    /// # use google_cloud_vpcaccess_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connector, model::OperationMetadata>
     /// ) -> Result<model::Connector> {
@@ -131,7 +131,7 @@ impl VpcAccessService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_vpcaccess_v1::model;
+    /// # use google_cloud_vpcaccess_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Connector, model::OperationMetadata>
     /// ) -> Result<model::Connector> {
@@ -231,7 +231,7 @@ impl VpcAccessService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_vpcaccess_v1::model;
+    /// # use google_cloud_vpcaccess_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -249,7 +249,7 @@ impl VpcAccessService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_vpcaccess_v1::model;
+    /// # use google_cloud_vpcaccess_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {

@@ -14,14 +14,14 @@ containers.
 
 The main types to work with this crate are the clients:
 
-* [Folders](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.Folders.html)
-* [Organizations](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.Organizations.html)
-* [Projects](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.Projects.html)
-* [TagBindings](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.TagBindings.html)
-* [TagHolds](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.TagHolds.html)
-* [TagKeys](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.TagKeys.html)
-* [TagValues](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp_sdk_resourcemanager_v3/client/struct.TagValues.html)
+* [Folders](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.Folders.html)
+* [Organizations](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.Organizations.html)
+* [Projects](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.Projects.html)
+* [TagBindings](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.TagBindings.html)
+* [TagHolds](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.TagHolds.html)
+* [TagKeys](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.TagKeys.html)
+* [TagValues](https://docs.rs/google-cloud-resourcemanager-v3/latest/google_cloud_resourcemanager_v3/client/struct.TagValues.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-resourcemanager-v3/latest/gcp-sdk-resourcemanager-v3)
+* Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/latest/google-cloud-resourcemanager-v3)

@@ -1,7 +1,7 @@
 {
     "api_id": "workflows.googleapis.com",
     "api_shortname": "workflows",
-    "client_documentation": "https://docs.rs/gcp-sdk-workflows-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-workflows-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

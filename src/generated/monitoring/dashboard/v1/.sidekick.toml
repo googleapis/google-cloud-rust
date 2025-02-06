@@ -19,4 +19,3 @@ service-config = 'google/monitoring/dashboard/v1/monitoring.yaml'
 
 [codec]
 copyright-year = '2025'
-package-name-override = "gcp-sdk-monitoring-dashboard-v1"

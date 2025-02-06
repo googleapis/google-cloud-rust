@@ -122,7 +122,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -140,7 +140,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -283,7 +283,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -301,7 +301,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -388,7 +388,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -406,7 +406,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -552,7 +552,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -570,7 +570,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Build, model::BuildOperationMetadata>
     /// ) -> Result<model::Build> {
@@ -664,7 +664,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::WorkerPool, model::CreateWorkerPoolOperationMetadata>
     /// ) -> Result<model::WorkerPool> {
@@ -682,7 +682,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::WorkerPool, model::CreateWorkerPoolOperationMetadata>
     /// ) -> Result<model::WorkerPool> {
@@ -770,7 +770,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteWorkerPoolOperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -788,7 +788,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::DeleteWorkerPoolOperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -868,7 +868,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::WorkerPool, model::UpdateWorkerPoolOperationMetadata>
     /// ) -> Result<model::WorkerPool> {
@@ -886,7 +886,7 @@ impl CloudBuild {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_devtools_cloudbuild_v1::model;
+    /// # use google_cloud_devtools_cloudbuild_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::WorkerPool, model::UpdateWorkerPoolOperationMetadata>
     /// ) -> Result<model::WorkerPool> {
