@@ -13,16 +13,16 @@
 # limitations under the License.
 
 [package]
-authors.workspace    = true
-build                = "build.rs"
-categories.workspace = true
+name                 = "gcp-sdk-gax"
+version              = "0.2.0"
 description          = "Google Cloud Client Libraries for Rust"
+build                = "build.rs"
+authors.workspace    = true
+categories.workspace = true
 edition.workspace    = true
 keywords.workspace   = true
 license.workspace    = true
-name                 = "gcp-sdk-gax"
 repository.workspace = true
-version              = "0.2.0"
 
 [dependencies]
 auth        = { version = "0.1.1", path = "../auth", package = "gcp-sdk-auth" }
