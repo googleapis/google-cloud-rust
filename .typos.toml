@@ -50,6 +50,9 @@ wilcards      = "wilcards"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
 Regsitry = "Regsitry"
+# src/generated/cloud/bigquerydatatransfer/v1 has typos, they need to be fixed
+# upstream.
+desination = "desination"
 # src/generated/cloud/datacatalog/v1 has typos, they need to be fixed upstream.
 Underlaying = "Underlaying"
 aplies      = "aplies"

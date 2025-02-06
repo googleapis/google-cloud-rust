@@ -13,7 +13,12 @@
 # limitations under the License.
 
 name: Rust SDK
-on: [push, pull_request]
+permissions: read-all
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   build:
     strategy:
@@ -61,7 +66,12 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: cargo tarpaulin --out xml
+      - run: |
+          cargo tarpaulin --out xml \
+            --package gcp-sdk-auth \
+            --package gcp-sdk-gax \
+            --package gcp-sdk-lro \
+            --package gcp-sdk-wkt
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:

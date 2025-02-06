@@ -194,6 +194,8 @@ func annotateModel(model *api.API, c *codec, outdir string) (*modelAnnotations, 
 		c.sourceSpecificationPackageName = model.Services[0].Package
 	} else if len(model.Messages) > 0 {
 		c.sourceSpecificationPackageName = model.Messages[0].Package
+	} else if len(model.Enums) > 0 {
+		c.sourceSpecificationPackageName = model.Enums[0].Package
 	}
 	if err := validateModel(model, c.sourceSpecificationPackageName); err != nil {
 		return nil, err
