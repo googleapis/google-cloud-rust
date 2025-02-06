@@ -66,7 +66,7 @@ pub struct CheckError {
 
 impl CheckError {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [code][crate::model::CheckError::code].
@@ -291,7 +291,7 @@ pub struct Distribution {
 
 impl Distribution {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [count][crate::model::Distribution::count].
@@ -490,7 +490,7 @@ pub mod distribution {
 
     impl LinearBuckets {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [num_finite_buckets][crate::model::distribution::LinearBuckets::num_finite_buckets].
@@ -544,7 +544,7 @@ pub mod distribution {
 
     impl ExponentialBuckets {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [num_finite_buckets][crate::model::distribution::ExponentialBuckets::num_finite_buckets].
@@ -599,7 +599,7 @@ pub mod distribution {
 
     impl ExplicitBuckets {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [bounds][crate::model::distribution::ExplicitBuckets::bounds].
@@ -739,7 +739,7 @@ pub struct HttpRequest {
 
 impl HttpRequest {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [request_method][crate::model::HttpRequest::request_method].
@@ -904,7 +904,7 @@ pub struct LogEntry {
 
 impl LogEntry {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [name][crate::model::LogEntry::name].
@@ -1127,7 +1127,7 @@ pub struct LogEntryOperation {
 
 impl LogEntryOperation {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [id][crate::model::LogEntryOperation::id].
@@ -1190,7 +1190,7 @@ pub struct LogEntrySourceLocation {
 
 impl LogEntrySourceLocation {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [file][crate::model::LogEntrySourceLocation::file].
@@ -1260,7 +1260,7 @@ pub struct MetricValue {
 
 impl MetricValue {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [start_time][crate::model::MetricValue::start_time].
@@ -1473,7 +1473,7 @@ pub struct MetricValueSet {
 
 impl MetricValueSet {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [metric_name][crate::model::MetricValueSet::metric_name].
@@ -1598,7 +1598,7 @@ pub struct Operation {
 
 impl Operation {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [operation_id][crate::model::Operation::operation_id].
@@ -1766,7 +1766,7 @@ pub struct AllocateQuotaRequest {
 
 impl AllocateQuotaRequest {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [service_name][crate::model::AllocateQuotaRequest::service_name].
@@ -1867,7 +1867,7 @@ pub struct QuotaOperation {
 
 impl QuotaOperation {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [operation_id][crate::model::QuotaOperation::operation_id].
@@ -2036,7 +2036,7 @@ pub struct AllocateQuotaResponse {
 
 impl AllocateQuotaResponse {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [operation_id][crate::model::AllocateQuotaResponse::operation_id].
@@ -2112,7 +2112,7 @@ pub struct QuotaError {
 
 impl QuotaError {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [code][crate::model::QuotaError::code].
@@ -2239,7 +2239,7 @@ pub struct CheckRequest {
 
 impl CheckRequest {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [service_name][crate::model::CheckRequest::service_name].
@@ -2310,7 +2310,7 @@ pub struct CheckResponse {
 
 impl CheckResponse {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [operation_id][crate::model::CheckResponse::operation_id].
@@ -2396,7 +2396,7 @@ pub mod check_response {
 
     impl CheckInfo {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [consumer_info][crate::model::check_response::CheckInfo::consumer_info].
@@ -2462,7 +2462,7 @@ pub mod check_response {
 
     impl ConsumerInfo {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [project_number][crate::model::check_response::ConsumerInfo::project_number].
@@ -2590,7 +2590,7 @@ pub struct ReportRequest {
 
 impl ReportRequest {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [service_name][crate::model::ReportRequest::service_name].
@@ -2660,7 +2660,7 @@ pub struct ReportResponse {
 
 impl ReportResponse {
     pub fn new() -> Self {
-        Self::default()
+        std::default::Default::default()
     }
 
     /// Sets the value of [service_config_id][crate::model::ReportResponse::service_config_id].
@@ -2731,7 +2731,7 @@ pub mod report_response {
 
     impl ReportError {
         pub fn new() -> Self {
-            Self::default()
+            std::default::Default::default()
         }
 
         /// Sets the value of [operation_id][crate::model::report_response::ReportError::operation_id].

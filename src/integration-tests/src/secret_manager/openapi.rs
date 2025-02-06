@@ -57,8 +57,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .set_request_body(
             smo::model::Secret::new()
                 .set_replication(
-                    smo::model::Replication::new()
-                        .set_automatic(smo::model::Automatic::new()),
+                    smo::model::Replication::new().set_automatic(smo::model::Automatic::new()),
                 )
                 .set_labels([("integration-test", "true")]),
         )
