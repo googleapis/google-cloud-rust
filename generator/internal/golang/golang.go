@@ -223,7 +223,7 @@ func validatePackageName(newPackage, elementName, sourceSpecificationPackageName
 	if sourceSpecificationPackageName == newPackage {
 		return nil
 	}
-	return fmt.Errorf("rust codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
+	return fmt.Errorf("go codec requires all top-level elements to be in the same package want=%s, got=%s for %s",
 		sourceSpecificationPackageName, newPackage, elementName)
 }
 
