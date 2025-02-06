@@ -43,6 +43,9 @@ pub struct {{Codec.Name}} {
 }
 
 impl {{Codec.Name}} {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
     {{#Codec.SingularFields}}
 
     /// Sets the value of [{{Codec.FieldName}}][{{Codec.FQMessageName}}::{{Codec.SetterName}}].

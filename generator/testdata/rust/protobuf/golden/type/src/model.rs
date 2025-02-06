@@ -87,6 +87,9 @@ pub struct Expr {
 }
 
 impl Expr {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [expression][crate::model::Expr::expression].
     pub fn set_expression<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {

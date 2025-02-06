@@ -81,6 +81,9 @@ pub struct ErrorInfo {
 }
 
 impl ErrorInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [reason][crate::error::rpc::generated::ErrorInfo::reason].
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -138,6 +141,9 @@ pub struct RetryInfo {
 }
 
 impl RetryInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [retry_delay][crate::error::rpc::generated::RetryInfo::retry_delay].
     pub fn set_retry_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
@@ -169,6 +175,9 @@ pub struct DebugInfo {
 }
 
 impl DebugInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [detail][crate::error::rpc::generated::DebugInfo::detail].
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -217,6 +226,9 @@ pub struct QuotaFailure {
 }
 
 impl QuotaFailure {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [violations][crate::error::rpc::generated::QuotaFailure::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
@@ -268,6 +280,9 @@ pub mod quota_failure {
     }
 
     impl Violation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [subject][crate::error::rpc::generated::quota_failure::Violation::subject].
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -306,6 +321,9 @@ pub struct PreconditionFailure {
 }
 
 impl PreconditionFailure {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [violations][crate::error::rpc::generated::PreconditionFailure::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
@@ -360,6 +378,9 @@ pub mod precondition_failure {
     }
 
     impl Violation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [r#type][crate::error::rpc::generated::precondition_failure::Violation::type].
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -401,6 +422,9 @@ pub struct BadRequest {
 }
 
 impl BadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [field_violations][crate::error::rpc::generated::BadRequest::field_violations].
     pub fn set_field_violations<T, V>(mut self, v: T) -> Self
@@ -481,6 +505,9 @@ pub mod bad_request {
     }
 
     impl FieldViolation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [field][crate::error::rpc::generated::bad_request::FieldViolation::field].
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -522,6 +549,9 @@ pub struct RequestInfo {
 }
 
 impl RequestInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [request_id][crate::error::rpc::generated::RequestInfo::request_id].
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -578,6 +608,9 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [resource_type][crate::error::rpc::generated::ResourceInfo::resource_type].
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -627,6 +660,9 @@ pub struct Help {
 }
 
 impl Help {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [links][crate::error::rpc::generated::Help::links].
     pub fn set_links<T, V>(mut self, v: T) -> Self
@@ -669,6 +705,9 @@ pub mod help {
     }
 
     impl Link {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
 
         /// Sets the value of [description][crate::error::rpc::generated::help::Link::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -710,6 +749,9 @@ pub struct LocalizedMessage {
 }
 
 impl LocalizedMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [locale][crate::error::rpc::generated::LocalizedMessage::locale].
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
@@ -765,6 +807,9 @@ pub struct Status {
 }
 
 impl Status {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
 
     /// Sets the value of [code][crate::error::rpc::generated::Status::code].
     pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
