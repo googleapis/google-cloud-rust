@@ -17,14 +17,15 @@ name                 = "gcp-sdk-gax"
 version              = "0.2.0"
 description          = "Google Cloud Client Libraries for Rust"
 build                = "build.rs"
-edition.workspace    = true
 authors.workspace    = true
+categories.workspace = true
+edition.workspace    = true
+keywords.workspace   = true
 license.workspace    = true
 repository.workspace = true
-keywords.workspace   = true
-categories.workspace = true
 
 [dependencies]
+auth        = { version = "0.1.1", path = "../auth", package = "gcp-sdk-auth" }
 base64      = "0.22.1"
 bytes       = "1.10.0"
 futures     = { version = "0.3.31", optional = true }
@@ -32,27 +33,26 @@ http        = "1.1.0"
 pin-project = { version = "1.1.9", optional = true }
 rand        = "0.9"
 reqwest     = { version = "0.12.11", optional = true }
+rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
 serde       = "1.0.216"
 serde_json  = "1"
 serde_with  = { version = "3.12.0", default-features = false, features = ["base64", "macros"] }
 thiserror   = "2.0.11"
 tokio       = { version = "1.42", features = ["macros", "rt-multi-thread"] }
-auth        = { version = "0.1.1", path = "../auth", package = "gcp-sdk-auth" }
-rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
-wkt         = { version = "0.1.1", path = "../wkt", package = "gcp-sdk-wkt" }
+wkt         = { version = "0.1.1", path = "../wkt", package = "google-cloud-wkt" }
 
 [dev-dependencies]
 echo-server = { path = "echo-server" }
 # This is a workaround to integration test features of this crate. Open issue
 # https://github.com/rust-lang/cargo/issues/2911.
-gax         = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 axum        = "0.8.1"
+gax         = { path = ".", package = "gcp-sdk-gax", features = ["unstable-sdk-client", "unstable-stream"] }
 mockall     = "0.13.1"
-serial_test = "3.2.0"
 serde       = { version = "1.0.216", features = ["serde_derive"] }
+serial_test = "3.2.0"
+tempfile    = "3.16.0"
 test-case   = "3.3.1"
 tokio       = { version = "1.42", features = ["test-util"] }
-tempfile    = "3.16.0"
 
 [build-dependencies]
 built = "0.7"
