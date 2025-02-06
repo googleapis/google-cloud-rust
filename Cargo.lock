@@ -1708,6 +1708,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-identity-accesscontextmanager-type"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-wkt",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "google-cloud-kms-inventory-v1"
 version = "0.2.0"
 dependencies = [
