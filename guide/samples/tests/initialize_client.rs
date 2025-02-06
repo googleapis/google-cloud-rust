@@ -17,7 +17,7 @@ pub type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
 pub async fn initialize_client(project_id: &str) -> Result {
     // [START test_only] ANCHOR: use
-    use gcp_sdk_secretmanager_v1::client::SecretManagerService;
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
     // [END test_only] ANCHOR_END: use
 
     // Initialize a client with the default configuration. This is an
