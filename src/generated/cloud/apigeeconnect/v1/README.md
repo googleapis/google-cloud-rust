@@ -13,8 +13,8 @@ APIs, documentation, missing features, bugs, etc.
 
 The main types to work with this crate are the clients:
 
-* [ConnectionService](https://docs.rs/gcp-sdk-apigeeconnect-v1/latest/gcp_sdk_apigeeconnect_v1/client/struct.ConnectionService.html)
+* [ConnectionService](https://docs.rs/google-cloud-apigeeconnect-v1/latest/google_cloud_apigeeconnect_v1/client/struct.ConnectionService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-apigeeconnect-v1/latest/gcp-sdk-apigeeconnect-v1)
+* Read the [crate's documentation](https://docs.rs/google-cloud-apigeeconnect-v1/latest/google-cloud-apigeeconnect-v1)

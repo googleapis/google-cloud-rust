@@ -1,7 +1,7 @@
 {
     "api_id": "run.googleapis.com",
     "api_shortname": "run",
-    "client_documentation": "https://docs.rs/gcp-sdk-run-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-run-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

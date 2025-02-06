@@ -140,7 +140,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::CreateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -158,7 +158,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::CreateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -289,7 +289,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::UpdateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -307,7 +307,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::UpdateDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -398,7 +398,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::UpdateDatabaseDdlMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -416,7 +416,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::UpdateDatabaseDdlMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -592,7 +592,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -610,7 +610,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CreateBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -708,7 +708,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -726,7 +726,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Backup, model::CopyBackupMetadata>
     /// ) -> Result<model::Backup> {
@@ -873,7 +873,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::RestoreDatabaseMetadata>
     /// ) -> Result<model::Database> {
@@ -891,7 +891,7 @@ impl DatabaseAdmin {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_spanner_admin_database_v1::model;
+    /// # use google_cloud_spanner_admin_database_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Database, model::RestoreDatabaseMetadata>
     /// ) -> Result<model::Database> {

@@ -1,7 +1,7 @@
 {
     "api_id": "cloud.googleapis.com",
     "api_shortname": "cloud",
-    "client_documentation": "https://docs.rs/gcp-sdk-location/latest",
+    "client_documentation": "https://docs.rs/google-cloud-location/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

@@ -1,7 +1,7 @@
 {
     "api_id": "sqladmin.googleapis.com",
     "api_shortname": "sqladmin",
-    "client_documentation": "https://docs.rs/gcp-sdk-sql-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-sql-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

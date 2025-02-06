@@ -1,7 +1,7 @@
 {
     "api_id": "iam.googleapis.com",
     "api_shortname": "iam",
-    "client_documentation": "https://docs.rs/gcp-sdk-iam-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-iam-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

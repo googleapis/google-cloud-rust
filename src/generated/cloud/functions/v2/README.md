@@ -13,8 +13,8 @@ Manages lightweight user-provided functions executed in response to events.
 
 The main types to work with this crate are the clients:
 
-* [FunctionService](https://docs.rs/gcp-sdk-functions-v2/latest/gcp_sdk_functions_v2/client/struct.FunctionService.html)
+* [FunctionService](https://docs.rs/google-cloud-functions-v2/latest/google_cloud_functions_v2/client/struct.FunctionService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-functions-v2/latest/gcp-sdk-functions-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-functions-v2/latest/google-cloud-functions-v2)

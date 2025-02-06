@@ -13,15 +13,15 @@ Manages your Cloud Monitoring data and configurations.
 
 The main types to work with this crate are the clients:
 
-* [AlertPolicyService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.AlertPolicyService.html)
-* [GroupService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.GroupService.html)
-* [MetricService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.MetricService.html)
-* [NotificationChannelService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.NotificationChannelService.html)
-* [QueryService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.QueryService.html)
-* [ServiceMonitoringService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.ServiceMonitoringService.html)
-* [SnoozeService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.SnoozeService.html)
-* [UptimeCheckService](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp_sdk_monitoring_v3/client/struct.UptimeCheckService.html)
+* [AlertPolicyService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.AlertPolicyService.html)
+* [GroupService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.GroupService.html)
+* [MetricService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.MetricService.html)
+* [NotificationChannelService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.NotificationChannelService.html)
+* [QueryService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.QueryService.html)
+* [ServiceMonitoringService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.ServiceMonitoringService.html)
+* [SnoozeService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.SnoozeService.html)
+* [UptimeCheckService](https://docs.rs/google-cloud-monitoring-v3/latest/google_cloud_monitoring_v3/client/struct.UptimeCheckService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-monitoring-v3/latest/gcp-sdk-monitoring-v3)
+* Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-v3/latest/google-cloud-monitoring-v3)

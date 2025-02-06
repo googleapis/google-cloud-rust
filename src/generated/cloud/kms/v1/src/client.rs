@@ -142,7 +142,7 @@ impl Autokey {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_kms_v1::model;
+    /// # use google_cloud_kms_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::KeyHandle, model::CreateKeyHandleMetadata>
     /// ) -> Result<model::KeyHandle> {
@@ -160,7 +160,7 @@ impl Autokey {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_kms_v1::model;
+    /// # use google_cloud_kms_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::KeyHandle, model::CreateKeyHandleMetadata>
     /// ) -> Result<model::KeyHandle> {

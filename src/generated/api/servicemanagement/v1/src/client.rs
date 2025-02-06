@@ -141,7 +141,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ManagedService, model::OperationMetadata>
     /// ) -> Result<model::ManagedService> {
@@ -159,7 +159,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::ManagedService, model::OperationMetadata>
     /// ) -> Result<model::ManagedService> {
@@ -244,7 +244,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -262,7 +262,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::OperationMetadata>
     /// ) -> Result<wkt::Empty> {
@@ -347,7 +347,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::UndeleteServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::UndeleteServiceResponse> {
@@ -365,7 +365,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::UndeleteServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::UndeleteServiceResponse> {
@@ -499,7 +499,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::SubmitConfigSourceResponse, model::OperationMetadata>
     /// ) -> Result<model::SubmitConfigSourceResponse> {
@@ -517,7 +517,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::SubmitConfigSourceResponse, model::OperationMetadata>
     /// ) -> Result<model::SubmitConfigSourceResponse> {
@@ -634,7 +634,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Rollout, model::OperationMetadata>
     /// ) -> Result<model::Rollout> {
@@ -652,7 +652,7 @@ impl ServiceManager {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_servicemanagement_v1::model;
+    /// # use google_cloud_api_servicemanagement_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Rollout, model::OperationMetadata>
     /// ) -> Result<model::Rollout> {

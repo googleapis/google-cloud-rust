@@ -1,7 +1,7 @@
 {
     "api_id": "bigtableadmin.googleapis.com",
     "api_shortname": "bigtableadmin",
-    "client_documentation": "https://docs.rs/gcp-sdk-bigtable-admin-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-bigtable-admin-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

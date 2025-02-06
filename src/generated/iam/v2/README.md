@@ -15,8 +15,8 @@ authenticate to Google and make API calls.
 
 The main types to work with this crate are the clients:
 
-* [Policies](https://docs.rs/gcp-sdk-iam-v2/latest/gcp_sdk_iam_v2/client/struct.Policies.html)
+* [Policies](https://docs.rs/google-cloud-iam-v2/latest/google_cloud_iam_v2/client/struct.Policies.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-iam-v2/latest/gcp-sdk-iam-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-iam-v2/latest/google-cloud-iam-v2)

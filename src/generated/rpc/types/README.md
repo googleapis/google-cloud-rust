@@ -11,4 +11,4 @@ Defines RPC types.
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-rpc/latest/gcp-sdk-rpc)
+* Read the [crate's documentation](https://docs.rs/google-cloud-rpc/latest/google-cloud-rpc)

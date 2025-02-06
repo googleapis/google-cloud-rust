@@ -1,7 +1,7 @@
 {
     "api_id": "webrisk.googleapis.com",
     "api_shortname": "webrisk",
-    "client_documentation": "https://docs.rs/gcp-sdk-webrisk-v1/latest",
+    "client_documentation": "https://docs.rs/google-cloud-webrisk-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

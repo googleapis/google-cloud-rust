@@ -15,8 +15,8 @@ annotations, to developers.
 
 The main types to work with this crate are the clients:
 
-* [LanguageService](https://docs.rs/gcp-sdk-language-v2/latest/gcp_sdk_language_v2/client/struct.LanguageService.html)
+* [LanguageService](https://docs.rs/google-cloud-language-v2/latest/google_cloud_language_v2/client/struct.LanguageService.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-language-v2/latest/gcp-sdk-language-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-language-v2/latest/google-cloud-language-v2)

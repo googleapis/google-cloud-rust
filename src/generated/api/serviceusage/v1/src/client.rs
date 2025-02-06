@@ -115,7 +115,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::EnableServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::EnableServiceResponse> {
@@ -133,7 +133,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::EnableServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::EnableServiceResponse> {
@@ -218,7 +218,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::DisableServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::DisableServiceResponse> {
@@ -236,7 +236,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::DisableServiceResponse, model::OperationMetadata>
     /// ) -> Result<model::DisableServiceResponse> {
@@ -347,7 +347,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchEnableServicesResponse, model::OperationMetadata>
     /// ) -> Result<model::BatchEnableServicesResponse> {
@@ -365,7 +365,7 @@ impl ServiceUsage {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_api_serviceusage_v1::model;
+    /// # use google_cloud_api_serviceusage_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::BatchEnableServicesResponse, model::OperationMetadata>
     /// ) -> Result<model::BatchEnableServicesResponse> {

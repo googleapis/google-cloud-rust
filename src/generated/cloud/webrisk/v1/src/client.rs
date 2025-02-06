@@ -166,7 +166,7 @@ impl WebRiskService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_webrisk_v1::model;
+    /// # use google_cloud_webrisk_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Submission, model::SubmitUriMetadata>
     /// ) -> Result<model::Submission> {
@@ -184,7 +184,7 @@ impl WebRiskService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_webrisk_v1::model;
+    /// # use google_cloud_webrisk_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Submission, model::SubmitUriMetadata>
     /// ) -> Result<model::Submission> {

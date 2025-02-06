@@ -194,7 +194,7 @@ impl StorageTransferService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_storagetransfer_v1::model;
+    /// # use google_cloud_storagetransfer_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::TransferOperation>
     /// ) -> Result<wkt::Empty> {
@@ -212,7 +212,7 @@ impl StorageTransferService {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_storagetransfer_v1::model;
+    /// # use google_cloud_storagetransfer_v1::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<wkt::Empty, model::TransferOperation>
     /// ) -> Result<wkt::Empty> {

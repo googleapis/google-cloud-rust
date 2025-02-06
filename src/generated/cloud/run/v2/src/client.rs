@@ -248,7 +248,7 @@ impl Executions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -266,7 +266,7 @@ impl Executions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -345,7 +345,7 @@ impl Executions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -363,7 +363,7 @@ impl Executions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -551,7 +551,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -569,7 +569,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -661,7 +661,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -679,7 +679,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -758,7 +758,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -776,7 +776,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Job, model::Job>
     /// ) -> Result<model::Job> {
@@ -855,7 +855,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -873,7 +873,7 @@ impl Jobs {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Execution, model::Execution>
     /// ) -> Result<model::Execution> {
@@ -1106,7 +1106,7 @@ impl Revisions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Revision, model::Revision>
     /// ) -> Result<model::Revision> {
@@ -1124,7 +1124,7 @@ impl Revisions {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Revision, model::Revision>
     /// ) -> Result<model::Revision> {
@@ -1314,7 +1314,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {
@@ -1332,7 +1332,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {
@@ -1427,7 +1427,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {
@@ -1445,7 +1445,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {
@@ -1527,7 +1527,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {
@@ -1545,7 +1545,7 @@ impl Services {
     ///
     /// ```
     /// # use gax::Result;
-    /// # use gcp_sdk_run_v2::model;
+    /// # use google_cloud_run_v2::model;
     /// async fn wait(
     ///     mut poller: impl lro::Poller<model::Service, model::Service>
     /// ) -> Result<model::Service> {

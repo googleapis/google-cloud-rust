@@ -1,7 +1,7 @@
 {
     "api_id": "cloudtasks.googleapis.com",
     "api_shortname": "cloudtasks",
-    "client_documentation": "https://docs.rs/gcp-sdk-tasks-v2/latest",
+    "client_documentation": "https://docs.rs/google-cloud-tasks-v2/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
     "library_type": "GAPIC_AUTO",

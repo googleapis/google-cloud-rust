@@ -16,13 +16,13 @@ API standards, as described in https://google.aip.dev/.
 
 The main types to work with this crate are the clients:
 
-* [Builds](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Builds.html)
-* [Executions](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Executions.html)
-* [Jobs](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Jobs.html)
-* [Revisions](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Revisions.html)
-* [Services](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Services.html)
-* [Tasks](https://docs.rs/gcp-sdk-run-v2/latest/gcp_sdk_run_v2/client/struct.Tasks.html)
+* [Builds](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Builds.html)
+* [Executions](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Executions.html)
+* [Jobs](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Jobs.html)
+* [Revisions](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Revisions.html)
+* [Services](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Services.html)
+* [Tasks](https://docs.rs/google-cloud-run-v2/latest/google_cloud_run_v2/client/struct.Tasks.html)
 
 ## More Information
 
-* Read the [crate's documentation](https://docs.rs/gcp-sdk-run-v2/latest/gcp-sdk-run-v2)
+* Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/latest/google-cloud-run-v2)
