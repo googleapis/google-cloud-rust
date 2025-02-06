@@ -42,6 +42,7 @@ members = [
   "src/generated/cloud/location",
   "src/generated/cloud/networkmanagement/v1",
   "src/generated/cloud/recaptchaenterprise/v1",
+  "src/generated/cloud/recommender/v1",
   "src/generated/cloud/resourcemanager/v3",
   "src/generated/cloud/run/v2",
   "src/generated/cloud/scheduler/v1",
