@@ -17,4 +17,6 @@ limitations under the License.
 # Summary
 
 - [Introduction](./introduction.md)
+- [Setting up your development environment](./setting_up_your_development_environment.md)
+- [Setting up Rust on Cloud Shell](./setting_up_rust_on_cloud_shell.md)
 - [How to initialize a client](./initialize_a_client.md)
