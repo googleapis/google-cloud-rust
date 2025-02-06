@@ -55,11 +55,13 @@ Cloud Shell is a great environment to run small examples and tests.
 ```
 
 <!-- markdownlint-disable MD029 -->
+
 6. Run your program, replacing `[PROJECT ID]` with the id of your project:
 
    ```shell
    cargo run [PROJECT ID]
    ```
+
 <!-- markdownlint-enable MD029 -->
 
 [cloud shell]: https://cloud.google.com/shell

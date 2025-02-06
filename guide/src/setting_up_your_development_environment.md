@@ -72,6 +72,7 @@ Secret Manager API, do the following:
 ```
 
 <!-- markdownlint-disable MD029 -->
+
 6. Build your program:
 
    ```shell
@@ -79,6 +80,7 @@ Secret Manager API, do the following:
    ```
 
    The program should build without errors.
+
 <!-- markdownlint-enable MD029 -->
 
 Note: The source of the Cloud Client Libraries for Rust is
