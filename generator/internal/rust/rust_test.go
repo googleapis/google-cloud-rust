@@ -321,7 +321,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
-		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
+		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -338,7 +338,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 		},
 		{
 			name:            "lro",
-			packageName:     "gcp-sdk-lro",
+			packageName:     "google-cloud-lro",
 			path:            "src/lro",
 			version:         "0.1.0",
 			used:            true,
@@ -364,7 +364,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newCodec(map[string]string{
 		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
-		"package:lro":      "used-if=lro,package=gcp-sdk-lro,path=src/lro,version=0.1.0",
+		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -381,7 +381,7 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 		},
 		{
 			name:            "lro",
-			packageName:     "gcp-sdk-lro",
+			packageName:     "google-cloud-lro",
 			path:            "src/lro",
 			version:         "0.1.0",
 			used:            false,
@@ -1851,7 +1851,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 
 	wkt := &packagez{
 		name:        "wkt",
-		packageName: "gcp-sdk-wkt",
+		packageName: "google-cloud-wkt",
 		path:        "src/wkt",
 	}
 	iam := &packagez{
@@ -1914,7 +1914,7 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	}
 	wkt := &packagez{
 		name:        "wkt",
-		packageName: "gcp-sdk-wkt",
+		packageName: "google-cloud-wkt",
 		path:        "src/wkt",
 	}
 	iam := &packagez{
@@ -1977,7 +1977,7 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	}
 	wkt := &packagez{
 		name:        "wkt",
-		packageName: "gcp-sdk-wkt",
+		packageName: "google-cloud-wkt",
 		path:        "src/wkt",
 	}
 	iam := &packagez{
@@ -2163,7 +2163,7 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 
 	wkt := &packagez{
 		name:        "wkt",
-		packageName: "gcp-sdk-wkt",
+		packageName: "google-cloud-wkt",
 		path:        "src/wkt",
 	}
 	iam := &packagez{

@@ -25,7 +25,7 @@ mod test {
     use super::fake_library::model;
     use super::fake_responses;
     use super::fake_service::*;
-    use gcp_sdk_lro as lro;
+    use google_cloud_lro as lro;
     use lro::Poller;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;

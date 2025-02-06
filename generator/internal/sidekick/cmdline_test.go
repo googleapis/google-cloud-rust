@@ -40,7 +40,7 @@ func TestParseArgs(t *testing.T) {
 		"-output", outputDir,
 		"-codec-option", "copyright-year=2024",
 		"-codec-option", "package-name-override=secretmanager-golden-openapi",
-		"-codec-option", "package:wkt=package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+		"-codec-option", "package:wkt=package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
 		"-codec-option", "package:gax=package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 	}
 	cmd, _, args := cmdSidekick.lookup(args)
@@ -66,7 +66,7 @@ func TestParseArgs(t *testing.T) {
 		Codec: map[string]string{
 			"copyright-year":        "2024",
 			"package-name-override": "secretmanager-golden-openapi",
-			"package:wkt":           "package=gcp-sdk-wkt,path=src/wkt,source=google.protobuf",
+			"package:wkt":           "package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
 			"package:gax":           "package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client",
 		},
 	}

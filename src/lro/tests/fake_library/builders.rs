@@ -61,10 +61,12 @@ impl CreateResource {
 
     pub fn poller(
         self,
-    ) -> impl gcp_sdk_lro::Poller<super::model::Resource, super::model::CreateResourceMetadata>
+    ) -> impl google_cloud_lro::Poller<super::model::Resource, super::model::CreateResourceMetadata>
     {
-        type Operation =
-            gcp_sdk_lro::Operation<super::model::Resource, super::model::CreateResourceMetadata>;
+        type Operation = google_cloud_lro::Operation<
+            super::model::Resource,
+            super::model::CreateResourceMetadata,
+        >;
 
         let polling_policy = self.stub.get_polling_policy(&self.options);
         let polling_backoff_policy = self.stub.get_polling_backoff_policy(&self.options);
@@ -88,7 +90,7 @@ impl CreateResource {
             let op = self.send().await?;
             Ok(Operation::new(op))
         };
-        gcp_sdk_lro::new_poller(polling_policy, polling_backoff_policy, start, query)
+        google_cloud_lro::new_poller(polling_policy, polling_backoff_policy, start, query)
     }
 }
 

@@ -27,7 +27,7 @@ categories.workspace = true
 publish              = false
 
 [dependencies]
-wkt        = { path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
+wkt        = { path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream"]

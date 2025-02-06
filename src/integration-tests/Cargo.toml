@@ -13,50 +13,50 @@
 # limitations under the License.
 
 [package]
-name              = "integration-tests"
-description       = "Integration tests for google-cloud-rust."
-version           = "0.0.0"
+description = "Integration tests for google-cloud-rust."
 edition.workspace = true
-publish           = false
+name = "integration-tests"
+publish = false
+version = "0.0.0"
 
 [features]
-run-integration-tests = []
 log-integration-tests = []
+run-integration-tests = []
 
 [dependencies]
-gax                = { path = "../../src/gax", package = "gcp-sdk-gax" }
-lro                = { path = "../../src/lro", package = "gcp-sdk-lro" }
-wkt                = { path = "../../src/wkt", package = "gcp-sdk-wkt" }
-iam_v1             = { path = "../../src/generated/iam/v1", package = "google-cloud-iam-v1" }
-loc                = { path = "../../src/generated/cloud/location", package = "google-cloud-location" }
-longrunning        = { path = "../../src/generated/longrunning", package = "gcp-sdk-longrunning" }
-bytes              = "1.10.0"
-crc32c             = "0.6.8"
-futures            = "0.3.31"
-rand               = "0.9"
-serde_json         = "1"
-tokio              = { version = "1.42", features = ["full", "macros"] }
-tracing            = "0.1.41"
+bytes = "1.10.0"
+crc32c = "0.6.8"
+futures = "0.3.31"
+gax = {path = "../../src/gax", package = "gcp-sdk-gax"}
+iam_v1 = {path = "../../src/generated/iam/v1", package = "google-cloud-iam-v1"}
+loc = {path = "../../src/generated/cloud/location", package = "google-cloud-location"}
+longrunning = {path = "../../src/generated/longrunning", package = "gcp-sdk-longrunning"}
+lro = {path = "../../src/lro", package = "google-cloud-lro"}
+rand = "0.9"
+serde_json = "1"
+tokio = {version = "1.42", features = ["full", "macros"]}
+tracing = "0.1.41"
 tracing-subscriber = "0.3.19"
+wkt = {path = "../../src/wkt", package = "google-cloud-wkt"}
 
 [dependencies.sm]
-path     = "../../src/generated/cloud/secretmanager/v1"
-package  = "google-cloud-secretmanager-v1"
 features = ["unstable-stream"]
+package = "google-cloud-secretmanager-v1"
+path = "../../src/generated/cloud/secretmanager/v1"
 
 [dependencies.smo]
-path     = "../../src/generated/openapi-validation"
-package  = "secretmanager-openapi-v1"
 features = ["unstable-stream"]
+package = "secretmanager-openapi-v1"
+path = "../../src/generated/openapi-validation"
 
 [dependencies.wf]
-path     = "../../src/generated/cloud/workflows/v1"
-package  = "google-cloud-workflows-v1"
 features = ["unstable-stream"]
+package = "google-cloud-workflows-v1"
+path = "../../src/generated/cloud/workflows/v1"
 
 [dev-dependencies]
-mockall    = "0.13.1"
-serde      = { version = "1.0.216", features = ["serde_derive"] }
-serde_with = { version = "3.12.0", features = ["base64"] }
-test-case  = "3.3.1"
-tokio      = { version = "1.42", features = ["full", "macros"] }
+mockall = "0.13.1"
+serde = {version = "1.0.216", features = ["serde_derive"]}
+serde_with = {version = "3.12.0", features = ["base64"]}
+test-case = "3.3.1"
+tokio = {version = "1.42", features = ["full", "macros"]}

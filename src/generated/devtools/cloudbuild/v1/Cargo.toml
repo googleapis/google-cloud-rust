@@ -32,13 +32,13 @@ bytes      = { version = "1", features = ["serde"] }
 gax        = { version = "0.2", path = "../../../../../src/gax", package = "gcp-sdk-gax", features = ["unstable-sdk-client"] }
 lazy_static = { version = "1" }
 longrunning = { version = "0.2", path = "../../../../../src/generated/longrunning", package = "gcp-sdk-longrunning" }
-lro        = { version = "0.1", path = "../../../../../src/lro", package = "gcp-sdk-lro" }
+lro        = { version = "0.1", path = "../../../../../src/lro", package = "google-cloud-lro" }
 reqwest    = { version = "0.12", features = ["json"] }
 serde      = { version = "1", features = ["serde_derive"] }
 serde_json = { version = "1" }
 serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
 tracing    = { version = "0.1" }
-wkt        = { version = "0.1.1", path = "../../../../../src/wkt", package = "gcp-sdk-wkt" }
+wkt        = { version = "0.1.1", path = "../../../../../src/wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["gax/unstable-stream", "longrunning/unstable-stream"]

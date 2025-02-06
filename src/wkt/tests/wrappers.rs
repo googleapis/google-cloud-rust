@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gcp_sdk_wkt as wkt;
+use google_cloud_wkt as wkt;
 use serde_json::json;
 type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
