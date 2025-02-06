@@ -33,36 +33,87 @@ tools interactively or in your automated scripts.
 
 To install the gcloud CLI, see [Installing the gcloud CLI](https://cloud.google.com/sdk/install).
 
-## Install the Cloud Client Libraries for Rust
+## Install the Cloud Client Libraries for Rust in a New Project
 
 The [Cloud Client Libraries for Rust] is the idiomatic way for Rust developers
-to integrate with Google Cloud services, such as Firestore and Secret Manager.
+to integrate with Google Cloud services, such as Secret Manager and Workflows.
 
-For example, to install the package for an individual API, such as the
+For example, to use the package for an individual API, such as the
 Secret Manager API, do the following:
 
-1. Change to your Rust project directory.
-
-1. Use the Secret Manager package in your project:
+1. Create a new Rust project:
 
    ```shell
-   cargo add gcp-sdk-secretmanager-v1
+   cargo new my-project
    ```
+
+1. Change your directory to the new project:
+
+   ```shell
+   cd my-project
+   ```
+
+1. Add the [Secret Manager] client library to the new project
+
+   ```shell
+   cargo add gcp-sdk-secretmanager-v1 --features unstable-stream
+   ```
+
+1. Add the [tokio] crate to the new project
+
+   ```shell
+   cargo add tokio --features macros
+   ```
+
+1. Edit your project to use the Secret Manager client library:
+
+   ```shell
+   cat >src/main.rs <<_EOF_
+   #[tokio::main]
+   async fn main() -> Result<(), Box<dyn std::error::Error>> {
+       use gcp_sdk_secretmanager_v1::client::SecretManagerService;
+       let project_id = std::env::args().nth(1).unwrap();
+       let client = SecretManagerService::new().await?;
+
+       let mut items = client
+           .list_secrets(format!("projects/{project_id}"))
+           .stream().await.items();
+       while let Some(item) = items.next().await {
+           println!("{}", item?.name);
+       }
+       Ok(())
+   }
+   _EOF_
+   ```
+
+1. Build your program:
+
+   ```shell
+   cargo build
+   ```
+
+   The program should build without errors.
 
 Note: The source of the Cloud Client Libraries for Rust is
 [on GitHub](https://github.com/googleapis/google-cloud-rust).
 
-## Set up authentication
+### Running the program
 
-To use the Cloud Client Libraries in a local development environment, set
-up Application Default Credentials.
+1. To use the Cloud Client Libraries in a local development environment, set
+   up Application Default Credentials.
 
-```shell
-gcloud auth application-default login
-```
+   ```shell
+   gcloud auth application-default login
+   ```
 
-For more information, see
-[Authenticate for using client libraries][authn-client-libraries].
+   For more information, see
+   [Authenticate for using client libraries][authn-client-libraries].
+
+1. Run your program, replacing `[PROJECT ID]` with the id of your project:
+
+   ```shell
+   cargo run [PROJECT ID]
+   ```
 
 ## What's next
 
