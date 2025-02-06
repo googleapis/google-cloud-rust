@@ -1,0 +1,11 @@
+{
+    "api_id": "orgpolicy.googleapis.com",
+    "api_shortname": "orgpolicy",
+    "client_documentation": "https://docs.rs/google-cloud-orgpolicy-v2/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Organization Policy API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
