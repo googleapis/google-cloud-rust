@@ -34,6 +34,7 @@ members = [
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/common",
   "src/generated/cloud/datacatalog/v1",
+  "src/generated/cloud/datafusion/v1",
   "src/generated/cloud/essentialcontacts/v1",
   "src/generated/cloud/functions/v2",
   "src/generated/cloud/kms/inventory/v1",
