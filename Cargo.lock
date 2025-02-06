@@ -1756,6 +1756,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-recommender-v1"
+version = "0.2.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "gcp-sdk-gax",
+ "gcp-sdk-type",
+ "gcp-sdk-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tracing",
+]
+
+[[package]]
 name = "google-cloud-rpc-context"
 version = "0.2.0"
 dependencies = [
