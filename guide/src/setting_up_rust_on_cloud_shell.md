@@ -50,15 +50,17 @@ Cloud Shell is a great environment to run small examples and tests.
 
 1. Edit `src/main.rs` in your project to use the Secret Manager client library:
 
-   ```rust,ignore
-   {{#include ../samples/src/bin/getting_started.rs:all}}
-   ```
+```rust,ignore,noplayground
+{{#include ../samples/src/bin/getting_started.rs:all}}
+```
 
-1. Run your program, replacing `[PROJECT ID]` with the id of your project:
+<!-- markdownlint-disable MD029 -->
+6. Run your program, replacing `[PROJECT ID]` with the id of your project:
 
    ```shell
    cargo run [PROJECT ID]
    ```
+<!-- markdownlint-enable MD029 -->
 
 [cloud shell]: https://cloud.google.com/shell
 [rustup]: https://rust-lang.github.io/rustup/

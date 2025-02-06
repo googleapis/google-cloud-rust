@@ -67,17 +67,19 @@ Secret Manager API, do the following:
 
 1. Edit `src/main.rs` in your project to use the Secret Manager client library:
 
-   ```rust,ignore
-   {{#include ../samples/src/bin/getting_started.rs:all}}
-   ```
+```rust,ignore,noplayground
+{{#include ../samples/src/bin/getting_started.rs:all}}
+```
 
-1. Build your program:
+<!-- markdownlint-disable MD029 -->
+6. Build your program:
 
    ```shell
    cargo build
    ```
 
    The program should build without errors.
+<!-- markdownlint-enable MD029 -->
 
 Note: The source of the Cloud Client Libraries for Rust is
 [on GitHub](https://github.com/googleapis/google-cloud-rust).
