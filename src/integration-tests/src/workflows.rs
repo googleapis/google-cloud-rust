@@ -16,7 +16,7 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::{error::Error, options::RequestOptionsBuilder};
 use lro::Poller;
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, Rng};
 use std::time::Duration;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
@@ -57,7 +57,7 @@ main:
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
     let prefix = "wf-";
-    let workflow_id: String = rand::thread_rng()
+    let workflow_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         // Workflow ids must start with a letter, we use `wf-` as a prefix to
         // this requirement (see below).
@@ -133,7 +133,7 @@ main:
 "###;
     let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
     let prefix = "wf-";
-    let workflow_id: String = rand::thread_rng()
+    let workflow_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         // Workflow ids must start with a letter, we use `wf-` as a prefix to
         // this requirement (see below).

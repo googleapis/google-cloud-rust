@@ -33,7 +33,7 @@ longrunning        = { path = "../../src/generated/longrunning", package = "gcp-
 bytes              = "1.10.0"
 crc32c             = "0.6.8"
 futures            = "0.3.31"
-rand               = "0.8.5"
+rand               = "0.9"
 serde_json         = "1"
 tokio              = { version = "1.42", features = ["full", "macros"] }
 tracing            = "0.1.41"

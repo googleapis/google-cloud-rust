@@ -223,7 +223,7 @@ impl ExponentialBackoff {
         rng: &mut impl rand::Rng,
     ) -> std::time::Duration {
         let delay = self.delay(loop_start, attempt_count);
-        rng.gen_range(Duration::ZERO..=delay)
+        rng.random_range(Duration::ZERO..=delay)
     }
 }
 
@@ -253,7 +253,7 @@ impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
         loop_start: std::time::Instant,
         attempt_count: u32,
     ) -> std::time::Duration {
-        self.delay_with_jitter(loop_start, attempt_count, &mut rand::thread_rng())
+        self.delay_with_jitter(loop_start, attempt_count, &mut rand::rng())
     }
 }
 
@@ -356,7 +356,7 @@ mod tests {
             .build()?;
 
         let now = std::time::Instant::now();
-        let mut rng = rand::rngs::mock::StepRng::new(0, 0);
+        let mut rng = rand::rngs::mock::StepRng::new(1, 0);
         assert_eq!(b.delay_with_jitter(now, 1, &mut rng), Duration::ZERO);
 
         let mut rng = rand::rngs::mock::StepRng::new(u64::MAX / 2, 0);
