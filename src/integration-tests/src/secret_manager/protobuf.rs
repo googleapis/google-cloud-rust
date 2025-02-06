@@ -60,10 +60,10 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .with_user_agent("test/1.2.3")
         .set_secret_id(&secret_id)
         .set_secret(
-            sm::model::Secret::default()
-                .set_replication(sm::model::Replication::default().set_replication(
+            sm::model::Secret::new()
+                .set_replication(sm::model::Replication::new().set_replication(
                     sm::model::replication::Replication::Automatic(
-                        sm::model::replication::Automatic::default().into(),
+                        sm::model::replication::Automatic::new().into(),
                     ),
                 ))
                 .set_labels([("integration-test", "true")]),
@@ -87,7 +87,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
         .update_secret(
-            sm::model::Secret::default()
+            sm::model::Secret::new()
                 .set_name(&get.name)
                 .set_labels(new_labels),
         )
@@ -186,7 +186,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     }
     if !found {
         new_policy.bindings.push(
-            iam_v1::model::Binding::default()
+            iam_v1::model::Binding::new()
                 .set_role(ROLE)
                 .set_members([format!("serviceAccount:{service_account}")].to_vec()),
         );
@@ -214,7 +214,7 @@ async fn run_secret_versions(
     let create_secret_version = client
         .add_secret_version(secret_name)
         .set_payload(
-            sm::model::SecretPayload::default()
+            sm::model::SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc32c(checksum as i64),
         )
@@ -290,7 +290,7 @@ async fn run_many_secret_versions(
         let create_secret_version = client
             .add_secret_version(secret_name)
             .set_payload(
-                sm::model::SecretPayload::default()
+                sm::model::SecretPayload::new()
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc32c(checksum as i64),
             )

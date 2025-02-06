@@ -50,7 +50,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     let create = client
         .create_secret_by_project_and_location(&project_id, &location_id)
         .set_secret_id(&secret_id)
-        .set_request_body(smo::model::Secret::default().set_labels([("integration-test", "true")]))
+        .set_request_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -72,7 +72,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
         .set_update_mask(
             wkt::FieldMask::default().set_paths(["labels"].map(str::to_string).to_vec()),
         )
-        .set_request_body(smo::model::Secret::default().set_labels(new_labels))
+        .set_request_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -143,7 +143,7 @@ async fn run_iam(
     }
     if !found {
         new_policy.bindings.push(
-            smo::model::Binding::default()
+            smo::model::Binding::new()
                 .set_role(ROLE.to_string())
                 .set_members([format!("serviceAccount:{service_account}")].to_vec()),
         );
