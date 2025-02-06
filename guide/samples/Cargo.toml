@@ -24,6 +24,9 @@ repository.workspace = true
 keywords.workspace   = true
 categories.workspace = true
 
+[[bin]]
+name = "getting_started"
+
 [dependencies]
 tokio = { version = "1.43", features = ["full", "macros"] }
 

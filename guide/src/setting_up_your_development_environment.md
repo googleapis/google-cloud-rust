@@ -65,25 +65,10 @@ Secret Manager API, do the following:
    cargo add tokio --features macros
    ```
 
-1. Edit your project to use the Secret Manager client library:
+1. Edit `src/main.rs` in your project to use the Secret Manager client library:
 
-   ```shell
-   cat >src/main.rs <<_EOF_
-   #[tokio::main]
-   async fn main() -> Result<(), Box<dyn std::error::Error>> {
-       use gcp_sdk_secretmanager_v1::client::SecretManagerService;
-       let project_id = std::env::args().nth(1).unwrap();
-       let client = SecretManagerService::new().await?;
-
-       let mut items = client
-           .list_secrets(format!("projects/{project_id}"))
-           .stream().await.items();
-       while let Some(item) = items.next().await {
-           println!("{}", item?.name);
-       }
-       Ok(())
-   }
-   _EOF_
+   ```rust,ignore
+   {{#include ../samples/src/bin/getting_started.rs:all}}
    ```
 
 1. Build your program:
