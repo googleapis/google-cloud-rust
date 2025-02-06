@@ -14,7 +14,7 @@
 
 use crate::Result;
 use gax::error::Error;
-use rand::{distributions::Alphanumeric, Rng};
+use rand::{distr::Alphanumeric, Rng};
 
 pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -32,7 +32,7 @@ pub async fn run(config: Option<gax::options::ClientConfig>) -> Result<()> {
     };
 
     let project_id = crate::project_id()?;
-    let secret_id: String = rand::thread_rng()
+    let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(crate::SECRET_ID_LENGTH)
         .map(char::from)
