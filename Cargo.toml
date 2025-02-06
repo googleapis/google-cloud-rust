@@ -69,6 +69,7 @@ members = [
   "src/generated/iam/v1",
   "src/generated/iam/v2",
   "src/generated/identity/accesscontextmanager/type",
+  "src/generated/identity/accesscontextmanager/v1",
   "src/generated/logging/type",
   "src/generated/longrunning",
   "src/generated/monitoring/dashboard/v1",
