@@ -48,8 +48,8 @@ jobs:
         run: git diff --exit-code
         working-directory: generator/testdata/dart
       - name: "generated: pubspec.yaml"
-        working-directory: testdata/dart/protobuf/golden/secretmanager
-        run: cat pubspec.yaml
+        run: cat protobuf/golden/secretmanager/pubspec.yaml
+        working-directory: generator/testdata/dart
       - name: "generated: client.dart"
-        working-directory: testdata/dart/protobuf/golden/secretmanager
-        run: cat client.dart
+        run: cat protobuf/golden/secretmanager/client.dart
+        working-directory: generator/testdata/dart
