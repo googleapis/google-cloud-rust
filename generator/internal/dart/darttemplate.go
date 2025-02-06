@@ -15,6 +15,7 @@
 package dart
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -116,6 +117,16 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			packageNameOverride = definition
 		case key == "copyright-year":
 			generationYear = definition
+		case strings.HasPrefix(key, "import-mapping"):
+			keys := strings.Split(key, ":")
+			if len(keys) != 2 {
+				return nil, fmt.Errorf("key should be in the format import-mapping:proto.path, got=%q", key)
+			}
+			defs := strings.Split(definition, ";")
+			if len(defs) != 2 {
+				return nil, fmt.Errorf("%s should be in the format path;name, got=%q", definition, keys[1])
+			}
+			// TODO(#1034): Handle updating Dart imports.
 		}
 	}
 	validateModel(model, sourceSpecificationPackageName)

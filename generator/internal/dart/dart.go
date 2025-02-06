@@ -71,7 +71,7 @@ func fieldType(f *api.Field, state *api.APIState) string {
 	case api.BYTES_TYPE:
 		out = "Uint8List"
 	case api.MESSAGE_TYPE:
-		// TODO(devoncarew): Handle MESSAGE_TYPE conversion.
+		// TODO(#1034): Handle MESSAGE_TYPE conversion.
 		m, ok := state.MessageByID[f.TypezID]
 		if !ok {
 			slog.Error("unable to lookup type", "id", f.TypezID)
@@ -154,13 +154,13 @@ func bodyAccessor(m *api.Method) string {
 
 func httpPathFmt(_ *api.PathInfo) string {
 	fmt := ""
-	// TODO(devoncarew): Determine the correct format for Dart.
+	// TODO(#1034): Determine the correct format for Dart.
 	return fmt
 }
 
 func httpPathArgs(_ *api.PathInfo) []string {
 	var args []string
-	// TODO(devoncarew): Determine the correct format for Dart.
+	// TODO(#1034): Determine the correct format for Dart.
 	return args
 }
 
@@ -238,7 +238,7 @@ func generateMethod(m *api.Method) bool {
 // The list of Dart keywords and reserved words can be found at
 // https://dart.dev/language/keywords.
 func escapeKeyword(symbol string) string {
-	// TODO(devoncarew): Populate these once we need this function.
+	// TODO(#1034): Populate these once we need this function.
 	keywords := map[string]bool{
 		//
 	}
