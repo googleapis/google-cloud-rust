@@ -83,6 +83,10 @@ pub struct Api {
 }
 
 impl Api {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Api::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -183,6 +187,10 @@ pub struct Method {
 }
 
 impl Method {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Method::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -350,6 +358,10 @@ pub struct Mixin {
 }
 
 impl Mixin {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Mixin::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -383,6 +395,10 @@ pub struct SourceContext {
 }
 
 impl SourceContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_name][crate::SourceContext::file_name].
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
@@ -431,6 +447,10 @@ pub struct Type {
 }
 
 impl Type {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Type::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -543,6 +563,10 @@ pub struct Field {
 }
 
 impl Field {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kind][crate::Field::kind].
     pub fn set_kind<T: std::convert::Into<crate::field::Kind>>(mut self, v: T) -> Self {
         self.kind = v.into();
@@ -778,6 +802,10 @@ pub struct Enum {
 }
 
 impl Enum {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Enum::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -853,6 +881,10 @@ pub struct EnumValue {
 }
 
 impl EnumValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::EnumValue::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -906,6 +938,10 @@ pub struct Option {
 }
 
 impl Option {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::Option::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

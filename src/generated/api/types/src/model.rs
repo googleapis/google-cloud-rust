@@ -60,6 +60,10 @@ pub struct Authentication {
 }
 
 impl Authentication {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rules][crate::model::Authentication::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -126,6 +130,10 @@ pub struct AuthenticationRule {
 }
 
 impl AuthenticationRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::AuthenticationRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -189,6 +197,10 @@ pub struct JwtLocation {
 }
 
 impl JwtLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [value_prefix][crate::model::JwtLocation::value_prefix].
     pub fn set_value_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_prefix = v.into();
@@ -386,6 +398,10 @@ pub struct AuthProvider {
 }
 
 impl AuthProvider {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [id][crate::model::AuthProvider::id].
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
@@ -474,6 +490,10 @@ pub struct OAuthRequirements {
 }
 
 impl OAuthRequirements {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [canonical_scopes][crate::model::OAuthRequirements::canonical_scopes].
     pub fn set_canonical_scopes<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -536,6 +556,10 @@ pub struct AuthRequirement {
 }
 
 impl AuthRequirement {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [provider_id][crate::model::AuthRequirement::provider_id].
     pub fn set_provider_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.provider_id = v.into();
@@ -569,6 +593,10 @@ pub struct Backend {
 }
 
 impl Backend {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rules][crate::model::Backend::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -691,6 +719,10 @@ pub struct BackendRule {
 }
 
 impl BackendRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::BackendRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -992,6 +1024,10 @@ pub struct Billing {
 }
 
 impl Billing {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [consumer_destinations][crate::model::Billing::consumer_destinations].
     pub fn set_consumer_destinations<T, V>(mut self, v: T) -> Self
     where
@@ -1040,6 +1076,10 @@ pub mod billing {
     }
 
     impl BillingDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [monitored_resource][crate::model::billing::BillingDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -1089,6 +1129,10 @@ pub struct CommonLanguageSettings {
 }
 
 impl CommonLanguageSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [reference_docs_uri][crate::model::CommonLanguageSettings::reference_docs_uri].
     pub fn set_reference_docs_uri<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1180,6 +1224,10 @@ pub struct ClientLibrarySettings {
 }
 
 impl ClientLibrarySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::ClientLibrarySettings::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -1358,6 +1406,10 @@ pub struct Publishing {
 }
 
 impl Publishing {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [new_issue_uri][crate::model::Publishing::new_issue_uri].
     pub fn set_new_issue_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_issue_uri = v.into();
@@ -1501,6 +1553,10 @@ pub struct JavaSettings {
 }
 
 impl JavaSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [library_package][crate::model::JavaSettings::library_package].
     pub fn set_library_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.library_package = v.into();
@@ -1549,6 +1605,10 @@ pub struct CppSettings {
 }
 
 impl CppSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::CppSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1579,6 +1639,10 @@ pub struct PhpSettings {
 }
 
 impl PhpSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::PhpSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1614,6 +1678,10 @@ pub struct PythonSettings {
 }
 
 impl PythonSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::PythonSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1672,6 +1740,10 @@ pub mod python_settings {
     }
 
     impl ExperimentalFeatures {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [rest_async_io_enabled][crate::model::python_settings::ExperimentalFeatures::rest_async_io_enabled].
         pub fn set_rest_async_io_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.rest_async_io_enabled = v.into();
@@ -1707,6 +1779,10 @@ pub struct NodeSettings {
 }
 
 impl NodeSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::NodeSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1772,6 +1848,10 @@ pub struct DotnetSettings {
 }
 
 impl DotnetSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::DotnetSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1859,6 +1939,10 @@ pub struct RubySettings {
 }
 
 impl RubySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::RubySettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1900,6 +1984,10 @@ pub struct GoSettings {
 }
 
 impl GoSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [common][crate::model::GoSettings::common].
     pub fn set_common<
         T: std::convert::Into<std::option::Option<crate::model::CommonLanguageSettings>>,
@@ -1981,6 +2069,10 @@ pub struct MethodSettings {
 }
 
 impl MethodSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::MethodSettings::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -2053,6 +2145,10 @@ pub mod method_settings {
     }
 
     impl LongRunning {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [initial_poll_delay][crate::model::method_settings::LongRunning::initial_poll_delay].
         pub fn set_initial_poll_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
             mut self,
@@ -2116,6 +2212,10 @@ pub struct SelectiveGapicGeneration {
 }
 
 impl SelectiveGapicGeneration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [generate_omitted_as_internal][crate::model::SelectiveGapicGeneration::generate_omitted_as_internal].
     pub fn set_generate_omitted_as_internal<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.generate_omitted_as_internal = v.into();
@@ -2184,6 +2284,10 @@ pub struct ConfigChange {
 }
 
 impl ConfigChange {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [element][crate::model::ConfigChange::element].
     pub fn set_element<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.element = v.into();
@@ -2243,6 +2347,10 @@ pub struct Advice {
 }
 
 impl Advice {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [description][crate::model::Advice::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
@@ -2283,6 +2391,10 @@ pub struct ProjectProperties {
 }
 
 impl ProjectProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [properties][crate::model::ProjectProperties::properties].
     pub fn set_properties<T, V>(mut self, v: T) -> Self
     where
@@ -2330,6 +2442,10 @@ pub struct Property {
 }
 
 impl Property {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Property::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2459,6 +2575,10 @@ pub struct Context {
 }
 
 impl Context {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rules][crate::model::Context::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -2515,6 +2635,10 @@ pub struct ContextRule {
 }
 
 impl ContextRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::ContextRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -2597,6 +2721,10 @@ pub struct Control {
 }
 
 impl Control {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [environment][crate::model::Control::environment].
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
@@ -2698,6 +2826,10 @@ pub struct Distribution {
 }
 
 impl Distribution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [count][crate::model::Distribution::count].
     pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.count = v.into();
@@ -2786,6 +2918,10 @@ pub mod distribution {
     }
 
     impl Range {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [min][crate::model::distribution::Range::min].
         pub fn set_min<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.min = v.into();
@@ -2831,6 +2967,10 @@ pub mod distribution {
     }
 
     impl BucketOptions {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `options`.
         pub fn set_options<
             T: std::convert::Into<
@@ -2987,6 +3127,10 @@ pub mod distribution {
         }
 
         impl Linear {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Linear::num_finite_buckets].
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
@@ -3038,6 +3182,10 @@ pub mod distribution {
         }
 
         impl Exponential {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [num_finite_buckets][crate::model::distribution::bucket_options::Exponential::num_finite_buckets].
             pub fn set_num_finite_buckets<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
                 self.num_finite_buckets = v.into();
@@ -3085,6 +3233,10 @@ pub mod distribution {
         }
 
         impl Explicit {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [bounds][crate::model::distribution::bucket_options::Explicit::bounds].
             pub fn set_bounds<T, V>(mut self, v: T) -> Self
             where
@@ -3153,6 +3305,10 @@ pub mod distribution {
     }
 
     impl Exemplar {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [value][crate::model::distribution::Exemplar::value].
         pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.value = v.into();
@@ -3265,6 +3421,10 @@ pub struct Documentation {
 }
 
 impl Documentation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [summary][crate::model::Documentation::summary].
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
@@ -3353,6 +3513,10 @@ pub struct DocumentationRule {
 }
 
 impl DocumentationRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::DocumentationRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -3412,6 +3576,10 @@ pub struct Page {
 }
 
 impl Page {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Page::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3498,6 +3666,10 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Endpoint::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3554,6 +3726,10 @@ pub struct FieldInfo {
 }
 
 impl FieldInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [format][crate::model::FieldInfo::format].
     pub fn set_format<T: std::convert::Into<crate::model::field_info::Format>>(
         mut self,
@@ -3665,6 +3841,10 @@ pub struct TypeReference {
 }
 
 impl TypeReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [type_name][crate::model::TypeReference::type_name].
     pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.type_name = v.into();
@@ -3704,6 +3884,10 @@ pub struct Http {
 }
 
 impl Http {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [fully_decode_reserved_expansion][crate::model::Http::fully_decode_reserved_expansion].
     pub fn set_fully_decode_reserved_expansion<T: std::convert::Into<bool>>(
         mut self,
@@ -4059,6 +4243,10 @@ pub struct HttpRule {
 }
 
 impl HttpRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::HttpRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -4286,6 +4474,10 @@ pub struct CustomHttpPattern {
 }
 
 impl CustomHttpPattern {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kind][crate::model::CustomHttpPattern::kind].
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
@@ -4372,6 +4564,10 @@ pub struct HttpBody {
 }
 
 impl HttpBody {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content_type][crate::model::HttpBody::content_type].
     pub fn set_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_type = v.into();
@@ -4421,6 +4617,10 @@ pub struct LabelDescriptor {
 }
 
 impl LabelDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::LabelDescriptor::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -4531,6 +4731,10 @@ pub struct LogDescriptor {
 }
 
 impl LogDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::LogDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4619,6 +4823,10 @@ pub struct Logging {
 }
 
 impl Logging {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [producer_destinations][crate::model::Logging::producer_destinations].
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
@@ -4679,6 +4887,10 @@ pub mod logging {
     }
 
     impl LoggingDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [monitored_resource][crate::model::logging::LoggingDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -4907,6 +5119,10 @@ pub struct MetricDescriptor {
 }
 
 impl MetricDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MetricDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5044,6 +5260,10 @@ pub mod metric_descriptor {
     }
 
     impl MetricDescriptorMetadata {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [launch_stage][crate::model::metric_descriptor::MetricDescriptorMetadata::launch_stage].
         pub fn set_launch_stage<T: std::convert::Into<crate::model::LaunchStage>>(
             mut self,
@@ -5263,6 +5483,10 @@ pub struct Metric {
 }
 
 impl Metric {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Metric::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -5347,6 +5571,10 @@ pub struct MonitoredResourceDescriptor {
 }
 
 impl MonitoredResourceDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MonitoredResourceDescriptor::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5444,6 +5672,10 @@ pub struct MonitoredResource {
 }
 
 impl MonitoredResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::MonitoredResource::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -5503,6 +5735,10 @@ pub struct MonitoredResourceMetadata {
 }
 
 impl MonitoredResourceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [system_labels][crate::model::MonitoredResourceMetadata::system_labels].
     pub fn set_system_labels<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -5610,6 +5846,10 @@ pub struct Monitoring {
 }
 
 impl Monitoring {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [producer_destinations][crate::model::Monitoring::producer_destinations].
     pub fn set_producer_destinations<T, V>(mut self, v: T) -> Self
     where
@@ -5669,6 +5909,10 @@ pub mod monitoring {
     }
 
     impl MonitoringDestination {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [monitored_resource][crate::model::monitoring::MonitoringDestination::monitored_resource].
         pub fn set_monitored_resource<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -5736,6 +5980,10 @@ pub struct FieldPolicy {
 }
 
 impl FieldPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::FieldPolicy::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -5789,6 +6037,10 @@ pub struct MethodPolicy {
 }
 
 impl MethodPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::MethodPolicy::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -5883,6 +6135,10 @@ pub struct Quota {
 }
 
 impl Quota {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [limits][crate::model::Quota::limits].
     pub fn set_limits<T, V>(mut self, v: T) -> Self
     where
@@ -5940,6 +6196,10 @@ pub struct MetricRule {
 }
 
 impl MetricRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::MetricRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -6067,6 +6327,10 @@ pub struct QuotaLimit {
 }
 
 impl QuotaLimit {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::QuotaLimit::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6294,6 +6558,10 @@ pub struct ResourceDescriptor {
 }
 
 impl ResourceDescriptor {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::ResourceDescriptor::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -6495,6 +6763,10 @@ pub struct ResourceReference {
 }
 
 impl ResourceReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::ResourceReference::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -6941,6 +7213,10 @@ pub struct RoutingRule {
 }
 
 impl RoutingRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [routing_parameters][crate::model::RoutingRule::routing_parameters].
     pub fn set_routing_parameters<T, V>(mut self, v: T) -> Self
     where
@@ -7036,6 +7312,10 @@ pub struct RoutingParameter {
 }
 
 impl RoutingParameter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field][crate::model::RoutingParameter::field].
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
@@ -7243,6 +7523,10 @@ pub struct Service {
 }
 
 impl Service {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7507,6 +7791,10 @@ pub struct SourceInfo {
 }
 
 impl SourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_files][crate::model::SourceInfo::source_files].
     pub fn set_source_files<T, V>(mut self, v: T) -> Self
     where
@@ -7573,6 +7861,10 @@ pub struct SystemParameters {
 }
 
 impl SystemParameters {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rules][crate::model::SystemParameters::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -7618,6 +7910,10 @@ pub struct SystemParameterRule {
 }
 
 impl SystemParameterRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::SystemParameterRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -7666,6 +7962,10 @@ pub struct SystemParameter {
 }
 
 impl SystemParameter {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SystemParameter::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7731,6 +8031,10 @@ pub struct Usage {
 }
 
 impl Usage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [producer_notification_channel][crate::model::Usage::producer_notification_channel].
     pub fn set_producer_notification_channel<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7824,6 +8128,10 @@ pub struct UsageRule {
 }
 
 impl UsageRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::UsageRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();
@@ -7887,6 +8195,10 @@ pub struct Visibility {
 }
 
 impl Visibility {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rules][crate::model::Visibility::rules].
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
@@ -7943,6 +8255,10 @@ pub struct VisibilityRule {
 }
 
 impl VisibilityRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [selector][crate::model::VisibilityRule::selector].
     pub fn set_selector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.selector = v.into();

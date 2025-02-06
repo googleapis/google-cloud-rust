@@ -87,6 +87,10 @@ pub struct ErrorInfo {
 }
 
 impl ErrorInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [reason][crate::model::ErrorInfo::reason].
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
@@ -142,6 +146,10 @@ pub struct RetryInfo {
 }
 
 impl RetryInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [retry_delay][crate::model::RetryInfo::retry_delay].
     pub fn set_retry_delay<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -174,6 +182,10 @@ pub struct DebugInfo {
 }
 
 impl DebugInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [detail][crate::model::DebugInfo::detail].
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
@@ -220,6 +232,10 @@ pub struct QuotaFailure {
 }
 
 impl QuotaFailure {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [violations][crate::model::QuotaFailure::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
@@ -268,6 +284,10 @@ pub mod quota_failure {
     }
 
     impl Violation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [subject][crate::model::quota_failure::Violation::subject].
         pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subject = v.into();
@@ -304,6 +324,10 @@ pub struct PreconditionFailure {
 }
 
 impl PreconditionFailure {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [violations][crate::model::PreconditionFailure::violations].
     pub fn set_violations<T, V>(mut self, v: T) -> Self
     where
@@ -355,6 +379,10 @@ pub mod precondition_failure {
     }
 
     impl Violation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::precondition_failure::Violation::type].
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
@@ -394,6 +422,10 @@ pub struct BadRequest {
 }
 
 impl BadRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [field_violations][crate::model::BadRequest::field_violations].
     pub fn set_field_violations<T, V>(mut self, v: T) -> Self
     where
@@ -485,6 +517,10 @@ pub mod bad_request {
     }
 
     impl FieldViolation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [field][crate::model::bad_request::FieldViolation::field].
         pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field = v.into();
@@ -541,6 +577,10 @@ pub struct RequestInfo {
 }
 
 impl RequestInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request_id][crate::model::RequestInfo::request_id].
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
@@ -595,6 +635,10 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_type][crate::model::ResourceInfo::resource_type].
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
@@ -642,6 +686,10 @@ pub struct Help {
 }
 
 impl Help {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [links][crate::model::Help::links].
     pub fn set_links<T, V>(mut self, v: T) -> Self
     where
@@ -681,6 +729,10 @@ pub mod help {
     }
 
     impl Link {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [description][crate::model::help::Link::description].
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
@@ -720,6 +772,10 @@ pub struct LocalizedMessage {
 }
 
 impl LocalizedMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [locale][crate::model::LocalizedMessage::locale].
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locale = v.into();
@@ -765,6 +821,10 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [method][crate::model::HttpRequest::method].
     pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.method = v.into();
@@ -826,6 +886,10 @@ pub struct HttpResponse {
 }
 
 impl HttpResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [status][crate::model::HttpResponse::status].
     pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.status = v.into();
@@ -878,6 +942,10 @@ pub struct HttpHeader {
 }
 
 impl HttpHeader {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::HttpHeader::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -931,6 +999,10 @@ pub struct Status {
 }
 
 impl Status {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [code][crate::model::Status::code].
     pub fn set_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.code = v.into();

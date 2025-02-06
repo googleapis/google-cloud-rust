@@ -86,6 +86,10 @@ pub struct AnnotateVideoRequest {
 }
 
 impl AnnotateVideoRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_uri][crate::model::AnnotateVideoRequest::input_uri].
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
@@ -186,6 +190,10 @@ pub struct VideoContext {
 }
 
 impl VideoContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_detection_config][crate::model::VideoContext::label_detection_config].
     pub fn set_label_detection_config<
         T: std::convert::Into<std::option::Option<crate::model::LabelDetectionConfig>>,
@@ -332,6 +340,10 @@ pub struct LabelDetectionConfig {
 }
 
 impl LabelDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [label_detection_mode][crate::model::LabelDetectionConfig::label_detection_mode].
     pub fn set_label_detection_mode<T: std::convert::Into<crate::model::LabelDetectionMode>>(
         mut self,
@@ -386,6 +398,10 @@ pub struct ShotChangeDetectionConfig {
 }
 
 impl ShotChangeDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [model][crate::model::ShotChangeDetectionConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -413,6 +429,10 @@ pub struct ObjectTrackingConfig {
 }
 
 impl ObjectTrackingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [model][crate::model::ObjectTrackingConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -447,6 +467,10 @@ pub struct FaceDetectionConfig {
 }
 
 impl FaceDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [model][crate::model::FaceDetectionConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -494,6 +518,10 @@ pub struct PersonDetectionConfig {
 }
 
 impl PersonDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [include_bounding_boxes][crate::model::PersonDetectionConfig::include_bounding_boxes].
     pub fn set_include_bounding_boxes<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_bounding_boxes = v.into();
@@ -533,6 +561,10 @@ pub struct ExplicitContentDetectionConfig {
 }
 
 impl ExplicitContentDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [model][crate::model::ExplicitContentDetectionConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -568,6 +600,10 @@ pub struct TextDetectionConfig {
 }
 
 impl TextDetectionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [model][crate::model::TextDetectionConfig::model].
     pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.model = v.into();
@@ -610,6 +646,10 @@ pub struct VideoSegment {
 }
 
 impl VideoSegment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time_offset][crate::model::VideoSegment::start_time_offset].
     pub fn set_start_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -650,6 +690,10 @@ pub struct LabelSegment {
 }
 
 impl LabelSegment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [segment][crate::model::LabelSegment::segment].
     pub fn set_segment<T: std::convert::Into<std::option::Option<crate::model::VideoSegment>>>(
         mut self,
@@ -688,6 +732,10 @@ pub struct LabelFrame {
 }
 
 impl LabelFrame {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_offset][crate::model::LabelFrame::time_offset].
     pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -732,6 +780,10 @@ pub struct Entity {
 }
 
 impl Entity {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entity_id][crate::model::Entity::entity_id].
     pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.entity_id = v.into();
@@ -788,6 +840,10 @@ pub struct LabelAnnotation {
 }
 
 impl LabelAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entity][crate::model::LabelAnnotation::entity].
     pub fn set_entity<T: std::convert::Into<std::option::Option<crate::model::Entity>>>(
         mut self,
@@ -859,6 +915,10 @@ pub struct ExplicitContentFrame {
 }
 
 impl ExplicitContentFrame {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_offset][crate::model::ExplicitContentFrame::time_offset].
     pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -902,6 +962,10 @@ pub struct ExplicitContentAnnotation {
 }
 
 impl ExplicitContentAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::ExplicitContentAnnotation::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -948,6 +1012,10 @@ pub struct NormalizedBoundingBox {
 }
 
 impl NormalizedBoundingBox {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [left][crate::model::NormalizedBoundingBox::left].
     pub fn set_left<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.left = v.into();
@@ -1000,6 +1068,10 @@ pub struct FaceDetectionAnnotation {
 }
 
 impl FaceDetectionAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [thumbnail][crate::model::FaceDetectionAnnotation::thumbnail].
     pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
@@ -1046,6 +1118,10 @@ pub struct PersonDetectionAnnotation {
 }
 
 impl PersonDetectionAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version][crate::model::PersonDetectionAnnotation::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
@@ -1082,6 +1158,10 @@ pub struct FaceSegment {
 }
 
 impl FaceSegment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [segment][crate::model::FaceSegment::segment].
     pub fn set_segment<T: std::convert::Into<std::option::Option<crate::model::VideoSegment>>>(
         mut self,
@@ -1117,6 +1197,10 @@ pub struct FaceFrame {
 }
 
 impl FaceFrame {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [time_offset][crate::model::FaceFrame::time_offset].
     pub fn set_time_offset<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -1165,6 +1249,10 @@ pub struct FaceAnnotation {
 }
 
 impl FaceAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [thumbnail][crate::model::FaceAnnotation::thumbnail].
     pub fn set_thumbnail<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.thumbnail = v.into();
@@ -1227,6 +1315,10 @@ pub struct TimestampedObject {
 }
 
 impl TimestampedObject {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [normalized_bounding_box][crate::model::TimestampedObject::normalized_bounding_box].
     pub fn set_normalized_bounding_box<
         T: std::convert::Into<std::option::Option<crate::model::NormalizedBoundingBox>>,
@@ -1299,6 +1391,10 @@ pub struct Track {
 }
 
 impl Track {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [segment][crate::model::Track::segment].
     pub fn set_segment<T: std::convert::Into<std::option::Option<crate::model::VideoSegment>>>(
         mut self,
@@ -1364,6 +1460,10 @@ pub struct DetectedAttribute {
 }
 
 impl DetectedAttribute {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DetectedAttribute::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1410,6 +1510,10 @@ pub struct DetectedLandmark {
 }
 
 impl DetectedLandmark {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DetectedLandmark::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1530,6 +1634,10 @@ pub struct VideoAnnotationResults {
 }
 
 impl VideoAnnotationResults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_uri][crate::model::VideoAnnotationResults::input_uri].
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
@@ -1729,6 +1837,10 @@ pub struct AnnotateVideoResponse {
 }
 
 impl AnnotateVideoResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [annotation_results][crate::model::AnnotateVideoResponse::annotation_results].
     pub fn set_annotation_results<T, V>(mut self, v: T) -> Self
     where
@@ -1781,6 +1893,10 @@ pub struct VideoAnnotationProgress {
 }
 
 impl VideoAnnotationProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_uri][crate::model::VideoAnnotationProgress::input_uri].
     pub fn set_input_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.input_uri = v.into();
@@ -1847,6 +1963,10 @@ pub struct AnnotateVideoProgress {
 }
 
 impl AnnotateVideoProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [annotation_progress][crate::model::AnnotateVideoProgress::annotation_progress].
     pub fn set_annotation_progress<T, V>(mut self, v: T) -> Self
     where
@@ -1930,6 +2050,10 @@ pub struct SpeechTranscriptionConfig {
 }
 
 impl SpeechTranscriptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::SpeechTranscriptionConfig::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -2019,6 +2143,10 @@ pub struct SpeechContext {
 }
 
 impl SpeechContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [phrases][crate::model::SpeechContext::phrases].
     pub fn set_phrases<T, V>(mut self, v: T) -> Self
     where
@@ -2058,6 +2186,10 @@ pub struct SpeechTranscription {
 }
 
 impl SpeechTranscription {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::SpeechTranscription::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -2108,6 +2240,10 @@ pub struct SpeechRecognitionAlternative {
 }
 
 impl SpeechRecognitionAlternative {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transcript][crate::model::SpeechRecognitionAlternative::transcript].
     pub fn set_transcript<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.transcript = v.into();
@@ -2180,6 +2316,10 @@ pub struct WordInfo {
 }
 
 impl WordInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [start_time][crate::model::WordInfo::start_time].
     pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -2239,6 +2379,10 @@ pub struct NormalizedVertex {
 }
 
 impl NormalizedVertex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [x][crate::model::NormalizedVertex::x].
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -2286,6 +2430,10 @@ pub struct NormalizedBoundingPoly {
 }
 
 impl NormalizedBoundingPoly {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [vertices][crate::model::NormalizedBoundingPoly::vertices].
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
@@ -2324,6 +2472,10 @@ pub struct TextSegment {
 }
 
 impl TextSegment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [segment][crate::model::TextSegment::segment].
     pub fn set_segment<T: std::convert::Into<std::option::Option<crate::model::VideoSegment>>>(
         mut self,
@@ -2375,6 +2527,10 @@ pub struct TextFrame {
 }
 
 impl TextFrame {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rotated_bounding_box][crate::model::TextFrame::rotated_bounding_box].
     pub fn set_rotated_bounding_box<
         T: std::convert::Into<std::option::Option<crate::model::NormalizedBoundingPoly>>,
@@ -2424,6 +2580,10 @@ pub struct TextAnnotation {
 }
 
 impl TextAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::TextAnnotation::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -2471,6 +2631,10 @@ pub struct ObjectTrackingFrame {
 }
 
 impl ObjectTrackingFrame {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [normalized_bounding_box][crate::model::ObjectTrackingFrame::normalized_bounding_box].
     pub fn set_normalized_bounding_box<
         T: std::convert::Into<std::option::Option<crate::model::NormalizedBoundingBox>>,
@@ -2529,6 +2693,10 @@ pub struct ObjectTrackingAnnotation {
 }
 
 impl ObjectTrackingAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entity][crate::model::ObjectTrackingAnnotation::entity].
     pub fn set_entity<T: std::convert::Into<std::option::Option<crate::model::Entity>>>(
         mut self,
@@ -2681,6 +2849,10 @@ pub struct LogoRecognitionAnnotation {
 }
 
 impl LogoRecognitionAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entity][crate::model::LogoRecognitionAnnotation::entity].
     pub fn set_entity<T: std::convert::Into<std::option::Option<crate::model::Entity>>>(
         mut self,

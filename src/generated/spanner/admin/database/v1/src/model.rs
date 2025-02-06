@@ -201,6 +201,10 @@ pub struct Backup {
 }
 
 impl Backup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::Backup::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -445,6 +449,10 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -529,6 +537,10 @@ pub struct CreateBackupMetadata {
 }
 
 impl CreateBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -617,6 +629,10 @@ pub struct CopyBackupRequest {
 }
 
 impl CopyBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -711,6 +727,10 @@ pub struct CopyBackupMetadata {
 }
 
 impl CopyBackupMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CopyBackupMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -777,6 +797,10 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
     pub fn set_backup<T: std::convert::Into<std::option::Option<crate::model::Backup>>>(
         mut self,
@@ -819,6 +843,10 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -849,6 +877,10 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -938,6 +970,10 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -993,6 +1029,10 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1138,6 +1178,10 @@ pub struct ListBackupOperationsRequest {
 }
 
 impl ListBackupOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1203,6 +1247,10 @@ pub struct ListBackupOperationsResponse {
 }
 
 impl ListBackupOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1274,6 +1322,10 @@ pub struct BackupInfo {
 }
 
 impl BackupInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup][crate::model::BackupInfo::backup].
     pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.backup = v.into();
@@ -1351,6 +1403,10 @@ pub struct CreateBackupEncryptionConfig {
 }
 
 impl CreateBackupEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::CreateBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::create_backup_encryption_config::EncryptionType>,
@@ -1484,6 +1540,10 @@ pub struct CopyBackupEncryptionConfig {
 }
 
 impl CopyBackupEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::CopyBackupEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::copy_backup_encryption_config::EncryptionType>,
@@ -1587,7 +1647,11 @@ pub mod copy_backup_encryption_config {
 #[non_exhaustive]
 pub struct FullBackupSpec {}
 
-impl FullBackupSpec {}
+impl FullBackupSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for FullBackupSpec {
     fn typename() -> &'static str {
@@ -1607,7 +1671,11 @@ impl wkt::message::Message for FullBackupSpec {
 #[non_exhaustive]
 pub struct IncrementalBackupSpec {}
 
-impl IncrementalBackupSpec {}
+impl IncrementalBackupSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for IncrementalBackupSpec {
     fn typename() -> &'static str {
@@ -1627,6 +1695,10 @@ pub struct BackupScheduleSpec {
 }
 
 impl BackupScheduleSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `schedule_spec`.
     pub fn set_schedule_spec<
         T: std::convert::Into<std::option::Option<crate::model::backup_schedule_spec::ScheduleSpec>>,
@@ -1742,6 +1814,10 @@ pub struct BackupSchedule {
 }
 
 impl BackupSchedule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BackupSchedule::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1928,6 +2004,10 @@ pub struct CrontabSpec {
 }
 
 impl CrontabSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::CrontabSpec::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -1981,6 +2061,10 @@ pub struct CreateBackupScheduleRequest {
 }
 
 impl CreateBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateBackupScheduleRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2031,6 +2115,10 @@ pub struct GetBackupScheduleRequest {
 }
 
 impl GetBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2061,6 +2149,10 @@ pub struct DeleteBackupScheduleRequest {
 }
 
 impl DeleteBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteBackupScheduleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2106,6 +2198,10 @@ pub struct ListBackupSchedulesRequest {
 }
 
 impl ListBackupSchedulesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListBackupSchedulesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2154,6 +2250,10 @@ pub struct ListBackupSchedulesResponse {
 }
 
 impl ListBackupSchedulesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListBackupSchedulesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2216,6 +2316,10 @@ pub struct UpdateBackupScheduleRequest {
 }
 
 impl UpdateBackupScheduleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
     pub fn set_backup_schedule<
         T: std::convert::Into<std::option::Option<crate::model::BackupSchedule>>,
@@ -2265,6 +2369,10 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [progress_percent][crate::model::OperationProgress::progress_percent].
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
@@ -2329,6 +2437,10 @@ pub struct EncryptionConfig {
 }
 
 impl EncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kms_key_name][crate::model::EncryptionConfig::kms_key_name].
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
@@ -2375,6 +2487,10 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::EncryptionInfo::encryption_type].
     pub fn set_encryption_type<T: std::convert::Into<crate::model::encryption_info::Type>>(
         mut self,
@@ -2467,6 +2583,10 @@ pub struct RestoreInfo {
 }
 
 impl RestoreInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_type][crate::model::RestoreInfo::source_type].
     pub fn set_source_type<T: std::convert::Into<crate::model::RestoreSourceType>>(
         mut self,
@@ -2625,6 +2745,10 @@ pub struct Database {
 }
 
 impl Database {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Database::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2814,6 +2938,10 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabasesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2862,6 +2990,10 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabasesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2960,6 +3092,10 @@ pub struct CreateDatabaseRequest {
 }
 
 impl CreateDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3034,6 +3170,10 @@ pub struct CreateDatabaseMetadata {
 }
 
 impl CreateDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::CreateDatabaseMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3063,6 +3203,10 @@ pub struct GetDatabaseRequest {
 }
 
 impl GetDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetDatabaseRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3098,6 +3242,10 @@ pub struct UpdateDatabaseRequest {
 }
 
 impl UpdateDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::option::Option<crate::model::Database>>>(
         mut self,
@@ -3154,6 +3302,10 @@ pub struct UpdateDatabaseMetadata {
 }
 
 impl UpdateDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request][crate::model::UpdateDatabaseMetadata::request].
     pub fn set_request<
         T: std::convert::Into<std::option::Option<crate::model::UpdateDatabaseRequest>>,
@@ -3275,6 +3427,10 @@ pub struct UpdateDatabaseDdlRequest {
 }
 
 impl UpdateDatabaseDdlRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3343,6 +3499,10 @@ pub struct DdlStatementActionInfo {
 }
 
 impl DdlStatementActionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [action][crate::model::DdlStatementActionInfo::action].
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
@@ -3421,6 +3581,10 @@ pub struct UpdateDatabaseDdlMetadata {
 }
 
 impl UpdateDatabaseDdlMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::UpdateDatabaseDdlMetadata::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3499,6 +3663,10 @@ pub struct DropDatabaseRequest {
 }
 
 impl DropDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::DropDatabaseRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3529,6 +3697,10 @@ pub struct GetDatabaseDdlRequest {
 }
 
 impl GetDatabaseDdlRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::GetDatabaseDdlRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -3567,6 +3739,10 @@ pub struct GetDatabaseDdlResponse {
 }
 
 impl GetDatabaseDdlResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [proto_descriptors][crate::model::GetDatabaseDdlResponse::proto_descriptors].
     pub fn set_proto_descriptors<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.proto_descriptors = v.into();
@@ -3673,6 +3849,10 @@ pub struct ListDatabaseOperationsRequest {
 }
 
 impl ListDatabaseOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabaseOperationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3734,6 +3914,10 @@ pub struct ListDatabaseOperationsResponse {
 }
 
 impl ListDatabaseOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabaseOperationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3812,6 +3996,10 @@ pub struct RestoreDatabaseRequest {
 }
 
 impl RestoreDatabaseRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3934,6 +4122,10 @@ pub struct RestoreDatabaseEncryptionConfig {
 }
 
 impl RestoreDatabaseEncryptionConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [encryption_type][crate::model::RestoreDatabaseEncryptionConfig::encryption_type].
     pub fn set_encryption_type<
         T: std::convert::Into<crate::model::restore_database_encryption_config::EncryptionType>,
@@ -4091,6 +4283,10 @@ pub struct RestoreDatabaseMetadata {
 }
 
 impl RestoreDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RestoreDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4223,6 +4419,10 @@ pub struct OptimizeRestoredDatabaseMetadata {
 }
 
 impl OptimizeRestoredDatabaseMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::OptimizeRestoredDatabaseMetadata::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4261,6 +4461,10 @@ pub struct DatabaseRole {
 }
 
 impl DatabaseRole {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DatabaseRole::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4305,6 +4509,10 @@ pub struct ListDatabaseRolesRequest {
 }
 
 impl ListDatabaseRolesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListDatabaseRolesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4353,6 +4561,10 @@ pub struct ListDatabaseRolesResponse {
 }
 
 impl ListDatabaseRolesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListDatabaseRolesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4419,6 +4631,10 @@ pub struct AddSplitPointsRequest {
 }
 
 impl AddSplitPointsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [database][crate::model::AddSplitPointsRequest::database].
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
@@ -4459,7 +4675,11 @@ impl wkt::message::Message for AddSplitPointsRequest {
 #[non_exhaustive]
 pub struct AddSplitPointsResponse {}
 
-impl AddSplitPointsResponse {}
+impl AddSplitPointsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AddSplitPointsResponse {
     fn typename() -> &'static str {
@@ -4495,6 +4715,10 @@ pub struct SplitPoints {
 }
 
 impl SplitPoints {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table][crate::model::SplitPoints::table].
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
@@ -4551,6 +4775,10 @@ pub mod split_points {
     }
 
     impl Key {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key_parts][crate::model::split_points::Key::key_parts].
         pub fn set_key_parts<T: std::convert::Into<std::option::Option<wkt::ListValue>>>(
             mut self,

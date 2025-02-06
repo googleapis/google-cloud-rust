@@ -56,6 +56,10 @@ pub struct ListCryptoKeysRequest {
 }
 
 impl ListCryptoKeysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -103,6 +107,10 @@ pub struct ListCryptoKeysResponse {
 }
 
 impl ListCryptoKeysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -158,6 +166,10 @@ pub struct GetProtectedResourcesSummaryRequest {
 }
 
 impl GetProtectedResourcesSummaryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -210,6 +222,10 @@ pub struct ProtectedResourcesSummary {
 }
 
 impl ProtectedResourcesSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ProtectedResourcesSummary::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -329,6 +345,10 @@ pub struct SearchProtectedResourcesRequest {
 }
 
 impl SearchProtectedResourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
@@ -391,6 +411,10 @@ pub struct SearchProtectedResourcesResponse {
 }
 
 impl SearchProtectedResourcesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchProtectedResourcesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -492,6 +516,10 @@ pub struct ProtectedResource {
 }
 
 impl ProtectedResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ProtectedResource::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

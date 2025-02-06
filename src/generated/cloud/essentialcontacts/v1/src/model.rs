@@ -69,6 +69,10 @@ pub struct Contact {
 }
 
 impl Contact {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Contact::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -150,6 +154,10 @@ pub struct ListContactsRequest {
 }
 
 impl ListContactsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListContactsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -194,6 +202,10 @@ pub struct ListContactsResponse {
 }
 
 impl ListContactsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListContactsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -246,6 +258,10 @@ pub struct GetContactRequest {
 }
 
 impl GetContactRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetContactRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -274,6 +290,10 @@ pub struct DeleteContactRequest {
 }
 
 impl DeleteContactRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteContactRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -306,6 +326,10 @@ pub struct CreateContactRequest {
 }
 
 impl CreateContactRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateContactRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -347,6 +371,10 @@ pub struct UpdateContactRequest {
 }
 
 impl UpdateContactRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
     pub fn set_contact<T: std::convert::Into<std::option::Option<crate::model::Contact>>>(
         mut self,
@@ -405,6 +433,10 @@ pub struct ComputeContactsRequest {
 }
 
 impl ComputeContactsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ComputeContactsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -462,6 +494,10 @@ pub struct ComputeContactsResponse {
 }
 
 impl ComputeContactsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ComputeContactsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -526,6 +562,10 @@ pub struct SendTestMessageRequest {
 }
 
 impl SendTestMessageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();

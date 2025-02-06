@@ -87,6 +87,10 @@ pub struct Constraint {
 }
 
 impl Constraint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Constraint::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -229,6 +233,10 @@ pub mod constraint {
     }
 
     impl ListConstraint {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [supports_in][crate::model::constraint::ListConstraint::supports_in].
         pub fn set_supports_in<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.supports_in = v.into();
@@ -259,7 +267,11 @@ pub mod constraint {
     #[non_exhaustive]
     pub struct BooleanConstraint {}
 
-    impl BooleanConstraint {}
+    impl BooleanConstraint {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for BooleanConstraint {
         fn typename() -> &'static str {
@@ -387,6 +399,10 @@ pub struct CustomConstraint {
 }
 
 impl CustomConstraint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CustomConstraint::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -598,6 +614,10 @@ pub struct Policy {
 }
 
 impl Policy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Policy::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -667,6 +687,10 @@ pub struct AlternatePolicySpec {
 }
 
 impl AlternatePolicySpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [launch][crate::model::AlternatePolicySpec::launch].
     pub fn set_launch<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.launch = v.into();
@@ -745,6 +769,10 @@ pub struct PolicySpec {
 }
 
 impl PolicySpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [etag][crate::model::PolicySpec::etag].
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
@@ -821,6 +849,10 @@ pub mod policy_spec {
     }
 
     impl PolicyRule {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [condition][crate::model::policy_spec::PolicyRule::condition].
         pub fn set_condition<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
             mut self,
@@ -996,6 +1028,10 @@ pub mod policy_spec {
         }
 
         impl StringValues {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [allowed_values][crate::model::policy_spec::policy_rule::StringValues::allowed_values].
             pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
             where
@@ -1075,6 +1111,10 @@ pub struct ListConstraintsRequest {
 }
 
 impl ListConstraintsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListConstraintsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1117,6 +1157,10 @@ pub struct ListConstraintsResponse {
 }
 
 impl ListConstraintsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListConstraintsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1184,6 +1228,10 @@ pub struct ListPoliciesRequest {
 }
 
 impl ListPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1229,6 +1277,10 @@ pub struct ListPoliciesResponse {
 }
 
 impl ListPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1282,6 +1334,10 @@ pub struct GetPolicyRequest {
 }
 
 impl GetPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1311,6 +1367,10 @@ pub struct GetEffectivePolicyRequest {
 }
 
 impl GetEffectivePolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetEffectivePolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1347,6 +1407,10 @@ pub struct CreatePolicyRequest {
 }
 
 impl CreatePolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1388,6 +1452,10 @@ pub struct UpdatePolicyRequest {
 }
 
 impl UpdatePolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
     pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::Policy>>>(
         mut self,
@@ -1433,6 +1501,10 @@ pub struct DeletePolicyRequest {
 }
 
 impl DeletePolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1471,6 +1543,10 @@ pub struct CreateCustomConstraintRequest {
 }
 
 impl CreateCustomConstraintRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateCustomConstraintRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1509,6 +1585,10 @@ pub struct GetCustomConstraintRequest {
 }
 
 impl GetCustomConstraintRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetCustomConstraintRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1549,6 +1629,10 @@ pub struct ListCustomConstraintsRequest {
 }
 
 impl ListCustomConstraintsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListCustomConstraintsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1594,6 +1678,10 @@ pub struct ListCustomConstraintsResponse {
 }
 
 impl ListCustomConstraintsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListCustomConstraintsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1644,6 +1732,10 @@ pub struct UpdateCustomConstraintRequest {
 }
 
 impl UpdateCustomConstraintRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
     pub fn set_custom_constraint<
         T: std::convert::Into<std::option::Option<crate::model::CustomConstraint>>,
@@ -1676,6 +1768,10 @@ pub struct DeleteCustomConstraintRequest {
 }
 
 impl DeleteCustomConstraintRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteCustomConstraintRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

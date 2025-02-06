@@ -70,6 +70,10 @@ pub struct GenerateAccessTokenRequest {
 }
 
 impl GenerateAccessTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GenerateAccessTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -130,6 +134,10 @@ pub struct GenerateAccessTokenResponse {
 }
 
 impl GenerateAccessTokenResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [access_token][crate::model::GenerateAccessTokenResponse::access_token].
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
@@ -184,6 +192,10 @@ pub struct SignBlobRequest {
 }
 
 impl SignBlobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SignBlobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -230,6 +242,10 @@ pub struct SignBlobResponse {
 }
 
 impl SignBlobResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -280,6 +296,10 @@ pub struct SignJwtRequest {
 }
 
 impl SignJwtRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SignJwtRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -325,6 +345,10 @@ pub struct SignJwtResponse {
 }
 
 impl SignJwtResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -380,6 +404,10 @@ pub struct GenerateIdTokenRequest {
 }
 
 impl GenerateIdTokenRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GenerateIdTokenRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -427,6 +455,10 @@ pub struct GenerateIdTokenResponse {
 }
 
 impl GenerateIdTokenResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [token][crate::model::GenerateIdTokenResponse::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();

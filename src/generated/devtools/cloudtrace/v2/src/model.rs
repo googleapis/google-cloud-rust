@@ -130,6 +130,10 @@ pub struct Span {
 }
 
 impl Span {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Span::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -293,6 +297,10 @@ pub mod span {
     }
 
     impl Attributes {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
         pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_attributes_count = v.into();
@@ -335,6 +343,10 @@ pub mod span {
     }
 
     impl TimeEvent {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [time][crate::model::span::TimeEvent::time].
         pub fn set_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -451,6 +463,10 @@ pub mod span {
         }
 
         impl Annotation {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [description][crate::model::span::time_event::Annotation::description].
             pub fn set_description<
                 T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -508,6 +524,10 @@ pub mod span {
         }
 
         impl MessageEvent {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [r#type][crate::model::span::time_event::MessageEvent::type].
             pub fn set_type<
                 T: std::convert::Into<crate::model::span::time_event::message_event::Type>,
@@ -621,6 +641,10 @@ pub mod span {
     }
 
     impl TimeEvents {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
         pub fn set_dropped_annotations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_annotations_count = v.into();
@@ -682,6 +706,10 @@ pub mod span {
     }
 
     impl Link {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [trace_id][crate::model::span::Link::trace_id].
         pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trace_id = v.into();
@@ -781,6 +809,10 @@ pub mod span {
     }
 
     impl Links {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
         pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_links_count = v.into();
@@ -873,6 +905,10 @@ pub struct AttributeValue {
 }
 
 impl AttributeValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `value`.
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>,
@@ -1007,6 +1043,10 @@ pub struct StackTrace {
 }
 
 impl StackTrace {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [stack_frames][crate::model::StackTrace::stack_frames].
     pub fn set_stack_frames<
         T: std::convert::Into<std::option::Option<crate::model::stack_trace::StackFrames>>,
@@ -1078,6 +1118,10 @@ pub mod stack_trace {
     }
 
     impl StackFrame {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
         pub fn set_function_name<
             T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -1167,6 +1211,10 @@ pub mod stack_trace {
     }
 
     impl StackFrames {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
         pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_frames_count = v.into();
@@ -1210,6 +1258,10 @@ pub struct Module {
 }
 
 impl Module {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [module][crate::model::Module::module].
     pub fn set_module<
         T: std::convert::Into<std::option::Option<crate::model::TruncatableString>>,
@@ -1261,6 +1313,10 @@ pub struct TruncatableString {
 }
 
 impl TruncatableString {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [value][crate::model::TruncatableString::value].
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
@@ -1298,6 +1354,10 @@ pub struct BatchWriteSpansRequest {
 }
 
 impl BatchWriteSpansRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();

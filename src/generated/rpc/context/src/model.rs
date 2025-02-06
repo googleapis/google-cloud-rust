@@ -87,6 +87,10 @@ pub struct AttributeContext {
 }
 
 impl AttributeContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [origin][crate::model::AttributeContext::origin].
     pub fn set_origin<
         T: std::convert::Into<std::option::Option<crate::model::attribute_context::Peer>>,
@@ -222,6 +226,10 @@ pub mod attribute_context {
     }
 
     impl Peer {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [ip][crate::model::attribute_context::Peer::ip].
         pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip = v.into();
@@ -297,6 +305,10 @@ pub mod attribute_context {
     }
 
     impl Api {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service][crate::model::attribute_context::Api::service].
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
@@ -398,6 +410,10 @@ pub mod attribute_context {
     }
 
     impl Auth {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [principal][crate::model::attribute_context::Auth::principal].
         pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.principal = v.into();
@@ -517,6 +533,10 @@ pub mod attribute_context {
     }
 
     impl Request {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [id][crate::model::attribute_context::Request::id].
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
@@ -645,6 +665,10 @@ pub mod attribute_context {
     }
 
     impl Response {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [code][crate::model::attribute_context::Response::code].
         pub fn set_code<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.code = v.into();
@@ -793,6 +817,10 @@ pub mod attribute_context {
     }
 
     impl Resource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service][crate::model::attribute_context::Resource::service].
         pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service = v.into();
@@ -931,6 +959,10 @@ pub struct AuditContext {
 }
 
 impl AuditContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [audit_log][crate::model::AuditContext::audit_log].
     pub fn set_audit_log<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.audit_log = v.into();

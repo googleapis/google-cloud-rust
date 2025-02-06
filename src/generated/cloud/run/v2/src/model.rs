@@ -79,6 +79,10 @@ pub struct SubmitBuildRequest {
 }
 
 impl SubmitBuildRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::SubmitBuildRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -253,7 +257,11 @@ pub mod submit_build_request {
     #[non_exhaustive]
     pub struct DockerBuild {}
 
-    impl DockerBuild {}
+    impl DockerBuild {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for DockerBuild {
         fn typename() -> &'static str {
@@ -300,6 +308,10 @@ pub mod submit_build_request {
     }
 
     impl BuildpacksBuild {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [runtime][crate::model::submit_build_request::BuildpacksBuild::runtime].
         pub fn set_runtime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.runtime = v.into();
@@ -397,6 +409,10 @@ pub struct SubmitBuildResponse {
 }
 
 impl SubmitBuildResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
     pub fn set_build_operation<
         T: std::convert::Into<std::option::Option<longrunning::model::Operation>>,
@@ -456,6 +472,10 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::StorageSource::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -519,6 +539,10 @@ pub struct Condition {
 }
 
 impl Condition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Condition::type].
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -980,6 +1004,10 @@ pub struct GetExecutionRequest {
 }
 
 impl GetExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1019,6 +1047,10 @@ pub struct ListExecutionsRequest {
 }
 
 impl ListExecutionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1067,6 +1099,10 @@ pub struct ListExecutionsResponse {
 }
 
 impl ListExecutionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1128,6 +1164,10 @@ pub struct DeleteExecutionRequest {
 }
 
 impl DeleteExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1177,6 +1217,10 @@ pub struct CancelExecutionRequest {
 }
 
 impl CancelExecutionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1346,6 +1390,10 @@ pub struct Execution {
 }
 
 impl Execution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Execution::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1600,6 +1648,10 @@ pub struct ExecutionTemplate {
 }
 
 impl ExecutionTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parallelism][crate::model::ExecutionTemplate::parallelism].
     pub fn set_parallelism<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.parallelism = v.into();
@@ -1679,6 +1731,10 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1727,6 +1783,10 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1761,6 +1821,10 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
@@ -1814,6 +1878,10 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1862,6 +1930,10 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1922,6 +1994,10 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1975,6 +2051,10 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RunJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2039,6 +2119,10 @@ pub mod run_job_request {
     }
 
     impl Overrides {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [task_count][crate::model::run_job_request::Overrides::task_count].
         pub fn set_task_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.task_count = v.into();
@@ -2102,6 +2186,10 @@ pub mod run_job_request {
         }
 
         impl ContainerOverride {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [name][crate::model::run_job_request::overrides::ContainerOverride::name].
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
@@ -2298,6 +2386,10 @@ pub struct Job {
 }
 
 impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Job::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2617,6 +2709,10 @@ pub struct ExecutionReference {
 }
 
 impl ExecutionReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ExecutionReference::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2797,6 +2893,10 @@ pub struct Container {
 }
 
 impl Container {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Container::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2939,6 +3039,10 @@ pub struct ResourceRequirements {
 }
 
 impl ResourceRequirements {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cpu_idle][crate::model::ResourceRequirements::cpu_idle].
     pub fn set_cpu_idle<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cpu_idle = v.into();
@@ -2986,6 +3090,10 @@ pub struct EnvVar {
 }
 
 impl EnvVar {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnvVar::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3086,6 +3194,10 @@ pub struct EnvVarSource {
 }
 
 impl EnvVarSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
     pub fn set_secret_key_ref<
         T: std::convert::Into<std::option::Option<crate::model::SecretKeySelector>>,
@@ -3125,6 +3237,10 @@ pub struct SecretKeySelector {
 }
 
 impl SecretKeySelector {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret][crate::model::SecretKeySelector::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
@@ -3161,6 +3277,10 @@ pub struct ContainerPort {
 }
 
 impl ContainerPort {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ContainerPort::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3200,6 +3320,10 @@ pub struct VolumeMount {
 }
 
 impl VolumeMount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::VolumeMount::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3234,6 +3358,10 @@ pub struct Volume {
 }
 
 impl Volume {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Volume::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3461,6 +3589,10 @@ pub struct SecretVolumeSource {
 }
 
 impl SecretVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [secret][crate::model::SecretVolumeSource::secret].
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
@@ -3526,6 +3658,10 @@ pub struct VersionToPath {
 }
 
 impl VersionToPath {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::VersionToPath::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -3570,6 +3706,10 @@ pub struct CloudSqlInstance {
 }
 
 impl CloudSqlInstance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instances][crate::model::CloudSqlInstance::instances].
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
@@ -3615,6 +3755,10 @@ pub struct EmptyDirVolumeSource {
 }
 
 impl EmptyDirVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [medium][crate::model::EmptyDirVolumeSource::medium].
     pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(
         mut self,
@@ -3696,6 +3840,10 @@ pub struct NFSVolumeSource {
 }
 
 impl NFSVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [server][crate::model::NFSVolumeSource::server].
     pub fn set_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server = v.into();
@@ -3742,6 +3890,10 @@ pub struct GCSVolumeSource {
 }
 
 impl GCSVolumeSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bucket][crate::model::GCSVolumeSource::bucket].
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
@@ -3804,6 +3956,10 @@ pub struct Probe {
 }
 
 impl Probe {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [initial_delay_seconds][crate::model::Probe::initial_delay_seconds].
     pub fn set_initial_delay_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_delay_seconds = v.into();
@@ -3967,6 +4123,10 @@ pub struct HTTPGetAction {
 }
 
 impl HTTPGetAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [path][crate::model::HTTPGetAction::path].
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
@@ -4013,6 +4173,10 @@ pub struct HTTPHeader {
 }
 
 impl HTTPHeader {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::HTTPHeader::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4045,6 +4209,10 @@ pub struct TCPSocketAction {
 }
 
 impl TCPSocketAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [port][crate::model::TCPSocketAction::port].
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
@@ -4078,6 +4246,10 @@ pub struct GRPCAction {
 }
 
 impl GRPCAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [port][crate::model::GRPCAction::port].
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
@@ -4111,6 +4283,10 @@ pub struct GetRevisionRequest {
 }
 
 impl GetRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRevisionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4150,6 +4326,10 @@ pub struct ListRevisionsRequest {
 }
 
 impl ListRevisionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRevisionsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4198,6 +4378,10 @@ pub struct ListRevisionsResponse {
 }
 
 impl ListRevisionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRevisionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4260,6 +4444,10 @@ pub struct DeleteRevisionRequest {
 }
 
 impl DeleteRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteRevisionRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4447,6 +4635,10 @@ pub struct Revision {
 }
 
 impl Revision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Revision::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4825,6 +5017,10 @@ pub struct RevisionTemplate {
 }
 
 impl RevisionTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [revision][crate::model::RevisionTemplate::revision].
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
@@ -5027,6 +5223,10 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5086,6 +5286,10 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
     pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
         mut self,
@@ -5149,6 +5353,10 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5197,6 +5405,10 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5248,6 +5460,10 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5284,6 +5500,10 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5526,6 +5746,10 @@ pub struct Service {
 }
 
 impl Service {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5827,6 +6051,10 @@ pub struct RevisionScalingStatus {
 }
 
 impl RevisionScalingStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [desired_min_instance_count][crate::model::RevisionScalingStatus::desired_min_instance_count].
     pub fn set_desired_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.desired_min_instance_count = v.into();
@@ -5854,6 +6082,10 @@ pub struct GetTaskRequest {
 }
 
 impl GetTaskRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTaskRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5893,6 +6125,10 @@ pub struct ListTasksRequest {
 }
 
 impl ListTasksRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5941,6 +6177,10 @@ pub struct ListTasksResponse {
 }
 
 impl ListTasksResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -6142,6 +6382,10 @@ pub struct Task {
 }
 
 impl Task {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Task::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6416,6 +6660,10 @@ pub struct TaskAttemptResult {
 }
 
 impl TaskAttemptResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [status][crate::model::TaskAttemptResult::status].
     pub fn set_status<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -6488,6 +6736,10 @@ pub struct TaskTemplate {
 }
 
 impl TaskTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [timeout][crate::model::TaskTemplate::timeout].
     pub fn set_timeout<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
         mut self,
@@ -6631,6 +6883,10 @@ pub struct TrafficTarget {
 }
 
 impl TrafficTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::TrafficTarget::type].
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
@@ -6692,6 +6948,10 @@ pub struct TrafficTargetStatus {
 }
 
 impl TrafficTargetStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::TrafficTargetStatus::type].
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
@@ -6758,6 +7018,10 @@ pub struct VpcAccess {
 }
 
 impl VpcAccess {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connector][crate::model::VpcAccess::connector].
     pub fn set_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector = v.into();
@@ -6824,6 +7088,10 @@ pub mod vpc_access {
     }
 
     impl NetworkInterface {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [network][crate::model::vpc_access::NetworkInterface::network].
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
@@ -6909,6 +7177,10 @@ pub struct BinaryAuthorization {
 }
 
 impl BinaryAuthorization {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [breakglass_justification][crate::model::BinaryAuthorization::breakglass_justification].
     pub fn set_breakglass_justification<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -7022,6 +7294,10 @@ pub struct RevisionScaling {
 }
 
 impl RevisionScaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_instance_count][crate::model::RevisionScaling::min_instance_count].
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
@@ -7056,6 +7332,10 @@ pub struct ServiceMesh {
 }
 
 impl ServiceMesh {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mesh][crate::model::ServiceMesh::mesh].
     pub fn set_mesh<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mesh = v.into();
@@ -7092,6 +7372,10 @@ pub struct ServiceScaling {
 }
 
 impl ServiceScaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_instance_count][crate::model::ServiceScaling::min_instance_count].
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
@@ -7179,6 +7463,10 @@ pub struct NodeSelector {
 }
 
 impl NodeSelector {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [accelerator][crate::model::NodeSelector::accelerator].
     pub fn set_accelerator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator = v.into();

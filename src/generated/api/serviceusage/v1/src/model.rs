@@ -66,6 +66,10 @@ pub struct Service {
 }
 
 impl Service {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Service::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -157,6 +161,10 @@ pub struct ServiceConfig {
 }
 
 impl ServiceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ServiceConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -271,6 +279,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [resource_names][crate::model::OperationMetadata::resource_names].
     pub fn set_resource_names<T, V>(mut self, v: T) -> Self
     where
@@ -311,6 +323,10 @@ pub struct EnableServiceRequest {
 }
 
 impl EnableServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnableServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -338,6 +354,10 @@ pub struct EnableServiceResponse {
 }
 
 impl EnableServiceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::EnableServiceResponse::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
         mut self,
@@ -382,6 +402,10 @@ pub struct DisableServiceRequest {
 }
 
 impl DisableServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DisableServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -472,6 +496,10 @@ pub struct DisableServiceResponse {
 }
 
 impl DisableServiceResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::DisableServiceResponse::service].
     pub fn set_service<T: std::convert::Into<std::option::Option<crate::model::Service>>>(
         mut self,
@@ -504,6 +532,10 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -547,6 +579,10 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -595,6 +631,10 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -663,6 +703,10 @@ pub struct BatchEnableServicesRequest {
 }
 
 impl BatchEnableServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -706,6 +750,10 @@ pub struct BatchEnableServicesResponse {
 }
 
 impl BatchEnableServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [services][crate::model::BatchEnableServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -756,6 +804,10 @@ pub mod batch_enable_services_response {
     }
 
     impl EnableFailure {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [service_id][crate::model::batch_enable_services_response::EnableFailure::service_id].
         pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.service_id = v.into();
@@ -804,6 +856,10 @@ pub struct BatchGetServicesRequest {
 }
 
 impl BatchGetServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::BatchGetServicesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -840,6 +896,10 @@ pub struct BatchGetServicesResponse {
 }
 
 impl BatchGetServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [services][crate::model::BatchGetServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where

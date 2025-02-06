@@ -90,6 +90,10 @@ pub struct Insight {
 }
 
 impl Insight {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Insight::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -217,6 +221,10 @@ pub mod insight {
     }
 
     impl RecommendationReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [recommendation][crate::model::insight::RecommendationReference::recommendation].
         pub fn set_recommendation<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -339,6 +347,10 @@ pub struct InsightStateInfo {
 }
 
 impl InsightStateInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::InsightStateInfo::state].
     pub fn set_state<T: std::convert::Into<crate::model::insight_state_info::State>>(
         mut self,
@@ -469,6 +481,10 @@ pub struct InsightTypeConfig {
 }
 
 impl InsightTypeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InsightTypeConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -547,6 +563,10 @@ pub struct InsightTypeGenerationConfig {
 }
 
 impl InsightTypeGenerationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [params][crate::model::InsightTypeGenerationConfig::params].
     pub fn set_params<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -636,6 +656,10 @@ pub struct Recommendation {
 }
 
 impl Recommendation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Recommendation::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -765,6 +789,10 @@ pub mod recommendation {
     }
 
     impl InsightReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [insight][crate::model::recommendation::InsightReference::insight].
         pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.insight = v.into();
@@ -839,6 +867,10 @@ pub struct RecommendationContent {
 }
 
 impl RecommendationContent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [overview][crate::model::RecommendationContent::overview].
     pub fn set_overview<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -879,6 +911,10 @@ pub struct OperationGroup {
 }
 
 impl OperationGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [operations][crate::model::OperationGroup::operations].
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
@@ -1000,6 +1036,10 @@ pub struct Operation {
 }
 
 impl Operation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [action][crate::model::Operation::action].
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
@@ -1159,6 +1199,10 @@ pub struct ValueMatcher {
 }
 
 impl ValueMatcher {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `match_variant`.
     pub fn set_match_variant<
         T: std::convert::Into<std::option::Option<crate::model::value_matcher::MatchVariant>>,
@@ -1243,6 +1287,10 @@ pub struct CostProjection {
 }
 
 impl CostProjection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cost][crate::model::CostProjection::cost].
     pub fn set_cost<T: std::convert::Into<std::option::Option<gtype::model::Money>>>(
         mut self,
@@ -1291,6 +1339,10 @@ pub struct SecurityProjection {
 }
 
 impl SecurityProjection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [details][crate::model::SecurityProjection::details].
     pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -1325,6 +1377,10 @@ pub struct SustainabilityProjection {
 }
 
 impl SustainabilityProjection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [kg_c_o2e][crate::model::SustainabilityProjection::kg_c_o2e].
     pub fn set_kg_c_o2e<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.kg_c_o2e = v.into();
@@ -1363,6 +1419,10 @@ pub struct ReliabilityProjection {
 }
 
 impl ReliabilityProjection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [details][crate::model::ReliabilityProjection::details].
     pub fn set_details<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -1451,6 +1511,10 @@ pub struct Impact {
 }
 
 impl Impact {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [category][crate::model::Impact::category].
     pub fn set_category<T: std::convert::Into<crate::model::impact::Category>>(
         mut self,
@@ -1685,6 +1749,10 @@ pub struct RecommendationStateInfo {
 }
 
 impl RecommendationStateInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::RecommendationStateInfo::state].
     pub fn set_state<T: std::convert::Into<crate::model::recommendation_state_info::State>>(
         mut self,
@@ -1830,6 +1898,10 @@ pub struct RecommenderConfig {
 }
 
 impl RecommenderConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RecommenderConfig::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1908,6 +1980,10 @@ pub struct RecommenderGenerationConfig {
 }
 
 impl RecommenderGenerationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [params][crate::model::RecommenderGenerationConfig::params].
     pub fn set_params<T: std::convert::Into<std::option::Option<wkt::Struct>>>(
         mut self,
@@ -1998,6 +2074,10 @@ pub struct ListInsightsRequest {
 }
 
 impl ListInsightsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListInsightsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2046,6 +2126,10 @@ pub struct ListInsightsResponse {
 }
 
 impl ListInsightsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListInsightsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2095,6 +2179,10 @@ pub struct GetInsightRequest {
 }
 
 impl GetInsightRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetInsightRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2129,6 +2217,10 @@ pub struct MarkInsightAcceptedRequest {
 }
 
 impl MarkInsightAcceptedRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2234,6 +2326,10 @@ pub struct ListRecommendationsRequest {
 }
 
 impl ListRecommendationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRecommendationsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2282,6 +2378,10 @@ pub struct ListRecommendationsResponse {
 }
 
 impl ListRecommendationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRecommendationsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2331,6 +2431,10 @@ pub struct GetRecommendationRequest {
 }
 
 impl GetRecommendationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2360,6 +2464,10 @@ pub struct MarkRecommendationDismissedRequest {
 }
 
 impl MarkRecommendationDismissedRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2402,6 +2510,10 @@ pub struct MarkRecommendationClaimedRequest {
 }
 
 impl MarkRecommendationClaimedRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2456,6 +2568,10 @@ pub struct MarkRecommendationSucceededRequest {
 }
 
 impl MarkRecommendationSucceededRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2510,6 +2626,10 @@ pub struct MarkRecommendationFailedRequest {
 }
 
 impl MarkRecommendationFailedRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2564,6 +2684,10 @@ pub struct GetRecommenderConfigRequest {
 }
 
 impl GetRecommenderConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2597,6 +2721,10 @@ pub struct UpdateRecommenderConfigRequest {
 }
 
 impl UpdateRecommenderConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
     pub fn set_recommender_config<
         T: std::convert::Into<std::option::Option<crate::model::RecommenderConfig>>,
@@ -2653,6 +2781,10 @@ pub struct GetInsightTypeConfigRequest {
 }
 
 impl GetInsightTypeConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2686,6 +2818,10 @@ pub struct UpdateInsightTypeConfigRequest {
 }
 
 impl UpdateInsightTypeConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
     pub fn set_insight_type_config<
         T: std::convert::Into<std::option::Option<crate::model::InsightTypeConfig>>,

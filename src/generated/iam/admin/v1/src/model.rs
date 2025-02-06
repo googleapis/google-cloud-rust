@@ -45,6 +45,10 @@ pub struct AuditData {
 }
 
 impl AuditData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [permission_delta][crate::model::AuditData::permission_delta].
     pub fn set_permission_delta<
         T: std::convert::Into<std::option::Option<crate::model::audit_data::PermissionDelta>>,
@@ -85,6 +89,10 @@ pub mod audit_data {
     }
 
     impl PermissionDelta {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [added_permissions][crate::model::audit_data::PermissionDelta::added_permissions].
         pub fn set_added_permissions<T, V>(mut self, v: T) -> Self
         where
@@ -194,6 +202,10 @@ pub struct ServiceAccount {
 }
 
 impl ServiceAccount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ServiceAccount::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -286,6 +298,10 @@ pub struct CreateServiceAccountRequest {
 }
 
 impl CreateServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -346,6 +362,10 @@ pub struct ListServiceAccountsRequest {
 }
 
 impl ListServiceAccountsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListServiceAccountsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -391,6 +411,10 @@ pub struct ListServiceAccountsResponse {
 }
 
 impl ListServiceAccountsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListServiceAccountsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -444,6 +468,10 @@ pub struct GetServiceAccountRequest {
 }
 
 impl GetServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -473,6 +501,10 @@ pub struct DeleteServiceAccountRequest {
 }
 
 impl DeleteServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -506,6 +538,10 @@ pub struct PatchServiceAccountRequest {
 }
 
 impl PatchServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account][crate::model::PatchServiceAccountRequest::service_account].
     pub fn set_service_account<
         T: std::convert::Into<std::option::Option<crate::model::ServiceAccount>>,
@@ -548,6 +584,10 @@ pub struct UndeleteServiceAccountRequest {
 }
 
 impl UndeleteServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -572,6 +612,10 @@ pub struct UndeleteServiceAccountResponse {
 }
 
 impl UndeleteServiceAccountResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [restored_account][crate::model::UndeleteServiceAccountResponse::restored_account].
     pub fn set_restored_account<
         T: std::convert::Into<std::option::Option<crate::model::ServiceAccount>>,
@@ -606,6 +650,10 @@ pub struct EnableServiceAccountRequest {
 }
 
 impl EnableServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnableServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -635,6 +683,10 @@ pub struct DisableServiceAccountRequest {
 }
 
 impl DisableServiceAccountRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DisableServiceAccountRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -671,6 +723,10 @@ pub struct ListServiceAccountKeysRequest {
 }
 
 impl ListServiceAccountKeysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListServiceAccountKeysRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -751,6 +807,10 @@ pub struct ListServiceAccountKeysResponse {
 }
 
 impl ListServiceAccountKeysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [keys][crate::model::ListServiceAccountKeysResponse::keys].
     pub fn set_keys<T, V>(mut self, v: T) -> Self
     where
@@ -790,6 +850,10 @@ pub struct GetServiceAccountKeyRequest {
 }
 
 impl GetServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -895,6 +959,10 @@ pub struct ServiceAccountKey {
 }
 
 impl ServiceAccountKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ServiceAccountKey::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1010,6 +1078,10 @@ pub struct CreateServiceAccountKeyRequest {
 }
 
 impl CreateServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::CreateServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1067,6 +1139,10 @@ pub struct UploadServiceAccountKeyRequest {
 }
 
 impl UploadServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UploadServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1102,6 +1178,10 @@ pub struct DeleteServiceAccountKeyRequest {
 }
 
 impl DeleteServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1132,6 +1212,10 @@ pub struct DisableServiceAccountKeyRequest {
 }
 
 impl DisableServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DisableServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1162,6 +1246,10 @@ pub struct EnableServiceAccountKeyRequest {
 }
 
 impl EnableServiceAccountKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EnableServiceAccountKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1205,6 +1293,10 @@ pub struct SignBlobRequest {
 }
 
 impl SignBlobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SignBlobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1250,6 +1342,10 @@ pub struct SignBlobResponse {
 }
 
 impl SignBlobResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key_id][crate::model::SignBlobResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -1307,6 +1403,10 @@ pub struct SignJwtRequest {
 }
 
 impl SignJwtRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SignJwtRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1351,6 +1451,10 @@ pub struct SignJwtResponse {
 }
 
 impl SignJwtResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key_id][crate::model::SignJwtResponse::key_id].
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
@@ -1415,6 +1519,10 @@ pub struct Role {
 }
 
 impl Role {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Role::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1554,6 +1662,10 @@ pub struct QueryGrantableRolesRequest {
 }
 
 impl QueryGrantableRolesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [full_resource_name][crate::model::QueryGrantableRolesRequest::full_resource_name].
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1605,6 +1717,10 @@ pub struct QueryGrantableRolesResponse {
 }
 
 impl QueryGrantableRolesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::QueryGrantableRolesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1702,6 +1818,10 @@ pub struct ListRolesRequest {
 }
 
 impl ListRolesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRolesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1756,6 +1876,10 @@ pub struct ListRolesResponse {
 }
 
 impl ListRolesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRolesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1836,6 +1960,10 @@ pub struct GetRoleRequest {
 }
 
 impl GetRoleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetRoleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1896,6 +2024,10 @@ pub struct CreateRoleRequest {
 }
 
 impl CreateRoleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateRoleRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1967,6 +2099,10 @@ pub struct UpdateRoleRequest {
 }
 
 impl UpdateRoleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateRoleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2038,6 +2174,10 @@ pub struct DeleteRoleRequest {
 }
 
 impl DeleteRoleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteRoleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2097,6 +2237,10 @@ pub struct UndeleteRoleRequest {
 }
 
 impl UndeleteRoleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UndeleteRoleRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2153,6 +2297,10 @@ pub struct Permission {
 }
 
 impl Permission {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Permission::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2328,6 +2476,10 @@ pub struct QueryTestablePermissionsRequest {
 }
 
 impl QueryTestablePermissionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [full_resource_name][crate::model::QueryTestablePermissionsRequest::full_resource_name].
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2373,6 +2525,10 @@ pub struct QueryTestablePermissionsResponse {
 }
 
 impl QueryTestablePermissionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::QueryTestablePermissionsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2427,6 +2583,10 @@ pub struct QueryAuditableServicesRequest {
 }
 
 impl QueryAuditableServicesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [full_resource_name][crate::model::QueryAuditableServicesRequest::full_resource_name].
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2455,6 +2615,10 @@ pub struct QueryAuditableServicesResponse {
 }
 
 impl QueryAuditableServicesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [services][crate::model::QueryAuditableServicesResponse::services].
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
@@ -2491,6 +2655,10 @@ pub mod query_auditable_services_response {
     }
 
     impl AuditableService {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::query_auditable_services_response::AuditableService::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -2529,6 +2697,10 @@ pub struct LintPolicyRequest {
 }
 
 impl LintPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [full_resource_name][crate::model::LintPolicyRequest::full_resource_name].
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -2637,6 +2809,10 @@ pub struct LintResult {
 }
 
 impl LintResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [level][crate::model::LintResult::level].
     pub fn set_level<T: std::convert::Into<crate::model::lint_result::Level>>(
         mut self,
@@ -2803,6 +2979,10 @@ pub struct LintPolicyResponse {
 }
 
 impl LintPolicyResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [lint_results][crate::model::LintPolicyResponse::lint_results].
     pub fn set_lint_results<T, V>(mut self, v: T) -> Self
     where

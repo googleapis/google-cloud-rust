@@ -145,6 +145,10 @@ pub struct Workflow {
 }
 
 impl Workflow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Workflow::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -313,6 +317,10 @@ pub mod workflow {
     }
 
     impl StateError {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [details][crate::model::workflow::StateError::details].
         pub fn set_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.details = v.into();
@@ -506,6 +514,10 @@ pub struct ListWorkflowsRequest {
 }
 
 impl ListWorkflowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -568,6 +580,10 @@ pub struct ListWorkflowsResponse {
 }
 
 impl ListWorkflowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -640,6 +656,10 @@ pub struct GetWorkflowRequest {
 }
 
 impl GetWorkflowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -691,6 +711,10 @@ pub struct CreateWorkflowRequest {
 }
 
 impl CreateWorkflowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -736,6 +760,10 @@ pub struct DeleteWorkflowRequest {
 }
 
 impl DeleteWorkflowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -770,6 +798,10 @@ pub struct UpdateWorkflowRequest {
 }
 
 impl UpdateWorkflowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
     pub fn set_workflow<T: std::convert::Into<std::option::Option<crate::model::Workflow>>>(
         mut self,
@@ -823,6 +855,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,

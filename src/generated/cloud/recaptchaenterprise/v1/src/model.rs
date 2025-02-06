@@ -47,6 +47,10 @@ pub struct CreateAssessmentRequest {
 }
 
 impl CreateAssessmentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateAssessmentRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -96,6 +100,10 @@ pub struct TransactionEvent {
 }
 
 impl TransactionEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [event_type][crate::model::TransactionEvent::event_type].
     pub fn set_event_type<
         T: std::convert::Into<crate::model::transaction_event::TransactionEventType>,
@@ -317,6 +325,10 @@ pub struct AnnotateAssessmentRequest {
 }
 
 impl AnnotateAssessmentRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AnnotateAssessmentRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -523,7 +535,11 @@ pub mod annotate_assessment_request {
 #[non_exhaustive]
 pub struct AnnotateAssessmentResponse {}
 
-impl AnnotateAssessmentResponse {}
+impl AnnotateAssessmentResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AnnotateAssessmentResponse {
     fn typename() -> &'static str {
@@ -552,6 +568,10 @@ pub struct EndpointVerificationInfo {
 }
 
 impl EndpointVerificationInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [request_token][crate::model::EndpointVerificationInfo::request_token].
     pub fn set_request_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_token = v.into();
@@ -679,6 +699,10 @@ pub struct AccountVerificationInfo {
 }
 
 impl AccountVerificationInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [language_code][crate::model::AccountVerificationInfo::language_code].
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
@@ -832,6 +856,10 @@ pub struct PrivatePasswordLeakVerification {
 }
 
 impl PrivatePasswordLeakVerification {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [lookup_hash_prefix][crate::model::PrivatePasswordLeakVerification::lookup_hash_prefix].
     pub fn set_lookup_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.lookup_hash_prefix = v.into();
@@ -943,6 +971,10 @@ pub struct Assessment {
 }
 
 impl Assessment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Assessment::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1158,6 +1190,10 @@ pub struct Event {
 }
 
 impl Event {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [token][crate::model::Event::token].
     pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.token = v.into();
@@ -1391,6 +1427,10 @@ pub struct TransactionData {
 }
 
 impl TransactionData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transaction_id][crate::model::TransactionData::transaction_id].
     pub fn set_transaction_id<T: std::convert::Into<std::option::Option<std::string::String>>>(
         mut self,
@@ -1550,6 +1590,10 @@ pub mod transaction_data {
     }
 
     impl Address {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [recipient][crate::model::transaction_data::Address::recipient].
         pub fn set_recipient<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.recipient = v.into();
@@ -1635,6 +1679,10 @@ pub mod transaction_data {
     }
 
     impl User {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [account_id][crate::model::transaction_data::User::account_id].
         pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.account_id = v.into();
@@ -1706,6 +1754,10 @@ pub mod transaction_data {
     }
 
     impl Item {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::transaction_data::Item::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -1767,6 +1819,10 @@ pub mod transaction_data {
     }
 
     impl GatewayInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::transaction_data::GatewayInfo::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -1834,6 +1890,10 @@ pub struct UserInfo {
 }
 
 impl UserInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_account_time][crate::model::UserInfo::create_account_time].
     pub fn set_create_account_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -1878,6 +1938,10 @@ pub struct UserId {
 }
 
 impl UserId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `id_oneof`.
     pub fn set_id_oneof<
         T: std::convert::Into<std::option::Option<crate::model::user_id::IdOneof>>,
@@ -2007,6 +2071,10 @@ pub struct RiskAnalysis {
 }
 
 impl RiskAnalysis {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [score][crate::model::RiskAnalysis::score].
     pub fn set_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.score = v.into();
@@ -2198,6 +2266,10 @@ pub struct TokenProperties {
 }
 
 impl TokenProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [valid][crate::model::TokenProperties::valid].
     pub fn set_valid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.valid = v.into();
@@ -2345,6 +2417,10 @@ pub struct FraudPreventionAssessment {
 }
 
 impl FraudPreventionAssessment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [transaction_risk][crate::model::FraudPreventionAssessment::transaction_risk].
     pub fn set_transaction_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.transaction_risk = v.into();
@@ -2415,6 +2491,10 @@ pub mod fraud_prevention_assessment {
     }
 
     impl StolenInstrumentVerdict {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [risk][crate::model::fraud_prevention_assessment::StolenInstrumentVerdict::risk].
         pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.risk = v.into();
@@ -2441,6 +2521,10 @@ pub mod fraud_prevention_assessment {
     }
 
     impl CardTestingVerdict {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [risk][crate::model::fraud_prevention_assessment::CardTestingVerdict::risk].
         pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.risk = v.into();
@@ -2467,6 +2551,10 @@ pub mod fraud_prevention_assessment {
     }
 
     impl BehavioralTrustVerdict {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [trust][crate::model::fraud_prevention_assessment::BehavioralTrustVerdict::trust].
         pub fn set_trust<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
             self.trust = v.into();
@@ -2498,6 +2586,10 @@ pub struct FraudSignals {
 }
 
 impl FraudSignals {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [user_signals][crate::model::FraudSignals::user_signals].
     pub fn set_user_signals<
         T: std::convert::Into<std::option::Option<crate::model::fraud_signals::UserSignals>>,
@@ -2549,6 +2641,10 @@ pub mod fraud_signals {
     }
 
     impl UserSignals {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [active_days_lower_bound][crate::model::fraud_signals::UserSignals::active_days_lower_bound].
         pub fn set_active_days_lower_bound<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.active_days_lower_bound = v.into();
@@ -2580,6 +2676,10 @@ pub mod fraud_signals {
     }
 
     impl CardSignals {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [card_labels][crate::model::fraud_signals::CardSignals::card_labels].
         pub fn set_card_labels<T, V>(mut self, v: T) -> Self
         where
@@ -2663,6 +2763,10 @@ pub struct SmsTollFraudVerdict {
 }
 
 impl SmsTollFraudVerdict {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [risk][crate::model::SmsTollFraudVerdict::risk].
     pub fn set_risk<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.risk = v.into();
@@ -2740,6 +2844,10 @@ pub struct PhoneFraudAssessment {
 }
 
 impl PhoneFraudAssessment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [sms_toll_fraud_verdict][crate::model::PhoneFraudAssessment::sms_toll_fraud_verdict].
     pub fn set_sms_toll_fraud_verdict<
         T: std::convert::Into<std::option::Option<crate::model::SmsTollFraudVerdict>>,
@@ -2770,6 +2878,10 @@ pub struct AccountDefenderAssessment {
 }
 
 impl AccountDefenderAssessment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [labels][crate::model::AccountDefenderAssessment::labels].
     pub fn set_labels<T, V>(mut self, v: T) -> Self
     where
@@ -2861,6 +2973,10 @@ pub struct CreateKeyRequest {
 }
 
 impl CreateKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2905,6 +3021,10 @@ pub struct ListKeysRequest {
 }
 
 impl ListKeysRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2947,6 +3067,10 @@ pub struct ListKeysResponse {
 }
 
 impl ListKeysResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListKeysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -2997,6 +3121,10 @@ pub struct RetrieveLegacySecretKeyRequest {
 }
 
 impl RetrieveLegacySecretKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::RetrieveLegacySecretKeyRequest::key].
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
@@ -3023,6 +3151,10 @@ pub struct GetKeyRequest {
 }
 
 impl GetKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3053,6 +3185,10 @@ pub struct UpdateKeyRequest {
 }
 
 impl UpdateKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
     pub fn set_key<T: std::convert::Into<std::option::Option<crate::model::Key>>>(
         mut self,
@@ -3091,6 +3227,10 @@ pub struct DeleteKeyRequest {
 }
 
 impl DeleteKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3121,6 +3261,10 @@ pub struct CreateFirewallPolicyRequest {
 }
 
 impl CreateFirewallPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateFirewallPolicyRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3167,6 +3311,10 @@ pub struct ListFirewallPoliciesRequest {
 }
 
 impl ListFirewallPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3209,6 +3357,10 @@ pub struct ListFirewallPoliciesResponse {
 }
 
 impl ListFirewallPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListFirewallPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3259,6 +3411,10 @@ pub struct GetFirewallPolicyRequest {
 }
 
 impl GetFirewallPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetFirewallPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3289,6 +3445,10 @@ pub struct UpdateFirewallPolicyRequest {
 }
 
 impl UpdateFirewallPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
     pub fn set_firewall_policy<
         T: std::convert::Into<std::option::Option<crate::model::FirewallPolicy>>,
@@ -3329,6 +3489,10 @@ pub struct DeleteFirewallPolicyRequest {
 }
 
 impl DeleteFirewallPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteFirewallPolicyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3360,6 +3524,10 @@ pub struct ReorderFirewallPoliciesRequest {
 }
 
 impl ReorderFirewallPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ReorderFirewallPoliciesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3391,7 +3559,11 @@ impl wkt::message::Message for ReorderFirewallPoliciesRequest {
 #[non_exhaustive]
 pub struct ReorderFirewallPoliciesResponse {}
 
-impl ReorderFirewallPoliciesResponse {}
+impl ReorderFirewallPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ReorderFirewallPoliciesResponse {
     fn typename() -> &'static str {
@@ -3422,6 +3594,10 @@ pub struct MigrateKeyRequest {
 }
 
 impl MigrateKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MigrateKeyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3454,6 +3630,10 @@ pub struct GetMetricsRequest {
 }
 
 impl GetMetricsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetMetricsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3495,6 +3675,10 @@ pub struct Metrics {
 }
 
 impl Metrics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Metrics::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3555,6 +3739,10 @@ pub struct RetrieveLegacySecretKeyResponse {
 }
 
 impl RetrieveLegacySecretKeyResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [legacy_secret_key][crate::model::RetrieveLegacySecretKeyResponse::legacy_secret_key].
     pub fn set_legacy_secret_key<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3611,6 +3799,10 @@ pub struct Key {
 }
 
 impl Key {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Key::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3841,6 +4033,10 @@ pub struct TestingOptions {
 }
 
 impl TestingOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [testing_score][crate::model::TestingOptions::testing_score].
     pub fn set_testing_score<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.testing_score = v.into();
@@ -3943,6 +4139,10 @@ pub struct WebKeySettings {
 }
 
 impl WebKeySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [allow_all_domains][crate::model::WebKeySettings::allow_all_domains].
     pub fn set_allow_all_domains<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_domains = v.into();
@@ -4111,6 +4311,10 @@ pub struct AndroidKeySettings {
 }
 
 impl AndroidKeySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [allow_all_package_names][crate::model::AndroidKeySettings::allow_all_package_names].
     pub fn set_allow_all_package_names<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_package_names = v.into();
@@ -4168,6 +4372,10 @@ pub struct IOSKeySettings {
 }
 
 impl IOSKeySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [allow_all_bundle_ids][crate::model::IOSKeySettings::allow_all_bundle_ids].
     pub fn set_allow_all_bundle_ids<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_all_bundle_ids = v.into();
@@ -4210,7 +4418,11 @@ impl wkt::message::Message for IOSKeySettings {
 #[non_exhaustive]
 pub struct ExpressKeySettings {}
 
-impl ExpressKeySettings {}
+impl ExpressKeySettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for ExpressKeySettings {
     fn typename() -> &'static str {
@@ -4241,6 +4453,10 @@ pub struct AppleDeveloperId {
 }
 
 impl AppleDeveloperId {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [private_key][crate::model::AppleDeveloperId::private_key].
     pub fn set_private_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.private_key = v.into();
@@ -4281,6 +4497,10 @@ pub struct ScoreDistribution {
 }
 
 impl ScoreDistribution {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [score_buckets][crate::model::ScoreDistribution::score_buckets].
     pub fn set_score_buckets<T, K, V>(mut self, v: T) -> Self
     where
@@ -4318,6 +4538,10 @@ pub struct ScoreMetrics {
 }
 
 impl ScoreMetrics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [overall_metrics][crate::model::ScoreMetrics::overall_metrics].
     pub fn set_overall_metrics<
         T: std::convert::Into<std::option::Option<crate::model::ScoreDistribution>>,
@@ -4376,6 +4600,10 @@ pub struct ChallengeMetrics {
 }
 
 impl ChallengeMetrics {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [pageload_count][crate::model::ChallengeMetrics::pageload_count].
     pub fn set_pageload_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.pageload_count = v.into();
@@ -4426,6 +4654,10 @@ pub struct FirewallPolicyAssessment {
 }
 
 impl FirewallPolicyAssessment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [error][crate::model::FirewallPolicyAssessment::error].
     pub fn set_error<T: std::convert::Into<std::option::Option<rpc::model::Status>>>(
         mut self,
@@ -4466,6 +4698,10 @@ pub struct FirewallAction {
 }
 
 impl FirewallAction {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `firewall_action_oneof`.
     pub fn set_firewall_action_oneof<
         T: std::convert::Into<std::option::Option<crate::model::firewall_action::FirewallActionOneof>>,
@@ -4693,7 +4929,11 @@ pub mod firewall_action {
     #[non_exhaustive]
     pub struct AllowAction {}
 
-    impl AllowAction {}
+    impl AllowAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for AllowAction {
         fn typename() -> &'static str {
@@ -4709,7 +4949,11 @@ pub mod firewall_action {
     #[non_exhaustive]
     pub struct BlockAction {}
 
-    impl BlockAction {}
+    impl BlockAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for BlockAction {
         fn typename() -> &'static str {
@@ -4728,7 +4972,11 @@ pub mod firewall_action {
     #[non_exhaustive]
     pub struct IncludeRecaptchaScriptAction {}
 
-    impl IncludeRecaptchaScriptAction {}
+    impl IncludeRecaptchaScriptAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for IncludeRecaptchaScriptAction {
         fn typename() -> &'static str {
@@ -4744,7 +4992,11 @@ pub mod firewall_action {
     #[non_exhaustive]
     pub struct RedirectAction {}
 
-    impl RedirectAction {}
+    impl RedirectAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for RedirectAction {
         fn typename() -> &'static str {
@@ -4766,6 +5018,10 @@ pub mod firewall_action {
     }
 
     impl SubstituteAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [path][crate::model::firewall_action::SubstituteAction::path].
         pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.path = v.into();
@@ -4797,6 +5053,10 @@ pub mod firewall_action {
     }
 
     impl SetHeaderAction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key][crate::model::firewall_action::SetHeaderAction::key].
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
@@ -4891,6 +5151,10 @@ pub struct FirewallPolicy {
 }
 
 impl FirewallPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::FirewallPolicy::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4960,6 +5224,10 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
 }
 
 impl ListRelatedAccountGroupMembershipsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5003,6 +5271,10 @@ pub struct ListRelatedAccountGroupMembershipsResponse {
 }
 
 impl ListRelatedAccountGroupMembershipsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupMembershipsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5067,6 +5339,10 @@ pub struct ListRelatedAccountGroupsRequest {
 }
 
 impl ListRelatedAccountGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5109,6 +5385,10 @@ pub struct ListRelatedAccountGroupsResponse {
 }
 
 impl ListRelatedAccountGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListRelatedAccountGroupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5191,6 +5471,10 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
 }
 
 impl SearchRelatedAccountGroupMembershipsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
@@ -5246,6 +5530,10 @@ pub struct SearchRelatedAccountGroupMembershipsResponse {
 }
 
 impl SearchRelatedAccountGroupMembershipsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::SearchRelatedAccountGroupMembershipsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5300,6 +5588,10 @@ pub struct AddIpOverrideRequest {
 }
 
 impl AddIpOverrideRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AddIpOverrideRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5331,7 +5623,11 @@ impl wkt::message::Message for AddIpOverrideRequest {
 #[non_exhaustive]
 pub struct AddIpOverrideResponse {}
 
-impl AddIpOverrideResponse {}
+impl AddIpOverrideResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for AddIpOverrideResponse {
     fn typename() -> &'static str {
@@ -5356,6 +5652,10 @@ pub struct RemoveIpOverrideRequest {
 }
 
 impl RemoveIpOverrideRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RemoveIpOverrideRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5387,7 +5687,11 @@ impl wkt::message::Message for RemoveIpOverrideRequest {
 #[non_exhaustive]
 pub struct RemoveIpOverrideResponse {}
 
-impl RemoveIpOverrideResponse {}
+impl RemoveIpOverrideResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for RemoveIpOverrideResponse {
     fn typename() -> &'static str {
@@ -5419,6 +5723,10 @@ pub struct ListIpOverridesRequest {
 }
 
 impl ListIpOverridesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5461,6 +5769,10 @@ pub struct ListIpOverridesResponse {
 }
 
 impl ListIpOverridesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListIpOverridesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5525,6 +5837,10 @@ pub struct RelatedAccountGroupMembership {
 }
 
 impl RelatedAccountGroupMembership {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RelatedAccountGroupMembership::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5564,6 +5880,10 @@ pub struct RelatedAccountGroup {
 }
 
 impl RelatedAccountGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RelatedAccountGroup::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5592,6 +5912,10 @@ pub struct WafSettings {
 }
 
 impl WafSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [waf_service][crate::model::WafSettings::waf_service].
     pub fn set_waf_service<T: std::convert::Into<crate::model::waf_settings::WafService>>(
         mut self,
@@ -5734,6 +6058,10 @@ pub struct AssessmentEnvironment {
 }
 
 impl AssessmentEnvironment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [client][crate::model::AssessmentEnvironment::client].
     pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client = v.into();
@@ -5774,6 +6102,10 @@ pub struct IpOverrideData {
 }
 
 impl IpOverrideData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [ip][crate::model::IpOverrideData::ip].
     pub fn set_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip = v.into();

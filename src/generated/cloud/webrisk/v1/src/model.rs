@@ -58,6 +58,10 @@ pub struct ComputeThreatListDiffRequest {
 }
 
 impl ComputeThreatListDiffRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [threat_type][crate::model::ComputeThreatListDiffRequest::threat_type].
     pub fn set_threat_type<T: std::convert::Into<crate::model::ThreatType>>(
         mut self,
@@ -120,6 +124,10 @@ pub mod compute_threat_list_diff_request {
     }
 
     impl Constraints {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [max_diff_entries][crate::model::compute_threat_list_diff_request::Constraints::max_diff_entries].
         pub fn set_max_diff_entries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.max_diff_entries = v.into();
@@ -192,6 +200,10 @@ pub struct ComputeThreatListDiffResponse {
 }
 
 impl ComputeThreatListDiffResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [response_type][crate::model::ComputeThreatListDiffResponse::response_type].
     pub fn set_response_type<
         T: std::convert::Into<crate::model::compute_threat_list_diff_response::ResponseType>,
@@ -279,6 +291,10 @@ pub mod compute_threat_list_diff_response {
     }
 
     impl Checksum {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [sha256][crate::model::compute_threat_list_diff_response::Checksum::sha256].
         pub fn set_sha256<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.sha256 = v.into();
@@ -349,6 +365,10 @@ pub struct SearchUrisRequest {
 }
 
 impl SearchUrisRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::SearchUrisRequest::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -384,6 +404,10 @@ pub struct SearchUrisResponse {
 }
 
 impl SearchUrisResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [threat][crate::model::SearchUrisResponse::threat].
     pub fn set_threat<
         T: std::convert::Into<std::option::Option<crate::model::search_uris_response::ThreatUri>>,
@@ -424,6 +448,10 @@ pub mod search_uris_response {
     }
 
     impl ThreatUri {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [expire_time][crate::model::search_uris_response::ThreatUri::expire_time].
         pub fn set_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
             mut self,
@@ -473,6 +501,10 @@ pub struct SearchHashesRequest {
 }
 
 impl SearchHashesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [hash_prefix][crate::model::SearchHashesRequest::hash_prefix].
     pub fn set_hash_prefix<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.hash_prefix = v.into();
@@ -514,6 +546,10 @@ pub struct SearchHashesResponse {
 }
 
 impl SearchHashesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [negative_expire_time][crate::model::SearchHashesResponse::negative_expire_time].
     pub fn set_negative_expire_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -570,6 +606,10 @@ pub mod search_hashes_response {
     }
 
     impl ThreatHash {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [hash][crate::model::search_hashes_response::ThreatHash::hash].
         pub fn set_hash<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
             self.hash = v.into();
@@ -624,6 +664,10 @@ pub struct ThreatEntryAdditions {
 }
 
 impl ThreatEntryAdditions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [rice_hashes][crate::model::ThreatEntryAdditions::rice_hashes].
     pub fn set_rice_hashes<
         T: std::convert::Into<std::option::Option<crate::model::RiceDeltaEncoding>>,
@@ -672,6 +716,10 @@ pub struct ThreatEntryRemovals {
 }
 
 impl ThreatEntryRemovals {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [raw_indices][crate::model::ThreatEntryRemovals::raw_indices].
     pub fn set_raw_indices<T: std::convert::Into<std::option::Option<crate::model::RawIndices>>>(
         mut self,
@@ -711,6 +759,10 @@ pub struct RawIndices {
 }
 
 impl RawIndices {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [indices][crate::model::RawIndices::indices].
     pub fn set_indices<T, V>(mut self, v: T) -> Self
     where
@@ -756,6 +808,10 @@ pub struct RawHashes {
 }
 
 impl RawHashes {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [prefix_size][crate::model::RawHashes::prefix_size].
     pub fn set_prefix_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.prefix_size = v.into();
@@ -804,6 +860,10 @@ pub struct RiceDeltaEncoding {
 }
 
 impl RiceDeltaEncoding {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [first_value][crate::model::RiceDeltaEncoding::first_value].
     pub fn set_first_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.first_value = v.into();
@@ -854,6 +914,10 @@ pub struct Submission {
 }
 
 impl Submission {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::Submission::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -899,6 +963,10 @@ pub struct ThreatInfo {
 }
 
 impl ThreatInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [abuse_type][crate::model::ThreatInfo::abuse_type].
     pub fn set_abuse_type<T: std::convert::Into<crate::model::threat_info::AbuseType>>(
         mut self,
@@ -953,6 +1021,10 @@ pub mod threat_info {
     }
 
     impl Confidence {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of `value`.
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::threat_info::confidence::Value>>,
@@ -1103,6 +1175,10 @@ pub mod threat_info {
     }
 
     impl ThreatJustification {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [labels][crate::model::threat_info::ThreatJustification::labels].
         pub fn set_labels<T, V>(mut self, v: T) -> Self
         where
@@ -1238,6 +1314,10 @@ pub struct ThreatDiscovery {
 }
 
 impl ThreatDiscovery {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [platform][crate::model::ThreatDiscovery::platform].
     pub fn set_platform<T: std::convert::Into<crate::model::threat_discovery::Platform>>(
         mut self,
@@ -1330,6 +1410,10 @@ pub struct CreateSubmissionRequest {
 }
 
 impl CreateSubmissionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateSubmissionRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1377,6 +1461,10 @@ pub struct SubmitUriRequest {
 }
 
 impl SubmitUriRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1439,6 +1527,10 @@ pub struct SubmitUriMetadata {
 }
 
 impl SubmitUriMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::SubmitUriMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::submit_uri_metadata::State>>(
         mut self,

@@ -48,6 +48,10 @@ pub struct Vertex {
 }
 
 impl Vertex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [x][crate::model::Vertex::x].
     pub fn set_x<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -83,6 +87,10 @@ pub struct NormalizedVertex {
 }
 
 impl NormalizedVertex {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [x][crate::model::NormalizedVertex::x].
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -118,6 +126,10 @@ pub struct BoundingPoly {
 }
 
 impl BoundingPoly {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [vertices][crate::model::BoundingPoly::vertices].
     pub fn set_vertices<T, V>(mut self, v: T) -> Self
     where
@@ -166,6 +178,10 @@ pub struct Position {
 }
 
 impl Position {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [x][crate::model::Position::x].
     pub fn set_x<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.x = v.into();
@@ -216,6 +232,10 @@ pub struct Feature {
 }
 
 impl Feature {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::Feature::type].
     pub fn set_type<T: std::convert::Into<crate::model::feature::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -356,6 +376,10 @@ pub struct ImageSource {
 }
 
 impl ImageSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gcs_image_uri][crate::model::ImageSource::gcs_image_uri].
     pub fn set_gcs_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcs_image_uri = v.into();
@@ -399,6 +423,10 @@ pub struct Image {
 }
 
 impl Image {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [content][crate::model::Image::content].
     pub fn set_content<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
@@ -493,6 +521,10 @@ pub struct FaceAnnotation {
 }
 
 impl FaceAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bounding_poly][crate::model::FaceAnnotation::bounding_poly].
     pub fn set_bounding_poly<
         T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
@@ -647,6 +679,10 @@ pub mod face_annotation {
     }
 
     impl Landmark {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::face_annotation::Landmark::type].
         pub fn set_type<T: std::convert::Into<crate::model::face_annotation::landmark::Type>>(
             mut self,
@@ -833,6 +869,10 @@ pub struct LocationInfo {
 }
 
 impl LocationInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [lat_lng][crate::model::LocationInfo::lat_lng].
     pub fn set_lat_lng<T: std::convert::Into<std::option::Option<gtype::model::LatLng>>>(
         mut self,
@@ -869,6 +909,10 @@ pub struct Property {
 }
 
 impl Property {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Property::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -952,6 +996,10 @@ pub struct EntityAnnotation {
 }
 
 impl EntityAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mid][crate::model::EntityAnnotation::mid].
     pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mid = v.into();
@@ -1057,6 +1105,10 @@ pub struct LocalizedObjectAnnotation {
 }
 
 impl LocalizedObjectAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [mid][crate::model::LocalizedObjectAnnotation::mid].
     pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mid = v.into();
@@ -1133,6 +1185,10 @@ pub struct SafeSearchAnnotation {
 }
 
 impl SafeSearchAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [adult][crate::model::SafeSearchAnnotation::adult].
     pub fn set_adult<T: std::convert::Into<crate::model::Likelihood>>(mut self, v: T) -> Self {
         self.adult = v.into();
@@ -1186,6 +1242,10 @@ pub struct LatLongRect {
 }
 
 impl LatLongRect {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [min_lat_lng][crate::model::LatLongRect::min_lat_lng].
     pub fn set_min_lat_lng<T: std::convert::Into<std::option::Option<gtype::model::LatLng>>>(
         mut self,
@@ -1231,6 +1291,10 @@ pub struct ColorInfo {
 }
 
 impl ColorInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [color][crate::model::ColorInfo::color].
     pub fn set_color<T: std::convert::Into<std::option::Option<gtype::model::Color>>>(
         mut self,
@@ -1271,6 +1335,10 @@ pub struct DominantColorsAnnotation {
 }
 
 impl DominantColorsAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [colors][crate::model::DominantColorsAnnotation::colors].
     pub fn set_colors<T, V>(mut self, v: T) -> Self
     where
@@ -1301,6 +1369,10 @@ pub struct ImageProperties {
 }
 
 impl ImageProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dominant_colors][crate::model::ImageProperties::dominant_colors].
     pub fn set_dominant_colors<
         T: std::convert::Into<std::option::Option<crate::model::DominantColorsAnnotation>>,
@@ -1339,6 +1411,10 @@ pub struct CropHint {
 }
 
 impl CropHint {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bounding_poly][crate::model::CropHint::bounding_poly].
     pub fn set_bounding_poly<
         T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
@@ -1381,6 +1457,10 @@ pub struct CropHintsAnnotation {
 }
 
 impl CropHintsAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [crop_hints][crate::model::CropHintsAnnotation::crop_hints].
     pub fn set_crop_hints<T, V>(mut self, v: T) -> Self
     where
@@ -1416,6 +1496,10 @@ pub struct CropHintsParams {
 }
 
 impl CropHintsParams {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [aspect_ratios][crate::model::CropHintsParams::aspect_ratios].
     pub fn set_aspect_ratios<T, V>(mut self, v: T) -> Self
     where
@@ -1445,6 +1529,10 @@ pub struct WebDetectionParams {
 }
 
 impl WebDetectionParams {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [include_geo_results][crate::model::WebDetectionParams::include_geo_results].
     pub fn set_include_geo_results<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.include_geo_results = v.into();
@@ -1482,6 +1570,10 @@ pub struct TextDetectionParams {
 }
 
 impl TextDetectionParams {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [enable_text_detection_confidence_score][crate::model::TextDetectionParams::enable_text_detection_confidence_score].
     pub fn set_enable_text_detection_confidence_score<T: std::convert::Into<bool>>(
         mut self,
@@ -1548,6 +1640,10 @@ pub struct ImageContext {
 }
 
 impl ImageContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [lat_long_rect][crate::model::ImageContext::lat_long_rect].
     pub fn set_lat_long_rect<
         T: std::convert::Into<std::option::Option<crate::model::LatLongRect>>,
@@ -1642,6 +1738,10 @@ pub struct AnnotateImageRequest {
 }
 
 impl AnnotateImageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [image][crate::model::AnnotateImageRequest::image].
     pub fn set_image<T: std::convert::Into<std::option::Option<crate::model::Image>>>(
         mut self,
@@ -1697,6 +1797,10 @@ pub struct ImageAnnotationContext {
 }
 
 impl ImageAnnotationContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::ImageAnnotationContext::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -1787,6 +1891,10 @@ pub struct AnnotateImageResponse {
 }
 
 impl AnnotateImageResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [full_text_annotation][crate::model::AnnotateImageResponse::full_text_annotation].
     pub fn set_full_text_annotation<
         T: std::convert::Into<std::option::Option<crate::model::TextAnnotation>>,
@@ -1982,6 +2090,10 @@ pub struct BatchAnnotateImagesRequest {
 }
 
 impl BatchAnnotateImagesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::BatchAnnotateImagesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2030,6 +2142,10 @@ pub struct BatchAnnotateImagesResponse {
 }
 
 impl BatchAnnotateImagesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [responses][crate::model::BatchAnnotateImagesResponse::responses].
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
@@ -2085,6 +2201,10 @@ pub struct AnnotateFileRequest {
 }
 
 impl AnnotateFileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_config][crate::model::AnnotateFileRequest::input_config].
     pub fn set_input_config<
         T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
@@ -2162,6 +2282,10 @@ pub struct AnnotateFileResponse {
 }
 
 impl AnnotateFileResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_config][crate::model::AnnotateFileResponse::input_config].
     pub fn set_input_config<
         T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
@@ -2243,6 +2367,10 @@ pub struct BatchAnnotateFilesRequest {
 }
 
 impl BatchAnnotateFilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::BatchAnnotateFilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2292,6 +2420,10 @@ pub struct BatchAnnotateFilesResponse {
 }
 
 impl BatchAnnotateFilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [responses][crate::model::BatchAnnotateFilesResponse::responses].
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
@@ -2334,6 +2466,10 @@ pub struct AsyncAnnotateFileRequest {
 }
 
 impl AsyncAnnotateFileRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [input_config][crate::model::AsyncAnnotateFileRequest::input_config].
     pub fn set_input_config<
         T: std::convert::Into<std::option::Option<crate::model::InputConfig>>,
@@ -2397,6 +2533,10 @@ pub struct AsyncAnnotateFileResponse {
 }
 
 impl AsyncAnnotateFileResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_config][crate::model::AsyncAnnotateFileResponse::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
@@ -2455,6 +2595,10 @@ pub struct AsyncBatchAnnotateImagesRequest {
 }
 
 impl AsyncBatchAnnotateImagesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesRequest::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
@@ -2514,6 +2658,10 @@ pub struct AsyncBatchAnnotateImagesResponse {
 }
 
 impl AsyncBatchAnnotateImagesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [output_config][crate::model::AsyncBatchAnnotateImagesResponse::output_config].
     pub fn set_output_config<
         T: std::convert::Into<std::option::Option<crate::model::OutputConfig>>,
@@ -2569,6 +2717,10 @@ pub struct AsyncBatchAnnotateFilesRequest {
 }
 
 impl AsyncBatchAnnotateFilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::AsyncBatchAnnotateFilesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -2618,6 +2770,10 @@ pub struct AsyncBatchAnnotateFilesResponse {
 }
 
 impl AsyncBatchAnnotateFilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [responses][crate::model::AsyncBatchAnnotateFilesResponse::responses].
     pub fn set_responses<T, V>(mut self, v: T) -> Self
     where
@@ -2663,6 +2819,10 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gcs_source][crate::model::InputConfig::gcs_source].
     pub fn set_gcs_source<T: std::convert::Into<std::option::Option<crate::model::GcsSource>>>(
         mut self,
@@ -2716,6 +2876,10 @@ pub struct OutputConfig {
 }
 
 impl OutputConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [gcs_destination][crate::model::OutputConfig::gcs_destination].
     pub fn set_gcs_destination<
         T: std::convert::Into<std::option::Option<crate::model::GcsDestination>>,
@@ -2753,6 +2917,10 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::GcsSource::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -2800,6 +2968,10 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::GcsDestination::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -2832,6 +3004,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::OperationMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,
@@ -2958,6 +3134,10 @@ pub struct ProductSearchParams {
 }
 
 impl ProductSearchParams {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bounding_poly][crate::model::ProductSearchParams::bounding_poly].
     pub fn set_bounding_poly<
         T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
@@ -3024,6 +3204,10 @@ pub struct ProductSearchResults {
 }
 
 impl ProductSearchResults {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [index_time][crate::model::ProductSearchResults::index_time].
     pub fn set_index_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -3088,6 +3272,10 @@ pub mod product_search_results {
     }
 
     impl Result {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [product][crate::model::product_search_results::Result::product].
         pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
             mut self,
@@ -3141,6 +3329,10 @@ pub mod product_search_results {
     }
 
     impl ObjectAnnotation {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [mid][crate::model::product_search_results::ObjectAnnotation::mid].
         pub fn set_mid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.mid = v.into();
@@ -3197,6 +3389,10 @@ pub mod product_search_results {
     }
 
     impl GroupedResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [bounding_poly][crate::model::product_search_results::GroupedResult::bounding_poly].
         pub fn set_bounding_poly<
             T: std::convert::Into<std::option::Option<crate::model::BoundingPoly>>,
@@ -3289,6 +3485,10 @@ pub struct Product {
 }
 
 impl Product {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Product::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3357,6 +3557,10 @@ pub mod product {
     }
 
     impl KeyValue {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [key][crate::model::product::KeyValue::key].
         pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.key = v.into();
@@ -3417,6 +3621,10 @@ pub struct ProductSet {
 }
 
 impl ProductSet {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ProductSet::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3489,6 +3697,10 @@ pub struct ReferenceImage {
 }
 
 impl ReferenceImage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ReferenceImage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3545,6 +3757,10 @@ pub struct CreateProductRequest {
 }
 
 impl CreateProductRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateProductRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3595,6 +3811,10 @@ pub struct ListProductsRequest {
 }
 
 impl ListProductsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListProductsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3637,6 +3857,10 @@ pub struct ListProductsResponse {
 }
 
 impl ListProductsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProductsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3689,6 +3913,10 @@ pub struct GetProductRequest {
 }
 
 impl GetProductRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetProductRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3725,6 +3953,10 @@ pub struct UpdateProductRequest {
 }
 
 impl UpdateProductRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [product][crate::model::UpdateProductRequest::product].
     pub fn set_product<T: std::convert::Into<std::option::Option<crate::model::Product>>>(
         mut self,
@@ -3765,6 +3997,10 @@ pub struct DeleteProductRequest {
 }
 
 impl DeleteProductRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteProductRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3803,6 +4039,10 @@ pub struct CreateProductSetRequest {
 }
 
 impl CreateProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateProductSetRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3852,6 +4092,10 @@ pub struct ListProductSetsRequest {
 }
 
 impl ListProductSetsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListProductSetsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -3894,6 +4138,10 @@ pub struct ListProductSetsResponse {
 }
 
 impl ListProductSetsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProductSetsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -3946,6 +4194,10 @@ pub struct GetProductSetRequest {
 }
 
 impl GetProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetProductSetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -3980,6 +4232,10 @@ pub struct UpdateProductSetRequest {
 }
 
 impl UpdateProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [product_set][crate::model::UpdateProductSetRequest::product_set].
     pub fn set_product_set<T: std::convert::Into<std::option::Option<crate::model::ProductSet>>>(
         mut self,
@@ -4020,6 +4276,10 @@ pub struct DeleteProductSetRequest {
 }
 
 impl DeleteProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteProductSetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4061,6 +4321,10 @@ pub struct CreateReferenceImageRequest {
 }
 
 impl CreateReferenceImageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateReferenceImageRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4119,6 +4383,10 @@ pub struct ListReferenceImagesRequest {
 }
 
 impl ListReferenceImagesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListReferenceImagesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4163,6 +4431,10 @@ pub struct ListReferenceImagesResponse {
 }
 
 impl ListReferenceImagesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [page_size][crate::model::ListReferenceImagesResponse::page_size].
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
@@ -4221,6 +4493,10 @@ pub struct GetReferenceImageRequest {
 }
 
 impl GetReferenceImageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetReferenceImageRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4249,6 +4525,10 @@ pub struct DeleteReferenceImageRequest {
 }
 
 impl DeleteReferenceImageRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteReferenceImageRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4284,6 +4564,10 @@ pub struct AddProductToProductSetRequest {
 }
 
 impl AddProductToProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AddProductToProductSetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4326,6 +4610,10 @@ pub struct RemoveProductFromProductSetRequest {
 }
 
 impl RemoveProductFromProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RemoveProductFromProductSetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4367,6 +4655,10 @@ pub struct ListProductsInProductSetRequest {
 }
 
 impl ListProductsInProductSetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ListProductsInProductSetRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4409,6 +4701,10 @@ pub struct ListProductsInProductSetResponse {
 }
 
 impl ListProductsInProductSetResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListProductsInProductSetResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4527,6 +4823,10 @@ pub struct ImportProductSetsGcsSource {
 }
 
 impl ImportProductSetsGcsSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [csv_file_uri][crate::model::ImportProductSetsGcsSource::csv_file_uri].
     pub fn set_csv_file_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.csv_file_uri = v.into();
@@ -4552,6 +4852,10 @@ pub struct ImportProductSetsInputConfig {
 }
 
 impl ImportProductSetsInputConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `source`.
     pub fn set_source<
         T: std::convert::Into<
@@ -4638,6 +4942,10 @@ pub struct ImportProductSetsRequest {
 }
 
 impl ImportProductSetsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ImportProductSetsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4691,6 +4999,10 @@ pub struct ImportProductSetsResponse {
 }
 
 impl ImportProductSetsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [reference_images][crate::model::ImportProductSetsResponse::reference_images].
     pub fn set_reference_images<T, V>(mut self, v: T) -> Self
     where
@@ -4746,6 +5058,10 @@ pub struct BatchOperationMetadata {
 }
 
 impl BatchOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::BatchOperationMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::batch_operation_metadata::State>>(
         mut self,
@@ -4845,6 +5161,10 @@ pub struct ProductSetPurgeConfig {
 }
 
 impl ProductSetPurgeConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [product_set_id][crate::model::ProductSetPurgeConfig::product_set_id].
     pub fn set_product_set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.product_set_id = v.into();
@@ -4880,6 +5200,10 @@ pub struct PurgeProductsRequest {
 }
 
 impl PurgeProductsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::PurgeProductsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5010,6 +5334,10 @@ pub struct TextAnnotation {
 }
 
 impl TextAnnotation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [text][crate::model::TextAnnotation::text].
     pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.text = v.into();
@@ -5056,6 +5384,10 @@ pub mod text_annotation {
     }
 
     impl DetectedLanguage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [language_code][crate::model::text_annotation::DetectedLanguage::language_code].
         pub fn set_language_code<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -5093,6 +5425,10 @@ pub mod text_annotation {
     }
 
     impl DetectedBreak {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::text_annotation::DetectedBreak::type].
         pub fn set_type<
             T: std::convert::Into<crate::model::text_annotation::detected_break::BreakType>,
@@ -5185,6 +5521,10 @@ pub mod text_annotation {
     }
 
     impl TextProperty {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [detected_break][crate::model::text_annotation::TextProperty::detected_break].
         pub fn set_detected_break<
             T: std::convert::Into<std::option::Option<crate::model::text_annotation::DetectedBreak>>,
@@ -5242,6 +5582,10 @@ pub struct Page {
 }
 
 impl Page {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [property][crate::model::Page::property].
     pub fn set_property<
         T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
@@ -5339,6 +5683,10 @@ pub struct Block {
 }
 
 impl Block {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [property][crate::model::Block::property].
     pub fn set_property<
         T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
@@ -5483,6 +5831,10 @@ pub struct Paragraph {
 }
 
 impl Paragraph {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [property][crate::model::Paragraph::property].
     pub fn set_property<
         T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
@@ -5568,6 +5920,10 @@ pub struct Word {
 }
 
 impl Word {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [property][crate::model::Word::property].
     pub fn set_property<
         T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
@@ -5652,6 +6008,10 @@ pub struct Symbol {
 }
 
 impl Symbol {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [property][crate::model::Symbol::property].
     pub fn set_property<
         T: std::convert::Into<std::option::Option<crate::model::text_annotation::TextProperty>>,
@@ -5729,6 +6089,10 @@ pub struct WebDetection {
 }
 
 impl WebDetection {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [web_entities][crate::model::WebDetection::web_entities].
     pub fn set_web_entities<T, V>(mut self, v: T) -> Self
     where
@@ -5827,6 +6191,10 @@ pub mod web_detection {
     }
 
     impl WebEntity {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [entity_id][crate::model::web_detection::WebEntity::entity_id].
         pub fn set_entity_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.entity_id = v.into();
@@ -5867,6 +6235,10 @@ pub mod web_detection {
     }
 
     impl WebImage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [url][crate::model::web_detection::WebImage::url].
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
@@ -5917,6 +6289,10 @@ pub mod web_detection {
     }
 
     impl WebPage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [url][crate::model::web_detection::WebPage::url].
         pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.url = v.into();
@@ -5982,6 +6358,10 @@ pub mod web_detection {
     }
 
     impl WebLabel {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [label][crate::model::web_detection::WebLabel::label].
         pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.label = v.into();

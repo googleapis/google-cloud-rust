@@ -52,6 +52,10 @@ pub struct BigQueryConnectionSpec {
 }
 
 impl BigQueryConnectionSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [connection_type][crate::model::BigQueryConnectionSpec::connection_type].
     pub fn set_connection_type<
         T: std::convert::Into<crate::model::big_query_connection_spec::ConnectionType>,
@@ -189,6 +193,10 @@ pub struct CloudSqlBigQueryConnectionSpec {
 }
 
 impl CloudSqlBigQueryConnectionSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instance_id][crate::model::CloudSqlBigQueryConnectionSpec::instance_id].
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
@@ -274,6 +282,10 @@ pub struct BigQueryRoutineSpec {
 }
 
 impl BigQueryRoutineSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [imported_libraries][crate::model::BigQueryRoutineSpec::imported_libraries].
     pub fn set_imported_libraries<T, V>(mut self, v: T) -> Self
     where
@@ -307,6 +319,10 @@ pub struct PersonalDetails {
 }
 
 impl PersonalDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [starred][crate::model::PersonalDetails::starred].
     pub fn set_starred<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.starred = v.into();
@@ -353,6 +369,10 @@ pub struct DataSource {
 }
 
 impl DataSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::DataSource::service].
     pub fn set_service<T: std::convert::Into<crate::model::data_source::Service>>(
         mut self,
@@ -509,6 +529,10 @@ pub struct StorageProperties {
 }
 
 impl StorageProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_type][crate::model::StorageProperties::file_type].
     pub fn set_file_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_type = v.into();
@@ -614,6 +638,10 @@ pub struct SearchCatalogRequest {
 }
 
 impl SearchCatalogRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [scope][crate::model::SearchCatalogRequest::scope].
     pub fn set_scope<
         T: std::convert::Into<std::option::Option<crate::model::search_catalog_request::Scope>>,
@@ -719,6 +747,10 @@ pub mod search_catalog_request {
     }
 
     impl Scope {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [include_gcp_public_datasets][crate::model::search_catalog_request::Scope::include_gcp_public_datasets].
         pub fn set_include_gcp_public_datasets<T: std::convert::Into<bool>>(
             mut self,
@@ -816,6 +848,10 @@ pub struct SearchCatalogResponse {
 }
 
 impl SearchCatalogResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [total_size][crate::model::SearchCatalogResponse::total_size].
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
@@ -901,6 +937,10 @@ pub struct CreateEntryGroupRequest {
 }
 
 impl CreateEntryGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateEntryGroupRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -952,6 +992,10 @@ pub struct UpdateEntryGroupRequest {
 }
 
 impl UpdateEntryGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
     pub fn set_entry_group<T: std::convert::Into<std::option::Option<crate::model::EntryGroup>>>(
         mut self,
@@ -996,6 +1040,10 @@ pub struct GetEntryGroupRequest {
 }
 
 impl GetEntryGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetEntryGroupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1036,6 +1084,10 @@ pub struct DeleteEntryGroupRequest {
 }
 
 impl DeleteEntryGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteEntryGroupRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1083,6 +1135,10 @@ pub struct ListEntryGroupsRequest {
 }
 
 impl ListEntryGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListEntryGroupsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1128,6 +1184,10 @@ pub struct ListEntryGroupsResponse {
 }
 
 impl ListEntryGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListEntryGroupsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1195,6 +1255,10 @@ pub struct CreateEntryRequest {
 }
 
 impl CreateEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateEntryRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1270,6 +1334,10 @@ pub struct UpdateEntryRequest {
 }
 
 impl UpdateEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
     pub fn set_entry<T: std::convert::Into<std::option::Option<crate::model::Entry>>>(
         mut self,
@@ -1310,6 +1378,10 @@ pub struct DeleteEntryRequest {
 }
 
 impl DeleteEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1338,6 +1410,10 @@ pub struct GetEntryRequest {
 }
 
 impl GetEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1379,6 +1455,10 @@ pub struct LookupEntryRequest {
 }
 
 impl LookupEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [project][crate::model::LookupEntryRequest::project].
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
@@ -1681,6 +1761,10 @@ pub struct Entry {
 }
 
 impl Entry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Entry::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -2485,6 +2569,10 @@ pub struct DatabaseTableSpec {
 }
 
 impl DatabaseTableSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::DatabaseTableSpec::type].
     pub fn set_type<T: std::convert::Into<crate::model::database_table_spec::TableType>>(
         mut self,
@@ -2547,6 +2635,10 @@ pub mod database_table_spec {
     }
 
     impl DatabaseViewSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [view_type][crate::model::database_table_spec::DatabaseViewSpec::view_type].
         pub fn set_view_type<
             T: std::convert::Into<crate::model::database_table_spec::database_view_spec::ViewType>,
@@ -2734,6 +2826,10 @@ pub struct FilesetSpec {
 }
 
 impl FilesetSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataplex_fileset][crate::model::FilesetSpec::dataplex_fileset].
     pub fn set_dataplex_fileset<
         T: std::convert::Into<std::option::Option<crate::model::DataplexFilesetSpec>>,
@@ -2767,6 +2863,10 @@ pub struct DataSourceConnectionSpec {
 }
 
 impl DataSourceConnectionSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [bigquery_connection_spec][crate::model::DataSourceConnectionSpec::bigquery_connection_spec].
     pub fn set_bigquery_connection_spec<
         T: std::convert::Into<std::option::Option<crate::model::BigQueryConnectionSpec>>,
@@ -2822,6 +2922,10 @@ pub struct RoutineSpec {
 }
 
 impl RoutineSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [routine_type][crate::model::RoutineSpec::routine_type].
     pub fn set_routine_type<T: std::convert::Into<crate::model::routine_spec::RoutineType>>(
         mut self,
@@ -2937,6 +3041,10 @@ pub mod routine_spec {
     }
 
     impl Argument {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::routine_spec::Argument::name].
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
@@ -3070,6 +3178,10 @@ pub struct DatasetSpec {
 }
 
 impl DatasetSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `system_spec`.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::dataset_spec::SystemSpec>>,
@@ -3172,6 +3284,10 @@ pub struct SqlDatabaseSystemSpec {
 }
 
 impl SqlDatabaseSystemSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [sql_engine][crate::model::SqlDatabaseSystemSpec::sql_engine].
     pub fn set_sql_engine<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.sql_engine = v.into();
@@ -3235,6 +3351,10 @@ pub struct LookerSystemSpec {
 }
 
 impl LookerSystemSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent_instance_id][crate::model::LookerSystemSpec::parent_instance_id].
     pub fn set_parent_instance_id<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3305,6 +3425,10 @@ pub struct CloudBigtableSystemSpec {
 }
 
 impl CloudBigtableSystemSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [instance_display_name][crate::model::CloudBigtableSystemSpec::instance_display_name].
     pub fn set_instance_display_name<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -3336,6 +3460,10 @@ pub struct CloudBigtableInstanceSpec {
 }
 
 impl CloudBigtableInstanceSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cloud_bigtable_cluster_specs][crate::model::CloudBigtableInstanceSpec::cloud_bigtable_cluster_specs].
     pub fn set_cloud_bigtable_cluster_specs<T, V>(mut self, v: T) -> Self
     where
@@ -3384,6 +3512,10 @@ pub mod cloud_bigtable_instance_spec {
     }
 
     impl CloudBigtableClusterSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [display_name][crate::model::cloud_bigtable_instance_spec::CloudBigtableClusterSpec::display_name].
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -3435,6 +3567,10 @@ pub struct ServiceSpec {
 }
 
 impl ServiceSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `system_spec`.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::service_spec::SystemSpec>>,
@@ -3519,6 +3655,10 @@ pub struct VertexModelSourceInfo {
 }
 
 impl VertexModelSourceInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [source_type][crate::model::VertexModelSourceInfo::source_type].
     pub fn set_source_type<
         T: std::convert::Into<crate::model::vertex_model_source_info::ModelSourceType>,
@@ -3632,6 +3772,10 @@ pub struct VertexModelSpec {
 }
 
 impl VertexModelSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [version_id][crate::model::VertexModelSpec::version_id].
     pub fn set_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version_id = v.into();
@@ -3701,6 +3845,10 @@ pub struct VertexDatasetSpec {
 }
 
 impl VertexDatasetSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [data_item_count][crate::model::VertexDatasetSpec::data_item_count].
     pub fn set_data_item_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.data_item_count = v.into();
@@ -3813,6 +3961,10 @@ pub struct ModelSpec {
 }
 
 impl ModelSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `system_spec`.
     pub fn set_system_spec<
         T: std::convert::Into<std::option::Option<crate::model::model_spec::SystemSpec>>,
@@ -3890,6 +4042,10 @@ pub struct FeatureOnlineStoreSpec {
 }
 
 impl FeatureOnlineStoreSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [storage_type][crate::model::FeatureOnlineStoreSpec::storage_type].
     pub fn set_storage_type<
         T: std::convert::Into<crate::model::feature_online_store_spec::StorageType>,
@@ -3967,6 +4123,10 @@ pub struct BusinessContext {
 }
 
 impl BusinessContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [entry_overview][crate::model::BusinessContext::entry_overview].
     pub fn set_entry_overview<
         T: std::convert::Into<std::option::Option<crate::model::EntryOverview>>,
@@ -4012,6 +4172,10 @@ pub struct EntryOverview {
 }
 
 impl EntryOverview {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [overview][crate::model::EntryOverview::overview].
     pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.overview = v.into();
@@ -4037,6 +4201,10 @@ pub struct Contacts {
 }
 
 impl Contacts {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [people][crate::model::Contacts::people].
     pub fn set_people<T, V>(mut self, v: T) -> Self
     where
@@ -4077,6 +4245,10 @@ pub mod contacts {
     }
 
     impl Person {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [designation][crate::model::contacts::Person::designation].
         pub fn set_designation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.designation = v.into();
@@ -4139,6 +4311,10 @@ pub struct EntryGroup {
 }
 
 impl EntryGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::EntryGroup::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4209,6 +4385,10 @@ pub struct CreateTagTemplateRequest {
 }
 
 impl CreateTagTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTagTemplateRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4254,6 +4434,10 @@ pub struct GetTagTemplateRequest {
 }
 
 impl GetTagTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTagTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4294,6 +4478,10 @@ pub struct UpdateTagTemplateRequest {
 }
 
 impl UpdateTagTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
     pub fn set_tag_template<
         T: std::convert::Into<std::option::Option<crate::model::TagTemplate>>,
@@ -4341,6 +4529,10 @@ pub struct DeleteTagTemplateRequest {
 }
 
 impl DeleteTagTemplateRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagTemplateRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4385,6 +4577,10 @@ pub struct CreateTagRequest {
 }
 
 impl CreateTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTagRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4431,6 +4627,10 @@ pub struct UpdateTagRequest {
 }
 
 impl UpdateTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
     pub fn set_tag<T: std::convert::Into<std::option::Option<crate::model::Tag>>>(
         mut self,
@@ -4471,6 +4671,10 @@ pub struct DeleteTagRequest {
 }
 
 impl DeleteTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4515,6 +4719,10 @@ pub struct CreateTagTemplateFieldRequest {
 }
 
 impl CreateTagTemplateFieldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTagTemplateFieldRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4586,6 +4794,10 @@ pub struct UpdateTagTemplateFieldRequest {
 }
 
 impl UpdateTagTemplateFieldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UpdateTagTemplateFieldRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4639,6 +4851,10 @@ pub struct RenameTagTemplateFieldRequest {
 }
 
 impl RenameTagTemplateFieldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RenameTagTemplateFieldRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4681,6 +4897,10 @@ pub struct RenameTagTemplateFieldEnumValueRequest {
 }
 
 impl RenameTagTemplateFieldEnumValueRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RenameTagTemplateFieldEnumValueRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4723,6 +4943,10 @@ pub struct DeleteTagTemplateFieldRequest {
 }
 
 impl DeleteTagTemplateFieldRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTagTemplateFieldRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -4772,6 +4996,10 @@ pub struct ListTagsRequest {
 }
 
 impl ListTagsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTagsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4819,6 +5047,10 @@ pub struct ListTagsResponse {
 }
 
 impl ListTagsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTagsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -4889,6 +5121,10 @@ pub struct ReconcileTagsRequest {
 }
 
 impl ReconcileTagsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ReconcileTagsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -4950,6 +5186,10 @@ pub struct ReconcileTagsResponse {
 }
 
 impl ReconcileTagsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [created_tags_count][crate::model::ReconcileTagsResponse::created_tags_count].
     pub fn set_created_tags_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.created_tags_count = v.into();
@@ -4998,6 +5238,10 @@ pub struct ReconcileTagsMetadata {
 }
 
 impl ReconcileTagsMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::ReconcileTagsMetadata::state].
     pub fn set_state<
         T: std::convert::Into<crate::model::reconcile_tags_metadata::ReconciliationState>,
@@ -5111,6 +5355,10 @@ pub struct ListEntriesRequest {
 }
 
 impl ListEntriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListEntriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5165,6 +5413,10 @@ pub struct ListEntriesResponse {
 }
 
 impl ListEntriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListEntriesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -5217,6 +5469,10 @@ pub struct StarEntryRequest {
 }
 
 impl StarEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::StarEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5241,7 +5497,11 @@ impl wkt::message::Message for StarEntryRequest {
 #[non_exhaustive]
 pub struct StarEntryResponse {}
 
-impl StarEntryResponse {}
+impl StarEntryResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for StarEntryResponse {
     fn typename() -> &'static str {
@@ -5264,6 +5524,10 @@ pub struct UnstarEntryRequest {
 }
 
 impl UnstarEntryRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::UnstarEntryRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5288,7 +5552,11 @@ impl wkt::message::Message for UnstarEntryRequest {
 #[non_exhaustive]
 pub struct UnstarEntryResponse {}
 
-impl UnstarEntryResponse {}
+impl UnstarEntryResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
 
 impl wkt::message::Message for UnstarEntryResponse {
     fn typename() -> &'static str {
@@ -5321,6 +5589,10 @@ pub struct ImportEntriesRequest {
 }
 
 impl ImportEntriesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ImportEntriesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -5415,6 +5687,10 @@ pub struct ImportEntriesResponse {
 }
 
 impl ImportEntriesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [upserted_entries_count][crate::model::ImportEntriesResponse::upserted_entries_count].
     pub fn set_upserted_entries_count<T: std::convert::Into<std::option::Option<i64>>>(
         mut self,
@@ -5463,6 +5739,10 @@ pub struct ImportEntriesMetadata {
 }
 
 impl ImportEntriesMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::ImportEntriesMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::import_entries_metadata::ImportState>>(
         mut self,
@@ -5558,6 +5838,10 @@ pub struct ModifyEntryOverviewRequest {
 }
 
 impl ModifyEntryOverviewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ModifyEntryOverviewRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5601,6 +5885,10 @@ pub struct ModifyEntryContactsRequest {
 }
 
 impl ModifyEntryContactsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ModifyEntryContactsRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5642,6 +5930,10 @@ pub struct SetConfigRequest {
 }
 
 impl SetConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::SetConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5758,6 +6050,10 @@ pub struct RetrieveConfigRequest {
 }
 
 impl RetrieveConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RetrieveConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5786,6 +6082,10 @@ pub struct RetrieveEffectiveConfigRequest {
 }
 
 impl RetrieveEffectiveConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RetrieveEffectiveConfigRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -5818,6 +6118,10 @@ pub struct OrganizationConfig {
 }
 
 impl OrganizationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [config][crate::model::OrganizationConfig::config].
     pub fn set_config<T, K, V>(mut self, v: T) -> Self
     where
@@ -5858,6 +6162,10 @@ pub struct MigrationConfig {
 }
 
 impl MigrationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [tag_template_migration][crate::model::MigrationConfig::tag_template_migration].
     pub fn set_tag_template_migration<T: std::convert::Into<crate::model::TagTemplateMigration>>(
         mut self,
@@ -5911,6 +6219,10 @@ pub struct DataplexSpec {
 }
 
 impl DataplexSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [asset][crate::model::DataplexSpec::asset].
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
@@ -5962,6 +6274,10 @@ pub struct DataplexFilesetSpec {
 }
 
 impl DataplexFilesetSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataplex_spec][crate::model::DataplexFilesetSpec::dataplex_spec].
     pub fn set_dataplex_spec<
         T: std::convert::Into<std::option::Option<crate::model::DataplexSpec>>,
@@ -6002,6 +6318,10 @@ pub struct DataplexTableSpec {
 }
 
 impl DataplexTableSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataplex_spec][crate::model::DataplexTableSpec::dataplex_spec].
     pub fn set_dataplex_spec<
         T: std::convert::Into<std::option::Option<crate::model::DataplexSpec>>,
@@ -6066,6 +6386,10 @@ pub struct DataplexExternalTable {
 }
 
 impl DataplexExternalTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [system][crate::model::DataplexExternalTable::system].
     pub fn set_system<T: std::convert::Into<crate::model::IntegratedSystem>>(
         mut self,
@@ -6132,6 +6456,10 @@ pub struct TaggedEntry {
 }
 
 impl TaggedEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [present_tags][crate::model::TaggedEntry::present_tags].
     pub fn set_present_tags<T, V>(mut self, v: T) -> Self
     where
@@ -6223,6 +6551,10 @@ pub struct DumpItem {
 }
 
 impl DumpItem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `item`.
     pub fn set_item<T: std::convert::Into<std::option::Option<crate::model::dump_item::Item>>>(
         mut self,
@@ -6324,6 +6656,10 @@ pub struct GcsFilesetSpec {
 }
 
 impl GcsFilesetSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_patterns][crate::model::GcsFilesetSpec::file_patterns].
     pub fn set_file_patterns<T, V>(mut self, v: T) -> Self
     where
@@ -6374,6 +6710,10 @@ pub struct GcsFileSpec {
 }
 
 impl GcsFileSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [file_path][crate::model::GcsFileSpec::file_path].
     pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_path = v.into();
@@ -6416,6 +6756,10 @@ pub struct PhysicalSchema {
 }
 
 impl PhysicalSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `schema`.
     pub fn set_schema<
         T: std::convert::Into<std::option::Option<crate::model::physical_schema::Schema>>,
@@ -6625,6 +6969,10 @@ pub mod physical_schema {
     }
 
     impl AvroSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [text][crate::model::physical_schema::AvroSchema::text].
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
@@ -6650,6 +6998,10 @@ pub mod physical_schema {
     }
 
     impl ThriftSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [text][crate::model::physical_schema::ThriftSchema::text].
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
@@ -6675,6 +7027,10 @@ pub mod physical_schema {
     }
 
     impl ProtobufSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [text][crate::model::physical_schema::ProtobufSchema::text].
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
@@ -6695,7 +7051,11 @@ pub mod physical_schema {
     #[non_exhaustive]
     pub struct ParquetSchema {}
 
-    impl ParquetSchema {}
+    impl ParquetSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for ParquetSchema {
         fn typename() -> &'static str {
@@ -6710,7 +7070,11 @@ pub mod physical_schema {
     #[non_exhaustive]
     pub struct OrcSchema {}
 
-    impl OrcSchema {}
+    impl OrcSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for OrcSchema {
         fn typename() -> &'static str {
@@ -6725,7 +7089,11 @@ pub mod physical_schema {
     #[non_exhaustive]
     pub struct CsvSchema {}
 
-    impl CsvSchema {}
+    impl CsvSchema {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
 
     impl wkt::message::Message for CsvSchema {
         fn typename() -> &'static str {
@@ -6825,6 +7193,10 @@ pub struct Taxonomy {
 }
 
 impl Taxonomy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Taxonomy::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -6909,6 +7281,10 @@ pub mod taxonomy {
     }
 
     impl Service {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [name][crate::model::taxonomy::Service::name].
         pub fn set_name<T: std::convert::Into<crate::model::ManagingSystem>>(
             mut self,
@@ -7021,6 +7397,10 @@ pub struct PolicyTag {
 }
 
 impl PolicyTag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::PolicyTag::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7085,6 +7465,10 @@ pub struct CreateTaxonomyRequest {
 }
 
 impl CreateTaxonomyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateTaxonomyRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7124,6 +7508,10 @@ pub struct DeleteTaxonomyRequest {
 }
 
 impl DeleteTaxonomyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteTaxonomyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7161,6 +7549,10 @@ pub struct UpdateTaxonomyRequest {
 }
 
 impl UpdateTaxonomyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
     pub fn set_taxonomy<T: std::convert::Into<std::option::Option<crate::model::Taxonomy>>>(
         mut self,
@@ -7217,6 +7609,10 @@ pub struct ListTaxonomiesRequest {
 }
 
 impl ListTaxonomiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListTaxonomiesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7268,6 +7664,10 @@ pub struct ListTaxonomiesResponse {
 }
 
 impl ListTaxonomiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListTaxonomiesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -7320,6 +7720,10 @@ pub struct GetTaxonomyRequest {
 }
 
 impl GetTaxonomyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetTaxonomyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7352,6 +7756,10 @@ pub struct CreatePolicyTagRequest {
 }
 
 impl CreatePolicyTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreatePolicyTagRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7391,6 +7799,10 @@ pub struct DeletePolicyTagRequest {
 }
 
 impl DeletePolicyTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeletePolicyTagRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7429,6 +7841,10 @@ pub struct UpdatePolicyTagRequest {
 }
 
 impl UpdatePolicyTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
     pub fn set_policy_tag<T: std::convert::Into<std::option::Option<crate::model::PolicyTag>>>(
         mut self,
@@ -7481,6 +7897,10 @@ pub struct ListPolicyTagsRequest {
 }
 
 impl ListPolicyTagsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListPolicyTagsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7526,6 +7946,10 @@ pub struct ListPolicyTagsResponse {
 }
 
 impl ListPolicyTagsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListPolicyTagsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -7578,6 +8002,10 @@ pub struct GetPolicyTagRequest {
 }
 
 impl GetPolicyTagRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetPolicyTagRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7619,6 +8047,10 @@ pub struct SerializedTaxonomy {
 }
 
 impl SerializedTaxonomy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::SerializedTaxonomy::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -7690,6 +8122,10 @@ pub struct SerializedPolicyTag {
 }
 
 impl SerializedPolicyTag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [policy_tag][crate::model::SerializedPolicyTag::policy_tag].
     pub fn set_policy_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_tag = v.into();
@@ -7745,6 +8181,10 @@ pub struct ReplaceTaxonomyRequest {
 }
 
 impl ReplaceTaxonomyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ReplaceTaxonomyRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -7789,6 +8229,10 @@ pub struct ImportTaxonomiesRequest {
 }
 
 impl ImportTaxonomiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ImportTaxonomiesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -7904,6 +8348,10 @@ pub struct InlineSource {
 }
 
 impl InlineSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taxonomies][crate::model::InlineSource::taxonomies].
     pub fn set_taxonomies<T, V>(mut self, v: T) -> Self
     where
@@ -7935,6 +8383,10 @@ pub struct CrossRegionalSource {
 }
 
 impl CrossRegionalSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taxonomy][crate::model::CrossRegionalSource::taxonomy].
     pub fn set_taxonomy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.taxonomy = v.into();
@@ -7963,6 +8415,10 @@ pub struct ImportTaxonomiesResponse {
 }
 
 impl ImportTaxonomiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taxonomies][crate::model::ImportTaxonomiesResponse::taxonomies].
     pub fn set_taxonomies<T, V>(mut self, v: T) -> Self
     where
@@ -8005,6 +8461,10 @@ pub struct ExportTaxonomiesRequest {
 }
 
 impl ExportTaxonomiesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ExportTaxonomiesRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -8098,6 +8558,10 @@ pub struct ExportTaxonomiesResponse {
 }
 
 impl ExportTaxonomiesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [taxonomies][crate::model::ExportTaxonomiesResponse::taxonomies].
     pub fn set_taxonomies<T, V>(mut self, v: T) -> Self
     where
@@ -8131,6 +8595,10 @@ pub struct Schema {
 }
 
 impl Schema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [columns][crate::model::Schema::columns].
     pub fn set_columns<T, V>(mut self, v: T) -> Self
     where
@@ -8221,6 +8689,10 @@ pub struct ColumnSchema {
 }
 
 impl ColumnSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [column][crate::model::ColumnSchema::column].
     pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.column = v.into();
@@ -8363,6 +8835,10 @@ pub mod column_schema {
     }
 
     impl LookerColumnSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::column_schema::LookerColumnSpec::type].
         pub fn set_type<
             T: std::convert::Into<crate::model::column_schema::looker_column_spec::LookerColumnType>,
@@ -8449,6 +8925,10 @@ pub mod column_schema {
     }
 
     impl FieldElementType {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [r#type][crate::model::column_schema::FieldElementType::type].
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
@@ -8599,6 +9079,10 @@ pub struct SearchCatalogResult {
 }
 
 impl SearchCatalogResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [search_result_type][crate::model::SearchCatalogResult::search_result_type].
     pub fn set_search_result_type<T: std::convert::Into<crate::model::SearchResultType>>(
         mut self,
@@ -8770,6 +9254,10 @@ pub struct BigQueryTableSpec {
 }
 
 impl BigQueryTableSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [table_source_type][crate::model::BigQueryTableSpec::table_source_type].
     pub fn set_table_source_type<T: std::convert::Into<crate::model::TableSourceType>>(
         mut self,
@@ -8884,6 +9372,10 @@ pub struct ViewSpec {
 }
 
 impl ViewSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [view_query][crate::model::ViewSpec::view_query].
     pub fn set_view_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.view_query = v.into();
@@ -8915,6 +9407,10 @@ pub struct TableSpec {
 }
 
 impl TableSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [grouped_entry][crate::model::TableSpec::grouped_entry].
     pub fn set_grouped_entry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.grouped_entry = v.into();
@@ -8963,6 +9459,10 @@ pub struct BigQueryDateShardedSpec {
 }
 
 impl BigQueryDateShardedSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dataset][crate::model::BigQueryDateShardedSpec::dataset].
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
@@ -9051,6 +9551,10 @@ pub struct Tag {
 }
 
 impl Tag {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Tag::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9187,6 +9691,10 @@ pub struct TagField {
 }
 
 impl TagField {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [display_name][crate::model::TagField::display_name].
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
@@ -9370,6 +9878,10 @@ pub mod tag_field {
     }
 
     impl EnumValue {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [display_name][crate::model::tag_field::EnumValue::display_name].
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
@@ -9472,6 +9984,10 @@ pub struct TagTemplate {
 }
 
 impl TagTemplate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagTemplate::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9618,6 +10134,10 @@ pub struct TagTemplateField {
 }
 
 impl TagTemplateField {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::TagTemplateField::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -9675,6 +10195,10 @@ pub struct FieldType {
 }
 
 impl FieldType {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of `type_decl`.
     pub fn set_type_decl<
         T: std::convert::Into<std::option::Option<crate::model::field_type::TypeDecl>>,
@@ -9773,6 +10297,10 @@ pub mod field_type {
     }
 
     impl EnumType {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
         /// Sets the value of [allowed_values][crate::model::field_type::EnumType::allowed_values].
         pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
         where
@@ -9812,6 +10340,10 @@ pub mod field_type {
         }
 
         impl EnumValue {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
             /// Sets the value of [display_name][crate::model::field_type::enum_type::EnumValue::display_name].
             pub fn set_display_name<T: std::convert::Into<std::string::String>>(
                 mut self,
@@ -9914,6 +10446,10 @@ pub struct SystemTimestamps {
 }
 
 impl SystemTimestamps {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [create_time][crate::model::SystemTimestamps::create_time].
     pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -9977,6 +10513,10 @@ pub struct UsageStats {
 }
 
 impl UsageStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [total_completions][crate::model::UsageStats::total_completions].
     pub fn set_total_completions<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.total_completions = v.into();
@@ -10026,6 +10566,10 @@ pub struct CommonUsageStats {
 }
 
 impl CommonUsageStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [view_count][crate::model::CommonUsageStats::view_count].
     pub fn set_view_count<T: std::convert::Into<std::option::Option<i64>>>(mut self, v: T) -> Self {
         self.view_count = v.into();
@@ -10074,6 +10618,10 @@ pub struct UsageSignal {
 }
 
 impl UsageSignal {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [update_time][crate::model::UsageSignal::update_time].
     pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,

@@ -63,6 +63,10 @@ pub struct MetricsScope {
 }
 
 impl MetricsScope {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MetricsScope::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -127,6 +131,10 @@ pub struct MonitoredProject {
 }
 
 impl MonitoredProject {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::MonitoredProject::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -163,6 +171,10 @@ pub struct GetMetricsScopeRequest {
 }
 
 impl GetMetricsScopeRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetMetricsScopeRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -190,6 +202,10 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
 }
 
 impl ListMetricsScopesByMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [monitored_resource_container][crate::model::ListMetricsScopesByMonitoredProjectRequest::monitored_resource_container].
     pub fn set_monitored_resource_container<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -219,6 +235,10 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
 }
 
 impl ListMetricsScopesByMonitoredProjectResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [metrics_scopes][crate::model::ListMetricsScopesByMonitoredProjectResponse::metrics_scopes].
     pub fn set_metrics_scopes<T, V>(mut self, v: T) -> Self
     where
@@ -259,6 +279,10 @@ pub struct CreateMonitoredProjectRequest {
 }
 
 impl CreateMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -301,6 +325,10 @@ pub struct DeleteMonitoredProjectRequest {
 }
 
 impl DeleteMonitoredProjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -334,6 +362,10 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [state][crate::model::OperationMetadata::state].
     pub fn set_state<T: std::convert::Into<crate::model::operation_metadata::State>>(
         mut self,

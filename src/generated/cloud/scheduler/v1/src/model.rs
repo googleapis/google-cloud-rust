@@ -67,6 +67,10 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -121,6 +125,10 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -174,6 +182,10 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -214,6 +226,10 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -261,6 +277,10 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
     pub fn set_job<T: std::convert::Into<std::option::Option<crate::model::Job>>>(
         mut self,
@@ -302,6 +322,10 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -331,6 +355,10 @@ pub struct PauseJobRequest {
 }
 
 impl PauseJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::PauseJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -360,6 +388,10 @@ pub struct ResumeJobRequest {
 }
 
 impl ResumeJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ResumeJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -389,6 +421,10 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::RunJobRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -557,6 +593,10 @@ pub struct Job {
 }
 
 impl Job {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::Job::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -906,6 +946,10 @@ pub struct RetryConfig {
 }
 
 impl RetryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [retry_count][crate::model::RetryConfig::retry_count].
     pub fn set_retry_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retry_count = v.into();
@@ -1042,6 +1086,10 @@ pub struct HttpTarget {
 }
 
 impl HttpTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [uri][crate::model::HttpTarget::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
@@ -1275,6 +1323,10 @@ pub struct AppEngineHttpTarget {
 }
 
 impl AppEngineHttpTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [http_method][crate::model::AppEngineHttpTarget::http_method].
     pub fn set_http_method<T: std::convert::Into<crate::model::HttpMethod>>(
         mut self,
@@ -1360,6 +1412,10 @@ pub struct PubsubTarget {
 }
 
 impl PubsubTarget {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [topic_name][crate::model::PubsubTarget::topic_name].
     pub fn set_topic_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic_name = v.into();
@@ -1508,6 +1564,10 @@ pub struct AppEngineRouting {
 }
 
 impl AppEngineRouting {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service][crate::model::AppEngineRouting::service].
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
@@ -1563,6 +1623,10 @@ pub struct OAuthToken {
 }
 
 impl OAuthToken {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_email][crate::model::OAuthToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -1610,6 +1674,10 @@ pub struct OidcToken {
 }
 
 impl OidcToken {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [service_account_email][crate::model::OidcToken::service_account_email].
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,

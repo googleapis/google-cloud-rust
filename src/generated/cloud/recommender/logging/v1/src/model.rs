@@ -48,6 +48,10 @@ pub struct ActionLog {
 }
 
 impl ActionLog {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [actor][crate::model::ActionLog::actor].
     pub fn set_actor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.actor = v.into();
@@ -117,6 +121,10 @@ pub struct InsightActionLog {
 }
 
 impl InsightActionLog {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [actor][crate::model::InsightActionLog::actor].
     pub fn set_actor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.actor = v.into();

@@ -71,6 +71,10 @@ pub struct AccessLocations {
 }
 
 impl AccessLocations {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [principal_office_country][crate::model::AccessLocations::principal_office_country].
     pub fn set_principal_office_country<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -111,6 +115,10 @@ pub struct AccessReason {
 }
 
 impl AccessReason {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [r#type][crate::model::AccessReason::type].
     pub fn set_type<T: std::convert::Into<crate::model::access_reason::Type>>(
         mut self,
@@ -217,6 +225,10 @@ pub struct SignatureInfo {
 }
 
 impl SignatureInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [signature][crate::model::SignatureInfo::signature].
     pub fn set_signature<T: std::convert::Into<bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
@@ -343,6 +355,10 @@ pub struct ApproveDecision {
 }
 
 impl ApproveDecision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [approve_time][crate::model::ApproveDecision::approve_time].
     pub fn set_approve_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -411,6 +427,10 @@ pub struct DismissDecision {
 }
 
 impl DismissDecision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [dismiss_time][crate::model::DismissDecision::dismiss_time].
     pub fn set_dismiss_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
         mut self,
@@ -445,6 +465,10 @@ pub struct ResourceProperties {
 }
 
 impl ResourceProperties {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [excludes_descendants][crate::model::ResourceProperties::excludes_descendants].
     pub fn set_excludes_descendants<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.excludes_descendants = v.into();
@@ -506,6 +530,10 @@ pub struct ApprovalRequest {
 }
 
 impl ApprovalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ApprovalRequest::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -737,6 +765,10 @@ pub struct EnrolledService {
 }
 
 impl EnrolledService {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [cloud_product][crate::model::EnrolledService::cloud_product].
     pub fn set_cloud_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_product = v.into();
@@ -825,6 +857,10 @@ pub struct AccessApprovalSettings {
 }
 
 impl AccessApprovalSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AccessApprovalSettings::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -910,6 +946,10 @@ pub struct AccessApprovalServiceAccount {
 }
 
 impl AccessApprovalServiceAccount {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::AccessApprovalServiceAccount::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -964,6 +1004,10 @@ pub struct ListApprovalRequestsMessage {
 }
 
 impl ListApprovalRequestsMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [parent][crate::model::ListApprovalRequestsMessage::parent].
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
@@ -1011,6 +1055,10 @@ pub struct ListApprovalRequestsResponse {
 }
 
 impl ListApprovalRequestsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [next_page_token][crate::model::ListApprovalRequestsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
@@ -1062,6 +1110,10 @@ pub struct GetApprovalRequestMessage {
 }
 
 impl GetApprovalRequestMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetApprovalRequestMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1091,6 +1143,10 @@ pub struct ApproveApprovalRequestMessage {
 }
 
 impl ApproveApprovalRequestMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::ApproveApprovalRequestMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1125,6 +1181,10 @@ pub struct DismissApprovalRequestMessage {
 }
 
 impl DismissApprovalRequestMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DismissApprovalRequestMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1150,6 +1210,10 @@ pub struct InvalidateApprovalRequestMessage {
 }
 
 impl InvalidateApprovalRequestMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::InvalidateApprovalRequestMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1176,6 +1240,10 @@ pub struct GetAccessApprovalSettingsMessage {
 }
 
 impl GetAccessApprovalSettingsMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAccessApprovalSettingsMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1214,6 +1282,10 @@ pub struct UpdateAccessApprovalSettingsMessage {
 }
 
 impl UpdateAccessApprovalSettingsMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
     pub fn set_settings<
         T: std::convert::Into<std::option::Option<crate::model::AccessApprovalSettings>>,
@@ -1253,6 +1325,10 @@ pub struct DeleteAccessApprovalSettingsMessage {
 }
 
 impl DeleteAccessApprovalSettingsMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::DeleteAccessApprovalSettingsMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
@@ -1278,6 +1354,10 @@ pub struct GetAccessApprovalServiceAccountMessage {
 }
 
 impl GetAccessApprovalServiceAccountMessage {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
     /// Sets the value of [name][crate::model::GetAccessApprovalServiceAccountMessage::name].
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
