@@ -1791,6 +1791,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "google-cloud-recommender"
+version = "0.2.0"
+dependencies = [
+ "bytes",
+ "gcp-sdk-wkt",
+ "google-cloud-recommender-v1",
+ "serde",
+ "serde_with",
+]
+
+[[package]]
 name = "google-cloud-recommender-v1"
 version = "0.2.0"
 dependencies = [
