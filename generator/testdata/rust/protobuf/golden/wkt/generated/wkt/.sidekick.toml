@@ -15,10 +15,11 @@
 [general]
 language = 'rust'
 specification-format = 'protobuf'
-specification-source = 'google/protobuf/source_context.proto'
+specification-source = 'google/protobuf'
 
 [source]
 googleapis-root = 'testdata'
+include-list = 'source_context.proto'
 
 [codec]
 copyright-year = '2025'

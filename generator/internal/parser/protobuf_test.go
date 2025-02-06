@@ -1474,8 +1474,9 @@ func newTestCodeGeneratorRequest(t *testing.T, filename string) *pluginpb.CodeGe
 	options := map[string]string{
 		"googleapis-root":   "../../testdata/googleapis",
 		"extra-protos-root": "testdata",
+		"include-list":      filename,
 	}
-	request, err := newCodeGeneratorRequest(filename, options)
+	request, err := newCodeGeneratorRequest("testdata", options)
 	if err != nil {
 		t.Fatal(err)
 	}
