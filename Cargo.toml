@@ -73,6 +73,7 @@ members = [
   "src/generated/cloud/optimization/v1",
   "src/generated/cloud/orchestration/airflow/service/v1",
   "src/generated/cloud/orgpolicy/v2",
+  "src/generated/cloud/osconfig/v1",
   "src/generated/cloud/oslogin/v1",
   "src/generated/cloud/policysimulator/v1",
   "src/generated/cloud/policytroubleshooter/iam/v3",
