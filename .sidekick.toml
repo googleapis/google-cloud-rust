@@ -13,15 +13,15 @@
 # limitations under the License.
 
 [general]
-language = 'rust'
+language             = 'rust'
 specification-format = 'protobuf'
 
 [source]
 extra-protos-extracted-name = 'gapic-showcase-0.35.5'
-extra-protos-root = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.35.5.tar.gz'
-extra-protos-sha256 = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
-googleapis-root = 'https://github.com/googleapis/googleapis/archive/4d95834e9db8ee827f0e7846b175a3aeaf92f9ef.tar.gz'
-googleapis-sha256 = '8a26e8ea8ee60bda1e996dc6fe181262abf50c6b8c9a4fd3f6d2b48b9fd231c1'
+extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.35.5.tar.gz'
+extra-protos-sha256         = 'fd3c1b33080a75987433db924a576d576fa622aff4f14eee86b1dc959e7aef63'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/4d95834e9db8ee827f0e7846b175a3aeaf92f9ef.tar.gz'
+googleapis-sha256           = '8a26e8ea8ee60bda1e996dc6fe181262abf50c6b8c9a4fd3f6d2b48b9fd231c1'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's
@@ -31,16 +31,16 @@ version = "0.2.0"
 release-level = "preview"
 # These are external (not part of `google-cloud-rust`) crates used by (nearly
 # all) generated crates. 
-'package:bytes' = 'force-used=true,package=bytes,version=1,feature=serde'
-'package:serde' = 'force-used=true,package=serde,version=1,feature=serde_derive'
+'package:bytes'      = 'force-used=true,package=bytes,version=1,feature=serde'
+'package:serde'      = 'force-used=true,package=serde,version=1,feature=serde_derive'
 'package:serde_with' = 'force-used=true,package=serde_with,version=3,default-features=false,feature=base64,feature=macros,feature=std'
 # These are used by crates with services.
 'package:async-trait' = 'used-if=services,package=async-trait,version=0.1'
-'package:gax' = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.2'
+'package:gax'         = 'used-if=services,package=gcp-sdk-gax,path=src/gax,feature=unstable-sdk-client,version=0.2'
 'package:lazy_static' = 'used-if=services,package=lazy_static,version=1'
-'package:reqwest' = 'used-if=services,package=reqwest,version=0.12,feature=json'
-'package:serde_json' = 'used-if=services,package=serde_json,version=1'
-'package:tracing' = 'used-if=services,package=tracing,version=0.1'
+'package:reqwest'     = 'used-if=services,package=reqwest,version=0.12,feature=json'
+'package:serde_json'  = 'used-if=services,package=serde_json,version=1'
+'package:tracing'     = 'used-if=services,package=tracing,version=0.1'
 # Only used if LROs are present
 'package:lro' = 'used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
@@ -48,11 +48,11 @@ release-level = "preview"
 'package:wkt' = 'force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.1.1'
 # These are crates in `google-cloud-rust`. If not used, `sidekick` prunes them
 # from the list of depedencies.
-'package:api' = 'package=google-cloud-api,source=google.api,path=src/generated/api/types,version=0.2'
-'package:gtype' = 'package=google-cloud-type,source=google.type,path=src/generated/type,version=0.2'
-'package:iam_v1' = 'package=google-cloud-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
-'package:location' = 'package=google-cloud-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
+'package:api'          = 'package=google-cloud-api,source=google.api,path=src/generated/api/types,version=0.2'
+'package:gtype'        = 'package=google-cloud-type,source=google.type,path=src/generated/type,version=0.2'
+'package:iam_v1'       = 'package=google-cloud-iam-v1,source=google.iam.v1,path=src/generated/iam/v1,version=0.2'
+'package:location'     = 'package=google-cloud-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.2'
 'package:logging_type' = 'package=google-cloud-logging-type,source=google.logging.type,path=src/generated/logging/type,version=0.2'
-'package:longrunning' = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2'
-'package:rpc' = 'package=google-cloud-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'
-'package:rpc_context' = 'package=google-cloud-rpc-context,source=google.rpc.context,path=src/generated/rpc/context,version=0.2'
+'package:longrunning'  = 'package=gcp-sdk-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2'
+'package:rpc'          = 'package=google-cloud-rpc,source=google.rpc,path=src/generated/rpc/types,version=0.2'
+'package:rpc_context'  = 'package=google-cloud-rpc-context,source=google.rpc.context,path=src/generated/rpc/context,version=0.2'

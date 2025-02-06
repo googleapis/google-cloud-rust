@@ -13,33 +13,33 @@
 # limitations under the License.
 
 [package]
-authors.workspace = true
+authors.workspace    = true
 categories.workspace = true
-description = "Google Cloud Client Libraries for Rust - LRO Helpers"
-edition.workspace = true
-keywords.workspace = true
-license.workspace = true
-name = "google-cloud-lro"
+description          = "Google Cloud Client Libraries for Rust - LRO Helpers"
+edition.workspace    = true
+keywords.workspace   = true
+license.workspace    = true
+name                 = "google-cloud-lro"
 repository.workspace = true
-version = "0.1.0"
+version              = "0.1.0"
 
 [dependencies]
-futures = {version = "0.3.31", optional = true}
-gax = {version = "0.2", path = "../gax", package = "gcp-sdk-gax"}
-longrunning = {version = "0.2", path = "../generated/longrunning", package = "gcp-sdk-longrunning"}
-pin-project = {version = "1.1.9", optional = true}
-rpc = {version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc"}
-serde = "1.0.216"
-tokio = {version = "1.42", features = ["time"]}
-wkt = {version = "0.1.1", path = "../wkt", package = "google-cloud-wkt"}
+futures     = { version = "0.3.31", optional = true }
+gax         = { version = "0.2", path = "../gax", package = "gcp-sdk-gax" }
+longrunning = { version = "0.2", path = "../generated/longrunning", package = "gcp-sdk-longrunning" }
+pin-project = { version = "1.1.9", optional = true }
+rpc         = { version = "0.2", path = "../generated/rpc/types", package = "google-cloud-rpc" }
+serde       = "1.0.216"
+tokio       = { version = "1.42", features = ["time"] }
+wkt         = { version = "0.1.1", path = "../wkt", package = "google-cloud-wkt" }
 
 [features]
 unstable-stream = ["dep:futures", "dep:pin-project"]
 
 [dev-dependencies]
-auth = {path = "../auth", package = "gcp-sdk-auth"}
-axum = "0.8.1"
-lro = {path = ".", package = "google-cloud-lro", features = ["unstable-stream"]}
-reqwest = "0.12.11"
+auth       = { path = "../auth", package = "gcp-sdk-auth" }
+axum       = "0.8.1"
+lro        = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
+reqwest    = "0.12.11"
 serde_json = "1"
-tokio = {version = "1.42", features = ["test-util"]}
+tokio      = { version = "1.42", features = ["test-util"] }
