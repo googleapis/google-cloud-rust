@@ -14,11 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Summary
+# Configuring Polling Policies
 
-- [Introduction](./introduction.md)
-- [Setting up your development environment](./setting_up_your_development_environment.md)
-- [Setting up Rust on Cloud Shell](./setting_up_rust_on_cloud_shell.md)
-- [How to initialize a client](./initialize_a_client.md)
-- [Working with long-running operations](./working_with_long_running_operations.md)
-- [Configuring polling policies](./configuring_polling_policies.md)
+<!-- TODO(#574) - this is a placeholder to satisfy links -->
