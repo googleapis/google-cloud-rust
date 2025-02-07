@@ -43,6 +43,6 @@ func TestDart_TemplatesAvailable(t *testing.T) {
 	})
 
 	if count == 0 {
-		t.Errorf("no go templates found")
+		t.Errorf("no dart templates found")
 	}
 }
