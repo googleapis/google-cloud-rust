@@ -31,7 +31,6 @@ type modelAnnotations struct {
 	CopyrightYear     string
 	BoilerPlate       []string
 	DefaultHost       string
-	DartPackage       string
 	DocLines          []string
 }
 
@@ -155,8 +154,7 @@ func annotateModel(model *api.API, options map[string]string) (*modelAnnotations
 			}
 			return ""
 		}(),
-		DartPackage: "google_" + modelPackageName(model, packageNameOverride),
-		DocLines:    strings.Split(model.Description, "\n"),
+		DocLines: strings.Split(model.Description, "\n"),
 	}
 
 	model.Codec = ann
