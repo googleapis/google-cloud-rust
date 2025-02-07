@@ -16,17 +16,19 @@ package sidekick
 
 import (
 	"crypto/sha256"
+	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
 	"time"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
-	"github.com/walle/targz"
 )
 
 func makeSourceRoot(rootConfig *config.Config, configPrefix string) (string, error) {
@@ -60,7 +62,8 @@ func makeSourceRoot(rootConfig *config.Config, configPrefix string) (string, err
 		return "", err
 	}
 
-	if err := targz.Extract(tgz, cacheDir); err != nil {
+	if err := extractTarball(tgz, cacheDir); err != nil {
+		slog.Error("error extracting .tar.gz file", "file", tgz, "cacheDir", cacheDir, "error", err)
 		return "", err
 	}
 	dirname := extractedName(rootConfig, sourceRoot, configPrefix)
@@ -68,6 +71,18 @@ func makeSourceRoot(rootConfig *config.Config, configPrefix string) (string, err
 		return "", err
 	}
 	return target, nil
+}
+
+func extractTarball(source, destination string) error {
+	cmd := exec.Command("tar", "-zxf", source)
+	cmd.Dir = destination
+	if output, err := cmd.CombinedOutput(); err != nil {
+		if ee := (*exec.ExitError)(nil); errors.As(err, &ee) && len(ee.Stderr) > 0 {
+			return fmt.Errorf("%v: %v\n%s", cmd, err, ee.Stderr)
+		}
+		return fmt.Errorf("%v: %v\n%s", cmd, err, output)
+	}
+	return nil
 }
 
 func extractedName(rootConfig *config.Config, googleapisRoot, configPrefix string) string {

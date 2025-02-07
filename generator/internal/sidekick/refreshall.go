@@ -20,11 +20,13 @@ import (
 	"io/fs"
 	"maps"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"sync"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
+	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 )
 
 func init() {
@@ -45,16 +47,19 @@ func overrideSources(rootConfig *config.Config) (*config.Config, error) {
 	override := *rootConfig
 	override.Codec = maps.Clone(rootConfig.Codec)
 	override.Source = maps.Clone(rootConfig.Source)
-	for _, configPrefix := range []string{"googleapis", "extra-protos"} {
-		configName := fmt.Sprintf("%s-root", configPrefix)
-		if _, ok := rootConfig.Source[configName]; !ok {
+	for _, root := range parser.SourceRoots(rootConfig.Source) {
+		configPrefix := strings.TrimSuffix(root, "-root")
+		if _, ok := rootConfig.Source[root]; !ok {
 			continue
 		}
-		root, err := makeSourceRoot(rootConfig, configPrefix)
+		source, err := makeSourceRoot(rootConfig, configPrefix)
 		if err != nil {
 			return nil, err
 		}
-		override.Source[fmt.Sprintf("%s-root", configPrefix)] = root
+		if subdir, ok := rootConfig.Source[configPrefix+"-subdir"]; ok {
+			source = path.Join(source, subdir)
+		}
+		override.Source[root] = source
 	}
 	return &override, nil
 }
