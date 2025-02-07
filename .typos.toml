@@ -50,7 +50,7 @@ documnetation = "documnetation"
 specififed    = "specififed"
 wilcards      = "wilcards"
 # src/generated/cloud/deploy/v1, has some typos, they need to be fixed upstream.
-alloted = "alloted"
+alloted     = "alloted"
 facilitiate = "facilitiate"
 # src/generated/functions/v1 has some typos, they need to be fixed upstream.
 oder     = "oder"
