@@ -106,7 +106,7 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 		"--retain_options",
 		"--descriptor_set_out", tempFile,
 	}
-	for _, name := range []string{"extra-protos-root", "googleapis-root"} {
+	for _, name := range SourceRoots(options) {
 		if path, ok := options[name]; ok {
 			args = append(args, "--proto_path")
 			args = append(args, path)
@@ -133,10 +133,10 @@ func determineInputFiles(source string, options map[string]string) ([]string, er
 		}
 	}
 
-	// `config.Source` is relative to the `googleapis-root` (or `extra-protos-root`) if
-	// that is set. It should always be a directory and by default all the
-	// the files in that directory are used.
-	for _, opt := range []string{"extra-protos-root", "googleapis-root"} {
+	// `config.Source` is relative to the `googleapis-root`,
+	// or `extra-protos-root`, when that is set. It should always be a directory
+	// and by default all the the files in that directory are used.
+	for _, opt := range SourceRoots(options) {
 		location, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set

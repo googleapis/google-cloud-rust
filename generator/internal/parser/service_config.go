@@ -54,7 +54,7 @@ func readServiceConfig(serviceConfigPath string) (*serviceconfig.Service, error)
 // path (or `extra-protos-root` when set). This finds the right path given a
 // configuration
 func findServiceConfigPath(serviceConfigFile string, options map[string]string) string {
-	for _, opt := range []string{"extra-protos-root", "googleapis-root"} {
+	for _, opt := range SourceRoots(options) {
 		dir, ok := options[opt]
 		if !ok {
 			// Ignore options that are not set
