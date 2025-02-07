@@ -1,0 +1,11 @@
+{
+    "api_id": "bigqueryreservation.googleapis.com",
+    "api_shortname": "bigqueryreservation",
+    "client_documentation": "https://docs.rs/google-cloud-bigquery-reservation-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "BigQuery Reservation API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}
