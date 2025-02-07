@@ -180,7 +180,7 @@ func modelPackageName(api *api.API, packageNameOverride string) string {
 	if len(packageNameOverride) > 0 {
 		return packageNameOverride
 	}
-	return api.Name
+	return "google_cloud_" + strcase.ToSnake(api.Name)
 }
 
 func validatePackageName(newPackage, elementName, sourceSpecificationPackageName string) error {
