@@ -1637,7 +1637,7 @@ Maybe they wanted to show some JSON:
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1663,7 +1663,7 @@ func TestRust_FormatDocCommentsBullets(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := createRustCodec()
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1739,7 +1739,7 @@ block:
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1760,7 +1760,7 @@ func TestRust_FormatDocCommentsImplicitBlockQuoteClosing(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1787,7 +1787,7 @@ Second [example][].
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1865,7 +1865,6 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
-		sourceSpecificationPackageName: "test.v1",
 	}
 
 	// To test the mappings we need a fairly complex model.API instance. Create it
@@ -1873,7 +1872,7 @@ func TestRust_FormatDocCommentsCrossLinks(t *testing.T) {
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{"test.v1"}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1928,7 +1927,6 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
-		sourceSpecificationPackageName: "test.v1",
 	}
 
 	// To test the mappings we need a fairly complex model.API instance. Create it
@@ -1936,7 +1934,7 @@ func TestRust_FormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{"test.v1"}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -1991,7 +1989,6 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 			"google.protobuf": wkt,
 			"google.iam.v1":   iam,
 		},
-		sourceSpecificationPackageName: "test.v1",
 	}
 
 	// To test the mappings we need a fairly complex model.API instance. Create it
@@ -1999,7 +1996,7 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{"test.v1.Message", "test.v1"}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -2034,7 +2031,7 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c := &codec{}
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}
@@ -2192,7 +2189,7 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	model := makeApiForRustFormatDocCommentsCrossLinks()
 	loadWellKnownTypes(model.State)
 
-	got := formatDocComments(input, model.State, c.modulePath, c.sourceSpecificationPackageName, c.packageMapping)
+	got := formatDocComments(input, model.State, c.modulePath, []string{}, c.packageMapping)
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
 	}

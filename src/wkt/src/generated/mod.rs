@@ -265,7 +265,7 @@ impl wkt::message::Message for Method {
 ///
 /// - If an http annotation is inherited, the path pattern will be
 ///   modified as follows. Any version prefix will be replaced by the
-///   version of the including interface plus the [root][Mixin.root] path if
+///   version of the including interface plus the [root][] path if
 ///   specified.
 ///
 ///
@@ -341,7 +341,7 @@ impl wkt::message::Message for Method {
 /// }
 /// ```
 ///
-/// [Mixin.root]: crate::Mixin::root
+/// [root]: wkt::Mixin::root
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
