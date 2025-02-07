@@ -1955,8 +1955,12 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 	placeholder>.
 	Third example: projects/<project>/secrets/<secret>
 	Urls remain unchanged <https://www.example.com>
-	Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>` + `
-	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`"
+	Hyperlinks <a href=https://www.hyperlink.com>hyperlinked content</a>` + `
+	HTML tags within code spans remain unchanged secret ` + "`" + `secrets/<secret>` + "`" + `
+	Multiline hyperlinks should not be escaped <a
+	href=https://en.wikipedia.org/wiki/Shebang_(Unix) class="external">shebang lines</a>.
+	Multiline placeholders should be escaped <a
+	placeholder>`
 
 	want := []string{
 		"/// Placeholders placed between angled brackets should be escaped.",
@@ -1964,8 +1968,12 @@ func TestRust_FormatDocCommentsHTMLTags(t *testing.T) {
 		"/// placeholder\\>.",
 		"/// Third example: projects/\\<project\\>/secrets/\\<secret\\>",
 		"/// Urls remain unchanged <https://www.example.com>",
-		"/// Hyperlinks <a href=https://www.hyperlink.com>hyperlined content</a>",
+		"/// Hyperlinks <a href=https://www.hyperlink.com>hyperlinked content</a>",
 		"/// HTML tags within code spans remain unchanged secret `secrets/<secret>`",
+		"/// Multiline hyperlinks should not be escaped <a",
+		"/// href=https://en.wikipedia.org/wiki/Shebang_(Unix) class=\"external\">shebang lines</a>.",
+		"/// Multiline placeholders should be escaped \\<a",
+		"/// placeholder\\>",
 	}
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
