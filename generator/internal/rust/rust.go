@@ -1057,7 +1057,6 @@ func processCommentLine(node ast.Node, line text.Segment, documentationBytes []b
 func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte) string {
 	lineContent := line.Value(documentationBytes)
 	escapedString := string(lineContent)
-
 	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindRawHTML {
 			rawHTML := child.(*ast.RawHTML)
@@ -1068,7 +1067,7 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 					if segment.Start < line.Start || (segment.Start >= line.Stop) {
 						continue
 					}
-					if strings.HasPrefix(segmentContent, "<br />") || strings.HasPrefix(segmentContent, "<a href=") || strings.HasSuffix(segmentContent, "</a>") {
+					if strings.HasPrefix(segmentContent, "<br />") || isHyperlink(segment, documentationBytes) {
 						continue
 					}
 					start := int(segment.Start) - line.Start
@@ -1082,6 +1081,22 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 		}
 	}
 	return escapedString
+}
+
+func isHyperlink(segment text.Segment, documentationBytes []byte) bool {
+	segmentContent := string(segment.Value(documentationBytes))
+	if strings.Contains(segmentContent, "href=") || strings.HasSuffix(segmentContent, "</a>") {
+		return true
+	}
+	// Verify for hyperlink that spans multiple lines
+	if strings.HasSuffix(string(segment.Value(documentationBytes)), "<a\n") {
+		// Check if the next 7 bytes (or more) in documentationBytes start with " href="
+		nextBytesStart := int(segment.Stop)
+		nextBytesEnd := nextBytesStart + 7
+		trimmedNextBytes := strings.TrimSpace(string(documentationBytes[nextBytesStart:nextBytesEnd]))
+		return nextBytesEnd <= len(documentationBytes) && strings.HasPrefix(trimmedNextBytes, "href=")
+	}
+	return false
 }
 
 func isWithinCodeSpan(node ast.Node) bool {
@@ -1112,7 +1127,7 @@ func escapeUrls(line string) string {
 			// Skip adding <> if the url is already surrounded by angled brackets.
 			escapedLine.WriteString(line[lastIndex:match[1]])
 			lastIndex = match[1]
-		} else if strings.Contains(line[lastIndex:match[0]], "<a href") {
+		} else if strings.Contains(line[lastIndex:match[0]], "href=") {
 			// The url is in a hyperlink, leave it as-is
 			escapedLine.WriteString(line[lastIndex:match[1]])
 			lastIndex = match[1]
