@@ -1043,7 +1043,6 @@ func escapeHTMLTags(node ast.Node, line text.Segment, documentationBytes []byte)
 				for i := 0; i < rawHTML.Segments.Len(); i++ {
 					segment := rawHTML.Segments.At(i)
 					segmentContent := string(segment.Value(documentationBytes))
-					// fmt.Println(segmentContent)
 					if segment.Start < line.Start || (segment.Start >= line.Stop) {
 						continue
 					}
