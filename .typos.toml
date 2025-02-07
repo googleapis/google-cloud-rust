@@ -34,6 +34,8 @@ implementors = "implementors"
 # from google/api:
 advices    = "advices"    # In the code, too late to fix.
 readablity = "readablity"
+# src/generated/appengine/v1 has a typo, it needs to be fixed upstream.
+explictly = "explictly"
 # src/generated/cloud/accessapproval/v1, these are intentional and expected
 # to remain as spelled forever.
 OCE = "OCE"

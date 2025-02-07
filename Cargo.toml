@@ -26,6 +26,7 @@ members = [
   "src/generated/api/servicemanagement/v1",
   "src/generated/api/serviceusage/v1",
   "src/generated/api/types",
+  "src/generated/appengine/v1",
   "src/generated/bigtable/admin/v2",
   "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/apigateway/v1",
