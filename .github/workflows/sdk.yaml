@@ -98,14 +98,35 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustc --version
-      - run: mdbook build guide
-      - run: mdbook test guide
       - run: cargo doc
         env:
           RUSTDOCFLAGS: "-D warnings"
       - run: cargo doc -p gcp-sdk-gax
         env:
           RUSTDOCFLAGS: "-D warnings"
+      - run: mdbook build guide
+      - run: mdbook test guide
+      - name: Upload user guide
+        id: deployment
+        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        with:
+          path: guide/book/
+  deploy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    permissions:
+      # to deploy to Pages
+      pages: write
+      # to verify the deployment originates from an appropriate source
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: docs
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
   lint:
     runs-on: ubuntu-24.04
     strategy:
