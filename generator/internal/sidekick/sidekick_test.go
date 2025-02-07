@@ -203,13 +203,17 @@ func TestRustBootstrapWkt(t *testing.T) {
 		Source        string
 		ServiceConfig string
 		Name          string
-		ExtraOptions  map[string]string
+		SourceOptions map[string]string
+		CodecOptions  map[string]string
 	}
 	configs := []TestConfig{
 		{
-			Source: "google/protobuf/source_context.proto",
+			Source: "google/protobuf",
 			Name:   "wkt",
-			ExtraOptions: map[string]string{
+			SourceOptions: map[string]string{
+				"include-list": "source_context.proto",
+			},
+			CodecOptions: map[string]string{
 				"module-path": "crate",
 			},
 		},
@@ -231,7 +235,10 @@ func TestRustBootstrapWkt(t *testing.T) {
 				"generate-module": "true",
 			},
 		}
-		for k, v := range config.ExtraOptions {
+		for k, v := range config.SourceOptions {
+			cmdLine.Source[k] = v
+		}
+		for k, v := range config.CodecOptions {
 			cmdLine.Codec[k] = v
 		}
 		cmdGenerate, _, _ := cmdSidekick.lookup([]string{"generate"})

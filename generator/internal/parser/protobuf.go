@@ -22,6 +22,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
@@ -126,16 +127,15 @@ func protoc(tempFile string, files []string, options map[string]string) ([]byte,
 }
 
 func determineInputFiles(source string, options map[string]string) ([]string, error) {
-	// `config.Source` is relative to the `googleapis-root` (or `extra-protos-root`) if
-	// that is set. When it is a single file, this is easy, just return the
-	// filename and `protoc` will find it.
-
-	if strings.HasSuffix(source, ".proto") {
-		// If the source ends in `.proto` assume it is a single file and let
-		// protoc find it.
-		return []string{source}, nil
+	if _, ok := options["include-list"]; ok {
+		if _, ok := options["exclude-list"]; ok {
+			return nil, fmt.Errorf("cannot use both `exclude-list` and `include-list` in the source options")
+		}
 	}
 
+	// `config.Source` is relative to the `googleapis-root` (or `extra-protos-root`) if
+	// that is set. It should always be a directory and by default all the
+	// the files in that directory are used.
 	for _, opt := range []string{"extra-protos-root", "googleapis-root"} {
 		location, ok := options[opt]
 		if !ok {
@@ -149,9 +149,25 @@ func determineInputFiles(source string, options map[string]string) ([]string, er
 			break
 		}
 	}
+	files := map[string]bool{}
+	if err := findFiles(files, source); err != nil {
+		return nil, err
+	}
+	applyIncludeList(files, source, options)
+	applyExcludeList(files, source, options)
+	var list []string
+	for name, ok := range files {
+		if ok {
+			list = append(list, name)
+		}
+	}
+	sort.Strings(list)
+	return list, nil
+}
+
+func findFiles(files map[string]bool, source string) error {
 	const maxDepth = 1
-	var files []string
-	err := filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
+	return filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -163,14 +179,32 @@ func determineInputFiles(source string, options map[string]string) ([]string, er
 			return nil
 		}
 		if filepath.Ext(path) == ".proto" {
-			files = append(files, path)
+			files[path] = true
 		}
 		return nil
 	})
-	if err != nil {
-		return nil, err
+}
+
+func applyIncludeList(files map[string]bool, sourceDirectory string, options map[string]string) {
+	list, ok := options["include-list"]
+	if !ok {
+		return
 	}
-	return files, err
+	// Ignore any discovered paths, only the paths from the include list apply.
+	clear(files)
+	for _, p := range strings.Split(list, ",") {
+		files[path.Join(sourceDirectory, p)] = true
+	}
+}
+
+func applyExcludeList(files map[string]bool, sourceDirectory string, options map[string]string) {
+	list, ok := options["exclude-list"]
+	if !ok {
+		return
+	}
+	for _, p := range strings.Split(list, ",") {
+		delete(files, path.Join(sourceDirectory, p))
+	}
 }
 
 func newCompilerVersion() *pluginpb.Version {
