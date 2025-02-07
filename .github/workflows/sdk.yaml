@@ -112,6 +112,7 @@ jobs:
         with:
           path: guide/book/
   deploy:
+    if: github.event_name == 'push'
     runs-on: ubuntu-24.04
     permissions:
       pages: write      # to deploy to Pages
