@@ -124,7 +124,7 @@ mod test {
         *guard = loop_start;
         drop(guard);
 
-        return expected_attempt_count == attempt_count;
+        expected_attempt_count == attempt_count
     }
 
     fn expect(
@@ -134,7 +134,7 @@ mod test {
         attempt_count: u32,
     ) -> bool {
         let guard = state.lock().unwrap();
-        return loop_start == *guard && expected_attempt_count == attempt_count;
+        loop_start == *guard && expected_attempt_count == attempt_count
     }
 
     fn is_transient(error: &Error) -> bool {
@@ -266,7 +266,6 @@ mod test {
         let mut seq = mockall::Sequence::new();
         let mut retry_policy = MockRetryPolicy::new();
         for _ in 0..2 {
-            let expected = expected;
             retry_policy
                 .expect_remaining_time()
                 .once()
@@ -469,7 +468,7 @@ mod test {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| Some(Error::other(format!("exhausted"))));
+            .returning(|_, _| Some(Error::other("exhausted".to_string())));
 
         let mut throttler = MockThrottler::new();
         throttler
